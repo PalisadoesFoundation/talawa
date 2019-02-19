@@ -15,3 +15,5 @@ Core features to be developed include:
 1. Service planning and scheduling
 
 This will be a Calico Challenge project in 2019. It will be written in python with close integrations with the Plone open source content management system.
+
+This project will be written from scratch. Get your ideas ready!
