@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
             height: 10.0,
           ),
           Text(
-            menu.title,
+            menu.name,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           )
         ],
@@ -214,7 +214,7 @@ class HomePage extends StatelessWidget {
               width: 20.0,
             ),
             Text(
-              menu.title,
+              menu.name,
               textAlign: TextAlign.start,
               style: TextStyle(color: Colors.white),
             ),
@@ -255,7 +255,7 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                menu.title,
+                menu.name,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 28.0,
