@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quito/logic/bloc/menu_bloc.dart';
+// import 'package:flutter_quito/logic/bloc/menu_bloc.dart';
+import 'package:flutter_quito/logic/viewmodel/menu_view_model.dart';
 import 'package:flutter_quito/model/menu.dart';
 import 'package:flutter_quito/ui/widgets/about_tile.dart';
 import 'package:flutter_quito/ui/widgets/profile_tile.dart';
@@ -115,9 +116,10 @@ class HomePage extends StatelessWidget {
       );
 
   Widget bodySliverList() {
-    MenuBloc menuBloc = MenuBloc();
-    return StreamBuilder<List<Menu>>(
-        stream: menuBloc.menuItems,
+    // MenuBloc menuBloc = MenuBloc();
+    MenuViewModel menu = new MenuViewModel();
+    return FutureBuilder<List<Menu>>(
+        future: menu.getMenuItems(),
         builder: (context, snapshot) {
           return snapshot.hasData
               ? CustomScrollView(
@@ -140,13 +142,13 @@ class HomePage extends StatelessWidget {
             children: <Widget>[
               CircleAvatar(
                 radius: 25.0,
-                backgroundImage: AssetImage(UIData.pkImage),
+                backgroundImage: AssetImage(UIData.verifyImage),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ProfileTile(
-                  title: "Pawan Kumar",
-                  subtitle: "mtechviral@gmail.com",
+                  title: "Quito Admin",
+                  subtitle: "Admin@Quito.com",
                   textColor: Colors.white,
                 ),
               )
@@ -286,9 +288,11 @@ class HomePage extends StatelessWidget {
       );
 
   Widget homeBodyIOS(BuildContext context) {
-    MenuBloc menuBloc = MenuBloc();
-    return StreamBuilder<List<Menu>>(
-        stream: menuBloc.menuItems,
+    // MenuBloc menuBloc = MenuBloc();
+    
+    MenuViewModel menu = new MenuViewModel();
+    return FutureBuilder<List<Menu>>(
+        future: menu.getMenuItems(),
         initialData: List(),
         builder: (context, snapshot) {
           return snapshot.hasData

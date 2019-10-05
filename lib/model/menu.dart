@@ -32,8 +32,8 @@ class Menu {
       time: json['time'],
       description: json['description'],
       menuColor: Color(0xff050505),
-      icon: Icons.person,
-      image: UIData.profileImage,
+      icon: Icons.book,
+      image: UIData.blankImage,
       items: ["View Profile", "Profile 2", "Profile 3", "Profile 4"],
     );
   }
