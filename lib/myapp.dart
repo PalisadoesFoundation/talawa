@@ -9,6 +9,7 @@ import 'package:flutter_quito/ui/page/profile/profile_two_page.dart';
 import 'package:flutter_quito/utils/translations.dart';
 import 'package:flutter_quito/utils/uidata.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import "package:flutter_quito/ui/page/projectDetail.dart";
 
 class MyApp extends StatelessWidget {
   final materialApp = MaterialApp(
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         UIData.notFoundRoute: (BuildContext context) => NotFoundPage(),
         UIData.dashboardOneRoute: (BuildContext context) => DashboardOnePage(),
         UIData.dashboardTwoRoute: (BuildContext context) => DashboardTwoPage(),
+        UIData.projectDetails: (BuildContext context) => ProjectDetails()
       },
       onUnknownRoute: (RouteSettings rs) => new MaterialPageRoute(
           builder: (context) => new NotFoundPage(

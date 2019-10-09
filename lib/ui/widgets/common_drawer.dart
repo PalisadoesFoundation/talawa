@@ -11,13 +11,13 @@ class CommonDrawer extends StatelessWidget {
         children: <Widget>[
           UserAccountsDrawerHeader(
             accountName: Text(
-              "Pawan Kumar",
+              "Admin",
             ),
             accountEmail: Text(
-              "mtechviral@gmail.com",
+              "admin@admin.com",
             ),
             currentAccountPicture: new CircleAvatar(
-              backgroundImage: new AssetImage(UIData.pkImage),
+              backgroundImage: new AssetImage(UIData.profileImage),
             ),
           ),
           new ListTile(
@@ -32,32 +32,22 @@ class CommonDrawer extends StatelessWidget {
           ),
           new ListTile(
             title: Text(
-              "Shopping",
+              "Chats",
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
             ),
             leading: Icon(
-              Icons.shopping_cart,
+              Icons.chat,
               color: Colors.green,
             ),
           ),
           new ListTile(
             title: Text(
-              "Dashboard",
+              "Members",
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
             ),
             leading: Icon(
-              Icons.dashboard,
+              Icons.people,
               color: Colors.red,
-            ),
-          ),
-          new ListTile(
-            title: Text(
-              "Timeline",
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-            ),
-            leading: Icon(
-              Icons.timeline,
-              color: Colors.cyan,
             ),
           ),
           Divider(),

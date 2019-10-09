@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quito/logic/viewmodel/menu_view_model.dart';
 import 'package:flutter_quito/model/menu.dart';
 import 'package:flutter_quito/ui/widgets/about_tile.dart';
+import 'package:flutter_quito/ui/widgets/common_drawer.dart';
+import 'package:flutter_quito/ui/widgets/common_scaffold.dart';
 import 'package:flutter_quito/ui/widgets/profile_tile.dart';
 import 'package:flutter_quito/utils/uidata.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatelessWidget {
   final _scaffoldState = GlobalKey<ScaffoldState>();
@@ -14,7 +17,11 @@ class HomePage extends StatelessWidget {
   BuildContext _context;
   //menuStack
   Widget menuStack(BuildContext context, Menu menu) => InkWell(
-        onTap: () => _showModalBottomSheet(context, menu),
+        // onTap: () => _showModalBottomSheet(context, menu),
+        onTap: () {
+          // Navigator.pop(context);
+          Navigator.pushNamed(context, UIData.projectDetails, arguments: menu);
+        },
         splashColor: Colors.orange,
         child: Card(
           clipBehavior: Clip.antiAlias,
@@ -80,9 +87,10 @@ class HomePage extends StatelessWidget {
           title: Row(
             children: <Widget>[
               FlutterLogo(
-                colors: Colors.yellow,
+                colors: Colors.purple,
                 textColor: Colors.white,
               ),
+              // new SvgPicture.asset(UIData.quitoLogo),
               SizedBox(
                 width: 10.0,
               ),
@@ -110,9 +118,9 @@ class HomePage extends StatelessWidget {
 
   Widget homeScaffold(BuildContext context) => Theme(
         data: Theme.of(context).copyWith(
-          canvasColor: Colors.transparent,
+          canvasColor: Colors.white,
         ),
-        child: Scaffold(key: _scaffoldState, body: bodySliverList()),
+        child: Scaffold(key: _scaffoldState, body: bodySliverList(), drawer: CommonDrawer()),
       );
 
   Widget bodySliverList() {
@@ -177,17 +185,16 @@ class HomePage extends StatelessWidget {
                     shrinkWrap: false,
                     itemCount: menu.items.length,
                     itemBuilder: (context, i) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: ListTile(
-                              title: Text(
-                                menu.items[i],
-                              ),
-                              onTap: () {
-                                Navigator.pop(context);
-                                Navigator.pushNamed(
-                                    context, "/${menu.items[i]}");
-                              }),
-                        ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: ListTile(
+                          title: Text(
+                            menu.items[i],
+                          ),
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, "/${menu.items[i]}");
+                          }),
+                    ),
                   ),
                 ),
                 MyAboutTile()
@@ -289,7 +296,7 @@ class HomePage extends StatelessWidget {
 
   Widget homeBodyIOS(BuildContext context) {
     // MenuBloc menuBloc = MenuBloc();
-    
+
     MenuViewModel menu = new MenuViewModel();
     return FutureBuilder<List<Menu>>(
         future: menu.getMenuItems(),
