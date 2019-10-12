@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_quito/ui/page/dashboard/dashboard_one.page.dart';
-import 'package:flutter_quito/ui/page/dashboard/dashboard_two_page.dart';
 import 'package:flutter_quito/ui/page/home_page.dart';
 import 'package:flutter_quito/ui/page/notfound/notfound_page.dart';
-import 'package:flutter_quito/ui/page/profile/profile_one_page.dart';
-import 'package:flutter_quito/ui/page/profile/profile_two_page.dart';
+import 'package:flutter_quito/ui/page/login/login_page.dart';
 import 'package:flutter_quito/utils/translations.dart';
 import 'package:flutter_quito/utils/uidata.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import "package:flutter_quito/ui/page/projectDetail.dart";
 
 class MyApp extends StatelessWidget {
+  static bool isLoggedIn = false;
   final materialApp = MaterialApp(
       title: UIData.appName,
       theme: ThemeData(
@@ -20,7 +17,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.amber),
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
-      home: HomePage(),
+      home: isLoggedIn ? HomePage() : LoginPage() ,
       localizationsDelegates: [
         const TranslationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -35,12 +32,12 @@ class MyApp extends StatelessWidget {
       //routes
       routes: <String, WidgetBuilder>{
         UIData.homeRoute: (BuildContext context) => HomePage(),
-        UIData.profileOneRoute: (BuildContext context) => ProfileOnePage(),
-        UIData.profileTwoRoute: (BuildContext context) => ProfileTwoPage(),
-        UIData.notFoundRoute: (BuildContext context) => NotFoundPage(),
-        UIData.dashboardOneRoute: (BuildContext context) => DashboardOnePage(),
-        UIData.dashboardTwoRoute: (BuildContext context) => DashboardTwoPage(),
-        UIData.projectDetails: (BuildContext context) => ProjectDetails()
+        // UIData.profileOneRoute: (BuildContext context) => ProfileOnePage(),
+        // UIData.profileTwoRoute: (BuildContext context) => ProfileTwoPage(),
+        // UIData.notFoundRoute: (BuildContext context) => NotFoundPage(),
+        // UIData.dashboardOneRoute: (BuildContext context) => DashboardOnePage(),
+        // UIData.dashboardTwoRoute: (BuildContext context) => DashboardTwoPage(),
+        // UIData.projectDetails: (BuildContext context) => ProjectDetails()
       },
       onUnknownRoute: (RouteSettings rs) => new MaterialPageRoute(
           builder: (context) => new NotFoundPage(

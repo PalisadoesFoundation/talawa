@@ -1,25 +1,100 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_quito/logic/bloc/menu_bloc.dart';
 import 'package:flutter_quito/logic/viewmodel/menu_view_model.dart';
 import 'package:flutter_quito/model/menu.dart';
 import 'package:flutter_quito/ui/widgets/about_tile.dart';
 import 'package:flutter_quito/ui/widgets/common_drawer.dart';
-import 'package:flutter_quito/ui/widgets/common_scaffold.dart';
-import 'package:flutter_quito/ui/widgets/profile_tile.dart';
 import 'package:flutter_quito/utils/uidata.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class HomePage extends StatelessWidget {
   final _scaffoldState = GlobalKey<ScaffoldState>();
   Size deviceSize;
   BuildContext _context;
+
+  @override
+  Widget build(BuildContext context) {
+    _context = context;
+    deviceSize = MediaQuery.of(context).size;
+    return defaultTargetPlatform == TargetPlatform.iOS
+        ? homeIOS(context)
+        : homeScaffold(context);
+  }
+
+  Widget homeScaffold(BuildContext context) => Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.white,
+        ),
+        child: Scaffold(
+            key: _scaffoldState,
+            body: bodySliverList(),
+            drawer: CommonDrawer()),
+      );
+      
+  Widget bodySliverList() {
+    // MenuBloc menuBloc = MenuBloc();
+    MenuViewModel menu = new MenuViewModel();
+    return FutureBuilder<List<Menu>>(
+        future: menu.getMenuItems(),
+        builder: (context, snapshot) {
+          return snapshot.hasData
+              ? CustomScrollView(
+                  slivers: <Widget>[
+                    appBar(),
+                    bodyGrid(snapshot.data),
+                  ],
+                )
+              : Center(child: CircularProgressIndicator());
+        });
+  }
+
+  //appbar
+  Widget appBar() => SliverAppBar(
+        backgroundColor: Colors.black,
+        pinned: true,
+        elevation: 10.0,
+        forceElevated: true,
+        expandedHeight: 150.0,
+        flexibleSpace: FlexibleSpaceBar(
+          centerTitle: false,
+          background: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(colors: UIData.kitGradients)),
+          ),
+          title: Row(
+            children: <Widget>[
+              FlutterLogo(
+                colors: Colors.purple,
+                textColor: Colors.white,
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Text(UIData.appName)
+            ],
+          ),
+        ),
+      );
+
+  //bodygrid
+  Widget bodyGrid(List<Menu> menu) => SliverGrid(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount:
+              MediaQuery.of(_context).orientation == Orientation.portrait
+                  ? 2
+                  : 3,
+          mainAxisSpacing: 0.0,
+          crossAxisSpacing: 0.0,
+          childAspectRatio: 1.0,
+        ),
+        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+          return menuStack(context, menu[index]);
+        }, childCount: menu.length),
+      );
+
   //menuStack
   Widget menuStack(BuildContext context, Menu menu) => InkWell(
-        // onTap: () => _showModalBottomSheet(context, menu),
         onTap: () {
-          // Navigator.pop(context);
           Navigator.pushNamed(context, UIData.projectDetails, arguments: menu);
         },
         splashColor: Colors.orange,
@@ -71,99 +146,6 @@ class HomePage extends StatelessWidget {
         ],
       );
 
-  //appbar
-  Widget appBar() => SliverAppBar(
-        backgroundColor: Colors.black,
-        pinned: true,
-        elevation: 10.0,
-        forceElevated: true,
-        expandedHeight: 150.0,
-        flexibleSpace: FlexibleSpaceBar(
-          centerTitle: false,
-          background: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: UIData.kitGradients)),
-          ),
-          title: Row(
-            children: <Widget>[
-              FlutterLogo(
-                colors: Colors.purple,
-                textColor: Colors.white,
-              ),
-              // new SvgPicture.asset(UIData.quitoLogo),
-              SizedBox(
-                width: 10.0,
-              ),
-              Text(UIData.appName)
-            ],
-          ),
-        ),
-      );
-
-  //bodygrid
-  Widget bodyGrid(List<Menu> menu) => SliverGrid(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount:
-              MediaQuery.of(_context).orientation == Orientation.portrait
-                  ? 2
-                  : 3,
-          mainAxisSpacing: 0.0,
-          crossAxisSpacing: 0.0,
-          childAspectRatio: 1.0,
-        ),
-        delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-          return menuStack(context, menu[index]);
-        }, childCount: menu.length),
-      );
-
-  Widget homeScaffold(BuildContext context) => Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Colors.white,
-        ),
-        child: Scaffold(key: _scaffoldState, body: bodySliverList(), drawer: CommonDrawer()),
-      );
-
-  Widget bodySliverList() {
-    // MenuBloc menuBloc = MenuBloc();
-    MenuViewModel menu = new MenuViewModel();
-    return FutureBuilder<List<Menu>>(
-        future: menu.getMenuItems(),
-        builder: (context, snapshot) {
-          return snapshot.hasData
-              ? CustomScrollView(
-                  slivers: <Widget>[
-                    appBar(),
-                    bodyGrid(snapshot.data),
-                  ],
-                )
-              : Center(child: CircularProgressIndicator());
-        });
-  }
-
-  Widget header() => Ink(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: UIData.kitGradients2)),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              CircleAvatar(
-                radius: 25.0,
-                backgroundImage: AssetImage(UIData.verifyImage),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ProfileTile(
-                  title: "Quito Admin",
-                  subtitle: "Admin@Quito.com",
-                  textColor: Colors.white,
-                ),
-              )
-            ],
-          ),
-        ),
-      );
 
   void _showModalBottomSheet(BuildContext context, Menu menu) {
     showModalBottomSheet(
@@ -179,7 +161,7 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                header(),
+                // header(),
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: false,
@@ -295,8 +277,6 @@ class HomePage extends StatelessWidget {
       );
 
   Widget homeBodyIOS(BuildContext context) {
-    // MenuBloc menuBloc = MenuBloc();
-
     MenuViewModel menu = new MenuViewModel();
     return FutureBuilder<List<Menu>>(
         future: menu.getMenuItems(),
@@ -343,13 +323,4 @@ class HomePage extends StatelessWidget {
           ),
         ),
       );
-
-  @override
-  Widget build(BuildContext context) {
-    _context = context;
-    deviceSize = MediaQuery.of(context).size;
-    return defaultTargetPlatform == TargetPlatform.iOS
-        ? homeIOS(context)
-        : homeScaffold(context);
-  }
 }
