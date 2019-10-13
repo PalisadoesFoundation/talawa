@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quito/utils/uidata.dart';
+import 'package:flutter_quito/model/user.dart';
+import 'package:flutter_quito/controllers/authcontroller.dart';
 
 class LoginPage extends StatelessWidget {
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final AuthController controller = new AuthController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: loginBody(),
+        child: loginBody(context),
       ),
     );
   }
 
-  loginBody() => SingleChildScrollView(
+  loginBody(BuildContext context) => SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[loginHeader(), loginFields()],
+          children: <Widget>[loginHeader(), loginFields(context)],
         ),
       );
 
@@ -43,7 +48,7 @@ class LoginPage extends StatelessWidget {
         ],
       );
 
-  loginFields() => Container(
+  loginFields(BuildContext context) => Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.min,
@@ -52,6 +57,7 @@ class LoginPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 30.0),
               child: TextField(
                 maxLines: 1,
+                controller: _userNameController,
                 decoration: InputDecoration(
                   hintText: "Enter your username",
                   labelText: "Username",
@@ -62,6 +68,7 @@ class LoginPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 30.0),
               child: TextField(
                 maxLines: 1,
+                controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: "Enter your password",
@@ -84,7 +91,10 @@ class LoginPage extends StatelessWidget {
                 ),
                 color: Colors.green,
                 onPressed: () {
-                  
+                  controller.login(context, User(_userNameController.text, _passwordController.text))
+                    .then((result){
+                      print(result);
+                    });
                 },
               ),
             ),

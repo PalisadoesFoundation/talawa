@@ -2,8 +2,8 @@ class User{
   String username;
   String password;
 
-  User({
-    this.username,
-    this.password
-  });
+  User(String username, String password){
+    this.username = username;
+    this.password = password;
+  }
 }
