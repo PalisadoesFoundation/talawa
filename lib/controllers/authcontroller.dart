@@ -9,15 +9,15 @@ import 'package:http/http.dart' as http;
 class AuthController {
   Future login(BuildContext context, User user) async {
     Map<String, dynamic> requestBody = {
-      "UserName": user.username,
-      "Password": user.password
+      "username": user.username,
+      "password": user.password
     };
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
       final response = await http
-          .post("http://localhost:3001/users/login",
-              headers: headers, body: jsonEncode(requestBody))
-          .timeout(Duration(seconds: 20));
+        .post("https://quito-api.herokuapp.com/users/login/",
+        headers: headers, body: jsonEncode(requestBody))
+        .timeout(Duration(seconds: 20));
       switch (response.statusCode) {
         case 200:
           {
@@ -45,7 +45,7 @@ class AuthController {
         {
           print("Something drastic happened");
         }
-        break;
+      break;
       default:
         {
           print("Something happened");
