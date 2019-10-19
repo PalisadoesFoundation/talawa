@@ -50,7 +50,7 @@ class AuthController {
         {
           showAlertDialog(context, "Something drastic happened", "", "Ok");
         }
-        break;
+      break;
       default:
         {
           showAlertDialog(context, "Something happened", "", "Ok");
