@@ -45,7 +45,8 @@ class UIData {
   static const String shoppingImage = "$imageDir/shopping.jpeg";
   static const String timelineImage = "$imageDir/timeline.jpeg";
   static const String verifyImage = "$imageDir/verification.jpg";
-  static const String quitoLogo = "$imageDir/quitologo.svg";
+  static const String splashScreen = "$imageDir/splashscreen.jpg";
+  static const String quitoLogo = "$imageDir/quitologo.png";
 
   //login
   static const String enter_code_label = "Phone Number";

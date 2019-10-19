@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_quito/ui/page/home_page.dart';
 import 'package:flutter_quito/ui/page/notfound/notfound_page.dart';
 import 'package:flutter_quito/ui/page/login/login_page.dart';
+import 'package:flutter_quito/ui/page/projectDetail.dart';
 import 'package:flutter_quito/utils/translations.dart';
 import 'package:flutter_quito/utils/uidata.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,12 +33,12 @@ class MyApp extends StatelessWidget {
       //routes
       routes: <String, WidgetBuilder>{
         UIData.homeRoute: (BuildContext context) => HomePage(),
+        UIData.projectDetails: (BuildContext context) => ProjectDetails(),
+        UIData.notFoundRoute: (BuildContext context) => NotFoundPage()
         // UIData.profileOneRoute: (BuildContext context) => ProfileOnePage(),
         // UIData.profileTwoRoute: (BuildContext context) => ProfileTwoPage(),
-        // UIData.notFoundRoute: (BuildContext context) => NotFoundPage(),
         // UIData.dashboardOneRoute: (BuildContext context) => DashboardOnePage(),
         // UIData.dashboardTwoRoute: (BuildContext context) => DashboardTwoPage(),
-        // UIData.projectDetails: (BuildContext context) => ProjectDetails()
       },
       onUnknownRoute: (RouteSettings rs) => new MaterialPageRoute(
           builder: (context) => new NotFoundPage(

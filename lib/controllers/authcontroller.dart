@@ -5,17 +5,18 @@ import 'package:flutter_quito/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quito/ui/page/home_page.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_quito/ui/custom_widgets/AlertDialogSingleButton.dart';
 
 class AuthController {
   Future login(BuildContext context, User user) async {
     Map<String, dynamic> requestBody = {
-      "UserName": user.username,
-      "Password": user.password
+      "username": user.username,
+      "password": user.password
     };
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
       final response = await http
-          .post("http://localhost:3001/users/login",
+          .post("https://quito-api.herokuapp.com/users/login",
               headers: headers, body: jsonEncode(requestBody))
           .timeout(Duration(seconds: 20));
       switch (response.statusCode) {
@@ -23,37 +24,41 @@ class AuthController {
           {
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => new HomePage()));
-                return;
+                return response.body;
           }
           break;
                 case 401:
         {
-          print("Unauthorized");
+          showAlertDialog(
+              context, "Unauthorized", "You are unauthorized to login", "Ok");
+
         }
         break;
       case 403:
         {
-          print("Forbidden");
+          showAlertDialog(
+              context, "Forbidden", "Forbidden access to resource", "Ok");
+
         }
         break;
       case 415:
         {
-          print("Invalid Media");
+          showAlertDialog(context, "Invalid media", "", "Ok");
         }
         break;
       case 500:
         {
-          print("Something drastic happened");
+          showAlertDialog(context, "Something drastic happened", "", "Ok");
         }
         break;
       default:
         {
-          print("Something happened");
+          showAlertDialog(context, "Something happened", "", "Ok");
         }
         break;
       }
     } catch (e) {
-      print(e.toString());
+      showAlertDialog(context, e.toString(), e.toString(), "Ok");
     }
   }
 }
