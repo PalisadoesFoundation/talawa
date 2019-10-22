@@ -69,6 +69,17 @@ class UIData {
 
   static const MaterialColor ui_kit_color = Colors.grey;
 
+  static const Color quitoThemeColor = MaterialColor(0xFF7e1946, {50:Color.fromRGBO(126,25,70, .1),
+    100:Color.fromRGBO(126,25,70, .2),
+    200:Color.fromRGBO(126,25,70, .3),
+    300:Color.fromRGBO(126,25,70, .4),
+    400:Color.fromRGBO(126,25,70, .5),
+    500:Color.fromRGBO(126,25,70, .6),
+    600:Color.fromRGBO(126,25,70, .7),
+    700:Color.fromRGBO(126,25,70, .8),
+    800:Color.fromRGBO(126,25,70, .9),
+    900:Color.fromRGBO(126,25,70, 1)});
+
 //colors
   static List<Color> kitGradients = [
     // new Color.fromRGBO(103, 218, 255, 1.0),
@@ -81,7 +92,7 @@ class UIData {
     Colors.cyan.shade600,
     Colors.blue.shade900
   ];
-
+  
   //randomcolor
   static final Random _random = new Random();
 

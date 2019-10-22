@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_quito/ui/page/home_page.dart';
-import 'package:flutter_quito/ui/page/notfound/notfound_page.dart';
-import 'package:flutter_quito/ui/page/login/login_page.dart';
-import 'package:flutter_quito/ui/page/projectDetail.dart';
+import 'package:flutter_quito/views/pages/_pages.dart';
 import 'package:flutter_quito/utils/translations.dart';
 import 'package:flutter_quito/utils/uidata.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,9 +10,9 @@ class MyApp extends StatelessWidget {
   final materialApp = MaterialApp(
       title: UIData.appName,
       theme: ThemeData(
-          primaryColor: Color(0xffe78200),
+          primaryColor: UIData.quitoThemeColor,
           fontFamily: UIData.quickFont,
-          primarySwatch: Colors.amber),
+          primarySwatch: UIData.quitoThemeColor),
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
       home: isLoggedIn ? HomePage() : LoginPage() ,
