@@ -31,7 +31,6 @@ class HomePage extends StatelessWidget {
       );
 
   Widget bodySliverList() {
-    // MenuBloc menuBloc = MenuBloc();
     ProjectController projectController = new ProjectController();
     return FutureBuilder<List<Project>>(
         future: projectController.getProjects(),
@@ -49,7 +48,7 @@ class HomePage extends StatelessWidget {
 
   //appbar
   Widget appBar() => SliverAppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
         pinned: true,
         elevation: 10.0,
         forceElevated: true,
@@ -57,19 +56,14 @@ class HomePage extends StatelessWidget {
         flexibleSpace: FlexibleSpaceBar(
           centerTitle: false,
           background: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: UIData.kitGradients)),
+            decoration: BoxDecoration(color: Colors.grey.shade900),
           ),
           title: Row(
             children: <Widget>[
-              FlutterLogo(
-                colors: Colors.purple,
-                textColor: Colors.white,
+              Image(
+                image: AssetImage(UIData.quitoLogo),
+                height: 25,
               ),
-              SizedBox(
-                width: 10.0,
-              ),
-              Text(UIData.appName)
             ],
           ),
         ),
@@ -94,7 +88,8 @@ class HomePage extends StatelessWidget {
   //menuStack
   Widget menuStack(BuildContext context, Project project) => InkWell(
         onTap: () {
-          Navigator.pushNamed(context, UIData.projectDetails, arguments: project);
+          Navigator.pushNamed(context, UIData.projectDetails,
+              arguments: project);
         },
         splashColor: Colors.orange,
         child: Card(
