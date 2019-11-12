@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: UIData.quitoThemeColor),
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
-      home: isLoggedIn ? HomePage() : LoginPage() ,
+      home: HomePage(),
       localizationsDelegates: [
         const TranslationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -32,10 +32,6 @@ class MyApp extends StatelessWidget {
         UIData.homeRoute: (BuildContext context) => HomePage(),
         UIData.projectDetails: (BuildContext context) => ProjectDetails(),
         UIData.notFoundRoute: (BuildContext context) => NotFoundPage()
-        // UIData.profileOneRoute: (BuildContext context) => ProfileOnePage(),
-        // UIData.profileTwoRoute: (BuildContext context) => ProfileTwoPage(),
-        // UIData.dashboardOneRoute: (BuildContext context) => DashboardOnePage(),
-        // UIData.dashboardTwoRoute: (BuildContext context) => DashboardTwoPage(),
       },
       onUnknownRoute: (RouteSettings rs) => new MaterialPageRoute(
           builder: (context) => new NotFoundPage(
@@ -45,7 +41,6 @@ class MyApp extends StatelessWidget {
                 message: "Under Development",
                 iconColor: Colors.green,
               )));
-
   @override
   Widget build(BuildContext context) {
     return materialApp;

@@ -47,6 +47,7 @@ class UIData {
   static const String verifyImage = "$imageDir/verification.jpg";
   static const String splashScreen = "$imageDir/splashscreen.jpg";
   static const String quitoLogo = "$imageDir/quitologo.png";
+  static const String quitoBackground = "$imageDir/quitoBackground.jpg";
 
   //login
   static const String enter_code_label = "Phone Number";

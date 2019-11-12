@@ -9,9 +9,11 @@ class ProjectController {
 
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.
-      return (json.decode(response.body) as List)
-            .map((data) => new Project.fromJson(data))
-            .toList();
+      var data = json.decode(response.body);
+      data = data['projects'];
+      return (data as List)
+        .map((project) => new Project.fromJson(project))
+        .toList();
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load projects');

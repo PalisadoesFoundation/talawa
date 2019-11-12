@@ -16,7 +16,7 @@ class AuthController {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
       final response = await http
-          .post("https://quito-api.herokuapp.com/users/login",
+          .post("https://quito-api.herokuapp.com/user/login",
               headers: headers, body: jsonEncode(requestBody))
           .timeout(Duration(seconds: 20));
       switch (response.statusCode) {
