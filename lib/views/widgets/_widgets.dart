@@ -9,3 +9,4 @@ export 'gradient_button.dart';
 export 'label_below_icon.dart';
 export 'label_icon.dart';
 export 'profile_tile.dart';
+export 'chat_message.dart';

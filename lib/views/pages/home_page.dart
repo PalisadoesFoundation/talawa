@@ -5,18 +5,18 @@ import 'package:flutter_quito/model/project.dart';
 import 'package:flutter_quito/utils/uidata.dart';
 
 class HomePage extends StatelessWidget {
+  
   final _scaffoldState = GlobalKey<ScaffoldState>();
   Size deviceSize;
   BuildContext _context;
 
-  @override
   // Widget build(BuildContext context) {
   //   _context = context;
-  //   deviceSize = MediaQuery.of(context).size;
   //   return homeScaffold(context);
   // }
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Scaffold(
         appBar: new AppBar(
           title: Image(
@@ -53,14 +53,14 @@ class HomePage extends StatelessWidget {
     ProjectController projectController = new ProjectController();
     return FutureBuilder<List<Project>>(
         future: projectController.getProjects(),
-        builder: (context, snapshot) {
+        builder: (_context, snapshot) {
           return snapshot.hasData
               ? ListView.builder(
                   itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
+                  itemBuilder: (_context, index) {
                     Project project = snapshot.data[index];
                     return Column(
-                      children: <Widget>[eventCard(context, project)],
+                      children: <Widget>[eventCard(project)],
                     );
                   },
                 )
@@ -68,10 +68,10 @@ class HomePage extends StatelessWidget {
         });
   }
 
-  Widget eventCard(BuildContext context, Project project) {
+  Widget eventCard(Project project) {
     return InkWell(
         onTap: () {
-          Navigator.pushNamed(context, UIData.projectDetails,
+          Navigator.pushNamed(_context, UIData.projectDetails,
               arguments: project);
         },
         child: new Container(

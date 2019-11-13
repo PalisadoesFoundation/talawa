@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quito/model/project.dart';
-import 'package:flutter_quito/views/widgets/common_divider.dart';
-import 'package:flutter_quito/views/widgets/common_scaffold.dart';
-import 'package:flutter_quito/views/widgets/profile_tile.dart';
+import 'package:flutter_quito/views/widgets/_widgets.dart';
 
 class ProjectDetails extends StatefulWidget {
+  ProjectDetails({
+    Key key,
+    Colors color,
+  }) : super(key: key);
+
   @override
   _ProjectDetailsState createState() => new _ProjectDetailsState();
 }
 
 class _ProjectDetailsState extends State<ProjectDetails>
     with SingleTickerProviderStateMixin {
+  final TextEditingController _chatController = new TextEditingController();
   var deviceSize;
   Project project;
   TabController _controller;
+  final List<ChatMessage> _messages = <ChatMessage>[];
+
+  ChatMessage message = new ChatMessage(text: 'This is a test message');
 
   @override
   void initState() {
     super.initState();
+    _messages.insert(0, message);
+    _messages.insert(1, message);
+    _messages.insert(2, message);
     _controller = new TabController(length: 2, vsync: this);
   }
 
@@ -80,8 +90,8 @@ class _ProjectDetailsState extends State<ProjectDetails>
 
   //column3
   Widget descColumn() => Container(
-      height: deviceSize.height * 0.8,
-      child: ListView(
+      height: deviceSize.height * 0.6,
+      child: Column(
         children: <Widget>[
           new Container(
             decoration: new BoxDecoration(color: Colors.transparent),
@@ -105,96 +115,44 @@ class _ProjectDetailsState extends State<ProjectDetails>
               ],
             ),
           ),
-          new Container(
-            height: 80.0,
+          new Expanded(
             child: new TabBarView(
               controller: _controller,
               children: <Widget>[
-                new Card(
-                  child: new ListTile(
-                    leading: const Icon(Icons.home),
-                    title: new TextField(
-                      decoration: const InputDecoration(
-                          hintText: 'Search for address...'),
+                new Column(
+                  children: <Widget>[
+                    new Flexible(
+                      child: ListView.builder(
+                        padding: new EdgeInsets.all(8.0),
+                        reverse: true,
+                        itemBuilder: (_, int index) => _messages[index],
+                        itemCount: _messages.length,
+                      ),
                     ),
-                  ),
+                    new Divider(
+                      height: 1.0,
+                    ),
+                  ],
                 ),
-                new Card(
-                  child: new ListTile(
-                    leading: const Icon(Icons.location_on),
-                    title: new Text('Latitude: 48.09342\nLongitude: 11.23403'),
-                    trailing: new IconButton(
-                        icon: const Icon(Icons.my_location), onPressed: () {}),
-                  ),
-                ),
+                new Column(
+                  children: <Widget>[
+                    new Card(
+                      child: new ListTile(
+                        leading: const Icon(Icons.location_on),
+                        title:
+                            new Text('Latitude: 48.09342\nLongitude: 11.23403'),
+                        trailing: new IconButton(
+                            icon: const Icon(Icons.my_location),
+                            onPressed: () {}),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
         ],
       ));
-  //column4
-  Widget accountColumn() => FittedBox(
-        fit: BoxFit.fill,
-        child: Container(
-          height: deviceSize.height * 0.3,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              FittedBox(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    ProfileTile(
-                      title: "Website",
-                      subtitle: "about.me/imthepk",
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    ProfileTile(
-                      title: "Phone",
-                      subtitle: "+919876543210",
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    ProfileTile(
-                      title: "YouTube",
-                      subtitle: "youtube.com/mtechviral",
-                    ),
-                  ],
-                ),
-              ),
-              FittedBox(
-                fit: BoxFit.cover,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    ProfileTile(
-                      title: "Location",
-                      subtitle: "New Delhi",
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    ProfileTile(
-                      title: "Email",
-                      subtitle: "mtechviral@gmail.com",
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    ProfileTile(
-                      title: "Facebook",
-                      subtitle: "fb.com/imthepk",
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
 
   Widget bodyData() {
     return SingleChildScrollView(
@@ -203,7 +161,7 @@ class _ProjectDetailsState extends State<ProjectDetails>
           profileColumn(),
           // CommonDivider(),
           // followColumn(deviceSize),
-          CommonDivider(),
+          // CommonDivider(),
           descColumn(),
           // CommonDivider(),
           // accountColumn()
