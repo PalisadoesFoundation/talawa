@@ -33,8 +33,8 @@ class _ProjectDetailsState extends State<ProjectDetails>
 
   //Column1
   Widget profileColumn() => Container(
-        height: deviceSize.height * 0.2,
-        margin: EdgeInsets.only(top: 20),
+        height: deviceSize.height * 0.3,
+        padding: EdgeInsets.only(top: 20),
         child: FittedBox(
           alignment: Alignment.center,
           child: Padding(
@@ -51,11 +51,6 @@ class _ProjectDetailsState extends State<ProjectDetails>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.chat),
-                        color: Colors.black,
-                        onPressed: () {},
-                      ),
                       Container(
                         margin: const EdgeInsets.only(left: 15, right: 15),
                         decoration: BoxDecoration(
@@ -72,11 +67,6 @@ class _ProjectDetailsState extends State<ProjectDetails>
                           radius: 30.0,
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.call),
-                        color: Colors.black,
-                        onPressed: () {},
-                      ),
                     ],
                   ),
                 )
@@ -90,7 +80,7 @@ class _ProjectDetailsState extends State<ProjectDetails>
 
   //column3
   Widget descColumn() => Container(
-      height: deviceSize.height * 0.6,
+      height: deviceSize.height * 0.564882,
       child: Column(
         children: <Widget>[
           new Container(
@@ -155,18 +145,11 @@ class _ProjectDetailsState extends State<ProjectDetails>
       ));
 
   Widget bodyData() {
-    return SingleChildScrollView(
-      child: Column(
+    return Column(
         children: <Widget>[
           profileColumn(),
-          // CommonDivider(),
-          // followColumn(deviceSize),
-          // CommonDivider(),
           descColumn(),
-          // CommonDivider(),
-          // accountColumn()
         ],
-      ),
     );
   }
 
@@ -185,28 +168,3 @@ class _ProjectDetailsState extends State<ProjectDetails>
     return _scaffold();
   }
 }
-
-Widget followColumn(Size deviceSize) => Container(
-      height: deviceSize.height * 0.13,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          ProfileTile(
-            title: "1.5K",
-            subtitle: "Posts",
-          ),
-          ProfileTile(
-            title: "2.5K",
-            subtitle: "Followers",
-          ),
-          ProfileTile(
-            title: "10K",
-            subtitle: "Comments",
-          ),
-          ProfileTile(
-            title: "1.2K",
-            subtitle: "Following",
-          )
-        ],
-      ),
-    );

@@ -87,10 +87,18 @@ class CommonScaffold extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey != null ? scaffoldKey : null,
       backgroundColor: backGroundColor != null ? backGroundColor : null,
-      appBar: AppBar(
-        elevation: elevation,
-        backgroundColor: Colors.black,
-        title: Text(appTitle),
+      appBar: 
+      PreferredSize(
+        preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
+        child: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.yellow,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.black,
+          onPressed: () => Navigator.pop(context, false),
+        ),
+        title: Text(appTitle, style: TextStyle(color: Colors.black)),
         actions: <Widget>[
           SizedBox(
             width: 5.0,
@@ -98,8 +106,10 @@ class CommonScaffold extends StatelessWidget {
           IconButton(
             onPressed: () {},
             icon: Icon(Icons.more_vert),
+            color: Colors.black,
           )
         ],
+      ),
       ),
       drawer: showDrawer ? CommonDrawer() : null,
       body: bodyData,

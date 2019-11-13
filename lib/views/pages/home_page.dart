@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
           actions: <Widget>[
             IconButton(
               icon: Icon(
-                Icons.share,
+                Icons.more_vert,
               ),
               color: Colors.black,
               onPressed: () {},
