@@ -31,6 +31,14 @@ class _ProjectDetailsState extends State<ProjectDetails>
     _controller = new TabController(length: 2, vsync: this);
   }
 
+  void _handleSubmit(String text) {
+    _chatController.clear();
+    ChatMessage message = new ChatMessage(text: text);
+    setState(() {
+      _messages.insert(0, message);
+    });
+  }
+
   //Column1
   Widget profileColumn() => Container(
         height: deviceSize.height * 0.3,
@@ -122,6 +130,12 @@ class _ProjectDetailsState extends State<ProjectDetails>
                     new Divider(
                       height: 1.0,
                     ),
+                    new Container(
+                      decoration: new BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                      ),
+                      child: _chatEnvironment(),
+                    )
                   ],
                 ),
                 new Column(
@@ -143,13 +157,40 @@ class _ProjectDetailsState extends State<ProjectDetails>
           ),
         ],
       ));
+  Widget _chatEnvironment() {
+    return IconTheme(
+      data: new IconThemeData(color: Colors.blue),
+      child: new Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: new Row(
+          children: <Widget>[
+            new Flexible(
+              child: new TextField(
+                decoration: new InputDecoration.collapsed(
+                    hintText: "Starts typing ..."),
+                controller: _chatController,
+                onSubmitted: _handleSubmit,
+              ),
+            ),
+            new Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: new IconButton(
+                icon: new Icon(Icons.send),
+                onPressed: () => _handleSubmit(_chatController.text),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget bodyData() {
     return Column(
-        children: <Widget>[
-          profileColumn(),
-          descColumn(),
-        ],
+      children: <Widget>[
+        profileColumn(),
+        descColumn(),
+      ],
     );
   }
 

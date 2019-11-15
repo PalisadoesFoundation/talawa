@@ -12,9 +12,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginPage>
     with TickerProviderStateMixin {
-  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _userNameRegistrationController = TextEditingController();
+  final TextEditingController _emailRegistrationController = TextEditingController();
   final TextEditingController _passwordRegistrationController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -189,11 +189,11 @@ class _LoginScreenState extends State<LoginPage>
                     new Expanded(
                       child: TextFormField(
                         textAlign: TextAlign.left,
-                        controller: _userNameController,
+                        controller: _emailController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           prefixIcon: Icon(Icons.email),
-                          labelText: "Username",
+                          labelText: "Email",
                           alignLabelWithHint: true,
                           hintText: 'foo@bar.com',
                           hintStyle: TextStyle(color: Colors.grey),
@@ -261,7 +261,7 @@ class _LoginScreenState extends State<LoginPage>
                     setState(() {
                       _progressBarState = true;
                     });
-                    _authController.login(context, new User(_userNameController.text,
+                    _authController.login(context, new User(_emailController.text,
                             _passwordController.text))
                         .then((result) {
                       setState(() {
@@ -468,7 +468,7 @@ class _LoginScreenState extends State<LoginPage>
                     new Expanded(
                       child: TextFormField(
                         textAlign: TextAlign.left,
-                        controller: _userNameRegistrationController,
+                        controller: _emailRegistrationController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           prefixIcon: Icon(Icons.email),

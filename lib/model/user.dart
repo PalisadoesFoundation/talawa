@@ -1,9 +1,9 @@
 class User{
-  String username;
+  String email;
   String password;
 
-  User(String username, String password){
-    this.username = username;
+  User(String email, String password){
+    this.email = email;
     this.password = password;
   }
 }

@@ -10,7 +10,7 @@ import 'package:flutter_quito/views/widgets/AlertDialogSingleButton.dart';
 class AuthController {
   Future login(BuildContext context, User user) async {
     Map<String, dynamic> requestBody = {
-      "username": user.username,
+      "email": user.email,
       "password": user.password
     };
     Map<String, String> headers = {'Content-Type': 'application/json'};

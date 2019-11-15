@@ -44,7 +44,7 @@ class CommonScaffold extends StatelessWidget {
                 height: double.infinity,
                 child: new InkWell(
                   radius: 10.0,
-                  splashColor: Colors.yellow,
+                  splashColor: Colors.transparent,
                   onTap: () {},
                   child: Center(
                     child: new Text(
@@ -92,7 +92,7 @@ class CommonScaffold extends StatelessWidget {
         preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
         child: AppBar(
         elevation: 0,
-        backgroundColor: Colors.yellow,
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           color: Colors.black,
