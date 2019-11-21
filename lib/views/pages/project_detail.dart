@@ -26,8 +26,8 @@ class _ProjectDetailsState extends State<ProjectDetails>
   void initState() {
     super.initState();
     _messages.insert(0, message);
-    _messages.insert(1, message);
-    _messages.insert(2, message);
+    _messages.insert(0, message);
+    _messages.insert(0, message);
     _controller = new TabController(length: 2, vsync: this);
   }
 
@@ -42,7 +42,6 @@ class _ProjectDetailsState extends State<ProjectDetails>
   //Column1
   Widget profileColumn() => Container(
         height: deviceSize.height * 0.3,
-        padding: EdgeInsets.only(top: 20),
         child: FittedBox(
           alignment: Alignment.center,
           child: Padding(
@@ -194,13 +193,54 @@ class _ProjectDetailsState extends State<ProjectDetails>
     );
   }
 
-  Widget _scaffold() => CommonScaffold(
-        appTitle: project.name,
-        bodyData: bodyData(),
-        // showFAB: true,
-        // showDrawer: true,
-        // floatingIcon: Icons.person_add,
-      );
+  Widget _scaffold() => MainCollapsingToolbar(
+      project: project,
+      bodyData: TabBarView(
+        children: <Widget>[
+          new Column(
+            children: <Widget>[
+              new Flexible(
+                child: ListView.builder(
+                  padding: new EdgeInsets.all(8.0),
+                  reverse: true,
+                  itemBuilder: (_, int index) => _messages[index],
+                  itemCount: _messages.length,
+                ),
+              ),
+              new Divider(
+                height: 1.0,
+              ),
+              new Container(
+                decoration: new BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                ),
+                child: _chatEnvironment(),
+              )
+            ],
+          ),
+          new Column(
+            children: <Widget>[
+              new Flexible(
+                  child: ListView(
+                children: <Widget>[
+                  new TaskItem(
+                    date: "Dec 3, 2019\n3:00pm",
+                    descriptor: "Follow up with the organist",
+                  ),
+                  new TaskItem(
+                    date: "Dec 4, 2019\n1:00pm",
+                    descriptor: "Get programme printed",
+                  ),
+                  new TaskItem(
+                    date: "Dec 3, 2019\n3:00pm",
+                    descriptor: "Measure bridemaid's dresses",
+                  )
+                ],
+              ))
+            ],
+          )
+        ],
+      ));
 
   @override
   Widget build(BuildContext context) {

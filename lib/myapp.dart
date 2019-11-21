@@ -31,7 +31,9 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         UIData.homeRoute: (BuildContext context) => HomePage(),
         UIData.projectDetails: (BuildContext context) => ProjectDetails(),
-        UIData.notFoundRoute: (BuildContext context) => NotFoundPage()
+        UIData.notFoundRoute: (BuildContext context) => NotFoundPage(),
+        UIData.responsibilityPage: (BuildContext context) => ResponsibilityPage(),
+        UIData.contactPage: (BuildContext context) => ContactPage()
       },
       onUnknownRoute: (RouteSettings rs) => new MaterialPageRoute(
           builder: (context) => new NotFoundPage(
