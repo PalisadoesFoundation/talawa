@@ -10,6 +10,7 @@ Welcome to talawa's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   palisadoes
 
 
 Indices and tables
