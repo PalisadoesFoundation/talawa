@@ -84,35 +84,66 @@ class CommonScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var divheight = MediaQuery.of(context).size.height;
     return Scaffold(
       key: scaffoldKey != null ? scaffoldKey : null,
       backgroundColor: backGroundColor != null ? backGroundColor : null,
-      appBar: 
-      PreferredSize(
-        preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
-        child: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          color: Colors.black,
-          onPressed: () => Navigator.pop(context, false),
-        ),
-        title: Text(appTitle, style: TextStyle(color: Colors.black)),
-        actions: <Widget>[
-          SizedBox(
-            width: 5.0,
+      // appBar:
+      // PreferredSize(
+      //   preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
+      //   child: AppBar(
+      //   elevation: 0,
+      //   backgroundColor: Colors.transparent,
+      //   leading: IconButton(
+      //     icon: Icon(Icons.arrow_back),
+      //     color: Colors.black,
+      //     onPressed: () => Navigator.pop(context, false),
+      //   ),
+      //   title: Text(appTitle, style: TextStyle(color: Colors.black)),
+      //   actions: <Widget>[
+      //     SizedBox(
+      //       width: 5.0,
+      //     ),
+      //     IconButton(
+      //       onPressed: () {},
+      //       icon: Icon(Icons.more_vert),
+      //       color: Colors.black,
+      //     )
+      //   ],
+      // ),
+      // ),
+      drawer: showDrawer ? CommonDrawer() : null,
+      body: new Column(
+        children: <Widget>[
+          Container(
+            height: divheight * 0.20,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  color: Colors.black,
+                  onPressed: () => Navigator.pop(context, false),
+                ),
+                Text(appTitle,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold)),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.more_vert),
+                  color: Colors.black,
+                )
+              ],
+            ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.more_vert),
-            color: Colors.black,
+          Container(
+            height: divheight * 0.80,
+            child: bodyData,
           )
         ],
       ),
-      ),
-      drawer: showDrawer ? CommonDrawer() : null,
-      body: bodyData,
       floatingActionButton: showFAB
           ? CustomFloat(
               builder: centerDocked

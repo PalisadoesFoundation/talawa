@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quito/controllers/projects_controller.dart';
-import 'package:flutter_quito/model/project.dart';
+import 'package:flutter_quito/controllers/activity_controller.dart';
+import 'package:flutter_quito/model/activity.dart';
 import 'package:flutter_quito/utils/uidata.dart';
 
 class HomePage extends StatelessWidget {
-  
   final _scaffoldState = GlobalKey<ScaffoldState>();
   Size deviceSize;
   BuildContext _context;
@@ -18,49 +17,59 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     _context = context;
     return Scaffold(
-        appBar: new AppBar(
-          title: Image(
-            image: AssetImage(UIData.quitoLogo),
-            height: 30,
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.more_vert,
-              ),
-              color: Colors.black,
-              onPressed: () {},
-              tooltip: 'Share',
-            ),
-          ],
+      appBar: new AppBar(
+        title: Image(
+          image: AssetImage(UIData.quitoLogo),
+          height: 30,
         ),
-        body: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Image(
-                image: AssetImage(UIData.quitoBackground),
-                fit: BoxFit.fill,
-              ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.more_vert,
             ),
-            projectList()
-          ],
-        ));
+            color: Colors.black,
+            onPressed: () {},
+            tooltip: 'Share',
+          ),
+        ],
+      ),
+      body: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Image(
+              image: AssetImage(UIData.quitoBackground),
+              fit: BoxFit.fill,
+            ),
+          ),
+          projectList()
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(_context, UIData.addActivityPage);
+        },
+        child: Icon(Icons.add),
+      ),
+    );
   }
 
   Widget projectList() {
-    ProjectController projectController = new ProjectController();
-    return FutureBuilder<List<Project>>(
-        future: projectController.getProjects(),
+    ActivityController activityController = new ActivityController();
+    return FutureBuilder<List<Activity>>(
+        future: activityController.getProjects(),
         builder: (_context, snapshot) {
           return snapshot.hasData
               ? ListView.builder(
                   itemCount: snapshot.data.length,
                   itemBuilder: (_context, index) {
-                    Project project = snapshot.data[index];
+                    if(snapshot.data.length > 0){
+                      
+                    }
+                    Activity activity = snapshot.data[index];
                     return Column(
-                      children: <Widget>[eventCard(project)],
+                      children: <Widget>[eventCard(activity)],
                     );
                   },
                 )
@@ -68,69 +77,57 @@ class HomePage extends StatelessWidget {
         });
   }
 
-  Widget eventCard(Project project) {
+  Widget eventCard(Activity activity) {
     return InkWell(
         onTap: () {
-          Navigator.pushNamed(_context, UIData.projectDetails,
-              arguments: project);
+          Navigator.pushNamed(_context, UIData.activityDetails,
+              arguments: activity);
         },
         child: new Container(
-          height: 140,
+          height: 125,
           width: double.infinity,
           child: Card(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        project.name,
+                        activity.name,
                         style: TextStyle(fontSize: 25),
                       ),
-                      Text('Nov 1 - ' + project.time,
-                          style: TextStyle(fontSize: 20)),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(activity.date + '\n' + activity.time,
+                          style: TextStyle(fontSize: 18)),
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      Container(
-                        width: 90.0,
-                        height: 45,
-                        child: Stack(
-                          //alignment:new Alignment(x, y)
-                          children: <Widget>[
-                            new CircleAvatar(
-                              backgroundColor: Colors.blue,
-                              child: Text('S',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20.0)),
-                            ),
-                            new Positioned(
-                              left: 24.0,
-                              child: new CircleAvatar(
-                                backgroundColor: Colors.blue,
-                                child: Text('R',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20.0)),
+                      CircleAvatar(
+                          backgroundColor: Colors.blue,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 18,
                               ),
-                            ),
-                            new Positioned(
-                              left: 48.0,
-                              child: new CircleAvatar(
-                                backgroundColor: Colors.blue,
-                                child: Text('+3',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20.0)),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
+                              activity.users.length > 9
+                                  ? Text('+9',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 18.0))
+                                  : Text(activity.users.length.toString(),
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 18.0)),
+                            ],
+                          )),
                     ],
                   )
                 ],

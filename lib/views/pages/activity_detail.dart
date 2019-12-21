@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quito/model/project.dart';
+import 'package:flutter_quito/controllers/responsibility_controller.dart';
+import 'package:flutter_quito/model/activity.dart';
+import 'package:flutter_quito/model/responsibility.dart';
+import 'package:flutter_quito/utils/uidata.dart';
 import 'package:flutter_quito/views/widgets/_widgets.dart';
 
-class ProjectDetails extends StatefulWidget {
-  ProjectDetails({
+class ActivityDetails extends StatefulWidget {
+  ActivityDetails({
     Key key,
     Colors color,
   }) : super(key: key);
 
   @override
-  _ProjectDetailsState createState() => new _ProjectDetailsState();
+  _ActivityDetailsState createState() => new _ActivityDetailsState();
 }
 
-class _ProjectDetailsState extends State<ProjectDetails>
+class _ActivityDetailsState extends State<ActivityDetails>
     with SingleTickerProviderStateMixin {
+  ResponsibilityController responsibilityController =
+      new ResponsibilityController();
   final TextEditingController _chatController = new TextEditingController();
   var deviceSize;
-  Project project;
+  Activity activity;
   TabController _controller;
   final List<ChatMessage> _messages = <ChatMessage>[];
 
@@ -25,9 +30,9 @@ class _ProjectDetailsState extends State<ProjectDetails>
   @override
   void initState() {
     super.initState();
-    _messages.insert(0, message);
-    _messages.insert(0, message);
-    _messages.insert(0, message);
+    // _messages.insert(0, message);
+    // _messages.insert(0, message);
+    // _messages.insert(0, message);
     _controller = new TabController(length: 2, vsync: this);
   }
 
@@ -50,8 +55,8 @@ class _ProjectDetailsState extends State<ProjectDetails>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 ProfileTile(
-                  title: project.name,
-                  subtitle: project.time,
+                  title: activity.name,
+                  subtitle: activity.date,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(4.0),
@@ -69,7 +74,7 @@ class _ProjectDetailsState extends State<ProjectDetails>
                           ),
                         ),
                         child: CircleAvatar(
-                          backgroundImage: AssetImage(project.image),
+                          backgroundImage: AssetImage(activity.image),
                           foregroundColor: Colors.black,
                           radius: 30.0,
                         ),
@@ -194,7 +199,7 @@ class _ProjectDetailsState extends State<ProjectDetails>
   }
 
   Widget _scaffold() => MainCollapsingToolbar(
-      project: project,
+      activity: activity,
       bodyData: TabBarView(
         children: <Widget>[
           new Column(
@@ -221,22 +226,32 @@ class _ProjectDetailsState extends State<ProjectDetails>
           new Column(
             children: <Widget>[
               new Flexible(
-                  child: ListView(
-                children: <Widget>[
-                  new TaskItem(
-                    date: "Dec 3, 2019\n3:00pm",
-                    descriptor: "Follow up with the organist",
-                  ),
-                  new TaskItem(
-                    date: "Dec 4, 2019\n1:00pm",
-                    descriptor: "Get programme printed",
-                  ),
-                  new TaskItem(
-                    date: "Dec 3, 2019\n3:00pm",
-                    descriptor: "Measure bridemaid's dresses",
-                  )
-                ],
-              ))
+                child: FutureBuilder<List<Responsibility>>(
+                    future: responsibilityController
+                        .getResponsibilitiesByActivity(activity.id),
+                    builder: (_context, snapshot) {
+                      return snapshot.hasData
+                          ? ListView.builder(
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (_context, index) {
+                                Responsibility resp = snapshot.data[index];
+                                return Column(
+                                  children: <Widget>[TaskItem(resp: resp)],
+                                );
+                              },
+                            )
+                          : Center(child: CircularProgressIndicator());
+                    }),
+              ),
+              new Container(
+                margin: EdgeInsets.all(15),
+                child: new FloatingActionButton(
+                  child: Icon(Icons.add),
+                  onPressed: () {
+                    Navigator.pushNamed(context, UIData.addResponsibilityPage, arguments: activity.id);
+                  },
+                ),
+              )
             ],
           )
         ],
@@ -244,7 +259,7 @@ class _ProjectDetailsState extends State<ProjectDetails>
 
   @override
   Widget build(BuildContext context) {
-    project = ModalRoute.of(context).settings.arguments;
+    activity = ModalRoute.of(context).settings.arguments;
     deviceSize = MediaQuery.of(context).size;
     return _scaffold();
   }

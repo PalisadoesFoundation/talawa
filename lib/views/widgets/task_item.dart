@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quito/utils/uidata.dart';
+import 'package:flutter_quito/model/responsibility.dart';
 import 'package:flutter_quito/views/widgets/_widgets.dart';
 
 class TaskItem extends StatefulWidget {
-  final String date;
-  final String descriptor;
+  final Responsibility resp;
 
-  const TaskItem({Key key, this.date, this.descriptor}) : super(key: key);
+  const TaskItem({Key key,this.resp}) : super(key: key);
 
   @override
   _TaskItemState createState() => _TaskItemState();
@@ -39,14 +39,19 @@ class _TaskItemState extends State<TaskItem> {
               flex: 4,
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, UIData.responsibilityPage);
+                  Navigator.pushNamed(context, UIData.responsibilityPage, arguments: widget.resp.id);
                 },
-                child: new Text(widget.descriptor),
+                child: new Text(widget.resp.description),
               ),
             ),
             Expanded(
               flex: 3,
-              child: new Text(widget.date, textAlign: TextAlign.center),
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, UIData.responsibilityPage, arguments: widget.resp.id);
+                },
+                child: new Text(widget.resp.date + '\n' + widget.resp.time, textAlign: TextAlign.center),
+              ),
             ),
             Expanded(
                 flex: 2,

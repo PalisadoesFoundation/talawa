@@ -2,8 +2,8 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quito/controllers/auth_controller.dart';
-import 'package:flutter_quito/model/user.dart';
 import 'package:flutter_quito/utils/uidata.dart';
+import 'package:flutter_quito/view_models/vm_login.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -22,7 +22,6 @@ class _LoginScreenState extends State<LoginPage>
       TextEditingController();
   AuthController _authController = new AuthController();
 
-  final TextEditingController _idNumberController = TextEditingController();
 
   final PageController _pageController =
       new PageController(initialPage: 1, viewportFraction: 1.0);
@@ -261,8 +260,7 @@ class _LoginScreenState extends State<LoginPage>
                     setState(() {
                       _progressBarState = true;
                     });
-                    _authController.login(context, new User(_emailController.text,
-                            _passwordController.text))
+                    _authController.login(context, new LoginViewModel(email: _emailController.text, password: _passwordController.text))
                         .then((result) {
                       setState(() {
                         if (_progressBarState) {
@@ -407,44 +405,44 @@ class _LoginScreenState extends State<LoginPage>
                   ],
                 ),
               ),
-              new Container(
-                width: _media != null
-                    ? _media.size.width
-                    : MediaQuery.of(context).size.width,
-                margin:
-                const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                        color: UIData.quitoThemeColor,
-                        width: 0.5,
-                        style: BorderStyle.solid),
-                  ),
-                ),
-                padding: const EdgeInsets.only(left: 0.0, right: 10.0),
-                child: new Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    new Expanded(
-                      child: TextFormField(
-                        textAlign: TextAlign.left,
-                        keyboardType: TextInputType.number,
-                        controller: _idNumberController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.perm_identity),
-                          labelText: "Id Number",
-                          alignLabelWithHint: true,
-                          hintText: '1234567',
-                          hintStyle: TextStyle(color: Colors.grey),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // new Container(
+              //   width: _media != null
+              //       ? _media.size.width
+              //       : MediaQuery.of(context).size.width,
+              //   margin:
+              //   const EdgeInsets.only(left: 40.0, right: 40.0, top: 10.0),
+              //   alignment: Alignment.center,
+              //   decoration: BoxDecoration(
+              //     border: Border(
+              //       bottom: BorderSide(
+              //           color: UIData.quitoThemeColor,
+              //           width: 0.5,
+              //           style: BorderStyle.solid),
+              //     ),
+              //   ),
+              //   padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+              //   child: new Row(
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: <Widget>[
+              //       new Expanded(
+              //         child: TextFormField(
+              //           textAlign: TextAlign.left,
+              //           keyboardType: TextInputType.number,
+              //           controller: _idNumberController,
+              //           decoration: InputDecoration(
+              //             border: InputBorder.none,
+              //             prefixIcon: Icon(Icons.perm_identity),
+              //             labelText: "Id Number",
+              //             alignLabelWithHint: true,
+              //             hintText: '1234567',
+              //             hintStyle: TextStyle(color: Colors.grey),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               new Container(
                 width: _media != null
                     ? _media.size.width

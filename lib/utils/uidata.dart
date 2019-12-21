@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 class UIData {
   //routes
   static const String homeRoute = "/home";
+  static const String addActivityPage = "/addActivityPage";
+  static const String addResponsibilityPage = "/addResponsibilityPage";
   static const String notFoundRoute = "/No Search Result";
-  static const String projectDetails = "/projectDetails";
+  static const String activityDetails = "/activityDetails";
   static const String responsibilityPage = "/responsibilityPage";
   static const String contactPage = "/contactPage";
 

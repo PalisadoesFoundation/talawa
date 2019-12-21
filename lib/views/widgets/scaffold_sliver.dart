@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quito/model/project.dart';
+import 'package:flutter_quito/model/activity.dart';
 
 class MainCollapsingToolbar extends StatefulWidget {
-  final Project project;
+  final Activity activity;
   final Widget bodyData;
   MainCollapsingToolbar({
     Key key,
-    this.project,
+    this.activity,
     this.bodyData
   }): super(key: key);
   @override
@@ -28,7 +28,7 @@ class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
-                    title: Text(widget.project.name,
+                    title: Text(widget.activity.name,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16.0,

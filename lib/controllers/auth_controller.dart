@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_quito/model/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quito/view_models/vm_login.dart';
 import 'package:flutter_quito/views/pages/_pages.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_quito/views/widgets/AlertDialogSingleButton.dart';
 
 class AuthController {
-  Future login(BuildContext context, User user) async {
+  Future login(BuildContext context, LoginViewModel user) async {
     Map<String, dynamic> requestBody = {
       "email": user.email,
       "password": user.password
