@@ -1,22 +1,22 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_quito/model/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quito/view_models/vm_login.dart';
 import 'package:flutter_quito/views/pages/_pages.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_quito/views/widgets/AlertDialogSingleButton.dart';
 
 class AuthController {
-  Future login(BuildContext context, User user) async {
+  Future login(BuildContext context, LoginViewModel user) async {
     Map<String, dynamic> requestBody = {
-      "username": user.username,
+      "email": user.email,
       "password": user.password
     };
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
       final response = await http
-          .post("https://quito-api.herokuapp.com/users/login",
+          .post("https://quito-api.herokuapp.com/user/login",
               headers: headers, body: jsonEncode(requestBody))
           .timeout(Duration(seconds: 20));
       switch (response.statusCode) {
