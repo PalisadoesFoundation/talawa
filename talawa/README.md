@@ -1,4 +1,4 @@
-# flutter_quito
+# talawa
 
 A new Flutter project.
 

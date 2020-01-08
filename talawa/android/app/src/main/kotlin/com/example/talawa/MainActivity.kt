@@ -1,4 +1,4 @@
-package com.example.flutter_quito
+package com.example.talawa
 
 import android.os.Bundle
 
