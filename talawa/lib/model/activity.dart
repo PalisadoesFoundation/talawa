@@ -8,7 +8,7 @@ class Activity {
   String image;
   String date;
   String time;
-  List<int> users;
+  int users;
   BuildContext context;
   String description;
   Color menuColor;
@@ -33,7 +33,7 @@ class Activity {
       title: json['title'],
       date: json['date'],
       time: json['time'],
-      users: json['users'] != null ? json['users'].cast<int>() : [],
+      users: json['users'],
       description: json['description'],
       menuColor: Color(0xff050505),
       icon: Icons.book,

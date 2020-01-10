@@ -19,8 +19,8 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: new AppBar(
         title: Image(
-          image: AssetImage(UIData.quitoLogo),
-          height: 30,
+          image: AssetImage(UIData.talawaLogoDark),
+          height: 50,
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
               fit: BoxFit.fill,
             ),
           ),
-          projectList()
+          activityList()
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -55,26 +55,44 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget projectList() {
+  Widget activityList() {
     ActivityController activityController = new ActivityController();
-    return FutureBuilder<List<Activity>>(
-        future: activityController.getProjects(),
-        builder: (_context, snapshot) {
-          return snapshot.hasData
-              ? ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (_context, index) {
-                    if(snapshot.data.length > 0){
-                      
-                    }
-                    Activity activity = snapshot.data[index];
-                    return Column(
-                      children: <Widget>[eventCard(activity)],
-                    );
-                  },
-                )
-              : Center(child: CircularProgressIndicator());
-        });
+    return Column(
+      children: <Widget>[
+        Expanded(
+          flex: 2,
+          child: Center(
+            child: Text(
+              'Activities', 
+              style: TextStyle(fontSize: 25),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 8,
+          child: FutureBuilder<List<Activity>>(
+              future: activityController.getProjects(),
+              builder: (_context, snapshot) {
+                return snapshot.hasData
+                    ? ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (_context, index) {
+                          if (snapshot.data.length > 0) {
+                            Activity activity = snapshot.data[index];
+                            return Column(
+                              children: <Widget>[eventCard(activity)],
+                            );
+                          }
+                          else{
+                            return Center(child: Text('No Activities', style:TextStyle(color: Colors.grey)));
+                          }
+                        },
+                      )
+                    : Center(child: CircularProgressIndicator());
+              }),
+        )
+      ],
+    );
   }
 
   Widget eventCard(Activity activity) {
@@ -119,11 +137,11 @@ class HomePage extends StatelessWidget {
                                 color: Colors.white,
                                 size: 18,
                               ),
-                              activity.users.length > 9
+                              activity.users > 9
                                   ? Text('+9',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 18.0))
-                                  : Text(activity.users.length.toString(),
+                                  : Text(activity.users.toString(),
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 18.0)),
                             ],
