@@ -6,7 +6,7 @@ import 'package:talawa/views/widgets/common_scaffold.dart';
 import 'package:talawa/model/responsibility.dart';
 
 class ResponsibilityPage extends StatelessWidget {
-  String respId;
+  int respId;
   ResponsibilityController responsibilityController =
       new ResponsibilityController();
   @override

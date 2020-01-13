@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
     return Column(
       children: <Widget>[
         Expanded(
-          flex: 2,
+          flex: 1,
           child: Center(
             child: Text(
               'Activities', 
@@ -69,27 +69,31 @@ class HomePage extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: 8,
+          flex: 9,
           child: FutureBuilder<List<Activity>>(
-              future: activityController.getProjects(),
-              builder: (_context, snapshot) {
-                return snapshot.hasData
-                    ? ListView.builder(
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (_context, index) {
-                          if (snapshot.data.length > 0) {
-                            Activity activity = snapshot.data[index];
-                            return Column(
-                              children: <Widget>[eventCard(activity)],
-                            );
-                          }
-                          else{
-                            return Center(child: Text('No Activities', style:TextStyle(color: Colors.grey)));
-                          }
-                        },
-                      )
-                    : Center(child: CircularProgressIndicator());
-              }),
+            future: activityController.getActivities(),
+            builder: (_context, snapshot) {
+              if(snapshot.hasData){
+                if(snapshot.data.length > 0){
+                  return ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (_context, index) {
+                      Activity activity = snapshot.data[index];
+                      return Column(
+                        children: <Widget>[eventCard(activity)],
+                      );
+                    },
+                  );
+                }
+                else{
+                  return Center(child: Text('No Activities', style:TextStyle(color: Colors.grey)));
+                }
+              }
+              else{
+                return Center(child: CircularProgressIndicator());
+              }
+            }
+          ),
         )
       ],
     );

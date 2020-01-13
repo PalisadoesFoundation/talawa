@@ -8,7 +8,7 @@ import 'dart:convert';
 import 'package:talawa/utils/globals.dart';
 
 class ActivityController {
-  Future<List<Activity>> getProjects() async {
+  Future<List<Activity>> getActivities() async {
     final response = await http.get(baseRoute + "/activities");
 
     if (response.statusCode == 200) {

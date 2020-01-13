@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
 
-      home: HomePage(),
+      home: LoginPage(),
 
       //routes
       routes: <String, WidgetBuilder>{
@@ -43,5 +43,11 @@ class MyApp extends StatelessWidget {
                 iconColor: Colors.green,
               )),
     );
+    
+    RegExp regExp = new RegExp(
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$", 
+      multiLine: false
+    );
+    print(regExp.hasMatch("hjohnson.pcc@gmail.com"));
   }
 }

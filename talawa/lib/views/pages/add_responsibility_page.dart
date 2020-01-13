@@ -18,7 +18,7 @@ class AddResponsibilityPage extends StatefulWidget {
 }
 
 class _AddResponsibilityPageState extends State<AddResponsibilityPage> {
-  String activityId;
+  int activityId;
   static final ResponsibilityController responsibilityController =
       new ResponsibilityController();
   final controller = PageController(
@@ -64,7 +64,7 @@ class _AddResponsibilityPageState extends State<AddResponsibilityPage> {
     return scaffold();
   }
 
-  Future<List<User>> fetchUsersByActivity(String activityId) async {
+  Future<List<User>> fetchUsersByActivity(int activityId) async {
     return responsibilityController.getUsersByActivity(activityId);
   }
 
@@ -205,14 +205,15 @@ class _AddResponsibilityPageState extends State<AddResponsibilityPage> {
                           validateDescription(_descriptionController.text)) {
                         responsibilityController
                             .postResponsibility(
-                          context,
-                          Responsibility(
-                              name: _nameController.text,
-                              date: _datetimeController.text,
-                              description: _descriptionController.text,
-                              activity: activityId,
-                              userId: userId),
-                        )
+                                context,
+                                Responsibility(
+                                    name: _nameController.text,
+                                    date: _datetimeController.text,
+                                    description: _descriptionController.text,
+                                    priority: 1,
+                                    isCompleted: false),
+                                activityId,
+                                userId)
                             .then((result) {
                           setState(() {
                             if (_progressBarState) _progressBarState = false;
