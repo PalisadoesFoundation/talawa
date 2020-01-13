@@ -42,7 +42,7 @@ class _UserTileState extends State<UserTile> {
               flex: 8,
               child: new Text(widget.user.email),
             ),
-            widget.userIds != null
+            widget.user.id != null
                 ? Expanded(
                     flex: 2,
                     child: new Checkbox(
@@ -51,6 +51,7 @@ class _UserTileState extends State<UserTile> {
                           setState(() {
                             selected = value;
                             if (value == true) {
+                              print(widget.user.id);
                               widget.userIds.add(widget.user.id);
                             } else {
                               widget.userIds.removeWhere(
@@ -60,7 +61,9 @@ class _UserTileState extends State<UserTile> {
                         }))
                 : Expanded(
                     flex: 2,
-                    child: new SizedBox(height: 1,))
+                    child: new SizedBox(
+                      height: 1,
+                    ))
           ],
         ),
       ),

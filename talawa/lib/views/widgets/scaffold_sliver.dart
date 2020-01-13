@@ -4,11 +4,8 @@ import 'package:talawa/model/activity.dart';
 class MainCollapsingToolbar extends StatefulWidget {
   final Activity activity;
   final Widget bodyData;
-  MainCollapsingToolbar({
-    Key key,
-    this.activity,
-    this.bodyData
-  }): super(key: key);
+  MainCollapsingToolbar({Key key, this.activity, this.bodyData})
+      : super(key: key);
   @override
   _MainCollapsingToolbarState createState() => _MainCollapsingToolbarState();
 }
@@ -20,36 +17,39 @@ class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
       body: DefaultTabController(
         length: 2,
         child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                expandedHeight: 150.0,
-                floating: false,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  expandedHeight: 150.0,
+                  floating: false,
+                  pinned: true,
+                  flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     title: Text(widget.activity.title,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16.0,
-                        )),),
-              ),
-              SliverPersistentHeader(
-                delegate: _SliverAppBarDelegate(
-                  TabBar(
-                    labelColor: Colors.black87,
-                    tabs: [
-                      Tab(icon: Icon(Icons.question_answer), text: "Notes"),
-                      Tab(icon: Icon(Icons.list), text: "Roles & Responsibilities"),
-                    ],
+                        )),
                   ),
                 ),
-                pinned: true,
-              ),
-            ];
-          },
-          body: widget.bodyData
-        ),
+                SliverPersistentHeader(
+                  delegate: _SliverAppBarDelegate(
+                    TabBar(
+                      labelColor: Colors.black87,
+                      tabs: [
+                        Tab(icon: Icon(Icons.question_answer), text: "Notes"),
+                        Tab(
+                            icon: Icon(Icons.list),
+                            text: "Roles & Responsibilities"),
+                      ],
+                    ),
+                  ),
+                  pinned: true,
+                ),
+              ];
+            },
+            body: widget.bodyData),
       ),
     );
   }

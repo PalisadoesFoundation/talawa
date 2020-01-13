@@ -248,7 +248,8 @@ class _ActivityDetailsState extends State<ActivityDetails>
                 child: new FloatingActionButton(
                   child: Icon(Icons.add),
                   onPressed: () {
-                    Navigator.pushNamed(context, UIData.addResponsibilityPage, arguments: activity.id);
+                    Navigator.pushNamed(context, UIData.addResponsibilityPage,
+                        arguments: activity.id);
                   },
                 ),
               )

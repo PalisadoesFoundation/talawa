@@ -1,9 +1,6 @@
-class LoginViewModel{
+class LoginViewModel {
   String email;
   String password;
 
-  LoginViewModel({
-    this.email,
-    this.password
-  });
+  LoginViewModel({this.email, this.password});
 }

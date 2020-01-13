@@ -34,9 +34,11 @@ class LoginFormState extends State<LoginForm> {
 
     return null;
   }
-  void toggleProgressBarState(){
+
+  void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
   }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -54,11 +56,11 @@ class LoginFormState extends State<LoginForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                border: InputBorder.none,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
                 prefixIcon: Icon(Icons.email),
                 labelText: "Email",
                 labelStyle: TextStyle(color: Colors.white),
-                
                 alignLabelWithHint: true,
                 hintText: 'foo@bar.com',
                 hintStyle: TextStyle(color: Colors.grey),
@@ -78,7 +80,8 @@ class LoginFormState extends State<LoginForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                border: InputBorder.none,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
@@ -108,12 +111,12 @@ class LoginFormState extends State<LoginForm> {
                 color: Colors.white,
                 onPressed: () {
                   setState(() {
-                    toggleProgressBarState(); 
+                    toggleProgressBarState();
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
                       _authController.login(context, model).then((response) {});
                     } else {}
-                    toggleProgressBarState(); 
+                    toggleProgressBarState();
                   });
                 },
               ),

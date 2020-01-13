@@ -40,7 +40,6 @@ class UIData {
   static const String talawaLogoDark = "$imageDir/talawaLogo-dark.png";
   static const String quitoBackground = "$imageDir/quitoBackground.jpg";
 
-
   //gneric
   static const String coming_soon = "Coming Soon";
 
@@ -70,7 +69,7 @@ class UIData {
     Colors.cyan.shade600,
     Colors.blue.shade900
   ];
-  
+
   //randomcolor
   static final Random _random = new Random();
 

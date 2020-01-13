@@ -5,6 +5,7 @@ import 'package:talawa/model/user.dart';
 import 'package:talawa/views/widgets/_widgets.dart';
 import 'package:talawa/views/widgets/common_scaffold.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:talawa/views/widgets/forms/add_activity_form.dart';
 import 'package:talawa/views/widgets/user_tile.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/controllers/activity_controller.dart';
@@ -58,9 +59,9 @@ class _AddActivityPageState extends State<AddActivityPage> {
   }
 
   scaffold() => CommonScaffold(
-        appTitle: 'Add Activity',
-        bodyData: bodyData(),
-      );
+    appTitle: 'Add Activity',
+    bodyData: AddActivityForm(),
+  );
   bodyData() => PageView(
         controller: controller,
         scrollDirection: Axis.vertical,
@@ -77,7 +78,7 @@ class _AddActivityPageState extends State<AddActivityPage> {
                 ),
                 SizedBox(height: 50),
                 TextFormField(
-                  onEditingComplete: (){
+                  onEditingComplete: () {
                     _nameFlag = validateName(_nameController.text);
                     setState(() {});
                   },
@@ -90,7 +91,7 @@ class _AddActivityPageState extends State<AddActivityPage> {
                 ),
                 SizedBox(height: 30),
                 DateTimeField(
-                  onEditingComplete: (){
+                  onEditingComplete: () {
                     _datetimeFlag = validateDateTime(_datetimeController.text);
                     setState(() {});
                   },
@@ -122,9 +123,9 @@ class _AddActivityPageState extends State<AddActivityPage> {
                 ),
                 SizedBox(height: 30),
                 TextFormField(
-                  onEditingComplete: (){
-                    _descriptionFlag =  validateDescription(
-                              _descriptionController.text);
+                  onEditingComplete: () {
+                    _descriptionFlag =
+                        validateDescription(_descriptionController.text);
                     setState(() {});
                   },
                   decoration: InputDecoration(
@@ -177,16 +178,16 @@ class _AddActivityPageState extends State<AddActivityPage> {
                       if (validateName(_nameController.text) &&
                           validateDateTime(_datetimeController.text) &&
                           validateDescription(_descriptionController.text)) {
-                        activityController
-                            .postActivity(
-                              context,
-                              Activity(
-                                  title: _nameController.text,
-                                  date: _datetimeController.text,
-                                  description: _descriptionController.text),
-                              userIds,
-                            )
-                            .then((result) {});
+                        // activityController
+                        //     .postActivity(
+                        //       context,
+                        //       Activity(
+                        //           title: _nameController.text,
+                        //           date: _datetimeController.text,
+                        //           description: _descriptionController.text),
+                        //       userIds,
+                        //     )
+                        //     .then((result) {});
                         _nameController.text = '';
                         _datetimeController.text = '';
                         _descriptionController.text = '';

@@ -1,6 +1,6 @@
 import 'package:talawa/model/activity.dart';
 
-class Responsibility{
+class Responsibility {
   int id;
   String name;
   String description;
@@ -9,16 +9,15 @@ class Responsibility{
   int priority;
   bool isCompleted;
 
-  Responsibility({
-    this.id,
-    this.name,
-    this.description,
-    this.date,
-    this.time,
-    this.priority,
-    this.isCompleted
-  });
-    factory Responsibility.fromJson(Map<String, dynamic> json) {
+  Responsibility(
+      {this.id,
+      this.name,
+      this.description,
+      this.date,
+      this.time,
+      this.priority,
+      this.isCompleted});
+  factory Responsibility.fromJson(Map<String, dynamic> json) {
     return Responsibility(
       id: json['id'],
       name: json['title'],

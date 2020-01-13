@@ -19,7 +19,7 @@ class AuthController {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
       final response = await http
-          .post( baseRoute + "/user/login",
+          .post(baseRoute + "/user/login",
               headers: headers, body: jsonEncode(requestBody))
           .timeout(Duration(seconds: 20));
       switch (response.statusCode) {
@@ -27,45 +27,42 @@ class AuthController {
           {
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => new HomePage()));
-                return response.body;
+            return response.body;
           }
           break;
-                case 401:
-        {
-          showAlertDialog(
-              context, "Unauthorized", "You are unauthorized to login", "Ok");
-
-        }
-        break;
-      case 403:
-        {
-          showAlertDialog(
-              context, "Forbidden", "Forbidden access to resource", "Ok");
-
-        }
-        break;
-      case 415:
-        {
-          showAlertDialog(context, "Invalid media", "", "Ok");
-        }
-        break;
-      case 500:
-        {
-          showAlertDialog(context, "Something drastic happened", "", "Ok");
-        }
-      break;
-      default:
-        {
-          showAlertDialog(context, "Something happened", "", "Ok");
-        }
-        break;
+        case 401:
+          {
+            showAlertDialog(
+                context, "Unauthorized", "You are unauthorized to login", "Ok");
+          }
+          break;
+        case 403:
+          {
+            showAlertDialog(
+                context, "Forbidden", "Forbidden access to resource", "Ok");
+          }
+          break;
+        case 415:
+          {
+            showAlertDialog(context, "Invalid media", "", "Ok");
+          }
+          break;
+        case 500:
+          {
+            showAlertDialog(context, "Something drastic happened", "", "Ok");
+          }
+          break;
+        default:
+          {
+            showAlertDialog(context, "Something happened", "", "Ok");
+          }
+          break;
       }
     } catch (e) {
       showAlertDialog(context, e.toString(), e.toString(), "Ok");
     }
   }
 
-  
   Future register(BuildContext context, RegisterViewModel user) async {
     Map<String, dynamic> requestBody = {
       "firstName": user.firstName,
@@ -82,39 +79,36 @@ class AuthController {
       switch (response.statusCode) {
         case 201:
           {
-            
             return response;
           }
           break;
-                case 401:
-        {
-          showAlertDialog(
-              context, "Unauthorized", "You are unauthorized to login", "Ok");
-
-        }
-        break;
-      case 403:
-        {
-          showAlertDialog(
-              context, "Forbidden", "Forbidden access to resource", "Ok");
-
-        }
-        break;
-      case 415:
-        {
-          showAlertDialog(context, "Invalid media", "", "Ok");
-        }
-        break;
-      case 500:
-        {
-          showAlertDialog(context, "Something drastic happened", "", "Ok");
-        }
-      break;
-      default:
-        {
-          showAlertDialog(context, "Something happened", "", "Ok");
-        }
-        break;
+        case 401:
+          {
+            showAlertDialog(
+                context, "Unauthorized", "You are unauthorized to login", "Ok");
+          }
+          break;
+        case 403:
+          {
+            showAlertDialog(
+                context, "Forbidden", "Forbidden access to resource", "Ok");
+          }
+          break;
+        case 415:
+          {
+            showAlertDialog(context, "Invalid media", "", "Ok");
+          }
+          break;
+        case 500:
+          {
+            showAlertDialog(context, "Something drastic happened", "", "Ok");
+          }
+          break;
+        default:
+          {
+            showAlertDialog(context, "Something happened", "", "Ok");
+          }
+          break;
       }
     } catch (e) {
       showAlertDialog(context, e.toString(), e.toString(), "Ok");

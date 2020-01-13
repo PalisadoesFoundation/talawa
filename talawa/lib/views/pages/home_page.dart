@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
           flex: 1,
           child: Center(
             child: Text(
-              'Activities', 
+              'Activities',
               style: TextStyle(fontSize: 25),
             ),
           ),
@@ -71,29 +71,28 @@ class HomePage extends StatelessWidget {
         Expanded(
           flex: 9,
           child: FutureBuilder<List<Activity>>(
-            future: activityController.getActivities(),
-            builder: (_context, snapshot) {
-              if(snapshot.hasData){
-                if(snapshot.data.length > 0){
-                  return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (_context, index) {
-                      Activity activity = snapshot.data[index];
-                      return Column(
-                        children: <Widget>[eventCard(activity)],
-                      );
-                    },
-                  );
+              future: activityController.getActivities(),
+              builder: (_context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data.length > 0) {
+                    return ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (_context, index) {
+                        Activity activity = snapshot.data[index];
+                        return Column(
+                          children: <Widget>[eventCard(activity)],
+                        );
+                      },
+                    );
+                  } else {
+                    return Center(
+                        child: Text('No Activities',
+                            style: TextStyle(color: Colors.grey)));
+                  }
+                } else {
+                  return Center(child: CircularProgressIndicator());
                 }
-                else{
-                  return Center(child: Text('No Activities', style:TextStyle(color: Colors.grey)));
-                }
-              }
-              else{
-                return Center(child: CircularProgressIndicator());
-              }
-            }
-          ),
+              }),
         )
       ],
     );

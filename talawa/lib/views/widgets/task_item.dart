@@ -6,7 +6,7 @@ import 'package:talawa/views/widgets/_widgets.dart';
 class TaskItem extends StatefulWidget {
   final Responsibility resp;
 
-  const TaskItem({Key key,this.resp}) : super(key: key);
+  const TaskItem({Key key, this.resp}) : super(key: key);
 
   @override
   _TaskItemState createState() => _TaskItemState();
@@ -39,7 +39,8 @@ class _TaskItemState extends State<TaskItem> {
               flex: 4,
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, UIData.responsibilityPage, arguments: widget.resp.id);
+                  Navigator.pushNamed(context, UIData.responsibilityPage,
+                      arguments: widget.resp.id);
                 },
                 child: new Text(widget.resp.description),
               ),
@@ -48,9 +49,11 @@ class _TaskItemState extends State<TaskItem> {
               flex: 3,
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, UIData.responsibilityPage, arguments: widget.resp.id);
+                  Navigator.pushNamed(context, UIData.responsibilityPage,
+                      arguments: widget.resp.id);
                 },
-                child: new Text(widget.resp.date + '\n' + widget.resp.time, textAlign: TextAlign.center),
+                child: new Text(widget.resp.date + '\n' + widget.resp.time,
+                    textAlign: TextAlign.center),
               ),
             ),
             Expanded(

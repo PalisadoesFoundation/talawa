@@ -18,13 +18,14 @@ class RegisterFormState extends State<RegisterForm> {
   AuthController _authController = new AuthController();
   bool _progressBarState = false;
 
-  String _validateFirstName(String value){
+  String _validateFirstName(String value) {
     if (value.length < 4) {
       return 'First name must be at least 4 characters.';
     }
     return null;
   }
-  String _validateLastName(String value){
+
+  String _validateLastName(String value) {
     if (value.length < 4) {
       return 'Last name must be at least 4 characters.';
     }
@@ -49,22 +50,25 @@ class RegisterFormState extends State<RegisterForm> {
     return null;
   }
 
-  String _validatePasswordConfirm(String value){
-    if(value != model.password){
+  String _validatePasswordConfirm(String value) {
+    if (value != model.password) {
       return 'Password does not match original';
     }
     return null;
   }
-  void toggleProgressBarState(){
+
+  void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
   }
+
   @override
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
-            Text('Register', style: TextStyle(fontSize: 35, color: Colors.white)),
+            Text('Register',
+                style: TextStyle(fontSize: 35, color: Colors.white)),
             SizedBox(
               height: 50,
             ),
@@ -75,11 +79,11 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                border: InputBorder.none,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
                 prefixIcon: Icon(Icons.person),
                 labelText: "First Name",
                 labelStyle: TextStyle(color: Colors.white),
-                
                 alignLabelWithHint: true,
                 hintText: 'Earl',
                 hintStyle: TextStyle(color: Colors.grey),
@@ -98,11 +102,11 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                border: InputBorder.none,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
                 prefixIcon: Icon(Icons.person),
                 labelText: "Last Name",
                 labelStyle: TextStyle(color: Colors.white),
-                
                 alignLabelWithHint: true,
                 hintText: 'John',
                 hintStyle: TextStyle(color: Colors.grey),
@@ -121,11 +125,11 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                border: InputBorder.none,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
                 prefixIcon: Icon(Icons.email),
                 labelText: "Email",
                 labelStyle: TextStyle(color: Colors.white),
-                
                 alignLabelWithHint: true,
                 hintText: 'foo@bar.com',
                 hintStyle: TextStyle(color: Colors.grey),
@@ -145,7 +149,8 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                border: InputBorder.none,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
@@ -169,7 +174,8 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                border: InputBorder.none,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Confirm Password",
                 labelStyle: TextStyle(color: Colors.white),
@@ -193,12 +199,14 @@ class RegisterFormState extends State<RegisterForm> {
                 color: Colors.white,
                 onPressed: () {
                   setState(() {
-                    toggleProgressBarState(); 
+                    toggleProgressBarState();
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
-                      _authController.register(context, model).then((response) {});
+                      _authController
+                          .register(context, model)
+                          .then((response) {});
                     } else {}
-                    toggleProgressBarState(); 
+                    toggleProgressBarState();
                   });
                 },
               ),

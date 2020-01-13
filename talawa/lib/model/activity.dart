@@ -14,8 +14,7 @@ class Activity {
   Color menuColor;
 
   Activity(
-      {
-      this.id,
+      {this.id,
       this.title,
       this.icon,
       this.image,
@@ -25,7 +24,6 @@ class Activity {
       this.description,
       this.context,
       this.menuColor = Colors.black});
-
 
   factory Activity.fromJson(Map<String, dynamic> json) {
     return Activity(

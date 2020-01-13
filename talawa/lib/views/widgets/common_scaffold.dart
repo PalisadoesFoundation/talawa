@@ -138,8 +138,7 @@ class CommonScaffold extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            height: divheight * 0.80,
+          Expanded(
             child: bodyData,
           )
         ],

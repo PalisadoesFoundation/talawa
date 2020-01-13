@@ -8,12 +8,13 @@ class UserBubble extends StatelessWidget {
   UserBubble({this.user});
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Navigator.pushNamed(context, UIData.contactPage);
-      },
-      child: CircleAvatar(
-      backgroundColor: Colors.blue,
-      child: Text(user, style: TextStyle(color: Colors.white, fontSize: 18.0)),)
-    );
+        onTap: () {
+          Navigator.pushNamed(context, UIData.contactPage);
+        },
+        child: CircleAvatar(
+          backgroundColor: Colors.blue,
+          child:
+              Text(user, style: TextStyle(color: Colors.white, fontSize: 18.0)),
+        ));
   }
 }
