@@ -18,7 +18,7 @@ class AddActivityForm extends StatefulWidget {
 
 class AddActivityFormState extends State<AddActivityForm> {
   final _formKey = GlobalKey<FormState>();
-  AddActivityViewModel model = new AddActivityViewModel(userIds: []);
+  AddActivityViewModel model = new AddActivityViewModel(admin: 2, users: []);
   PageController _pageController = PageController(initialPage: 0);
   ActivityController _activityController = new ActivityController();
   bool _progressBarState = false;
@@ -211,12 +211,6 @@ class AddActivityFormState extends State<AddActivityForm> {
             style: TextStyle(fontSize: 20),
           ),
           SizedBox(height: 30),
-          Text(
-            userListErrorText,
-            style: TextStyle(fontSize: 15, color: Colors.red),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 30),
           FutureBuilder<List<User>>(
               future: _activityController.getUsers(),
               builder: (_context, snapshot) {
@@ -229,7 +223,7 @@ class AddActivityFormState extends State<AddActivityForm> {
                           User user = snapshot.data[index];
                           return Column(
                             children: <Widget>[
-                              UserTile(user: user, userIds: model.userIds)
+                              UserTile(user: user, userIds: model.users)
                             ],
                           );
                         },
@@ -257,13 +251,9 @@ class AddActivityFormState extends State<AddActivityForm> {
                   if (!activityValidateFlag) {
                     gotoActivityInfo();
                   }
-                  else if (model.userIds.length > 0) {
-                    userListErrorText = '';
+                  else {
                     _activityController.postActivity(context, model);
-                  } else {
-                    userListErrorText =
-                        'Atleast one user should be assigned to an activity.';
-                  }
+                  } 
                   toggleProgressBarState();
                 });
               },

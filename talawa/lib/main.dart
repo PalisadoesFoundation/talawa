@@ -8,6 +8,7 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
 
-      home: HomePage(),
+      home: LoginPage(),
 
       //routes
       routes: <String, WidgetBuilder>{

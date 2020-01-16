@@ -2,8 +2,9 @@ class AddActivityViewModel {
   String title;
   String datetime;
   String description;
-  List<int> userIds;
+  int admin;
+  List<int> users;
 
   AddActivityViewModel(
-      {this.title, this.datetime, this.description, this.userIds});
+      {this.title, this.datetime, this.description, this.admin, this.users});
 }

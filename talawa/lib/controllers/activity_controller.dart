@@ -43,7 +43,8 @@ class ActivityController {
       "title": model.title,
       "date": model.datetime,
       "description": model.description,
-      "users": model.userIds
+      "admin": model.admin,
+      "users": model.users
     };
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
