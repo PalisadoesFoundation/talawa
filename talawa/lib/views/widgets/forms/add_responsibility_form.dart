@@ -9,14 +9,14 @@ import 'package:intl/intl.dart';
 
 import '../user_tile.dart';
 
-class AddActivityForm extends StatefulWidget {
+class AddResponsibilityForm extends StatefulWidget {
   @override
-  AddActivityFormState createState() {
-    return AddActivityFormState();
+  AddResponsibilityFormState createState() {
+    return AddResponsibilityFormState();
   }
 }
 
-class AddActivityFormState extends State<AddActivityForm> {
+class AddResponsibilityFormState extends State<AddResponsibilityForm> {
   final _formKey = GlobalKey<FormState>();
   AddActivityViewModel model = new AddActivityViewModel(admin: 2, users: []);
   PageController _pageController = PageController(initialPage: 0);
@@ -54,7 +54,7 @@ class AddActivityFormState extends State<AddActivityForm> {
     _progressBarState = !_progressBarState;
   }
 
-  gotoActivityInfo() {
+  gotoResponsibilityInfo() {
     _pageController.animateToPage(
       0,
       duration: Duration(milliseconds: 600),
@@ -81,14 +81,14 @@ class AddActivityFormState extends State<AddActivityForm> {
             pageSnapping: true,
             onPageChanged: (page) {
               if (!_formKey.currentState.validate())
-                gotoActivityInfo();
+                gotoResponsibilityInfo();
               else
                 _formKey.currentState.save();
             },
-            children: <Widget>[activityInfo(), userInfo()]));
+            children: <Widget>[respInfo(), userInfo()]));
   }
 
-  activityInfo() => Center(
+  respInfo() => Center(
       child: Container(
           alignment: AlignmentDirectional(0.0, 0.0),
           child: Container(
@@ -115,7 +115,7 @@ class AddActivityFormState extends State<AddActivityForm> {
                       prefixIcon: Icon(Icons.title),
                       labelText: "Title",
                       alignLabelWithHint: true,
-                      hintText: 'Juan\'s Wedding Rehersal',
+                      hintText: 'Organize bridal arrangements',
                       hintStyle: TextStyle(color: Colors.grey),
                     ),
                     onSaved: (value) {
