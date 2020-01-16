@@ -18,7 +18,7 @@ class AddActivityForm extends StatefulWidget {
 
 class AddActivityFormState extends State<AddActivityForm> {
   final _formKey = GlobalKey<FormState>();
-  AddActivityViewModel model = new AddActivityViewModel(admin: 2, users: []);
+  AddActivityViewModel model = new AddActivityViewModel(admin: 1, users: []);
   PageController _pageController = PageController(initialPage: 0);
   ActivityController _activityController = new ActivityController();
   bool _progressBarState = false;
@@ -212,7 +212,7 @@ class AddActivityFormState extends State<AddActivityForm> {
           ),
           SizedBox(height: 30),
           FutureBuilder<List<User>>(
-              future: _activityController.getUsers(),
+              future: _activityController.getAvailableUsers(1),
               builder: (_context, snapshot) {
                 return snapshot.hasData
                     ? ListView.builder(

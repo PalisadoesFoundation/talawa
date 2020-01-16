@@ -38,6 +38,19 @@ class ActivityController {
     }
   }
 
+  Future<List<User>> getAvailableUsers(int creator) async {
+    final response = await http.get(baseRoute + "/user/filter/" + creator.toString());
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON.
+      var data = json.decode(response.body);
+      data = data['users'];
+      return (data as List).map((user) => new User.fromJson(user)).toList();
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load projects');
+    }
+  }
+
   Future postActivity(BuildContext context, AddActivityViewModel model) async {
     Map<String, dynamic> requestBody = {
       "title": model.title,
