@@ -207,7 +207,7 @@ class _AddResponsibilityPageState extends State<AddResponsibilityPage> {
                             .postResponsibility(
                                 context,
                                 Responsibility(
-                                    name: _nameController.text,
+                                    title: _nameController.text,
                                     date: _datetimeController.text,
                                     description: _descriptionController.text,
                                     priority: 1,

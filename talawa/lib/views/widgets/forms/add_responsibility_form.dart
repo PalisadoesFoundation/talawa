@@ -2,6 +2,8 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/controllers/activity_controller.dart';
+import 'package:talawa/controllers/responsibility_controller.dart';
+import 'package:talawa/model/responsibility.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/vm_add_activity.dart';
@@ -10,17 +12,17 @@ import 'package:intl/intl.dart';
 import '../user_tile.dart';
 
 class AddResponsibilityForm extends StatefulWidget {
+  int activityId;
+  AddResponsibilityForm({Key key, this.activityId}) : super(key: key);
   @override
-  AddResponsibilityFormState createState() {
-    return AddResponsibilityFormState();
-  }
+  AddResponsibilityFormState createState() => AddResponsibilityFormState();
 }
 
 class AddResponsibilityFormState extends State<AddResponsibilityForm> {
   final _formKey = GlobalKey<FormState>();
-  AddActivityViewModel model = new AddActivityViewModel(admin: 2, users: []);
+  Responsibility model = new Responsibility();
   PageController _pageController = PageController(initialPage: 0);
-  ActivityController _activityController = new ActivityController();
+  ResponsibilityController _respController = new ResponsibilityController();
   bool _progressBarState = false;
   bool activityValidateFlag = false;
   String userListErrorText = '';
@@ -98,7 +100,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                   child: Column(
                 children: <Widget>[
                   Text(
-                    'Enter Activity Information',
+                    'Enter Responsibility Information',
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(
@@ -154,7 +156,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                       }
                     },
                     onSaved: (value) {
-                      model.datetime = value.toString();
+                      model.date = value.toString();
                     },
                   ),
                   SizedBox(
@@ -198,7 +200,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
-                          activityValidateFlag = true;
+                          model.activityId = widget.activityId;
                           gotoUserInfo();
                         }
                       },
@@ -218,7 +220,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
             ),
             SizedBox(height: 30),
             FutureBuilder<List<User>>(
-                future: _activityController.getAvailableUsers(2),
+                future: _respController.getUsersByActivity(widget.activityId),
                 builder: (_context, snapshot) {
                   return snapshot.hasData
                       ? ListView.builder(
@@ -255,7 +257,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                   setState(() {
                     toggleProgressBarState();
                     if (_formKey.currentState.validate())
-                      _activityController.postActivity(context, model);
+                      _respController.postResponsibility(context, model);
                     else
                       gotoUserInfo();
                     toggleProgressBarState();

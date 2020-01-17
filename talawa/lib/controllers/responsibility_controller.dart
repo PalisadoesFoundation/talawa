@@ -41,14 +41,13 @@ class ResponsibilityController {
     }
   }
 
-  Future postResponsibility(BuildContext context, Responsibility resp,
-      int activityId, int userId) async {
+  Future postResponsibility(BuildContext context, Responsibility resp) async {
     Map<String, dynamic> requestBody = {
-      "name": resp.name,
+      "title": resp.title,
       "datetime": resp.date,
       "description": resp.description,
-      "activity": activityId,
-      "userId": userId
+      "activity": resp.activityId,
+      "userId": resp.userId
     };
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {

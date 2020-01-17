@@ -20,7 +20,7 @@ class ResponsibilityPage extends StatelessWidget {
       builder: (_context, snapshot) {
         return snapshot.hasData
             ? CommonScaffold(
-                appTitle: snapshot.data.name,
+                appTitle: snapshot.data.title,
                 bodyData: bodyData(snapshot.data),
               )
             : Center(child: CircularProgressIndicator());
@@ -35,7 +35,7 @@ class ResponsibilityPage extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Text(
-                resp.name,
+                resp.title,
                 style: TextStyle(fontSize: 25),
               ),
             ),
