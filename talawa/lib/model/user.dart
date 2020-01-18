@@ -4,8 +4,9 @@ class User {
   String lastName;
   String email;
   String userImage;
+  bool selected;
 
-  User({this.id, this.firstName, this.lastName, this.email, this.userImage});
+  User({this.id, this.firstName, this.lastName, this.email, this.userImage, this.selected = false});
 
   User.copy(User tUser) {
     this.id = tUser.id;

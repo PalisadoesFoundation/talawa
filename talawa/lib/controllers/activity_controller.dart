@@ -68,7 +68,9 @@ class ActivityController {
       switch (response.statusCode) {
         case 201:
           {
-            Navigator.of(context).pushReplacement(
+            Scaffold.of(context).showSnackBar(
+                    SnackBar(content: Text(response.body)));
+            Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => new HomePage()));
             return response.body;
           }

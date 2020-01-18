@@ -1,19 +1,16 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:talawa/controllers/activity_controller.dart';
 import 'package:talawa/controllers/responsibility_controller.dart';
 import 'package:talawa/model/responsibility.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/view_models/vm_add_activity.dart';
 import 'package:intl/intl.dart';
 
-import '../user_tile.dart';
 
 class AddResponsibilityForm extends StatefulWidget {
-  int activityId;
-  AddResponsibilityForm({Key key, this.activityId}) : super(key: key);
+  final int activityId;
+  const AddResponsibilityForm({Key key, this.activityId}) : super(key: key);
   @override
   AddResponsibilityFormState createState() => AddResponsibilityFormState();
 }
@@ -134,7 +131,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0)),
-                      labelText: 'Date/Time*',
+                      labelText: 'Due Date/Time*',
                       prefixIcon: Icon(Icons.calendar_today),
                     ),
                     format: format,
@@ -231,7 +228,16 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                             User user = snapshot.data[index];
                             return Column(
                               children: <Widget>[
-                                UserTile(user: user, userIds: model.users)
+                                RadioListTile(
+                                  title: Text(user.email),
+                                  value: user.id,
+                                  groupValue: model.userId,
+                                  onChanged: (int value) {
+                                    setState(() {
+                                      model.userId = value;
+                                    });
+                                  },
+                                )
                               ],
                             );
                           },

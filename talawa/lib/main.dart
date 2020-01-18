@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
 
-      home: HomePage(),
+      home: LoginPage(),
 
       //routes
       routes: <String, WidgetBuilder>{

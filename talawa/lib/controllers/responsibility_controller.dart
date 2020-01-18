@@ -44,9 +44,9 @@ class ResponsibilityController {
   Future postResponsibility(BuildContext context, Responsibility resp) async {
     Map<String, dynamic> requestBody = {
       "title": resp.title,
-      "datetime": resp.date,
+      "date": resp.date,
       "description": resp.description,
-      "activity": resp.activityId,
+      "activityId": resp.activityId,
       "userId": resp.userId
     };
     Map<String, String> headers = {'Content-Type': 'application/json'};
@@ -98,7 +98,7 @@ class ResponsibilityController {
 
   Future<List<User>> getUsersByActivity(int activityId) async {
     final response = await http
-        .get(baseRoute + "/responsibility/getUsers/" + activityId.toString());
+        .get(baseRoute + "/user/getUsersByActivity/" + activityId.toString());
 
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.

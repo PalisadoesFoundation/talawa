@@ -6,24 +6,16 @@ import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/vm_add_activity.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/views/widgets/checkbox_user_tile.dart';
 
-import '../user_tile.dart';
-
-class AddActivityForm extends StatefulWidget {
-  @override
-  AddActivityFormState createState() {
-    return AddActivityFormState();
-  }
-}
-
-class AddActivityFormState extends State<AddActivityForm> {
-  final _formKey = GlobalKey<FormState>();
+class AddActivityForm extends StatelessWidget {
   AddActivityViewModel model = new AddActivityViewModel(admin: 2, users: []);
-  PageController _pageController = PageController(initialPage: 0);
+  BuildContext _context;
   ActivityController _activityController = new ActivityController();
+  List<User> users;
+  final _formKey = GlobalKey<FormState>();
+  PageController _pageController = PageController(initialPage: 0);
   bool _progressBarState = false;
-  bool activityValidateFlag = false;
-  String userListErrorText = '';
   static final format = DateFormat("yyyy-MM-dd HH:mm");
 
   String _validateTitle(String value) {
@@ -50,10 +42,6 @@ class AddActivityFormState extends State<AddActivityForm> {
     return null;
   }
 
-  void toggleProgressBarState() {
-    _progressBarState = !_progressBarState;
-  }
-
   gotoActivityInfo() {
     _pageController.animateToPage(
       0,
@@ -72,6 +60,7 @@ class AddActivityFormState extends State<AddActivityForm> {
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Form(
         key: _formKey,
         autovalidate: true,
@@ -198,7 +187,6 @@ class AddActivityFormState extends State<AddActivityForm> {
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
-                          activityValidateFlag = true;
                           gotoUserInfo();
                         }
                       },
@@ -229,7 +217,7 @@ class AddActivityFormState extends State<AddActivityForm> {
                             User user = snapshot.data[index];
                             return Column(
                               children: <Widget>[
-                                UserTile(user: user, userIds: model.users)
+                                CheckboxUserTile(user: user, userList: model.users)
                               ],
                             );
                           },
@@ -252,14 +240,10 @@ class AddActivityFormState extends State<AddActivityForm> {
                       ),
                 color: Colors.white,
                 onPressed: () {
-                  setState(() {
-                    toggleProgressBarState();
-                    if (_formKey.currentState.validate())
-                      _activityController.postActivity(context, model);
-                    else
-                      gotoUserInfo();
-                    toggleProgressBarState();
-                  });
+                  if (_formKey.currentState.validate())
+                    _activityController.postActivity(_context, model);
+                  else
+                    gotoUserInfo();
                 },
               ),
             ),

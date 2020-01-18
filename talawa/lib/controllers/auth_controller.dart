@@ -8,7 +8,6 @@ import 'package:talawa/view_models/vm_register.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:http/http.dart' as http;
 import 'package:talawa/views/widgets/AlertDialogSingleButton.dart';
-import 'package:talawa/views/widgets/snackbar.dart';
 
 class AuthController {
   Future login(BuildContext context, LoginViewModel user) async {
@@ -79,7 +78,8 @@ class AuthController {
       switch (response.statusCode) {
         case 201:
           {
-            return response;
+            Scaffold.of(context).showSnackBar(
+                    SnackBar(content: Text(response.body)));
           }
           break;
         case 401:
