@@ -1,12 +1,12 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/responsibility_controller.dart';
 import 'package:talawa/model/responsibility.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
-
 
 class AddResponsibilityForm extends StatefulWidget {
   final int activityId;
@@ -216,61 +216,64 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 30),
-            FutureBuilder<List<User>>(
-                future: _respController.getUsersByActivity(widget.activityId),
-                builder: (_context, snapshot) {
-                  return snapshot.hasData
-                      ? ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (_context, index) {
-                            User user = snapshot.data[index];
-                            return Column(
-                              children: <Widget>[
-                                RadioListTile(
-                                  title: Text(user.email),
-                                  value: user.id,
-                                  groupValue: model.userId,
-                                  onChanged: (int value) {
-                                    setState(() {
-                                      model.userId = value;
-                                    });
-                                  },
-                                )
-                              ],
-                            );
-                          },
-                        )
-                      : Center(child: CircularProgressIndicator());
-                }),
+            Consumer<ResponsibilityController>(builder: (context, controller, child) {
+              return FutureBuilder<List<User>>(
+                  future: controller.getUsersByActivity(widget.activityId),
+                  builder: (_context, snapshot) {
+                    return snapshot.hasData
+                        ? ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (_context, index) {
+                              User user = snapshot.data[index];
+                              return Column(
+                                children: <Widget>[
+                                  RadioListTile(
+                                    title: Text(user.email),
+                                    value: user.id,
+                                    groupValue: model.userId,
+                                    onChanged: (int value) {
+                                      setState(() {
+                                        model.userId = value;
+                                      });
+                                    },
+                                  )
+                                ],
+                              );
+                            },
+                          )
+                        : Center(child: CircularProgressIndicator());
+                  });
+            }),
             SizedBox(
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-              width: 180,
-              child: RaisedButton(
-                padding: EdgeInsets.all(12.0),
-                shape: StadiumBorder(),
-                child: _progressBarState
-                    ? const CircularProgressIndicator()
-                    : Text(
-                        'Save details',
-                      ),
-                color: Colors.white,
-                onPressed: () {
-                  setState(() {
-                    toggleProgressBarState();
-                    if (_formKey.currentState.validate())
-                      _respController.postResponsibility(context, model);
-                    else
-                      gotoUserInfo();
-                    toggleProgressBarState();
-                  });
-                },
-              ),
-            ),
+                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+                width: 180,
+                child: Consumer<ResponsibilityController>(builder: (context, controller, child) {
+                  return RaisedButton(
+                    padding: EdgeInsets.all(12.0),
+                    shape: StadiumBorder(),
+                    child: _progressBarState
+                        ? const CircularProgressIndicator()
+                        : Text(
+                            'Save details',
+                          ),
+                    color: Colors.white,
+                    onPressed: () {
+                      setState(() {
+                        toggleProgressBarState();
+                        if (_formKey.currentState.validate())
+                          _respController.postResponsibility(context, model);
+                        else
+                          gotoUserInfo();
+                        toggleProgressBarState();
+                      });
+                    },
+                  );
+                })),
           ],
         ),
       ));

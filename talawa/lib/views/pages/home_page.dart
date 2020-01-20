@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/activity_controller.dart';
 import 'package:talawa/model/activity.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -56,7 +57,6 @@ class HomePage extends StatelessWidget {
   }
 
   Widget activityList() {
-    ActivityController activityController = new ActivityController();
     return Column(
       children: <Widget>[
         Expanded(
@@ -70,8 +70,10 @@ class HomePage extends StatelessWidget {
         ),
         Expanded(
           flex: 9,
-          child: FutureBuilder<List<Activity>>(
-              future: activityController.getActivities(),
+          child: Consumer<ActivityController>(
+            builder: (context, controller, child){
+              return FutureBuilder<List<Activity>>(
+              future: controller.getActivities(),
               builder: (_context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data.length > 0) {
@@ -92,7 +94,9 @@ class HomePage extends StatelessWidget {
                 } else {
                   return Center(child: CircularProgressIndicator());
                 }
-              }),
+              });
+            }
+          )
         )
       ],
     );

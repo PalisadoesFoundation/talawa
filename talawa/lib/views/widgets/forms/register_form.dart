@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/view_models/vm_register.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -15,7 +15,6 @@ class RegisterForm extends StatefulWidget {
 class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   RegisterViewModel model = new RegisterViewModel();
-  AuthController _authController = new AuthController();
   bool _progressBarState = false;
 
   String _validateFirstName(String value) {
@@ -202,9 +201,8 @@ class RegisterFormState extends State<RegisterForm> {
                     toggleProgressBarState();
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
-                      _authController
-                          .register(context, model)
-                          .then((response) {});
+                      Provider.of<AuthController>(context, listen: false)
+                        .register(context, model);
                     } else {}
                     toggleProgressBarState();
                   });

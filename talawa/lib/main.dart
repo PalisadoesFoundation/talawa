@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/activity_controller.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/model/responsibility.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/add_responsibility_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:adhara_socket_io/adhara_socket_io.dart';
 
-void main() => runApp(MyApp());
+import 'controllers/responsibility_controller.dart';
+
+void main() => runApp(
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
+      ChangeNotifierProvider<ActivityController>(create: (_) => ActivityController()),
+      ChangeNotifierProvider<ResponsibilityController>(create: (_) => ResponsibilityController()),
+    ],
+    child: MyApp(), 
+  )
+);
 
 class MyApp extends StatelessWidget {
 
@@ -21,8 +36,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
 
-      home: LoginPage(),
-
+      home: FutureBuilder(
+        future: Provider.of<AuthController>(context).getUser(),
+        builder: (context, AsyncSnapshot snapshot){
+          if(snapshot.connectionState == ConnectionState.done){
+            return snapshot.hasData ? HomePage() : LoginPage();
+          }else{
+            return Container(color: Colors.white);
+          }
+        }
+      ),
       //routes
       routes: <String, WidgetBuilder>{
         UIData.homeRoute: (BuildContext context) => HomePage(),

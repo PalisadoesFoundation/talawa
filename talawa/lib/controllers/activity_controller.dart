@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:talawa/utils/globals.dart';
 
-class ActivityController {
+class ActivityController with ChangeNotifier{
   Future<List<Activity>> getActivities() async {
     final response = await http.get(baseRoute + "/activities");
 
@@ -26,6 +26,19 @@ class ActivityController {
   }
 
   Future<List<User>> getUsers() async {
+    final response = await http.get(baseRoute + "/user");
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON.
+      var data = json.decode(response.body);
+      data = data['users'];
+      return (data as List).map((user) => new User.fromJson(user)).toList();
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load projects');
+    }
+  }
+  
+  Future<List<User>> getUsersByActivity(int activityId, int userId) async {
     final response = await http.get(baseRoute + "/user");
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.

@@ -1,7 +1,9 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/activity_controller.dart';
+import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/vm_add_activity.dart';
@@ -9,9 +11,8 @@ import 'package:intl/intl.dart';
 import 'package:talawa/views/widgets/checkbox_user_tile.dart';
 
 class AddActivityForm extends StatelessWidget {
-  AddActivityViewModel model = new AddActivityViewModel(admin: 2, users: []);
+  AddActivityViewModel model = new AddActivityViewModel(users: []);
   BuildContext _context;
-  ActivityController _activityController = new ActivityController();
   List<User> users;
   final _formKey = GlobalKey<FormState>();
   PageController _pageController = PageController(initialPage: 0);
@@ -205,8 +206,10 @@ class AddActivityForm extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 30),
-            FutureBuilder<List<User>>(
-                future: _activityController.getAvailableUsers(2),
+            Consumer2<ActivityController, AuthController>(
+              builder: (context, activityController, authController, child){
+              return FutureBuilder<List<User>>(
+                future: activityController.getAvailableUsers(authController.currentUser.id),
                 builder: (_context, snapshot) {
                   return snapshot.hasData
                       ? ListView.builder(
@@ -217,36 +220,43 @@ class AddActivityForm extends StatelessWidget {
                             User user = snapshot.data[index];
                             return Column(
                               children: <Widget>[
-                                CheckboxUserTile(user: user, userList: model.users)
+                                CheckboxUserTile(
+                                    user: user, userList: model.users)
                               ],
                             );
                           },
                         )
                       : Center(child: CircularProgressIndicator());
-                }),
+                });
+            },),
             SizedBox(
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-              width: 180,
-              child: RaisedButton(
-                padding: EdgeInsets.all(12.0),
-                shape: StadiumBorder(),
-                child: _progressBarState
-                    ? const CircularProgressIndicator()
-                    : Text(
-                        'Save details',
-                      ),
-                color: Colors.white,
-                onPressed: () {
-                  if (_formKey.currentState.validate())
-                    _activityController.postActivity(_context, model);
-                  else
-                    gotoUserInfo();
-                },
-              ),
-            ),
+                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+                width: 180,
+                child: Consumer<ActivityController>(
+                  builder: (context, controller, child) {
+                    return RaisedButton(
+                      padding: EdgeInsets.all(12.0),
+                      shape: StadiumBorder(),
+                      child: _progressBarState
+                          ? const CircularProgressIndicator()
+                          : Text(
+                              'Save details',
+                            ),
+                      color: Colors.white,
+                      onPressed: () {
+                        if (_formKey.currentState.validate()){
+                          model.admin = Provider.of<AuthController>(_context, listen: false).currentUser.id;
+                          controller.postActivity(_context, model);
+                        }
+                        else
+                          gotoUserInfo();
+                      },
+                    );
+                  },
+                )),
           ],
         ),
       ));

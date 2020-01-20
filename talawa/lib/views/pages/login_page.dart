@@ -13,7 +13,6 @@ class LoginPage extends StatefulWidget {
 class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   final PageController _pageController =
       new PageController(initialPage: 1, viewportFraction: 1.0);
-
   var _media;
   @override
   void initState() {

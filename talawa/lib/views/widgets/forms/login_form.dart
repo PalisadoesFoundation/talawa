@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/vm_login.dart';
@@ -114,7 +115,7 @@ class LoginFormState extends State<LoginForm> {
                     toggleProgressBarState();
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
-                      _authController.login(context, model).then((response) {});
+                      Provider.of<AuthController>(context, listen: false).login(context, model);
                     } else {}
                     toggleProgressBarState();
                   });

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:talawa/utils/globals.dart';
 
-class ResponsibilityController {
+class ResponsibilityController with ChangeNotifier {
   Future<List<Responsibility>> getResponsibilitiesByActivity(
       int activityId) async {
     final response = await http.get(
