@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/activity_controller.dart';
 import 'package:talawa/model/activity.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/views/widgets/common_drawer.dart';
 
 class HomePage extends StatelessWidget {
   final _scaffoldState = GlobalKey<ScaffoldState>();
@@ -25,17 +26,8 @@ class HomePage extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.more_vert,
-            ),
-            color: Colors.black,
-            onPressed: () {},
-            tooltip: 'Share',
-          ),
-        ],
       ),
+      drawer: CommonDrawer(),
       body: Stack(
         children: <Widget>[
           Positioned.fill(

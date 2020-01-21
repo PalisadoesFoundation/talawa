@@ -209,7 +209,7 @@ class AddActivityForm extends StatelessWidget {
             Consumer2<ActivityController, AuthController>(
               builder: (context, activityController, authController, child){
               return FutureBuilder<List<User>>(
-                future: activityController.getAvailableUsers(authController.currentUser.id),
+                future: activityController.getAvailableUsers(context, authController.currentUser.id),
                 builder: (_context, snapshot) {
                   return snapshot.hasData
                       ? ListView.builder(

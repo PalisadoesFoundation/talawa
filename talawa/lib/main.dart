@@ -39,7 +39,8 @@ class MyApp extends StatelessWidget {
         future: Provider.of<AuthController>(context).getUser(),
         builder: (context, AsyncSnapshot snapshot){
           if(snapshot.connectionState == ConnectionState.done){
-            return snapshot.hasData ? HomePage() : LoginPage();
+            
+            return snapshot.data ? HomePage() : LoginPage();
           }else{
             return Container(color: Colors.white);
           }

@@ -1,12 +1,3 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
-import 'package:talawa/utils/globals.dart';
-import 'package:talawa/view_models/vm_login.dart';
-import 'package:talawa/view_models/vm_register.dart';
-import 'package:talawa/views/pages/_pages.dart';
-import 'package:talawa/views/widgets/_widgets.dart';
-
 class User {
   int id;
   String firstName;
@@ -16,11 +7,11 @@ class User {
   bool selected;
 
   User(
-      {this.id,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.userImage,
+      {this.id = 0,
+      this.firstName = "",
+      this.lastName = "",
+      this.email = "",
+      this.userImage = "",
       this.selected = false});
 
   User.copy(User tUser) {

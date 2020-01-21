@@ -130,11 +130,7 @@ class CommonScaffold extends StatelessWidget {
                         color: Colors.black,
                         fontSize: 22,
                         fontWeight: FontWeight.bold)),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.more_vert),
-                  color: Colors.black,
-                )
+                SizedBox(width: 50,)
               ],
             ),
           ),

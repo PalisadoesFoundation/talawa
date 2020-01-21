@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/model/token.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/globals.dart';
@@ -10,7 +11,6 @@ import 'package:talawa/view_models/vm_register.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:http/http.dart' as http;
 import 'package:talawa/views/widgets/AlertDialogSingleButton.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController with ChangeNotifier {
   User currentUser;
@@ -19,8 +19,12 @@ class AuthController with ChangeNotifier {
     print("new AuthController");
   }
 
-  Future<User> getUser() {
-    return Future.value(currentUser);
+  Future<bool> getUser() async {
+    currentUser = await Preferences.getCurrentUser();
+    if (currentUser.id == 0) {
+      return false;
+    }
+    return true;
   }
 
   Future<String> login(BuildContext context, LoginViewModel user) async {
@@ -38,8 +42,8 @@ class AuthController with ChangeNotifier {
         case 200:
           {
             final responseBody = json.decode(response.body);
-            currentUser = await Preferences.saveCurrentUser(responseBody['token']);
-            
+            final Token token = new Token(tokenString: responseBody['token']);
+            currentUser = await Preferences.saveCurrentUser(token);
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => new HomePage()));
             return 'User logged in';
@@ -94,8 +98,10 @@ class AuthController with ChangeNotifier {
       switch (response.statusCode) {
         case 201:
           {
-            Scaffold.of(context)
-                .showSnackBar(SnackBar(content: Text(response.body)));
+            final responseBody = jsonDecode(response.body);
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text(responseBody['message']),
+                duration: Duration(seconds: 5)));
           }
           break;
         case 401:
@@ -130,7 +136,11 @@ class AuthController with ChangeNotifier {
       showAlertDialog(context, e.toString(), e.toString(), "Ok");
     }
   }
-  void logout(){
 
+  void logout(BuildContext context) async {
+    currentUser = new User();
+    await Preferences.clearUser();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => new LoginPage()));
   }
 }

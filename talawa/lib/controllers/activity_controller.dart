@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:talawa/utils/globals.dart';
 
-class ActivityController with ChangeNotifier{
+class ActivityController with ChangeNotifier {
   Future<List<Activity>> getActivities() async {
     final response = await http.get(baseRoute + "/activities");
 
@@ -37,7 +37,7 @@ class ActivityController with ChangeNotifier{
       throw Exception('Failed to load projects');
     }
   }
-  
+
   Future<List<User>> getUsersByActivity(int activityId, int userId) async {
     final response = await http.get(baseRoute + "/user");
     if (response.statusCode == 200) {
@@ -51,16 +51,20 @@ class ActivityController with ChangeNotifier{
     }
   }
 
-  Future<List<User>> getAvailableUsers(int creator) async {
-    final response = await http.get(baseRoute + "/user/filter/" + creator.toString());
+  Future<List<User>> getAvailableUsers(
+      BuildContext context, int creator) async {
+    final response =
+        await http.get(baseRoute + "/user/filter/" + creator.toString());
+    var data = json.decode(response.body);
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.
-      var data = json.decode(response.body);
       data = data['users'];
       return (data as List).map((user) => new User.fromJson(user)).toList();
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load projects');
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(data['message']),
+          duration: Duration(seconds: 5)));
     }
   }
 
@@ -69,7 +73,7 @@ class ActivityController with ChangeNotifier{
       "title": model.title,
       "date": model.datetime,
       "description": model.description,
-      "admin": model.admin, 
+      "admin": model.admin,
       "users": model.users
     };
     Map<String, String> headers = {'Content-Type': 'application/json'};
@@ -83,7 +87,7 @@ class ActivityController with ChangeNotifier{
           {
             Navigator.of(context).pop();
             notifyListeners();
-            return response.body;
+            return;
           }
           break;
         case 401:
