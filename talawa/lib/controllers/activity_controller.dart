@@ -81,10 +81,8 @@ class ActivityController with ChangeNotifier{
       switch (response.statusCode) {
         case 201:
           {
-            Scaffold.of(context).showSnackBar(
-                    SnackBar(content: Text(response.body)));
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => new HomePage()));
+            Navigator.of(context).pop();
+            notifyListeners();
             return response.body;
           }
           break;

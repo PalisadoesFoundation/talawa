@@ -58,8 +58,8 @@ class ResponsibilityController with ChangeNotifier {
       switch (response.statusCode) {
         case 201:
           {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => new HomePage()));
+            Navigator.of(context).pop();
+            notifyListeners();
             return response.body;
           }
           break;
