@@ -50,7 +50,7 @@ class _ActivityDetailsState extends State<ActivityDetails>
     deviceSize = MediaQuery.of(context).size;
     return _scaffold();
   }
-  
+
   Widget _scaffold() => MainCollapsingToolbar(
       activity: activity,
       bodyData: TabBarView(
@@ -111,124 +111,6 @@ class _ActivityDetailsState extends State<ActivityDetails>
         ],
       ));
 
-
-  //Column1
-  Widget profileColumn() => Container(
-        height: deviceSize.height * 0.3,
-        child: FittedBox(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                ProfileTile(
-                  title: activity.title,
-                  subtitle: activity.date,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(left: 15, right: 15),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              new BorderRadius.all(new Radius.circular(40.0)),
-                          border: new Border.all(
-                            color: Colors.greenAccent,
-                            width: 0.5,
-                          ),
-                        ),
-                        child: CircleAvatar(
-                          backgroundImage: AssetImage(activity.image),
-                          foregroundColor: Colors.black,
-                          radius: 30.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      );
-
-  //column2
-
-  //column3
-  Widget descColumn() => Container(
-      height: deviceSize.height * 0.564882,
-      child: Column(
-        children: <Widget>[
-          new Container(
-            decoration: new BoxDecoration(color: Colors.transparent),
-            child: new TabBar(
-              controller: _controller,
-              tabs: [
-                new Tab(
-                  icon: const Icon(Icons.question_answer, color: Colors.black),
-                  child: Text(
-                    'Discussion',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-                new Tab(
-                  icon: const Icon(Icons.list, color: Colors.black),
-                  child: Text(
-                    'Roles & Responsibilities',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          new Expanded(
-            child: new TabBarView(
-              controller: _controller,
-              children: <Widget>[
-                new Column(
-                  children: <Widget>[
-                    new Flexible(
-                      child: ListView.builder(
-                        padding: new EdgeInsets.all(8.0),
-                        reverse: true,
-                        itemBuilder: (_, int index) => _messages[index],
-                        itemCount: _messages.length,
-                      ),
-                    ),
-                    new Divider(
-                      height: 1.0,
-                    ),
-                    new Container(
-                      decoration: new BoxDecoration(
-                        color: Theme.of(context).cardColor,
-                      ),
-                      child: _chatEnvironment(),
-                    )
-                  ],
-                ),
-                new Column(
-                  children: <Widget>[
-                    new Card(
-                      child: new ListTile(
-                        leading: const Icon(Icons.location_on),
-                        title:
-                            new Text('Latitude: 48.09342\nLongitude: 11.23403'),
-                        trailing: new IconButton(
-                            icon: const Icon(Icons.my_location),
-                            onPressed: () {}),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
-      ));
   Widget _chatEnvironment() {
     return IconTheme(
       data: new IconThemeData(color: Colors.blue),
@@ -254,15 +136,6 @@ class _ActivityDetailsState extends State<ActivityDetails>
           ],
         ),
       ),
-    );
-  }
-
-  Widget bodyData() {
-    return Column(
-      children: <Widget>[
-        profileColumn(),
-        descColumn(),
-      ],
     );
   }
 }

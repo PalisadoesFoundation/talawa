@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/user_controller.dart';
+import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/model/responsibility.dart';
 import 'package:talawa/views/widgets/_widgets.dart';
@@ -32,8 +35,30 @@ class _TaskItemState extends State<TaskItem> {
           children: <Widget>[
             Expanded(
                 flex: 2,
-                child: UserBubble(
-                  user: 'S',
+                child: InkWell(
+                  child: Consumer<UserController>(
+                    builder: (context, controller, child) {
+                      return FutureBuilder<User>(
+                          future: controller.getUser(widget.resp.userId),
+                          builder: (_context, snapshot) {
+                            if (snapshot.hasData) {
+                              User user = snapshot.data;
+                              return InkWell(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, UIData.contactPage);
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.blue,
+                                    child: Text(user.firstName.substring(0, 1),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18.0)),
+                                  ));
+                            }
+                          });
+                    },
+                  ),
                 )),
             Expanded(
               flex: 4,

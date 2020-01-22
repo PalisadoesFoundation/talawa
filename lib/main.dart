@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/activity_controller.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/user_controller.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/add_responsibility_page.dart';
@@ -16,6 +17,7 @@ void main() => runApp(
       ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
       ChangeNotifierProvider<ActivityController>(create: (_) => ActivityController()),
       ChangeNotifierProvider<ResponsibilityController>(create: (_) => ResponsibilityController()),
+      ChangeNotifierProvider<UserController>(create: (_) => UserController()),
     ],
     child: MyApp(), 
   )
