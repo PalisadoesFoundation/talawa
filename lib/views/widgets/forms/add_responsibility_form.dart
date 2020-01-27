@@ -7,6 +7,7 @@ import 'package:talawa/model/responsibility.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/utils/validator.dart';
 
 class AddResponsibilityForm extends StatefulWidget {
   final int activityId;
@@ -19,35 +20,10 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
   final _formKey = GlobalKey<FormState>();
   Responsibility model = new Responsibility();
   PageController _pageController = PageController(initialPage: 0);
-  ResponsibilityController _respController = new ResponsibilityController();
+  Validator val = new Validator();
   bool _progressBarState = false;
-  bool activityValidateFlag = false;
   String userListErrorText = '';
   static final format = DateFormat("yyyy-MM-dd HH:mm");
-
-  String _validateTitle(String value) {
-    if (value.length < 4) {
-      return 'Title must be at least 4 characters.';
-    }
-
-    return null;
-  }
-
-  String _validateDateTime(DateTime value) {
-    if (value == null) {
-      return 'Date field must not be left blank.';
-    }
-
-    return null;
-  }
-
-  String _validateDescription(String value) {
-    if (value.length < 5 || value.length > 50) {
-      return 'Description field must range between\n 5 and 30 characters';
-    }
-
-    return null;
-  }
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -105,7 +81,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                   ),
                   TextFormField(
                     validator: (value) {
-                      return _validateTitle(value);
+                      return val.validateTitle(value);
                     },
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
@@ -126,7 +102,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                   ),
                   DateTimeField(
                     validator: (value) {
-                      return _validateDateTime(value);
+                      return val.validateDateTime(value);
                     },
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -161,7 +137,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                   ),
                   TextFormField(
                     validator: (value) {
-                      return _validateDescription(value);
+                      return val.validateDescription(value);
                     },
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
@@ -266,7 +242,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                       setState(() {
                         toggleProgressBarState();
                         if (_formKey.currentState.validate())
-                          _respController.postResponsibility(context, model);
+                          Provider.of<ResponsibilityController>(context, listen: false).postResponsibility(context, model);
                         else
                           gotoUserInfo();
                         toggleProgressBarState();

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/activity_controller.dart';
+import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/model/activity.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/common_drawer.dart';
@@ -62,10 +63,10 @@ class HomePage extends StatelessWidget {
         ),
         Expanded(
           flex: 9,
-          child: Consumer<ActivityController>(
-            builder: (context, controller, child){
+          child: Consumer2<ActivityController, AuthController>(
+            builder: (context, activityController, authController, child){
               return FutureBuilder<List<Activity>>(
-              future: controller.getActivities(),
+              future: activityController.getActivitiesByUser(authController.currentUser.id),
               builder: (_context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data.length > 0) {

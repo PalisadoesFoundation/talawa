@@ -46,7 +46,7 @@ class _TaskItemState extends State<TaskItem> {
                               return InkWell(
                                   onTap: () {
                                     Navigator.pushNamed(
-                                        context, UIData.contactPage);
+                                        context, UIData.contactPage, arguments: user.id);
                                   },
                                   child: CircleAvatar(
                                     backgroundColor: Colors.blue,
@@ -55,6 +55,8 @@ class _TaskItemState extends State<TaskItem> {
                                             color: Colors.white,
                                             fontSize: 18.0)),
                                   ));
+                            }else{
+                              return CircularProgressIndicator();
                             }
                           });
                     },

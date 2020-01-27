@@ -9,6 +9,7 @@ class CommonScaffold extends StatelessWidget {
   final showFAB;
   final showDrawer;
   final backGroundColor;
+  final PopupMenuButton action;
   final actionFirstIcon;
   final scaffoldKey;
   final showBottomNav;
@@ -22,6 +23,7 @@ class CommonScaffold extends StatelessWidget {
       this.showFAB = false,
       this.showDrawer = false,
       this.backGroundColor,
+      this.action,
       this.actionFirstIcon = Icons.search,
       this.scaffoldKey,
       this.showBottomNav = false,
@@ -88,49 +90,34 @@ class CommonScaffold extends StatelessWidget {
     return Scaffold(
       key: scaffoldKey != null ? scaffoldKey : null,
       backgroundColor: backGroundColor != null ? backGroundColor : null,
-      // appBar:
-      // PreferredSize(
-      //   preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
-      //   child: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: Colors.transparent,
-      //   leading: IconButton(
-      //     icon: Icon(Icons.arrow_back),
-      //     color: Colors.black,
-      //     onPressed: () => Navigator.pop(context, false),
-      //   ),
-      //   title: Text(appTitle, style: TextStyle(color: Colors.black)),
-      //   actions: <Widget>[
-      //     SizedBox(
-      //       width: 5.0,
-      //     ),
-      //     IconButton(
-      //       onPressed: () {},
-      //       icon: Icon(Icons.more_vert),
-      //       color: Colors.black,
-      //     )
-      //   ],
-      // ),
-      // ),
       drawer: showDrawer ? CommonDrawer() : null,
       body: new Column(
         children: <Widget>[
           Container(
-            height: divheight * 0.20,
+            height: divheight * 0.16,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  color: Colors.black,
-                  onPressed: () => Navigator.pop(context, false),
+                Expanded(
+                  flex: 1,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    color: Colors.black,
+                    onPressed: () => Navigator.pop(context, false),
+                  ),
                 ),
-                Text(appTitle,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold)),
-                SizedBox(width: 50,)
+                Expanded(
+                  flex: 9,
+                  child: Text(appTitle != null ? appTitle : '',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold)),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: action != null ? action : SizedBox()
+                )
               ],
             ),
           ),

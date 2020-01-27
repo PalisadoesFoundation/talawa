@@ -24,6 +24,21 @@ class ActivityController with ChangeNotifier {
       throw Exception('Failed to load projects');
     }
   }
+  Future<List<Activity>> getActivitiesByUser(int userId) async {
+    final response = await http.get(baseRoute + "/activities/fetchActivitiesByUser/" + userId.toString());
+
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON.
+      var data = json.decode(response.body);
+      data = data['activities'];
+      return (data as List)
+          .map((activity) => new Activity.fromJson(activity))
+          .toList();
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load projects');
+    }
+  }
 
   Future<List<User>> getUsers() async {
     final response = await http.get(baseRoute + "/user");

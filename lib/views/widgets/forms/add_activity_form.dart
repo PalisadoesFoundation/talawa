@@ -6,6 +6,7 @@ import 'package:talawa/controllers/activity_controller.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_add_activity.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/widgets/checkbox_user_tile.dart';
@@ -13,35 +14,11 @@ import 'package:talawa/views/widgets/checkbox_user_tile.dart';
 class AddActivityForm extends StatelessWidget {
   AddActivityViewModel model = new AddActivityViewModel(users: []);
   BuildContext _context;
-  List<User> users;
   final _formKey = GlobalKey<FormState>();
+  Validator val = new Validator();
   PageController _pageController = PageController(initialPage: 0);
   bool _progressBarState = false;
-  static final format = DateFormat("yyyy-MM-dd HH:mm");
-
-  String _validateTitle(String value) {
-    if (value.length < 4) {
-      return 'Title must be at least 4 characters.';
-    }
-
-    return null;
-  }
-
-  String _validateDateTime(DateTime value) {
-    if (value == null) {
-      return 'Date field must not be left blank.';
-    }
-
-    return null;
-  }
-
-  String _validateDescription(String value) {
-    if (value.length < 5 || value.length > 50) {
-      return 'Description field must range between\n 5 and 30 characters';
-    }
-
-    return null;
-  }
+  static final format = DateFormat("yyyy-MM-dd HH:mm");  
 
   gotoActivityInfo() {
     _pageController.animateToPage(
@@ -96,7 +73,7 @@ class AddActivityForm extends StatelessWidget {
                   ),
                   TextFormField(
                     validator: (value) {
-                      return _validateTitle(value);
+                      return val.validateTitle(value);
                     },
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
@@ -117,7 +94,7 @@ class AddActivityForm extends StatelessWidget {
                   ),
                   DateTimeField(
                     validator: (value) {
-                      return _validateDateTime(value);
+                      return val.validateDateTime(value);
                     },
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -152,7 +129,7 @@ class AddActivityForm extends StatelessWidget {
                   ),
                   TextFormField(
                     validator: (value) {
-                      return _validateDescription(value);
+                      return val.validateDescription(value);
                     },
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(

@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/user_controller.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_register.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -13,23 +15,14 @@ class RegisterForm extends StatefulWidget {
 }
 
 class RegisterFormState extends State<RegisterForm> {
+  bool isEmailAvailable = false;
+  BuildContext _context;
   final _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController originalPassword = new TextEditingController();
   RegisterViewModel model = new RegisterViewModel();
+  Validator val = new Validator();
   bool _progressBarState = false;
-
-  String _validateFirstName(String value) {
-    if (value.length < 4) {
-      return 'First name must be at least 4 characters.';
-    }
-    return null;
-  }
-
-  String _validateLastName(String value) {
-    if (value.length < 4) {
-      return 'Last name must be at least 4 characters.';
-    }
-    return null;
-  }
 
   String _validateEmail(String value) {
     RegExp regExp = new RegExp(
@@ -38,20 +31,8 @@ class RegisterFormState extends State<RegisterForm> {
     if (!regExp.hasMatch(value)) {
       return 'E-mail Address must be a valid email address.';
     }
-    return null;
-  }
-
-  String _validatePassword(String value) {
-    if (value.length < 4) {
-      return 'Password must be at least 4 characters.';
-    }
-
-    return null;
-  }
-
-  String _validatePasswordConfirm(String value) {
-    if (value != model.password) {
-      return 'Password does not match original';
+    if(isEmailAvailable){
+      return 'E-mail is already taken';
     }
     return null;
   }
@@ -62,8 +43,10 @@ class RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return Form(
         key: _formKey,
+        autovalidate: true,
         child: Column(
           children: <Widget>[
             Text('Register',
@@ -73,7 +56,7 @@ class RegisterFormState extends State<RegisterForm> {
             ),
             TextFormField(
               validator: (value) {
-                return _validateFirstName(value);
+                return val.validateFirstName(value);
               },
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
@@ -96,7 +79,7 @@ class RegisterFormState extends State<RegisterForm> {
             ),
             TextFormField(
               validator: (value) {
-                return _validateLastName(value);
+                return val.validateLastName(value);
               },
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
@@ -121,6 +104,7 @@ class RegisterFormState extends State<RegisterForm> {
               validator: (value) {
                 return _validateEmail(value);
               },
+              controller: emailController,
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -142,8 +126,9 @@ class RegisterFormState extends State<RegisterForm> {
             ),
             TextFormField(
               obscureText: true,
+              controller: originalPassword,
               validator: (value) {
-                return _validatePassword(value);
+                return val.validatePassword(value);
               },
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
@@ -168,7 +153,7 @@ class RegisterFormState extends State<RegisterForm> {
             TextFormField(
               obscureText: true,
               validator: (value) {
-                return _validatePassword(value);
+                return val.validatePasswordConfirm(originalPassword.text, value);
               },
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
@@ -196,14 +181,16 @@ class RegisterFormState extends State<RegisterForm> {
                         "SIGN UP",
                       ),
                 color: Colors.white,
-                onPressed: () {
+                onPressed: () async {
                   setState(() {
                     toggleProgressBarState();
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      Provider.of<AuthController>(context, listen: false)
-                        .register(context, model);
-                    } else {}
+                  });
+                  isEmailAvailable = await Provider.of<UserController>(context, listen: false).validateUserEmail(emailController.text);
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    await Provider.of<AuthController>(context, listen: false).register(context, model);
+                  }
+                  setState(() {
                     toggleProgressBarState();
                   });
                 },
