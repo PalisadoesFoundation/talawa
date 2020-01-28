@@ -140,7 +140,7 @@ class ContactPage extends StatelessWidget {
                               TextFormField(
                                 initialValue: controller.currentUser.firstName,
                                 validator: (value) {
-                                  return _validateEmail(value);
+                                  return validateFirstName(value);
                                 },
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
@@ -217,17 +217,11 @@ class ContactPage extends StatelessWidget {
                                         ),
                                   color: Colors.white,
                                   onPressed: () async {
-                                    isEmailAvailable =
-                                        await Provider.of<UserController>(
-                                                context,
-                                                listen: false)
-                                            .validateUserEmail(
-                                                emailController.text);
                                     if (_formKey.currentState.validate()) {
                                       _formKey.currentState.save();
                                       await Provider.of<UserController>(context,
                                               listen: false)
-                                          .updateUser(context, model);
+                                          .updateUser(context, Provider.of<AuthController>(context, listen: false).currentUser, model);
                                     }
                                   },
                                 ),

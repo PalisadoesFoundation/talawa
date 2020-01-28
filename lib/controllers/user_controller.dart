@@ -57,20 +57,35 @@ class UserController with ChangeNotifier {
     }
   }
 
-  Future updateUser(BuildContext context, User model) async {
+  Future updateUser(BuildContext context, User oldModel, User newModel) async {
     
-    Map<String, dynamic> requestBody = {"user": {
-      model
-    }};
+    var oldModelMap = toMap(oldModel);
+    var newModelMap = toMap(newModel);
+
+    oldModelMap.forEach((oldKey, oldAttr){
+      newModelMap.removeWhere((newKey, newAttr) => newAttr == oldAttr);
+    });
+    Map<String, dynamic> requestBody = {
+      "updates": newModelMap
+    };
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try{
-      final response = await http.patch(baseRoute + "/user/" + model.id.toString(), headers: headers, body: jsonEncode(requestBody));
+      final response = await http.patch(baseRoute + "/user/" + oldModel.id.toString(), headers: headers, body: jsonEncode(requestBody));
       if(response.statusCode == 200){
         Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => new HomePage()));
+            notifyListeners();
       }
     }catch(e){
 
     }
+  }
+
+  Map<String, dynamic> toMap(User model){
+    return {
+      "firstName": model.firstName,
+      "lastName": model.lastName,
+      "email": model.email
+    };
   }
 }
