@@ -13,15 +13,15 @@ import 'package:http/http.dart' as http;
 import 'package:talawa/views/widgets/AlertDialogSingleButton.dart';
 
 class AuthController with ChangeNotifier {
-  User currentUser;
+  int currentUserId;
 
   AuthController() {
     print("new AuthController");
   }
 
   Future<bool> getUser() async {
-    currentUser = await Preferences.getCurrentUser();
-    if (currentUser.id == 0) {
+    currentUserId = await Preferences.getCurrentUserId();
+    if (currentUserId == -1) {
       return false;
     }
     return true;
@@ -43,7 +43,7 @@ class AuthController with ChangeNotifier {
           {
             final responseBody = json.decode(response.body);
             final Token token = new Token(tokenString: responseBody['token']);
-            currentUser = await Preferences.saveCurrentUser(token);
+            currentUserId = await Preferences.saveCurrentUserId(token);
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => new HomePage()));
             return 'User logged in';
@@ -52,7 +52,7 @@ class AuthController with ChangeNotifier {
         case 401:
           {
             showAlertDialog(
-                context, "Unauthorized", "You are unauthorized to login", "Ok");
+                context, "Unauthorized", "Invalid username/password", "Ok");
           }
           break;
         case 403:
@@ -138,7 +138,7 @@ class AuthController with ChangeNotifier {
   }
 
   void logout(BuildContext context) async {
-    currentUser = new User();
+    currentUserId = -1;
     await Preferences.clearUser();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => new LoginPage()));

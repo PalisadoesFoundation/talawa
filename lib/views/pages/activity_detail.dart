@@ -53,6 +53,22 @@ class _ActivityDetailsState extends State<ActivityDetails>
 
   Widget _scaffold() => MainCollapsingToolbar(
       activity: activity,
+      actions: <Widget>[
+        PopupMenuButton<int>(
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              value: 1,
+              child: Text("Edit"),
+            ),
+          ],
+          onSelected: (result) {
+            if (result == 1) {}
+            {
+              // editUserForm();
+            }
+          },
+        )
+      ],
       bodyData: TabBarView(
         children: <Widget>[
           new Column(
@@ -137,5 +153,121 @@ class _ActivityDetailsState extends State<ActivityDetails>
         ),
       ),
     );
+  }
+
+  editUserForm() {
+    showDialog(
+        context: _context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              content: SingleChildScrollView(
+                  child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            'Edit',
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          TextFormField(
+                            initialValue: controller.currentUser.firstName,
+                            validator: (value) {
+                              return validateFirstName(value);
+                            },
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              prefixIcon: Icon(Icons.person),
+                              labelText: "FirstName",
+                              alignLabelWithHint: true,
+                              hintText: 'Earl',
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                            onSaved: (value) {
+                              model.firstName = value;
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            initialValue: controller.currentUser.lastName,
+                            validator: (value) {
+                              return validateLastName(value);
+                            },
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              prefixIcon: Icon(Icons.person),
+                              labelText: "Last Name",
+                              alignLabelWithHint: true,
+                              hintText: 'John',
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                            onSaved: (value) {
+                              model.lastName = value;
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            validator: (value) {
+                              return _validateEmail(value);
+                            },
+                            controller: emailController,
+                            textAlign: TextAlign.left,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              prefixIcon: Icon(Icons.person),
+                              labelText: "Email",
+                              alignLabelWithHint: true,
+                              hintText: 'test@test.com',
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                            onSaved: (value) {
+                              model.email = value;
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 20.0, horizontal: 30.0),
+                            width: double.infinity,
+                            child: RaisedButton(
+                              padding: EdgeInsets.all(12.0),
+                              shape: StadiumBorder(),
+                              child: _progressBarState
+                                  ? const CircularProgressIndicator()
+                                  : Text(
+                                      "Submit",
+                                    ),
+                              color: Colors.white,
+                              onPressed: () async {
+                                if (_formKey.currentState.validate()) {
+                                  _formKey.currentState.save();
+                                  await Provider.of<UserController>(context,
+                                          listen: false)
+                                      .updateUser(
+                                          context,
+                                          Provider.of<AuthController>(context,
+                                                  listen: false)
+                                              .currentUser,
+                                          model);
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ))));
+        });
   }
 }

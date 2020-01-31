@@ -8,7 +8,6 @@ import 'package:talawa/views/widgets/_widgets.dart';
 
 class TaskItem extends StatefulWidget {
   final Responsibility resp;
-
   const TaskItem({Key key, this.resp}) : super(key: key);
 
   @override
@@ -16,10 +15,12 @@ class TaskItem extends StatefulWidget {
 }
 
 class _TaskItemState extends State<TaskItem> {
+  BuildContext _context;
   bool selected = false;
 
   @override
   Widget build(BuildContext context) {
+    _context = context;
     return new Card(
       shape: selected
           ? new RoundedRectangleBorder(
@@ -46,7 +47,8 @@ class _TaskItemState extends State<TaskItem> {
                               return InkWell(
                                   onTap: () {
                                     Navigator.pushNamed(
-                                        context, UIData.contactPage, arguments: user.id);
+                                        context, UIData.contactPage,
+                                        arguments: user.id);
                                   },
                                   child: CircleAvatar(
                                     backgroundColor: Colors.blue,
@@ -55,7 +57,7 @@ class _TaskItemState extends State<TaskItem> {
                                             color: Colors.white,
                                             fontSize: 18.0)),
                                   ));
-                            }else{
+                            } else {
                               return CircularProgressIndicator();
                             }
                           });

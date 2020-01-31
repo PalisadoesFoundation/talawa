@@ -4,7 +4,8 @@ import 'package:talawa/model/activity.dart';
 class MainCollapsingToolbar extends StatefulWidget {
   final Activity activity;
   final Widget bodyData;
-  MainCollapsingToolbar({Key key, this.activity, this.bodyData})
+  final List<Widget> actions;
+  MainCollapsingToolbar({Key key, this.activity, this.bodyData, this.actions})
       : super(key: key);
   @override
   _MainCollapsingToolbarState createState() => _MainCollapsingToolbarState();
@@ -21,6 +22,7 @@ class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
+                  actions: widget.actions,
                   expandedHeight: 150.0,
                   floating: false,
                   pinned: true,
@@ -29,7 +31,7 @@ class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
                     title: Text(widget.activity.title,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16.0,
+                          fontSize: 20.0,
                         )),
                   ),
                 ),

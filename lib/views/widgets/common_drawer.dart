@@ -6,6 +6,7 @@ import 'package:talawa/utils/uidata.dart';
 
 class CommonDrawer extends StatelessWidget {
   @override
+  
   Widget build(BuildContext context) {
     return Drawer(child: Consumer<AuthController>(
       builder: (context, controller, child) {

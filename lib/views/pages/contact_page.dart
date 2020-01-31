@@ -10,6 +10,7 @@ import 'package:talawa/views/widgets/common_scaffold.dart';
 class ContactPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   int userId;
+  User user;
   bool _progressBarState = false;
   bool isEmailAvailable = false;
   final User model = new User();
@@ -54,7 +55,7 @@ class ContactPage extends StatelessWidget {
 
   scaffold() => CommonScaffold(
       bodyData: bodyData(),
-      action: Provider.of<AuthController>(_context).currentUser.id == userId
+      action: Provider.of<AuthController>(_context).currentUserId == userId
           ? PopupMenuButton<int>(
               itemBuilder: (context) => [
                 PopupMenuItem(
@@ -79,7 +80,7 @@ class ContactPage extends StatelessWidget {
               future: controller.getUser(userId),
               builder: (_context, snapshot) {
                 if (snapshot.hasData) {
-                  User user = snapshot.data;
+                  user = snapshot.data;
                   return userDetail(user);
                 } else {
                   return Center(child: CircularProgressIndicator());
@@ -125,7 +126,7 @@ class ContactPage extends StatelessWidget {
               content: SingleChildScrollView(
                   child: Consumer<AuthController>(
                     builder: (context, controller, child) {
-                      emailController.text = controller.currentUser.email;
+                      emailController.text = user.email;
                       return Form(
                           key: _formKey,
                           child: Column(
@@ -138,7 +139,7 @@ class ContactPage extends StatelessWidget {
                                 height: 30,
                               ),
                               TextFormField(
-                                initialValue: controller.currentUser.firstName,
+                                initialValue: user.firstName,
                                 validator: (value) {
                                   return validateFirstName(value);
                                 },
@@ -160,7 +161,7 @@ class ContactPage extends StatelessWidget {
                                 height: 20,
                               ),
                               TextFormField(
-                                initialValue: controller.currentUser.lastName,
+                                initialValue: user.lastName,
                                 validator: (value) {
                                   return validateLastName(value);
                                 },
@@ -221,7 +222,7 @@ class ContactPage extends StatelessWidget {
                                       _formKey.currentState.save();
                                       await Provider.of<UserController>(context,
                                               listen: false)
-                                          .updateUser(context, Provider.of<AuthController>(context, listen: false).currentUser, model);
+                                          .updateUser(context, user, model);
                                     }
                                   },
                                 ),

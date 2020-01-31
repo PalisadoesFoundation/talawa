@@ -12,13 +12,10 @@ class HomePage extends StatelessWidget {
   Size deviceSize;
   BuildContext _context;
 
-  // Widget build(BuildContext context) {
-  //   _context = context;
-  //   return homeScaffold(context);
-  // }
   @override
   Widget build(BuildContext context) {
     _context = context;
+    Provider.of<AuthController>(context, listen: false).getUser();
     return Scaffold(
       appBar: new AppBar(
         title: Image(
@@ -66,7 +63,7 @@ class HomePage extends StatelessWidget {
           child: Consumer2<ActivityController, AuthController>(
             builder: (context, activityController, authController, child){
               return FutureBuilder<List<Activity>>(
-              future: activityController.getActivitiesByUser(authController.currentUser.id),
+              future: activityController.getActivitiesByUser(authController.currentUserId),
               builder: (_context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data.length > 0) {
