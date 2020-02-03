@@ -6,6 +6,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/model/activity.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/common_drawer.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatelessWidget {
   final _scaffoldState = GlobalKey<ScaffoldState>();
@@ -63,7 +64,7 @@ class HomePage extends StatelessWidget {
           child: Consumer2<ActivityController, AuthController>(
             builder: (context, activityController, authController, child){
               return FutureBuilder<List<Activity>>(
-              future: activityController.getActivitiesByUser(authController.currentUserId),
+              future: activityController.getActivitiesByUser(context, authController.currentUserId),
               builder: (_context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data.length > 0) {
@@ -118,7 +119,7 @@ class HomePage extends StatelessWidget {
                       SizedBox(
                         height: 5,
                       ),
-                      Text(activity.date + '\n' + activity.time,
+                      Text(DateFormat("MMMM d, y\nh:m aaa").format(activity.datetime),
                           style: TextStyle(fontSize: 18)),
                     ],
                   ),
@@ -134,11 +135,11 @@ class HomePage extends StatelessWidget {
                                 color: Colors.white,
                                 size: 18,
                               ),
-                              activity.users > 9
+                              activity.userLength > 9
                                   ? Text('+9',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 18.0))
-                                  : Text(activity.users.toString(),
+                                  : Text(activity.userLength.toString(),
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 18.0)),
                             ],

@@ -5,6 +5,7 @@ import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/model/responsibility.dart';
 import 'package:talawa/views/widgets/_widgets.dart';
+import 'package:intl/intl.dart';
 
 class TaskItem extends StatefulWidget {
   final Responsibility resp;
@@ -58,7 +59,7 @@ class _TaskItemState extends State<TaskItem> {
                                             fontSize: 18.0)),
                                   ));
                             } else {
-                              return CircularProgressIndicator();
+                              return Center(child: CircularProgressIndicator());
                             }
                           });
                     },
@@ -81,7 +82,7 @@ class _TaskItemState extends State<TaskItem> {
                   Navigator.pushNamed(context, UIData.responsibilityPage,
                       arguments: widget.resp.id);
                 },
-                child: new Text(widget.resp.date + '\n' + widget.resp.time,
+                child: new Text(DateFormat("MMMM d, y\nh:m aaa").format(widget.resp.datetime),
                     textAlign: TextAlign.center),
               ),
             ),

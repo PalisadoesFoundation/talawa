@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:http/http.dart' as http;

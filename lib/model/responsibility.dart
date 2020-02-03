@@ -2,8 +2,7 @@ class Responsibility {
   int id;
   String title;
   String description;
-  String date;
-  String time;
+  DateTime datetime;
   int priority;
   bool isCompleted;
   int activityId;
@@ -13,8 +12,7 @@ class Responsibility {
       {this.id,
       this.title,
       this.description,
-      this.date,
-      this.time,
+      this.datetime,
       this.priority,
       this.isCompleted,
       this.activityId,
@@ -24,8 +22,7 @@ class Responsibility {
       id: json['id'],
       title: json['title'],
       description: json['description'],
-      date: json['date'],
-      time: json['time'],
+      datetime: DateTime.fromMillisecondsSinceEpoch(json['datetime']),
       priority: json['priority'],
       isCompleted: json['isCompleted'],
       activityId: json['activityId'],

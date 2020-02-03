@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/responsibility_controller.dart';
-import 'package:talawa/model/responsibility.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/utils/validator.dart';
+import 'package:talawa/view_models/vm_add_responsibility.dart';
 
 class AddResponsibilityForm extends StatefulWidget {
   final int activityId;
@@ -18,7 +18,7 @@ class AddResponsibilityForm extends StatefulWidget {
 
 class AddResponsibilityFormState extends State<AddResponsibilityForm> {
   final _formKey = GlobalKey<FormState>();
-  Responsibility model = new Responsibility();
+  AddResponsibilityViewModel model = new AddResponsibilityViewModel();
   PageController _pageController = PageController(initialPage: 0);
   Validator val = new Validator();
   bool _progressBarState = false;
@@ -129,7 +129,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                       }
                     },
                     onSaved: (value) {
-                      model.date = value.toString();
+                      model.datetime = value.toString();
                     },
                   ),
                   SizedBox(
@@ -194,7 +194,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
             SizedBox(height: 30),
             Consumer<ResponsibilityController>(builder: (context, controller, child) {
               return FutureBuilder<List<User>>(
-                  future: controller.getUsersByActivity(widget.activityId),
+                  future: controller.getUsersByActivity(context, widget.activityId),
                   builder: (_context, snapshot) {
                     return snapshot.hasData
                         ? ListView.builder(

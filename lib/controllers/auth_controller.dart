@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/model/user.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/view_models/vm_login.dart';
@@ -35,7 +34,7 @@ class AuthController with ChangeNotifier {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
       final response = await http
-          .post(baseRoute + "/user/login",
+          .post(baseRoute + "/auth/login",
               headers: headers, body: jsonEncode(requestBody))
           .timeout(Duration(seconds: 20));
       switch (response.statusCode) {
@@ -51,29 +50,37 @@ class AuthController with ChangeNotifier {
           break;
         case 401:
           {
-            showAlertDialog(
-                context, "Unauthorized", "Invalid username/password", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("You are unauthorized to login"),
+                duration: Duration(seconds: 5)));
           }
           break;
         case 403:
           {
-            showAlertDialog(
-                context, "Forbidden", "Forbidden access to resource", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Forbidden access to resource"),
+                duration: Duration(seconds: 5)));
           }
           break;
         case 415:
           {
-            showAlertDialog(context, "Invalid media", "", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Invalid media"),
+                duration: Duration(seconds: 5)));
           }
           break;
         case 500:
           {
-            showAlertDialog(context, "Something drastic happened", "", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Something drastic happened"),
+                duration: Duration(seconds: 5)));
           }
           break;
         default:
           {
-            showAlertDialog(context, "Something happened", "", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Something happened"),
+                duration: Duration(seconds: 5)));
           }
           break;
       }
@@ -92,11 +99,11 @@ class AuthController with ChangeNotifier {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
       final response = await http
-          .post(baseRoute + "/user/register",
+          .post(baseRoute + "/auth/register",
               headers: headers, body: jsonEncode(requestBody))
           .timeout(Duration(seconds: 20));
       switch (response.statusCode) {
-        case 201:
+        case 201 | 200:
           {
             final responseBody = jsonDecode(response.body);
             Scaffold.of(context).showSnackBar(SnackBar(
@@ -106,29 +113,37 @@ class AuthController with ChangeNotifier {
           break;
         case 401:
           {
-            showAlertDialog(
-                context, "Unauthorized", "You are unauthorized to login", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("You are unauthorized to login"),
+                duration: Duration(seconds: 5)));
           }
           break;
         case 403:
           {
-            showAlertDialog(
-                context, "Forbidden", "Forbidden access to resource", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Forbidden access to resource"),
+                duration: Duration(seconds: 5)));
           }
           break;
         case 415:
           {
-            showAlertDialog(context, "Invalid media", "", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Invalid media"),
+                duration: Duration(seconds: 5)));
           }
           break;
         case 500:
           {
-            showAlertDialog(context, "Something drastic happened", "", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Something drastic happened"),
+                duration: Duration(seconds: 5)));
           }
           break;
         default:
           {
-            showAlertDialog(context, "Something happened", "", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Something happened"),
+                duration: Duration(seconds: 5)));
           }
           break;
       }

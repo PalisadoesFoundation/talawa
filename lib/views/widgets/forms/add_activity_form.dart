@@ -186,7 +186,7 @@ class AddActivityForm extends StatelessWidget {
             Consumer2<ActivityController, AuthController>(
               builder: (context, activityController, authController, child){
               return FutureBuilder<List<User>>(
-                future: activityController.getAvailableUsers(context, authController.currentUser.id),
+                future: activityController.getAvailableUsers(context, authController.currentUserId),
                 builder: (_context, snapshot) {
                   return snapshot.hasData
                       ? ListView.builder(
@@ -225,7 +225,7 @@ class AddActivityForm extends StatelessWidget {
                       color: Colors.white,
                       onPressed: () {
                         if (_formKey.currentState.validate()){
-                          model.admin = Provider.of<AuthController>(_context, listen: false).currentUser.id;
+                          model.admin = Provider.of<AuthController>(_context, listen: false).currentUserId;
                           controller.postActivity(_context, model);
                         }
                         else

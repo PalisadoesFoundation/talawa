@@ -6,9 +6,9 @@ class Activity {
   String title;
   IconData icon;
   String image;
-  String date;
+  DateTime datetime;
   String time;
-  int users;
+  int userLength;
   BuildContext context;
   String description;
   Color menuColor;
@@ -18,10 +18,10 @@ class Activity {
       this.title,
       this.icon,
       this.image,
-      this.date,
+      this.datetime,
       this.time,
-      this.users,
       this.description,
+      this.userLength,
       this.context,
       this.menuColor = Colors.black});
 
@@ -29,10 +29,9 @@ class Activity {
     return Activity(
       id: json['id'],
       title: json['title'],
-      date: json['date'],
-      time: json['time'],
-      users: json['users'],
+      datetime: DateTime.fromMillisecondsSinceEpoch(json['datetime']),
       description: json['description'],
+      userLength: json['userLength'],
       menuColor: Color(0xff050505),
       icon: Icons.book,
       image: UIData.blankImage,

@@ -9,7 +9,7 @@ import 'dart:convert';
 import 'package:talawa/utils/globals.dart';
 
 class ActivityController with ChangeNotifier {
-  Future<List<Activity>> getActivities() async {
+  Future<List<Activity>> getActivities(BuildContext context) async {
     final response = await http.get(baseRoute + "/activities");
 
     if (response.statusCode == 200) {
@@ -21,11 +21,32 @@ class ActivityController with ChangeNotifier {
           .toList();
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load projects');
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("unable to fetch activities"),
+          duration: Duration(seconds: 5)));
     }
   }
-  Future<List<Activity>> getActivitiesByUser(int userId) async {
-    final response = await http.get(baseRoute + "/activities/fetchActivitiesByUser/" + userId.toString());
+
+  Future<Activity> getActivity(BuildContext context, int activityId) async {
+    final response =
+        await http.get(baseRoute + "/activities/" + activityId.toString());
+
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON.
+      Activity activity = Activity.fromJson(json.decode(response.body));
+      return activity;
+    } else {
+      // If that call was not successful, throw an error.
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("unable to fetch activity"),
+          duration: Duration(seconds: 5)));
+    }
+  }
+
+  Future<List<Activity>> getActivitiesByUser(
+      BuildContext context, int userId) async {
+    final response = await http.get(
+        baseRoute + "/activities/fetchActivitiesByUser/" + userId.toString());
 
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.
@@ -36,11 +57,14 @@ class ActivityController with ChangeNotifier {
           .toList();
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load projects');
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("unable to fetch activities"),
+          duration: Duration(seconds: 5)));
     }
   }
 
-  Future<List<User>> getUsers() async {
+  Future<List<User>> getUsersByActivity(
+      BuildContext context, int activityId, int userId) async {
     final response = await http.get(baseRoute + "/user");
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.
@@ -49,20 +73,9 @@ class ActivityController with ChangeNotifier {
       return (data as List).map((user) => new User.fromJson(user)).toList();
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load projects');
-    }
-  }
-
-  Future<List<User>> getUsersByActivity(int activityId, int userId) async {
-    final response = await http.get(baseRoute + "/user");
-    if (response.statusCode == 200) {
-      // If the call to the server was successful, parse the JSON.
-      var data = json.decode(response.body);
-      data = data['users'];
-      return (data as List).map((user) => new User.fromJson(user)).toList();
-    } else {
-      // If that call was not successful, throw an error.
-      throw Exception('Failed to load projects');
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("unable to fetch users"),
+          duration: Duration(seconds: 5)));
     }
   }
 
@@ -78,15 +91,14 @@ class ActivityController with ChangeNotifier {
     } else {
       // If that call was not successful, throw an error.
       Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text(data['message']),
-          duration: Duration(seconds: 5)));
+          content: Text(data['message']), duration: Duration(seconds: 5)));
     }
   }
 
   Future postActivity(BuildContext context, AddActivityViewModel model) async {
     Map<String, dynamic> requestBody = {
       "title": model.title,
-      "date": model.datetime,
+      "datetime": model.datetime,
       "description": model.description,
       "admin": model.admin,
       "users": model.users
@@ -107,34 +119,76 @@ class ActivityController with ChangeNotifier {
           break;
         case 401:
           {
-            showAlertDialog(
-                context, "Unauthorized", "You are unauthorized to login", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("You are unauthorized to login"),
+                duration: Duration(seconds: 5)));
           }
           break;
         case 403:
           {
-            showAlertDialog(
-                context, "Forbidden", "Forbidden access to resource", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Forbidden access to resource"),
+                duration: Duration(seconds: 5)));
           }
           break;
         case 415:
           {
-            showAlertDialog(context, "Invalid media", "", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Invalid media"),
+                duration: Duration(seconds: 5)));
           }
           break;
         case 500:
           {
-            showAlertDialog(context, "Something drastic happened", "", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Something drastic happened"),
+                duration: Duration(seconds: 5)));
           }
           break;
         default:
           {
-            showAlertDialog(context, "Something happened", "", "Ok");
+            Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text("Something happened"),
+                duration: Duration(seconds: 5)));
           }
           break;
       }
     } catch (e) {
       showAlertDialog(context, e.toString(), e.toString(), "Ok");
     }
+  }
+
+  Future updateActivity(
+      BuildContext context, Activity oldModel, Activity newModel) async {
+    var oldModelMap = toMap(oldModel);
+    var newModelMap = toMap(newModel);
+
+    oldModelMap.forEach((oldKey, oldAttr) {
+      newModelMap.removeWhere((newKey, newAttr) => newAttr == oldAttr);
+    });
+    Map<String, dynamic> requestBody = {"updates": newModelMap};
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+    try {
+      final response = await http.patch(
+          baseRoute + "/activities/" + oldModel.id.toString(),
+          headers: headers,
+          body: jsonEncode(requestBody));
+      if (response.statusCode == 200) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => new HomePage()));
+        notifyListeners();
+      }
+    } catch (e) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("Something happened"), duration: Duration(seconds: 5)));
+    }
+  }
+
+  Map<String, dynamic> toMap(Activity model) {
+    return {
+      "title": model.title,
+      "datetime": model.datetime,
+      "description": model.description
+    };
   }
 }
