@@ -135,11 +135,11 @@ class HomePage extends StatelessWidget {
                                 color: Colors.white,
                                 size: 18,
                               ),
-                              activity.userLength > 9
+                              activity.userCount > 9
                                   ? Text('+9',
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 18.0))
-                                  : Text(activity.userLength.toString(),
+                                  : Text(activity.userCount.toString(),
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 18.0)),
                             ],

@@ -30,7 +30,7 @@ class ActivityController with ChangeNotifier {
   Future<Activity> getActivity(BuildContext context, int activityId) async {
     final response =
         await http.get(baseRoute + "/activities/" + activityId.toString());
-
+    print(response.statusCode);
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.
       Activity activity = Activity.fromJson(json.decode(response.body));
@@ -47,6 +47,7 @@ class ActivityController with ChangeNotifier {
       BuildContext context, int userId) async {
     final response = await http.get(
         baseRoute + "/activities/fetchActivitiesByUser/" + userId.toString());
+    print(response.statusCode);
 
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.
