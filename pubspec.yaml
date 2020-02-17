@@ -27,7 +27,7 @@ dependencies:
   rxdart: ^0.21.0
   flutter_masked_text: ^0.8.0
   flutter_svg: ^0.14.1
-  adhara_socket_io: ^0.4.1
+  flutter_socket_io: ^0.6.0
   datetime_picker_formfield: ^1.0.0
   grouped_buttons: ^1.0.4
   provider: ^4.0.1

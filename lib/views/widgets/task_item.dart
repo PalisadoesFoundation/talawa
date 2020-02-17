@@ -4,7 +4,6 @@ import 'package:talawa/controllers/user_controller.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/model/responsibility.dart';
-import 'package:talawa/views/widgets/_widgets.dart';
 import 'package:intl/intl.dart';
 
 class TaskItem extends StatefulWidget {
@@ -16,12 +15,10 @@ class TaskItem extends StatefulWidget {
 }
 
 class _TaskItemState extends State<TaskItem> {
-  BuildContext _context;
   bool selected = false;
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
     return new Card(
       shape: selected
           ? new RoundedRectangleBorder(

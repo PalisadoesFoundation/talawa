@@ -1,10 +1,15 @@
+// import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_socket_io/flutter_socket_io.dart';
+import 'package:flutter_socket_io/socket_io_manager.dart';
 import 'package:talawa/controllers/responsibility_controller.dart';
 import 'package:talawa/model/activity.dart';
 import 'package:talawa/model/responsibility.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/_widgets.dart';
 import 'package:talawa/views/widgets/forms/edit_activity_form.dart';
+import 'package:talawa/utils/globals.dart';
 
 class ActivityDetails extends StatefulWidget {
   ActivityDetails({
@@ -18,12 +23,12 @@ class ActivityDetails extends StatefulWidget {
 
 class _ActivityDetailsState extends State<ActivityDetails>
     with SingleTickerProviderStateMixin {
+  SocketIO socketIO;
   ResponsibilityController responsibilityController =
       new ResponsibilityController();
   final TextEditingController _chatController = new TextEditingController();
   var deviceSize;
   Activity activity;
-  TabController _controller;
   BuildContext _context;
   final List<ChatMessage> _messages = <ChatMessage>[];
 
@@ -31,11 +36,21 @@ class _ActivityDetailsState extends State<ActivityDetails>
 
   @override
   void initState() {
+    socketIO = SocketIOManager().createSocketIO(
+        baseRoute,
+      '/',
+    );
+    // socketIO.init();
+    // socketIO.subscribe('receive_message', (jsonData) {
+    //   //Convert the JSON data received into a Map
+    //   Map<String, dynamic> data = json.decode(jsonData);
+    //   this.setState(() => _messages.insert(0, data['message']));
+    // });
+    // socketIO.connect();
+    // _messages.insert(0, message);
+    // _messages.insert(0, message);
+    // _messages.insert(0, message);
     super.initState();
-    // _messages.insert(0, message);
-    // _messages.insert(0, message);
-    // _messages.insert(0, message);
-    _controller = new TabController(length: 2, vsync: this);
   }
 
   void _handleSubmit(String text) {

@@ -16,7 +16,6 @@ class RegisterForm extends StatefulWidget {
 
 class RegisterFormState extends State<RegisterForm> {
   bool isEmailAvailable = false;
-  BuildContext _context;
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController originalPassword = new TextEditingController();
@@ -43,7 +42,6 @@ class RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
     return Form(
         key: _formKey,
         autovalidate: true,

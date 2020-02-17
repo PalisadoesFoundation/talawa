@@ -83,7 +83,7 @@ class AuthController with ChangeNotifier {
                 duration: Duration(seconds: 5)));
           }
           break;
-      }
+      }    
     } catch (e) {
       showAlertDialog(context, e.toString(), e.toString(), "Ok");
     }

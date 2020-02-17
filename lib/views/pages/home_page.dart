@@ -9,8 +9,6 @@ import 'package:talawa/views/widgets/common_drawer.dart';
 import 'package:intl/intl.dart';
 
 class HomePage extends StatelessWidget {
-  final _scaffoldState = GlobalKey<ScaffoldState>();
-  Size deviceSize;
   BuildContext _context;
 
   @override

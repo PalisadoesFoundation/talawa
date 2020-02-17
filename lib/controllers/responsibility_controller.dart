@@ -27,6 +27,7 @@ class ResponsibilityController with ChangeNotifier {
           content: Text("Failed to load responsibilities"),
           duration: Duration(seconds: 5)));
     }
+    return new List<Responsibility>();
   }
 
   Future<Responsibility> getResponsibility(BuildContext context, int respId) async {
@@ -43,6 +44,7 @@ class ResponsibilityController with ChangeNotifier {
           content: Text("Failed to load responsibility"),
           duration: Duration(seconds: 5)));
     }
+    return Responsibility();
   }
 
   Future postResponsibility(BuildContext context, AddResponsibilityViewModel resp) async {
@@ -123,6 +125,7 @@ class ResponsibilityController with ChangeNotifier {
                 content: Text("Failed to load users"),
                 duration: Duration(seconds: 5)));
     }
+    return new List<User>();
   }
 
   Future updateResponsibility(BuildContext context, Responsibility oldModel,

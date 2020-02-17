@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class UserBubble extends StatelessWidget {
-  @override
+  
   final String user;
 
   UserBubble({this.user});
+  
+  @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {

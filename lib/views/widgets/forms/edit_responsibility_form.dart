@@ -13,7 +13,7 @@ class EditResponsibilityForm extends StatelessWidget {
   Validator val = new Validator();
   Responsibility oldModel;
   Responsibility newModel = new Responsibility();
-  static final format = DateFormat("yyyy-MM-dd HH:mm");
+  final format = DateFormat("yyyy-MM-dd HH:mm");
   EditResponsibilityForm({this.respId});
   @override
   build(BuildContext context) {

@@ -8,64 +8,79 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:talawa/utils/globals.dart';
 
+/*Handles all activity specific routes*/
 class ActivityController with ChangeNotifier {
+
+  /* Retrieves all activities | Appends number of users a part of each activity */
   Future<List<Activity>> getActivities(BuildContext context) async {
+    //Stores response from API get request
     final response = await http.get(baseRoute + "/activities");
 
+    // If the call to the server was successful, parse the JSON.
     if (response.statusCode == 200) {
-      // If the call to the server was successful, parse the JSON.
       var data = json.decode(response.body);
       data = data['activities'];
       return (data as List)
           .map((activity) => new Activity.fromJson(activity))
           .toList();
-    } else {
-      // If that call was not successful, throw an error.
+    } 
+    // If that call was not successful, display error. 
+    else {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("unable to fetch activities"),
           duration: Duration(seconds: 5)));
     }
+    //Return default activity list.
+    return new List<Activity>();
   }
 
+  /* Retrieves an activity based on an activity id */
   Future<Activity> getActivity(BuildContext context, int activityId) async {
-    final response =
-        await http.get(baseRoute + "/activities/" + activityId.toString());
-    print(response.statusCode);
+    //Stores response from API Request
+    final response = await http.get(baseRoute + "/activities/$activityId");
+
+    // If the call to the server was successful, parse the JSON.
     if (response.statusCode == 200) {
-      // If the call to the server was successful, parse the JSON.
       Activity activity = Activity.fromJson(json.decode(response.body));
       return activity;
-    } else {
-      // If that call was not successful, throw an error.
+    } 
+    // If that call was not successful, throw an error.
+    else {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("unable to fetch activity"),
           duration: Duration(seconds: 5)));
     }
+    return new Activity();
   }
 
+  /* Retrieves a list of activities based on a specific user */
   Future<List<Activity>> getActivitiesByUser(
       BuildContext context, int userId) async {
+    //Stores response from API Request
     final response = await http.get(
-        baseRoute + "/activities/fetchActivitiesByUser/" + userId.toString());
-    print(response.statusCode);
+        baseRoute + "/activities/fetchActivitiesByUser/$userId");
 
+    // If the call to the server was successful, parse the JSON.
     if (response.statusCode == 200) {
-      // If the call to the server was successful, parse the JSON.
       var data = json.decode(response.body);
       data = data['activities'];
       return (data as List)
           .map((activity) => new Activity.fromJson(activity))
           .toList();
-    } else {
-      // If that call was not successful, throw an error.
+    } 
+    // If that call was not successful, throw an error.
+    else {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("unable to fetch activities"),
           duration: Duration(seconds: 5)));
     }
+    return new List<Activity>();
   }
 
+  /* Retrieves users associated with a specific activity */
   Future<List<User>> getUsersByActivity(
       BuildContext context, int activityId, int userId) async {
+    //Stores response from API Request
     final response = await http.get(baseRoute + "/user");
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.
@@ -78,6 +93,7 @@ class ActivityController with ChangeNotifier {
           content: Text("unable to fetch users"),
           duration: Duration(seconds: 5)));
     }
+    return new List<User>();
   }
 
   Future<List<User>> getAvailableUsers(
@@ -94,6 +110,7 @@ class ActivityController with ChangeNotifier {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(data['message']), duration: Duration(seconds: 5)));
     }
+    return new List<User>();
   }
 
   Future postActivity(BuildContext context, AddActivityViewModel model) async {

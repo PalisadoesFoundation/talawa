@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +28,7 @@ class UserController with ChangeNotifier {
       return new User.fromJson(userData);
     } else {
       // If that call was not successful, throw an error.
-      throw Exception('Failed to load projects');
+      throw Exception('Failed to load user');
     }
   }
 
@@ -48,14 +47,12 @@ class UserController with ChangeNotifier {
         if(count > 0){
           return true;
         }
-        else{
-          return false;
-        }
 
       }
     } catch (e) {
       print(e);
     }
+    return false;
   }
 
   Future updateUser(BuildContext context, User oldModel, User newModel) async {

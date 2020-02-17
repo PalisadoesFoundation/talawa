@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/model/user.dart';
-import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/model/responsibility.dart';
 import 'package:talawa/views/widgets/_widgets.dart';
 
 class UserTile extends StatefulWidget {

@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/model/user.dart';
 
 class Preferences {
   static const tokenKey = "token";

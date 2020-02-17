@@ -15,7 +15,6 @@ class LoginForm extends StatefulWidget {
 class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   LoginViewModel model = new LoginViewModel();
-  AuthController _authController = new AuthController();
   bool _progressBarState = false;
 
   String _validateEmail(String value) {

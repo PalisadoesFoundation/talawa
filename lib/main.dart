@@ -7,7 +7,6 @@ import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/add_responsibility_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:adhara_socket_io/adhara_socket_io.dart';
 
 import 'controllers/responsibility_controller.dart';
 
