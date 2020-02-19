@@ -18,6 +18,7 @@ class AuthController with ChangeNotifier {
     print("new AuthController");
   }
 
+  //Checks if user is logged in via local storage
   Future<bool> getUser() async {
     currentUserId = await Preferences.getCurrentUserId();
     if (currentUserId == -1) {
@@ -26,28 +27,41 @@ class AuthController with ChangeNotifier {
     return true;
   }
 
+  //Log in user
   Future<String> login(BuildContext context, LoginViewModel user) async {
+    //Create request body
     Map<String, dynamic> requestBody = {
       "email": user.email,
       "password": user.password
     };
+
+    //Create json header for request
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
+      //Store response from API request
       final response = await http
           .post(baseRoute + "/auth/login",
               headers: headers, body: jsonEncode(requestBody))
           .timeout(Duration(seconds: 20));
       switch (response.statusCode) {
+        //Navigate user to activity screen upon successful login
         case 200:
           {
+            //Decode json response
             final responseBody = json.decode(response.body);
+
+            //Store user token in local storage
             final Token token = new Token(tokenString: responseBody['token']);
             currentUserId = await Preferences.saveCurrentUserId(token);
+
+            //Navigate user to activity screen
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => new HomePage()));
             return 'User logged in';
           }
           break;
+
+        //Exceptions
         case 401:
           {
             Scaffold.of(context).showSnackBar(SnackBar(
@@ -89,7 +103,9 @@ class AuthController with ChangeNotifier {
     }
   }
 
+  //Registers user
   Future register(BuildContext context, RegisterViewModel user) async {
+    //
     Map<String, dynamic> requestBody = {
       "firstName": user.firstName,
       "lastName": user.lastName,

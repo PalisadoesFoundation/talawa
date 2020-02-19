@@ -96,24 +96,29 @@ class ActivityController with ChangeNotifier {
     return new List<User>();
   }
 
+  /* Retrieves users excluding the creator of the activity */
   Future<List<User>> getAvailableUsers(
       BuildContext context, int creator) async {
+    //Stores response from API Request
     final response =
         await http.get(baseRoute + "/user/filter/" + creator.toString());
     var data = json.decode(response.body);
+    // If the call to the server was successful, parse the JSON.
     if (response.statusCode == 200) {
-      // If the call to the server was successful, parse the JSON.
       data = data['users'];
       return (data as List).map((user) => new User.fromJson(user)).toList();
-    } else {
-      // If that call was not successful, throw an error.
+    }
+    // If that call was not successful, handle exception
+    else {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(data['message']), duration: Duration(seconds: 5)));
     }
     return new List<User>();
   }
 
+  /* Create an activity */
   Future postActivity(BuildContext context, AddActivityViewModel model) async {
+    // Create json request
     Map<String, dynamic> requestBody = {
       "title": model.title,
       "datetime": model.datetime,
@@ -121,8 +126,10 @@ class ActivityController with ChangeNotifier {
       "admin": model.admin,
       "users": model.users
     };
+    //Create header definition for request
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
+      //Stores response from API request
       final response = await http
           .post(baseRoute + '/activities',
               headers: headers, body: jsonEncode(requestBody))
@@ -130,11 +137,13 @@ class ActivityController with ChangeNotifier {
       switch (response.statusCode) {
         case 201:
           {
+            //Navigates app back to the activity scren
             Navigator.of(context).pop();
             notifyListeners();
             return;
           }
           break;
+        //Exceptions
         case 401:
           {
             Scaffold.of(context).showSnackBar(SnackBar(
@@ -181,12 +190,17 @@ class ActivityController with ChangeNotifier {
     var oldModelMap = toMap(oldModel);
     var newModelMap = toMap(newModel);
 
+    //Remove all unchanged attributes from the new model
     oldModelMap.forEach((oldKey, oldAttr) {
       newModelMap.removeWhere((newKey, newAttr) => newAttr == oldAttr);
     });
+    //Create request
     Map<String, dynamic> requestBody = {"updates": newModelMap};
+
+    //Create header for request
     Map<String, String> headers = {'Content-Type': 'application/json'};
     try {
+      //Stores response from API Request
       final response = await http.patch(
           baseRoute + "/activities/" + oldModel.id.toString(),
           headers: headers,
@@ -202,6 +216,8 @@ class ActivityController with ChangeNotifier {
     }
   }
 
+
+  //Turns activity model into a map object
   Map<String, dynamic> toMap(Activity model) {
     return {
       "title": model.title,
