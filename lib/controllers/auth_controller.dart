@@ -13,7 +13,6 @@ import 'package:talawa/views/widgets/AlertDialogSingleButton.dart';
 
 class AuthController with ChangeNotifier {
   int currentUserId;
-
   AuthController() {
     print("new AuthController");
   }
@@ -83,7 +82,7 @@ class AuthController with ChangeNotifier {
                 duration: Duration(seconds: 5)));
           }
           break;
-      }    
+      }
     } catch (e) {
       showAlertDialog(context, e.toString(), e.toString(), "Ok");
     }

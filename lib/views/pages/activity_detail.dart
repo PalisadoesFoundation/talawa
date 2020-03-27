@@ -1,18 +1,18 @@
-// import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_socket_io/flutter_socket_io.dart';
-import 'package:flutter_socket_io/socket_io_manager.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/note_controller.dart';
 import 'package:talawa/controllers/responsibility_controller.dart';
 import 'package:talawa/model/activity.dart';
+import 'package:talawa/model/note.dart';
 import 'package:talawa/model/responsibility.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/_widgets.dart';
 import 'package:talawa/views/widgets/forms/edit_activity_form.dart';
-import 'package:talawa/utils/globals.dart';
 
 class ActivityDetails extends StatefulWidget {
-  ActivityDetails({
+  final Activity activity;
+  ActivityDetails(
+    this.activity, {
     Key key,
     Colors color,
   }) : super(key: key);
@@ -23,54 +23,41 @@ class ActivityDetails extends StatefulWidget {
 
 class _ActivityDetailsState extends State<ActivityDetails>
     with SingleTickerProviderStateMixin {
-  SocketIO socketIO;
   ResponsibilityController responsibilityController =
       new ResponsibilityController();
   final TextEditingController _chatController = new TextEditingController();
   var deviceSize;
-  Activity activity;
   BuildContext _context;
-  final List<ChatMessage> _messages = <ChatMessage>[];
+  List<Note> notes = [];
 
-  ChatMessage message = new ChatMessage(text: 'This is a test message');
+  final List<ChatMessage> _messages = <ChatMessage>[];
 
   @override
   void initState() {
-    socketIO = SocketIOManager().createSocketIO(
-        baseRoute,
-      '/',
-    );
-    // socketIO.init();
-    // socketIO.subscribe('receive_message', (jsonData) {
-    //   //Convert the JSON data received into a Map
-    //   Map<String, dynamic> data = json.decode(jsonData);
-    //   this.setState(() => _messages.insert(0, data['message']));
-    // });
-    // socketIO.connect();
     // _messages.insert(0, message);
     // _messages.insert(0, message);
     // _messages.insert(0, message);
+    // fetchNotes(activity.title);
     super.initState();
   }
 
   void _handleSubmit(String text) {
     _chatController.clear();
-    ChatMessage message = new ChatMessage(text: text);
+    // ChatMessage message = new ChatMessage(text: text);
     setState(() {
-      _messages.insert(0, message);
+      // _messages.insert(1, message);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     _context = context;
-    activity = ModalRoute.of(context).settings.arguments;
     deviceSize = MediaQuery.of(context).size;
     return _scaffold();
   }
 
   Widget _scaffold() => MainCollapsingToolbar(
-      activity: activity,
+      activity: widget.activity,
       actions: <Widget>[
         PopupMenuButton<int>(
           itemBuilder: (context) => [
@@ -91,14 +78,29 @@ class _ActivityDetailsState extends State<ActivityDetails>
         children: <Widget>[
           new Column(
             children: <Widget>[
-              new Flexible(
-                child: ListView.builder(
-                  padding: new EdgeInsets.all(8.0),
-                  reverse: true,
-                  itemBuilder: (_, int index) => _messages[index],
-                  itemCount: _messages.length,
-                ),
-              ),
+              new Flexible(child: Consumer<NoteController>(
+                  builder: (context, controller, child) {
+                return FutureBuilder<List<Note>>(
+                    future: controller.getNotes(widget.activity.id),
+                    builder: (_context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          itemCount: snapshot.data.length,
+                          padding: new EdgeInsets.all(8.0),
+                          itemBuilder: (_context, index) {
+                            Note note = snapshot.data[index];
+                            return Column(
+                              children: <Widget>[
+                                ChatMessage(note: note)
+                              ],
+                            );
+                          },
+                        );
+                      } else {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    });
+              })),
               new Divider(
                 height: 1.0,
               ),
@@ -114,8 +116,9 @@ class _ActivityDetailsState extends State<ActivityDetails>
             children: <Widget>[
               new Flexible(
                 child: FutureBuilder<List<Responsibility>>(
-                    future: responsibilityController
-                        .getResponsibilitiesByActivity(context, activity.id),
+                    future:
+                        responsibilityController.getResponsibilitiesByActivity(
+                            context, widget.activity.id),
                     builder: (_context, snapshot) {
                       return snapshot.hasData
                           ? ListView.builder(
@@ -136,7 +139,7 @@ class _ActivityDetailsState extends State<ActivityDetails>
                   child: Icon(Icons.add),
                   onPressed: () {
                     Navigator.pushNamed(context, UIData.addResponsibilityPage,
-                        arguments: activity.id);
+                        arguments: widget.activity.id);
                   },
                 ),
               )
@@ -164,7 +167,10 @@ class _ActivityDetailsState extends State<ActivityDetails>
               margin: const EdgeInsets.symmetric(horizontal: 4.0),
               child: new IconButton(
                 icon: new Icon(Icons.send),
-                onPressed: () => _handleSubmit(_chatController.text),
+                onPressed: () {
+                  Provider.of<NoteController>(context, listen: false)
+                      .sendMessage(widget.activity.title, _chatController.text);
+                },
               ),
             )
           ],
@@ -177,7 +183,9 @@ class _ActivityDetailsState extends State<ActivityDetails>
     showDialog(
         context: _context,
         builder: (BuildContext context) {
-          return EditActivityForm(activityId: activity.id,);
+          return EditActivityForm(
+            activityId: widget.activity.id,
+          );
         });
   }
 }

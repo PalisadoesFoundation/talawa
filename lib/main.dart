@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/activity_controller.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/note_controller.dart';
 import 'package:talawa/controllers/user_controller.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -10,21 +11,31 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'controllers/responsibility_controller.dart';
 
-void main() => runApp(
-  MultiProvider(
+void main() {
+  // DependencyInjection().initialise(Injector.getInjector());
+  // injector = Injector.getInjector();
+  // await AppInitializer().initialise(injector);
+  // final SocketService socketService = injector.get<SocketService>();
+  // socketService.createSocketConnection();
+  runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
-      ChangeNotifierProvider<ActivityController>(create: (_) => ActivityController()),
-      ChangeNotifierProvider<ResponsibilityController>(create: (_) => ResponsibilityController()),
+      ChangeNotifierProvider<ActivityController>(
+          create: (_) => ActivityController()),
+      ChangeNotifierProvider<ResponsibilityController>(
+          create: (_) => ResponsibilityController()),
       ChangeNotifierProvider<UserController>(create: (_) => UserController()),
+      ChangeNotifierProvider<NoteController>(create: (_) => NoteController()),
     ],
-    child: MyApp(), 
-  )
-);
+    child: MyApp(),
+  ));
+}
 
 class MyApp extends StatelessWidget {
-
   // This widget is the root of your application.
+
+  //route definition
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,30 +46,30 @@ class MyApp extends StatelessWidget {
           primarySwatch: UIData.quitoThemeColor),
       debugShowCheckedModeBanner: false,
       showPerformanceOverlay: false,
-
-      home: FutureBuilder(
-        future: Provider.of<AuthController>(context).getUser(),
-        builder: (context, AsyncSnapshot snapshot){
-          if(snapshot.connectionState == ConnectionState.done){
-            
-            return snapshot.data ? HomePage() : LoginPage();
-          }else{
-            return Container(color: Colors.white);
-          }
-        }
-      ),
-      //routes
-      routes: <String, WidgetBuilder>{
-        UIData.homeRoute: (BuildContext context) => HomePage(),
-        UIData.addActivityPage: (BuildContext context) => AddActivityPage(),
-        UIData.addResponsibilityPage: (BuildContext context) =>
-            AddResponsibilityPage(),
-        UIData.activityDetails: (BuildContext context) => ActivityDetails(),
-        UIData.notFoundRoute: (BuildContext context) => NotFoundPage(),
-        UIData.responsibilityPage: (BuildContext context) =>
-            ResponsibilityPage(),
-        UIData.contactPage: (BuildContext context) => ContactPage()
+      onGenerateRoute: (RouteSettings settings) {
+        print('build route for ${settings.name}');
+        var routes = <String, WidgetBuilder>{
+          UIData.homeRoute: (BuildContext context) => HomePage(),
+          UIData.addActivityPage: (BuildContext context) => AddActivityPage(),
+          UIData.addResponsibilityPage: (BuildContext context) =>
+              AddResponsibilityPage(),
+          UIData.activityDetails: (BuildContext context) => ActivityDetails(settings.arguments),
+          UIData.notFoundRoute: (BuildContext context) => NotFoundPage(),
+          UIData.responsibilityPage: (BuildContext context) => NotFoundPage(),
+          UIData.contactPage: (BuildContext context) => ContactPage()
+        };
+        WidgetBuilder builder = routes[settings.name];
+        return MaterialPageRoute(builder: (ctx) => builder(ctx));
       },
+      home: FutureBuilder(
+          future: Provider.of<AuthController>(context).getUser(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return snapshot.data ? HomePage() : LoginPage();
+            } else {
+              return Container(color: Colors.white);
+            }
+          }),
       onUnknownRoute: (RouteSettings rs) => new MaterialPageRoute(
           builder: (context) => new NotFoundPage(
                 appTitle: UIData.coming_soon,

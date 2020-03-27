@@ -3,18 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/activity_controller.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/note_controller.dart';
 import 'package:talawa/model/activity.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/common_drawer.dart';
 import 'package:intl/intl.dart';
 
-class HomePage extends StatelessWidget {
+
+class HomePage extends StatefulWidget{
+  _HomePageState createState()=> new _HomePageState();
+}
+
+
+class _HomePageState extends State<HomePage> {
   BuildContext _context;
 
+  @override void initState() {
+    super.initState();
+    Provider.of<NoteController>(context, listen: false).initializeSocket(
+      Provider.of<AuthController>(context, listen: false).currentUserId
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     _context = context;
-    Provider.of<AuthController>(context, listen: false).getUser();
     return Scaffold(
       appBar: new AppBar(
         title: Image(
@@ -133,13 +146,11 @@ class HomePage extends StatelessWidget {
                                 color: Colors.white,
                                 size: 18,
                               ),
-                              activity.userCount > 9
-                                  ? Text('+9',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 18.0))
-                                  : Text(activity.userCount.toString(),
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 18.0)),
+                              Text("0",
+                                style: TextStyle(
+                                color: Colors.white, fontSize: 18.0
+                                )
+                              ),
                             ],
                           )),
                     ],
