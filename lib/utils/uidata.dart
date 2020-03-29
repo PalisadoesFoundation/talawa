@@ -37,6 +37,7 @@ class UIData {
   static const String verifyImage = "$imageDir/verification.jpg";
   static const String splashScreen = "$imageDir/splashscreen.jpg";
   static const String talawaLogo = "$imageDir/talawaLogo.png";
+  static const String cloud1 = "$imageDir/cloud1.jpg";
   static const String talawaLogoDark = "$imageDir/talawaLogo-dark.png";
   static const String quitoBackground = "$imageDir/quitoBackground.jpg";
 
@@ -55,7 +56,7 @@ class UIData {
   //   700:Color.fromRGBO(126,25,70, .8),
   //   800:Color.fromRGBO(126,25,70, .9),
   //   900:Color.fromRGBO(126,25,70, 1)});
-  static const Color quitoThemeColor = Colors.yellow;
+  static const Color quitoThemeColor = Colors.orange;
 
 //colors
   static List<Color> kitGradients = [

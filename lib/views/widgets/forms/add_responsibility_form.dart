@@ -171,6 +171,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                       ),
                       color: Colors.white,
                       onPressed: () {
+                        FocusScope.of(context).unfocus();
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
                           model.activityId = widget.activityId;

@@ -168,8 +168,10 @@ class _ActivityDetailsState extends State<ActivityDetails>
               child: new IconButton(
                 icon: new Icon(Icons.send),
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   Provider.of<NoteController>(context, listen: false)
                       .sendMessage(widget.activity.title, _chatController.text);
+                  _chatController.clear();
                 },
               ),
             )

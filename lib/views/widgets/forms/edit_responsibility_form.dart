@@ -130,6 +130,7 @@ class EditResponsibilityForm extends StatelessWidget {
                                   ),
                                   color: Colors.white,
                                   onPressed: () async {
+                                    FocusScope.of(context).unfocus();
                                     print('checking');
                                     if (_formKey.currentState.validate()) {
                                       _formKey.currentState.save();

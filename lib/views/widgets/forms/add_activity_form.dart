@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/activity_controller.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/note_controller.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -163,6 +164,7 @@ class AddActivityForm extends StatelessWidget {
                       ),
                       color: Colors.white,
                       onPressed: () {
+                        FocusScope.of(_context).unfocus();
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
                           gotoUserInfo();
@@ -223,7 +225,7 @@ class AddActivityForm extends StatelessWidget {
                               'Save details',
                             ),
                       color: Colors.white,
-                      onPressed: () {
+                      onPressed: (){
                         if (_formKey.currentState.validate()){
                           model.admin = Provider.of<AuthController>(_context, listen: false).currentUserId;
                           controller.postActivity(_context, model);

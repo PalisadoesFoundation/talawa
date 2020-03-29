@@ -4,12 +4,14 @@ import 'package:talawa/controllers/activity_controller.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/note_controller.dart';
 import 'package:talawa/controllers/user_controller.dart';
+import 'package:talawa/services/connectivity_service.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/add_responsibility_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'controllers/responsibility_controller.dart';
+import 'enums/connectivity_status.dart';
 
 void main() {
   // DependencyInjection().initialise(Injector.getInjector());
@@ -26,6 +28,7 @@ void main() {
           create: (_) => ResponsibilityController()),
       ChangeNotifierProvider<UserController>(create: (_) => UserController()),
       ChangeNotifierProvider<NoteController>(create: (_) => NoteController()),
+      StreamProvider<ConnectivityStatus>(create:(_)=>ConnectivityService().connectionStatusController.stream)
     ],
     child: MyApp(),
   ));
@@ -52,11 +55,11 @@ class MyApp extends StatelessWidget {
           UIData.homeRoute: (BuildContext context) => HomePage(),
           UIData.addActivityPage: (BuildContext context) => AddActivityPage(),
           UIData.addResponsibilityPage: (BuildContext context) =>
-              AddResponsibilityPage(),
+              AddResponsibilityPage(settings.arguments),
           UIData.activityDetails: (BuildContext context) => ActivityDetails(settings.arguments),
           UIData.notFoundRoute: (BuildContext context) => NotFoundPage(),
           UIData.responsibilityPage: (BuildContext context) => NotFoundPage(),
-          UIData.contactPage: (BuildContext context) => ContactPage()
+          UIData.contactPage: (BuildContext context) => ContactPage(settings.arguments)
         };
         WidgetBuilder builder = routes[settings.name];
         return MaterialPageRoute(builder: (ctx) => builder(ctx));

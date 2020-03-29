@@ -179,7 +179,8 @@ class RegisterFormState extends State<RegisterForm> {
                         "SIGN UP",
                       ),
                 color: Colors.white,
-                onPressed: () async {
+                onPressed: () async {       
+                  FocusScope.of(context).unfocus();
                   setState(() {
                     toggleProgressBarState();
                   });

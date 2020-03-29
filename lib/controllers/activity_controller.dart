@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:talawa/model/activity.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/view_models/vm_add_activity.dart';
@@ -7,6 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:talawa/utils/globals.dart';
+
+import 'note_controller.dart';
 
 /*Handles all activity specific routes*/
 class ActivityController with ChangeNotifier {
@@ -137,7 +140,8 @@ class ActivityController with ChangeNotifier {
       switch (response.statusCode) {
         case 201:
           {
-            //Navigates app back to the activity scren
+            //Navigates app back to the activity screen
+            Provider.of<NoteController>(context, listen: false).joinRoom(model.title);
             Navigator.of(context).pop();
             notifyListeners();
             return;

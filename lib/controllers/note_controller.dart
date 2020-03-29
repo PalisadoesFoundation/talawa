@@ -21,7 +21,7 @@ class NoteController with ChangeNotifier {
           transports: [Transports.WEB_SOCKET]));
       this.socket.onConnect((data) {
         print("connected...");
-        socket.emit("join_activity_rooms", [currentUserId]);
+        this.socket.emit("join_activity_rooms", [currentUserId]);
       });
       this.socket.onConnectError((err) {
         print(err);
@@ -34,6 +34,10 @@ class NoteController with ChangeNotifier {
       });
       this.socket.connect();
     }
+  }
+
+  void joinRoom(String activityTitle){
+    this.socket.emit("join_activity_room", [activityTitle]);
   }
 
   void sendMessage(String activity, String message) {

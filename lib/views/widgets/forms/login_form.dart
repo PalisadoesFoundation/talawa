@@ -110,6 +110,7 @@ class LoginFormState extends State<LoginForm> {
                       ),
                 color: Colors.white,
                 onPressed: () {
+                  FocusScope.of(context).unfocus();
                   setState(() {
                     toggleProgressBarState();
                     if (_formKey.currentState.validate()) {

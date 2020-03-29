@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/user_controller.dart';
 import 'package:talawa/model/user.dart';
+import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/views/widgets/common_scaffold.dart';
 
 class ContactPage extends StatelessWidget {
@@ -17,6 +18,7 @@ class ContactPage extends StatelessWidget {
   BuildContext _context;
   TextEditingController emailController = new TextEditingController();
 
+  ContactPage(this.userId);
   String validateFirstName(String value) {
     if (value.length == 0 || value == null) {
       return 'Firstname field must not be empty';
@@ -49,7 +51,6 @@ class ContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _context = context;
-    userId = ModalRoute.of(context).settings.arguments;
     return scaffold();
   }
 
