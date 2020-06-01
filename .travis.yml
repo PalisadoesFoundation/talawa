@@ -1,0 +1,21 @@
+language: dart
+
+addons:
+  apt:
+    packages:
+      - lib32stdc++6
+install:
+  - git clone https://github.com/flutter/flutter.git -b stable
+  - ./flutter/bin/flutter doctor
+script:
+  - ./flutter/bin/flutter test
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  on:
+    branch: drewdev
+cache:
+  directories:
+    - $HOME/.pub-cache
