@@ -27,7 +27,7 @@
           "drewdev"
         ]
       },
-      "skip_cleanup": true,
+      "cleanup": true,
       "token": "$GITHUB_TOKEN"
     }
   ],
