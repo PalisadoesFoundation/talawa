@@ -1,13 +1,13 @@
 class Validator{
   
-    String validateFirstName(String value) {
+    static String validateFirstName(String value) {
     if (value.length < 4) {
       return 'First name must be at least 4 characters.';
     }
     return null;
   }
 
-  String validateLastName(String value) {
+  static String validateLastName(String value) {
     if (value.length < 4) {
       return 'Last name must be at least 4 characters.';
     }

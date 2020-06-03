@@ -53,9 +53,8 @@ class RegisterFormState extends State<RegisterForm> {
               height: 50,
             ),
             TextFormField(
-              validator: (value) {
-                return val.validateFirstName(value);
-              },
+              validator: (value) => Validator.validateFirstName(value),
+
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -76,9 +75,7 @@ class RegisterFormState extends State<RegisterForm> {
               height: 20,
             ),
             TextFormField(
-              validator: (value) {
-                return val.validateLastName(value);
-              },
+              validator: (value) => Validator.validateLastName(value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(

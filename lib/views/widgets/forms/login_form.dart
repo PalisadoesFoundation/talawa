@@ -5,6 +5,27 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/vm_login.dart';
 
+class EmailFieldValidator {
+    static String validateEmail(String value) {
+    RegExp regExp = new RegExp(
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
+        multiLine: false);
+    if (!regExp.hasMatch(value)) {
+      return 'E-mail Address must be a valid email address.';
+    }
+    return null;
+  }
+}
+
+class PasswordFieldValidator {
+    static String validatePassword(String value) {
+    if (value.length < 4) {
+      return 'Password must be at least 4 characters.';
+    }
+
+    return null;
+  }
+}
 class LoginForm extends StatefulWidget {
   @override
   LoginFormState createState() {
@@ -16,24 +37,6 @@ class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   LoginViewModel model = new LoginViewModel();
   bool _progressBarState = false;
-
-  String _validateEmail(String value) {
-    RegExp regExp = new RegExp(
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
-        multiLine: false);
-    if (!regExp.hasMatch(value)) {
-      return 'E-mail Address must be a valid email address.';
-    }
-    return null;
-  }
-
-  String _validatePassword(String value) {
-    if (value.length < 4) {
-      return 'Password must be at least 4 characters.';
-    }
-
-    return null;
-  }
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -50,9 +53,7 @@ class LoginFormState extends State<LoginForm> {
               height: 50,
             ),
             TextFormField(
-              validator: (value) {
-                return _validateEmail(value);
-              },
+              validator: (value) => EmailFieldValidator.validateEmail(value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -74,9 +75,7 @@ class LoginFormState extends State<LoginForm> {
             ),
             TextFormField(
               obscureText: true,
-              validator: (value) {
-                return _validatePassword(value);
-              },
+              validator: (value) => PasswordFieldValidator.validatePassword(value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
