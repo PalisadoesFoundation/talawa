@@ -23,19 +23,6 @@ class RegisterFormState extends State<RegisterForm> {
   Validator val = new Validator();
   bool _progressBarState = false;
 
-  String _validateEmail(String value) {
-    RegExp regExp = new RegExp(
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
-        multiLine: false);
-    if (!regExp.hasMatch(value)) {
-      return 'E-mail Address must be a valid email address.';
-    }
-    if(isEmailAvailable){
-      return 'E-mail is already taken';
-    }
-    return null;
-  }
-
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
   }
@@ -54,7 +41,6 @@ class RegisterFormState extends State<RegisterForm> {
             ),
             TextFormField(
               validator: (value) => Validator.validateFirstName(value),
-
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -96,9 +82,7 @@ class RegisterFormState extends State<RegisterForm> {
               height: 20,
             ),
             TextFormField(
-              validator: (value) {
-                return _validateEmail(value);
-              },
+              validator: (value) => Validator.validateEmail(value),
               controller: emailController,
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
@@ -122,9 +106,8 @@ class RegisterFormState extends State<RegisterForm> {
             TextFormField(
               obscureText: true,
               controller: originalPassword,
-              validator: (value) {
-                return val.validatePassword(value);
-              },
+              validator: (value) => Validator.validatePassword(value),
+
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -147,9 +130,7 @@ class RegisterFormState extends State<RegisterForm> {
             ),
             TextFormField(
               obscureText: true,
-              validator: (value) {
-                return val.validatePasswordConfirm(originalPassword.text, value);
-              },
+              validator: (value) => Validator.validatePasswordConfirm(originalPassword.text, value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(

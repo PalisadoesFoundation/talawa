@@ -1,5 +1,5 @@
 class Validator{
-  
+    
     static String validateFirstName(String value) {
     if (value.length < 4) {
       return 'First name must be at least 4 characters.';
@@ -14,7 +14,7 @@ class Validator{
     return null;
   }
 
-  String validateEmail(String value) {
+  static String validateEmail(String value) {
     bool emailDup = false;
     RegExp regExp = new RegExp(
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
@@ -28,7 +28,7 @@ class Validator{
     return null;
   }
 
-  String validatePassword(String value) {
+  static String validatePassword(String value) {
     if (value.length < 4) {
       return 'Password must be at least 4 characters.';
     }
@@ -36,14 +36,14 @@ class Validator{
     return null;
   }
 
-  String validatePasswordConfirm(String value, String comparator) {
+  static String validatePasswordConfirm(String value, String comparator) {
     if (value != comparator) {
       return 'Password does not match original';
     }
     return null;
   }
 
-    String validateTitle(String value) {
+    static String validateTitle(String value) {
     if (value.length < 4) {
       return 'Title must be at least 4 characters.';
     }
@@ -51,7 +51,7 @@ class Validator{
     return null;
   }
 
-  String validateDateTime(DateTime value) {
+  static String validateDateTime(DateTime value) {
     if (value == null) {
       return 'Date field must not be left blank.';
     }
@@ -59,7 +59,7 @@ class Validator{
     return null;
   }
 
-  String validateDescription(String value) {
+  static String validateDescription(String value) {
     if (value.length < 5 || value.length > 50) {
       return 'Description field must range between\n 5 and 30 characters';
     }
