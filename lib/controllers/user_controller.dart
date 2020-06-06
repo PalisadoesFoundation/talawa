@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/globals.dart';

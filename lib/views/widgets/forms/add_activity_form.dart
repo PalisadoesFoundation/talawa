@@ -12,6 +12,9 @@ import 'package:talawa/view_models/vm_add_activity.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/widgets/checkbox_user_tile.dart';
 
+import 'package:talawa/views/widgets/navbar.dart';
+
+
 class AddActivityForm extends StatelessWidget {
   AddActivityViewModel model = new AddActivityViewModel(users: []);
   BuildContext _context;
@@ -236,7 +239,12 @@ class AddActivityForm extends StatelessWidget {
                     );
                   },
                 )),
+                //////////////////
+                Container(
+                  height: 60,
+              child: NavBar(currentIndex: 1),)
           ],
         ),
+        
       ));
 }

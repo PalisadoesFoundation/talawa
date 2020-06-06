@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:talawa/views/widgets/common_drawer.dart';
 import 'package:talawa/views/widgets/custom_float.dart';
 import 'package:talawa/utils/uidata.dart';
-
+/////////////
+import 'package:talawa/views/widgets/navbar.dart';
 class CommonScaffold extends StatelessWidget {
   final appTitle;
   final Widget bodyData;
@@ -123,7 +124,10 @@ class CommonScaffold extends StatelessWidget {
           ),
           Expanded(
             child: bodyData,
-          )
+          ),
+          Container(
+              height: 60,
+              child: NavBar(currentIndex: 1),)
         ],
       ),
       floatingActionButton: showFAB

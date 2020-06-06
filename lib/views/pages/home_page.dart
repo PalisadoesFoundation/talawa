@@ -15,6 +15,7 @@ import 'package:talawa/model/user.dart';
 import 'package:talawa/enums/connectivity_status.dart';
 
 
+import 'package:talawa/views/widgets/navbar.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -90,7 +91,9 @@ class _HomePageState extends State<HomePage> {
         elevation: 0.0,
       ),
       drawer: CommonDrawer(),
-      body: Stack(
+      body: 
+      
+      Stack(
         children: <Widget>[
           Positioned.fill(
             child: Image(
@@ -98,7 +101,7 @@ class _HomePageState extends State<HomePage> {
               fit: BoxFit.fill,
             ),
           ),
-          activityList()
+          activityList(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -107,14 +110,16 @@ class _HomePageState extends State<HomePage> {
         },
         child: Icon(Icons.add),
       ),
+      
     );
+    
   }
 
   Widget activityList() {
     return Column(
       children: <Widget>[
         Expanded(
-            flex: 9,
+            flex: 11,
             child: Consumer2<ActivityController, AuthController>(
                 builder: (context, activityController, authController, child) {
               return FutureBuilder<List<Activity>>(
@@ -141,9 +146,13 @@ class _HomePageState extends State<HomePage> {
                       return Center(child: CircularProgressIndicator());
                     }
                   });
-            }))
+            })), 
       ],
     );
+  
+
+
+    
   }
 
   Widget eventCard(Activity activity) {
