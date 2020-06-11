@@ -9,7 +9,6 @@ import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_register.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-
 class RegisterForm extends StatefulWidget {
   @override
   RegisterFormState createState() {
@@ -32,169 +31,215 @@ class RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return Mutation(
-              options: MutationOptions(
-                documentNode: gql(signUp),
-                 update: (Cache cache, QueryResult result) {
-                    return cache;
+      options: MutationOptions(
+        documentNode: gql(signUp),
+        update: (Cache cache, QueryResult result) {
+          if (result.hasException) {
+            print("exception");
+            final snackBar = SnackBar(
+                content: Text(result.exception.toString(),
+                    style: TextStyle(color: Colors.white, fontSize: 18)),
+                backgroundColor: Colors.orange,
+                duration: Duration(seconds: 3));
+            Scaffold.of(context).showSnackBar(snackBar);
+          }  
+          return cache;
+        },
+        onCompleted: (dynamic resultData) {
+          print(resultData);
+          // setState(() {
+          //   toggleProgressBarState();
+          // });
+          if (resultData != null){
+          final snackBar = SnackBar(
+              content: Text("Getting Things Ready...",
+                  style: TextStyle(color: Colors.white, fontSize: 18)),
+              backgroundColor: Colors.green,
+              duration: Duration(seconds: 3));
+          Scaffold.of(context).showSnackBar(snackBar);
+          }
+        },
+      ),
+      builder: (RunMutation runMutation, QueryResult result) {
+        return Form(
+            key: _formKey,
+            autovalidate: true,
+            child: Column(
+              children: <Widget>[
+                Text('Register',
+                    style: TextStyle(fontSize: 35, color: Colors.white)),
+                SizedBox(
+                  height: 50,
+                ),
+                TextFormField(
+                  validator: (value) => Validator.validateFirstName(value),
+                  textAlign: TextAlign.left,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                    prefixIcon: Icon(Icons.person),
+                    labelText: "First Name",
+                    labelStyle: TextStyle(color: Colors.white),
+                    alignLabelWithHint: true,
+                    hintText: 'Earl',
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                  onSaved: (value) {
+                    model.firstName = value;
                   },
-                 onCompleted: (dynamic resultData) {
-                  print(resultData);
-              },
-              ),
-        builder: (RunMutation runMutation, QueryResult result){
-          return Form(
-          key: _formKey,
-          autovalidate: true,
-          child: Column(
-            children: <Widget>[
-              Text('Register',
-                  style: TextStyle(fontSize: 35, color: Colors.white)),
-              SizedBox(
-                height: 50,
-              ),
-              TextFormField(
-                validator: (value) => Validator.validateFirstName(value),
-                textAlign: TextAlign.left,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                  prefixIcon: Icon(Icons.person),
-                  labelText: "First Name",
-                  labelStyle: TextStyle(color: Colors.white),
-                  alignLabelWithHint: true,
-                  hintText: 'Earl',
-                  hintStyle: TextStyle(color: Colors.grey),
                 ),
-                onSaved: (value) {
-                  model.firstName = value;
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                validator: (value) => Validator.validateLastName(value),
-                textAlign: TextAlign.left,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                  prefixIcon: Icon(Icons.person),
-                  labelText: "Last Name",
-                  labelStyle: TextStyle(color: Colors.white),
-                  alignLabelWithHint: true,
-                  hintText: 'John',
-                  hintStyle: TextStyle(color: Colors.grey),
+                SizedBox(
+                  height: 20,
                 ),
-                onSaved: (value) {
-                  model.lastName = value;
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                validator: (value) => Validator.validateEmail(value),
-                controller: emailController,
-                textAlign: TextAlign.left,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                  prefixIcon: Icon(Icons.email),
-                  labelText: "Email",
-                  labelStyle: TextStyle(color: Colors.white),
-                  alignLabelWithHint: true,
-                  hintText: 'foo@bar.com',
-                  hintStyle: TextStyle(color: Colors.grey),
+                TextFormField(
+                  validator: (value) => Validator.validateLastName(value),
+                  textAlign: TextAlign.left,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                    prefixIcon: Icon(Icons.person),
+                    labelText: "Last Name",
+                    labelStyle: TextStyle(color: Colors.white),
+                    alignLabelWithHint: true,
+                    hintText: 'John',
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                  onSaved: (value) {
+                    model.lastName = value;
+                  },
                 ),
-                onSaved: (value) {
-                  model.email = value;
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                obscureText: true,
-                controller: originalPassword,
-                validator: (value) => Validator.validatePassword(value),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  validator: (value) => Validator.validateEmail(value),
+                  controller: emailController,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                    prefixIcon: Icon(Icons.email),
+                    labelText: "Email",
+                    labelStyle: TextStyle(color: Colors.white),
+                    alignLabelWithHint: true,
+                    hintText: 'foo@bar.com',
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                  onSaved: (value) {
+                    model.email = value;
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  obscureText: true,
+                  controller: originalPassword,
+                  validator: (value) => Validator.validatePassword(value),
+                  textAlign: TextAlign.left,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                    prefixIcon: Icon(Icons.lock),
+                    labelText: "Password",
+                    labelStyle: TextStyle(color: Colors.white),
+                    focusColor: UIData.quitoThemeColor,
+                    alignLabelWithHint: true,
+                    hintText: 'foo@bar.com',
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                  onSaved: (value) {
+                    model.password = value;
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  obscureText: true,
+                  validator: (value) => Validator.validatePasswordConfirm(
+                      originalPassword.text, value),
+                  textAlign: TextAlign.left,
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                    prefixIcon: Icon(Icons.lock),
+                    labelText: "Confirm Password",
+                    labelStyle: TextStyle(color: Colors.white),
+                    focusColor: UIData.quitoThemeColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+                  width: double.infinity,
+                  child: RaisedButton(
+                    padding: EdgeInsets.all(12.0),
+                    shape: StadiumBorder(),
+                    child: _progressBarState
+                        ? const CircularProgressIndicator()
+                        : Text(
+                            "SIGN UP",
+                          ),
+                    color: Colors.white,
+                    onPressed: () async {
+                      // FocusScope.of(context).unfocus();
+                      // setState(() {
+                      //   toggleProgressBarState();
+                      // });
 
-                textAlign: TextAlign.left,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                  prefixIcon: Icon(Icons.lock),
-                  labelText: "Password",
-                  labelStyle: TextStyle(color: Colors.white),
-                  focusColor: UIData.quitoThemeColor,
-                  alignLabelWithHint: true,
-                  hintText: 'foo@bar.com',
-                  hintStyle: TextStyle(color: Colors.grey),
-                ),
-                onSaved: (value) {
-                  model.password = value;
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                obscureText: true,
-                validator: (value) => Validator.validatePasswordConfirm(originalPassword.text, value),
-                textAlign: TextAlign.left,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                  prefixIcon: Icon(Icons.lock),
-                  labelText: "Confirm Password",
-                  labelStyle: TextStyle(color: Colors.white),
-                  focusColor: UIData.quitoThemeColor,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-                width: double.infinity,
-                child: RaisedButton(
-                  padding: EdgeInsets.all(12.0),
-                  shape: StadiumBorder(),
-                  child: _progressBarState
-                      ? const CircularProgressIndicator()
-                      : Text(
-                          "SIGN UP",
-                        ),
-                  color: Colors.white,
-                  onPressed: () async {       
-                    FocusScope.of(context).unfocus();
-                    setState(() {
-                      toggleProgressBarState();
-                    });
-                   // isEmailAvailable = await Provider.of<UserController>(context, listen: false).validateUserEmail(emailController.text);
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      //await Provider.of<AuthController>(context, listen: false).register(context, model);
-                    }
-                    runMutation({
+                      // Flushbar(
+                      //    message: result.exception.toString(),
+
+                      //   icon: Icon(
+                      //     Icons.info_outline,
+                      //     size: 28.0,
+                      //     color: Colors.white,
+                      //   ),
+                      //   backgroundColor: Colors.amber,
+                      //   duration: Duration(seconds: 3),
+                      // )..show(context);
+
+                      // isEmailAvailable = await Provider.of<UserController>(context, listen: false).validateUserEmail(emailController.text);
+                      if (_formKey.currentState.validate()) {
+                        print("run mutation");
+                        _formKey.currentState.save();
+                        runMutation({
                           "firstName": model.firstName,
                           "lastName": model.lastName,
                           "email": model.email,
                           "password": model.password
-                        }
-                      );
-                    setState(() {
-                      toggleProgressBarState();
-                    });
-                  },
+                        });
+                        //await Provider.of<AuthController>(context, listen: false).register(context, model);
+                        // setState(() {
+                        //   toggleProgressBarState();
+                        // });
+
+                        // if (result.hasException != null) {
+                        //   print("exception");
+                        //   final snackBar = SnackBar(
+                        //       content: Text(result.exception.toString(),
+                        //           style: TextStyle(
+                        //               color: Colors.white, fontSize: 18)),
+                        //       backgroundColor: Colors.orange,
+                        //       duration: Duration(seconds: 3));
+                        //   Scaffold.of(context).showSnackBar(snackBar);
+                        // }
+                      }
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ));},
+              ],
+            ));
+      },
     );
   }
 }
