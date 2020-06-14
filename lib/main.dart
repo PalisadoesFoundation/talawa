@@ -15,6 +15,9 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'controllers/responsibility_controller.dart';
 import 'enums/connectivity_status.dart';
 
+GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+
+
 void main() {
   // DependencyInjection().initialise(Injector.getInjector());
   // injector = Injector.getInjector();
@@ -46,7 +49,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GraphQLProvider(
-      client: client,
+      client: graphQLConfiguration.client,
       child: MaterialApp(
         title: UIData.appName,
         theme: ThemeData(

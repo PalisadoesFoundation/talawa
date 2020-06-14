@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/user_controller.dart';
+import 'package:talawa/services/QueryMutation.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -23,6 +24,8 @@ class RegisterFormState extends State<RegisterForm> {
   TextEditingController originalPassword = new TextEditingController();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
+  QueryMutation signupQuery = QueryMutation();
+
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -32,7 +35,7 @@ class RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     return Mutation(
       options: MutationOptions(
-        documentNode: gql(signUp),
+        documentNode: gql(signupQuery.signUp),
         update: (Cache cache, QueryResult result) {
           if (result.hasException) {
             print("exception");
@@ -40,23 +43,24 @@ class RegisterFormState extends State<RegisterForm> {
                 content: Text(result.exception.toString(),
                     style: TextStyle(color: Colors.white, fontSize: 18)),
                 backgroundColor: Colors.orange,
-                duration: Duration(seconds: 3));
+                duration: Duration(seconds: 4));
             Scaffold.of(context).showSnackBar(snackBar);
-          }  
+          }
           return cache;
         },
         onCompleted: (dynamic resultData) {
           print(resultData);
-          // setState(() {
-          //   toggleProgressBarState();
-          // });
-          if (resultData != null){
-          final snackBar = SnackBar(
-              content: Text("Getting Things Ready...",
-                  style: TextStyle(color: Colors.white, fontSize: 18)),
-              backgroundColor: Colors.green,
-              duration: Duration(seconds: 3));
-          Scaffold.of(context).showSnackBar(snackBar);
+
+          if (resultData != null) {
+            final snackBar = SnackBar(
+                content: Text("Getting Things Ready...",
+                    style: TextStyle(color: Colors.white, fontSize: 18)),
+                backgroundColor: Colors.green,
+                duration: Duration(seconds: 4));
+            setState(() {
+              toggleProgressBarState();
+            });
+            Scaffold.of(context).showSnackBar(snackBar);
           }
         },
       ),
@@ -219,20 +223,11 @@ class RegisterFormState extends State<RegisterForm> {
                           "password": model.password
                         });
                         //await Provider.of<AuthController>(context, listen: false).register(context, model);
-                        // setState(() {
-                        //   toggleProgressBarState();
-                        // });
-
-                        // if (result.hasException != null) {
-                        //   print("exception");
-                        //   final snackBar = SnackBar(
-                        //       content: Text(result.exception.toString(),
-                        //           style: TextStyle(
-                        //               color: Colors.white, fontSize: 18)),
-                        //       backgroundColor: Colors.orange,
-                        //       duration: Duration(seconds: 3));
-                        //   Scaffold.of(context).showSnackBar(snackBar);
-                        // }
+                        if (result.loading) {
+                          setState(() {
+                            toggleProgressBarState();
+                          });
+                        }
                       }
                     },
                   ),

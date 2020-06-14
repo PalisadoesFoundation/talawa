@@ -1,15 +1,15 @@
 class Validator{
     
     static String validateFirstName(String value) {
-    if (value.length < 4) {
-      return 'First name must be at least 4 characters.';
+    if (value.length < 2) {
+      return 'First name must be at least 2 characters.';
     }
     return null;
   }
 
   static String validateLastName(String value) {
-    if (value.length < 4) {
-      return 'Last name must be at least 4 characters.';
+    if (value.length < 2) {
+      return 'Last name must be at least 2 characters.';
     }
     return null;
   }
@@ -30,7 +30,7 @@ class Validator{
 
   static String validatePassword(String value) {
     if (value.length < 4) {
-      return 'Password must be at least 4 characters.';
+      return 'Password must be at least 6 characters.';
     }
 
     return null;
