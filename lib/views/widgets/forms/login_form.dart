@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/model/token.dart';
 import 'package:talawa/services/QueryMutation.dart';
+import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -22,6 +24,7 @@ class LoginFormState extends State<LoginForm> {
   bool _progressBarState = false;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   QueryMutation loginQuery = QueryMutation();
+  String currentUserId;
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -107,7 +110,7 @@ class LoginFormState extends State<LoginForm> {
                             "password": model.password
                           }),
                     );
-
+                    
                     if (result.hasException) {
                       print(result.exception);
                       _progressBarState = false;
@@ -120,9 +123,10 @@ class LoginFormState extends State<LoginForm> {
                       Scaffold.of(context).showSnackBar(snackBar);
                     } else if (!result.hasException && !result.loading) {
                       print(result.data);
-                      setState(() {
-                        toggleProgressBarState();
-                      });
+                      // setState(() {
+                      //   toggleProgressBarState();
+                      // });
+                     
                       final snackBar = SnackBar(
                           content: Text("Getting Things Ready...",
                               style:
@@ -130,6 +134,15 @@ class LoginFormState extends State<LoginForm> {
                           backgroundColor: Colors.green,
                           duration: Duration(seconds: 4));
                       Scaffold.of(context).showSnackBar(snackBar);
+
+ 
+                         //Store user token in local storage
+                      final Token token = new Token(tokenString: result.data['login']['token']);
+                      print("hi");
+                      print(result.data['login']['token']);
+                      currentUserId = await Preferences.saveCurrentUserToken(token);
+                      print(currentUserId.toString());
+
                     }
                   }
 
