@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/services/QueryMutation.dart';
+import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -23,7 +23,7 @@ class LoginFormState extends State<LoginForm> {
   LoginViewModel model = new LoginViewModel();
   bool _progressBarState = false;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  QueryMutation loginQuery = QueryMutation();
+  Queries loginQuery = Queries();
   String currentUserId;
 
   void toggleProgressBarState() {
@@ -123,9 +123,9 @@ class LoginFormState extends State<LoginForm> {
                       Scaffold.of(context).showSnackBar(snackBar);
                     } else if (!result.hasException && !result.loading) {
                       print(result.data);
-                      // setState(() {
-                      //   toggleProgressBarState();
-                      // });
+                      setState(() {
+                        toggleProgressBarState();
+                      });
                      
                       final snackBar = SnackBar(
                           content: Text("Getting Things Ready...",
@@ -138,11 +138,9 @@ class LoginFormState extends State<LoginForm> {
  
                          //Store user token in local storage
                       final Token token = new Token(tokenString: result.data['login']['token']);
-                      print("hi");
                       print(result.data['login']['token']);
-                      currentUserId = await Preferences.saveCurrentUserToken(token);
+                      currentUserId = await Preferences.saveCurrentUserId(token);
                       print(currentUserId.toString());
-
                     }
                   }
 

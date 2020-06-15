@@ -4,16 +4,16 @@ import 'package:talawa/model/token.dart';
 class Preferences {
   static const tokenKey = "token";
 
-  static Future<String> saveCurrentUserToken(Token token) async {
+  static Future<String> saveCurrentUserId(Token token) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, dynamic> tokenMap = token.parseJwt();
-    String userToken = tokenMap['token'];
+    String userId = tokenMap['id'];
     await preferences.setString(
         tokenKey,
         (token.tokenString != null && token.tokenString.length > 0)
             ? token.tokenString
             : "");
-    return userToken;
+    return userId;
   }
 
   static Future<int> getCurrentUserId() async {

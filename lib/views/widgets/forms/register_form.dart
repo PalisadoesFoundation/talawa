@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/user_controller.dart';
-import 'package:talawa/services/QueryMutation.dart';
+import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -24,7 +24,7 @@ class RegisterFormState extends State<RegisterForm> {
   TextEditingController originalPassword = new TextEditingController();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
-  QueryMutation signupQuery = QueryMutation();
+  Queries signupQuery = Queries();
 
 
   void toggleProgressBarState() {

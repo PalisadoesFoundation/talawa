@@ -1,4 +1,4 @@
-class QueryMutation{
+class Queries{
   final String signUp = """
         mutation SignUp (\$firstName: String!, \$lastName: String!, \$email: String!, \$password: String!){
           signUp(data: {firstName: \$firstName, lastName: \$lastName, email: \$email, password: \$password}){
@@ -20,14 +20,13 @@ class QueryMutation{
     ''';
     
 
-final String fetchUsers = ''' 
+final String fetchNavDrawerUserInfo = ''' 
         query{
-          users {
-            firstName
-            lastName
-            email
-            password
-          }
+        users(\$id: ID){
+          firstName
+          lastName
+          email
+        }
       }
     ''';
 }
