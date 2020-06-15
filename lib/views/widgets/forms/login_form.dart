@@ -1,15 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/model/token.dart';
-import 'package:talawa/services/Queries.dart';
-import 'package:talawa/services/preferences.dart';
+
+import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_login.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -22,9 +18,7 @@ class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   LoginViewModel model = new LoginViewModel();
   bool _progressBarState = false;
-  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  Queries loginQuery = Queries();
-  String currentUserId;
+  GraphAPI _graphAPI = GraphAPI();
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -97,63 +91,25 @@ class LoginFormState extends State<LoginForm> {
                       ),
                 color: Colors.white,
                 onPressed: () async {
-                  GraphQLClient _client = graphQLConfiguration.clientToQuery();
                   FocusScope.of(context).unfocus();
-                  print("validate");
-                  if (_formKey.currentState.validate()) {
+                  //checks to see if all the fields have been validated then authenticate a user
+                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    QueryResult result = await _client.query(
-                      QueryOptions(
-                          documentNode: gql(loginQuery.login),
-                          variables: {
-                            "email": model.email,
-                            "password": model.password
-                          }),
-                    );
-                    
-                    if (result.hasException) {
-                      print(result.exception);
-                      _progressBarState = false;
-                      final snackBar = SnackBar(
-                          content: Text(result.exception.toString(),
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18)),
-                          backgroundColor: Colors.orange,
-                          duration: Duration(seconds: 4));
-                      Scaffold.of(context).showSnackBar(snackBar);
-                    } else if (!result.hasException && !result.loading) {
-                      print(result.data);
-                      setState(() {
-                        toggleProgressBarState();
-                      });
-                     
-                      final snackBar = SnackBar(
-                          content: Text("Getting Things Ready...",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18)),
-                          backgroundColor: Colors.green,
-                          duration: Duration(seconds: 4));
-                      Scaffold.of(context).showSnackBar(snackBar);
-
- 
-                         //Store user token in local storage
-                      final Token token = new Token(tokenString: result.data['login']['token']);
-                      print(result.data['login']['token']);
-                      currentUserId = await Preferences.saveCurrentUserId(token);
-                      print(currentUserId.toString());
-                    }
-                  }
-
+                    _graphAPI.login(context, model);
+                   }
                   // setState(() {
                   //   toggleProgressBarState();
-                  //   if (_formKey.currentState.validate()) {
-                  //     _formKey.currentState.save();
-                  //     Provider.of<AuthController>(context, listen: false)
-                  //         .login(context, model);
-                  //   } else {}
-                  //   toggleProgressBarState();
+                  //    if (_formKey.currentState.validate()) {
+                  //   _formKey.currentState.save();
+                  //   _graphAPI.login(context, model);
+                      
+                  //   } else{
+                  //     toggleProgressBarState();
+                  //   }
                   // });
-                },
+                 
+              
+                }
               ),
             ),
           ],
