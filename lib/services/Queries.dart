@@ -29,4 +29,17 @@ final String fetchNavDrawerUserInfo = '''
         }
       }
     ''';
+
+final String fetchOrganizations = '''
+    query{
+      organizations{
+        name
+        description
+        creator{
+          firstName
+          lastName
+        }
+      }
+    }
+  ''';
 }

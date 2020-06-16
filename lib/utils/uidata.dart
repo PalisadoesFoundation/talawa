@@ -46,7 +46,6 @@ class UIData {
 
   static const MaterialColor ui_kit_color = Colors.grey;
   static const LightGrey = Color.fromRGBO(242, 242, 242, 1);
-  static const Grey = Color.fromRGBO(157, 157, 157, 1);
 
   // static const Color quitoThemeColor = MaterialColor(0xFF7e1946, {50:Color.fromRGBO(126,25,70, .1),
   //   100:Color.fromRGBO(126,25,70, .2),
