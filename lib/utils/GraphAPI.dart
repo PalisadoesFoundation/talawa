@@ -5,7 +5,7 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/view_models/vm_login.dart';
-import 'package:talawa/views/pages/home_page.dart';
+import 'package:talawa/views/pages/_pages.dart';
 
 class GraphAPI {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -45,7 +45,7 @@ class GraphAPI {
 
         //Navigate user to activity screen
             Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => new HomePage()));
+                MaterialPageRoute(builder: (context) => new JoinOrganization()));
             print( 'User logged in');
     }
   }

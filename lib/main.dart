@@ -4,7 +4,6 @@ import 'package:talawa/controllers/activity_controller.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/note_controller.dart';
 import 'package:talawa/controllers/user_controller.dart';
-import 'package:talawa/service_locator.dart';
 import 'package:talawa/services/connectivity_service.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -20,7 +19,7 @@ GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
 
 void main() {
-  //setupLocator();
+
 
   // DependencyInjection().initialise(Injector.getInjector());
   // injector = Injector.getInjector();
