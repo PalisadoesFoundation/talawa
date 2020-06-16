@@ -21,8 +21,8 @@ class Queries{
     
 
 final String fetchNavDrawerUserInfo = ''' 
-        query{
-        users(\$id: ID){
+        query user(\$id: ID){
+        users{
           firstName
           lastName
           email

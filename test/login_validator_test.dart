@@ -1,7 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/validator.dart';
 
 void main() {
+
+  GraphAPI graphAPI = GraphAPI();
   group('Login Page test', () {
     test('Empty email returns error string', () {
       var result = Validator.validateEmail('');
