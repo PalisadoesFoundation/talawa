@@ -96,8 +96,35 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                           organization['creator']['lastName']
                                               .toString()),
                                       trailing: new RaisedButton(
-                                          // onPressed:
-                                          color: Colors.orange,
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        "Join Organization"),
+                                                    content: Text(
+                                                        "Are you sure you want to join this organization?"),
+                                                    actions: [
+                                                      FlatButton(
+                                                        child: Text("Close"),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                      FlatButton(
+                                                        child: Text("Accept"),
+                                                        onPressed: () {
+
+                                                        },
+                                                      )
+                                                    ],
+                                                  );
+                                                });
+                                          },
+                                          color: Colors.orangeAccent,
                                           child: new Text("JOIN"),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
