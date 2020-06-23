@@ -103,7 +103,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                     (BuildContext context) {
                                                   return AlertDialog(
                                                     title: Text(
-                                                        "Join Organization"),
+                                                        "Confirmation"),
                                                     content: Text(
                                                         "Are you sure you want to join this organization?"),
                                                     actions: [

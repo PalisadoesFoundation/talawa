@@ -2,32 +2,36 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/utils/validator.dart';
 
 void main() {
-  group('Register Page test', () {
-    test('Firstname < 2 returns error string', () {
+  group('Register/login Page test', () {
+    test('Firstname must not be null', () {
       var result = Validator.validateFirstName('');
-      expect(result, 'First name must be at least 2 characters.');
+      expect(result, 'Firstname must not be left blank.');
     });
 
-    test('Firstname > 2 returns message', () {
+    test('Firstname is not null', () {
       var result = Validator.validateFirstName('example');
       expect(result, null);
     });
 
-    test('Lastname < 2 returns error string', () {
+    test('Lastname must not be null', () {
       var result = Validator.validateLastName('');
-      expect(result, 'Last name must be at least 2 characters.');
+      expect(result, 'Lastname must not be left blank.');
     });
 
-    test('Lastname > 2 returns message', () {
+    test('Lastname is not null', () {
       var result = Validator.validateLastName('example');
       expect(result, null);
     });
 
     test('Empty email returns error string', () {
       var result = Validator.validateEmail('');
-      expect(result, 'E-mail Address must be a valid email address.');
+      expect(result, 'Not a Valid Email');
     });
-    test('Non-Empty email returns null', () {
+    test('Incorrectly formated email return error string', () {
+      var result = Validator.validateEmail('example@email');
+      expect(result, 'Not a Valid Email');
+    });
+    test('Correctly foramtted email returns null', () {
       var result = Validator.validateEmail('example@email.com');
       expect(result, null);
     });

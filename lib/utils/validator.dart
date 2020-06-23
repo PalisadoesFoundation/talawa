@@ -1,36 +1,48 @@
+import 'package:email_validator/email_validator.dart';
+
+
 class Validator{
     
     static String validateFirstName(String value) {
-    if (value.length < 2) {
-      return 'First name must be at least 2 characters.';
+    if (value.length == 0) {
+      return 'Firstname must not be left blank.';
     }
     return null;
   }
 
   static String validateLastName(String value) {
-    if (value.length < 2) {
-      return 'Last name must be at least 2 characters.';
+    if (value.length == 0) {
+      return 'Lastname must not be left blank.';
     }
     return null;
   }
 
-  static String validateEmail(String value) {
-    bool emailDup = false;
-    RegExp regExp = new RegExp(
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
-        multiLine: false);
-    if (!regExp.hasMatch(value)) {
-      return 'E-mail Address must be a valid email address.';
+    static String validateEmail(String email) {
+      final bool isValid = EmailValidator.validate(email);
+      if (!isValid){
+        return 'Not a Valid Email Address';
+      }
+      return null;
     }
-    if(emailDup == true){
-      return 'E-mail Address already exists';
-    }
-    return null;
-  }
+
+
+  // static String validateEmail(String value) {
+  //   bool emailDup = false;
+  //   RegExp regExp = new RegExp(
+  //       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
+  //       multiLine: false);
+  //   if (!regExp.hasMatch(value)) {
+  //     return 'E-mail Address must be a valid email address.';
+  //   }
+  //   if(emailDup == true){
+  //     return 'E-mail Address already exists';
+  //   }
+  //   return null;
+  // }
 
   static String validatePassword(String value) {
-    if (value.length < 4) {
-      return 'Password must be at least 4 characters.';
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters.';
     }
 
     return null;

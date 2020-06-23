@@ -35,6 +35,7 @@ class LoginFormState extends State<LoginForm> {
               height: 50,
             ),
             TextFormField(
+              keyboardType: TextInputType.emailAddress,
               validator: (value) => Validator.validateEmail(value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
@@ -82,40 +83,36 @@ class LoginFormState extends State<LoginForm> {
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
               width: double.infinity,
               child: RaisedButton(
-                padding: EdgeInsets.all(12.0),
-                shape: StadiumBorder(),
-                child: _progressBarState
-                    ? const CircularProgressIndicator()
-                    : Text(
-                        "SIGN IN",
-                      ),
-                color: Colors.white,
-                onPressed: () async {
-                  FocusScope.of(context).unfocus();
-                  //checks to see if all the fields have been validated then authenticate a user
-                   setState(() {
+                  padding: EdgeInsets.all(12.0),
+                  shape: StadiumBorder(),
+                  child: _progressBarState
+                      ? const CircularProgressIndicator()
+                      : Text(
+                          "SIGN IN",
+                        ),
+                  color: Colors.white,
+                  onPressed: () async {
+                    FocusScope.of(context).unfocus();
+                    //checks to see if all the fields have been validated then authenticate a user
+                    setState(() {
                       if (_formKey.currentState.validate()) {
-                    _formKey.currentState.save();
-                    toggleProgressBarState();
-                    _graphAPI.login(context, model);
-                    
-                   }
-                   });
-                  
-                  // setState(() {
-                  //   toggleProgressBarState();
-                  //    if (_formKey.currentState.validate()) {
-                  //   _formKey.currentState.save();
-                  //   _graphAPI.login(context, model);
-                      
-                  //   } else{
-                  //     toggleProgressBarState();
-                  //   }
-                  // });
-                 
-              
-                }
-              ),
+                        _formKey.currentState.save();
+                        toggleProgressBarState();
+                        _graphAPI.login(context, model);
+                      }
+                    });
+
+                    // setState(() {
+                    //   toggleProgressBarState();
+                    //    if (_formKey.currentState.validate()) {
+                    //   _formKey.currentState.save();
+                    //   _graphAPI.login(context, model);
+
+                    //   } else{
+                    //     toggleProgressBarState();
+                    //   }
+                    // });
+                  }),
             ),
           ],
         ));

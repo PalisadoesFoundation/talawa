@@ -9,6 +9,9 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_register.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/services/preferences.dart';
+import 'package:talawa/model/token.dart';
+import 'package:talawa/views/pages/join_organization.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -25,7 +28,7 @@ class RegisterFormState extends State<RegisterForm> {
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
   Queries signupQuery = Queries();
-
+  String _currentUserId;
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -61,6 +64,16 @@ class RegisterFormState extends State<RegisterForm> {
               toggleProgressBarState();
             });
             Scaffold.of(context).showSnackBar(snackBar);
+
+            //Store user token in local storage
+            final Token token =
+                new Token(tokenString: resultData.data['signup']['token']);
+            print(resultData.data['signup']['token']);
+            // _currentUserId = await Preferences.saveCurrentUserId(token);
+
+            //Navigate user to join organization screen
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => new JoinOrganization()));
           }
         },
       ),
@@ -76,6 +89,7 @@ class RegisterFormState extends State<RegisterForm> {
                   height: 50,
                 ),
                 TextFormField(
+                  textCapitalization: TextCapitalization.words,
                   validator: (value) => Validator.validateFirstName(value),
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
@@ -97,6 +111,7 @@ class RegisterFormState extends State<RegisterForm> {
                   height: 20,
                 ),
                 TextFormField(
+                  textCapitalization: TextCapitalization.words,
                   validator: (value) => Validator.validateLastName(value),
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
@@ -118,6 +133,7 @@ class RegisterFormState extends State<RegisterForm> {
                   height: 20,
                 ),
                 TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   validator: (value) => Validator.validateEmail(value),
                   controller: emailController,
                   textAlign: TextAlign.left,

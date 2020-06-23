@@ -43,9 +43,6 @@ class GraphAPI {
       print(result.data['login']['token']);
       _currentUserId = await Preferences.saveCurrentUserId(token);
 
-        //Navigate user to activity screen
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => new JoinOrganization()));
             print( 'User logged in');
     }
   }
