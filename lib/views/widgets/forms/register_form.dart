@@ -49,7 +49,7 @@ class RegisterFormState extends State<RegisterForm> {
                 content: Text(result.exception.toString(),
                     style: TextStyle(color: Colors.white, fontSize: 18)),
                 backgroundColor: Colors.orange,
-                duration: Duration(seconds: 4));
+                duration: Duration(seconds: 5));
             Scaffold.of(context).showSnackBar(snackBar);
           }
           return cache;
@@ -58,23 +58,26 @@ class RegisterFormState extends State<RegisterForm> {
           print(resultData);
 
           if (resultData != null) {
-             setState(() {
-              _progressBarState = false;
+            setState(() {
+              _progressBarState = true;
             });
             final snackBar = SnackBar(
                 content: Text("Getting Things Ready...",
                     style: TextStyle(color: Colors.white, fontSize: 18)),
                 backgroundColor: Colors.green,
-                duration: Duration(seconds: 4));
-           
+                duration: Duration(seconds: 3));
+
             Scaffold.of(context).showSnackBar(snackBar);
 
             //Store user token in local storage
-            final Token token =
-                new Token(tokenString: resultData.data['signup']['token']);
-            print(resultData.data['signup']['token']);
-            // _currentUserId = await Preferences.saveCurrentUserId(token);
+            void getToken() async {
+              final Token token =
+                  new Token(tokenString: resultData.data['signup']['token']);
+              print(resultData.data['signup']['token']);
+              _currentUserId = await Preferences.saveCurrentUserId(token);
+            }
 
+            getToken();
             //Navigate user to join organization screen
             Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => new JoinOrganization()));
@@ -208,11 +211,11 @@ class RegisterFormState extends State<RegisterForm> {
                   child: RaisedButton(
                     padding: EdgeInsets.all(12.0),
                     shape: StadiumBorder(),
-                     child: _progressBarState
+                    child: _progressBarState
                         ? const CircularProgressIndicator()
                         : Text(
                             "SIGN UP",
-                    ),
+                          ),
                     color: Colors.white,
                     onPressed: () async {
                       // FocusScope.of(context).unfocus();

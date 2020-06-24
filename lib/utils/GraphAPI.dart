@@ -23,24 +23,20 @@ class GraphAPI {
           variables: {"email": user.email, "password": user.password}),
     );
 
-      if (result.loading) {
-      return Text('Loading');
-    }
-
     if (result.hasException) {
       print(result.exception);
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(result.exception.toString(),
               style: TextStyle(color: Colors.white, fontSize: 18)),
           backgroundColor: Colors.orange,
-          duration: Duration(seconds: 4)));
+          duration: Duration(seconds: 5)));
     } else if (!result.hasException && !result.loading) {
       print(result.data);
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("Getting Things Ready...",
               style: TextStyle(color: Colors.white, fontSize: 18)),
           backgroundColor: Colors.green,
-          duration: Duration(seconds: 4)));
+          duration: Duration(seconds: 3)));
 
       //Store user token in local storage
       final Token token = new Token(tokenString: result.data['login']['token']);
