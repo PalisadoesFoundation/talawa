@@ -94,24 +94,14 @@ class LoginFormState extends State<LoginForm> {
                   onPressed: () async {
                     FocusScope.of(context).unfocus();
                     //checks to see if all the fields have been validated then authenticate a user
-                    setState(() {
-                      if (_formKey.currentState.validate()) {
-                        _formKey.currentState.save();
-                        toggleProgressBarState();
-                        _graphAPI.login(context, model);
-                      }
-                    });
-
-                    // setState(() {
-                    //   toggleProgressBarState();
-                    //    if (_formKey.currentState.validate()) {
-                    //   _formKey.currentState.save();
-                    //   _graphAPI.login(context, model);
-
-                    //   } else{
-                    //     toggleProgressBarState();
-                    //   }
-                    // });
+                    if (_formKey.currentState.validate()) {
+                      _formKey.currentState.save();
+                      // setState(() {
+                      //     toggleProgressBarState();
+                      //   });
+                      _graphAPI.login(context, model);
+                      
+                    }
                   }),
             ),
           ],

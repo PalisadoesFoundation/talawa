@@ -21,7 +21,6 @@ class RegisterForm extends StatefulWidget {
 }
 
 class RegisterFormState extends State<RegisterForm> {
-  bool isEmailAvailable = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController originalPassword = new TextEditingController();
@@ -29,6 +28,7 @@ class RegisterFormState extends State<RegisterForm> {
   bool _progressBarState = false;
   Queries signupQuery = Queries();
   String _currentUserId;
+  bool _validate = false;
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -41,6 +41,9 @@ class RegisterFormState extends State<RegisterForm> {
         documentNode: gql(signupQuery.signUp),
         update: (Cache cache, QueryResult result) {
           if (result.hasException) {
+            setState(() {
+              _progressBarState = false;
+            });
             print("exception");
             final snackBar = SnackBar(
                 content: Text(result.exception.toString(),
@@ -55,14 +58,15 @@ class RegisterFormState extends State<RegisterForm> {
           print(resultData);
 
           if (resultData != null) {
+             setState(() {
+              _progressBarState = false;
+            });
             final snackBar = SnackBar(
                 content: Text("Getting Things Ready...",
                     style: TextStyle(color: Colors.white, fontSize: 18)),
                 backgroundColor: Colors.green,
                 duration: Duration(seconds: 4));
-            setState(() {
-              toggleProgressBarState();
-            });
+           
             Scaffold.of(context).showSnackBar(snackBar);
 
             //Store user token in local storage
@@ -80,7 +84,7 @@ class RegisterFormState extends State<RegisterForm> {
       builder: (RunMutation runMutation, QueryResult result) {
         return Form(
             key: _formKey,
-            autovalidate: true,
+            autovalidate: _validate,
             child: Column(
               children: <Widget>[
                 Text('Register',
@@ -204,11 +208,11 @@ class RegisterFormState extends State<RegisterForm> {
                   child: RaisedButton(
                     padding: EdgeInsets.all(12.0),
                     shape: StadiumBorder(),
-                    child: _progressBarState
+                     child: _progressBarState
                         ? const CircularProgressIndicator()
                         : Text(
                             "SIGN UP",
-                          ),
+                    ),
                     color: Colors.white,
                     onPressed: () async {
                       // FocusScope.of(context).unfocus();
@@ -216,22 +220,12 @@ class RegisterFormState extends State<RegisterForm> {
                       //   toggleProgressBarState();
                       // });
 
-                      // Flushbar(
-                      //    message: result.exception.toString(),
-
-                      //   icon: Icon(
-                      //     Icons.info_outline,
-                      //     size: 28.0,
-                      //     color: Colors.white,
-                      //   ),
-                      //   backgroundColor: Colors.amber,
-                      //   duration: Duration(seconds: 3),
-                      // )..show(context);
-
                       // isEmailAvailable = await Provider.of<UserController>(context, listen: false).validateUserEmail(emailController.text);
+                      _validate = true;
                       if (_formKey.currentState.validate()) {
                         print("run mutation");
                         _formKey.currentState.save();
+
                         runMutation({
                           "firstName": model.firstName,
                           "lastName": model.lastName,
@@ -239,11 +233,9 @@ class RegisterFormState extends State<RegisterForm> {
                           "password": model.password
                         });
                         //await Provider.of<AuthController>(context, listen: false).register(context, model);
-                        if (result.loading) {
-                          setState(() {
-                            toggleProgressBarState();
-                          });
-                        }
+                        setState(() {
+                          toggleProgressBarState();
+                        });
                       }
                     },
                   ),

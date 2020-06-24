@@ -23,6 +23,10 @@ class GraphAPI {
           variables: {"email": user.email, "password": user.password}),
     );
 
+      if (result.loading) {
+      return Text('Loading');
+    }
+
     if (result.hasException) {
       print(result.exception);
       Scaffold.of(context).showSnackBar(SnackBar(
