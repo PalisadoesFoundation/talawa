@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,108 +15,83 @@ import 'package:talawa/model/user.dart';
 
 import 'package:talawa/enums/connectivity_status.dart';
 
-
 import 'package:talawa/views/widgets/navbar.dart';
-class HomePage extends StatefulWidget {
+import 'package:talawa/views/pages/events.dart';
+import 'package:talawa/views/pages/newsfeed.dart';
+import 'package:talawa/views/pages/addEventPage.dart';
+
+
+
+class Home extends StatefulWidget {
+  Home({Key key}) : super(key: key);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeState createState() => _HomeState();
 }
 
-class _HomePageState extends State<HomePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+class _HomeState extends State<Home> {
+  @override
 
-  @override void initState() {
-    super.initState();
-    Provider.of<NoteController>(context, listen: false).initializeSocket(
-      Provider.of<AuthController>(context, listen: false).currentUserId
-    );
-  }
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   _showSnackBar() {
     print("Show SnackBar Here");
-    final snackBar = new SnackBar(
-      content: new Text("Device Disconnected")
-    );
+    final snackBar = new SnackBar(content: new Text("Device Disconnected"));
     _scaffoldKey.currentState.showSnackBar(snackBar);
     return CircularProgressIndicator();
   }
 
-
-
   BuildContext _context;
 
-  @override
-  Widget build(BuildContext context) {
-
-    var connectionStatus = Provider.of<ConnectivityStatus>(context, listen:true);
-    if (connectionStatus == ConnectivityStatus.Offline ) {
-      _showSnackBar();
-    }
-    _context = context;
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: new AppBar(
-        // title: Image(
-        //   image: AssetImage(UIData.talawaLogoDark),
-        //   height: 50,
-        // ),
-        title: Text("Activities"),
-        leading: Consumer2<AuthController, UserController>(
-            builder: (context, authController, userController, child) {
-          return FutureBuilder(
-              future: userController.getUser(authController.currentUserId),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  User user = snapshot.data;
-                  return Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: InkWell(
-                        child: CircleAvatar(
-                          
-                          backgroundColor: Colors.blue,
-                          child: Text(
-                            user.firstName.substring(0, 1),
-                            style: TextStyle(fontSize: 25),
-                          ),
+Widget homeAppBar(scaffoldKey) {
+    return AppBar(
+      title: Text("Activities"),
+      leading: Consumer2<AuthController, UserController>(
+          builder: (context, authController, userController, child) {
+        return FutureBuilder(
+            future: userController.getUser(authController.currentUserId),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                User user = snapshot.data;
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: InkWell(
+                      child: CircleAvatar(
+                        backgroundColor: Colors.blue,
+                        child: Text(
+                          user.firstName.substring(0, 1).toUpperCase(),
+                          style: TextStyle(fontSize: 25, color: Colors.white70),
                         ),
-                        onTap: () => _scaffoldKey.currentState.openDrawer()),
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              });
-        }),
+                      ),
+                      onTap: () => scaffoldKey.currentState.openDrawer()),
+                );
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            });
+      }),
 
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      drawer: CommonDrawer(),
-      body: 
-      
-      Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Image(
-              image: AssetImage(UIData.quitoBackground),
-              fit: BoxFit.fill,
-            ),
-          ),
-          activityList(),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(_context, UIData.addActivityPage);
-        },
-        child: Icon(Icons.add),
-      ),
-      
+      backgroundColor: UIData.quitoThemeColor,
+      elevation: 0.0,
     );
-    
   }
 
-  Widget activityList() {
+  Stack homeBody(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Positioned.fill(
+          child: Image(
+            image: AssetImage(UIData.quitoBackground),
+            fit: BoxFit.fill,
+          ),
+        ),
+        activityList(context),
+      ],
+    );
+  }
+
+  Widget activityList(_context) {
     return Column(
       children: <Widget>[
         Expanded(
@@ -133,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (_context, index) {
                             Activity activity = snapshot.data[index];
                             return Column(
-                              children: <Widget>[eventCard(activity)],
+                              children: <Widget>[eventCard(activity, _context)],
                             );
                           },
                         );
@@ -146,16 +122,12 @@ class _HomePageState extends State<HomePage> {
                       return Center(child: CircularProgressIndicator());
                     }
                   });
-            })), 
+            })),
       ],
     );
-  
-
-
-    
   }
 
-  Widget eventCard(Activity activity) {
+  Widget eventCard(Activity activity, _context) {
     return InkWell(
         onTap: () {
           Navigator.pushNamed(_context, UIData.activityDetails,
@@ -189,25 +161,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Row(
                     children: <Widget>[
-                      // CircleAvatar(
-                      //     backgroundColor: Colors.blue,
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: <Widget>[
-                      //         Icon(
-                      //           Icons.person,
-                      //           color: Colors.white,
-                      //           size: 18,
-                      //         ),
-                      //         activity.userCount > 9
-                      //             ? Text('+9',
-                      //                 style: TextStyle(
-                      //                     color: Colors.white, fontSize: 18.0))
-                      //             : Text(activity.userCount.toString(),
-                      //                 style: TextStyle(
-                      //                     color: Colors.white, fontSize: 18.0)),
-                      //       ],
-                      //     )),
                     ],
                   )
                 ],
@@ -215,5 +168,28 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ));
+  }
+
+
+  FloatingActionButton homeFAB(BuildContext _context) {
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.pushNamed(_context, UIData.addActivityPage);
+      },
+      child: Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Widget build(BuildContext context) {
+    return 
+    Scaffold(
+      appBar: homeAppBar(_scaffoldKey),
+      drawer: CommonDrawer(),
+      body: homeBody(context),
+      floatingActionButton: homeFAB(_context),
+    );
   }
 }

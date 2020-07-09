@@ -1,4 +1,4 @@
-export 'home_page.dart';
+export 'nav_page.dart';
 export 'login_page.dart';
 export 'notfound_page.dart';
 export 'activity_detail.dart';

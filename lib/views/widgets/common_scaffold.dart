@@ -125,9 +125,6 @@ class CommonScaffold extends StatelessWidget {
           Expanded(
             child: bodyData,
           ),
-          Container(
-              height: 60,
-              child: NavBar(currentIndex: 1),)
         ],
       ),
       floatingActionButton: showFAB

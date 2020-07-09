@@ -239,10 +239,7 @@ class AddActivityForm extends StatelessWidget {
                     );
                   },
                 )),
-                //////////////////
-                Container(
-                  height: 60,
-              child: NavBar(currentIndex: 1),)
+              
           ],
         ),
         
