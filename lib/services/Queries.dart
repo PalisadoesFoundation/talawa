@@ -35,6 +35,7 @@ class Queries{
 final String fetchOrganizations = '''
     query{
       organizations{
+        _id
         name
         description
         creator{

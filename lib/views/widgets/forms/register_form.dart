@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/user_controller.dart';
 import 'package:talawa/services/Queries.dart';
@@ -72,8 +73,13 @@ class RegisterFormState extends State<RegisterForm> {
             void getToken() async {
               final Token token =
                   new Token(tokenString: resultData.data['signup']['token']);
-              print(resultData.data['signup']['token']);
               await Preferences.saveCurrentUserId(token);
+
+              final String currentUserId = resultData.data['signup']['userId'];
+              SharedPreferences preferences =
+                  await SharedPreferences.getInstance();
+
+              await preferences.setString("userId", currentUserId);
             }
 
             getToken();
@@ -217,12 +223,6 @@ class RegisterFormState extends State<RegisterForm> {
                           ),
                     color: Colors.white,
                     onPressed: () async {
-                      // FocusScope.of(context).unfocus();
-                      // setState(() {
-                      //   toggleProgressBarState();
-                      // });
-
-                      // isEmailAvailable = await Provider.of<UserController>(context, listen: false).validateUserEmail(emailController.text);
                       _validate = true;
                       if (_formKey.currentState.validate()) {
                         print("run mutation");

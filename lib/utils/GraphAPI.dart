@@ -49,13 +49,12 @@ class GraphAPI with ChangeNotifier {
           backgroundColor: Colors.green,
           duration: Duration(seconds: 3)));
 
-      //Store user token in local storage
+      //Store user token and id in preferences
 
        final Token token = new Token(tokenString: result.data['login']['token']);
         await Preferences.saveCurrentUserId(token);
        final String currentUserId = result.data['login']['userId'];
         await preferences.setString("userId", currentUserId);
-
 
       print('User logged in');
         Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -63,20 +62,13 @@ class GraphAPI with ChangeNotifier {
     }
   }
 
+  
+
+    //clears token and pages stack
     void logout(BuildContext context) async {
     await Preferences.clearUser();
    Navigator.pushNamedAndRemoveUntil(context, UIData.loginPageRoute, (r) => false);
   }
-
-
-  //Checks if user is logged in via local storage
-  //  Future<bool> getLoginStatus() async {
-  //   currentUserId = await Preferences.getCurrentUserId();
-  //   if (currentUserId == -1) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
 
 
 }
