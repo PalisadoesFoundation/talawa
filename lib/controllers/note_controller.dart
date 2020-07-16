@@ -21,7 +21,7 @@ class NoteController with ChangeNotifier {
           transports: [Transports.WEB_SOCKET]));
       this.socket.onConnect((data) {
         print("connected...");
-        this.socket.emit("join_activity_rooms", [currentUserId]);
+      //  this.socket.emit("join_activity_rooms", [currentUserId]);
       });
       this.socket.onConnectError((err) {
         print(err);

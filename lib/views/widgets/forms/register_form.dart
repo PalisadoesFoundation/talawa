@@ -27,7 +27,6 @@ class RegisterFormState extends State<RegisterForm> {
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
   Queries signupQuery = Queries();
-  String _currentUserId;
   bool _validate = false;
 
   void toggleProgressBarState() {
@@ -74,7 +73,7 @@ class RegisterFormState extends State<RegisterForm> {
               final Token token =
                   new Token(tokenString: resultData.data['signup']['token']);
               print(resultData.data['signup']['token']);
-              _currentUserId = await Preferences.saveCurrentUserId(token);
+              await Preferences.saveCurrentUserId(token);
             }
 
             getToken();
@@ -176,7 +175,7 @@ class RegisterFormState extends State<RegisterForm> {
                     labelStyle: TextStyle(color: Colors.white),
                     focusColor: UIData.quitoThemeColor,
                     alignLabelWithHint: true,
-                    hintText: 'foo@bar.com',
+                    hintText: 'password',
                     hintStyle: TextStyle(color: Colors.grey),
                   ),
                   onSaved: (value) {

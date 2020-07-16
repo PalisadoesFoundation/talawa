@@ -1,13 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/model/token.dart';
 
-class Preferences {
+class Preferences with ChangeNotifier {
   static const tokenKey = "token";
 
-  static Future<String> saveCurrentUserId(Token token) async {
+   Future <String> getUserId() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String userId = preferences.getString("userId");
+    return userId;
+}
+
+    static Future<int> saveCurrentUserId(Token token) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     Map<String, dynamic> tokenMap = token.parseJwt();
-    String userId = tokenMap['id'];
+    int userId = tokenMap['id'];
     await preferences.setString(
         tokenKey,
         (token.tokenString != null && token.tokenString.length > 0)

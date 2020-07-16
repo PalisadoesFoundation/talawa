@@ -14,6 +14,8 @@ import 'package:talawa/model/user.dart';
 
 import 'package:talawa/enums/connectivity_status.dart';
 
+import 'join_organization.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -61,7 +63,7 @@ class _HomePageState extends State<HomePage> {
         leading: Consumer2<AuthController, UserController>(
             builder: (context, authController, userController, child) {
           return FutureBuilder(
-              future: userController.getUser(authController.currentUserId),
+              //future: userController.getUser(authController.currentUserId),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   User user = snapshot.data;
@@ -103,7 +105,10 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(_context, UIData.addActivityPage);
+          //temporary to test join org
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => new JoinOrganization()));
+          //Navigator.pushNamed(_context, UIData.addActivityPage);
         },
         child: Icon(Icons.add),
       ),

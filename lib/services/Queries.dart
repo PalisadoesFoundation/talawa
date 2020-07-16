@@ -18,11 +18,13 @@ class Queries{
       }
 
     ''';
-    
 
-final String fetchNavDrawerUserInfo = ''' 
-        query user(\$id: ID){
-        users{
+
+    
+ String fetchNavDrawerUserInfo = ''' 
+        query Users(\$id: ID!){
+          users(id:\$id)
+          {
           firstName
           lastName
           email
@@ -41,5 +43,15 @@ final String fetchOrganizations = '''
         }
       }
     }
+  ''';
+
+  final String createOrganization = '''
+      mutation createOrg (\$name: String!, \$description: String!, \$attendees: String!, \$isPublic: Boolean!){
+          createOrganization(data: {name: \$name, description: \$description, attendees: \$attendees, isPublic: \$isPublic}){
+            
+          }
+        }
+
+
   ''';
 }

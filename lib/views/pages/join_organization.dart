@@ -4,6 +4,8 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/uidata.dart';
 
+import 'create_organization.dart';
+
 class JoinOrganization extends StatefulWidget {
   @override
   _JoinOrganizationState createState() => _JoinOrganizationState();
@@ -42,7 +44,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      "Welcome, \nFind your organization to get started",
+                      "Welcome, \nJoin or create your organization to get started",
                       style: TextStyle(
                           color: Colors.black87.withOpacity(0.8),
                           fontSize: 20,
@@ -102,8 +104,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                 builder:
                                                     (BuildContext context) {
                                                   return AlertDialog(
-                                                    title: Text(
-                                                        "Confirmation"),
+                                                    title: Text("Confirmation"),
                                                     content: Text(
                                                         "Are you sure you want to join this organization?"),
                                                     actions: [
@@ -116,9 +117,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                       ),
                                                       FlatButton(
                                                         child: Text("Accept"),
-                                                        onPressed: () {
-
-                                                        },
+                                                        onPressed: () {},
                                                       )
                                                     ],
                                                   );
@@ -137,6 +136,17 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                   ],
                 ));
           }),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        backgroundColor: Colors.lightBlueAccent,
+        foregroundColor: Colors.white,
+        elevation: 5.0,
+        onPressed: () {
+         Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => new CreateOrganization()));
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

@@ -78,7 +78,7 @@ class ContactPage extends StatelessWidget {
         margin: const EdgeInsets.only(left: 40, right: 40),
         child: Consumer<UserController>(builder: (context, controller, child) {
           return FutureBuilder<User>(
-              future: controller.getUser(userId),
+              //future: controller.getUser(userId),
               builder: (_context, snapshot) {
                 if (snapshot.hasData) {
                   user = snapshot.data;

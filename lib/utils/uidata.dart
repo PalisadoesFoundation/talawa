@@ -12,6 +12,8 @@ class UIData {
   static const String activityDetails = "/activityDetails";
   static const String responsibilityPage = "/responsibilityPage";
   static const String contactPage = "/contactPage";
+  static const String joinOrganizationPage = "/joinOrganization";
+  
 
   //strings
   static const String appName = "Talawa";

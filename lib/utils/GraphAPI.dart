@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/model/token.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talawa/model/user.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/views/pages/_pages.dart';
+import 'package:talawa/model/token.dart';
+import 'package:talawa/utils/globals.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'api.dart';
 
-class GraphAPI {
+
+
+class GraphAPI with ChangeNotifier {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   Queries _loginQuery = Queries();
   LoginViewModel user = new LoginViewModel();
-  String _currentUserId;
+  User userModel = User();
+
 
   //could not follow the normal way listed in the documentation for Query, as the the login query needed to be manuallybcalled when the button is pressed
   Future login(BuildContext context, LoginViewModel user) async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
 
     QueryResult result = await _client.query(
       QueryOptions(
@@ -39,11 +49,34 @@ class GraphAPI {
           duration: Duration(seconds: 3)));
 
       //Store user token in local storage
-      final Token token = new Token(tokenString: result.data['login']['token']);
-      print(result.data['login']['token']);
-      _currentUserId = await Preferences.saveCurrentUserId(token);
 
-            print( 'User logged in');
+       final Token token = new Token(tokenString: result.data['login']['token']);
+        await Preferences.saveCurrentUserId(token);
+       final String currentUserId = result.data['login']['userId'];
+        await preferences.setString("userId", currentUserId);
+
+
+      print('User logged in');
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => new HomePage()));
     }
   }
+
+    void logout(BuildContext context) async {
+    await Preferences.clearUser();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => new LoginPage()));
+  }
+
+
+  //Checks if user is logged in via local storage
+  //  Future<bool> getLoginStatus() async {
+  //   currentUserId = await Preferences.getCurrentUserId();
+  //   if (currentUserId == -1) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
+
 }

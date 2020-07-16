@@ -1,101 +1,150 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:talawa/controllers/auth_controller.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:talawa/model/user.dart';
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:http/http.dart' as http;
 
-class CommonDrawer extends StatelessWidget {
-  Queries navDrawerQuery = Queries();
-  AuthController authController = AuthController();
+class CommonDrawer extends StatefulWidget {
+  
+  @override
+  _CommonDrawerState createState() => _CommonDrawerState();
+}
+
+class _CommonDrawerState extends State<CommonDrawer> {
+  Queries _query = Queries();
+  GraphAPI _api = GraphAPI();
+  Preferences preferences = Preferences();
+
+  String userID;
+
+  @override
+  void initState() {
+    getUser();
+    super.initState();
+  }
+
+  
+  getUser() async{
+    final id = await preferences.getUserId();
+    setState(() {
+      userID = id;
+    });
+  }
+    
 
   @override
   Widget build(BuildContext context) {
-            return Query(
-              options: QueryOptions(
-                documentNode: gql(navDrawerQuery.fetchNavDrawerUserInfo),
-                variables: {
-                  "id": authController.getUser()
-                }
-              ),
-              builder: (QueryResult result, { VoidCallback refetch, FetchMore fetchMore }) {
-              final userDetails = result.data['users'];
-                if (result.loading) {
-                  return CircularProgressIndicator();
-                } else {
-                return ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  UserAccountsDrawerHeader(
-                      decoration: BoxDecoration(color: Colors.white),
-                      accountName: Text(
-                        userDetails['firstName'] + userDetails['lastName'],
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 18.0),
-                      ),
-                      accountEmail: Text(
-                        userDetails['email'],
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 18.0),
-                      ),
-                      currentAccountPicture: new InkWell(
-                          child: CircleAvatar(
-                            backgroundColor: Colors.blue,
-                            child: Text(
-                              userDetails['firstName'].substring(0) + userDetails['lastName'].substring(0),
-                              style: TextStyle(fontSize: 25),
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.of(context).pushNamed(UIData.contactPage,
-                                arguments: authController.currentUserId);
-                          })),
-                  new ListTile(
-                    title: Text(
-                      "Profile",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-                    ),
-                    leading: Icon(
-                      Icons.person,
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pushNamed(UIData.contactPage,
-                          arguments: authController.currentUserId);
-                    },
-                  ),
-                  Divider(),
-                  new ListTile(
-                    title: Text(
-                      "Responsibilities",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-                    ),
-                    leading: Icon(
-                      Icons.chat,
-                    ),
-                  ),
-                  Divider(),
-                  new ListTile(
-                    title: Text(
-                      "Logout",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-                    ),
-                    leading: Icon(
-                      Icons.exit_to_app,
-                    ),
-                    onTap: () {
-                      authController.logout(context);
-                    },
-                  ),
-                  Divider(),
-                  MyAboutTile()
-                ],
+    return Drawer(
+            child:Query(
+          options: QueryOptions(
+            documentNode: gql(_query.fetchNavDrawerUserInfo),
+            variables: {'id': userID}
+          ),
+          builder: (QueryResult result,
+              {VoidCallback refetch, FetchMore fetchMore}) {
+            if (result.hasException) {
+              print(result.exception);
+              return Center(
+                child: Text(
+                  result.exception.toString(),
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
               );
-              }});
-          
-        }
-      
+            } else if (result.loading) {
+              return Center(child: CircularProgressIndicator());
+            }
+            List userDetails = result.data['users'];
+ 
+            return ListView.builder(
+              itemCount: userDetails.length,
+              itemBuilder: (context, index) {
+                final user = userDetails[index];
+              
+                return Column(
+                  children: <Widget>[
+                    UserAccountsDrawerHeader(
+                        decoration: BoxDecoration(color: Colors.white),
+                        accountName: Text(
+                          user['firstName'].toString() + " " + user['lastName'].toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 18.0),
+                        ),
+                        accountEmail: Text(
+                          user['email'].toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 18.0),
+                        ),
+                        currentAccountPicture: new InkWell(
+                            child: CircleAvatar(
+                              backgroundColor: Colors.blue,
+                              child: Text(
+                                user['firstName'].toString().substring(0,1).toUpperCase() +
+                                    user['lastName'].toString().substring(0,1).toUpperCase(),
+                                style: TextStyle(fontSize: 25),
+                              ),
+                            ),
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                UIData.contactPage,
+                              );
+                            })),
+                  
+                new ListTile(
+                  title: Text(
+                    "Profile",
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+                  ),
+                  leading: Icon(
+                    Icons.person,
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                      UIData.contactPage,
+                    );
+                  },
+                ),
+                Divider(),
+                new ListTile(
+                  title: Text(
+                    "Responsibilities",
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+                  ),
+                  leading: Icon(
+                    Icons.chat,
+                  ),
+                ),
+                Divider(),
+                new ListTile(
+                  title: Text(
+                    "Logout",
+                    style:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+                  ),
+                  leading: Icon(
+                    Icons.exit_to_app,
+                  ),
+                  onTap: () {
+                    _api.logout(context);
+                  },
+                ),
+                Divider(),
+                MyAboutTile(),
+              ],
+                );
+              });
+         
+              }));
+  }
 }
-  
+

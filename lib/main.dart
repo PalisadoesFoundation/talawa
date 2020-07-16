@@ -5,13 +5,14 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/note_controller.dart';
 import 'package:talawa/controllers/user_controller.dart';
 import 'package:talawa/services/connectivity_service.dart';
+import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/add_responsibility_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/utils/GQLClient.dart';
-
 import 'controllers/responsibility_controller.dart';
 import 'enums/connectivity_status.dart';
 
@@ -26,7 +27,9 @@ void main() {
   // await AppInitializer().initialise(injector);
   // final SocketService socketService = injector.get<SocketService>();
   // socketService.createSocketConnection();
-  runApp(MultiProvider(
+  runApp(
+
+    MultiProvider(
     providers: [
       ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
       ChangeNotifierProvider<ActivityController>(
@@ -37,7 +40,7 @@ void main() {
       ChangeNotifierProvider<NoteController>(create: (_) => NoteController()),
       StreamProvider<ConnectivityStatus>(
           create: (_) =>
-              ConnectivityService().connectionStatusController.stream)
+              ConnectivityService().connectionStatusController.stream),
     ],
     child: MyApp(),
   ));
