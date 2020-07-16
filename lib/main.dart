@@ -75,7 +75,8 @@ class MyApp extends StatelessWidget {
             UIData.notFoundRoute: (BuildContext context) => NotFoundPage(),
             UIData.responsibilityPage: (BuildContext context) => NotFoundPage(),
             UIData.contactPage: (BuildContext context) =>
-                ContactPage(settings.arguments)
+                ContactPage(settings.arguments),
+            UIData.loginPageRoute: (BuildContext context) => LoginPage(),
           };
           WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));

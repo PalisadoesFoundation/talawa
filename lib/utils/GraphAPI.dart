@@ -5,6 +5,7 @@ import 'package:talawa/model/user.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/model/token.dart';
@@ -64,8 +65,7 @@ class GraphAPI with ChangeNotifier {
 
     void logout(BuildContext context) async {
     await Preferences.clearUser();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => new LoginPage()));
+   Navigator.pushNamedAndRemoveUntil(context, UIData.loginPageRoute, (r) => false);
   }
 
 

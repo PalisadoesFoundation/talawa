@@ -13,7 +13,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class CommonDrawer extends StatefulWidget {
-  
   @override
   _CommonDrawerState createState() => _CommonDrawerState();
 }
@@ -31,120 +30,144 @@ class _CommonDrawerState extends State<CommonDrawer> {
     super.initState();
   }
 
-  
-  getUser() async{
+  getUser() async {
     final id = await preferences.getUserId();
     setState(() {
       userID = id;
     });
   }
-    
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-            child:Query(
-          options: QueryOptions(
-            documentNode: gql(_query.fetchNavDrawerUserInfo),
-            variables: {'id': userID}
-          ),
-          builder: (QueryResult result,
-              {VoidCallback refetch, FetchMore fetchMore}) {
-            if (result.hasException) {
-              print(result.exception);
-              return Center(
-                child: Text(
-                  result.exception.toString(),
-                  style: TextStyle(fontSize: 16),
-                  textAlign: TextAlign.center,
-                ),
-              );
-            } else if (result.loading) {
-              return Center(child: CircularProgressIndicator());
-            }
-            List userDetails = result.data['users'];
- 
-            return ListView.builder(
-              itemCount: userDetails.length,
-              itemBuilder: (context, index) {
-                final user = userDetails[index];
-              
-                return Column(
-                  children: <Widget>[
-                    UserAccountsDrawerHeader(
-                        decoration: BoxDecoration(color: Colors.white),
-                        accountName: Text(
-                          user['firstName'].toString() + " " + user['lastName'].toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 18.0),
-                        ),
-                        accountEmail: Text(
-                          user['email'].toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 18.0),
-                        ),
-                        currentAccountPicture: new InkWell(
-                            child: CircleAvatar(
-                              backgroundColor: Colors.blue,
-                              child: Text(
-                                user['firstName'].toString().substring(0,1).toUpperCase() +
-                                    user['lastName'].toString().substring(0,1).toUpperCase(),
-                                style: TextStyle(fontSize: 25),
-                              ),
-                            ),
-                            onTap: () {
-                              Navigator.of(context).pushNamed(
-                                UIData.contactPage,
-                              );
-                            })),
-                  
-                new ListTile(
-                  title: Text(
-                    "Profile",
-                    style:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
+        child: Query(
+            options: QueryOptions(
+                documentNode: gql(_query.fetchNavDrawerUserInfo),
+                variables: {'id': userID}),
+            builder: (QueryResult result,
+                {VoidCallback refetch, FetchMore fetchMore}) {
+              if (result.hasException) {
+                print(result.exception);
+                return Center(
+                  child: Text(
+                    result.exception.toString(),
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center,
                   ),
-                  leading: Icon(
-                    Icons.person,
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      UIData.contactPage,
-                    );
-                  },
-                ),
-                Divider(),
-                new ListTile(
-                  title: Text(
-                    "Responsibilities",
-                    style:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-                  ),
-                  leading: Icon(
-                    Icons.chat,
-                  ),
-                ),
-                Divider(),
-                new ListTile(
-                  title: Text(
-                    "Logout",
-                    style:
-                        TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
-                  ),
-                  leading: Icon(
-                    Icons.exit_to_app,
-                  ),
-                  onTap: () {
-                    _api.logout(context);
-                  },
-                ),
-                Divider(),
-                MyAboutTile(),
-              ],
                 );
-              });
-         
-              }));
+              } else if (result.loading) {
+                return Center(child: CircularProgressIndicator());
+              }
+              List userDetails = result.data['users'];
+
+              return ListView.builder(
+                  itemCount: userDetails.length,
+                  itemBuilder: (context, index) {
+                    final user = userDetails[index];
+
+                    return Column(
+                      children: <Widget>[
+                        UserAccountsDrawerHeader(
+                            decoration: BoxDecoration(color: Colors.white),
+                            accountName: Text(
+                              user['firstName'].toString() +
+                                  " " +
+                                  user['lastName'].toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700, fontSize: 18.0),
+                            ),
+                            accountEmail: Text(
+                              user['email'].toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700, fontSize: 18.0),
+                            ),
+                            currentAccountPicture: new InkWell(
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.blue,
+                                  child: Text(
+                                    user['firstName']
+                                            .toString()
+                                            .substring(0, 1)
+                                            .toUpperCase() +
+                                        user['lastName']
+                                            .toString()
+                                            .substring(0, 1)
+                                            .toUpperCase(),
+                                    style: TextStyle(fontSize: 25),
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    UIData.contactPage,
+                                  );
+                                })),
+                        new ListTile(
+                          title: Text(
+                            "Profile",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 18.0),
+                          ),
+                          leading: Icon(
+                            Icons.person,
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              UIData.contactPage,
+                            );
+                          },
+                        ),
+                        Divider(),
+                        new ListTile(
+                          title: Text(
+                            "Responsibilities",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 18.0),
+                          ),
+                          leading: Icon(
+                            Icons.chat,
+                          ),
+                        ),
+                        Divider(),
+                        new ListTile(
+                          title: Text(
+                            "Logout",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 18.0),
+                          ),
+                          leading: Icon(
+                            Icons.exit_to_app,
+                          ),
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Confirmation"),
+                                    content: Text(
+                                        "Are you sure you want to logout?"),
+                                    actions: [
+                                      FlatButton(
+                                        child: Text("No"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      FlatButton(
+                                        child: Text("Yes"),
+                                        onPressed: () {
+                                          _api.logout(context);
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
+                          },
+                        ),
+                        Divider(),
+                        MyAboutTile(),
+                      ],
+                    );
+                  });
+            }));
   }
 }
-

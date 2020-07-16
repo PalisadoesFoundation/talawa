@@ -13,6 +13,8 @@ class UIData {
   static const String responsibilityPage = "/responsibilityPage";
   static const String contactPage = "/contactPage";
   static const String joinOrganizationPage = "/joinOrganization";
+    static const String loginPageRoute = "/login";
+
   
 
   //strings
