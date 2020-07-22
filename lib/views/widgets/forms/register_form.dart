@@ -29,6 +29,7 @@ class RegisterFormState extends State<RegisterForm> {
   bool _progressBarState = false;
   Queries signupQuery = Queries();
   bool _validate = false;
+  Preferences _pref = Preferences();
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -61,28 +62,19 @@ class RegisterFormState extends State<RegisterForm> {
             setState(() {
               _progressBarState = true;
             });
-            final snackBar = SnackBar(
-                content: Text("Getting Things Ready...",
-                    style: TextStyle(color: Colors.white, fontSize: 18)),
-                backgroundColor: Colors.green,
-                duration: Duration(seconds: 3));
-
-            Scaffold.of(context).showSnackBar(snackBar);
-
+            final Token token =
+                new Token(tokenString: resultData.data['signUp']['token']);
+            final String currentUserId = resultData.data['signUp']['userId'];
+            print(currentUserId.toString());
             //Store user token in local storage
             void getToken() async {
-              final Token token =
-                  new Token(tokenString: resultData.data['signup']['token']);
-              await Preferences.saveCurrentUserId(token);
+              await _pref.saveToken(token);
 
-              final String currentUserId = resultData.data['signup']['userId'];
-              SharedPreferences preferences =
-                  await SharedPreferences.getInstance();
-
-              await preferences.setString("userId", currentUserId);
+              await _pref.saveUserId(currentUserId);
             }
 
             getToken();
+
             //Navigate user to join organization screen
             Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => new JoinOrganization()));
@@ -234,7 +226,6 @@ class RegisterFormState extends State<RegisterForm> {
                           "email": model.email,
                           "password": model.password
                         });
-                        //await Provider.of<AuthController>(context, listen: false).register(context, model);
                         setState(() {
                           toggleProgressBarState();
                         });

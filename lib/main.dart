@@ -5,8 +5,6 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/note_controller.dart';
 import 'package:talawa/controllers/user_controller.dart';
 import 'package:talawa/services/connectivity_service.dart';
-import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/add_responsibility_page.dart';
@@ -20,6 +18,7 @@ GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
 
 void main() {
+
 
 
   // DependencyInjection().initialise(Injector.getInjector());
@@ -49,7 +48,12 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
-  //route definition
+  //route definition  
+
+
+  static String token;
+
+
 
   @override
   Widget build(BuildContext context) {

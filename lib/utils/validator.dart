@@ -78,4 +78,26 @@ class Validator{
 
     return null;
   }
+
+   static String validateOrgName(String value) {
+    if (value.length == 0) {
+      return 'Organization Name must not be left blank.';
+    }
+    return null;
+  }
+
+    static String validateOrgDesc(String value) {
+    if (value.length == 0) {
+      return 'Organization Description must not be left blank.';
+    }
+    return null;
+  }
+
+    static String validateOrgAttendeesDesc(String value) {
+    if (value.length == 0) {
+      return 'Attendees Description must not be left blank.';
+    }
+    return null;
+  }
+
 }

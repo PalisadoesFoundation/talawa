@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/Queries.dart';
-import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/services/preferences.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 import 'create_organization.dart';
 
@@ -13,6 +17,40 @@ class JoinOrganization extends StatefulWidget {
 
 class _JoinOrganizationState extends State<JoinOrganization> {
   Queries organizationQuery = Queries();
+  Preferences _pref = Preferences();
+  String token;
+  static String itemIndex;
+
+  //helper function to get and set token in a string for 'Bearer $token' in joinPublicOrg function
+  getToken() async {
+    final id = await _pref.getToken();
+    token = id;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getToken();
+  }
+
+  /**used this to make another server call(mutation/post), because graphql already has the widget tree wrapped in a query/get.
+   *  Tried to do another mutation call using standard graphql but didnt work so I called the query string in an http request. 
+  */
+  Future joinPublicOrg() async {
+
+    final response = await http.post(
+      "https://talawa-testing.herokuapp.com/graphql/",
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        HttpHeaders.authorizationHeader: 'Bearer $token'
+      },
+      body: jsonEncode(<String, String>{
+        'query': organizationQuery.getOrgId(itemIndex)
+      }),
+    );
+        print(response);
+        }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,6 +137,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               .toString()),
                                       trailing: new RaisedButton(
                                           onPressed: () {
+                                            itemIndex =
+                                                organization['_id'].toString();
                                             showDialog(
                                                 context: context,
                                                 builder:
@@ -116,8 +156,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                         },
                                                       ),
                                                       FlatButton(
-                                                        child: Text("Accept"),
-                                                        onPressed: () {},
+                                                        child: Text("Yes"),
+                                                        onPressed: () async {
+                                                        
+                                                          joinPublicOrg();
+                                                        },
                                                       )
                                                     ],
                                                   );
@@ -142,8 +185,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
-         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => new CreateOrganization()));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => new CreateOrganization()));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

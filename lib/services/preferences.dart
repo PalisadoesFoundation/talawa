@@ -4,23 +4,33 @@ import 'package:talawa/model/token.dart';
 
 class Preferences with ChangeNotifier {
   static const tokenKey = "token";
+  static const userId = "userId";
 
-   Future <String> getUserId() async {
+  Future saveUserId(String userID) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String userId = preferences.getString("userId");
-    return userId;
-}
+    await preferences.setString(userId, userID);
+  }
 
-    static Future<int> saveCurrentUserId(Token token) async {
+  Future<String> getUserId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    Map<String, dynamic> tokenMap = token.parseJwt();
-    int userId = tokenMap['id'];
+    String uid = preferences.getString(userId);
+    return uid;
+  }
+
+  Future saveToken(Token token) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    token.parseJwt();
     await preferences.setString(
         tokenKey,
         (token.tokenString != null && token.tokenString.length > 0)
             ? token.tokenString
             : "");
-    return userId;
+  }
+
+  Future<String> getToken() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String userToken = preferences.getString(tokenKey);
+    return userToken;
   }
 
   static Future<int> getCurrentUserId() async {
@@ -40,6 +50,7 @@ class Preferences with ChangeNotifier {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     try {
       preferences.remove(tokenKey);
+      preferences.remove(userId);
     } catch (e) {
       print(e);
       return false;

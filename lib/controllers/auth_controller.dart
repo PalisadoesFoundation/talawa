@@ -27,7 +27,6 @@ class AuthController with ChangeNotifier {
     return true;
   }
 
-/**
   //Log in user
   Future<String> login(BuildContext context, LoginViewModel user) async {
     //Create request body
@@ -103,7 +102,7 @@ class AuthController with ChangeNotifier {
       showAlertDialog(context, e.toString(), e.toString(), "Ok");
     }
   }
-   */
+   
 
   //Registers user
   Future register(BuildContext context, RegisterViewModel user) async {

@@ -9,28 +9,22 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/utils/globals.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'api.dart';
-
 
 
 class GraphAPI with ChangeNotifier {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  Queries _loginQuery = Queries();
+  Queries _query = Queries();
   LoginViewModel user = new LoginViewModel();
   User userModel = User();
-
 
   //could not follow the normal way listed in the documentation for Query, as the the login query needed to be manuallybcalled when the button is pressed
   Future login(BuildContext context, LoginViewModel user) async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
-  SharedPreferences preferences = await SharedPreferences.getInstance();
+    Preferences _pref = Preferences();
 
     QueryResult result = await _client.query(
       QueryOptions(
-          documentNode: gql(_loginQuery.login),
+          documentNode: gql(_query.login),
           variables: {"email": user.email, "password": user.password}),
     );
 
@@ -51,24 +45,20 @@ class GraphAPI with ChangeNotifier {
 
       //Store user token and id in preferences
 
-       final Token token = new Token(tokenString: result.data['login']['token']);
-        await Preferences.saveCurrentUserId(token);
-       final String currentUserId = result.data['login']['userId'];
-        await preferences.setString("userId", currentUserId);
-
+      final Token token = new Token(tokenString: result.data['login']['token']);
+      await _pref.saveToken(token);
+      final String currentUserId = result.data['login']['userId'];
+      await _pref.saveUserId(currentUserId);
       print('User logged in');
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => new HomePage()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new HomePage()));
     }
   }
 
-  
-
-    //clears token and pages stack
-    void logout(BuildContext context) async {
+  //clears token and pages stack
+  void logout(BuildContext context) async {
     await Preferences.clearUser();
-   Navigator.pushNamedAndRemoveUntil(context, UIData.loginPageRoute, (r) => false);
+    Navigator.pushNamedAndRemoveUntil(
+        context, UIData.loginPageRoute, (r) => false);
   }
-
-
 }

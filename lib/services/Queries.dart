@@ -45,14 +45,33 @@ final String fetchOrganizations = '''
       }
     }
   ''';
+  String getOrgId(String orgId){
+
+   return '''
+    mutation {
+      joinPublicOrganization(organizationId: "$orgId") {
+        firstName
+        lastName
+        email
+      }
+	}
+
+  ''';
+  
+  }
 
   final String createOrganization = '''
-      mutation createOrg (\$name: String!, \$description: String!, \$attendees: String!, \$isPublic: Boolean!){
-          createOrganization(data: {name: \$name, description: \$description, attendees: \$attendees, isPublic: \$isPublic}){
-            
+      mutation createOrg (\$name: String!, \$description: String!, \$attendees: String!, \$isPublic: Boolean!, \$visibleInSearch: Boolean!){
+          createOrganization(data: {name: \$name, description: \$description, attendees: \$attendees, isPublic: \$isPublic, visibleInSearch: \$visibleInSearch}){
+            _id
+            name
+            description
+          creator{
+            firstName
+            lastName
+            }
           }
         }
-
 
   ''';
 }

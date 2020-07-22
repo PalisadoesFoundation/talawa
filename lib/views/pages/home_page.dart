@@ -47,10 +47,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    var connectionStatus = Provider.of<ConnectivityStatus>(context, listen:true);
-    if (connectionStatus == ConnectivityStatus.Offline ) {
-      _showSnackBar();
-    }
+    //var connectionStatus = Provider.of<ConnectivityStatus>(context, listen:true);
+    // if (connectionStatus == ConnectivityStatus.Offline ) {
+    //   _showSnackBar();
+    // }
     _context = context;
     return Scaffold(
       key: _scaffoldKey,
