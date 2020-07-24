@@ -45,8 +45,8 @@ final String fetchOrganizations = '''
       }
     }
   ''';
-  String getOrgId(String orgId){
 
+  String getOrgId(String orgId){
    return '''
     mutation {
       joinPublicOrganization(organizationId: "$orgId") {
@@ -55,9 +55,7 @@ final String fetchOrganizations = '''
         email
       }
 	}
-
   ''';
-  
   }
 
   final String createOrganization = '''

@@ -17,6 +17,7 @@ class GraphAPI with ChangeNotifier {
   LoginViewModel user = new LoginViewModel();
   User userModel = User();
 
+
   //could not follow the normal way listed in the documentation for Query, as the the login query needed to be manuallybcalled when the button is pressed
   Future login(BuildContext context, LoginViewModel user) async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
@@ -61,4 +62,5 @@ class GraphAPI with ChangeNotifier {
     Navigator.pushNamedAndRemoveUntil(
         context, UIData.loginPageRoute, (r) => false);
   }
-}
+
+  }

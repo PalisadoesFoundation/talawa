@@ -62,17 +62,16 @@ class RegisterFormState extends State<RegisterForm> {
             setState(() {
               _progressBarState = true;
             });
-            final Token token =
-                new Token(tokenString: resultData.data['signUp']['token']);
-            final String currentUserId = resultData.data['signUp']['userId'];
-            print(currentUserId.toString());
-            //Store user token in local storage
+             //Store user token in local storage
             void getToken() async {
+              final Token token =
+                  new Token(tokenString: resultData.data['signUp']['token']);
               await _pref.saveToken(token);
 
+              final String currentUserId = resultData.data['signUp']['userId'];
+              print("userID: " + currentUserId);
               await _pref.saveUserId(currentUserId);
             }
-
             getToken();
 
             //Navigate user to join organization screen

@@ -10,7 +10,7 @@ class GraphQLConfiguration {
     final id = await _pref.getToken();
     token = id;
   }
-
+ 
   static HttpLink httpLink = HttpLink(
     uri: "https://talawa-testing.herokuapp.com/graphql",
   );
@@ -19,9 +19,8 @@ class GraphQLConfiguration {
     getToken: () async => 'Bearer $token',
   );
 
-  static final Link link = authLink.concat(httpLink);
-
-
+  static final Link finalAuthLink = authLink.concat(httpLink);
+  
 final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
     GraphQLClient(link: httpLink, cache: InMemoryCache()));
 
@@ -32,15 +31,13 @@ final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
     );
   }
 
-final ValueNotifier<GraphQLClient> authClient = ValueNotifier<GraphQLClient>(
-    GraphQLClient(link: link, cache: InMemoryCache()));
 
-  //   GraphQLClient authClient() {
-  //   return GraphQLClient(
-  //     cache: InMemoryCache(),
-  //     link: link,
-  //   );
-  // }
+  GraphQLClient authClient() {
+    return GraphQLClient(
+      cache: InMemoryCache(),
+      link: finalAuthLink,
+    );
+  }
   
 }
 
