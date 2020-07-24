@@ -28,9 +28,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   final _formKey = GlobalKey<FormState>();
 
-  String _publicStatusRadioItem = '';
-
-  String _visibilityStatusRadioItem = '';
+int radioValue = -1;
+int radioValue1 = -1;
 
   bool isPublic = true;
   bool isVisible = true;
@@ -185,32 +184,32 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                   SizedBox(
                     height: 20,
                   ),
-                  Text('Do you want your organization to be private?',
+                  Text('Do you want your organization to be public?',
                       style: TextStyle(fontSize: 16, color: Colors.black)),
                   RadioListTile(
-                    groupValue: _publicStatusRadioItem,
+                    groupValue: radioValue,
                     title: Text('Yes'),
-                    value: 'Yes',
+                    value: 0,
                     onChanged: (val) {
                       setState(() {
-                        _publicStatusRadioItem = val;
-                        if (_publicStatusRadioItem == 'Yes') {
-                          return isPublic;
-                        }
+                        radioValue = val;
+                         if (radioValue == 0){
+                         return isPublic;
+                       }
                       });
                     },
                   ),
                   RadioListTile(
-                    groupValue: _publicStatusRadioItem,
+                    groupValue: radioValue,
                     title: Text('No'),
-                    value: 'No',
+                    value: 1,
                     onChanged: (val) {
                       setState(() {
-                        _publicStatusRadioItem = val;
-                        if (_publicStatusRadioItem == 'No') {
-                          isPublic = false;
-                          return isPublic;
-                        }
+                        radioValue = val;
+                         if (radioValue == 1){
+                           isPublic = false;
+                         return isPublic;
+                       }
                       });
                     },
                   ),
@@ -218,29 +217,29 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                       'Do you want others to be able to find your organization from the search page?',
                       style: TextStyle(fontSize: 16, color: Colors.black)),
                   RadioListTile(
-                    groupValue: _visibilityStatusRadioItem,
+                    groupValue: radioValue1,
                     title: Text('Yes'),
-                    value: 'Yes',
+                    value: 0,
                     onChanged: (val) {
                       setState(() {
-                        _visibilityStatusRadioItem = val;
-                        if (_visibilityStatusRadioItem == 'Yes') {
-                          return isVisible;
-                        }
+                        radioValue1 = val;
+                       if (radioValue1 == 0){
+                         return isVisible;
+                       }
                       });
                     },
                   ),
                   RadioListTile(
-                    groupValue: _visibilityStatusRadioItem,
+                    groupValue: radioValue1,
                     title: Text('No'),
-                    value: 'No',
+                    value: 1,
                     onChanged: (val) {
                       setState(() {
-                        _visibilityStatusRadioItem = val;
-                        if (_visibilityStatusRadioItem == 'No') {
-                          isVisible = false;
-                          return isVisible;
-                        }
+                        radioValue1 = val;
+                         if (radioValue1 == 1){
+                           isVisible = false;
+                         return isVisible;
+                       }
                       });
                     },
                   ),
@@ -259,14 +258,15 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             ),
                       color: Colors.blueAccent,
                       onPressed: () async {
-                        if (_formKey.currentState.validate()) {
+                        if (_formKey.currentState.validate() && radioValue >= 0 && radioValue1 >= 0) {
                           _formKey.currentState.save();
-                          print(isPublic.runtimeType);
                           createOrg();
                           setState(() {
                             toggleProgressBarState();
                           });
-                        }
+                        } else if ( radioValue < 0 || radioValue1 < 0) {
+                            _exceptionToast("A choice must be selected");
+                          }
                       },
                     ),
                   ),
