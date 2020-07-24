@@ -71,7 +71,7 @@ final String fetchOrganizations = '''
             
           }
         }
-
+    }
   ''';
-}
+  }
 }

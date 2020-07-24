@@ -42,6 +42,8 @@ int radioValue1 = -1;
   void initState() {
     super.initState();
     fToast = FToast(context);
+    graphQLConfiguration.getToken();
+
   }
 
   void toggleProgressBarState() {
@@ -49,16 +51,15 @@ int radioValue1 = -1;
   }
 
   createOrg() async {
-    graphQLConfiguration.getToken();
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_queries.createOrg(
-      orgNameController.text.toString(),
-      orgDescController.text.toString(),
-      orgMemberDescController.text.toString(),
-      isPublic,
-      isVisible,
+           orgNameController.text,
+          orgDescController.text,
+          orgMemberDescController.text,
+          isPublic,
+          isVisible,
     ))));
     if (result.hasException) {
       print(result.exception);
@@ -284,7 +285,7 @@ int radioValue1 = -1;
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: Colors.greenAccent,
+        color: Colors.green,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -297,7 +298,7 @@ int radioValue1 = -1;
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: Duration(seconds: 1),
     );
   }
 
@@ -306,7 +307,7 @@ int radioValue1 = -1;
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: Colors.redAccent,
+        color: Colors.red,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

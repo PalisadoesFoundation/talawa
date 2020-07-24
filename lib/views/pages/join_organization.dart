@@ -26,10 +26,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   void initState() {
     super.initState();
     fToast = FToast(context);
+    graphQLConfiguration.getToken();
+
   }
 
   confirmOrgChoice() async {
-    graphQLConfiguration.getToken();
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.mutate(MutationOptions(
@@ -40,7 +41,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     } else if (!result.hasException && !result.loading) {
        _successToast("Sucess!");
       print(result.data);
-      Future.delayed(const Duration(milliseconds: 2000), () {
+      Future.delayed(const Duration(milliseconds: 1000), () {
         //Navigate user to join organization screen
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => new HomePage()));
@@ -195,7 +196,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: Colors.greenAccent,
+        color: Colors.green,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -217,7 +218,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: Colors.redAccent,
+        color: Colors.red,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
