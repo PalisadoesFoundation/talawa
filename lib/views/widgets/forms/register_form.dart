@@ -65,10 +65,12 @@ class RegisterFormState extends State<RegisterForm> {
              //Store user token in local storage
             void getToken() async {
               final Token token =
-                  new Token(tokenString: resultData.data['signUp']['token']);
+                  new Token(tokenString: resultData['signUp']['token']);
               await _pref.saveToken(token);
 
-              final String currentUserId = resultData.data['signUp']['userId'];
+              final String currentUserId = resultData
+              
+              ['signUp']['userId'];
               print("userID: " + currentUserId);
               await _pref.saveUserId(currentUserId);
             }

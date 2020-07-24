@@ -1,15 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/main.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:http/http.dart' as http;
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/home_page.dart';
-import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'create_organization.dart';
@@ -26,12 +21,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-
-  //helper function to get and set token in a string for 'Bearer $token' in joinPublicOrg function
-  getToken() async {
-    final id = await _pref.getToken();
-    token = id;
-  }
 
   @override
   void initState() {
@@ -51,33 +40,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     } else if (!result.hasException && !result.loading) {
        _successToast("Sucess!");
       print(result.data);
-      Future.delayed(const Duration(milliseconds: 3000), () {
+      Future.delayed(const Duration(milliseconds: 2000), () {
         //Navigate user to join organization screen
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => new HomePage()));
       });
     }
   }
-
-  /**used this to make another server call(mutation/post), because graphql already has the widget tree wrapped in a query/get.
-   *  Tried to do another mutation call using standard graphql but didnt work so I called the query string in an http request. 
-  */
-  // Future joinPublicOrg() async {
-  //   final response = await http.post(
-  //     "https://talawa-testing.herokuapp.com/graphql/",
-  //     headers: <String, String>{
-  //       'Content-Type': 'application/json; charset=UTF-8',
-  //       HttpHeaders.authorizationHeader: 'Bearer $token'
-  //     },
-  //     body: jsonEncode(
-  //         <String, String>{'query': organizationQuery.getOrgId(itemIndex)}),
-  //   );
-  //   if (response.statusCode == 200) {
-  //     final responseBody = json.decode(response.body);
-  //     Scaffold.of(context).showSnackBar(SnackBar(
-  //         content: Text(responseBody['data']), duration: Duration(seconds: 5)));
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

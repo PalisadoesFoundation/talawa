@@ -58,18 +58,20 @@ final String fetchOrganizations = '''
   ''';
   }
 
-  final String createOrganization = '''
-      mutation createOrg (\$name: String!, \$description: String!, \$attendees: String!, \$isPublic: Boolean!, \$visibleInSearch: Boolean!){
-          createOrganization(data: {name: \$name, description: \$description, attendees: \$attendees, isPublic: \$isPublic, visibleInSearch: \$visibleInSearch}){
+ String createOrg(String name, String description, String attendees, bool isPublic, bool visibleInSearch) {
+    return '''
+      mutation {
+          createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}){
             _id
             name
             description
           creator{
             firstName
             lastName
-            }
+            
           }
         }
 
   ''';
+}
 }
