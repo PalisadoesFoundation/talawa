@@ -11,6 +11,8 @@ import 'package:talawa/views/pages/add_responsibility_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/views/pages/create_organization.dart';
+import 'package:talawa/views/pages/switch_org_page.dart';
 import 'controllers/responsibility_controller.dart';
 import 'enums/connectivity_status.dart';
 
@@ -81,6 +83,10 @@ class MyApp extends StatelessWidget {
             UIData.contactPage: (BuildContext context) =>
                 ContactPage(settings.arguments),
             UIData.loginPageRoute: (BuildContext context) => LoginPage(),
+            UIData.createOrgPage: (BuildContext context) => CreateOrganization(),
+            UIData.joinOrganizationPage: (BuildContext context) => JoinOrganization(),
+            UIData.switchOrgPage: (BuildContext context) => SwitchOrganization(),
+
           };
           WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));

@@ -39,7 +39,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
     return Drawer(
         child: Query(
             options: QueryOptions(
-                documentNode: gql(_query.fetchNavDrawerUserInfo),
+                documentNode: gql(_query.fetchUserInfo),
                 variables: {'id': userID}),
             builder: (QueryResult result,
                 {VoidCallback refetch, FetchMore fetchMore}) {
@@ -111,18 +111,25 @@ class _CommonDrawerState extends State<CommonDrawer> {
                             Navigator.of(context).pushNamed(
                               UIData.contactPage,
                             );
+                            print(result.data);
                           },
                         ),
                         Divider(),
+                        //testing purposes
                         new ListTile(
                           title: Text(
-                            "Responsibilities",
+                            "Switch Org",
                             style: TextStyle(
                                 fontWeight: FontWeight.w700, fontSize: 18.0),
                           ),
                           leading: Icon(
                             Icons.chat,
                           ),
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              UIData.switchOrgPage,
+                            );
+                          },
                         ),
                         Divider(),
                         new ListTile(
