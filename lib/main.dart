@@ -12,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/create_organization.dart';
+import 'package:talawa/views/pages/profile_page.dart';
 import 'package:talawa/views/pages/switch_org_page.dart';
 import 'controllers/responsibility_controller.dart';
 import 'enums/connectivity_status.dart';
@@ -86,6 +87,7 @@ class MyApp extends StatelessWidget {
             UIData.createOrgPage: (BuildContext context) => CreateOrganization(),
             UIData.joinOrganizationPage: (BuildContext context) => JoinOrganization(),
             UIData.switchOrgPage: (BuildContext context) => SwitchOrganization(),
+            UIData.profilePage: (BuildContext context) => ProfilePage(),
 
           };
           WidgetBuilder builder = routes[settings.name];

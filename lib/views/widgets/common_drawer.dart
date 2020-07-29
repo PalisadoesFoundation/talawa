@@ -109,7 +109,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
                           ),
                           onTap: () {
                             Navigator.of(context).pushNamed(
-                              UIData.contactPage,
+                              UIData.profilePage,
                             );
                             print(result.data);
                           },

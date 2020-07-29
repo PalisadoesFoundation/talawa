@@ -16,6 +16,7 @@ class UIData {
   static const String loginPageRoute = "/login";
   static const String createOrgPage = "/createOrgPage";
   static const String switchOrgPage = "/switchOrgPage";
+  static const String profilePage = "/profilePage";
 
 
 
