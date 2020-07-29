@@ -27,7 +27,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     super.initState();
     fToast = FToast(context);
     graphQLConfiguration.getToken();
-
   }
 
   confirmOrgChoice() async {
@@ -39,7 +38,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       print(result.exception);
       _exceptionToast(result.exception.toString());
     } else if (!result.hasException && !result.loading) {
-       _successToast("Sucess!");
+      _successToast("Sucess!");
       print(result.data);
       Future.delayed(const Duration(milliseconds: 1000), () {
         //Navigate user to join organization screen
@@ -125,14 +124,23 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                       leading: FlutterLogo(size: 56.0),
                                       title:
                                           Text(organization['name'].toString()),
-                                      subtitle: Text(organization['description']
-                                              .toString() +
-                                          '\nCreated by: ' +
-                                          organization['creator']['firstName']
-                                              .toString() +
-                                          ' ' +
-                                          organization['creator']['lastName']
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(organization['description']
                                               .toString()),
+                                          Text('Created by: ' +
+                                              organization['creator']
+                                                      ['firstName']
+                                                  .toString() +
+                                              ' ' +
+                                              organization['creator']
+                                                      ['lastName']
+                                                  .toString()),
+                                        
+                                        ],
+                                      ),
                                       trailing: new RaisedButton(
                                           onPressed: () {
                                             itemIndex =
@@ -192,7 +200,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   _successToast(String msg) {
-     Widget toast = Container(
+    Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -202,19 +210,19 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(msg),
-         
         ],
       ),
     );
 
-     fToast.showToast(
+    fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 3),
     );
   }
-   _exceptionToast(String msg) {
-     Widget toast = Container(
+
+  _exceptionToast(String msg) {
+    Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -224,12 +232,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(msg),
-         
         ],
       ),
     );
 
-     fToast.showToast(
+    fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 3),
