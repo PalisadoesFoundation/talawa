@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/activity_controller.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/note_controller.dart';
+import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/model/activity.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/views/pages/newsfeed.dart';
 import 'package:talawa/views/pages/organizations.dart';
 import 'package:talawa/views/widgets/common_drawer.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +17,9 @@ import 'package:talawa/enums/connectivity_status.dart';
 
 import 'package:talawa/views/widgets/navbar.dart';
 import 'package:talawa/views/pages/events.dart';
-import 'package:talawa/views/pages/home_page.dart';
+import 'package:talawa/views/pages/groups.dart';
+import 'package:talawa/views/pages/profile.dart';
+
 import 'package:talawa/views/pages/addEventPage.dart';
 
 
@@ -30,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   // PageController pageController = PageController(initialPage: 3);
   // int currentIndex = 0;
-  PersistentTabController _controller = PersistentTabController(initialIndex: 3);
+  PersistentTabController _controller = PersistentTabController(initialIndex: 1);
   // AnimationController controller;
 
   @override
@@ -53,11 +57,11 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> _buildScreens() {
     return [
-          Home(),
-          Container(color: Colors.blue,),
+          NewsFeed(),
+          Groups(),
           Organizations(),
           Events(),
-          Container(color: Colors.white,),
+          Profile(),
     ];
   }
 

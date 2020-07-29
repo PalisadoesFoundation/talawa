@@ -15,6 +15,9 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'controllers/responsibility_controller.dart';
 import 'enums/connectivity_status.dart';
 
+
+import 'package:talawa/controllers/organisation_controller.dart';
+
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
 
@@ -37,7 +40,8 @@ void main() {
       ChangeNotifierProvider<NoteController>(create: (_) => NoteController()),
       StreamProvider<ConnectivityStatus>(
           create: (_) =>
-              ConnectivityService().connectionStatusController.stream)
+              ConnectivityService().connectionStatusController.stream),
+      ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),     
     ],
     child: MyApp(),
   ));

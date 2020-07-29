@@ -3,6 +3,10 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/utils/uidata.dart';
 
+
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/organisation_controller.dart';
+
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);
 
@@ -13,6 +17,7 @@ class AddEvent extends StatefulWidget {
 class _AddEventState extends State<AddEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+  String orgId = '';
   Map switchVals = {
     'Make Public': true,
     'Make Registerable': true,
@@ -24,6 +29,7 @@ class _AddEventState extends State<AddEvent> {
   Future<void> gqlmutation() async {
     const String readRepositories = """
       mutation CreateEvent(
+        \$organizationId: ID!,
         \$title: String!,
         \$description: String!,
         \$isPublic: Boolean!,
@@ -33,6 +39,7 @@ class _AddEventState extends State<AddEvent> {
         ){
         createEvent(
           data:{
+           organizationId: \$organizationId,
            title: \$title,
            description: \$description,
            isPublic: \$isPublic,
@@ -80,8 +87,9 @@ class _AddEventState extends State<AddEvent> {
                     onPressed: () {
                       Navigator.of(context).pop();
                       runMutation({
-                        'title ': 'title',
-                        'description': 'description',
+                        'organizationId': orgId,
+                        'title': titleController.text,
+                        'description': descriptionController.text,
                         'isPublic': switchVals['Make Public'],
                         'isRegisterable': switchVals['Make Registerable'],
                         'recurring': switchVals['Recurring'],
@@ -98,6 +106,9 @@ class _AddEventState extends State<AddEvent> {
 
   @override
   Widget build(BuildContext context) {
+    final OrgController org = Provider.of<OrgController>(context);
+    orgId = org.value;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('New Event'),
@@ -110,7 +121,7 @@ class _AddEventState extends State<AddEvent> {
           switchTile('Make Public'),
           switchTile('Make Registerable'),
           switchTile('Recurring'),
-          dropdown(),
+          recurrencedropdown(),
         ],
       )),
       floatingActionButton: addEventFab(),
@@ -132,6 +143,7 @@ class _AddEventState extends State<AddEvent> {
     return Padding(
         padding: EdgeInsets.all(10),
         child: TextField(
+          maxLines: name == 'Description' ? null: 1,
           controller: controller,
           decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -155,9 +167,8 @@ class _AddEventState extends State<AddEvent> {
         });
   }
 
-  Widget dropdown() {
+  Widget recurrencedropdown() {
     return ListTile(
-      
       contentPadding: EdgeInsets.symmetric(horizontal: 20),
       leading: Text(
           'Recurrence',
@@ -184,8 +195,7 @@ class _AddEventState extends State<AddEvent> {
         );
       }).toList(),
     ),
-      )
-       ,
+      ),
     );
     
   }
