@@ -25,7 +25,6 @@ class LoginFormState extends State<LoginForm> {
   bool _progressBarState = false;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   Queries _query = Queries();
-  User _userModel = User();
   FToast fToast;
   Preferences _pref = Preferences();
 

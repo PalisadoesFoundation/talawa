@@ -23,18 +23,6 @@ class Queries{
     """;
    }
 
-    
- String fetchNavDrawerUserInfo = ''' 
-        query Users(\$id: ID!){
-          users(id:\$id)
-          {
-          firstName
-          lastName
-          email
-        }
-      }
-    ''';
-
  String fetchUserInfo = ''' 
        query Users(\$id: ID!){
           users(id:\$id){
