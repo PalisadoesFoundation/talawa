@@ -41,23 +41,39 @@ class Queries{
           joinedOrganizations{
             _id
             name
-          creator{
-          firstName
-          lastName
-          }
+            description
+      
         }
-           createdOrganizations {
-            _id
-            name
-          }
-          adminFor {
-            _id
-            name
-          }
+          
         }
       }
     ''';
 
+//  String fetchUserInfo = ''' 
+//        query Users(\$id: ID!){
+//           users(id:\$id){
+//           firstName
+//           lastName
+//           email
+//           joinedOrganizations{
+//             _id
+//             name
+//           creator{
+//           firstName
+//           lastName
+//           }
+//         }
+//            createdOrganizations {
+//             _id
+//             name
+//           }
+//           adminFor {
+//             _id
+//             name
+//           }
+//         }
+//       }
+//     ''';
 
 final String fetchOrganizations = '''
     query{

@@ -65,39 +65,56 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
               } else if (result.loading) {
                 return Center(child: CircularProgressIndicator());
               }
-              List userOrgDetails = result.data['users']['joinedOrganizations'];
-
-              return ListView.builder(
-                  itemCount: userOrgDetails.length,
+                final userOrg = result.data['users'][0]['joinedOrganizations'];
+                print(result.data['users'][0]['joinedOrganizations']);
+              return ListView.separated(
+                  itemCount: userOrg.length,
                   itemBuilder: (context, index) {
-                    final userOrg = userOrgDetails[index];
-
-                    return ListTile(
+                  
+                  return RadioListTile(
+                    groupValue: radioValue,
+                    title: Text(userOrg[index]['name'].toString() + '\n' + userOrg[index]['description'].toString()),
+                    value: 1,
+                    onChanged: (val) {
+                      setState(() {
+                        radioValue = val;
+                         if (radioValue == 1){
+                           itemIndex = userOrg[index]['_id'].toString();
+                       }
+                      });
+                    },
+                  );
+                   return ListTile(
                       onTap: () {
-                        setState(() {
-                          userOrg[index].selected = !userOrg[index].selected;
-                          itemIndex = userOrg['_id'].toString();
-                          print(userOrg[index].selected.toString());
-                        });
+                        // setState(() {
+                        //   userOrg[index].selected = !userOrg[index].selected;
+                        //   itemIndex = userOrg['_id'].toString();
+                        //   print(userOrg[index].selected.toString());
+                        // });
                       },
-                      selected: userOrg[index].selected,
+                      //selected: userOrg[index].selected,
                       leading: CircleAvatar(
                         radius: 45.0,
                         backgroundColor: Colors.lightBlue,
                         child: Text(
-                            userOrg['name']
+                            userOrg[index]['name']
                                 .toString()
                                 .substring(0, 1)
                                 .toUpperCase(),
                             style: TextStyle(color: Colors.white)),
                       ),
-                      title: Text(userOrg['name'].toString()),
-                      subtitle: Text(userOrg['description'].toString()),
-                      trailing: (userOrg[index].selected)
-                          ? Icon(Icons.check_box)
-                          : Icon(Icons.check_box_outline_blank),
+                      title: Text(userOrg[index]['name'].toString()),
+                      subtitle: Text(userOrg[index]['description'].toString()),
+                      trailing: Checkbox(
+                    value: selected,
+                    onChanged: (bool value) {
+                      setState(() {
+                        selected = value;
+                      });
+                    },
+                  ),
                     );
-                  });
+                  }, separatorBuilder: (BuildContext context, int index) {  return Divider(); },);
             }));
   }
 }

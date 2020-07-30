@@ -73,6 +73,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
               return Center(child: CircularProgressIndicator());
             }
             List organizationInfo = result.data['organizations'];
+
             return Container(
                 color: Color(0xffF3F6FF),
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
@@ -119,6 +120,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                 itemCount: organizationInfo.length,
                                 itemBuilder: (context, index) {
                                   final organization = organizationInfo[index];
+                                
                                   return Card(
                                     child: ListTile(
                                       leading: FlutterLogo(size: 56.0),
@@ -138,7 +140,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               organization['creator']
                                                       ['lastName']
                                                   .toString()),
-                                        
                                         ],
                                       ),
                                       trailing: new RaisedButton(
