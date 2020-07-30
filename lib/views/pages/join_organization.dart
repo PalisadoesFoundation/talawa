@@ -223,7 +223,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
   _exceptionToast(String msg) {
     Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
