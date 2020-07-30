@@ -11,17 +11,17 @@ class Queries{
     """;
    }
  
- String login = '''
-        query Login(\$email: String!, \$password: String!){
-          login (data: {email:\$email, password:\$password})
-          {
-          userId
-          token
+   String loginUser(String email, String password) {
+   return """
+        query {
+          login(data: {email: "$email", password: "$password"}){
+            userId
+            token
+          }
         }
-      }
 
-    ''';
-
+    """;
+   }
 
     
  String fetchNavDrawerUserInfo = ''' 

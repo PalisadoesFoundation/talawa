@@ -251,7 +251,7 @@ class RegisterFormState extends State<RegisterForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 1),
+      toastDuration: Duration(seconds: 3),
     );
   }
 
