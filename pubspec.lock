@@ -56,14 +56,14 @@ packages:
       name: connectivity
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.8+2"
+    version: "0.4.8+1"
   connectivity_macos:
     dependency: transitive
     description:
       name: connectivity_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0+2"
+    version: "0.1.0+1"
   connectivity_platform_interface:
     dependency: transitive
     description:
@@ -105,7 +105,7 @@ packages:
       name: file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.0"
+    version: "5.2.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -146,7 +146,7 @@ packages:
       name: font_awesome_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.8.1"
+    version: "8.5.0"
   gql:
     dependency: transitive
     description:
@@ -160,14 +160,14 @@ packages:
       name: graphql
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.2"
+    version: "3.1.0"
   graphql_flutter:
     dependency: "direct main"
     description:
       name: graphql_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   grouped_buttons:
     dependency: "direct main"
     description:
@@ -188,7 +188,7 @@ packages:
       name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.4"
+    version: "3.1.3"
   image:
     dependency: transitive
     description:
@@ -279,7 +279,7 @@ packages:
       name: path_provider_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+1"
+    version: "0.0.1+2"
   path_provider_macos:
     dependency: transitive
     description:
@@ -300,14 +300,14 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.0"
+    version: "1.8.0+1"
   persistent_bottom_nav_bar:
     dependency: "direct main"
     description:
       name: persistent_bottom_nav_bar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.5"
+    version: "1.5.6"
   petitparser:
     dependency: transitive
     description:
@@ -342,7 +342,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.4"
+    version: "4.0.1"
   quiver:
     dependency: transitive
     description:
@@ -363,35 +363,35 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.23.1"
+    version: "0.24.1"
   shared_preferences:
     dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.6+3"
+    version: "0.5.6"
   shared_preferences_macos:
     dependency: transitive
     description:
       name: shared_preferences_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+6"
+    version: "0.0.1+3"
   shared_preferences_platform_interface:
     dependency: transitive
     description:
       name: shared_preferences_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.1"
   shared_preferences_web:
     dependency: transitive
     description:
       name: shared_preferences_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2+4"
+    version: "0.1.2+2"
   sky_engine:
     dependency: transitive
     description: flutter

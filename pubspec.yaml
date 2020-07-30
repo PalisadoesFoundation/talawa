@@ -38,7 +38,6 @@ dependencies:
   graphql_flutter: ^3.0.0
   persistent_bottom_nav_bar: ^1.5.5
   lipsum: ^1.0.1
-
   flutter_localizations:
     sdk: flutter
 
