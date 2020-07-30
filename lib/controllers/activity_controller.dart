@@ -2,7 +2,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/model/activity.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/view_models/vm_add_activity.dart';
-import 'package:talawa/views/pages/nav_page.dart';
+import 'package:talawa/views/pages/home_page.dart';
 import 'package:talawa/views/widgets/_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';

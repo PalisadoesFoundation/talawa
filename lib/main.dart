@@ -11,10 +11,11 @@ import 'package:talawa/views/pages/add_responsibility_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/utils/GQLClient.dart';
-
+import 'package:talawa/views/pages/create_organization.dart';
+import 'package:talawa/views/pages/profile_page.dart';
+import 'package:talawa/views/pages/switch_org_page.dart';
 import 'controllers/responsibility_controller.dart';
 import 'enums/connectivity_status.dart';
-
 
 import 'package:talawa/controllers/organisation_controller.dart';
 
@@ -24,12 +25,15 @@ GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 void main() {
 
 
+
   // DependencyInjection().initialise(Injector.getInjector());
   // injector = Injector.getInjector();
   // await AppInitializer().initialise(injector);
   // final SocketService socketService = injector.get<SocketService>();
   // socketService.createSocketConnection();
-  runApp(MultiProvider(
+  runApp(
+
+    MultiProvider(
     providers: [
       ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
       ChangeNotifierProvider<ActivityController>(
@@ -41,7 +45,7 @@ void main() {
       StreamProvider<ConnectivityStatus>(
           create: (_) =>
               ConnectivityService().connectionStatusController.stream),
-      ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),     
+              ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
     ],
     child: MyApp(),
   ));
@@ -50,7 +54,12 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
-  //route definition
+  //route definition  
+
+
+  static String token;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +85,13 @@ class MyApp extends StatelessWidget {
             UIData.notFoundRoute: (BuildContext context) => NotFoundPage(),
             UIData.responsibilityPage: (BuildContext context) => NotFoundPage(),
             UIData.contactPage: (BuildContext context) =>
-                ContactPage(settings.arguments)
+                ContactPage(settings.arguments),
+            UIData.loginPageRoute: (BuildContext context) => LoginPage(),
+            UIData.createOrgPage: (BuildContext context) => CreateOrganization(),
+            UIData.joinOrganizationPage: (BuildContext context) => JoinOrganization(),
+            UIData.switchOrgPage: (BuildContext context) => SwitchOrganization(),
+            UIData.profilePage: (BuildContext context) => ProfilePage(),
+
           };
           WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));

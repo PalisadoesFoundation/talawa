@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:talawa/controllers/auth_controller.dart';
+
+import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_login.dart';
 
 class LoginForm extends StatefulWidget {
@@ -16,24 +18,7 @@ class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   LoginViewModel model = new LoginViewModel();
   bool _progressBarState = false;
-
-  String _validateEmail(String value) {
-    RegExp regExp = new RegExp(
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
-        multiLine: false);
-    if (!regExp.hasMatch(value)) {
-      return 'E-mail Address must be a valid email address.';
-    }
-    return null;
-  }
-
-  String _validatePassword(String value) {
-    if (value.length < 4) {
-      return 'Password must be at least 4 characters.';
-    }
-
-    return null;
-  }
+  GraphAPI _graphAPI = GraphAPI();
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -50,9 +35,8 @@ class LoginFormState extends State<LoginForm> {
               height: 50,
             ),
             TextFormField(
-              validator: (value) {
-                return _validateEmail(value);
-              },
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) => Validator.validateEmail(value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -74,9 +58,7 @@ class LoginFormState extends State<LoginForm> {
             ),
             TextFormField(
               obscureText: true,
-              validator: (value) {
-                return _validatePassword(value);
-              },
+              validator: (value) => Validator.validatePassword(value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -101,26 +83,26 @@ class LoginFormState extends State<LoginForm> {
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
               width: double.infinity,
               child: RaisedButton(
-                padding: EdgeInsets.all(12.0),
-                shape: StadiumBorder(),
-                child: _progressBarState
-                    ? const CircularProgressIndicator()
-                    : Text(
-                        "SIGN IN",
-                      ),
-                color: Colors.white,
-                onPressed: () {
-                  FocusScope.of(context).unfocus();
-                  setState(() {
-                    toggleProgressBarState();
+                  padding: EdgeInsets.all(12.0),
+                  shape: StadiumBorder(),
+                  child: _progressBarState
+                      ? const CircularProgressIndicator()
+                      : Text(
+                          "SIGN IN",
+                        ),
+                  color: Colors.white,
+                  onPressed: () async {
+                    FocusScope.of(context).unfocus();
+                    //checks to see if all the fields have been validated then authenticate a user
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
-                      Provider.of<AuthController>(context, listen: false).login(context, model);
-                    } else {}
-                    toggleProgressBarState();
-                  });
-                },
-              ),
+                      // setState(() {
+                      //     toggleProgressBarState();
+                      //   });
+                      _graphAPI.login(context, model);
+                      
+                    }
+                  }),
             ),
           ],
         ));

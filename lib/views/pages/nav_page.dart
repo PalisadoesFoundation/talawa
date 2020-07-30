@@ -15,15 +15,16 @@ import 'package:talawa/controllers/user_controller.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/enums/connectivity_status.dart';
 
-import 'package:talawa/views/widgets/navbar.dart';
+
 import 'package:talawa/views/pages/events.dart';
 import 'package:talawa/views/pages/groups.dart';
-import 'package:talawa/views/pages/profile.dart';
 
 import 'package:talawa/views/pages/addEventPage.dart';
 
 
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+
+import 'profile_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
           Groups(),
           Organizations(),
           Events(),
-          Profile(),
+          ProfilePage(),
     ];
   }
 

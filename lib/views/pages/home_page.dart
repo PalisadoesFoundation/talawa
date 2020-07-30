@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,87 +14,112 @@ import 'package:talawa/model/user.dart';
 
 import 'package:talawa/enums/connectivity_status.dart';
 
-import 'package:talawa/views/widgets/navbar.dart';
-import 'package:talawa/views/pages/events.dart';
-import 'package:talawa/views/pages/newsfeed.dart';
-import 'package:talawa/views/pages/addEventPage.dart';
+import 'join_organization.dart';
 
 
-
-class Home extends StatefulWidget {
-  Home({Key key}) : super(key: key);
-
+class HomePage extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
-  @override
-
+class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override void initState() {
+    super.initState();
+    Provider.of<NoteController>(context, listen: false).initializeSocket(
+      Provider.of<AuthController>(context, listen: false).currentUserId
+    );
+  }
   _showSnackBar() {
     print("Show SnackBar Here");
-    final snackBar = new SnackBar(content: new Text("Device Disconnected"));
+    final snackBar = new SnackBar(
+      content: new Text("Device Disconnected")
+    );
     _scaffoldKey.currentState.showSnackBar(snackBar);
     return CircularProgressIndicator();
   }
 
+
+
   BuildContext _context;
 
-Widget homeAppBar(scaffoldKey) {
-    return AppBar(
-      title: Text("Activities"),
-      leading: Consumer2<AuthController, UserController>(
-          builder: (context, authController, userController, child) {
-        return FutureBuilder(
-            future: userController.getUser(authController.currentUserId),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                User user = snapshot.data;
-                return Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: InkWell(
-                      child: CircleAvatar(
-                        backgroundColor: Colors.blue,
-                        child: Text(
-                          user.firstName.substring(0, 1).toUpperCase(),
-                          style: TextStyle(fontSize: 25, color: Colors.white70),
+  @override
+  Widget build(BuildContext context) {
+
+    //var connectionStatus = Provider.of<ConnectivityStatus>(context, listen:true);
+    // if (connectionStatus == ConnectivityStatus.Offline ) {
+    //   _showSnackBar();
+    // }
+    _context = context;
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: new AppBar(
+        // title: Image(
+        //   image: AssetImage(UIData.talawaLogoDark),
+        //   height: 50,
+        // ),
+        title: Text("Activities"),
+        leading: Consumer2<AuthController, UserController>(
+            builder: (context, authController, userController, child) {
+          return FutureBuilder(
+              //future: userController.getUser(authController.currentUserId),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  User user = snapshot.data;
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: InkWell(
+                        child: CircleAvatar(
+                          
+                          backgroundColor: Colors.blue,
+                          child: Text(
+                            user.firstName.substring(0, 1),
+                            style: TextStyle(fontSize: 25),
+                          ),
                         ),
-                      ),
-                      onTap: () => scaffoldKey.currentState.openDrawer()),
-                );
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            });
-      }),
+                        onTap: () => _scaffoldKey.currentState.openDrawer()),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              });
+        }),
 
-      backgroundColor: UIData.quitoThemeColor,
-      elevation: 0.0,
-    );
-  }
-
-  Stack homeBody(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Positioned.fill(
-          child: Image(
-            image: AssetImage(UIData.quitoBackground),
-            fit: BoxFit.fill,
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+      ),
+      drawer: CommonDrawer(),
+      body: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Image(
+              image: AssetImage(UIData.quitoBackground),
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
-        activityList(context),
-      ],
+          activityList()
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          //temporary to test join org
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => new JoinOrganization()));
+          //Navigator.pushNamed(_context, UIData.addActivityPage);
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 
-  Widget activityList(_context) {
+  Widget activityList() {
     return Column(
       children: <Widget>[
         Expanded(
-            flex: 11,
+            flex: 9,
             child: Consumer2<ActivityController, AuthController>(
                 builder: (context, activityController, authController, child) {
               return FutureBuilder<List<Activity>>(
@@ -109,7 +133,7 @@ Widget homeAppBar(scaffoldKey) {
                           itemBuilder: (_context, index) {
                             Activity activity = snapshot.data[index];
                             return Column(
-                              children: <Widget>[eventCard(activity, _context)],
+                              children: <Widget>[eventCard(activity)],
                             );
                           },
                         );
@@ -122,12 +146,12 @@ Widget homeAppBar(scaffoldKey) {
                       return Center(child: CircularProgressIndicator());
                     }
                   });
-            })),
+            }))
       ],
     );
   }
 
-  Widget eventCard(Activity activity, _context) {
+  Widget eventCard(Activity activity) {
     return InkWell(
         onTap: () {
           Navigator.pushNamed(_context, UIData.activityDetails,
@@ -161,6 +185,25 @@ Widget homeAppBar(scaffoldKey) {
                   ),
                   Row(
                     children: <Widget>[
+                      // CircleAvatar(
+                      //     backgroundColor: Colors.blue,
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.center,
+                      //       children: <Widget>[
+                      //         Icon(
+                      //           Icons.person,
+                      //           color: Colors.white,
+                      //           size: 18,
+                      //         ),
+                      //         activity.userCount > 9
+                      //             ? Text('+9',
+                      //                 style: TextStyle(
+                      //                     color: Colors.white, fontSize: 18.0))
+                      //             : Text(activity.userCount.toString(),
+                      //                 style: TextStyle(
+                      //                     color: Colors.white, fontSize: 18.0)),
+                      //       ],
+                      //     )),
                     ],
                   )
                 ],
@@ -168,28 +211,5 @@ Widget homeAppBar(scaffoldKey) {
             ),
           ),
         ));
-  }
-
-
-  FloatingActionButton homeFAB(BuildContext _context) {
-    return FloatingActionButton(
-      onPressed: () {
-        Navigator.pushNamed(_context, UIData.addActivityPage);
-      },
-      child: Icon(
-        Icons.add,
-        color: Colors.white,
-      ),
-    );
-  }
-
-  Widget build(BuildContext context) {
-    return 
-    Scaffold(
-      appBar: homeAppBar(_scaffoldKey),
-      drawer: CommonDrawer(),
-      body: homeBody(context),
-      floatingActionButton: homeFAB(_context),
-    );
   }
 }
