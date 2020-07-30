@@ -7,3 +7,4 @@ export 'responsibility_page.dart';
 export 'contact_page.dart';
 export 'add_activity_page.dart';
 export 'add_responsibility_page.dart';
+export 'join_organization.dart';

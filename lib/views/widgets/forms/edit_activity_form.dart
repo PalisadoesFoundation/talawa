@@ -10,7 +10,6 @@ import 'package:intl/intl.dart';
 class EditActivityForm extends StatelessWidget {
   int activityId;
   final _formKey = GlobalKey<FormState>();
-  Validator val = new Validator();
   Activity oldModel;
   Activity newModel = new Activity();
   static final format = DateFormat("yyyy-MM-dd HH:mm");
@@ -39,9 +38,7 @@ class EditActivityForm extends StatelessWidget {
                               ),
                               TextFormField(
                                 initialValue: oldModel.title,
-                                validator: (value) {
-                                  return val.validateTitle(value);
-                                },
+                                validator: (value) => Validator.validateTitle(value),
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -61,9 +58,7 @@ class EditActivityForm extends StatelessWidget {
                               ),
                               DateTimeField(
                                 initialValue: oldModel.datetime,
-                                validator: (value) {
-                                  return val.validateDateTime(value);
-                                },
+                                validator: (value) => Validator.validateDateTime(value),
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5.0)),
@@ -98,9 +93,7 @@ class EditActivityForm extends StatelessWidget {
                               ),
                               TextFormField(
                                 initialValue: oldModel.description,
-                                validator: (value) {
-                                  return val.validateDescription(value);
-                                },
+                                validator: (value) => Validator.validateDescription(value),
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(

@@ -12,6 +12,15 @@ class UIData {
   static const String activityDetails = "/activityDetails";
   static const String responsibilityPage = "/responsibilityPage";
   static const String contactPage = "/contactPage";
+  static const String joinOrganizationPage = "/joinOrganization";
+  static const String loginPageRoute = "/login";
+  static const String createOrgPage = "/createOrgPage";
+  static const String switchOrgPage = "/switchOrgPage";
+  static const String profilePage = "/profilePage";
+
+
+
+  
 
   //strings
   static const String appName = "Talawa";
@@ -45,18 +54,19 @@ class UIData {
   static const String coming_soon = "Coming Soon";
 
   static const MaterialColor ui_kit_color = Colors.grey;
+  static const LightGrey = Color.fromRGBO(242, 242, 242, 1);
 
-  static const Color quitoThemeColor = MaterialColor(0xFF7e1946, {50:Color.fromRGBO(126,25,70, .1),
-    100:Color.fromRGBO(126,25,70, .2),
-    200:Color.fromRGBO(126,25,70, .3),
-    300:Color.fromRGBO(126,25,70, .4),
-    400:Color.fromRGBO(126,25,70, .5),
-    500:Color.fromRGBO(126,25,70, .6),
-    600:Color.fromRGBO(126,25,70, .7),
-    700:Color.fromRGBO(126,25,70, .8),
-    800:Color.fromRGBO(126,25,70, .9),
-    900:Color.fromRGBO(126,25,70, 1)});
-  // static const Color quitoThemeColor = Colors.orange;
+  // static const Color quitoThemeColor = MaterialColor(0xFF7e1946, {50:Color.fromRGBO(126,25,70, .1),
+  //   100:Color.fromRGBO(126,25,70, .2),
+  //   200:Color.fromRGBO(126,25,70, .3),
+  //   300:Color.fromRGBO(126,25,70, .4),
+  //   400:Color.fromRGBO(126,25,70, .5),
+  //   500:Color.fromRGBO(126,25,70, .6),
+  //   600:Color.fromRGBO(126,25,70, .7),
+  //   700:Color.fromRGBO(126,25,70, .8),
+  //   800:Color.fromRGBO(126,25,70, .9),
+  //   900:Color.fromRGBO(126,25,70, 1)});
+  static const Color quitoThemeColor = Colors.orange;
 
 //colors
   static List<Color> kitGradients = [
