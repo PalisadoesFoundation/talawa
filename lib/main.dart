@@ -17,6 +17,8 @@ import 'package:talawa/views/pages/switch_org_page.dart';
 import 'controllers/responsibility_controller.dart';
 import 'enums/connectivity_status.dart';
 
+import 'package:talawa/controllers/organisation_controller.dart';
+
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
 
@@ -43,6 +45,7 @@ void main() {
       StreamProvider<ConnectivityStatus>(
           create: (_) =>
               ConnectivityService().connectionStatusController.stream),
+              ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
     ],
     child: MyApp(),
   ));

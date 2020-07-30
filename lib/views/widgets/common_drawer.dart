@@ -111,7 +111,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
                             Navigator.of(context).pushNamed(
                               UIData.profilePage,
                             );
-                  
+                            print(result.data);
                           },
                         ),
                         Divider(),

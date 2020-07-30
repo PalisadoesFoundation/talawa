@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/views/pages/home_page.dart';
+import 'package:talawa/views/pages/nav_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class SwitchOrganization extends StatefulWidget {
@@ -39,14 +39,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: const Text('Switch Organization'),
-            leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.blue),
-                onPressed: () => Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => new HomePage()))),
-            backgroundColor: Color(0xffF3F6FF),
-            elevation: 0.0,
-            brightness: Brightness.light),
+            title: const Text('Switch Organization'),),
         body: Query(
             options: QueryOptions(
                 documentNode: gql(_query.fetchUserInfo),

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:talawa/views/pages/home_page.dart';
+import 'package:talawa/views/pages/nav_page.dart';
 import 'package:talawa/views/pages/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

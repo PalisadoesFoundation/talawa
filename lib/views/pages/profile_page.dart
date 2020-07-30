@@ -6,6 +6,9 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:talawa/views/widgets/about_tile.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+
+import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -149,8 +152,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: Colors.blueAccent,
                             ),
                             onTap: () {
-                              Navigator.of(context).pushNamed(
-                                UIData.switchOrgPage,
+                              pushNewScreen(
+              context,
+              screen: SwitchOrganization(),
                               );
                             }),
                         ListTile(
