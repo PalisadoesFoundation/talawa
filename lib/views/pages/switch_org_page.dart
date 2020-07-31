@@ -16,9 +16,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   String userID;
-  int radioValue = -1;
+  int isSelected = 0;
   Preferences preferences = Preferences();
-  bool selected = false;
   static String itemIndex;
 
   @override
@@ -65,49 +64,17 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                   itemBuilder: (context, index) {
                   
                   return RadioListTile(
-                    groupValue: radioValue,
+                    groupValue: isSelected,
                     title: Text(userOrg[index]['name'].toString() + '\n' + userOrg[index]['description'].toString()),
-                    value: 1,
+                    value: index,
                     onChanged: (val) {
                       setState(() {
-                        radioValue = val;
-                         if (radioValue == 1){
-                           itemIndex = userOrg[index]['_id'].toString();
-                       }
+                        isSelected = val;
+                        itemIndex = userOrg[index]['_id'].toString();
                       });
                     },
                   );
-                   return ListTile(
-                      onTap: () {
-                        // setState(() {
-                        //   userOrg[index].selected = !userOrg[index].selected;
-                        //   itemIndex = userOrg['_id'].toString();
-                        //   print(userOrg[index].selected.toString());
-                        // });
-                      },
-                      //selected: userOrg[index].selected,
-                      leading: CircleAvatar(
-                        radius: 45.0,
-                        backgroundColor: Colors.lightBlue,
-                        child: Text(
-                            userOrg[index]['name']
-                                .toString()
-                                .substring(0, 1)
-                                .toUpperCase(),
-                            style: TextStyle(color: Colors.white)),
-                      ),
-                      title: Text(userOrg[index]['name'].toString()),
-                      subtitle: Text(userOrg[index]['description'].toString()),
-                      trailing: Checkbox(
-                    value: selected,
-                    onChanged: (bool value) {
-                      setState(() {
-                        selected = value;
-                      });
-                    },
-                  ),
-                    );
-                  }, separatorBuilder: (BuildContext context, int index) {  return Divider(); },);
+                 }, separatorBuilder: (BuildContext context, int index) {  return Divider(); },);
             }));
   }
 }

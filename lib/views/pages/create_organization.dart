@@ -83,11 +83,6 @@ int radioValue1 = -1;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.blue),
-              onPressed: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                      builder: (context) => new JoinOrganization()))),
           backgroundColor: Color(0xffF3F6FF),
           elevation: 0.0,
           brightness: Brightness.light),

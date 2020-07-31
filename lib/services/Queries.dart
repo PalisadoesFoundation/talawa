@@ -32,6 +32,7 @@ class Queries{
           joinedOrganizations{
             _id
             name
+            description
           creator{
           firstName
           lastName
