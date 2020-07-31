@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:flutter/material.dart';
 
 class GraphQLConfiguration {
   Preferences _pref = Preferences();
@@ -12,7 +13,9 @@ class GraphQLConfiguration {
   }
  
   static HttpLink httpLink = HttpLink(
-    uri: "https://talawa-testing.herokuapp.com/graphql",
+    uri: "http://calico.palisadoes.org/talawa/",
+    // uri: "http://talawa-ranil.herokuapp.com/graphql",
+    // uri: "http://192.168.100.67:4000/graphql",
   );
 
   static AuthLink authLink = AuthLink(
@@ -31,14 +34,10 @@ final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
     );
   }
 
-
   GraphQLClient authClient() {
     return GraphQLClient(
       cache: InMemoryCache(),
       link: finalAuthLink,
     );
   }
-  
 }
-
-

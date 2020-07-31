@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/uidata.dart';
-
 
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/organisation_controller.dart';
-
+import 'package:talawa/utils/apiFuctions.dart';
+import 'package:intl/intl.dart';
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);
 
@@ -26,88 +27,27 @@ class _AddEventState extends State<AddEvent> {
   var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
 
-  Future<void> gqlmutation() async {
-    const String readRepositories = """
-      mutation CreateEvent(
-        \$organizationId: ID!,
-        \$title: String!,
-        \$description: String!,
-        \$isPublic: Boolean!,
-        \$isRegisterable: Boolean!,
-        \$recurring: Boolean!,
-        \$recurrance: String,
-        ){
-        createEvent(
-          data:{
-           organizationId: \$organizationId,
-           title: \$title,
-           description: \$description,
-           isPublic: \$isPublic,
-           isRegisterable: \$isRegisterable,
-           recurring: \$recurring,
-           recurrance: \$recurrance,
-          }){
-            _id
-            title
-            description
-          }
-        }
-    """;
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Mutation(
-          options: MutationOptions(
-            documentNode: gql(readRepositories),
-            update: (Cache cache, QueryResult result) {
-              return cache;
-            },
-            onCompleted: (dynamic resultData) {
-              print(resultData);
-            },
-            onError: (error) {
-              print(error);
-            },
-          ),
-          builder: (
-            RunMutation runMutation,
-            QueryResult result,
-          ) {
-            return AlertDialog(
-              title: Text('Add new Event'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[Text('Create new Event?')],
-                ),
-              ),
-              actions: <Widget>[
-                FlatButton(
-                    child: Text('YES'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      runMutation({
-                        'organizationId': orgId,
-                        'title': titleController.text,
-                        'description': descriptionController.text,
-                        'isPublic': switchVals['Make Public'],
-                        'isRegisterable': switchVals['Make Registerable'],
-                        'recurring': switchVals['Recurring'],
-                        'recurrance': recurrance,
-                      });
-                    }),
-              ],
-            );
-          },
-        );
-      },
+  Future<void> createEvent() async {
+
+
+    String mutation = Queries().addEvent(
+      orgId,
+      titleController.text,
+      descriptionController.text,
+      switchVals['Make Public'],
+      switchVals['Make Registerable'],
+      switchVals['Recurring'],
+      recurrance,
+      DateTime.now().toString(),
     );
+    ApiFunctions apiFunctions = ApiFunctions();
+    Map result = await apiFunctions.gqlmutation(mutation);
   }
 
   @override
   Widget build(BuildContext context) {
     final OrgController org = Provider.of<OrgController>(context);
-    orgId = org.value;
+    // orgId = org.value;
 
     return Scaffold(
       appBar: AppBar(
@@ -135,7 +75,7 @@ class _AddEventState extends State<AddEvent> {
           color: Colors.white,
         ),
         onPressed: () {
-          gqlmutation();
+          createEvent();
         });
   }
 
@@ -143,7 +83,7 @@ class _AddEventState extends State<AddEvent> {
     return Padding(
         padding: EdgeInsets.all(10),
         child: TextField(
-          maxLines: name == 'Description' ? null: 1,
+          maxLines: name == 'Description' ? null : 1,
           controller: controller,
           decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -171,32 +111,31 @@ class _AddEventState extends State<AddEvent> {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20),
       leading: Text(
-          'Recurrence',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[600]),
-        ),
-      trailing:
-      AbsorbPointer(
+        'Recurrence',
+        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+      ),
+      trailing: AbsorbPointer(
         absorbing: !switchVals['Recurring'],
         child: DropdownButton<String>(
-        style: TextStyle(color: switchVals['Recurring'] ? UIData.quitoThemeColor: Colors.grey),
-      value: recurrance,
-      icon: Icon(Icons.arrow_drop_down),
-      onChanged: (String newValue) {
-        setState(() {
-          recurrance = newValue;
-        });
-      },
-      items: recurranceList.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    ),
+          style: TextStyle(
+              color: switchVals['Recurring']
+                  ? UIData.quitoThemeColor
+                  : Colors.grey),
+          value: recurrance,
+          icon: Icon(Icons.arrow_drop_down),
+          onChanged: (String newValue) {
+            setState(() {
+              recurrance = newValue;
+            });
+          },
+          items: recurranceList.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ),
       ),
     );
-    
   }
 }
