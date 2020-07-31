@@ -73,9 +73,9 @@ class ActivityController with ChangeNotifier {
     } 
     // If that call was not successful, throw an error.
     else {
-      Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text("unable to fetch activities"),
-          duration: Duration(seconds: 5)));
+      // Scaffold.of(context).showSnackBar(SnackBar(
+      //     content: Text("unable to fetch activities"),
+      //     duration: Duration(seconds: 5)));
     }
     return new List<Activity>();
   }

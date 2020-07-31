@@ -73,11 +73,9 @@ int radioValue1 = -1;
       });
       _successToast("Sucess!");
       print(result.data);
-      Future.delayed(const Duration(milliseconds: 1000), () {
-        //Navigate user to join organization screen
+      //Navigate user to join organization screen
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => new HomePage()));
-      });
     }
   }
 
@@ -85,11 +83,6 @@ int radioValue1 = -1;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.blue),
-              onPressed: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                      builder: (context) => new JoinOrganization()))),
           backgroundColor: Color(0xffF3F6FF),
           elevation: 0.0,
           brightness: Brightness.light),
@@ -304,7 +297,7 @@ int radioValue1 = -1;
 
   _exceptionToast(String msg) {
     Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,

@@ -1,34 +1,27 @@
-class Queries {
-  final String signUp = """
-        mutation SignUp (\$firstName: String!, \$lastName: String!, \$email: String!, \$password: String!){
-          signUp(data: {firstName: \$firstName, lastName: \$lastName, email: \$email, password: \$password}){
+class Queries{
+   String registerUser(String firstName, String lastName, String email, String password) {
+   return """
+        mutation {
+          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"}){
             userId
             token
           }
         }
 
     """;
-  String login = '''
-        query Login(\$email: String!, \$password: String!){
-          login (data: {email:\$email, password:\$password})
-          {
-          userId
-          token
+   }
+ 
+   String loginUser(String email, String password) {
+   return """
+        query {
+          login(data: {email: "$email", password: "$password"}){
+            userId
+            token
+          }
         }
-      }
 
-    ''';
-
-  String fetchNavDrawerUserInfo = ''' 
-        query Users(\$id: ID!){
-          users(id:\$id)
-          {
-          firstName
-          lastName
-          email
-        }
-      }
-    ''';
+    """;
+   }
 
   String fetchUserInfo = ''' 
        query Users(\$id: ID!){
@@ -39,6 +32,7 @@ class Queries {
           joinedOrganizations{
             _id
             name
+            description
           creator{
           firstName
           lastName

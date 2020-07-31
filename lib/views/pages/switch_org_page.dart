@@ -16,9 +16,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   String userID;
-  int radioValue = -1;
+  int isSelected = 0;
   Preferences preferences = Preferences();
-  bool selected = false;
   static String itemIndex;
 
   @override
@@ -39,10 +38,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-         
-            title: const Text('Switch Organization'),
-            elevation: 0.0,
-            brightness: Brightness.light),
+            title: const Text('Switch Organization'),),
         body: Query(
             options: QueryOptions(
                 documentNode: gql(_query.fetchUserInfo),
@@ -61,39 +57,24 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
               } else if (result.loading) {
                 return Center(child: CircularProgressIndicator());
               }
-              List userOrgDetails = result.data['users']['joinedOrganizations'];
-
-              return ListView.builder(
-                  itemCount: userOrgDetails.length,
+                final userOrg = result.data['users'][0]['joinedOrganizations'];
+                print(result.data['users'][0]['joinedOrganizations']);
+              return ListView.separated(
+                  itemCount: userOrg.length,
                   itemBuilder: (context, index) {
-                    final userOrg = userOrgDetails[index];
-
-                    return ListTile(
-                      onTap: () {
-                        setState(() {
-                          userOrg[index].selected = !userOrg[index].selected;
-                          itemIndex = userOrg['_id'].toString();
-                          print(userOrg[index].selected.toString());
-                        });
-                      },
-                      selected: userOrg[index].selected,
-                      leading: CircleAvatar(
-                        radius: 45.0,
-                        backgroundColor: Colors.lightBlue,
-                        child: Text(
-                            userOrg['name']
-                                .toString()
-                                .substring(0, 1)
-                                .toUpperCase(),
-                            style: TextStyle(color: Colors.white)),
-                      ),
-                      title: Text(userOrg['name'].toString()),
-                      subtitle: Text(userOrg['description'].toString()),
-                      trailing: (userOrg[index].selected)
-                          ? Icon(Icons.check_box)
-                          : Icon(Icons.check_box_outline_blank),
-                    );
-                  });
+                  
+                  return RadioListTile(
+                    groupValue: isSelected,
+                    title: Text(userOrg[index]['name'].toString() + '\n' + userOrg[index]['description'].toString()),
+                    value: index,
+                    onChanged: (val) {
+                      setState(() {
+                        isSelected = val;
+                        itemIndex = userOrg[index]['_id'].toString();
+                      });
+                    },
+                  );
+                 }, separatorBuilder: (BuildContext context, int index) {  return Divider(); },);
             }));
   }
 }
