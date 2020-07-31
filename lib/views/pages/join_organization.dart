@@ -27,7 +27,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   void initState() {
     super.initState();
     fToast = FToast(context);
-    graphQLConfiguration.getToken();
     fetchOrg();
   }
 
@@ -38,13 +37,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
     if (result.hasException) {
       print(result.exception);
-      Center(
-        child: Text(
-          result.exception.toString(),
-          style: TextStyle(fontSize: 16),
-          textAlign: TextAlign.center,
-        ),
-      );
+      showError(result.exception.toString());
     } else if (!result.hasException) {
       setState(() {
         organizationInfo = result.data['organizations'];
@@ -199,6 +192,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         });
   }
 
+  Widget showError(String msg){
+    return  Center(
+        child: Text(
+          msg,
+          style: TextStyle(fontSize: 16),
+          textAlign: TextAlign.center,
+        ),
+      );
+  }
   _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
