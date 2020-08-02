@@ -111,7 +111,7 @@ class LoginFormState extends State<LoginForm> {
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
-                focusColor: UIData.quitoThemeColor,
+                focusColor: UIData.primaryColor,
                 alignLabelWithHint: true,
                 hintText: 'foo@bar.com',
                 hintStyle: TextStyle(color: Colors.grey),

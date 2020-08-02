@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   // PageController pageController = PageController(initialPage: 3);
   // int currentIndex = 0;
-  PersistentTabController _controller = PersistentTabController(initialIndex: 3);
+  PersistentTabController _controller = PersistentTabController(initialIndex: 0);
   // AnimationController controller;
   String userID;
   Preferences preferences = Preferences();
@@ -72,12 +72,11 @@ class _HomePageState extends State<HomePage> {
     result = await apiFunctions.gqlmutation(mutation);
 
 
-    // print(result);
     UserInfo userInfo = UserInfo();
-    userInfo.currentOrg = 0;
-    userInfo.currentOrgList = result['users'][0]['joinedOrganizations'];
+    // userInfo.currentOrg = 0;
+    // userInfo.currentOrgList = result['users'][0]['joinedOrganizations'];
 
-    // print(result['users'][0]['joinedOrganizations'][0]['_id']);
+    print(result['users'][0]['joinedOrganizations'][0]['_id']);
   }
 
 
@@ -105,15 +104,15 @@ class _HomePageState extends State<HomePage> {
         // isTranslucent: false,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.group),
-        title: ("Groups"),
+        icon: Icon(Icons.chat),
+        title: ("Chats"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
         // isTranslucent: false,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.business),
-        title: ("Organizations"),
+        icon: Icon(Icons.group),
+        title: ("Members"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
         // isTranslucent: false,
@@ -144,7 +143,7 @@ class _HomePageState extends State<HomePage> {
       _showSnackBar();
     }
     return PersistentTabView(
-      backgroundColor: UIData.quitoThemeColor,
+      backgroundColor: UIData.primaryColor,
       controller: _controller,
       items: _navBarsItems(),
       screens: _buildScreens(),

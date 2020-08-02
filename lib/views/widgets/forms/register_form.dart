@@ -174,7 +174,7 @@ class RegisterFormState extends State<RegisterForm> {
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
-                focusColor: UIData.quitoThemeColor,
+                focusColor: UIData.primaryColor,
                 alignLabelWithHint: true,
                 hintText: 'password',
                 hintStyle: TextStyle(color: Colors.grey),
@@ -198,7 +198,7 @@ class RegisterFormState extends State<RegisterForm> {
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Confirm Password",
                 labelStyle: TextStyle(color: Colors.white),
-                focusColor: UIData.quitoThemeColor,
+                focusColor: UIData.primaryColor,
               ),
             ),
             SizedBox(

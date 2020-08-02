@@ -15,14 +15,15 @@ class _GroupsState extends State<Groups> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Groups'),
+        title: Text('Chats',
+        style: TextStyle(color: Colors.white),),
       ),
       body: ListView.builder(
-          itemCount: 6,
+          itemCount: 4,
           itemBuilder: (context, index) {
             return Card(
               child: ListTile(
-                title: Text('Organization $index'),
+                title: Text('Event ${index + 1}'),
                 leading: CircleAvatar(
                   child: Image.asset(UIData.talawaLogo),
                 ),

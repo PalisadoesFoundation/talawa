@@ -58,7 +58,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                 return Center(child: CircularProgressIndicator());
               }
                 final userOrg = result.data['users'][0]['joinedOrganizations'];
-                print(result.data['users'][0]['joinedOrganizations']);
+                // print(result.data['users'][0]['joinedOrganizations']);
               return ListView.separated(
                   itemCount: userOrg.length,
                   itemBuilder: (context, index) {

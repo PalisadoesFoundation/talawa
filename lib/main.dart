@@ -69,9 +69,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: UIData.appName,
         theme: ThemeData(
-            primaryColor: UIData.quitoThemeColor,
+            primaryColor: UIData.primaryColor,
             fontFamily: UIData.quickFont,
-            primarySwatch: UIData.quitoThemeColor),
+            primarySwatch: UIData.primaryColor),
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {

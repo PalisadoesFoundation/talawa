@@ -139,7 +139,7 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                           borderRadius: BorderRadius.circular(5.0)),
                       prefixIcon: Icon(Icons.text_fields),
                       labelText: "Description",
-                      focusColor: UIData.quitoThemeColor,
+                      focusColor: UIData.primaryColor,
                     ),
                     onSaved: (value) {
                       model.description = value;

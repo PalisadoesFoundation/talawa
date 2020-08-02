@@ -4,6 +4,7 @@ import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/uidata.dart';
 
 
 
@@ -40,27 +41,31 @@ class _OrganizationsState extends State<Organizations> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Organizations'),
+        title: Text('Members',
+        style: TextStyle(color: Colors.white),),
       ),
       body: organizationsList.isEmpty ? Center(child: CircularProgressIndicator()) : 
       ListView.builder(
         itemCount: organizationsList.length,
         itemBuilder: (context, index) {
           return 
-          Card(child: RadioListTile(
-            controlAffinity: ListTileControlAffinity.trailing,
-            title: Text(organizationsList[index]['name']),
-            subtitle: Text(organizationsList[index]['description']),
-            groupValue: isSelected,
-            value: index,
-             onChanged: (val){
-               org.currentOrganisation(organizationsList[val]['_id']);
-               setState(() {
-                 isSelected = val;
+          Card(child: ListTile(
+            // activeColor: UIData.secondaryColor,
+            // controlAffinity: ListTileControlAffinity.trailing,
+            title: Text(organizationsList[index]['members'][0]['firstName'].toString() + ' ' + organizationsList[index]['members'][0]['lastName'].toString()),
+            subtitle: Text(organizationsList[index]['members'][0]['email'].toString()),
+            // groupValue: isSelected,
+            // value: index,
+            //  onChanged: (val){
+            //    org.currentOrganisation(organizationsList[val]['_id']);
+            //    setState(() {
+            //      isSelected = val;
                  
-               });
+            //    });
                 
-             }))
+            //  }
+            trailing: Icon(Icons.menu),
+             ))
           ;
         },
       ),

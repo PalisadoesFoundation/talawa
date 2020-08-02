@@ -8,14 +8,12 @@ class OrgController with ChangeNotifier{
 
 
   void currentOrganisation(int val){
-    print(val);
     currentOrg = val;
     notifyListeners();
   }
 
 
   void setOrgList(List val){
-    print(val);
     value = val.toString();
     notifyListeners();
   }

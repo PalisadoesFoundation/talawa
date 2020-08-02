@@ -86,6 +86,12 @@ class Queries{
           firstName
           lastName
         }
+        members{
+          _id
+          firstName
+          lastName
+          email
+        }
       }
     }
   ''';
@@ -121,9 +127,10 @@ class Queries{
   }
 
 //////////////EVENTS/////////////////////
-  final String fetchEvents = """
+   String fetchEvents(){
+     return """
       query {
-        events { 
+        events{ 
           _id
           title
           description
@@ -133,7 +140,7 @@ class Queries{
           recurrance
         }
       }
-    """;
+    """;}
 
   final String deleteEvent = """
       mutation RemoveEvent(
@@ -204,4 +211,58 @@ class Queries{
         }
     """;
   }
+
+
+
+
+
+
+
+///////////////////NEWSFEED////////////////
+String posts = """
+      query {
+        posts
+        { 
+          _id
+          text
+          createdAt
+          imageUrl
+          videoUrl
+          creator{
+            firstName
+            lastName
+          }
+          organization{
+            _id
+          }
+          linkedBy{
+            _id
+          }
+          comments{
+            _id
+          }
+        }
+      }
+""";
+
+
+
+String addPost(String text, String organizationId){
+  return """
+  mutation {
+    createPost( 
+      data:{
+        text: "$text",
+        organizationId: "$organizationId",
+    }  
+    ){
+      _id
+    }
 }
+  """;
+}
+
+
+}
+
+
