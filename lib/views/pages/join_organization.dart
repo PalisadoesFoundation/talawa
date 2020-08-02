@@ -60,12 +60,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         setState(() {
         joinedOrg = result.data['joinPublicOrganization']['joinedOrganizations'];
       });
-      print(joinedOrg.length);
-      print(result.data['joinPublicOrganization']['joinedOrganizations'][0]['_id']);
+     
       if(joinedOrg.length==1){
         final String currentOrgId = result.data['joinPublicOrganization']['joinedOrganizations'][0]['_id'];
          await _pref.saveCurrentOrgId(currentOrgId);
-         print(currentOrgId);
       }
       _successToast("Sucess!");
 

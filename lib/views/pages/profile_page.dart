@@ -24,6 +24,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Preferences preferences = Preferences();
   List userDetails = [];
   String userID;
+  String currentOrgId;
+  List allJoinedOrgId = [];
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
   @override
@@ -51,9 +53,13 @@ class _ProfilePageState extends State<ProfilePage> {
     } else if (!result.hasException) {
       setState(() {
         userDetails = result.data['users'];
+        allJoinedOrgId = result.data['users'][0]['joinedOrganizations'];
+        print(allJoinedOrgId);
       });
     }
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
