@@ -65,11 +65,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(
-               backgroundColor:Color(0xffF3F6FF),
-
-          title: const Text('Organization'),
-        ),
+      appBar: AppBar(
+        backgroundColor: Color(0xffF3F6FF),
+        title: const Text('Organization'),
+      ),
       body: organizationInfo.isEmpty
           ? Center(child: CircularProgressIndicator())
           : Container(
@@ -157,7 +156,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
               )),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        backgroundColor:  UIData.secondaryColor,
+        backgroundColor: UIData.secondaryColor,
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
@@ -194,15 +193,16 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         });
   }
 
-  Widget showError(String msg){
-    return  Center(
-        child: Text(
-          msg,
-          style: TextStyle(fontSize: 16),
-          textAlign: TextAlign.center,
-        ),
-      );
+  Widget showError(String msg) {
+    return Center(
+      child: Text(
+        msg,
+        style: TextStyle(fontSize: 16),
+        textAlign: TextAlign.center,
+      ),
+    );
   }
+
   _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
