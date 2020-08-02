@@ -9,7 +9,7 @@ import 'package:talawa/model/activity.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/newsfeed.dart';
-import 'package:talawa/views/pages/organizations.dart';
+import 'package:talawa/views/pages/members.dart';
 import 'package:talawa/views/widgets/common_drawer.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/controllers/user_controller.dart';
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   // PageController pageController = PageController(initialPage: 3);
   // int currentIndex = 0;
-  PersistentTabController _controller = PersistentTabController(initialIndex: 3);
+  PersistentTabController _controller = PersistentTabController(initialIndex: 0);
   // AnimationController controller;
   String userID;
   Preferences preferences = Preferences();
@@ -72,12 +72,11 @@ class _HomePageState extends State<HomePage> {
     result = await apiFunctions.gqlmutation(mutation);
 
 
-    // print(result);
     UserInfo userInfo = UserInfo();
-    userInfo.currentOrg = 0;
-    userInfo.currentOrgList = result['users'][0]['joinedOrganizations'];
+    // userInfo.currentOrg = 0;
+    // userInfo.currentOrgList = result['users'][0]['joinedOrganizations'];
 
-    // print(result['users'][0]['joinedOrganizations'][0]['_id']);
+    print(result['users'][0]['joinedOrganizations'][0]['_id']);
   }
 
 
@@ -105,15 +104,15 @@ class _HomePageState extends State<HomePage> {
         // isTranslucent: false,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.group),
-        title: ("Groups"),
+        icon: Icon(Icons.chat),
+        title: ("Chats"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
         // isTranslucent: false,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.business),
-        title: ("Organizations"),
+        icon: Icon(Icons.group),
+        title: ("Members"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
         // isTranslucent: false,

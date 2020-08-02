@@ -30,12 +30,11 @@ class _AddEventState extends State<AddEvent> {
   String recurrance = 'DAILY';
   UserInfo userInfo = UserInfo();
 
-  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
   void initState() {
     super.initState();
     // graphQLConfiguration.getToken();
-    orgId = userInfo.currentOrgList[userInfo.currentOrg]['_id'];
+    // orgId = userInfo.currentOrgList[userInfo.currentOrg]['_id'];
   }
 
   Future<void> createEvent() async {
@@ -78,6 +77,7 @@ class _AddEventState extends State<AddEvent> {
 
   Widget addEventFab() {
     return FloatingActionButton(
+      backgroundColor: UIData.secondaryColor,
         child: Icon(
           Icons.check,
           color: Colors.white,
@@ -95,6 +95,7 @@ class _AddEventState extends State<AddEvent> {
           controller: controller,
           decoration: InputDecoration(
               border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
                   borderSide: BorderSide(color: Colors.teal)),
               hintText: name),
         ));

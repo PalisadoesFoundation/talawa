@@ -139,7 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             leading: Icon(
                               Icons.person,
-                              color:  UIData.primaryColor,
+                              color:  UIData.secondaryColor,
                             ),
                             onTap: () {},
                           ),
@@ -150,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.compare_arrows,
-                                color:  UIData.primaryColor,
+                                color:  UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
@@ -166,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.business,
-                                color:  UIData.primaryColor,
+                                color:  UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
@@ -182,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.add_circle,
-                                color:  UIData.primaryColor,
+                                color:  UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
@@ -198,7 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             leading: Icon(
                               Icons.exit_to_app,
-                              color: UIData.primaryColor,
+                              color: UIData.secondaryColor,
                             ),
                             onTap: () {
                               showDialog(
