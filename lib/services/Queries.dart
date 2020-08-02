@@ -143,21 +143,18 @@ class Queries{
       }
     """;}
 
-  final String deleteEvent = """
-      mutation RemoveEvent(
-        \$id: ID!,
-        )
-        {removeEvent(
-          id: \$id,
+  String deleteEvent(String id) {
+    return """
+      mutation {
+        removeEvent(
+          id: "$id",
           ){
             _id
-            title
-            description
           }
         }
-    """;
+    """;}
 
-  final String registerForEvent = """
+  String registerForEvent = """
       mutation RegisterForEvent(
         \$id: ID!,
         )
@@ -250,16 +247,16 @@ String posts = """
 
 String addPost(String text, String organizationId){
   return """
-  mutation {
-    createPost( 
-      data:{
-        text: "$text",
-        organizationId: "$organizationId",
-    }  
-    ){
-      _id
+    mutation {
+        createPost(
+            data: {
+                text: "",
+                organizationId: "",
+        }) {
+            _id
+            text
+        }
     }
-}
   """;
 }
 

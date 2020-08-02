@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 
@@ -10,6 +11,7 @@ import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/utils/userInfo.dart';
+import 'package:talawa/views/pages/events.dart';
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);
 
@@ -20,7 +22,7 @@ class AddEvent extends StatefulWidget {
 class _AddEventState extends State<AddEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
-  String orgId = '';
+
   Map switchVals = {
     'Make Public': true,
     'Make Registerable': true,
@@ -29,11 +31,11 @@ class _AddEventState extends State<AddEvent> {
   var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
   UserInfo userInfo = UserInfo();
-
-
+  Preferences preferences = Preferences();
+  String currentOrgId;
   void initState() {
     super.initState();
-    // graphQLConfiguration.getToken();
+    getCurrentOrgId();
     // orgId = userInfo.currentOrgList[userInfo.currentOrg]['_id'];
   }
 
@@ -41,7 +43,7 @@ class _AddEventState extends State<AddEvent> {
     String date = '${DateTime.now().toString()}';
 
     String mutation = Queries().addEvent(
-      orgId,
+      currentOrgId,
       titleController.text,
       descriptionController.text,
       switchVals['Make Public'],
@@ -52,16 +54,25 @@ class _AddEventState extends State<AddEvent> {
     );
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlmutation( mutation);
+    
+  }
+
+      getCurrentOrgId() async {
+    final orgId = await preferences.getCurrentOrgId();
+    setState(() {
+      currentOrgId = orgId;
+    });
+    print(currentOrgId);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('New Event'),
+        title: Text('New Event',
+        style: TextStyle(color: Colors.white),),
       ),
-      body: Container(
-          child: Column(
+      body: ListView(
         children: <Widget>[
           inputField('Title', titleController),
           inputField('Description', descriptionController),
@@ -70,7 +81,7 @@ class _AddEventState extends State<AddEvent> {
           switchTile('Recurring'),
           recurrencedropdown(),
         ],
-      )),
+      ),
       floatingActionButton: addEventFab(),
     );
   }
@@ -103,6 +114,7 @@ class _AddEventState extends State<AddEvent> {
 
   Widget switchTile(String name) {
     return SwitchListTile(
+      activeColor: UIData.secondaryColor,
         value: switchVals[name],
         contentPadding: EdgeInsets.symmetric(horizontal: 20),
         title: Text(
@@ -128,7 +140,7 @@ class _AddEventState extends State<AddEvent> {
         child: DropdownButton<String>(
           style: TextStyle(
               color: switchVals['Recurring']
-                  ? UIData.primaryColor
+                  ? UIData.secondaryColor
                   : Colors.grey),
           value: recurrance,
           icon: Icon(Icons.arrow_drop_down),

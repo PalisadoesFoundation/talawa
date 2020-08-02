@@ -29,6 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   String orgName="";
 
+
   @override
   void initState() {
     super.initState();
@@ -42,7 +43,9 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     getCurrentOrgId();
     fetchUserDetails();
+    
   }
+
     getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
