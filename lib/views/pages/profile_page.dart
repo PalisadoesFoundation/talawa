@@ -39,7 +39,14 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       userID = id;
     });
+    getCurrentOrgId();
     fetchUserDetails();
+  }
+    getCurrentOrgId() async {
+    final orgId = await preferences.getCurrentOrgId();
+    setState(() {
+      currentOrgId = orgId;
+    });
   }
 
   Future fetchUserDetails() async {
@@ -56,6 +63,9 @@ class _ProfilePageState extends State<ProfilePage> {
         allJoinedOrgId = result.data['users'][0]['joinedOrganizations'];
         print(allJoinedOrgId);
       });
+      for(int index = 0; index <= allJoinedOrgId.length; index++){
+        
+      }
     }
   }
 
