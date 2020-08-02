@@ -116,7 +116,7 @@ class _NewsFeedState extends State<NewsFeed> {
         onPressed: () {
             pushNewScreen(
               context,
-              withNavBar: false,
+             //withNavBar: false,
               screen: AddPost(),
             );
 

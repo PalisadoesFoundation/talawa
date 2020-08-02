@@ -24,6 +24,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Preferences preferences = Preferences();
   List userDetails = [];
   String userID;
+  String currentOrgId;
+  List allJoinedOrgId = [];
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
   @override
@@ -51,9 +53,13 @@ class _ProfilePageState extends State<ProfilePage> {
     } else if (!result.hasException) {
       setState(() {
         userDetails = result.data['users'];
+        allJoinedOrgId = result.data['users'][0]['joinedOrganizations'];
+        print(allJoinedOrgId);
       });
     }
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +155,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
+<<<<<<< HEAD
                                   // withNavBar: false,
+=======
+                                  //withNavBar: false,
+>>>>>>> a5ae912e96f16797e5bdf289787f31aa67360717
                                   screen: SwitchOrganization(),
                                 );
                               }),
@@ -165,7 +175,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
+<<<<<<< HEAD
                                   // withNavBar: false,
+=======
+                                  //withNavBar: false,
+>>>>>>> a5ae912e96f16797e5bdf289787f31aa67360717
                                   screen: JoinOrganization(),
                                 );
                               }),
@@ -181,7 +195,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
+<<<<<<< HEAD
                                   // withNavBar: false,
+=======
+                                  //withNavBar: false,
+>>>>>>> a5ae912e96f16797e5bdf289787f31aa67360717
                                   screen: CreateOrganization(),
                                 );
                               }),
