@@ -16,7 +16,6 @@ class AddActivityForm extends StatelessWidget {
   AddActivityViewModel model = new AddActivityViewModel(users: []);
   BuildContext _context;
   final _formKey = GlobalKey<FormState>();
-  Validator val = new Validator();
   PageController _pageController = PageController(initialPage: 0);
   bool _progressBarState = false;
   static final format = DateFormat("yyyy-MM-dd HH:mm");  
@@ -73,9 +72,7 @@ class AddActivityForm extends StatelessWidget {
                     height: 50,
                   ),
                   TextFormField(
-                    validator: (value) {
-                      return val.validateTitle(value);
-                    },
+                    validator: (value) => Validator.validateTitle(value),
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -94,9 +91,7 @@ class AddActivityForm extends StatelessWidget {
                     height: 20,
                   ),
                   DateTimeField(
-                    validator: (value) {
-                      return val.validateDateTime(value);
-                    },
+                    validator: (value) => Validator.validateDateTime(value),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0)),
@@ -129,16 +124,14 @@ class AddActivityForm extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
-                    validator: (value) {
-                      return val.validateDescription(value);
-                    },
+                    validator: (value) => Validator.validateDescription(value),
                     textAlign: TextAlign.left,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0)),
                       prefixIcon: Icon(Icons.text_fields),
                       labelText: "Description",
-                      focusColor: UIData.quitoThemeColor,
+                      focusColor: UIData.primaryColor,
                     ),
                     onSaved: (value) {
                       model.description = value;

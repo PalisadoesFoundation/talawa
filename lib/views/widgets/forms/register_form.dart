@@ -1,11 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/user_controller.dart';
+import 'package:talawa/services/Queries.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_register.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/services/preferences.dart';
+import 'package:talawa/model/token.dart';
+import 'package:talawa/views/pages/join_organization.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -15,36 +23,71 @@ class RegisterForm extends StatefulWidget {
 }
 
 class RegisterFormState extends State<RegisterForm> {
-  bool isEmailAvailable = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController originalPassword = new TextEditingController();
   RegisterViewModel model = new RegisterViewModel();
-  Validator val = new Validator();
   bool _progressBarState = false;
-
-  String _validateEmail(String value) {
-    RegExp regExp = new RegExp(
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$",
-        multiLine: false);
-    if (!regExp.hasMatch(value)) {
-      return 'E-mail Address must be a valid email address.';
-    }
-    if(isEmailAvailable){
-      return 'E-mail is already taken';
-    }
-    return null;
-  }
+  Queries _signupQuery = Queries();
+  bool _validate = false;
+  Preferences _pref = Preferences();
+  FToast fToast;
+  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
   }
 
   @override
+  void initState() {
+    super.initState();
+    fToast = FToast(context);
+  }
+
+  //function for registering user which gets called when sign up is press
+  registerUser() async {
+    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+
+    QueryResult result = await _client.mutate(MutationOptions(
+        documentNode: gql(_signupQuery.registerUser(
+            model.firstName, model.lastName, model.email, model.password))));
+    if (result.hasException) {
+      print(result.exception);
+      setState(() {
+        _progressBarState = false;
+      });
+      print("exception");
+            _exceptionToast(result.exception.toString());
+
+    } else if (!result.hasException && !result.loading) {
+      setState(() {
+        _progressBarState = true;
+      });
+            _successToast("Sucessfully Registered");
+
+      //Store user token in local storage
+      void getToken() async {
+        final Token token =
+            new Token(tokenString: result.data['signUp']['token']);
+        await _pref.saveToken(token);
+
+        final String currentUserId = result.data['signUp']['userId'];
+        await _pref.saveUserId(currentUserId);
+      }
+
+      getToken();
+
+      //Navigate user to join organization screen
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new JoinOrganization()));
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
-        autovalidate: true,
+        autovalidate: _validate,
         child: Column(
           children: <Widget>[
             Text('Register',
@@ -53,9 +96,8 @@ class RegisterFormState extends State<RegisterForm> {
               height: 50,
             ),
             TextFormField(
-              validator: (value) {
-                return val.validateFirstName(value);
-              },
+              textCapitalization: TextCapitalization.words,
+              validator: (value) => Validator.validateFirstName(value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -76,9 +118,8 @@ class RegisterFormState extends State<RegisterForm> {
               height: 20,
             ),
             TextFormField(
-              validator: (value) {
-                return val.validateLastName(value);
-              },
+              textCapitalization: TextCapitalization.words,
+              validator: (value) => Validator.validateLastName(value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -99,9 +140,8 @@ class RegisterFormState extends State<RegisterForm> {
               height: 20,
             ),
             TextFormField(
-              validator: (value) {
-                return _validateEmail(value);
-              },
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) => Validator.validateEmail(value),
               controller: emailController,
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
@@ -125,9 +165,7 @@ class RegisterFormState extends State<RegisterForm> {
             TextFormField(
               obscureText: true,
               controller: originalPassword,
-              validator: (value) {
-                return val.validatePassword(value);
-              },
+              validator: (value) => Validator.validatePassword(value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -136,9 +174,9 @@ class RegisterFormState extends State<RegisterForm> {
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
-                focusColor: UIData.quitoThemeColor,
+                focusColor: UIData.primaryColor,
                 alignLabelWithHint: true,
-                hintText: 'foo@bar.com',
+                hintText: 'password',
                 hintStyle: TextStyle(color: Colors.grey),
               ),
               onSaved: (value) {
@@ -150,9 +188,8 @@ class RegisterFormState extends State<RegisterForm> {
             ),
             TextFormField(
               obscureText: true,
-              validator: (value) {
-                return val.validatePasswordConfirm(originalPassword.text, value);
-              },
+              validator: (value) => Validator.validatePasswordConfirm(
+                  originalPassword.text, value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -161,7 +198,7 @@ class RegisterFormState extends State<RegisterForm> {
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Confirm Password",
                 labelStyle: TextStyle(color: Colors.white),
-                focusColor: UIData.quitoThemeColor,
+                focusColor: UIData.primaryColor,
               ),
             ),
             SizedBox(
@@ -179,23 +216,64 @@ class RegisterFormState extends State<RegisterForm> {
                         "SIGN UP",
                       ),
                 color: Colors.white,
-                onPressed: () async {       
-                  FocusScope.of(context).unfocus();
-                  setState(() {
-                    toggleProgressBarState();
-                  });
-                  isEmailAvailable = await Provider.of<UserController>(context, listen: false).validateUserEmail(emailController.text);
+                onPressed: () async {
+                  _validate = true;
                   if (_formKey.currentState.validate()) {
+                    print("run mutation");
                     _formKey.currentState.save();
-                    await Provider.of<AuthController>(context, listen: false).register(context, model);
+                    registerUser();
+                    setState(() {
+                      toggleProgressBarState();
+                    });
                   }
-                  setState(() {
-                    toggleProgressBarState();
-                  });
                 },
               ),
             ),
           ],
         ));
+  }
+
+  _successToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.green,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 3),
+    );
+  }
+
+  _exceptionToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 5),
+    );
   }
 }

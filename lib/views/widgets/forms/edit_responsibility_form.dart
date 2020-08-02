@@ -10,7 +10,6 @@ import 'package:intl/intl.dart';
 class EditResponsibilityForm extends StatelessWidget {
   int respId;
   final _formKey = GlobalKey<FormState>();
-  Validator val = new Validator();
   Responsibility oldModel;
   Responsibility newModel = new Responsibility();
   final format = DateFormat("yyyy-MM-dd HH:mm");
@@ -39,9 +38,7 @@ class EditResponsibilityForm extends StatelessWidget {
                               ),
                               TextFormField(
                                 initialValue: oldModel.title,
-                                validator: (value) {
-                                  return val.validateTitle(value);
-                                },
+                                validator: (value)=> Validator.validateTitle(value),
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -61,9 +58,7 @@ class EditResponsibilityForm extends StatelessWidget {
                               ),
                               DateTimeField(
                                 initialValue: oldModel.datetime,
-                                validator: (value) {
-                                  return val.validateDateTime(value);
-                                },
+                                validator: (value) => Validator.validateDateTime(value),
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5.0)),
@@ -98,9 +93,7 @@ class EditResponsibilityForm extends StatelessWidget {
                               ),
                               TextFormField(
                                 initialValue: oldModel.description,
-                                validator: (value) {
-                                  return val.validateDescription(value);
-                                },
+                                validator: (value)=> Validator.validateDescription(value),
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
