@@ -3,8 +3,7 @@ import 'package:talawa/services/preferences.dart';
 
 class OrgController with ChangeNotifier{
   int currentOrg = 0;
-  List orgList = [];
-  Preferences preferences = Preferences();
+  String value = '';
 
 
 
@@ -15,9 +14,9 @@ class OrgController with ChangeNotifier{
   }
 
 
-  void createOrgList(List val){
+  void setOrgList(List val){
     print(val);
-    orgList = val;
+    value = val.toString();
     notifyListeners();
   }
 

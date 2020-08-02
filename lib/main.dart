@@ -35,6 +35,7 @@ void main() {
 
     MultiProvider(
     providers: [
+      ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
       ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
       ChangeNotifierProvider<ActivityController>(
           create: (_) => ActivityController()),
@@ -45,7 +46,7 @@ void main() {
       StreamProvider<ConnectivityStatus>(
           create: (_) =>
               ConnectivityService().connectionStatusController.stream),
-              ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
+              
     ],
     child: MyApp(),
   ));

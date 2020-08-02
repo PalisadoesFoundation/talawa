@@ -67,6 +67,7 @@ class UIData {
   //   800:Color.fromRGBO(126,25,70, .9),
   //   900:Color.fromRGBO(126,25,70, 1)});
   static const Color quitoThemeColor = Colors.orange;
+  static const Color secondaryColor = Colors.blueAccent;
 
 //colors
   static List<Color> kitGradients = [

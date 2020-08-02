@@ -133,7 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             leading: Icon(
                               Icons.person,
-                              color: Colors.blueAccent,
+                              color: UIData.secondaryColor,
                             ),
                             onTap: () {},
                           ),
@@ -144,11 +144,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.compare_arrows,
-                                color: Colors.blueAccent,
+                                color: UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
                                   context,
+                                  
                                   screen: SwitchOrganization(),
                                 );
                               }),
@@ -159,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.business,
-                                color: Colors.blueAccent,
+                                color: UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
@@ -174,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.add_circle,
-                                color: Colors.blueAccent,
+                                color: UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
@@ -189,7 +190,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             leading: Icon(
                               Icons.exit_to_app,
-                              color: Colors.blueAccent,
+                              color: UIData.secondaryColor,
                             ),
                             onTap: () {
                               showDialog(

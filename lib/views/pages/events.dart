@@ -97,6 +97,7 @@ class _EventsState extends State<Events> {
           onPressed: () {
             pushNewScreen(
               context,
+              withNavBar: true,
               screen: AddEvent(),
             );
           }),
