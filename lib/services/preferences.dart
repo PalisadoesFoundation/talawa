@@ -5,6 +5,18 @@ import 'package:talawa/model/token.dart';
 class Preferences with ChangeNotifier {
   static const tokenKey = "token";
   static const userId = "userId";
+  static const currentOrgId = "currentOrgId";
+
+  Future saveCurrentOrgId(String currOrgId) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(currentOrgId, currOrgId);
+  }
+
+  Future<String> getCurrentOrgId() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String currentId = preferences.getString(currentOrgId);
+    return currentId;
+  }
 
   Future saveUserId(String userID) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();

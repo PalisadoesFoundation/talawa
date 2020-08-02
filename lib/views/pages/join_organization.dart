@@ -23,6 +23,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   List organizationInfo = [];
+  List joinedOrg = [];
+  
 
   @override
   void initState() {
@@ -46,7 +48,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  confirmOrgChoice() async {
+  Future confirmOrgChoice() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -55,7 +57,18 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       print(result.exception);
       _exceptionToast(result.exception.toString());
     } else if (!result.hasException && !result.loading) {
+        setState(() {
+        joinedOrg = result.data['joinPublicOrganization']['joinedOrganizations'];
+      });
+      print(joinedOrg.length);
+      print(result.data['joinPublicOrganization']['joinedOrganizations'][0]['_id']);
+      if(joinedOrg.length==1){
+        final String currentOrgId = result.data['joinPublicOrganization']['joinedOrganizations'][0]['_id'];
+         await _pref.saveCurrentOrgId(currentOrgId);
+         print(currentOrgId);
+      }
       _successToast("Sucess!");
+
       //Navigate user to join organization screen
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new HomePage()));

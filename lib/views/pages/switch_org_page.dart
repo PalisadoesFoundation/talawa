@@ -48,8 +48,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       setState(() {
         userOrg = result.data['users'][0]['joinedOrganizations'];
       });
-      print(result.data['users'][0]['joinedOrganizations']);
-    }
+       }
   }
 
   @override
@@ -83,6 +82,19 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                 return Divider();
               },
             ),
+             floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.save),
+        label: Text("SAVE"),
+        backgroundColor: UIData.secondaryColor,
+        foregroundColor: Colors.white,
+        elevation: 5.0,
+        onPressed: () {
+          // Navigator.of(context).pushReplacement(MaterialPageRoute(
+          //     builder: (context) => new CreateOrganization()));
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+  
     );
   }
 
