@@ -7,6 +7,9 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/organisation_controller.dart';
+import 'package:talawa/services/Queries.dart';
+import 'package:talawa/utils/apiFuctions.dart';
+
 
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
@@ -24,249 +27,43 @@ class _EventsState extends State<Events> {
 
   initState() {
     super.initState();
-    gqlquerry();
+    getEvents();
   }
 
-///////////////////////////////////////////////////////////////////////////////
-  Future<List> gqlquerry() async {
-    HttpLink _httpLink = HttpLink(
-      uri: 'http://talawa-ranil.herokuapp.com/graphql',
-    );
-    final AuthLink _authLink = AuthLink(
-      getToken: () async => 'Bearer e26cdfbd-ca7e-61cd-5ee0-97b9e6d155ac',
-    );
+  Future<void> _deleteEvent(context, eventId) async {
+    String mutation = Queries().deleteEvent;
+    Map<String, dynamic> changes = {'id': eventId};
+    _gqlMutation(mutation, changes);
+  }
 
-    // final Link _link = _authLink.concat(_httpLink);
+  Future<void> _register(context, eventId) async {
+    String mutation = Queries().registerForEvent;
+    Map changes = {'id': eventId};
+    _gqlMutation( mutation, changes);
+  }
 
-    GraphQLClient _client = GraphQLClient(
-      cache: InMemoryCache(),
-      link: _httpLink,
-    );
+  Future<void> _addProject(context, eventId) async {
+    String mutation = Queries().addEventProject;
+    Map changes = {'title':title,'description':description,'eventId':eventId,};
+    _gqlMutation(mutation,  changes);
+  }
 
-    const String readRepositories = """
-      query {
-        events { 
-          _id
-          title
-          description
-          isPublic
-          isRegisterable
-          recurring
-          recurrance
-        }
-      }
-    """;
 
-    const int nRepositories = 0;
+  Future<void> _gqlMutation(String mutation, Map changes) async {
+    ApiFunctions apiFunctions = ApiFunctions();
+    Map result = await apiFunctions.gqlmutation(mutation);
+  }
 
-    final QueryOptions options = QueryOptions(
-      documentNode: gql(readRepositories),
-      variables: <String, dynamic>{
-        'nRepositories': nRepositories,
-      },
-    );
-
-    final QueryResult result = await _client.query(options);
-
-    if (result.hasException) {
-      print(result.exception.toString());
-    }
-
-    final Map repositories = result.data;
-
-    // print(repositories);
+  Future<List> getEvents() async {
+    ApiFunctions apiFunctions = ApiFunctions();
+    Map result = await apiFunctions.gqlquery(Queries().fetchEvents);
     setState(() {
-      eventList = repositories['events'];
+      eventList = result == null ? [] :result['events'];
     });
   }
 
-////////////////////////////////////////////////////////////////////////////////////
-  Future<void> _deleteEvent(context, eventId) async {
-        const String mutation = """
-      mutation RemoveEvent(
-        \$id: ID!,
-        )
-        {removeEvent(
-          id: \$id,
-          ){
-            _id
-            title
-            description
-          }
-        }
-    """;
-
-    Map<String, dynamic> changes = {'id': eventId};
-    String name = 'Delete this Event?'; 
-    String message = 'Are you sure you want to delete this event?';
-    _gqlMutation( context,  eventId,  mutation,  name,  message,  changes);
+  Future<void> _editEvent(context, eventId) async {
   }
-
-////////////////////////////////////////////////////////////////////////////////////
-  Future<void> _registerDialog(context, eventId) async {
-    const String mutation = """
-      mutation RegisterForEvent(
-        \$id: ID!,
-        )
-        {registerForEvent(
-          id: \$id,
-          ){
-            _id
-            title
-            description
-          }
-        }
-    """;
-    
-    Map changes = {'id': eventId};
-    String name = 'Register For Event?'; 
-    String message = 'Would You like to register for this event?';
-    _gqlMutation( context,  eventId,  mutation,  name,  message,  changes);
-  }
-
-///////////////////////////////////////////////////////////////////////////////////
-  Future<void> _addProjectDialog(context, eventId) async {
-    const String mutation = """
-      mutation CreateEventProject(
-        \$title: String!,
-        \$description: String!,
-        \$eventId: String!,
-        ){
-        createEventProject(
-          data:{
-            title: \$title,
-            description: \$description,
-            eventId: \$eventId,
-          }){
-            _id
-            title
-            description
-          }
-        }
-    """;
-                
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return Mutation(
-          options: MutationOptions(
-            documentNode:
-                gql(mutation), // this is the mutation string you just created
-            // you can update the cache based on results
-            update: (Cache cache, QueryResult result) {
-              return cache;
-            },
-            // or do something with the result.data on completion
-            onCompleted: (dynamic resultData) {
-              print(resultData);
-            },
-            onError: (error) {
-              print(error);
-            },
-          ),
-          builder: (
-            RunMutation runMutation,
-            QueryResult result,
-          ) {
-            return AlertDialog(
-              title: Text('Add new project'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    TextField(
-                      onChanged: (data) {
-                        title = data;
-                      },
-                      decoration: InputDecoration(hintText: 'title'),
-                    ),
-                    TextField(
-                      onChanged: (data) {
-                        description = data;
-                      },
-                      decoration: InputDecoration(hintText: 'description'),
-                    )
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                FlatButton(
-                    child: Text('YES'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      runMutation(
-                        {
-                          'title':title,
-                          'description':description,
-                          'eventId':eventId,
-                        }
-                      );
-                    }),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
-
-
-//////////////////////////////////////////////////////////////////////////////////
-  Future<void> _gqlMutation(BuildContext context, String eventId, String mutation, String name, String message, Map changes) async {
-
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return Mutation(
-          options: MutationOptions(
-            documentNode:
-                gql(mutation), // this is the mutation string you just created
-            // you can update the cache based on results
-            update: (Cache cache, QueryResult result) {
-              return cache;
-            },
-            // or do something with the result.data on completion
-            onCompleted: (dynamic resultData) {
-              print(resultData);
-            },
-            onError: (error) {
-              print(error);
-            },
-          ),
-          builder: (
-            RunMutation runMutation,
-            QueryResult result,
-          ) {
-            return AlertDialog(
-              title: Text(name),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    Text(message),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                FlatButton(
-                    child: Text('Cancel'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    }),
-                FlatButton(
-                    child: Text('YES'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      runMutation(changes);
-                    }),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
-
 
   Widget menueText(String text){
     return ListTile(
@@ -280,18 +77,13 @@ class _EventsState extends State<Events> {
 
 
 
-  Future<void> _editEvent(context, eventId) async {
-  }
-
-
-
 
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     final OrgController org = Provider.of<OrgController>(context);
-    orgId = org.value;
+    // orgId = org.value;
 
     return Scaffold(
       appBar: AppBar(
@@ -305,13 +97,14 @@ class _EventsState extends State<Events> {
           onPressed: () {
             pushNewScreen(
               context,
+              withNavBar: true,
               screen: AddEvent(),
             );
           }),
       body: eventList.isEmpty ? Center(child: CircularProgressIndicator()) : 
       RefreshIndicator(
         onRefresh: () async {
-          gqlquerry();
+          getEvents();
         },
         child: (ListView.builder(
         itemCount: eventList.length,
@@ -324,7 +117,6 @@ class _EventsState extends State<Events> {
                    child: Padding(
                      padding: EdgeInsets.only(left: 20, right: 0),
                      child: ExpansionTile(
-                       
                   children: <Widget>[
                     eventList[index]['isPublic']?menueText('Public'): menueText('Private'),
                     eventList[index]['isRegisterable']?menueText('Registered'):menueText('Not Registered'),
@@ -345,9 +137,9 @@ class _EventsState extends State<Events> {
     return PopupMenuButton<int>(
       onSelected: (val) async {
         if (val == 1) {
-          return _registerDialog(context, eventId);
+          return _register(context, eventId);
         } else if (val == 2) {
-          return _addProjectDialog(context, eventId);
+          return _addProject(context, eventId);
         } else if (val == 3) {
           return _editEvent(context, eventId);
         } else if (val == 4) {

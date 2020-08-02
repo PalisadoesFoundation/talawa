@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/nav_page.dart';
 import 'package:talawa/views/pages/join_organization.dart';
@@ -42,8 +43,6 @@ int radioValue1 = -1;
   void initState() {
     super.initState();
     fToast = FToast(context);
-    graphQLConfiguration.getToken();
-
   }
 
   void toggleProgressBarState() {
@@ -83,11 +82,11 @@ int radioValue1 = -1;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color(0xffF3F6FF),
-          elevation: 0.0,
-          brightness: Brightness.light),
+        backgroundColor: Colors.white,
+          title: const Text('Create Organization'),
+        ),
       body: Container(
-        color: Color(0xffF3F6FF),
+        color: Colors.white,
         child: SingleChildScrollView(
           padding: EdgeInsets.only(bottom: 10.0),
           scrollDirection: Axis.vertical,
@@ -103,7 +102,7 @@ int radioValue1 = -1;
                     height: 10,
                   ),
                   Text('Setup Your Organization',
-                      style: TextStyle(fontSize: 20, color: Colors.blue)),
+                      style: TextStyle(fontSize: 20, color: Colors.black)),
                   SizedBox(
                     height: 30,
                   ),
@@ -114,11 +113,11 @@ int radioValue1 = -1;
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blueAccent),
+                          borderSide: BorderSide(color: UIData.secondaryColor),
                           borderRadius: BorderRadius.circular(20.0)),
                       prefixIcon: Icon(
                         Icons.group,
-                        color: Colors.blueAccent,
+                        color: UIData.secondaryColor,
                       ),
                       labelText: "Organization Name",
                       labelStyle: TextStyle(color: Colors.black),
@@ -140,9 +139,9 @@ int radioValue1 = -1;
                     style: TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blueAccent),
+                          borderSide: BorderSide(color: UIData.secondaryColor),
                           borderRadius: BorderRadius.circular(20.0)),
-                      prefixIcon: Icon(Icons.note, color: Colors.blueAccent),
+                      prefixIcon: Icon(Icons.note, color: UIData.secondaryColor),
                       labelText: "Organization Description",
                       labelStyle: TextStyle(color: Colors.black),
                       alignLabelWithHint: true,
@@ -165,8 +164,8 @@ int radioValue1 = -1;
                     decoration: new InputDecoration(
                       border: new OutlineInputBorder(
                           borderRadius: new BorderRadius.circular(20.0),
-                          borderSide: new BorderSide(color: Colors.blueAccent)),
-                      prefixIcon: Icon(Icons.note, color: Colors.blueAccent),
+                          borderSide: new BorderSide(color: UIData.secondaryColor)),
+                      prefixIcon: Icon(Icons.note, color:UIData.secondaryColor),
                       labelText: "Member Description",
                       labelStyle: TextStyle(color: Colors.black),
                       alignLabelWithHint: true,
@@ -184,6 +183,7 @@ int radioValue1 = -1;
                     groupValue: radioValue,
                     title: Text('Yes'),
                     value: 0,
+                    activeColor: UIData.secondaryColor,
                     onChanged: (val) {
                       setState(() {
                         radioValue = val;
@@ -194,6 +194,8 @@ int radioValue1 = -1;
                     },
                   ),
                   RadioListTile(
+                                        activeColor: UIData.secondaryColor,
+
                     groupValue: radioValue,
                     title: Text('No'),
                     value: 1,
@@ -211,6 +213,8 @@ int radioValue1 = -1;
                       'Do you want others to be able to find your organization from the search page?',
                       style: TextStyle(fontSize: 16, color: Colors.black)),
                   RadioListTile(
+                                        activeColor: UIData.secondaryColor,
+
                     groupValue: radioValue1,
                     title: Text('Yes'),
                     value: 0,
@@ -224,6 +228,8 @@ int radioValue1 = -1;
                     },
                   ),
                   RadioListTile(
+                                        activeColor: UIData.secondaryColor,
+
                     groupValue: radioValue1,
                     title: Text('No'),
                     value: 1,
@@ -250,7 +256,7 @@ int radioValue1 = -1;
                               "CREATE ORGANIZATION",
                               style: TextStyle(color: Colors.white),
                             ),
-                      color: Colors.blueAccent,
+                      color: UIData.secondaryColor,
                       onPressed: () async {
                         if (_formKey.currentState.validate() && radioValue >= 0 && radioValue1 >= 0) {
                           _formKey.currentState.save();

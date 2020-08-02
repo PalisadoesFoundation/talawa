@@ -63,15 +63,15 @@ class _NewsFeedState extends State<NewsFeed> {
                             children: <Widget>[
                               Icon(
                                 Icons.delete,
-                                color: UIData.quitoThemeColor,
+                                color: UIData.primaryColor,
                               ),
                               Icon(
                                 Icons.share,
-                                color: UIData.quitoThemeColor,
+                                color: UIData.primaryColor,
                               ),
                               Icon(
                                 Icons.bookmark,
-                                color: UIData.quitoThemeColor,
+                                color: UIData.primaryColor,
                               ),
                               Container(width: 80)
                             ])),
