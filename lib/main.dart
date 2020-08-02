@@ -35,6 +35,7 @@ void main() {
 
     MultiProvider(
     providers: [
+      ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
       ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
       ChangeNotifierProvider<ActivityController>(
           create: (_) => ActivityController()),
@@ -45,7 +46,7 @@ void main() {
       StreamProvider<ConnectivityStatus>(
           create: (_) =>
               ConnectivityService().connectionStatusController.stream),
-              ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
+              
     ],
     child: MyApp(),
   ));
@@ -68,9 +69,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: UIData.appName,
         theme: ThemeData(
-            primaryColor: UIData.quitoThemeColor,
+            primaryColor: UIData.primaryColor,
             fontFamily: UIData.quickFont,
-            primarySwatch: UIData.quitoThemeColor),
+            primarySwatch: UIData.primaryColor),
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {

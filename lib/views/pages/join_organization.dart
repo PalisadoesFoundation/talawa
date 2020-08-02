@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/nav_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -27,7 +28,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   void initState() {
     super.initState();
     fToast = FToast(context);
-    graphQLConfiguration.getToken();
     fetchOrg();
   }
 
@@ -66,6 +66,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
      appBar: AppBar(
+               backgroundColor:Color(0xffF3F6FF),
+
           title: const Text('Organization'),
         ),
       body: organizationInfo.isEmpty
@@ -78,9 +80,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                   Text(
                     "Welcome, \nJoin or create your organization to get started",
                     style: TextStyle(
-                        color: Colors.black87.withOpacity(0.8),
+                        color: Colors.black,
                         fontSize: 20,
-                        fontWeight: FontWeight.w600),
+                        fontStyle: FontStyle.normal),
                   ),
                   SizedBox(
                     height: 20,
@@ -90,7 +92,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                     style: TextStyle(fontSize: 16),
                     decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(5),
-                        fillColor: Color.fromRGBO(255, 255, 255, 1),
+                        fillColor: Colors.white,
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0),
@@ -141,7 +143,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               organization['_id'].toString();
                                           confirmOrgDialog();
                                         },
-                                        color: Colors.orangeAccent,
+                                        color: UIData.primaryColor,
                                         child: new Text("JOIN"),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -155,7 +157,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
               )),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor:  UIData.secondaryColor,
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {

@@ -185,26 +185,17 @@ class Queries{
   String addEvent(organizationId, title, description, isPublic, isRegisterable,
       recurring, recurrance, date) {
     return """
-      mutation CreateEvent(
-        \$organizationId: ID!,
-        \$title: String!,
-        \$description: String!,
-        \$isPublic: Boolean!,
-        \$isRegisterable: Boolean!,
-        \$recurring: Boolean!,
-        \$date: String!,
-        \$recurrance: String,
-        ){
+      mutation {
         createEvent(
           data:{
-           organizationId: $organizationId,
-           title: $title,
-           description: $description,
+           organizationId: "$organizationId",
+           title: "$title",
+           description: "$description",
            isPublic: $isPublic,
            isRegisterable: $isRegisterable,
            recurring: $recurring,
-           date: $date,
-           recurrance: $recurrance,
+           recurrance: "$recurrance",
+
           }){
             _id
             title

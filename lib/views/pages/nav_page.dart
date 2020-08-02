@@ -24,7 +24,7 @@ import 'package:talawa/views/pages/addEventPage.dart';
 
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
+import 'package:talawa/utils/userInfo.dart';
 import 'profile_page.dart';
 import 'package:talawa/services/preferences.dart';
 class HomePage extends StatefulWidget {
@@ -39,8 +39,8 @@ class _HomePageState extends State<HomePage> {
   PersistentTabController _controller = PersistentTabController(initialIndex: 3);
   // AnimationController controller;
   String userID;
-  OrgController orgController = OrgController();
   Preferences preferences = Preferences();
+  Map result = {};
   @override
   void initState() {
     super.initState();
@@ -69,10 +69,15 @@ class _HomePageState extends State<HomePage> {
   Future<void> getUserInfo() async {
     String mutation = Queries().fetchUserInfo2(userID);
     ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlmutation(mutation);
+    result = await apiFunctions.gqlmutation(mutation);
 
-    // orgController.currentOrganisation(result['users']['createdOrganizations'][0]);
-        print(result);
+
+    // print(result);
+    UserInfo userInfo = UserInfo();
+    userInfo.currentOrg = 0;
+    userInfo.currentOrgList = result['users'][0]['joinedOrganizations'];
+
+    // print(result['users'][0]['joinedOrganizations'][0]['_id']);
   }
 
 
@@ -133,15 +138,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     var connectionStatus =
         Provider.of<ConnectivityStatus>(context, listen: true);
     if (connectionStatus == ConnectivityStatus.Offline) {
       _showSnackBar();
     }
     return PersistentTabView(
-      backgroundColor: UIData.quitoThemeColor,
+      backgroundColor: UIData.primaryColor,
       controller: _controller,
       items: _navBarsItems(),
       screens: _buildScreens(),

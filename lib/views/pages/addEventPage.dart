@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/utils/userInfo.dart';
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);
 
@@ -26,9 +28,18 @@ class _AddEventState extends State<AddEvent> {
   };
   var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
+  UserInfo userInfo = UserInfo();
+
+  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+
+  void initState() {
+    super.initState();
+    // graphQLConfiguration.getToken();
+    orgId = userInfo.currentOrgList[userInfo.currentOrg]['_id'];
+  }
 
   Future<void> createEvent() async {
-
+    String date = '${DateTime.now().toString()}';
 
     String mutation = Queries().addEvent(
       orgId,
@@ -38,17 +49,14 @@ class _AddEventState extends State<AddEvent> {
       switchVals['Make Registerable'],
       switchVals['Recurring'],
       recurrance,
-      DateTime.now().toString(),
+      date,
     );
     ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlmutation(mutation);
+    Map result = await apiFunctions.gqlmutation( mutation);
   }
 
   @override
   Widget build(BuildContext context) {
-    final OrgController org = Provider.of<OrgController>(context);
-    // orgId = org.value;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('New Event'),
@@ -56,8 +64,8 @@ class _AddEventState extends State<AddEvent> {
       body: Container(
           child: Column(
         children: <Widget>[
-          inputField('Title', descriptionController),
-          inputField('Description', titleController),
+          inputField('Title', titleController),
+          inputField('Description', descriptionController),
           switchTile('Make Public'),
           switchTile('Make Registerable'),
           switchTile('Recurring'),
@@ -119,7 +127,7 @@ class _AddEventState extends State<AddEvent> {
         child: DropdownButton<String>(
           style: TextStyle(
               color: switchVals['Recurring']
-                  ? UIData.quitoThemeColor
+                  ? UIData.primaryColor
                   : Colors.grey),
           value: recurrance,
           icon: Icon(Icons.arrow_drop_down),

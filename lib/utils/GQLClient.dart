@@ -35,6 +35,7 @@ final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
   }
 
   GraphQLClient authClient() {
+    getToken();
     return GraphQLClient(
       cache: InMemoryCache(),
       link: finalAuthLink,

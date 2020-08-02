@@ -4,6 +4,7 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/utils/uidata.dart';
 
 class SwitchOrganization extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Preferences preferences = Preferences();
   static String itemIndex;
   List userOrg = [];
-  
+
   @override
   void initState() {
     super.initState();
@@ -54,33 +55,35 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Switch Organization'),
-        ),
-        body: userOrg.isEmpty
-            ? Center(child: CircularProgressIndicator())
-            :      ListView.separated(
-                    itemCount: userOrg.length,
-                    itemBuilder: (context, index) {
-                      return RadioListTile(
-                        groupValue: isSelected,
-                        title: Text(userOrg[index]['name'].toString() +
-                            '\n' +
-                            userOrg[index]['description'].toString()),
-                        value: index,
-                        onChanged: (val) {
-                          setState(() {
-                            isSelected = val;
-                            itemIndex = userOrg[index]['_id'].toString();
-                          });
-                        },
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider();
-                    },
-                  ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text('Switch Organization'),
+      ),
+      body: userOrg.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.separated(
+              itemCount: userOrg.length,
+              itemBuilder: (context, index) {
+                return RadioListTile(
+                  activeColor: UIData.secondaryColor,
+                  groupValue: isSelected,
+                  title: Text(userOrg[index]['name'].toString() +
+                      '\n' +
+                      userOrg[index]['description'].toString()),
+                  value: index,
+                  onChanged: (val) {
+                    setState(() {
+                      isSelected = val;
+                      itemIndex = userOrg[index]['_id'].toString();
+                    });
+                  },
                 );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider();
+              },
+            ),
+    );
   }
 
   Widget showError(String msg) {

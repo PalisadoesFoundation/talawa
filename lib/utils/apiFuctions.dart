@@ -27,7 +27,6 @@ class ApiFunctions {
 
   Future<dynamic> gqlmutation(String mutation) async {
     GraphQLClient _client = graphQLConfiguration.authClient();
-
     QueryResult result =
         await _client.mutate(MutationOptions(documentNode: gql(mutation),
         
