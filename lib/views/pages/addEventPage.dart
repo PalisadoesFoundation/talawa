@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 
@@ -21,7 +22,7 @@ class AddEvent extends StatefulWidget {
 class _AddEventState extends State<AddEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
-  String orgId = '';
+
   Map switchVals = {
     'Make Public': true,
     'Make Registerable': true,
@@ -30,10 +31,11 @@ class _AddEventState extends State<AddEvent> {
   var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
   UserInfo userInfo = UserInfo();
-
-
+  Preferences preferences = Preferences();
+  String currentOrgId;
   void initState() {
     super.initState();
+    getCurrentOrgId();
     // orgId = userInfo.currentOrgList[userInfo.currentOrg]['_id'];
   }
 
@@ -41,7 +43,7 @@ class _AddEventState extends State<AddEvent> {
     String date = '${DateTime.now().toString()}';
 
     String mutation = Queries().addEvent(
-      orgId,
+      currentOrgId,
       titleController.text,
       descriptionController.text,
       switchVals['Make Public'],
@@ -53,6 +55,14 @@ class _AddEventState extends State<AddEvent> {
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlmutation( mutation);
     
+  }
+
+      getCurrentOrgId() async {
+    final orgId = await preferences.getCurrentOrgId();
+    setState(() {
+      currentOrgId = orgId;
+    });
+    print(currentOrgId);
   }
 
   @override

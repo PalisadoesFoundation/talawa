@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
     // userInfo.currentOrg = 0;
     // userInfo.currentOrgList = result['users'][0]['joinedOrganizations'];
 
-    print(result['users'][0]['joinedOrganizations'][0]['_id']);
+    // print(result['users'][0]['joinedOrganizations'][0]['_id']);
   }
 
 

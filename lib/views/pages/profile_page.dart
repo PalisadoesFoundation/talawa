@@ -28,6 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
   List allJoinedOrgId = [];
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
+
   @override
   void initState() {
     super.initState();
@@ -41,14 +42,16 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     getCurrentOrgId();
     fetchUserDetails();
+    
   }
+
     getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
       currentOrgId = orgId;
     });
+    print(currentOrgId);
   }
-
   Future fetchUserDetails() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
@@ -63,9 +66,6 @@ class _ProfilePageState extends State<ProfilePage> {
         allJoinedOrgId = result.data['users'][0]['joinedOrganizations'];
         print(allJoinedOrgId);
       });
-      for(int index = 0; index <= allJoinedOrgId.length; index++){
-        
-      }
     }
   }
 
@@ -165,11 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-<<<<<<< HEAD
-                                  // withNavBar: false,
-=======
                                   //withNavBar: false,
->>>>>>> a5ae912e96f16797e5bdf289787f31aa67360717
                                   screen: SwitchOrganization(),
                                 );
                               }),
@@ -185,11 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-<<<<<<< HEAD
-                                  // withNavBar: false,
-=======
                                   //withNavBar: false,
->>>>>>> a5ae912e96f16797e5bdf289787f31aa67360717
                                   screen: JoinOrganization(),
                                 );
                               }),
@@ -205,11 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-<<<<<<< HEAD
-                                  // withNavBar: false,
-=======
                                   //withNavBar: false,
->>>>>>> a5ae912e96f16797e5bdf289787f31aa67360717
                                   screen: CreateOrganization(),
                                 );
                               }),
