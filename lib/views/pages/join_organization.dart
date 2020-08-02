@@ -27,11 +27,12 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   void initState() {
     super.initState();
     fToast = FToast(context);
+    graphQLConfiguration.getToken();
     fetchOrg();
   }
 
   Future fetchOrg() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
@@ -64,10 +65,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Color(0xffF3F6FF),
-          elevation: 0.0,
-          brightness: Brightness.light),
+     appBar: AppBar(
+          title: const Text('Organization'),
+        ),
       body: organizationInfo.isEmpty
           ? Center(child: CircularProgressIndicator())
           : Container(

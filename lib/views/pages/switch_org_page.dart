@@ -3,7 +3,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/views/pages/nav_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class SwitchOrganization extends StatefulWidget {
@@ -60,22 +59,19 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         ),
         body: userOrg.isEmpty
             ? Center(child: CircularProgressIndicator())
-            : Column(
-                children: <Widget>[
-                  ListView.separated(
+            :      ListView.separated(
                     itemCount: userOrg.length,
                     itemBuilder: (context, index) {
-                      final userOrganization = userOrg[index];
                       return RadioListTile(
                         groupValue: isSelected,
-                        title: Text(userOrganization['name'].toString() +
+                        title: Text(userOrg[index]['name'].toString() +
                             '\n' +
-                            userOrganization['description'].toString()),
+                            userOrg[index]['description'].toString()),
                         value: index,
                         onChanged: (val) {
                           setState(() {
                             isSelected = val;
-                            itemIndex = userOrganization['_id'].toString();
+                            itemIndex = userOrg[index]['_id'].toString();
                           });
                         },
                       );
@@ -84,8 +80,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                       return Divider();
                     },
                   ),
-                ],
-              ));
+                );
   }
 
   Widget showError(String msg) {
