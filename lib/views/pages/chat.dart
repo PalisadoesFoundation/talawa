@@ -50,6 +50,7 @@ class _ChatState extends State<Chat> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 8.0),
               child: IconButton(
+                onPressed: (){},
                 icon: Icon(Icons.send),
               ),
             )
