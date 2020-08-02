@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/nav_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -22,6 +23,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   List organizationInfo = [];
+  List joinedOrg = [];
+  
 
   @override
   void initState() {
@@ -31,7 +34,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   Future fetchOrg() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
@@ -45,7 +48,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  confirmOrgChoice() async {
+  Future confirmOrgChoice() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -54,7 +57,18 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       print(result.exception);
       _exceptionToast(result.exception.toString());
     } else if (!result.hasException && !result.loading) {
+        setState(() {
+        joinedOrg = result.data['joinPublicOrganization']['joinedOrganizations'];
+      });
+      print(joinedOrg.length);
+      print(result.data['joinPublicOrganization']['joinedOrganizations'][0]['_id']);
+      if(joinedOrg.length==1){
+        final String currentOrgId = result.data['joinPublicOrganization']['joinedOrganizations'][0]['_id'];
+         await _pref.saveCurrentOrgId(currentOrgId);
+         print(currentOrgId);
+      }
       _successToast("Sucess!");
+
       //Navigate user to join organization screen
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new HomePage()));
@@ -65,9 +79,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Color(0xffF3F6FF),
-          elevation: 0.0,
-          brightness: Brightness.light),
+        backgroundColor: Color(0xffF3F6FF),
+        title: const Text('Organization'),
+      ),
       body: organizationInfo.isEmpty
           ? Center(child: CircularProgressIndicator())
           : Container(
@@ -78,9 +92,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                   Text(
                     "Welcome, \nJoin or create your organization to get started",
                     style: TextStyle(
-                        color: Colors.black87.withOpacity(0.8),
+                        color: Colors.black,
                         fontSize: 20,
-                        fontWeight: FontWeight.w600),
+                        fontStyle: FontStyle.normal),
                   ),
                   SizedBox(
                     height: 20,
@@ -90,7 +104,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                     style: TextStyle(fontSize: 16),
                     decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(5),
-                        fillColor: Color.fromRGBO(255, 255, 255, 1),
+                        fillColor: Colors.white,
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0),
@@ -141,7 +155,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               organization['_id'].toString();
                                           confirmOrgDialog();
                                         },
-                                        color: Colors.orangeAccent,
+                                        color: UIData.primaryColor,
                                         child: new Text("JOIN"),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -155,7 +169,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
               )),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: UIData.secondaryColor,
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
@@ -192,15 +206,16 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         });
   }
 
-  Widget showError(String msg){
-    return  Center(
-        child: Text(
-          msg,
-          style: TextStyle(fontSize: 16),
-          textAlign: TextAlign.center,
-        ),
-      );
+  Widget showError(String msg) {
+    return Center(
+      child: Text(
+        msg,
+        style: TextStyle(fontSize: 16),
+        textAlign: TextAlign.center,
+      ),
+    );
   }
+
   _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),

@@ -100,9 +100,10 @@ class Queries{
     return '''
     mutation {
       joinPublicOrganization(organizationId: "$orgId") {
-        firstName
-        lastName
-        email
+          joinedOrganizations{
+            _id
+            name
+          }
       }
 	}
   ''';

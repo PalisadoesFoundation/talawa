@@ -43,6 +43,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
   @override
   Widget build(BuildContext context) {
+    times.sort();
     return Scaffold(
         appBar: AppBar(
           title: Text('Newsfeed',
@@ -50,7 +51,7 @@ class _NewsFeedState extends State<NewsFeed> {
         ),
         floatingActionButton: addPostFab(),
         body: ListView.builder(
-            itemCount: postList.length,
+            itemCount: list.length,
             itemBuilder: (context, index) {
               return Card(
                 child: Column(
@@ -70,10 +71,8 @@ class _NewsFeedState extends State<NewsFeed> {
                             screen: NewsArticle(),
                           );
                         },
-                        title: Text(postList[index]['creator']['firstName'] +
-                            ' ' +
-                            postList[index]['creator']['lastName']),
-                        subtitle: Text(postList[index]['text']),
+                        title: Text(list[index]),
+                        subtitle: Text(list2[index]),
                         trailing: Container(
                           width: 80,
                           child: Image.asset(UIData.shoppingImage),

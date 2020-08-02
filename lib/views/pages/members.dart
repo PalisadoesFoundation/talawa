@@ -54,6 +54,13 @@ class _OrganizationsState extends State<Organizations> {
             // controlAffinity: ListTileControlAffinity.trailing,
             title: Text(organizationsList[index]['members'][0]['firstName'].toString() + ' ' + organizationsList[index]['members'][0]['lastName'].toString()),
             subtitle: Text(organizationsList[index]['members'][0]['email'].toString()),
+            leading: CircleAvatar(
+                  child: Icon(Icons.person,
+                  size: 40,
+                  color: Colors.white54,
+                  ),
+                  backgroundColor: UIData.secondaryColor,
+                ),
             // groupValue: isSelected,
             // value: index,
             //  onChanged: (val){

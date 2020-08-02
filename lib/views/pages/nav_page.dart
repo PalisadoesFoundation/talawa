@@ -9,7 +9,7 @@ import 'package:talawa/model/activity.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/newsfeed.dart';
-import 'package:talawa/views/pages/organizations.dart';
+import 'package:talawa/views/pages/members.dart';
 import 'package:talawa/views/widgets/common_drawer.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/controllers/user_controller.dart';

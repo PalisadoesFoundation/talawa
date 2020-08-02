@@ -70,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0),
                       ),
-                      color: Colors.blue,
+                      color:  UIData.primaryColor,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             backgroundColor: Colors.black,
                             child: CircleAvatar(
                               radius: 45.0,
-                              backgroundColor: Colors.lightBlue,
+                              backgroundColor: Colors.white,
                               child: Text(
                                   userDetails[0]['firstName']
                                           .toString()
@@ -96,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           .toString()
                                           .substring(0, 1)
                                           .toUpperCase(),
-                                  style: TextStyle(color: Colors.white)),
+                                  style: TextStyle(color:  UIData.primaryColor,)),
                             ),
                           ),
                         ),
@@ -133,7 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             leading: Icon(
                               Icons.person,
-                              color: UIData.secondaryColor,
+                              color:  UIData.secondaryColor,
                             ),
                             onTap: () {},
                           ),
@@ -144,12 +144,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.compare_arrows,
-                                color: UIData.secondaryColor,
+                                color:  UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  
+                                  withNavBar: false,
                                   screen: SwitchOrganization(),
                                 );
                               }),
@@ -160,11 +160,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.business,
-                                color: UIData.secondaryColor,
+                                color:  UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
                                   context,
+                                  withNavBar: false,
                                   screen: JoinOrganization(),
                                 );
                               }),
@@ -175,11 +176,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.add_circle,
-                                color: UIData.secondaryColor,
+                                color:  UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
                                   context,
+                                  withNavBar: false,
                                   screen: CreateOrganization(),
                                 );
                               }),
