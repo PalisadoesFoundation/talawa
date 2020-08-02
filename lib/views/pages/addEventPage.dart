@@ -10,6 +10,7 @@ import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/utils/userInfo.dart';
+import 'package:talawa/views/pages/events.dart';
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);
 
@@ -33,7 +34,6 @@ class _AddEventState extends State<AddEvent> {
 
   void initState() {
     super.initState();
-    // graphQLConfiguration.getToken();
     // orgId = userInfo.currentOrgList[userInfo.currentOrg]['_id'];
   }
 
@@ -52,16 +52,17 @@ class _AddEventState extends State<AddEvent> {
     );
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlmutation( mutation);
+    
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('New Event'),
+        title: Text('New Event',
+        style: TextStyle(color: Colors.white),),
       ),
-      body: Container(
-          child: Column(
+      body: ListView(
         children: <Widget>[
           inputField('Title', titleController),
           inputField('Description', descriptionController),
@@ -70,7 +71,7 @@ class _AddEventState extends State<AddEvent> {
           switchTile('Recurring'),
           recurrencedropdown(),
         ],
-      )),
+      ),
       floatingActionButton: addEventFab(),
     );
   }
@@ -103,6 +104,7 @@ class _AddEventState extends State<AddEvent> {
 
   Widget switchTile(String name) {
     return SwitchListTile(
+      activeColor: UIData.secondaryColor,
         value: switchVals[name],
         contentPadding: EdgeInsets.symmetric(horizontal: 20),
         title: Text(
@@ -128,7 +130,7 @@ class _AddEventState extends State<AddEvent> {
         child: DropdownButton<String>(
           style: TextStyle(
               color: switchVals['Recurring']
-                  ? UIData.primaryColor
+                  ? UIData.secondaryColor
                   : Colors.grey),
           value: recurrance,
           icon: Icon(Icons.arrow_drop_down),

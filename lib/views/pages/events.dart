@@ -33,9 +33,10 @@ class _EventsState extends State<Events> {
   }
 
   Future<void> _deleteEvent(context, eventId) async {
-    String mutation = Queries().deleteEvent;
-    Map<String, dynamic> changes = {'id': eventId};
-    _gqlMutation(mutation, changes);
+    String mutation = Queries().deleteEvent(eventId);
+    ApiFunctions apiFunctions = ApiFunctions();
+    Map result = await apiFunctions.gqlquery(mutation);
+    getEvents();
   }
 
   Future<void> _register(context, eventId) async {

@@ -149,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  withNavBar: false,
+                                  // withNavBar: false,
                                   screen: SwitchOrganization(),
                                 );
                               }),
@@ -165,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  withNavBar: false,
+                                  // withNavBar: false,
                                   screen: JoinOrganization(),
                                 );
                               }),
@@ -181,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  withNavBar: false,
+                                  // withNavBar: false,
                                   screen: CreateOrganization(),
                                 );
                               }),

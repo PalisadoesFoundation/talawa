@@ -25,6 +25,7 @@ class _GroupsState extends State<Groups> {
               child: ListTile(
                 title: Text('Event ${index + 1}'),
                 leading: CircleAvatar(
+                  backgroundColor: UIData.secondaryColor,
                   child: Image.asset(UIData.talawaLogo),
                 ),
                 trailing: Icon(Icons.arrow_right),

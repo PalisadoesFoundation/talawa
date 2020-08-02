@@ -23,23 +23,27 @@ class _NewsFeedState extends State<NewsFeed> {
       20, (int index) => lipsum.createWord(numWords: 20).toString());
   List times = List<int>.generate(20, (index) => Random().nextInt(30));
 ////////////////////////////////////////////////////
-  List postList = [];
-  String name;
 
-  initState() {
-    getNews();
-  }
 
-  Future<void> getNews() async {
-    String query = Queries().posts;
-    ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlquery(query);
 
-    setState(() {
-      postList = result == null ? []:result['posts'];
-    });
-    print(postList);
-  }
+
+  // List postList = [];
+  // String name;
+
+  // initState() {
+  //   getNews();
+  // }
+
+  // Future<void> getNews() async {
+  //   String query = Queries().posts;
+  //   ApiFunctions apiFunctions = ApiFunctions();
+  //   Map result = await apiFunctions.gqlquery(query);
+
+  //   setState(() {
+  //     postList = result == null ? []:result['posts'];
+  //   });
+  //   print(postList);
+  // }
 
   @override
   Widget build(BuildContext context) {
