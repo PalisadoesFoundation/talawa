@@ -60,11 +60,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     if (result.hasException && result.exception.toString().substring(16) == e) {
       _graphAPI.getNewToken();
       return confirmOrgChoice();
-
     }
     else if (result.hasException && result.exception.toString().substring(16) != e) {
            // print(result.exception);
-      _exceptionToast(result.exception.toString());
+      _exceptionToast(result.exception.toString().substring(16) );
     } else if (!result.hasException && !result.loading) {
         setState(() {
         joinedOrg = result.data['joinPublicOrganization']['joinedOrganizations'];

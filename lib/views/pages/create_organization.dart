@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/nav_page.dart';
@@ -39,6 +40,8 @@ int radioValue1 = -1;
 
   FToast fToast;
 
+  GraphAPI _graphAPI = GraphAPI();
+
   @override
   void initState() {
     super.initState();
@@ -60,7 +63,14 @@ int radioValue1 = -1;
           isPublic,
           isVisible,
     ))));
-    if (result.hasException) {
+
+        String e =
+        "Access Token has expired. Please refresh session.: Undefined location";
+    if (result.hasException && result.exception.toString().substring(16) == e) {
+      _graphAPI.getNewToken();
+      return  createOrg();
+    }
+    else if (result.hasException && result.exception.toString().substring(16) != e) {
       print(result.exception);
       setState(() {
         _progressBarState = false;

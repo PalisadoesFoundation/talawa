@@ -12,6 +12,7 @@ class GraphAPI with ChangeNotifier {
 
   Preferences _pref = Preferences();
 
+  //function that uses refresh token to get new access token and refresh token when access token is expired
   void getNewToken() async {
   
       String refreshToken = await _pref.getRefreshToken();
@@ -25,7 +26,7 @@ class GraphAPI with ChangeNotifier {
       if (result.hasException) {
         print(result.exception);
       } else if (!result.hasException && !result.loading) {
-        print(result.data);
+        print("yes");
       final Token accessToken = new Token(tokenString: result.data['refreshToken']['accessToken']);
       await _pref.saveToken(accessToken);
       final Token refreshToken = new Token(tokenString: result.data['refreshToken']['refreshToken']);

@@ -19,8 +19,8 @@ class GraphQLConfiguration {
   }
  
   static HttpLink httpLink = HttpLink(
-   // uri: "http://calico.palisadoes.org/talawa/",
-    uri: "https://talawa-testing.herokuapp.com/graphql",
+    uri: "http://calico.palisadoes.org/talawa/",
+    //uri: "https://talawa-testing.herokuapp.com/graphql",
     // uri: "http://192.168.100.67:4000/graphql",
   );
 
