@@ -27,6 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String currentOrgId;
   List allJoinedOrgId = [];
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+  String orgName="";
 
 
   @override
@@ -52,6 +53,23 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     print(currentOrgId);
   }
+  
+  
+  extractId(List orgIdList){
+    List lst = [];
+      for(int index = 0; index < allJoinedOrgId.length; index++){
+        lst.add([orgIdList[index]['_id'], orgIdList[index]['name']]);
+        if(orgIdList[index]['_id'] == currentOrgId){
+          setState(() {
+            orgName = orgIdList[index]['name'];
+          });
+              
+        }
+      }
+       print(lst);
+       print(currentOrgId);
+      print(orgName); 
+  }
   Future fetchUserDetails() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
@@ -64,8 +82,10 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         userDetails = result.data['users'];
         allJoinedOrgId = result.data['users'][0]['joinedOrganizations'];
-        print(allJoinedOrgId);
+        extractId(allJoinedOrgId);
+        //print(allJoinedOrgId);
       });
+    
     }
   }
 
@@ -129,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         const SizedBox(height: 5.0),
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0),
-                          child: Text("Current Organization: ",
+                          child: Text("Current Organization: " + orgName,
                               style: TextStyle(
                                   fontSize: 16.0, color: Colors.white)),
                         ),
