@@ -37,7 +37,7 @@ class OrganizationSettings extends StatelessWidget {
                   style: TextStyle(fontSize: 18.0),
                 ),
                 leading: Icon(
-                  Icons.compare_arrows,
+                  Icons.update,
                   color: UIData.secondaryColor,
                 ),
                 onTap: () {

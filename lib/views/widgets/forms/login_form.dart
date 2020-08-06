@@ -55,7 +55,7 @@ class LoginFormState extends State<LoginForm> {
       setState(() {
         _progressBarState = true;
       });
-      
+        print(result.data['login']['user']['joinedOrganizations'][0]['_id']);
       _successToast("All Set!");
       //Store user token and id in preferences
 
@@ -65,7 +65,8 @@ class LoginFormState extends State<LoginForm> {
       await _pref.saveRefreshToken(refreshToken);
       final String currentUserId = result.data['login']['user']['_id'];
       await _pref.saveUserId(currentUserId);
-      print('User logged in');
+       final String currentOrgId = result.data['login']['user']['joinedOrganizations'][0]['_id'];
+      await _pref.saveCurrentOrgId(currentOrgId);
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new HomePage()));
     }
