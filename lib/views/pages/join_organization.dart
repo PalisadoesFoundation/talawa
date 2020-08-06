@@ -62,7 +62,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       return confirmOrgChoice();
     }
     else if (result.hasException && result.exception.toString().substring(16) != e) {
-           // print(result.exception);
       _exceptionToast(result.exception.toString().substring(16) );
     } else if (!result.hasException && !result.loading) {
         setState(() {

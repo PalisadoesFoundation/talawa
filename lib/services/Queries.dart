@@ -181,6 +181,17 @@ class Queries {
   ''';
   }
 
+  String updateOrg(String orgId, String name, String description,
+      bool isPublic, bool visibleInSearch) {
+    return '''
+      mutation {
+          updateOrganization(id: "$orgId", data: {name: "$name", description: "$description", isPublic: $isPublic, visibleInSearch: $visibleInSearch}){
+            _id
+            name
+        }
+    }
+  ''';
+  }
 //////////////EVENTS/////////////////////
   String fetchEvents() {
     return """
