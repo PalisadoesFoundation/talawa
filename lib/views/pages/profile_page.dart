@@ -51,7 +51,6 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       currentOrgId = orgId;
     });
-    print(currentOrgId);
   }
   
   
@@ -66,10 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
               
         }
       }
-       print(lst);
-       print(currentOrgId);
-      print(orgName); 
-  }
+   }
   Future fetchUserDetails() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
@@ -83,7 +79,6 @@ class _ProfilePageState extends State<ProfilePage> {
         userDetails = result.data['users'];
         allJoinedOrgId = result.data['users'][0]['joinedOrganizations'];
         extractId(allJoinedOrgId);
-        //print(allJoinedOrgId);
       });
     
     }
