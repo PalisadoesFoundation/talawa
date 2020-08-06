@@ -1,27 +1,58 @@
-class Queries{
-   String registerUser(String firstName, String lastName, String email, String password) {
-   return """
+class Queries {
+
+  String refreshToken(String refreshToken){
+    return '''
+        mutation{
+          refreshToken(refreshToken: "$refreshToken"){
+            accessToken
+            refreshToken
+          }
+        }
+
+    ''';
+  }
+
+  String registerUser(String firstName, String lastName, String email, String password) {
+    return """
         mutation {
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"}){
-            userId
-            token
-          }
+            accessToken
+            user{
+                _id
+                firstName
+                 joinedOrganizations{
+                  _id
+                  name
+                 }
+              }
+              refreshToken
+            }
         }
 
     """;
-   }
+  }
+
+  String loginUser(String email, String password) {
  
-   String loginUser(String email, String password) {
-   return """
-        query {
+    return """
+        mutation {
           login(data: {email: "$email", password: "$password"}){
-            userId
-            token
-          }
+            accessToken
+            user{
+                _id
+                firstName
+                 joinedOrganizations{
+                  _id
+                  name
+                 }
+              }
+              refreshToken
+            }
         }
 
     """;
-   }
+  }
+
 
   String fetchUserInfo = ''' 
        query Users(\$id: ID!){
@@ -74,7 +105,8 @@ class Queries{
           }
         }
       }
-    ''';}
+    ''';
+  }
 
   final String fetchOrganizations = '''
     query{
@@ -128,8 +160,8 @@ class Queries{
   }
 
 //////////////EVENTS/////////////////////
-   String fetchEvents(){
-     return """
+  String fetchEvents() {
+    return """
       query {
         events{ 
           _id
@@ -141,7 +173,8 @@ class Queries{
           recurrance
         }
       }
-    """;}
+    """;
+  }
 
   String deleteEvent(String id) {
     return """
@@ -152,7 +185,8 @@ class Queries{
             _id
           }
         }
-    """;}
+    """;
+  }
 
   String registerForEvent = """
       mutation RegisterForEvent(
@@ -210,14 +244,8 @@ class Queries{
     """;
   }
 
-
-
-
-
-
-
 ///////////////////NEWSFEED////////////////
-String posts = """
+  String posts = """
       query {
         posts
         { 
@@ -243,10 +271,8 @@ String posts = """
       }
 """;
 
-
-
-String addPost(String text, String organizationId){
-  return """
+  String addPost(String text, String organizationId) {
+    return """
     mutation {
         createPost(
             data: {
@@ -258,9 +284,5 @@ String addPost(String text, String organizationId){
         }
     }
   """;
+  }
 }
-
-
-}
-
-

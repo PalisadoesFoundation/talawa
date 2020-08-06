@@ -7,6 +7,7 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/nav_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/utils/GraphAPI.dart';
 
 import 'create_organization.dart';
 
@@ -24,6 +25,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   FToast fToast;
   List organizationInfo = [];
   List joinedOrg = [];
+  GraphAPI _graphAPI = GraphAPI();
   
 
   @override
@@ -53,8 +55,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
     QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.getOrgId(itemIndex))));
-    if (result.hasException) {
-      print(result.exception);
+          String e =
+        "Access Token has expired. Please refresh session.: Undefined location";
+    if (result.hasException && result.exception.toString().substring(16) == e) {
+      _graphAPI.getNewToken();
+      return confirmOrgChoice();
+
+    }
+    else if (result.hasException && result.exception.toString().substring(16) != e) {
+           // print(result.exception);
       _exceptionToast(result.exception.toString());
     } else if (!result.hasException && !result.loading) {
         setState(() {
