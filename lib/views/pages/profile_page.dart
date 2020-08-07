@@ -33,17 +33,9 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    getUser();
-  }
-
-  getUser() async {
-    final id = await preferences.getUserId();
-    setState(() {
-      userID = id;
-    });
-    getCurrentOrgId();
     fetchUserDetails();
   }
+
 
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
@@ -53,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   extractId(List orgIdList) {
-    List lst = [];
+     List lst = [];
     for (int index = 0; index < allJoinedOrgId.length; index++) {
       lst.add([orgIdList[index]['_id'], orgIdList[index]['name']]);
       if (orgIdList[index]['_id'] == currentOrgId) {
@@ -65,6 +57,9 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future fetchUserDetails() async {
+    
+    final String userID = await preferences.getUserId();
+     getCurrentOrgId();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
     QueryResult result = await _client.query(QueryOptions(

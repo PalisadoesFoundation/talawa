@@ -39,34 +39,28 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
 
   GraphAPI _graphAPI = GraphAPI();
 
-  String _currentOrgId;
-
   Preferences _preferences = Preferences();
 
   @override
   void initState() {
     super.initState();
     fToast = FToast(context);
-    getCurrentOrgId();
+    
   }
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
   }
 
-  getCurrentOrgId() async {
-    final orgId = await _preferences.getCurrentOrgId();
-    setState(() {
-      _currentOrgId = orgId;
-    });
-  }
-
   updateOrg() async {
+    
+    final String currentOrgId = await _preferences.getCurrentOrgId();
+
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_queries.updateOrg(
-      _currentOrgId,
+      currentOrgId,
       orgNameController.text,
       orgDescController.text,
       isPublic,

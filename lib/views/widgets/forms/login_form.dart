@@ -55,9 +55,9 @@ class LoginFormState extends State<LoginForm> {
       setState(() {
         _progressBarState = true;
       });
-        print(result.data['login']['user']['joinedOrganizations'][0]['_id']);
       _successToast("All Set!");
-      //Store user token and id in preferences
+     
+      //Store user tokens, current org id and user id in preferences
 
       final Token accessToken = new Token(tokenString: result.data['login']['accessToken']);
       await _pref.saveToken(accessToken);

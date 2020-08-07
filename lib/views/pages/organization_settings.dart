@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/views/pages/remove_organization.dart';
 
 import 'create_organization.dart';
 import 'update_organization.dart';
@@ -45,6 +46,22 @@ class OrganizationSettings extends StatelessWidget {
                     context,
                     withNavBar: false,
                     screen: UpdateOrganization(),
+                  );
+                }),
+                 ListTile(
+                title: Text(
+                  'Remove Organization',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                leading: Icon(
+                  Icons.delete,
+                  color: UIData.secondaryColor,
+                ),
+                onTap: () {
+                  pushNewScreen(
+                    context,
+                    withNavBar: false,
+                    screen: RemoveOrganization(),
                   );
                 }),
           ]),

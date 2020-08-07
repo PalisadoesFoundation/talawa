@@ -16,7 +16,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Queries _query = Queries();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  String userID;
   int isSelected = 0;
   Preferences preferences = Preferences();
   static String itemIndex;
@@ -28,18 +27,13 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   void initState() {
     super.initState();
     fToast = FToast(context);
-    getUser();
-  }
-
-  getUser() async {
-    final id = await preferences.getUserId();
-    setState(() {
-      userID = id;
-    });
     fetchUserDetails();
   }
 
   Future fetchUserDetails() async {
+    
+    final String userID = await preferences.getUserId();
+
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
     QueryResult result = await _client.query(QueryOptions(
