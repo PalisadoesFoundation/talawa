@@ -192,6 +192,18 @@ class Queries {
     }
   ''';
   }
+
+  String removeOrg(String orgId) {
+    return '''
+      mutation {
+          removeOrganization(id: "$orgId"){
+            _id
+            name
+        }
+    }
+  ''';
+  }
+
 //////////////EVENTS/////////////////////
   String fetchEvents() {
     return """
