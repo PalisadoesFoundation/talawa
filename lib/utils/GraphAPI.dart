@@ -45,4 +45,13 @@ class GraphAPI with ChangeNotifier {
     Navigator.pushNamedAndRemoveUntil(
         context, UIData.loginPageRoute, (r) => false);
   }
+
+  void removeOrg(BuildContext context, String newOrgId) async{
+     await Preferences.removeOrg();
+      await _pref.saveCurrentOrgId(newOrgId);
+      Navigator.pushNamedAndRemoveUntil(
+        context, UIData.profilePage, (r) => false);
+  }
+
+
 }

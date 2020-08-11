@@ -204,6 +204,21 @@ class Queries {
   ''';
   }
 
+  String leaveOrg(String orgId) {
+    return '''
+      mutation {
+          leaveOrganization(organizationId: "$orgId"){
+            firstName 
+            lastName
+             joinedOrganizations{
+            _id
+            name
+          }
+        }
+    }
+  ''';
+  }
+
 //////////////EVENTS/////////////////////
   String fetchEvents() {
     return """

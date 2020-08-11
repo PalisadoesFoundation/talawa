@@ -16,12 +16,16 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Queries _query = Queries();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  int isSelected = 0;
+  int isSelected;
   Preferences preferences = Preferences();
   static String itemIndex;
   List userOrg = [];
-    Preferences _pref = Preferences();
+  Preferences _pref = Preferences();
+  bool _progressBarState = false;
 
+  void toggleProgressBarState() {
+    _progressBarState = !_progressBarState;
+  }
 
   @override
   void initState() {
@@ -31,19 +35,28 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   }
 
   Future fetchUserDetails() async {
-    
     final String userID = await preferences.getUserId();
 
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
     QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
-    if (result.hasException) {
-      print(result.exception);
-      showError(result.exception.toString());
-    } else if (!result.hasException) {
+    if (result.loading) {
       setState(() {
+        _progressBarState = true;
+      });
+    }
+    else if (result.hasException) {
+      print(result.exception);
+      setState(() {
+        _progressBarState = false;
+        showError(result.exception.toString());
+      });
+    } else if (!result.hasException && !result.loading) {
+      setState(() {
+        _progressBarState = false;
         userOrg = result.data['users'][0]['joinedOrganizations'];
+        if(userOrg.isEmpty){showError("You are not registered to any organization");}
       });
     }
   }
@@ -59,10 +72,10 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     } else if (!result.hasException) {
       _successToast(
           "Switched to " + result.data['organizations'][0]['name'].toString());
-        
-        //save new current org id in preference
-         final String currentOrgId = result.data['organizations'][0]['_id'];
-         await _pref.saveCurrentOrgId(currentOrgId);
+
+      //save new current org id in preference
+      final String currentOrgId = result.data['organizations'][0]['_id'];
+      await _pref.saveCurrentOrgId(currentOrgId);
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new ProfilePage()));
     }
@@ -75,7 +88,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         backgroundColor: Colors.white,
         title: const Text('Switch Organization'),
       ),
-      body: userOrg.isEmpty
+      body: _progressBarState
           ? Center(child: CircularProgressIndicator())
           : ListView.separated(
               itemCount: userOrg.length,

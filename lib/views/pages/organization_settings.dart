@@ -10,6 +10,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/remove_organization.dart';
 
 import 'create_organization.dart';
+import 'profile_page.dart';
 import 'update_organization.dart';
 
 class OrganizationSettings extends StatefulWidget {
@@ -29,11 +30,14 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   @override
   void initState() {
     super.initState();
+        fToast = FToast(context);
+
     }
 
 
   Future removeOrg() async {
-        final String orgId = await preferences.getCurrentOrgId();
+
+    final String orgId = await preferences.getCurrentOrgId();
 
     GraphQLClient _client = graphQLConfiguration.authClient();
 
@@ -46,11 +50,43 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       return removeOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != e) {
-      print(result.exception.toString().substring(16));
+      _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
-      print(result.data);
-      print("yes");
-      setState(() {});
+      _successToast('Successfully Removed');
+      setState(() {
+        //_graphAPI.removeOrg();
+
+      });
+       Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new ProfilePage()));
+    }
+  }
+
+  Future leaveOrg() async {
+
+    final String orgId = await preferences.getCurrentOrgId();
+
+    GraphQLClient _client = graphQLConfiguration.authClient();
+
+    QueryResult result = await _client.mutate(
+        MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
+    String e =
+        "Access Token has expired. Please refresh session.: Undefined location";
+    if (result.hasException && result.exception.toString().substring(16) == e) {
+      _graphAPI.getNewToken();
+      return leaveOrg();
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != e) {
+      _exceptionToast(result.exception.toString().substring(16));
+    } else if (!result.hasException && !result.loading) {
+      setState(() {
+        //_graphAPI.removeOrg();
+
+      });
+            _successToast('You are no longer apart of this organization');
+
+         Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new ProfilePage()));
     }
   }
 
@@ -97,6 +133,40 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 }),
             ListTile(
                 title: Text(
+                  'Leave Organization',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                leading: Icon(
+                  Icons.exit_to_app,
+                  color: UIData.secondaryColor,
+                ),
+                onTap: () async {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Confirmation"),
+                          content: Text(
+                              "Are you sure you want to leave this organization?"),
+                          actions: [
+                            FlatButton(
+                              child: Text("Close"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            FlatButton(
+                              child: Text("Yes"),
+                              onPressed: () async {
+                                leaveOrg();
+                              },
+                            )
+                          ],
+                        );
+                      });
+                }),
+                 ListTile(
+                title: Text(
                   'Remove Organization',
                   style: TextStyle(fontSize: 18.0),
                 ),
@@ -131,5 +201,48 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 }),
           ]),
         ));
+  }
+    _successToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.green,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 3),
+    );
+  }
+
+  _exceptionToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 3),
+    );
   }
 }

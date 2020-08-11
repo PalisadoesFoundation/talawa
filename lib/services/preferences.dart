@@ -89,4 +89,15 @@ class Preferences with ChangeNotifier {
     }
     return true;
   }
+
+   static Future<bool> removeOrg() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    try {
+      preferences.remove(currentOrgId);
+     } catch (e) {
+      print(e);
+      return false;
+    }
+    return true;
+  }
 }

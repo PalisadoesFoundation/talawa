@@ -66,8 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
-      showError(result.exception.toString());
-    } else if (!result.hasException) {
+          } else if (!result.hasException) {
       setState(() {
         userDetails = result.data['users'];
         allJoinedOrgId = result.data['users'][0]['joinedOrganizations'];
