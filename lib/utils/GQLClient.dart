@@ -6,15 +6,21 @@ import 'package:flutter/material.dart';
 class GraphQLConfiguration {
   Preferences _pref = Preferences();
   static String token;
+  static String refreshToken;
 
   getToken() async {
     final id = await _pref.getToken();
     token = id;
   }
+
+    getRefreshToken() async {
+    final rToken = await _pref.getRefreshToken();
+    refreshToken = rToken;
+  }
  
   static HttpLink httpLink = HttpLink(
     uri: "http://calico.palisadoes.org/talawa/",
-    // uri: "http://talawa-ranil.herokuapp.com/graphql",
+    //uri: "https://talawa-testing.herokuapp.com/graphql",
     // uri: "http://192.168.100.67:4000/graphql",
   );
 
@@ -41,4 +47,5 @@ final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
       link: finalAuthLink,
     );
   }
+
 }

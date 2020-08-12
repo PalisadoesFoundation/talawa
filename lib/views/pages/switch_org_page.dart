@@ -5,6 +5,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/views/pages/profile_page.dart';
 
 class SwitchOrganization extends StatefulWidget {
   @override
@@ -15,40 +16,69 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Queries _query = Queries();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  String userID;
-  int isSelected = 0;
+  int isSelected;
   Preferences preferences = Preferences();
   static String itemIndex;
   List userOrg = [];
+  Preferences _pref = Preferences();
+  bool _progressBarState = false;
+
+  void toggleProgressBarState() {
+    _progressBarState = !_progressBarState;
+  }
 
   @override
   void initState() {
     super.initState();
     fToast = FToast(context);
-    getUser();
-  }
-
-  getUser() async {
-    final id = await preferences.getUserId();
-    setState(() {
-      userID = id;
-    });
     fetchUserDetails();
   }
 
   Future fetchUserDetails() async {
+    final String userID = await preferences.getUserId();
+
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
     QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
+    if (result.loading) {
+      setState(() {
+        _progressBarState = true;
+      });
+    }
+    else if (result.hasException) {
+      print(result.exception);
+      setState(() {
+        _progressBarState = false;
+        showError(result.exception.toString());
+      });
+    } else if (!result.hasException && !result.loading) {
+      setState(() {
+        _progressBarState = false;
+        userOrg = result.data['users'][0]['joinedOrganizations'];
+        if(userOrg.isEmpty){showError("You are not registered to any organization");}
+      });
+    }
+  }
+
+  Future switchOrg() async {
+    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+
+    QueryResult result = await _client.mutate(
+        MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
     if (result.hasException) {
       print(result.exception);
-      showError(result.exception.toString());
+      _exceptionToast(result.exception.toString());
     } else if (!result.hasException) {
-      setState(() {
-        userOrg = result.data['users'][0]['joinedOrganizations'];
-      });
-       }
+      _successToast(
+          "Switched to " + result.data['organizations'][0]['name'].toString());
+
+      //save new current org id in preference
+      final String currentOrgId = result.data['organizations'][0]['_id'];
+      await _pref.saveCurrentOrgId(currentOrgId);
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new ProfilePage()));
+    }
   }
 
   @override
@@ -58,7 +88,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         backgroundColor: Colors.white,
         title: const Text('Switch Organization'),
       ),
-      body: userOrg.isEmpty
+      body: _progressBarState
           ? Center(child: CircularProgressIndicator())
           : ListView.separated(
               itemCount: userOrg.length,
@@ -82,19 +112,17 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                 return Divider();
               },
             ),
-             floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.save),
         label: Text("SAVE"),
         backgroundColor: UIData.secondaryColor,
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
-          // Navigator.of(context).pushReplacement(MaterialPageRoute(
-          //     builder: (context) => new CreateOrganization()));
+          switchOrg();
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-  
     );
   }
 

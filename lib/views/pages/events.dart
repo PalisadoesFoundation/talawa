@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/utils/userInfo.dart';
 import 'package:talawa/views/pages/addEventPage.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -24,16 +25,18 @@ class _EventsState extends State<Events> {
   String title = '';
   String description = '';
   String orgId = '';
-
+  UserInfo userInfo = UserInfo();
   initState() {
     super.initState();
+    // orgId = userInfo.currentOrgList[userInfo.currentOrg]['_id'] == null ? '': userInfo.currentOrgList[userInfo.currentOrg]['_id'];
     getEvents();
   }
 
   Future<void> _deleteEvent(context, eventId) async {
-    String mutation = Queries().deleteEvent;
-    Map<String, dynamic> changes = {'id': eventId};
-    _gqlMutation(mutation, changes);
+    String mutation = Queries().deleteEvent(eventId);
+    ApiFunctions apiFunctions = ApiFunctions();
+    Map result = await apiFunctions.gqlquery(mutation);
+    getEvents();
   }
 
   Future<void> _register(context, eventId) async {
@@ -56,7 +59,7 @@ class _EventsState extends State<Events> {
 
   Future<List> getEvents() async {
     ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlquery(Queries().fetchEvents);
+    Map result = await apiFunctions.gqlquery(Queries().fetchEvents());
     setState(() {
       eventList = result == null ? [] :result['events'];
     });
@@ -87,9 +90,11 @@ class _EventsState extends State<Events> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Events'),
+        title: Text('Events',
+        style: TextStyle(color: Colors.white),),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: UIData.secondaryColor,
           child: Icon(
             Icons.add,
             color: Colors.white,
