@@ -197,8 +197,12 @@ class Queries {
     return '''
       mutation {
           removeOrganization(id: "$orgId"){
+             firstName 
+            lastName
+             joinedOrganizations{
             _id
             name
+          }
         }
     }
   ''';

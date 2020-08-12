@@ -38,7 +38,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   Future removeOrg() async {
 
     final String orgId = await preferences.getCurrentOrgId();
-
+    List remaindingOrg = [];
+    String newOrgId;
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.mutate(
@@ -53,10 +54,18 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       _successToast('Successfully Removed');
-      setState(() {
-        //_graphAPI.removeOrg();
+        setState(() {
+          remaindingOrg = result.data['removeOrganization']['joinedOrganizations'];
+         if (remaindingOrg.isEmpty) {
+           newOrgId = null;
+         } else if(remaindingOrg.isNotEmpty) {
+            newOrgId = result.data['removeOrganization']['joinedOrganizations'][0]['_id'];
 
-      });
+         }
+ 
+       });
+     
+      _graphAPI.setNewOrg(context, newOrgId);
        Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new ProfilePage()));
     }
@@ -64,6 +73,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
 
   Future leaveOrg() async {
 
+   List remaindingOrg = [];
+    String newOrgId;
     final String orgId = await preferences.getCurrentOrgId();
 
     GraphQLClient _client = graphQLConfiguration.authClient();
@@ -79,12 +90,19 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         result.exception.toString().substring(16) != e) {
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
-      setState(() {
-        //_graphAPI.removeOrg();
+        setState(() {
+         remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
+         if (remaindingOrg.isEmpty) {
+           newOrgId = null;
+         } else if(remaindingOrg.isNotEmpty) {
+            newOrgId = result.data['leaveOrganization']['joinedOrganizations'][0]['_id'];
 
-      });
+         }
+ 
+       });
+      // print(result.data['leaveOrganization']['joinedOrganizations'][0]['_id']);
+      _graphAPI.setNewOrg(context, newOrgId);
             _successToast('You are no longer apart of this organization');
-
          Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new ProfilePage()));
     }
@@ -94,7 +112,6 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
           title: const Text('Organization Settings'),
         ),
         body: Container(
