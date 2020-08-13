@@ -38,6 +38,7 @@ dependencies:
   email_validator: ^1.0.4
   fluttertoast: ^7.0.1
   persistent_bottom_nav_bar: ^1.5.5
+  flutter_datetime_picker: ^1.3.8
   lipsum: ^1.0.1 
 
 

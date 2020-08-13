@@ -1,27 +1,56 @@
-class Queries{
-   String registerUser(String firstName, String lastName, String email, String password) {
-   return """
+class Queries {
+  String refreshToken(String refreshToken) {
+    return '''
+        mutation{
+          refreshToken(refreshToken: "$refreshToken"){
+            accessToken
+            refreshToken
+          }
+        }
+
+    ''';
+  }
+
+  String registerUser(
+      String firstName, String lastName, String email, String password) {
+    return """
         mutation {
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"}){
-            userId
-            token
-          }
+            accessToken
+            user{
+                _id
+                firstName
+                 joinedOrganizations{
+                  _id
+                  name
+                 }
+              }
+              refreshToken
+            }
         }
 
     """;
-   }
- 
-   String loginUser(String email, String password) {
-   return """
-        query {
+  }
+
+  String loginUser(String email, String password) {
+    return """
+        mutation {
           login(data: {email: "$email", password: "$password"}){
-            userId
-            token
-          }
+            accessToken
+            user{
+                _id
+                firstName
+                 joinedOrganizations{
+                  _id
+                  name
+                 }
+              }
+              refreshToken
+            }
         }
 
     """;
-   }
+  }
 
   String fetchUserInfo = ''' 
        query Users(\$id: ID!){
@@ -74,11 +103,12 @@ class Queries{
           }
         }
       }
-    ''';}
+    ''';
+  }
 
   final String fetchOrganizations = '''
     query{
-      organizations{
+      organizations(){
         _id
         name
         description
@@ -95,6 +125,28 @@ class Queries{
       }
     }
   ''';
+
+  String fetchOrgById(String orgId) {
+    return '''
+    query{
+      organizations(id:"$orgId"){
+        _id
+        name
+        description
+        creator{
+          firstName
+          lastName
+        }
+        members{
+          _id
+          firstName
+          lastName
+          email
+        }
+      }
+    }
+  ''';
+  }
 
   String getOrgId(String orgId) {
     return '''
@@ -128,8 +180,8 @@ class Queries{
   }
 
 //////////////EVENTS/////////////////////
-   String fetchEvents(){
-     return """
+  String fetchEvents() {
+    return """
       query {
         events{ 
           _id
@@ -141,7 +193,8 @@ class Queries{
           recurrance
         }
       }
-    """;}
+    """;
+  }
 
   String deleteEvent(String id) {
     return """
@@ -152,7 +205,8 @@ class Queries{
             _id
           }
         }
-    """;}
+    """;
+  }
 
   String registerForEvent = """
       mutation RegisterForEvent(
@@ -189,6 +243,7 @@ class Queries{
 
   String addEvent(organizationId, title, description, isPublic, isRegisterable,
       recurring, recurrance, date) {
+    bool b = true;
     return """
       mutation {
         createEvent(
@@ -200,6 +255,8 @@ class Queries{
            isRegisterable: $isRegisterable,
            recurring: $recurring,
            recurrance: "$recurrance",
+           allDay: $b,
+           date: "${DateTime.now().toString()}",
 
           }){
             _id
@@ -210,14 +267,8 @@ class Queries{
     """;
   }
 
-
-
-
-
-
-
 ///////////////////NEWSFEED////////////////
-String posts = """
+  String posts = """
       query {
         posts
         { 
@@ -233,7 +284,7 @@ String posts = """
           organization{
             _id
           }
-          linkedBy{
+          likedBy{
             _id
           }
           comments{
@@ -243,24 +294,19 @@ String posts = """
       }
 """;
 
-
-
-String addPost(String text, String organizationId){
-  return """
+  String addPost(String text, String organizationId, String date) {
+    return """
     mutation {
         createPost(
             data: {
-                text: "",
-                organizationId: "",
+                text: "$text",
+                organizationId: "$organizationId",
+                createdAt: "$date",
         }) {
             _id
             text
         }
     }
   """;
+  }
 }
-
-
-}
-
-

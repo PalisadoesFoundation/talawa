@@ -12,6 +12,9 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/utils/userInfo.dart';
 import 'package:talawa/views/pages/events.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
+
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);
 
@@ -36,11 +39,36 @@ class _AddEventState extends State<AddEvent> {
   void initState() {
     super.initState();
     getCurrentOrgId();
-    // orgId = userInfo.currentOrgList[userInfo.currentOrg]['_id'];
+  }
+
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+    if (picked != null && picked != selectedTime)
+      setState(() {
+        selectedTime = picked;
+      });
   }
 
   Future<void> createEvent() async {
-    String date = '${DateTime.now().toString()}';
+    DateTime date = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.hour, selectedTime.minute);
 
     String mutation = Queries().addEvent(
       currentOrgId,
@@ -53,11 +81,10 @@ class _AddEventState extends State<AddEvent> {
       date,
     );
     ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlmutation( mutation);
-    
+    Map result = await apiFunctions.gqlmutation(mutation);
   }
 
-      getCurrentOrgId() async {
+  getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
       currentOrgId = orgId;
@@ -69,8 +96,10 @@ class _AddEventState extends State<AddEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('New Event',
-        style: TextStyle(color: Colors.white),),
+        title: Text(
+          'New Event',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: ListView(
         children: <Widget>[
@@ -80,21 +109,57 @@ class _AddEventState extends State<AddEvent> {
           switchTile('Make Registerable'),
           switchTile('Recurring'),
           recurrencedropdown(),
+          dateButton(),
+          timeButton(),
         ],
       ),
       floatingActionButton: addEventFab(),
     );
   }
 
+  Widget dateButton() {
+    return ListTile(
+      onTap: () {
+        _selectDate(context);
+      },
+      leading: Text(
+        'Date',
+        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+      ),
+      trailing: Text(
+        '${DateFormat.yMMMd().format(selectedDate)}',
+        style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
+      ),
+    );
+  }
+
+
+  Widget timeButton() {
+    return ListTile(
+      onTap: () {
+        _selectTime(context);
+      },
+      leading: Text(
+        'Time',
+        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+      ),
+      trailing: Text(
+        selectedTime.format(context),
+        style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
+      ),
+    );
+  }
+
   Widget addEventFab() {
     return FloatingActionButton(
-      backgroundColor: UIData.secondaryColor,
+        backgroundColor: UIData.secondaryColor,
         child: Icon(
           Icons.check,
           color: Colors.white,
         ),
         onPressed: () {
           createEvent();
+          Navigator.of(context).pop();
         });
   }
 
@@ -106,7 +171,7 @@ class _AddEventState extends State<AddEvent> {
           controller: controller,
           decoration: InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
+                  borderRadius: BorderRadius.circular(20.0),
                   borderSide: BorderSide(color: Colors.teal)),
               hintText: name),
         ));
@@ -114,7 +179,7 @@ class _AddEventState extends State<AddEvent> {
 
   Widget switchTile(String name) {
     return SwitchListTile(
-      activeColor: UIData.secondaryColor,
+        activeColor: UIData.secondaryColor,
         value: switchVals[name],
         contentPadding: EdgeInsets.symmetric(horizontal: 20),
         title: Text(
