@@ -114,6 +114,7 @@ class Queries {
         _id
         name
         description
+        isPublic
         creator{
           firstName
           lastName
@@ -219,6 +220,16 @@ class Queries {
             name
           }
         }
+    }
+  ''';
+  }
+
+  String sendMembershipRequest(String orgId) {
+    return '''
+      mutation {
+          sendMembershipRequest(organizationId: "$orgId"){
+            _id
+         }
     }
   ''';
   }

@@ -26,7 +26,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   List organizationInfo = [];
   List joinedOrg = [];
   GraphAPI _graphAPI = GraphAPI();
-  
+  String isPublic;
 
   @override
   void initState() {
@@ -50,27 +50,59 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
+  Future joinPrivateOrg() async {
+
+      String accessTokenException =
+        "Access Token has expired. Please refresh session.: Undefined location";
+
+    GraphQLClient _client = graphQLConfiguration.authClient();
+
+    QueryResult result = await _client.mutate(MutationOptions(
+        documentNode: gql(_query.sendMembershipRequest(itemIndex))));
+
+        if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _graphAPI.getNewToken();
+      return joinPrivateOrg();
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
+      _exceptionToast(result.exception.toString().substring(16));
+    } else if (!result.hasException && !result.loading) {
+      print(result.data);
+      _successToast("Sucess!");
+
+      //Navigate user to join organization screen
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new HomePage()));
+    }
+  }
+
   Future confirmOrgChoice() async {
+    String accessTokenException =
+        "Access Token has expired. Please refresh session.: Undefined location";
+
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.getOrgId(itemIndex))));
-          String e =
-        "Access Token has expired. Please refresh session.: Undefined location";
-    if (result.hasException && result.exception.toString().substring(16) == e) {
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
       _graphAPI.getNewToken();
       return confirmOrgChoice();
-    }
-    else if (result.hasException && result.exception.toString().substring(16) != e) {
-      _exceptionToast(result.exception.toString().substring(16) );
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
+      _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
-        setState(() {
-        joinedOrg = result.data['joinPublicOrganization']['joinedOrganizations'];
+      setState(() {
+        joinedOrg =
+            result.data['joinPublicOrganization']['joinedOrganizations'];
       });
-     
-      if(joinedOrg.length==1){
-        final String currentOrgId = result.data['joinPublicOrganization']['joinedOrganizations'][0]['_id'];
-         await _pref.saveCurrentOrgId(currentOrgId);
+
+      if (joinedOrg.length == 1) {
+        final String currentOrgId = result.data['joinPublicOrganization']
+            ['joinedOrganizations'][0]['_id'];
+        await _pref.saveCurrentOrgId(currentOrgId);
       }
       _successToast("Sucess!");
 
@@ -158,7 +190,19 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                         onPressed: () {
                                           itemIndex =
                                               organization['_id'].toString();
+                                          if (organization['isPublic']
+                                                  .toString() ==
+                                              'false') {
+                                             setState(() {
+                                               isPublic = 'false';
+                                             });
+                                          } else {
+                                             setState(() {
+                                               isPublic = 'true';
+                                             });
+                                          }
                                           confirmOrgDialog();
+
                                         },
                                         color: UIData.primaryColor,
                                         child: new Text("JOIN"),
@@ -203,7 +247,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
               FlatButton(
                 child: Text("Yes"),
                 onPressed: () async {
-                  confirmOrgChoice();
+                  if(isPublic == 'true'){
+                    print('yes');
+                    confirmOrgChoice();
+                  } else{
+                    print('no');
+                   joinPrivateOrg();
+                  }
                 },
               )
             ],
