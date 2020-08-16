@@ -130,7 +130,7 @@ class Queries {
   String fetchOrgById(String orgId) {
     return '''
     query{
-      organizations(id: $orgId){
+      organizations(id: "$orgId"){
         _id
         name
         description
