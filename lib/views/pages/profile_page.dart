@@ -11,6 +11,7 @@ import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'create_organization.dart';
+import 'organization_settings.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -32,15 +33,6 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    getUser();
-  }
-
-  getUser() async {
-    final id = await preferences.getUserId();
-    setState(() {
-      userID = id;
-    });
-    getCurrentOrgId();
     fetchUserDetails();
   }
 
@@ -49,7 +41,6 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() {
       currentOrgId = orgId;
     });
-    print(currentOrgId);
   }
 
   extractId(List orgIdList) {
@@ -62,25 +53,22 @@ class _ProfilePageState extends State<ProfilePage> {
         });
       }
     }
-    print(lst);
-    print(currentOrgId);
-    print(orgName);
   }
 
   Future fetchUserDetails() async {
+    final String userID = await preferences.getUserId();
+    getCurrentOrgId();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
     QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
-      showError(result.exception.toString());
     } else if (!result.hasException) {
       setState(() {
         userDetails = result.data['users'];
         allJoinedOrgId = result.data['users'][0]['joinedOrganizations'];
         extractId(allJoinedOrgId);
-        //print(allJoinedOrgId);
       });
     }
   }
@@ -160,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         tiles: [
                           ListTile(
                             title: Text(
-                              'Edit Profile',
+                              'Update Profile',
                               style: TextStyle(fontSize: 18.0),
                             ),
                             leading: Icon(
@@ -181,7 +169,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  //withNavBar: false,
+                                  withNavBar: false,
                                   screen: SwitchOrganization(),
                                 );
                               }),
@@ -197,24 +185,24 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  //withNavBar: false,
+                                  withNavBar: false,
                                   screen: JoinOrganization(),
                                 );
                               }),
                           ListTile(
                               title: Text(
-                                'Create New Organization',
+                                'Organization Settings',
                                 style: TextStyle(fontSize: 18.0),
                               ),
                               leading: Icon(
-                                Icons.add_circle,
+                                Icons.settings,
                                 color: UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  //withNavBar: false,
-                                  screen: CreateOrganization(),
+                                  withNavBar: false,
+                                  screen: OrganizationSettings(),
                                 );
                               }),
                           ListTile(

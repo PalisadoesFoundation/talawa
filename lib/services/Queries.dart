@@ -112,6 +112,7 @@ class Queries {
         _id
         name
         description
+        isPublic
         creator{
           firstName
           lastName
@@ -179,6 +180,100 @@ class Queries {
   ''';
   }
 
+  String updateOrg(String orgId, String name, String description,
+      bool isPublic, bool visibleInSearch) {
+    return '''
+      mutation {
+          updateOrganization(id: "$orgId", data: {name: "$name", description: "$description", isPublic: $isPublic, visibleInSearch: $visibleInSearch}){
+            _id
+            name
+        }
+    }
+  ''';
+  }
+
+  String removeOrg(String orgId) {
+    return '''
+      mutation {
+          removeOrganization(id: "$orgId"){
+             firstName 
+            lastName
+             joinedOrganizations{
+            _id
+            name
+          }
+        }
+    }
+  ''';
+  }
+
+  String leaveOrg(String orgId) {
+    return '''
+      mutation {
+          leaveOrganization(organizationId: "$orgId"){
+            firstName 
+            lastName
+             joinedOrganizations{
+            _id
+            name
+          }
+        }
+    }
+  ''';
+  }
+
+  String sendMembershipRequest(String orgId) {
+    return '''
+      mutation {
+          sendMembershipRequest(organizationId: "$orgId"){
+            _id
+         }
+    }
+  ''';
+  }
+
+  String viewMembershipRequest(String orgId) {
+    return '''
+      query {
+        organizations(id:"$orgId"){
+          membershipRequests{
+            _id
+            user{
+              firstName
+              lastName
+            }
+          }
+         }
+    }
+  ''';
+  }
+
+   String acceptMembershipRequest(String membershipRequestId) {
+    return '''
+      mutation {
+        acceptMembershipRequest(membershipRequestId:"$membershipRequestId"){
+              user{
+              firstName
+              lastName
+           }
+         }
+    }
+  ''';
+  }
+
+   String rejectMembershipRequest(String membershipRequestId) {
+    return '''
+      mutation {
+        rejectMembershipRequest(membershipRequestId:"$membershipRequestId"){
+              user{
+              firstName
+              lastName
+           }
+         }
+    }
+  ''';
+  }
+ 
 //////////////EVENTS/////////////////////
   String fetchOrgEvents(String orgId) {
     return """

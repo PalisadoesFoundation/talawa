@@ -27,7 +27,6 @@ class GraphAPI with ChangeNotifier {
     if (result.hasException) {
       print(result.exception);
     } else if (!result.hasException && !result.loading) {
-      print("yes");
       final Token accessToken =
           new Token(tokenString: result.data['refreshToken']['accessToken']);
       await _pref.saveToken(accessToken);
@@ -45,5 +44,12 @@ class GraphAPI with ChangeNotifier {
     super.dispose();
     Navigator.pushNamedAndRemoveUntil(
         context, UIData.loginPageRoute, (r) => false);
+  }
+
+  void setNewOrg(BuildContext context, String newOrgId) async {
+    await Preferences.removeOrg();
+    await _pref.saveCurrentOrgId(newOrgId);
+    Navigator.pushNamedAndRemoveUntil(
+        context, UIData.profilePage, (r) => false);
   }
 }

@@ -80,8 +80,21 @@ class Preferences with ChangeNotifier {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     try {
       preferences.remove(tokenKey);
+      preferences.remove(currentOrgId);
+      preferences.remove(refreshTokenKey);
       preferences.remove(userId);
     } catch (e) {
+      print(e);
+      return false;
+    }
+    return true;
+  }
+
+   static Future<bool> removeOrg() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    try {
+      preferences.remove(currentOrgId);
+     } catch (e) {
       print(e);
       return false;
     }
