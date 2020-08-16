@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/views/pages/addTaskDialog.dart';
 import 'package:talawa/views/pages/editEventDialog.dart';
 import 'package:intl/intl.dart';
 
@@ -53,16 +54,6 @@ class _EventsState extends State<Events> {
     _gqlMutation(mutation, changes);
   }
 
-  Future<void> _addProject(context, eventId) async {
-    String mutation = Queries().addEventProject;
-    Map changes = {
-      'title': title,
-      'description': description,
-      'eventId': eventId,
-    };
-    _gqlMutation(mutation, changes);
-  }
-
   Future<void> _gqlMutation(String mutation, Map changes) async {
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlmutation(mutation);
@@ -84,6 +75,17 @@ class _EventsState extends State<Events> {
       builder: (BuildContext context) {
         return EditEvent(
           event: event,
+        );
+      },
+    );
+  }
+
+  Future<void> addEventTask(context, eventId) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AddEventTask(
+          eventId: eventId,
         );
       },
     );
@@ -199,7 +201,7 @@ class _EventsState extends State<Events> {
         if (val == 1) {
           return _register(context, event['_id']);
         } else if (val == 2) {
-          return _addProject(context, event['_id']);
+          return addEventTask(context, event['_id']);
         } else if (val == 3) {
           return _editEvent(context, event);
         } else if (val == 4) {

@@ -38,7 +38,7 @@ class _NewsFeedState extends State<NewsFeed> {
     Map result = await apiFunctions.gqlquery(query);
 
     setState(() {
-      postList = result == null ? [] : result['posts'].toList();
+      postList = result == null ? [] : result['posts'].reversed.toList();
     });
     // print(postList);
   }
