@@ -105,11 +105,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             ['joinedOrganizations'][0]['_id'];
         await _pref.saveCurrentOrgId(currentOrgId);
       }
-        _successToast("Sucess!");
-    
+      _successToast("Sucess!");
+
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage()));
+      Navigator.of(context).pop();
     }
   }
 
@@ -117,7 +116,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffF3F6FF),
+       
         title: const Text('Organization'),
       ),
       body: organizationInfo.isEmpty
@@ -249,7 +248,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 onPressed: () async {
                   if (isPublic == 'true') {
                     confirmOrgChoice();
-                  } else if (isPublic == 'false'){
+                  } else if (isPublic == 'false') {
                     joinPrivateOrg();
                   }
                 },

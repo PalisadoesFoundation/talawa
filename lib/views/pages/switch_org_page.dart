@@ -85,8 +85,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text('Switch Organization'),
+            title: const Text('Switch Organization'),
       ),
       body: _progressBarState
           ? Center(child: CircularProgressIndicator())
@@ -104,6 +103,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                     setState(() {
                       isSelected = val;
                       itemIndex = userOrg[index]['_id'].toString();
+                      print(itemIndex);
                     });
                   },
                 );

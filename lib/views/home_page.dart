@@ -14,8 +14,7 @@ import 'package:talawa/model/user.dart';
 
 import 'package:talawa/enums/connectivity_status.dart';
 
-import 'join_organization.dart';
-
+import 'pages/join_organization.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,28 +24,24 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  @override void initState() {
+  @override
+  void initState() {
     super.initState();
     Provider.of<NoteController>(context, listen: false).initializeSocket(
-      Provider.of<AuthController>(context, listen: false).currentUserId
-    );
+        Provider.of<AuthController>(context, listen: false).currentUserId);
   }
+
   _showSnackBar() {
     print("Show SnackBar Here");
-    final snackBar = new SnackBar(
-      content: new Text("Device Disconnected")
-    );
+    final snackBar = new SnackBar(content: new Text("Device Disconnected"));
     _scaffoldKey.currentState.showSnackBar(snackBar);
     return CircularProgressIndicator();
   }
-
-
 
   BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-
     //var connectionStatus = Provider.of<ConnectivityStatus>(context, listen:true);
     // if (connectionStatus == ConnectivityStatus.Offline ) {
     //   _showSnackBar();
@@ -65,27 +60,26 @@ class _HomePageState extends State<HomePage> {
           return FutureBuilder(
               //future: userController.getUser(authController.currentUserId),
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  User user = snapshot.data;
-                  return Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: InkWell(
-                        child: CircleAvatar(
-                          
-                          backgroundColor: Colors.blue,
-                          child: Text(
-                            user.firstName.substring(0, 1),
-                            style: TextStyle(fontSize: 25),
-                          ),
-                        ),
-                        onTap: () => _scaffoldKey.currentState.openDrawer()),
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              });
+            if (snapshot.hasData) {
+              User user = snapshot.data;
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: InkWell(
+                    child: CircleAvatar(
+                      backgroundColor: Colors.blue,
+                      child: Text(
+                        user.firstName.substring(0, 1),
+                        style: TextStyle(fontSize: 25),
+                      ),
+                    ),
+                    onTap: () => _scaffoldKey.currentState.openDrawer()),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          });
         }),
 
         backgroundColor: Colors.transparent,
@@ -106,8 +100,8 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           //temporary to test join org
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => new JoinOrganization()));
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => new JoinOrganization()));
           //Navigator.pushNamed(_context, UIData.addActivityPage);
         },
         child: Icon(Icons.add),

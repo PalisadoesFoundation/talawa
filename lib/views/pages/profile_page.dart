@@ -36,7 +36,6 @@ class _ProfilePageState extends State<ProfilePage> {
     fetchUserDetails();
   }
 
-
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
@@ -45,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   extractId(List orgIdList) {
-     List lst = [];
+    List lst = [];
     for (int index = 0; index < allJoinedOrgId.length; index++) {
       lst.add([orgIdList[index]['_id'], orgIdList[index]['name']]);
       if (orgIdList[index]['_id'] == currentOrgId) {
@@ -57,16 +56,15 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future fetchUserDetails() async {
-    
     final String userID = await preferences.getUserId();
-     getCurrentOrgId();
+    getCurrentOrgId();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
     QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
-          } else if (!result.hasException) {
+    } else if (!result.hasException) {
       setState(() {
         userDetails = result.data['users'];
         allJoinedOrgId = result.data['users'][0]['joinedOrganizations'];
@@ -185,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: UIData.secondaryColor,
                               ),
                               onTap: () {
-                               pushNewScreen(
+                                pushNewScreen(
                                   context,
                                   withNavBar: false,
                                   screen: JoinOrganization(),
@@ -201,7 +199,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: UIData.secondaryColor,
                               ),
                               onTap: () {
-                              pushNewScreen(
+                                pushNewScreen(
                                   context,
                                   withNavBar: false,
                                   screen: OrganizationSettings(),

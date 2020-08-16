@@ -30,8 +30,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   final _formKey = GlobalKey<FormState>();
 
-int radioValue = -1;
-int radioValue1 = -1;
+  int radioValue = -1;
+  int radioValue1 = -1;
 
   bool isPublic = true;
   bool isVisible = true;
@@ -57,20 +57,20 @@ int radioValue1 = -1;
 
     QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_queries.createOrg(
-           orgNameController.text,
-          orgDescController.text,
-          orgMemberDescController.text,
-          isPublic,
-          isVisible,
+      orgNameController.text,
+      orgDescController.text,
+      orgMemberDescController.text,
+      isPublic,
+      isVisible,
     ))));
 
-        String e =
+    String e =
         "Access Token has expired. Please refresh session.: Undefined location";
     if (result.hasException && result.exception.toString().substring(16) == e) {
       _graphAPI.getNewToken();
-      return  createOrg();
-    }
-    else if (result.hasException && result.exception.toString().substring(16) != e) {
+      return createOrg();
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != e) {
       print(result.exception);
       setState(() {
         _progressBarState = false;
@@ -83,8 +83,8 @@ int radioValue1 = -1;
       _successToast("Sucess!");
       print(result.data);
       //Navigate user to join organization screen
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => new HomePage()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new HomePage()));
     }
   }
 
@@ -92,9 +92,9 @@ int radioValue1 = -1;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-          title: const Text('Create Organization'),
-        ),
+      
+        title: const Text('Create Organization'),
+      ),
       body: Container(
         color: Colors.white,
         child: SingleChildScrollView(
@@ -151,7 +151,8 @@ int radioValue1 = -1;
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: UIData.secondaryColor),
                           borderRadius: BorderRadius.circular(20.0)),
-                      prefixIcon: Icon(Icons.note, color: UIData.secondaryColor),
+                      prefixIcon:
+                          Icon(Icons.note, color: UIData.secondaryColor),
                       labelText: "Organization Description",
                       labelStyle: TextStyle(color: Colors.black),
                       alignLabelWithHint: true,
@@ -174,8 +175,10 @@ int radioValue1 = -1;
                     decoration: new InputDecoration(
                       border: new OutlineInputBorder(
                           borderRadius: new BorderRadius.circular(20.0),
-                          borderSide: new BorderSide(color: UIData.secondaryColor)),
-                      prefixIcon: Icon(Icons.note, color:UIData.secondaryColor),
+                          borderSide:
+                              new BorderSide(color: UIData.secondaryColor)),
+                      prefixIcon:
+                          Icon(Icons.note, color: UIData.secondaryColor),
                       labelText: "Member Description",
                       labelStyle: TextStyle(color: Colors.black),
                       alignLabelWithHint: true,
@@ -197,25 +200,24 @@ int radioValue1 = -1;
                     onChanged: (val) {
                       setState(() {
                         radioValue = val;
-                         if (radioValue == 0){
-                         return isPublic;
-                       }
+                        if (radioValue == 0) {
+                          return isPublic;
+                        }
                       });
                     },
                   ),
                   RadioListTile(
-                                        activeColor: UIData.secondaryColor,
-
+                    activeColor: UIData.secondaryColor,
                     groupValue: radioValue,
                     title: Text('No'),
                     value: 1,
                     onChanged: (val) {
                       setState(() {
                         radioValue = val;
-                         if (radioValue == 1){
-                           isPublic = false;
-                         return isPublic;
-                       }
+                        if (radioValue == 1) {
+                          isPublic = false;
+                          return isPublic;
+                        }
                       });
                     },
                   ),
@@ -223,33 +225,31 @@ int radioValue1 = -1;
                       'Do you want others to be able to find your organization from the search page?',
                       style: TextStyle(fontSize: 16, color: Colors.black)),
                   RadioListTile(
-                                        activeColor: UIData.secondaryColor,
-
+                    activeColor: UIData.secondaryColor,
                     groupValue: radioValue1,
                     title: Text('Yes'),
                     value: 0,
                     onChanged: (val) {
                       setState(() {
                         radioValue1 = val;
-                       if (radioValue1 == 0){
-                         return isVisible;
-                       }
+                        if (radioValue1 == 0) {
+                          return isVisible;
+                        }
                       });
                     },
                   ),
                   RadioListTile(
-                                        activeColor: UIData.secondaryColor,
-
+                    activeColor: UIData.secondaryColor,
                     groupValue: radioValue1,
                     title: Text('No'),
                     value: 1,
                     onChanged: (val) {
                       setState(() {
                         radioValue1 = val;
-                         if (radioValue1 == 1){
-                           isVisible = false;
-                         return isVisible;
-                       }
+                        if (radioValue1 == 1) {
+                          isVisible = false;
+                          return isVisible;
+                        }
                       });
                     },
                   ),
@@ -268,15 +268,17 @@ int radioValue1 = -1;
                             ),
                       color: UIData.secondaryColor,
                       onPressed: () async {
-                        if (_formKey.currentState.validate() && radioValue >= 0 && radioValue1 >= 0) {
+                        if (_formKey.currentState.validate() &&
+                            radioValue >= 0 &&
+                            radioValue1 >= 0) {
                           _formKey.currentState.save();
                           createOrg();
                           setState(() {
                             toggleProgressBarState();
                           });
-                        } else if ( radioValue < 0 || radioValue1 < 0) {
-                            _exceptionToast("A choice must be selected");
-                          }
+                        } else if (radioValue < 0 || radioValue1 < 0) {
+                          _exceptionToast("A choice must be selected");
+                        }
                       },
                     ),
                   ),

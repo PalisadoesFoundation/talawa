@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +9,7 @@ import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/view_models/vm_register.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:http/http.dart' as http;
+import 'package:talawa/views/pages/login_page.dart';
 import 'package:talawa/views/widgets/AlertDialogSingleButton.dart';
 
 class AuthController with ChangeNotifier {
@@ -52,7 +52,7 @@ class AuthController with ChangeNotifier {
 
             //Store user token in local storage
             final Token token = new Token(tokenString: responseBody['token']);
-           // currentUserId = await Preferences.saveCurrentUserId(token);
+            // currentUserId = await Preferences.saveCurrentUserId(token);
 
             //Navigate user to activity screen
             Navigator.of(context).pushReplacement(
@@ -102,7 +102,6 @@ class AuthController with ChangeNotifier {
       showAlertDialog(context, e.toString(), e.toString(), "Ok");
     }
   }
-   
 
   //Registers user
   Future register(BuildContext context, RegisterViewModel user) async {

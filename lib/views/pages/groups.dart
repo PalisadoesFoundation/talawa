@@ -15,8 +15,10 @@ class _GroupsState extends State<Groups> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chats',
-        style: TextStyle(color: Colors.white),),
+        title: Text(
+          'Chats',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: ListView.builder(
           itemCount: 4,

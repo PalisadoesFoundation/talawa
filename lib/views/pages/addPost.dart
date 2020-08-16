@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:talawa/views/pages/events.dart';
+import 'package:talawa/views/pages/events/events.dart';
 import 'package:talawa/views/pages/newsfeed.dart';
+
 class AddPost extends StatefulWidget {
   AddPost({Key key}) : super(key: key);
 
@@ -16,26 +18,35 @@ class _AddPostState extends State<AddPost> {
   final textController = TextEditingController();
   String id;
   String oranizationId;
+  Preferences preferences = Preferences();
 
-createPost() async {
-    String mutation = Queries().addPost( 
-      textController.text,
-      '5f24b2e94a83535c1b0d886b'    
-    );
-    ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlmutation( mutation);
+  initState() {
+    super.initState();
+    getCurrentOrgId();
   }
 
+  getCurrentOrgId() async {
+    final orgId = await preferences.getCurrentOrgId();
+    setState(() {
+      oranizationId = orgId;
+    });
+    print(oranizationId);
+  }
 
-
+  createPost() async {
+    String mutation = Queries()
+        .addPost(textController.text, oranizationId, DateTime.now().toString());
+    ApiFunctions apiFunctions = ApiFunctions();
+    Map result = await apiFunctions.gqlmutation(mutation);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
-        title: Text('New Post',
-        style: TextStyle(color: Colors.white),
+        title: Text(
+          'New Post',
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Container(
@@ -48,16 +59,16 @@ createPost() async {
     );
   }
 
-
-    Widget addPostFab() {
+  Widget addPostFab() {
     return FloatingActionButton(
-      backgroundColor: UIData.secondaryColor,
+        backgroundColor: UIData.secondaryColor,
         child: Icon(
           Icons.check,
           color: Colors.white,
         ),
         onPressed: () {
           createPost();
+          Navigator.of(context).pop();
         });
   }
 
@@ -69,7 +80,7 @@ createPost() async {
           controller: controller,
           decoration: InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
+                  borderRadius: BorderRadius.circular(20.0),
                   borderSide: BorderSide(color: Colors.teal)),
               hintText: name),
         ));

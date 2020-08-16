@@ -24,102 +24,112 @@ class _NewsFeedState extends State<NewsFeed> {
   List times = List<int>.generate(20, (index) => Random().nextInt(30));
 ////////////////////////////////////////////////////
 
+  List postList = [];
+  String name;
 
+  initState() {
+    super.initState();
+    getPosts();
+  }
 
+  Future<void> getPosts() async {
+    String query = Queries().posts;
+    ApiFunctions apiFunctions = ApiFunctions();
+    Map result = await apiFunctions.gqlquery(query);
 
-  // List postList = [];
-  // String name;
-
-  // initState() {
-  //   getNews();
-  // }
-
-  // Future<void> getNews() async {
-  //   String query = Queries().posts;
-  //   ApiFunctions apiFunctions = ApiFunctions();
-  //   Map result = await apiFunctions.gqlquery(query);
-
-  //   setState(() {
-  //     postList = result == null ? []:result['posts'];
-  //   });
-  //   print(postList);
-  // }
+    setState(() {
+      postList = result == null ? [] : result['posts'].toList();
+    });
+    // print(postList);
+  }
 
   @override
   Widget build(BuildContext context) {
     times.sort();
     return Scaffold(
         appBar: AppBar(
-          title: Text('Newsfeed',
-          style: TextStyle(color: Colors.white),),
+          title: Text(
+            'Newsfeed',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         floatingActionButton: addPostFab(),
-        body: ListView.builder(
-            itemCount: list.length,
-            itemBuilder: (context, index) {
-              return Card(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text('${times[index].toString()} hours ago'),
-                      ),
-                    ),
-                    ListTile(
-                        onTap: () {
-                          pushNewScreen(
-                            context,
-                            
-                            screen: NewsArticle(),
-                          );
-                        },
-                        title: Text(list[index]),
-                        subtitle: Text(list2[index]),
-                        trailing: Container(
-                          width: 80,
-                          child: Image.asset(UIData.shoppingImage),
-                        )),
-                    Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Icon(
-                                Icons.delete,
-                                color: UIData.secondaryColor,
+        body: postList.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : RefreshIndicator(
+                onRefresh: () async {
+                  getPosts();
+                },
+                child: ListView.builder(
+                    itemCount: postList.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                    '${postList[index]["text"].toString()} hours ago'),
                               ),
-                              Icon(
-                                Icons.share,
-                                color: UIData.secondaryColor,
-                              ),
-                              Icon(
-                                Icons.bookmark,
-                                color: UIData.secondaryColor,
-                              ),
-                              Container(width: 80)
-                            ])),
-                  ],
-                ),
-              );
-            }));
+                            ),
+                            ListTile(
+                                onTap: () {
+                                  pushNewScreen(
+                                    context,
+                                    screen: NewsArticle(post: postList[index]),
+                                  );
+                                },
+                                title: Text(postList[index]['creator']
+                                        ['firstName'] +
+                                    ' ' +
+                                    (postList[index]['creator']['lastName'])),
+                                subtitle:
+                                    Text(postList[index]["text"].toString()),
+                                trailing: Container(
+                                  width: 80,
+                                  child: Image.asset(UIData.shoppingImage),
+                                )),
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.delete,
+                                        color: UIData.secondaryColor,
+                                      ),
+                                      Icon(
+                                        Icons.share,
+                                        color: UIData.secondaryColor,
+                                      ),
+                                      Icon(
+                                        Icons.bookmark,
+                                        color: UIData.secondaryColor,
+                                      ),
+                                      Container(width: 80)
+                                    ])),
+                          ],
+                        ),
+                      );
+                    })));
   }
 
-      Widget addPostFab() {
+  Widget addPostFab() {
     return FloatingActionButton(
-      backgroundColor: UIData.secondaryColor,
+        backgroundColor: UIData.secondaryColor,
         child: Icon(
           Icons.add,
           color: Colors.white,
         ),
         onPressed: () {
-            pushNewScreen(
-              context,
-             //withNavBar: false,
-              screen: AddPost(),
-            );
-
+          pushNewScreen(
+            context,
+            //withNavBar: false,
+            screen: AddPost(),
+          );
         });
   }
 }
