@@ -42,25 +42,28 @@ class LoginFormState extends State<LoginForm> {
   Future loginUser() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.query(QueryOptions(
+    QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.loginUser(model.email, model.password))));
     if (result.hasException) {
       print(result.exception);
       setState(() {
         _progressBarState = false;
       });
-      print("exception");
-      _exceptionToast(result.exception.toString());
+      
+      _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
+      
       _successToast("All Set!");
       //Store user token and id in preferences
 
-      final Token token = new Token(tokenString: result.data['login']['token']);
-      await _pref.saveToken(token);
-      final String currentUserId = result.data['login']['userId'];
+      final Token accessToken = new Token(tokenString: result.data['login']['accessToken']);
+      await _pref.saveToken(accessToken);
+      final Token refreshToken = new Token(tokenString: result.data['login']['refreshToken']);
+      await _pref.saveRefreshToken(refreshToken);
+      final String currentUserId = result.data['login']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       print('User logged in');
       Navigator.of(context).pushReplacement(

@@ -12,7 +12,7 @@ import 'package:talawa/view_models/vm_register.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/views/pages/join_organization.dart';
+import 'package:talawa/views/pages/profile/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -56,22 +56,23 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      print("exception");
-            _exceptionToast(result.exception.toString());
-
+      _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-            _successToast("Sucessfully Registered");
+      _successToast("Sucessfully Registered");
+      print(result.data);
 
-      //Store user token in local storage
+      ///Store user token in local storage
       void getToken() async {
-        final Token token =
-            new Token(tokenString: result.data['signUp']['token']);
-        await _pref.saveToken(token);
-
-        final String currentUserId = result.data['signUp']['userId'];
+        final Token accessToken =
+            new Token(tokenString: result.data['signUp']['accessToken']);
+        await _pref.saveToken(accessToken);
+        final Token refreshToken =
+            new Token(tokenString: result.data['signUp']['refreshToken']);
+        await _pref.saveRefreshToken(refreshToken);
+        final String currentUserId = result.data['signUp']['user']['_id'];
         await _pref.saveUserId(currentUserId);
       }
 
