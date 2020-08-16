@@ -117,23 +117,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         ),
         body: Container(
           child: Column(children: <Widget>[
-            ListTile(
-                title: Text(
-                  'Create New Organization',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                leading: Icon(
-                  Icons.add_circle,
-                  color: UIData.secondaryColor,
-                ),
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    withNavBar: false,
-                    screen: CreateOrganization(),
-                  );
-                }),
-            ListTile(
+               ListTile(
                 title: Text(
                   'Update This Organization',
                   style: TextStyle(fontSize: 18.0),

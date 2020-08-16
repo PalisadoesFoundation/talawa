@@ -276,6 +276,18 @@ class Queries {
   ''';
   }
  
+    String removeMember(String organizationId, String userId) {
+    return '''
+      mutation {
+        removeMember (data: {organizationId: "$organizationId", userId: "$userId"}){
+              user{
+              firstName
+              lastName
+           }
+         }
+    }
+  ''';
+  }
 //////////////EVENTS/////////////////////
   String fetchEvents() {
     return """
