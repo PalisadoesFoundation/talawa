@@ -26,8 +26,7 @@ class GraphAPI with ChangeNotifier {
       if (result.hasException) {
         print(result.exception);
       } else if (!result.hasException && !result.loading) {
-        print("yes");
-      final Token accessToken = new Token(tokenString: result.data['refreshToken']['accessToken']);
+        final Token accessToken = new Token(tokenString: result.data['refreshToken']['accessToken']);
       await _pref.saveToken(accessToken);
       final Token refreshToken = new Token(tokenString: result.data['refreshToken']['refreshToken']);
       await _pref.saveRefreshToken(refreshToken);

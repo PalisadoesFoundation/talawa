@@ -7,6 +7,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/views/pages/accept_requests_page.dart';
 import 'package:talawa/views/pages/remove_organization.dart';
 
 import 'create_organization.dart';
@@ -134,7 +135,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 }),
             ListTile(
                 title: Text(
-                  'Update Organization',
+                  'Update This Organization',
                   style: TextStyle(fontSize: 18.0),
                 ),
                 leading: Icon(
@@ -148,9 +149,25 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     screen: UpdateOrganization(),
                   );
                 }),
+                  ListTile(
+                title: Text(
+                  'Accept Organization Requests',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                leading: Icon(
+                  Icons.group_add,
+                  color: UIData.secondaryColor,
+                ),
+                onTap: () {
+                  pushNewScreen(
+                    context,
+                    withNavBar: false,
+                    screen: AcceptRequestsPage(),
+                  );
+                }),
             ListTile(
                 title: Text(
-                  'Leave Organization',
+                  'Leave This Organization',
                   style: TextStyle(fontSize: 18.0),
                 ),
                 leading: Icon(
@@ -184,7 +201,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 }),
                  ListTile(
                 title: Text(
-                  'Remove Organization',
+                  'Remove This Organization',
                   style: TextStyle(fontSize: 18.0),
                 ),
                 leading: Icon(

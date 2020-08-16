@@ -8,6 +8,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/nav_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/views/pages/profile_page.dart';
 
 import 'create_organization.dart';
 
@@ -51,8 +52,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   Future joinPrivateOrg() async {
-
-      String accessTokenException =
+    String accessTokenException =
         "Access Token has expired. Please refresh session.: Undefined location";
 
     GraphQLClient _client = graphQLConfiguration.authClient();
@@ -60,7 +60,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.sendMembershipRequest(itemIndex))));
 
-        if (result.hasException &&
+    if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _graphAPI.getNewToken();
       return joinPrivateOrg();
@@ -69,11 +69,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       print(result.data);
-      _successToast("Sucess!");
+      _successToast("Request Sent to Organization Admin");
 
       //Navigate user to join organization screen
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage()));
+          MaterialPageRoute(builder: (context) => new ProfilePage()));
     }
   }
 
@@ -99,13 +99,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             result.data['joinPublicOrganization']['joinedOrganizations'];
       });
 
+      //set the default organization to the first one in the list
       if (joinedOrg.length == 1) {
         final String currentOrgId = result.data['joinPublicOrganization']
             ['joinedOrganizations'][0]['_id'];
         await _pref.saveCurrentOrgId(currentOrgId);
       }
-      _successToast("Sucess!");
-
+        _successToast("Sucess!");
+    
       //Navigate user to join organization screen
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new HomePage()));
@@ -193,16 +194,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                           if (organization['isPublic']
                                                   .toString() ==
                                               'false') {
-                                             setState(() {
-                                               isPublic = 'false';
-                                             });
+                                            setState(() {
+                                              isPublic = 'false';
+                                            });
                                           } else {
-                                             setState(() {
-                                               isPublic = 'true';
-                                             });
+                                            setState(() {
+                                              isPublic = 'true';
+                                            });
                                           }
                                           confirmOrgDialog();
-
                                         },
                                         color: UIData.primaryColor,
                                         child: new Text("JOIN"),
@@ -247,12 +247,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
               FlatButton(
                 child: Text("Yes"),
                 onPressed: () async {
-                  if(isPublic == 'true'){
-                    print('yes');
+                  if (isPublic == 'true') {
                     confirmOrgChoice();
-                  } else{
-                    print('no');
-                   joinPrivateOrg();
+                  } else if (isPublic == 'false'){
+                    joinPrivateOrg();
                   }
                 },
               )

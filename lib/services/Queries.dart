@@ -234,6 +234,48 @@ class Queries {
   ''';
   }
 
+  String viewMembershipRequest(String orgId) {
+    return '''
+      query {
+        organizations(id:"$orgId"){
+          membershipRequests{
+            _id
+            user{
+              firstName
+              lastName
+            }
+          }
+         }
+    }
+  ''';
+  }
+
+   String acceptMembershipRequest(String membershipRequestId) {
+    return '''
+      mutation {
+        acceptMembershipRequest(membershipRequestId:"$membershipRequestId"){
+              user{
+              firstName
+              lastName
+           }
+         }
+    }
+  ''';
+  }
+
+   String rejectMembershipRequest(String membershipRequestId) {
+    return '''
+      mutation {
+        rejectMembershipRequest(membershipRequestId:"$membershipRequestId"){
+              user{
+              firstName
+              lastName
+           }
+         }
+    }
+  ''';
+  }
+ 
 //////////////EVENTS/////////////////////
   String fetchEvents() {
     return """
