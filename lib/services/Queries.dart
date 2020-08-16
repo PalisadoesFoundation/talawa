@@ -338,6 +338,7 @@ class Queries {
             _id
           }
           likedBy{
+<<<<<<< HEAD
             _id
           }
           comments{
@@ -373,6 +374,8 @@ class Queries {
             _id
           }
           likedBy{
+=======
+>>>>>>> 6b924f07710c33da4c3ec5478ece8be2ed34fcfd
             _id
           }
           comments{
