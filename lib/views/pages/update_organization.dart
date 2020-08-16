@@ -95,8 +95,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: const Text('Update Organization'),
+                   title: const Text('Update Organization'),
         ),
         body: Container(
           color: Colors.white,

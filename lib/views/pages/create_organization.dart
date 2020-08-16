@@ -92,7 +92,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+      
         title: const Text('Create Organization'),
       ),
       body: Container(

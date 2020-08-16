@@ -42,7 +42,7 @@ class _OrganizationsState extends State<Organizations> {
   Future<List> getEvents() async {
     ApiFunctions apiFunctions = ApiFunctions();
     Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+        await apiFunctions.gqlquery(Queries().fetchOrgById2(currentOrgID));
     // print(result);
     setState(() {
       organizationsList = result == null ? [] : result['organizations'];

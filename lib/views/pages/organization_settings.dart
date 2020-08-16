@@ -8,9 +8,6 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/accept_requests_page.dart';
-import 'package:talawa/views/pages/remove_organization.dart';
-
-import 'create_organization.dart';
 import 'profile_page.dart';
 import 'update_organization.dart';
 
@@ -117,22 +114,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         ),
         body: Container(
           child: Column(children: <Widget>[
-            ListTile(
-                title: Text(
-                  'Create New Organization',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                leading: Icon(
-                  Icons.add_circle,
-                  color: UIData.secondaryColor,
-                ),
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    withNavBar: false,
-                    screen: CreateOrganization(),
-                  );
-                }),
+            
             ListTile(
                 title: Text(
                   'Update This Organization',

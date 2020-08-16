@@ -116,7 +116,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xffF3F6FF),
+       
         title: const Text('Organization'),
       ),
       body: organizationInfo.isEmpty

@@ -175,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               }),
                           ListTile(
                               title: Text(
-                                'Join New Organization',
+                                'Join or Create New Organization',
                                 style: TextStyle(fontSize: 18.0),
                               ),
                               leading: Icon(
