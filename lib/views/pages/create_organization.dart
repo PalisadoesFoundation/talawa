@@ -7,7 +7,7 @@ import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/nav_page.dart';
-import 'package:talawa/views/pages/profile/join_organization.dart';
+import 'package:talawa/views/pages/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CreateOrganization extends StatefulWidget {

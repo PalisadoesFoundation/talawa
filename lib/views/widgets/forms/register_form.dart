@@ -12,7 +12,7 @@ import 'package:talawa/view_models/vm_register.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/views/pages/profile/join_organization.dart';
+import 'package:talawa/views/pages/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterForm extends StatefulWidget {

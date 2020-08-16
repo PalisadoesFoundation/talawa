@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:http/http.dart' as http;
-import 'package:talawa/views/pages/old/home_page.dart';
+import 'package:talawa/views/home_page.dart';
 
 class UserController with ChangeNotifier {
   Future<List<User>> getUsers() async {

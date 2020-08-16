@@ -5,7 +5,7 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/events/events.dart';
-import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
+import 'package:talawa/views/pages/newsfeed.dart';
 
 class AddPost extends StatefulWidget {
   AddPost({Key key}) : super(key: key);

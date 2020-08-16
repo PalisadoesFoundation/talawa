@@ -14,7 +14,7 @@ import 'package:talawa/model/user.dart';
 
 import 'package:talawa/enums/connectivity_status.dart';
 
-import '../profile/join_organization.dart';
+import 'pages/join_organization.dart';
 
 class HomePage extends StatefulWidget {
   @override

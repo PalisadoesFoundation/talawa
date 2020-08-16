@@ -5,7 +5,7 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/views/pages/profile/join_organization.dart';
+import 'package:talawa/views/pages/join_organization.dart';
 
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
