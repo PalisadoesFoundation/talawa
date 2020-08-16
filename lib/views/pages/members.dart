@@ -7,6 +7,8 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/views/pages/memberDetails.dart';
+import 'package:talawa/views/pages/memberRegEvents.dart';
 import 'package:talawa/views/pages/userTasks.dart';
 
 class Organizations extends StatefulWidget {
@@ -75,14 +77,22 @@ class _OrganizationsState extends State<Organizations> {
                     ),
                     backgroundColor: UIData.secondaryColor,
                   ),
-                  trailing: popUpMenue(membersList),
+                  trailing: popUpMenue(membersList[index]),
+                  onTap: () {
+                    pushNewScreen(
+                      context,
+                      withNavBar: true,
+                      screen: MemberDetail(member: membersList[index]),
+                    );
+                    ;
+                  },
                 ));
               },
             ),
     );
   }
 
-  Widget popUpMenue(membersList) {
+  Widget popUpMenue(Map member) {
     return PopupMenuButton<int>(
       onSelected: (val) async {
         if (val == 1) {
@@ -90,6 +100,12 @@ class _OrganizationsState extends State<Organizations> {
             context,
             withNavBar: true,
             screen: UserTasks(),
+          );
+        } else if (val == 2) {
+          pushNewScreen(
+            context,
+            withNavBar: true,
+            screen: RegisterdEvents(),
           );
         }
       },
@@ -99,6 +115,12 @@ class _OrganizationsState extends State<Organizations> {
             child: ListTile(
               leading: Icon(Icons.playlist_add_check),
               title: Text('View Assigned Tasks'),
+            )),
+        const PopupMenuItem<int>(
+            value: 2,
+            child: ListTile(
+              leading: Icon(Icons.playlist_add_check),
+              title: Text('View Registered Events'),
             )),
       ],
     );
