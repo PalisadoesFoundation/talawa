@@ -5,7 +5,7 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/views/pages/join_organization.dart';
+import 'package:talawa/views/pages/profile/join_organization.dart';
 
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -27,8 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String currentOrgId;
   List allJoinedOrgId = [];
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  String orgName="";
-
+  String orgName = "";
 
   @override
   void initState() {
@@ -43,33 +42,31 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     getCurrentOrgId();
     fetchUserDetails();
-    
   }
 
-    getCurrentOrgId() async {
+  getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
       currentOrgId = orgId;
     });
     print(currentOrgId);
   }
-  
-  
-  extractId(List orgIdList){
+
+  extractId(List orgIdList) {
     List lst = [];
-      for(int index = 0; index < allJoinedOrgId.length; index++){
-        lst.add([orgIdList[index]['_id'], orgIdList[index]['name']]);
-        if(orgIdList[index]['_id'] == currentOrgId){
-          setState(() {
-            orgName = orgIdList[index]['name'];
-          });
-              
-        }
+    for (int index = 0; index < allJoinedOrgId.length; index++) {
+      lst.add([orgIdList[index]['_id'], orgIdList[index]['name']]);
+      if (orgIdList[index]['_id'] == currentOrgId) {
+        setState(() {
+          orgName = orgIdList[index]['name'];
+        });
       }
-       print(lst);
-       print(currentOrgId);
-      print(orgName); 
+    }
+    print(lst);
+    print(currentOrgId);
+    print(orgName);
   }
+
   Future fetchUserDetails() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
@@ -85,11 +82,8 @@ class _ProfilePageState extends State<ProfilePage> {
         extractId(allJoinedOrgId);
         //print(allJoinedOrgId);
       });
-    
     }
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0),
                       ),
-                      color:  UIData.primaryColor,
+                      color: UIData.primaryColor,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +126,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                           .toString()
                                           .substring(0, 1)
                                           .toUpperCase(),
-                                  style: TextStyle(color:  UIData.primaryColor,)),
+                                  style: TextStyle(
+                                    color: UIData.primaryColor,
+                                  )),
                             ),
                           ),
                         ),
@@ -169,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             leading: Icon(
                               Icons.person,
-                              color:  UIData.secondaryColor,
+                              color: UIData.secondaryColor,
                             ),
                             onTap: () {},
                           ),
@@ -180,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.compare_arrows,
-                                color:  UIData.secondaryColor,
+                                color: UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
@@ -196,7 +192,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.business,
-                                color:  UIData.secondaryColor,
+                                color: UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
@@ -212,7 +208,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.add_circle,
-                                color:  UIData.secondaryColor,
+                                color: UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(

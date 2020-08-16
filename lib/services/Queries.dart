@@ -129,7 +129,7 @@ class Queries {
   String fetchOrgById(String orgId) {
     return '''
     query{
-      organizations(id:"$orgId"){
+      organizations(id: $orgId){
         _id
         name
         description
@@ -180,10 +180,10 @@ class Queries {
   }
 
 //////////////EVENTS/////////////////////
-  String fetchEvents() {
+  String fetchOrgEvents(String orgId) {
     return """
       query {
-        events{ 
+        events(id: "$orgId"){ 
           _id
           title
           description
@@ -191,9 +191,50 @@ class Queries {
           isRegisterable
           recurring
           recurrance
+          startTime
+          endTime
+          allDay
+          startTime
+          endTime
+          date
+          location
         }
       }
     """;
+  }
+
+  String updateEvent(
+      {organizationId,
+      title,
+      description,
+      location,
+      isPublic,
+      isRegisterable,
+      recurring,
+      recurrance,
+      allDay,
+      date,
+      startTime,
+      endTime}) {
+    return """updateEventInput(
+          data:{
+           organizationId: "$organizationId",
+           title: "$title",
+           description: "$description",
+           isPublic: $isPublic,
+           isRegisterable: $isRegisterable,
+           recurring: $recurring,
+           recurrance: "$recurrance",
+           allDay: $allDay,
+           startTime: "$startTime"
+           endTime: "$endTime"
+           date: "$date",
+           location: "$location"
+          }){
+            _id
+            title
+            description
+          }""";
   }
 
   String deleteEvent(String id) {
@@ -241,9 +282,19 @@ class Queries {
         }
     """;
 
-  String addEvent(organizationId, title, description, isPublic, isRegisterable,
-      recurring, recurrance, date) {
-    bool b = true;
+  String addEvent(
+      {organizationId,
+      title,
+      description,
+      location,
+      isPublic,
+      isRegisterable,
+      recurring,
+      allDay,
+      recurrance,
+      date,
+      startTime,
+      endTime}) {
     return """
       mutation {
         createEvent(
@@ -255,9 +306,11 @@ class Queries {
            isRegisterable: $isRegisterable,
            recurring: $recurring,
            recurrance: "$recurrance",
-           allDay: $b,
-           date: "${DateTime.now().toString()}",
-
+           allDay: $allDay,
+           startTime: "$startTime"
+           endTime: "$endTime"
+           date: "$date",
+           location: "$location"
           }){
             _id
             title
@@ -301,7 +354,6 @@ class Queries {
             data: {
                 text: "$text",
                 organizationId: "$organizationId",
-                createdAt: "$date",
         }) {
             _id
             text

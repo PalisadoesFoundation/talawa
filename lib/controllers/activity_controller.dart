@@ -2,7 +2,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/model/activity.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/view_models/vm_add_activity.dart';
-import 'package:talawa/views/pages/home_page.dart';
+import 'package:talawa/views/pages/old/home_page.dart';
 import 'package:talawa/views/widgets/_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -13,7 +13,6 @@ import 'note_controller.dart';
 
 /*Handles all activity specific routes*/
 class ActivityController with ChangeNotifier {
-
   /* Retrieves all activities | Appends number of users a part of each activity */
   Future<List<Activity>> getActivities(BuildContext context) async {
     //Stores response from API get request
@@ -26,8 +25,8 @@ class ActivityController with ChangeNotifier {
       return (data as List)
           .map((activity) => new Activity.fromJson(activity))
           .toList();
-    } 
-    // If that call was not successful, display error. 
+    }
+    // If that call was not successful, display error.
     else {
       Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("unable to fetch activities"),
@@ -46,7 +45,7 @@ class ActivityController with ChangeNotifier {
     if (response.statusCode == 200) {
       Activity activity = Activity.fromJson(json.decode(response.body));
       return activity;
-    } 
+    }
     // If that call was not successful, throw an error.
     else {
       Scaffold.of(context).showSnackBar(SnackBar(
@@ -60,8 +59,8 @@ class ActivityController with ChangeNotifier {
   Future<List<Activity>> getActivitiesByUser(
       BuildContext context, int userId) async {
     //Stores response from API Request
-    final response = await http.get(
-        baseRoute + "/activities/fetchActivitiesByUser/$userId");
+    final response =
+        await http.get(baseRoute + "/activities/fetchActivitiesByUser/$userId");
 
     // If the call to the server was successful, parse the JSON.
     if (response.statusCode == 200) {
@@ -70,7 +69,7 @@ class ActivityController with ChangeNotifier {
       return (data as List)
           .map((activity) => new Activity.fromJson(activity))
           .toList();
-    } 
+    }
     // If that call was not successful, throw an error.
     else {
       // Scaffold.of(context).showSnackBar(SnackBar(
@@ -141,7 +140,8 @@ class ActivityController with ChangeNotifier {
         case 201:
           {
             //Navigates app back to the activity screen
-            Provider.of<NoteController>(context, listen: false).joinRoom(model.title);
+            Provider.of<NoteController>(context, listen: false)
+                .joinRoom(model.title);
             Navigator.of(context).pop();
             notifyListeners();
             return;
@@ -219,7 +219,6 @@ class ActivityController with ChangeNotifier {
           content: Text("Something happened"), duration: Duration(seconds: 5)));
     }
   }
-
 
   //Turns activity model into a map object
   Map<String, dynamic> toMap(Activity model) {

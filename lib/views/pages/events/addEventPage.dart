@@ -10,8 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
-import 'package:talawa/utils/userInfo.dart';
-import 'package:talawa/views/pages/events.dart';
+import 'package:talawa/views/pages/events/events.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -25,15 +24,16 @@ class AddEvent extends StatefulWidget {
 class _AddEventState extends State<AddEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+  final locationController = TextEditingController();
 
   Map switchVals = {
     'Make Public': true,
     'Make Registerable': true,
-    'Recurring': true
+    'Recurring': true,
+    'All Day': false
   };
   var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
-  UserInfo userInfo = UserInfo();
   Preferences preferences = Preferences();
   String currentOrgId;
   void initState() {
@@ -42,7 +42,10 @@ class _AddEventState extends State<AddEvent> {
   }
 
   DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
+  Map startEndTimes = {
+    'Start Time': TimeOfDay(hour: 12, minute: 0),
+    'End Time': TimeOfDay(hour: 23, minute: 59)
+  };
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -56,29 +59,38 @@ class _AddEventState extends State<AddEvent> {
       });
   }
 
-  Future<void> _selectTime(BuildContext context) async {
+  Future<void> _selectTime(
+      BuildContext context, String name, TimeOfDay time) async {
     final TimeOfDay picked = await showTimePicker(
       context: context,
-      initialTime: selectedTime,
+      initialTime: time,
     );
-    if (picked != null && picked != selectedTime)
+    if (picked != null && picked != time)
       setState(() {
-        selectedTime = picked;
+        startEndTimes[name] = picked;
       });
   }
 
   Future<void> createEvent() async {
-    DateTime date = DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.hour, selectedTime.minute);
+    DateTime date =
+        DateTime(selectedDate.year, selectedDate.month, selectedDate.day)
+            .toUtc();
+    String startTime = startEndTimes['Start Time'].format(context);
+    String endTime = startEndTimes['Start Time'].format(context);
 
     String mutation = Queries().addEvent(
-      currentOrgId,
-      titleController.text,
-      descriptionController.text,
-      switchVals['Make Public'],
-      switchVals['Make Registerable'],
-      switchVals['Recurring'],
-      recurrance,
-      date,
+      organizationId: currentOrgId,
+      title: titleController.text,
+      description: descriptionController.text,
+      location: locationController.text,
+      isPublic: switchVals['Make Public'],
+      isRegisterable: switchVals['Make Registerable'],
+      recurring: switchVals['Recurring'],
+      allDay: switchVals['All Day'],
+      recurrance: recurrance,
+      startTime: startTime,
+      endTime: endTime,
+      date: date,
     );
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlmutation(mutation);
@@ -102,15 +114,19 @@ class _AddEventState extends State<AddEvent> {
         ),
       ),
       body: ListView(
+        padding: EdgeInsets.only(bottom: 100),
         children: <Widget>[
           inputField('Title', titleController),
           inputField('Description', descriptionController),
+          inputField('Location', locationController),
           switchTile('Make Public'),
           switchTile('Make Registerable'),
           switchTile('Recurring'),
+          switchTile('All Day'),
           recurrencedropdown(),
           dateButton(),
-          timeButton(),
+          timeButton('Start Time', startEndTimes['Start Time']),
+          timeButton('End Time', startEndTimes['End Time']),
         ],
       ),
       floatingActionButton: addEventFab(),
@@ -133,21 +149,25 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
-
-  Widget timeButton() {
-    return ListTile(
-      onTap: () {
-        _selectTime(context);
-      },
-      leading: Text(
-        'Time',
-        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-      ),
-      trailing: Text(
-        selectedTime.format(context),
-        style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
-      ),
-    );
+  Widget timeButton(String name, TimeOfDay time) {
+    return AbsorbPointer(
+        absorbing: switchVals['All Day'],
+        child: ListTile(
+          onTap: () {
+            _selectTime(context, name, time);
+          },
+          leading: Text(
+            name,
+            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+          ),
+          trailing: Text(
+            time.format(context),
+            style: TextStyle(
+                color: !switchVals['All Day']
+                    ? UIData.secondaryColor
+                    : Colors.grey),
+          ),
+        ));
   }
 
   Widget addEventFab() {

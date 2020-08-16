@@ -5,7 +5,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/profile_page.dart';
+import 'package:talawa/views/pages/profile/profile_page.dart';
 
 class SwitchOrganization extends StatefulWidget {
   @override
@@ -21,8 +21,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Preferences preferences = Preferences();
   static String itemIndex;
   List userOrg = [];
-    Preferences _pref = Preferences();
-
+  Preferences _pref = Preferences();
 
   @override
   void initState() {
@@ -65,10 +64,10 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     } else if (!result.hasException) {
       _successToast(
           "Switched to " + result.data['organizations'][0]['name'].toString());
-        
-        //save new current org id in preference
-         final String currentOrgId = result.data['organizations'][0]['_id'];
-         await _pref.saveCurrentOrgId(currentOrgId);
+
+      //save new current org id in preference
+      final String currentOrgId = result.data['organizations'][0]['_id'];
+      await _pref.saveCurrentOrgId(currentOrgId);
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new ProfilePage()));
     }

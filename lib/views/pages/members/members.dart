@@ -18,7 +18,7 @@ class _OrganizationsState extends State<Organizations> {
   List organizationsList = [];
   List membersList = [];
   int isSelected = 0;
-  String oranizationId;
+  String currentOrgID;
   Preferences preferences = Preferences();
 
   initState() {
@@ -30,29 +30,23 @@ class _OrganizationsState extends State<Organizations> {
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
-      oranizationId = orgId;
+      currentOrgID = orgId;
     });
-    print(oranizationId);
+    print(currentOrgID);
   }
 
   Future<List> getEvents() async {
     ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlquery(Queries().fetchOrganizations);
-
+    Map result =
+        await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+    print(result);
     setState(() {
-      organizationsList = result == null
-          ? []
-          : result['organizations']
-              .where((org) => org['_id'] == oranizationId)
-              .toList();
+      organizationsList = result == null ? [] : result['organizations'];
       membersList = organizationsList[0]['members'];
     });
-    print(organizationsList);
   }
 
   Widget build(BuildContext context) {
-    final OrgController org = Provider.of<OrgController>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(

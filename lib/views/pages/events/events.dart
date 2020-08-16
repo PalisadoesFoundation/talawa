@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/utils/userInfo.dart';
-import 'package:talawa/views/pages/addEventPage.dart';
+import 'package:talawa/views/pages/events/EventDetailPage.dart';
+import 'package:talawa/views/pages/events/addEventPage.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/views/pages/events/editEventDialog.dart';
 
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
@@ -22,11 +24,19 @@ class _EventsState extends State<Events> {
   int selectedIndex = 0;
   String title = '';
   String description = '';
-  String orgId = '';
-  UserInfo userInfo = UserInfo();
+  String currentOrgId = '';
+  Preferences preferences = Preferences();
   initState() {
     super.initState();
+    getCurrentOrgId();
     getEvents();
+  }
+
+  getCurrentOrgId() async {
+    final orgId = await preferences.getCurrentOrgId();
+    setState(() {
+      currentOrgId = orgId;
+    });
   }
 
   Future<void> _deleteEvent(context, eventId) async {
@@ -59,13 +69,24 @@ class _EventsState extends State<Events> {
 
   Future<List> getEvents() async {
     ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlquery(Queries().fetchEvents());
+    Map result =
+        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgId));
     setState(() {
-      eventList = result == null ? [] : result['events'];
+      eventList = result == null ? [] : result['events'].reversed.toList();
     });
+    print(eventList[0]);
   }
 
-  Future<void> _editEvent(context, eventId) async {}
+  Future<void> _editEvent(context, event) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return EditEvent(
+          event: event,
+        );
+      },
+    );
+  }
 
   Widget menueText(String text) {
     return ListTile(
@@ -106,6 +127,7 @@ class _EventsState extends State<Events> {
                   getEvents();
                 },
                 child: (ListView.builder(
+                  padding: EdgeInsets.only(bottom: 100),
                   itemCount: eventList.length,
                   itemBuilder: (context, index) {
                     return Row(
@@ -118,7 +140,7 @@ class _EventsState extends State<Events> {
                                   child: Theme(
                                       data: ThemeData(
                                           //fix for header color issue
-                                          primaryColor: Colors.blue),
+                                          primaryColor: UIData.secondaryColor),
                                       child: ExpansionTile(
                                         children: <Widget>[
                                           eventList[index]['isPublic']
@@ -127,12 +149,31 @@ class _EventsState extends State<Events> {
                                           eventList[index]['isRegisterable']
                                               ? menueText('Registered')
                                               : menueText('Not Registered'),
+                                          ListTile(
+                                            trailing: RaisedButton(
+                                              color: UIData.secondaryColor,
+                                              onPressed: () {
+                                                pushNewScreen(
+                                                  context,
+                                                  withNavBar: true,
+                                                  screen: EventDetail(),
+                                                );
+                                              },
+                                              child: Text(
+                                                "More",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              // borderSide: BorderSide(
+                                              //     color: Colors.blue),
+                                              shape: StadiumBorder(),
+                                            ),
+                                          ),
                                         ],
                                         title: Text(eventList[index]['title']),
                                         subtitle: Text(
                                             eventList[index]['description']),
-                                        trailing:
-                                            popUpMenue(eventList[index]['_id']),
+                                        trailing: popUpMenue(eventList[index]),
                                       )))),
                         ),
                       ],
@@ -142,17 +183,17 @@ class _EventsState extends State<Events> {
               ));
   }
 
-  Widget popUpMenue(eventId) {
+  Widget popUpMenue(event) {
     return PopupMenuButton<int>(
       onSelected: (val) async {
         if (val == 1) {
-          return _register(context, eventId);
+          return _register(context, event['_id']);
         } else if (val == 2) {
-          return _addProject(context, eventId);
+          return _addProject(context, event['_id']);
         } else if (val == 3) {
-          return _editEvent(context, eventId);
+          return _editEvent(context, event);
         } else if (val == 4) {
-          return _deleteEvent(context, eventId);
+          return _deleteEvent(context, event['_id']);
         }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
