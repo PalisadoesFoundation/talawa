@@ -180,8 +180,8 @@ class Queries {
   ''';
   }
 
-  String updateOrg(String orgId, String name, String description,
-      bool isPublic, bool visibleInSearch) {
+  String updateOrg(String orgId, String name, String description, bool isPublic,
+      bool visibleInSearch) {
     return '''
       mutation {
           updateOrganization(id: "$orgId", data: {name: "$name", description: "$description", isPublic: $isPublic, visibleInSearch: $visibleInSearch}){
@@ -248,7 +248,7 @@ class Queries {
   ''';
   }
 
-   String acceptMembershipRequest(String membershipRequestId) {
+  String acceptMembershipRequest(String membershipRequestId) {
     return '''
       mutation {
         acceptMembershipRequest(membershipRequestId:"$membershipRequestId"){
@@ -261,7 +261,7 @@ class Queries {
   ''';
   }
 
-   String rejectMembershipRequest(String membershipRequestId) {
+  String rejectMembershipRequest(String membershipRequestId) {
     return '''
       mutation {
         rejectMembershipRequest(membershipRequestId:"$membershipRequestId"){
@@ -273,7 +273,7 @@ class Queries {
     }
   ''';
   }
- 
+
 //////////////EVENTS/////////////////////
   String fetchOrgEvents(String orgId) {
     return """
@@ -433,7 +433,6 @@ class Queries {
             _id
           }
           likedBy{
-<<<<<<< HEAD
             _id
           }
           comments{
@@ -469,8 +468,6 @@ class Queries {
             _id
           }
           likedBy{
-=======
->>>>>>> 6b924f07710c33da4c3ec5478ece8be2ed34fcfd
             _id
           }
           comments{

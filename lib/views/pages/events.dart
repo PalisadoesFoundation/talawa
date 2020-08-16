@@ -217,7 +217,7 @@ class _EventsState extends State<Events> {
             value: 2,
             child: ListTile(
               leading: Icon(Icons.note_add),
-              title: Text('Add a Project to this Event'),
+              title: Text('Add a Task to this Event'),
             )),
         const PopupMenuItem<int>(
             value: 3,

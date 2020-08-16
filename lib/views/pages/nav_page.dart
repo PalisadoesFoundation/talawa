@@ -16,7 +16,7 @@ import 'package:talawa/controllers/user_controller.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/enums/connectivity_status.dart';
 
-import 'package:talawa/views/pages/events/events.dart';
+import 'package:talawa/views/pages/events.dart';
 import 'package:talawa/views/pages/groups.dart';
 
 import 'package:talawa/views/pages/addEventPage.dart';

@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
-import 'package:talawa/views/pages/events/events.dart';
+import 'package:talawa/views/pages/events.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 
