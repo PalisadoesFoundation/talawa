@@ -149,6 +149,28 @@ class Queries {
   ''';
   }
 
+  String fetchOrgById2(String orgId) {
+    return '''
+    query{
+      organizations(id: $orgId){
+        _id
+        name
+        description
+        creator{
+          firstName
+          lastName
+        }
+        members{
+          _id
+          firstName
+          lastName
+          email
+        }
+      }
+    }
+  ''';
+  }
+
   String getOrgId(String orgId) {
     return '''
     mutation {
@@ -180,8 +202,8 @@ class Queries {
   ''';
   }
 
-  String updateOrg(String orgId, String name, String description,
-      bool isPublic, bool visibleInSearch) {
+  String updateOrg(String orgId, String name, String description, bool isPublic,
+      bool visibleInSearch) {
     return '''
       mutation {
           updateOrganization(id: "$orgId", data: {name: "$name", description: "$description", isPublic: $isPublic, visibleInSearch: $visibleInSearch}){
@@ -248,7 +270,7 @@ class Queries {
   ''';
   }
 
-   String acceptMembershipRequest(String membershipRequestId) {
+  String acceptMembershipRequest(String membershipRequestId) {
     return '''
       mutation {
         acceptMembershipRequest(membershipRequestId:"$membershipRequestId"){
@@ -261,7 +283,7 @@ class Queries {
   ''';
   }
 
-   String rejectMembershipRequest(String membershipRequestId) {
+  String rejectMembershipRequest(String membershipRequestId) {
     return '''
       mutation {
         rejectMembershipRequest(membershipRequestId:"$membershipRequestId"){
@@ -273,19 +295,7 @@ class Queries {
     }
   ''';
   }
- 
-    String removeMember(String organizationId, String userId) {
-    return '''
-      mutation {
-        removeMember (data: {organizationId: "$organizationId", userId: "$userId"}){
-              user{
-              firstName
-              lastName
-           }
-         }
-    }
-  ''';
-  }
+
 //////////////EVENTS/////////////////////
   String fetchOrgEvents(String orgId) {
     return """
@@ -435,6 +445,41 @@ class Queries {
           _id
           text
           createdAt
+          imageUrl
+          videoUrl
+          creator{
+            firstName
+            lastName
+          }
+          organization{
+            _id
+          }
+          likedBy{
+            _id
+          }
+          comments{
+            _id
+          }
+        }
+      }
+""";
+
+///////////////////NEWSFEED////////////////
+  String getPostsComments = """
+      query {
+        posts
+        { 
+          _id
+          text
+          createdAt
+          likedBy{
+            firstName
+            lastName
+          }
+          comments{
+            firstName
+            lastName
+          }
           imageUrl
           videoUrl
           creator{

@@ -47,7 +47,7 @@ class _NewsArticleState extends State<NewsArticle> {
           SliverPadding(
             padding: EdgeInsets.all(20),
             sliver: SliverToBoxAdapter(
-              child: Text(lipsum.createWord(numWords: 200).toString()),
+              child: Text(widget.post['text'].toString()),
             ),
           ),
           SliverToBoxAdapter(

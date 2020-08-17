@@ -7,6 +7,7 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/nav_page.dart';
+import 'package:talawa/views/pages/profile_page.dart';
 
 class GraphAPI with ChangeNotifier {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -49,7 +50,8 @@ class GraphAPI with ChangeNotifier {
   void setNewOrg(BuildContext context, String newOrgId) async {
     await Preferences.removeOrg();
     await _pref.saveCurrentOrgId(newOrgId);
-    Navigator.pushNamedAndRemoveUntil(
+   Navigator.pushNamedAndRemoveUntil(
         context, UIData.profilePage, (r) => false);
+ 
   }
 }

@@ -88,29 +88,26 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         result.exception.toString().substring(16) != e) {
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
+        //set org at the top of the list as the new current org
         setState(() {
          remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
          if (remaindingOrg.isEmpty) {
            newOrgId = null;
          } else if(remaindingOrg.isNotEmpty) {
             newOrgId = result.data['leaveOrganization']['joinedOrganizations'][0]['_id'];
-
          }
- 
        });
-      // print(result.data['leaveOrganization']['joinedOrganizations'][0]['_id']);
+      
       _graphAPI.setNewOrg(context, newOrgId);
             _successToast('You are no longer apart of this organization');
-         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ProfilePage()));
-    }
+            }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Organization Settings'),
+          title: const Text('Organization Settings',style: TextStyle(color: Colors.white)),
         ),
         body: Container(
           child: Column(children: <Widget>[
@@ -127,7 +124,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 onTap: () {
                   pushNewScreen(
                     context,
-                    withNavBar: false,
+                   
                     screen: UpdateOrganization(),
                   );
                 }),
@@ -143,7 +140,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 onTap: () {
                   pushNewScreen(
                     context,
-                    withNavBar: false,
+                   
                     screen: AcceptRequestsPage(),
                   );
                 }),
@@ -174,6 +171,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                             FlatButton(
                               child: Text("Yes"),
                               onPressed: () async {
+                                 Navigator.of(context).pop();
                                 leaveOrg();
                               },
                             )
@@ -209,6 +207,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                               child: Text("Yes"),
                               onPressed: () async {
                                 removeOrg();
+                                 Navigator.of(context).pop();
                               },
                             )
                           ],
