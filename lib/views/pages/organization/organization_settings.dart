@@ -7,8 +7,8 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/accept_requests_page.dart';
-import 'profile_page.dart';
+import 'package:talawa/views/pages/organization/accept_requests_page.dart';
+import 'package:talawa/views/pages/profile_page.dart';
 import 'update_organization.dart';
 
 class OrganizationSettings extends StatefulWidget {
@@ -128,6 +128,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     screen: UpdateOrganization(),
                   );
                 }),
+                 Divider(),
                   ListTile(
                 title: Text(
                   'Accept Organization Requests',
@@ -144,6 +145,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     screen: AcceptRequestsPage(),
                   );
                 }),
+                 Divider(),
             ListTile(
                 title: Text(
                   'Leave This Organization',
@@ -179,6 +181,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         );
                       });
                 }),
+                 Divider(),
                  ListTile(
                 title: Text(
                   'Remove This Organization',

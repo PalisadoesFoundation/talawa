@@ -1,25 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/controllers/activity_controller.dart';
-import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/controllers/note_controller.dart';
-import 'package:talawa/controllers/organisation_controller.dart';
-import 'package:talawa/model/activity.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/newsfeed.dart';
 import 'package:talawa/views/pages/members.dart';
-import 'package:talawa/views/widgets/common_drawer.dart';
-import 'package:intl/intl.dart';
-import 'package:talawa/controllers/user_controller.dart';
-import 'package:talawa/model/user.dart';
 import 'package:talawa/enums/connectivity_status.dart';
 
 import 'package:talawa/views/pages/events.dart';
 import 'package:talawa/views/pages/groups.dart';
-
-import 'package:talawa/views/pages/addEventPage.dart';
 
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -36,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   // PageController pageController = PageController(initialPage: 3);
   // int currentIndex = 0;
   PersistentTabController _controller =
-      PersistentTabController(initialIndex: 3);
+      PersistentTabController(initialIndex: 4);
   // AnimationController controller;
   String userID;
   Preferences preferences = Preferences();
@@ -52,13 +41,6 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  _showSnackBar() {
-    print("Show SnackBar Here");
-    final snackBar = new SnackBar(content: new Text("Device Disconnected"));
-    _scaffoldKey.currentState.showSnackBar(snackBar);
-    return CircularProgressIndicator();
   }
 
   getUser() async {
@@ -125,11 +107,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var connectionStatus =
-        Provider.of<ConnectivityStatus>(context, listen: true);
-    if (connectionStatus == ConnectivityStatus.Offline) {
-      _showSnackBar();
-    }
+ 
     return PersistentTabView(
       backgroundColor: UIData.primaryColor,
       controller: _controller,

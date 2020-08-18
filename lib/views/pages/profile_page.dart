@@ -5,14 +5,13 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/views/pages/join_organization.dart';
+import 'package:talawa/views/pages/organization/join_organization.dart';
 
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-import 'create_organization.dart';
-import 'organization_settings.dart';
-import 'switch_org_page.dart';
+import 'package:talawa/views/pages/organization/organization_settings.dart';
+import 'organization/switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
   @override

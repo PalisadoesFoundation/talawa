@@ -2,8 +2,8 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/widgets/forms/login_form.dart';
-import 'package:talawa/views/widgets/forms/register_form.dart';
+import 'package:talawa/views/pages/login_signup/login_form.dart';
+import 'package:talawa/views/pages/login_signup/register_form.dart';
 
 class LoginPage extends StatefulWidget {
   
