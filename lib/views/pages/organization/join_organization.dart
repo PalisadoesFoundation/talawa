@@ -107,8 +107,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       }
       _successToast("Sucess!");
 
-      //Navigate user to join organization screen
-      Navigator.of(context).pop();
+    
+       //Navigate user to join organization screen
+       
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new ProfilePage()));
     }
   }
 
@@ -117,7 +120,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     return Scaffold(
       appBar: AppBar(
        
-        title: const Text('Organization'),
+        title: const Text('Organization',style: TextStyle(color: Colors.white)),
       ),
       body: organizationInfo.isEmpty
           ? Center(child: CircularProgressIndicator())
@@ -248,8 +251,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 onPressed: () async {
                   if (isPublic == 'true') {
                     confirmOrgChoice();
+                      Navigator.of(context).pop();
                   } else if (isPublic == 'false') {
                     joinPrivateOrg();
+                      Navigator.of(context).pop();
                   }
                 },
               )

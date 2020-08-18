@@ -149,6 +149,28 @@ class Queries {
   ''';
   }
 
+  String fetchOrgById2(String orgId) {
+    return '''
+    query{
+      organizations(id: $orgId){
+        _id
+        name
+        description
+        creator{
+          firstName
+          lastName
+        }
+        members{
+          _id
+          firstName
+          lastName
+          email
+        }
+      }
+    }
+  ''';
+  }
+
   String getOrgId(String orgId) {
     return '''
     mutation {

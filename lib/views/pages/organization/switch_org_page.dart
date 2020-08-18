@@ -45,8 +45,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       setState(() {
         _progressBarState = true;
       });
-    }
-    else if (result.hasException) {
+    } else if (result.hasException) {
       print(result.exception);
       setState(() {
         _progressBarState = false;
@@ -56,7 +55,9 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       setState(() {
         _progressBarState = false;
         userOrg = result.data['users'][0]['joinedOrganizations'];
-        if(userOrg.isEmpty){showError("You are not registered to any organization");}
+        if (userOrg.isEmpty) {
+          showError("You are not registered to any organization");
+        }
       });
     }
   }
@@ -85,7 +86,10 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-            title: const Text('Switch Organization'),
+        title: const Text(
+          'Switch Organization',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: _progressBarState
           ? Center(child: CircularProgressIndicator())
@@ -103,7 +107,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                     setState(() {
                       isSelected = val;
                       itemIndex = userOrg[index]['_id'].toString();
-                      print(itemIndex);
                     });
                   },
                 );

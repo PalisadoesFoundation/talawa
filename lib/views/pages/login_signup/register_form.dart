@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/controllers/user_controller.dart';
+
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -12,7 +9,7 @@ import 'package:talawa/view_models/vm_register.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/views/pages/join_organization.dart';
+import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterForm extends StatefulWidget {

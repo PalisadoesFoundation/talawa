@@ -125,7 +125,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                     ),
                     IconButton(
                       iconSize: 26.0,
-                      icon: Icon(Icons.check_box),
+                      icon: Icon(Icons.check),
                       color: Colors.green,
                       onPressed: () {
                         itemIndex = membershipRequests['_id'];
