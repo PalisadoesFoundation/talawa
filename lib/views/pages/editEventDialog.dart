@@ -1,51 +1,69 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/uidata.dart';
-
-import 'package:provider/provider.dart';
-import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/utils/apiFuctions.dart';
-import 'package:intl/intl.dart';
-import 'package:talawa/views/pages/events.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 
-class AddEvent extends StatefulWidget {
-  AddEvent({Key key}) : super(key: key);
+class EditEvent extends StatefulWidget {
+  Map event;
+  EditEvent({Key key, @required this.event}) : super(key: key);
 
   @override
-  _AddEventState createState() => _AddEventState();
+  _EditEventState createState() => _EditEventState();
 }
 
-class _AddEventState extends State<AddEvent> {
+class _EditEventState extends State<EditEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final locationController = TextEditingController();
 
+  DateTime selectedDate = DateTime.now();
+  Map event;
   Map switchVals = {
     'Make Public': true,
     'Make Registerable': true,
     'Recurring': true,
     'All Day': false
   };
+
   var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
   Preferences preferences = Preferences();
   String currentOrgId;
-  void initState() {
-    super.initState();
-    getCurrentOrgId();
-  }
-
-  DateTime selectedDate = DateTime.now();
   Map startEndTimes = {
     'Start Time': TimeOfDay(hour: 12, minute: 0),
     'End Time': TimeOfDay(hour: 23, minute: 59)
   };
+
+  void initState() {
+    super.initState();
+    getCurrentOrgId();
+    print(widget.event);
+    initevent();
+  }
+
+  initevent() {
+    setState(() {
+      titleController.text = widget.event['title'];
+      descriptionController.text = widget.event['description'];
+      switchVals = {
+        'Make Public': widget.event['isPublic'],
+        'Make Registerable': widget.event['isRegisterable'],
+        'Recurring': widget.event['recurring'],
+        'All Day': widget.event['allDay']
+      };
+      recurrance = widget.event['recurrance'];
+    });
+  }
+
+  getCurrentOrgId() async {
+    final orgId = await preferences.getCurrentOrgId();
+    setState(() {
+      currentOrgId = orgId;
+    });
+    print(currentOrgId);
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -75,8 +93,8 @@ class _AddEventState extends State<AddEvent> {
     DateTime date =
         DateTime(selectedDate.year, selectedDate.month, selectedDate.day)
             .toUtc();
-    String startTime = startEndTimes['Start Time'].format(context);
-    String endTime = startEndTimes['Start Time'].format(context);
+    String startTime = startEndTimes['Start Time'].toUtc();
+    String endTime = startEndTimes['Start Time'].toUtc();
 
     String mutation = Queries().addEvent(
       organizationId: currentOrgId,
@@ -96,25 +114,11 @@ class _AddEventState extends State<AddEvent> {
     Map result = await apiFunctions.gqlmutation(mutation);
   }
 
-  getCurrentOrgId() async {
-    final orgId = await preferences.getCurrentOrgId();
-    setState(() {
-      currentOrgId = orgId;
-    });
-    print(currentOrgId);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'New Event',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      body: ListView(
-        padding: EdgeInsets.only(bottom: 100),
+    return AlertDialog(
+      title: Text("Edit This Event"),
+      content: ListView(
         children: <Widget>[
           inputField('Title', titleController),
           inputField('Description', descriptionController),
@@ -127,9 +131,23 @@ class _AddEventState extends State<AddEvent> {
           dateButton(),
           timeButton('Start Time', startEndTimes['Start Time']),
           timeButton('End Time', startEndTimes['End Time']),
+          ListTile(),
         ],
       ),
-      floatingActionButton: addEventFab(),
+      actions: <Widget>[
+        FlatButton(
+          child: Text("Cancel"),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        FlatButton(
+          child: Text("Update"),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
     );
   }
 
@@ -168,19 +186,6 @@ class _AddEventState extends State<AddEvent> {
                     : Colors.grey),
           ),
         ));
-  }
-
-  Widget addEventFab() {
-    return FloatingActionButton(
-        backgroundColor: UIData.secondaryColor,
-        child: Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          createEvent();
-          Navigator.of(context).pop();
-        });
   }
 
   Widget inputField(String name, TextEditingController controller) {

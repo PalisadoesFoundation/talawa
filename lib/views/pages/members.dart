@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
-
-
+import 'package:talawa/views/pages/memberDetails.dart';
+import 'package:talawa/views/pages/memberRegEvents.dart';
+import 'package:talawa/views/pages/userTasks.dart';
 
 class Organizations extends StatefulWidget {
   Organizations({Key key}) : super(key: key);
@@ -17,65 +20,109 @@ class Organizations extends StatefulWidget {
 
 class _OrganizationsState extends State<Organizations> {
   List organizationsList = [];
+  List membersList = [];
   int isSelected = 0;
-  
-
+  String currentOrgID;
+  Preferences preferences = Preferences();
 
   initState() {
     super.initState();
     getEvents();
+    getCurrentOrgId();
   }
 
+  getCurrentOrgId() async {
+    final orgId = await preferences.getCurrentOrgId();
+    setState(() {
+      currentOrgID = orgId;
+    });
+    // print(currentOrgID);
+  }
 
   Future<List> getEvents() async {
     ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlquery(Queries().fetchOrganizations);
+    Map result =
+        await apiFunctions.gqlquery(Queries().fetchOrgById2(currentOrgID));
+    // print(result);
     setState(() {
-      organizationsList = result == null ? []:result['organizations'];
+      organizationsList = result == null ? [] : result['organizations'];
+      membersList = organizationsList[0]['members'];
     });
   }
 
-
   Widget build(BuildContext context) {
-  final OrgController org = Provider.of<OrgController>(context);
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Members',
-        style: TextStyle(color: Colors.white),),
+        title: Text(
+          'Members',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
-      body: organizationsList.isEmpty ? Center(child: CircularProgressIndicator()) : 
-      ListView.builder(
-        itemCount: organizationsList.length,
-        itemBuilder: (context, index) {
-          return 
-          Card(child: ListTile(
-            // activeColor: UIData.secondaryColor,
-            // controlAffinity: ListTileControlAffinity.trailing,
-            title: Text(organizationsList[index]['members'][0]['firstName'].toString() + ' ' + organizationsList[index]['members'][0]['lastName'].toString()),
-            subtitle: Text(organizationsList[index]['members'][0]['email'].toString()),
-            leading: CircleAvatar(
-                  child: Icon(Icons.person,
-                  size: 40,
-                  color: Colors.white54,
+      body: membersList.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: membersList.length,
+              itemBuilder: (context, index) {
+                return Card(
+                    child: ListTile(
+                  title: Text(membersList[index]['firstName'].toString() +
+                      ' ' +
+                      membersList[index]['lastName'].toString()),
+                  subtitle: Text(membersList[index]['email'].toString()),
+                  leading: CircleAvatar(
+                    child: Icon(
+                      Icons.person,
+                      size: 40,
+                      color: Colors.white54,
+                    ),
+                    backgroundColor: UIData.secondaryColor,
                   ),
-                  backgroundColor: UIData.secondaryColor,
-                ),
-            // groupValue: isSelected,
-            // value: index,
-            //  onChanged: (val){
-            //    org.currentOrganisation(organizationsList[val]['_id']);
-            //    setState(() {
-            //      isSelected = val;
-                 
-            //    });
-                
-            //  }
-            trailing: Icon(Icons.menu),
-             ))
-          ;
-        },
-      ),
+                  trailing: popUpMenue(membersList[index]),
+                  onTap: () {
+                    pushNewScreen(
+                      context,
+                      withNavBar: true,
+                      screen: MemberDetail(member: membersList[index]),
+                    );
+                    ;
+                  },
+                ));
+              },
+            ),
+    );
+  }
+
+  Widget popUpMenue(Map member) {
+    return PopupMenuButton<int>(
+      onSelected: (val) async {
+        if (val == 1) {
+          pushNewScreen(
+            context,
+            withNavBar: true,
+            screen: UserTasks(),
+          );
+        } else if (val == 2) {
+          pushNewScreen(
+            context,
+            withNavBar: true,
+            screen: RegisterdEvents(),
+          );
+        }
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
+        const PopupMenuItem<int>(
+            value: 1,
+            child: ListTile(
+              leading: Icon(Icons.playlist_add_check),
+              title: Text('View Assigned Tasks'),
+            )),
+        const PopupMenuItem<int>(
+            value: 2,
+            child: ListTile(
+              leading: Icon(Icons.playlist_add_check),
+              title: Text('View Registered Events'),
+            )),
+      ],
     );
   }
 }

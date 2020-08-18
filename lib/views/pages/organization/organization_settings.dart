@@ -7,10 +7,8 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/remove_organization.dart';
-
-import 'create_organization.dart';
-import 'profile_page.dart';
+import 'package:talawa/views/pages/organization/accept_requests_page.dart';
+import 'package:talawa/views/pages/profile_page.dart';
 import 'update_organization.dart';
 
 class OrganizationSettings extends StatefulWidget {
@@ -90,51 +88,33 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         result.exception.toString().substring(16) != e) {
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
+        //set org at the top of the list as the new current org
         setState(() {
          remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
          if (remaindingOrg.isEmpty) {
            newOrgId = null;
          } else if(remaindingOrg.isNotEmpty) {
             newOrgId = result.data['leaveOrganization']['joinedOrganizations'][0]['_id'];
-
          }
- 
        });
-      // print(result.data['leaveOrganization']['joinedOrganizations'][0]['_id']);
+      
       _graphAPI.setNewOrg(context, newOrgId);
             _successToast('You are no longer apart of this organization');
-         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ProfilePage()));
-    }
+            }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Organization Settings'),
+          title: const Text('Organization Settings',style: TextStyle(color: Colors.white)),
         ),
         body: Container(
           child: Column(children: <Widget>[
+            
             ListTile(
                 title: Text(
-                  'Create New Organization',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                leading: Icon(
-                  Icons.add_circle,
-                  color: UIData.secondaryColor,
-                ),
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    withNavBar: false,
-                    screen: CreateOrganization(),
-                  );
-                }),
-            ListTile(
-                title: Text(
-                  'Update Organization',
+                  'Update This Organization',
                   style: TextStyle(fontSize: 18.0),
                 ),
                 leading: Icon(
@@ -144,13 +124,31 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 onTap: () {
                   pushNewScreen(
                     context,
-                    withNavBar: false,
+                   
                     screen: UpdateOrganization(),
                   );
                 }),
+                 Divider(),
+                  ListTile(
+                title: Text(
+                  'Accept Organization Requests',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                leading: Icon(
+                  Icons.group_add,
+                  color: UIData.secondaryColor,
+                ),
+                onTap: () {
+                  pushNewScreen(
+                    context,
+                   
+                    screen: AcceptRequestsPage(),
+                  );
+                }),
+                 Divider(),
             ListTile(
                 title: Text(
-                  'Leave Organization',
+                  'Leave This Organization',
                   style: TextStyle(fontSize: 18.0),
                 ),
                 leading: Icon(
@@ -175,6 +173,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                             FlatButton(
                               child: Text("Yes"),
                               onPressed: () async {
+                                 Navigator.of(context).pop();
                                 leaveOrg();
                               },
                             )
@@ -182,9 +181,10 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         );
                       });
                 }),
+                 Divider(),
                  ListTile(
                 title: Text(
-                  'Remove Organization',
+                  'Remove This Organization',
                   style: TextStyle(fontSize: 18.0),
                 ),
                 leading: Icon(
@@ -210,6 +210,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                               child: Text("Yes"),
                               onPressed: () async {
                                 removeOrg();
+                                 Navigator.of(context).pop();
                               },
                             )
                           ],

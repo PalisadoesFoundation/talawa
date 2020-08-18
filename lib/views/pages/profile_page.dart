@@ -5,14 +5,13 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/views/pages/join_organization.dart';
+import 'package:talawa/views/pages/organization/join_organization.dart';
 
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-import 'create_organization.dart';
-import 'organization_settings.dart';
-import 'switch_org_page.dart';
+import 'package:talawa/views/pages/organization/organization_settings.dart';
+import 'organization/switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -36,7 +35,6 @@ class _ProfilePageState extends State<ProfilePage> {
     fetchUserDetails();
   }
 
-
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
@@ -45,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   extractId(List orgIdList) {
-     List lst = [];
+    List lst = [];
     for (int index = 0; index < allJoinedOrgId.length; index++) {
       lst.add([orgIdList[index]['_id'], orgIdList[index]['name']]);
       if (orgIdList[index]['_id'] == currentOrgId) {
@@ -57,16 +55,15 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future fetchUserDetails() async {
-    
     final String userID = await preferences.getUserId();
-     getCurrentOrgId();
+    getCurrentOrgId();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
     QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
-          } else if (!result.hasException) {
+    } else if (!result.hasException) {
       setState(() {
         userDetails = result.data['users'];
         allJoinedOrgId = result.data['users'][0]['joinedOrganizations'];
@@ -171,13 +168,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  withNavBar: false,
+                                 
                                   screen: SwitchOrganization(),
                                 );
                               }),
                           ListTile(
                               title: Text(
-                                'Join New Organization',
+                                'Join or Create New Organization',
                                 style: TextStyle(fontSize: 18.0),
                               ),
                               leading: Icon(
@@ -185,9 +182,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: UIData.secondaryColor,
                               ),
                               onTap: () {
-                               pushNewScreen(
+                                pushNewScreen(
                                   context,
-                                  withNavBar: false,
+                                  
                                   screen: JoinOrganization(),
                                 );
                               }),
@@ -201,9 +198,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: UIData.secondaryColor,
                               ),
                               onTap: () {
-                              pushNewScreen(
+                                pushNewScreen(
                                   context,
-                                  withNavBar: false,
+                                  
                                   screen: OrganizationSettings(),
                                 );
                               }),

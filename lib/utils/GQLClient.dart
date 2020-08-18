@@ -30,9 +30,6 @@ class GraphQLConfiguration {
 
   static final Link finalAuthLink = authLink.concat(httpLink);
   
-final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
-    GraphQLClient(link: httpLink, cache: InMemoryCache()));
-
   GraphQLClient clientToQuery() {
     return GraphQLClient(
       cache: InMemoryCache(),
