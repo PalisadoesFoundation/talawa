@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -8,6 +10,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/nav_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreateOrganization extends StatefulWidget {
   @override
@@ -16,30 +19,21 @@ class CreateOrganization extends StatefulWidget {
 
 class _CreateOrganizationState extends State<CreateOrganization> {
   final orgNameController = TextEditingController();
-
   final orgDescController = TextEditingController();
-
   final orgMemberDescController = TextEditingController();
-
   Queries _queries = Queries();
-
   bool _progressBarState = false;
-
   bool _validate = false;
-
   final _formKey = GlobalKey<FormState>();
-
   int radioValue = -1;
   int radioValue1 = -1;
-
   bool isPublic = true;
   bool isVisible = true;
-
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-
   FToast fToast;
-
   GraphAPI _graphAPI = GraphAPI();
+  File _image;
+  final picker = ImagePicker();
 
   @override
   void initState() {
@@ -87,11 +81,18 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     }
   }
 
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      
         title: const Text('Create Organization'),
       ),
       body: Container(
@@ -106,12 +107,14 @@ class _CreateOrganizationState extends State<CreateOrganization> {
               padding: const EdgeInsets.only(left: 30.0, right: 30.0),
               child: Column(
                 children: <Widget>[
-                  Image(image: AssetImage('assets/images/team.png')),
-                  SizedBox(
-                    height: 10,
+                  GestureDetector(
+                    onTap: getImage,
+                    child: Image(image: AssetImage('assets/images/team.png')),
                   ),
-                  Text('Setup Your Organization',
-                      style: TextStyle(fontSize: 20, color: Colors.black)),
+                   Text('Setup Your Organization',
+                            style:
+                                TextStyle(fontSize: 20, color: Colors.black)),
+                    
                   SizedBox(
                     height: 30,
                   ),
