@@ -22,28 +22,19 @@ class _OrganizationsState extends State<Organizations> {
   List organizationsList = [];
   List membersList = [];
   int isSelected = 0;
-  String currentOrgID;
   Preferences preferences = Preferences();
 
   initState() {
     super.initState();
     getEvents();
-    getCurrentOrgId();
-  }
-
-  getCurrentOrgId() async {
-    final orgId = await preferences.getCurrentOrgId();
-    setState(() {
-      currentOrgID = orgId;
-    });
-    // print(currentOrgID);
   }
 
   Future<List> getEvents() async {
+    final String currentOrgID = await preferences.getCurrentOrgId();
     ApiFunctions apiFunctions = ApiFunctions();
-    Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgById2(currentOrgID));
-    // print(result);
+    var result =
+        await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+    print(result);
     setState(() {
       organizationsList = result == null ? [] : result['organizations'];
       membersList = organizationsList[0]['members'];

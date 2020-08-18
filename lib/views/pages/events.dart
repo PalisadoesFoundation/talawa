@@ -26,19 +26,10 @@ class _EventsState extends State<Events> {
   int selectedIndex = 0;
   String title = '';
   String description = '';
-  String currentOrgId = '';
   Preferences preferences = Preferences();
   initState() {
     super.initState();
-    getCurrentOrgId();
     getEvents();
-  }
-
-  getCurrentOrgId() async {
-    final orgId = await preferences.getCurrentOrgId();
-    setState(() {
-      currentOrgId = orgId;
-    });
   }
 
   Future<void> _deleteEvent(context, eventId) async {
@@ -60,13 +51,14 @@ class _EventsState extends State<Events> {
   }
 
   Future<List> getEvents() async {
+    final String currentOrgID = await preferences.getCurrentOrgId();
     ApiFunctions apiFunctions = ApiFunctions();
     Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgId));
+        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     setState(() {
       eventList = result == null ? [] : result['events'].reversed.toList();
     });
-    print(eventList[0]);
+    // print(eventList[0]);
   }
 
   Future<void> _editEvent(context, event) async {

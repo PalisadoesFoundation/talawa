@@ -149,28 +149,6 @@ class Queries {
   ''';
   }
 
-  String fetchOrgById2(String orgId) {
-    return '''
-    query{
-      organizations(id: $orgId){
-        _id
-        name
-        description
-        creator{
-          firstName
-          lastName
-        }
-        members{
-          _id
-          firstName
-          lastName
-          email
-        }
-      }
-    }
-  ''';
-  }
-
   String getOrgId(String orgId) {
     return '''
     mutation {
@@ -438,9 +416,10 @@ class Queries {
   }
 
 ///////////////////NEWSFEED////////////////
-  String posts = """
+  String postsById(String orgId) {
+    return """
       query {
-        posts
+        posts(id : "$orgId")
         { 
           _id
           text
@@ -463,6 +442,7 @@ class Queries {
         }
       }
 """;
+  }
 
 ///////////////////NEWSFEED////////////////
   String getPostsComments = """

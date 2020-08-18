@@ -33,8 +33,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  // PageController pageController = PageController(initialPage: 3);
-  // int currentIndex = 0;
+
   PersistentTabController _controller =
       PersistentTabController(initialIndex: 3);
   // AnimationController controller;
@@ -45,8 +44,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getUser();
-    // Provider.of<NoteController>(context, listen: false).initializeSocket(
-    //     Provider.of<AuthController>(context, listen: false).currentUserId);
   }
 
   void dispose() {
