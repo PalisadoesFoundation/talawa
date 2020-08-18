@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/uidata.dart';
+import '../../../utils/uidata.dart';
 
 class MemberDetail extends StatefulWidget {
   Map member;

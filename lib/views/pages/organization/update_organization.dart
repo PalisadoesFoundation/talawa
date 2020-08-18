@@ -6,7 +6,7 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:talawa/views/pages/nav_page.dart';
+import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class UpdateOrganization extends StatefulWidget {
@@ -45,7 +45,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   void initState() {
     super.initState();
     fToast = FToast(context);
-    
   }
 
   void toggleProgressBarState() {
@@ -53,7 +52,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   }
 
   updateOrg() async {
-    
     final String currentOrgId = await _preferences.getCurrentOrgId();
 
     GraphQLClient _client = graphQLConfiguration.authClient();
@@ -95,7 +93,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-                   title: const Text('Update Organization'),
+          title: const Text('Update Organization'),
         ),
         body: Container(
           color: Colors.white,

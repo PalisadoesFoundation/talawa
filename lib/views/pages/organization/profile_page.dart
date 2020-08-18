@@ -11,7 +11,7 @@ import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:talawa/views/pages/organization/organization_settings.dart';
-import 'organization/switch_org_page.dart';
+import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -168,7 +168,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                 
                                   screen: SwitchOrganization(),
                                 );
                               }),
@@ -184,7 +183,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  
                                   screen: JoinOrganization(),
                                 );
                               }),
@@ -200,7 +198,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  
                                   screen: OrganizationSettings(),
                                 );
                               }),

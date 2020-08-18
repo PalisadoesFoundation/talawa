@@ -6,7 +6,7 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:talawa/views/pages/nav_page.dart';
+import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CreateOrganization extends StatefulWidget {
@@ -91,7 +91,6 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      
         title: const Text('Create Organization'),
       ),
       body: Container(

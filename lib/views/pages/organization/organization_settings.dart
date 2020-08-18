@@ -8,7 +8,7 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/accept_requests_page.dart';
-import 'package:talawa/views/pages/profile_page.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'update_organization.dart';
 
 class OrganizationSettings extends StatefulWidget {
@@ -28,20 +28,17 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   @override
   void initState() {
     super.initState();
-        fToast = FToast(context);
-
-    }
-
+    fToast = FToast(context);
+  }
 
   Future removeOrg() async {
-
     final String orgId = await preferences.getCurrentOrgId();
     List remaindingOrg = [];
     String newOrgId;
     GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.mutate(
-        MutationOptions(documentNode: gql(_query.removeOrg(orgId))));
+    QueryResult result = await _client
+        .mutate(MutationOptions(documentNode: gql(_query.removeOrg(orgId))));
     String e =
         "Access Token has expired. Please refresh session.: Undefined location";
     if (result.hasException && result.exception.toString().substring(16) == e) {
@@ -52,33 +49,32 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       _successToast('Successfully Removed');
-        setState(() {
-          remaindingOrg = result.data['removeOrganization']['joinedOrganizations'];
-         if (remaindingOrg.isEmpty) {
-           newOrgId = null;
-         } else if(remaindingOrg.isNotEmpty) {
-            newOrgId = result.data['removeOrganization']['joinedOrganizations'][0]['_id'];
+      setState(() {
+        remaindingOrg =
+            result.data['removeOrganization']['joinedOrganizations'];
+        if (remaindingOrg.isEmpty) {
+          newOrgId = null;
+        } else if (remaindingOrg.isNotEmpty) {
+          newOrgId = result.data['removeOrganization']['joinedOrganizations'][0]
+              ['_id'];
+        }
+      });
 
-         }
- 
-       });
-     
       _graphAPI.setNewOrg(context, newOrgId);
-       Navigator.of(context).pushReplacement(
+      Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new ProfilePage()));
     }
   }
 
   Future leaveOrg() async {
-
-   List remaindingOrg = [];
+    List remaindingOrg = [];
     String newOrgId;
     final String orgId = await preferences.getCurrentOrgId();
 
     GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.mutate(
-        MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
+    QueryResult result = await _client
+        .mutate(MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
     String e =
         "Access Token has expired. Please refresh session.: Undefined location";
     if (result.hasException && result.exception.toString().substring(16) == e) {
@@ -88,30 +84,31 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         result.exception.toString().substring(16) != e) {
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
-        //set org at the top of the list as the new current org
-        setState(() {
-         remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
-         if (remaindingOrg.isEmpty) {
-           newOrgId = null;
-         } else if(remaindingOrg.isNotEmpty) {
-            newOrgId = result.data['leaveOrganization']['joinedOrganizations'][0]['_id'];
-         }
-       });
-      
+      //set org at the top of the list as the new current org
+      setState(() {
+        remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
+        if (remaindingOrg.isEmpty) {
+          newOrgId = null;
+        } else if (remaindingOrg.isNotEmpty) {
+          newOrgId =
+              result.data['leaveOrganization']['joinedOrganizations'][0]['_id'];
+        }
+      });
+
       _graphAPI.setNewOrg(context, newOrgId);
-            _successToast('You are no longer apart of this organization');
-            }
+      _successToast('You are no longer apart of this organization');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Organization Settings',style: TextStyle(color: Colors.white)),
+          title: const Text('Organization Settings',
+              style: TextStyle(color: Colors.white)),
         ),
         body: Container(
           child: Column(children: <Widget>[
-            
             ListTile(
                 title: Text(
                   'Update This Organization',
@@ -124,12 +121,11 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 onTap: () {
                   pushNewScreen(
                     context,
-                   
                     screen: UpdateOrganization(),
                   );
                 }),
-                 Divider(),
-                  ListTile(
+            Divider(),
+            ListTile(
                 title: Text(
                   'Accept Organization Requests',
                   style: TextStyle(fontSize: 18.0),
@@ -141,11 +137,10 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 onTap: () {
                   pushNewScreen(
                     context,
-                   
                     screen: AcceptRequestsPage(),
                   );
                 }),
-                 Divider(),
+            Divider(),
             ListTile(
                 title: Text(
                   'Leave This Organization',
@@ -173,7 +168,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                             FlatButton(
                               child: Text("Yes"),
                               onPressed: () async {
-                                 Navigator.of(context).pop();
+                                Navigator.of(context).pop();
                                 leaveOrg();
                               },
                             )
@@ -181,8 +176,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         );
                       });
                 }),
-                 Divider(),
-                 ListTile(
+            Divider(),
+            ListTile(
                 title: Text(
                   'Remove This Organization',
                   style: TextStyle(fontSize: 18.0),
@@ -210,7 +205,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                               child: Text("Yes"),
                               onPressed: () async {
                                 removeOrg();
-                                 Navigator.of(context).pop();
+                                Navigator.of(context).pop();
                               },
                             )
                           ],
@@ -220,7 +215,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
           ]),
         ));
   }
-    _successToast(String msg) {
+
+  _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(

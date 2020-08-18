@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/newsfeed.dart';
-import 'package:talawa/views/pages/members.dart';
+import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
+import 'package:talawa/views/pages/members/members.dart';
 import 'package:talawa/enums/connectivity_status.dart';
 
-import 'package:talawa/views/pages/events.dart';
-import 'package:talawa/views/pages/groups.dart';
+import 'package:talawa/views/pages/events/events.dart';
+import 'package:talawa/views/pages/chat/groups.dart';
 
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'profile_page.dart';
+import 'organization/profile_page.dart';
 import 'package:talawa/services/preferences.dart';
 
 class HomePage extends StatefulWidget {

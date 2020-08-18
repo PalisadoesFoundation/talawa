@@ -4,7 +4,7 @@ import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 
 import 'package:talawa/views/pages/login_signup/login_page.dart';
-import 'package:talawa/views/pages/profile_page.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 
 import 'views/pages/organization/create_organization.dart';
 import 'views/pages/organization/switch_org_page.dart';

@@ -6,8 +6,8 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
-import 'package:talawa/views/pages/addPost.dart';
-import 'package:talawa/views/pages/newsArticle.dart';
+import 'package:talawa/views/pages/newsfeed/addPost.dart';
+import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class NewsFeed extends StatefulWidget {
