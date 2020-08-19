@@ -5,10 +5,10 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/nav_page.dart';
+import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/GraphAPI.dart';
-import 'package:talawa/views/pages/profile_page.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 
 import 'create_organization.dart';
 
@@ -107,9 +107,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       }
       _successToast("Sucess!");
 
-    
-       //Navigate user to join organization screen
-       
+      //Navigate user to join organization screen
+
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new ProfilePage()));
     }
@@ -119,8 +118,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       
-        title: const Text('Organization',style: TextStyle(color: Colors.white)),
+        title:
+            const Text('Organization', style: TextStyle(color: Colors.white)),
       ),
       body: organizationInfo.isEmpty
           ? Center(child: CircularProgressIndicator())
@@ -251,10 +250,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 onPressed: () async {
                   if (isPublic == 'true') {
                     confirmOrgChoice();
-                      Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                   } else if (isPublic == 'false') {
                     joinPrivateOrg();
-                      Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                   }
                 },
               )

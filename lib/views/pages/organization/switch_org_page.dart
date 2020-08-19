@@ -5,7 +5,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/profile_page.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 
 class SwitchOrganization extends StatefulWidget {
   @override

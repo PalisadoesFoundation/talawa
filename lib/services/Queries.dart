@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class Queries {
   String refreshToken(String refreshToken) {
     return '''
@@ -149,28 +151,6 @@ class Queries {
   ''';
   }
 
-  String fetchOrgById2(String orgId) {
-    return '''
-    query{
-      organizations(id: $orgId){
-        _id
-        name
-        description
-        creator{
-          firstName
-          lastName
-        }
-        members{
-          _id
-          firstName
-          lastName
-          email
-        }
-      }
-    }
-  ''';
-  }
-
   String getOrgId(String orgId) {
     return '''
     mutation {
@@ -188,7 +168,8 @@ class Queries {
       bool isPublic, bool visibleInSearch) {
     return '''
       mutation {
-          createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}){
+          createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch})
+           {
             _id
             name
             description
@@ -438,9 +419,10 @@ class Queries {
   }
 
 ///////////////////NEWSFEED////////////////
-  String posts = """
+  String postsById(String orgId) {
+    return """
       query {
-        posts
+        posts(id : "$orgId")
         { 
           _id
           text
@@ -463,6 +445,7 @@ class Queries {
         }
       }
 """;
+  }
 
 ///////////////////NEWSFEED////////////////
   String getPostsComments = """

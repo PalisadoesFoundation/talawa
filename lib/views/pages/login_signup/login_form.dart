@@ -8,7 +8,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/views/pages/nav_page.dart';
+import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginForm extends StatefulWidget {
@@ -48,23 +48,26 @@ class LoginFormState extends State<LoginForm> {
       setState(() {
         _progressBarState = false;
       });
-      
+
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
       _successToast("All Set!");
-     
+
       //Store user tokens, current org id and user id in preferences
 
-      final Token accessToken = new Token(tokenString: result.data['login']['accessToken']);
+      final Token accessToken =
+          new Token(tokenString: result.data['login']['accessToken']);
       await _pref.saveToken(accessToken);
-      final Token refreshToken = new Token(tokenString: result.data['login']['refreshToken']);
+      final Token refreshToken =
+          new Token(tokenString: result.data['login']['refreshToken']);
       await _pref.saveRefreshToken(refreshToken);
       final String currentUserId = result.data['login']['user']['_id'];
       await _pref.saveUserId(currentUserId);
-       final String currentOrgId = result.data['login']['user']['joinedOrganizations'][0]['_id'];
+      final String currentOrgId =
+          result.data['login']['user']['joinedOrganizations'][0]['_id'];
       await _pref.saveCurrentOrgId(currentOrgId);
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new HomePage()));
@@ -145,8 +148,8 @@ class LoginFormState extends State<LoginForm> {
                       _formKey.currentState.save();
                       loginUser();
                       setState(() {
-                      toggleProgressBarState();
-                    });
+                        toggleProgressBarState();
+                      });
                     }
                   }),
             ),

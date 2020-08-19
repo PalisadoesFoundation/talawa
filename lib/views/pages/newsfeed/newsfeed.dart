@@ -4,9 +4,10 @@ import 'package:lipsum/lipsum.dart' as lipsum;
 import 'dart:math';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
-import 'package:talawa/views/pages/addPost.dart';
-import 'package:talawa/views/pages/newsArticle.dart';
+import 'package:talawa/views/pages/newsfeed/addPost.dart';
+import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class NewsFeed extends StatefulWidget {
@@ -23,7 +24,7 @@ class _NewsFeedState extends State<NewsFeed> {
       20, (int index) => lipsum.createWord(numWords: 20).toString());
   List times = List<int>.generate(20, (index) => Random().nextInt(30));
 ////////////////////////////////////////////////////
-
+  Preferences preferences = Preferences();
   List postList = [];
   String name;
 
@@ -33,7 +34,8 @@ class _NewsFeedState extends State<NewsFeed> {
   }
 
   Future<void> getPosts() async {
-    String query = Queries().posts;
+    final String currentOrgID = await preferences.getCurrentOrgId();
+    String query = Queries().postsById(currentOrgID);
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlquery(query);
 

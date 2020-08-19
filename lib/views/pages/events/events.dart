@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/views/pages/EventDetailPage.dart';
-import 'package:talawa/views/pages/addEventPage.dart';
+import 'package:talawa/views/pages/events/EventDetailPage.dart';
+import 'package:talawa/views/pages/events/addEventPage.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
-import 'package:talawa/views/pages/addTaskDialog.dart';
-import 'package:talawa/views/pages/editEventDialog.dart';
+import 'package:talawa/views/pages/events/addTaskDialog.dart';
+import 'package:talawa/views/pages/events/editEventDialog.dart';
 import 'package:intl/intl.dart';
 
 class Events extends StatefulWidget {
@@ -26,19 +26,10 @@ class _EventsState extends State<Events> {
   int selectedIndex = 0;
   String title = '';
   String description = '';
-  String currentOrgId = '';
   Preferences preferences = Preferences();
   initState() {
     super.initState();
-    getCurrentOrgId();
     getEvents();
-  }
-
-  getCurrentOrgId() async {
-    final orgId = await preferences.getCurrentOrgId();
-    setState(() {
-      currentOrgId = orgId;
-    });
   }
 
   Future<void> _deleteEvent(context, eventId) async {
@@ -60,13 +51,14 @@ class _EventsState extends State<Events> {
   }
 
   Future<List> getEvents() async {
+    final String currentOrgID = await preferences.getCurrentOrgId();
     ApiFunctions apiFunctions = ApiFunctions();
     Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgId));
+        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     setState(() {
       eventList = result == null ? [] : result['events'].reversed.toList();
     });
-    print(eventList[0]);
+    // print(eventList[0]);
   }
 
   Future<void> _editEvent(context, event) async {

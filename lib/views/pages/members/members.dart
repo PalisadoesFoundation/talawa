@@ -7,9 +7,9 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/memberDetails.dart';
-import 'package:talawa/views/pages/memberRegEvents.dart';
-import 'package:talawa/views/pages/userTasks.dart';
+import 'package:talawa/views/pages/members/memberDetails.dart';
+import 'package:talawa/views/pages/members/memberRegEvents.dart';
+import 'package:talawa/views/pages/members/userTasks.dart';
 
 class Organizations extends StatefulWidget {
   Organizations({Key key}) : super(key: key);
@@ -22,28 +22,19 @@ class _OrganizationsState extends State<Organizations> {
   List organizationsList = [];
   List membersList = [];
   int isSelected = 0;
-  String currentOrgID;
   Preferences preferences = Preferences();
 
   initState() {
     super.initState();
     getEvents();
-    getCurrentOrgId();
-  }
-
-  getCurrentOrgId() async {
-    final orgId = await preferences.getCurrentOrgId();
-    setState(() {
-      currentOrgID = orgId;
-    });
-    // print(currentOrgID);
   }
 
   Future<List> getEvents() async {
+    final String currentOrgID = await preferences.getCurrentOrgId();
     ApiFunctions apiFunctions = ApiFunctions();
-    Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgById2(currentOrgID));
-    // print(result);
+    var result =
+        await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+    print(result);
     setState(() {
       organizationsList = result == null ? [] : result['organizations'];
       membersList = organizationsList[0]['members'];
