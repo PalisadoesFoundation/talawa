@@ -427,11 +427,11 @@ class Queries {
     """;
   }
 
-///////////////////NEWSFEED////////////////
+///////////////////NEWSFEED///////////////////////////////////////////////////////////////////////
   String postsById(String orgId) {
     return """
       query {
-        posts(id : "$orgId")
+        postsByOrganization(id: "$orgId")
         { 
           _id
           text
@@ -457,7 +457,8 @@ class Queries {
   }
 
 ///////////////////NEWSFEED////////////////
-  String getPostsComments = """
+  String getPostsComments(String orgId) {
+    return """
       query {
         posts
         { 
@@ -490,6 +491,7 @@ class Queries {
         }
       }
 """;
+  }
 
   String addPost(String text, String organizationId, String date) {
     return """

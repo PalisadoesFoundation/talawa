@@ -21,10 +21,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   PersistentTabController _controller =
-      PersistentTabController(initialIndex: 4);
+      PersistentTabController(initialIndex: 0);
   // AnimationController controller;
   String userID;
   Preferences preferences = Preferences();

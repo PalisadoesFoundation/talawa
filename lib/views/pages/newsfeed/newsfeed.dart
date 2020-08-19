@@ -9,6 +9,7 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/newsfeed/addPost.dart';
 import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/utils/timer.dart';
 
 class NewsFeed extends StatefulWidget {
   NewsFeed({Key key}) : super(key: key);
@@ -27,6 +28,7 @@ class _NewsFeedState extends State<NewsFeed> {
   Preferences preferences = Preferences();
   List postList = [];
   String name;
+  Timer timer = Timer();
 
   initState() {
     super.initState();
@@ -38,11 +40,13 @@ class _NewsFeedState extends State<NewsFeed> {
     String query = Queries().postsById(currentOrgID);
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlquery(query);
-
+    // print(result);
     setState(() {
-      postList = result == null ? [] : result['posts'].reversed.toList();
+      postList =
+          result == null ? [] : result['postsByOrganization'].reversed.toList();
     });
-    // print(postList);
+    print(DateTime.fromMillisecondsSinceEpoch(
+        int.parse(postList[0]['createdAt'])));
   }
 
   @override
@@ -73,7 +77,7 @@ class _NewsFeedState extends State<NewsFeed> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                    '${postList[index]["text"].toString()} hours ago'),
+                                    '${timer.hoursOrDays(postList[index]['createdAt'])}'),
                               ),
                             ),
                             ListTile(
