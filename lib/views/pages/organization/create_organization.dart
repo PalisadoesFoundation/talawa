@@ -1,8 +1,9 @@
 import 'dart:io';
-
+import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
@@ -32,7 +33,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   GraphAPI _graphAPI = GraphAPI();
-  File _image;
+  var _image;
   final picker = ImagePicker();
 
   @override
@@ -47,7 +48,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   createOrg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
-
+  final img = http.MultipartFile.fromBytes('file', await _image.readAsBytes(), contentType: MediaType('image', 'jpeg'));
+    print(img.filename);
     QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_queries.createOrg(
       orgNameController.text,
@@ -55,7 +57,12 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       orgMemberDescController.text,
       isPublic,
       isVisible,
-      ))));
+      
+      )),
+      variables: {
+      'file':img.filename,
+    },
+      ));
 
     String e =
         "Access Token has expired. Please refresh session.: Undefined location";
@@ -95,7 +102,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   _imgFromGallery() async {
     File image = await ImagePicker.pickImage(
         source: ImageSource.gallery, imageQuality: 50);
-
+    
+    
     setState(() {
       _image = image;
     });
