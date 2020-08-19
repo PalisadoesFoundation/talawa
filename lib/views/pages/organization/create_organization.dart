@@ -81,6 +81,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     }
   }
 
+  //get image using camera
   _imgFromCamera() async {
     File image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50);
@@ -90,6 +91,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     });
   }
 
+  //get image using gallery
   _imgFromGallery() async {
     File image = await ImagePicker.pickImage(
         source: ImageSource.gallery, imageQuality: 50);
@@ -102,7 +104,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
-        builder: (BuildContext bc) {
+        builder: (BuildContext context) {
           return SafeArea(
             child: Container(
               child: new Wrap(
@@ -143,6 +145,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
           child: Column(
             children: <Widget>[
               addImage(),
+              Text('Upload Organization Image',
+                  style: TextStyle(fontSize: 16, color: Colors.black)),
               Form(
                 key: _formKey,
                 autovalidate: _validate,
@@ -345,23 +349,17 @@ class _CreateOrganizationState extends State<CreateOrganization> {
             },
             child: CircleAvatar(
               radius: 55,
-              backgroundColor: Color(0xffFDCF09),
+              backgroundColor: UIData.secondaryColor,
               child: _image != null
-                  ? ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.file(
+                  ? CircleAvatar(
+                      radius: 52,
+                      backgroundImage: FileImage(
                         _image,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.fitHeight,
                       ),
                     )
-                  : Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(50)),
-                      width: 100,
-                      height: 100,
+                  : CircleAvatar(
+                      radius: 52,
+                      backgroundColor: Colors.lightBlue[50],
                       child: Icon(
                         Icons.camera_alt,
                         color: Colors.grey[800],
