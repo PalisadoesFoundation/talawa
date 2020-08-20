@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 class Queries {
   String refreshToken(String refreshToken) {
     return '''
@@ -165,8 +168,11 @@ class Queries {
   String createOrg(String name, String description, String attendees,
       bool isPublic, bool visibleInSearch) {
     return '''
-      mutation {
-          createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}){
+      mutation (\$file: Upload){
+          createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}, 
+          file: \$file), 
+           {
+             image
             _id
             name
             description
@@ -179,6 +185,12 @@ class Queries {
     }
   ''';
   }
+
+  // String uploadOrgImg = '''
+  //      mutation uploadOrgImg(\$organizationId: ID!){
+  //         addOrganizationImage(id:\$id){
+
+  //   ''';
 
   String updateOrg(String orgId, String name, String description, bool isPublic,
       bool visibleInSearch) {

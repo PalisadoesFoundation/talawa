@@ -1,6 +1,9 @@
+import 'dart:io';
+import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-
+import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
@@ -8,6 +11,9 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:graphql/utilities.dart' show multipartFileFrom;
+import 'package:file_picker/file_picker.dart';
 
 class CreateOrganization extends StatefulWidget {
   @override
@@ -16,30 +22,21 @@ class CreateOrganization extends StatefulWidget {
 
 class _CreateOrganizationState extends State<CreateOrganization> {
   final orgNameController = TextEditingController();
-
   final orgDescController = TextEditingController();
-
   final orgMemberDescController = TextEditingController();
-
   Queries _queries = Queries();
-
   bool _progressBarState = false;
-
   bool _validate = false;
-
   final _formKey = GlobalKey<FormState>();
-
   int radioValue = -1;
   int radioValue1 = -1;
-
   bool isPublic = true;
   bool isVisible = true;
-
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-
   FToast fToast;
-
   GraphAPI _graphAPI = GraphAPI();
+  File _image;
+  final picker = ImagePicker();
 
   @override
   void initState() {
@@ -53,15 +50,20 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   createOrg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
-
+    final img = await multipartFileFrom(_image);
+    print(_image);
     QueryResult result = await _client.mutate(MutationOptions(
-        documentNode: gql(_queries.createOrg(
-      orgNameController.text,
-      orgDescController.text,
-      orgMemberDescController.text,
-      isPublic,
-      isVisible,
-    ))));
+      documentNode: gql(_queries.createOrg(
+        orgNameController.text,
+        orgDescController.text,
+        orgMemberDescController.text,
+        isPublic,
+        isVisible,
+      )),
+      variables: {
+        'file': img,
+      },
+    ));
 
     String e =
         "Access Token has expired. Please refresh session.: Undefined location";
@@ -87,6 +89,22 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     }
   }
 
+  //get image using camera
+  _imgFromCamera() async {
+    File image = await FilePicker.getFile(type: FileType.image);
+    setState(() {
+      _image = image;
+    });
+  }
+
+  //get image using gallery
+  _imgFromGallery() async {
+    File image = await FilePicker.getFile(type: FileType.image);
+    setState(() {
+      _image = image;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,195 +116,264 @@ class _CreateOrganizationState extends State<CreateOrganization> {
         child: SingleChildScrollView(
           padding: EdgeInsets.only(bottom: 10.0),
           scrollDirection: Axis.vertical,
-          child: Form(
-            key: _formKey,
-            autovalidate: _validate,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-              child: Column(
-                children: <Widget>[
-                  Image(image: AssetImage('assets/images/team.png')),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text('Setup Your Organization',
-                      style: TextStyle(fontSize: 20, color: Colors.black)),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    validator: (value) => Validator.validateOrgName(value),
-                    textAlign: TextAlign.left,
-                    textCapitalization: TextCapitalization.words,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: UIData.secondaryColor),
-                          borderRadius: BorderRadius.circular(20.0)),
-                      prefixIcon: Icon(
-                        Icons.group,
-                        color: UIData.secondaryColor,
+          child: Column(
+            children: <Widget>[
+              addImage(),
+              Text('Upload Organization Image',
+                  style: TextStyle(fontSize: 16, color: Colors.black)),
+              Form(
+                key: _formKey,
+                autovalidate: _validate,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 30,
                       ),
-                      labelText: "Organization Name",
-                      labelStyle: TextStyle(color: Colors.black),
-                      alignLabelWithHint: true,
-                      hintText: 'My Organization',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                    controller: orgNameController,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    textCapitalization: TextCapitalization.words,
-                    validator: (value) => Validator.validateOrgDesc(value),
-                    textAlign: TextAlign.left,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: UIData.secondaryColor),
-                          borderRadius: BorderRadius.circular(20.0)),
-                      prefixIcon:
-                          Icon(Icons.note, color: UIData.secondaryColor),
-                      labelText: "Organization Description",
-                      labelStyle: TextStyle(color: Colors.black),
-                      alignLabelWithHint: true,
-                      hintText: 'My Description',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                    controller: orgDescController,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    textCapitalization: TextCapitalization.words,
-                    validator: (value) =>
-                        Validator.validateOrgAttendeesDesc(value),
-                    textAlign: TextAlign.left,
-                    style: TextStyle(color: Colors.black),
-                    decoration: new InputDecoration(
-                      border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(20.0),
-                          borderSide:
-                              new BorderSide(color: UIData.secondaryColor)),
-                      prefixIcon:
-                          Icon(Icons.note, color: UIData.secondaryColor),
-                      labelText: "Member Description",
-                      labelStyle: TextStyle(color: Colors.black),
-                      alignLabelWithHint: true,
-                      hintText: 'Member Description',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                    controller: orgMemberDescController,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text('Do you want your organization to be public?',
-                      style: TextStyle(fontSize: 16, color: Colors.black)),
-                  RadioListTile(
-                    groupValue: radioValue,
-                    title: Text('Yes'),
-                    value: 0,
-                    activeColor: UIData.secondaryColor,
-                    onChanged: (val) {
-                      setState(() {
-                        radioValue = val;
-                        if (radioValue == 0) {
-                          return isPublic;
-                        }
-                      });
-                    },
-                  ),
-                  RadioListTile(
-                    activeColor: UIData.secondaryColor,
-                    groupValue: radioValue,
-                    title: Text('No'),
-                    value: 1,
-                    onChanged: (val) {
-                      setState(() {
-                        radioValue = val;
-                        if (radioValue == 1) {
-                          isPublic = false;
-                          return isPublic;
-                        }
-                      });
-                    },
-                  ),
-                  Text(
-                      'Do you want others to be able to find your organization from the search page?',
-                      style: TextStyle(fontSize: 16, color: Colors.black)),
-                  RadioListTile(
-                    activeColor: UIData.secondaryColor,
-                    groupValue: radioValue1,
-                    title: Text('Yes'),
-                    value: 0,
-                    onChanged: (val) {
-                      setState(() {
-                        radioValue1 = val;
-                        if (radioValue1 == 0) {
-                          return isVisible;
-                        }
-                      });
-                    },
-                  ),
-                  RadioListTile(
-                    activeColor: UIData.secondaryColor,
-                    groupValue: radioValue1,
-                    title: Text('No'),
-                    value: 1,
-                    onChanged: (val) {
-                      setState(() {
-                        radioValue1 = val;
-                        if (radioValue1 == 1) {
-                          isVisible = false;
-                          return isVisible;
-                        }
-                      });
-                    },
-                  ),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-                    width: double.infinity,
-                    child: RaisedButton(
-                      padding: EdgeInsets.all(16.0),
-                      shape: StadiumBorder(),
-                      child: _progressBarState
-                          ? const CircularProgressIndicator()
-                          : Text(
-                              "CREATE ORGANIZATION",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                      color: UIData.secondaryColor,
-                      onPressed: () async {
-                        if (_formKey.currentState.validate() &&
-                            radioValue >= 0 &&
-                            radioValue1 >= 0) {
-                          _formKey.currentState.save();
-                          createOrg();
+                      TextFormField(
+                        validator: (value) => Validator.validateOrgName(value),
+                        textAlign: TextAlign.left,
+                        textCapitalization: TextCapitalization.words,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: UIData.secondaryColor),
+                              borderRadius: BorderRadius.circular(20.0)),
+                          prefixIcon: Icon(
+                            Icons.group,
+                            color: UIData.secondaryColor,
+                          ),
+                          labelText: "Organization Name",
+                          labelStyle: TextStyle(color: Colors.black),
+                          alignLabelWithHint: true,
+                          hintText: 'My Organization',
+                          hintStyle: TextStyle(color: Colors.grey),
+                        ),
+                        controller: orgNameController,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        textCapitalization: TextCapitalization.words,
+                        validator: (value) => Validator.validateOrgDesc(value),
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: UIData.secondaryColor),
+                              borderRadius: BorderRadius.circular(20.0)),
+                          prefixIcon:
+                              Icon(Icons.note, color: UIData.secondaryColor),
+                          labelText: "Organization Description",
+                          labelStyle: TextStyle(color: Colors.black),
+                          alignLabelWithHint: true,
+                          hintText: 'My Description',
+                          hintStyle: TextStyle(color: Colors.grey),
+                        ),
+                        controller: orgDescController,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        textCapitalization: TextCapitalization.words,
+                        validator: (value) =>
+                            Validator.validateOrgAttendeesDesc(value),
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.black),
+                        decoration: new InputDecoration(
+                          border: new OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(20.0),
+                              borderSide:
+                                  new BorderSide(color: UIData.secondaryColor)),
+                          prefixIcon:
+                              Icon(Icons.note, color: UIData.secondaryColor),
+                          labelText: "Member Description",
+                          labelStyle: TextStyle(color: Colors.black),
+                          alignLabelWithHint: true,
+                          hintText: 'Member Description',
+                          hintStyle: TextStyle(color: Colors.grey),
+                        ),
+                        controller: orgMemberDescController,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text('Do you want your organization to be public?',
+                          style: TextStyle(fontSize: 16, color: Colors.black)),
+                      RadioListTile(
+                        groupValue: radioValue,
+                        title: Text('Yes'),
+                        value: 0,
+                        activeColor: UIData.secondaryColor,
+                        onChanged: (val) {
                           setState(() {
-                            toggleProgressBarState();
+                            radioValue = val;
+                            if (radioValue == 0) {
+                              return isPublic;
+                            }
                           });
-                        } else if (radioValue < 0 || radioValue1 < 0) {
-                          _exceptionToast("A choice must be selected");
-                        }
-                      },
-                    ),
+                        },
+                      ),
+                      RadioListTile(
+                        activeColor: UIData.secondaryColor,
+                        groupValue: radioValue,
+                        title: Text('No'),
+                        value: 1,
+                        onChanged: (val) {
+                          setState(() {
+                            radioValue = val;
+                            if (radioValue == 1) {
+                              isPublic = false;
+                              return isPublic;
+                            }
+                          });
+                        },
+                      ),
+                      Text(
+                          'Do you want others to be able to find your organization from the search page?',
+                          style: TextStyle(fontSize: 16, color: Colors.black)),
+                      RadioListTile(
+                        activeColor: UIData.secondaryColor,
+                        groupValue: radioValue1,
+                        title: Text('Yes'),
+                        value: 0,
+                        onChanged: (val) {
+                          setState(() {
+                            radioValue1 = val;
+                            if (radioValue1 == 0) {
+                              return isVisible;
+                            }
+                          });
+                        },
+                      ),
+                      RadioListTile(
+                        activeColor: UIData.secondaryColor,
+                        groupValue: radioValue1,
+                        title: Text('No'),
+                        value: 1,
+                        onChanged: (val) {
+                          setState(() {
+                            radioValue1 = val;
+                            if (radioValue1 == 1) {
+                              isVisible = false;
+                              return isVisible;
+                            }
+                          });
+                        },
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 30.0),
+                        width: double.infinity,
+                        child: RaisedButton(
+                          padding: EdgeInsets.all(16.0),
+                          shape: StadiumBorder(),
+                          child: _progressBarState
+                              ? const CircularProgressIndicator()
+                              : Text(
+                                  "CREATE ORGANIZATION",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                          color: UIData.secondaryColor,
+                          onPressed: () async {
+                            if (_formKey.currentState.validate() &&
+                                radioValue >= 0 &&
+                                radioValue1 >= 0) {
+                              _formKey.currentState.save();
+                              createOrg();
+                              setState(() {
+                                toggleProgressBarState();
+                              });
+                            } else if (radioValue < 0 || radioValue1 < 0) {
+                              _exceptionToast("A choice must be selected");
+                            }
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
     );
+  }
+
+  Widget addImage() {
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: 32,
+        ),
+        Center(
+          child: GestureDetector(
+            onTap: () {
+              _showPicker(context);
+            },
+            child: CircleAvatar(
+              radius: 55,
+              backgroundColor: UIData.secondaryColor,
+              child: _image != null
+                  ? CircleAvatar(
+                      radius: 52,
+                      backgroundImage: FileImage(
+                        _image,
+                      ),
+                    )
+                  : CircleAvatar(
+                      radius: 52,
+                      backgroundColor: Colors.lightBlue[50],
+                      child: Icon(
+                        Icons.camera_alt,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   _successToast(String msg) {
