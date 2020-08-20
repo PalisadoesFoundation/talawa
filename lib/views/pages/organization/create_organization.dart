@@ -11,8 +11,10 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
+
+import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
+
 class CreateOrganization extends StatefulWidget {
   @override
   _CreateOrganizationState createState() => _CreateOrganizationState();
@@ -33,8 +35,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   GraphAPI _graphAPI = GraphAPI();
-  var _image;
-  final picker = ImagePicker();
+  File _image;
+
 
   @override
   void initState() {
@@ -48,21 +50,20 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   createOrg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
-  //final img = http.MultipartFile.fromBytes('file', await _image.readAsBytes(), contentType: MediaType('image', 'jpeg'));
-    //print(img.filename);
+    final img = await multipartFileFrom(_image);
+    print(_image);
     QueryResult result = await _client.mutate(MutationOptions(
-        documentNode: gql(_queries.createOrg(
-      orgNameController.text,
-      orgDescController.text,
-      orgMemberDescController.text,
-      isPublic,
-      isVisible,
-      
+      documentNode: gql(_queries.createOrg(
+        orgNameController.text,
+        orgDescController.text,
+        orgMemberDescController.text,
+        isPublic,
+        isVisible,
       )),
       variables: {
-      'file':_image,
-    },
-      ));
+        'file': img,
+      },
+    ));
 
     String e =
         "Access Token has expired. Please refresh session.: Undefined location";
@@ -83,28 +84,22 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       _successToast("Sucess!");
       print(result.data);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage()));
+      Navigator.of(context).pop();
     }
   }
 
-  // get image using camera
-  // _imgFromCamera() async {
-  //   File image = await ImagePicker.pickImage(
-  //       source: ImageSource.camera, imageQuality: 50);
-
-  //   setState(() {
-  //     _image = image;
-  //   });
-  // }
+  //get image using camera
+  _imgFromCamera() async {
+    File image = await FilePicker.getFile(type: FileType.image);
+    setState(() {
+      _image = image;
+    });
+  }
 
   //get image using gallery
   _imgFromGallery() async {
-    // File image = await ImagePicker.pickImage(
-    //     source: ImageSource.gallery, imageQuality: 50);
-    
-  File image = await FilePicker.getFile(type: FileType.image);
-        setState(() {
+    File image = await FilePicker.getFile(type: FileType.image);
+    setState(() {
       _image = image;
     });
   }

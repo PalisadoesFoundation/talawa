@@ -71,6 +71,13 @@ class _NewsArticleState extends State<NewsArticle> {
                 ),
                 title: TextField(
                   decoration: InputDecoration(
+                      suffix: IconButton(
+                        color: Colors.grey,
+                        icon: Icon(Icons.send),
+                        onPressed: () {
+                          createComment();
+                        },
+                      ),
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.teal)),
                       hintText: 'Leave a Comment'),
