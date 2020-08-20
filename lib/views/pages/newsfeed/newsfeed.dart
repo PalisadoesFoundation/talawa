@@ -36,8 +36,8 @@ class _NewsFeedState extends State<NewsFeed> {
       postList =
           result == null ? [] : result['postsByOrganization'].reversed.toList();
     });
-    print(DateTime.fromMillisecondsSinceEpoch(
-        int.parse(postList[0]['createdAt'])));
+    // print(DateTime.fromMillisecondsSinceEpoch(
+    //     int.parse(postList[0]['createdAt'])));
   }
 
   @override
