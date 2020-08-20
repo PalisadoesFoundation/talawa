@@ -12,7 +12,7 @@ import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:file_picker/file_picker.dart';
 class CreateOrganization extends StatefulWidget {
   @override
   _CreateOrganizationState createState() => _CreateOrganizationState();
@@ -48,8 +48,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   createOrg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
-  final img = http.MultipartFile.fromBytes('file', await _image.readAsBytes(), contentType: MediaType('image', 'jpeg'));
-    print(img.filename);
+  //final img = http.MultipartFile.fromBytes('file', await _image.readAsBytes(), contentType: MediaType('image', 'jpeg'));
+    //print(img.filename);
     QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_queries.createOrg(
       orgNameController.text,
@@ -60,7 +60,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       
       )),
       variables: {
-      'file':img.filename,
+      'file':_image,
     },
       ));
 
@@ -88,23 +88,23 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     }
   }
 
-  //get image using camera
-  _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
+  // get image using camera
+  // _imgFromCamera() async {
+  //   File image = await ImagePicker.pickImage(
+  //       source: ImageSource.camera, imageQuality: 50);
 
-    setState(() {
-      _image = image;
-    });
-  }
+  //   setState(() {
+  //     _image = image;
+  //   });
+  // }
 
   //get image using gallery
   _imgFromGallery() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.gallery, imageQuality: 50);
+    // File image = await ImagePicker.pickImage(
+    //     source: ImageSource.gallery, imageQuality: 50);
     
-    
-    setState(() {
+  File image = await FilePicker.getFile(type: FileType.image);
+        setState(() {
       _image = image;
     });
   }
@@ -356,23 +356,23 @@ class _CreateOrganizationState extends State<CreateOrganization> {
         builder: (BuildContext context) {
           return SafeArea(
             child: Container(
-              child: new Wrap(
+              child: Wrap(
                 children: <Widget>[
-                  new ListTile(
-                      leading: new Icon(Icons.photo_library),
-                      title: new Text('Photo Library'),
+                   ListTile(
+                      leading:  Icon(Icons.photo_library),
+                      title: Text('Photo Library'),
                       onTap: () {
                         _imgFromGallery();
                         Navigator.of(context).pop();
                       }),
-                  new ListTile(
-                    leading: new Icon(Icons.photo_camera),
-                    title: new Text('Camera'),
-                    onTap: () {
-                      _imgFromCamera();
-                      Navigator.of(context).pop();
-                    },
-                  ),
+                  // new ListTile(
+                  //   leading: new Icon(Icons.photo_camera),
+                  //   title: new Text('Camera'),
+                  //   onTap: () {
+                  //     _imgFromCamera();
+                  //     Navigator.of(context).pop();
+                  //   },
+                  // ),
                 ],
               ),
             ),

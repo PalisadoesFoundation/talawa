@@ -286,6 +286,18 @@ class Queries {
   ''';
   }
 
+ String removeMember(String organizationId, String userId) {
+    return '''
+      mutation {
+        removeMember(data: {organizationId: "$organizationId", userId: "$userId"}){
+              user{
+              firstName
+              lastName
+           }
+         }
+    }
+  ''';
+  }
 //////////////EVENTS/////////////////////
   String fetchOrgEvents(String orgId) {
     return """
@@ -428,7 +440,7 @@ class Queries {
   }
 
 ///////////////////NEWSFEED///////////////////////////////////////////////////////////////////////
-  String postsById(String orgId) {
+  String getPostsById(String orgId) {
     return """
       query {
         postsByOrganization(id: "$orgId")
@@ -456,40 +468,27 @@ class Queries {
 """;
   }
 
-///////////////////NEWSFEED////////////////
-  String getPostsComments(String orgId) {
+  String getPostsComments(String postId) {
     return """
-      query {
-        posts
-        { 
-          _id
-          text
-          createdAt
-          likedBy{
-            firstName
-            lastName
-          }
-          comments{
-            firstName
-            lastName
-          }
-          imageUrl
-          videoUrl
-          creator{
-            firstName
-            lastName
-          }
-          organization{
-            _id
-          }
-          likedBy{
-            _id
-          }
-          comments{
-            _id
-          }
-        }
-      }
+query{
+  commentsByPost(id: "$postId"){
+    text
+  }
+}
+""";
+  }
+
+  String createComments(String postId, String text) {
+    return """
+mutation{
+  createComment(postId: "$postId", 
+  data:{
+    text: "$text"
+  }
+  ){
+    _id
+  }
+}
 """;
   }
 

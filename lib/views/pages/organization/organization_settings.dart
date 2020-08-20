@@ -130,6 +130,10 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                   'Accept Organization Requests',
                   style: TextStyle(fontSize: 18.0),
                 ),
+                subtitle: Text(
+                  'For Private Organizations',
+                 
+                ),
                 leading: Icon(
                   Icons.group_add,
                   color: UIData.secondaryColor,

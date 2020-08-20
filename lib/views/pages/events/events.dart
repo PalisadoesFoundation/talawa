@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/views/pages/events/EventDetailPage.dart';
 import 'package:talawa/views/pages/events/addEventPage.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-import 'package:provider/provider.dart';
-import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
@@ -58,7 +55,6 @@ class _EventsState extends State<Events> {
     setState(() {
       eventList = result == null ? [] : result['events'].reversed.toList();
     });
-    // print(eventList[0]);
   }
 
   Future<void> _editEvent(context, event) async {

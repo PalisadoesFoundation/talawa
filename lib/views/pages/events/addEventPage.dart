@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 
-import 'package:provider/provider.dart';
-import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
@@ -35,10 +30,8 @@ class _AddEventState extends State<AddEvent> {
   var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
   Preferences preferences = Preferences();
-  String currentOrgId;
   void initState() {
     super.initState();
-    getCurrentOrgId();
   }
 
   DateTime selectedDate = DateTime.now();
@@ -72,6 +65,7 @@ class _AddEventState extends State<AddEvent> {
   }
 
   Future<void> createEvent() async {
+    final String currentOrgID = await preferences.getCurrentOrgId();
     DateTime date =
         DateTime(selectedDate.year, selectedDate.month, selectedDate.day)
             .toUtc();
@@ -79,7 +73,7 @@ class _AddEventState extends State<AddEvent> {
     String endTime = startEndTimes['Start Time'].format(context);
 
     String mutation = Queries().addEvent(
-      organizationId: currentOrgId,
+      organizationId: currentOrgID,
       title: titleController.text,
       description: descriptionController.text,
       location: locationController.text,
@@ -94,14 +88,6 @@ class _AddEventState extends State<AddEvent> {
     );
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlmutation(mutation);
-  }
-
-  getCurrentOrgId() async {
-    final orgId = await preferences.getCurrentOrgId();
-    setState(() {
-      currentOrgId = orgId;
-    });
-    print(currentOrgId);
   }
 
   @override

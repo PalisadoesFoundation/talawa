@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lipsum/lipsum.dart' as lipsum;
+import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class NewsArticle extends StatefulWidget {
@@ -12,22 +14,28 @@ class NewsArticle extends StatefulWidget {
 }
 
 class _NewsArticleState extends State<NewsArticle> {
-  String currentOrgId;
+  final commentController = TextEditingController();
   Preferences preferences = Preferences();
+  ApiFunctions apiFunctions = ApiFunctions();
   initState() {
     super.initState();
-    getCurrentOrgId();
     getPostComments();
   }
 
-  getCurrentOrgId() async {
-    final orgId = await preferences.getCurrentOrgId();
-    setState(() {
-      currentOrgId = orgId;
-    });
+  getPostComments() async {
+    String mutation = Queries().getPostsComments(widget.post['_id']);
+    Map result = await apiFunctions.gqlmutation(mutation);
+    print(result);
   }
 
-  getPostComments() {}
+  createComment() async {
+    if (commentController.text.isNotEmpty) {
+      String mutation =
+          Queries().createComments(widget.post['_id'], commentController.text);
+      Map result = await apiFunctions.gqlmutation(mutation);
+      print(result);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +70,12 @@ class _NewsArticleState extends State<NewsArticle> {
                   backgroundImage: AssetImage(UIData.pkImage),
                 ),
                 title: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.teal)),
-                        hintText: 'Leave a Comment')),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.teal)),
+                      hintText: 'Leave a Comment'),
+                  controller: commentController,
+                ),
               )
             ],
           )),
