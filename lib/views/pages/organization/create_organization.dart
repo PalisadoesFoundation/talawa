@@ -84,8 +84,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       _successToast("Sucess!");
       print(result.data);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage()));
+      Navigator.of(context).pop();
     }
   }
 
