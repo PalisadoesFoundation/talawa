@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
-import 'dart:math';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
@@ -19,12 +16,6 @@ class NewsFeed extends StatefulWidget {
 }
 
 class _NewsFeedState extends State<NewsFeed> {
-  List list = List<String>.generate(
-      20, (int index) => lipsum.createWord(numWords: 4).toString());
-  List list2 = List<String>.generate(
-      20, (int index) => lipsum.createWord(numWords: 20).toString());
-  List times = List<int>.generate(20, (index) => Random().nextInt(30));
-////////////////////////////////////////////////////
   Preferences preferences = Preferences();
   List postList = [];
   String name;
@@ -37,10 +28,10 @@ class _NewsFeedState extends State<NewsFeed> {
 
   Future<void> getPosts() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    String query = Queries().postsById(currentOrgID);
+    String query = Queries().getPostsById(currentOrgID);
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlquery(query);
-    // print(result);
+    print(result);
     setState(() {
       postList =
           result == null ? [] : result['postsByOrganization'].reversed.toList();
@@ -51,7 +42,6 @@ class _NewsFeedState extends State<NewsFeed> {
 
   @override
   Widget build(BuildContext context) {
-    times.sort();
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -104,15 +94,11 @@ class _NewsFeedState extends State<NewsFeed> {
                                         MainAxisAlignment.spaceAround,
                                     children: <Widget>[
                                       Icon(
-                                        Icons.delete,
+                                        Icons.thumb_up,
                                         color: UIData.secondaryColor,
                                       ),
                                       Icon(
-                                        Icons.share,
-                                        color: UIData.secondaryColor,
-                                      ),
-                                      Icon(
-                                        Icons.bookmark,
+                                        Icons.comment,
                                         color: UIData.secondaryColor,
                                       ),
                                       Container(width: 80)
@@ -133,9 +119,16 @@ class _NewsFeedState extends State<NewsFeed> {
         onPressed: () {
           pushNewScreen(
             context,
-            //withNavBar: false,
             screen: AddPost(),
           );
         });
+  }
+
+  Widget likes() {
+    return Row(
+      children: <Widget>[
+        Text('0'),
+      ],
+    );
   }
 }
