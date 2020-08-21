@@ -18,11 +18,11 @@ class _NewsArticleState extends State<NewsArticle> {
   final commentController = TextEditingController();
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
+  bool loadComments = false;
   Timer timer = Timer();
   List comments = [];
   initState() {
     super.initState();
-    getPostComments();
   }
 
   getPostComments() async {
@@ -59,7 +59,7 @@ class _NewsArticleState extends State<NewsArticle> {
           SliverAppBar(
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(lipsum.createWord(numWords: 4).toString()),
+              title: Text(widget.post['title'].toString()),
               background: FittedBox(
                 child: Image.asset(UIData.shoppingImage),
                 fit: BoxFit.fill,
@@ -76,10 +76,6 @@ class _NewsArticleState extends State<NewsArticle> {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.chat),
-                title: Text(comments.length.toString() + '  Comments'),
-              ),
               ListTile(
                 leading: CircleAvatar(
                   backgroundImage: AssetImage(UIData.pkImage),
@@ -100,13 +96,9 @@ class _NewsArticleState extends State<NewsArticle> {
                 ),
               ),
               Container(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: comments.length,
-                      itemBuilder: (context, index) {
-                        return commentTile(index);
-                      })),
+                  child: loadComments == false
+                      ? loadCommentsButton()
+                      : commentList())
             ],
           )),
         ],
@@ -114,29 +106,59 @@ class _NewsArticleState extends State<NewsArticle> {
     );
   }
 
-  Widget commentTile(index) {
-    return ListTile(
-        leading: CircleAvatar(
-          child: Icon(
-            Icons.person,
-            color: Colors.white10,
-          ),
-          backgroundColor: UIData.secondaryColor,
-        ),
-        title: Text(comments[index]['text']),
-        subtitle: Row(
-          children: [
-            Text(comments[index]['creator']['firstName'] +
-                ' ' +
-                comments[index]['creator']['lastName']),
-            Text(
-              ' - ',
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            Text(timer.hoursOrDays(comments[index]['createdAt']))
-          ],
+  Widget loadCommentsButton() {
+    return FlatButton(
+        color: Colors.grey[200],
+        onPressed: () {
+          setState(() {
+            loadComments = true;
+          });
+        },
+        child: Text(
+          'Load Comments',
+          style: TextStyle(color: Colors.black54),
         ));
+  }
+
+  Widget commentList() {
+    getPostComments();
+    return Column(
+      children: [
+        ListTile(
+          leading: Icon(Icons.chat),
+          title: Text(comments.length.toString() + '  Comments'),
+        ),
+        ListView.builder(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+            itemCount: comments.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: CircleAvatar(
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.white10,
+                  ),
+                  backgroundColor: UIData.secondaryColor,
+                ),
+                title: Text(comments[index]['text']),
+                subtitle: Row(
+                  children: [
+                    Text(comments[index]['creator']['firstName'] +
+                        ' ' +
+                        comments[index]['creator']['lastName']),
+                    Text(
+                      ' - ',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    Text(timer.hoursOrDays(comments[index]['createdAt']))
+                  ],
+                ),
+              );
+            })
+      ],
+    );
   }
 }

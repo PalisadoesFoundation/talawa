@@ -21,18 +21,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
-  // AnimationController controller;
-  String userID;
   Preferences preferences = Preferences();
-  Map result = {};
   @override
   void initState() {
     super.initState();
-    getUser();
   }
 
   void dispose() {
@@ -40,16 +34,11 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  getUser() async {
-    final id = await preferences.getUserId();
-    userID = id;
-    getUserInfo();
-  }
-
   Future<void> getUserInfo() async {
+    final String userID = await preferences.getUserId();
     String mutation = Queries().fetchUserInfo2(userID);
     ApiFunctions apiFunctions = ApiFunctions();
-    result = await apiFunctions.gqlmutation(mutation);
+    final result = await apiFunctions.gqlmutation(mutation);
   }
 
   List<Widget> _buildScreens() {
