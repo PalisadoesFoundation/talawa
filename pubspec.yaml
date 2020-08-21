@@ -39,10 +39,7 @@ dependencies:
   persistent_bottom_nav_bar: ^1.5.5
   flutter_datetime_picker: ^1.4.0
   lipsum: ^1.0.1 
-  image_picker: ^0.6.6+5
-  # permission_handler: ^5.0.1+1
   file_picker: ^1.13.3
-  http_parser: ^3.1.4
 
   flutter_localizations:
     sdk: flutter

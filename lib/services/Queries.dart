@@ -438,6 +438,8 @@ class Queries {
           createdAt
           imageUrl
           videoUrl
+          commentCount
+          likeCount
           creator{
             firstName
             lastName
@@ -460,7 +462,13 @@ class Queries {
     return """
 query{
   commentsByPost(id: "$postId"){
+    _id
     text
+    createdAt
+    creator{
+      firstName
+      lastName
+    }
   }
 }
 """;

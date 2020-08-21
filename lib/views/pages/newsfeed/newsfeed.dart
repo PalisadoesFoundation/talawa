@@ -93,10 +93,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: <Widget>[
-                                      Icon(
-                                        Icons.thumb_up,
-                                        color: UIData.secondaryColor,
-                                      ),
+                                      likeButton(index),
                                       Icon(
                                         Icons.comment,
                                         color: UIData.secondaryColor,
@@ -124,10 +121,11 @@ class _NewsFeedState extends State<NewsFeed> {
         });
   }
 
-  Widget likes() {
+  Widget likeButton(index) {
     return Row(
       children: <Widget>[
-        Text('0'),
+        Text(postList[index]['likeCount'].toString()),
+        Icon(Icons.thumb_up)
       ],
     );
   }

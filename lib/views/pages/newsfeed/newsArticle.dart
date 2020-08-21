@@ -4,6 +4,7 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/utils/timer.dart';
 
 class NewsArticle extends StatefulWidget {
   Map post;
@@ -17,6 +18,8 @@ class _NewsArticleState extends State<NewsArticle> {
   final commentController = TextEditingController();
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
+  Timer timer = Timer();
+  List comments = [];
   initState() {
     super.initState();
     getPostComments();
@@ -25,7 +28,11 @@ class _NewsArticleState extends State<NewsArticle> {
   getPostComments() async {
     String mutation = Queries().getPostsComments(widget.post['_id']);
     Map result = await apiFunctions.gqlmutation(mutation);
-    print(result);
+    // print(result);
+    setState(() {
+      comments =
+          result == null ? [] : result['commentsByPost'].reversed.toList();
+    });
   }
 
   createComment() async {
@@ -34,7 +41,14 @@ class _NewsArticleState extends State<NewsArticle> {
           Queries().createComments(widget.post['_id'], commentController.text);
       Map result = await apiFunctions.gqlmutation(mutation);
       print(result);
+      commentController.text = '';
+      getPostComments();
     }
+  }
+
+  void dispose() {
+    commentController.dispose();
+    super.dispose();
   }
 
   @override
@@ -60,10 +74,11 @@ class _NewsArticleState extends State<NewsArticle> {
           ),
           SliverToBoxAdapter(
               child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
                 leading: Icon(Icons.chat),
-                title: Text('0 Comments'),
+                title: Text(comments.length.toString() + '  Comments'),
               ),
               ListTile(
                 leading: CircleAvatar(
@@ -83,11 +98,45 @@ class _NewsArticleState extends State<NewsArticle> {
                       hintText: 'Leave a Comment'),
                   controller: commentController,
                 ),
-              )
+              ),
+              Container(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemCount: comments.length,
+                      itemBuilder: (context, index) {
+                        return commentTile(index);
+                      })),
             ],
           )),
         ],
       ),
     );
+  }
+
+  Widget commentTile(index) {
+    return ListTile(
+        leading: CircleAvatar(
+          child: Icon(
+            Icons.person,
+            color: Colors.white10,
+          ),
+          backgroundColor: UIData.secondaryColor,
+        ),
+        title: Text(comments[index]['text']),
+        subtitle: Row(
+          children: [
+            Text(comments[index]['creator']['firstName'] +
+                ' ' +
+                comments[index]['creator']['lastName']),
+            Text(
+              ' - ',
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            Text(timer.hoursOrDays(comments[index]['createdAt']))
+          ],
+        ));
   }
 }

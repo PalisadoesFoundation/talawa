@@ -1,9 +1,6 @@
 import 'dart:io';
-import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:http/http.dart';
-import 'package:http/http.dart' as http;
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
@@ -11,7 +8,6 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
 
@@ -36,7 +32,6 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   FToast fToast;
   GraphAPI _graphAPI = GraphAPI();
   File _image;
-  final picker = ImagePicker();
 
   @override
   void initState() {
