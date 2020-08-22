@@ -46,7 +46,6 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   createOrg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
     final img = await multipartFileFrom(_image);
-    print(_image);
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
         orgNameController.text,
@@ -81,14 +80,6 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       //Navigate user to join organization screen
       Navigator.of(context).pop();
     }
-  }
-
-  //get image using camera
-  _imgFromCamera() async {
-    File image = await FilePicker.getFile(type: FileType.image);
-    setState(() {
-      _image = image;
-    });
   }
 
   //get image using gallery
@@ -355,14 +346,6 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         _imgFromGallery();
                         Navigator.of(context).pop();
                       }),
-                  // new ListTile(
-                  //   leading: new Icon(Icons.photo_camera),
-                  //   title: new Text('Camera'),
-                  //   onTap: () {
-                  //     _imgFromCamera();
-                  //     Navigator.of(context).pop();
-                  //   },
-                  // ),
                 ],
               ),
             ),

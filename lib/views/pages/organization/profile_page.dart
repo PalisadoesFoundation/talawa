@@ -3,6 +3,7 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
@@ -93,32 +94,33 @@ class _ProfilePageState extends State<ProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         ListTile(
-                          title: Text("Profile",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0,
-                                  color: Colors.white)),
-                          trailing: CircleAvatar(
-                            radius: 42,
-                            backgroundColor: Colors.black,
-                            child: CircleAvatar(
-                              radius: 45.0,
-                              backgroundColor: Colors.white,
-                              child: Text(
-                                  userDetails[0]['firstName']
-                                          .toString()
-                                          .substring(0, 1)
-                                          .toUpperCase() +
-                                      userDetails[0]['lastName']
-                                          .toString()
-                                          .substring(0, 1)
-                                          .toUpperCase(),
-                                  style: TextStyle(
-                                    color: UIData.primaryColor,
+                            title: Text("Profile",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0,
+                                    color: Colors.white)),
+                            trailing: userDetails[0]['image'] != null
+                                ? CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: NetworkImage(
+                                        displayImgRoute +
+                                            userDetails[0]['image']))
+                                : CircleAvatar(
+                                    radius: 45.0,
+                                    backgroundColor: Colors.white,
+                                    child: Text(
+                                        userDetails[0]['firstName']
+                                                .toString()
+                                                .substring(0, 1)
+                                                .toUpperCase() +
+                                            userDetails[0]['lastName']
+                                                .toString()
+                                                .substring(0, 1)
+                                                .toUpperCase(),
+                                        style: TextStyle(
+                                          color: UIData.primaryColor,
+                                        )),
                                   )),
-                            ),
-                          ),
-                        ),
                         const SizedBox(height: 10.0),
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0),

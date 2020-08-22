@@ -13,10 +13,9 @@ import 'package:talawa/utils/timer.dart';
 import 'package:talawa/views/widgets/custom_appbar.dart';
 
 class NewsFeed extends StatefulWidget {
-  NewsFeed({Key key, this.title, this.imgSrc}) : super(key: key);
+  NewsFeed({Key key, this.title}) : super(key: key);
 
   final String title;
-  final String imgSrc;
 
   @override
   _NewsFeedState createState() => _NewsFeedState();
@@ -34,24 +33,13 @@ class _NewsFeedState extends State<NewsFeed> {
   List postList = [];
   String name;
   Timer timer = Timer();
-  String _imgSrc;
 
   initState() {
     super.initState();
     getPosts();
   }
 
-  getImgSrc() async {
-    final String imgSrc = await preferences.getCurrentOrgImgSrc();
-    setState(() {
-      _imgSrc = imgSrc;
-    });
-    print(imgSrc);
-  }
-
   Future<void> getPosts() async {
-    getImgSrc();
-
     final String currentOrgID = await preferences.getCurrentOrgId();
     String query = Queries().getPostsById(currentOrgID);
     Map result = await apiFunctions.gqlquery(query);
@@ -80,7 +68,7 @@ class _NewsFeedState extends State<NewsFeed> {
   Widget build(BuildContext context) {
     times.sort();
     return Scaffold(
-        appBar: CustomAppBar("Newsfeed", _imgSrc),
+        appBar: CustomAppBar("Newsfeed"),
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
             ? Center(child: CircularProgressIndicator())

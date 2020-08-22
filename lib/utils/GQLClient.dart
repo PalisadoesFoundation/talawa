@@ -7,7 +7,6 @@ class GraphQLConfiguration {
   Preferences _pref = Preferences();
   static String token;
   static String refreshToken;
-  static const String displayImgRoute = "http://calico.palisadoes.org/talawa/";
 
   getToken() async {
     final id = await _pref.getToken();

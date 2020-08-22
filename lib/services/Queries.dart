@@ -17,8 +17,9 @@ class Queries {
   String registerUser(
       String firstName, String lastName, String email, String password) {
     return """
-        mutation {
-          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"}){
+        mutation (\$file: Upload) {
+          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"},
+           file: \$file){
             accessToken
             user{
                 _id
@@ -62,6 +63,7 @@ class Queries {
           firstName
           lastName
           email
+          image
           joinedOrganizations{
             image
             _id
@@ -189,12 +191,6 @@ class Queries {
     }
   ''';
   }
-
-  // String uploadOrgImg = '''
-  //      mutation uploadOrgImg(\$organizationId: ID!){
-  //         addOrganizationImage(id:\$id){
-
-  //   ''';
 
   String updateOrg(String orgId, String name, String description, bool isPublic,
       bool visibleInSearch) {

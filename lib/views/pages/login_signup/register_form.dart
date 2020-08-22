@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:io';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -11,6 +11,8 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:graphql/utilities.dart' show multipartFileFrom;
+import 'package:file_picker/file_picker.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -30,6 +32,7 @@ class RegisterFormState extends State<RegisterForm> {
   Preferences _pref = Preferences();
   FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+  File _image;
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -44,10 +47,15 @@ class RegisterFormState extends State<RegisterForm> {
   //function for registering user which gets called when sign up is press
   registerUser() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
-
+    final img = await multipartFileFrom(_image);
+    print(_image);
     QueryResult result = await _client.mutate(MutationOptions(
-        documentNode: gql(_signupQuery.registerUser(
-            model.firstName, model.lastName, model.email, model.password))));
+      documentNode: gql(_signupQuery.registerUser(
+          model.firstName, model.lastName, model.email, model.password)),
+      variables: {
+        'file': img,
+      },
+    ));
     if (result.hasException) {
       print(result.exception);
       setState(() {
@@ -81,6 +89,14 @@ class RegisterFormState extends State<RegisterForm> {
     }
   }
 
+  //get image using gallery
+  _imgFromGallery() async {
+    File image = await FilePicker.getFile(type: FileType.image);
+    setState(() {
+      _image = image;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -88,10 +104,14 @@ class RegisterFormState extends State<RegisterForm> {
         autovalidate: _validate,
         child: Column(
           children: <Widget>[
-            Text('Register',
-                style: TextStyle(fontSize: 35, color: Colors.white)),
+            addImage(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Add Profile Image',
+                  style: TextStyle(fontSize: 16, color: Colors.white)),
+            ),
             SizedBox(
-              height: 50,
+              height: 25,
             ),
             TextFormField(
               textCapitalization: TextCapitalization.words,
@@ -229,6 +249,64 @@ class RegisterFormState extends State<RegisterForm> {
             ),
           ],
         ));
+  }
+
+  Widget addImage() {
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: 32,
+        ),
+        Center(
+          child: GestureDetector(
+            onTap: () {
+              _showPicker(context);
+            },
+            child: CircleAvatar(
+              radius: 55,
+              backgroundColor: UIData.secondaryColor,
+              child: _image != null
+                  ? CircleAvatar(
+                      radius: 52,
+                      backgroundImage: FileImage(
+                        _image,
+                      ),
+                    )
+                  : CircleAvatar(
+                      radius: 52,
+                      backgroundColor: Colors.lightBlue[50],
+                      child: Icon(
+                        Icons.camera_alt,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: Container(
+              child: Wrap(
+                children: <Widget>[
+                  ListTile(
+                      leading: Icon(Icons.photo_library),
+                      title: Text('Photo Library'),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   _successToast(String msg) {

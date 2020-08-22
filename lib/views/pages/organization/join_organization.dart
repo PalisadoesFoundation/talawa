@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -28,7 +29,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   List joinedOrg = [];
   GraphAPI _graphAPI = GraphAPI();
   String isPublic;
-  String displayImgRoute = GraphQLConfiguration.displayImgRoute;
 
   @override
   void initState() {
@@ -53,9 +53,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   Future joinPrivateOrg() async {
-    String accessTokenException =
-        "Access Token has expired. Please refresh session.: Undefined location";
-
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.mutate(MutationOptions(
