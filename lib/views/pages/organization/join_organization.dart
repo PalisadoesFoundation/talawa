@@ -28,6 +28,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   List joinedOrg = [];
   GraphAPI _graphAPI = GraphAPI();
   String isPublic;
+  String displayImgRoute = GraphQLConfiguration.displayImgRoute;
 
   @override
   void initState() {
@@ -45,6 +46,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       print(result.exception);
       showError(result.exception.toString());
     } else if (!result.hasException) {
+      print(result.data['organizations']);
       setState(() {
         organizationInfo = result.data['organizations'];
       });
@@ -161,7 +163,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                         ),
                         hintText: "Search Organization Name"),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 20),
                   Expanded(
                       child: Container(
                           color: Color(0xffF3F6FF),
@@ -171,7 +173,16 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                 final organization = organizationInfo[index];
                                 return Card(
                                   child: ListTile(
-                                    leading: FlutterLogo(size: 56.0),
+                                    leading: organization['image'] != null
+                                        ? CircleAvatar(
+                                            radius: 30,
+                                            backgroundImage: NetworkImage(
+                                                displayImgRoute +
+                                                    organization['image']))
+                                        : CircleAvatar(
+                                            radius: 30,
+                                            backgroundImage: AssetImage(
+                                                "assets/images/team.png")),
                                     title:
                                         Text(organization['name'].toString()),
                                     subtitle: Column(

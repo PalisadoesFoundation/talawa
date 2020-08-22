@@ -7,21 +7,20 @@ class GraphQLConfiguration {
   Preferences _pref = Preferences();
   static String token;
   static String refreshToken;
+  static const String displayImgRoute = "http://calico.palisadoes.org/talawa/";
 
   getToken() async {
     final id = await _pref.getToken();
     token = id;
   }
 
-    getRefreshToken() async {
+  getRefreshToken() async {
     final rToken = await _pref.getRefreshToken();
     refreshToken = rToken;
   }
- 
+
   static HttpLink httpLink = HttpLink(
-    uri: "http://calico.palisadoes.org/talawa/",
-    //uri: "https://talawa-testing.herokuapp.com/graphql",
-    // uri: "http://192.168.100.67:4000/graphql",
+    uri: "http://calico.palisadoes.org/talawa/graphql",
   );
 
   static AuthLink authLink = AuthLink(
@@ -29,7 +28,7 @@ class GraphQLConfiguration {
   );
 
   static final Link finalAuthLink = authLink.concat(httpLink);
-  
+
   GraphQLClient clientToQuery() {
     return GraphQLClient(
       cache: InMemoryCache(),
@@ -44,5 +43,4 @@ class GraphQLConfiguration {
       link: finalAuthLink,
     );
   }
-
 }

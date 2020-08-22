@@ -112,6 +112,7 @@ class Queries {
   final String fetchOrganizations = '''
     query{
       organizations(){
+        image
         _id
         name
         description
@@ -286,7 +287,7 @@ class Queries {
   ''';
   }
 
- String removeMember(String organizationId, String userId) {
+  String removeMember(String organizationId, String userId) {
     return '''
       mutation {
         removeMember(data: {organizationId: "$organizationId", userId: "$userId"}){
@@ -298,6 +299,7 @@ class Queries {
     }
   ''';
   }
+
 //////////////EVENTS/////////////////////
   String fetchOrgEvents(String orgId) {
     return """
