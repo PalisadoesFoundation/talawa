@@ -7,6 +7,18 @@ class Preferences with ChangeNotifier {
   static const refreshTokenKey = "refreshTokenKey";
   static const userId = "userId";
   static const currentOrgId = "currentOrgId";
+  static const currentOrgImgSrc = "currentOrgImgSrc";
+
+  Future saveCurrentOrgImgSrc(String currImgSrc) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(currentOrgImgSrc, currImgSrc);
+  }
+
+  Future<String> getCurrentOrgImgSrc() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String currentImgSrc = preferences.getString(currentOrgImgSrc);
+    return currentImgSrc;
+  }
 
   Future saveCurrentOrgId(String currOrgId) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -46,8 +58,7 @@ class Preferences with ChangeNotifier {
     return userToken;
   }
 
-  
-   Future saveRefreshToken(Token token) async {
+  Future saveRefreshToken(Token token) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     token.parseJwt();
     await preferences.setString(
@@ -57,7 +68,7 @@ class Preferences with ChangeNotifier {
             : "");
   }
 
-    Future<String> getRefreshToken() async {
+  Future<String> getRefreshToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String refreshToken = preferences.getString(refreshTokenKey);
     return refreshToken;
@@ -90,11 +101,11 @@ class Preferences with ChangeNotifier {
     return true;
   }
 
-   static Future<bool> removeOrg() async {
+  static Future<bool> removeOrg() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     try {
       preferences.remove(currentOrgId);
-     } catch (e) {
+    } catch (e) {
       print(e);
       return false;
     }

@@ -69,6 +69,9 @@ class LoginFormState extends State<LoginForm> {
       final String currentOrgId =
           result.data['login']['user']['joinedOrganizations'][0]['_id'];
       await _pref.saveCurrentOrgId(currentOrgId);
+      final String currentOrgImgSrc =
+          result.data['login']['user']['joinedOrganizations'][0]['image'];
+      await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new HomePage()));
     }

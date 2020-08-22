@@ -74,9 +74,11 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       _successToast(
           "Switched to " + result.data['organizations'][0]['name'].toString());
 
-      //save new current org id in preference
+      //save new current org in preference
       final String currentOrgId = result.data['organizations'][0]['_id'];
       await _pref.saveCurrentOrgId(currentOrgId);
+      final String currentOrgImgSrc = result.data['organizations'][0]['image'];
+      await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new ProfilePage()));
     }

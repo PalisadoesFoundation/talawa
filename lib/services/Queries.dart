@@ -44,6 +44,7 @@ class Queries {
                 _id
                 firstName
                  joinedOrganizations{
+                   image
                   _id
                   name
                  }
@@ -62,6 +63,7 @@ class Queries {
           lastName
           email
           joinedOrganizations{
+            image
             _id
             name
             description
@@ -135,6 +137,7 @@ class Queries {
     return '''
     query{
       organizations(id: "$orgId"){
+        image
         _id
         name
         description

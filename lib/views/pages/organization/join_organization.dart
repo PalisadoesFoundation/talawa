@@ -46,7 +46,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       print(result.exception);
       showError(result.exception.toString());
     } else if (!result.hasException) {
-      print(result.data['organizations']);
       setState(() {
         organizationInfo = result.data['organizations'];
       });
@@ -106,6 +105,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         final String currentOrgId = result.data['joinPublicOrganization']
             ['joinedOrganizations'][0]['_id'];
         await _pref.saveCurrentOrgId(currentOrgId);
+        final String currentOrgImgSrc = result.data['joinPublicOrganization']
+            ['joinedOrganizations'][0]['image'];
+        await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
       }
       _successToast("Sucess!");
 
