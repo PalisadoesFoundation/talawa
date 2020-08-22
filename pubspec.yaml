@@ -41,8 +41,6 @@ dependencies:
   lipsum: ^1.0.1 
   file_picker: ^1.13.3
 
-  
-
   flutter_localizations:
     sdk: flutter
 

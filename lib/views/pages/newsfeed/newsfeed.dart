@@ -26,6 +26,7 @@ class _NewsFeedState extends State<NewsFeed> {
   List times = List<int>.generate(20, (index) => Random().nextInt(30));
 ////////////////////////////////////////////////////
   Preferences preferences = Preferences();
+  ApiFunctions apiFunctions = ApiFunctions();
   List postList = [];
   String name;
   Timer timer = Timer();
@@ -38,15 +39,26 @@ class _NewsFeedState extends State<NewsFeed> {
   Future<void> getPosts() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     String query = Queries().getPostsById(currentOrgID);
-    ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlquery(query);
     // print(result);
     setState(() {
       postList =
           result == null ? [] : result['postsByOrganization'].reversed.toList();
     });
-    // print(DateTime.fromMillisecondsSinceEpoch(
-        // int.parse(postList[0]['createdAt'])));
+  }
+
+  Future<void> addLike(String postID) async {
+    String mutation = Queries().addLike(postID);
+    Map result = await apiFunctions.gqlmutation(mutation);
+    print(result);
+    getPosts();
+  }
+
+  Future<void> removeLike(String postID) async {
+    String mutation = Queries().removeLike(postID);
+    Map result = await apiFunctions.gqlmutation(mutation);
+    print(result);
+    getPosts();
   }
 
   @override
@@ -77,7 +89,12 @@ class _NewsFeedState extends State<NewsFeed> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                    '${timer.hoursOrDays(postList[index]['createdAt'])}'),
+                                    '${timer.hoursOrDays(postList[index]['createdAt'])}' +
+                                        ' - ' +
+                                        postList[index]['creator']
+                                            ['firstName'] +
+                                        ' ' +
+                                        postList[index]['creator']['lastName']),
                               ),
                             ),
                             ListTile(
@@ -87,10 +104,8 @@ class _NewsFeedState extends State<NewsFeed> {
                                     screen: NewsArticle(post: postList[index]),
                                   );
                                 },
-                                title: Text(postList[index]['creator']
-                                        ['firstName'] +
-                                    ' ' +
-                                    (postList[index]['creator']['lastName'])),
+                                title:
+                                    Text(postList[index]['title'].toString()),
                                 subtitle:
                                     Text(postList[index]["text"].toString()),
                                 trailing: Container(
@@ -103,18 +118,8 @@ class _NewsFeedState extends State<NewsFeed> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: <Widget>[
-                                      Icon(
-                                        Icons.delete,
-                                        color: UIData.secondaryColor,
-                                      ),
-                                      Icon(
-                                        Icons.share,
-                                        color: UIData.secondaryColor,
-                                      ),
-                                      Icon(
-                                        Icons.bookmark,
-                                        color: UIData.secondaryColor,
-                                      ),
+                                      likeButton(index),
+                                      commentCounter(index),
                                       Container(width: 80)
                                     ])),
                           ],
@@ -131,11 +136,44 @@ class _NewsFeedState extends State<NewsFeed> {
           color: Colors.white,
         ),
         onPressed: () {
-          pushNewScreen(
-            context,
-            //withNavBar: false,
-            screen: AddPost(),
-          );
+          pushNewScreenWithRouteSettings(context,
+              screen: AddPost(), settings: RouteSettings());
         });
+  }
+
+  Widget commentCounter(index) {
+    return Row(
+      children: [
+        Text(
+          postList[index]['commentCount'].toString(),
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 16,
+          ),
+        ),
+        IconButton(
+            icon: Icon(Icons.comment), color: Colors.grey, onPressed: () {})
+      ],
+    );
+  }
+
+  Widget likeButton(index) {
+    return Row(
+      children: [
+        Text(
+          postList[index]['likeCount'].toString(),
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 16,
+          ),
+        ),
+        IconButton(
+            icon: Icon(Icons.thumb_up),
+            color: Colors.grey,
+            onPressed: () {
+              addLike(postList[index]['_id']);
+            })
+      ],
+    );
   }
 }

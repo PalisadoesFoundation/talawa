@@ -452,6 +452,9 @@ class Queries {
           createdAt
           imageUrl
           videoUrl
+          title
+          commentCount
+          likeCount
           creator{
             firstName
             lastName
@@ -474,7 +477,13 @@ class Queries {
     return """
 query{
   commentsByPost(id: "$postId"){
+    _id
     text
+    createdAt
+    creator{
+      firstName
+      lastName
+    }
   }
 }
 """;
@@ -494,18 +503,42 @@ mutation{
 """;
   }
 
-  String addPost(String text, String organizationId, String date) {
+  String addPost(String text, String organizationId, String title) {
     return """
     mutation {
         createPost(
             data: {
                 text: "$text",
+                title: "$title",
                 organizationId: "$organizationId",
         }) {
             _id
             text
         }
     }
+  """;
+  }
+
+  String addLike(String postID) {
+    return """
+  mutation{
+    likePost(id:"$postID"){
+      _id
+    }
+  }
+  """;
+  }
+
+  String removeLike(String postID) {
+    return """
+  mutation{
+    unlikePost(id:"$postID"){
+      _id
+      likedBy{
+        _id
+      }
+    }
+  }
   """;
   }
 }
