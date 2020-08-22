@@ -14,6 +14,9 @@ import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'create_organization.dart';
 
 class JoinOrganization extends StatefulWidget {
+  JoinOrganization({Key key, this.msg});
+
+  final String msg;
   @override
   _JoinOrganizationState createState() => _JoinOrganizationState();
 }

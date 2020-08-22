@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/home_page.dart';
@@ -59,13 +60,12 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       },
     ));
 
-    String e =
-        "Access Token has expired. Please refresh session.: Undefined location";
-    if (result.hasException && result.exception.toString().substring(16) == e) {
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
       _graphAPI.getNewToken();
       return createOrg();
     } else if (result.hasException &&
-        result.exception.toString().substring(16) != e) {
+        result.exception.toString().substring(16) != accessTokenException) {
       print(result.exception);
       setState(() {
         _progressBarState = false;

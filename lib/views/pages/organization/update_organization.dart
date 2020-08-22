@@ -4,6 +4,7 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/home_page.dart';
@@ -65,13 +66,12 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       isVisible,
     ))));
 
-    String e =
-        "Access Token has expired. Please refresh session.: Undefined location";
-    if (result.hasException && result.exception.toString().substring(16) == e) {
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
       _graphAPI.getNewToken();
       return updateOrg();
     } else if (result.hasException &&
-        result.exception.toString().substring(16) != e) {
+        result.exception.toString().substring(16) != accessTokenException) {
       print(result.exception);
       setState(() {
         _progressBarState = false;

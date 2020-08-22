@@ -6,6 +6,7 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/accept_requests_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
@@ -39,13 +40,13 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
 
     QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.removeOrg(orgId))));
-    String e =
-        "Access Token has expired. Please refresh session.: Undefined location";
-    if (result.hasException && result.exception.toString().substring(16) == e) {
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
       _graphAPI.getNewToken();
       return removeOrg();
     } else if (result.hasException &&
-        result.exception.toString().substring(16) != e) {
+        result.exception.toString().substring(16) != accessTokenException) {
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       _successToast('Successfully Removed');
@@ -75,13 +76,13 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
 
     QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
-    String e =
-        "Access Token has expired. Please refresh session.: Undefined location";
-    if (result.hasException && result.exception.toString().substring(16) == e) {
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
       _graphAPI.getNewToken();
       return leaveOrg();
     } else if (result.hasException &&
-        result.exception.toString().substring(16) != e) {
+        result.exception.toString().substring(16) != accessTokenException) {
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
@@ -97,6 +98,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
 
       _graphAPI.setNewOrg(context, newOrgId);
       _successToast('You are no longer apart of this organization');
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new ProfilePage()));
     }
   }
 
@@ -109,6 +112,55 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         ),
         body: Container(
           child: Column(children: <Widget>[
+            ListTile(
+                title: Text(
+                  'Leave This Organization',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                leading: Icon(
+                  Icons.exit_to_app,
+                  color: UIData.secondaryColor,
+                ),
+                onTap: () async {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Confirmation"),
+                          content: Text(
+                              "Are you sure you want to leave this organization?"),
+                          actions: [
+                            FlatButton(
+                              child: Text("Close"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            FlatButton(
+                              child: Text("Yes"),
+                              onPressed: () async {
+                                Navigator.of(context).pop();
+                                leaveOrg();
+                              },
+                            )
+                          ],
+                        );
+                      });
+                }),
+            SizedBox(height: 20.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text('Creator Admin Settings',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
+                ),
+              ],
+            ),
             ListTile(
                 title: Text(
                   'Update This Organization',
@@ -146,38 +198,18 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
             Divider(),
             ListTile(
                 title: Text(
-                  'Leave This Organization',
+                  'Remove Member(s)',
                   style: TextStyle(fontSize: 18.0),
                 ),
                 leading: Icon(
-                  Icons.exit_to_app,
+                  Icons.person,
                   color: UIData.secondaryColor,
                 ),
-                onTap: () async {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Confirmation"),
-                          content: Text(
-                              "Are you sure you want to leave this organization?"),
-                          actions: [
-                            FlatButton(
-                              child: Text("Close"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            FlatButton(
-                              child: Text("Yes"),
-                              onPressed: () async {
-                                Navigator.of(context).pop();
-                                leaveOrg();
-                              },
-                            )
-                          ],
-                        );
-                      });
+                onTap: () {
+                  pushNewScreen(
+                    context,
+                    screen: AcceptRequestsPage(),
+                  );
                 }),
             Divider(),
             ListTile(
