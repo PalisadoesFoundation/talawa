@@ -5,6 +5,7 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/globals.dart';
 
 class AcceptRequestsPage extends StatefulWidget {
   @override
@@ -46,15 +47,12 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       });
 
       if (membershipRequestsList.isEmpty) {
-        showError(context,'You have no new requests.');
+        showError(context, 'You have no new requests.');
       }
     }
   }
 
   Future acceptMemberShipRequests() async {
-    String accessTokenException =
-        "Access Token has expired. Please refresh session.: Undefined location";
-
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.query(QueryOptions(
@@ -74,9 +72,6 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   }
 
   Future rejectMemberShipRequests() async {
-    String accessTokenException =
-        "Access Token has expired. Please refresh session.: Undefined location";
-
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.query(QueryOptions(
@@ -100,7 +95,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Organization Settings'),
+          title: const Text('Membership Requests',
+              style: TextStyle(color: Colors.white)),
         ),
         body: ListView.builder(
           itemCount: membershipRequestsList.length,
@@ -108,6 +104,14 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
             final membershipRequests = membershipRequestsList[index];
             return Card(
               child: ListTile(
+                leading: membershipRequests['user']['image'] != null
+                    ? CircleAvatar(
+                        radius: 30,
+                        backgroundImage: NetworkImage(displayImgRoute +
+                            membershipRequests['user']['image']))
+                    : CircleAvatar(
+                        radius: 30,
+                        backgroundImage: AssetImage("assets/images/team.png")),
                 title: Text(membershipRequests['user']['firstName'] +
                     ' ' +
                     membershipRequests['user']['lastName']),
@@ -140,7 +144,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
         ));
   }
 
-  Widget showError(BuildContext context,String msg) {
+  Widget showError(BuildContext context, String msg) {
     return Center(
       child: Text(
         msg,

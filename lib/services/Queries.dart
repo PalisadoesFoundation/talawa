@@ -253,7 +253,24 @@ class Queries {
             user{
               firstName
               lastName
+              image
             }
+          }
+         }
+    }
+  ''';
+  }
+
+  String viewMembers(String orgId) {
+    return '''
+      query {
+        organizations(id:"$orgId"){
+          members{
+            _id
+            firstName
+            lastName
+            image
+            
           }
          }
     }
@@ -293,6 +310,7 @@ class Queries {
               user{
               firstName
               lastName
+              image
            }
          }
     }

@@ -93,8 +93,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Update Organization'),
-        ),
+            title: const Text('Update Organization',
+                style: TextStyle(color: Colors.white))),
         body: Container(
           color: Colors.white,
           child: SingleChildScrollView(
@@ -109,12 +109,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                   children: <Widget>[
                     Image(image: AssetImage('assets/images/team.png')),
                     SizedBox(
-                      height: 10,
-                    ),
-                    Text('Setup Your Organization',
-                        style: TextStyle(fontSize: 20, color: Colors.black)),
-                    SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     TextFormField(
                       validator: (value) => Validator.validateOrgName(value),

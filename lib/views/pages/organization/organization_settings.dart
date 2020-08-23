@@ -10,6 +10,7 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/accept_requests_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
+import 'package:talawa/views/pages/organization/remove_member.dart';
 import 'update_organization.dart';
 
 class OrganizationSettings extends StatefulWidget {
@@ -208,7 +209,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 onTap: () {
                   pushNewScreen(
                     context,
-                    screen: AcceptRequestsPage(),
+                    screen: RemoveMember(),
                   );
                 }),
             Divider(),
