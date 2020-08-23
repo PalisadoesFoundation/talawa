@@ -62,7 +62,7 @@ class _OrganizationsState extends State<Organizations> {
             : GridView.builder(
                 itemCount: membersList.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                  crossAxisCount: 2,
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   Color color = idToColor(membersList[index]['_id']);
@@ -80,28 +80,28 @@ class _OrganizationsState extends State<Organizations> {
                                 child: Column(
                                   children: [
                                     CircleAvatar(
-                                        radius: 30,
+                                        radius: 60,
                                         backgroundColor: Colors.black12,
                                         child: Icon(
                                           Icons.person,
-                                          size: 40,
+                                          size: 80,
                                           color: Colors.white70,
                                         )),
-                                    Text(
-                                      membersList[index]['firstName']
-                                              .toString() +
-                                          ' ' +
-                                          membersList[index]['lastName']
-                                              .toString(),
-                                      style: TextStyle(
-                                        color: Colors.white,
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 10),
+                                      child: Text(
+                                        membersList[index]['firstName']
+                                                .toString() +
+                                            ' ' +
+                                            membersList[index]['lastName']
+                                                .toString(),
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 16),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                    )
                                   ],
                                 ),
-
-                                // trailing: popUpMenue(membersList[index]),
                               ))));
                 }));
   }

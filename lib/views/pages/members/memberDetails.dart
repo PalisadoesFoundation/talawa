@@ -73,19 +73,12 @@ class _MemberDetailState extends State<MemberDetail>
             ),
             color: widget.color,
           ),
-          // Card(
-          //     child: Container(
-          //   padding: EdgeInsets.only(left: 20),
-          //   alignment: Alignment.centerLeft,
-          //   height: 30,
-          //   child:
-          // )),
           Card(
               child: Container(
             padding: EdgeInsets.only(left: 20),
             alignment: Alignment.centerLeft,
             height: 30,
-            child: Text('User email:'),
+            child: Text('User email: ' + widget.member['email'].toString()),
           )),
           Card(
               child: Container(
