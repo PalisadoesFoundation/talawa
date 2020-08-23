@@ -9,7 +9,6 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
-import 'package:intl/intl.dart';
 
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
@@ -24,6 +23,7 @@ class _EventsState extends State<Events> {
   String title = '';
   String description = '';
   Preferences preferences = Preferences();
+  ApiFunctions apiFunctions = ApiFunctions();
   initState() {
     super.initState();
     getEvents();
@@ -31,25 +31,17 @@ class _EventsState extends State<Events> {
 
   Future<void> _deleteEvent(context, eventId) async {
     String mutation = Queries().deleteEvent(eventId);
-    ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlquery(mutation);
     getEvents();
   }
 
   Future<void> _register(context, eventId) async {
-    String mutation = Queries().registerForEvent;
-    Map changes = {'id': eventId};
-    _gqlMutation(mutation, changes);
-  }
-
-  Future<void> _gqlMutation(String mutation, Map changes) async {
-    ApiFunctions apiFunctions = ApiFunctions();
+    String mutation = Queries().registerForEvent(eventId);
     Map result = await apiFunctions.gqlmutation(mutation);
   }
 
   Future<List> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    ApiFunctions apiFunctions = ApiFunctions();
     Map result =
         await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     setState(() {
@@ -77,14 +69,6 @@ class _EventsState extends State<Events> {
         );
       },
     );
-  }
-
-  Widget menueText(String text) {
-    return ListTile(
-        title: Text(
-      text,
-      style: TextStyle(color: Colors.grey[700]),
-    ));
   }
 
   @override
@@ -170,9 +154,14 @@ class _EventsState extends State<Events> {
                                             ),
                                           ),
                                         ],
-                                        title: Text(eventList[index]['title']),
+                                        title: Text(
+                                          eventList[index]['title'],
+                                          style: TextStyle(color: Colors.black),
+                                        ),
                                         subtitle: Text(
-                                            eventList[index]['description']),
+                                          eventList[index]['description'],
+                                          style: TextStyle(color: Colors.black),
+                                        ),
                                         trailing: popUpMenue(eventList[index]),
                                       )))),
                         ),
@@ -181,6 +170,14 @@ class _EventsState extends State<Events> {
                   },
                 )),
               ));
+  }
+
+  Widget menueText(String text) {
+    return ListTile(
+        title: Text(
+      text,
+      style: TextStyle(color: Colors.grey[700]),
+    ));
   }
 
   Widget popUpMenue(event) {
@@ -200,26 +197,38 @@ class _EventsState extends State<Events> {
         const PopupMenuItem<int>(
             value: 1,
             child: ListTile(
-              leading: Icon(Icons.playlist_add_check),
-              title: Text('Register For Event'),
+              leading: Icon(Icons.playlist_add_check, color: Colors.grey),
+              title: Text(
+                'Register For Event',
+                style: TextStyle(color: Colors.black),
+              ),
             )),
         const PopupMenuItem<int>(
             value: 2,
             child: ListTile(
-              leading: Icon(Icons.note_add),
-              title: Text('Add a Task to this Event'),
+              leading: Icon(Icons.note_add, color: Colors.grey),
+              title: Text(
+                'Add a Task to this Event',
+                style: TextStyle(color: Colors.black),
+              ),
             )),
         const PopupMenuItem<int>(
             value: 3,
             child: ListTile(
-              leading: Icon(Icons.edit),
-              title: Text('Edit this event'),
+              leading: Icon(Icons.edit, color: Colors.grey),
+              title: Text(
+                'Edit this event',
+                style: TextStyle(color: Colors.black),
+              ),
             )),
         const PopupMenuItem<int>(
             value: 4,
             child: ListTile(
-              leading: Icon(Icons.delete),
-              title: Text('Delete This Event'),
+              leading: Icon(Icons.delete, color: Colors.grey),
+              title: Text(
+                'Delete This Event',
+                style: TextStyle(color: Colors.black),
+              ),
             ))
       ],
     );

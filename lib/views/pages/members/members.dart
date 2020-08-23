@@ -31,53 +31,79 @@ class _OrganizationsState extends State<Organizations> {
     ApiFunctions apiFunctions = ApiFunctions();
     var result =
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
-    print(result);
+    // print(result);
     setState(() {
       organizationsList = result == null ? [] : result['organizations'];
       membersList = organizationsList[0]['members'];
+      membersList.sort((a, b) => a['firstName'].compareTo(b['firstName']));
     });
+  }
+
+  //returns a random color based on the user id (1 of 8)
+  Color idToColor(String id) {
+    int colorint = int.parse(id.replaceAll(RegExp('[a-z]'), ''));
+    colorint = (colorint % 18);
+    return Color.alphaBlend(
+      Colors.black45,
+      Colors.primaries[colorint],
+    );
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Members',
-          style: TextStyle(color: Colors.white),
+        appBar: AppBar(
+          title: Text(
+            'Members',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
-      ),
-      body: membersList.isEmpty
-          ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: membersList.length,
-              itemBuilder: (context, index) {
-                return Card(
-                    child: ListTile(
-                  title: Text(membersList[index]['firstName'].toString() +
-                      ' ' +
-                      membersList[index]['lastName'].toString()),
-                  subtitle: Text(membersList[index]['email'].toString()),
-                  leading: CircleAvatar(
-                    child: Icon(
-                      Icons.person,
-                      size: 40,
-                      color: Colors.white54,
-                    ),
-                    backgroundColor: UIData.secondaryColor,
-                  ),
-                  trailing: popUpMenue(membersList[index]),
-                  onTap: () {
-                    pushNewScreen(
-                      context,
-                      withNavBar: true,
-                      screen: MemberDetail(member: membersList[index]),
-                    );
-                    ;
-                  },
-                ));
-              },
-            ),
-    );
+        body: membersList.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : GridView.builder(
+                itemCount: membersList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  Color color = idToColor(membersList[index]['_id']);
+                  return GestureDetector(
+                      onTap: () {
+                        pushNewScreen(context,
+                            screen: MemberDetail(
+                                member: membersList[index], color: color));
+                      },
+                      child: Card(
+                          color: idToColor(membersList[index]['_id']),
+                          child: Container(
+                              padding: EdgeInsets.all(10),
+                              child: GridTile(
+                                child: Column(
+                                  children: [
+                                    CircleAvatar(
+                                        radius: 30,
+                                        backgroundColor: Colors.black12,
+                                        child: Icon(
+                                          Icons.person,
+                                          size: 40,
+                                          color: Colors.white70,
+                                        )),
+                                    Text(
+                                      membersList[index]['firstName']
+                                              .toString() +
+                                          ' ' +
+                                          membersList[index]['lastName']
+                                              .toString(),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+
+                                // trailing: popUpMenue(membersList[index]),
+                              ))));
+                }));
   }
 
   Widget popUpMenue(Map member) {

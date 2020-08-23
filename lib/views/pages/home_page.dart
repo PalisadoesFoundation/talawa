@@ -21,8 +21,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
   PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
+      PersistentTabController(initialIndex: 2);
   Preferences preferences = Preferences();
   @override
   void initState() {

@@ -5,13 +5,12 @@ import 'package:talawa/utils/GraphAPI.dart';
 class ApiFunctions {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   GraphAPI _graphAPI = GraphAPI();
-  String e =
+  String tokenError =
       "Access Token has expired. Please refresh session.: Undefined location";
+  String userAuthError = "User is not authenticated: Undefined location";
 
   Future<Map> gqlquery(String query) async {
     GraphQLClient _client = graphQLConfiguration.authClient();
-
-    const int nRepositories = 0;
 
     final QueryOptions options = QueryOptions(
       documentNode: gql(query),
@@ -21,7 +20,8 @@ class ApiFunctions {
     );
 
     final QueryResult result = await _client.query(options);
-    if (result.hasException && result.exception.toString().substring(16) == e) {
+    if (result.hasException &&
+        result.exception.toString().substring(16) == tokenError) {
       _graphAPI.getNewToken();
       gqlquery(query);
     } else if (result.hasException) {
@@ -37,7 +37,8 @@ class ApiFunctions {
       documentNode: gql(mutation),
     ));
 
-    if (result.hasException && result.exception.toString().substring(16) == e) {
+    if (result.hasException &&
+        result.exception.toString().substring(16) == tokenError) {
       _graphAPI.getNewToken();
       gqlmutation(mutation);
     } else if (result.hasException) {

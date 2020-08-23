@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
@@ -15,6 +14,12 @@ class NewsArticle extends StatefulWidget {
 }
 
 class _NewsArticleState extends State<NewsArticle> {
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
   final commentController = TextEditingController();
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
