@@ -4,6 +4,7 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 
@@ -99,6 +100,28 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
               itemCount: userOrg.length,
               itemBuilder: (context, index) {
                 return RadioListTile(
+                  secondary: userOrg[index]['image'] != null
+                      ? CircleAvatar(
+                          radius: 30,
+                          backgroundImage: NetworkImage(
+                              displayImgRoute + userOrg[index]['image']))
+                      : CircleAvatar(
+                          radius: 30.0,
+                          backgroundColor: Colors.white,
+                          child: Text(
+                              userOrg[index]['firstName']
+                                      .toString()
+                                      .substring(0, 1)
+                                      .toUpperCase() +
+                                  userOrg[index]['lastName']
+                                      .toString()
+                                      .substring(0, 1)
+                                      .toUpperCase(),
+                              style: TextStyle(
+                                color: UIData.primaryColor,
+                                fontSize: 22,
+                              )),
+                        ),
                   activeColor: UIData.secondaryColor,
                   groupValue: isSelected,
                   title: Text(userOrg[index]['name'].toString() +
