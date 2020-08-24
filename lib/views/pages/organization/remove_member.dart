@@ -19,7 +19,7 @@ class _RemoveMemberState extends State<RemoveMember> {
   List membersList = [];
   List selectedMembers = List();
   Queries _query = Queries();
-
+  bool _isChecked = false;
   @override
   void initState() {
     super.initState();
@@ -46,6 +46,20 @@ class _RemoveMemberState extends State<RemoveMember> {
     }
   }
 
+  void _onMemberSelected(bool selected, memberId) {
+    if (selected == true) {
+      setState(() {
+        selectedMembers.add(memberId);
+      });
+      print(selectedMembers);
+    } else {
+      setState(() {
+        selectedMembers.remove(memberId);
+      });
+      print(selectedMembers);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,8 +71,8 @@ class _RemoveMemberState extends State<RemoveMember> {
           itemCount: membersList.length,
           itemBuilder: (context, index) {
             final members = membersList[index];
-            return ListTile(
-              leading: members['image'] != null
+            return CheckboxListTile(
+              secondary: members['image'] != null
                   ? CircleAvatar(
                       radius: 30,
                       backgroundImage:
@@ -81,11 +95,10 @@ class _RemoveMemberState extends State<RemoveMember> {
                           )),
                     ),
               title: Text(members['firstName'] + ' ' + members['lastName']),
-              // trailing: Checkbox(
-              //     value: members[index],
-              //     onChanged: (bool value) {
-              //       setState(() {});
-              //     }),
+              value: selectedMembers.contains(members['_id']),
+              onChanged: (bool value) {
+                _onMemberSelected(value, members['_id']);
+              },
             );
           },
           separatorBuilder: (BuildContext context, int index) {
