@@ -20,6 +20,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
   Queries _query = Queries();
   GraphAPI _api = GraphAPI();
   Preferences preferences = Preferences();

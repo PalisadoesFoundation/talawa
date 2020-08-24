@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:lipsum/lipsum.dart' as lipsum;
 
 class EventDetail extends StatefulWidget {
   Map event;
@@ -81,10 +80,9 @@ class _EventDetailState extends State<EventDetail> {
               child: ListView.builder(
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return Card(
-                        child: ExpansionTile(
-                            title: Text('Task ' + index.toString()),
-                            children: <Widget>[
+                    return ExpansionTile(
+                        title: Text('Task ' + index.toString()),
+                        children: <Widget>[
                           ListTile(
                             leading: Text('Description:'),
                           ),
@@ -94,7 +92,7 @@ class _EventDetailState extends State<EventDetail> {
                           ListTile(
                             leading: Text('Due Date:'),
                           )
-                        ]));
+                        ]);
                   }),
             )
           ],

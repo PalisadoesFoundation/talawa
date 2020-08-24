@@ -9,6 +9,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 
 import 'create_organization.dart';
@@ -74,11 +75,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
       //Navigate user to join organization screen
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ProfilePage()));
+          MaterialPageRoute(builder: (context) => new NewsFeed()));
     }
   }
 
-  Future confirmOrgChoice() async {
+  Future joinPublicOrg() async {
     String accessTokenException =
         "Access Token has expired. Please refresh session.: Undefined location";
 
@@ -90,7 +91,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _graphAPI.getNewToken();
-      return confirmOrgChoice();
+      return joinPublicOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       _exceptionToast(result.exception.toString().substring(16));
@@ -111,10 +112,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       }
       _successToast("Sucess!");
 
-      //Navigate user to join organization screen
+      //Navigate user to newsfeed
 
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ProfilePage()));
+          MaterialPageRoute(builder: (context) => new NewsFeed()));
     }
   }
 
@@ -122,8 +123,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text('Organization', style: TextStyle(color: Colors.white)),
+        title: const Text('Join Organization',
+            style: TextStyle(color: Colors.white)),
       ),
       body: organizationInfo.isEmpty
           ? Center(child: CircularProgressIndicator())
@@ -262,7 +263,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 child: Text("Yes"),
                 onPressed: () async {
                   if (isPublic == 'true') {
-                    confirmOrgChoice();
+                    joinPublicOrg();
                     Navigator.of(context).pop();
                   } else if (isPublic == 'false') {
                     joinPrivateOrg();

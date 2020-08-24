@@ -387,38 +387,34 @@ class Queries {
     """;
   }
 
-  String registerForEvent = """
-      mutation RegisterForEvent(
-        \$id: ID!,
-        )
-        {registerForEvent(
-          id: \$id,
-          ){
-            _id
-            title
-            description
-          }
-        }
-    """;
-
-  final String addEventProject = """
-      mutation CreateEventProject(
-        \$title: String!,
-        \$description: String!,
-        \$eventId: String!,
+  String registerForEvent(String eventid) {
+    return """
+      mutation registerForEvent(
+        id: "$eventid",
         ){
-        createEventProject(
-          data:{
-            title: \$title,
-            description: \$description,
-            eventId: \$eventId,
-          }){
             _id
             title
             description
           }
-        }
     """;
+  }
+
+  String addEventTask(
+      {String eventId, String title, String description, String deadline}) {
+    return """
+      mutation {
+        createTask(
+        eventId: "$eventId",
+        data: {
+        title: "$title",
+        description: "$description",
+        deadline: "$deadline",}
+        ){
+          _id
+        }
+      }
+    """;
+  }
 
   String addEvent(
       {organizationId,

@@ -140,8 +140,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                             FlatButton(
                               child: Text("Yes"),
                               onPressed: () async {
-                                Navigator.of(context).pop();
                                 leaveOrg();
+                                Navigator.of(context).pop();
                               },
                             )
                           ],

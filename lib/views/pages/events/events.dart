@@ -9,7 +9,9 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
-import 'package:intl/intl.dart';
+
+import 'package:timeline_list/timeline.dart';
+import 'package:timeline_list/timeline_model.dart';
 
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
@@ -24,6 +26,7 @@ class _EventsState extends State<Events> {
   String title = '';
   String description = '';
   Preferences preferences = Preferences();
+  ApiFunctions apiFunctions = ApiFunctions();
   initState() {
     super.initState();
     getEvents();
@@ -31,25 +34,17 @@ class _EventsState extends State<Events> {
 
   Future<void> _deleteEvent(context, eventId) async {
     String mutation = Queries().deleteEvent(eventId);
-    ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlquery(mutation);
     getEvents();
   }
 
   Future<void> _register(context, eventId) async {
-    String mutation = Queries().registerForEvent;
-    Map changes = {'id': eventId};
-    _gqlMutation(mutation, changes);
-  }
-
-  Future<void> _gqlMutation(String mutation, Map changes) async {
-    ApiFunctions apiFunctions = ApiFunctions();
+    String mutation = Queries().registerForEvent(eventId);
     Map result = await apiFunctions.gqlmutation(mutation);
   }
 
   Future<List> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    ApiFunctions apiFunctions = ApiFunctions();
     Map result =
         await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     setState(() {
@@ -79,18 +74,8 @@ class _EventsState extends State<Events> {
     );
   }
 
-  Widget menueText(String text) {
-    return ListTile(
-        title: Text(
-      text,
-      style: TextStyle(color: Colors.grey[700]),
-    ));
-  }
-
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -117,70 +102,77 @@ class _EventsState extends State<Events> {
                 onRefresh: () async {
                   getEvents();
                 },
-                child: (ListView.builder(
-                  padding: EdgeInsets.only(bottom: 100),
+                child: (Timeline.builder(
+                  // physics: ScrollPhysics(parent: ),
+                  position: TimelinePosition.Left,
                   itemCount: eventList.length,
                   itemBuilder: (context, index) {
-                    return Row(
-                      children: <Widget>[
-                        Container(
-                          width: width,
-                          child: Card(
-                              child: Padding(
-                                  padding: EdgeInsets.only(left: 20, right: 0),
-                                  child: Theme(
-                                      data: ThemeData(
-                                          //fix for header color issue
-                                          primaryColor: UIData.secondaryColor),
-                                      child: ExpansionTile(
-                                        children: <Widget>[
-                                          eventList[index]['isPublic']
-                                              ? menueText(
-                                                  'This event is Public')
-                                              : menueText(
-                                                  'This event is Private'),
-                                          eventList[index]['isRegisterable']
-                                              ? menueText('You Are Registered')
-                                              : menueText(
-                                                  'You Are Not Registered'),
-                                          // menueText('Date: ' +
-                                          //     DateFormat.yMMMd().format(
-                                          //         DateTime.parse(
-                                          //             eventList[index]
-                                          //                 ['date']))),
-                                          menueText('Starts: ' +
-                                              eventList[index]['startTime']),
-                                          ListTile(
-                                            trailing: RaisedButton(
-                                              color: UIData.secondaryColor,
-                                              onPressed: () {
-                                                pushNewScreen(
-                                                  context,
-                                                  withNavBar: true,
-                                                  screen: EventDetail(
-                                                      event: eventList[index]),
-                                                );
-                                              },
-                                              child: Text(
-                                                "More",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                              shape: StadiumBorder(),
-                                            ),
-                                          ),
-                                        ],
-                                        title: Text(eventList[index]['title']),
-                                        subtitle: Text(
-                                            eventList[index]['description']),
-                                        trailing: popUpMenue(eventList[index]),
-                                      )))),
-                        ),
-                      ],
-                    );
+                    return TimelineModel(eventCard(index),
+                        position: TimelineItemPosition.right);
                   },
                 )),
               ));
+  }
+
+  Widget menueText(String text) {
+    return ListTile(
+        title: Text(
+      text,
+      style: TextStyle(color: Colors.grey[700]),
+    ));
+  }
+
+  Widget eventCard(index) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+            child: Card(
+                child: Padding(
+                    padding: EdgeInsets.only(left: 20, right: 0),
+                    child: ExpansionTile(
+                      children: <Widget>[
+                        eventList[index]['isPublic']
+                            ? menueText('This event is Public')
+                            : menueText('This event is Private'),
+                        eventList[index]['isRegisterable']
+                            ? menueText('You Are Registered')
+                            : menueText('You Are Not Registered'),
+                        // menueText('Date: ' +
+                        //     DateFormat.yMMMd().format(
+                        //         DateTime.parse(
+                        //             eventList[index]
+                        //                 ['date']))),
+                        menueText('Starts: ' + eventList[index]['startTime']),
+                        ListTile(
+                          trailing: RaisedButton(
+                            color: UIData.secondaryColor,
+                            onPressed: () {
+                              pushNewScreen(
+                                context,
+                                withNavBar: true,
+                                screen: EventDetail(event: eventList[index]),
+                              );
+                            },
+                            child: Text(
+                              "More",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            shape: StadiumBorder(),
+                          ),
+                        ),
+                      ],
+                      title: Text(
+                        eventList[index]['title'],
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      subtitle: Text(
+                        eventList[index]['description'],
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      trailing: popUpMenue(eventList[index]),
+                    )))),
+      ],
+    );
   }
 
   Widget popUpMenue(event) {
@@ -200,26 +192,38 @@ class _EventsState extends State<Events> {
         const PopupMenuItem<int>(
             value: 1,
             child: ListTile(
-              leading: Icon(Icons.playlist_add_check),
-              title: Text('Register For Event'),
+              leading: Icon(Icons.playlist_add_check, color: Colors.grey),
+              title: Text(
+                'Register For Event',
+                style: TextStyle(color: Colors.black),
+              ),
             )),
         const PopupMenuItem<int>(
             value: 2,
             child: ListTile(
-              leading: Icon(Icons.note_add),
-              title: Text('Add a Task to this Event'),
+              leading: Icon(Icons.note_add, color: Colors.grey),
+              title: Text(
+                'Add a Task to this Event',
+                style: TextStyle(color: Colors.black),
+              ),
             )),
         const PopupMenuItem<int>(
             value: 3,
             child: ListTile(
-              leading: Icon(Icons.edit),
-              title: Text('Edit this event'),
+              leading: Icon(Icons.edit, color: Colors.grey),
+              title: Text(
+                'Edit this event',
+                style: TextStyle(color: Colors.black),
+              ),
             )),
         const PopupMenuItem<int>(
             value: 4,
             child: ListTile(
-              leading: Icon(Icons.delete),
-              title: Text('Delete This Event'),
+              leading: Icon(Icons.delete, color: Colors.grey),
+              title: Text(
+                'Delete This Event',
+                style: TextStyle(color: Colors.black),
+              ),
             ))
       ],
     );
