@@ -7,6 +7,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/memberDetails.dart';
 import 'package:talawa/views/pages/members/memberRegEvents.dart';
 import 'package:talawa/views/pages/members/userTasks.dart';
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 class Organizations extends StatefulWidget {
   Organizations({Key key}) : super(key: key);
@@ -17,7 +18,7 @@ class Organizations extends StatefulWidget {
 
 class _OrganizationsState extends State<Organizations> {
   List organizationsList = [];
-  List membersList = [];
+  List alphaMembersList = [];
   int isSelected = 0;
   Preferences preferences = Preferences();
 
@@ -26,16 +27,58 @@ class _OrganizationsState extends State<Organizations> {
     getEvents();
   }
 
+  List alphaSplitList(List list) {
+    //split list alphabeticaly
+    List alphabet = [
+      'A',
+      'B',
+      'C',
+      'D',
+      'E',
+      'F',
+      'G',
+      'H',
+      'I',
+      'J',
+      'K',
+      'L',
+      'M',
+      'N',
+      'O',
+      'P',
+      'Q',
+      'R',
+      'S',
+      'T',
+      'U',
+      'V',
+      'W',
+      'X',
+      'Y',
+      'Z'
+    ];
+    List alphalist = [];
+    for (String letter in alphabet) {
+      alphalist.add(list
+          .where((element) =>
+              element['firstName'][0] == letter ||
+              element['firstName'][0] == letter.toLowerCase())
+          .toList());
+    }
+    alphalist.removeWhere((element) => element.isEmpty);
+    return alphalist;
+  }
+
   Future<List> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     ApiFunctions apiFunctions = ApiFunctions();
     var result =
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
     // print(result);
+    organizationsList = result == null ? [] : result['organizations'];
+    alphaMembersList = organizationsList[0]['members'];
     setState(() {
-      organizationsList = result == null ? [] : result['organizations'];
-      membersList = organizationsList[0]['members'];
-      membersList.sort((a, b) => a['firstName'].compareTo(b['firstName']));
+      alphaMembersList = alphaSplitList(alphaMembersList);
     });
   }
 
@@ -57,53 +100,84 @@ class _OrganizationsState extends State<Organizations> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: membersList.isEmpty
-            ? Center(child: CircularProgressIndicator())
-            : GridView.builder(
-                itemCount: membersList.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  Color color = idToColor(membersList[index]['_id']);
-                  return GestureDetector(
-                      onTap: () {
-                        pushNewScreen(context,
-                            screen: MemberDetail(
-                                member: membersList[index], color: color));
-                      },
-                      child: Card(
-                          color: idToColor(membersList[index]['_id']),
-                          child: Container(
-                              padding: EdgeInsets.all(10),
-                              child: GridTile(
-                                child: Column(
-                                  children: [
-                                    CircleAvatar(
-                                        radius: 60,
-                                        backgroundColor: Colors.black12,
-                                        child: Icon(
-                                          Icons.person,
-                                          size: 80,
-                                          color: Colors.white70,
-                                        )),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        membersList[index]['firstName']
-                                                .toString() +
-                                            ' ' +
-                                            membersList[index]['lastName']
-                                                .toString(),
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 16),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ))));
-                }));
+        body: CustomScrollView(
+          slivers: List.generate(
+            alphaMembersList.length,
+            (index) {
+              return getSlivers(context, alphaMembersList[index]);
+            },
+          ),
+        ));
+  }
+
+  Widget getSlivers(BuildContext context, List membersList) {
+    return SliverStickyHeader(
+      header: Container(
+        height: 60.0,
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        alignment: Alignment.centerLeft,
+        child: CircleAvatar(
+            backgroundColor: UIData.secondaryColor,
+            child: Text(
+              '${membersList[0]['firstName'][0].toUpperCase()}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            )),
+      ),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return memberCard(index, membersList);
+          },
+          childCount: membersList.length,
+        ),
+      ),
+    );
+  }
+
+  Widget memberCard(index, List membersList) {
+    Color color = idToColor(membersList[index]['_id']);
+    // return ListTile();
+
+    return GestureDetector(
+        onTap: () {
+          pushNewScreen(context,
+              screen: MemberDetail(member: membersList[index], color: color));
+        },
+        child: Card(
+          clipBehavior: Clip.hardEdge,
+          child: Row(
+            children: [
+              Container(
+                  padding: EdgeInsets.all(0),
+                  width: 100,
+                  height: 80,
+                  color: idToColor(membersList[index]['_id']),
+                  child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: CircleAvatar(
+                          backgroundColor: Colors.black12,
+                          child: Icon(
+                            Icons.person,
+                            size: 30,
+                            color: Colors.white70,
+                          )))),
+              Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.all(20),
+                  height: 80,
+                  color: Colors.white,
+                  child: Text(
+                    membersList[index]['firstName'].toString() +
+                        ' ' +
+                        membersList[index]['lastName'].toString(),
+                    textAlign: TextAlign.left,
+                  ))
+            ],
+          ),
+        ));
   }
 
   Widget popUpMenue(Map member) {

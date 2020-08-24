@@ -5,9 +5,6 @@ import 'package:talawa/utils/uidata.dart';
 
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
-import 'package:talawa/views/pages/events/events.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:intl/intl.dart';
 
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);

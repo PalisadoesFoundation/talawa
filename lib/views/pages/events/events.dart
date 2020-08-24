@@ -10,6 +10,9 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
 
+import 'package:timeline_list/timeline.dart';
+import 'package:timeline_list/timeline_model.dart';
+
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
 
@@ -73,8 +76,6 @@ class _EventsState extends State<Events> {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -101,72 +102,13 @@ class _EventsState extends State<Events> {
                 onRefresh: () async {
                   getEvents();
                 },
-                child: (ListView.builder(
-                  padding: EdgeInsets.only(bottom: 100),
+                child: (Timeline.builder(
+                  // physics: ScrollPhysics(parent: ),
+                  position: TimelinePosition.Left,
                   itemCount: eventList.length,
                   itemBuilder: (context, index) {
-                    return Row(
-                      children: <Widget>[
-                        Container(
-                          width: width,
-                          child: Card(
-                              child: Padding(
-                                  padding: EdgeInsets.only(left: 20, right: 0),
-                                  child: Theme(
-                                      data: ThemeData(
-                                          //fix for header color issue
-                                          primaryColor: UIData.secondaryColor),
-                                      child: ExpansionTile(
-                                        children: <Widget>[
-                                          eventList[index]['isPublic']
-                                              ? menueText(
-                                                  'This event is Public')
-                                              : menueText(
-                                                  'This event is Private'),
-                                          eventList[index]['isRegisterable']
-                                              ? menueText('You Are Registered')
-                                              : menueText(
-                                                  'You Are Not Registered'),
-                                          // menueText('Date: ' +
-                                          //     DateFormat.yMMMd().format(
-                                          //         DateTime.parse(
-                                          //             eventList[index]
-                                          //                 ['date']))),
-                                          menueText('Starts: ' +
-                                              eventList[index]['startTime']),
-                                          ListTile(
-                                            trailing: RaisedButton(
-                                              color: UIData.secondaryColor,
-                                              onPressed: () {
-                                                pushNewScreen(
-                                                  context,
-                                                  withNavBar: true,
-                                                  screen: EventDetail(
-                                                      event: eventList[index]),
-                                                );
-                                              },
-                                              child: Text(
-                                                "More",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                              shape: StadiumBorder(),
-                                            ),
-                                          ),
-                                        ],
-                                        title: Text(
-                                          eventList[index]['title'],
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                        subtitle: Text(
-                                          eventList[index]['description'],
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                        trailing: popUpMenue(eventList[index]),
-                                      )))),
-                        ),
-                      ],
-                    );
+                    return TimelineModel(eventCard(index),
+                        position: TimelineItemPosition.right);
                   },
                 )),
               ));
@@ -178,6 +120,59 @@ class _EventsState extends State<Events> {
       text,
       style: TextStyle(color: Colors.grey[700]),
     ));
+  }
+
+  Widget eventCard(index) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+            child: Card(
+                child: Padding(
+                    padding: EdgeInsets.only(left: 20, right: 0),
+                    child: ExpansionTile(
+                      children: <Widget>[
+                        eventList[index]['isPublic']
+                            ? menueText('This event is Public')
+                            : menueText('This event is Private'),
+                        eventList[index]['isRegisterable']
+                            ? menueText('You Are Registered')
+                            : menueText('You Are Not Registered'),
+                        // menueText('Date: ' +
+                        //     DateFormat.yMMMd().format(
+                        //         DateTime.parse(
+                        //             eventList[index]
+                        //                 ['date']))),
+                        menueText('Starts: ' + eventList[index]['startTime']),
+                        ListTile(
+                          trailing: RaisedButton(
+                            color: UIData.secondaryColor,
+                            onPressed: () {
+                              pushNewScreen(
+                                context,
+                                withNavBar: true,
+                                screen: EventDetail(event: eventList[index]),
+                              );
+                            },
+                            child: Text(
+                              "More",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            shape: StadiumBorder(),
+                          ),
+                        ),
+                      ],
+                      title: Text(
+                        eventList[index]['title'],
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      subtitle: Text(
+                        eventList[index]['description'],
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      trailing: popUpMenue(eventList[index]),
+                    )))),
+      ],
+    );
   }
 
   Widget popUpMenue(event) {

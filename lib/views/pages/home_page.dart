@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   PersistentTabController _controller =
-      PersistentTabController(initialIndex: 2);
+      PersistentTabController(initialIndex: 3);
   Preferences preferences = Preferences();
   @override
   void initState() {
@@ -51,8 +51,8 @@ class _HomePageState extends State<HomePage> {
     return [
       NewsFeed(),
       Groups(),
-      Organizations(),
       Events(),
+      Organizations(),
       ProfilePage(),
     ];
   }
@@ -74,13 +74,6 @@ class _HomePageState extends State<HomePage> {
         // isTranslucent: false,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.group),
-        title: ("Members"),
-        activeColor: Colors.white,
-        inactiveColor: Colors.white,
-        // isTranslucent: false,
-      ),
-      PersistentBottomNavBarItem(
         icon: Icon(Icons.calendar_today),
         title: ("events"),
         activeColor: Colors.white,
@@ -88,7 +81,14 @@ class _HomePageState extends State<HomePage> {
         // isTranslucent: false,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.person),
+        icon: Icon(Icons.group),
+        title: ("Members"),
+        activeColor: Colors.white,
+        inactiveColor: Colors.white,
+        // isTranslucent: false,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.folder),
         title: ("profile"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
