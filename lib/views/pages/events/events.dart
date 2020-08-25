@@ -12,6 +12,7 @@ import 'package:talawa/views/pages/events/editEventDialog.dart';
 
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
@@ -27,9 +28,18 @@ class _EventsState extends State<Events> {
   String description = '';
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
+  AutoScrollController _scrollController;
+
   initState() {
     super.initState();
     getEvents();
+  }
+
+  Future _scrollToIndex(index) async {
+    setState(() {});
+
+    _scrollController.scrollToIndex(index,
+        preferPosition: AutoScrollPosition.begin);
   }
 
   Future<void> _deleteEvent(context, eventId) async {
@@ -103,7 +113,7 @@ class _EventsState extends State<Events> {
                   getEvents();
                 },
                 child: (Timeline.builder(
-                  // physics: ScrollPhysics(parent: ),
+                  controller: _scrollController,
                   position: TimelinePosition.Left,
                   itemCount: eventList.length,
                   itemBuilder: (context, index) {
@@ -123,12 +133,16 @@ class _EventsState extends State<Events> {
   }
 
   Widget eventCard(index) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-            child: Card(
-                child: Padding(
-                    padding: EdgeInsets.only(left: 20, right: 0),
+    return Column(
+      children: [
+        Row(
+          children: <Widget>[
+            Expanded(
+                child: GestureDetector(
+                    onTap: () {
+                      _scrollController.scrollToIndex(index,
+                          preferPosition: AutoScrollPosition.begin);
+                    },
                     child: ExpansionTile(
                       children: <Widget>[
                         eventList[index]['isPublic']
@@ -170,9 +184,15 @@ class _EventsState extends State<Events> {
                         style: TextStyle(color: Colors.black),
                       ),
                       trailing: popUpMenue(eventList[index]),
-                    )))),
+                    ))),
+          ],
+        ),
+        Divider(
+          thickness: 2,
+        )
       ],
     );
+    ;
   }
 
   Widget popUpMenue(event) {

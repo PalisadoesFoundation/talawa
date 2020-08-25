@@ -12,7 +12,7 @@ class _UserTasksState extends State<UserTasks> {
   Widget build(BuildContext context) {
     return Container(
         child: ListView.builder(
-            itemCount: 5,
+            itemCount: 7,
             itemBuilder: (context, index) {
               return Card(
                   child: Column(
