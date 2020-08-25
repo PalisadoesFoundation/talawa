@@ -28,18 +28,11 @@ class _EventsState extends State<Events> {
   String description = '';
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
-  AutoScrollController _scrollController;
+  AutoScrollController scrollController = AutoScrollController();
 
   initState() {
     super.initState();
     getEvents();
-  }
-
-  Future _scrollToIndex(index) async {
-    setState(() {});
-
-    _scrollController.scrollToIndex(index,
-        preferPosition: AutoScrollPosition.begin);
   }
 
   Future<void> _deleteEvent(context, eventId) async {
@@ -86,6 +79,7 @@ class _EventsState extends State<Events> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -112,15 +106,27 @@ class _EventsState extends State<Events> {
                 onRefresh: () async {
                   getEvents();
                 },
-                child: (Timeline.builder(
-                  controller: _scrollController,
+                child: Timeline.builder(
+                  lineColor: UIData.primaryColor,
+                  controller: scrollController,
                   position: TimelinePosition.Left,
                   itemCount: eventList.length,
                   itemBuilder: (context, index) {
-                    return TimelineModel(eventCard(index),
-                        position: TimelineItemPosition.right);
+                    return index == eventList.length - 1
+                        ? TimelineModel(
+                            Padding(
+                              child: eventCard(index),
+                              padding: EdgeInsets.only(bottom: height * 0.7),
+                            ),
+                            iconBackground: Colors.transparent)
+                        : TimelineModel(eventCard(index),
+                            icon: Icon(
+                              Icons.access_alarm,
+                            ),
+                            iconBackground: UIData.secondaryColor,
+                            position: TimelineItemPosition.right);
                   },
-                )),
+                ),
               ));
   }
 
@@ -133,66 +139,67 @@ class _EventsState extends State<Events> {
   }
 
   Widget eventCard(index) {
-    return Column(
-      children: [
-        Row(
-          children: <Widget>[
-            Expanded(
-                child: GestureDetector(
-                    onTap: () {
-                      _scrollController.scrollToIndex(index,
-                          preferPosition: AutoScrollPosition.begin);
+    return Container(
+      child: Column(
+        children: [
+          AutoScrollTag(
+            key: ValueKey(index),
+            controller: scrollController,
+            index: index,
+            child: ExpansionTile(
+              onExpansionChanged: (val) {
+                scrollController.scrollToIndex(index,
+                    preferPosition: AutoScrollPosition.begin);
+              },
+              children: <Widget>[
+                eventList[index]['isPublic']
+                    ? menueText('This event is Public')
+                    : menueText('This event is Private'),
+                eventList[index]['isRegisterable']
+                    ? menueText('You Are Registered')
+                    : menueText('You Are Not Registered'),
+                // menueText('Date: ' +
+                //     DateFormat.yMMMd().format(
+                //         DateTime.parse(
+                //             eventList[index]
+                //                 ['date']))),
+                menueText('Starts: ' + eventList[index]['startTime']),
+                ListTile(
+                  trailing: RaisedButton(
+                    color: UIData.secondaryColor,
+                    onPressed: () {
+                      pushNewScreen(
+                        context,
+                        withNavBar: true,
+                        screen: EventDetail(event: eventList[index]),
+                      );
                     },
-                    child: ExpansionTile(
-                      children: <Widget>[
-                        eventList[index]['isPublic']
-                            ? menueText('This event is Public')
-                            : menueText('This event is Private'),
-                        eventList[index]['isRegisterable']
-                            ? menueText('You Are Registered')
-                            : menueText('You Are Not Registered'),
-                        // menueText('Date: ' +
-                        //     DateFormat.yMMMd().format(
-                        //         DateTime.parse(
-                        //             eventList[index]
-                        //                 ['date']))),
-                        menueText('Starts: ' + eventList[index]['startTime']),
-                        ListTile(
-                          trailing: RaisedButton(
-                            color: UIData.secondaryColor,
-                            onPressed: () {
-                              pushNewScreen(
-                                context,
-                                withNavBar: true,
-                                screen: EventDetail(event: eventList[index]),
-                              );
-                            },
-                            child: Text(
-                              "More",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            shape: StadiumBorder(),
-                          ),
-                        ),
-                      ],
-                      title: Text(
-                        eventList[index]['title'],
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      subtitle: Text(
-                        eventList[index]['description'],
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      trailing: popUpMenue(eventList[index]),
-                    ))),
-          ],
-        ),
-        Divider(
-          thickness: 2,
-        )
-      ],
+                    child: Text(
+                      "More",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    shape: StadiumBorder(),
+                  ),
+                ),
+              ],
+              title: Text(
+                eventList[index]['title'],
+                style: TextStyle(color: Colors.black),
+              ),
+              subtitle: Text(
+                eventList[index]['description'],
+                style: TextStyle(color: Colors.black),
+              ),
+              trailing: popUpMenue(eventList[index]),
+            ),
+          ),
+          Divider(
+            height: 0,
+            thickness: 1,
+          )
+        ],
+      ),
     );
-    ;
   }
 
   Widget popUpMenue(event) {
