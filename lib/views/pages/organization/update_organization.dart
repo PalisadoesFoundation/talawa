@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
@@ -9,6 +10,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 
 class UpdateOrganization extends StatefulWidget {
   @override
@@ -82,10 +84,10 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
         _progressBarState = true;
       });
       _successToast("Sucess!");
-      print(result.data);
-      //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage()));
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
     }
   }
 

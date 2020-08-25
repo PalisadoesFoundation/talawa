@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
@@ -73,9 +74,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       print(result.data);
       _successToast("Request Sent to Organization Admin");
 
-      //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new NewsFeed()));
+      pushNewScreen(
+        context,
+        screen: NewsFeed(),
+      );
     }
   }
 
@@ -113,9 +115,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       _successToast("Sucess!");
 
       //Navigate user to newsfeed
-
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new NewsFeed()));
+      pushNewScreen(
+        context,
+        screen: NewsFeed(),
+      );
     }
   }
 
@@ -187,7 +190,26 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                             backgroundImage: AssetImage(
                                                 "assets/images/team.png")),
                                     title:
-                                        Text(organization['name'].toString()),
+                                        organization['isPublic'].toString() !=
+                                                'false'
+                                            ? Row(
+                                                children: [
+                                                  Text(organization['name']
+                                                      .toString()),
+                                                  Icon(Icons.lock_open,
+                                                      color: Colors.green,
+                                                      size: 16)
+                                                ],
+                                              )
+                                            : Row(
+                                                children: [
+                                                  Text(organization['name']
+                                                      .toString()),
+                                                  Icon(Icons.lock,
+                                                      color: Colors.red,
+                                                      size: 16)
+                                                ],
+                                              ),
                                     subtitle: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,

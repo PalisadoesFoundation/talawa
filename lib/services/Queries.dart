@@ -152,6 +152,7 @@ class Queries {
           firstName
           lastName
           email
+          image
         }
       }
     }

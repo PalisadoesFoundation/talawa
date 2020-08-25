@@ -63,8 +63,10 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
 
       _graphAPI.setNewOrg(context, newOrgId);
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ProfilePage()));
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
     }
   }
 
@@ -99,8 +101,10 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
 
       _graphAPI.setNewOrg(context, newOrgId);
       _successToast('You are no longer apart of this organization');
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ProfilePage()));
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
     }
   }
 

@@ -32,13 +32,11 @@ class _RemoveMemberState extends State<RemoveMember> {
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
-        .query(QueryOptions(documentNode: gql(_query.viewMembers(orgId))));
+        .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
     if (result.hasException) {
       print(result.exception);
       //showError(result.exception.toString());
     } else if (!result.hasException) {
-      print(result.data['organizations'][0]['members']);
-
       setState(() {
         membersList = result.data['organizations'][0]['members'];
       });

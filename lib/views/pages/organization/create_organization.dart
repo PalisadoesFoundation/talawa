@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/GraphAPI.dart';
@@ -11,6 +12,7 @@ import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 
 class CreateOrganization extends StatefulWidget {
   @override
@@ -77,8 +79,10 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       });
       _successToast("Sucess!");
       print(result.data);
-      //Navigate user to join organization screen
-      Navigator.of(context).pop();
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
     }
   }
 

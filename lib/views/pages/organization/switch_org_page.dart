@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
@@ -80,8 +81,10 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       await _pref.saveCurrentOrgId(currentOrgId);
       final String currentOrgImgSrc = result.data['organizations'][0]['image'];
       await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ProfilePage()));
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
     }
   }
 
@@ -106,22 +109,9 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                           backgroundImage: NetworkImage(
                               displayImgRoute + userOrg[index]['image']))
                       : CircleAvatar(
-                          radius: 30.0,
-                          backgroundColor: Colors.white,
-                          child: Text(
-                              userOrg[index]['firstName']
-                                      .toString()
-                                      .substring(0, 1)
-                                      .toUpperCase() +
-                                  userOrg[index]['lastName']
-                                      .toString()
-                                      .substring(0, 1)
-                                      .toUpperCase(),
-                              style: TextStyle(
-                                color: UIData.primaryColor,
-                                fontSize: 22,
-                              )),
-                        ),
+                          radius: 30,
+                          backgroundImage:
+                              AssetImage("assets/images/team.png")),
                   activeColor: UIData.secondaryColor,
                   groupValue: isSelected,
                   title: Text(userOrg[index]['name'].toString() +
