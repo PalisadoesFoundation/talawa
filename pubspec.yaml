@@ -40,6 +40,7 @@ dependencies:
   file_picker: ^1.13.3
   timeline_list: ^0.0.5
   flutter_sticky_header: ^0.4.5
+  scroll_to_index: ^1.0.6
   filter_list: ^0.0.4
 
 
