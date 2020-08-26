@@ -30,7 +30,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  List organizationInfo = [];
+  List organizationInfo = List();
+  List filteredOrgInfo = List();
   List joinedOrg = [];
   GraphAPI _graphAPI = GraphAPI();
   String isPublic;
@@ -40,6 +41,19 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     super.initState();
     fToast = FToast(context);
     fetchOrg();
+  }
+
+  void searchOrgName(String orgName) {
+    filteredOrgInfo.clear();
+    if (orgName.isNotEmpty) {
+      for (int i = 0; i < organizationInfo.length; i++) {
+        String name = organizationInfo[i]['name'];
+        if (name.toLowerCase().contains(orgName.toLowerCase())) {
+          filteredOrgInfo.add(organizationInfo[i]);
+          print(filteredOrgInfo);
+        }
+      }
+    }
   }
 
   Future fetchOrg() async {
@@ -82,9 +96,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   Future joinPublicOrg() async {
-    String accessTokenException =
-        "Access Token has expired. Please refresh session.: Undefined location";
-
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -147,6 +158,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                     height: 20,
                   ),
                   TextFormField(
+                    onChanged: (value) {
+                      searchOrgName(value);
+                    },
                     textAlign: TextAlign.left,
                     style: TextStyle(fontSize: 16),
                     decoration: InputDecoration(

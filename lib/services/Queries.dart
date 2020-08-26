@@ -125,12 +125,6 @@ class Queries {
           firstName
           lastName
         }
-        members{
-          _id
-          firstName
-          lastName
-          email
-        }
       }
     }
   ''';
