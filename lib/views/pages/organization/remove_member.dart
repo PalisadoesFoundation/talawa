@@ -19,7 +19,7 @@ class _RemoveMemberState extends State<RemoveMember> {
   List membersList = [];
   List selectedMembers = List();
   Queries _query = Queries();
-  bool _isChecked = false;
+
   @override
   void initState() {
     super.initState();
@@ -43,36 +43,36 @@ class _RemoveMemberState extends State<RemoveMember> {
     }
   }
 
-  // Future removeMembers() async {
-  //   GraphQLClient _client = graphQLConfiguration.authClient();
-  //   final String orgId = await _preferences.getCurrentOrgId();
+  Future removeMembers() async {
+    GraphQLClient _client = graphQLConfiguration.authClient();
+    final String orgId = await _preferences.getCurrentOrgId();
 
-  //   QueryResult result = await _client.query(
-  //       QueryOptions(documentNode: gql(_query.removeMember(orgId, userId))));
-  //   if (result.hasException &&
-  //       result.exception.toString().substring(16) == accessTokenException) {
-  //     _graphAPI.getNewToken();
-  //     return removeMembers();
-  //   } else if (result.hasException &&
-  //       result.exception.toString().substring(16) != accessTokenException) {
-  //     _exceptionToast(result.exception.toString().substring(16));
-  //   } else if (!result.hasException) {
-  //     print(result.data);
-  //     _successToast('Member(s) was removed');
-  //     viewMembers();
-  //   }
-  // }
+    QueryResult result = await _client.query(QueryOptions(
+        documentNode: gql(_query.removeMember(orgId, selectedMembers))));
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _graphAPI.getNewToken();
+      return removeMembers();
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
+      print(result.exception.toString().substring(16));
+    } else if (!result.hasException) {
+      print(result.data);
+//_successToast('Member(s) was removed');
+      viewMembers();
+    }
+  }
 
   //add or remove selected members from list
-  void _onMemberSelected(bool selected, memberId) {
+  void _onMemberSelected(bool selected, String memberId) {
     if (selected == true) {
       setState(() {
-        selectedMembers.add(memberId);
+        selectedMembers.add('"$memberId"');
       });
       print(selectedMembers);
     } else {
       setState(() {
-        selectedMembers.remove(memberId);
+        selectedMembers.remove('"$memberId"');
       });
       print(selectedMembers);
     }
@@ -89,6 +89,7 @@ class _RemoveMemberState extends State<RemoveMember> {
         itemCount: membersList.length,
         itemBuilder: (context, index) {
           final members = membersList[index];
+          String mId = members['_id'];
           return CheckboxListTile(
             secondary: members['image'] != null
                 ? CircleAvatar(
@@ -113,9 +114,9 @@ class _RemoveMemberState extends State<RemoveMember> {
                         )),
                   ),
             title: Text(members['firstName'] + ' ' + members['lastName']),
-            value: selectedMembers.contains(members['_id']),
+            value: selectedMembers.contains('"$mId"'),
             onChanged: (bool value) {
-              _onMemberSelected(value, members['_id']);
+              _onMemberSelected(value, members['_id'].toString());
             },
           );
         },
@@ -130,8 +131,7 @@ class _RemoveMemberState extends State<RemoveMember> {
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
-          //removeMembers();
-          print("remove");
+          removeMembers();
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

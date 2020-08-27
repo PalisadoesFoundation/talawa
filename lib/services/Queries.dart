@@ -298,16 +298,15 @@ class Queries {
   ''';
   }
 
-  String removeMember(String organizationId, String userId) {
+  String removeMember(String organizationId, List userIds) {
     return '''
       mutation {
-        removeMember(data: {organizationId: "$organizationId", userId: "$userId"}){
-              user{
-              firstName
-              lastName
-              image
-           }
-         }
+        removeMember(data: {organizationId: "$organizationId", userIds: $userIds})
+         {
+            _id
+            name
+        }
+        
     }
   ''';
   }

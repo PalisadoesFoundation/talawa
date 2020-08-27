@@ -20,7 +20,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   FToast fToast;
   int isSelected;
   Preferences preferences = Preferences();
-  static String itemIndex;
+  String itemIndex;
   List userOrg = [];
   Preferences _pref = Preferences();
   bool _progressBarState = false;
