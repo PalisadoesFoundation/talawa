@@ -61,26 +61,7 @@ class _NewsFeedState extends State<NewsFeed> {
     final _imgSrc = Provider.of<Preferences>(context).orgImgSrc;
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'News',
-            style: TextStyle(color: Colors.white),
-          ),
-          leading: _imgSrc.toString() != "null"
-              ? Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: CircleAvatar(
-                      radius: 40,
-                      backgroundImage:
-                          NetworkImage(displayImgRoute + _imgSrc.toString())),
-                )
-              : Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage("assets/images/team.png")),
-                ),
-        ),
+        appBar: CustomAppBar('NewsFeed', _imgSrc.toString()),
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
             ? Center(child: CircularProgressIndicator())

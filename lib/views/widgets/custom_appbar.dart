@@ -5,46 +5,34 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
 
-class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
+  final String _imgSrc;
 
   @override
   final Size preferredSize;
 
   CustomAppBar(
-    this.title, {
+    this.title,
+    this._imgSrc, {
     Key key,
   })  : preferredSize = Size.fromHeight(55.0),
         super(key: key);
 
   @override
-  _CustomAppBarState createState() => _CustomAppBarState();
-}
-
-class _CustomAppBarState extends State<CustomAppBar> {
-  Preferences preferences = Preferences();
-
-  initState() {
-    super.initState();
-    Provider.of<Preferences>(context, listen: false).getCurrentOrgImgSrc();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final _imgSrc = Provider.of<Preferences>(context).orgImgSrc.toString();
-    print(_imgSrc.toString());
     return AppBar(
       title: Text(
-        widget.title,
+        title,
         style: TextStyle(color: Colors.white),
       ),
-      leading: _imgSrc.toString() != "null"
+      leading: _imgSrc != 'null'
           ? Padding(
               padding: const EdgeInsets.all(5.0),
               child: CircleAvatar(
-                  radius: 40,
-                  backgroundImage: NetworkImage(displayImgRoute + _imgSrc)),
-            )
+                radius: 40,
+                backgroundImage: NetworkImage(displayImgRoute + _imgSrc),
+              ))
           : Padding(
               padding: const EdgeInsets.all(5.0),
               child: CircleAvatar(
