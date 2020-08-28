@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/accept_requests_page.dart';
@@ -22,8 +23,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   Preferences preferences = Preferences();
 
   Queries _query = Queries();
-  GraphAPI _graphAPI = GraphAPI();
-
+  AuthController _authController = AuthController();
+  OrgController _orgController = OrgController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
 
@@ -44,7 +45,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      _graphAPI.getNewToken();
+      _authController.getNewToken();
       return removeOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
@@ -62,7 +63,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         }
       });
 
-      _graphAPI.setNewOrg(context, newOrgId);
+      _orgController.setNewOrg(context, newOrgId);
       pushNewScreen(
         context,
         screen: ProfilePage(),
@@ -82,7 +83,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      _graphAPI.getNewToken();
+      _authController.getNewToken();
       return leaveOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
@@ -99,7 +100,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         }
       });
 
-      _graphAPI.setNewOrg(context, newOrgId);
+      _orgController.setNewOrg(context, newOrgId);
       _successToast('You are no longer apart of this organization');
       pushNewScreen(
         context,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 
@@ -15,7 +15,7 @@ class RemoveMember extends StatefulWidget {
 class _RemoveMemberState extends State<RemoveMember> {
   Preferences _preferences = Preferences();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  GraphAPI _graphAPI = GraphAPI();
+  AuthController _authController = AuthController();
   List membersList = [];
   List selectedMembers = List();
   Queries _query = Queries();
@@ -51,7 +51,7 @@ class _RemoveMemberState extends State<RemoveMember> {
         documentNode: gql(_query.removeMember(orgId, selectedMembers))));
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      _graphAPI.getNewToken();
+      _authController.getNewToken();
       return removeMembers();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {

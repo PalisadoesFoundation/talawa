@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
@@ -9,7 +11,6 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 
@@ -33,9 +34,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   List organizationInfo = List();
   List filteredOrgInfo = List();
   List joinedOrg = [];
-  GraphAPI _graphAPI = GraphAPI();
+  AuthController _authController = AuthController();
   String isPublic;
   TextEditingController searchController = TextEditingController();
+  OrgController _orgController = OrgController();
 
   @override
   void initState() {
@@ -85,7 +87,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      _graphAPI.getNewToken();
+      _authController.getNewToken();
       return joinPrivateOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
@@ -109,7 +111,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      _graphAPI.getNewToken();
+      _authController.getNewToken();
       return joinPublicOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
@@ -128,6 +130,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         final String currentOrgImgSrc = result.data['joinPublicOrganization']
             ['joinedOrganizations'][0]['image'];
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+        final String currentOrgName = result.data['joinPublicOrganization']
+            ['joinedOrganizations'][0]['name'];
+        await _pref.saveCurrentOrgName(currentOrgName);
       }
       _successToast("Sucess!");
 
@@ -154,14 +159,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    "Welcome, \nJoin or create your organization to get started",
+                    "Welcome, \nJoin or Create your organization to get started",
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontStyle: FontStyle.normal),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   TextFormField(
                     onChanged: (value) {
@@ -169,7 +174,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                     },
                     controller: searchController,
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 14),
                     decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(5),
                         fillColor: Colors.white,
@@ -190,7 +195,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                         ),
                         hintText: "Search Organization Name"),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 15),
                   Expanded(
                       child: Container(
                           color: Color(0xffF3F6FF),

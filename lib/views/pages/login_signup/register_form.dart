@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/controllers/auth_controller.dart';
 import 'dart:io';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
@@ -33,6 +34,7 @@ class RegisterFormState extends State<RegisterForm> {
   FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
+  AuthController _authController = AuthController();
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -66,23 +68,15 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Sucessfully Registered");
-      print(result.data);
 
-      ///Store user token in local storage
-      void getToken() async {
-        final Token accessToken =
-            new Token(tokenString: result.data['signUp']['accessToken']);
-        await _pref.saveToken(accessToken);
-        final Token refreshToken =
-            new Token(tokenString: result.data['signUp']['refreshToken']);
-        await _pref.saveRefreshToken(refreshToken);
-        final String currentUserId = result.data['signUp']['user']['_id'];
-        await _pref.saveUserId(currentUserId);
-      }
-
-      getToken();
-
+      final Token accessToken =
+          new Token(tokenString: result.data['signUp']['accessToken']);
+      await _pref.saveToken(accessToken);
+      final Token refreshToken =
+          new Token(tokenString: result.data['signUp']['refreshToken']);
+      await _pref.saveRefreshToken(refreshToken);
+      final String currentUserId = result.data['signUp']['user']['_id'];
+      await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new JoinOrganization()));

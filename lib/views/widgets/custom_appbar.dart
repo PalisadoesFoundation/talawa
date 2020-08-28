@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
@@ -21,29 +23,22 @@ class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
 
 class _CustomAppBarState extends State<CustomAppBar> {
   Preferences preferences = Preferences();
-  String _imgSrc;
 
   initState() {
     super.initState();
-    getImgSrc();
-  }
-
-  getImgSrc() async {
-    final String imageSrc = await preferences.getCurrentOrgImgSrc();
-    setState(() {
-      _imgSrc = imageSrc;
-    });
-    print(_imgSrc);
+    Provider.of<Preferences>(context, listen: false).getCurrentOrgImgSrc();
   }
 
   @override
   Widget build(BuildContext context) {
+    final _imgSrc = Provider.of<Preferences>(context).orgImgSrc.toString();
+    print(_imgSrc.toString());
     return AppBar(
       title: Text(
         widget.title,
         style: TextStyle(color: Colors.white),
       ),
-      leading: _imgSrc != null
+      leading: _imgSrc.toString() != "null"
           ? Padding(
               padding: const EdgeInsets.all(5.0),
               child: CircleAvatar(

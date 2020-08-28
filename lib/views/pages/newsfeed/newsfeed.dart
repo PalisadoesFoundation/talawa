@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/views/pages/newsfeed/addPost.dart';
 import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
+import 'package:talawa/views/widgets/custom_appbar.dart';
 
 class NewsFeed extends StatefulWidget {
   NewsFeed({Key key}) : super(key: key);
@@ -25,6 +28,7 @@ class _NewsFeedState extends State<NewsFeed> {
   initState() {
     super.initState();
     getPosts();
+    Provider.of<Preferences>(context, listen: false).getCurrentOrgImgSrc();
   }
 
   Future<void> getPosts() async {
@@ -54,12 +58,28 @@ class _NewsFeedState extends State<NewsFeed> {
 
   @override
   Widget build(BuildContext context) {
+    final _imgSrc = Provider.of<Preferences>(context).orgImgSrc;
+
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Newsfeed',
+            'News',
             style: TextStyle(color: Colors.white),
           ),
+          leading: _imgSrc.toString() != "null"
+              ? Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: CircleAvatar(
+                      radius: 40,
+                      backgroundImage:
+                          NetworkImage(displayImgRoute + _imgSrc.toString())),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: CircleAvatar(
+                      radius: 40,
+                      backgroundImage: AssetImage("assets/images/team.png")),
+                ),
         ),
         floatingActionButton: addPostFab(),
         body: postList.isEmpty

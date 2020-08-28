@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/globals.dart';
 
 class AcceptRequestsPage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  GraphAPI _graphAPI = GraphAPI();
+  AuthController _authController = AuthController();
   List membershipRequestsList = [];
 
   @override
@@ -59,7 +59,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
         documentNode: gql(_query.acceptMembershipRequest(itemIndex))));
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      _graphAPI.getNewToken();
+      _authController.getNewToken();
       return acceptMemberShipRequests();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
@@ -78,7 +78,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
         documentNode: gql(_query.rejectMembershipRequest(itemIndex))));
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      _graphAPI.getNewToken();
+      _authController.getNewToken();
       return rejectMemberShipRequests();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {

@@ -81,6 +81,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       await _pref.saveCurrentOrgId(currentOrgId);
       final String currentOrgImgSrc = result.data['organizations'][0]['image'];
       await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+      final String currentOrgName = result.data['organizations'][0]['name'];
+      await _pref.saveCurrentOrgName(currentOrgName);
       pushNewScreen(
         context,
         screen: ProfilePage(),

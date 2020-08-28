@@ -1,12 +1,12 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/globals.dart';
 
 class ApiFunctions {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  GraphAPI _graphAPI = GraphAPI();
-  String tokenError =
-      "Access Token has expired. Please refresh session.: Undefined location";
+  AuthController _authController = AuthController();
+
   String userAuthError = "User is not authenticated: Undefined location";
 
   Future<Map> gqlquery(String query) async {
@@ -21,8 +21,8 @@ class ApiFunctions {
 
     final QueryResult result = await _client.query(options);
     if (result.hasException &&
-        result.exception.toString().substring(16) == tokenError) {
-      _graphAPI.getNewToken();
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
       gqlquery(query);
     } else if (result.hasException) {
       print(result.exception);
@@ -38,8 +38,8 @@ class ApiFunctions {
     ));
 
     if (result.hasException &&
-        result.exception.toString().substring(16) == tokenError) {
-      _graphAPI.getNewToken();
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
       gqlmutation(mutation);
     } else if (result.hasException) {
       print(result.exception);

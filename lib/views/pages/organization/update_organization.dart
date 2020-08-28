@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -19,30 +19,19 @@ class UpdateOrganization extends StatefulWidget {
 
 class _UpdateOrganizationState extends State<UpdateOrganization> {
   final orgNameController = TextEditingController();
-
   final orgDescController = TextEditingController();
-
   Queries _queries = Queries();
-
   bool _progressBarState = false;
-
   bool _validate = false;
-
   final _formKey = GlobalKey<FormState>();
-
   int radioValue = -1;
   int radioValue1 = -1;
-
   bool isPublic = true;
   bool isVisible = true;
-
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-
   FToast fToast;
-
-  GraphAPI _graphAPI = GraphAPI();
-
   Preferences _preferences = Preferences();
+  AuthController _authController = AuthController();
 
   @override
   void initState() {
@@ -70,7 +59,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      _graphAPI.getNewToken();
+      _authController.getNewToken();
       return updateOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {

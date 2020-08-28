@@ -8,6 +8,22 @@ class Preferences with ChangeNotifier {
   static const userId = "userId";
   static const currentOrgId = "currentOrgId";
   static const currentOrgImgSrc = "currentOrgImgSrc";
+  static const currentOrgName = "currentOrgName";
+
+  String orgName;
+  String orgImgSrc;
+
+  Future saveCurrentOrgName(String currName) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(currentOrgName, currName);
+  }
+
+  Future<String> getCurrentOrgName() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    orgName = preferences.getString(currentOrgName);
+    notifyListeners();
+    return orgName;
+  }
 
   Future saveCurrentOrgImgSrc(String currImgSrc) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -16,8 +32,9 @@ class Preferences with ChangeNotifier {
 
   Future<String> getCurrentOrgImgSrc() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String currentImgSrc = preferences.getString(currentOrgImgSrc);
-    return currentImgSrc;
+    orgImgSrc = preferences.getString(currentOrgImgSrc);
+    notifyListeners();
+    return orgImgSrc;
   }
 
   Future saveCurrentOrgId(String currOrgId) async {
@@ -94,6 +111,7 @@ class Preferences with ChangeNotifier {
       preferences.remove(currentOrgId);
       preferences.remove(refreshTokenKey);
       preferences.remove(userId);
+      preferences.remove(currentOrgName);
     } catch (e) {
       print(e);
       return false;
@@ -105,6 +123,7 @@ class Preferences with ChangeNotifier {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     try {
       preferences.remove(currentOrgId);
+      preferences.remove(currentOrgName);
     } catch (e) {
       print(e);
       return false;

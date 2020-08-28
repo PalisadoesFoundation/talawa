@@ -13,11 +13,6 @@ class GraphQLConfiguration {
     token = id;
   }
 
-  getRefreshToken() async {
-    final rToken = await _pref.getRefreshToken();
-    refreshToken = rToken;
-  }
-
   static HttpLink httpLink = HttpLink(
     uri: "http://calico.palisadoes.org/talawa/graphql",
   );

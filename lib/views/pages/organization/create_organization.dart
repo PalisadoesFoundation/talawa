@@ -2,9 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/GraphAPI.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -33,7 +33,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   bool isVisible = true;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  GraphAPI _graphAPI = GraphAPI();
+  AuthController _authController = AuthController();
   File _image;
 
   @override
@@ -64,7 +64,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      _graphAPI.getNewToken();
+      _authController.getNewToken();
       return createOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
