@@ -59,6 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final _imgSrc = Provider.of<Preferences>(context).orgName;
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: userDetails.isEmpty

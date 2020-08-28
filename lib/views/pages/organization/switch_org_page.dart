@@ -19,7 +19,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   int isSelected;
-  Preferences preferences = Preferences();
   String itemIndex;
   List userOrg = [];
   Preferences _pref = Preferences();
@@ -37,7 +36,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   }
 
   Future fetchUserDetails() async {
-    final String userID = await preferences.getUserId();
+    final String userID = await _pref.getUserId();
 
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 

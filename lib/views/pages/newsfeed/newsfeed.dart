@@ -28,7 +28,6 @@ class _NewsFeedState extends State<NewsFeed> {
   initState() {
     super.initState();
     getPosts();
-    Provider.of<Preferences>(context, listen: false).getCurrentOrgImgSrc();
   }
 
   Future<void> getPosts() async {
@@ -58,10 +57,8 @@ class _NewsFeedState extends State<NewsFeed> {
 
   @override
   Widget build(BuildContext context) {
-    final _imgSrc = Provider.of<Preferences>(context).orgImgSrc;
-
     return Scaffold(
-        appBar: CustomAppBar('NewsFeed', _imgSrc.toString()),
+        appBar: CustomAppBar('NewsFeed'),
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
             ? Center(child: CircularProgressIndicator())
