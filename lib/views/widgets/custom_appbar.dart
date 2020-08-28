@@ -1,61 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/org_controller.dart';
-import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
 
-class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;
+  final String _imgSrc;
 
   @override
   final Size preferredSize;
 
   CustomAppBar(
-    this.title, {
+    this.title,
+    this._imgSrc, {
     Key key,
   })  : preferredSize = Size.fromHeight(55.0),
         super(key: key);
 
   @override
-  _CustomAppBarState createState() => _CustomAppBarState();
-}
-
-class _CustomAppBarState extends State<CustomAppBar> {
-  Queries _query = Queries();
-  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  Preferences preferences = Preferences();
-  String _imgSrc;
-
-  @override
-  void initState() {
-    super.initState();
-    getImg();
-  }
-
-  Future getImg() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    String orgId = await preferences.getCurrentOrgId();
-
-    QueryResult result = await _client
-        .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
-    if (result.hasException) {
-      print(result.exception);
-    } else if (!result.hasException) {
-      print(result.data);
-      setState(() {
-        _imgSrc = result.data['organizations'][0]['image'];
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        widget.title,
+        title,
         style: TextStyle(color: Colors.white),
       ),
       leading: _imgSrc != 'null'

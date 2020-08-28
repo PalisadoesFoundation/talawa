@@ -114,7 +114,8 @@ class RegisterFormState extends State<RegisterForm> {
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.person),
                 labelText: "First Name",
                 labelStyle: TextStyle(color: Colors.white),
@@ -136,7 +137,8 @@ class RegisterFormState extends State<RegisterForm> {
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.person),
                 labelText: "Last Name",
                 labelStyle: TextStyle(color: Colors.white),
@@ -159,7 +161,8 @@ class RegisterFormState extends State<RegisterForm> {
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.email),
                 labelText: "Email",
                 labelStyle: TextStyle(color: Colors.white),
@@ -182,7 +185,8 @@ class RegisterFormState extends State<RegisterForm> {
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
@@ -206,7 +210,8 @@ class RegisterFormState extends State<RegisterForm> {
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Confirm Password",
                 labelStyle: TextStyle(color: Colors.white),

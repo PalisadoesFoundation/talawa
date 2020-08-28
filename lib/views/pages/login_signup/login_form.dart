@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
@@ -28,8 +29,8 @@ class LoginFormState extends State<LoginForm> {
   Queries _query = Queries();
   FToast fToast;
   Preferences _pref = Preferences();
-  AuthController _authController = AuthController();
-  OrgController _orgController = OrgController();
+  static String orgURI;
+
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
   }
@@ -99,7 +100,8 @@ class LoginFormState extends State<LoginForm> {
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.email),
                 labelText: "Email",
                 labelStyle: TextStyle(color: Colors.white),
@@ -121,7 +123,8 @@ class LoginFormState extends State<LoginForm> {
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),

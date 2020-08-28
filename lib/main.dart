@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 
@@ -21,6 +23,8 @@ Future<void> main() async {
 
   runApp(MultiProvider(
     providers: [
+      ChangeNotifierProvider<GraphQLConfiguration>(
+          create: (_) => GraphQLConfiguration()),
       ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
       ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
       ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),

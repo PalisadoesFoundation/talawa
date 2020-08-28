@@ -9,9 +9,21 @@ class Preferences with ChangeNotifier {
   static const currentOrgId = "currentOrgId";
   static const currentOrgImgSrc = "currentOrgImgSrc";
   static const currentOrgName = "currentOrgName";
+  static const orgUrl = "orgUrl";
 
   String orgName;
   String orgImgSrc;
+
+  Future saveOrgUrl(String url) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(orgUrl, url);
+  }
+
+  Future<String> getOrgUrl() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String url = preferences.getString(orgUrl);
+    return url;
+  }
 
   Future saveCurrentOrgName(String currName) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -112,6 +124,8 @@ class Preferences with ChangeNotifier {
       preferences.remove(refreshTokenKey);
       preferences.remove(userId);
       preferences.remove(currentOrgName);
+      preferences.remove(currentOrgImgSrc);
+      preferences.remove(orgUrl);
     } catch (e) {
       print(e);
       return false;
