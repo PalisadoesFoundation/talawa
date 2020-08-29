@@ -30,12 +30,10 @@ class _EventsState extends State<Events> {
   List displayedEvents = [];
   List currentFilterEvents = [];
   List eventsToDate = [];
-  int selectedIndex = 0;
-  String title = '';
-  String description = '';
+  String dateSelected = 'Today';
+  DateTime _dateSelectedDate = DateTime.now();
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
-  String dateSelected = 'Today';
   StickyHeaderController stickyHeaderController = StickyHeaderController();
   CalendarController _calendarController = CalendarController();
   CarouselController carouselController = CarouselController();
@@ -46,6 +44,7 @@ class _EventsState extends State<Events> {
   }
 
   //get all events for a given day
+  //account for recurring events
   List filterEventsByDay(DateTime currentDate, List events) {
     List currentevents = [];
 
@@ -218,6 +217,7 @@ class _EventsState extends State<Events> {
                       }
                       carouselController.animateToPage(1);
                       setState(() {
+                        _dateSelectedDate = day;
                         dateSelected = carouselDay;
                       });
                       List currentevents = filterEventsByDay(day, events);
@@ -311,6 +311,8 @@ class _EventsState extends State<Events> {
             ],
             options: CarouselOptions(
               onPageChanged: (item, reason) {
+                currentFilterEvents =
+                    filterEventsByDay(_dateSelectedDate, eventList);
                 if (item == 0) {
                   setState(() {
                     displayedEvents = eventList;
@@ -350,17 +352,7 @@ class _EventsState extends State<Events> {
     return Container(
       child: Column(
         children: [
-          // AutoScrollTag(
-          // key: ValueKey(index),
-          // // controller: scrollController,
-          // index: index,
-          // child:
           ExpansionTile(
-            // onExpansionChanged: (val) {
-            //   scrollController.scrollToIndex(index,
-            //       preferPosition: AutoScrollPosition.begin,
-            //       duration: Duration(milliseconds: 500));
-            // },
             children: <Widget>[
               displayedEvents[index]['isPublic']
                   ? menueText('This event is Public')
