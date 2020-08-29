@@ -44,11 +44,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
     if (result.hasException) {
       print(result.exception);
     } else if (!result.hasException) {
-      print(result.data);
+      // print(result.data);
       setState(() {
-        _imgSrc = result.data == null
-            ? null
-            : result.data['organizations'][0]['image'];
+        _imgSrc = result.data['organizations'][0]['image'];
       });
     }
   }

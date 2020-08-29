@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   PersistentTabController _controller =
-      PersistentTabController(initialIndex: 3);
+      PersistentTabController(initialIndex: 0);
   Preferences preferences = Preferences();
   @override
   void initState() {
