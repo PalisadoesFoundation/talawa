@@ -46,7 +46,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
     } else if (!result.hasException) {
       print(result.data);
       setState(() {
-        _imgSrc = result.data['organizations'][0]['image'];
+        _imgSrc = result.data == null
+            ? null
+            : result.data['organizations'][0]['image'];
       });
     }
   }
@@ -58,7 +60,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         widget.title,
         style: TextStyle(color: Colors.white),
       ),
-      leading: _imgSrc != 'null'
+      leading: _imgSrc != null
           ? Padding(
               padding: const EdgeInsets.all(5.0),
               child: CircleAvatar(

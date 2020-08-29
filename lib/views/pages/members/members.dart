@@ -106,13 +106,13 @@ class _OrganizationsState extends State<Organizations> {
           slivers: List.generate(
             alphaMembersList.length,
             (index) {
-              return userCard(context, alphaMembersList[index]);
+              return alphabetDividerList(context, alphaMembersList[index]);
             },
           ),
         ));
   }
 
-  Widget userCard(BuildContext context, List membersList) {
+  Widget alphabetDividerList(BuildContext context, List membersList) {
     return SliverStickyHeader(
       header: Container(
         height: 60.0,
@@ -213,21 +213,21 @@ class _OrganizationsState extends State<Organizations> {
 
   Widget popUpMenue(Map member) {
     return PopupMenuButton<int>(
-      onSelected: (val) async {
-        if (val == 1) {
-          pushNewScreen(
-            context,
-            withNavBar: true,
-            screen: UserTasks(),
-          );
-        } else if (val == 2) {
-          pushNewScreen(
-            context,
-            withNavBar: true,
-            screen: RegisterdEvents(),
-          );
-        }
-      },
+      // onSelected: (val) async {
+      //   if (val == 1) {
+      //     pushNewScreen(
+      //       context,
+      //       withNavBar: true,
+      //       screen: UserTasks(),
+      //     );
+      //   } else if (val == 2) {
+      //     pushNewScreen(
+      //       context,
+      //       withNavBar: true,
+      //       screen: RegisterdEvents(),
+      //     );
+      //   }
+      // },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
         const PopupMenuItem<int>(
             value: 1,
