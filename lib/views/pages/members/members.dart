@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/memberDetails.dart';
 import 'package:talawa/views/pages/members/RegEventstab.dart';
@@ -23,7 +26,7 @@ class _OrganizationsState extends State<Organizations> {
 
   initState() {
     super.initState();
-    getEvents();
+    getMembers();
   }
 
   List alphaSplitList(List list) {
@@ -68,7 +71,7 @@ class _OrganizationsState extends State<Organizations> {
     return alphalist;
   }
 
-  Future<List> getEvents() async {
+  Future<List> getMembers() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     ApiFunctions apiFunctions = ApiFunctions();
     var result =
@@ -147,20 +150,9 @@ class _OrganizationsState extends State<Organizations> {
           clipBehavior: Clip.hardEdge,
           child: Row(
             children: [
-              Container(
-                  padding: EdgeInsets.all(0),
-                  width: 100,
-                  height: 80,
-                  color: idToColor(membersList[index]['_id']),
-                  child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: CircleAvatar(
-                          backgroundColor: Colors.black12,
-                          child: Icon(
-                            Icons.person,
-                            size: 30,
-                            color: Colors.white70,
-                          )))),
+              membersList[index]['image'] == null
+                  ? defaultUserImage(membersList[index])
+                  : userImage(membersList[index]),
               Container(
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.all(20),
@@ -175,6 +167,48 @@ class _OrganizationsState extends State<Organizations> {
             ],
           ),
         ));
+  }
+
+  Widget userImage(Map member) {
+    return Container(
+      height: 80,
+      width: 100,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(displayImgRoute + member['image']),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          child: Container(
+            alignment: Alignment.center,
+            color: Colors.grey.withOpacity(0.1),
+            child: Image.network(
+              displayImgRoute + member['image'],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget defaultUserImage(Map member) {
+    return Container(
+        padding: EdgeInsets.all(0),
+        width: 100,
+        height: 80,
+        color: idToColor(member['_id']),
+        child: Padding(
+            padding: EdgeInsets.all(10),
+            child: CircleAvatar(
+                backgroundColor: Colors.black12,
+                child: Icon(
+                  Icons.person,
+                  size: 30,
+                  color: Colors.white70,
+                ))));
   }
 
   Widget popUpMenue(Map member) {

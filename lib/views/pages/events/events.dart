@@ -152,7 +152,7 @@ class _EventsState extends State<Events> {
     setState(() {
       displayedEvents = eventList;
     });
-    print(displayedEvents);
+    // print(displayedEvents);
   }
 
   Future<void> _editEvent(context, event) async {
@@ -179,7 +179,6 @@ class _EventsState extends State<Events> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -209,6 +208,7 @@ class _EventsState extends State<Events> {
                 flexibleSpace: FlexibleSpaceBar(
                   background: Container(
                       child: TableCalendar(
+                    calendarStyle: CalendarStyle(markersColor: Colors.black45),
                     onDaySelected: (day, events) {
                       String carouselDay =
                           DateFormat.yMMMMd('en_US').format(day);

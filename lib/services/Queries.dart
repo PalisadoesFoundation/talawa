@@ -444,6 +444,30 @@ class Queries {
     """;
   }
 
+/////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
+
+  String tasksByUser(String id) {
+    return """
+  query{
+    tasksByUser(id:"$id"){
+      _id
+    }
+  }
+  
+  """;
+  }
+
+  String registeredEventsByUser(String id) {
+    return """
+  query{
+    registeredEventsByUser(id:"$id"){
+      _id
+    }
+  }
+  
+  """;
+  }
+
 ///////////////////NEWSFEED///////////////////////////////////////////////////////////////////////
   String getPostsById(String orgId) {
     return """
