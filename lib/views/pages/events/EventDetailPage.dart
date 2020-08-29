@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/views/pages/events/registrantList.dart';
+import 'package:talawa/views/pages/events/taskList.dart';
+import 'package:intl/intl.dart';
 
 class EventDetail extends StatefulWidget {
   Map event;
@@ -10,7 +13,16 @@ class EventDetail extends StatefulWidget {
   _EventDetailState createState() => _EventDetailState();
 }
 
-class _EventDetailState extends State<EventDetail> {
+class _EventDetailState extends State<EventDetail>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 2);
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -37,43 +49,30 @@ class _EventDetailState extends State<EventDetail> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      ListTile(
-                        leading: Text(
-                          widget.event['description'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white),
-                        ),
+                      dispayText(
+                        widget.event['description'].toString(),
                       ),
-                      ListTile(
-                        leading: Text(
-                          widget.event['recurrance'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.white),
-                        ),
+                      dispayText(
+                        widget.event['recurrance'].toString(),
                       ),
-                      ListTile(
-                        leading: Text(
-                          widget.event['date'],
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
+                      dispayText(
+                        DateFormat.yMMMMd('en_US')
+                            .format(DateTime.parse(widget.event['startTime']))
+                            .toString(),
                       ),
-                      ListTile(
-                        leading: Text(
-                          widget.event['location'],
-                          style: TextStyle(fontSize: 16, color: Colors.white),
-                        ),
+                      dispayText(
+                        widget.event['location'].toString(),
                       ),
-                      ListTile(
-                          leading: Text(
-                        widget.event['startTime'] +
+                      dispayText(
+                        DateFormat.jm('en_US')
+                                .format(
+                                    DateTime.parse(widget.event['startTime']))
+                                .toString() +
                             ' to ' +
-                            widget.event['endTime'],
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      )),
+                            DateFormat.jm('en_US')
+                                .format(DateTime.parse(widget.event['endTime']))
+                                .toString(),
+                      ),
                     ],
                   ),
                 ),
@@ -83,36 +82,63 @@ class _EventDetailState extends State<EventDetail> {
           ),
           SliverStickyHeader(
             header: Container(
-              padding: EdgeInsets.only(left: 20),
-              alignment: Alignment.centerLeft,
-              color: UIData.secondaryColor,
-              height: 60,
-              child: Text(
-                'Tasks',
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                height: 60.0,
+                decoration:
+                    BoxDecoration(color: Theme.of(context).primaryColor),
+                child: Material(
+                  color: UIData.secondaryColor,
+                  child: TabBar(
+                    labelPadding: EdgeInsets.all(0),
+                    indicatorColor: Colors.white,
+                    controller: _tabController,
+                    tabs: [
+                      Tab(
+                        icon: Text(
+                          'Tasks',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        icon: Text(
+                          'Registrants',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
+            sliver: SliverFillRemaining(
+              child: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                  TaskList(
+                    event: widget.event,
+                  ),
+                  RegList(
+                    event: widget.event,
+                  ),
+                ],
               ),
             ),
-            sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return ExpansionTile(
-                    title: Text('Task ' + index.toString()),
-                    children: <Widget>[
-                      ListTile(
-                        leading: Text('Description:'),
-                      ),
-                      ListTile(
-                        leading: Text('Assigned To:'),
-                      ),
-                      ListTile(
-                        leading: Text('Due Date:'),
-                      )
-                    ]);
-              },
-              childCount: 20,
-            )),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget dispayText(String text) {
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.black38,
+          borderRadius: BorderRadius.all(Radius.circular(5))),
+      margin: EdgeInsets.all(10),
+      padding: EdgeInsets.all(10),
+      height: 40,
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 16, color: Colors.white),
       ),
     );
   }

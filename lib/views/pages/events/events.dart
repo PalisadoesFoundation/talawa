@@ -360,12 +360,11 @@ class _EventsState extends State<Events> {
               displayedEvents[index]['isRegisterable']
                   ? menueText('You Are Registered')
                   : menueText('You Are Not Registered'),
-              // menueText('Date: ' +
-              //     DateFormat.yMMMd().format(
-              //         DateTime.parse(
-              //             displayedEvents[index]
-              //                 ['date']))),
-              menueText('Starts: ' + displayedEvents[index]['startTime']),
+              menueText('Date: ' +
+                  DateFormat.yMMMMd('en_US')
+                      .format(
+                          DateTime.parse(displayedEvents[index]['startTime']))
+                      .toString()),
               ListTile(
                 trailing: RaisedButton(
                   color: UIData.secondaryColor,

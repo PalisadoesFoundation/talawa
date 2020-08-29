@@ -326,6 +326,7 @@ class Queries {
           startTime
           endTime
           location
+          isRegistered
         }
       }
     """;
@@ -404,6 +405,32 @@ class Queries {
         }
       }
     """;
+  }
+
+  String getTasksByEvent(String id) {
+    return """
+  query{
+    tasksByEvent(id:"$id"){
+        title
+        description
+        deadline
+    }
+  }
+  
+  """;
+  }
+
+  String getRegistrantsByEvent(String id) {
+    return """
+  query{
+    registrantsByEvent(id:"$id"){
+    firstName
+    lastName
+    email
+    image
+    }
+  }
+  """;
   }
 
   String addEvent(
