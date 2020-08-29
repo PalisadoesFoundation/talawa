@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
@@ -26,45 +29,22 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Queries _query = Queries();
-  GraphAPI _api = GraphAPI();
   Preferences preferences = Preferences();
+  AuthController _authController = AuthController();
   List userDetails = [];
-  String userID;
-  String currentOrgId;
   List allJoinedOrgId = [];
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  String orgName = "";
 
   @override
   void initState() {
     super.initState();
     fetchUserDetails();
-  }
-
-  getCurrentOrgId() async {
-    final orgId = await preferences.getCurrentOrgId();
-    setState(() {
-      currentOrgId = orgId;
-    });
-  }
-
-  extractId(List orgIdList) {
-    List lst = [];
-    for (int index = 0; index < allJoinedOrgId.length; index++) {
-      lst.add([orgIdList[index]['_id'], orgIdList[index]['name']]);
-      if (orgIdList[index]['_id'] == currentOrgId) {
-        setState(() {
-          orgName = orgIdList[index]['name'];
-        });
-      }
-    }
+    Provider.of<Preferences>(context, listen: false).getCurrentOrgName();
   }
 
   Future fetchUserDetails() async {
     final String userID = await preferences.getUserId();
-    getCurrentOrgId();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
-
     QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
@@ -72,14 +52,14 @@ class _ProfilePageState extends State<ProfilePage> {
     } else if (!result.hasException) {
       setState(() {
         userDetails = result.data['users'];
-        allJoinedOrgId = result.data['users'][0]['joinedOrganizations'];
-        extractId(allJoinedOrgId);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final _imgSrc = Provider.of<Preferences>(context).orgName;
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: userDetails.isEmpty
@@ -99,32 +79,33 @@ class _ProfilePageState extends State<ProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         ListTile(
-                          title: Text("Profile",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0,
-                                  color: Colors.white)),
-                          trailing: CircleAvatar(
-                            radius: 42,
-                            backgroundColor: Colors.black,
-                            child: CircleAvatar(
-                              radius: 45.0,
-                              backgroundColor: Colors.white,
-                              child: Text(
-                                  userDetails[0]['firstName']
-                                          .toString()
-                                          .substring(0, 1)
-                                          .toUpperCase() +
-                                      userDetails[0]['lastName']
-                                          .toString()
-                                          .substring(0, 1)
-                                          .toUpperCase(),
-                                  style: TextStyle(
-                                    color: UIData.primaryColor,
+                            title: Text("Profile",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0,
+                                    color: Colors.white)),
+                            trailing: userDetails[0]['image'] != null
+                                ? CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: NetworkImage(
+                                        displayImgRoute +
+                                            userDetails[0]['image']))
+                                : CircleAvatar(
+                                    radius: 45.0,
+                                    backgroundColor: Colors.white,
+                                    child: Text(
+                                        userDetails[0]['firstName']
+                                                .toString()
+                                                .substring(0, 1)
+                                                .toUpperCase() +
+                                            userDetails[0]['lastName']
+                                                .toString()
+                                                .substring(0, 1)
+                                                .toUpperCase(),
+                                        style: TextStyle(
+                                          color: UIData.primaryColor,
+                                        )),
                                   )),
-                            ),
-                          ),
-                        ),
                         const SizedBox(height: 10.0),
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0),
@@ -138,7 +119,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         const SizedBox(height: 5.0),
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0),
-                          child: Text("Current Organization: " + orgName,
+                          child: Text(
+                              "Current Organization: " + _imgSrc.toString(),
                               style: TextStyle(
                                   fontSize: 16.0, color: Colors.white)),
                         ),
@@ -234,7 +216,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         FlatButton(
                                           child: Text("Yes"),
                                           onPressed: () {
-                                            _api.logout(context);
+                                            _authController.logout(context);
                                           },
                                         )
                                       ],

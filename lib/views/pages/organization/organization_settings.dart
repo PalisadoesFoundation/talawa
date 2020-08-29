@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/accept_requests_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
+import 'package:talawa/views/pages/organization/remove_member.dart';
 import 'update_organization.dart';
 
 class OrganizationSettings extends StatefulWidget {
@@ -20,8 +23,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   Preferences preferences = Preferences();
 
   Queries _query = Queries();
-  GraphAPI _graphAPI = GraphAPI();
-
+  AuthController _authController = AuthController();
+  OrgController _orgController = OrgController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
 
@@ -39,13 +42,13 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
 
     QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.removeOrg(orgId))));
-    String e =
-        "Access Token has expired. Please refresh session.: Undefined location";
-    if (result.hasException && result.exception.toString().substring(16) == e) {
-      _graphAPI.getNewToken();
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
       return removeOrg();
     } else if (result.hasException &&
-        result.exception.toString().substring(16) != e) {
+        result.exception.toString().substring(16) != accessTokenException) {
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       _successToast('Successfully Removed');
@@ -60,9 +63,11 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         }
       });
 
-      _graphAPI.setNewOrg(context, newOrgId);
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ProfilePage()));
+      _orgController.setNewOrg(context, newOrgId);
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
     }
   }
 
@@ -75,13 +80,13 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
 
     QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
-    String e =
-        "Access Token has expired. Please refresh session.: Undefined location";
-    if (result.hasException && result.exception.toString().substring(16) == e) {
-      _graphAPI.getNewToken();
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
       return leaveOrg();
     } else if (result.hasException &&
-        result.exception.toString().substring(16) != e) {
+        result.exception.toString().substring(16) != accessTokenException) {
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
@@ -95,8 +100,12 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         }
       });
 
-      _graphAPI.setNewOrg(context, newOrgId);
+      _orgController.setNewOrg(context, newOrgId);
       _successToast('You are no longer apart of this organization');
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
     }
   }
 
@@ -109,38 +118,6 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         ),
         body: Container(
           child: Column(children: <Widget>[
-            ListTile(
-                title: Text(
-                  'Update This Organization',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                leading: Icon(
-                  Icons.update,
-                  color: UIData.secondaryColor,
-                ),
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    screen: UpdateOrganization(),
-                  );
-                }),
-            Divider(),
-            ListTile(
-                title: Text(
-                  'Accept Organization Requests',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                leading: Icon(
-                  Icons.group_add,
-                  color: UIData.secondaryColor,
-                ),
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    screen: AcceptRequestsPage(),
-                  );
-                }),
-            Divider(),
             ListTile(
                 title: Text(
                   'Leave This Organization',
@@ -168,13 +145,77 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                             FlatButton(
                               child: Text("Yes"),
                               onPressed: () async {
-                                Navigator.of(context).pop();
                                 leaveOrg();
+                                Navigator.of(context).pop();
                               },
                             )
                           ],
                         );
                       });
+                }),
+            SizedBox(height: 20.0),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Text('Creator Admin Settings',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
+                ),
+              ],
+            ),
+            ListTile(
+                title: Text(
+                  'Update This Organization',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                leading: Icon(
+                  Icons.update,
+                  color: UIData.secondaryColor,
+                ),
+                onTap: () {
+                  pushNewScreen(
+                    context,
+                    screen: UpdateOrganization(),
+                  );
+                }),
+            Divider(),
+            ListTile(
+                title: Text(
+                  'Accept MemberShip Requests',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                subtitle: Text(
+                  'For Private Organizations',
+                ),
+                leading: Icon(
+                  Icons.group_add,
+                  color: UIData.secondaryColor,
+                ),
+                onTap: () {
+                  pushNewScreen(
+                    context,
+                    screen: AcceptRequestsPage(),
+                  );
+                }),
+            Divider(),
+            ListTile(
+                title: Text(
+                  'Remove Member(s)',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                leading: Icon(
+                  Icons.person,
+                  color: UIData.secondaryColor,
+                ),
+                onTap: () {
+                  pushNewScreen(
+                    context,
+                    screen: RemoveMember(),
+                  );
                 }),
             Divider(),
             ListTile(

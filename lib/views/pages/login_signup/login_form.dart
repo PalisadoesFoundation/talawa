@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
@@ -26,7 +28,8 @@ class LoginFormState extends State<LoginForm> {
   Queries _query = Queries();
   FToast fToast;
   Preferences _pref = Preferences();
-
+  AuthController _authController = AuthController();
+  OrgController _orgController = OrgController();
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
   }
@@ -56,8 +59,6 @@ class LoginFormState extends State<LoginForm> {
       });
       _successToast("All Set!");
 
-      //Store user tokens, current org id and user id in preferences
-
       final Token accessToken =
           new Token(tokenString: result.data['login']['accessToken']);
       await _pref.saveToken(accessToken);
@@ -69,6 +70,13 @@ class LoginFormState extends State<LoginForm> {
       final String currentOrgId =
           result.data['login']['user']['joinedOrganizations'][0]['_id'];
       await _pref.saveCurrentOrgId(currentOrgId);
+      final String currentOrgImgSrc =
+          result.data['login']['user']['joinedOrganizations'][0]['image'];
+      await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+      final String currentOrgName =
+          result.data['login']['user']['joinedOrganizations'][0]['name'];
+      await _pref.saveCurrentOrgName(currentOrgName);
+
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new HomePage()));
     }

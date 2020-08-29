@@ -14,8 +14,9 @@ class Queries {
   String registerUser(
       String firstName, String lastName, String email, String password) {
     return """
-        mutation {
-          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"}){
+        mutation (\$file: Upload) {
+          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"},
+           file: \$file){
             accessToken
             user{
                 _id
@@ -41,6 +42,7 @@ class Queries {
                 _id
                 firstName
                  joinedOrganizations{
+                   image
                   _id
                   name
                  }
@@ -58,7 +60,9 @@ class Queries {
           firstName
           lastName
           email
+          image
           joinedOrganizations{
+            image
             _id
             name
             description
@@ -109,6 +113,7 @@ class Queries {
   final String fetchOrganizations = '''
     query{
       organizations(){
+        image
         _id
         name
         description
@@ -116,12 +121,6 @@ class Queries {
         creator{
           firstName
           lastName
-        }
-        members{
-          _id
-          firstName
-          lastName
-          email
         }
       }
     }
@@ -131,6 +130,7 @@ class Queries {
     return '''
     query{
       organizations(id: "$orgId"){
+        image
         _id
         name
         description
@@ -143,6 +143,7 @@ class Queries {
           firstName
           lastName
           email
+          image
         }
       }
     }
@@ -182,12 +183,6 @@ class Queries {
     }
   ''';
   }
-
-  // String uploadOrgImg = '''
-  //      mutation uploadOrgImg(\$organizationId: ID!){
-  //         addOrganizationImage(id:\$id){
-
-  //   ''';
 
   String updateOrg(String orgId, String name, String description, bool isPublic,
       bool visibleInSearch) {
@@ -250,7 +245,24 @@ class Queries {
             user{
               firstName
               lastName
+              image
             }
+          }
+         }
+    }
+  ''';
+  }
+
+  String viewMembers(String orgId) {
+    return '''
+      query {
+        organizations(id:"$orgId"){
+          members{
+            _id
+            firstName
+            lastName
+            image
+            
           }
          }
     }
@@ -283,7 +295,20 @@ class Queries {
   ''';
   }
 
-//////////////////////////////////EVENTS/////////////////////////////////////////////////
+  String removeMember(String organizationId, List userIds) {
+    return '''
+      mutation {
+        removeMember(data: {organizationId: "$organizationId", userIds: $userIds})
+         {
+            _id
+            name
+        }
+        
+    }
+  ''';
+  }
+
+//////////////EVENTS/////////////////////
   String fetchOrgEvents(String orgId) {
     return """
       query {

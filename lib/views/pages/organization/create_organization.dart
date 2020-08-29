@@ -1,15 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 
 class CreateOrganization extends StatefulWidget {
   @override
@@ -30,7 +33,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   bool isVisible = true;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  GraphAPI _graphAPI = GraphAPI();
+  AuthController _authController = AuthController();
   File _image;
 
   @override
@@ -46,7 +49,6 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   createOrg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
     final img = await multipartFileFrom(_image);
-    print(_image);
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
         orgNameController.text,
@@ -60,13 +62,12 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       },
     ));
 
-    String e =
-        "Access Token has expired. Please refresh session.: Undefined location";
-    if (result.hasException && result.exception.toString().substring(16) == e) {
-      _graphAPI.getNewToken();
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
       return createOrg();
     } else if (result.hasException &&
-        result.exception.toString().substring(16) != e) {
+        result.exception.toString().substring(16) != accessTokenException) {
       print(result.exception);
       setState(() {
         _progressBarState = false;
@@ -78,17 +79,11 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       });
       _successToast("Sucess!");
       print(result.data);
-      //Navigate user to join organization screen
-      Navigator.of(context).pop();
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
     }
-  }
-
-  //get image using camera
-  _imgFromCamera() async {
-    File image = await FilePicker.getFile(type: FileType.image);
-    setState(() {
-      _image = image;
-    });
   }
 
   //get image using gallery
@@ -346,23 +341,15 @@ class _CreateOrganizationState extends State<CreateOrganization> {
         builder: (BuildContext context) {
           return SafeArea(
             child: Container(
-              child: new Wrap(
+              child: Wrap(
                 children: <Widget>[
-                  new ListTile(
-                      leading: new Icon(Icons.photo_library),
-                      title: new Text('Photo Library'),
+                  ListTile(
+                      leading: Icon(Icons.photo_library),
+                      title: Text('Photo Library'),
                       onTap: () {
                         _imgFromGallery();
                         Navigator.of(context).pop();
                       }),
-                  new ListTile(
-                    leading: new Icon(Icons.photo_camera),
-                    title: new Text('Camera'),
-                    onTap: () {
-                      _imgFromCamera();
-                      Navigator.of(context).pop();
-                    },
-                  ),
                 ],
               ),
             ),

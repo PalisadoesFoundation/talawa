@@ -13,17 +13,9 @@ class GraphQLConfiguration {
     token = id;
   }
 
-  getRefreshToken() async {
-    final rToken = await _pref.getRefreshToken();
-    refreshToken = rToken;
-  }
-
-  static HttpLink httpLink =
-      HttpLink(uri: "http://calico.palisadoes.org/talawa/graphql"
-          // uri: "http://calico.palisadoes.org/talawa/",
-          //uri: "https://talawa-testing.herokuapp.com/graphql",
-          // uri: "http://192.168.100.67:4000/graphql",
-          );
+  static HttpLink httpLink = HttpLink(
+    uri: "http://calico.palisadoes.org/talawa/graphql",
+  );
 
   static AuthLink authLink = AuthLink(
     getToken: () async => 'Bearer $token',

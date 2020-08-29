@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.folder),
-        title: ("profile"),
+        title: ("Profile"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
         // isTranslucent: false,

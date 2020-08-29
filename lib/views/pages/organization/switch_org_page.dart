@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 
@@ -17,8 +19,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   int isSelected;
-  Preferences preferences = Preferences();
-  static String itemIndex;
+  String itemIndex;
   List userOrg = [];
   Preferences _pref = Preferences();
   bool _progressBarState = false;
@@ -35,7 +36,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   }
 
   Future fetchUserDetails() async {
-    final String userID = await preferences.getUserId();
+    final String userID = await _pref.getUserId();
 
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
@@ -74,11 +75,17 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       _successToast(
           "Switched to " + result.data['organizations'][0]['name'].toString());
 
-      //save new current org id in preference
+      //save new current org in preference
       final String currentOrgId = result.data['organizations'][0]['_id'];
       await _pref.saveCurrentOrgId(currentOrgId);
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ProfilePage()));
+      final String currentOrgImgSrc = result.data['organizations'][0]['image'];
+      await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+      final String currentOrgName = result.data['organizations'][0]['name'];
+      await _pref.saveCurrentOrgName(currentOrgName);
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
     }
   }
 
@@ -97,6 +104,15 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
               itemCount: userOrg.length,
               itemBuilder: (context, index) {
                 return RadioListTile(
+                  secondary: userOrg[index]['image'] != null
+                      ? CircleAvatar(
+                          radius: 30,
+                          backgroundImage: NetworkImage(
+                              displayImgRoute + userOrg[index]['image']))
+                      : CircleAvatar(
+                          radius: 30,
+                          backgroundImage:
+                              AssetImage("assets/images/team.png")),
                   activeColor: UIData.secondaryColor,
                   groupValue: isSelected,
                   title: Text(userOrg[index]['name'].toString() +

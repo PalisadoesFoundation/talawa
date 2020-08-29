@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/GraphAPI.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 
 class UpdateOrganization extends StatefulWidget {
   @override
@@ -16,30 +19,19 @@ class UpdateOrganization extends StatefulWidget {
 
 class _UpdateOrganizationState extends State<UpdateOrganization> {
   final orgNameController = TextEditingController();
-
   final orgDescController = TextEditingController();
-
   Queries _queries = Queries();
-
   bool _progressBarState = false;
-
   bool _validate = false;
-
   final _formKey = GlobalKey<FormState>();
-
   int radioValue = -1;
   int radioValue1 = -1;
-
   bool isPublic = true;
   bool isVisible = true;
-
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-
   FToast fToast;
-
-  GraphAPI _graphAPI = GraphAPI();
-
   Preferences _preferences = Preferences();
+  AuthController _authController = AuthController();
 
   @override
   void initState() {
@@ -65,13 +57,12 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       isVisible,
     ))));
 
-    String e =
-        "Access Token has expired. Please refresh session.: Undefined location";
-    if (result.hasException && result.exception.toString().substring(16) == e) {
-      _graphAPI.getNewToken();
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
       return updateOrg();
     } else if (result.hasException &&
-        result.exception.toString().substring(16) != e) {
+        result.exception.toString().substring(16) != accessTokenException) {
       print(result.exception);
       setState(() {
         _progressBarState = false;
@@ -82,10 +73,10 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
         _progressBarState = true;
       });
       _successToast("Sucess!");
-      print(result.data);
-      //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage()));
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
     }
   }
 
@@ -93,8 +84,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Update Organization'),
-        ),
+            title: const Text('Update Organization',
+                style: TextStyle(color: Colors.white))),
         body: Container(
           color: Colors.white,
           child: SingleChildScrollView(
@@ -109,12 +100,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                   children: <Widget>[
                     Image(image: AssetImage('assets/images/team.png')),
                     SizedBox(
-                      height: 10,
-                    ),
-                    Text('Setup Your Organization',
-                        style: TextStyle(fontSize: 20, color: Colors.black)),
-                    SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     TextFormField(
                       validator: (value) => Validator.validateOrgName(value),
