@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 class Queries {
   String refreshToken(String refreshToken) {
     return '''
@@ -286,7 +283,7 @@ class Queries {
   ''';
   }
 
-//////////////EVENTS/////////////////////
+//////////////////////////////////EVENTS/////////////////////////////////////////////////
   String fetchOrgEvents(String orgId) {
     return """
       query {
@@ -303,7 +300,6 @@ class Queries {
           allDay
           startTime
           endTime
-          date
           location
         }
       }

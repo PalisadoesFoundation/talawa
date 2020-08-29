@@ -17,7 +17,6 @@ class Organizations extends StatefulWidget {
 }
 
 class _OrganizationsState extends State<Organizations> {
-  List organizationsList = [];
   List alphaMembersList = [];
   int isSelected = 0;
   Preferences preferences = Preferences();
@@ -75,14 +74,14 @@ class _OrganizationsState extends State<Organizations> {
     var result =
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
     // print(result);
-    organizationsList = result == null ? [] : result['organizations'];
-    alphaMembersList = organizationsList[0]['members'];
+    List membersList = result == null ? [] : result['organizations'];
+    alphaMembersList = membersList[0]['members'];
     setState(() {
       alphaMembersList = alphaSplitList(alphaMembersList);
     });
   }
 
-  //returns a random color based on the user id (1 of 8)
+  //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
     int colorint = int.parse(id.replaceAll(RegExp('[a-z]'), ''));
     colorint = (colorint % 18);
@@ -104,13 +103,13 @@ class _OrganizationsState extends State<Organizations> {
           slivers: List.generate(
             alphaMembersList.length,
             (index) {
-              return getSlivers(context, alphaMembersList[index]);
+              return userCard(context, alphaMembersList[index]);
             },
           ),
         ));
   }
 
-  Widget getSlivers(BuildContext context, List membersList) {
+  Widget userCard(BuildContext context, List membersList) {
     return SliverStickyHeader(
       header: Container(
         height: 60.0,
@@ -139,8 +138,6 @@ class _OrganizationsState extends State<Organizations> {
 
   Widget memberCard(index, List membersList) {
     Color color = idToColor(membersList[index]['_id']);
-    // return ListTile();
-
     return GestureDetector(
         onTap: () {
           pushNewScreen(context,
