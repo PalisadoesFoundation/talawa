@@ -211,7 +211,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                             ? CircleAvatar(
                                                 radius: 30,
                                                 backgroundImage: NetworkImage(
-                                                    displayImgRoute +
+                                                    Provider.of<GraphQLConfiguration>(
+                                                                context)
+                                                            .displayImgRoute +
                                                         organization['image']))
                                             : CircleAvatar(
                                                 radius: 30,
@@ -293,7 +295,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                             ? CircleAvatar(
                                                 radius: 30,
                                                 backgroundImage: NetworkImage(
-                                                    displayImgRoute +
+                                                    Provider.of<GraphQLConfiguration>(
+                                                                context)
+                                                            .displayImgRoute +
                                                         organization['image']))
                                             : CircleAvatar(
                                                 radius: 30,

@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/globals.dart';
 
@@ -120,7 +122,9 @@ class _MemberDetailState extends State<MemberDetail>
       width: double.maxFinite,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage(displayImgRoute + link),
+          image: NetworkImage(
+              Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                  link),
           fit: BoxFit.cover,
         ),
       ),
@@ -132,7 +136,8 @@ class _MemberDetailState extends State<MemberDetail>
               alignment: Alignment.center,
               color: Colors.grey.withOpacity(0.1),
               child: Image.network(
-                displayImgRoute + link,
+                Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                    link,
               ),
             ),
           ),

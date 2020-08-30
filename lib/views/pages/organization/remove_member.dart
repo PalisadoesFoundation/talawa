@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
@@ -94,8 +95,10 @@ class _RemoveMemberState extends State<RemoveMember> {
             secondary: members['image'] != null
                 ? CircleAvatar(
                     radius: 30,
-                    backgroundImage:
-                        NetworkImage(displayImgRoute + members['image']))
+                    backgroundImage: NetworkImage(
+                        Provider.of<GraphQLConfiguration>(context)
+                                .displayImgRoute +
+                            members['image']))
                 : CircleAvatar(
                     radius: 30.0,
                     backgroundColor: Colors.white,

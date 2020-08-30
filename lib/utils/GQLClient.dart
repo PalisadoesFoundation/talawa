@@ -9,6 +9,9 @@ class GraphQLConfiguration with ChangeNotifier {
   static String token;
   static String orgURI;
 
+//prefix route for showing images
+  String displayImgRoute;
+
   getToken() async {
     final id = await _pref.getToken();
     token = id;
@@ -17,12 +20,13 @@ class GraphQLConfiguration with ChangeNotifier {
   getOrgUrl() async {
     final url = await _pref.getOrgUrl();
     orgURI = url;
+    displayImgRoute = url;
     notifyListeners();
     print(orgURI);
   }
 
   static HttpLink httpLink = HttpLink(
-    uri: "$orgURI/graphql",
+    uri: "${orgURI}graphql",
   );
 
   static AuthLink authLink = AuthLink(

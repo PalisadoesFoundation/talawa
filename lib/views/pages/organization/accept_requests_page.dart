@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
@@ -107,8 +108,10 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                 leading: membershipRequests['user']['image'] != null
                     ? CircleAvatar(
                         radius: 30,
-                        backgroundImage: NetworkImage(displayImgRoute +
-                            membershipRequests['user']['image']))
+                        backgroundImage: NetworkImage(
+                            Provider.of<GraphQLConfiguration>(context)
+                                    .displayImgRoute +
+                                membershipRequests['user']['image']))
                     : CircleAvatar(
                         radius: 30,
                         backgroundImage: AssetImage("assets/images/team.png")),

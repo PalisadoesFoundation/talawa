@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -175,7 +177,9 @@ class _OrganizationsState extends State<Organizations> {
       width: 100,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: NetworkImage(displayImgRoute + member['image']),
+          image: NetworkImage(
+              Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                  member['image']),
           fit: BoxFit.cover,
         ),
       ),
@@ -186,7 +190,8 @@ class _OrganizationsState extends State<Organizations> {
             alignment: Alignment.center,
             color: Colors.grey.withOpacity(0.1),
             child: Image.network(
-              displayImgRoute + member['image'],
+              Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                  member['image'],
             ),
           ),
         ),

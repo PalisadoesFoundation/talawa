@@ -63,7 +63,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
               padding: const EdgeInsets.all(5.0),
               child: CircleAvatar(
                 radius: 40,
-                backgroundImage: NetworkImage(displayImgRoute + _imgSrc),
+                backgroundImage: NetworkImage(
+                    Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                        _imgSrc),
               ))
           : Padding(
               padding: const EdgeInsets.all(5.0),

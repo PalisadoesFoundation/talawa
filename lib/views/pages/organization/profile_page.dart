@@ -88,7 +88,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ? CircleAvatar(
                                     radius: 30,
                                     backgroundImage: NetworkImage(
-                                        displayImgRoute +
+                                        Provider.of<GraphQLConfiguration>(
+                                                    context)
+                                                .displayImgRoute +
                                             userDetails[0]['image']))
                                 : CircleAvatar(
                                     radius: 45.0,
