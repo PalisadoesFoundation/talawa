@@ -18,7 +18,19 @@ class _EditEventState extends State<EditEvent> {
   final descriptionController = TextEditingController();
   final locationController = TextEditingController();
 
-  DateTime selectedDate = DateTime.now();
+  DateTimeRange dateRange = DateTimeRange(
+      start: DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day, 1, 0),
+      end: DateTime(DateTime.now().year, DateTime.now().month,
+          DateTime.now().day + 1, 1, 0));
+
+  Map<String, DateTime> startEndTimes = {
+    'Start Time': DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 12, 0),
+    'End Time': DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
+  };
+
   Map event;
   Map switchVals = {
     'Make Public': true,
@@ -31,10 +43,6 @@ class _EditEventState extends State<EditEvent> {
   String recurrance = 'DAILY';
   Preferences preferences = Preferences();
   String currentOrgId;
-  Map startEndTimes = {
-    'Start Time': TimeOfDay(hour: 12, minute: 0),
-    'End Time': TimeOfDay(hour: 23, minute: 59)
-  };
 
   void initState() {
     super.initState();
@@ -66,14 +74,15 @@ class _EditEventState extends State<EditEvent> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    DateTime now = DateTime.now();
+    final DateTimeRange picked = await showDateRangePicker(
         context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
+        // initialDate: selectedDate,
+        firstDate: DateTime(now.year, now.month, now.day),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != dateRange)
       setState(() {
-        selectedDate = picked;
+        dateRange = picked;
       });
   }
 
@@ -85,19 +94,42 @@ class _EditEventState extends State<EditEvent> {
     );
     if (picked != null && picked != time)
       setState(() {
-        startEndTimes[name] = picked;
+        startEndTimes[name] = DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            DateTime.now().day,
+            picked.hour,
+            picked.minute);
       });
   }
 
   Future<void> createEvent() async {
-    DateTime date =
-        DateTime(selectedDate.year, selectedDate.month, selectedDate.day)
-            .toUtc();
-    String startTime = startEndTimes['Start Time'].toUtc();
-    String endTime = startEndTimes['Start Time'].toUtc();
+    final String currentOrgID = await preferences.getCurrentOrgId();
+
+    DateTime startTime = DateTime(
+        dateRange.start.year,
+        dateRange.start.month,
+        dateRange.start.day,
+        startEndTimes['End Time'].hour,
+        startEndTimes['End Time'].minute);
+    DateTime endTime = DateTime(
+        dateRange.start.year,
+        dateRange.start.month,
+        dateRange.start.day,
+        startEndTimes['Start Time'].hour,
+        startEndTimes['Start Time'].minute);
+
+    if (switchVals['All Day']) {
+      startEndTimes = {
+        'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 12, 0),
+        'End Time': DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 23, 59),
+      };
+    }
 
     String mutation = Queries().addEvent(
-      organizationId: currentOrgId,
+      organizationId: currentOrgID,
       title: titleController.text,
       description: descriptionController.text,
       location: locationController.text,
@@ -106,9 +138,10 @@ class _EditEventState extends State<EditEvent> {
       recurring: switchVals['Recurring'],
       allDay: switchVals['All Day'],
       recurrance: recurrance,
-      startTime: startTime,
-      endTime: endTime,
-      date: date,
+      startDate: DateFormat('MM/dd/yyyy').format(dateRange.start).toString(),
+      endDate: DateFormat('MM/dd/yyyy').format(dateRange.end).toString(),
+      startTime: DateFormat.jm().format(startTime),
+      endTime: DateFormat.jm().format(endTime).toString(),
     );
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlmutation(mutation);
@@ -116,9 +149,15 @@ class _EditEventState extends State<EditEvent> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text("Edit This Event"),
-      content: ListView(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Edit Event',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      body: ListView(
+        padding: EdgeInsets.only(bottom: 100),
         children: <Widget>[
           inputField('Title', titleController),
           inputField('Description', descriptionController),
@@ -131,23 +170,9 @@ class _EditEventState extends State<EditEvent> {
           dateButton(),
           timeButton('Start Time', startEndTimes['Start Time']),
           timeButton('End Time', startEndTimes['End Time']),
-          ListTile(),
         ],
       ),
-      actions: <Widget>[
-        FlatButton(
-          child: Text("Cancel"),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        FlatButton(
-          child: Text("Update"),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
+      floatingActionButton: addEventFab(),
     );
   }
 
@@ -161,25 +186,25 @@ class _EditEventState extends State<EditEvent> {
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
       ),
       trailing: Text(
-        '${DateFormat.yMMMd().format(selectedDate)}',
+        '${DateFormat.yMMMd().format(dateRange.start)} | ${DateFormat.yMMMd().format(dateRange.end)} ',
         style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
       ),
     );
   }
 
-  Widget timeButton(String name, TimeOfDay time) {
+  Widget timeButton(String name, DateTime time) {
     return AbsorbPointer(
         absorbing: switchVals['All Day'],
         child: ListTile(
           onTap: () {
-            _selectTime(context, name, time);
+            _selectTime(context, name, TimeOfDay.fromDateTime(time));
           },
           leading: Text(
             name,
             style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
           trailing: Text(
-            time.format(context),
+            TimeOfDay.fromDateTime(time).format(context),
             style: TextStyle(
                 color: !switchVals['All Day']
                     ? UIData.secondaryColor
@@ -248,5 +273,18 @@ class _EditEventState extends State<EditEvent> {
         ),
       ),
     );
+  }
+
+  Widget addEventFab() {
+    return FloatingActionButton(
+        backgroundColor: UIData.secondaryColor,
+        child: Icon(
+          Icons.check,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          createEvent();
+          Navigator.of(context).pop();
+        });
   }
 }

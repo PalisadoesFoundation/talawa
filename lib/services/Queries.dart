@@ -445,7 +445,8 @@ class Queries {
       recurring,
       allDay,
       recurrance,
-      date,
+      startDate,
+      endDate,
       startTime,
       endTime}) {
     return """
@@ -462,7 +463,8 @@ class Queries {
            allDay: $allDay,
            startTime: "$startTime"
            endTime: "$endTime"
-           date: "$date",
+           startDate: "$startDate",
+           endDate,: "$endDate",
            location: "$location"
           }){
             _id
