@@ -2,14 +2,10 @@ import 'package:email_validator/email_validator.dart';
 
 class Validator {
   static String validateURL(String value) {
-    RegExp regExp = new RegExp(
-        r"(https?|http)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?[A-Z0-9+&@#/%=~_|!:‌​,.;]*)?");
-
-    if (!regExp.hasMatch(value)) {
-      return 'Not a valid URL Address';
-    } else if (regExp.hasMatch(value)) {
-      return 'URL was saved. Login or Create Account Now.';
+    if (value.length == 0) {
+      return 'Please enter and save url to continue'.toUpperCase();
     }
+    return null;
   }
 
   static String validateFirstName(String value) {

@@ -38,13 +38,13 @@ class LoginFormState extends State<LoginForm> {
   @override
   void initState() {
     super.initState();
+    Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
     fToast = FToast(context);
   }
 
   //function for login user which gets called when sign in is press
   Future loginUser() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
-
     QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.loginUser(model.email, model.password))));
     if (result.hasException) {

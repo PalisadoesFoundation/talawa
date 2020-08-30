@@ -22,6 +22,7 @@ class Preferences with ChangeNotifier {
   Future<String> getOrgUrl() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String url = preferences.getString(orgUrl);
+    notifyListeners();
     return url;
   }
 
@@ -57,6 +58,7 @@ class Preferences with ChangeNotifier {
   Future<String> getCurrentOrgId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String currentId = preferences.getString(currentOrgId);
+    notifyListeners();
     return currentId;
   }
 

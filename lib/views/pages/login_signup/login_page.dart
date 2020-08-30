@@ -1,6 +1,8 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
@@ -29,7 +31,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   final urlController = TextEditingController();
   String dropdownValue = 'HTTP';
   Preferences _pref = Preferences();
-  GraphQLConfiguration _configuration = GraphQLConfiguration();
+  String orgUrl;
+  String saveMsg = "Set URL";
+
   @override
   void initState() {
     super.initState();
@@ -37,12 +41,10 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
   //saves org url api to be used in the app
   Future setAPIURL() async {
-    String orgUrl;
     setState(() {
-      orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
+      orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/talawa";
     });
     await _pref.saveOrgUrl(orgUrl);
-    _configuration.getOrgUrl();
     print(orgUrl);
   }
 
@@ -304,8 +306,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                       key: _formKey,
                                       child: TextFormField(
                                         keyboardType: TextInputType.url,
-                                        validator: (value) => Validator.validateURL(
-                                            "${dropdownValue.toLowerCase()}://${urlController.text}"),
+                                        validator: (value) =>
+                                            Validator.validateURL(
+                                                urlController.text),
                                         textAlign: TextAlign.left,
                                         style: TextStyle(color: Colors.white),
                                         decoration: InputDecoration(
@@ -338,13 +341,17 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     padding: EdgeInsets.all(12.0),
                                     shape: StadiumBorder(),
                                     child: Text(
-                                      "SAVE URL",
+                                      saveMsg,
                                     ),
                                     color: Colors.white,
                                     onPressed: () async {
-                                      FocusScope.of(context).unfocus();
-                                      _formKey.currentState.save();
-                                      setAPIURL();
+                                      if (_formKey.currentState.validate()) {
+                                        _formKey.currentState.save();
+                                        setAPIURL();
+                                        setState(() {
+                                          saveMsg = "URL SAVED!";
+                                        });
+                                      }
                                     }),
                               ],
                             ),

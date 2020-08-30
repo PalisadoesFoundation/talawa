@@ -38,8 +38,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    fetchUserDetails();
     Provider.of<Preferences>(context, listen: false).getCurrentOrgName();
+    fetchUserDetails();
   }
 
   Future fetchUserDetails() async {

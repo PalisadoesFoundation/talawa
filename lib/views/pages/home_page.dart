@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
 import 'package:talawa/views/pages/members/members.dart';
@@ -33,6 +34,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
+    Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
   }
 
   void dispose() {
