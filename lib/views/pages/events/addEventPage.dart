@@ -33,8 +33,12 @@ class _AddEventState extends State<AddEvent> {
 
   DateTime selectedDate = DateTime.now();
   Map startEndTimes = {
-    'Start Time': TimeOfDay(hour: 12, minute: 0),
-    'End Time': TimeOfDay(hour: 23, minute: 59)
+    'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 12, 0)
+        .millisecondsSinceEpoch,
+    'End Time': DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 23, 59)
+        .millisecondsSinceEpoch,
   };
 
   Future<void> _selectDate(BuildContext context) async {
@@ -57,7 +61,13 @@ class _AddEventState extends State<AddEvent> {
     );
     if (picked != null && picked != time)
       setState(() {
-        startEndTimes[name] = picked;
+        startEndTimes[name] = DateTime(
+                DateTime.now().year,
+                DateTime.now().month,
+                DateTime.now().day,
+                picked.hour,
+                picked.minute)
+            .millisecondsSinceEpoch;
       });
   }
 
@@ -66,9 +76,21 @@ class _AddEventState extends State<AddEvent> {
     DateTime date =
         DateTime(selectedDate.year, selectedDate.month, selectedDate.day)
             .toUtc();
-    String startTime = startEndTimes['Start Time'].format(context);
-    String endTime = startEndTimes['Start Time'].format(context);
-
+    int startTime = DateTime(
+            selectedDate.year,
+            selectedDate.month,
+            selectedDate.day,
+            startEndTimes['End Time'].hour,
+            startEndTimes['End Time'].minute)
+        .millisecondsSinceEpoch;
+    int endTime = DateTime(
+            selectedDate.year,
+            selectedDate.month,
+            selectedDate.day,
+            startEndTimes['Start Time'].hour,
+            startEndTimes['Start Time'].minute)
+        .millisecondsSinceEpoch;
+    print(endTime);
     String mutation = Queries().addEvent(
       organizationId: currentOrgID,
       title: titleController.text,
@@ -89,6 +111,8 @@ class _AddEventState extends State<AddEvent> {
 
   @override
   Widget build(BuildContext context) {
+    print(TimeOfDay.fromDateTime(
+        DateTime.fromMicrosecondsSinceEpoch(startEndTimes['Start Time'])));
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -132,19 +156,25 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
-  Widget timeButton(String name, TimeOfDay time) {
+  Widget timeButton(String name, int time) {
+    print(TimeOfDay.fromDateTime(DateTime.fromMicrosecondsSinceEpoch(time)));
     return AbsorbPointer(
         absorbing: switchVals['All Day'],
         child: ListTile(
           onTap: () {
-            _selectTime(context, name, time);
+            _selectTime(
+                context,
+                name,
+                TimeOfDay.fromDateTime(
+                    DateTime.fromMicrosecondsSinceEpoch(time)));
           },
           leading: Text(
             name,
             style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
           trailing: Text(
-            time.format(context),
+            TimeOfDay.fromDateTime(DateTime.fromMicrosecondsSinceEpoch(time))
+                .format(context),
             style: TextStyle(
                 color: !switchVals['All Day']
                     ? UIData.secondaryColor

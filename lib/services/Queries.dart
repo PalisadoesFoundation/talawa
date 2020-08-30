@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 class Queries {
   String refreshToken(String refreshToken) {
     return '''
@@ -328,8 +325,8 @@ class Queries {
           allDay
           startTime
           endTime
-          date
           location
+          isRegistered
         }
       }
     """;
@@ -383,13 +380,15 @@ class Queries {
 
   String registerForEvent(String eventid) {
     return """
-      mutation registerForEvent(
-        id: "$eventid",
-        ){
+      mutation {
+        registerForEvent(
+          id: "$eventid",
+          ){
             _id
             title
             description
           }
+        }
     """;
   }
 
@@ -408,6 +407,32 @@ class Queries {
         }
       }
     """;
+  }
+
+  String getTasksByEvent(String id) {
+    return """
+  query{
+    tasksByEvent(id:"$id"){
+        title
+        description
+        deadline
+    }
+  }
+  
+  """;
+  }
+
+  String getRegistrantsByEvent(String id) {
+    return """
+  query{
+    registrantsByEvent(id:"$id"){
+    firstName
+    lastName
+    email
+    image
+    }
+  }
+  """;
   }
 
   String addEvent(
@@ -446,6 +471,30 @@ class Queries {
           }
         }
     """;
+  }
+
+/////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
+
+  String tasksByUser(String id) {
+    return """
+  query{
+    tasksByUser(id:"$id"){
+      _id
+    }
+  }
+  
+  """;
+  }
+
+  String registeredEventsByUser(String id) {
+    return """
+  query{
+    registeredEventsByUser(id:"$id"){
+      _id
+    }
+  }
+  
+  """;
   }
 
 ///////////////////NEWSFEED///////////////////////////////////////////////////////////////////////

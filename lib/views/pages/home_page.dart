@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   PersistentTabController _controller =
-      PersistentTabController(initialIndex: 3);
+      PersistentTabController(initialIndex: 2);
   Preferences preferences = Preferences();
   @override
   void initState() {
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
       ),
       PersistentBottomNavBarItem(
         icon: Icon(Icons.calendar_today),
-        title: ("events"),
+        title: ("Events"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
         // isTranslucent: false,

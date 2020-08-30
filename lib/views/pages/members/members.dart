@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/memberDetails.dart';
 import 'package:talawa/views/pages/members/RegEventstab.dart';
@@ -17,14 +20,13 @@ class Organizations extends StatefulWidget {
 }
 
 class _OrganizationsState extends State<Organizations> {
-  List organizationsList = [];
   List alphaMembersList = [];
   int isSelected = 0;
   Preferences preferences = Preferences();
 
   initState() {
     super.initState();
-    getEvents();
+    getMembers();
   }
 
   List alphaSplitList(List list) {
@@ -69,20 +71,20 @@ class _OrganizationsState extends State<Organizations> {
     return alphalist;
   }
 
-  Future<List> getEvents() async {
+  Future<List> getMembers() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     ApiFunctions apiFunctions = ApiFunctions();
     var result =
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
     // print(result);
-    organizationsList = result == null ? [] : result['organizations'];
-    alphaMembersList = organizationsList[0]['members'];
+    List membersList = result == null ? [] : result['organizations'];
+    alphaMembersList = membersList[0]['members'];
     setState(() {
       alphaMembersList = alphaSplitList(alphaMembersList);
     });
   }
 
-  //returns a random color based on the user id (1 of 8)
+  //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
     int colorint = int.parse(id.replaceAll(RegExp('[a-z]'), ''));
     colorint = (colorint % 18);
@@ -104,13 +106,13 @@ class _OrganizationsState extends State<Organizations> {
           slivers: List.generate(
             alphaMembersList.length,
             (index) {
-              return getSlivers(context, alphaMembersList[index]);
+              return alphabetDividerList(context, alphaMembersList[index]);
             },
           ),
         ));
   }
 
-  Widget getSlivers(BuildContext context, List membersList) {
+  Widget alphabetDividerList(BuildContext context, List membersList) {
     return SliverStickyHeader(
       header: Container(
         height: 60.0,
@@ -139,8 +141,6 @@ class _OrganizationsState extends State<Organizations> {
 
   Widget memberCard(index, List membersList) {
     Color color = idToColor(membersList[index]['_id']);
-    // return ListTile();
-
     return GestureDetector(
         onTap: () {
           pushNewScreen(context,
@@ -150,20 +150,9 @@ class _OrganizationsState extends State<Organizations> {
           clipBehavior: Clip.hardEdge,
           child: Row(
             children: [
-              Container(
-                  padding: EdgeInsets.all(0),
-                  width: 100,
-                  height: 80,
-                  color: idToColor(membersList[index]['_id']),
-                  child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: CircleAvatar(
-                          backgroundColor: Colors.black12,
-                          child: Icon(
-                            Icons.person,
-                            size: 30,
-                            color: Colors.white70,
-                          )))),
+              membersList[index]['image'] == null
+                  ? defaultUserImage(membersList[index])
+                  : userImage(membersList[index]),
               Container(
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.all(20),
@@ -180,23 +169,65 @@ class _OrganizationsState extends State<Organizations> {
         ));
   }
 
+  Widget userImage(Map member) {
+    return Container(
+      height: 80,
+      width: 100,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(displayImgRoute + member['image']),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          child: Container(
+            alignment: Alignment.center,
+            color: Colors.grey.withOpacity(0.1),
+            child: Image.network(
+              displayImgRoute + member['image'],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget defaultUserImage(Map member) {
+    return Container(
+        padding: EdgeInsets.all(0),
+        width: 100,
+        height: 80,
+        color: idToColor(member['_id']),
+        child: Padding(
+            padding: EdgeInsets.all(10),
+            child: CircleAvatar(
+                backgroundColor: Colors.black12,
+                child: Icon(
+                  Icons.person,
+                  size: 30,
+                  color: Colors.white70,
+                ))));
+  }
+
   Widget popUpMenue(Map member) {
     return PopupMenuButton<int>(
-      onSelected: (val) async {
-        if (val == 1) {
-          pushNewScreen(
-            context,
-            withNavBar: true,
-            screen: UserTasks(),
-          );
-        } else if (val == 2) {
-          pushNewScreen(
-            context,
-            withNavBar: true,
-            screen: RegisterdEvents(),
-          );
-        }
-      },
+      // onSelected: (val) async {
+      //   if (val == 1) {
+      //     pushNewScreen(
+      //       context,
+      //       withNavBar: true,
+      //       screen: UserTasks(),
+      //     );
+      //   } else if (val == 2) {
+      //     pushNewScreen(
+      //       context,
+      //       withNavBar: true,
+      //       screen: RegisterdEvents(),
+      //     );
+      //   }
+      // },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
         const PopupMenuItem<int>(
             value: 1,

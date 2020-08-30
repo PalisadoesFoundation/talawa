@@ -64,7 +64,12 @@ class _NewsArticleState extends State<NewsArticle> {
           SliverAppBar(
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(widget.post['title'].toString()),
+              title: Text(
+                widget.post['title'].toString(),
+                style: TextStyle(color: Colors.white),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
               background: FittedBox(
                 child: Image.asset(UIData.shoppingImage),
                 fit: BoxFit.fill,
@@ -94,9 +99,10 @@ class _NewsArticleState extends State<NewsArticle> {
                           createComment();
                         },
                       ),
+                      hintText: 'Leave a Comment....',
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.teal)),
-                      hintText: 'Leave a Comment'),
+                          borderRadius: BorderRadius.circular(20.0),
+                          borderSide: BorderSide(color: Colors.teal))),
                   controller: commentController,
                 ),
               ),

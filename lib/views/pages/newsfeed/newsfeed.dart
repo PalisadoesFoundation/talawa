@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
-import 'package:talawa/utils/globals.dart';
 import 'package:talawa/views/pages/newsfeed/addPost.dart';
 import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -28,7 +27,7 @@ class _NewsFeedState extends State<NewsFeed> {
   initState() {
     super.initState();
     getPosts();
-    Provider.of<Preferences>(context, listen: false).getCurrentOrgImgSrc();
+    Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
   }
 
   Future<void> getPosts() async {
@@ -58,10 +57,8 @@ class _NewsFeedState extends State<NewsFeed> {
 
   @override
   Widget build(BuildContext context) {
-    final _imgSrc = Provider.of<Preferences>(context).orgImgSrc;
-
     return Scaffold(
-        appBar: CustomAppBar('NewsFeed', _imgSrc.toString()),
+        appBar: CustomAppBar('NewsFeed'),
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
             ? Center(child: CircularProgressIndicator())

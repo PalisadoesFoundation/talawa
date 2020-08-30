@@ -1,5 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/globals.dart';
 
 import '../../../utils/uidata.dart';
 import 'RegEventstab.dart';
@@ -18,7 +24,6 @@ class MemberDetail extends StatefulWidget {
 class _MemberDetailState extends State<MemberDetail>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-
   @override
   void initState() {
     super.initState();
@@ -41,43 +46,9 @@ class _MemberDetailState extends State<MemberDetail>
               expandedHeight: 250,
               flexibleSpace: FlexibleSpaceBar(
                 background: Column(children: [
-                  Container(
-                    height: 170,
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      children: [
-                        Container(
-                            height: 130,
-                            child: Icon(
-                              Icons.person,
-                              size: 100,
-                              color: Colors.white54,
-                            )),
-                        Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
-                                  colors: [Colors.black45, Colors.transparent]),
-                            ),
-                            padding: EdgeInsets.only(left: 20),
-                            height: 40,
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                widget.member['firstName'].toString() +
-                                    ' ' +
-                                    widget.member['lastName'].toString(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ))
-                      ],
-                    ),
-                    color: widget.color,
-                  ),
+                  widget.member['image'] == null
+                      ? defaultUserImg()
+                      : userImg(widget.member['image']),
                   Card(
                       child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -130,12 +101,104 @@ class _MemberDetailState extends State<MemberDetail>
               child: TabBarView(
                 controller: _tabController,
                 children: <Widget>[
-                  UserTasks(),
-                  RegisterdEvents(),
+                  UserTasks(
+                    member: widget.member,
+                  ),
+                  RegisterdEvents(
+                    member: widget.member,
+                  ),
                 ],
               ),
             ),
           ),
         ]));
+  }
+
+  Widget userImg(String link) {
+    return Container(
+      height: 170,
+      width: double.maxFinite,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(displayImgRoute + link),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Stack(alignment: AlignmentDirectional.bottomStart, children: [
+        ClipRRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: Container(
+              alignment: Alignment.center,
+              color: Colors.grey.withOpacity(0.1),
+              child: Image.network(
+                displayImgRoute + link,
+              ),
+            ),
+          ),
+        ),
+        Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [Colors.black45, Colors.transparent]),
+            ),
+            padding: EdgeInsets.only(left: 20),
+            height: 40,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                widget.member['firstName'].toString() +
+                    ' ' +
+                    widget.member['lastName'].toString(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+            ))
+      ]),
+    );
+  }
+
+  Widget defaultUserImg() {
+    return Container(
+      height: 170,
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        children: [
+          Container(
+              height: 130,
+              child: Icon(
+                Icons.person,
+                size: 100,
+                color: Colors.white54,
+              )),
+          Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [Colors.black45, Colors.transparent]),
+              ),
+              padding: EdgeInsets.only(left: 20),
+              height: 40,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.member['firstName'].toString() +
+                      ' ' +
+                      widget.member['lastName'].toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ))
+        ],
+      ),
+      color: widget.color,
+    );
   }
 }

@@ -3,45 +3,45 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 
-class RegisterdEvents extends StatefulWidget {
-  Map member;
-  RegisterdEvents({
+class RegList extends StatefulWidget {
+  Map event;
+  RegList({
     Key key,
-    @required this.member,
+    @required this.event,
   }) : super(key: key);
 
   @override
-  _RegisterdEventsState createState() => _RegisterdEventsState();
+  _RegListState createState() => _RegListState();
 }
 
-class _RegisterdEventsState extends State<RegisterdEvents> {
+class _RegListState extends State<RegList> {
   Preferences preferences = Preferences();
 
   ApiFunctions apiFunctions = ApiFunctions();
-  List userEvents = [];
+  List eventTasks = [];
 
   void initState() {
     super.initState();
-    getUserDetails();
+    getRegistrants();
   }
 
-  getUserDetails() async {
-    final String userID = widget.member['_id'];
+  getRegistrants() async {
+    final String userID = widget.event['_id'];
     Map result =
-        await apiFunctions.gqlquery(Queries().registeredEventsByUser(userID));
+        await apiFunctions.gqlquery(Queries().getRegistrantsByEvent(userID));
     // print(result);
     setState(() {
-      userEvents = result == null ? [] : result['registeredEventsByUser'];
+      eventTasks = result == null ? [] : result['registrantsByEvent'];
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: userEvents.length,
+        itemCount: eventTasks.length,
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Text(userEvents[index]['title']),
+            leading: Text(eventTasks[index]['firstName']),
           );
         });
   }
