@@ -3,6 +3,7 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/events/registrantList.dart';
 import 'package:talawa/views/pages/events/taskList.dart';
+
 import 'package:intl/intl.dart';
 
 class EventDetail extends StatefulWidget {
@@ -50,28 +51,19 @@ class _EventDetailState extends State<EventDetail>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       dispayText(
-                        widget.event['description'].toString(),
+                        "To Do: ${widget.event['description'].toString()}",
                       ),
                       dispayText(
-                        widget.event['recurrance'].toString(),
+                        "Held: ${widget.event['recurrance'][0]}${widget.event['recurrance'].substring(1).toLowerCase()}",
                       ),
                       dispayText(
-                        DateFormat.yMMMMd('en_US')
-                            .format(DateTime.parse(widget.event['startTime']))
-                            .toString(),
+                        "Next: ${DateFormat.yMMMMd('en_US').format(DateTime.parse(widget.event['startTime'])).toString()}",
                       ),
                       dispayText(
-                        widget.event['location'].toString(),
+                        "Where: ${widget.event['location'].toString()}",
                       ),
                       dispayText(
-                        DateFormat.jm('en_US')
-                                .format(
-                                    DateTime.parse(widget.event['startTime']))
-                                .toString() +
-                            ' to ' +
-                            DateFormat.jm('en_US')
-                                .format(DateTime.parse(widget.event['endTime']))
-                                .toString(),
+                        "From: ${DateFormat.jm('en_US').format(DateTime.parse(widget.event['startTime'])).toString() + ' to ' + DateFormat.jm('en_US').format(DateTime.parse(widget.event['endTime'])).toString()}",
                       ),
                     ],
                   ),
@@ -139,6 +131,7 @@ class _EventDetailState extends State<EventDetail>
       child: Text(
         text,
         style: TextStyle(fontSize: 16, color: Colors.white),
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

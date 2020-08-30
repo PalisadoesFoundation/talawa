@@ -380,13 +380,15 @@ class Queries {
 
   String registerForEvent(String eventid) {
     return """
-      mutation registerForEvent(
-        id: "$eventid",
-        ){
+      mutation {
+        registerForEvent(
+          id: "$eventid",
+          ){
             _id
             title
             description
           }
+        }
     """;
   }
 

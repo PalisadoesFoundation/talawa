@@ -139,6 +139,7 @@ class _EventsState extends State<Events> {
   Future<void> _register(context, eventId) async {
     String mutation = Queries().registerForEvent(eventId);
     Map result = await apiFunctions.gqlmutation(mutation);
+    print(result);
   }
 
   Future<void> getEvents() async {
@@ -357,7 +358,7 @@ class _EventsState extends State<Events> {
               displayedEvents[index]['isPublic']
                   ? menueText('This event is Public')
                   : menueText('This event is Private'),
-              displayedEvents[index]['isRegisterable']
+              displayedEvents[index]['isRegistered']
                   ? menueText('You Are Registered')
                   : menueText('You Are Not Registered'),
               menueText('Date: ' +
