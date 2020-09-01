@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
+import 'package:intl/intl.dart';
+import 'package:talawa/utils/uidata.dart';
 
 class AddEventTask extends StatefulWidget {
   String eventId;
@@ -14,6 +16,7 @@ class _AddEventTaskState extends State<AddEventTask> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   ApiFunctions apiFunctions = ApiFunctions();
+  DateTime selectedDate = DateTime.now();
 
   Future<void> addTask() async {
     String mutation = Queries().addEventTask(
@@ -24,17 +27,32 @@ class _AddEventTaskState extends State<AddEventTask> {
     Map result = await apiFunctions.gqlquery(mutation);
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: EdgeInsets.all(40),
+      insetPadding: EdgeInsets.all(0),
       title: Text("Add A Task To This Event"),
-      content: Column(
-        children: <Widget>[
-          inputField('title', titleController),
-          inputField('description', descriptionController),
-        ],
-      ),
+      content: Container(
+          height: 250,
+          child: Column(
+            children: <Widget>[
+              inputField('title', titleController),
+              inputField('description', descriptionController),
+              dateButton()
+            ],
+          )),
       actions: <Widget>[
         FlatButton(
           child: Text("Cancel"),
@@ -50,6 +68,22 @@ class _AddEventTaskState extends State<AddEventTask> {
           },
         ),
       ],
+    );
+  }
+
+  Widget dateButton() {
+    return ListTile(
+      onTap: () {
+        _selectDate(context);
+      },
+      leading: Text(
+        'Date',
+        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+      ),
+      trailing: Text(
+        '${DateFormat.yMMMd().format(selectedDate)}',
+        style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
+      ),
     );
   }
 

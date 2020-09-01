@@ -57,13 +57,13 @@ class _EventDetailState extends State<EventDetail>
                         "Held: ${widget.event['recurrance'][0]}${widget.event['recurrance'].substring(1).toLowerCase()}",
                       ),
                       dispayText(
-                        "Next: ${DateFormat.yMMMMd('en_US').format(DateTime.parse(widget.event['startTime'])).toString()}",
+                        "Next: ${widget.event['startTime']}",
                       ),
                       dispayText(
                         "Where: ${widget.event['location'].toString()}",
                       ),
                       dispayText(
-                        "From: ${DateFormat.jm('en_US').format(DateTime.parse(widget.event['startTime'])).toString() + ' to ' + DateFormat.jm('en_US').format(DateTime.parse(widget.event['endTime'])).toString()}",
+                        "From: ${widget.event['startTime'] + ' to ' + widget.event['endTime']}",
                       ),
                     ],
                   ),
@@ -123,7 +123,7 @@ class _EventDetailState extends State<EventDetail>
   Widget dispayText(String text) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.black38,
+          color: Colors.black26,
           borderRadius: BorderRadius.all(Radius.circular(5))),
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(10),

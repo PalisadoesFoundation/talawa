@@ -141,7 +141,7 @@ class _NewsArticleState extends State<NewsArticle> {
         ),
         ListView.builder(
             shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
+            // physics: ClampingScrollPhysics(),
             itemCount: comments.length,
             itemBuilder: (context, index) {
               return ListTile(

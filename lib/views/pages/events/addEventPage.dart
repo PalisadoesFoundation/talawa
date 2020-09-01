@@ -31,25 +31,29 @@ class _AddEventState extends State<AddEvent> {
     super.initState();
   }
 
-  DateTime selectedDate = DateTime.now();
-  Map startEndTimes = {
-    'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
-            DateTime.now().day, 12, 0)
-        .millisecondsSinceEpoch,
-    'End Time': DateTime(DateTime.now().year, DateTime.now().month,
-            DateTime.now().day, 23, 59)
-        .millisecondsSinceEpoch,
+  DateTimeRange dateRange = DateTimeRange(
+      start: DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day, 1, 0),
+      end: DateTime(DateTime.now().year, DateTime.now().month,
+          DateTime.now().day + 1, 1, 0));
+
+  Map<String, DateTime> startEndTimes = {
+    'Start Time': DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 12, 0),
+    'End Time': DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
   };
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    DateTime now = DateTime.now();
+    final DateTimeRange picked = await showDateRangePicker(
         context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
+        // initialDate: selectedDate,
+        firstDate: DateTime(now.year, now.month, now.day),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != dateRange)
       setState(() {
-        selectedDate = picked;
+        dateRange = picked;
       });
   }
 
@@ -62,35 +66,39 @@ class _AddEventState extends State<AddEvent> {
     if (picked != null && picked != time)
       setState(() {
         startEndTimes[name] = DateTime(
-                DateTime.now().year,
-                DateTime.now().month,
-                DateTime.now().day,
-                picked.hour,
-                picked.minute)
-            .millisecondsSinceEpoch;
+            DateTime.now().year,
+            DateTime.now().month,
+            DateTime.now().day,
+            picked.hour,
+            picked.minute);
       });
   }
 
   Future<void> createEvent() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    DateTime date =
-        DateTime(selectedDate.year, selectedDate.month, selectedDate.day)
-            .toUtc();
-    int startTime = DateTime(
-            selectedDate.year,
-            selectedDate.month,
-            selectedDate.day,
-            startEndTimes['End Time'].hour,
-            startEndTimes['End Time'].minute)
-        .millisecondsSinceEpoch;
-    int endTime = DateTime(
-            selectedDate.year,
-            selectedDate.month,
-            selectedDate.day,
-            startEndTimes['Start Time'].hour,
-            startEndTimes['Start Time'].minute)
-        .millisecondsSinceEpoch;
-    print(endTime);
+
+    DateTime startTime = DateTime(
+        dateRange.start.year,
+        dateRange.start.month,
+        dateRange.start.day,
+        startEndTimes['End Time'].hour,
+        startEndTimes['End Time'].minute);
+    DateTime endTime = DateTime(
+        dateRange.start.year,
+        dateRange.start.month,
+        dateRange.start.day,
+        startEndTimes['Start Time'].hour,
+        startEndTimes['Start Time'].minute);
+
+    if (switchVals['All Day']) {
+      startEndTimes = {
+        'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 12, 0),
+        'End Time': DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 23, 59),
+      };
+    }
+
     String mutation = Queries().addEvent(
       organizationId: currentOrgID,
       title: titleController.text,
@@ -101,9 +109,10 @@ class _AddEventState extends State<AddEvent> {
       recurring: switchVals['Recurring'],
       allDay: switchVals['All Day'],
       recurrance: recurrance,
-      startTime: startTime,
-      endTime: endTime,
-      date: date,
+      startDate: DateFormat('MM/dd/yyyy').format(dateRange.start).toString(),
+      endDate: DateFormat('MM/dd/yyyy').format(dateRange.end).toString(),
+      startTime: DateFormat.jm().format(startTime),
+      endTime: DateFormat.jm().format(endTime).toString(),
     );
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlmutation(mutation);
@@ -111,8 +120,6 @@ class _AddEventState extends State<AddEvent> {
 
   @override
   Widget build(BuildContext context) {
-    print(TimeOfDay.fromDateTime(
-        DateTime.fromMicrosecondsSinceEpoch(startEndTimes['Start Time'])));
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -150,31 +157,25 @@ class _AddEventState extends State<AddEvent> {
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
       ),
       trailing: Text(
-        '${DateFormat.yMMMd().format(selectedDate)}',
+        '${DateFormat.yMMMd().format(dateRange.start)} | ${DateFormat.yMMMd().format(dateRange.end)} ',
         style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
       ),
     );
   }
 
-  Widget timeButton(String name, int time) {
-    print(TimeOfDay.fromDateTime(DateTime.fromMicrosecondsSinceEpoch(time)));
+  Widget timeButton(String name, DateTime time) {
     return AbsorbPointer(
         absorbing: switchVals['All Day'],
         child: ListTile(
           onTap: () {
-            _selectTime(
-                context,
-                name,
-                TimeOfDay.fromDateTime(
-                    DateTime.fromMicrosecondsSinceEpoch(time)));
+            _selectTime(context, name, TimeOfDay.fromDateTime(time));
           },
           leading: Text(
             name,
             style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
           trailing: Text(
-            TimeOfDay.fromDateTime(DateTime.fromMicrosecondsSinceEpoch(time))
-                .format(context),
+            TimeOfDay.fromDateTime(time).format(context),
             style: TextStyle(
                 color: !switchVals['All Day']
                     ? UIData.secondaryColor

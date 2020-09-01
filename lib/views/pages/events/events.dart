@@ -31,7 +31,6 @@ class _EventsState extends State<Events> {
   List currentFilterEvents = [];
   List eventsToDate = [];
   String dateSelected = 'Today';
-  DateTime _dateSelectedDate = DateTime.now();
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   StickyHeaderController stickyHeaderController = StickyHeaderController();
@@ -70,9 +69,9 @@ class _EventsState extends State<Events> {
     return currentevents;
   }
 
-  //return events in calendar display format
+  //return events in calendar display format ''Map<DateTime, List<dynamic>>''
   //account for recurring events
-  Map eventsToDates(List events) {
+  Map eventsToDates(List events, DateTime now) {
     Map<DateTime, List<dynamic>> eventDates = {};
     addDateToMap(DateTime date, Map event) {
       if (eventDates[date] == null) {
@@ -88,41 +87,29 @@ class _EventsState extends State<Events> {
       } else {
         if (event['recurrance'] == 'DAILY') {
           int day = 1;
-          int lastday =
-              DateTime(DateTime.now().year, DateTime.now().month + 1, 0).day;
+          int lastday = DateTime(now.year, now.month + 1, 0).day;
           while (day <= lastday) {
-            addDateToMap(
-                DateTime(DateTime.now().year, DateTime.now().month, day),
-                event);
+            addDateToMap(DateTime(now.year, now.month, day), event);
 
             day += 1;
           }
         }
         if (event['recurrance'] == 'WEEKLY') {
           int day = DateTime.parse(event['startTime']).day % 7;
-          while (day <=
-              DateTime(DateTime.now().year, DateTime.now().month + 1, 0).day) {
-            addDateToMap(
-                DateTime(DateTime.now().year, DateTime.now().month, day),
-                event);
+          while (day <= DateTime(now.year, now.month + 1, 0).day) {
+            addDateToMap(DateTime(now.year, now.month, day), event);
 
             day += 7;
           }
         }
         if (event['recurrance'] == 'MONTHLY') {
           DateTime firstDate = DateTime.parse(event['startTime']);
-          addDateToMap(
-              DateTime(
-                  DateTime.now().year, DateTime.now().month, firstDate.day),
-              event);
+          addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
         }
         if (event['recurrance'] == 'YEARLY') {
           DateTime firstDate = DateTime.parse(event['startTime']);
-          if (DateTime.now().month == firstDate.month) {
-            addDateToMap(
-                DateTime(
-                    DateTime.now().year, DateTime.now().month, firstDate.day),
-                event);
+          if (now.month == firstDate.month) {
+            addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
           }
         }
       }
@@ -147,9 +134,13 @@ class _EventsState extends State<Events> {
     Map result =
         await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     eventList = result == null ? [] : result['events'].reversed.toList();
-    eventList.sort((a, b) => DateTime.parse(a['startTime'])
-        .compareTo(DateTime.parse(b['startTime'])));
-    eventsToDates(eventList);
+    eventList.removeWhere((element) =>
+        element['title'] ==
+        'Talawa Congress'); //dont know who keeps adding these
+
+    // eventList.sort((a, b) => DateTime.parse(a['startTime'])
+    // .compareTo(DateTime.parse(b['startTime'])));
+    // eventsToDates(eventList, );
     setState(() {
       displayedEvents = eventList;
     });
@@ -187,19 +178,7 @@ class _EventsState extends State<Events> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: UIData.secondaryColor,
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              pushNewScreen(
-                context,
-                withNavBar: true,
-                screen: AddEvent(),
-              );
-            }),
+        floatingActionButton: eventFab(),
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -207,138 +186,146 @@ class _EventsState extends State<Events> {
                 automaticallyImplyLeading: false,
                 expandedHeight: 380,
                 flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                      child: TableCalendar(
-                    calendarStyle: CalendarStyle(markersColor: Colors.black45),
-                    onDaySelected: (day, events) {
-                      String carouselDay =
-                          DateFormat.yMMMMd('en_US').format(day);
-                      if (timer.isSameDay(day, DateTime.now())) {
-                        carouselDay = 'Today';
-                      }
-                      carouselController.animateToPage(1);
-                      setState(() {
-                        _dateSelectedDate = day;
-                        dateSelected = carouselDay;
-                      });
-                      List currentevents = filterEventsByDay(day, events);
-                      setState(() {
-                        currentFilterEvents = currentevents;
-                        displayedEvents = currentevents;
-                      });
-                    },
-                    events: eventsToDates(eventList),
-                    calendarController: _calendarController,
-                  )),
+                  background: calendar(),
                 )),
             SliverStickyHeader(
-              header: Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.centerLeft,
-                  color: UIData.secondaryColor,
-                  height: 40,
-                  child: carouselSliderBar()),
-              sliver: SliverFillRemaining(
-                  child: displayedEvents.isEmpty
-                      ? Center(child: CircularProgressIndicator())
-                      :
-                      // RefreshIndicator(
-                      //     onRefresh: () async {
-                      //       getEvents();
-                      //     },
-                      //     child:
-
-                      Timeline.builder(
-                          lineColor: UIData.primaryColor,
-                          position: TimelinePosition.Left,
-                          itemCount: displayedEvents.length,
-                          itemBuilder: (context, index) {
-                            return index == 0
-                                ? TimelineModel(
-                                    Column(
-                                      //extra space below listView
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 5),
-                                          child: Text(
-                                            '${displayedEvents.length} Events',
-                                            style: TextStyle(
-                                                color: Colors.black45),
-                                          ),
-                                        ),
-                                        eventCard(index)
-                                      ],
-                                    ),
-                                    iconBackground: UIData.secondaryColor)
-                                : TimelineModel(eventCard(index),
-                                    iconBackground: UIData.secondaryColor,
-                                    position: TimelineItemPosition.right);
-                          },
-                        )),
+              header: carouselSliderBar(),
+              sliver: SliverFillRemaining(child: eventListView()),
             ),
           ],
         ));
   }
 
+  Widget calendar() {
+    DateTime now = DateTime.now();
+    Map thisMonthsEvents = eventsToDates(eventList, now);
+    return ListView(children: [
+      TableCalendar(
+        onVisibleDaysChanged: (m, n, b) {
+          now = now.add(Duration(days: 22));
+          setState(() {
+            thisMonthsEvents = eventsToDates(eventList, now);
+          });
+        },
+        calendarStyle: CalendarStyle(markersColor: Colors.black45),
+        onDaySelected: (day, events) {
+          String carouselDay = DateFormat.yMMMd('en_US').format(day);
+          if (timer.isSameDay(day, now)) {
+            carouselDay = 'Today';
+          }
+          carouselController.animateToPage(1);
+          setState(() {
+            _calendarController.setSelectedDay(day);
+            dateSelected = carouselDay;
+          });
+          List currentevents = filterEventsByDay(day, events);
+          setState(() {
+            currentFilterEvents = currentevents;
+            displayedEvents = currentevents;
+          });
+        },
+        events: thisMonthsEvents,
+        calendarController: _calendarController,
+      ),
+    ]);
+  }
+
   Widget carouselSliderBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        IconButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {
-              carouselController.previousPage();
-            },
-            icon: Icon(
-              Icons.arrow_left,
-              color: Colors.white,
-            )),
-        SizedBox(
-          width: 230,
-          child: CarouselSlider(
-            carouselController: carouselController,
-            items: [
-              Text(
-                'All',
-                style: TextStyle(color: Colors.white, fontSize: 16),
+    return Container(
+        padding: EdgeInsets.all(10),
+        alignment: Alignment.centerLeft,
+        color: UIData.secondaryColor,
+        height: 40,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+                padding: EdgeInsets.all(0),
+                onPressed: () {
+                  carouselController.previousPage();
+                },
+                icon: Icon(
+                  Icons.arrow_left,
+                  color: Colors.white,
+                )),
+            SizedBox(
+              width: 230,
+              child: CarouselSlider(
+                carouselController: carouselController,
+                items: [
+                  Text(
+                    'All',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  Text(
+                    dateSelected,
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ],
+                options: CarouselOptions(
+                  onPageChanged: (item, reason) {
+                    currentFilterEvents = filterEventsByDay(
+                        _calendarController.selectedDay, eventList);
+                    if (item == 0) {
+                      setState(() {
+                        displayedEvents = eventList;
+                      });
+                    } else if (item == 1) {
+                      setState(() {
+                        displayedEvents = currentFilterEvents;
+                      });
+                    }
+                  },
+                  height: 40,
+                ),
               ),
-              Text(
-                dateSelected,
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ],
-            options: CarouselOptions(
-              onPageChanged: (item, reason) {
-                currentFilterEvents =
-                    filterEventsByDay(_dateSelectedDate, eventList);
-                if (item == 0) {
-                  setState(() {
-                    displayedEvents = eventList;
-                  });
-                } else if (item == 1) {
-                  setState(() {
-                    displayedEvents = currentFilterEvents;
-                  });
-                }
-              },
-              height: 40,
             ),
-          ),
-        ),
-        IconButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {
-              carouselController.nextPage();
+            IconButton(
+                padding: EdgeInsets.all(0),
+                onPressed: () {
+                  carouselController.nextPage();
+                },
+                icon: Icon(
+                  Icons.arrow_right,
+                  color: Colors.white,
+                )),
+          ],
+        ));
+  }
+
+  Widget eventListView() {
+    return displayedEvents.isEmpty
+        ? Center(child: CircularProgressIndicator())
+        : RefreshIndicator(
+            onRefresh: () async {
+              getEvents();
             },
-            icon: Icon(
-              Icons.arrow_right,
-              color: Colors.white,
-            )),
-      ],
-    );
+            child: Timeline.builder(
+              lineColor: UIData.primaryColor,
+              position: TimelinePosition.Left,
+              itemCount: displayedEvents.length,
+              itemBuilder: (context, index) {
+                return index == 0
+                    ? TimelineModel(
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                '${displayedEvents.length} Events',
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ),
+                            eventCard(index)
+                          ],
+                        ),
+                        iconBackground: UIData.secondaryColor)
+                    : TimelineModel(eventCard(index),
+                        iconBackground: UIData.secondaryColor,
+                        position: TimelineItemPosition.right);
+              },
+            ));
   }
 
   Widget menueText(String text) {
@@ -361,11 +348,14 @@ class _EventsState extends State<Events> {
               displayedEvents[index]['isRegistered']
                   ? menueText('You Are Registered')
                   : menueText('You Are Not Registered'),
-              menueText('Date: ' +
-                  DateFormat.yMMMMd('en_US')
-                      .format(
-                          DateTime.parse(displayedEvents[index]['startTime']))
-                      .toString()),
+              menueText('Starts: ' +
+                      // DateFormat.jm('en_US')
+                      //     .format(
+                      //         DateTime.parse(
+                      displayedEvents[index]['startTime']
+                  //       ))
+                  // .toString()
+                  ),
               ListTile(
                 trailing: RaisedButton(
                   color: UIData.secondaryColor,
@@ -459,5 +449,21 @@ class _EventsState extends State<Events> {
             ))
       ],
     );
+  }
+
+  Widget eventFab() {
+    return FloatingActionButton(
+        backgroundColor: UIData.secondaryColor,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          pushNewScreen(
+            context,
+            withNavBar: true,
+            screen: AddEvent(),
+          );
+        });
   }
 }
