@@ -156,7 +156,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
           ? Center(child: CircularProgressIndicator())
           : Container(
               color: Color(0xffF3F6FF),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
               child: Column(
                 children: <Widget>[
                   Text(
@@ -244,16 +244,24 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
-                                            Text(organization['description']
-                                                .toString()),
-                                            Text('Created by: ' +
-                                                organization['creator']
-                                                        ['firstName']
-                                                    .toString() +
-                                                ' ' +
-                                                organization['creator']
-                                                        ['lastName']
-                                                    .toString()),
+                                            Text(
+                                                organization['description']
+                                                    .toString(),
+                                                maxLines: 2,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                            Text(
+                                                'Created by: ' +
+                                                    organization['creator']
+                                                            ['firstName']
+                                                        .toString() +
+                                                    ' ' +
+                                                    organization['creator']
+                                                            ['lastName']
+                                                        .toString(),
+                                                maxLines: 2,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
                                           ],
                                         ),
                                         trailing: new RaisedButton(
@@ -278,7 +286,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   new BorderRadius.circular(
-                                                      14.0),
+                                                      12.0),
                                             )),
                                         isThreeLine: true,
                                       ),
@@ -328,16 +336,24 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
-                                            Text(organization['description']
-                                                .toString()),
-                                            Text('Created by: ' +
-                                                organization['creator']
-                                                        ['firstName']
-                                                    .toString() +
-                                                ' ' +
-                                                organization['creator']
-                                                        ['lastName']
-                                                    .toString()),
+                                            Text(
+                                                organization['description']
+                                                    .toString(),
+                                                maxLines: 2,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                            Text(
+                                                'Created by: ' +
+                                                    organization['creator']
+                                                            ['firstName']
+                                                        .toString() +
+                                                    ' ' +
+                                                    organization['creator']
+                                                            ['lastName']
+                                                        .toString(),
+                                                maxLines: 2,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
                                           ],
                                         ),
                                         trailing: new RaisedButton(
@@ -362,7 +378,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   new BorderRadius.circular(
-                                                      14.0),
+                                                      12.0),
                                             )),
                                         isThreeLine: true,
                                       ),
