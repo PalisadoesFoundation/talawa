@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'dart:io';
 import 'package:talawa/services/Queries.dart';
@@ -44,6 +45,7 @@ class RegisterFormState extends State<RegisterForm> {
   void initState() {
     super.initState();
     fToast = FToast(context);
+    Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
   }
 
   //function for registering user which gets called when sign up is press

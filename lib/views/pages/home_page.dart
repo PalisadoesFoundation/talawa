@@ -29,8 +29,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   PersistentTabController _controller =
-      PersistentTabController(initialIndex: 2);
+      PersistentTabController(initialIndex: 4);
   Preferences preferences = Preferences();
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +41,7 @@ class _HomePageState extends State<HomePage> {
 
   void dispose() {
     _controller.dispose();
+
     super.dispose();
   }
 

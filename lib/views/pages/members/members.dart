@@ -28,6 +28,7 @@ class _OrganizationsState extends State<Organizations> {
 
   initState() {
     super.initState();
+
     getMembers();
   }
 
@@ -78,9 +79,10 @@ class _OrganizationsState extends State<Organizations> {
     ApiFunctions apiFunctions = ApiFunctions();
     var result =
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
-    // print(result);
+    print(result);
     List membersList = result == null ? [] : result['organizations'];
     alphaMembersList = membersList[0]['members'];
+
     setState(() {
       alphaMembersList = alphaSplitList(alphaMembersList);
     });

@@ -45,7 +45,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
     });
     await _pref.saveOrgUrl(orgUrl);
-    print(orgUrl);
   }
 
   loginScreenForm() => Center(
@@ -372,20 +371,24 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             ? _media.size.width
                             : MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.only(
-                            left: 20.0, right: 30.0, top: 10.0),
+                            left: 50.0, right: 50.0, top: 10.0),
                         alignment: Alignment.center,
                         child: new Row(
                           children: <Widget>[
                             new Expanded(
-                              child: new OutlineButton(
-                                borderSide:
-                                    BorderSide(width: 2.0, color: Colors.white),
+                              child: new FlatButton(
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
                                         new BorderRadius.circular(20.0)),
-                                color: Colors.purpleAccent,
-                                highlightedBorderColor: Colors.white,
-                                onPressed: () => gotoSignUp(),
+                                color: Colors.white,
+                                onPressed: saveMsg != "URL SAVED!"
+                                    ? null
+                                    : () async {
+                                        if (_formKey.currentState.validate()) {
+                                          _formKey.currentState.save();
+                                          gotoLogin();
+                                        }
+                                      },
                                 child: new Container(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 20.0,
@@ -396,11 +399,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     children: <Widget>[
                                       new Expanded(
                                         child: Text(
-                                          "Create an account",
+                                          "Create an Account",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
+                                            //color: UIData.quitoThemeColor,
+                                            color: Colors.black,
                                             fontSize: 18,
-                                            color: Colors.white,
                                             //fontWeight: FontWeight.bold
                                           ),
                                         ),
@@ -424,7 +428,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             ? _media.size.width
                             : MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.only(
-                            left: 20.0, right: 20.0, top: 10.0),
+                            left: 50.0, right: 50.0, top: 10.0),
                         alignment: Alignment.center,
                         child: new Row(
                           children: <Widget>[
@@ -434,7 +438,14 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     borderRadius:
                                         new BorderRadius.circular(20.0)),
                                 color: Colors.white,
-                                onPressed: () => gotoLogin(),
+                                onPressed: saveMsg != "URL SAVED!"
+                                    ? null
+                                    : () async {
+                                        if (_formKey.currentState.validate()) {
+                                          _formKey.currentState.save();
+                                          gotoLogin();
+                                        }
+                                      },
                                 child: new Container(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 20.0,
