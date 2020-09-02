@@ -386,7 +386,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     : () async {
                                         if (_formKey.currentState.validate()) {
                                           _formKey.currentState.save();
-                                          gotoLogin();
+                                          gotoSignUp();
                                         }
                                       },
                                 child: new Container(
