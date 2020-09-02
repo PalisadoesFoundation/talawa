@@ -109,10 +109,10 @@ class _AddEventState extends State<AddEvent> {
       recurring: switchVals['Recurring'],
       allDay: switchVals['All Day'],
       recurrance: recurrance,
-      startDate: DateFormat('MM/dd/yyyy').format(dateRange.start).toString(),
-      endDate: DateFormat('MM/dd/yyyy').format(dateRange.end).toString(),
-      startTime: DateFormat.jm().format(startTime),
-      endTime: DateFormat.jm().format(endTime).toString(),
+      startDate: dateRange.start.millisecondsSinceEpoch,
+      endDate: dateRange.end.millisecondsSinceEpoch,
+      startTime: startTime.millisecondsSinceEpoch,
+      endTime: endTime.millisecondsSinceEpoch,
     );
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlmutation(mutation);

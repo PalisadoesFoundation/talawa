@@ -48,7 +48,8 @@ class _EventsState extends State<Events> {
     List currentevents = [];
 
     for (var event in events) {
-      DateTime startTime = DateTime.parse(event['startTime']);
+      DateTime startTime =
+          DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']));
       if (!event['recurring'] && timer.isSameDay(currentDate, startTime)) {
         currentevents.add(event);
       }
@@ -83,7 +84,9 @@ class _EventsState extends State<Events> {
 
     for (var event in events) {
       if (!event['recurring']) {
-        addDateToMap(DateTime.parse(event['startTime']), event);
+        addDateToMap(
+            DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])),
+            event);
       } else {
         if (event['recurrance'] == 'DAILY') {
           int day = 1;
@@ -95,7 +98,10 @@ class _EventsState extends State<Events> {
           }
         }
         if (event['recurrance'] == 'WEEKLY') {
-          int day = DateTime.parse(event['startTime']).day % 7;
+          int day =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
+                      .day %
+                  7;
           while (day <= DateTime(now.year, now.month + 1, 0).day) {
             addDateToMap(DateTime(now.year, now.month, day), event);
 
@@ -103,11 +109,13 @@ class _EventsState extends State<Events> {
           }
         }
         if (event['recurrance'] == 'MONTHLY') {
-          DateTime firstDate = DateTime.parse(event['startTime']);
+          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(event['startTime']));
           addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
         }
         if (event['recurrance'] == 'YEARLY') {
-          DateTime firstDate = DateTime.parse(event['startTime']);
+          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(event['startTime']));
           if (now.month == firstDate.month) {
             addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
           }
@@ -135,12 +143,12 @@ class _EventsState extends State<Events> {
         await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     eventList = result == null ? [] : result['events'].reversed.toList();
     eventList.removeWhere((element) =>
-        element['title'] ==
-        'Talawa Congress'); //dont know who keeps adding these
+        element['title'] == 'Talawa Congress' ||
+        element['title'] == 'test'); //dont know who keeps adding these
 
-    // eventList.sort((a, b) => DateTime.parse(a['startTime'])
-    // .compareTo(DateTime.parse(b['startTime'])));
-    // eventsToDates(eventList, );
+    eventList.sort((a, b) => DateTime.parse(a['startTime'])
+        .compareTo(DateTime.parse(b['startTime'])));
+    eventsToDates(eventList, DateTime.now());
     setState(() {
       displayedEvents = eventList;
     });
@@ -179,21 +187,27 @@ class _EventsState extends State<Events> {
           ),
         ),
         floatingActionButton: eventFab(),
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-                backgroundColor: Colors.white,
-                automaticallyImplyLeading: false,
-                expandedHeight: 380,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: calendar(),
-                )),
-            SliverStickyHeader(
-              header: carouselSliderBar(),
-              sliver: SliverFillRemaining(child: eventListView()),
-            ),
-          ],
-        ));
+        body: eventList.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : RefreshIndicator(
+                onRefresh: () async {
+                  getEvents();
+                },
+                child: CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                        backgroundColor: Colors.white,
+                        automaticallyImplyLeading: false,
+                        expandedHeight: 380,
+                        flexibleSpace: FlexibleSpaceBar(
+                          background: calendar(),
+                        )),
+                    SliverStickyHeader(
+                      header: carouselSliderBar(),
+                      sliver: SliverFillRemaining(child: eventListView()),
+                    ),
+                  ],
+                )));
   }
 
   Widget calendar() {
@@ -348,14 +362,11 @@ class _EventsState extends State<Events> {
               displayedEvents[index]['isRegistered']
                   ? menueText('You Are Registered')
                   : menueText('You Are Not Registered'),
-              menueText('Starts: ' +
-                      // DateFormat.jm('en_US')
-                      //     .format(
-                      //         DateTime.parse(
-                      displayedEvents[index]['startTime']
-                  //       ))
-                  // .toString()
-                  ),
+              // menueText('Starts: ' +
+              //     DateFormat.jm('en_US')
+              //         .format(DateTime.fromMicrosecondsSinceEpoch(
+              //             int.parse(displayedEvents[index]['startTime'])))
+              //         .toString()),
               ListTile(
                 trailing: RaisedButton(
                   color: UIData.secondaryColor,

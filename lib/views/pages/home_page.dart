@@ -1,3 +1,5 @@
+// import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +29,10 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  PersistentTabController _controller =
+//////////////
+  int currentIndex = 0;
+
+  final PersistentTabController _controller =
       PersistentTabController(initialIndex: 2);
   Preferences preferences = Preferences();
   @override
@@ -97,9 +102,54 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
+  void onTabTapped(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
+    return
+        //  Scaffold(
+        //   body: _buildScreens()[currentIndex],
+        //   bottomNavigationBar: BottomNavigationBar(
+        //     onTap: onTabTapped,
+        //     currentIndex: currentIndex, // this will be set when a new tab is tapped
+        //     // fixedColor: UIData.primaryColor,
+        //     items: [
+        //       BottomNavigationBarItem(
+        //         icon: new Icon(Icons.home),
+        //         title: new Text('Home'),
+        //         backgroundColor: UIData.primaryColor,
+        //       ),
+        //       BottomNavigationBarItem(
+        //         icon: new Icon(Icons.chat),
+        //         title: new Text('Chat'),
+        //         backgroundColor: UIData.primaryColor,
+        //       ),
+        //       BottomNavigationBarItem(
+        //         icon: Icon(Icons.calendar_today),
+        //         title: Text('Events'),
+        //         backgroundColor: UIData.primaryColor,
+        //       ),
+        //       BottomNavigationBarItem(
+        //         icon: Icon(Icons.people),
+        //         title: Text('Members'),
+        //         backgroundColor: UIData.primaryColor,
+        //       ),
+        //       BottomNavigationBarItem(
+        //         icon: Icon(Icons.folder),
+        //         title: Text('Profile'),
+        //         backgroundColor: UIData.primaryColor,
+        //       )
+        //     ],
+        //   ),
+        // )
+
+        PersistentTabView(
+      // stateManagement: false,
+
       backgroundColor: UIData.primaryColor,
       controller: _controller,
       items: _navBarsItems(),
@@ -109,7 +159,11 @@ class _HomePageState extends State<HomePage> {
       handleAndroidBackButtonPress: true,
       iconSize: 26.0,
       navBarStyle: NavBarStyle.style4,
-      onItemSelected: (index) {},
+      onItemSelected: (index) {
+        if (index == 0) {
+          pushNewScreen(context, screen: NewsFeed());
+        }
+      },
     );
   }
 }
