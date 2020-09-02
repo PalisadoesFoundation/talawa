@@ -179,21 +179,27 @@ class _EventsState extends State<Events> {
           ),
         ),
         floatingActionButton: eventFab(),
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-                backgroundColor: Colors.white,
-                automaticallyImplyLeading: false,
-                expandedHeight: 380,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: calendar(),
-                )),
-            SliverStickyHeader(
-              header: carouselSliderBar(),
-              sliver: SliverFillRemaining(child: eventListView()),
-            ),
-          ],
-        ));
+        body: eventList.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : RefreshIndicator(
+                onRefresh: () async {
+                  getEvents();
+                },
+                child: CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                        backgroundColor: Colors.white,
+                        automaticallyImplyLeading: false,
+                        expandedHeight: 380,
+                        flexibleSpace: FlexibleSpaceBar(
+                          background: calendar(),
+                        )),
+                    SliverStickyHeader(
+                      header: carouselSliderBar(),
+                      sliver: SliverFillRemaining(child: eventListView()),
+                    ),
+                  ],
+                )));
   }
 
   Widget calendar() {

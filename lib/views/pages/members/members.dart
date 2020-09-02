@@ -28,7 +28,6 @@ class _OrganizationsState extends State<Organizations> {
 
   initState() {
     super.initState();
-
     getMembers();
   }
 
@@ -79,10 +78,9 @@ class _OrganizationsState extends State<Organizations> {
     ApiFunctions apiFunctions = ApiFunctions();
     var result =
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
-    print(result);
+    // print(result);
     List membersList = result == null ? [] : result['organizations'];
     alphaMembersList = membersList[0]['members'];
-
     setState(() {
       alphaMembersList = alphaSplitList(alphaMembersList);
     });
@@ -106,14 +104,21 @@ class _OrganizationsState extends State<Organizations> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: CustomScrollView(
-          slivers: List.generate(
-            alphaMembersList.length,
-            (index) {
-              return alphabetDividerList(context, alphaMembersList[index]);
-            },
-          ),
-        ));
+        body: alphaMembersList.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : RefreshIndicator(
+                onRefresh: () async {
+                  getMembers();
+                },
+                child: CustomScrollView(
+                  slivers: List.generate(
+                    alphaMembersList.length,
+                    (index) {
+                      return alphabetDividerList(
+                          context, alphaMembersList[index]);
+                    },
+                  ),
+                )));
   }
 
   Widget alphabetDividerList(BuildContext context, List membersList) {
