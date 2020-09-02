@@ -66,54 +66,77 @@ class _NewsFeedState extends State<NewsFeed> {
                 onRefresh: () async {
                   getPosts();
                 },
-                child: ListView.builder(
-                    itemCount: postList.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                    '${timer.hoursOrDays(postList[index]['createdAt'])}' +
-                                        ' - ' +
-                                        postList[index]['creator']
-                                            ['firstName'] +
-                                        ' ' +
-                                        postList[index]['creator']['lastName']),
-                              ),
-                            ),
-                            ListTile(
-                                onTap: () {
-                                  pushNewScreen(
-                                    context,
-                                    screen: NewsArticle(post: postList[index]),
-                                  );
-                                },
-                                title:
-                                    Text(postList[index]['title'].toString()),
-                                subtitle:
-                                    Text(postList[index]["text"].toString()),
-                                trailing: Container(
-                                  width: 80,
-                                  child: Image.asset(UIData.shoppingImage),
-                                )),
-                            Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: <Widget>[
-                                      likeButton(index),
-                                      commentCounter(index),
-                                      Container(width: 80)
-                                    ])),
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Pull to Refresh',
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic, fontSize: 16)),
                           ],
                         ),
-                      );
-                    })));
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                            itemCount: postList.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                child: Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                            '${timer.hoursOrDays(postList[index]['createdAt'])}' +
+                                                ' - ' +
+                                                postList[index]['creator']
+                                                    ['firstName'] +
+                                                ' ' +
+                                                postList[index]['creator']
+                                                    ['lastName']),
+                                      ),
+                                    ),
+                                    ListTile(
+                                        onTap: () {
+                                          pushNewScreen(
+                                            context,
+                                            screen: NewsArticle(
+                                                post: postList[index]),
+                                          );
+                                        },
+                                        title: Text(postList[index]['title']
+                                            .toString()),
+                                        subtitle: Text(
+                                            postList[index]["text"].toString()),
+                                        trailing: Container(
+                                          width: 80,
+                                          child:
+                                              Image.asset(UIData.shoppingImage),
+                                        )),
+                                    Padding(
+                                        padding: EdgeInsets.all(10),
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: <Widget>[
+                                              likeButton(index),
+                                              commentCounter(index),
+                                              Container(width: 80)
+                                            ])),
+                                  ],
+                                ),
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+                )));
   }
 
   Widget addPostFab() {

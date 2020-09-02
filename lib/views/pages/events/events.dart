@@ -185,20 +185,41 @@ class _EventsState extends State<Events> {
                 onRefresh: () async {
                   getEvents();
                 },
-                child: CustomScrollView(
-                  slivers: [
-                    SliverAppBar(
-                        backgroundColor: Colors.white,
-                        automaticallyImplyLeading: false,
-                        expandedHeight: 380,
-                        flexibleSpace: FlexibleSpaceBar(
-                          background: calendar(),
-                        )),
-                    SliverStickyHeader(
-                      header: carouselSliderBar(),
-                      sliver: SliverFillRemaining(child: eventListView()),
-                    ),
-                  ],
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Pull to Refresh',
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic, fontSize: 16)),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: CustomScrollView(
+                          slivers: [
+                            SliverAppBar(
+                                backgroundColor: Colors.white,
+                                automaticallyImplyLeading: false,
+                                expandedHeight: 380,
+                                flexibleSpace: FlexibleSpaceBar(
+                                  background: calendar(),
+                                )),
+                            SliverStickyHeader(
+                              header: carouselSliderBar(),
+                              sliver:
+                                  SliverFillRemaining(child: eventListView()),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 )));
   }
 
