@@ -110,33 +110,13 @@ class _OrganizationsState extends State<Organizations> {
                 onRefresh: () async {
                   getMembers();
                 },
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Pull to Refresh',
-                                style: TextStyle(
-                                    fontStyle: FontStyle.italic, fontSize: 16)),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: CustomScrollView(
-                          slivers: List.generate(
-                            alphaMembersList.length,
-                            (index) {
-                              return alphabetDividerList(
-                                  context, alphaMembersList[index]);
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
+                child: CustomScrollView(
+                  slivers: List.generate(
+                    alphaMembersList.length,
+                    (index) {
+                      return alphabetDividerList(
+                          context, alphaMembersList[index]);
+                    },
                   ),
                 )));
   }

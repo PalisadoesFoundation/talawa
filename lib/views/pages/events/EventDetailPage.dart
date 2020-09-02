@@ -57,13 +57,13 @@ class _EventDetailState extends State<EventDetail>
                         "Held: ${widget.event['recurrance'][0]}${widget.event['recurrance'].substring(1).toLowerCase()}",
                       ),
                       dispayText(
-                        "Next: ${widget.event['startTime']}",
+                        "Next: ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime']))).toString()}",
                       ),
                       dispayText(
                         "Where: ${widget.event['location'].toString()}",
                       ),
                       dispayText(
-                        "From: ${widget.event['startTime'] + ' to ' + widget.event['endTime']}",
+                        "From: ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime']))).toString() + ' to ' + DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['endTime']))).toString()}",
                       ),
                     ],
                   ),
