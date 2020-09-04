@@ -68,6 +68,10 @@ class LoginFormState extends State<LoginForm> {
       await _pref.saveRefreshToken(refreshToken);
       final String currentUserId = result.data['login']['user']['_id'];
       await _pref.saveUserId(currentUserId);
+      final String userFName = result.data['login']['user']['firstName'];
+      await _pref.saveUserFName(userFName);
+      final String userLName = result.data['login']['user']['lastName'];
+      await _pref.saveUserLName(userLName);
       final String currentOrgId =
           result.data['login']['user']['joinedOrganizations'][0]['_id'];
       await _pref.saveCurrentOrgId(currentOrgId);

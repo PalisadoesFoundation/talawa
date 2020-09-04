@@ -134,10 +134,36 @@ class _RemoveMemberState extends State<RemoveMember> {
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
-          removeMembers();
+          removeMemberDialog();
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+  }
+
+  void removeMemberDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Confirmation"),
+            content:
+                Text("Are you sure you want to remove selected member(s)?"),
+            actions: [
+              FlatButton(
+                child: Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text("Yes"),
+                onPressed: () async {
+                  removeMembers();
+                },
+              )
+            ],
+          );
+        });
   }
 }

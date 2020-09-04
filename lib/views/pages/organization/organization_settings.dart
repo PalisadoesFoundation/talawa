@@ -38,6 +38,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     final String orgId = await preferences.getCurrentOrgId();
     List remaindingOrg = [];
     String newOrgId;
+    String newOrgName;
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -60,10 +61,12 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         } else if (remaindingOrg.isNotEmpty) {
           newOrgId = result.data['removeOrganization']['joinedOrganizations'][0]
               ['_id'];
+          newOrgName = result.data['removeOrganization']['joinedOrganizations']
+              [0]['name'];
         }
       });
 
-      _orgController.setNewOrg(context, newOrgId);
+      _orgController.setNewOrg(context, newOrgId, newOrgName);
       pushNewScreen(
         context,
         screen: ProfilePage(),
@@ -74,6 +77,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   Future leaveOrg() async {
     List remaindingOrg = [];
     String newOrgId;
+    String newOrgName;
+
     final String orgId = await preferences.getCurrentOrgId();
 
     GraphQLClient _client = graphQLConfiguration.authClient();
@@ -95,12 +100,16 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         if (remaindingOrg.isEmpty) {
           newOrgId = null;
         } else if (remaindingOrg.isNotEmpty) {
-          newOrgId =
-              result.data['leaveOrganization']['joinedOrganizations'][0]['_id'];
+          setState(() {
+            newOrgId = result.data['leaveOrganization']['joinedOrganizations']
+                [0]['_id'];
+            newOrgName = result.data['leaveOrganization']['joinedOrganizations']
+                [0]['name'];
+          });
         }
       });
 
-      _orgController.setNewOrg(context, newOrgId);
+      _orgController.setNewOrg(context, newOrgId, newOrgName);
       _successToast('You are no longer apart of this organization');
       pushNewScreen(
         context,
@@ -118,55 +127,6 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         ),
         body: Container(
           child: Column(children: <Widget>[
-            ListTile(
-                title: Text(
-                  'Leave This Organization',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                leading: Icon(
-                  Icons.exit_to_app,
-                  color: UIData.secondaryColor,
-                ),
-                onTap: () async {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Confirmation"),
-                          content: Text(
-                              "Are you sure you want to leave this organization?"),
-                          actions: [
-                            FlatButton(
-                              child: Text("Close"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            FlatButton(
-                              child: Text("Yes"),
-                              onPressed: () async {
-                                leaveOrg();
-                                Navigator.of(context).pop();
-                              },
-                            )
-                          ],
-                        );
-                      });
-                }),
-            SizedBox(height: 20.0),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: Text('Creator Admin Settings',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16)),
-                ),
-              ],
-            ),
             ListTile(
                 title: Text(
                   'Update This Organization',

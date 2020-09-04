@@ -21,6 +21,7 @@ class Queries {
             user{
                 _id
                 firstName
+                lastName
                  joinedOrganizations{
                   _id
                   name
@@ -41,6 +42,7 @@ class Queries {
             user{
                 _id
                 firstName
+                lastName
                  joinedOrganizations{
                    image
                   _id
@@ -78,6 +80,10 @@ class Queries {
           adminFor {
             _id
             name
+              creator{
+          firstName
+          lastName
+        }
           }
         }
       }

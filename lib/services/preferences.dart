@@ -10,9 +10,35 @@ class Preferences with ChangeNotifier {
   static const currentOrgImgSrc = "currentOrgImgSrc";
   static const currentOrgName = "currentOrgName";
   static const orgUrl = "orgUrl";
+  static const userFName = "userFirstName";
+  static const userLName = "userLastName";
 
   String orgName;
   String orgImgSrc;
+
+  Future saveUserFName(String fName) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(userFName, fName);
+  }
+
+  Future<String> getUserFName() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String fname = preferences.getString(userFName);
+    notifyListeners();
+    return fname;
+  }
+
+  Future saveUserLName(String lName) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(userLName, lName);
+  }
+
+  Future<String> getUserLName() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String lname = preferences.getString(userLName);
+    notifyListeners();
+    return lname;
+  }
 
   Future saveOrgUrl(String url) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -128,6 +154,8 @@ class Preferences with ChangeNotifier {
       preferences.remove(currentOrgName);
       preferences.remove(currentOrgImgSrc);
       preferences.remove(orgUrl);
+      preferences.remove(userFName);
+      preferences.remove(userLName);
     } catch (e) {
       print(e);
       return false;

@@ -29,10 +29,13 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Queries _query = Queries();
-  Preferences preferences = Preferences();
+  Preferences _preferences = Preferences();
   AuthController _authController = AuthController();
   List userDetails = [];
-  List allJoinedOrgId = [];
+  List orgAdmin = [];
+  bool isCreator;
+  OrgController _orgController = OrgController();
+
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
   @override
@@ -40,10 +43,11 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     Provider.of<Preferences>(context, listen: false).getCurrentOrgName();
     fetchUserDetails();
+    fetchOrgAdmin();
   }
 
   Future fetchUserDetails() async {
-    final String userID = await preferences.getUserId();
+    final String userID = await _preferences.getUserId();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
@@ -56,9 +60,85 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  Future fetchOrgAdmin() async {
+    final String orgId = await _preferences.getCurrentOrgId();
+    final String fName = await _preferences.getUserFName();
+    final String lName = await _preferences.getUserLName();
+
+    String creatorFName;
+    String creatorLName;
+
+    GraphQLClient _client = graphQLConfiguration.authClient();
+
+    QueryResult result = await _client
+        .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
+    if (result.hasException) {
+      print(result.exception);
+    } else if (!result.hasException) {
+      setState(() {
+        creatorFName = result.data['organizations'][0]['creator']['firstName'];
+        creatorLName = result.data['organizations'][0]['creator']['lastName'];
+      });
+
+      if (fName != creatorFName && lName != creatorLName) {
+        setState(() {
+          isCreator = false;
+        });
+      } else {
+        setState(() {
+          isCreator = true;
+        });
+      }
+    }
+  }
+
+  Future leaveOrg() async {
+    List remaindingOrg = [];
+    String newOrgId;
+    String newOrgName;
+
+    final String orgId = await _preferences.getCurrentOrgId();
+
+    GraphQLClient _client = graphQLConfiguration.authClient();
+
+    QueryResult result = await _client
+        .mutate(MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
+      return leaveOrg();
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
+      //_exceptionToast(result.exception.toString().substring(16));
+    } else if (!result.hasException && !result.loading) {
+      //set org at the top of the list as the new current org
+      setState(() {
+        remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
+        if (remaindingOrg.isEmpty) {
+          newOrgId = null;
+        } else if (remaindingOrg.isNotEmpty) {
+          setState(() {
+            newOrgId = result.data['leaveOrganization']['joinedOrganizations']
+                [0]['_id'];
+            newOrgName = result.data['leaveOrganization']['joinedOrganizations']
+                [0]['name'];
+          });
+        }
+      });
+
+      _orgController.setNewOrg(context, newOrgId, newOrgName);
+      //  _successToast('You are no longer apart of this organization');
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _imgSrc = Provider.of<Preferences>(context).orgName;
+    final orgName = Provider.of<Preferences>(context).orgName;
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -122,7 +202,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0),
                           child: Text(
-                              "Current Organization: " + _imgSrc.toString(),
+                              "Current Organization: " + orgName.toString(),
                               style: TextStyle(
                                   fontSize: 16.0, color: Colors.white)),
                         ),
@@ -176,21 +256,34 @@ class _ProfilePageState extends State<ProfilePage> {
                                   screen: JoinOrganization(),
                                 );
                               }),
-                          ListTile(
-                              title: Text(
-                                'Organization Settings',
-                                style: TextStyle(fontSize: 18.0),
-                              ),
-                              leading: Icon(
-                                Icons.settings,
-                                color: UIData.secondaryColor,
-                              ),
-                              onTap: () {
-                                pushNewScreen(
-                                  context,
-                                  screen: OrganizationSettings(),
-                                );
-                              }),
+                          isCreator == true
+                              ? ListTile(
+                                  title: Text(
+                                    'Organization Settings',
+                                    style: TextStyle(fontSize: 18.0),
+                                  ),
+                                  leading: Icon(
+                                    Icons.settings,
+                                    color: UIData.secondaryColor,
+                                  ),
+                                  onTap: () {
+                                    pushNewScreen(
+                                      context,
+                                      screen: OrganizationSettings(),
+                                    );
+                                  })
+                              : ListTile(
+                                  title: Text(
+                                    'Leave This Organization',
+                                    style: TextStyle(fontSize: 18.0),
+                                  ),
+                                  leading: Icon(
+                                    Icons.exit_to_app,
+                                    color: UIData.secondaryColor,
+                                  ),
+                                  onTap: () async {
+                                    confirmLeave();
+                                  }),
                           ListTile(
                             title: Text(
                               "Logout",
@@ -233,6 +326,32 @@ class _ProfilePageState extends State<ProfilePage> {
                   )
                 ],
               ));
+  }
+
+  void confirmLeave() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Confirmation"),
+            content: Text("Are you sure you want to leave this organization?"),
+            actions: [
+              FlatButton(
+                child: Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text("Yes"),
+                onPressed: () async {
+                  leaveOrg();
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 
   Widget showError(String msg) {

@@ -164,11 +164,11 @@ class _HomePageState extends State<HomePage> {
       handleAndroidBackButtonPress: true,
       iconSize: 26.0,
       navBarStyle: NavBarStyle.style4,
-      onItemSelected: (index) {
-        if (index == 0) {
-          pushNewScreen(context, screen: NewsFeed());
-        }
-      },
+      // onItemSelected: (index) {
+      //   if (index == 0) {
+      //     pushNewScreen(context, screen: NewsFeed());
+      //   }
+      // },
     );
   }
 }

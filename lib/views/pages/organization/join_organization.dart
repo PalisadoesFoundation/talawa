@@ -140,7 +140,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       //Navigate user to newsfeed
       pushNewScreen(
         context,
-        screen: NewsFeed(),
+        screen: ProfilePage(),
       );
     }
   }
