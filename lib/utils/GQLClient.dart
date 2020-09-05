@@ -2,20 +2,31 @@ import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/views/pages/login_signup/login_page.dart';
 
-class GraphQLConfiguration {
+class GraphQLConfiguration with ChangeNotifier {
   Preferences _pref = Preferences();
   static String token;
+  static String orgURI;
+
+//prefix route for showing images
+  String displayImgRoute;
 
   getToken() async {
     final id = await _pref.getToken();
     token = id;
   }
- 
+
+  getOrgUrl() async {
+    final url = await _pref.getOrgUrl();
+    orgURI = url;
+    displayImgRoute = url;
+    notifyListeners();
+    print(orgURI);
+  }
+
   static HttpLink httpLink = HttpLink(
-    uri: "http://calico.palisadoes.org/talawa/",
-    // uri: "http://talawa-ranil.herokuapp.com/graphql",
-    // uri: "http://192.168.100.67:4000/graphql",
+    uri: "${orgURI}graphql",
   );
 
   static AuthLink authLink = AuthLink(
@@ -23,9 +34,6 @@ class GraphQLConfiguration {
   );
 
   static final Link finalAuthLink = authLink.concat(httpLink);
-  
-final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
-    GraphQLClient(link: httpLink, cache: InMemoryCache()));
 
   GraphQLClient clientToQuery() {
     return GraphQLClient(

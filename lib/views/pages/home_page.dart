@@ -1,21 +1,22 @@
+// import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/controllers/activity_controller.dart';
-import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/controllers/note_controller.dart';
-import 'package:talawa/model/activity.dart';
+import 'package:talawa/services/Queries.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/widgets/common_drawer.dart';
-import 'package:intl/intl.dart';
-
-import 'package:talawa/controllers/user_controller.dart';
-import 'package:talawa/model/user.dart';
-
+import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
+import 'package:talawa/views/pages/members/members.dart';
 import 'package:talawa/enums/connectivity_status.dart';
 
-import 'join_organization.dart';
+import 'package:talawa/views/pages/events/events.dart';
+import 'package:talawa/views/pages/chat/groups.dart';
 
+import 'package:talawa/utils/apiFuctions.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'organization/profile_page.dart';
+import 'package:talawa/services/preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -23,193 +24,151 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
 
-  @override void initState() {
+//////////////
+  int currentIndex = 0;
+
+  final PersistentTabController _controller =
+      PersistentTabController(initialIndex: 2);
+  Preferences preferences = Preferences();
+
+  @override
+  void initState() {
     super.initState();
-    Provider.of<NoteController>(context, listen: false).initializeSocket(
-      Provider.of<AuthController>(context, listen: false).currentUserId
-    );
-  }
-  _showSnackBar() {
-    print("Show SnackBar Here");
-    final snackBar = new SnackBar(
-      content: new Text("Device Disconnected")
-    );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
-    return CircularProgressIndicator();
+    Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
+    Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
   }
 
+  void dispose() {
+    _controller.dispose();
 
+    super.dispose();
+  }
 
-  BuildContext _context;
+  Future<void> getUserInfo() async {
+    final String userID = await preferences.getUserId();
+    String mutation = Queries().fetchUserInfo2(userID);
+    ApiFunctions apiFunctions = ApiFunctions();
+    final result = await apiFunctions.gqlmutation(mutation);
+  }
+
+  List<Widget> _buildScreens() {
+    return [
+      NewsFeed(),
+      Groups(),
+      Events(),
+      Organizations(),
+      ProfilePage(),
+    ];
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItems() {
+    return [
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.home),
+        title: ("Home"),
+        activeColor: Colors.white,
+        inactiveColor: Colors.white,
+        // isTranslucent: false,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.chat),
+        title: ("Chats"),
+        activeColor: Colors.white,
+        inactiveColor: Colors.white,
+        // isTranslucent: false,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.calendar_today),
+        title: ("Events"),
+        activeColor: Colors.white,
+        inactiveColor: Colors.white,
+        // isTranslucent: false,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.group),
+        title: ("Members"),
+        activeColor: Colors.white,
+        inactiveColor: Colors.white,
+        // isTranslucent: false,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.folder),
+        title: ("Profile"),
+        activeColor: Colors.white,
+        inactiveColor: Colors.white,
+        // isTranslucent: false,
+      ),
+    ];
+  }
+
+  void onTabTapped(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    return
+        //  Scaffold(
+        //   body: _buildScreens()[currentIndex],
+        //   bottomNavigationBar: BottomNavigationBar(
+        //     onTap: onTabTapped,
+        //     currentIndex: currentIndex, // this will be set when a new tab is tapped
+        //     // fixedColor: UIData.primaryColor,
+        //     items: [
+        //       BottomNavigationBarItem(
+        //         icon: new Icon(Icons.home),
+        //         title: new Text('Home'),
+        //         backgroundColor: UIData.primaryColor,
+        //       ),
+        //       BottomNavigationBarItem(
+        //         icon: new Icon(Icons.chat),
+        //         title: new Text('Chat'),
+        //         backgroundColor: UIData.primaryColor,
+        //       ),
+        //       BottomNavigationBarItem(
+        //         icon: Icon(Icons.calendar_today),
+        //         title: Text('Events'),
+        //         backgroundColor: UIData.primaryColor,
+        //       ),
+        //       BottomNavigationBarItem(
+        //         icon: Icon(Icons.people),
+        //         title: Text('Members'),
+        //         backgroundColor: UIData.primaryColor,
+        //       ),
+        //       BottomNavigationBarItem(
+        //         icon: Icon(Icons.folder),
+        //         title: Text('Profile'),
+        //         backgroundColor: UIData.primaryColor,
+        //       )
+        //     ],
+        //   ),
+        // )
 
-    //var connectionStatus = Provider.of<ConnectivityStatus>(context, listen:true);
-    // if (connectionStatus == ConnectivityStatus.Offline ) {
-    //   _showSnackBar();
-    // }
-    _context = context;
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: new AppBar(
-        // title: Image(
-        //   image: AssetImage(UIData.talawaLogoDark),
-        //   height: 50,
-        // ),
-        title: Text("Activities"),
-        leading: Consumer2<AuthController, UserController>(
-            builder: (context, authController, userController, child) {
-          return FutureBuilder(
-              //future: userController.getUser(authController.currentUserId),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  User user = snapshot.data;
-                  return Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: InkWell(
-                        child: CircleAvatar(
-                          
-                          backgroundColor: Colors.blue,
-                          child: Text(
-                            user.firstName.substring(0, 1),
-                            style: TextStyle(fontSize: 25),
-                          ),
-                        ),
-                        onTap: () => _scaffoldKey.currentState.openDrawer()),
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              });
-        }),
+        PersistentTabView(
+      // stateManagement: false,
 
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      drawer: CommonDrawer(),
-      body: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Image(
-              image: AssetImage(UIData.quitoBackground),
-              fit: BoxFit.fill,
-            ),
-          ),
-          activityList()
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          //temporary to test join org
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => new JoinOrganization()));
-          //Navigator.pushNamed(_context, UIData.addActivityPage);
-        },
-        child: Icon(Icons.add),
-      ),
+      backgroundColor: UIData.primaryColor,
+      controller: _controller,
+      items: _navBarsItems(),
+      screens: _buildScreens(),
+      // showElevation: true,
+      confineInSafeArea: true,
+      handleAndroidBackButtonPress: true,
+      iconSize: 26.0,
+      navBarStyle: NavBarStyle.style4,
+      // onItemSelected: (index) {
+      //   if (index == 0) {
+      //     pushNewScreen(context, screen: NewsFeed());
+      //   }
+      // },
     );
-  }
-
-  Widget activityList() {
-    return Column(
-      children: <Widget>[
-        Expanded(
-            flex: 9,
-            child: Consumer2<ActivityController, AuthController>(
-                builder: (context, activityController, authController, child) {
-              return FutureBuilder<List<Activity>>(
-                  future: activityController.getActivitiesByUser(
-                      context, authController.currentUserId),
-                  builder: (_context, snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data.length > 0) {
-                        return ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (_context, index) {
-                            Activity activity = snapshot.data[index];
-                            return Column(
-                              children: <Widget>[eventCard(activity)],
-                            );
-                          },
-                        );
-                      } else {
-                        return Center(
-                            child: Text('No Activities',
-                                style: TextStyle(color: Colors.grey)));
-                      }
-                    } else {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  });
-            }))
-      ],
-    );
-  }
-
-  Widget eventCard(Activity activity) {
-    return InkWell(
-        onTap: () {
-          Navigator.pushNamed(_context, UIData.activityDetails,
-              arguments: activity);
-        },
-        child: new Container(
-          height: 135,
-          width: double.infinity,
-          child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        activity.title,
-                        style: TextStyle(fontSize: 25),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                          DateFormat("MMMM d, y\nh:mm aaa")
-                              .format(activity.datetime),
-                          style: TextStyle(fontSize: 18)),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      // CircleAvatar(
-                      //     backgroundColor: Colors.blue,
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: <Widget>[
-                      //         Icon(
-                      //           Icons.person,
-                      //           color: Colors.white,
-                      //           size: 18,
-                      //         ),
-                      //         activity.userCount > 9
-                      //             ? Text('+9',
-                      //                 style: TextStyle(
-                      //                     color: Colors.white, fontSize: 18.0))
-                      //             : Text(activity.userCount.toString(),
-                      //                 style: TextStyle(
-                      //                     color: Colors.white, fontSize: 18.0)),
-                      //       ],
-                      //     )),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ));
   }
 }

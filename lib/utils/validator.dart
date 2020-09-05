@@ -1,9 +1,14 @@
 import 'package:email_validator/email_validator.dart';
 
+class Validator {
+  static String validateURL(String value) {
+    if (value.length == 0) {
+      return 'Please enter and save url to continue'.toUpperCase();
+    }
+    return null;
+  }
 
-class Validator{
-    
-    static String validateFirstName(String value) {
+  static String validateFirstName(String value) {
     if (value.length == 0) {
       return 'Firstname must not be left blank.';
     }
@@ -17,14 +22,13 @@ class Validator{
     return null;
   }
 
-    static String validateEmail(String email) {
-      final bool isValid = EmailValidator.validate(email);
-      if (!isValid){
-        return 'Not a Valid Email Address';
-      }
-      return null;
+  static String validateEmail(String email) {
+    final bool isValid = EmailValidator.validate(email);
+    if (!isValid) {
+      return 'Not a Valid Email Address';
     }
-
+    return null;
+  }
 
   // static String validateEmail(String value) {
   //   bool emailDup = false;
@@ -55,7 +59,7 @@ class Validator{
     return null;
   }
 
-    static String validateTitle(String value) {
+  static String validateTitle(String value) {
     if (value.length < 4) {
       return 'Title must be at least 4 characters.';
     }
@@ -79,25 +83,24 @@ class Validator{
     return null;
   }
 
-   static String validateOrgName(String value) {
+  static String validateOrgName(String value) {
     if (value.length == 0) {
       return 'Organization Name must not be left blank.';
     }
     return null;
   }
 
-    static String validateOrgDesc(String value) {
+  static String validateOrgDesc(String value) {
     if (value.length == 0) {
       return 'Organization Description must not be left blank.';
     }
     return null;
   }
 
-    static String validateOrgAttendeesDesc(String value) {
+  static String validateOrgAttendeesDesc(String value) {
     if (value.length == 0) {
       return 'Attendees Description must not be left blank.';
     }
     return null;
   }
-
 }
