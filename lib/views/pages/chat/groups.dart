@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:talawa/views/pages/chat.dart';
+import 'package:talawa/views/pages/chat/chat.dart';
 
 class Groups extends StatefulWidget {
   Groups({Key key}) : super(key: key);

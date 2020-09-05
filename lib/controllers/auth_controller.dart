@@ -3,17 +3,14 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/views/pages/nav_page.dart';
-import 'package:talawa/views/pages/profile_page.dart';
+import 'package:talawa/utils/uidata.dart';
 
-class GraphAPI with ChangeNotifier {
+class AuthController with ChangeNotifier {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-
   Queries _queries = Queries();
-
   Preferences _pref = Preferences();
+  String imgSrc;
 
   //function that uses refresh token to get new access token and refresh token when access token is expired
   void getNewToken() async {
@@ -38,19 +35,11 @@ class GraphAPI with ChangeNotifier {
     }
   }
 
-  //clears token and pages stack
+  //clears user and org details and pages stack
   void logout(BuildContext context) async {
     await Preferences.clearUser();
     super.dispose();
     Navigator.pushNamedAndRemoveUntil(
         context, UIData.loginPageRoute, (r) => false);
-  }
-
-  void setNewOrg(BuildContext context, String newOrgId) async {
-    await Preferences.removeOrg();
-    await _pref.saveCurrentOrgId(newOrgId);
-   Navigator.pushNamedAndRemoveUntil(
-        context, UIData.profilePage, (r) => false);
- 
   }
 }

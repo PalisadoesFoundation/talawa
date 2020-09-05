@@ -4,8 +4,8 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:talawa/views/pages/events.dart';
-import 'package:talawa/views/pages/newsfeed.dart';
+import 'package:talawa/views/pages/events/events.dart';
+import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
 
 class AddPost extends StatefulWidget {
   AddPost({Key key}) : super(key: key);
@@ -15,6 +15,7 @@ class AddPost extends StatefulWidget {
 }
 
 class _AddPostState extends State<AddPost> {
+  final titleController = TextEditingController();
   final textController = TextEditingController();
   String id;
   String oranizationId;
@@ -35,9 +36,15 @@ class _AddPostState extends State<AddPost> {
 
   createPost() async {
     String mutation = Queries()
-        .addPost(textController.text, oranizationId, DateTime.now().toString());
+        .addPost(textController.text, oranizationId, titleController.text);
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlmutation(mutation);
+  }
+
+  void dispose() {
+    titleController.dispose();
+    textController.dispose();
+    super.dispose();
   }
 
   @override
@@ -52,6 +59,7 @@ class _AddPostState extends State<AddPost> {
       body: Container(
           child: Column(
         children: <Widget>[
+          inputField('Give your post a title....', titleController),
           inputField('Write Your post here....', textController),
         ],
       )),
@@ -68,7 +76,7 @@ class _AddPostState extends State<AddPost> {
         ),
         onPressed: () {
           createPost();
-          Navigator.of(context).pop();
+          Navigator.pop(context, true);
         });
   }
 

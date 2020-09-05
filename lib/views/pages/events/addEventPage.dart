@@ -1,17 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 
-import 'package:provider/provider.dart';
-import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/utils/apiFuctions.dart';
-import 'package:intl/intl.dart';
-import 'package:talawa/views/pages/events.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 
 class AddEvent extends StatefulWidget {
@@ -35,27 +27,33 @@ class _AddEventState extends State<AddEvent> {
   var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
   Preferences preferences = Preferences();
-  String currentOrgId;
   void initState() {
     super.initState();
-    getCurrentOrgId();
   }
 
-  DateTime selectedDate = DateTime.now();
-  Map startEndTimes = {
-    'Start Time': TimeOfDay(hour: 12, minute: 0),
-    'End Time': TimeOfDay(hour: 23, minute: 59)
+  DateTimeRange dateRange = DateTimeRange(
+      start: DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day, 1, 0),
+      end: DateTime(DateTime.now().year, DateTime.now().month,
+          DateTime.now().day + 1, 1, 0));
+
+  Map<String, DateTime> startEndTimes = {
+    'Start Time': DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 12, 0),
+    'End Time': DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
   };
 
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    DateTime now = DateTime.now();
+    final DateTimeRange picked = await showDateRangePicker(
         context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
+        // initialDate: selectedDate,
+        firstDate: DateTime(now.year, now.month, now.day),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != dateRange)
       setState(() {
-        selectedDate = picked;
+        dateRange = picked;
       });
   }
 
@@ -67,19 +65,42 @@ class _AddEventState extends State<AddEvent> {
     );
     if (picked != null && picked != time)
       setState(() {
-        startEndTimes[name] = picked;
+        startEndTimes[name] = DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            DateTime.now().day,
+            picked.hour,
+            picked.minute);
       });
   }
 
   Future<void> createEvent() async {
-    DateTime date =
-        DateTime(selectedDate.year, selectedDate.month, selectedDate.day)
-            .toUtc();
-    String startTime = startEndTimes['Start Time'].format(context);
-    String endTime = startEndTimes['Start Time'].format(context);
+    final String currentOrgID = await preferences.getCurrentOrgId();
+
+    DateTime startTime = DateTime(
+        dateRange.start.year,
+        dateRange.start.month,
+        dateRange.start.day,
+        startEndTimes['End Time'].hour,
+        startEndTimes['End Time'].minute);
+    DateTime endTime = DateTime(
+        dateRange.start.year,
+        dateRange.start.month,
+        dateRange.start.day,
+        startEndTimes['Start Time'].hour,
+        startEndTimes['Start Time'].minute);
+
+    if (switchVals['All Day']) {
+      startEndTimes = {
+        'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 12, 0),
+        'End Time': DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 23, 59),
+      };
+    }
 
     String mutation = Queries().addEvent(
-      organizationId: currentOrgId,
+      organizationId: currentOrgID,
       title: titleController.text,
       description: descriptionController.text,
       location: locationController.text,
@@ -88,20 +109,13 @@ class _AddEventState extends State<AddEvent> {
       recurring: switchVals['Recurring'],
       allDay: switchVals['All Day'],
       recurrance: recurrance,
-      startTime: startTime,
-      endTime: endTime,
-      date: date,
+      startDate: dateRange.start.millisecondsSinceEpoch,
+      endDate: dateRange.end.millisecondsSinceEpoch,
+      startTime: startTime.millisecondsSinceEpoch,
+      endTime: endTime.millisecondsSinceEpoch,
     );
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlmutation(mutation);
-  }
-
-  getCurrentOrgId() async {
-    final orgId = await preferences.getCurrentOrgId();
-    setState(() {
-      currentOrgId = orgId;
-    });
-    print(currentOrgId);
   }
 
   @override
@@ -143,25 +157,25 @@ class _AddEventState extends State<AddEvent> {
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
       ),
       trailing: Text(
-        '${DateFormat.yMMMd().format(selectedDate)}',
+        '${DateFormat.yMMMd().format(dateRange.start)} | ${DateFormat.yMMMd().format(dateRange.end)} ',
         style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
       ),
     );
   }
 
-  Widget timeButton(String name, TimeOfDay time) {
+  Widget timeButton(String name, DateTime time) {
     return AbsorbPointer(
         absorbing: switchVals['All Day'],
         child: ListTile(
           onTap: () {
-            _selectTime(context, name, time);
+            _selectTime(context, name, TimeOfDay.fromDateTime(time));
           },
           leading: Text(
             name,
             style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
           trailing: Text(
-            time.format(context),
+            TimeOfDay.fromDateTime(time).format(context),
             style: TextStyle(
                 color: !switchVals['All Day']
                     ? UIData.secondaryColor

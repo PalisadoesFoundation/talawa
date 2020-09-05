@@ -1,18 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/nav_page.dart';
+import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:talawa/utils/GraphAPI.dart';
-import 'package:talawa/views/pages/profile_page.dart';
+import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 
 import 'create_organization.dart';
 
 class JoinOrganization extends StatefulWidget {
+  JoinOrganization({Key key, this.msg});
+
+  final String msg;
   @override
   _JoinOrganizationState createState() => _JoinOrganizationState();
 }
@@ -24,16 +32,37 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  List organizationInfo = [];
+  List organizationInfo = List();
+  List filteredOrgInfo = List();
   List joinedOrg = [];
-  GraphAPI _graphAPI = GraphAPI();
+  AuthController _authController = AuthController();
   String isPublic;
+  TextEditingController searchController = TextEditingController();
+  OrgController _orgController = OrgController();
 
   @override
   void initState() {
     super.initState();
     fToast = FToast(context);
     fetchOrg();
+  }
+
+  void searchOrgName(String orgName) {
+    filteredOrgInfo.clear();
+    if (orgName.isNotEmpty) {
+      for (int i = 0; i < organizationInfo.length; i++) {
+        String name = organizationInfo[i]['name'];
+        if (name.toLowerCase().contains(orgName.toLowerCase())) {
+          setState(() {
+            filteredOrgInfo.add(organizationInfo[i]);
+          });
+        }
+      }
+    } else {
+      setState(() {
+        filteredOrgInfo.add(organizationInfo);
+      });
+    }
   }
 
   Future fetchOrg() async {
@@ -52,9 +81,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   Future joinPrivateOrg() async {
-    String accessTokenException =
-        "Access Token has expired. Please refresh session.: Undefined location";
-
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.mutate(MutationOptions(
@@ -62,7 +88,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      _graphAPI.getNewToken();
+      _authController.getNewToken();
       return joinPrivateOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
@@ -71,16 +97,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       print(result.data);
       _successToast("Request Sent to Organization Admin");
 
-      //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ProfilePage()));
+      pushNewScreen(
+        context,
+        screen: NewsFeed(),
+      );
     }
   }
 
-  Future confirmOrgChoice() async {
-    String accessTokenException =
-        "Access Token has expired. Please refresh session.: Undefined location";
-
+  Future joinPublicOrg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -88,8 +112,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      _graphAPI.getNewToken();
-      return confirmOrgChoice();
+      _authController.getNewToken();
+      return joinPublicOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       _exceptionToast(result.exception.toString().substring(16));
@@ -104,14 +128,20 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         final String currentOrgId = result.data['joinPublicOrganization']
             ['joinedOrganizations'][0]['_id'];
         await _pref.saveCurrentOrgId(currentOrgId);
+        final String currentOrgImgSrc = result.data['joinPublicOrganization']
+            ['joinedOrganizations'][0]['image'];
+        await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+        final String currentOrgName = result.data['joinPublicOrganization']
+            ['joinedOrganizations'][0]['name'];
+        await _pref.saveCurrentOrgName(currentOrgName);
       }
       _successToast("Sucess!");
 
-    
-       //Navigate user to join organization screen
-       
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new ProfilePage()));
+      //Navigate user to newsfeed
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
     }
   }
 
@@ -119,29 +149,33 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       
-        title: const Text('Organization',style: TextStyle(color: Colors.white)),
+        title: const Text('Join Organization',
+            style: TextStyle(color: Colors.white)),
       ),
       body: organizationInfo.isEmpty
           ? Center(child: CircularProgressIndicator())
           : Container(
               color: Color(0xffF3F6FF),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
               child: Column(
                 children: <Widget>[
                   Text(
-                    "Welcome, \nJoin or create your organization to get started",
+                    "Welcome, \nJoin or Create your organization to get started",
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontStyle: FontStyle.normal),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   TextFormField(
+                    onChanged: (value) {
+                      searchOrgName(value);
+                    },
+                    controller: searchController,
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 14),
                     decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(5),
                         fillColor: Colors.white,
@@ -162,60 +196,194 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                         ),
                         hintText: "Search Organization Name"),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 15),
                   Expanded(
                       child: Container(
                           color: Color(0xffF3F6FF),
-                          child: ListView.builder(
-                              itemCount: organizationInfo.length,
-                              itemBuilder: (context, index) {
-                                final organization = organizationInfo[index];
-                                return Card(
-                                  child: ListTile(
-                                    leading: FlutterLogo(size: 56.0),
-                                    title:
-                                        Text(organization['name'].toString()),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(organization['description']
-                                            .toString()),
-                                        Text('Created by: ' +
-                                            organization['creator']['firstName']
-                                                .toString() +
-                                            ' ' +
-                                            organization['creator']['lastName']
-                                                .toString()),
-                                      ],
-                                    ),
-                                    trailing: new RaisedButton(
-                                        onPressed: () {
-                                          itemIndex =
-                                              organization['_id'].toString();
-                                          if (organization['isPublic']
-                                                  .toString() ==
-                                              'false') {
-                                            setState(() {
-                                              isPublic = 'false';
-                                            });
-                                          } else {
-                                            setState(() {
-                                              isPublic = 'true';
-                                            });
-                                          }
-                                          confirmOrgDialog();
-                                        },
-                                        color: UIData.primaryColor,
-                                        child: new Text("JOIN"),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              new BorderRadius.circular(14.0),
-                                        )),
-                                    isThreeLine: true,
-                                  ),
-                                );
-                              })))
+                          child: searchController.text.isNotEmpty
+                              ? ListView.builder(
+                                  itemCount: filteredOrgInfo.length,
+                                  itemBuilder: (context, index) {
+                                    final organization = filteredOrgInfo[index];
+                                    return Card(
+                                      child: ListTile(
+                                        leading: organization['image'] != null
+                                            ? CircleAvatar(
+                                                radius: 30,
+                                                backgroundImage: NetworkImage(
+                                                    Provider.of<GraphQLConfiguration>(
+                                                                context)
+                                                            .displayImgRoute +
+                                                        organization['image']))
+                                            : CircleAvatar(
+                                                radius: 30,
+                                                backgroundImage: AssetImage(
+                                                    "assets/images/team.png")),
+                                        title: organization['isPublic']
+                                                    .toString() !=
+                                                'false'
+                                            ? Row(
+                                                children: [
+                                                  Text(organization['name']
+                                                      .toString()),
+                                                  Icon(Icons.lock_open,
+                                                      color: Colors.green,
+                                                      size: 16)
+                                                ],
+                                              )
+                                            : Row(
+                                                children: [
+                                                  Text(organization['name']
+                                                      .toString()),
+                                                  Icon(Icons.lock,
+                                                      color: Colors.red,
+                                                      size: 16)
+                                                ],
+                                              ),
+                                        subtitle: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                                organization['description']
+                                                    .toString(),
+                                                maxLines: 2,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                            Text(
+                                                'Created by: ' +
+                                                    organization['creator']
+                                                            ['firstName']
+                                                        .toString() +
+                                                    ' ' +
+                                                    organization['creator']
+                                                            ['lastName']
+                                                        .toString(),
+                                                maxLines: 2,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                          ],
+                                        ),
+                                        trailing: new RaisedButton(
+                                            onPressed: () {
+                                              itemIndex = organization['_id']
+                                                  .toString();
+                                              if (organization['isPublic']
+                                                      .toString() ==
+                                                  'false') {
+                                                setState(() {
+                                                  isPublic = 'false';
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  isPublic = 'true';
+                                                });
+                                              }
+                                              confirmOrgDialog();
+                                            },
+                                            color: UIData.primaryColor,
+                                            child: new Text("JOIN"),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  new BorderRadius.circular(
+                                                      12.0),
+                                            )),
+                                        isThreeLine: true,
+                                      ),
+                                    );
+                                  })
+                              : ListView.builder(
+                                  itemCount: organizationInfo.length,
+                                  itemBuilder: (context, index) {
+                                    final organization =
+                                        organizationInfo[index];
+                                    return Card(
+                                      child: ListTile(
+                                        leading: organization['image'] != null
+                                            ? CircleAvatar(
+                                                radius: 30,
+                                                backgroundImage: NetworkImage(
+                                                    Provider.of<GraphQLConfiguration>(
+                                                                context)
+                                                            .displayImgRoute +
+                                                        organization['image']))
+                                            : CircleAvatar(
+                                                radius: 30,
+                                                backgroundImage: AssetImage(
+                                                    "assets/images/team.png")),
+                                        title: organization['isPublic']
+                                                    .toString() !=
+                                                'false'
+                                            ? Row(
+                                                children: [
+                                                  Text(organization['name']
+                                                      .toString()),
+                                                  Icon(Icons.lock_open,
+                                                      color: Colors.green,
+                                                      size: 16)
+                                                ],
+                                              )
+                                            : Row(
+                                                children: [
+                                                  Text(organization['name']
+                                                      .toString()),
+                                                  Icon(Icons.lock,
+                                                      color: Colors.red,
+                                                      size: 16)
+                                                ],
+                                              ),
+                                        subtitle: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                                organization['description']
+                                                    .toString(),
+                                                maxLines: 2,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                            Text(
+                                                'Created by: ' +
+                                                    organization['creator']
+                                                            ['firstName']
+                                                        .toString() +
+                                                    ' ' +
+                                                    organization['creator']
+                                                            ['lastName']
+                                                        .toString(),
+                                                maxLines: 2,
+                                                overflow:
+                                                    TextOverflow.ellipsis),
+                                          ],
+                                        ),
+                                        trailing: new RaisedButton(
+                                            onPressed: () {
+                                              itemIndex = organization['_id']
+                                                  .toString();
+                                              if (organization['isPublic']
+                                                      .toString() ==
+                                                  'false') {
+                                                setState(() {
+                                                  isPublic = 'false';
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  isPublic = 'true';
+                                                });
+                                              }
+                                              confirmOrgDialog();
+                                            },
+                                            color: UIData.primaryColor,
+                                            child: new Text("JOIN"),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  new BorderRadius.circular(
+                                                      12.0),
+                                            )),
+                                        isThreeLine: true,
+                                      ),
+                                    );
+                                  })))
                 ],
               )),
       floatingActionButton: FloatingActionButton(
@@ -250,11 +418,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 child: Text("Yes"),
                 onPressed: () async {
                   if (isPublic == 'true') {
-                    confirmOrgChoice();
-                      Navigator.of(context).pop();
+                    joinPublicOrg();
+                    Navigator.of(context).pop();
                   } else if (isPublic == 'false') {
                     joinPrivateOrg();
-                      Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                   }
                 },
               )

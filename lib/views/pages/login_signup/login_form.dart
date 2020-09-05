@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
@@ -8,7 +11,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/views/pages/nav_page.dart';
+import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginForm extends StatefulWidget {
@@ -26,6 +29,7 @@ class LoginFormState extends State<LoginForm> {
   Queries _query = Queries();
   FToast fToast;
   Preferences _pref = Preferences();
+  static String orgURI;
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -34,13 +38,13 @@ class LoginFormState extends State<LoginForm> {
   @override
   void initState() {
     super.initState();
+    Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
     fToast = FToast(context);
   }
 
   //function for login user which gets called when sign in is press
   Future loginUser() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
-
     QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.loginUser(model.email, model.password))));
     if (result.hasException) {
@@ -48,24 +52,36 @@ class LoginFormState extends State<LoginForm> {
       setState(() {
         _progressBarState = false;
       });
-      
+
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
       _successToast("All Set!");
-     
-      //Store user tokens, current org id and user id in preferences
 
-      final Token accessToken = new Token(tokenString: result.data['login']['accessToken']);
+      final Token accessToken =
+          new Token(tokenString: result.data['login']['accessToken']);
       await _pref.saveToken(accessToken);
-      final Token refreshToken = new Token(tokenString: result.data['login']['refreshToken']);
+      final Token refreshToken =
+          new Token(tokenString: result.data['login']['refreshToken']);
       await _pref.saveRefreshToken(refreshToken);
       final String currentUserId = result.data['login']['user']['_id'];
       await _pref.saveUserId(currentUserId);
-       final String currentOrgId = result.data['login']['user']['joinedOrganizations'][0]['_id'];
+      final String userFName = result.data['login']['user']['firstName'];
+      await _pref.saveUserFName(userFName);
+      final String userLName = result.data['login']['user']['lastName'];
+      await _pref.saveUserLName(userLName);
+      final String currentOrgId =
+          result.data['login']['user']['joinedOrganizations'][0]['_id'];
       await _pref.saveCurrentOrgId(currentOrgId);
+      final String currentOrgImgSrc =
+          result.data['login']['user']['joinedOrganizations'][0]['image'];
+      await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+      final String currentOrgName =
+          result.data['login']['user']['joinedOrganizations'][0]['name'];
+      await _pref.saveCurrentOrgName(currentOrgName);
+
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new HomePage()));
     }
@@ -88,7 +104,8 @@ class LoginFormState extends State<LoginForm> {
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.email),
                 labelText: "Email",
                 labelStyle: TextStyle(color: Colors.white),
@@ -110,7 +127,8 @@ class LoginFormState extends State<LoginForm> {
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.lock),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
@@ -145,8 +163,8 @@ class LoginFormState extends State<LoginForm> {
                       _formKey.currentState.save();
                       loginUser();
                       setState(() {
-                      toggleProgressBarState();
-                    });
+                        toggleProgressBarState();
+                      });
                     }
                   }),
             ),

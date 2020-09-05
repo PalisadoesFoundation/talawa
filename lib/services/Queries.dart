@@ -14,12 +14,14 @@ class Queries {
   String registerUser(
       String firstName, String lastName, String email, String password) {
     return """
-        mutation {
-          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"}){
+        mutation (\$file: Upload) {
+          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"},
+           file: \$file){
             accessToken
             user{
                 _id
                 firstName
+                lastName
                  joinedOrganizations{
                   _id
                   name
@@ -40,7 +42,9 @@ class Queries {
             user{
                 _id
                 firstName
+                lastName
                  joinedOrganizations{
+                   image
                   _id
                   name
                  }
@@ -58,7 +62,9 @@ class Queries {
           firstName
           lastName
           email
+          image
           joinedOrganizations{
+            image
             _id
             name
             description
@@ -74,6 +80,10 @@ class Queries {
           adminFor {
             _id
             name
+              creator{
+          firstName
+          lastName
+        }
           }
         }
       }
@@ -109,6 +119,7 @@ class Queries {
   final String fetchOrganizations = '''
     query{
       organizations(){
+        image
         _id
         name
         description
@@ -116,12 +127,6 @@ class Queries {
         creator{
           firstName
           lastName
-        }
-        members{
-          _id
-          firstName
-          lastName
-          email
         }
       }
     }
@@ -131,6 +136,7 @@ class Queries {
     return '''
     query{
       organizations(id: "$orgId"){
+        image
         _id
         name
         description
@@ -143,28 +149,7 @@ class Queries {
           firstName
           lastName
           email
-        }
-      }
-    }
-  ''';
-  }
-
-  String fetchOrgById2(String orgId) {
-    return '''
-    query{
-      organizations(id: $orgId){
-        _id
-        name
-        description
-        creator{
-          firstName
-          lastName
-        }
-        members{
-          _id
-          firstName
-          lastName
-          email
+          image
         }
       }
     }
@@ -187,8 +172,11 @@ class Queries {
   String createOrg(String name, String description, String attendees,
       bool isPublic, bool visibleInSearch) {
     return '''
-      mutation {
-          createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}){
+      mutation (\$file: Upload){
+          createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}, 
+          file: \$file), 
+           {
+             image
             _id
             name
             description
@@ -263,7 +251,24 @@ class Queries {
             user{
               firstName
               lastName
+              image
             }
+          }
+         }
+    }
+  ''';
+  }
+
+  String viewMembers(String orgId) {
+    return '''
+      query {
+        organizations(id:"$orgId"){
+          members{
+            _id
+            firstName
+            lastName
+            image
+            
           }
          }
     }
@@ -296,6 +301,19 @@ class Queries {
   ''';
   }
 
+  String removeMember(String organizationId, List userIds) {
+    return '''
+      mutation {
+        removeMember(data: {organizationId: "$organizationId", userIds: $userIds})
+         {
+            _id
+            name
+        }
+        
+    }
+  ''';
+  }
+
 //////////////EVENTS/////////////////////
   String fetchOrgEvents(String orgId) {
     return """
@@ -313,8 +331,8 @@ class Queries {
           allDay
           startTime
           endTime
-          date
           location
+          isRegistered
         }
       }
     """;
@@ -366,12 +384,11 @@ class Queries {
     """;
   }
 
-  String registerForEvent = """
-      mutation RegisterForEvent(
-        \$id: ID!,
-        )
-        {registerForEvent(
-          id: \$id,
+  String registerForEvent(String eventid) {
+    return """
+      mutation {
+        registerForEvent(
+          id: "$eventid",
           ){
             _id
             title
@@ -379,25 +396,50 @@ class Queries {
           }
         }
     """;
+  }
 
-  final String addEventProject = """
-      mutation CreateEventProject(
-        \$title: String!,
-        \$description: String!,
-        \$eventId: String!,
+  String addEventTask(
+      {String eventId, String title, String description, String deadline}) {
+    return """
+      mutation {
+        createTask(
+        eventId: "$eventId",
+        data: {
+        title: "$title",
+        description: "$description",
+        deadline: "$deadline",}
         ){
-        createEventProject(
-          data:{
-            title: \$title,
-            description: \$description,
-            eventId: \$eventId,
-          }){
-            _id
-            title
-            description
-          }
+          _id
         }
+      }
     """;
+  }
+
+  String getTasksByEvent(String id) {
+    return """
+  query{
+    tasksByEvent(id:"$id"){
+        title
+        description
+        deadline
+    }
+  }
+  
+  """;
+  }
+
+  String getRegistrantsByEvent(String id) {
+    return """
+  query{
+    registrantsByEvent(id:"$id"){
+    firstName
+    lastName
+    email
+    image
+    }
+  }
+  """;
+  }
 
   String addEvent(
       {organizationId,
@@ -409,7 +451,8 @@ class Queries {
       recurring,
       allDay,
       recurrance,
-      date,
+      startDate,
+      endDate,
       startTime,
       endTime}) {
     return """
@@ -426,7 +469,8 @@ class Queries {
            allDay: $allDay,
            startTime: "$startTime"
            endTime: "$endTime"
-           date: "$date",
+           startDate: "$startDate",
+           endDate,: "$endDate",
            location: "$location"
           }){
             _id
@@ -437,16 +481,44 @@ class Queries {
     """;
   }
 
-///////////////////NEWSFEED////////////////
-  String posts = """
+/////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
+
+  String tasksByUser(String id) {
+    return """
+  query{
+    tasksByUser(id:"$id"){
+      _id
+    }
+  }
+  
+  """;
+  }
+
+  String registeredEventsByUser(String id) {
+    return """
+  query{
+    registeredEventsByUser(id:"$id"){
+      _id
+    }
+  }
+  
+  """;
+  }
+
+///////////////////NEWSFEED///////////////////////////////////////////////////////////////////////
+  String getPostsById(String orgId) {
+    return """
       query {
-        posts
+        postsByOrganization(id: "$orgId")
         { 
           _id
           text
           createdAt
           imageUrl
           videoUrl
+          title
+          commentCount
+          likeCount
           creator{
             firstName
             lastName
@@ -463,54 +535,74 @@ class Queries {
         }
       }
 """;
+  }
 
-///////////////////NEWSFEED////////////////
-  String getPostsComments = """
-      query {
-        posts
-        { 
-          _id
-          text
-          createdAt
-          likedBy{
-            firstName
-            lastName
-          }
-          comments{
-            firstName
-            lastName
-          }
-          imageUrl
-          videoUrl
-          creator{
-            firstName
-            lastName
-          }
-          organization{
-            _id
-          }
-          likedBy{
-            _id
-          }
-          comments{
-            _id
-          }
-        }
-      }
+  String getPostsComments(String postId) {
+    return """
+query{
+  commentsByPost(id: "$postId"){
+    _id
+    text
+    createdAt
+    creator{
+      firstName
+      lastName
+    }
+  }
+}
 """;
+  }
 
-  String addPost(String text, String organizationId, String date) {
+  String createComments(String postId, String text) {
+    return """
+mutation{
+  createComment(postId: "$postId", 
+  data:{
+    text: "$text"
+  }
+  ){
+    _id
+  }
+}
+""";
+  }
+
+  String addPost(String text, String organizationId, String title) {
     return """
     mutation {
         createPost(
             data: {
                 text: "$text",
+                title: "$title",
                 organizationId: "$organizationId",
         }) {
             _id
             text
         }
     }
+  """;
+  }
+
+  String addLike(String postID) {
+    return """
+  mutation{
+    likePost(id:"$postID"){
+      _id
+    }
+  }
+  """;
+  }
+
+  String removeLike(String postID) {
+    return """
+  mutation{
+    unlikePost(id:"$postID"){
+      _id
+      likedBy{
+        _id
+      }
+    }
+  }
   """;
   }
 }
