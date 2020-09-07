@@ -92,6 +92,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
 
   @override
   Widget build(BuildContext context) {
+    //return BaseView<SwitchOrgModel>( onModelReady: (model) { model.getJoinedOrgs(); });
     return Scaffold(
       appBar: AppBar(
         title: const Text(

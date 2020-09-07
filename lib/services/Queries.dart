@@ -11,12 +11,35 @@ class Queries {
     ''';
   }
 
-  String registerUser(
+  String registerUserWithImg(
       String firstName, String lastName, String email, String password) {
     return """
         mutation (\$file: Upload) {
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"},
            file: \$file){
+            accessToken
+            user{
+                _id
+                firstName
+                lastName
+                 joinedOrganizations{
+                  _id
+                  name
+                 }
+              }
+              refreshToken
+            }
+        }
+
+    """;
+  }
+
+  String registerUserWithoutImg(
+      String firstName, String lastName, String email, String password) {
+    return """
+        mutation{
+          signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"})
+          {
             accessToken
             user{
                 _id
@@ -73,20 +96,8 @@ class Queries {
           lastName
           }
         }
-           createdOrganizations {
-            _id
-            name
-          }
-          adminFor {
-            _id
-            name
-              creator{
-          firstName
-          lastName
-        }
-          }
-        }
       }
+    }
     ''';
 
   String fetchUserInfo2(String id) {
@@ -169,12 +180,32 @@ class Queries {
   ''';
   }
 
-  String createOrg(String name, String description, String attendees,
+  String createOrgWithImg(String name, String description, String attendees,
       bool isPublic, bool visibleInSearch) {
     return '''
       mutation (\$file: Upload){
           createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}, 
           file: \$file), 
+           {
+             image
+            _id
+            name
+            description
+          creator{
+            firstName
+            lastName
+            
+          }
+        }
+    }
+  ''';
+  }
+
+  String createOrgWithoutImg(String name, String description, String attendees,
+      bool isPublic, bool visibleInSearch) {
+    return '''
+      mutation{
+          createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}) 
            {
              image
             _id

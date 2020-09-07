@@ -46,11 +46,47 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     _progressBarState = !_progressBarState;
   }
 
-  createOrg() async {
+  createOrgWithoutImg() async {
+    GraphQLClient _client = graphQLConfiguration.authClient();
+    QueryResult result = await _client.mutate(MutationOptions(
+      documentNode: gql(_queries.createOrgWithoutImg(
+        orgNameController.text,
+        orgDescController.text,
+        orgMemberDescController.text,
+        isPublic,
+        isVisible,
+      )),
+    ));
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
+      return createOrgWithoutImg();
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
+      print(result.exception);
+      setState(() {
+        _progressBarState = false;
+      });
+      _exceptionToast(result.exception.toString());
+    } else if (!result.hasException && !result.loading) {
+      setState(() {
+        _progressBarState = true;
+      });
+      _successToast("Sucess!");
+      print(result.data);
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
+    }
+  }
+
+  createOrgWithImg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
     final img = await multipartFileFrom(_image);
     QueryResult result = await _client.mutate(MutationOptions(
-      documentNode: gql(_queries.createOrg(
+      documentNode: gql(_queries.createOrgWithImg(
         orgNameController.text,
         orgDescController.text,
         orgMemberDescController.text,
@@ -65,7 +101,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      return createOrg();
+      return createOrgWithImg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       print(result.exception);
@@ -278,7 +314,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                 radioValue >= 0 &&
                                 radioValue1 >= 0) {
                               _formKey.currentState.save();
-                              createOrg();
+                              _image != null
+                                  ? createOrgWithImg()
+                                  : createOrgWithoutImg();
                               setState(() {
                                 toggleProgressBarState();
                               });

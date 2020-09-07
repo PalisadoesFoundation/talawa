@@ -86,46 +86,56 @@ class _RemoveMemberState extends State<RemoveMember> {
         title:
             const Text('Remove Member', style: TextStyle(color: Colors.white)),
       ),
-      body: ListView.separated(
-        itemCount: membersList.length,
-        itemBuilder: (context, index) {
-          final members = membersList[index];
-          String mId = members['_id'];
-          return CheckboxListTile(
-            secondary: members['image'] != null
-                ? CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(
-                        Provider.of<GraphQLConfiguration>(context)
-                                .displayImgRoute +
-                            members['image']))
-                : CircleAvatar(
-                    radius: 30.0,
-                    backgroundColor: Colors.white,
-                    child: Text(
-                        members['firstName']
-                                .toString()
-                                .substring(0, 1)
-                                .toUpperCase() +
-                            members['lastName']
-                                .toString()
-                                .substring(0, 1)
-                                .toUpperCase(),
-                        style: TextStyle(
-                          color: UIData.primaryColor,
-                          fontSize: 22,
-                        )),
-                  ),
-            title: Text(members['firstName'] + ' ' + members['lastName']),
-            value: selectedMembers.contains('"$mId"'),
-            onChanged: (bool value) {
-              _onMemberSelected(value, members['_id'].toString());
-            },
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider();
-        },
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 10.0,
+          ),
+          Expanded(
+            child: ListView.separated(
+              itemCount: membersList.length,
+              itemBuilder: (context, index) {
+                final members = membersList[index];
+                String mId = members['_id'];
+                return CheckboxListTile(
+                  secondary: members['image'] != null
+                      ? CircleAvatar(
+                          radius: 30,
+                          backgroundImage: NetworkImage(
+                              Provider.of<GraphQLConfiguration>(context)
+                                      .displayImgRoute +
+                                  members['image']))
+                      : CircleAvatar(
+                          radius: 30.0,
+                          backgroundColor: Colors.white,
+                          child: Text(
+                              members['firstName']
+                                      .toString()
+                                      .substring(0, 1)
+                                      .toUpperCase() +
+                                  members['lastName']
+                                      .toString()
+                                      .substring(0, 1)
+                                      .toUpperCase(),
+                              style: TextStyle(
+                                color: UIData.primaryColor,
+                                fontSize: 22,
+                              )),
+                        ),
+                  title: Text(members['firstName'] + ' ' + members['lastName']),
+                  value: selectedMembers.contains('"$mId"'),
+                  onChanged: (bool value) {
+                    _onMemberSelected(value, members['_id'].toString());
+                  },
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider();
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.delete),
@@ -159,6 +169,7 @@ class _RemoveMemberState extends State<RemoveMember> {
               FlatButton(
                 child: Text("Yes"),
                 onPressed: () async {
+                  Navigator.of(context).pop();
                   removeMembers();
                 },
               )

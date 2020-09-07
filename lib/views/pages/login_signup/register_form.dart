@@ -48,13 +48,12 @@ class RegisterFormState extends State<RegisterForm> {
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
   }
 
-  //function for registering user which gets called when sign up is press
-  registerUser() async {
+  registerUserWithImg() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     final img = await multipartFileFrom(_image);
     print(_image);
     QueryResult result = await _client.mutate(MutationOptions(
-      documentNode: gql(_signupQuery.registerUser(
+      documentNode: gql(_signupQuery.registerUserWithImg(
           model.firstName, model.lastName, model.email, model.password)),
       variables: {
         'file': img,
@@ -71,6 +70,11 @@ class RegisterFormState extends State<RegisterForm> {
         _progressBarState = true;
       });
 
+      final String userFName = result.data['signUp']['user']['firstName'];
+      await _pref.saveUserFName(userFName);
+      final String userLName = result.data['signUp']['user']['lastName'];
+      await _pref.saveUserLName(userLName);
+
       final Token accessToken =
           new Token(tokenString: result.data['signUp']['accessToken']);
       await _pref.saveToken(accessToken);
@@ -80,6 +84,41 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new JoinOrganization()));
+    }
+  }
+
+  registerUserWithoutImg() async {
+    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    QueryResult result = await _client.mutate(MutationOptions(
+      documentNode: gql(_signupQuery.registerUserWithoutImg(
+          model.firstName, model.lastName, model.email, model.password)),
+    ));
+    if (result.hasException) {
+      print(result.exception);
+      setState(() {
+        _progressBarState = false;
+      });
+      _exceptionToast(result.exception.toString().substring(16));
+    } else if (!result.hasException && !result.loading) {
+      setState(() {
+        _progressBarState = true;
+      });
+
+      final String userFName = result.data['signUp']['user']['firstName'];
+      await _pref.saveUserFName(userFName);
+      final String userLName = result.data['signUp']['user']['lastName'];
+      await _pref.saveUserLName(userLName);
+      final Token accessToken =
+          new Token(tokenString: result.data['signUp']['accessToken']);
+      await _pref.saveToken(accessToken);
+      final Token refreshToken =
+          new Token(tokenString: result.data['signUp']['refreshToken']);
+      await _pref.saveRefreshToken(refreshToken);
+      final String currentUserId = result.data['signUp']['user']['_id'];
+      await _pref.saveUserId(currentUserId);
+
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new JoinOrganization()));
     }
@@ -238,9 +277,10 @@ class RegisterFormState extends State<RegisterForm> {
                 onPressed: () async {
                   _validate = true;
                   if (_formKey.currentState.validate()) {
-                    print("run mutation");
                     _formKey.currentState.save();
-                    registerUser();
+                    _image != null
+                        ? registerUserWithImg()
+                        : registerUserWithoutImg();
                     setState(() {
                       toggleProgressBarState();
                     });
