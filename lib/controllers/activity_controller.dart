@@ -29,7 +29,7 @@ class ActivityController with ChangeNotifier {
     } 
     // If that call was not successful, display error. 
     else {
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("unable to fetch activities"),
           duration: Duration(seconds: 5)));
     }
@@ -49,7 +49,7 @@ class ActivityController with ChangeNotifier {
     } 
     // If that call was not successful, throw an error.
     else {
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("unable to fetch activity"),
           duration: Duration(seconds: 5)));
     }
@@ -73,7 +73,7 @@ class ActivityController with ChangeNotifier {
     } 
     // If that call was not successful, throw an error.
     else {
-      // Scaffold.of(context).showSnackBar(SnackBar(
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //     content: Text("unable to fetch activities"),
       //     duration: Duration(seconds: 5)));
     }
@@ -92,7 +92,7 @@ class ActivityController with ChangeNotifier {
       return (data as List).map((user) => new User.fromJson(user)).toList();
     } else {
       // If that call was not successful, throw an error.
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("unable to fetch users"),
           duration: Duration(seconds: 5)));
     }
@@ -113,7 +113,7 @@ class ActivityController with ChangeNotifier {
     }
     // If that call was not successful, handle exception
     else {
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(data['message']), duration: Duration(seconds: 5)));
     }
     return new List<User>();
@@ -150,35 +150,35 @@ class ActivityController with ChangeNotifier {
         //Exceptions
         case 401:
           {
-            Scaffold.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text("You are unauthorized to login"),
                 duration: Duration(seconds: 5)));
           }
           break;
         case 403:
           {
-            Scaffold.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text("Forbidden access to resource"),
                 duration: Duration(seconds: 5)));
           }
           break;
         case 415:
           {
-            Scaffold.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text("Invalid media"),
                 duration: Duration(seconds: 5)));
           }
           break;
         case 500:
           {
-            Scaffold.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text("Something drastic happened"),
                 duration: Duration(seconds: 5)));
           }
           break;
         default:
           {
-            Scaffold.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text("Something happened"),
                 duration: Duration(seconds: 5)));
           }
@@ -215,7 +215,7 @@ class ActivityController with ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      Scaffold.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("Something happened"), duration: Duration(seconds: 5)));
     }
   }
