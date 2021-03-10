@@ -2,10 +2,10 @@ import 'package:adhara_socket_io/adhara_socket_io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:talawa/model/note.dart';
-import 'package:talawa/utils/globals.dart';
 import 'package:talawa/views/widgets/chat_message.dart';
 
 class NoteController with ChangeNotifier {
+  // ignore: todo
   //TODO: Refactor code such that the current user id is easily accessible across more than one provider
   int currentUserId;
   SocketIO socket;
