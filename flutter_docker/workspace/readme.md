@@ -8,9 +8,18 @@
 
 <img src = "https://github.com/yasharth291/talawa/blob/master/assets/images/docker_1.jpg">
 
+<div>
+  </div>
+
+
+
 <p>Select the option Remote-Containers: Open Folder in Container.</p>
 
 <img src = "https://github.com/yasharth291/talawa/blob/master/assets/images/docker_2.jpg">
+
+<div>
+  </div>
+
 
 <p>Select the root directory which contains the Dockerfile (along with some other settings) and click on Open to start building the Docker container. This will take some time, as it will download and set up all the tools in the container.</p>
 
