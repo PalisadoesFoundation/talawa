@@ -61,6 +61,7 @@ To know more refer [this](https://stackoverflow.com/questions/5528850/how-do-you
 10.0.2.2:4000
 ```
 - If you are running app on real smartphone then use `Network IP` instead of `localhost`
+
 ```sh
 <IP>:4000
 ```
