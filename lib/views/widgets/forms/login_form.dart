@@ -86,7 +86,9 @@ class LoginFormState extends State<LoginForm> {
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.email),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),borderSide: BorderSide(color: Colors.grey)),
+                prefixIcon: Icon(Icons.email,color: Colors.grey),
                 labelText: "Email",
                 labelStyle: TextStyle(color: Colors.white),
                 alignLabelWithHint: true,
@@ -107,8 +109,10 @@ class LoginFormState extends State<LoginForm> {
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.lock),
+                  borderRadius: BorderRadius.circular(5.0)),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),borderSide: BorderSide(color: Colors.grey)),/*  */
+                prefixIcon: Icon(Icons.lock,color: Colors.grey),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
                 focusColor: UIData.primaryColor,
