@@ -222,7 +222,7 @@ class _EventsState extends State<Events> {
           });
         },
         calendarStyle: CalendarStyle(markersColor: Colors.black45),
-        onDaySelected: (day, events) {
+        onDaySelected: (day, events, List holidays) {
           String carouselDay = DateFormat.yMMMd('en_US').format(day);
           if (timer.isSameDay(day, now)) {
             carouselDay = 'Today';
