@@ -262,12 +262,7 @@ class RegisterFormState extends State<RegisterForm> {
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
+      child: Text(msg),
     );
 
     fToast.showToast(
