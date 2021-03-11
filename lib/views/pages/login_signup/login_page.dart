@@ -33,10 +33,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   Preferences _pref = Preferences();
   String orgUrl;
   String saveMsg = "Set URL";
+  String inputText;
 
   @override
   void initState() {
     super.initState();
+    urlController.addListener(urlListener);
   }
 
   //saves org url api to be used in the app
@@ -143,6 +145,15 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       duration: Duration(milliseconds: 600),
       curve: Curves.bounceOut,
     );
+  }
+
+  urlListener() {
+    if (saveMsg == "URL SAVED!" && inputText != urlController.text) {
+      setState(() {
+        saveMsg = "Set URL";
+      });
+    }
+    inputText = urlController.text;
   }
 
   @override
