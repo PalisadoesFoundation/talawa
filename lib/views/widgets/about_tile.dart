@@ -6,10 +6,10 @@ class MyAboutTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return AboutListTile(
       applicationIcon: FlutterLogo(
-        colors: Colors.yellow,
+        //color: Colors.yellow,
       ),
       icon: FlutterLogo(
-        colors: Colors.yellow,
+        //color: Colors.yellow,
       ),
       aboutBoxChildren: <Widget>[
         SizedBox(
