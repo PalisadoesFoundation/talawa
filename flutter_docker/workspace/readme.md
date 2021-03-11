@@ -10,10 +10,8 @@
 <img src = "https://github.com/yasharth291/talawa/blob/master/assets/images/docker_1.jpg">
 &nbsp;&nbsp;&nbsp;&nbsp;
 
-
-
 <p>Select the option Remote-Containers: Open Folder in Container.</p>
-
+&nbsp;&nbsp;
 <img src = "https://github.com/yasharth291/talawa/blob/master/assets/images/docker_2.jpg">
 &nbsp;&nbsp;&nbsp;&nbsp;
 
