@@ -1,4 +1,4 @@
-<strong>Just put the whole project inside this folder<strong>
+<strong>Just put the whole project inside this folder</strong>
 
 <p>1. First install Remote Development from extension</p>
 
