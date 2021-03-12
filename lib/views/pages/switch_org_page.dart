@@ -18,7 +18,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   String userID;
   int isSelected = 0;
   Preferences preferences = Preferences();
-  static String itemIndex;
   List userOrg = [];
 
   @override
