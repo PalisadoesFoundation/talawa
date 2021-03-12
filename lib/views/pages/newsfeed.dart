@@ -24,7 +24,7 @@ class _NewsFeedState extends State<NewsFeed> {
   Widget build(BuildContext context) {
     print(times);
     times.sort();
-    var width = MediaQuery.of(context).size.width;
+
 
     return Scaffold(
         appBar: AppBar(
