@@ -15,7 +15,6 @@ import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
-import 'package:image_picker/image_picker.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -123,17 +122,6 @@ class RegisterFormState extends State<RegisterForm> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new JoinOrganization()));
     }
-  }
-
-  //get image using camera
-  _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50
-    );
-
-    setState(() {
-      _image = image;
-    });
   }
 
   //get image using gallery
@@ -359,14 +347,6 @@ class RegisterFormState extends State<RegisterForm> {
             child: Container(
               child: Wrap(
                 children: <Widget>[
-                  ListTile(
-                    leading: Icon(Icons.camera_alt_outlined),
-                    title: Text('Camera'),
-                    onTap: () {
-                      _imgFromCamera();
-                      Navigator.of(context).pop();
-                    },
-                  ),
                   ListTile(
                       leading: Icon(Icons.photo_library),
                       title: Text('Photo Library'),
