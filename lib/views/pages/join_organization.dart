@@ -17,7 +17,6 @@ class JoinOrganization extends StatefulWidget {
 
 class _JoinOrganizationState extends State<JoinOrganization> {
   Queries _query = Queries();
-  Preferences _pref = Preferences();
   String token;
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();

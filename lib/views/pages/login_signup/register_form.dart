@@ -35,7 +35,6 @@ class RegisterFormState extends State<RegisterForm> {
   FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
-  AuthController _authController = AuthController();
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
