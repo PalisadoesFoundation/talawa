@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
@@ -52,7 +51,7 @@ class AuthController with ChangeNotifier {
 
             //Store user token in local storage
             final Token token = new Token(tokenString: responseBody['token']);
-           // currentUserId = await Preferences.saveCurrentUserId(token);
+            // currentUserId = await Preferences.saveCurrentUserId(token);
 
             //Navigate user to activity screen
             Navigator.of(context).pushReplacement(
@@ -102,7 +101,6 @@ class AuthController with ChangeNotifier {
       showAlertDialog(context, e.toString(), e.toString(), "Ok");
     }
   }
-   
 
   //Registers user
   Future register(BuildContext context, RegisterViewModel user) async {

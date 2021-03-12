@@ -54,7 +54,7 @@ class _NewsFeedState extends State<NewsFeed> {
                         subtitle: Text(list2[index]),
                         trailing: Container(
                           width: 80,
-                            child: Image.asset(UIData.shoppingImage),
+                          child: Image.asset(UIData.shoppingImage),
                         )),
                     Padding(
                         padding: EdgeInsets.all(10),
@@ -78,7 +78,6 @@ class _NewsFeedState extends State<NewsFeed> {
                   ],
                 ),
               );
-            })
-            );
+            }));
   }
 }

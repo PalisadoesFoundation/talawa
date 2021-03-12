@@ -18,10 +18,6 @@ class UIData {
   static const String switchOrgPage = "/switchOrgPage";
   static const String profilePage = "/profilePage";
 
-
-
-  
-
   //strings
   static const String appName = "Talawa";
 

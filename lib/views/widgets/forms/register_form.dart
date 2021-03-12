@@ -57,13 +57,12 @@ class RegisterFormState extends State<RegisterForm> {
         _progressBarState = false;
       });
       print("exception");
-            _exceptionToast(result.exception.toString());
-
+      _exceptionToast(result.exception.toString());
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-            _successToast("Sucessfully Registered");
+      _successToast("Sucessfully Registered");
 
       //Store user token in local storage
       void getToken() async {

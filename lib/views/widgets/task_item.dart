@@ -79,7 +79,9 @@ class _TaskItemState extends State<TaskItem> {
                   Navigator.pushNamed(context, UIData.responsibilityPage,
                       arguments: widget.resp.id);
                 },
-                child: new Text(DateFormat("MMMM d, y\nh:m aaa").format(widget.resp.datetime),
+                child: new Text(
+                    DateFormat("MMMM d, y\nh:m aaa")
+                        .format(widget.resp.datetime),
                     textAlign: TextAlign.center),
               ),
             ),

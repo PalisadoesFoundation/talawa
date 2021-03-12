@@ -11,7 +11,7 @@ class GraphQLConfiguration {
     final id = await _pref.getToken();
     token = id;
   }
- 
+
   static HttpLink httpLink = HttpLink(
     uri: "http://calico.palisadoes.org/talawa/",
     // uri: "http://talawa-ranil.herokuapp.com/graphql",
@@ -23,9 +23,9 @@ class GraphQLConfiguration {
   );
 
   static final Link finalAuthLink = authLink.concat(httpLink);
-  
-final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
-    GraphQLClient(link: httpLink, cache: InMemoryCache()));
+
+  final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
+      GraphQLClient(link: httpLink, cache: InMemoryCache()));
 
   GraphQLClient clientToQuery() {
     return GraphQLClient(

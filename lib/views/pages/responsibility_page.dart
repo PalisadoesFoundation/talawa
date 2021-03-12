@@ -21,33 +21,34 @@ class ResponsibilityPage extends StatelessWidget {
   }
 
   scaffold() => Consumer<ResponsibilityController>(
-    builder: (context, controller, child){
-      return FutureBuilder<Responsibility>(
-      future: responsibilityController.getResponsibility(context, respId),
-      builder: (_context, snapshot) {
-        return snapshot.hasData
-            ? CommonScaffold(
-                action: PopupMenuButton<int>(
-                  itemBuilder: (context) => [
-                    PopupMenuItem(
-                      value: 1,
-                      child: Text("Edit"),
-                    ),
-                  ],
-                  onSelected: (result) {
-                    if (result == 1) {}
-                    {
-                      editUserForm();
-                    }
-                  },
-                ),
-                appTitle: snapshot.data.title,
-                bodyData: bodyData(snapshot.data),
-              )
-            : Center(child: CircularProgressIndicator());
-      });
-    },
-  );
+        builder: (context, controller, child) {
+          return FutureBuilder<Responsibility>(
+              future:
+                  responsibilityController.getResponsibility(context, respId),
+              builder: (_context, snapshot) {
+                return snapshot.hasData
+                    ? CommonScaffold(
+                        action: PopupMenuButton<int>(
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                              value: 1,
+                              child: Text("Edit"),
+                            ),
+                          ],
+                          onSelected: (result) {
+                            if (result == 1) {}
+                            {
+                              editUserForm();
+                            }
+                          },
+                        ),
+                        appTitle: snapshot.data.title,
+                        bodyData: bodyData(snapshot.data),
+                      )
+                    : Center(child: CircularProgressIndicator());
+              });
+        },
+      );
 
   bodyData(Responsibility resp) {
     return Container(

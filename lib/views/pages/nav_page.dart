@@ -16,7 +16,6 @@ import 'package:talawa/controllers/user_controller.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/enums/connectivity_status.dart';
 
-
 import 'package:talawa/views/pages/events.dart';
 import 'package:talawa/views/pages/groups.dart';
 
@@ -27,6 +26,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/utils/userInfo.dart';
 import 'profile_page.dart';
 import 'package:talawa/services/preferences.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -36,7 +36,8 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   // PageController pageController = PageController(initialPage: 3);
   // int currentIndex = 0;
-  PersistentTabController _controller = PersistentTabController(initialIndex: 3);
+  PersistentTabController _controller =
+      PersistentTabController(initialIndex: 3);
   // AnimationController controller;
   String userID;
   Preferences preferences = Preferences();
@@ -48,10 +49,11 @@ class _HomePageState extends State<HomePage> {
     // Provider.of<NoteController>(context, listen: false).initializeSocket(
     //     Provider.of<AuthController>(context, listen: false).currentUserId);
   }
+
   void dispose() {
-      _controller.dispose();
-      super.dispose();
-    }
+    _controller.dispose();
+    super.dispose();
+  }
 
   _showSnackBar() {
     print("Show SnackBar Here");
@@ -62,15 +64,14 @@ class _HomePageState extends State<HomePage> {
 
   getUser() async {
     final id = await preferences.getUserId();
-      userID = id;
+    userID = id;
     getUserInfo();
   }
-    
+
   Future<void> getUserInfo() async {
     String mutation = Queries().fetchUserInfo2(userID);
     ApiFunctions apiFunctions = ApiFunctions();
     result = await apiFunctions.gqlmutation(mutation);
-
 
     // print(result);
     UserInfo userInfo = UserInfo();
@@ -80,18 +81,13 @@ class _HomePageState extends State<HomePage> {
     // print(result['users'][0]['joinedOrganizations'][0]['_id']);
   }
 
-
-
-
-
-
   List<Widget> _buildScreens() {
     return [
-          NewsFeed(),
-          Groups(),
-          Organizations(),
-          Events(),
-          ProfilePage(),
+      NewsFeed(),
+      Groups(),
+      Organizations(),
+      Events(),
+      ProfilePage(),
     ];
   }
 
@@ -134,7 +130,6 @@ class _HomePageState extends State<HomePage> {
       ),
     ];
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -153,15 +148,7 @@ class _HomePageState extends State<HomePage> {
       handleAndroidBackButtonPress: true,
       iconSize: 26.0,
       navBarStyle: NavBarStyle.style4,
-      onItemSelected: (index) {
-      },
-    ); 
+      onItemSelected: (index) {},
+    );
   }
-
 }
-
-
-
-
-
-

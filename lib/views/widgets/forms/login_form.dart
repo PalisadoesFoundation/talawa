@@ -142,8 +142,8 @@ class LoginFormState extends State<LoginForm> {
                       _formKey.currentState.save();
                       loginUser();
                       setState(() {
-                      toggleProgressBarState();
-                    });
+                        toggleProgressBarState();
+                      });
                     }
                   }),
             ),

@@ -21,7 +21,7 @@ class NoteController with ChangeNotifier {
           transports: [Transports.WEB_SOCKET]));
       this.socket.onConnect((data) {
         print("connected...");
-      //  this.socket.emit("join_activity_rooms", [currentUserId]);
+        //  this.socket.emit("join_activity_rooms", [currentUserId]);
       });
       this.socket.onConnectError((err) {
         print(err);
@@ -36,7 +36,7 @@ class NoteController with ChangeNotifier {
     }
   }
 
-  void joinRoom(String activityTitle){
+  void joinRoom(String activityTitle) {
     this.socket.emit("join_activity_room", [activityTitle]);
   }
 
@@ -52,10 +52,15 @@ class NoteController with ChangeNotifier {
   Future<List<Note>> getNotes(int activityId) async {
     Database db = await openDatabase('notes.db', version: 1);
     List<Note> notes = [];
-    var query = await db.rawQuery('SELECT * FROM Note WHERE activityId = ?', [activityId]);
-    query.forEach((item){
-      notes.add(new Note(item["id"], item["senderId"], item["activityId"], 
-      item["message"], DateTime.fromMicrosecondsSinceEpoch(item["timestamp"])));
+    var query = await db
+        .rawQuery('SELECT * FROM Note WHERE activityId = ?', [activityId]);
+    query.forEach((item) {
+      notes.add(new Note(
+          item["id"],
+          item["senderId"],
+          item["activityId"],
+          item["message"],
+          DateTime.fromMicrosecondsSinceEpoch(item["timestamp"])));
     });
     return notes;
   }

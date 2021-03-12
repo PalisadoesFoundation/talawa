@@ -187,9 +187,11 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 30),
-            Consumer<ResponsibilityController>(builder: (context, controller, child) {
+            Consumer<ResponsibilityController>(
+                builder: (context, controller, child) {
               return FutureBuilder<List<User>>(
-                  future: controller.getUsersByActivity(context, widget.activityId),
+                  future:
+                      controller.getUsersByActivity(context, widget.activityId),
                   builder: (_context, snapshot) {
                     return snapshot.hasData
                         ? ListView.builder(
@@ -223,7 +225,8 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
             Container(
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
                 width: 180,
-                child: Consumer<ResponsibilityController>(builder: (context, controller, child) {
+                child: Consumer<ResponsibilityController>(
+                    builder: (context, controller, child) {
                   return RaisedButton(
                     padding: EdgeInsets.all(12.0),
                     shape: StadiumBorder(),
@@ -237,7 +240,9 @@ class AddResponsibilityFormState extends State<AddResponsibilityForm> {
                       setState(() {
                         toggleProgressBarState();
                         if (_formKey.currentState.validate())
-                          Provider.of<ResponsibilityController>(context, listen: false).postResponsibility(context, model);
+                          Provider.of<ResponsibilityController>(context,
+                                  listen: false)
+                              .postResponsibility(context, model);
                         else
                           gotoUserInfo();
                         toggleProgressBarState();

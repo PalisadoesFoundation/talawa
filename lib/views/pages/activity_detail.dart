@@ -90,9 +90,7 @@ class _ActivityDetailsState extends State<ActivityDetails>
                           itemBuilder: (_context, index) {
                             Note note = snapshot.data[index];
                             return Column(
-                              children: <Widget>[
-                                ChatMessage(note: note)
-                              ],
+                              children: <Widget>[ChatMessage(note: note)],
                             );
                           },
                         );

@@ -70,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         bottomLeft: Radius.circular(20.0),
                         bottomRight: Radius.circular(20.0),
                       ),
-                      color:  UIData.primaryColor,
+                      color: UIData.primaryColor,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +96,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                           .toString()
                                           .substring(0, 1)
                                           .toUpperCase(),
-                                  style: TextStyle(color:  UIData.primaryColor,)),
+                                  style: TextStyle(
+                                    color: UIData.primaryColor,
+                                  )),
                             ),
                           ),
                         ),
@@ -133,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             leading: Icon(
                               Icons.person,
-                              color:  UIData.primaryColor,
+                              color: UIData.primaryColor,
                             ),
                             onTap: () {},
                           ),
@@ -144,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.compare_arrows,
-                                color:  UIData.primaryColor,
+                                color: UIData.primaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
@@ -160,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.business,
-                                color:  UIData.primaryColor,
+                                color: UIData.primaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
@@ -176,7 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               leading: Icon(
                                 Icons.add_circle,
-                                color:  UIData.primaryColor,
+                                color: UIData.primaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(

@@ -1,6 +1,7 @@
-class Queries{
-   String registerUser(String firstName, String lastName, String email, String password) {
-   return """
+class Queries {
+  String registerUser(
+      String firstName, String lastName, String email, String password) {
+    return """
         mutation {
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"}){
             userId
@@ -9,10 +10,10 @@ class Queries{
         }
 
     """;
-   }
- 
-   String loginUser(String email, String password) {
-   return """
+  }
+
+  String loginUser(String email, String password) {
+    return """
         query {
           login(data: {email: "$email", password: "$password"}){
             userId
@@ -21,7 +22,7 @@ class Queries{
         }
 
     """;
-   }
+  }
 
   String fetchUserInfo = ''' 
        query Users(\$id: ID!){
@@ -74,7 +75,8 @@ class Queries{
           }
         }
       }
-    ''';}
+    ''';
+  }
 
   final String fetchOrganizations = '''
     query{

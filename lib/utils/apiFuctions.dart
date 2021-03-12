@@ -20,17 +20,15 @@ class ApiFunctions {
 
     if (result.hasException) {
       print(result.exception.toString());
-    } 
-      return result.data;
-    
+    }
+    return result.data;
   }
 
   Future<dynamic> gqlmutation(String mutation) async {
     GraphQLClient _client = graphQLConfiguration.authClient();
-    QueryResult result =
-        await _client.mutate(MutationOptions(documentNode: gql(mutation),
-        
-        ));
+    QueryResult result = await _client.mutate(MutationOptions(
+      documentNode: gql(mutation),
+    ));
     if (result.hasException) {
       print(result.exception);
     } else {

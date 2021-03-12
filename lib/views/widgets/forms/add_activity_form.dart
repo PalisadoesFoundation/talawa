@@ -18,7 +18,7 @@ class AddActivityForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   PageController _pageController = PageController(initialPage: 0);
   bool _progressBarState = false;
-  static final format = DateFormat("yyyy-MM-dd HH:mm");  
+  static final format = DateFormat("yyyy-MM-dd HH:mm");
 
   gotoActivityInfo() {
     _pageController.animateToPage(
@@ -179,28 +179,30 @@ class AddActivityForm extends StatelessWidget {
             ),
             SizedBox(height: 30),
             Consumer2<ActivityController, AuthController>(
-              builder: (context, activityController, authController, child){
-              return FutureBuilder<List<User>>(
-                future: activityController.getAvailableUsers(context, authController.currentUserId),
-                builder: (_context, snapshot) {
-                  return snapshot.hasData
-                      ? ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (_context, index) {
-                            User user = snapshot.data[index];
-                            return Column(
-                              children: <Widget>[
-                                CheckboxUserTile(
-                                    user: user, userList: model.users)
-                              ],
-                            );
-                          },
-                        )
-                      : Center(child: CircularProgressIndicator());
-                });
-            },),
+              builder: (context, activityController, authController, child) {
+                return FutureBuilder<List<User>>(
+                    future: activityController.getAvailableUsers(
+                        context, authController.currentUserId),
+                    builder: (_context, snapshot) {
+                      return snapshot.hasData
+                          ? ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (_context, index) {
+                                User user = snapshot.data[index];
+                                return Column(
+                                  children: <Widget>[
+                                    CheckboxUserTile(
+                                        user: user, userList: model.users)
+                                  ],
+                                );
+                              },
+                            )
+                          : Center(child: CircularProgressIndicator());
+                    });
+              },
+            ),
             SizedBox(
               height: 20,
             ),
@@ -218,12 +220,13 @@ class AddActivityForm extends StatelessWidget {
                               'Save details',
                             ),
                       color: Colors.white,
-                      onPressed: (){
-                        if (_formKey.currentState.validate()){
-                          model.admin = Provider.of<AuthController>(_context, listen: false).currentUserId;
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          model.admin = Provider.of<AuthController>(_context,
+                                  listen: false)
+                              .currentUserId;
                           controller.postActivity(_context, model);
-                        }
-                        else
+                        } else
                           gotoUserInfo();
                       },
                     );

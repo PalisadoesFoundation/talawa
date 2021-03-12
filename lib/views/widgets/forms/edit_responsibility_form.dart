@@ -38,7 +38,8 @@ class EditResponsibilityForm extends StatelessWidget {
                               ),
                               TextFormField(
                                 initialValue: oldModel.title,
-                                validator: (value)=> Validator.validateTitle(value),
+                                validator: (value) =>
+                                    Validator.validateTitle(value),
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -58,7 +59,8 @@ class EditResponsibilityForm extends StatelessWidget {
                               ),
                               DateTimeField(
                                 initialValue: oldModel.datetime,
-                                validator: (value) => Validator.validateDateTime(value),
+                                validator: (value) =>
+                                    Validator.validateDateTime(value),
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5.0)),
@@ -93,7 +95,8 @@ class EditResponsibilityForm extends StatelessWidget {
                               ),
                               TextFormField(
                                 initialValue: oldModel.description,
-                                validator: (value)=> Validator.validateDescription(value),
+                                validator: (value) =>
+                                    Validator.validateDescription(value),
                                 textAlign: TextAlign.left,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(

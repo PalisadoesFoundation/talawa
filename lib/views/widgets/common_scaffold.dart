@@ -114,10 +114,7 @@ class CommonScaffold extends StatelessWidget {
                           fontSize: 22,
                           fontWeight: FontWeight.bold)),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: action != null ? action : SizedBox()
-                )
+                Expanded(flex: 1, child: action != null ? action : SizedBox())
               ],
             ),
           ),

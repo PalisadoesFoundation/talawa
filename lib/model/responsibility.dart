@@ -19,14 +19,13 @@ class Responsibility {
       this.userId});
   factory Responsibility.fromJson(Map<String, dynamic> json) {
     return Responsibility(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      datetime: DateTime.fromMillisecondsSinceEpoch(json['datetime']),
-      priority: json['priority'],
-      isCompleted: json['isCompleted'],
-      activityId: json['activityId'],
-      userId: json['userId']
-    );
+        id: json['id'],
+        title: json['title'],
+        description: json['description'],
+        datetime: DateTime.fromMillisecondsSinceEpoch(json['datetime']),
+        priority: json['priority'],
+        isCompleted: json['isCompleted'],
+        activityId: json['activityId'],
+        userId: json['userId']);
   }
 }

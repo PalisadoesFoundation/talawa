@@ -30,7 +30,8 @@ class ResponsibilityController with ChangeNotifier {
     return new List<Responsibility>();
   }
 
-  Future<Responsibility> getResponsibility(BuildContext context, int respId) async {
+  Future<Responsibility> getResponsibility(
+      BuildContext context, int respId) async {
     final response =
         await http.get(baseRoute + "/responsibility/" + respId.toString());
 
@@ -47,7 +48,8 @@ class ResponsibilityController with ChangeNotifier {
     return Responsibility();
   }
 
-  Future postResponsibility(BuildContext context, AddResponsibilityViewModel resp) async {
+  Future postResponsibility(
+      BuildContext context, AddResponsibilityViewModel resp) async {
     Map<String, dynamic> requestBody = {
       "title": resp.title,
       "datetime": resp.datetime,
@@ -110,7 +112,8 @@ class ResponsibilityController with ChangeNotifier {
     }
   }
 
-  Future<List<User>> getUsersByActivity(BuildContext context, int activityId) async {
+  Future<List<User>> getUsersByActivity(
+      BuildContext context, int activityId) async {
     final response = await http
         .get(baseRoute + "/user/getUsersByActivity/" + activityId.toString());
 
@@ -121,9 +124,9 @@ class ResponsibilityController with ChangeNotifier {
       return (data as List).map((user) => new User.fromJson(user)).toList();
     } else {
       // If that call was not successful, throw an error.
-            Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text("Failed to load users"),
-                duration: Duration(seconds: 5)));
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("Failed to load users"),
+          duration: Duration(seconds: 5)));
     }
     return new List<User>();
   }
@@ -149,10 +152,9 @@ class ResponsibilityController with ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      
-            Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text("Failed updating responsibility"),
-                duration: Duration(seconds: 5)));
+      Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("Failed updating responsibility"),
+          duration: Duration(seconds: 5)));
     }
   }
 

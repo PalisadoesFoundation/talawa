@@ -10,6 +10,7 @@ import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/utils/userInfo.dart';
+
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);
 
@@ -52,7 +53,7 @@ class _AddEventState extends State<AddEvent> {
       date,
     );
     ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlmutation( mutation);
+    Map result = await apiFunctions.gqlmutation(mutation);
   }
 
   @override
@@ -126,9 +127,8 @@ class _AddEventState extends State<AddEvent> {
         absorbing: !switchVals['Recurring'],
         child: DropdownButton<String>(
           style: TextStyle(
-              color: switchVals['Recurring']
-                  ? UIData.primaryColor
-                  : Colors.grey),
+              color:
+                  switchVals['Recurring'] ? UIData.primaryColor : Colors.grey),
           value: recurrance,
           icon: Icon(Icons.arrow_drop_down),
           onChanged: (String newValue) {

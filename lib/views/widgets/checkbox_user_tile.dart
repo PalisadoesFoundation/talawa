@@ -24,13 +24,12 @@ class _CheckboxUserTileState extends State<CheckboxUserTile> {
       onChanged: (bool value) {
         print('user added');
         setState(() {
-          
-        widget.user.selected = value;
-        if (value == true) {
-          widget.userList.add(widget.user.id);
-        } else {
-          widget.userList.removeWhere((userId) => userId == widget.user.id);
-        }
+          widget.user.selected = value;
+          if (value == true) {
+            widget.userList.add(widget.user.id);
+          } else {
+            widget.userList.removeWhere((userId) => userId == widget.user.id);
+          }
         });
       },
     );

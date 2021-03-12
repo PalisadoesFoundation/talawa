@@ -6,5 +6,9 @@ class AddResponsibilityViewModel {
   int userId;
 
   AddResponsibilityViewModel(
-      {this.title, this.datetime, this.description, this.activityId, this.userId});
+      {this.title,
+      this.datetime,
+      this.description,
+      this.activityId,
+      this.userId});
 }

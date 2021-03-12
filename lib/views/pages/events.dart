@@ -4,12 +4,10 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/views/pages/addEventPage.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/organisation_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
-
 
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
@@ -39,15 +37,18 @@ class _EventsState extends State<Events> {
   Future<void> _register(context, eventId) async {
     String mutation = Queries().registerForEvent;
     Map changes = {'id': eventId};
-    _gqlMutation( mutation, changes);
+    _gqlMutation(mutation, changes);
   }
 
   Future<void> _addProject(context, eventId) async {
     String mutation = Queries().addEventProject;
-    Map changes = {'title':title,'description':description,'eventId':eventId,};
-    _gqlMutation(mutation,  changes);
+    Map changes = {
+      'title': title,
+      'description': description,
+      'eventId': eventId,
+    };
+    _gqlMutation(mutation, changes);
   }
-
 
   Future<void> _gqlMutation(String mutation, Map changes) async {
     ApiFunctions apiFunctions = ApiFunctions();
@@ -58,26 +59,19 @@ class _EventsState extends State<Events> {
     ApiFunctions apiFunctions = ApiFunctions();
     Map result = await apiFunctions.gqlquery(Queries().fetchEvents);
     setState(() {
-      eventList = result == null ? [] :result['events'];
+      eventList = result == null ? [] : result['events'];
     });
   }
 
-  Future<void> _editEvent(context, eventId) async {
-  }
+  Future<void> _editEvent(context, eventId) async {}
 
-  Widget menueText(String text){
+  Widget menueText(String text) {
     return ListTile(
-      title: Text(text,
-    style: TextStyle(
-      color: Colors.grey[700]
-
-    ),
+        title: Text(
+      text,
+      style: TextStyle(color: Colors.grey[700]),
     ));
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -86,51 +80,58 @@ class _EventsState extends State<Events> {
     // orgId = org.value;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Events'),
-      ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            pushNewScreen(
-              context,
-              withNavBar: true,
-              screen: AddEvent(),
-            );
-          }),
-      body: eventList.isEmpty ? Center(child: CircularProgressIndicator()) : 
-      RefreshIndicator(
-        onRefresh: () async {
-          getEvents();
-        },
-        child: (ListView.builder(
-        itemCount: eventList.length,
-        itemBuilder: (context, index) {
-          return Row(
-            children: <Widget>[
-              Container(
-                width: width,
-                child: Card(
-                   child: Padding(
-                     padding: EdgeInsets.only(left: 20, right: 0),
-                     child: ExpansionTile(
-                  children: <Widget>[
-                    eventList[index]['isPublic']?menueText('Public'): menueText('Private'),
-                    eventList[index]['isRegisterable']?menueText('Registered'):menueText('Not Registered'),
-                  ],
-                  title: Text(eventList[index]['title']),
-                  subtitle: Text(eventList[index]['description']),
-                  trailing: popUpMenue(eventList[index]['_id']),
-                ))),
-              ),
-            ],
-          );
-        },
-      )),
-    ));
+        appBar: AppBar(
+          title: Text('Events'),
+        ),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              pushNewScreen(
+                context,
+                withNavBar: true,
+                screen: AddEvent(),
+              );
+            }),
+        body: eventList.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : RefreshIndicator(
+                onRefresh: () async {
+                  getEvents();
+                },
+                child: (ListView.builder(
+                  itemCount: eventList.length,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: <Widget>[
+                        Container(
+                          width: width,
+                          child: Card(
+                              child: Padding(
+                                  padding: EdgeInsets.only(left: 20, right: 0),
+                                  child: ExpansionTile(
+                                    children: <Widget>[
+                                      eventList[index]['isPublic']
+                                          ? menueText('Public')
+                                          : menueText('Private'),
+                                      eventList[index]['isRegisterable']
+                                          ? menueText('Registered')
+                                          : menueText('Not Registered'),
+                                    ],
+                                    title: Text(eventList[index]['title']),
+                                    subtitle:
+                                        Text(eventList[index]['description']),
+                                    trailing:
+                                        popUpMenue(eventList[index]['_id']),
+                                  ))),
+                        ),
+                      ],
+                    );
+                  },
+                )),
+              ));
   }
 
   Widget popUpMenue(eventId) {

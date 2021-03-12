@@ -31,6 +31,4 @@ class User {
       userImage: json['userImage'],
     );
   }
-
-  
 }

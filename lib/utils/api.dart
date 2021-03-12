@@ -8,9 +8,13 @@ import 'package:talawa/views/widgets/AlertDialogSingleButton.dart';
 import 'globals.dart';
 
 class Api with ChangeNotifier {
-  Future postRequest(BuildContext context, Map<String, dynamic> requestBody, Map<String, dynamic> headers, String route) async {
+  Future postRequest(BuildContext context, Map<String, dynamic> requestBody,
+      Map<String, dynamic> headers, String route) async {
     try {
-      final response = await http.post(baseRoute + route, headers: headers, body: jsonEncode(requestBody)).timeout(Duration(seconds: 20));
+      final response = await http
+          .post(baseRoute + route,
+              headers: headers, body: jsonEncode(requestBody))
+          .timeout(Duration(seconds: 20));
 
       switch (response.statusCode) {
         case 201 | 200:

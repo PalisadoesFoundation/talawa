@@ -4,12 +4,10 @@ import 'package:connectivity/connectivity.dart';
 
 import 'package:talawa/enums/connectivity_status.dart';
 
-
-
 class ConnectivityService {
-  
   // Create our public controller
-  StreamController<ConnectivityStatus> connectionStatusController = StreamController<ConnectivityStatus>();
+  StreamController<ConnectivityStatus> connectionStatusController =
+      StreamController<ConnectivityStatus>();
 
   ConnectivityService() {
     // Subscribe to the connectivity Chanaged Steam
@@ -17,7 +15,6 @@ class ConnectivityService {
       // Use Connectivity() here to gather more info if you need t
 
       connectionStatusController.add(_getStatusFromResult(result));
-
     });
   }
 
