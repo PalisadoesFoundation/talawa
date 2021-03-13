@@ -492,6 +492,11 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
           ),
           child: new PageView(
             controller: _pageController,
+            onPageChanged: (index)
+            {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              currentFocus.unfocus();
+            },
             physics: new BouncingScrollPhysics(),
             children: <Widget>[
               //has to be scrollable so the screen can adjust when the keyboard is tapped
