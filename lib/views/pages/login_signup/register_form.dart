@@ -15,6 +15,7 @@ import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
+
 import 'package:image_picker/image_picker.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -45,16 +46,19 @@ class RegisterFormState extends State<RegisterForm> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast(context);
+    fToast = FToast();
+    fToast.init(context);
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
   }
 
-  registerUserWithImg() async {
+  //function for registering user which gets called when sign up is press
+  registerUser() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     final img = await multipartFileFrom(_image);
     print(_image);
     QueryResult result = await _client.mutate(MutationOptions(
-      documentNode: gql(_signupQuery.registerUserWithImg(
+
+      documentNode: gql(_signupQuery.registerUser(
           model.firstName, model.lastName, model.email, model.password)),
       variables: {
         'file': img,
@@ -138,7 +142,7 @@ class RegisterFormState extends State<RegisterForm> {
 
   //get image using gallery
   _imgFromGallery() async {
-    File image = await FilePicker.getFile(type: FileType.image);
+    File image = File((await FilePicker.platform.pickFiles(type: FileType.image)).files.first.path);
     setState(() {
       _image = image;
     });
@@ -302,8 +306,9 @@ class RegisterFormState extends State<RegisterForm> {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
                     _image != null
-                        ? registerUserWithImg()
+                        ? registerUser()
                         : registerUserWithoutImg();
+
                     setState(() {
                       toggleProgressBarState();
                     });
@@ -360,6 +365,7 @@ class RegisterFormState extends State<RegisterForm> {
               child: Wrap(
                 children: <Widget>[
                   ListTile(
+
                     leading: Icon(Icons.camera_alt_outlined),
                     title: Text('Camera'),
                     onTap: () {
