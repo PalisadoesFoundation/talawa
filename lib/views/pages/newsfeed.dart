@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+
 import 'package:lipsum/lipsum.dart' as lipsum;
 import 'dart:math';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -54,7 +54,7 @@ class _NewsFeedState extends State<NewsFeed> {
                         subtitle: Text(list2[index]),
                         trailing: Container(
                           width: 80,
-                            child: Image.asset(UIData.shoppingImage),
+                          child: Image.asset(UIData.shoppingImage),
                         )),
                     Padding(
                         padding: EdgeInsets.all(10),
@@ -78,7 +78,6 @@ class _NewsFeedState extends State<NewsFeed> {
                   ],
                 ),
               );
-            })
-            );
+            }));
   }
 }
