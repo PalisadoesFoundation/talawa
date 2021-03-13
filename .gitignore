@@ -192,3 +192,5 @@ dmypy.json
 .flutter-plugins-dependencies
 pubspec.lock
 .flutter-plugins-dependencies
+.flutter-plugins-dependencies
+pubspec.lock
