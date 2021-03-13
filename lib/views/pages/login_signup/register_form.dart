@@ -302,6 +302,7 @@ class RegisterFormState extends State<RegisterForm> {
                       ),
                 color: Colors.white,
                 onPressed: () async {
+                  FocusScope.of(context).unfocus();
                   _validate = true;
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
