@@ -44,8 +44,7 @@ class LoginFormState extends State<LoginForm> {
   void initState() {
     super.initState();
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
-    fToast = FToast();
-    fToast.init(context);
+    fToast = FToast(context);
   }
 
   //function for login user which gets called when sign in is press

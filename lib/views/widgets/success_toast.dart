@@ -18,8 +18,7 @@ class _SuccessToastState extends State<SuccessToast> {
 
   initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
+    fToast = FToast(context);
   }
 
   @override
