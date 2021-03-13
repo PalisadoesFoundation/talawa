@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/enums/connectivity_status.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/_pages.dart';
@@ -13,8 +12,6 @@ import 'package:talawa/views/pages/organization/profile_page.dart';
 
 import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
-import 'locator.dart';
-import 'services/connectivity_status.dart';
 import 'views/pages/organization/create_organization.dart';
 import 'views/pages/organization/switch_org_page.dart';
 
@@ -24,8 +21,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   userID = await preferences.getUserId();
 
-  setupLocator();
-
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<GraphQLConfiguration>(
@@ -33,9 +28,6 @@ Future<void> main() async {
       ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
       ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
       ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
-      StreamProvider<ConnectivityStatus>(
-          create: (_) =>
-              ConnectivityService().connectionStatusController.stream),
     ],
     child: MyApp(),
   ));
