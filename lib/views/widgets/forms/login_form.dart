@@ -27,6 +27,7 @@ class LoginFormState extends State<LoginForm> {
   Queries _query = Queries();
   FToast fToast;
   Preferences _pref = Preferences();
+  bool _obscureText = true;
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -101,7 +102,7 @@ class LoginFormState extends State<LoginForm> {
               height: 20,
             ),
             TextFormField(
-              obscureText: true,
+              obscureText: _obscureText,
               validator: (value) => Validator.validatePassword(value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
@@ -109,6 +110,11 @@ class LoginFormState extends State<LoginForm> {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 prefixIcon: Icon(Icons.lock),
+                suffixIcon: FlatButton(
+                    onPressed: _toggle,
+                    child: Icon(_obscureText
+                        ? Icons.visibility_off
+                        : Icons.visibility)),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
                 focusColor: UIData.primaryColor,
@@ -193,5 +199,12 @@ class LoginFormState extends State<LoginForm> {
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 5),
     );
+  }
+
+  // Toggles the password show status
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 }

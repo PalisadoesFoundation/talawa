@@ -6,20 +6,16 @@ import 'package:talawa/views/widgets/forms/login_form.dart';
 import 'package:talawa/views/widgets/forms/register_form.dart';
 
 class LoginPage extends StatefulWidget {
-  
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
+//ensures the animation is only called once
+bool first = true;
 
-  //ensures the animation is only called once
-  bool first = true;
-
-  void changeFirst() {
-    first=false;
-  }
-
-  
+void changeFirst() {
+  first = false;
+}
 
 class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   final PageController _pageController =
@@ -30,9 +26,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
   }
-
-
-
 
   loginScreenForm() => Center(
         child: Container(
@@ -50,8 +43,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "Dont have an account?",
-                          
+                          "Don't have an account?",
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -133,16 +125,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     );
   }
 
-  
-
   @override
   build(BuildContext context) {
-
-
     //this animation length has to be larger becasuse it includes startup time
     var controller = AnimationController(
-      vsync:this,
-      duration: Duration(milliseconds:2000),
+      vsync: this,
+      duration: Duration(milliseconds: 2000),
     );
 
     var animation = Tween(
@@ -151,8 +139,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     ).animate(controller);
 
     var helloController = AnimationController(
-      vsync:this,
-      duration: Duration(milliseconds:500),
+      vsync: this,
+      duration: Duration(milliseconds: 500),
     );
 
     var helloAnimation = Tween(
@@ -161,8 +149,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     ).animate(helloController);
 
     var createController = AnimationController(
-      vsync:this,
-      duration: Duration(milliseconds:500),
+      vsync: this,
+      duration: Duration(milliseconds: 500),
     );
 
     var createAnimation = Tween(
@@ -171,8 +159,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     ).animate(createController);
 
     var loginController = AnimationController(
-      vsync:this,
-      duration: Duration(milliseconds:500),
+      vsync: this,
+      duration: Duration(milliseconds: 500),
     );
 
     var loginAnimation = Tween(
@@ -184,7 +172,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
 
 
-    Future<void>  load() async {
+    Future<void> load() async {
       await controller.forward();
       await helloController.forward();
       await createController.forward();
@@ -218,24 +206,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     }
     load();
 
-    
-   
-
-
-      
-
-
-
-
-
-    
-    
-    
-
-        mainScreen() => new Column(
+    mainScreen() => new Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-
             FadeTransition(
               opacity: animation,
               child: Container(
@@ -245,11 +218,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
             ),
               
             ),
-
-            
-            
-            
-
             new Container(
               //container with login and sign up button
               padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
@@ -419,22 +387,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
                 ],
               ),
-
-
-              
             ),
-
-            
-            
-
-
-
-
           ],
         );
-
-
-
 
     return Scaffold(
       //resizeToAvoidBottomInset: false,
@@ -464,7 +419,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
           ),
           
 
-          mainScreen(),
+              mainScreen(),
 
                     //has to be scrollable so the screen can adjust when the keyboard is tapped
           Center(

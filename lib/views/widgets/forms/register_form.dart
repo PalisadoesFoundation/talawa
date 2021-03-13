@@ -33,6 +33,7 @@ class RegisterFormState extends State<RegisterForm> {
   Preferences _pref = Preferences();
   FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+  bool _obscureText = true;
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -44,7 +45,7 @@ class RegisterFormState extends State<RegisterForm> {
     fToast = FToast(context);
   }
 
-  //function for registering user which gets called when sign up is press
+  //function for registering user which gets called when sign up is pressed
   registerUser() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
@@ -57,20 +58,18 @@ class RegisterFormState extends State<RegisterForm> {
         _progressBarState = false;
       });
       print("exception");
-            _exceptionToast(result.exception.toString());
-
+      _exceptionToast(result.exception.toString());
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-            _successToast("Sucessfully Registered");
+      _successToast("Successfully Registered");
 
       //Store user token in local storage
       void getToken() async {
         final Token token =
             new Token(tokenString: result.data['signUp']['token']);
         await _pref.saveToken(token);
-
         final String currentUserId = result.data['signUp']['userId'];
         await _pref.saveUserId(currentUserId);
       }
@@ -163,7 +162,7 @@ class RegisterFormState extends State<RegisterForm> {
               height: 20,
             ),
             TextFormField(
-              obscureText: true,
+              obscureText: _obscureText,
               controller: originalPassword,
               validator: (value) => Validator.validatePassword(value),
               textAlign: TextAlign.left,
@@ -172,6 +171,11 @@ class RegisterFormState extends State<RegisterForm> {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 prefixIcon: Icon(Icons.lock),
+                suffixIcon: FlatButton(
+                    onPressed: _toggle,
+                    child: Icon(_obscureText
+                        ? Icons.visibility_off
+                        : Icons.visibility)),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
                 focusColor: UIData.primaryColor,
@@ -262,12 +266,7 @@ class RegisterFormState extends State<RegisterForm> {
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
+      child: Text(msg),
     );
 
     fToast.showToast(
@@ -275,5 +274,12 @@ class RegisterFormState extends State<RegisterForm> {
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 5),
     );
+  }
+
+  // Toggles the password show status
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 }
