@@ -44,7 +44,8 @@ class RegisterFormState extends State<RegisterForm> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast(context);
+    fToast = FToast();
+    fToast.init(context);
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
   }
 

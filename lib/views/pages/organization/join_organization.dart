@@ -43,7 +43,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast(context);
+    fToast = FToast();
+    fToast.init(context);
     fetchOrg();
   }
 

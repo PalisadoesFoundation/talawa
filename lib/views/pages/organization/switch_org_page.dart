@@ -32,7 +32,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast(context);
+    fToast = FToast();
+    fToast.init(context);
     fetchUserDetails();
   }
 

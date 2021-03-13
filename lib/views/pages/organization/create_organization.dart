@@ -39,7 +39,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast(context);
+    fToast = FToast();
+    fToast.init(context);
   }
 
   void toggleProgressBarState() {
