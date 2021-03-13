@@ -241,7 +241,7 @@ class _EventsState extends State<Events> {
           });
         },*/
         events: thisMonthsEvents,
-        calendarController: _calendarController,*/
+        calendarController: _calendarController,
       ),
     ]);
   }
