@@ -151,7 +151,8 @@ class RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return SingleChildScrollView(
+      child: Form(
         key: _formKey,
         autovalidate: _validate,
         child: Column(
@@ -329,7 +330,7 @@ class RegisterFormState extends State<RegisterForm> {
               ),
             ),
           ],
-        ));
+        )));
   }
 
   Widget addImage() {
