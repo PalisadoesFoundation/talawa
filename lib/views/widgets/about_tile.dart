@@ -9,8 +9,6 @@ class MyAboutTile extends StatelessWidget {
       ),
       icon: FlutterLogo(
       ),
-      icon: FlutterLogo(
-      ),
       aboutBoxChildren: <Widget>[
         SizedBox(
           height: 10.0,
