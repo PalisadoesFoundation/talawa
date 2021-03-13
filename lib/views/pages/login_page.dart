@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             child: Text(
                               "SIGN UP!",
                               textAlign: TextAlign.start,
-                              style: TextStyle(color: UIData.primaryColor),
+                              style: TextStyle(color: UIData.primaryColor,fontWeight: FontWeight.bold,decoration: TextDecoration.underline),
                             ),
                           ),
                         ),
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             child: Text(
                               "SIGN IN!",
                               textAlign: TextAlign.start,
-                              style: TextStyle(color: UIData.primaryColor),
+                              style: TextStyle(color: UIData.primaryColor,fontWeight: FontWeight.bold,decoration: TextDecoration.underline),
                             ),
                           ),
                         ),
