@@ -14,6 +14,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_password_strength/flutter_password_strength.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -23,6 +24,8 @@ class RegisterForm extends StatefulWidget {
 }
 
 class RegisterFormState extends State<RegisterForm> {
+
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController originalPassword = new TextEditingController();
@@ -182,6 +185,17 @@ class RegisterFormState extends State<RegisterForm> {
               onSaved: (value) {
                 model.password = value;
               },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            FlutterPasswordStrength(
+                password: originalPassword.text,
+                height: 10,
+                radius: 10,
+                strengthCallback: (strength){
+                  debugPrint(strength.toString());
+                }
             ),
             SizedBox(
               height: 20,
