@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
-import 'package:talawa/enums/connectivity_status.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
@@ -15,7 +14,6 @@ import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:talawa/views/pages/organization/organization_settings.dart';
-import 'package:talawa/views/widgets/internet_connectivity.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -56,14 +54,12 @@ class _ProfilePageState extends State<ProfilePage> {
     if (result.hasException) {
       print(result.exception);
     } else if (!result.hasException) {
-      print(result.data);
       setState(() {
         userDetails = result.data['users'];
       });
     }
   }
 
-  //helper function to decide an org creator from a regular member to show a specific view
   Future fetchOrgAdmin() async {
     final String orgId = await _preferences.getCurrentOrgId();
     final String fName = await _preferences.getUserFName();
@@ -143,11 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final orgName = Provider.of<Preferences>(context).orgName;
-    final connectionStatus =
-        Provider.of<ConnectivityStatus>(context, listen: true);
-    if (connectionStatus == ConnectivityStatus.Offline) {
-      NoInternetConnection();
-    }
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: userDetails.isEmpty

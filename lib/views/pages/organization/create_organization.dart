@@ -39,54 +39,19 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast(context);
+    fToast = FToast();
+    fToast.init(context);
   }
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
   }
 
-  createOrgWithoutImg() async {
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    QueryResult result = await _client.mutate(MutationOptions(
-      documentNode: gql(_queries.createOrgWithoutImg(
-        orgNameController.text,
-        orgDescController.text,
-        orgMemberDescController.text,
-        isPublic,
-        isVisible,
-      )),
-    ));
-
-    if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
-      _authController.getNewToken();
-      return createOrgWithoutImg();
-    } else if (result.hasException &&
-        result.exception.toString().substring(16) != accessTokenException) {
-      print(result.exception);
-      setState(() {
-        _progressBarState = false;
-      });
-      _exceptionToast(result.exception.toString());
-    } else if (!result.hasException && !result.loading) {
-      setState(() {
-        _progressBarState = true;
-      });
-      _successToast("Sucess!");
-      print(result.data);
-      pushNewScreen(
-        context,
-        screen: ProfilePage(),
-      );
-    }
-  }
-
-  createOrgWithImg() async {
+  createOrg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
     final img = await multipartFileFrom(_image);
     QueryResult result = await _client.mutate(MutationOptions(
-      documentNode: gql(_queries.createOrgWithImg(
+      documentNode: gql(_queries.createOrg(
         orgNameController.text,
         orgDescController.text,
         orgMemberDescController.text,
@@ -101,7 +66,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      return createOrgWithImg();
+      return createOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       print(result.exception);
@@ -124,7 +89,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   //get image using gallery
   _imgFromGallery() async {
-    File image = await FilePicker.getFile(type: FileType.image);
+    File image = File((await FilePicker.platform.pickFiles(type: FileType.image)).files.first.path);
     setState(() {
       _image = image;
     });
@@ -314,9 +279,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                 radioValue >= 0 &&
                                 radioValue1 >= 0) {
                               _formKey.currentState.save();
-                              _image != null
-                                  ? createOrgWithImg()
-                                  : createOrgWithoutImg();
+                              createOrg();
                               setState(() {
                                 toggleProgressBarState();
                               });

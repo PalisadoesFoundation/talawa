@@ -31,7 +31,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast(context);
+    fToast = FToast();
+    fToast.init(context);
   }
 
   Future removeOrg() async {

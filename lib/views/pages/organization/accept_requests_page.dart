@@ -25,7 +25,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast(context);
+    fToast = FToast();
+    fToast.init(context);
     viewMemberShipRequests();
   }
 
