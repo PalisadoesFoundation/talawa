@@ -44,7 +44,7 @@ dependencies:
   table_calendar: ^2.2.3
   carousel_slider: ^2.2.1
   get_it: ^4.0.4
-
+  lipsum: ^1.0.1
 
 
 
