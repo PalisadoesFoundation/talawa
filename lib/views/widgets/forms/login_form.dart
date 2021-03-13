@@ -87,7 +87,10 @@ class LoginFormState extends State<LoginForm> {
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.email),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
+                prefixIcon: Icon(Icons.email, color: Colors.grey),
                 labelText: "Email",
                 labelStyle: TextStyle(color: Colors.white),
                 alignLabelWithHint: true,
@@ -109,12 +112,16 @@ class LoginFormState extends State<LoginForm> {
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.lock),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
+                prefixIcon: Icon(Icons.lock, color: Colors.grey),
                 suffixIcon: FlatButton(
                     onPressed: _toggle,
                     child: Icon(_obscureText
                         ? Icons.visibility_off
-                        : Icons.visibility)),
+                        : Icons.visibility,
+                        color: Colors.grey)),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
                 focusColor: UIData.primaryColor,
@@ -148,8 +155,8 @@ class LoginFormState extends State<LoginForm> {
                       _formKey.currentState.save();
                       loginUser();
                       setState(() {
-                      toggleProgressBarState();
-                    });
+                        toggleProgressBarState();
+                      });
                     }
                   }),
             ),

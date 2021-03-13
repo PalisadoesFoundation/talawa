@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             child: Text(
                               "SIGN UP!",
                               textAlign: TextAlign.start,
-                              style: TextStyle(color: UIData.primaryColor),
+                              style: TextStyle(color: UIData.primaryColor,fontWeight: FontWeight.bold,decoration: TextDecoration.underline),
                             ),
                           ),
                         ),
@@ -97,7 +97,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             child: Text(
                               "SIGN IN!",
                               textAlign: TextAlign.start,
-                              style: TextStyle(color: UIData.primaryColor),
+                              style: TextStyle(color: UIData.primaryColor,fontWeight: FontWeight.bold,decoration: TextDecoration.underline),
                             ),
                           ),
                         ),
@@ -418,10 +418,13 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
             ),
           ),
           
-
-              mainScreen(),
-
-                    //has to be scrollable so the screen can adjust when the keyboard is tapped
+          Center(
+            child: SingleChildScrollView(
+              child: mainScreen(),
+            ),
+          ),
+          
+          //has to be scrollable so the screen can adjust when the keyboard is tapped
           Center(
             child: SingleChildScrollView(
                 child:registrationScreenForm()

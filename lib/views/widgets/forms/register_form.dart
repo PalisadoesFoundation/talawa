@@ -100,9 +100,12 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.person),
+                prefixIcon: Icon(Icons.person,color:Colors.grey[350]),
                 labelText: "First Name",
                 labelStyle: TextStyle(color: Colors.white),
                 alignLabelWithHint: true,
@@ -122,9 +125,12 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.person),
+                prefixIcon: Icon(Icons.person,color:Colors.grey[350]),
                 labelText: "Last Name",
                 labelStyle: TextStyle(color: Colors.white),
                 alignLabelWithHint: true,
@@ -145,9 +151,12 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: Icon(Icons.email,color:Colors.grey[350]),
                 labelText: "Email",
                 labelStyle: TextStyle(color: Colors.white),
                 alignLabelWithHint: true,
@@ -168,14 +177,18 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.lock),
+              prefixIcon: Icon(Icons.lock,color:Colors.grey[350]),
                 suffixIcon: FlatButton(
                     onPressed: _toggle,
                     child: Icon(_obscureText
                         ? Icons.visibility_off
-                        : Icons.visibility)),
+                        : Icons.visibility,
+                        color:Colors.grey[350])),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
                 focusColor: UIData.primaryColor,
@@ -197,9 +210,12 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: Icon(Icons.lock,color:Colors.grey[350]),
                 labelText: "Confirm Password",
                 labelStyle: TextStyle(color: Colors.white),
                 focusColor: UIData.primaryColor,
