@@ -60,13 +60,12 @@ class RegisterFormState extends State<RegisterForm> {
         _progressBarState = false;
       });
       print("exception");
-            _exceptionToast(result.exception.toString());
-
+      _exceptionToast(result.exception.toString());
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-            _successToast("Sucessfully Registered");
+      _successToast("Sucessfully Registered");
 
       //Store user token in local storage
       void getToken() async {
@@ -104,9 +103,12 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.person),
+                prefixIcon: Icon(Icons.person,color:Colors.grey[350]),
                 labelText: "First Name",
                 labelStyle: TextStyle(color: Colors.white),
                 alignLabelWithHint: true,
@@ -126,9 +128,12 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.person),
+                prefixIcon: Icon(Icons.person,color:Colors.grey[350]),
                 labelText: "Last Name",
                 labelStyle: TextStyle(color: Colors.white),
                 alignLabelWithHint: true,
@@ -149,9 +154,12 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: Icon(Icons.email,color:Colors.grey[350]),
                 labelText: "Email",
                 labelStyle: TextStyle(color: Colors.white),
                 alignLabelWithHint: true,
@@ -172,9 +180,12 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: Icon(Icons.lock,color:Colors.grey[350]),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
                 focusColor: UIData.primaryColor,
@@ -207,9 +218,12 @@ class RegisterFormState extends State<RegisterForm> {
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(color: Colors.grey)),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: Icon(Icons.lock,color:Colors.grey[350]),
                 labelText: "Confirm Password",
                 labelStyle: TextStyle(color: Colors.white),
                 focusColor: UIData.primaryColor,
