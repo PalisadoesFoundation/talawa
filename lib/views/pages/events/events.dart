@@ -222,10 +222,12 @@ class _EventsState extends State<Events> {
           });
         },
         calendarStyle: CalendarStyle(markersColor: Colors.black45),
-        //onDaySelected: (day, events) {
-         // String carouselDay = DateFormat.yMMMd('en_US').format(day);
-         // if (timer.isSameDay(day, now)) {
-        /*    carouselDay = 'Today';
+       /* onDaySelected: (day, events) {
+          String carouselDay = DateFormat.yMMMd('en_US').format(day);
+          if (timer.isSameDay(day, now)) {
+            carouselDay = 'Today';
+
+       
           }
           carouselController.animateToPage(1);
           setState(() {
@@ -237,7 +239,7 @@ class _EventsState extends State<Events> {
             currentFilterEvents = currentevents;
             displayedEvents = currentevents;
           });
-        },
+        },*/
         events: thisMonthsEvents,
         calendarController: _calendarController,*/
       ),
