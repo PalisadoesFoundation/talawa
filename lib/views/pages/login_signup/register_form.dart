@@ -15,6 +15,7 @@ import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -124,6 +125,17 @@ class RegisterFormState extends State<RegisterForm> {
     }
   }
 
+  //get image using camera
+  _imgFromCamera() async {
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 50
+    );
+
+    setState(() {
+      _image = image;
+    });
+  }
+
   //get image using gallery
   _imgFromGallery() async {
     File image = await FilePicker.getFile(type: FileType.image);
@@ -148,13 +160,17 @@ class RegisterFormState extends State<RegisterForm> {
             SizedBox(
               height: 25,
             ),
-            TextFormField(
-              textCapitalization: TextCapitalization.words,
-              validator: (value) => Validator.validateFirstName(value),
-              textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
+            AutofillGroup(
+              child : Column(
+    children :  <Widget>[
+                TextFormField(
+                  autofillHints: <String>[AutofillHints.name] ,
+                    textCapitalization: TextCapitalization.words,
+                    validator: (value) => Validator.validateFirstName(value),
+                    textAlign: TextAlign.left,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                    border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.person),
@@ -172,6 +188,7 @@ class RegisterFormState extends State<RegisterForm> {
               height: 20,
             ),
             TextFormField(
+              autofillHints: <String>[AutofillHints.name] ,
               textCapitalization: TextCapitalization.words,
               validator: (value) => Validator.validateLastName(value),
               textAlign: TextAlign.left,
@@ -195,6 +212,7 @@ class RegisterFormState extends State<RegisterForm> {
               height: 20,
             ),
             TextFormField(
+              autofillHints: <String>[AutofillHints.email] ,
               keyboardType: TextInputType.emailAddress,
               validator: (value) => Validator.validateEmail(value),
               controller: emailController,
@@ -219,6 +237,7 @@ class RegisterFormState extends State<RegisterForm> {
               height: 20,
             ),
             TextFormField(
+              autofillHints: <String>[AutofillHints.password],
               obscureText: true,
               controller: originalPassword,
               validator: (value) => Validator.validatePassword(value),
@@ -244,6 +263,7 @@ class RegisterFormState extends State<RegisterForm> {
               height: 20,
             ),
             TextFormField(
+              autofillHints: <String>[AutofillHints.password] ,
               obscureText: true,
               validator: (value) => Validator.validatePasswordConfirm(
                   originalPassword.text, value),
@@ -261,6 +281,9 @@ class RegisterFormState extends State<RegisterForm> {
             ),
             SizedBox(
               height: 20,
+            ),
+              ],
+            ),
             ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
@@ -336,6 +359,14 @@ class RegisterFormState extends State<RegisterForm> {
             child: Container(
               child: Wrap(
                 children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.camera_alt_outlined),
+                    title: Text('Camera'),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
                   ListTile(
                       leading: Icon(Icons.photo_library),
                       title: Text('Photo Library'),
