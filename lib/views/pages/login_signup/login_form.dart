@@ -193,7 +193,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Expanded(child:Text(msg)),
         ],
       ),
     );
@@ -215,7 +215,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Expanded(child:Text(msg)),
         ],
       ),
     );
