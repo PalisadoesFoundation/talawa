@@ -1,11 +1,7 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/login_signup/login_form.dart';
@@ -25,7 +21,7 @@ void changeFirst() {
 
 class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   final PageController _pageController =
-      new PageController(initialPage: 1, viewportFraction: 1.0);
+       PageController(initialPage: 1, viewportFraction: 1.0);
   var _media;
   final _formKey = GlobalKey<FormState>();
   final urlController = TextEditingController();
@@ -34,11 +30,23 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   String orgUrl;
   String saveMsg = "Set URL";
   String urlInput;
+  //this animation length has to be larger becasuse it includes startup time
+  AnimationController controller;
 
   @override
   void initState() {
     super.initState();
     urlController.addListener(listenToUrl);
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 2000),
+    );
+  }
+
+  @override
+  dispose() {
+    controller.dispose(); // you need this
+    super.dispose();
   }
 
   listenToUrl() {
@@ -155,15 +163,15 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       curve: Curves.bounceOut,
     );
   }
+  //set URL
+  void _setURL(){
+    setState(() {
+      saveMsg = "URL SAVED!";
+    });
+  }
 
   @override
   build(BuildContext context) {
-    //this animation length has to be larger becasuse it includes startup time
-    var controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 2000),
-    );
-
     var animation = Tween(begin: 0.0, end: 1.0).animate(controller);
 
     var helloController = AnimationController(
@@ -207,7 +215,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     }
     load();
 
-    mainScreen() => new Column(
+    mainScreen() =>  Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             FadeTransition(
@@ -219,7 +227,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                     Center(child: Image(image: AssetImage(UIData.talawaLogo))),
               ),
             ),
-            new Container(
+             Container(
               //container with login and sign up button
               padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
 
@@ -367,9 +375,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
                                         setAPIURL();
-                                        setState(() {
-                                          saveMsg = "URL SAVED!";
-                                        });
+                                        _setURL();
                                       }
                                     }),
                               ],
@@ -386,20 +392,20 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                     opacity: createAnimation,
                     child: Container(
                       //padding: EdgeInsets.all(100.0),
-                      child: new Container(
+                      child:  Container(
                         width: _media != null
                             ? _media.size.width
                             : MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.only(
                             left: 50.0, right: 50.0, top: 10.0),
                         alignment: Alignment.center,
-                        child: new Row(
+                        child:  Row(
                           children: <Widget>[
-                            new Expanded(
-                              child: new FlatButton(
-                                shape: new RoundedRectangleBorder(
+                             Expanded(
+                              child:  FlatButton(
+                                shape:  RoundedRectangleBorder(
                                     borderRadius:
-                                        new BorderRadius.circular(50.0)),
+                                         BorderRadius.circular(50.0)),
                                 color: Colors.orange,
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
@@ -409,7 +415,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                           gotoSignUp();
                                         }
                                       },
-                                child: new Container(
+                                child:  Container(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 20.0,
                                     horizontal: 20.0,
@@ -417,11 +423,11 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                   decoration: BoxDecoration(
                                       border: Border.all(color: Colors.orange),
                                       borderRadius:
-                                          new BorderRadius.circular(50.0)),
-                                  child: new Row(
+                                           BorderRadius.circular(50.0)),
+                                  child:  Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      new Expanded(
+                                       Expanded(
                                         child: Text(
                                           "Create an Account",
                                           textAlign: TextAlign.center,
@@ -447,20 +453,20 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                   FadeTransition(
                     opacity: loginAnimation,
                     child: Container(
-                      child: new Container(
+                      child:  Container(
                         width: _media != null
                             ? _media.size.width
                             : MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.only(
                             left: 50.0, right: 50.0, top: 10.0),
                         alignment: Alignment.center,
-                        child: new Row(
+                        child:  Row(
                           children: <Widget>[
-                            new Expanded(
-                              child: new FlatButton(
-                                shape: new RoundedRectangleBorder(
+                             Expanded(
+                              child:  FlatButton(
+                                shape:  RoundedRectangleBorder(
                                     borderRadius:
-                                        new BorderRadius.circular(50.0)),
+                                         BorderRadius.circular(50.0)),
                                 color: Colors.orange,
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
@@ -470,7 +476,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                           gotoLogin();
                                         }
                                       },
-                                child: new Container(
+                                child:  Container(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 20.0,
                                     horizontal: 20.0,
@@ -478,11 +484,11 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                   decoration: BoxDecoration(
                                       border: Border.all(color: Colors.orange),
                                       borderRadius:
-                                          new BorderRadius.circular(50.0)),
-                                  child: new Row(
+                                           BorderRadius.circular(50.0)),
+                                  child:  Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      new Expanded(
+                                       Expanded(
                                         child: Text(
                                           "Login",
                                           textAlign: TextAlign.center,
@@ -518,13 +524,13 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
             image: DecorationImage(
                 image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
           ),
-          child: new PageView(
+          child:  PageView(
             controller: _pageController,
             onPageChanged: (index) {
               FocusScopeNode currentFocus = FocusScope.of(context);
               currentFocus.unfocus();
             },
-            physics: new NeverScrollableScrollPhysics(),
+            physics: saveMsg != "URL SAVED!" ?NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
             children: <Widget>[
               //has to be scrollable so the screen can adjust when the keyboard is tapped
               Center(

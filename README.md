@@ -16,7 +16,8 @@ This has been a Calico Challenge project in 2019. It will be written in python w
 
 # Documentation
  - The talawa documentation can be found [here][readthedocs].
- - Visit the [talawa GitHub site][repo] to see the code.
+ - Visit the [Talawa GitHub][repo] to see the code.
+ - Want to contribute? Look at [CONTRIBUTING.md][link] to get started.
 
 # About Talawa
  
@@ -46,3 +47,4 @@ Start developing!
 [pfd]: <http://www.palisadoes.org>
 [fsdk]: <https://flutter.dev/docs/get-started/install>
 [astudio]: <https://developer.android.com/studio>
+[link]:<https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md>
