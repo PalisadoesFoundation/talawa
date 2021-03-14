@@ -369,28 +369,56 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void confirmLeave() {
-    showDialog(
+    if (Platform.isAndroid) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Confirmation"),
+              content:
+                  Text("Are you sure you want to leave this organization?"),
+              actions: [
+                FlatButton(
+                  child: Text("Close"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text("Yes"),
+                  onPressed: () async {
+                    leaveOrg();
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    } else {
+      // iOS-specific
+      showCupertinoDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Confirmation"),
-            content: Text("Are you sure you want to leave this organization?"),
-            actions: [
-              FlatButton(
-                child: Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text("Yes"),
-                onPressed: () async {
-                  leaveOrg();
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
+        useRootNavigator: false,
+        builder: (_) => CupertinoAlertDialog(
+          title: Text("Confirmation"),
+          content: Text("Are you sure you want to leave this organization?"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text("Yes"),
+              onPressed: () async {
+                leaveOrg();
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        ),
+      );
+    }
   }
 }
