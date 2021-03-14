@@ -38,29 +38,37 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: UIData.appName,
-      theme: ThemeData(
-          primaryColor: UIData.primaryColor,
-          fontFamily: UIData.quickFont,
-          primarySwatch: UIData.primaryColor),
-      debugShowCheckedModeBanner: false,
-      showPerformanceOverlay: false,
-      onGenerateRoute: (RouteSettings settings) {
-        print('build route for ${settings.name}');
-        var routes = <String, WidgetBuilder>{
-          UIData.homeRoute: (BuildContext context) => HomePage(),
-          UIData.loginPageRoute: (BuildContext context) => LoginPage(),
-          UIData.createOrgPage: (BuildContext context) => CreateOrganization(),
-          UIData.joinOrganizationPage: (BuildContext context) =>
-              JoinOrganization(),
-          UIData.switchOrgPage: (BuildContext context) => SwitchOrganization(),
-          UIData.profilePage: (BuildContext context) => ProfilePage(),
-        };
-        WidgetBuilder builder = routes[settings.name];
-        return MaterialPageRoute(builder: (ctx) => builder(ctx));
+    return  GestureDetector(
+      onTap:(){
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+          FocusManager.instance.primaryFocus.unfocus();
+        }
       },
-      home: userID == null ? LoginPage() : HomePage(),
+      child:MaterialApp(
+        title: UIData.appName,
+        theme: ThemeData(
+            primaryColor: UIData.primaryColor,
+            fontFamily: UIData.quickFont,
+            primarySwatch: UIData.primaryColor),
+        debugShowCheckedModeBanner: false,
+        showPerformanceOverlay: false,
+        onGenerateRoute: (RouteSettings settings) {
+          print('build route for ${settings.name}');
+          var routes = <String, WidgetBuilder>{
+            UIData.homeRoute: (BuildContext context) => HomePage(),
+            UIData.loginPageRoute: (BuildContext context) => LoginPage(),
+            UIData.createOrgPage: (BuildContext context) => CreateOrganization(),
+            UIData.joinOrganizationPage: (BuildContext context) =>
+                JoinOrganization(),
+            UIData.switchOrgPage: (BuildContext context) => SwitchOrganization(),
+            UIData.profilePage: (BuildContext context) => ProfilePage(),
+          };
+          WidgetBuilder builder = routes[settings.name];
+          return MaterialPageRoute(builder: (ctx) => builder(ctx));
+        },
+        home: userID == null ? LoginPage() : HomePage(),
+      ),
     );
   }
 }
