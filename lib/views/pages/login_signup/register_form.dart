@@ -30,6 +30,7 @@ class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController originalPassword = new TextEditingController();
+  FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
   Queries _signupQuery = Queries();
@@ -172,15 +173,18 @@ class RegisterFormState extends State<RegisterForm> {
     children :  <Widget>[
                 TextFormField(
                   autofillHints: <String>[AutofillHints.name] ,
+                    textInputAction: TextInputAction.next,
                     textCapitalization: TextCapitalization.words,
                     validator: (value) => Validator.validateFirstName(value),
                     textAlign: TextAlign.left,
                     style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(20.0)),
                     border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.person),
+                prefixIcon: Icon(Icons.person,color: Colors.grey,),
                 labelText: "First Name",
                 labelStyle: TextStyle(color: Colors.white),
                 alignLabelWithHint: true,
@@ -196,15 +200,18 @@ class RegisterFormState extends State<RegisterForm> {
             ),
             TextFormField(
               autofillHints: <String>[AutofillHints.name] ,
+              textInputAction: TextInputAction.next,
               textCapitalization: TextCapitalization.words,
               validator: (value) => Validator.validateLastName(value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(20.0)),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.person),
+                prefixIcon: Icon(Icons.person,color:Colors.grey),
                 labelText: "Last Name",
                 labelStyle: TextStyle(color: Colors.white),
                 alignLabelWithHint: true,
@@ -220,16 +227,19 @@ class RegisterFormState extends State<RegisterForm> {
             ),
             TextFormField(
               autofillHints: <String>[AutofillHints.email] ,
+              textInputAction: TextInputAction.next,
               keyboardType: TextInputType.emailAddress,
               validator: (value) => Validator.validateEmail(value),
               controller: emailController,
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(20.0)),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: Icon(Icons.email,color:Colors.grey),
                 labelText: "Email",
                 labelStyle: TextStyle(color: Colors.white),
                 alignLabelWithHint: true,
@@ -245,21 +255,28 @@ class RegisterFormState extends State<RegisterForm> {
             ),
             TextFormField(
               autofillHints: <String>[AutofillHints.password],
+              textInputAction: TextInputAction.next,
               obscureText: _obscureText,
               controller: originalPassword,
               validator: (value) => Validator.validatePassword(value),
+              onFieldSubmitted: (done){
+                FocusScope.of(context).unfocus();
+                FocusScope.of(context).requestFocus(confirmPassField);
+              },
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(20.0)),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: Icon(Icons.lock,color:Colors.grey),
                 suffixIcon: FlatButton(
                   onPressed: _toggle,
                   child: Icon(_obscureText
                       ? Icons.visibility_off
-                      : Icons.visibility),
+                      : Icons.visibility,color: Colors.grey,),
                 ),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
@@ -287,17 +304,21 @@ class RegisterFormState extends State<RegisterForm> {
               height: 20,
             ),
             TextFormField(
-              autofillHints: <String>[AutofillHints.password] ,
+              autofillHints: <String>[AutofillHints.password],
+              textInputAction: TextInputAction.done,
+              focusNode: confirmPassField,
               obscureText: true,
               validator: (value) => Validator.validatePasswordConfirm(
                   originalPassword.text, value),
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(20.0)),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: Icon(Icons.lock,color:Colors.grey),
                 labelText: "Confirm Password",
                 labelStyle: TextStyle(color: Colors.white),
                 focusColor: UIData.primaryColor,
