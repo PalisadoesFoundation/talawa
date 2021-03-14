@@ -224,10 +224,18 @@ class _NewsFeedState extends State<NewsFeed> {
         ),
         IconButton(
             icon: Icon(Icons.thumb_up),
-            color: Colors.grey,
-            onPressed: () {
+          color:(postList[index]['isPressed']==true) ? Color(0xff007397)
+              : Color(0xff9A9A9A),
+            onPressed: ()
+            {
               addLike(postList[index]['_id']);
-            })
+              setState(() //the changes in the backend will do it right we have to create a isPressed thing in the backend
+              {
+                postList[index]['isPressed'] = true;
+              });
+            },
+
+            )
       ],
     );
   }
