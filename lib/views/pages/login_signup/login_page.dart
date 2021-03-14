@@ -33,10 +33,21 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   Preferences _pref = Preferences();
   String orgUrl;
   String saveMsg = "Set URL";
+  String urlInput;
 
   @override
   void initState() {
     super.initState();
+    urlController.addListener(listenToUrl);
+  }
+
+  listenToUrl() {
+    if (saveMsg == "URL SAVED!" && urlController.text != urlInput) {
+      setState(() {
+        saveMsg = "Set URL";
+      });
+    }
+    urlInput = urlController.text;
   }
 
   //saves org url api to be used in the app
@@ -492,8 +503,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
           ),
           child: new PageView(
             controller: _pageController,
-            onPageChanged: (index)
-            {
+            onPageChanged: (index) {
               FocusScopeNode currentFocus = FocusScope.of(context);
               currentFocus.unfocus();
             },
