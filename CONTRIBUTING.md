@@ -43,7 +43,7 @@ The process of proposing a change to Talawa can be summarized as:
 
 ### General Guidelines
 
-####Project structure
+#### Project structure
 
 ```
 app
@@ -69,7 +69,7 @@ core
 - utils: utilitity classes
 ```
 
-####Structure code this way
+#### Structure code this way
 
 ```
 // Inside widget class
@@ -80,7 +80,7 @@ core
 -- utility methods
 ```
 
-####Commit guidelines
+#### Commit guidelines
 
 ```
 feat: (addition of a new feature)
