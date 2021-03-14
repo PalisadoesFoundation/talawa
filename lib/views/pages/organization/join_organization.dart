@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -402,34 +404,66 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   void confirmOrgDialog() {
-    showDialog(
+    if (Platform.isIOS) {
+      // iOS-specific
+      showCupertinoDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Confirmation"),
-            content: Text("Are you sure you want to join this organization?"),
-            actions: [
-              FlatButton(
-                child: Text("Close"),
-                onPressed: () {
+        useRootNavigator: false,
+        builder: (_) => CupertinoAlertDialog(
+          title: Text("Confirmation"),
+          content: Text("Are you sure you want to join this organization?"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text("Yes"),
+              onPressed: () async {
+                if (isPublic == 'true') {
+                  joinPublicOrg();
                   Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text("Yes"),
-                onPressed: () async {
-                  if (isPublic == 'true') {
-                    joinPublicOrg();
+                } else if (isPublic == 'false') {
+                  joinPrivateOrg();
+                  Navigator.of(context).pop();
+                }
+              },
+            )
+          ],
+        ),
+      );
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Confirmation"),
+              content: Text("Are you sure you want to join this organization?"),
+              actions: [
+                FlatButton(
+                  child: Text("Close"),
+                  onPressed: () {
                     Navigator.of(context).pop();
-                  } else if (isPublic == 'false') {
-                    joinPrivateOrg();
-                    Navigator.of(context).pop();
-                  }
-                },
-              )
-            ],
-          );
-        });
+                  },
+                ),
+                FlatButton(
+                  child: Text("Yes"),
+                  onPressed: () async {
+                    if (isPublic == 'true') {
+                      joinPublicOrg();
+                      Navigator.of(context).pop();
+                    } else if (isPublic == 'false') {
+                      joinPrivateOrg();
+                      Navigator.of(context).pop();
+                    }
+                  },
+                )
+              ],
+            );
+          });
+    }
   }
 
   Widget showError(String msg) {
