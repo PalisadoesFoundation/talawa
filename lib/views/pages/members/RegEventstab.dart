@@ -37,11 +37,16 @@ class _RegisterdEventsState extends State<RegisterdEvents> {
 
   @override
   Widget build(BuildContext context) {
+    if(userEvents.length!=0) {
+      if (userEvents[0]['title'] == null) {
+        userEvents = [];
+      }
+    }
     return ListView.builder(
         itemCount: userEvents.length,
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Text(userEvents[index]['title']),
+            leading: Text('${userEvents[index]['title']}'),
           );
         });
   }
