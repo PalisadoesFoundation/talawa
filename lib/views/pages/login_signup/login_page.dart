@@ -76,11 +76,11 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                 padding: EdgeInsets.only(bottom: 30.0),
                 scrollDirection: Axis.vertical,
                 child: Column(
-                  children: <Widget>[
+                  children: [
                     LoginForm(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
+                      children: [
                         Text(
                           "Dont have an account?",
                           style: TextStyle(
@@ -118,11 +118,11 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                 padding: EdgeInsets.only(bottom: 30.0),
                 scrollDirection: Axis.vertical,
                 child: Column(
-                  children: <Widget>[
+                  children: [
                     RegisterForm(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
+                      children: [
                         Text(
                           "Already have an account?",
                           style: TextStyle(color: Colors.white),
@@ -211,7 +211,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
     mainScreen() => new Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
+          children: [
             FadeTransition(
               opacity: animation,
               child: Container(
@@ -226,7 +226,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
               padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
 
               child: Column(
-                children: <Widget>[
+                children: [
                   Container(
                     padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                     width: _media != null
@@ -234,10 +234,10 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                         : MediaQuery.of(context).size.width,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
+                      children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
+                          children: [
                             FadeTransition(
                               opacity: helloAnimation,
                               child: Container(
@@ -269,7 +269,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   FadeTransition(
@@ -285,7 +285,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                         child: Column(
                           children: [
                             Row(
-                              children: <Widget>[
+                              children: [
                                 DropdownButton<String>(
                                   value: dropdownValue,
                                   icon: Icon(Icons.arrow_downward,
@@ -311,7 +311,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     );
                                   }).toList(),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Expanded(
@@ -352,7 +352,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
@@ -381,7 +381,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   FadeTransition(
@@ -396,7 +396,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             left: 50.0, right: 50.0, top: 10.0),
                         alignment: Alignment.center,
                         child: new Row(
-                          children: <Widget>[
+                          children: [
                             new Expanded(
                               child: new FlatButton(
                                 shape: new RoundedRectangleBorder(
@@ -422,7 +422,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                           new BorderRadius.circular(50.0)),
                                   child: new Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
+                                    children: [
                                       new Expanded(
                                         child: Text(
                                           "Create an Account",
@@ -445,7 +445,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   FadeTransition(
                     opacity: loginAnimation,
                     child: Container(
@@ -457,7 +457,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             left: 50.0, right: 50.0, top: 10.0),
                         alignment: Alignment.center,
                         child: new Row(
-                          children: <Widget>[
+                          children: [
                             new Expanded(
                               child: new FlatButton(
                                 shape: new RoundedRectangleBorder(
@@ -483,7 +483,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                           new BorderRadius.circular(50.0)),
                                   child: new Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
+                                    children: [
                                       new Expanded(
                                         child: Text(
                                           "Login",
@@ -527,7 +527,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
               currentFocus.unfocus();
             },
             physics: new BouncingScrollPhysics(),
-            children: <Widget>[
+            children: [
               //has to be scrollable so the screen can adjust when the keyboard is tapped
               Center(
                 child: SingleChildScrollView(
