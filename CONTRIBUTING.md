@@ -41,6 +41,57 @@ The process of proposing a change to Talawa can be summarized as:
 1. Create a pull request to the Talawa repository
 1. Review and address comments on your pull request if requested
 
+### General Guidelines
+
+####Project structure
+
+```
+app
+- presentation: interactions and data presented to the user
+  - screens: app and feature screens
+    - <feature_name>
+      - <feature>.screen.dart
+      - widget: internal widgets related to a screen/feature
+  - viewmodels: shared business logic, so we can extract it easily soon as we modularize our app
+- resources: local and remote data sources, other services
+
+components
+- example: runnable app to view all components added in the app
+- <component_name>
+   - src
+      - component.configs.dart
+   - component.name.dart
+
+core
+- enums: common enums shared
+- models: business data models, entities
+- theme: application theme, colors, dimens
+- utils: utilitity classes
+```
+
+####Structure code this way
+
+```
+// Inside widget class
+-- variables (private if possible)
+-- build method (Inside build(), use sub methods like _buildAppBar()
+-- sub-build methods
+-- other methods
+-- utility methods
+```
+
+####Commit guidelines
+
+```
+feat: (addition of a new feature)
+rfac: (refactoring the code: optimization/ different logic of existing code - output doesn't change, just the way of execution changes)
+docs: (documenting the code, be it readme, or extra comments)
+bfix: (bug fixing)
+chor: (chore - beautifying code, indents, spaces, camelcasing, changing variable names to have an appropriate meaning)
+ptch: (patches - small changes in code, mainly UI, for example color of a button, incrasing size of tet, etc etc)
+conf: (configurational settings - changing directory structure, updating gitignore, add libraries, changing manifest etc)
+```
+
 ### GSoC
 If you are participating in the 2021 Summer of Code, please read more about us and our processes [here](http://www.palisadoes.org/gsoc/)
 
