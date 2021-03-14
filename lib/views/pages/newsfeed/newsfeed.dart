@@ -233,8 +233,12 @@ class _NewsFeedState extends State<NewsFeed> {
               setState(() //the changes in the backend will do it right we have to create a isPressed thing in the backend
 
               {
-
-                postList[index]['isPressed'] = true;
+                if(postList[index]['isPressed'] == false) {
+                  postList[index]['isPressed'] = true;
+                }
+                else{
+                  postList[index]['isPressed'] = false;
+                }
 
 
               });
