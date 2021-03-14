@@ -520,33 +520,40 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
             image: DecorationImage(
                 image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
           ),
-          child: new PageView(
-            controller: _pageController,
-            onPageChanged: (index) {
-              FocusScopeNode currentFocus = FocusScope.of(context);
-              currentFocus.unfocus();
-            },
-            physics: new BouncingScrollPhysics(),
-            children: <Widget>[
-              //has to be scrollable so the screen can adjust when the keyboard is tapped
-              Center(
-                child: SingleChildScrollView(
-                  child: loginScreenForm(),
-                ),
-              ),
+          child: saveMsg != "URL SAVED!"
+              ? Center(
+                  child: SingleChildScrollView(
+                    child: mainScreen(),
+                  ),
+                )
+              : new PageView(
+                  controller: _pageController,
+                  onPageChanged: (index) {
+                    FocusScopeNode currentFocus = FocusScope.of(context);
+                    currentFocus.unfocus();
+                  },
+                  physics: new BouncingScrollPhysics(),
+                  children: <Widget>[
+                    //has to be scrollable so the screen can adjust when the keyboard is tapped
+                    Center(
+                      child: SingleChildScrollView(
+                        child: loginScreenForm(),
+                      ),
+                    ),
 
-              Center(
-                child: SingleChildScrollView(
-                  child: mainScreen(),
-                ),
-              ),
+                    Center(
+                      child: SingleChildScrollView(
+                        child: mainScreen(),
+                      ),
+                    ),
 
-              //has to be scrollable so the screen can adjust when the keyboard is tapped
-              Center(
-                child: SingleChildScrollView(child: registrationScreenForm()),
-              ),
-            ],
-          ),
+                    //has to be scrollable so the screen can adjust when the keyboard is tapped
+                    Center(
+                      child: SingleChildScrollView(
+                          child: registrationScreenForm()),
+                    ),
+                  ],
+                ),
         ));
   }
 }
