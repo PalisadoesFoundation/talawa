@@ -124,12 +124,13 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                       TextFormField(
                         validator: (value) => Validator.validateOrgName(value),
                         textAlign: TextAlign.left,
+                        textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.words,
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: UIData.secondaryColor),
+                              BorderSide(color: UIData.secondaryColor),
                               borderRadius: BorderRadius.circular(20.0)),
                           prefixIcon: Icon(
                             Icons.group,
@@ -148,6 +149,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                       ),
                       TextFormField(
                         keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.next,
                         maxLines: null,
                         textCapitalization: TextCapitalization.words,
                         validator: (value) => Validator.validateOrgDesc(value),
@@ -156,10 +158,10 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: UIData.secondaryColor),
+                              BorderSide(color: UIData.secondaryColor),
                               borderRadius: BorderRadius.circular(20.0)),
                           prefixIcon:
-                              Icon(Icons.note, color: UIData.secondaryColor),
+                          Icon(Icons.note, color: UIData.secondaryColor),
                           labelText: "Organization Description",
                           labelStyle: TextStyle(color: Colors.black),
                           alignLabelWithHint: true,
@@ -173,6 +175,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                       ),
                       TextFormField(
                         keyboardType: TextInputType.multiline,
+                        textInputAction: TextInputAction.done,
                         maxLines: null,
                         textCapitalization: TextCapitalization.words,
                         validator: (value) =>
@@ -183,9 +186,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                           border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(20.0),
                               borderSide:
-                                  new BorderSide(color: UIData.secondaryColor)),
+                              new BorderSide(color: UIData.secondaryColor)),
                           prefixIcon:
-                              Icon(Icons.note, color: UIData.secondaryColor),
+                          Icon(Icons.note, color: UIData.secondaryColor),
                           labelText: "Member Description",
                           labelStyle: TextStyle(color: Colors.black),
                           alignLabelWithHint: true,
@@ -205,6 +208,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         value: 0,
                         activeColor: UIData.secondaryColor,
                         onChanged: (val) {
+                          FocusScope.of(context).unfocus();
                           setState(() {
                             radioValue = val;
                             if (radioValue == 0) {
@@ -219,6 +223,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         title: Text('No'),
                         value: 1,
                         onChanged: (val) {
+                          FocusScope.of(context).unfocus();
                           setState(() {
                             radioValue = val;
                             if (radioValue == 1) {
@@ -237,6 +242,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         title: Text('Yes'),
                         value: 0,
                         onChanged: (val) {
+                          FocusScope.of(context).unfocus();
                           setState(() {
                             radioValue1 = val;
                             if (radioValue1 == 0) {
@@ -251,6 +257,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         title: Text('No'),
                         value: 1,
                         onChanged: (val) {
+                          FocusScope.of(context).unfocus();
                           setState(() {
                             radioValue1 = val;
                             if (radioValue1 == 1) {
@@ -270,9 +277,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                           child: _progressBarState
                               ? const CircularProgressIndicator()
                               : Text(
-                                  "CREATE ORGANIZATION",
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                            "CREATE ORGANIZATION",
+                            style: TextStyle(color: Colors.white),
+                          ),
                           color: UIData.secondaryColor,
                           onPressed: () async {
                             if (_formKey.currentState.validate() &&
@@ -316,19 +323,19 @@ class _CreateOrganizationState extends State<CreateOrganization> {
               backgroundColor: UIData.secondaryColor,
               child: _image != null
                   ? CircleAvatar(
-                      radius: 52,
-                      backgroundImage: FileImage(
-                        _image,
-                      ),
-                    )
+                radius: 52,
+                backgroundImage: FileImage(
+                  _image,
+                ),
+              )
                   : CircleAvatar(
-                      radius: 52,
-                      backgroundColor: Colors.lightBlue[50],
-                      child: Icon(
-                        Icons.camera_alt,
-                        color: Colors.grey[800],
-                      ),
-                    ),
+                radius: 52,
+                backgroundColor: Colors.lightBlue[50],
+                child: Icon(
+                  Icons.camera_alt,
+                  color: Colors.grey[800],
+                ),
+              ),
             ),
           ),
         )
