@@ -89,7 +89,11 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   //get image using gallery
   _imgFromGallery() async {
-    File image = File((await FilePicker.platform.pickFiles(type: FileType.image)).files.first.path);
+    File image = File(
+        (await FilePicker.platform.pickFiles(type: FileType.image))
+            .files
+            .first
+            .path);
     setState(() {
       _image = image;
     });
@@ -268,7 +272,17 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                           padding: EdgeInsets.all(16.0),
                           shape: StadiumBorder(),
                           child: _progressBarState
-                              ? const CircularProgressIndicator()
+                              ? const Center(
+                                  child: SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.white),
+                                        strokeWidth: 3,
+                                        backgroundColor: Colors.black,
+                                      )))
                               : Text(
                                   "CREATE ORGANIZATION",
                                   style: TextStyle(color: Colors.white),
