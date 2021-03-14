@@ -8,7 +8,6 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
@@ -25,7 +24,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   final orgMemberDescController = TextEditingController();
   Queries _queries = Queries();
   bool _progressBarState = false;
-  bool _validate = false;
+  var _validate = AutovalidateMode.disabled;
   final _formKey = GlobalKey<FormState>();
   int radioValue = -1;
   int radioValue1 = -1;
@@ -113,7 +112,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                   style: TextStyle(fontSize: 16, color: Colors.black)),
               Form(
                 key: _formKey,
-                autovalidate: _validate,
+                autovalidateMode: _validate,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                   child: Column(
@@ -271,16 +270,16 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         padding: EdgeInsets.symmetric(
                             vertical: 20.0, horizontal: 30.0),
                         width: double.infinity,
-                        child: RaisedButton(
-                          padding: EdgeInsets.all(16.0),
-                          shape: StadiumBorder(),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),),
                           child: _progressBarState
                               ? const CircularProgressIndicator()
                               : Text(
                             "CREATE ORGANIZATION",
                             style: TextStyle(color: Colors.white),
                           ),
-                          color: UIData.secondaryColor,
                           onPressed: () async {
                             if (_formKey.currentState.validate() &&
                                 radioValue >= 0 &&

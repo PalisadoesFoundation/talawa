@@ -28,18 +28,20 @@ class RegisterForm extends StatefulWidget {
 
 class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController firstNameController = new TextEditingController();
+  TextEditingController lastController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
   TextEditingController originalPassword = new TextEditingController();
+
   FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
   Queries _signupQuery = Queries();
-  bool _validate = false;
+  var _validate = AutovalidateMode.disabled;
   Preferences _pref = Preferences();
   FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
-  AuthController _authController = AuthController();
   bool _obscureText = true;
 
   void toggleProgressBarState() {
@@ -156,7 +158,7 @@ class RegisterFormState extends State<RegisterForm> {
     return SingleChildScrollView(
       child: Form(
         key: _formKey,
-        autovalidate: _validate,
+          autovalidateMode: _validate,
         child: Column(
           children: <Widget>[
             addImage(),
@@ -272,7 +274,7 @@ class RegisterFormState extends State<RegisterForm> {
                     borderSide: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.lock,color:Colors.grey),
-                suffixIcon: FlatButton(
+                suffixIcon: TextButton(
                   onPressed: _toggle,
                   child: Icon(_obscureText
                       ? Icons.visibility_off
@@ -333,18 +335,19 @@ class RegisterFormState extends State<RegisterForm> {
             Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
               width: double.infinity,
-              child: RaisedButton(
-                padding: EdgeInsets.all(12.0),
-                shape: StadiumBorder(),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),),
                 child: _progressBarState
                     ? const CircularProgressIndicator()
                     : Text(
                         "SIGN UP",
                       ),
-                color: Colors.white,
+                //color: Colors.white,
                 onPressed: () async {
                   FocusScope.of(context).unfocus();
-                  _validate = true;
+                  _validate = AutovalidateMode.always;
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
                     _image != null
@@ -429,7 +432,7 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
-  _successToast(String msg) {
+  /*_successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -449,7 +452,7 @@ class RegisterFormState extends State<RegisterForm> {
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 3),
     );
-  }
+  }*/
 
   _exceptionToast(String msg) {
     Widget toast = Container(
