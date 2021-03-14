@@ -103,7 +103,8 @@ class LoginFormState extends State<LoginForm> {
             SizedBox(
               height: 50,
             ),
-            AutofillGroup(child: Column(
+            AutofillGroup(
+                child: Column(
               children: <Widget>[
                 TextFormField(
                   autofillHints: <String>[AutofillHints.email],
@@ -159,15 +160,20 @@ class LoginFormState extends State<LoginForm> {
             Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
               width: double.infinity,
-              child: RaisedButton(
-                  padding: EdgeInsets.all(12.0),
-                  shape: StadiumBorder(),
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                    overlayColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.focused))
+                        return Colors.white;
+                      return null; // Defer to the widget's default.
+                    }),
+                  ),
                   child: _progressBarState
                       ? const CircularProgressIndicator()
                       : Text(
                           "SIGN IN",
                         ),
-                  color: Colors.white,
                   onPressed: () async {
                     FocusScope.of(context).unfocus();
                     //checks to see if all the fields have been validated then authenticate a user
@@ -194,7 +200,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child:Text(msg)),
+          Expanded(child: Text(msg)),
         ],
       ),
     );
@@ -216,7 +222,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child:Text(msg)),
+          Expanded(child: Text(msg)),
         ],
       ),
     );

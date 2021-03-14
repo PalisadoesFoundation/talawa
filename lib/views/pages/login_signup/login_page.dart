@@ -444,11 +444,16 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                         child: new Row(
                           children: <Widget>[
                             new Expanded(
-                              child: new FlatButton(
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(20.0)),
-                                color: Colors.white,
+                              child: TextButton(
+                                style: ButtonStyle(
+                                  overlayColor:
+                                      MaterialStateProperty.resolveWith<Color>(
+                                          (Set<MaterialState> states) {
+                                    if (states.contains(MaterialState.focused))
+                                      return Colors.white;
+                                    return null; // Defer to the widget's default.
+                                  }),
+                                ),
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
                                     : () async {
