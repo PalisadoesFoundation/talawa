@@ -34,11 +34,23 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   String orgUrl;
   String saveMsg = "Set URL";
   String urlInput;
+  //this animation length has to be larger becasuse it includes startup time
+  AnimationController controller;
 
   @override
   void initState() {
     super.initState();
     urlController.addListener(listenToUrl);
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 2000),
+    );
+  }
+
+  @override
+  dispose() {
+    controller.dispose(); // you need this
+    super.dispose();
   }
 
   listenToUrl() {
@@ -158,12 +170,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
   @override
   build(BuildContext context) {
-    //this animation length has to be larger becasuse it includes startup time
-    var controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 2000),
-    );
-
     var animation = Tween(begin: 0.0, end: 1.0).animate(controller);
 
     var helloController = AnimationController(
