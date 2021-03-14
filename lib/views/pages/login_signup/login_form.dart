@@ -122,7 +122,7 @@ class LoginFormState extends State<LoginForm> {
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(20.0)),
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: Icon(Icons.email, color: Colors.white,),
                     labelText: "Email",
                     labelStyle: TextStyle(color: Colors.white),
                     alignLabelWithHint: true,
@@ -146,12 +146,14 @@ class LoginFormState extends State<LoginForm> {
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(20.0)),
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: Icon(Icons.lock, color: Colors.white,),
                     suffixIcon: FlatButton(
                       onPressed: _toggle,
                       child: Icon(_obscureText
                           ? Icons.visibility_off
-                          : Icons.visibility),
+                          : Icons.visibility,
+                          color: Colors.white,
+                      ),
                     ),
                     labelText: "Password",
                     labelStyle: TextStyle(color: Colors.white),
@@ -207,7 +209,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child:Text(msg)),
+          Center(child: Expanded(child:Text(msg))),
         ],
       ),
     );
