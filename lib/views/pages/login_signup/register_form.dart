@@ -39,6 +39,7 @@ class RegisterFormState extends State<RegisterForm> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
   AuthController _authController = AuthController();
+  bool _obscureText = true;
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -154,6 +155,7 @@ class RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+<<<<<<< HEAD
         child: Form(
             key: _formKey,
             autovalidate: _validate,
@@ -164,6 +166,129 @@ class RegisterFormState extends State<RegisterForm> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Add Profile Image',
                       style: TextStyle(fontSize: 16, color: Colors.white)),
+=======
+      child: Form(
+        key: _formKey,
+        autovalidate: _validate,
+        child: Column(
+          children: <Widget>[
+            addImage(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Add Profile Image',
+                  style: TextStyle(fontSize: 16, color: Colors.white)),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            AutofillGroup(
+              child : Column(
+    children :  <Widget>[
+                TextFormField(
+                  autofillHints: <String>[AutofillHints.name] ,
+                    textCapitalization: TextCapitalization.words,
+                    validator: (value) => Validator.validateFirstName(value),
+                    textAlign: TextAlign.left,
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
+                prefixIcon: Icon(Icons.person),
+                labelText: "First Name",
+                labelStyle: TextStyle(color: Colors.white),
+                alignLabelWithHint: true,
+                hintText: 'Earl',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+              onSaved: (value) {
+                model.firstName = value;
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              autofillHints: <String>[AutofillHints.name] ,
+              textCapitalization: TextCapitalization.words,
+              validator: (value) => Validator.validateLastName(value),
+              textAlign: TextAlign.left,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
+                prefixIcon: Icon(Icons.person),
+                labelText: "Last Name",
+                labelStyle: TextStyle(color: Colors.white),
+                alignLabelWithHint: true,
+                hintText: 'John',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+              onSaved: (value) {
+                model.lastName = value;
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              autofillHints: <String>[AutofillHints.email] ,
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) => Validator.validateEmail(value),
+              controller: emailController,
+              textAlign: TextAlign.left,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
+                prefixIcon: Icon(Icons.email),
+                labelText: "Email",
+                labelStyle: TextStyle(color: Colors.white),
+                alignLabelWithHint: true,
+                hintText: 'foo@bar.com',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+              onSaved: (value) {
+                model.email = value;
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              autofillHints: <String>[AutofillHints.password],
+              obscureText: _obscureText,
+              controller: originalPassword,
+              validator: (value) => Validator.validatePassword(value),
+              textAlign: TextAlign.left,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20.0)),
+                prefixIcon: Icon(Icons.lock),
+                suffixIcon: FlatButton(
+                  onPressed: _toggle,
+                  child: Icon(_obscureText
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                ),
+                labelText: "Password",
+                labelStyle: TextStyle(color: Colors.white),
+                focusColor: UIData.primaryColor,
+                alignLabelWithHint: true,
+                hintText: 'password',
+                hintStyle: TextStyle(color: Colors.grey),
+              ),
+              onSaved: (value) {
+                model.password = value;
+              },
+            ),
+                SizedBox(
+                  height: 20,
+>>>>>>> upstream/master
                 ),
                 SizedBox(
                   height: 25,
@@ -451,5 +576,12 @@ class RegisterFormState extends State<RegisterForm> {
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 5),
     );
+  }
+
+  //function toggles _obscureText value
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 }
