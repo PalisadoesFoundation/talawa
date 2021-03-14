@@ -7,11 +7,11 @@ class MyAboutTile extends StatelessWidget {
     return AboutListTile(
       applicationIcon: FlutterLogo(),
       icon: FlutterLogo(),
-      aboutBoxChildren: <Widget>[
-        SizedBox(
+      aboutBoxChildren: [
+        const SizedBox(
           height: 10.0,
         ),
-        Text(
+        const Text(
           "Collaborative",
         ),
       ],

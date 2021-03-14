@@ -12,12 +12,12 @@ class _NoInternetConnectionState extends State<NoInternetConnection> {
       child: Center(
           child: Column(
         children: [
-          Text(
+          const Text(
             'No Internet Connection.',
             style: TextStyle(fontSize: 20),
             textAlign: TextAlign.center,
           ),
-          Icon(
+          const Icon(
             Icons.signal_cellular_connected_no_internet_4_bar,
             color: Colors.red,
           )
