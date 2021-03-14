@@ -213,6 +213,25 @@ class Queries {
   ''';
   }
 
+  String createOrgWithoutImg(String name, String description, String attendees,
+      bool isPublic, bool visibleInSearch) {
+    return '''
+      mutation {
+          createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}), 
+           {
+             image
+              _id
+              name
+              description
+              creator{
+                firstName
+                lastName   
+              }
+            }
+          }
+        ''';
+  }
+
   String updateOrg(String orgId, String name, String description, bool isPublic,
       bool visibleInSearch) {
     return '''
