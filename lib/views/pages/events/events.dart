@@ -146,8 +146,10 @@ class _EventsState extends State<Events> {
         element['title'] == 'Talawa Congress' ||
         element['title'] == 'test'); //dont know who keeps adding these
 
-    eventList.sort((a, b) => DateTime.parse(a['startTime'])
-        .compareTo(DateTime.parse(b['startTime'])));
+    eventList.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
+            int.parse(a['startTime']))
+        .compareTo(
+            DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime']))));
     eventsToDates(eventList, DateTime.now());
     setState(() {
       displayedEvents = eventList;
@@ -222,7 +224,7 @@ class _EventsState extends State<Events> {
           });
         },
         calendarStyle: CalendarStyle(markersColor: Colors.black45),
-       /* onDaySelected: (day, events) {
+        /* onDaySelected: (day, events) {
           String carouselDay = DateFormat.yMMMd('en_US').format(day);
           if (timer.isSameDay(day, now)) {
             carouselDay = 'Today';
