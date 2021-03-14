@@ -121,7 +121,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                     membershipRequests['user']['lastName']),
                 trailing: Wrap(
                   spacing: 4,
-                  children: <Widget>[
+                  children: [
                     IconButton(
                       iconSize: 26.0,
                       icon: Icon(Icons.delete),

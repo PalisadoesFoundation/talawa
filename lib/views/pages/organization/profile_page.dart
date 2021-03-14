@@ -145,7 +145,7 @@ class _ProfilePageState extends State<ProfilePage> {
         body: userDetails.isEmpty
             ? Center(child: CircularProgressIndicator())
             : Column(
-                children: <Widget>[
+                children: [
                   Container(
                     padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 32.0),
                     decoration: BoxDecoration(
@@ -157,7 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
+                      children: [
                         ListTile(
                             title: Text("Profile",
                                 style: TextStyle(

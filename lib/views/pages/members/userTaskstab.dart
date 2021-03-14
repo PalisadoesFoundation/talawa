@@ -43,7 +43,7 @@ class _UserTasksState extends State<UserTasks> {
             itemBuilder: (context, index) {
               return Card(
                   child: Column(
-                children: <Widget>[
+                children: [
                   ListTile(
                     leading:
                         Text('Description: ${userTasks[index]["description"]}'),

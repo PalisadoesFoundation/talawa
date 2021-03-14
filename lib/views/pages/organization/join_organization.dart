@@ -159,7 +159,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
               color: Color(0xffF3F6FF),
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
               child: Column(
-                children: <Widget>[
+                children: [
                   Text(
                     "Welcome, \nJoin or Create your organization to get started",
                     style: TextStyle(
@@ -244,7 +244,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                         subtitle: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          children: <Widget>[
+                                          children: [
                                             Text(
                                                 organization['description']
                                                     .toString(),
@@ -336,7 +336,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                         subtitle: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          children: <Widget>[
+                                          children: [
                                             Text(
                                                 organization['description']
                                                     .toString(),

@@ -58,7 +58,7 @@ class _AddPostState extends State<AddPost> {
       ),
       body: Container(
           child: Column(
-        children: <Widget>[
+        children: [
           inputField('Give your post a title....', titleController),
           inputField('Write Your post here....', textController),
         ],

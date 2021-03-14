@@ -97,7 +97,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                 child: Column(
-                  children: <Widget>[
+                  children: [
                     Image(image: AssetImage('assets/images/team.png')),
                     SizedBox(
                       height: 20,

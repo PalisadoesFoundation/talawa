@@ -102,7 +102,7 @@ class _MemberDetailState extends State<MemberDetail>
             sliver: SliverFillRemaining(
               child: TabBarView(
                 controller: _tabController,
-                children: <Widget>[
+                children: [
                   UserTasks(
                     member: widget.member,
                   ),

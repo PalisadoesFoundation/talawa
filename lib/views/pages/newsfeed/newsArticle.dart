@@ -60,7 +60,7 @@ class _NewsArticleState extends State<NewsArticle> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        slivers: <Widget>[
+        slivers: [
           SliverAppBar(
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
@@ -85,7 +85,7 @@ class _NewsArticleState extends State<NewsArticle> {
           SliverToBoxAdapter(
               child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+            children: [
               ListTile(
                 leading: CircleAvatar(
                   backgroundImage: AssetImage(UIData.pkImage),

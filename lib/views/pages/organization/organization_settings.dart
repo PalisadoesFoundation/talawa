@@ -127,7 +127,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
               style: TextStyle(color: Colors.white)),
         ),
         body: Container(
-          child: Column(children: <Widget>[
+          child: Column(children: [
             ListTile(
                 title: Text(
                   'Update This Organization',
@@ -143,7 +143,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     screen: UpdateOrganization(),
                   );
                 }),
-            Divider(),
+            const Divider(),
             ListTile(
                 title: Text(
                   'Accept MemberShip Requests',
@@ -162,7 +162,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     screen: AcceptRequestsPage(),
                   );
                 }),
-            Divider(),
+            const Divider(),
             ListTile(
                 title: Text(
                   'Remove Member(s)',
@@ -178,7 +178,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     screen: RemoveMember(),
                   );
                 }),
-            Divider(),
+            const Divider(),
             ListTile(
                 title: Text(
                   'Remove This Organization',
