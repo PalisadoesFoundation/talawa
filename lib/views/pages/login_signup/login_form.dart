@@ -33,6 +33,7 @@ class LoginFormState extends State<LoginForm> {
   FToast fToast;
   Preferences _pref = Preferences();
   static String orgURI;
+  bool _obscureText = true;
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -129,7 +130,7 @@ class LoginFormState extends State<LoginForm> {
                 ),
                 TextFormField(
                   autofillHints: <String>[AutofillHints.password],
-                  obscureText: true,
+                  obscureText: _obscureText,
                   validator: (value) => Validator.validatePassword(value),
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
@@ -138,6 +139,12 @@ class LoginFormState extends State<LoginForm> {
                         borderSide: BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(20.0)),
                     prefixIcon: Icon(Icons.lock),
+                    suffixIcon: FlatButton(
+                      onPressed: _toggle,
+                      child: Icon(_obscureText
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                    ),
                     labelText: "Password",
                     labelStyle: TextStyle(color: Colors.white),
                     focusColor: UIData.primaryColor,
@@ -224,5 +231,12 @@ class LoginFormState extends State<LoginForm> {
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 5),
     );
+  }
+
+  //function toggles _obscureText value
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 }
