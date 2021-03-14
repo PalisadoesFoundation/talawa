@@ -190,10 +190,10 @@ class RegisterFormState extends State<RegisterForm> {
                 model.firstName = value;
               },
             ),
-            SizedBox(
+                SizedBox(
               height: 20,
             ),
-            TextFormField(
+                TextFormField(
               autofillHints: <String>[AutofillHints.name] ,
               textCapitalization: TextCapitalization.words,
               validator: (value) => Validator.validateLastName(value),
@@ -214,10 +214,10 @@ class RegisterFormState extends State<RegisterForm> {
                 model.lastName = value;
               },
             ),
-            SizedBox(
+                SizedBox(
               height: 20,
             ),
-            TextFormField(
+                TextFormField(
               autofillHints: <String>[AutofillHints.email] ,
               keyboardType: TextInputType.emailAddress,
               validator: (value) => Validator.validateEmail(value),
@@ -239,10 +239,10 @@ class RegisterFormState extends State<RegisterForm> {
                 model.email = value;
               },
             ),
-            SizedBox(
+                SizedBox(
               height: 20,
             ),
-            TextFormField(
+                TextFormField(
               autofillHints: <String>[AutofillHints.password],
               obscureText: true,
               controller: originalPassword,
@@ -296,7 +296,7 @@ class RegisterFormState extends State<RegisterForm> {
                 focusColor: UIData.primaryColor,
               ),
             ),
-            SizedBox(
+                SizedBox(
               height: 20,
             ),
               ],

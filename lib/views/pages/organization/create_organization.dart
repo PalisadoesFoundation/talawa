@@ -8,11 +8,11 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreateOrganization extends StatefulWidget {
   @override
@@ -85,6 +85,16 @@ class _CreateOrganizationState extends State<CreateOrganization> {
         screen: ProfilePage(),
       );
     }
+  }
+
+  _imgFromCamera() async {
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 50
+    );
+
+    setState(() {
+      _image = image;
+    });
   }
 
   //get image using gallery
@@ -344,6 +354,15 @@ class _CreateOrganizationState extends State<CreateOrganization> {
             child: Container(
               child: Wrap(
                 children: <Widget>[
+                  ListTile(
+
+                    leading: Icon(Icons.camera_alt_outlined),
+                    title: Text('Camera'),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
                   ListTile(
                       leading: Icon(Icons.photo_library),
                       title: Text('Photo Library'),
