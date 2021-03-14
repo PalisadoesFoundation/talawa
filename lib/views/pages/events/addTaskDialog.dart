@@ -47,13 +47,13 @@ class _AddEventTaskState extends State<AddEventTask> {
       content: Container(
           height: 250,
           child: Column(
-            children: <Widget>[
+            children: [
               inputField('title', titleController),
               inputField('description', descriptionController),
               dateButton()
             ],
           )),
-      actions: <Widget>[
+      actions: [
         FlatButton(
           child: Text("Cancel"),
           onPressed: () {

@@ -357,7 +357,7 @@ class _EventsState extends State<Events> {
       child: Column(
         children: [
           ExpansionTile(
-            children: <Widget>[
+            children: [
               displayedEvents[index]['isPublic']
                   ? menueText('This event is Public')
                   : menueText('This event is Private'),

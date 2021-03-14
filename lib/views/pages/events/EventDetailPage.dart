@@ -49,7 +49,7 @@ class _EventDetailState extends State<EventDetail>
                   color: UIData.primaryColor,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                    children: [
                       dispayText(
                         "To Do: ${widget.event['description'].toString()}",
                       ),
@@ -104,7 +104,7 @@ class _EventDetailState extends State<EventDetail>
             sliver: SliverFillRemaining(
               child: TabBarView(
                 controller: _tabController,
-                children: <Widget>[
+                children: [
                   TaskList(
                     event: widget.event,
                   ),

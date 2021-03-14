@@ -129,7 +129,7 @@ class _AddEventState extends State<AddEvent> {
       ),
       body: ListView(
         padding: EdgeInsets.only(bottom: 100),
-        children: <Widget>[
+        children: [
           inputField('Title', titleController),
           inputField('Description', descriptionController),
           inputField('Location', locationController),
