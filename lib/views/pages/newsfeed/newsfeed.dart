@@ -229,11 +229,18 @@ class _NewsFeedState extends State<NewsFeed> {
             onPressed: ()
             {
               addLike(postList[index]['_id']);
+
               setState(() //the changes in the backend will do it right we have to create a isPressed thing in the backend
+
               {
+
                 postList[index]['isPressed'] = true;
+
+
               });
-            },
+
+
+              },
 
             )
       ],
