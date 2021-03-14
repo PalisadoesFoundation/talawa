@@ -100,7 +100,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
       pushNewScreen(
         context,
-        screen: NewsFeed(),
+        screen: HomePage(),
       );
     }
   }
@@ -138,10 +138,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       }
       _successToast("Sucess!");
 
-      //Navigate user to newsfeed
+      //Navigate user to homepage
       pushNewScreen(
         context,
-        screen: ProfilePage(),
+        screen: HomePage(),
       );
     }
   }

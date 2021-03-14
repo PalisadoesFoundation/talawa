@@ -14,6 +14,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../home_page.dart';
+
 class CreateOrganization extends StatefulWidget {
   @override
   _CreateOrganizationState createState() => _CreateOrganizationState();
@@ -82,7 +84,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       print(result.data);
       pushNewScreen(
         context,
-        screen: ProfilePage(),
+        screen: HomePage(),
       );
     }
   }
@@ -118,7 +120,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       print(result.data);
       pushNewScreen(
         context,
-        screen: ProfilePage(),
+        screen: HomePage(),
       );
     }
   }
