@@ -39,6 +39,7 @@ class RegisterFormState extends State<RegisterForm> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
   AuthController _authController = AuthController();
+  bool _obscureText = true;
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -244,7 +245,7 @@ class RegisterFormState extends State<RegisterForm> {
             ),
             TextFormField(
               autofillHints: <String>[AutofillHints.password],
-              obscureText: true,
+              obscureText: _obscureText,
               controller: originalPassword,
               validator: (value) => Validator.validatePassword(value),
               textAlign: TextAlign.left,
@@ -254,6 +255,12 @@ class RegisterFormState extends State<RegisterForm> {
                     borderSide: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(20.0)),
                 prefixIcon: Icon(Icons.lock),
+                suffixIcon: FlatButton(
+                  onPressed: _toggle,
+                  child: Icon(_obscureText
+                      ? Icons.visibility_off
+                      : Icons.visibility),
+                ),
                 labelText: "Password",
                 labelStyle: TextStyle(color: Colors.white),
                 focusColor: UIData.primaryColor,
@@ -443,5 +450,12 @@ class RegisterFormState extends State<RegisterForm> {
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 5),
     );
+  }
+
+  //function toggles _obscureText value
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 }
