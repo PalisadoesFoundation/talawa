@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
@@ -294,29 +297,66 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: UIData.secondaryColor,
                             ),
                             onTap: () {
-                              showDialog(
+                              if (Platform.isAndroid) {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text("Confirmation"),
+                                        content: Text(
+                                            "Are you sure you want to logout?"),
+                                        actions: [
+                                          FlatButton(
+                                            child: Text("No"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                          FlatButton(
+                                            child: Text("Yes"),
+                                            onPressed: () {
+                                              _authController.logout(context);
+                                            },
+                                          )
+                                        ],
+                                      );
+                                    });
+                              } else {
+                                // iOS-specific
+                                showCupertinoDialog(
                                   context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text("Confirmation"),
-                                      content: Text(
-                                          "Are you sure you want to logout?"),
-                                      actions: [
-                                        FlatButton(
-                                          child: Text("No"),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                        FlatButton(
-                                          child: Text("Yes"),
-                                          onPressed: () {
-                                            _authController.logout(context);
-                                          },
-                                        )
-                                      ],
-                                    );
-                                  });
+                                  useRootNavigator: false,
+                                  builder: (_) => CupertinoAlertDialog(
+                                    title: Text(
+                                      "Confirmation",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    content: Text(
+                                      "Are you sure you want to log out?",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text("No"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      FlatButton(
+                                        child: Text("Yes"),
+                                        onPressed: () {
+                                          _authController.logout(context);
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }
                             },
                           ),
                           MyAboutTile(),
