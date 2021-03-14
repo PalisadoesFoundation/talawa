@@ -38,6 +38,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -141,6 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final orgName = Provider.of<Preferences>(context).orgName;
 
     return Scaffold(
+        key: _scaffoldKey,
         backgroundColor: Colors.white,
         body: userDetails.isEmpty
             ? Center(child: CircularProgressIndicator())
@@ -329,28 +332,17 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void confirmLeave() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Confirmation"),
-            content: Text("Are you sure you want to leave this organization?"),
-            actions: [
-              FlatButton(
-                child: Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text("Yes"),
-                onPressed: () async {
-                  leaveOrg();
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Are you sure you want to leave this organization?"),
+        action: SnackBarAction(
+          label: "Yes",
+          onPressed: () async {
+            leaveOrg();
+            Navigator.of(context).pop();
+          },
+        )
+      )
+    );
   }
 }
