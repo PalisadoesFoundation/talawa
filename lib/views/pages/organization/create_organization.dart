@@ -87,10 +87,45 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     }
   }
 
+  createOrgWithoutImg() async {
+    GraphQLClient _client = graphQLConfiguration.authClient();
+    QueryResult result = await _client.mutate(MutationOptions(
+      documentNode: gql(_queries.createOrgWithoutImg(
+        orgNameController.text,
+        orgDescController.text,
+        orgMemberDescController.text,
+        isPublic,
+        isVisible,
+      )),
+    ));
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
+      return createOrgWithoutImg();
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
+      print(result.exception);
+      setState(() {
+        _progressBarState = false;
+      });
+      _exceptionToast(result.exception.toString());
+    } else if (!result.hasException && !result.loading) {
+      setState(() {
+        _progressBarState = true;
+      });
+      _successToast("Sucess!");
+      print(result.data);
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
+    }
+  }
+
   _imgFromCamera() async {
     File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50
-    );
+        source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
       _image = image;
@@ -99,7 +134,11 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   //get image using gallery
   _imgFromGallery() async {
-    File image = File((await FilePicker.platform.pickFiles(type: FileType.image)).files.first.path);
+    File image = File(
+        (await FilePicker.platform.pickFiles(type: FileType.image))
+            .files
+            .first
+            .path);
     setState(() {
       _image = image;
     });
@@ -131,81 +170,88 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                       SizedBox(
                         height: 30,
                       ),
-                      TextFormField(
-                        validator: (value) => Validator.validateOrgName(value),
-                        textAlign: TextAlign.left,
-                        textCapitalization: TextCapitalization.words,
-                        style: TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: UIData.secondaryColor),
-                              borderRadius: BorderRadius.circular(20.0)),
-                          prefixIcon: Icon(
-                            Icons.group,
-                            color: UIData.secondaryColor,
+                      AutofillGroup(child:Column(children: <Widget>[
+                        TextFormField(
+                          autofillHints: <String>[AutofillHints.organizationName],
+                          validator: (value) => Validator.validateOrgName(value),
+                          textAlign: TextAlign.left,
+                          textCapitalization: TextCapitalization.words,
+                          style: TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: UIData.secondaryColor),
+                                borderRadius: BorderRadius.circular(20.0)),
+                            prefixIcon: Icon(
+                              Icons.group,
+                              color: UIData.secondaryColor,
+                            ),
+                            labelText: "Organization Name",
+                            labelStyle: TextStyle(color: Colors.black),
+                            alignLabelWithHint: true,
+                            hintText: 'My Organization',
+                            hintStyle: TextStyle(color: Colors.grey),
                           ),
-                          labelText: "Organization Name",
-                          labelStyle: TextStyle(color: Colors.black),
-                          alignLabelWithHint: true,
-                          hintText: 'My Organization',
-                          hintStyle: TextStyle(color: Colors.grey),
+                          controller: orgNameController,
                         ),
-                        controller: orgNameController,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        textCapitalization: TextCapitalization.words,
-                        validator: (value) => Validator.validateOrgDesc(value),
-                        textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: UIData.secondaryColor),
-                              borderRadius: BorderRadius.circular(20.0)),
-                          prefixIcon:
-                              Icon(Icons.note, color: UIData.secondaryColor),
-                          labelText: "Organization Description",
-                          labelStyle: TextStyle(color: Colors.black),
-                          alignLabelWithHint: true,
-                          hintText: 'My Description',
-                          hintStyle: TextStyle(color: Colors.grey),
+                        SizedBox(
+                          height: 20,
                         ),
-                        controller: orgDescController,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        textCapitalization: TextCapitalization.words,
-                        validator: (value) =>
-                            Validator.validateOrgAttendeesDesc(value),
-                        textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.black),
-                        decoration: new InputDecoration(
-                          border: new OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(20.0),
-                              borderSide:
-                                  new BorderSide(color: UIData.secondaryColor)),
-                          prefixIcon:
-                              Icon(Icons.note, color: UIData.secondaryColor),
-                          labelText: "Member Description",
-                          labelStyle: TextStyle(color: Colors.black),
-                          alignLabelWithHint: true,
-                          hintText: 'Member Description',
-                          hintStyle: TextStyle(color: Colors.grey),
+                        TextFormField(
+                          autofillHints: <String>[AutofillHints.impp],
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          textCapitalization: TextCapitalization.words,
+                          validator: (value) => Validator.validateOrgDesc(value),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderSide:
+                                BorderSide(color: UIData.secondaryColor),
+                                borderRadius: BorderRadius.circular(20.0)),
+                            prefixIcon:
+                            Icon(Icons.note, color: UIData.secondaryColor),
+                            labelText: "Organization Description",
+                            labelStyle: TextStyle(color: Colors.black),
+                            alignLabelWithHint: true,
+                            hintText: 'My Description',
+                            hintStyle: TextStyle(color: Colors.grey),
+                          ),
+                          controller: orgDescController,
                         ),
-                        controller: orgMemberDescController,
-                      ),
-                      SizedBox(
-                        height: 20,
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          autofillHints: <String>[AutofillHints.impp],
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          textCapitalization: TextCapitalization.words,
+                          validator: (value) =>
+                              Validator.validateOrgAttendeesDesc(value),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Colors.black),
+                          decoration: new InputDecoration(
+                            border: new OutlineInputBorder(
+                                borderRadius: new BorderRadius.circular(20.0),
+                                borderSide:
+                                new BorderSide(color: UIData.secondaryColor)),
+                            prefixIcon:
+                            Icon(Icons.note, color: UIData.secondaryColor),
+                            labelText: "Member Description",
+                            labelStyle: TextStyle(color: Colors.black),
+                            alignLabelWithHint: true,
+                            hintText: 'Member Description',
+                            hintStyle: TextStyle(color: Colors.grey),
+                          ),
+                          controller: orgMemberDescController,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                      )
                       ),
                       Text('Do you want your organization to be public?',
                           style: TextStyle(fontSize: 16, color: Colors.black)),
@@ -280,16 +326,20 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                           child: _progressBarState
                               ? const CircularProgressIndicator()
                               : Text(
-                                  "CREATE ORGANIZATION",
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                            "CREATE ORGANIZATION",
+                            style: TextStyle(color: Colors.white),
+                          ),
                           color: UIData.secondaryColor,
                           onPressed: () async {
                             if (_formKey.currentState.validate() &&
                                 radioValue >= 0 &&
                                 radioValue1 >= 0) {
                               _formKey.currentState.save();
-                              createOrg();
+                              if (_image != null) {
+                                createOrg();
+                              } else {
+                                createOrgWithoutImg();
+                              }
                               setState(() {
                                 toggleProgressBarState();
                               });
@@ -326,19 +376,19 @@ class _CreateOrganizationState extends State<CreateOrganization> {
               backgroundColor: UIData.secondaryColor,
               child: _image != null
                   ? CircleAvatar(
-                      radius: 52,
-                      backgroundImage: FileImage(
-                        _image,
-                      ),
-                    )
+                radius: 52,
+                backgroundImage: FileImage(
+                  _image,
+                ),
+              )
                   : CircleAvatar(
-                      radius: 52,
-                      backgroundColor: Colors.lightBlue[50],
-                      child: Icon(
-                        Icons.camera_alt,
-                        color: Colors.grey[800],
-                      ),
-                    ),
+                radius: 52,
+                backgroundColor: Colors.lightBlue[50],
+                child: Icon(
+                  Icons.camera_alt,
+                  color: Colors.grey[800],
+                ),
+              ),
             ),
           ),
         )
@@ -355,7 +405,6 @@ class _CreateOrganizationState extends State<CreateOrganization> {
               child: Wrap(
                 children: <Widget>[
                   ListTile(
-
                     leading: Icon(Icons.camera_alt_outlined),
                     title: Text('Camera'),
                     onTap: () {
