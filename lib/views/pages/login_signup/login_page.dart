@@ -286,7 +286,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                               children: <Widget>[
                                 DropdownButton<String>(
                                   value: dropdownValue,
-                                  icon: Icon(Icons.arrow_downward),
+                                  icon: Icon(Icons.arrow_downward,
+                                      color: Colors.orange),
                                   iconSize: 24,
                                   elevation: 16,
                                   style: TextStyle(color: UIData.primaryColor),
@@ -322,13 +323,21 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                         textAlign: TextAlign.left,
                                         style: TextStyle(color: Colors.white),
                                         decoration: InputDecoration(
-                                          border: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.white),
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0)),
-                                          prefixIcon: Icon(Icons.web),
-                                          labelText: "TYPE ORG URL HERE",
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.white),
+                                            borderRadius:
+                                                BorderRadius.circular(50.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.orange),
+                                            borderRadius:
+                                                BorderRadius.circular(50.0),
+                                          ),
+                                          prefixIcon: Icon(Icons.web,
+                                              color: Colors.white),
+                                          labelText: "Type Org URL Here",
                                           labelStyle:
                                               TextStyle(color: Colors.white),
                                           alignLabelWithHint: true,
@@ -390,8 +399,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                               child: new FlatButton(
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
-                                        new BorderRadius.circular(20.0)),
-                                color: Colors.white,
+                                        new BorderRadius.circular(50.0)),
+                                color: Colors.orange,
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
                                     : () async {
@@ -405,6 +414,10 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     vertical: 20.0,
                                     horizontal: 20.0,
                                   ),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.orange),
+                                      borderRadius:
+                                          new BorderRadius.circular(50.0)),
                                   child: new Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -414,7 +427,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             //color: UIData.quitoThemeColor,
-                                            color: Colors.black,
+                                            color: Colors.white,
                                             fontSize: 18,
                                             //fontWeight: FontWeight.bold
                                           ),
@@ -447,8 +460,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                               child: new FlatButton(
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
-                                        new BorderRadius.circular(20.0)),
-                                color: Colors.white,
+                                        new BorderRadius.circular(50.0)),
+                                color: Colors.orange,
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
                                     : () async {
@@ -462,6 +475,10 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     vertical: 20.0,
                                     horizontal: 20.0,
                                   ),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.orange),
+                                      borderRadius:
+                                          new BorderRadius.circular(50.0)),
                                   child: new Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -471,7 +488,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             //color: UIData.quitoThemeColor,
-                                            color: Colors.black,
+                                            color: Colors.white,
                                             fontSize: 18,
                                             //fontWeight: FontWeight.bold
                                           ),
