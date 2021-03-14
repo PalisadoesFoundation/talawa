@@ -73,17 +73,25 @@ class _OrganizationsState extends State<Organizations> {
     return alphalist;
   }
 
-  Future<List> getMembers() async {
+  Future<void> getMembers() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    ApiFunctions apiFunctions = ApiFunctions();
-    var result =
-        await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
-    // print(result);
-    List membersList = result == null ? [] : result['organizations'];
-    alphaMembersList = membersList[0]['members'];
-    setState(() {
-      alphaMembersList = alphaSplitList(alphaMembersList);
-    });
+
+    if (currentOrgID != null) {
+      ApiFunctions apiFunctions = ApiFunctions();
+      var result =
+          await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+      // print(result);
+      List membersList = result == null ? [] : result['organizations'];
+      alphaMembersList = membersList[0]['members'];
+
+      setState(() {
+        alphaMembersList = alphaSplitList(alphaMembersList);
+      });
+    } else {
+      setState(() {
+        alphaMembersList = [];
+      });
+    }
   }
 
   //returns a random color based on the user id (1 of 18)
