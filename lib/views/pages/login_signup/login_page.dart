@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   //saves org url api to be used in the app
   Future setAPIURL() async {
     setState(() {
-      orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
+      orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
     });
     await _pref.saveOrgUrl(orgUrl);
   }
@@ -524,7 +524,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
               FocusScopeNode currentFocus = FocusScope.of(context);
               currentFocus.unfocus();
             },
-            physics: new BouncingScrollPhysics(),
+            physics: new NeverScrollableScrollPhysics(),
             children: <Widget>[
               //has to be scrollable so the screen can adjust when the keyboard is tapped
               Center(

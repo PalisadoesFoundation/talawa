@@ -174,7 +174,7 @@ class RegisterFormState extends State<RegisterForm> {
               child : Column(
     children :  <Widget>[
                 TextFormField(
-                  autofillHints: <String>[AutofillHints.name] ,
+                  autofillHints: <String>[AutofillHints.givenName] ,
                     textInputAction: TextInputAction.next,
                     textCapitalization: TextCapitalization.words,
                     validator: (value) => Validator.validateFirstName(value),
@@ -201,7 +201,7 @@ class RegisterFormState extends State<RegisterForm> {
               height: 20,
             ),
             TextFormField(
-              autofillHints: <String>[AutofillHints.name] ,
+              autofillHints: <String>[AutofillHints.familyName] ,
               textInputAction: TextInputAction.next,
               textCapitalization: TextCapitalization.words,
               validator: (value) => Validator.validateLastName(value),
