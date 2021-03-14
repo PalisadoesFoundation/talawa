@@ -72,7 +72,11 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
     if (result.hasException) {
       print(result.exception);
-      _exceptionToast(result.exception.toString());
+      if (result.exception.graphqlErrors.isNotEmpty) {
+        _exceptionToast(result.exception.graphqlErrors.first.message);
+      } else {
+        _exceptionToast(result.exception.clientException.message);
+      }
     } else if (!result.hasException) {
       _successToast(
           "Switched to " + result.data['organizations'][0]['name'].toString());
@@ -153,6 +157,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     return Center(
       child: Text(
         msg,
+        maxLines: 4,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(fontSize: 16),
         textAlign: TextAlign.center,
       ),
@@ -188,11 +194,10 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
+      child: Text(
+        msg,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 4,
       ),
     );
 
