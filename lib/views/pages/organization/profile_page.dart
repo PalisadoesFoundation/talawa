@@ -38,7 +38,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -143,7 +142,6 @@ class _ProfilePageState extends State<ProfilePage> {
     final orgName = Provider.of<Preferences>(context).orgName;
 
     return Scaffold(
-        key: _scaffoldKey,
         backgroundColor: Colors.white,
         body: userDetails.isEmpty
             ? Center(child: CircularProgressIndicator())
@@ -285,7 +283,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                     color: UIData.secondaryColor,
                                   ),
                                   onTap: () async {
-                                    confirmLeave();
+                                    if(orgName != null){
+                                      confirmLeave();
+                                    } else {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                              content: Text("This action cannot be performed as, you are not a part of any organization. Try to switch to an active organization."),
+                                              action: SnackBarAction(
+                                                label: "Dismiss",
+                                                onPressed: () async {
+                                                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                                },
+                                              )
+                                          )
+                                      );
+                                    }
                                   }),
                           ListTile(
                             title: Text(
@@ -332,17 +344,28 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void confirmLeave() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Are you sure you want to leave this organization?"),
-        action: SnackBarAction(
-          label: "Yes",
-          onPressed: () async {
-            leaveOrg();
-            Navigator.of(context).pop();
-          },
-        )
-      )
-    );
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Confirmation"),
+            content: Text("Are you sure you want to leave this organization?"),
+            actions: [
+              FlatButton(
+                child: Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text("Yes"),
+                onPressed: () async {
+                  leaveOrg();
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }
