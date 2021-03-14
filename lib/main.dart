@@ -38,30 +38,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  GestureDetector(
-      onTap:(){
+    return GestureDetector(
+      onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+        if (!currentFocus.hasPrimaryFocus &&
+            currentFocus.focusedChild != null) {
           FocusManager.instance.primaryFocus.unfocus();
         }
       },
-      child:MaterialApp(
+      child: MaterialApp(
         title: UIData.appName,
         theme: ThemeData(
-            primaryColor: UIData.primaryColor,
-            fontFamily: UIData.quickFont,
-            primarySwatch: UIData.primaryColor),
+          primaryColor: UIData.primaryColor,
+          fontFamily: UIData.quickFont,
+          primarySwatch: UIData.primaryColor,
+        ),
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {
           print('build route for ${settings.name}');
-          var routes = <String, WidgetBuilder>{
+          var routes = {
             UIData.homeRoute: (BuildContext context) => HomePage(),
             UIData.loginPageRoute: (BuildContext context) => LoginPage(),
-            UIData.createOrgPage: (BuildContext context) => CreateOrganization(),
+            UIData.createOrgPage: (BuildContext context) =>
+                CreateOrganization(),
             UIData.joinOrganizationPage: (BuildContext context) =>
                 JoinOrganization(),
-            UIData.switchOrgPage: (BuildContext context) => SwitchOrganization(),
+            UIData.switchOrgPage: (BuildContext context) =>
+                SwitchOrganization(),
             UIData.profilePage: (BuildContext context) => ProfilePage(),
           };
           WidgetBuilder builder = routes[settings.name];
