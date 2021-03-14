@@ -97,13 +97,14 @@ class LoginFormState extends State<LoginForm> {
     return Form(
         key: _formKey,
         child: Column(
-          children: <Widget>[
+          children: [
             Text('Login', style: TextStyle(fontSize: 35, color: Colors.white)),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
-            AutofillGroup(child: Column(
-              children: <Widget>[
+            AutofillGroup(
+                child: Column(
+              children: [
                 TextFormField(
                   autofillHints: <String>[AutofillHints.email],
                   keyboardType: TextInputType.emailAddress,
@@ -125,7 +126,7 @@ class LoginFormState extends State<LoginForm> {
                     model.email = value;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
@@ -158,7 +159,7 @@ class LoginFormState extends State<LoginForm> {
                 ),
               ],
             )),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
@@ -199,7 +200,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child:Text(msg)),
+          Expanded(child: Text(msg)),
         ],
       ),
     );
@@ -221,7 +222,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child:Text(msg)),
+          Expanded(child: Text(msg)),
         ],
       ),
     );
