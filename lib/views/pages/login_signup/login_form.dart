@@ -80,19 +80,15 @@ class LoginFormState extends State<LoginForm> {
       List organisations = result.data['login']['user']['joinedOrganizations'];
       if(organisations.isEmpty){
         //skip the steps below
-        print("Skipped");
       }else{
         //execute the steps below
         final String currentOrgId =
         result.data['login']['user']['joinedOrganizations'][0]['_id'];
         await _pref.saveCurrentOrgId(currentOrgId);
-        print('Set6 DONE');
 
         final String currentOrgImgSrc =
         result.data['login']['user']['joinedOrganizations'][0]['image'];
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-
-        print('Set7 DONE');
 
         final String currentOrgName =
         result.data['login']['user']['joinedOrganizations'][0]['name'];
