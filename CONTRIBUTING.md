@@ -32,14 +32,17 @@ Detailed document containing how GitFlow works: https://nvie.com/posts/a-success
 Code contributions to Talawa come in the form of pull requests. These are done by forking the repo and making changes locally. 
 
 The process of proposing a change to Talawa can be summarized as:
-1. Fork the Talawa repository and branch off `master`
-1. Make the desired changes to the Talawa source 
-1. Run the app and test your changes
-1. If you've added code that should be tested, write tests
-1. Ensure the test suite passes, either locally or on CI once a PR has been created
-1. Push the changes to your fork
-1. Create a pull request to the Talawa repository
-1. Review and address comments on your pull request if requested
+1. Fork the Talawa repository and branch off `master`.
+2. The repository can be cloned locally using `git clone <forked repo url>`.
+3. Make the desired changes to the Talawa source.
+4. Run the app and test your changes.
+5. If you've added code that should be tested, write tests.
+6. After making changes you can add them to git locally using `git add <file_name>`(to add changes only in a particular file) or `git add .` (to add all changes).
+7. After adding the changes you need to commit them using `git commit -m '<commit message>'`(look at the commit guidelines below for commit messages).
+8. Once you have successfully commited your changes, you need to push the changes to the forked repo on github using: `git push origin <branch_name>`.(Here branch name must be name of the branch you want to push the changes to.)
+9. Now create a pull request to the Talawa repository from your forked repo. Open an issue regarding the same and link your PR to it.
+10. Ensure the test suite passes, either locally or on CI once a PR has been created. 
+11. Review and address comments on your pull request if requested.
 
 ### General Guidelines
 
