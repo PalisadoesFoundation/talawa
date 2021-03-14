@@ -285,20 +285,26 @@ class RegisterFormState extends State<RegisterForm> {
                           hintText: 'Password',
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
+                        onChanged: (_) {
+                          setState(() {});
+                        },
                         onSaved: (value) {
                           model.password = value;
                         },
                       ),
                       SizedBox(
-                        height: 10,
+                        height: originalPassword.text.isEmpty ? 0 : 10,
                       ),
-                      FlutterPasswordStrength(
-                          password: originalPassword.text,
-                          height: 5,
-                          radius: 10,
-                          strengthCallback: (strength) {
-                            debugPrint(strength.toString());
-                          }),
+                      Opacity(
+                        opacity: originalPassword.text.isEmpty ? 0 : 1,
+                        child: FlutterPasswordStrength(
+                            password: originalPassword.text,
+                            height: 5,
+                            radius: 10,
+                            strengthCallback: (strength) {
+                              debugPrint(strength.toString());
+                            }),
+                      ),
                       SizedBox(
                         height: 20,
                       ),
