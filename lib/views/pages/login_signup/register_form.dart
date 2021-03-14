@@ -17,6 +17,7 @@ import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_password_strength/flutter_password_strength.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -151,7 +152,8 @@ class RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
+    return SingleChildScrollView(
+      child: Form(
         key: _formKey,
         autovalidate: _validate,
         child: Column(
@@ -270,7 +272,18 @@ class RegisterFormState extends State<RegisterForm> {
                 model.password = value;
               },
             ),
-            SizedBox(
+                SizedBox(
+                  height: 20,
+                ),
+                FlutterPasswordStrength(
+                password: originalPassword.text,
+                height: 10,
+                radius: 10,
+                strengthCallback: (strength){
+                debugPrint(strength.toString());
+              }
+                ),
+                  SizedBox(
               height: 20,
             ),
             TextFormField(
@@ -309,6 +322,7 @@ class RegisterFormState extends State<RegisterForm> {
                       ),
                 color: Colors.white,
                 onPressed: () async {
+                  FocusScope.of(context).unfocus();
                   _validate = true;
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
@@ -324,7 +338,7 @@ class RegisterFormState extends State<RegisterForm> {
               ),
             ),
           ],
-        ));
+        )));
   }
 
   Widget addImage() {
