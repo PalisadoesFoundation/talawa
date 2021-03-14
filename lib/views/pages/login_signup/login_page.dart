@@ -368,7 +368,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     onPressed: () async {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        setAPIURL();
+                                        await setAPIURL();
                                         setState(() {
                                           saveMsg = "URL SAVED!";
                                         });

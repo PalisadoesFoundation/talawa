@@ -20,6 +20,7 @@ class GraphQLConfiguration with ChangeNotifier {
     final url = await _pref.getOrgUrl();
     orgURI = url;
     displayImgRoute = url;
+    httpLink= HttpLink(uri: "${orgURI}graphql");
     notifyListeners();
     print(orgURI);
   }
