@@ -14,7 +14,7 @@ class _ChatState extends State<Chat> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          children: <Widget>[
+          children: [
             CircleAvatar(
               backgroundColor: UIData.secondaryColor,
               child: Image.asset(UIData.talawaLogo),
@@ -38,7 +38,7 @@ class _ChatState extends State<Chat> {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(
-          children: <Widget>[
+          children: [
             Flexible(
               child: TextField(
                 decoration: InputDecoration.collapsed(
