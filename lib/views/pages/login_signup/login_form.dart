@@ -88,9 +88,8 @@ class LoginFormState extends State<LoginForm> {
       final String currentOrgName =
           result.data['login']['user']['joinedOrganizations'][0]['name'];
       await _pref.saveCurrentOrgName(currentOrgName);
-
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage()));
+          MaterialPageRoute(builder: (context) => new HomePage(openPageIndex: 4,)));
     }
   }
 

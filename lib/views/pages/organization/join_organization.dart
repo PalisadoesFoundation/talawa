@@ -18,7 +18,8 @@ import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'create_organization.dart';
 
 class JoinOrganization extends StatefulWidget {
-  JoinOrganization({Key key, this.msg});
+  final bool fromProfile;
+  JoinOrganization({Key key, this.msg,this.fromProfile = false});
 
   final String msg;
   @override
@@ -97,11 +98,12 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     } else if (!result.hasException && !result.loading) {
       print(result.data);
       _successToast("Request Sent to Organization Admin");
-
-      pushNewScreen(
-        context,
-        screen: NewsFeed(),
-      );
+      if(widget.fromProfile){
+        Navigator.pop(context);
+      }else{
+        Navigator.of(
+            context).push(MaterialPageRoute(builder: (context)=>HomePage(openPageIndex: 4,),));
+      }
     }
   }
 
@@ -137,12 +139,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         await _pref.saveCurrentOrgName(currentOrgName);
       }
       _successToast("Sucess!");
-
+      if(widget.fromProfile){
+        Navigator.pop(context);
+      }else{
+        Navigator.of(
+            context).push(MaterialPageRoute(builder: (context)=>HomePage(openPageIndex: 4,),));
+      }
       //Navigate user to newsfeed
-      pushNewScreen(
-        context,
-        screen: ProfilePage(),
-      );
     }
   }
 
@@ -394,7 +397,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         elevation: 5.0,
         onPressed: () {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => new CreateOrganization()));
+              builder: (context) => new CreateOrganization(isFromProfile: widget.fromProfile,)));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

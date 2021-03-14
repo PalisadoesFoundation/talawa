@@ -253,7 +253,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  screen: JoinOrganization(),
+                                  screen: JoinOrganization(fromProfile: true,),
                                 );
                               }),
                           isCreator == true
