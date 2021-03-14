@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
@@ -18,17 +20,19 @@ String userID;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   userID = await preferences.getUserId();
-
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider<GraphQLConfiguration>(
-          create: (_) => GraphQLConfiguration()),
-      ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
-      ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
-      ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
-    ],
-    child: MyApp(),
-  ));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<GraphQLConfiguration>(
+            create: (_) => GraphQLConfiguration()),
+        ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
+        ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
+        ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
+      ],
+      child: MyApp(),
+    ));
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -36,14 +40,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  GestureDetector(
-      onTap:(){
+    return GestureDetector(
+      onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+        if (!currentFocus.hasPrimaryFocus &&
+            currentFocus.focusedChild != null) {
           FocusManager.instance.primaryFocus.unfocus();
         }
       },
-      child:MaterialApp(
+      child: MaterialApp(
         title: UIData.appName,
         theme: ThemeData(
             primaryColor: UIData.primaryColor,
@@ -56,10 +61,12 @@ class MyApp extends StatelessWidget {
           var routes = <String, WidgetBuilder>{
             UIData.homeRoute: (BuildContext context) => HomePage(),
             UIData.loginPageRoute: (BuildContext context) => LoginPage(),
-            UIData.createOrgPage: (BuildContext context) => CreateOrganization(),
+            UIData.createOrgPage: (BuildContext context) =>
+                CreateOrganization(),
             UIData.joinOrganizationPage: (BuildContext context) =>
                 JoinOrganization(),
-            UIData.switchOrgPage: (BuildContext context) => SwitchOrganization(),
+            UIData.switchOrgPage: (BuildContext context) =>
+                SwitchOrganization(),
             UIData.profilePage: (BuildContext context) => ProfilePage(),
           };
           WidgetBuilder builder = routes[settings.name];

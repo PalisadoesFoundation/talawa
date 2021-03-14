@@ -85,7 +85,8 @@ class _OrganizationsState extends State<Organizations> {
 
   //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
-    int colorint = int.parse(id.replaceAll(RegExp('[a-z]'), ''));
+    double colorDouble = double.parse(id.replaceAll(RegExp('[A-Za-z-\/:-@\[-\`{-~]'), ''));
+    int colorint = colorDouble.toInt();
     colorint = (colorint % 18);
     return Color.alphaBlend(
       Colors.black45,
