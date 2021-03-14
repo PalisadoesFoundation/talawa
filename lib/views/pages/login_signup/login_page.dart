@@ -1,11 +1,7 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/login_signup/login_form.dart';
@@ -34,11 +30,23 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   String orgUrl;
   String saveMsg = "Set URL";
   String urlInput;
+  //this animation length has to be larger becasuse it includes startup time
+  AnimationController controller;
 
   @override
   void initState() {
     super.initState();
     urlController.addListener(listenToUrl);
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 2000),
+    );
+  }
+
+  @override
+  dispose() {
+    controller.dispose(); // you need this
+    super.dispose();
   }
 
   listenToUrl() {
@@ -158,12 +166,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
   @override
   build(BuildContext context) {
-    //this animation length has to be larger becasuse it includes startup time
-    var controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 2000),
-    );
-
     var animation = Tween(begin: 0.0, end: 1.0).animate(controller);
 
     var helloController = AnimationController(
