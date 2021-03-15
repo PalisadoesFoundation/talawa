@@ -41,10 +41,13 @@ class _ChatState extends State<Chat> {
           children: <Widget>[
             Flexible(
               child: TextField(
-                decoration: InputDecoration.collapsed(
-                  border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),),
-                    hintText: "    Enter your message...."),
+                textInputAction: TextInputAction.newline,
+                maxLines: null,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    hintText: "Enter your message...."),
               ),
             ),
             Container(
