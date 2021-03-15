@@ -128,6 +128,8 @@ class _ProfilePageState extends State<ProfilePage> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
+      Provider.of<Preferences>(context,listen: false).saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(context,listen: false).saveCurrentOrgId(newOrgId);
       //  _successToast('You are no longer apart of this organization');
       pushNewScreen(
         context,
@@ -138,8 +140,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final orgName = Provider.of<Preferences>(context).orgName;
-
+    var orgName = Provider.of<Preferences>(context).orgName;
+    if(orgName == null){
+      orgName = 'No Organization Joined';
+    }
     return Scaffold(
         backgroundColor: Colors.white,
         body: userDetails.isEmpty
