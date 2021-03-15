@@ -6,6 +6,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/login_signup/login_form.dart';
 import 'package:talawa/views/pages/login_signup/register_form.dart';
+import 'package:talawa/views/widgets/keep_alive_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -533,21 +534,29 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
             physics: saveMsg != "URL SAVED!" ? new NeverScrollableScrollPhysics() : new BouncingScrollPhysics(),
             children: <Widget>[
               //has to be scrollable so the screen can adjust when the keyboard is tapped
-              Center(
-                child: SingleChildScrollView(
-                  child: loginScreenForm(),
+              KeepAlivePage(
+                child:Center(
+                  child: SingleChildScrollView(
+                    child: loginScreenForm(),
+                  ),
                 ),
               ),
 
-              Center(
-                child: SingleChildScrollView(
-                  child: mainScreen(),
+              KeepAlivePage(
+                child:Center(
+                  child: SingleChildScrollView(
+                    child: mainScreen(),
+                  ),
                 ),
               ),
 
               //has to be scrollable so the screen can adjust when the keyboard is tapped
-              Center(
-                child: SingleChildScrollView(child: registrationScreenForm()),
+              KeepAlivePage(
+                child:Center(
+                  child: SingleChildScrollView(
+                    child: registrationScreenForm(),
+                  ),
+                ),
               ),
             ],
           ),
