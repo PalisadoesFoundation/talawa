@@ -70,7 +70,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast('Sign Up unsuccessful. Please try again');
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -106,7 +106,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast("Sign Up unsuccessful. Please try again");
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -453,7 +453,12 @@ class RegisterFormState extends State<RegisterForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Expanded(
+            child: Text(
+              msg,
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );
@@ -475,7 +480,13 @@ class RegisterFormState extends State<RegisterForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child: Text(msg)),
+          Expanded(
+            child: Text(
+              msg,
+              style: TextStyle(fontSize: 15.0, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );
