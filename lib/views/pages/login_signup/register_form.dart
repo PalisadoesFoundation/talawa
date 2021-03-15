@@ -302,7 +302,11 @@ class RegisterFormState extends State<RegisterForm> {
                         onFieldSubmitted: (_) {
                           FocusScope.of(context).unfocus();
                           FocusScope.of(context).requestFocus(confirmPassField);
-                          setState(() {});
+                        },
+                        onChanged: (_){
+                          setState(() {
+                            
+                          });
                         },
                         onSaved: (value) {
                           model.password = value;
