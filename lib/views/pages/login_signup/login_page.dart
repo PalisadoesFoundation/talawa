@@ -163,6 +163,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       curve: Curves.bounceOut,
     );
   }
+  //set URL
+  void _setURL(){
+    setState(() {
+      saveMsg = "URL SAVED!";
+    });
+  }
 
   @override
   build(BuildContext context) {
@@ -368,10 +374,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     onPressed: () async {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        await setAPIURL();
-                                        setState(() {
-                                          saveMsg = "URL SAVED!";
-                                        });
+                                        setAPIURL();
+                                        _setURL();
                                       }
                                     }),
                               ],
@@ -526,7 +530,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
               FocusScopeNode currentFocus = FocusScope.of(context);
               currentFocus.unfocus();
             },
-            physics: new BouncingScrollPhysics(),
+            physics: saveMsg != "URL SAVED!" ? new NeverScrollableScrollPhysics() : new BouncingScrollPhysics(),
             children: <Widget>[
               //has to be scrollable so the screen can adjust when the keyboard is tapped
               Center(
