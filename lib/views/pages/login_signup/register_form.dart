@@ -180,10 +180,15 @@ class RegisterFormState extends State<RegisterForm> {
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(20.0)),
-                          prefixIcon: Icon(Icons.person),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          prefixIcon: Icon(Icons.person, color: Colors.white),
                           labelText: "First Name",
                           labelStyle: TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
@@ -204,10 +209,15 @@ class RegisterFormState extends State<RegisterForm> {
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(20.0)),
-                          prefixIcon: Icon(Icons.person),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          prefixIcon: Icon(Icons.person, color: Colors.white),
                           labelText: "Last Name",
                           labelStyle: TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
@@ -229,10 +239,15 @@ class RegisterFormState extends State<RegisterForm> {
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(20.0)),
-                          prefixIcon: Icon(Icons.email),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          prefixIcon: Icon(Icons.email, color: Colors.white),
                           labelText: "Email",
                           labelStyle: TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
@@ -248,43 +263,48 @@ class RegisterFormState extends State<RegisterForm> {
                       ),
                       TextFormField(
                         autofillHints: <String>[AutofillHints.password],
-                        obscureText: _obscureText,
+                        obscureText: true,
                         controller: originalPassword,
                         validator: (value) => Validator.validatePassword(value),
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(20.0)),
-                          prefixIcon: Icon(Icons.lock),
-                          suffixIcon: FlatButton(
-                            onPressed: _toggle,
-                            child: Icon(_obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          prefixIcon: Icon(Icons.lock, color: Colors.white),
                           labelText: "Password",
                           labelStyle: TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
                           alignLabelWithHint: true,
-                          hintText: 'password',
+                          hintText: 'Password',
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
+                        onChanged: (_) {
+                          setState(() {});
+                        },
                         onSaved: (value) {
                           model.password = value;
                         },
                       ),
                       SizedBox(
-                        height: 20,
+                        height: originalPassword.text.isEmpty ? 0 : 10,
                       ),
-                      FlutterPasswordStrength(
-                          password: originalPassword.text,
-                          height: 10,
-                          radius: 10,
-                          strengthCallback: (strength) {
-                            debugPrint(strength.toString());
-                          }),
+                      Opacity(
+                        opacity: originalPassword.text.isEmpty ? 0 : 1,
+                        child: FlutterPasswordStrength(
+                            password: originalPassword.text,
+                            height: 5,
+                            radius: 10,
+                            strengthCallback: (strength) {
+                              debugPrint(strength.toString());
+                            }),
+                      ),
                       SizedBox(
                         height: 20,
                       ),
@@ -296,10 +316,15 @@ class RegisterFormState extends State<RegisterForm> {
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(20.0)),
-                          prefixIcon: Icon(Icons.lock),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          prefixIcon: Icon(Icons.lock, color: Colors.white),
                           labelText: "Confirm Password",
                           labelStyle: TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
@@ -319,7 +344,15 @@ class RegisterFormState extends State<RegisterForm> {
                     padding: EdgeInsets.all(12.0),
                     shape: StadiumBorder(),
                     child: _progressBarState
-                        ? const CircularProgressIndicator()
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.orange),
+                              strokeWidth: 3,
+                              backgroundColor: Colors.black,
+                            ))
                         : Text(
                             "SIGN UP",
                           ),
