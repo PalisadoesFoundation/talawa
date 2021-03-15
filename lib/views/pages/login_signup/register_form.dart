@@ -90,8 +90,9 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => new JoinOrganization(),
+          settings: RouteSettings(name: '/register-form')));
     }
   }
 
@@ -293,26 +294,20 @@ class RegisterFormState extends State<RegisterForm> {
                           hintText: 'Password',
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
-                        onChanged: (_) {
-                          setState(() {});
-                        },
                         onSaved: (value) {
                           model.password = value;
                         },
                       ),
                       SizedBox(
-                        height: originalPassword.text.isEmpty ? 0 : 10,
+                        height: 10,
                       ),
-                      Opacity(
-                        opacity: originalPassword.text.isEmpty ? 0 : 1,
-                        child: FlutterPasswordStrength(
-                            password: originalPassword.text,
-                            height: 5,
-                            radius: 10,
-                            strengthCallback: (strength) {
-                              debugPrint(strength.toString());
-                            }),
-                      ),
+                      FlutterPasswordStrength(
+                          password: originalPassword.text,
+                          height: 5,
+                          radius: 10,
+                          strengthCallback: (strength) {
+                            debugPrint(strength.toString());
+                          }),
                       SizedBox(
                         height: 20,
                       ),
