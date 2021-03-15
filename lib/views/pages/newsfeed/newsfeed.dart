@@ -19,7 +19,6 @@ class NewsFeed extends StatefulWidget {
 }
 
 class _NewsFeedState extends State<NewsFeed> {
-
   ScrollController scrollController = new ScrollController();
   bool isVisible = true;
   Preferences preferences = Preferences();
@@ -32,21 +31,21 @@ class _NewsFeedState extends State<NewsFeed> {
     super.initState();
     getPosts();
     Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
-      scrollController.addListener(() {
-        if (scrollController.position.userScrollDirection ==
-            ScrollDirection.reverse) {
-          if (isVisible)
-            setState(() {
-              isVisible = false;
-            });
-        }
-        if (scrollController.position.userScrollDirection ==
-            ScrollDirection.forward) {
-          if (!isVisible)
-            setState(() {
-              isVisible = true;
-            });
-        }
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        if (isVisible)
+          setState(() {
+            isVisible = false;
+          });
+      }
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        if (!isVisible)
+          setState(() {
+            isVisible = true;
+          });
+      }
     });
   }
 
@@ -77,7 +76,6 @@ class _NewsFeedState extends State<NewsFeed> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: CustomAppBar('NewsFeed'),
         floatingActionButton: addPostFab(),
@@ -100,68 +98,75 @@ class _NewsFeedState extends State<NewsFeed> {
                                 child: Column(
                                   children: <Widget>[
                                     InkWell(
-                                        onTap: () {
-                                          pushNewScreen(
-                                            context,
-                                            screen: NewsArticle(
-                                                post: postList[index]),
-                                          );
-                                        },
-                                        child: Card(
-                                          color: Colors.white,
+                                      onTap: () {
+                                        pushNewScreen(
+                                          context,
+                                          screen: NewsArticle(
+                                              post: postList[index],
+                                              index: index),
+                                        );
+                                      },
+                                      child: Card(
+                                        color: Colors.white,
                                         child: Column(
                                           children: <Widget>[
                                             Container(
-                                              padding: EdgeInsets.all(5.0),
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(20.0),
-                                                child:  Image.asset(UIData.shoppingImage),
-                                              )
-                                            ),
-                                            Row(
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    width: 30,
-                                                  ),
-                                                  Container(
-                                                      child: Text(
-                                                          postList[index]['title'].toString(),
-                                                        style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 20.0,
-                                                        ),
-                                                      )
-                                                  ),
-                                                ]
-                                            ),
+                                                padding: EdgeInsets.all(5.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  child: Hero(
+                                                      tag: 'NewFeedThumbnail' +
+                                                          index.toString(),
+                                                      child: Image.asset(UIData
+                                                          .shoppingImage)),
+                                                )),
+                                            Row(children: <Widget>[
+                                              SizedBox(
+                                                width: 30,
+                                              ),
+                                              Container(
+                                                  child: Text(
+                                                postList[index]['title']
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20.0,
+                                                ),
+                                              )),
+                                            ]),
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            Row(
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    width: 30,
-                                                  ),
-                                                  Container(
-                                                    width: MediaQuery.of(context).size.width - 50,
-                                                      
-                                                      child: Text(
-                                                          postList[index]["text"].toString(),
-                                                        textAlign: TextAlign.justify,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        maxLines: 10,
-                                                        style: TextStyle(
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      )
-                                                  ),
-                                                ]
-                                            ),
+                                            Row(children: <Widget>[
+                                              SizedBox(
+                                                width: 30,
+                                              ),
+                                              Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width -
+                                                      50,
+                                                  child: Text(
+                                                    postList[index]["text"]
+                                                        .toString(),
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 10,
+                                                    style: TextStyle(
+                                                      fontSize: 16.0,
+                                                    ),
+                                                  )),
+                                            ]),
                                             Padding(
                                                 padding: EdgeInsets.all(10),
                                                 child: Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.spaceAround,
+                                                        MainAxisAlignment
+                                                            .spaceAround,
                                                     children: <Widget>[
                                                       likeButton(index),
                                                       commentCounter(index),
@@ -169,7 +174,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                                     ])),
                                           ],
                                         ),
-                                    ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -178,9 +183,7 @@ class _NewsFeedState extends State<NewsFeed> {
                       ),
                     ],
                   ),
-                )
-        )
-    );
+                )));
   }
 
   Widget addPostFab() {

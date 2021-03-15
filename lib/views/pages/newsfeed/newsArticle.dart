@@ -7,7 +7,9 @@ import 'package:talawa/utils/timer.dart';
 
 class NewsArticle extends StatefulWidget {
   Map post;
-  NewsArticle({Key key, @required this.post}) : super(key: key);
+  int index;
+  NewsArticle({Key key, @required this.post, @required this.index})
+      : super(key: key);
 
   @override
   _NewsArticleState createState() => _NewsArticleState();
@@ -71,7 +73,9 @@ class _NewsArticleState extends State<NewsArticle> {
                 overflow: TextOverflow.ellipsis,
               ),
               background: FittedBox(
-                child: Image.asset(UIData.shoppingImage),
+                child: Hero(
+                    tag: 'NewFeedThumbnail' + widget.index.toString(),
+                    child: Image.asset(UIData.shoppingImage)),
                 fit: BoxFit.fill,
               ),
             ),
