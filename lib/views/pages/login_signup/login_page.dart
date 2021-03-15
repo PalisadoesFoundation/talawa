@@ -30,11 +30,23 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   String orgUrl;
   String saveMsg = "Set URL";
   String urlInput;
+  //this animation length has to be larger becasuse it includes startup time
+  AnimationController controller;
 
   @override
   void initState() {
     super.initState();
     urlController.addListener(listenToUrl);
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 2000),
+    );
+  }
+
+  @override
+  dispose() {
+    controller.dispose(); // you need this
+    super.dispose();
   }
 
   listenToUrl() {
@@ -151,15 +163,15 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       curve: Curves.bounceOut,
     );
   }
+  //set URL
+  void _setURL(){
+    setState(() {
+      saveMsg = "URL SAVED!";
+    });
+  }
 
   @override
   build(BuildContext context) {
-    //this animation length has to be larger becasuse it includes startup time
-    var controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 2000),
-    );
-
     var animation = Tween(begin: 0.0, end: 1.0).animate(controller);
 
     var helloController = AnimationController(
@@ -365,9 +377,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
                                         setAPIURL();
-                                        setState(() {
-                                          saveMsg = "URL SAVED!";
-                                        });
+                                        _setURL();
                                       }
                                     }),
                               ],
@@ -520,7 +530,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
               FocusScopeNode currentFocus = FocusScope.of(context);
               currentFocus.unfocus();
             },
-            physics: new NeverScrollableScrollPhysics(),
+            physics: saveMsg != "URL SAVED!" ? new NeverScrollableScrollPhysics() : new BouncingScrollPhysics(),
             children: <Widget>[
               //has to be scrollable so the screen can adjust when the keyboard is tapped
               Center(
