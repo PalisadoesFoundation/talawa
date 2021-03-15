@@ -92,7 +92,7 @@ class RegisterFormState extends State<RegisterForm> {
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization()));
+          MaterialPageRoute(builder: (context) => new JoinOrganization(fromProfile: false,)));
     }
   }
 
@@ -127,7 +127,7 @@ class RegisterFormState extends State<RegisterForm> {
       await _pref.saveUserId(currentUserId);
 
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization()));
+          MaterialPageRoute(builder: (context) => new JoinOrganization(fromProfile: false,)));
     }
   }
 

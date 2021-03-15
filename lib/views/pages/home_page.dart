@@ -19,6 +19,8 @@ import 'organization/profile_page.dart';
 import 'package:talawa/services/preferences.dart';
 
 class HomePage extends StatefulWidget {
+  final int openPageIndex;
+  HomePage({this.openPageIndex = 0});
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -33,13 +35,15 @@ class _HomePageState extends State<HomePage> {
 //////////////
   int currentIndex = 0;
 
-  final PersistentTabController _controller =
-      PersistentTabController(initialIndex: 2);
+  PersistentTabController _controller;
   Preferences preferences = Preferences();
 
   @override
   void initState() {
     super.initState();
+    currentIndex = widget.openPageIndex;
+    _controller  =
+        PersistentTabController(initialIndex: currentIndex);
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
     Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
   }
