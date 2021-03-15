@@ -8,7 +8,6 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
 import 'package:talawa/views/pages/members/members.dart';
-import 'package:talawa/enums/connectivity_status.dart';
 
 import 'package:talawa/views/pages/events/events.dart';
 import 'package:talawa/views/pages/chat/groups.dart';
