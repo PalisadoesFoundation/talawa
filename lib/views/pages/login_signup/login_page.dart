@@ -1,6 +1,7 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -20,6 +21,7 @@ void changeFirst() {
 }
 
 class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
   final PageController _pageController =
       new PageController(initialPage: 1, viewportFraction: 1.0);
   var _media;
@@ -30,6 +32,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   String orgUrl;
   String saveMsg = "Set URL";
   String urlInput;
+  bool isUrlCalled = false;
   //this animation length has to be larger becasuse it includes startup time
   AnimationController controller;
 
@@ -163,8 +166,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       curve: Curves.bounceOut,
     );
   }
+
   //set URL
-  void _setURL(){
+  void _setURL() {
     setState(() {
       saveMsg = "URL SAVED!";
     });
@@ -367,15 +371,48 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                 RaisedButton(
                                     padding: EdgeInsets.all(12.0),
                                     shape: StadiumBorder(),
-                                    child: Text(
-                                      saveMsg,
-                                    ),
+                                    child: isUrlCalled
+                                        ? SizedBox(
+                                            height: 14,
+                                            width: 14,
+                                            child: CircularProgressIndicator(
+                                              backgroundColor: Colors.white,
+                                            ),
+                                          )
+                                        : Text(
+                                            saveMsg,
+                                          ),
                                     color: Colors.white,
                                     onPressed: () async {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        setAPIURL();
-                                        _setURL();
+
+                                        setState(() {
+                                          isUrlCalled = true;
+                                        });
+
+                                        try {
+                                          final response = await http.get(
+                                              '${dropdownValue.toLowerCase()}://${urlController.text}/');
+
+                                          if (response.statusCode == 200) {
+                                            setAPIURL();
+                                            _setURL();
+                                          }
+                                        } catch (e) {
+                                          _scaffoldkey.currentState
+                                              .showSnackBar(
+                                            SnackBar(
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                content:
+                                                    Text('Url does not exist')),
+                                          );
+                                        }
+
+                                        setState(() {
+                                          isUrlCalled = false;
+                                        });
                                       }
                                     }),
                               ],
@@ -518,6 +555,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
     return Scaffold(
         //resizeToAvoidBottomInset: false,
+        key: _scaffoldkey,
         backgroundColor: Colors.white,
         body: Container(
           decoration: BoxDecoration(
@@ -530,7 +568,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
               FocusScopeNode currentFocus = FocusScope.of(context);
               currentFocus.unfocus();
             },
-            physics: saveMsg != "URL SAVED!" ? new NeverScrollableScrollPhysics() : new BouncingScrollPhysics(),
+            physics: saveMsg != "URL SAVED!"
+                ? new NeverScrollableScrollPhysics()
+                : new BouncingScrollPhysics(),
             children: <Widget>[
               //has to be scrollable so the screen can adjust when the keyboard is tapped
               Center(
