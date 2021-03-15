@@ -348,15 +348,27 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             if (_formKey.currentState.validate() &&
                                 radioValue >= 0 &&
                                 radioValue1 >= 0) {
-                              _formKey.currentState.save();
-                              if (_image != null) {
-                                createOrg();
-                              } else {
-                                createOrgWithoutImg();
+                              if(orgNameController.text.isNotEmpty){
+                                if(orgDescController.text.isNotEmpty){
+                                  if(orgMemberDescController.text.isNotEmpty){
+                                    _formKey.currentState.save(); 
+                                    if (_image != null) { 
+                                      createOrg(); 
+                                    }else { 
+                                      createOrgWithoutImg(); 
+                                    } 
+                                    setState(() { 
+                                      toggleProgressBarState(); 
+                                    });
+                                  }else {
+                                    _exceptionToast("Member Description Can\'t be empty");
+                                  }
+                                }else {
+                                    _exceptionToast("Organization Description Can\'t be empty");
+                                }
+                              }else {
+                                    _exceptionToast("Organization Name Can\'t be empty");
                               }
-                              setState(() {
-                                toggleProgressBarState();
-                              });
                             } else if (radioValue < 0 || radioValue1 < 0) {
                               _exceptionToast("A choice must be selected");
                             }
