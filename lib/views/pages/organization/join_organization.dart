@@ -12,6 +12,7 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
+import 'package:talawa/views/pages/home_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 
 import 'create_organization.dart';
@@ -99,7 +100,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
       pushNewScreen(
         context,
-        screen: NewsFeed(),
+        screen: ModalRoute.of(context).settings.name == '/profile_page'
+            ? ProfilePage()
+            : HomePage(),
       );
     }
   }
@@ -140,7 +143,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       //Navigate user to newsfeed
       pushNewScreen(
         context,
-        screen: ProfilePage(),
+        screen: ModalRoute.of(context).settings.name == '/profile_page'
+            ? ProfilePage()
+            : HomePage(),
       );
     }
   }
@@ -392,7 +397,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
+          Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => new CreateOrganization()));
         },
       ),

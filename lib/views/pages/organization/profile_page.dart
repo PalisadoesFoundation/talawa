@@ -62,33 +62,40 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future fetchOrgAdmin() async {
     final String orgId = await _preferences.getCurrentOrgId();
-    final String fName = await _preferences.getUserFName();
-    final String lName = await _preferences.getUserLName();
+    if (orgId != null) {
+      final String fName = await _preferences.getUserFName();
+      final String lName = await _preferences.getUserLName();
 
-    String creatorFName;
-    String creatorLName;
+      String creatorFName;
+      String creatorLName;
 
-    GraphQLClient _client = graphQLConfiguration.authClient();
+      GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client
-        .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
-    if (result.hasException) {
-      print(result.exception);
-    } else if (!result.hasException) {
-      setState(() {
-        creatorFName = result.data['organizations'][0]['creator']['firstName'];
-        creatorLName = result.data['organizations'][0]['creator']['lastName'];
-      });
-
-      if (fName != creatorFName && lName != creatorLName) {
+      QueryResult result = await _client
+          .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
+      if (result.hasException) {
+        print(result.exception);
+      } else if (!result.hasException) {
         setState(() {
-          isCreator = false;
+          creatorFName =
+              result.data['organizations'][0]['creator']['firstName'];
+          creatorLName = result.data['organizations'][0]['creator']['lastName'];
         });
-      } else {
-        setState(() {
-          isCreator = true;
-        });
+
+        if (fName != creatorFName && lName != creatorLName) {
+          setState(() {
+            isCreator = false;
+          });
+        } else {
+          setState(() {
+            isCreator = true;
+          });
+        }
       }
+    } else {
+      setState(() {
+        isCreator = false;
+      });
     }
   }
 
@@ -251,10 +258,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: UIData.secondaryColor,
                               ),
                               onTap: () {
-                                pushNewScreen(
-                                  context,
-                                  screen: JoinOrganization(),
-                                );
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        new JoinOrganization(),
+                                    settings:
+                                        RouteSettings(name: '/profile_page')));
                               }),
                           isCreator == true
                               ? ListTile(
