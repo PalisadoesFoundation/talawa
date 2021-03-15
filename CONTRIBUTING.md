@@ -69,7 +69,7 @@ core
 - enums: common enums shared
 - models: business data models, entities
 - theme: application theme, colors, dimens
-- utils: utilitity classes
+- utils: utility classes
 ```
 
 #### Structure code this way

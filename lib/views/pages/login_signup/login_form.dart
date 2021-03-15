@@ -64,7 +64,6 @@ class LoginFormState extends State<LoginForm> {
         _progressBarState = true;
       });
       _successToast("All Set!");
-
       final Token accessToken =
           new Token(tokenString: result.data['login']['accessToken']);
       await _pref.saveToken(accessToken);
@@ -77,15 +76,24 @@ class LoginFormState extends State<LoginForm> {
       await _pref.saveUserFName(userFName);
       final String userLName = result.data['login']['user']['lastName'];
       await _pref.saveUserLName(userLName);
-      final String currentOrgId =
-          result.data['login']['user']['joinedOrganizations'][0]['_id'];
-      await _pref.saveCurrentOrgId(currentOrgId);
-      final String currentOrgImgSrc =
-          result.data['login']['user']['joinedOrganizations'][0]['image'];
-      await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-      final String currentOrgName =
-          result.data['login']['user']['joinedOrganizations'][0]['name'];
-      await _pref.saveCurrentOrgName(currentOrgName);
+
+      List organisations = result.data['login']['user']['joinedOrganizations'];
+      if(organisations.isEmpty){
+        //skip the steps below
+      }else{
+        //execute the steps below
+        final String currentOrgId =
+        result.data['login']['user']['joinedOrganizations'][0]['_id'];
+        await _pref.saveCurrentOrgId(currentOrgId);
+
+        final String currentOrgImgSrc =
+        result.data['login']['user']['joinedOrganizations'][0]['image'];
+        await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+
+        final String currentOrgName =
+        result.data['login']['user']['joinedOrganizations'][0]['name'];
+        await _pref.saveCurrentOrgName(currentOrgName);
+      }
 
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => new HomePage()));
@@ -111,10 +119,15 @@ class LoginFormState extends State<LoginForm> {
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20.0)),
-                    prefixIcon: Icon(Icons.email),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.orange),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    prefixIcon: Icon(Icons.email, color: Colors.white,),
                     labelText: "Email",
                     labelStyle: TextStyle(color: Colors.white),
                     alignLabelWithHint: true,
@@ -135,15 +148,22 @@ class LoginFormState extends State<LoginForm> {
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20.0)),
-                    prefixIcon: Icon(Icons.lock),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.orange),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    prefixIcon: Icon(Icons.lock, color: Colors.white,),
                     suffixIcon: FlatButton(
                       onPressed: _toggle,
                       child: Icon(_obscureText
                           ? Icons.visibility_off
-                          : Icons.visibility),
+                          : Icons.visibility,
+                          color: Colors.white,
+                      ),
                     ),
                     labelText: "Password",
                     labelStyle: TextStyle(color: Colors.white),
@@ -199,7 +219,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child:Text(msg)),
+          Center(child: Expanded(child:Text(msg))),
         ],
       ),
     );
