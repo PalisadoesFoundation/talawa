@@ -1,11 +1,14 @@
+//flutter package imported here
 import 'package:flutter/material.dart';
+
+//imported the pages here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/globals.dart';
+
+//We are currently adding the app bar here
 
 class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
   final String title;
@@ -35,7 +38,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     getImg();
   }
 
-  Future getImg() async {
+  Future getImg() async { //this function gets the image from the graphql query
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     String orgId = await preferences.getCurrentOrgId();
 
