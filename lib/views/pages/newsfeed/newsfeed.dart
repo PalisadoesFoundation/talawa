@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -27,6 +29,9 @@ class _NewsFeedState extends State<NewsFeed> {
   List postList = [];
   String name;
   Timer timer = Timer();
+  bool like = false;
+  String _currentOrgID;
+  Map<String,bool> mp;
 
   initState() {
     super.initState();
@@ -52,6 +57,8 @@ class _NewsFeedState extends State<NewsFeed> {
 
   Future<void> getPosts() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
+    final String currentUserID = await preferences.getUserId();
+    _currentOrgID = currentUserID;
     String query = Queries().getPostsById(currentOrgID);
     Map result = await apiFunctions.gqlquery(query);
     // print(result);
@@ -61,14 +68,14 @@ class _NewsFeedState extends State<NewsFeed> {
     });
   }
 
-  Future<void> addLike(String postID) async {
+  Future<void> addLike(String postID, index) async {
     String mutation = Queries().addLike(postID);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
     getPosts();
   }
 
-  Future<void> removeLike(String postID) async {
+  Future<void> removeLike(String postID, index) async {
     String mutation = Queries().removeLike(postID);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
@@ -224,29 +231,23 @@ class _NewsFeedState extends State<NewsFeed> {
         ),
         IconButton(
             icon: Icon(Icons.thumb_up),
-          color:(postList[index]['isPressed']==true) ? Color(0xff007397)
-              : Color(0xff9A9A9A),
+          color: (postList[index]['likeCount'] != 0 ? (postList[index]['likedBy'][postList[index]['likeCount']-1]['_id']==_currentOrgID) : false) ? Color(0xff007397) : Color(0xff9A9A9A),
             onPressed: ()
             {
-              addLike(postList[index]['_id']);
-
-              setState(() //the changes in the backend will do it right we have to create a isPressed thing in the backend
-
-              {
-                if(postList[index]['isPressed'] == false) {
-                  postList[index]['isPressed'] = true;
+              if(postList[index]['likeCount'] != 0)
+                if(postList[index]['likedBy'][postList[index]['likeCount']-1]['_id']!=_currentOrgID) {
+                  addLike(postList[index]['_id'], index);
                 }
-                else{
-                  postList[index]['isPressed'] = false;
+                else {
+                  removeLike(postList[index]['_id'], index);
                 }
-
-
-              });
-
+              else
+                {
+                  addLike(postList[index]['_id'], index);
+                }
 
               },
-
-            )
+            ),
       ],
     );
   }
