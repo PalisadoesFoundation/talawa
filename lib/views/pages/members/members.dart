@@ -85,7 +85,8 @@ class _OrganizationsState extends State<Organizations> {
 
   //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
-    double colorDouble = double.parse(id.replaceAll(RegExp('[A-Za-z-\/:-@\[-\`{-~]'), ''));
+    double colorDouble =
+        double.parse(id.replaceAll(RegExp('[A-Za-z-\/:-@\[-\`{-~]'), ''));
     int colorint = colorDouble.toInt();
     colorint = (colorint % 18);
     return Color.alphaBlend(
@@ -160,17 +161,19 @@ class _OrganizationsState extends State<Organizations> {
               membersList[index]['image'] == null
                   ? defaultUserImage(membersList[index])
                   : userImage(membersList[index]),
-              Container(
+              Expanded(
+                child: Container(
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.all(20),
                   height: 80,
-                  color: Colors.white,
                   child: Text(
                     membersList[index]['firstName'].toString() +
                         ' ' +
                         membersList[index]['lastName'].toString(),
                     textAlign: TextAlign.left,
-                  ))
+                  ),
+                ),
+              )
             ],
           ),
         ));
