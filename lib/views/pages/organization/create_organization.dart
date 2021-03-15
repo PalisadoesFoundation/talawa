@@ -25,7 +25,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   final orgMemberDescController = TextEditingController();
   Queries _queries = Queries();
   bool _progressBarState = false;
-  bool _validate = false;
+  var _validate = AutovalidateMode.disabled;
   final _formKey = GlobalKey<FormState>();
   int radioValue = -1;
   int radioValue1 = -1;
@@ -50,6 +50,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   createOrg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
     final img = await multipartFileFrom(_image);
+    orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
         orgNameController.text,
@@ -89,6 +92,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   createOrgWithoutImg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
+    orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrgWithoutImg(
         orgNameController.text,
@@ -162,7 +168,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                   style: TextStyle(fontSize: 16, color: Colors.black)),
               Form(
                 key: _formKey,
-                autovalidate: _validate,
+                autovalidateMode: _validate,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                   child: Column(
@@ -174,6 +180,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         TextFormField(
                           autofillHints: <String>[AutofillHints.organizationName],
                           validator: (value) => Validator.validateOrgName(value),
+                          textInputAction: TextInputAction.next,
                           textAlign: TextAlign.left,
                           textCapitalization: TextCapitalization.words,
                           style: TextStyle(color: Colors.black),
@@ -348,27 +355,15 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             if (_formKey.currentState.validate() &&
                                 radioValue >= 0 &&
                                 radioValue1 >= 0) {
-                              if(orgNameController.text.isNotEmpty){
-                                if(orgDescController.text.isNotEmpty){
-                                  if(orgMemberDescController.text.isNotEmpty){
-                                    _formKey.currentState.save(); 
-                                    if (_image != null) { 
-                                      createOrg(); 
-                                    }else { 
-                                      createOrgWithoutImg(); 
-                                    } 
-                                    setState(() { 
-                                      toggleProgressBarState(); 
-                                    });
-                                  }else {
-                                    _exceptionToast("Member Description Can\'t be empty");
-                                  }
-                                }else {
-                                    _exceptionToast("Organization Description Can\'t be empty");
-                                }
-                              }else {
-                                    _exceptionToast("Organization Name Can\'t be empty");
+                              _formKey.currentState.save();
+                              if (_image != null) {
+                                createOrg();
+                              } else {
+                                createOrgWithoutImg();
                               }
+                              setState(() {
+                                toggleProgressBarState();
+                              });
                             } else if (radioValue < 0 || radioValue1 < 0) {
                               _exceptionToast("A choice must be selected");
                             }
