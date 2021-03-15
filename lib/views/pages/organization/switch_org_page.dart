@@ -103,6 +103,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       body: _progressBarState
           ? Center(child: CircularProgressIndicator())
           : ListView.separated(
+              padding: EdgeInsets.only(top: 10.0),
               itemCount: userOrg.length,
               itemBuilder: (context, index) {
                 return RadioListTile(
