@@ -14,6 +14,7 @@ import 'package:talawa/views/pages/chat/groups.dart';
 
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'organization/profile_page.dart';
 import 'package:talawa/services/preferences.dart';
 
@@ -29,8 +30,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-//////////////
-  int currentIndex = 0;
+  // int currentIndex = 0;
 
   final PersistentTabController _controller =
       PersistentTabController(initialIndex: 2);
@@ -45,7 +45,6 @@ class _HomePageState extends State<HomePage> {
 
   void dispose() {
     _controller.dispose();
-
     super.dispose();
   }
 
@@ -66,108 +65,36 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
-  List<PersistentBottomNavBarItem> _navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.home),
-        title: ("Home"),
-        activeColor: Colors.white,
-        inactiveColor: Colors.white,
-        // isTranslucent: false,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.chat),
-        title: ("Chats"),
-        activeColor: Colors.white,
-        inactiveColor: Colors.white,
-        // isTranslucent: false,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.calendar_today),
-        title: ("Events"),
-        activeColor: Colors.white,
-        inactiveColor: Colors.white,
-        // isTranslucent: false,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.group),
-        title: ("Members"),
-        activeColor: Colors.white,
-        inactiveColor: Colors.white,
-        // isTranslucent: false,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.folder),
-        title: ("Profile"),
-        activeColor: Colors.white,
-        inactiveColor: Colors.white,
-        // isTranslucent: false,
-      ),
-    ];
-  }
-
-  void onTabTapped(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-  }
+  int _page = 0;
+  GlobalKey _bottomNavigationKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return
-        //  Scaffold(
-        //   body: _buildScreens()[currentIndex],
-        //   bottomNavigationBar: BottomNavigationBar(
-        //     onTap: onTabTapped,
-        //     currentIndex: currentIndex, // this will be set when a new tab is tapped
-        //     // fixedColor: UIData.primaryColor,
-        //     items: [
-        //       BottomNavigationBarItem(
-        //         icon: new Icon(Icons.home),
-        //         title: new Text('Home'),
-        //         backgroundColor: UIData.primaryColor,
-        //       ),
-        //       BottomNavigationBarItem(
-        //         icon: new Icon(Icons.chat),
-        //         title: new Text('Chat'),
-        //         backgroundColor: UIData.primaryColor,
-        //       ),
-        //       BottomNavigationBarItem(
-        //         icon: Icon(Icons.calendar_today),
-        //         title: Text('Events'),
-        //         backgroundColor: UIData.primaryColor,
-        //       ),
-        //       BottomNavigationBarItem(
-        //         icon: Icon(Icons.people),
-        //         title: Text('Members'),
-        //         backgroundColor: UIData.primaryColor,
-        //       ),
-        //       BottomNavigationBarItem(
-        //         icon: Icon(Icons.folder),
-        //         title: Text('Profile'),
-        //         backgroundColor: UIData.primaryColor,
-        //       )
-        //     ],
-        //   ),
-        // )
-
-        PersistentTabView(
-      // stateManagement: false,
-
-      backgroundColor: UIData.primaryColor,
-      controller: _controller,
-      items: _navBarsItems(),
-      screens: _buildScreens(),
-      // showElevation: true,
-      confineInSafeArea: true,
-      handleAndroidBackButtonPress: true,
-      iconSize: 26.0,
-      navBarStyle: NavBarStyle.style4,
-      // onItemSelected: (index) {
-      //   if (index == 0) {
-      //     pushNewScreen(context, screen: NewsFeed());
-      //   }
-      // },
+    return Scaffold(
+      body: _buildScreens()[_page],
+      bottomNavigationBar: CurvedNavigationBar(
+        key: _bottomNavigationKey,
+        index: _page,
+        height: 50.0,
+        items: <Widget>[
+          Icon(Icons.home, size: 26, semanticLabel: "Home"),
+          Icon(Icons.chat, size: 26, semanticLabel: "Chat"),
+          Icon(Icons.calendar_today, size: 26, semanticLabel: "Calendar"),
+          Icon(Icons.people, size: 26, semanticLabel: "People"),
+          Icon(Icons.folder, size: 26, semanticLabel: "Folder"),
+        ],
+        color: Colors.white,
+        buttonBackgroundColor: Colors.white,
+        backgroundColor: Colors.orange,
+        animationCurve: Curves.easeInOut,
+        animationDuration: Duration(milliseconds: 600),
+        onTap: (index) {
+          setState(() {
+            _page = index;
+          });
+        },
+        letIndexChange: (index) => true,
+      ),
     );
   }
 }

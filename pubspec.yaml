@@ -45,6 +45,7 @@ dependencies:
   get_it: ^4.0.4
   image_picker: ^0.6.6+5
   flutter_password_strength: ^0.1.6
+  curved_navigation_bar: ^0.3.7
 
 
 
