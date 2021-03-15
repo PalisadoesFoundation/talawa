@@ -251,10 +251,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: UIData.secondaryColor,
                               ),
                               onTap: () {
-                                pushNewScreen(
-                                  context,
-                                  screen: JoinOrganization(),
-                                );
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        new JoinOrganization(),
+                                    settings:
+                                        RouteSettings(name: '/profile_page')));
                               }),
                           isCreator == true
                               ? ListTile(
