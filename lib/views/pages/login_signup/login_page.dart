@@ -541,14 +541,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-
               
               Center(
                 child: SingleChildScrollView(
                   child: mainScreen(),
                 ),
               ),
-            
 
               //has to be scrollable so the screen can adjust when the keyboard is tapped
               KeepAlivePage(
