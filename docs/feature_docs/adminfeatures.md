@@ -159,7 +159,7 @@ The following are aspects of this feature which have been considered but are out
 3. **Invite specific members to the event:** This may eventually include sending external invitations to download the app.
 
 1. **Task calendar:** This may be useful for members involved in different events. Their tasks displayed on a calendar according to the due date for the task and its related events
-  1. Display colours to indicate nearing due date for taks
+  1. Display colours to indicate nearing due date for tasks
 2. **Review and Delete members&#39; personal events:** the admin may have need to delete members&#39; personal events under the organization. This will remove the event and all its tasks and send a notification to the co-ordinator that the event was deleted
 
 ### People and Roles
@@ -184,7 +184,7 @@ NA
 2. The admin specifies if it is a private or public event
 3. Basic details such as the date, time and venue for the event is specified
 4. An event co-ordinator is selected and assigned from the member list for the organization
-  1. A task list can be specified by the admin or the event co-ordinatoradding lieutenants to an organization helps the admin to manage members and content. This should be done via a desktop/web client, and mobile.
+  1. A task list can be specified by the admin or the event co-ordinator.
 5. A checklist of required tasks for the event is optional with due date relative to the event
   1. Assignment of these tasks to members of the organization
   2. Notification is sent to the member that a task is assigned to them
@@ -205,7 +205,7 @@ Items mentioned in the Out of scope section will form the basis for future work 
 
 TBD
 
-## Feature 02: Creating organizational events
+## Feature 03: Creating organizational events
 
 _Authored by_ _ **Shannika Jackson** __. Last updated on_ _ **March 14,2021** _
 
