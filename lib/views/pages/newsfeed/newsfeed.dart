@@ -27,11 +27,8 @@ class _NewsFeedState extends State<NewsFeed> {
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   List postList = [];
-  String name;
   Timer timer = Timer();
-  bool like = false;
   String _currentOrgID;
-  Map<String,bool> mp;
 
   initState() {
     super.initState();
