@@ -25,7 +25,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   final orgMemberDescController = TextEditingController();
   Queries _queries = Queries();
   bool _progressBarState = false;
-  bool _validate = false;
+  var _validate = AutovalidateMode.disabled;
   final _formKey = GlobalKey<FormState>();
   int radioValue = -1;
   int radioValue1 = -1;
@@ -49,6 +49,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   createOrg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
+    orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final img = await multipartFileFrom(_image);
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
@@ -89,6 +92,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   createOrgWithoutImg() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
+    orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrgWithoutImg(
         orgNameController.text,
@@ -168,7 +174,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                   style: TextStyle(fontSize: 16, color: Colors.black)),
               Form(
                 key: _formKey,
-                autovalidate: _validate,
+                autovalidateMode: _validate,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                   child: Column(
@@ -187,6 +193,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                 Validator.validateOrgName(value),
                             textAlign: TextAlign.left,
                             textCapitalization: TextCapitalization.words,
+                            textInputAction: TextInputAction.next,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -272,6 +279,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         value: 0,
                         activeColor: UIData.secondaryColor,
                         onChanged: (val) {
+                          FocusScope.of(context).unfocus();
                           setState(() {
                             radioValue = val;
                             if (radioValue == 0) {
@@ -286,6 +294,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         title: Text('No'),
                         value: 1,
                         onChanged: (val) {
+                          FocusScope.of(context).unfocus();
                           setState(() {
                             radioValue = val;
                             if (radioValue == 1) {
@@ -304,6 +313,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         title: Text('Yes'),
                         value: 0,
                         onChanged: (val) {
+                          FocusScope.of(context).unfocus();
                           setState(() {
                             radioValue1 = val;
                             if (radioValue1 == 0) {
@@ -318,6 +328,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         title: Text('No'),
                         value: 1,
                         onChanged: (val) {
+                          FocusScope.of(context).unfocus();
                           setState(() {
                             radioValue1 = val;
                             if (radioValue1 == 1) {
@@ -331,9 +342,10 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         padding: EdgeInsets.symmetric(
                             vertical: 20.0, horizontal: 30.0),
                         width: double.infinity,
-                        child: RaisedButton(
-                          padding: EdgeInsets.all(16.0),
-                          shape: StadiumBorder(),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),),
                           child: _progressBarState
                               ? const Center(
                                   child: SizedBox(
@@ -350,7 +362,6 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                   "CREATE ORGANIZATION",
                                   style: TextStyle(color: Colors.white),
                                 ),
-                          color: UIData.secondaryColor,
                           onPressed: () async {
                             if (_formKey.currentState.validate() &&
                                 radioValue >= 0 &&
