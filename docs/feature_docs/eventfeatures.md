@@ -1,10 +1,10 @@
 # Event Features
 
-![](RackMultipart20210316-4-e7f63r_html_237499165a11f2b9.gif)
+![](RackMultipart20210316-4-8de5m7_html_237499165a11f2b9.gif)
 
 [Overall Guidance](#_hqgxp4vhui04)
 
-[Feature 01: Group Events](#_agnpktdt1sng)
+[Feature 01: Group personal events vs organization wide events](#_agnpktdt1sng)
 
 [Overview](#_oykielwb06ys)
 
@@ -56,59 +56,7 @@
 
 [Tasks and Timeline](#_vbzuurar0jxe)
 
-[Feature 03: Assign Roles and Responsibilities in an Event](#_pw66mdskyrvb)
-
-[Overview](#_ro8oa0tiput1)
-
-[Problem](#_1e7yv6wuzw0q)
-
-[Goals](#_u9lmxz2e7b9r)
-
-[Out of Scope](#_638eyjdqvgdt)
-
-[People and Roles](#_fy1obl2ruyui)
-
-[Context](#_i3y01k66iwd1)
-
-[Use Cases](#_o9fexnm85d56)
-
-[Proposal/Solution](#_8auagexum0e8)
-
-[User Experience](#_w3fxboad74qe)
-
-[Important Details To Capture](#_f3gu56v852r3)
-
-[Future Work](#_lc4itrtwpxdz)
-
-[Tasks and Timeline](#_6f08xndrgpki)
-
-[Feature 03: Event Goal Tracking](#_wc9sd9p17sfz)
-
-[Overview](#_c4zjnp12bexl)
-
-[Problem](#_b1nepwto0hwu)
-
-[Goals](#_5l2qqxt61o2k)
-
-[Out of Scope](#_w9gw95f0qpgl)
-
-[People and Roles](#_mtyz5nbbxs4q)
-
-[Context](#_7x69avjijtg7)
-
-[Use Cases](#_jwh7q9xjmev5)
-
-[Proposal/Solution](#_9qxc9vleoz6m)
-
-[User Experience](#_r24mdgjzj5dm)
-
-[Important Details To Capture](#_vpv018slab2h)
-
-[Future Work](#_cmsppmz8dxln)
-
-[Tasks and Timeline](#_akk6ght04i1f)
-
-![](RackMultipart20210316-4-e7f63r_html_237499165a11f2b9.gif)
+![](RackMultipart20210316-4-8de5m7_html_237499165a11f2b9.gif)
 
 ## Overall Guidance
 
