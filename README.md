@@ -1,4 +1,8 @@
 # Talawa
+[![Build Status](https://travis-ci.org/PalisadoesFoundation/talawa.svg?branch=master)](http://www.palisadoes.org/) 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![GitHub stars](https://img.shields.io/github/stars/PalisadoesFoundation/talawa.svg?style=social&label=Star&maxAge=2592000)](https://github.com/PalisadoesFoundation/talawa)
+[![GitHub forks](https://img.shields.io/github/forks/PalisadoesFoundation/talawa.svg?style=social&label=Fork&maxAge=2592000)](https://github.com/PalisadoesFoundation/talawa)
 
 [![N|Solid](images/talawa-rtd.png)](https://github.com/PalisadoesFoundation/talawa)
 
@@ -16,7 +20,8 @@ This has been a Calico Challenge project in 2019. It will be written in python w
 
 # Documentation
  - The talawa documentation can be found [here][readthedocs].
- - Visit the [talawa GitHub site][repo] to see the code.
+ - Visit the [Talawa GitHub][repo] to see the code.
+ - Want to contribute? Look at [CONTRIBUTING.md][link] to get started.
 
 # About Talawa
  
@@ -46,3 +51,4 @@ Start developing!
 [pfd]: <http://www.palisadoes.org>
 [fsdk]: <https://flutter.dev/docs/get-started/install>
 [astudio]: <https://developer.android.com/studio>
+[link]:<https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md>

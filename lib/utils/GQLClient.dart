@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:talawa/views/pages/login_signup/login_page.dart';
 
 class GraphQLConfiguration with ChangeNotifier {
   Preferences _pref = Preferences();
