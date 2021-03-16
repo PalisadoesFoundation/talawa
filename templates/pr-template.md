@@ -4,4 +4,5 @@
 - **Snapshots/Videos:** <Add snapshots or videos wherever possible.>
 - **Does this PR introduce a breaking change?** <Make sure this change does not break existing code functionality.>
 - **Other information:** <Add extra information about this PR here>
+- **Have you read the [contributing guide](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md)?** <Yes or No>
 
