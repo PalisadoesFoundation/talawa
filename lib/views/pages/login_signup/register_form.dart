@@ -90,8 +90,9 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => new JoinOrganization(),
+          settings: RouteSettings(name: '/register-form')));
     }
   }
 
@@ -263,7 +264,7 @@ class RegisterFormState extends State<RegisterForm> {
                       ),
                       TextFormField(
                         autofillHints: <String>[AutofillHints.password],
-                        obscureText: true,
+                        obscureText: _obscureText,
                         controller: originalPassword,
                         validator: (value) => Validator.validatePassword(value),
                         textAlign: TextAlign.left,
@@ -278,6 +279,14 @@ class RegisterFormState extends State<RegisterForm> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           prefixIcon: Icon(Icons.lock, color: Colors.white),
+                          suffixIcon: FlatButton(
+                            onPressed: _toggle,
+                            child: Icon(_obscureText
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                              color: Colors.white,
+                            ),
+                          ),
                           labelText: "Password",
                           labelStyle: TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
@@ -285,26 +294,20 @@ class RegisterFormState extends State<RegisterForm> {
                           hintText: 'Password',
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
-                        onChanged: (_) {
-                          setState(() {});
-                        },
                         onSaved: (value) {
                           model.password = value;
                         },
                       ),
                       SizedBox(
-                        height: originalPassword.text.isEmpty ? 0 : 10,
+                        height: 10,
                       ),
-                      Opacity(
-                        opacity: originalPassword.text.isEmpty ? 0 : 1,
-                        child: FlutterPasswordStrength(
-                            password: originalPassword.text,
-                            height: 5,
-                            radius: 10,
-                            strengthCallback: (strength) {
-                              debugPrint(strength.toString());
-                            }),
-                      ),
+                      FlutterPasswordStrength(
+                          password: originalPassword.text,
+                          height: 5,
+                          radius: 10,
+                          strengthCallback: (strength) {
+                            debugPrint(strength.toString());
+                          }),
                       SizedBox(
                         height: 20,
                       ),
