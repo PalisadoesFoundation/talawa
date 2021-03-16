@@ -140,9 +140,9 @@ class _EventsState extends State<Events> {
       Map result =
       await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
       eventList = result == null ? [] : result['events'].reversed.toList();
-      eventList.removeWhere((item) =>
-      item['title'] == 'Talawa Congress' ||
-          item['title'] == 'test' || item['title'] == 'Talawa Conference Test'); //dont know who keeps adding these
+      eventList.removeWhere((element) =>
+          element['title'] == 'Talawa Congress' ||
+          element['title'] == 'test' || element['title'] == 'Talawa Conference Test'); //dont know who keeps adding these
       eventList.sort((a, b) {
         return DateTime.fromMicrosecondsSinceEpoch(
           int.parse(a['startTime']))
