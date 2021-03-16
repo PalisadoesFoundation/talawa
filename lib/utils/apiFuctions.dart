@@ -9,13 +9,15 @@ class ApiFunctions {
 
   String userAuthError = "User is not authenticated: Undefined location";
 
+
+  //this is the query used to get the token
+  // ignore: missing_return
   Future<Map> gqlquery(String query) async {
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     final QueryOptions options = QueryOptions(
       documentNode: gql(query),
       variables: <String, dynamic>{
-        // 'nRepositories': nRepositories,
       },
     );
 
@@ -31,6 +33,8 @@ class ApiFunctions {
     }
   }
 
+
+  //function to mutate the query
   Future<dynamic> gqlmutation(String mutation) async {
     GraphQLClient _client = graphQLConfiguration.authClient();
     QueryResult result = await _client.mutate(MutationOptions(

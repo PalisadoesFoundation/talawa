@@ -5,6 +5,8 @@ import 'package:talawa/view_models/base_model.dart';
 
 import '../locator.dart';
 
+
+//class to switch the model base model
 class SwitchOrgModel extends BaseModel {
   API _api = locator<API>();
 

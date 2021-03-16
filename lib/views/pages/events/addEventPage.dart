@@ -1,8 +1,11 @@
+
+//flutter packages
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
-
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
 
@@ -31,12 +34,16 @@ class _AddEventState extends State<AddEvent> {
     super.initState();
   }
 
+
+  //getting the date for the event
   DateTimeRange dateRange = DateTimeRange(
       start: DateTime(
           DateTime.now().year, DateTime.now().month, DateTime.now().day, 1, 0),
       end: DateTime(DateTime.now().year, DateTime.now().month,
           DateTime.now().day + 1, 1, 0));
 
+
+  //storing the start time of an event
   Map<String, DateTime> startEndTimes = {
     'Start Time': DateTime(
         DateTime.now().year, DateTime.now().month, DateTime.now().day, 12, 0),
@@ -44,6 +51,8 @@ class _AddEventState extends State<AddEvent> {
         DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
   };
 
+
+  //method to be called when the user wants to select the date
   Future<void> _selectDate(BuildContext context) async {
     DateTime now = DateTime.now();
     final DateTimeRange picked = await showDateRangePicker(
@@ -57,6 +66,8 @@ class _AddEventState extends State<AddEvent> {
       });
   }
 
+
+  //method to be called when the user wants to select time
   Future<void> _selectTime(
       BuildContext context, String name, TimeOfDay time) async {
     final TimeOfDay picked = await showTimePicker(
@@ -74,6 +85,8 @@ class _AddEventState extends State<AddEvent> {
       });
   }
 
+
+  //method used to create an event
   Future<void> createEvent() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
 
@@ -98,26 +111,10 @@ class _AddEventState extends State<AddEvent> {
             DateTime.now().day, 23, 59),
       };
     }
-
-    String mutation = Queries().addEvent(
-      organizationId: currentOrgID,
-      title: titleController.text,
-      description: descriptionController.text,
-      location: locationController.text,
-      isPublic: switchVals['Make Public'],
-      isRegisterable: switchVals['Make Registerable'],
-      recurring: switchVals['Recurring'],
-      allDay: switchVals['All Day'],
-      recurrance: recurrance,
-      startDate: dateRange.start.millisecondsSinceEpoch,
-      endDate: dateRange.end.millisecondsSinceEpoch,
-      startTime: startTime.millisecondsSinceEpoch,
-      endTime: endTime.millisecondsSinceEpoch,
-    );
-    ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlmutation(mutation);
   }
 
+
+  //main build starts from here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,6 +144,8 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
+
+  //widget to get the date button
   Widget dateButton() {
     return ListTile(
       onTap: () {
@@ -163,6 +162,8 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
+
+  //widget to get the time button
   Widget timeButton(String name, DateTime time) {
     return AbsorbPointer(
         absorbing: switchVals['All Day'],
@@ -184,6 +185,8 @@ class _AddEventState extends State<AddEvent> {
         ));
   }
 
+
+  //widget to add the event
   Widget addEventFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,

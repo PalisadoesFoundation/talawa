@@ -1,10 +1,15 @@
+
+//flutter packages are called here
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class EditEvent extends StatefulWidget {
   Map event;
   EditEvent({Key key, @required this.event}) : super(key: key);
@@ -65,6 +70,8 @@ class _EditEventState extends State<EditEvent> {
     });
   }
 
+
+  //getting current organization id
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
@@ -73,6 +80,8 @@ class _EditEventState extends State<EditEvent> {
     print(currentOrgId);
   }
 
+
+  //method called to select the date
   Future<void> _selectDate(BuildContext context) async {
     DateTime now = DateTime.now();
     final DateTimeRange picked = await showDateRangePicker(
@@ -86,6 +95,8 @@ class _EditEventState extends State<EditEvent> {
       });
   }
 
+
+  //method to select the time
   Future<void> _selectTime(
       BuildContext context, String name, TimeOfDay time) async {
     final TimeOfDay picked = await showTimePicker(
@@ -103,6 +114,8 @@ class _EditEventState extends State<EditEvent> {
       });
   }
 
+
+  //method used to create and event
   Future<void> createEvent() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
 
@@ -127,24 +140,6 @@ class _EditEventState extends State<EditEvent> {
             DateTime.now().day, 23, 59),
       };
     }
-
-    String mutation = Queries().addEvent(
-      organizationId: currentOrgID,
-      title: titleController.text,
-      description: descriptionController.text,
-      location: locationController.text,
-      isPublic: switchVals['Make Public'],
-      isRegisterable: switchVals['Make Registerable'],
-      recurring: switchVals['Recurring'],
-      allDay: switchVals['All Day'],
-      recurrance: recurrance,
-      startDate: DateFormat('MM/dd/yyyy').format(dateRange.start).toString(),
-      endDate: DateFormat('MM/dd/yyyy').format(dateRange.end).toString(),
-      startTime: DateFormat.jm().format(startTime),
-      endTime: DateFormat.jm().format(endTime).toString(),
-    );
-    ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlmutation(mutation);
   }
 
   @override
@@ -176,6 +171,8 @@ class _EditEventState extends State<EditEvent> {
     );
   }
 
+
+  //widget for the date buttons
   Widget dateButton() {
     return ListTile(
       onTap: () {
@@ -192,6 +189,8 @@ class _EditEventState extends State<EditEvent> {
     );
   }
 
+
+  //widget for time buttons
   Widget timeButton(String name, DateTime time) {
     return AbsorbPointer(
         absorbing: switchVals['All Day'],
@@ -213,6 +212,8 @@ class _EditEventState extends State<EditEvent> {
         ));
   }
 
+
+  //widget for the input field
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
         padding: EdgeInsets.all(10),
@@ -275,6 +276,8 @@ class _EditEventState extends State<EditEvent> {
     );
   }
 
+
+  //widget to add the event
   Widget addEventFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,

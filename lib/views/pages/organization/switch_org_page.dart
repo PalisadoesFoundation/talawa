@@ -1,4 +1,8 @@
+
+//flutter packages are called here
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +32,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     _progressBarState = !_progressBarState;
   }
 
+  //giving initial state to the variables
   @override
   void initState() {
     super.initState();
@@ -36,6 +41,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     fetchUserDetails();
   }
 
+
+  //method used to fetch the user details from the server
   Future fetchUserDetails() async {
     final String userID = await _pref.getUserId();
 
@@ -64,6 +71,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     }
   }
 
+
+  //this method allows user to change the organization if he wants to
   Future switchOrg() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
@@ -90,6 +99,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     }
   }
 
+
+  //the build starts from here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,6 +160,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     );
   }
 
+
+  //widget to show error if there is some error in the lines
   Widget showError(String msg) {
     return Center(
       child: Text(
@@ -159,6 +172,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     );
   }
 
+
+  //the method which is called when the result is successful
   _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
@@ -181,6 +196,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     );
   }
 
+
+  //the method is called when the result is an exception
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),

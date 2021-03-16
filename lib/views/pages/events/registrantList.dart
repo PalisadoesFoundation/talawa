@@ -1,8 +1,14 @@
+
+//flutter packages are called here
 import 'package:flutter/material.dart';
+
+
+//imported the pages here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 
+// ignore: must_be_immutable
 class RegList extends StatefulWidget {
   Map event;
   RegList({
@@ -25,11 +31,12 @@ class _RegListState extends State<RegList> {
     getRegistrants();
   }
 
+
+  //method to get the list of registrants
   getRegistrants() async {
     final String userID = widget.event['_id'];
     Map result =
         await apiFunctions.gqlquery(Queries().getRegistrantsByEvent(userID));
-    // print(result);
     setState(() {
       eventTasks = result == null ? [] : result['registrantsByEvent'];
     });

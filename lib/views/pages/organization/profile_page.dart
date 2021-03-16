@@ -1,5 +1,9 @@
+
+//flutter packages are  imported here
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+//pages are imported here
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
@@ -9,10 +13,8 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
-
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
 import 'package:talawa/views/pages/organization/organization_settings.dart';
 import 'switch_org_page.dart';
 
@@ -38,6 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
+  //providing initial states to the variables
   @override
   void initState() {
     super.initState();
@@ -46,6 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
     fetchOrgAdmin();
   }
 
+  //used to fetch the users details from the server
   Future fetchUserDetails() async {
     final String userID = await _preferences.getUserId();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
@@ -60,6 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  //used to fetch Organization Admin details
   Future fetchOrgAdmin() async {
     final String orgId = await _preferences.getCurrentOrgId();
     if (orgId != null) {
@@ -99,6 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  //function used when someone wants to leave organization
   Future leaveOrg() async {
     List remaindingOrg = [];
     String newOrgId;
@@ -143,6 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  //main build starts from here
   @override
   Widget build(BuildContext context) {
     final orgName = Provider.of<Preferences>(context).orgName;
@@ -336,6 +343,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ));
   }
 
+  //a pop up screen to ask the user if he wants to leave the organization or not
   void confirmLeave() {
     showDialog(
         context: context,
