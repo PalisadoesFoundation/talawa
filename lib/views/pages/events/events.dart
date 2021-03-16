@@ -137,22 +137,31 @@ class _EventsState extends State<Events> {
 
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-    eventList = result == null ? [] : result['events'].reversed.toList();
-    eventList.removeWhere((element) =>
-        element['title'] == 'Talawa Congress' ||
-        element['title'] == 'test'); //dont know who keeps adding these
+    print('Printing current Org ID:');
+    print(currentOrgID);
+      Map result =
+      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+      eventList = result == null ? [] : result['events'].reversed.toList();
+      eventList.removeWhere((item) =>
+      item['title'] == 'Talawa Congress' ||
+          item['title'] == 'test' || item['title'] == 'Talawa Conference Test'); //dont know who keeps adding these
+      print('After removing : ');
+      print(eventList);
+      eventList.sort((a, b) {
+        print(a['startTime']);
+        print(b['startTime']);
+        return DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(a['startTime']))
+          .compareTo(
+          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+      });
+      eventsToDates(eventList, DateTime.now());
+      setState(() {
+        displayedEvents = eventList;
+      });
+      // print(displayedEvents);
 
-    eventList.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-            int.parse(a['startTime']))
-        .compareTo(
-            DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime']))));
-    eventsToDates(eventList, DateTime.now());
-    setState(() {
-      displayedEvents = eventList;
-    });
-    // print(displayedEvents);
+
   }
 
   Future<void> _editEvent(context, event) async {
