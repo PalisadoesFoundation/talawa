@@ -3,10 +3,8 @@
 import 'package:flutter/material.dart';
 
 //pages are called here
-import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
 
 class AddEvent extends StatefulWidget {
@@ -88,8 +86,7 @@ class _AddEventState extends State<AddEvent> {
 
   //method used to create an event
   Future<void> createEvent() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
-
+    
     DateTime startTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,

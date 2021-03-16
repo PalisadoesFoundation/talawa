@@ -40,7 +40,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   AuthController _authController = AuthController();
   String isPublic;
   TextEditingController searchController = TextEditingController();
-  OrgController _orgController = OrgController();
 
   @override
   void initState() { //creating the initial state for all the variables

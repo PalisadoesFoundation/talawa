@@ -7,8 +7,6 @@ import 'dart:io';
 
 // pages are called here
 import 'package:provider/provider.dart';
-import 'package:talawa/controllers/auth_controller.dart';
-
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
