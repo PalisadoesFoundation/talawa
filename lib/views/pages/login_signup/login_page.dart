@@ -387,32 +387,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
 
-                                        setState(() {
-                                          isUrlCalled = true;
-                                        });
-
-                                        try {
-                                          final response = await http.get(
-                                              '${dropdownValue.toLowerCase()}://${urlController.text}/');
-
-                                          if (response.statusCode == 200) {
-                                            setAPIURL();
-                                            _setURL();
-                                          }
-                                        } catch (e) {
-                                          _scaffoldkey.currentState
-                                              .showSnackBar(
-                                            SnackBar(
-                                                behavior:
-                                                    SnackBarBehavior.floating,
-                                                content:
-                                                    Text('Url does not exist')),
-                                          );
-                                        }
-
-                                        setState(() {
-                                          isUrlCalled = false;
-                                        });
+                                        checkAndSetUrl();
                                       }
                                     }),
                               ],
@@ -592,5 +567,28 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
             ],
           ),
         ));
+  }
+
+  Future<void> checkAndSetUrl() async {
+    setState(() {
+      isUrlCalled = true;
+    });
+
+    try {
+      await http.get('${dropdownValue.toLowerCase()}://${urlController.text}/');
+
+      setAPIURL();
+      _setURL();
+    } catch (e) {
+      _scaffoldkey.currentState.showSnackBar(
+        SnackBar(
+            behavior: SnackBarBehavior.floating,
+            content: Text('Url does not exist')),
+      );
+    }
+
+    setState(() {
+      isUrlCalled = false;
+    });
   }
 }
