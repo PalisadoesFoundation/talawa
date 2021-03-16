@@ -10,7 +10,7 @@ If you are ready to start contributing code right away, we have a list of [good 
 We utilize GitHub issues and pull requests to keep track of issues and contributions from the community. 
 
 #### Issues 
-Make sure you are following [issue report guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/PR-guidelines.md) available here before creating any new issues on Talawa project.
+Make sure you are following [issue report guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/issue-guidelines.md) available here before creating any new issues on Talawa project.
 
 #### Pull Requests
 [Pull Request guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/PR-guidelines.md) is best resource to follow to start working on open issues.
