@@ -22,6 +22,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Queries _query = Queries();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
+  int visit = 0;
+  String orgId;
   int isSelected;
   String itemIndex;
   List userOrg = [];
@@ -100,9 +102,20 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   }
 
 
-  //the build starts from here
+  // it is used to get the current organization id 
+ getCurrentOrg()async{
+    orgId = await Provider.of<Preferences>(context).getCurrentOrgId();
+    setState(() {
+    });
+  }
+
+//the build starts from here
   @override
   Widget build(BuildContext context) {
+    if(visit == 0){
+      visit++;
+      getCurrentOrg();
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -113,39 +126,43 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       body: _progressBarState
           ? Center(child: CircularProgressIndicator())
           : ListView.separated(
-              padding: EdgeInsets.only(top: 10.0),
-              itemCount: userOrg.length,
-              itemBuilder: (context, index) {
-                return RadioListTile(
-                  secondary: userOrg[index]['image'] != null
-                      ? CircleAvatar(
-                          radius: 30,
-                          backgroundImage: NetworkImage(
-                              Provider.of<GraphQLConfiguration>(context)
-                                      .displayImgRoute +
-                                  userOrg[index]['image']))
-                      : CircleAvatar(
-                          radius: 30,
-                          backgroundImage:
-                              AssetImage("assets/images/team.png")),
-                  activeColor: UIData.secondaryColor,
-                  groupValue: isSelected,
-                  title: Text(userOrg[index]['name'].toString() +
-                      '\n' +
-                      userOrg[index]['description'].toString()),
-                  value: index,
-                  onChanged: (val) {
-                    setState(() {
-                      isSelected = val;
-                      itemIndex = userOrg[index]['_id'].toString();
-                    });
-                  },
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return Divider();
-              },
-            ),
+        padding: EdgeInsets.only(top: 10.0),
+        itemCount: userOrg.length,
+        itemBuilder: (context, index) {
+          if(userOrg[index]['_id'] == orgId){
+            isSelected = index;
+          }
+          return RadioListTile(
+            secondary: userOrg[index]['image'] != null
+                ? CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage(
+                    Provider.of<GraphQLConfiguration>(context)
+                        .displayImgRoute +
+                        userOrg[index]['image']))
+                : CircleAvatar(
+                radius: 30,
+                backgroundImage:
+                AssetImage("assets/images/team.png")),
+            activeColor: UIData.secondaryColor,
+            groupValue: isSelected,
+            title: Text(userOrg[index]['name'].toString() +
+                '\n' +
+                userOrg[index]['description'].toString()),
+            value: index,
+            onChanged: (val) {
+              setState(() {
+                orgId = null;
+                isSelected = val;
+                itemIndex = userOrg[index]['_id'].toString();
+              });
+            },
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return Divider();
+        },
+      ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.save),
         label: Text("SAVE"),
