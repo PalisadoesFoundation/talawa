@@ -71,7 +71,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast('Invalid Organisation URL');
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -108,7 +108,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast("Invalid Organization URL");
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -286,9 +286,10 @@ class RegisterFormState extends State<RegisterForm> {
                           prefixIcon: Icon(Icons.lock, color: Colors.white),
                           suffixIcon: FlatButton(
                             onPressed: _toggle,
-                            child: Icon(_obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility,
+                            child: Icon(
+                              _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
                               color: Colors.white,
                             ),
                           ),
@@ -303,10 +304,8 @@ class RegisterFormState extends State<RegisterForm> {
                           FocusScope.of(context).unfocus();
                           FocusScope.of(context).requestFocus(confirmPassField);
                         },
-                        onChanged: (_){
-                          setState(() {
-                            
-                          });
+                        onChanged: (_) {
+                          setState(() {});
                         },
                         onSaved: (value) {
                           model.password = value;
@@ -470,7 +469,12 @@ class RegisterFormState extends State<RegisterForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Expanded(
+            child: Text(
+              msg,
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );
@@ -492,7 +496,13 @@ class RegisterFormState extends State<RegisterForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Expanded(
+            child: Text(
+              msg,
+              style: TextStyle(fontSize: 15.0, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );
