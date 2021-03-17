@@ -14,6 +14,7 @@ import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:talawa/views/pages/organization/organization_settings.dart';
+import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -34,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
   List userDetails = [];
   List orgAdmin = [];
   List org = [];
+  List joinedOrgs = [];
   bool isCreator;
   OrgController _orgController = OrgController();
 
@@ -58,6 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         userDetails = result.data['users'];
         org = userDetails.first['joinedOrganizations'];
+        joinedOrgs = userDetails[0]['joinedOrganizations'];
       });
     }
   }
@@ -314,13 +317,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                       content: Text(
                                           "Are you sure you want to logout?"),
                                       actions: [
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("No"),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
                                         ),
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("Yes"),
                                           onPressed: () {
                                             _authController.logout(context);
@@ -341,28 +344,35 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void confirmLeave() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Confirmation"),
-            content: Text("Are you sure you want to leave this organization?"),
-            actions: [
-              FlatButton(
-                child: Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text("Yes"),
-                onPressed: () async {
-                  leaveOrg();
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
+    final leaveOrgSnackBar = SnackBar(
+      content: Text(
+          'This action cannot be performed as you are not a part of any organization'),
+    );
+    (joinedOrgs.isNotEmpty)
+        ? showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Confirmation"),
+                content:
+                    Text("Are you sure you want to leave this organization?"),
+                actions: [
+                  TextButton(
+                    child: Text("Close"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  TextButton(
+                    child: Text("Yes"),
+                    onPressed: () async {
+                      leaveOrg();
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              );
+            })
+        : ScaffoldMessenger.of(context).showSnackBar(leaveOrgSnackBar);
   }
 }
