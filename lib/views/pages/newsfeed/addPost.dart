@@ -44,6 +44,8 @@ class _AddPostState extends State<AddPost> {
     super.dispose();
   }
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,11 +56,61 @@ class _AddPostState extends State<AddPost> {
         ),
       ),
       body: Container(
-          child: Column(
-        children: <Widget>[
-          inputField('Give your post a title....', titleController),
-          inputField('Write Your post here....', textController),
-        ],
+          child: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(9.0),
+              child: TextFormField(
+                validator: (String value) {
+                  if (value.isEmpty) {
+                    return "This field is Required";
+                  }
+                  /* if (value.length > 20) {
+                    return "Title cannot be longer than 20 letters";
+                  }*/
+                  return null;
+                },
+                controller: titleController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
+                  ),
+                  labelText: 'Give your post a title....',
+                ),
+                //  'Give your post a title....',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(9.0),
+              child: TextFormField(
+                controller: textController,
+                validator: (String value) {
+                  if (value.isEmpty) {
+                    return "This field is Required";
+                  }
+                  /* if (value.length > 100) {
+                    return "Title cannot be longer than 20 letters";
+                  }*/
+                  return null;
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
+                  ),
+                  labelText: 'Write Your post here....',
+                ),
+                //  'Give your post a title....',
+              ),
+            ),
+          ],
+        ),
       )),
       floatingActionButton: addPostFab(),
     );
@@ -72,8 +124,11 @@ class _AddPostState extends State<AddPost> {
           color: Colors.white,
         ),
         onPressed: () {
-          createPost();
-          Navigator.pop(context, true);
+          if (_formKey.currentState.validate()) {
+            _formKey.currentState.save();
+            createPost();
+            Navigator.pop(context, true);
+          }
         });
   }
 
