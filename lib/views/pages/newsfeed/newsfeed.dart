@@ -211,7 +211,13 @@ class _NewsFeedState extends State<NewsFeed> {
           ),
         ),
         IconButton(
-            icon: Icon(Icons.comment), color: Colors.grey, onPressed: () {})
+            icon: Icon(Icons.comment), color: Colors.grey, onPressed: () {
+          pushNewScreen(
+            context,
+            screen: NewsArticle(
+                post: postList[index]),
+          );
+        })
       ],
     );
   }
