@@ -68,9 +68,9 @@ class _AddPostState extends State<AddPost> {
                   if (value.isEmpty) {
                     return "This field is Required";
                   }
-                  /* if (value.length > 20) {
+                  if (value.length > 20) {
                     return "Title cannot be longer than 20 letters";
-                  }*/
+                  }
                   return null;
                 },
                 controller: titleController,
@@ -93,9 +93,9 @@ class _AddPostState extends State<AddPost> {
                   if (value.isEmpty) {
                     return "This field is Required";
                   }
-                  /* if (value.length > 100) {
-                    return "Title cannot be longer than 20 letters";
-                  }*/
+                  if (value.length > 500) {
+                    return "Post cannot be longer than 500 letters";
+                  }
                   return null;
                 },
                 decoration: InputDecoration(
