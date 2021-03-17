@@ -90,7 +90,15 @@ class _NewsArticleState extends State<NewsArticle> {
                 leading: CircleAvatar(
                   backgroundImage: AssetImage(UIData.pkImage),
                 ),
-                title: TextField(
+                title:  Container(
+                  constraints: BoxConstraints(
+                    maxHeight: double.infinity,
+                    minHeight: 20,
+                  ),
+                child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  minLines: 1,//Normal textInputField will be displayed
+                  maxLines: 10,// when user presses enter it will adapt to it
                   decoration: InputDecoration(
                       suffix: IconButton(
                         color: Colors.grey,
@@ -104,6 +112,7 @@ class _NewsArticleState extends State<NewsArticle> {
                           borderRadius: BorderRadius.circular(20.0),
                           borderSide: BorderSide(color: Colors.teal))),
                   controller: commentController,
+                ),
                 ),
               ),
               Container(

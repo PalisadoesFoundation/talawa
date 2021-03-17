@@ -148,7 +148,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                   ),
                                                   Container(
                                                     width: MediaQuery.of(context).size.width - 50,
-                                                      
                                                       child: Text(
                                                           postList[index]["text"].toString(),
                                                         textAlign: TextAlign.justify,
