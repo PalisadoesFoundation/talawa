@@ -368,21 +368,16 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                RaisedButton(
-                                    padding: EdgeInsets.all(12.0),
-                                    shape: StadiumBorder(),
-                                    child: isUrlCalled
-                                        ? SizedBox(
-                                            height: 14,
-                                            width: 14,
-                                            child: CircularProgressIndicator(
-                                              backgroundColor: Colors.white,
-                                            ),
-                                          )
-                                        : Text(
-                                            saveMsg,
-                                          ),
-                                    color: Colors.white,
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      saveMsg,
+                                    ),
                                     onPressed: () async {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
