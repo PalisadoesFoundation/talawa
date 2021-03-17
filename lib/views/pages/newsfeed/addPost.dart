@@ -1,11 +1,12 @@
+
+//flutter imported packages
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:talawa/views/pages/events/events.dart';
-import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
 
 class AddPost extends StatefulWidget {
   AddPost({Key key}) : super(key: key);
@@ -21,11 +22,15 @@ class _AddPostState extends State<AddPost> {
   String oranizationId;
   Preferences preferences = Preferences();
 
+
+  //giving every variable its initial state
   initState() {
     super.initState();
     getCurrentOrgId();
   }
 
+
+  //this method is getting the current org id
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
@@ -34,6 +39,8 @@ class _AddPostState extends State<AddPost> {
     print(oranizationId);
   }
 
+
+  //creating post
   createPost() async {
     String mutation = Queries()
         .addPost(textController.text, oranizationId, titleController.text);
@@ -47,6 +54,8 @@ class _AddPostState extends State<AddPost> {
     super.dispose();
   }
 
+
+  //main build starts from here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +76,8 @@ class _AddPostState extends State<AddPost> {
     );
   }
 
+
+  //this method adds the post
   Widget addPostFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,

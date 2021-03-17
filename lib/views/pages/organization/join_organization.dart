@@ -1,5 +1,8 @@
+//flutter packages are imported here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+//PAges are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
@@ -10,9 +13,8 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
+import 'package:talawa/views/pages/home_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 
 import 'create_organization.dart';
@@ -38,17 +40,16 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   AuthController _authController = AuthController();
   String isPublic;
   TextEditingController searchController = TextEditingController();
-  OrgController _orgController = OrgController();
 
   @override
-  void initState() {
+  void initState() { //creating the initial state for all the variables
     super.initState();
     fToast = FToast();
     fToast.init(context);
     fetchOrg();
   }
 
-  void searchOrgName(String orgName) {
+  void searchOrgName(String orgName) { //it is the search bar to search the organization
     filteredOrgInfo.clear();
     if (orgName.isNotEmpty) {
       for (int i = 0; i < organizationInfo.length; i++) {
@@ -66,7 +67,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  Future fetchOrg() async {
+  Future fetchOrg() async { //function to fetch the org from the server
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -81,7 +82,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  Future joinPrivateOrg() async {
+  Future joinPrivateOrg() async { //function called if the person wants to enter a private organization
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.mutate(MutationOptions(
@@ -100,12 +101,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
       pushNewScreen(
         context,
-        screen: NewsFeed(),
+        screen: ModalRoute.of(context).settings.name == '/profile_page'
+            ? ProfilePage()
+            : HomePage(),
       );
     }
   }
 
-  Future joinPublicOrg() async {
+  Future joinPublicOrg() async { //function which will be called if the person wants to join the organization which is not private
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -141,7 +144,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       //Navigate user to newsfeed
       pushNewScreen(
         context,
-        screen: ProfilePage(),
+        screen: ModalRoute.of(context).settings.name == '/profile_page'
+            ? ProfilePage()
+            : HomePage(),
       );
     }
   }
@@ -393,7 +398,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
+          Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => new CreateOrganization()));
         },
       ),
@@ -401,7 +406,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     );
   }
 
-  void confirmOrgDialog() {
+  void confirmOrgDialog() { //this is the pop up shown when the confirmation is required
     showDialog(
         context: context,
         builder: (BuildContext context) {

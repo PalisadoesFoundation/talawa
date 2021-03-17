@@ -1,7 +1,10 @@
 import 'dart:ffi';
+//flutter packages are imported here
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+//pages are imported here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
@@ -30,6 +33,8 @@ class _NewsFeedState extends State<NewsFeed> {
   Timer timer = Timer();
   String _currentOrgID;
 
+
+  //setting initial state to the variables
   initState() {
     super.initState();
     getPosts();
@@ -52,6 +57,8 @@ class _NewsFeedState extends State<NewsFeed> {
     });
   }
 
+
+  //function to get the current posts
   Future<void> getPosts() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
@@ -65,20 +72,26 @@ class _NewsFeedState extends State<NewsFeed> {
     });
   }
 
-  Future<void> addLike(String postID, index) async {
+  //function to addlike
+  Future<void> addLike(String postID) async {
     String mutation = Queries().addLike(postID);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
     getPosts();
   }
 
-  Future<void> removeLike(String postID, index) async {
+
+
+  //function to remove the likes
+  Future<void> removeLike(String postID) async {
     String mutation = Queries().removeLike(postID);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
     getPosts();
   }
 
+
+  //the main build starts from here
   @override
   Widget build(BuildContext context) {
 
@@ -186,6 +199,8 @@ class _NewsFeedState extends State<NewsFeed> {
     );
   }
 
+
+  //function to add the post on the news feed
   Widget addPostFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
@@ -199,6 +214,8 @@ class _NewsFeedState extends State<NewsFeed> {
         });
   }
 
+
+  //function which counts the number of comments on a particular post
   Widget commentCounter(index) {
     return Row(
       children: [
@@ -221,6 +238,8 @@ class _NewsFeedState extends State<NewsFeed> {
     );
   }
 
+
+  //function to like
   Widget likeButton(index) {
     return Row(
       children: [

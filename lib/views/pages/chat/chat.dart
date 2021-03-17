@@ -1,4 +1,8 @@
+
+//flutter packages
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:talawa/utils/uidata.dart';
 
 class Chat extends StatefulWidget {
