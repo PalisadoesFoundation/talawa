@@ -6,7 +6,6 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 
@@ -103,6 +102,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       body: _progressBarState
           ? Center(child: CircularProgressIndicator())
           : ListView.separated(
+              padding: EdgeInsets.only(top: 10.0),
               itemCount: userOrg.length,
               itemBuilder: (context, index) {
                 return RadioListTile(

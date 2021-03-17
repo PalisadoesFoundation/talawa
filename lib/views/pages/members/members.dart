@@ -7,11 +7,8 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/apiFuctions.dart';
-import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/memberDetails.dart';
-import 'package:talawa/views/pages/members/RegEventstab.dart';
-import 'package:talawa/views/pages/members/userTaskstab.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 class Organizations extends StatefulWidget {
@@ -88,11 +85,12 @@ class _OrganizationsState extends State<Organizations> {
 
   //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
-    int colorint = int.parse(id.replaceAll(RegExp('[a-z]'), ''));
-    colorint = (colorint % 18);
+    String userId = id.replaceAll(RegExp('[a-z]'), '');
+    int colorInt = int.parse(userId.substring(userId.length -10));
+    colorInt = (colorInt % 18);
     return Color.alphaBlend(
       Colors.black45,
-      Colors.primaries[colorint],
+      Colors.primaries[colorInt],
     );
   }
 
@@ -162,17 +160,20 @@ class _OrganizationsState extends State<Organizations> {
               membersList[index]['image'] == null
                   ? defaultUserImage(membersList[index])
                   : userImage(membersList[index]),
-              Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.all(20),
-                  height: 80,
-                  color: Colors.white,
-                  child: Text(
-                    membersList[index]['firstName'].toString() +
-                        ' ' +
-                        membersList[index]['lastName'].toString(),
-                    textAlign: TextAlign.left,
-                  ))
+              Flexible(
+                child: Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(20),
+                    height: 80,
+                    color: Colors.white,
+                    child: Text(
+                      membersList[index]['firstName'].toString() +
+                          ' ' +
+                          membersList[index]['lastName'].toString(),
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                    )),
+              )
             ],
           ),
         ));
