@@ -150,13 +150,13 @@ class _RemoveMemberState extends State<RemoveMember> {
             content:
                 Text("Are you sure you want to remove selected member(s)?"),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Yes"),
                 onPressed: () async {
                   removeMembers();

@@ -413,13 +413,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             title: Text("Confirmation"),
             content: Text("Are you sure you want to join this organization?"),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Yes"),
                 onPressed: () async {
                   if (isPublic == 'true') {

@@ -118,17 +118,20 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   Widget loadCommentsButton() {
-    return FlatButton(
-        color: Colors.grey[200],
-        onPressed: () {
-          setState(() {
-            loadComments = true;
-          });
-        },
-        child: Text(
-          'Load Comments',
-          style: TextStyle(color: Colors.black54),
-        ));
+    return TextButton(
+      style: TextButton.styleFrom(
+        primary: Colors.grey[200],
+      ),
+      onPressed: () {
+        setState(() {
+          loadComments = true;
+        });
+      },
+      child: Text(
+        'Load Comments',
+        style: TextStyle(color: Colors.black54),
+      ),
+    );
   }
 
   Widget commentList() {

@@ -314,13 +314,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                       content: Text(
                                           "Are you sure you want to logout?"),
                                       actions: [
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("No"),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
                                         ),
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("Yes"),
                                           onPressed: () {
                                             _authController.logout(context);
@@ -348,13 +348,13 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text("Confirmation"),
             content: Text("Are you sure you want to leave this organization?"),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Yes"),
                 onPressed: () async {
                   leaveOrg();

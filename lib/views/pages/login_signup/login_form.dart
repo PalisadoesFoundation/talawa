@@ -78,20 +78,20 @@ class LoginFormState extends State<LoginForm> {
       await _pref.saveUserLName(userLName);
 
       List organisations = result.data['login']['user']['joinedOrganizations'];
-      if(organisations.isEmpty){
+      if (organisations.isEmpty) {
         //skip the steps below
-      }else{
+      } else {
         //execute the steps below
         final String currentOrgId =
-        result.data['login']['user']['joinedOrganizations'][0]['_id'];
+            result.data['login']['user']['joinedOrganizations'][0]['_id'];
         await _pref.saveCurrentOrgId(currentOrgId);
 
         final String currentOrgImgSrc =
-        result.data['login']['user']['joinedOrganizations'][0]['image'];
+            result.data['login']['user']['joinedOrganizations'][0]['image'];
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
 
         final String currentOrgName =
-        result.data['login']['user']['joinedOrganizations'][0]['name'];
+            result.data['login']['user']['joinedOrganizations'][0]['name'];
         await _pref.saveCurrentOrgName(currentOrgName);
       }
 
@@ -110,7 +110,8 @@ class LoginFormState extends State<LoginForm> {
             SizedBox(
               height: 50,
             ),
-            AutofillGroup(child: Column(
+            AutofillGroup(
+                child: Column(
               children: <Widget>[
                 TextFormField(
                   autofillHints: <String>[AutofillHints.email],
@@ -127,7 +128,10 @@ class LoginFormState extends State<LoginForm> {
                       borderSide: BorderSide(color: Colors.orange),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    prefixIcon: Icon(Icons.email, color: Colors.white,),
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: Colors.white,
+                    ),
                     labelText: "Email",
                     labelStyle: TextStyle(color: Colors.white),
                     alignLabelWithHint: true,
@@ -156,13 +160,15 @@ class LoginFormState extends State<LoginForm> {
                       borderSide: BorderSide(color: Colors.orange),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    prefixIcon: Icon(Icons.lock, color: Colors.white,),
-                    suffixIcon: FlatButton(
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Colors.white,
+                    ),
+                    suffix: TextButton(
                       onPressed: _toggle,
-                      child: Icon(_obscureText
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                          color: Colors.white,
+                      child: Icon(
+                        _obscureText ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.white,
                       ),
                     ),
                     labelText: "Password",
@@ -184,26 +190,28 @@ class LoginFormState extends State<LoginForm> {
             Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
               width: double.infinity,
-              child: RaisedButton(
-                  padding: EdgeInsets.all(12.0),
+              child: ElevatedButton(
+                onPressed: () async {
+                  FocusScope.of(context).unfocus();
+                  //checks to see if all the fields have been validated then authenticate a user
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    loginUser();
+                    setState(() {
+                      toggleProgressBarState();
+                    });
+                  }
+                },
+                child: _progressBarState
+                    ? const CircularProgressIndicator()
+                    : Text(
+                        "SIGN IN",
+                      ),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
                   shape: StadiumBorder(),
-                  child: _progressBarState
-                      ? const CircularProgressIndicator()
-                      : Text(
-                          "SIGN IN",
-                        ),
-                  color: Colors.white,
-                  onPressed: () async {
-                    FocusScope.of(context).unfocus();
-                    //checks to see if all the fields have been validated then authenticate a user
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      loginUser();
-                      setState(() {
-                        toggleProgressBarState();
-                      });
-                    }
-                  }),
+                ),
+              ),
             ),
           ],
         ));
@@ -219,7 +227,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Center(child: Expanded(child:Text(msg))),
+          Center(child: Expanded(child: Text(msg))),
         ],
       ),
     );
@@ -241,7 +249,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child:Text(msg)),
+          Expanded(child: Text(msg)),
         ],
       ),
     );

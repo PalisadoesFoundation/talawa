@@ -16,6 +16,7 @@ import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
 
@@ -368,8 +369,7 @@ class _EventsState extends State<Events> {
               //             int.parse(displayedEvents[index]['startTime'])))
               //         .toString()),
               ListTile(
-                trailing: RaisedButton(
-                  color: UIData.secondaryColor,
+                trailing: ElevatedButton(
                   onPressed: () {
                     pushNewScreen(
                       context,
@@ -381,7 +381,9 @@ class _EventsState extends State<Events> {
                     "More",
                     style: TextStyle(color: Colors.white),
                   ),
-                  shape: StadiumBorder(),
+                  style: ElevatedButton.styleFrom(
+                    shape: StadiumBorder(),
+                  ),
                 ),
               ),
             ],

@@ -54,13 +54,13 @@ class _AddEventTaskState extends State<AddEventTask> {
             ],
           )),
       actions: <Widget>[
-        FlatButton(
-          child: Text("Cancel"),
+        TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
+          child: Text("Cancel"),
         ),
-        FlatButton(
+        TextButton(
           child: Text("Add"),
           onPressed: () {
             addTask();
