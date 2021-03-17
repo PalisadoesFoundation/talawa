@@ -1,5 +1,9 @@
+
+//flutter packages are called here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -39,6 +43,8 @@ class LoginFormState extends State<LoginForm> {
     _progressBarState = !_progressBarState;
   }
 
+
+  //providing variables with initial states
   @override
   void initState() {
     super.initState();
@@ -100,6 +106,8 @@ class LoginFormState extends State<LoginForm> {
     }
   }
 
+
+  //main build starts here
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -209,6 +217,8 @@ class LoginFormState extends State<LoginForm> {
         ));
   }
 
+
+  //the method called when the result is success
   _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
@@ -231,6 +241,8 @@ class LoginFormState extends State<LoginForm> {
     );
   }
 
+
+  //the method called when the result is an exception
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),

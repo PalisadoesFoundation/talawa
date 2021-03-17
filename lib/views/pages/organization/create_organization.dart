@@ -1,5 +1,9 @@
+
+//flutter packages
 import 'dart:io';
 import 'package:flutter/material.dart';
+
+//pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
@@ -19,7 +23,7 @@ class CreateOrganization extends StatefulWidget {
   _CreateOrganizationState createState() => _CreateOrganizationState();
 }
 
-class _CreateOrganizationState extends State<CreateOrganization> {
+class _CreateOrganizationState extends State<CreateOrganization> { //defining the Organization creation state
   final orgNameController = TextEditingController();
   final orgDescController = TextEditingController();
   final orgMemberDescController = TextEditingController();
@@ -47,7 +51,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     _progressBarState = !_progressBarState;
   }
 
-  createOrg() async {
+  createOrg() async { //this is the function which will be called when the organization is created
     GraphQLClient _client = graphQLConfiguration.authClient();
     orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
     orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
@@ -90,7 +94,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     }
   }
 
-  createOrgWithoutImg() async {
+  createOrgWithoutImg() async { //the function is called when we are creating the organization without the display picture
     GraphQLClient _client = graphQLConfiguration.authClient();
     orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
     orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
@@ -129,7 +133,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     }
   }
 
-  _imgFromCamera() async {
+  _imgFromCamera() async { //this is the function when the user want to capture the image from the camera
     File image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50);
 
@@ -138,8 +142,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     });
   }
 
-  //get image using gallery
-  _imgFromGallery() async {
+
+  _imgFromGallery() async { //this is the function when the user want to take the picture from the gallery
     File image = File(
         (await FilePicker.platform.pickFiles(type: FileType.image))
             .files
@@ -392,7 +396,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     );
   }
 
-  Widget addImage() {
+  Widget addImage() { //function which is being called when the image is being add
     return Column(
       children: <Widget>[
         SizedBox(
@@ -428,7 +432,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     );
   }
 
-  void _showPicker(context) {
+  void _showPicker(context) { //this is called when the image is clicked and it shows the options that can be used to take the picture
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -436,7 +440,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
             child: Container(
               child: Wrap(
                 children: <Widget>[
-                  ListTile(
+                  ListTile( //taking picture from the camera
                     leading: Icon(Icons.camera_alt_outlined),
                     title: Text('Camera'),
                     onTap: () {
@@ -444,7 +448,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                       Navigator.of(context).pop();
                     },
                   ),
-                  ListTile(
+                  ListTile( //taking picture from the library
                       leading: Icon(Icons.photo_library),
                       title: Text('Photo Library'),
                       onTap: () {

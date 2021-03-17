@@ -1,4 +1,8 @@
+
+//flutter packages are called here
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:talawa/utils/uidata.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/chat/chat.dart';

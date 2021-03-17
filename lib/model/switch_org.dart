@@ -111,28 +111,3 @@ class Creator {
         "lastName": lastName,
       };
 }
-
-// class SwitchOrg {
-//   int orgId;
-//   String title;
-//   String description;
-//   String imgSrc;
-
-//   SwitchOrg({this.orgId, this.title, this.description, this.imgSrc});
-
-//   SwitchOrg.fromJson(Map<String, dynamic> json) {
-//     orgId = json['_id'];
-//     title = json['title'];
-//     description = json['description'];
-//     imgSrc = json['image'];
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['_id'] = this.orgId;
-//     data['title'] = this.title;
-//     data['description'] = this.description;
-//     data['image'] = this.imgSrc;
-//     return data;
-//   }
-// }
