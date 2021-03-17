@@ -35,7 +35,6 @@ class _ProfilePageState extends State<ProfilePage> {
   List userDetails = [];
   List orgAdmin = [];
   List org = [];
-  List joinedOrgs = [];
   bool isCreator;
   OrgController _orgController = OrgController();
 
@@ -60,7 +59,6 @@ class _ProfilePageState extends State<ProfilePage> {
       setState(() {
         userDetails = result.data['users'];
         org = userDetails.first['joinedOrganizations'];
-        joinedOrgs = userDetails[0]['joinedOrganizations'];
       });
     }
   }
@@ -287,18 +285,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                       screen: OrganizationSettings(),
                                     );
                                   })
-                              : ListTile(
-                                  title: Text(
-                                    'Leave This Organization',
-                                    style: TextStyle(fontSize: 18.0),
-                                  ),
-                                  leading: Icon(
-                                    Icons.exit_to_app,
-                                    color: UIData.secondaryColor,
-                                  ),
-                                  onTap: () async {
-                                    confirmLeave();
-                                  }),
+                              : (org.isNotEmpty)
+                                  ? ListTile(
+                                      title: Text(
+                                        'Leave This Organization',
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
+                                      leading: Icon(
+                                        Icons.exit_to_app,
+                                        color: UIData.secondaryColor,
+                                      ),
+                                      onTap: () async {
+                                        confirmLeave();
+                                      })
+                                  : null,
                           ListTile(
                             title: Text(
                               "Logout",
@@ -344,35 +344,28 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void confirmLeave() {
-    final leaveOrgSnackBar = SnackBar(
-      content: Text(
-          'This action cannot be performed as you are not a part of any organization'),
-    );
-    (joinedOrgs.isNotEmpty)
-        ? showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Confirmation"),
-                content:
-                    Text("Are you sure you want to leave this organization?"),
-                actions: [
-                  TextButton(
-                    child: Text("Close"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  TextButton(
-                    child: Text("Yes"),
-                    onPressed: () async {
-                      leaveOrg();
-                      Navigator.of(context).pop();
-                    },
-                  )
-                ],
-              );
-            })
-        : ScaffoldMessenger.of(context).showSnackBar(leaveOrgSnackBar);
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Confirmation"),
+            content: Text("Are you sure you want to leave this organization?"),
+            actions: [
+              TextButton(
+                child: Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text("Yes"),
+                onPressed: () async {
+                  leaveOrg();
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }
