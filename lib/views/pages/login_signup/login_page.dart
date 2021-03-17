@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   //saves org url api to be used in the app
   Future setAPIURL() async {
     setState(() {
-      orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
+      orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
     });
     await _pref.saveOrgUrl(orgUrl);
   }
@@ -369,6 +369,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 ElevatedButton(
+<<<<<<< HEAD
                                     style: ElevatedButton.styleFrom(
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
@@ -378,7 +379,17 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     child: Text(
                                       saveMsg,
                                     ),
+=======
+                                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),),
+                                    child: Text(
+                                      saveMsg,
+                                    ),
+                                    //color: Colors.white,
+>>>>>>> upstream/master
                                     onPressed: () async {
+                                      FocusScope.of(context).unfocus();
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
 
@@ -409,11 +420,10 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                         child: new Row(
                           children: <Widget>[
                             new Expanded(
-                              child: new FlatButton(
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(50.0)),
-                                color: Colors.orange,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),),
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
                                     : () async {
@@ -470,11 +480,10 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                         child: new Row(
                           children: <Widget>[
                             new Expanded(
-                              child: new FlatButton(
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(50.0)),
-                                color: Colors.orange,
+                              child: new ElevatedButton(
+                                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),),
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
                                     : () async {

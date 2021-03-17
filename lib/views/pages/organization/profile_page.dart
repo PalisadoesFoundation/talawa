@@ -33,6 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
   AuthController _authController = AuthController();
   List userDetails = [];
   List orgAdmin = [];
+  List org = [];
   bool isCreator;
   OrgController _orgController = OrgController();
 
@@ -56,6 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } else if (!result.hasException) {
       setState(() {
         userDetails = result.data['users'];
+        org = userDetails.first['joinedOrganizations'];
       });
     }
   }
@@ -233,21 +235,23 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             onTap: () {},
                           ),
-                          ListTile(
-                              title: Text(
-                                'Switch Organization',
-                                style: TextStyle(fontSize: 18.0),
-                              ),
-                              leading: Icon(
-                                Icons.compare_arrows,
-                                color: UIData.secondaryColor,
-                              ),
-                              onTap: () {
-                                pushNewScreen(
-                                  context,
-                                  screen: SwitchOrganization(),
-                                );
-                              }),
+                          org.length == 0
+                              ? SizedBox()
+                              : ListTile(
+                                  title: Text(
+                                    'Switch Organization',
+                                    style: TextStyle(fontSize: 18.0),
+                                  ),
+                                  leading: Icon(
+                                    Icons.compare_arrows,
+                                    color: UIData.secondaryColor,
+                                  ),
+                                  onTap: () {
+                                    pushNewScreen(
+                                      context,
+                                      screen: SwitchOrganization(),
+                                    );
+                                  }),
                           ListTile(
                               title: Text(
                                 'Join or Create New Organization',
@@ -258,10 +262,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: UIData.secondaryColor,
                               ),
                               onTap: () {
-                                pushNewScreen(
-                                  context,
-                                  screen: JoinOrganization(),
-                                );
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        new JoinOrganization(),
+                                    settings:
+                                        RouteSettings(name: '/profile_page')));
                               }),
                           isCreator == true
                               ? ListTile(
