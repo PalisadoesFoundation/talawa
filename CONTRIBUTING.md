@@ -10,10 +10,10 @@ If you are ready to start contributing code right away, we have a list of [good 
 We utilize GitHub issues and pull requests to keep track of issues and contributions from the community. 
 
 #### Issues 
-Make sure you are following [issue report guidelines](https://github.com/PalisadoesFoundation/issue-guidelines.md) available here before creating any new issues on Talawa project.
+Make sure you are following [issue report guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/issue-guidelines.md) available here before creating any new issues on Talawa project.
 
 #### Pull Requests
-[Pull Request guidelines](https://github.com/PalisadoesFoundation/PR-guidelines.md) is best resource to follow to start working on open issues.
+[Pull Request guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/PR-guidelines.md) is best resource to follow to start working on open issues.
 
 #### Git Flow
 For Talawa, we utilize the GitFlow branching model. GitFlow is geared towards efficiently tracking development and managing releases. The model makes parallel development efforts easy and safe by isolating new development efforts from completed work. 
