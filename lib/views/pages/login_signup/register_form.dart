@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/controllers/auth_controller.dart';
 import 'dart:io';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
@@ -28,17 +27,19 @@ class RegisterForm extends StatefulWidget {
 
 class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController firstNameController = new TextEditingController();
+  TextEditingController lastController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
   TextEditingController originalPassword = new TextEditingController();
+  FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
   Queries _signupQuery = Queries();
-  bool _validate = false;
+  var _validate = AutovalidateMode.disabled;
   Preferences _pref = Preferences();
   FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
-  AuthController _authController = AuthController();
   bool _obscureText = true;
 
   void toggleProgressBarState() {
@@ -158,7 +159,7 @@ class RegisterFormState extends State<RegisterForm> {
     return SingleChildScrollView(
         child: Form(
             key: _formKey,
-            autovalidate: _validate,
+            autovalidateMode: _validate,
             child: Column(
               children: <Widget>[
                 addImage(),
@@ -174,7 +175,8 @@ class RegisterFormState extends State<RegisterForm> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.name],
+                        autofillHints: <String>[AutofillHints.givenName],
+                        textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.words,
                         validator: (value) =>
                             Validator.validateFirstName(value),
@@ -204,7 +206,8 @@ class RegisterFormState extends State<RegisterForm> {
                         height: 20,
                       ),
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.name],
+                        autofillHints: <String>[AutofillHints.familyName],
+                        textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.words,
                         validator: (value) => Validator.validateLastName(value),
                         textAlign: TextAlign.left,
@@ -234,6 +237,7 @@ class RegisterFormState extends State<RegisterForm> {
                       ),
                       TextFormField(
                         autofillHints: <String>[AutofillHints.email],
+                        textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) => Validator.validateEmail(value),
                         controller: emailController,
@@ -264,6 +268,7 @@ class RegisterFormState extends State<RegisterForm> {
                       ),
                       TextFormField(
                         autofillHints: <String>[AutofillHints.password],
+                        textInputAction: TextInputAction.next,
                         obscureText: _obscureText,
                         controller: originalPassword,
                         validator: (value) => Validator.validatePassword(value),
@@ -294,6 +299,15 @@ class RegisterFormState extends State<RegisterForm> {
                           hintText: 'Password',
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
+                        onFieldSubmitted: (_) {
+                          FocusScope.of(context).unfocus();
+                          FocusScope.of(context).requestFocus(confirmPassField);
+                        },
+                        onChanged: (_){
+                          setState(() {
+                            
+                          });
+                        },
                         onSaved: (value) {
                           model.password = value;
                         },
@@ -314,6 +328,7 @@ class RegisterFormState extends State<RegisterForm> {
                       TextFormField(
                         autofillHints: <String>[AutofillHints.password],
                         obscureText: true,
+                        focusNode: confirmPassField,
                         validator: (value) => Validator.validatePasswordConfirm(
                             originalPassword.text, value),
                         textAlign: TextAlign.left,
@@ -362,13 +377,12 @@ class RegisterFormState extends State<RegisterForm> {
                     color: Colors.white,
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
-                      _validate = true;
+                      _validate = AutovalidateMode.always;
                       if (_formKey.currentState.validate()) {
                         _formKey.currentState.save();
                         _image != null
                             ? registerUser()
                             : registerUserWithoutImg();
-
                         setState(() {
                           toggleProgressBarState();
                         });
@@ -446,7 +460,7 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
-  _successToast(String msg) {
+  /*_successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -466,7 +480,7 @@ class RegisterFormState extends State<RegisterForm> {
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 3),
     );
-  }
+  }*/
 
   _exceptionToast(String msg) {
     Widget toast = Container(
