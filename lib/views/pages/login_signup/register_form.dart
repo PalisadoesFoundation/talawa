@@ -316,11 +316,13 @@ class RegisterFormState extends State<RegisterForm> {
                           model.password = value;
                         },
                       ),
+                      //Animation for space between TextField and Strength bar
                       AnimatedContainer(
                         duration: Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                         height: originalPassword.text.isEmpty ? 0 : 10,
                       ),
+                      //Animation for Password strength bar
                       AnimatedContainer(
                         duration: Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
