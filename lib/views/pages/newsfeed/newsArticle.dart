@@ -1,10 +1,15 @@
+
+//the flutter packages are imported here
 import 'package:flutter/material.dart';
+
+//the pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 
+// ignore: must_be_immutable
 class NewsArticle extends StatefulWidget {
   Map post;
   NewsArticle({Key key, @required this.post}) : super(key: key);
@@ -30,16 +35,18 @@ class _NewsArticleState extends State<NewsArticle> {
     super.initState();
   }
 
+
+  //this method helps us to get the comments of the post
   getPostComments() async {
     String mutation = Queries().getPostsComments(widget.post['_id']);
     Map result = await apiFunctions.gqlmutation(mutation);
-    // print(result);
     setState(() {
       comments =
           result == null ? [] : result['commentsByPost'].reversed.toList();
     });
   }
 
+  //this method helps us to create any comments we are willing to
   createComment() async {
     if (commentController.text.isNotEmpty) {
       String mutation =
@@ -56,6 +63,8 @@ class _NewsArticleState extends State<NewsArticle> {
     super.dispose();
   }
 
+
+  //main build starts here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,6 +126,8 @@ class _NewsArticleState extends State<NewsArticle> {
     );
   }
 
+
+  //this loads the comments button
   Widget loadCommentsButton() {
     return FlatButton(
         color: Colors.grey[200],
@@ -131,6 +142,8 @@ class _NewsArticleState extends State<NewsArticle> {
         ));
   }
 
+
+  // a new widget for comment list
   Widget commentList() {
     getPostComments();
     return Column(

@@ -1,4 +1,8 @@
+
+//flutter packages
 import 'package:flutter/material.dart';
+
+//pages called are here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
@@ -32,6 +36,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   Preferences _preferences = Preferences();
   AuthController _authController = AuthController();
 
+
+  //providing with the initial states to the variables
   @override
   void initState() {
     super.initState();
@@ -39,10 +45,14 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     fToast.init(context);
   }
 
+
+  //this method shows the toggle bar
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
   }
 
+
+  //this method is used if we want to update the organization
   updateOrg() async {
     final String currentOrgId = await _preferences.getCurrentOrgId();
 
@@ -72,7 +82,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Sucess!");
+      _successToast("Success!");
       pushNewScreen(
         context,
         screen: ProfilePage(),
@@ -80,6 +90,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     }
   }
 
+
+  //the main build starts here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -252,6 +264,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
         ));
   }
 
+
+  //a message if the result is successful
   _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
@@ -274,6 +288,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     );
   }
 
+
+  //a method which is called when the result is an exception
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),

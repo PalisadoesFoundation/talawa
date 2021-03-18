@@ -1,8 +1,13 @@
+
+//flutter packages are imported here
 import 'package:flutter/material.dart';
+
+//pages are imported here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 
+// ignore: must_be_immutable
 class TaskList extends StatefulWidget {
   Map event;
   TaskList({
@@ -25,10 +30,11 @@ class _TaskListState extends State<TaskList> {
     getTasks();
   }
 
+
+  //function to get the task list
   getTasks() async {
     final String userID = widget.event['_id'];
     Map result = await apiFunctions.gqlquery(Queries().getTasksByEvent(userID));
-    // print(result);
     setState(() {
       eventTasks = result == null ? [] : result['tasksByEvent'];
     });

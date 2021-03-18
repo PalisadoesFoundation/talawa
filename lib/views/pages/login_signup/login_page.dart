@@ -1,8 +1,11 @@
+
+//flutter packages are called here
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -38,6 +41,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   //this animation length has to be larger becasuse it includes startup time
   AnimationController controller;
 
+
+  //providing the initial states to the variables
   @override
   void initState() {
     super.initState();
@@ -66,7 +71,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   }
 
   //saves org url api to be used in the app
-  Future setAPIURL() async {
+  Future setApiUrl() async {
     setState(() {
       orgUrl =
           "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
@@ -156,6 +161,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         ),
       );
 
+
+  //it will send the user to login page
   gotoLogin() {
     _pageController.animateToPage(
       0,
@@ -164,6 +171,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     );
   }
 
+
+  //it will send the user to signup page
   gotoSignUp() {
     _pageController.animateToPage(
       2,
@@ -179,6 +188,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     });
   }
 
+
+  //main build starts here
   @override
   build(BuildContext context) {
     var animation = Tween(begin: 0.0, end: 1.0).animate(controller);
