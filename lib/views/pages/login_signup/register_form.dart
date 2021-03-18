@@ -1,9 +1,7 @@
-
 //flutter packages are called here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
-
 
 // pages are called here
 import 'package:provider/provider.dart';
@@ -18,7 +16,6 @@ import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
-
 
 //pubspec packages are called here
 import 'package:file_picker/file_picker.dart';
@@ -103,7 +100,6 @@ class RegisterFormState extends State<RegisterForm> {
           settings: RouteSettings(name: '/register-form')));
     }
   }
-
 
   //function called when the user is called without the image
   registerUserWithoutImg() async {
@@ -402,7 +398,6 @@ class RegisterFormState extends State<RegisterForm> {
             )));
   }
 
-
   //widget used to add the image
   Widget addImage() {
     return Column(
@@ -440,7 +435,6 @@ class RegisterFormState extends State<RegisterForm> {
     );
   }
 
-
   //used to show the method user want to choose their pictures
   void _showPicker(context) {
     showModalBottomSheet(
@@ -471,7 +465,8 @@ class RegisterFormState extends State<RegisterForm> {
           );
         });
   }
-  /*_successToast(String msg) {
+
+ /* _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -490,8 +485,6 @@ class RegisterFormState extends State<RegisterForm> {
         ],
       ),
     );*/
-
-
 
   //this method is called when the result is an exception
   _exceptionToast(String msg) {

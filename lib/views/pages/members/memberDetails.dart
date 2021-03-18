@@ -67,7 +67,7 @@ class _MemberDetailState extends State<MemberDetail>
                     padding: EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     height: 30,
-                    child: Text('User Privilages:'),
+                    child: Text('User Privileges:'),
                   )),
                 ]),
               )),
