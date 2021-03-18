@@ -321,15 +321,11 @@ class RegisterFormState extends State<RegisterForm> {
                         curve: Curves.easeInOut,
                         height: originalPassword.text.isEmpty ? 0 : 10,
                       ),
-                      // SizedBox(
-                      //   height: originalPassword.text.isEmpty ? 0 : 10,
-                      // ),
                       AnimatedContainer(
                         duration: Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                         height: originalPassword.text.isEmpty ? 0 : 5,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
-                        // opacity: originalPassword.text.isEmpty ? 0 : 1,
                         child: FlutterPasswordStrength(
                             password: originalPassword.text,
                             height: 5,
