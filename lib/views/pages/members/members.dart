@@ -1,6 +1,9 @@
-import 'dart:ui';
 
+//flutter imported package
+import 'dart:ui';
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
@@ -23,6 +26,8 @@ class _OrganizationsState extends State<Organizations> {
   int isSelected = 0;
   Preferences preferences = Preferences();
 
+
+  //providing initial states to the variables
   initState() {
     super.initState();
     getMembers();
@@ -70,6 +75,8 @@ class _OrganizationsState extends State<Organizations> {
     return alphalist;
   }
 
+  //function to get the members of an organization
+  // ignore: missing_return
   Future<List> getMembers() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     ApiFunctions apiFunctions = ApiFunctions();
@@ -94,6 +101,9 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
+
+
+  //main build starts here
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -119,6 +129,8 @@ class _OrganizationsState extends State<Organizations> {
                 )));
   }
 
+
+  //widget which divides the list according to letters
   Widget alphabetDividerList(BuildContext context, List membersList) {
     return SliverStickyHeader(
       header: Container(
@@ -146,6 +158,8 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
+
+  //a custom card made for showing member details
   Widget memberCard(index, List membersList) {
     Color color = idToColor(membersList[index]['_id']);
     return GestureDetector(
@@ -179,6 +193,8 @@ class _OrganizationsState extends State<Organizations> {
         ));
   }
 
+
+  //widget to get the user images
   Widget userImage(Map member) {
     return Container(
       height: 80,
@@ -207,6 +223,8 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
+
+  //widget to get the default user image
   Widget defaultUserImage(Map member) {
     return Container(
         padding: EdgeInsets.all(0),
@@ -224,23 +242,9 @@ class _OrganizationsState extends State<Organizations> {
                 ))));
   }
 
+  //the widget is user for pop up menu
   Widget popUpMenue(Map member) {
     return PopupMenuButton<int>(
-      // onSelected: (val) async {
-      //   if (val == 1) {
-      //     pushNewScreen(
-      //       context,
-      //       withNavBar: true,
-      //       screen: UserTasks(),
-      //     );
-      //   } else if (val == 2) {
-      //     pushNewScreen(
-      //       context,
-      //       withNavBar: true,
-      //       screen: RegisterdEvents(),
-      //     );
-      //   }
-      // },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
         const PopupMenuItem<int>(
             value: 1,
