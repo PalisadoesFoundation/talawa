@@ -81,10 +81,11 @@ class _ProfilePageState extends State<ProfilePage> {
               result.data['organizations'][0]['creator']['firstName'];
           creatorLName = result.data['organizations'][0]['creator']['lastName'];
         });
-
-        if (fName != creatorFName && lName != creatorLName) {
+        // Todo: check creator id with user id rather than comparing names for 100% accuracy in finding the admin rights
+        if (fName.compareTo(creatorFName) != 0 &&
+            lName.compareTo(creatorLName) != 0) {
           setState(() {
-            isCreator = false;
+            isCreator = true;
           });
         } else {
           setState(() {

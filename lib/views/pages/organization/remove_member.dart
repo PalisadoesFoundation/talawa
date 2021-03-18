@@ -20,6 +20,8 @@ class _RemoveMemberState extends State<RemoveMember> {
   List membersList = [];
   List selectedMembers = List();
   Queries _query = Queries();
+  // Todo: to be replaced with creator's userId
+  String creatorName;
 
   @override
   void initState() {
@@ -39,6 +41,7 @@ class _RemoveMemberState extends State<RemoveMember> {
       //showError(result.exception.toString());
     } else if (!result.hasException) {
       setState(() {
+        creatorName = result.data['organizations'][0]['creator']['firstName']+' '+result.data['organizations'][0]['creator']['lastName'];
         membersList = result.data['organizations'][0]['members'];
       });
     }
@@ -91,6 +94,7 @@ class _RemoveMemberState extends State<RemoveMember> {
         itemBuilder: (context, index) {
           final members = membersList[index];
           String mId = members['_id'];
+          String name = members['firstName'] + ' ' + members['lastName'];
           return CheckboxListTile(
             secondary: members['image'] != null
                 ? CircleAvatar(
@@ -116,7 +120,8 @@ class _RemoveMemberState extends State<RemoveMember> {
                           fontSize: 22,
                         )),
                   ),
-            title: Text(members['firstName'] + ' ' + members['lastName']),
+            title: Text(name),
+            subtitle: Text(name.compareTo(creatorName)==0?'Admin':''),
             value: selectedMembers.contains('"$mId"'),
             onChanged: (bool value) {
               _onMemberSelected(value, members['_id'].toString());
