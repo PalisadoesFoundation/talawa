@@ -2,8 +2,9 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
-//pages are called here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -23,6 +24,7 @@ void changeFirst() {
 }
 
 class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
   final PageController _pageController =
       new PageController(initialPage: 1, viewportFraction: 1.0);
   var _media;
@@ -33,13 +35,17 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   String orgUrl;
   String saveMsg = "Set URL";
   String urlInput;
-  //this animation length has to be larger because it includes startup time
+  FToast fToast;
+  bool isUrlCalled = false;
+  //this animation length has to be larger becasuse it includes startup time
   AnimationController controller;
 
   //providing the initial states to the variables
   @override
   void initState() {
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
     urlController.addListener(listenToUrl);
     controller = AnimationController(
       vsync: this,
@@ -381,16 +387,23 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                             BorderRadius.circular(30.0),
                                       ),
                                     ),
-                                    child: Text(
-                                      saveMsg,
-                                    ),
+                                    child: isUrlCalled
+                                        ? SizedBox(
+                                            height: 14,
+                                            width: 14,
+                                            child: CircularProgressIndicator(
+                                                backgroundColor: Colors.white),
+                                          )
+                                        : Text(
+                                            saveMsg,
+                                          ),
                                     //color: Colors.white,
                                     onPressed: () async {
                                       FocusScope.of(context).unfocus();
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        setApiUrl();
-                                        _setURL();
+
+                                        await checkAndSetUrl();
                                       }
                                     }),
                               ],
@@ -537,6 +550,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
     return Scaffold(
         //resizeToAvoidBottomInset: false,
+        key: _scaffoldkey,
         backgroundColor: Colors.white,
         body: Container(
           decoration: BoxDecoration(
@@ -573,5 +587,52 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
             ],
           ),
         ));
+  }
+
+  _exceptionToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: Text(
+              msg,
+              style: TextStyle(fontSize: 15.0, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 5),
+    );
+  }
+
+  Future<void> checkAndSetUrl() async {
+    setState(() {
+      isUrlCalled = true;
+    });
+
+    try {
+      await http.get('${dropdownValue.toLowerCase()}://${urlController.text}/');
+
+      setApiUrl();
+      _setURL();
+    } catch (e) {
+      _exceptionToast('Incorrect Organization Entered');
+    }
+
+    setState(() {
+      isUrlCalled = false;
+    });
   }
 }
