@@ -1,41 +1,51 @@
+
+//flutter packages imported here
 import 'package:flutter/material.dart';
+
+//packages for pages are imported here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 
-class RegisterdEvents extends StatefulWidget {
-  Map member;
 
-  RegisterdEvents({
+// ignore: must_be_immutable
+class RegisteredEvents extends StatefulWidget {
+  Map member;
+  RegisteredEvents({
     Key key,
     @required this.member,
   }) : super(key: key);
 
   @override
-  _RegisterdEventsState createState() => _RegisterdEventsState();
+  _RegisteredEventsState createState() => _RegisteredEventsState();
 }
 
-class _RegisterdEventsState extends State<RegisterdEvents> {
+class _RegisteredEventsState extends State<RegisteredEvents> {
   Preferences preferences = Preferences();
 
   ApiFunctions apiFunctions = ApiFunctions();
   List userEvents = [];
 
+
+  //providing variables with the initial states
   void initState() {
     super.initState();
     getUserDetails();
   }
 
+
+  //method to get the user details
   getUserDetails() async {
     final String userID = widget.member['_id'];
     Map result =
         await apiFunctions.gqlquery(Queries().registeredEventsByUser(userID));
-    // print(result);
     setState(() {
       userEvents = result == null ? [] : result['registeredEventsByUser'];
     });
   }
 
+
+  //the main build starts here
   @override
   Widget build(BuildContext context) {
     if (userEvents.length != 0) {

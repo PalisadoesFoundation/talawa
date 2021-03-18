@@ -1,8 +1,13 @@
+
+//flutter packages are called here
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 
+// ignore: must_be_immutable
 class UserTasks extends StatefulWidget {
   Map member;
 
@@ -26,6 +31,8 @@ class _UserTasksState extends State<UserTasks> {
     getUserDetails();
   }
 
+
+  //getting user details
   getUserDetails() async {
     final String userID = widget.member['_id'];
     Map result = await apiFunctions.gqlquery(Queries().tasksByUser(userID));
@@ -35,6 +42,8 @@ class _UserTasksState extends State<UserTasks> {
     });
   }
 
+
+  //main building starts here
   @override
   Widget build(BuildContext context) {
     return userTasks.length != 0

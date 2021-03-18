@@ -1,7 +1,9 @@
+//the flutter material package is called
 import 'package:flutter/material.dart';
+
+//Pages are imported here
 import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/view_models/base_model.dart';
 
 class BaseView<T extends ChangeNotifier> extends StatefulWidget {
   final Widget Function(BuildContext context, T value, Widget child) builder;
