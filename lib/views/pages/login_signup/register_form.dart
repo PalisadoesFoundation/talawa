@@ -328,6 +328,7 @@ class RegisterFormState extends State<RegisterForm> {
                         duration: Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                         height: originalPassword.text.isEmpty ? 0 : 5,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         // opacity: originalPassword.text.isEmpty ? 0 : 1,
                         child: FlutterPasswordStrength(
                             password: originalPassword.text,
