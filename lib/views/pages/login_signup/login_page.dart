@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,7 +36,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   //this animation length has to be larger because it includes startup time
   AnimationController controller;
 
-
   //providing the initial states to the variables
   @override
   void initState() {
@@ -67,7 +65,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   //saves org url api to be used in the app
   Future setApiUrl() async {
     setState(() {
-      orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
+      orgUrl =
+          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
     });
     await _pref.saveOrgUrl(orgUrl);
   }
@@ -154,7 +153,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         ),
       );
 
-
   //it will send the user to login page
   gotoLogin() {
     _pageController.animateToPage(
@@ -163,7 +161,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       curve: Curves.bounceOut,
     );
   }
-
 
   //it will send the user to signup page
   gotoSignUp() {
@@ -175,12 +172,11 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   }
 
   //set URL
-  void _setURL(){
+  void _setURL() {
     setState(() {
       saveMsg = "URL SAVED!";
     });
   }
-
 
   //main build starts here
   @override
@@ -319,6 +315,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                   onChanged: (String newValue) {
                                     setState(() {
                                       dropdownValue = newValue;
+                                      saveMsg = "Set URL";
                                     });
                                   },
                                   items: <String>['HTTP', 'HTTPS']
@@ -378,9 +375,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 ElevatedButton(
-                                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),),
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
+                                    ),
                                     child: Text(
                                       saveMsg,
                                     ),
@@ -418,9 +418,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                           children: <Widget>[
                             new Expanded(
                               child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),),
+                                style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                ),
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
                                     : () async {
@@ -478,9 +481,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                           children: <Widget>[
                             new Expanded(
                               child: new ElevatedButton(
-                                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),),
+                                style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                ),
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
                                     : () async {
@@ -543,7 +549,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
               FocusScopeNode currentFocus = FocusScope.of(context);
               currentFocus.unfocus();
             },
-            physics: saveMsg != "URL SAVED!" ? new NeverScrollableScrollPhysics() : new BouncingScrollPhysics(),
+            physics: saveMsg != "URL SAVED!"
+                ? new NeverScrollableScrollPhysics()
+                : new BouncingScrollPhysics(),
             children: <Widget>[
               //has to be scrollable so the screen can adjust when the keyboard is tapped
               Center(
