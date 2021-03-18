@@ -1,4 +1,8 @@
+
+//flutter imported packages
 import 'package:flutter/material.dart';
+
+//pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
@@ -23,12 +27,16 @@ class _RemoveMemberState extends State<RemoveMember> {
   // Todo: to be replaced with creator's userId
   String creatorName;
 
+
+  //giving initial states to every variable
   @override
   void initState() {
     super.initState();
     viewMembers();
   }
 
+
+  //method to show the members of the organization
   Future viewMembers() async {
     final String orgId = await _preferences.getCurrentOrgId();
 
@@ -47,6 +55,8 @@ class _RemoveMemberState extends State<RemoveMember> {
     }
   }
 
+
+  //method called when a member has to be removed by the admin
   Future removeMembers() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
     final String orgId = await _preferences.getCurrentOrgId();
@@ -62,7 +72,6 @@ class _RemoveMemberState extends State<RemoveMember> {
       print(result.exception.toString().substring(16));
     } else if (!result.hasException) {
       print(result.data);
-//_successToast('Member(s) was removed');
       viewMembers();
     }
   }
@@ -146,6 +155,8 @@ class _RemoveMemberState extends State<RemoveMember> {
     );
   }
 
+
+  //dialog to confirm if the admin really wants to remove the member or not
   void removeMemberDialog() {
     showDialog(
         context: context,
