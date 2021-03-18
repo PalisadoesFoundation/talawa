@@ -627,7 +627,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     try {
       await http.get('${dropdownValue.toLowerCase()}://${urlController.text}/');
 
-      setAPIURL();
+      setApiUrl();
       _setURL();
     } catch (e) {
       _exceptionToast('Incorrect Organization Entered');
