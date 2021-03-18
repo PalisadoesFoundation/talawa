@@ -1,3 +1,5 @@
+
+//model class for an user
 class User {
   int id;
   String firstName;

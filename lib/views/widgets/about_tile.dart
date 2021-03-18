@@ -1,4 +1,7 @@
+//flutter package imported
 import 'package:flutter/material.dart';
+
+//pages are imported here
 import 'package:talawa/utils/uidata.dart';
 
 class MyAboutTile extends StatelessWidget {

@@ -1,7 +1,10 @@
+//flutter packages are called here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'dart:io';
+
+// pages are called here
+import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -13,8 +16,9 @@ import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
-import 'package:file_picker/file_picker.dart';
 
+//pubspec packages are called here
+import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_password_strength/flutter_password_strength.dart';
 
@@ -97,6 +101,7 @@ class RegisterFormState extends State<RegisterForm> {
     }
   }
 
+  //function called when the user is called without the image
   registerUserWithoutImg() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(MutationOptions(
@@ -393,6 +398,7 @@ class RegisterFormState extends State<RegisterForm> {
             )));
   }
 
+  //widget used to add the image
   Widget addImage() {
     return Column(
       children: <Widget>[
@@ -429,6 +435,7 @@ class RegisterFormState extends State<RegisterForm> {
     );
   }
 
+  //used to show the method user want to choose their pictures
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
@@ -459,7 +466,7 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
-  /*_successToast(String msg) {
+  _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -478,14 +485,9 @@ class RegisterFormState extends State<RegisterForm> {
         ],
       ),
     );
+  }
 
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
-    );
-  }*/
-
+  //this method is called when the result is an exception
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
