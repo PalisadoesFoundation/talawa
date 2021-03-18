@@ -45,10 +45,14 @@ class Validator {
   // }
 
   static String validatePassword(String value) {
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
     if (value.length < 6) {
       return 'Password must be at least 6 characters.';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Password must atleast 1 A-Z,a-z,0-9&special character';
     }
-
     return null;
   }
 
