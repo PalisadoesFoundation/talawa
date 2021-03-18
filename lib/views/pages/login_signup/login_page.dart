@@ -387,9 +387,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                             BorderRadius.circular(30.0),
                                       ),
                                     ),
-                                    child: Text(
-                                      saveMsg,
-                                    ),
                                     child: isUrlCalled
                                         ? SizedBox(
                                             height: 14,
