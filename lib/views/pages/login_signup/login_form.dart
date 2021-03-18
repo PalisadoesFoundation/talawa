@@ -231,7 +231,11 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
+<<<<<<< HEAD
           Center(child: Expanded(child: Text(msg))),
+=======
+          Center(child: Text(msg)),
+>>>>>>> upstream/master
         ],
       ),
     );

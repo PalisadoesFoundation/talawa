@@ -1,10 +1,10 @@
-
 //flutter packages are called here
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
-//pages are called here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -24,6 +24,7 @@ void changeFirst() {
 }
 
 class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
   final PageController _pageController =
       new PageController(initialPage: 1, viewportFraction: 1.0);
   var _media;
@@ -34,14 +35,17 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   String orgUrl;
   String saveMsg = "Set URL";
   String urlInput;
-  //this animation length has to be larger because it includes startup time
+  FToast fToast;
+  bool isUrlCalled = false;
+  //this animation length has to be larger becasuse it includes startup time
   AnimationController controller;
-
 
   //providing the initial states to the variables
   @override
   void initState() {
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
     urlController.addListener(listenToUrl);
     controller = AnimationController(
       vsync: this,
@@ -67,7 +71,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   //saves org url api to be used in the app
   Future setApiUrl() async {
     setState(() {
-      orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
+      orgUrl =
+          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
     });
     await _pref.saveOrgUrl(orgUrl);
   }
@@ -154,7 +159,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         ),
       );
 
-
   //it will send the user to login page
   gotoLogin() {
     _pageController.animateToPage(
@@ -163,7 +167,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       curve: Curves.bounceOut,
     );
   }
-
 
   //it will send the user to signup page
   gotoSignUp() {
@@ -175,12 +178,11 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   }
 
   //set URL
-  void _setURL(){
+  void _setURL() {
     setState(() {
       saveMsg = "URL SAVED!";
     });
   }
-
 
   //main build starts here
   @override
@@ -378,19 +380,29 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 ElevatedButton(
-                                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),),
-                                    child: Text(
-                                      saveMsg,
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                      ),
                                     ),
+                                    child: isUrlCalled
+                                        ? SizedBox(
+                                            height: 14,
+                                            width: 14,
+                                            child: CircularProgressIndicator(
+                                                backgroundColor: Colors.white),
+                                          )
+                                        : Text(
+                                            saveMsg,
+                                          ),
                                     //color: Colors.white,
                                     onPressed: () async {
                                       FocusScope.of(context).unfocus();
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        setApiUrl();
-                                        _setURL();
+
+                                        await checkAndSetUrl();
                                       }
                                     }),
                               ],
@@ -418,9 +430,11 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                           children: <Widget>[
                             new Expanded(
                               child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),),
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                ),
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
                                     : () async {
@@ -478,9 +492,11 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                           children: <Widget>[
                             new Expanded(
                               child: new ElevatedButton(
-                                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),),
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                ),
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
                                     : () async {
@@ -531,6 +547,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
     return Scaffold(
         //resizeToAvoidBottomInset: false,
+        key: _scaffoldkey,
         backgroundColor: Colors.white,
         body: Container(
           decoration: BoxDecoration(
@@ -543,7 +560,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
               FocusScopeNode currentFocus = FocusScope.of(context);
               currentFocus.unfocus();
             },
-            physics: saveMsg != "URL SAVED!" ? new NeverScrollableScrollPhysics() : new BouncingScrollPhysics(),
+            physics: saveMsg != "URL SAVED!"
+                ? new NeverScrollableScrollPhysics()
+                : new BouncingScrollPhysics(),
             children: <Widget>[
               //has to be scrollable so the screen can adjust when the keyboard is tapped
               Center(
@@ -565,5 +584,52 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
             ],
           ),
         ));
+  }
+
+  _exceptionToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: Text(
+              msg,
+              style: TextStyle(fontSize: 15.0, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 5),
+    );
+  }
+
+  Future<void> checkAndSetUrl() async {
+    setState(() {
+      isUrlCalled = true;
+    });
+
+    try {
+      await http.get('${dropdownValue.toLowerCase()}://${urlController.text}/');
+
+      setApiUrl();
+      _setURL();
+    } catch (e) {
+      _exceptionToast('Incorrect Organization Entered');
+    }
+
+    setState(() {
+      isUrlCalled = false;
+    });
   }
 }

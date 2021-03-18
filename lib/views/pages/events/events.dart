@@ -148,17 +148,29 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-    eventList = result == null ? [] : result['events'].reversed.toList();
-    eventList.removeWhere((element) =>
-        element['title'] == 'Talawa Congress' ||
-        element['title'] == 'test'); //dont know who keeps adding these
+      Map result =
+      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+      eventList = result == null ? [] : result['events'].reversed.toList();
+      eventList.removeWhere((element) =>
+          element['title'] == 'Talawa Congress' ||
+          element['title'] == 'test' || element['title'] == 'Talawa Conference Test'); //dont know who keeps adding these
+      eventList.sort((a, b) {
+        return DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(a['startTime']))
+          .compareTo(
+          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+      });
+      eventsToDates(eventList, DateTime.now());
+      setState(() {
+        displayedEvents = eventList;
+      });
+      // print(displayedEvents);
+
 
     eventList.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-            int.parse(a['startTime']))
+        int.parse(a['startTime']))
         .compareTo(
-            DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime']))));
+        DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime']))));
     eventsToDates(eventList, DateTime.now());
     setState(() {
       displayedEvents = eventList;
