@@ -1,5 +1,9 @@
+
+//flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+//pages are called here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
@@ -35,7 +39,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     fToast.init(context);
   }
 
-  Future removeOrg() async {
+  Future removeOrg() async { //this is called the organization has to be removed
     final String orgId = await preferences.getCurrentOrgId();
     List remaindingOrg = [];
     String newOrgId;
@@ -75,7 +79,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     }
   }
 
-  Future leaveOrg() async {
+  Future leaveOrg() async { //called when you want to leave the org
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;

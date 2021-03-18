@@ -1,15 +1,15 @@
+//Flutter Packages are imported here
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+
+//Pages are imported here
 import 'package:provider/provider.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
-
 import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
-
 import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
 import 'views/pages/organization/create_organization.dart';
@@ -18,9 +18,9 @@ import 'views/pages/organization/switch_org_page.dart';
 Preferences preferences = Preferences();
 String userID;
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  userID = await preferences.getUserId();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+  WidgetsFlutterBinding.ensureInitialized(); //ensuring weather the app is being initialized or not
+  userID = await preferences.getUserId(); //getting user id
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])  //setting the orientation according to the screen it is running on
       .then((_) {
     runApp(MultiProvider(
       providers: [
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {
-          print('build route for ${settings.name}');
+          print('build route for ${settings.name}'); //here we are building the routes for the app
           var routes = <String, WidgetBuilder>{
             UIData.homeRoute: (BuildContext context) => HomePage(),
             UIData.loginPageRoute: (BuildContext context) => LoginPage(),
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
           WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));
         },
-        home: userID == null ? LoginPage() : HomePage(),
+        home: userID == null ? LoginPage() : HomePage(), //checking weather the user is logged in or not
       ),
     );
   }

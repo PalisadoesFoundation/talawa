@@ -1,5 +1,9 @@
+
+//flutter packages are imported here
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+//pages are imported here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
@@ -28,6 +32,8 @@ class _NewsFeedState extends State<NewsFeed> {
   String name;
   Timer timer = Timer();
 
+
+  //setting initial state to the variables
   initState() {
     super.initState();
     getPosts();
@@ -50,6 +56,8 @@ class _NewsFeedState extends State<NewsFeed> {
     });
   }
 
+
+  //function to get the current posts
   Future<void> getPosts() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     String query = Queries().getPostsById(currentOrgID);
@@ -61,6 +69,8 @@ class _NewsFeedState extends State<NewsFeed> {
     });
   }
 
+
+  //function to add the likes
   Future<void> addLike(String postID) async {
     String mutation = Queries().addLike(postID);
     Map result = await apiFunctions.gqlmutation(mutation);
@@ -68,6 +78,8 @@ class _NewsFeedState extends State<NewsFeed> {
     getPosts();
   }
 
+
+  //function to remove the likes
   Future<void> removeLike(String postID) async {
     String mutation = Queries().removeLike(postID);
     Map result = await apiFunctions.gqlmutation(mutation);
@@ -75,6 +87,8 @@ class _NewsFeedState extends State<NewsFeed> {
     getPosts();
   }
 
+
+  //the main build starts from here
   @override
   Widget build(BuildContext context) {
 
@@ -183,6 +197,8 @@ class _NewsFeedState extends State<NewsFeed> {
     );
   }
 
+
+  //function to add the post on the news feed
   Widget addPostFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
@@ -196,6 +212,8 @@ class _NewsFeedState extends State<NewsFeed> {
         });
   }
 
+
+  //function which counts the number of comments on a particular post
   Widget commentCounter(index) {
     return Row(
       children: [
@@ -212,6 +230,8 @@ class _NewsFeedState extends State<NewsFeed> {
     );
   }
 
+
+  //function to like
   Widget likeButton(index) {
     return Row(
       children: [

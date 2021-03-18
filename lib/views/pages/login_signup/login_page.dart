@@ -1,6 +1,10 @@
+
+//flutter packages are called here
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -30,9 +34,11 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   String orgUrl;
   String saveMsg = "Set URL";
   String urlInput;
-  //this animation length has to be larger becasuse it includes startup time
+  //this animation length has to be larger because it includes startup time
   AnimationController controller;
 
+
+  //providing the initial states to the variables
   @override
   void initState() {
     super.initState();
@@ -59,7 +65,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   }
 
   //saves org url api to be used in the app
-  Future setAPIURL() async {
+  Future setApiUrl() async {
     setState(() {
       orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
     });
@@ -148,6 +154,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         ),
       );
 
+
+  //it will send the user to login page
   gotoLogin() {
     _pageController.animateToPage(
       0,
@@ -156,6 +164,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     );
   }
 
+
+  //it will send the user to signup page
   gotoSignUp() {
     _pageController.animateToPage(
       2,
@@ -163,6 +173,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       curve: Curves.bounceOut,
     );
   }
+
   //set URL
   void _setURL(){
     setState(() {
@@ -170,6 +181,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     });
   }
 
+
+  //main build starts here
   @override
   build(BuildContext context) {
     var animation = Tween(begin: 0.0, end: 1.0).animate(controller);
@@ -376,7 +389,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                       FocusScope.of(context).unfocus();
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        setAPIURL();
+                                        setApiUrl();
                                         _setURL();
                                       }
                                     }),
