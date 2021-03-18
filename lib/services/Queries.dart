@@ -651,18 +651,19 @@ query{
 """;
   }
 
-  String createComments(String postId, String text) {
+  String createComments(String postId, var text) {
     return """
 mutation{
   createComment(postId: "$postId", 
   data:{
-    text: "$text"
+    text: ""$text"",
   }
   ){
     _id
   }
 }
-""";
+"""
+;
   }
 
   String addPost(String text, String organizationId, String title) {

@@ -257,14 +257,14 @@ class _NewsFeedState extends State<NewsFeed> {
             {
               if(postList[index]['likeCount'] != 0)
                 if(postList[index]['likedBy'][postList[index]['likeCount']-1]['_id']!=_currentOrgID) {
-                  addLike(postList[index]['_id'], index);
+                  addLike(postList[index]['_id']);
                 }
                 else {
-                  removeLike(postList[index]['_id'], index);
+                  removeLike(postList[index]['_id']);
                 }
               else
                 {
-                  addLike(postList[index]['_id'], index);
+                  addLike(postList[index]['_id']);
                 }
 
               },
