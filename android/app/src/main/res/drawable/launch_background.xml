@@ -4,12 +4,14 @@
     <item android:drawable="@android:color/white" />
     <!-- android:gravity="center"  -->
     <!-- You can insert your own image assets here -->
+    <!--
     <item>
 
         <bitmap
             android:gravity="center"
             android:src="@drawable/launch_image" />
 
-    </item> 
+    </item>
+    -->
 
 </layer-list>
