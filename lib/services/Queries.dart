@@ -662,8 +662,7 @@ mutation{
     _id
   }
 }
-"""
-;
+""";
   }
 
   String addPost(String text, String organizationId, String title) {
