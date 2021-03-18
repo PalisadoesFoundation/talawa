@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/model/switch_org.dart';
 import 'package:talawa/services/API.dart';
@@ -7,6 +5,8 @@ import 'package:talawa/view_models/base_model.dart';
 
 import '../locator.dart';
 
+
+//class to switch the model base model
 class SwitchOrgModel extends BaseModel {
   API _api = locator<API>();
 

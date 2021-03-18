@@ -1,4 +1,8 @@
+
+//flutter packages to be called here
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';

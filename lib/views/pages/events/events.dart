@@ -1,23 +1,26 @@
+
+//flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+
+//pages are imported here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/timer.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/events/EventDetailPage.dart';
 import 'package:talawa/views/pages/events/addEventPage.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
 
+
+//pubspec packages are called here
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:intl/intl.dart';
-
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
 
@@ -125,18 +128,24 @@ class _EventsState extends State<Events> {
     return eventDates;
   }
 
+
+  //function called to delete the event
   Future<void> _deleteEvent(context, eventId) async {
     String mutation = Queries().deleteEvent(eventId);
     Map result = await apiFunctions.gqlquery(mutation);
     getEvents();
   }
 
+
+  //function to called be called for register
   Future<void> _register(context, eventId) async {
     String mutation = Queries().registerForEvent(eventId);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
   }
 
+
+  //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     Map result =
@@ -154,9 +163,10 @@ class _EventsState extends State<Events> {
     setState(() {
       displayedEvents = eventList;
     });
-    // print(displayedEvents);
   }
 
+
+  //functions to edit the event
   Future<void> _editEvent(context, event) async {
     showDialog(
       context: context,
