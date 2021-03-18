@@ -41,7 +41,12 @@ class _RegisterdEventsState extends State<RegisterdEvents> {
         itemCount: userEvents.length,
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Text(userEvents[index]['title']),
+            title: userEvents[index]['title'] == null
+                ? Text("Not registered yet")
+                : Text(
+                    userEvents[index]['title'],
+                    style: TextStyle(fontSize: 20),
+                  ),
           );
         });
   }

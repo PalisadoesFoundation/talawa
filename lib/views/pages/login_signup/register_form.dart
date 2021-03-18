@@ -286,9 +286,10 @@ class RegisterFormState extends State<RegisterForm> {
                           prefixIcon: Icon(Icons.lock, color: Colors.white),
                           suffixIcon: FlatButton(
                             onPressed: _toggle,
-                            child: Icon(_obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility,
+                            child: Icon(
+                              _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
                               color: Colors.white,
                             ),
                           ),
@@ -303,10 +304,8 @@ class RegisterFormState extends State<RegisterForm> {
                           FocusScope.of(context).unfocus();
                           FocusScope.of(context).requestFocus(confirmPassField);
                         },
-                        onChanged: (_){
-                          setState(() {
-                            
-                          });
+                        onChanged: (_) {
+                          setState(() {});
                         },
                         onSaved: (value) {
                           model.password = value;
@@ -492,7 +491,11 @@ class RegisterFormState extends State<RegisterForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Text(
+            msg,
+            style: TextStyle(fontSize: 10),
+            maxLines: 3,
+          ),
         ],
       ),
     );
@@ -500,7 +503,7 @@ class RegisterFormState extends State<RegisterForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 5),
+      toastDuration: Duration(seconds: 15),
     );
   }
 

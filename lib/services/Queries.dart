@@ -541,6 +541,7 @@ class Queries {
   query{
     registeredEventsByUser(id:"$id"){
       _id
+      title
     }
   }
   
