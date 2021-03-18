@@ -22,13 +22,11 @@ class _AddPostState extends State<AddPost> {
   String oranizationId;
   Preferences preferences = Preferences();
 
-
   //giving every variable its initial state
   initState() {
     super.initState();
     getCurrentOrgId();
   }
-
 
   //this method is getting the current org id
   getCurrentOrgId() async {
@@ -38,7 +36,6 @@ class _AddPostState extends State<AddPost> {
     });
     print(oranizationId);
   }
-
 
   //creating post
   createPost() async {
@@ -54,13 +51,9 @@ class _AddPostState extends State<AddPost> {
     super.dispose();
   }
 
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-
-
+  
   //main build starts from here
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,7 +123,6 @@ class _AddPostState extends State<AddPost> {
       floatingActionButton: addPostFab(),
     );
   }
-
 
   //this method adds the post
   Widget addPostFab() {
