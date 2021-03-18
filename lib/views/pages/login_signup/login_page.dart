@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,7 +39,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   bool isUrlCalled = false;
   //this animation length has to be larger becasuse it includes startup time
   AnimationController controller;
-
 
   //providing the initial states to the variables
   @override
@@ -161,7 +159,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         ),
       );
 
-
   //it will send the user to login page
   gotoLogin() {
     _pageController.animateToPage(
@@ -170,7 +167,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       curve: Curves.bounceOut,
     );
   }
-
 
   //it will send the user to signup page
   gotoSignUp() {
@@ -187,7 +183,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       saveMsg = "URL SAVED!";
     });
   }
-
 
   //main build starts here
   @override
