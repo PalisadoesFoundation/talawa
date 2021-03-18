@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 
@@ -23,7 +22,6 @@ class _AddEventTaskState extends State<AddEventTask> {
   ApiFunctions apiFunctions = ApiFunctions();
   DateTime selectedDate = DateTime.now();
 
-
   //function to add the task
   Future<void> addTask() async {
     String mutation = Queries().addEventTask(
@@ -33,7 +31,6 @@ class _AddEventTaskState extends State<AddEventTask> {
         deadline: DateTime.now().millisecondsSinceEpoch.toString());
     Map result = await apiFunctions.gqlquery(mutation);
   }
-
 
   //function to select the date
   Future<void> _selectDate(BuildContext context) async {
@@ -47,7 +44,6 @@ class _AddEventTaskState extends State<AddEventTask> {
         selectedDate = picked;
       });
   }
-
 
   //main build starts here
   @override
@@ -65,13 +61,13 @@ class _AddEventTaskState extends State<AddEventTask> {
             ],
           )),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text("Cancel"),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        FlatButton(
+        TextButton(
           child: Text("Add"),
           onPressed: () {
             addTask();
@@ -81,7 +77,6 @@ class _AddEventTaskState extends State<AddEventTask> {
       ],
     );
   }
-
 
   //widget to use date button
   Widget dateButton() {
@@ -99,7 +94,6 @@ class _AddEventTaskState extends State<AddEventTask> {
       ),
     );
   }
-
 
   //widget to use input field
   Widget inputField(String name, TextEditingController controller) {

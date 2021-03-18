@@ -1,4 +1,3 @@
-
 //flutter imported packages
 import 'package:flutter/material.dart';
 
@@ -25,14 +24,12 @@ class _RemoveMemberState extends State<RemoveMember> {
   List selectedMembers = List();
   Queries _query = Queries();
 
-
   //giving initial states to every variable
   @override
   void initState() {
     super.initState();
     viewMembers();
   }
-
 
   //method to show the members of the organization
   Future viewMembers() async {
@@ -51,7 +48,6 @@ class _RemoveMemberState extends State<RemoveMember> {
       });
     }
   }
-
 
   //method called when a member has to be removed by the admin
   Future removeMembers() async {
@@ -150,7 +146,6 @@ class _RemoveMemberState extends State<RemoveMember> {
     );
   }
 
-
   //dialog to confirm if the admin really wants to remove the member or not
   void removeMemberDialog() {
     showDialog(
@@ -161,13 +156,13 @@ class _RemoveMemberState extends State<RemoveMember> {
             content:
                 Text("Are you sure you want to remove selected member(s)?"),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Yes"),
                 onPressed: () async {
                   removeMembers();

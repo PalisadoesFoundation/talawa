@@ -289,7 +289,7 @@ class RegisterFormState extends State<RegisterForm> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           prefixIcon: Icon(Icons.lock, color: Colors.white),
-                          suffixIcon: FlatButton(
+                          suffixIcon: TextButton(
                             onPressed: _toggle,
                             child: Icon(
                               _obscureText

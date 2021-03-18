@@ -42,14 +42,16 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   TextEditingController searchController = TextEditingController();
 
   @override
-  void initState() { //creating the initial state for all the variables
+  void initState() {
+    //creating the initial state for all the variables
     super.initState();
     fToast = FToast();
     fToast.init(context);
     fetchOrg();
   }
 
-  void searchOrgName(String orgName) { //it is the search bar to search the organization
+  void searchOrgName(String orgName) {
+    //it is the search bar to search the organization
     filteredOrgInfo.clear();
     if (orgName.isNotEmpty) {
       for (int i = 0; i < organizationInfo.length; i++) {
@@ -67,7 +69,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  Future fetchOrg() async { //function to fetch the org from the server
+  Future fetchOrg() async {
+    //function to fetch the org from the server
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -82,7 +85,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  Future joinPrivateOrg() async { //function called if the person wants to enter a private organization
+  Future joinPrivateOrg() async {
+    //function called if the person wants to enter a private organization
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.mutate(MutationOptions(
@@ -108,7 +112,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  Future joinPublicOrg() async { //function which will be called if the person wants to join the organization which is not private
+  Future joinPublicOrg() async {
+    //function which will be called if the person wants to join the organization which is not private
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -406,7 +411,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     );
   }
 
-  void confirmOrgDialog() { //this is the pop up shown when the confirmation is required
+  void confirmOrgDialog() {
+    //this is the pop up shown when the confirmation is required
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -414,13 +420,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             title: Text("Confirmation"),
             content: Text("Are you sure you want to join this organization?"),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Yes"),
                 onPressed: () async {
                   if (isPublic == 'true') {

@@ -1,4 +1,3 @@
-
 //flutter packages are  imported here
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -143,8 +142,10 @@ class _ProfilePageState extends State<ProfilePage> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context,listen: false).saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context,listen: false).saveCurrentOrgId(newOrgId);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgId(newOrgId);
       //  _successToast('You are no longer apart of this organization');
       pushNewScreen(
         context,
@@ -157,7 +158,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     var orgName = Provider.of<Preferences>(context).orgName;
-    if(orgName == null){
+    if (orgName == null) {
       orgName = 'No Organization Joined';
     }
     return Scaffold(
@@ -325,13 +326,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                       content: Text(
                                           "Are you sure you want to logout?"),
                                       actions: [
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("No"),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
                                         ),
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("Yes"),
                                           onPressed: () {
                                             _authController.logout(context);
@@ -360,13 +361,13 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text("Confirmation"),
             content: Text("Are you sure you want to leave this organization?"),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Yes"),
                 onPressed: () async {
                   leaveOrg();

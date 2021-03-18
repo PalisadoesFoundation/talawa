@@ -1,4 +1,3 @@
-
 //the flutter packages are imported here
 import 'package:flutter/material.dart';
 
@@ -35,7 +34,6 @@ class _NewsArticleState extends State<NewsArticle> {
     super.initState();
   }
 
-
   //this method helps us to get the comments of the post
   getPostComments() async {
     String mutation = Queries().getPostsComments(widget.post['_id']);
@@ -62,7 +60,6 @@ class _NewsArticleState extends State<NewsArticle> {
     commentController.dispose();
     super.dispose();
   }
-
 
   //main build starts here
   @override
@@ -126,11 +123,12 @@ class _NewsArticleState extends State<NewsArticle> {
     );
   }
 
-
   //this loads the comments button
   Widget loadCommentsButton() {
-    return FlatButton(
-        color: Colors.grey[200],
+    return TextButton(
+        style: TextButton.styleFrom(
+          primary: Colors.grey[200],
+        ),
         onPressed: () {
           setState(() {
             loadComments = true;
@@ -141,7 +139,6 @@ class _NewsArticleState extends State<NewsArticle> {
           style: TextStyle(color: Colors.black54),
         ));
   }
-
 
   // a new widget for comment list
   Widget commentList() {

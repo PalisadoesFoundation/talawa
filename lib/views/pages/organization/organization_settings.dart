@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -39,7 +38,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     fToast.init(context);
   }
 
-  Future removeOrg() async { //this is called the organization has to be removed
+  Future removeOrg() async {
+    //this is called the organization has to be removed
     final String orgId = await preferences.getCurrentOrgId();
     List remaindingOrg = [];
     String newOrgId;
@@ -79,7 +79,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     }
   }
 
-  Future leaveOrg() async { //called when you want to leave the org
+  Future leaveOrg() async {
+    //called when you want to leave the org
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
@@ -201,13 +202,13 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                           content: Text(
                               "Are you sure you want to remove this organization?"),
                           actions: [
-                            FlatButton(
+                            TextButton(
                               child: Text("Close"),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
                             ),
-                            FlatButton(
+                            TextButton(
                               child: Text("Yes"),
                               onPressed: () async {
                                 removeOrg();
