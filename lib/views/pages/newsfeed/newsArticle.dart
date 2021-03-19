@@ -1,6 +1,6 @@
-
 //the flutter packages are imported here
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //the pages are called here
 import 'package:talawa/services/Queries.dart';
@@ -19,7 +19,6 @@ class NewsArticle extends StatefulWidget {
 }
 
 class _NewsArticleState extends State<NewsArticle> {
-
   void setState(fn) {
     if (mounted) {
       super.setState(fn);
@@ -40,7 +39,7 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     commentController.dispose();
     super.dispose();
   }
@@ -62,11 +61,19 @@ class _NewsArticleState extends State<NewsArticle> {
           Queries().createComments(widget.post['_id'], commentController.text);
       Map result = await apiFunctions.gqlmutation(mutation);
       print(result);
-      commentController.text = '';
-      getPostComments();
+      if (result == null) {
+        Fluttertoast.showToast(
+          msg: "Sorry, this comment could not be posted.",
+        );
+      } else {
+        FocusScope.of(context).requestFocus(FocusNode());
+        commentController.text = '';
+        Fluttertoast.showToast(
+          msg: "Comment added.",
+        );
+      }
     }
   }
-
 
   //main build starts here
   @override
@@ -103,32 +110,32 @@ class _NewsArticleState extends State<NewsArticle> {
                 leading: CircleAvatar(
                   backgroundImage: AssetImage(UIData.pkImage),
                 ),
-                title:  Container(
+                title: Container(
                   constraints: BoxConstraints(
                     maxHeight: double.infinity,
                     minHeight: 20,
                   ),
-                child: TextField(
-                  textInputAction:  TextInputAction.newline,
-                  keyboardType: TextInputType.multiline,
-                  //minLines: 1,//Normal textInputField will be displayed
-                  //maxLines: 10,// when user presses enter it will adapt to it
-                  maxLines: null,
-                  decoration: InputDecoration(
-                      suffix: IconButton(
-                        color: Colors.grey,
-                        icon: Icon(Icons.send),
-                        onPressed: () {
-                          print(commentController.text);
-                          createComment();
-                        },
-                      ),
-                      hintText: 'Leave a Comment....',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide: BorderSide(color: Colors.teal))),
-                  controller: commentController,
-                ),
+                  child: TextField(
+                    textInputAction: TextInputAction.newline,
+                    keyboardType: TextInputType.multiline,
+                    //minLines: 1,//Normal textInputField will be displayed
+                    //maxLines: 10,// when user presses enter it will adapt to it
+                    maxLines: null,
+                    decoration: InputDecoration(
+                        suffix: IconButton(
+                          color: Colors.grey,
+                          icon: Icon(Icons.send),
+                          onPressed: () {
+                            print(commentController.text);
+                            createComment();
+                          },
+                        ),
+                        hintText: 'Leave a Comment....',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: BorderSide(color: Colors.teal))),
+                    controller: commentController,
+                  ),
                 ),
               ),
               Container(
@@ -141,7 +148,6 @@ class _NewsArticleState extends State<NewsArticle> {
       ),
     );
   }
-
 
   //this loads the comments button
   Widget loadCommentsButton() {
@@ -157,7 +163,6 @@ class _NewsArticleState extends State<NewsArticle> {
           style: TextStyle(color: Colors.black54),
         ));
   }
-
 
   // a new widget for comment list
   Widget commentList() {
@@ -182,7 +187,7 @@ class _NewsArticleState extends State<NewsArticle> {
                   backgroundColor: UIData.secondaryColor,
                 ),
                 title: Text(
-                    comments[index]['text'],
+                  comments[index]['text'],
                 ),
                 subtitle: Row(
                   children: [
