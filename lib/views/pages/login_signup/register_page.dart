@@ -34,7 +34,8 @@ class _RegisterePageState extends State<RegisterPage> with TickerProviderStateMi
                           margin: EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(context,MaterialPageRoute(builder: (builder)=>LoginPage()));
+                              Navigator.pop(context);
+                              Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginPage()));
                             },
                             child: Text(
                               "SIGN IN!",

@@ -54,7 +54,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                           margin: EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(context,MaterialPageRoute(builder: (_)=>RegisterPage()));
+                              Navigator.pop(context);
+                              Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterPage()));
                             },
                             child: Text(
                               "SIGN UP!",

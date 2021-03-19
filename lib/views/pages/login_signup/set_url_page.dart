@@ -368,7 +368,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin{
                                     : () async {
                                         if (_formKey.currentState.validate()) {
                                           _formKey.currentState.save();
-                                          Navigator.push(context,MaterialPageRoute(builder: (_)=>RegisterPage()),);
+                                          Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterPage()),);
                                         }
                                       },
                                 child: new Container(
@@ -431,7 +431,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin{
                                     : () async {
                                         if (_formKey.currentState.validate()) {
                                           _formKey.currentState.save();
-                                          Navigator.push(context,MaterialPageRoute(builder: (builder)=>LoginPage()));
+                                          Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginPage()));
                                         }
                                       },
                                 child: new Container(
