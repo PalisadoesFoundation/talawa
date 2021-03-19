@@ -1,4 +1,3 @@
-
 //flutter packages are  imported here
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,10 +12,10 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
+import 'package:talawa/views/pages/organization/update_profile_page.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
-import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -144,8 +143,10 @@ class _ProfilePageState extends State<ProfilePage> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context,listen: false).saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context,listen: false).saveCurrentOrgId(newOrgId);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgId(newOrgId);
       //  _successToast('You are no longer apart of this organization');
       pushNewScreen(
         context,
@@ -158,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     var orgName = Provider.of<Preferences>(context).orgName;
-    if(orgName == null){
+    if (orgName == null) {
       orgName = 'No Organization Joined';
     }
     return Scaffold(
@@ -245,7 +246,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               Icons.person,
                               color: UIData.secondaryColor,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              pushNewScreen(
+                                context,
+                                screen: UpdateProfilePage(),
+                              );
+                            },
                           ),
                           org.length == 0
                               ? SizedBox()
