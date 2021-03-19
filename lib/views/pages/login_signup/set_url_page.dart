@@ -4,6 +4,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:http/http.dart' as http;
+import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
 
 class UrlPage extends StatefulWidget{
@@ -430,7 +431,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin{
                                     : () async {
                                         if (_formKey.currentState.validate()) {
                                           _formKey.currentState.save();
-                                          //TODO: gotoLogin();
+                                          Navigator.push(context,MaterialPageRoute(builder: (builder)=>LoginPage()));
                                         }
                                       },
                                 child: new Container(
