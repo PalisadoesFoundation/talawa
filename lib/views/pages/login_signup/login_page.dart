@@ -321,6 +321,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                   onChanged: (String newValue) {
                                     setState(() {
                                       dropdownValue = newValue;
+                                      saveMsg = 'Set URL';
                                     });
                                   },
                                   items: <String>['HTTP', 'HTTPS']
@@ -431,6 +432,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             new Expanded(
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),
@@ -493,6 +495,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             new Expanded(
                               child: new ElevatedButton(
                                 style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),
