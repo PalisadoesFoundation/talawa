@@ -1,4 +1,3 @@
-
 //flutter packages are  imported here
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +35,10 @@ class _ProfilePageState extends State<ProfilePage> {
   List userDetails = [];
   List orgAdmin = [];
   List org = [];
+  List admins = [];
   bool isCreator;
+  String creator;
+  String userID;
   OrgController _orgController = OrgController();
 
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -52,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   //used to fetch the users details from the server
   Future fetchUserDetails() async {
-    final String userID = await _preferences.getUserId();
+    userID = await _preferences.getUserId();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
@@ -61,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } else if (!result.hasException) {
       setState(() {
         userDetails = result.data['users'];
-        org = userDetails.first['joinedOrganizations'];
+        org = userDetails[0]['joinedOrganizations'];
       });
     }
   }
@@ -69,42 +71,30 @@ class _ProfilePageState extends State<ProfilePage> {
   //used to fetch Organization Admin details
   Future fetchOrgAdmin() async {
     final String orgId = await _preferences.getCurrentOrgId();
+    final String userId = await _preferences.getUserId();
     if (orgId != null) {
-      final String fName = await _preferences.getUserFName();
-      final String lName = await _preferences.getUserLName();
-
-      String creatorFName;
-      String creatorLName;
-
       GraphQLClient _client = graphQLConfiguration.authClient();
-
       QueryResult result = await _client
           .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
       if (result.hasException) {
         print(result.exception);
       } else if (!result.hasException) {
-        setState(() {
-          creatorFName =
-              result.data['organizations'][0]['creator']['firstName'];
-          creatorLName = result.data['organizations'][0]['creator']['lastName'];
-        });
-        // Todo: check creator id with user id rather than comparing names for 100% accuracy in finding the admin rights
-        if (fName.compareTo(creatorFName) != 0 &&
-            lName.compareTo(creatorLName) != 0) {
-          setState(() {
+        creator = result.data['organizations'][0]['creator']['_id'];
+        result.data['organizations'][0]['admins']
+            .forEach((userId) => admins.add(userId));
+        for (int i = 0; i < admins.length; i++) {
+          if (admins[i]['_id'] == userID) {
             isCreator = true;
-          });
-        } else {
-          setState(() {
-            isCreator = true;
-          });
+            break;
+          } else {
+            isCreator = false;
+          }
         }
       }
     } else {
-      setState(() {
-        isCreator = false;
-      });
+      isCreator = false;
     }
+    setState(() {});
   }
 
   //function used when someone wants to leave organization
@@ -144,8 +134,10 @@ class _ProfilePageState extends State<ProfilePage> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context,listen: false).saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context,listen: false).saveCurrentOrgId(newOrgId);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgId(newOrgId);
       //  _successToast('You are no longer apart of this organization');
       pushNewScreen(
         context,
@@ -158,12 +150,12 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     var orgName = Provider.of<Preferences>(context).orgName;
-    if(orgName == null){
+    if (orgName == null) {
       orgName = 'No Organization Joined';
     }
     return Scaffold(
         backgroundColor: Colors.white,
-        body: userDetails.isEmpty
+        body: userDetails.isEmpty || isCreator==null
             ? Center(child: CircularProgressIndicator())
             : Column(
                 children: <Widget>[
@@ -280,34 +272,36 @@ class _ProfilePageState extends State<ProfilePage> {
                                     settings:
                                         RouteSettings(name: '/profile_page')));
                               }),
-                          isCreator == true
-                              ? ListTile(
-                                  title: Text(
-                                    'Organization Settings',
-                                    style: TextStyle(fontSize: 18.0),
-                                  ),
-                                  leading: Icon(
-                                    Icons.settings,
-                                    color: UIData.secondaryColor,
-                                  ),
-                                  onTap: () {
-                                    pushNewScreen(
-                                      context,
-                                      screen: OrganizationSettings(),
-                                    );
-                                  })
-                              : ListTile(
-                                  title: Text(
-                                    'Leave This Organization',
-                                    style: TextStyle(fontSize: 18.0),
-                                  ),
-                                  leading: Icon(
-                                    Icons.exit_to_app,
-                                    color: UIData.secondaryColor,
-                                  ),
-                                  onTap: () async {
-                                    confirmLeave();
-                                  }),
+                          isCreator == null
+                              ? SizedBox()
+                              : isCreator == true
+                                  ? ListTile(
+                                      title: Text(
+                                        'Organization Settings',
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
+                                      leading: Icon(
+                                        Icons.settings,
+                                        color: UIData.secondaryColor,
+                                      ),
+                                      onTap: () {
+                                        pushNewScreen(
+                                          context,
+                                          screen: OrganizationSettings(creator: creator==userID),
+                                        );
+                                      })
+                                  : ListTile(
+                                      title: Text(
+                                        'Leave This Organization',
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
+                                      leading: Icon(
+                                        Icons.exit_to_app,
+                                        color: UIData.secondaryColor,
+                                      ),
+                                      onTap: () async {
+                                        confirmLeave();
+                                      }),
                           ListTile(
                             title: Text(
                               "Logout",
