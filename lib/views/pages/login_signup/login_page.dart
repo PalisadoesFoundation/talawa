@@ -10,6 +10,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/login_signup/login_form.dart';
 import 'package:talawa/views/pages/login_signup/register_form.dart';
+import 'package:talawa/views/pages/login_signup/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -102,7 +103,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                           margin: EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
                             onTap: () {
-                              gotoSignUp();
+                              Navigator.push(context,MaterialPageRoute(builder: (_)=>RegisterPage()));
                             },
                             child: Text(
                               "SIGN UP!",
@@ -558,35 +559,11 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
             image: DecorationImage(
                 image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
           ),
-          child: new PageView(
-            controller: _pageController,
-            onPageChanged: (index) {
-              FocusScopeNode currentFocus = FocusScope.of(context);
-              currentFocus.unfocus();
-            },
-            physics: saveMsg != "URL SAVED!"
-                ? new NeverScrollableScrollPhysics()
-                : new BouncingScrollPhysics(),
-            children: <Widget>[
-              //has to be scrollable so the screen can adjust when the keyboard is tapped
-              Center(
+          child:Center(
                 child: SingleChildScrollView(
                   child: loginScreenForm(),
                 ),
               ),
-
-              Center(
-                child: SingleChildScrollView(
-                  child: mainScreen(),
-                ),
-              ),
-
-              //has to be scrollable so the screen can adjust when the keyboard is tapped
-              Center(
-                child: SingleChildScrollView(child: registrationScreenForm()),
-              ),
-            ],
-          ),
         ));
   }
 
