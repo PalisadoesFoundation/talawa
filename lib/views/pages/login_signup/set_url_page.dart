@@ -4,6 +4,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:http/http.dart' as http;
+import 'package:talawa/views/pages/login_signup/register_page.dart';
 
 class UrlPage extends StatefulWidget{
   @override
@@ -97,7 +98,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin{
   FToast fToast;
   bool isUrlCalled = false;
   //this animation length has to be larger becasuse it includes startup time
-  AnimationController controller;
+  AnimationController controller ;
 
 
   @override
@@ -113,7 +114,6 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin{
   }
   @override
   dispose() {
-    controller.dispose(); // you need this
     super.dispose();
   }
   @override
@@ -128,7 +128,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin{
       vsync: this,
       duration: Duration(milliseconds: 500),
     );
-    AnimationController controller;
+    //AnimationController controller;
     var createAnimation = Tween(begin: 0.0, end: 1.0).animate(createController);
     var helloController = AnimationController(
       vsync: this,
@@ -367,7 +367,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin{
                                     : () async {
                                         if (_formKey.currentState.validate()) {
                                           _formKey.currentState.save();
-                                          //TODO: gotoSignUp();
+                                          Navigator.push(context,MaterialPageRoute(builder: (_)=>RegisterPage()),);
                                         }
                                       },
                                 child: new Container(
