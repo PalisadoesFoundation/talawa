@@ -391,7 +391,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                             color: UIData.primaryColor,
                                             child: _isLoaderActive
                                                 ? CircularProgressIndicator(
-                                                    color: Colors.white,
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation(
+                                                            Colors.white),
                                                     strokeWidth: 2,
                                                   )
                                                 : new Text("JOIN"),
