@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,7 +39,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   bool isUrlCalled = false;
   //this animation length has to be larger becasuse it includes startup time
   AnimationController controller;
-
 
   //providing the initial states to the variables
   @override
@@ -161,7 +159,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         ),
       );
 
-
   //it will send the user to login page
   gotoLogin() {
     _pageController.animateToPage(
@@ -170,7 +167,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       curve: Curves.bounceOut,
     );
   }
-
 
   //it will send the user to signup page
   gotoSignUp() {
@@ -187,7 +183,6 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       saveMsg = "URL SAVED!";
     });
   }
-
 
   //main build starts here
   @override
@@ -326,6 +321,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                   onChanged: (String newValue) {
                                     setState(() {
                                       dropdownValue = newValue;
+                                      saveMsg = 'Set URL';
                                     });
                                   },
                                   items: <String>['HTTP', 'HTTPS']
@@ -421,7 +417,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                     height: 20,
                   ),
                   FadeTransition(
-                    opacity: createAnimation,
+                    //changed opacity animation to match login button animation
+                    opacity: loginAnimation,
                     child: Container(
                       //padding: EdgeInsets.all(100.0),
                       child: new Container(
@@ -436,6 +433,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             new Expanded(
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),
@@ -498,6 +496,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             new Expanded(
                               child: new ElevatedButton(
                                 style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.zero,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),

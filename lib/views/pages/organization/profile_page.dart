@@ -16,6 +16,7 @@ import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
+import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -295,18 +296,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                       screen: OrganizationSettings(),
                                     );
                                   })
-                              : ListTile(
-                                  title: Text(
-                                    'Leave This Organization',
-                                    style: TextStyle(fontSize: 18.0),
-                                  ),
-                                  leading: Icon(
-                                    Icons.exit_to_app,
-                                    color: UIData.secondaryColor,
-                                  ),
-                                  onTap: () async {
-                                    confirmLeave();
-                                  }),
+                              : (org.isNotEmpty)
+                                  ? ListTile(
+                                      title: Text(
+                                        'Leave This Organization',
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
+                                      leading: Icon(
+                                        Icons.exit_to_app,
+                                        color: UIData.secondaryColor,
+                                      ),
+                                      onTap: () async {
+                                        confirmLeave();
+                                      })
+                                  : null,
                           ListTile(
                             title: Text(
                               "Logout",
@@ -325,13 +328,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                       content: Text(
                                           "Are you sure you want to logout?"),
                                       actions: [
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("No"),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
                                         ),
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("Yes"),
                                           onPressed: () {
                                             _authController.logout(context);
@@ -360,13 +363,13 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text("Confirmation"),
             content: Text("Are you sure you want to leave this organization?"),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Yes"),
                 onPressed: () async {
                   leaveOrg();
