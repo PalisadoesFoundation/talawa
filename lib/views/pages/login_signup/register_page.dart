@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/login_signup/register_form.dart';
 
 class RegisterPage extends StatefulWidget{
@@ -33,7 +34,7 @@ class _RegisterePageState extends State<RegisterPage> with TickerProviderStateMi
                           margin: EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
                             onTap: () {
-                              //TODO: gotoLogin();
+                              Navigator.push(context,MaterialPageRoute(builder: (builder)=>LoginPage()));
                             },
                             child: Text(
                               "SIGN IN!",
