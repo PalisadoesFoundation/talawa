@@ -302,7 +302,7 @@ class RegisterFormState extends State<RegisterForm> {
                           labelStyle: TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
                           alignLabelWithHint: true,
-                          hintText: 'Password',
+                          hintText: 'Strong Password',
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
                         onFieldSubmitted: (_) {
@@ -318,6 +318,37 @@ class RegisterFormState extends State<RegisterForm> {
                       ),
                       SizedBox(
                         height: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Strong Password Criteria"),
+                                  content: Text(
+                                      "Minimum 1 Upper Case Character (eg: A,B..)\nMinimum 1 Lower Case Character (eg: a,b..)\nMinimum 1 Numeric Character (eg: 0,1..)\nMinimum 1 Special  Character (eg: !,@..)"),
+                                  actions: [
+                                    FlatButton(
+                                      child: Text("ok"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              });
+                        },
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Strong Password Info",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
                       ),
                       FlutterPasswordStrength(
                           password: originalPassword.text,

@@ -51,7 +51,7 @@ class Validator {
     if (value.length < 6) {
       return 'Password must be at least 6 characters.';
     } else if (!regExp.hasMatch(value)) {
-      return 'Password must atleast 1 A-Z,a-z,0-9&special character';
+      return 'Invalid password! Please see Strong Password Info';
     }
     return null;
   }
