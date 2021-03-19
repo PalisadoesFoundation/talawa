@@ -18,6 +18,7 @@ class _AddEventState extends State<AddEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final locationController = TextEditingController();
+  bool _validate = false;
 
   Map switchVals = {
     'Make Public': true,
@@ -192,8 +193,14 @@ class _AddEventState extends State<AddEvent> {
           color: Colors.white,
         ),
         onPressed: () {
-          createEvent();
-          Navigator.of(context).pop();
+          if(titleController.text.isEmpty || descriptionController.text.isEmpty || locationController.text.isEmpty){
+            setState(() {
+              _validate = true;
+            });
+          } else{
+            createEvent();
+            Navigator.of(context).pop();
+          }
         });
   }
 
@@ -204,6 +211,7 @@ class _AddEventState extends State<AddEvent> {
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
           decoration: InputDecoration(
+            errorText: _validate ? 'Field Can\'t Be Empty' : null,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
                   borderSide: BorderSide(color: Colors.teal)),
