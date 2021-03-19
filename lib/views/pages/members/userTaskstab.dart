@@ -1,6 +1,7 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'dart:convert';
 
 //pages are called here
 import 'package:talawa/services/Queries.dart';
@@ -31,7 +32,6 @@ class _UserTasksState extends State<UserTasks> {
     getUserDetails();
   }
 
-
   //getting user details
   getUserDetails() async {
     final String userID = widget.member['_id'];
@@ -42,6 +42,7 @@ class _UserTasksState extends State<UserTasks> {
     });
   }
 
+  var formattedDate;
 
   //main building starts here
   @override
@@ -59,8 +60,8 @@ class _UserTasksState extends State<UserTasks> {
                             'Description: ${userTasks[index]["description"]}'),
                       ),
                       ListTile(
-                        leading:
-                            Text('Due Date: ${userTasks[index]["deadline"]}'),
+                        leading: Text(
+                            'Due Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"]))))}'),
                       )
                     ],
                   ));
