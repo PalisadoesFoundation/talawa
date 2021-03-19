@@ -230,6 +230,46 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                   );
                 }):ListTile(
                 title: Text(
+                  'Leave Organization',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                leading: Icon(
+                  Icons.person,
+                  color: UIData.secondaryColor,
+                ),
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Confirmation"),
+                          content: Text(
+                              "Are you sure you want to remove this organization?"),
+                          actions: [
+                            FlatButton(
+                              child: Text("Close"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            FlatButton(
+                              child: Text("Yes"),
+                              onPressed: () async {
+                                leaveOrg();
+                                Navigator.of(context).pop();
+                              },
+                            )
+                          ],
+                        );
+                      });
+                  pushNewScreen(
+                    context,
+                    screen: ProfilePage(),
+                  );
+                }),
+            Divider(),
+            ListTile(
+                title: Text(
                   'Remove This Organization',
                   style: TextStyle(fontSize: 18.0),
                 ),

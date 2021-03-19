@@ -71,7 +71,6 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       }
     }
   }
-
   //method called when a member has to be removed by the admin
   Future removeMembers() async {
     GraphQLClient _client = graphQLConfiguration.authClient();
@@ -191,9 +190,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.generate(2, (int index) {
           Widget child = Container(
-            /*height: 70.0,
-            width: 56.0,*/
-            margin: EdgeInsets.only(bottom: 15),
+          margin: EdgeInsets.only(bottom: 15),
             alignment: FractionalOffset.bottomRight,
             child: ScaleTransition(
               scale: CurvedAnimation(
