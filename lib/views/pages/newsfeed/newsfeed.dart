@@ -1,5 +1,6 @@
-
+import 'dart:ffi';
 //flutter packages are imported here
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -29,8 +30,8 @@ class _NewsFeedState extends State<NewsFeed> {
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   List postList = [];
-  String name;
   Timer timer = Timer();
+  String _currentOrgID;
 
 
   //setting initial state to the variables
@@ -60,6 +61,8 @@ class _NewsFeedState extends State<NewsFeed> {
   //function to get the current posts
   Future<void> getPosts() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
+    final String currentUserID = await preferences.getUserId();
+    _currentOrgID = currentUserID;
     String query = Queries().getPostsById(currentOrgID);
     Map result = await apiFunctions.gqlquery(query);
     // print(result);
@@ -69,14 +72,14 @@ class _NewsFeedState extends State<NewsFeed> {
     });
   }
 
-
-  //function to add the likes
+  //function to addlike
   Future<void> addLike(String postID) async {
     String mutation = Queries().addLike(postID);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
     getPosts();
   }
+
 
 
   //function to remove the likes
@@ -158,7 +161,6 @@ class _NewsFeedState extends State<NewsFeed> {
                                                   ),
                                                   Container(
                                                     width: MediaQuery.of(context).size.width - 50,
-                                                      
                                                       child: Text(
                                                           postList[index]["text"].toString(),
                                                         textAlign: TextAlign.justify,
@@ -225,7 +227,13 @@ class _NewsFeedState extends State<NewsFeed> {
           ),
         ),
         IconButton(
-            icon: Icon(Icons.comment), color: Colors.grey, onPressed: () {})
+            icon: Icon(Icons.comment), color: Colors.grey, onPressed: () {
+          pushNewScreen(
+            context,
+            screen: NewsArticle(
+                post: postList[index]),
+          );
+        })
       ],
     );
   }
@@ -244,10 +252,23 @@ class _NewsFeedState extends State<NewsFeed> {
         ),
         IconButton(
             icon: Icon(Icons.thumb_up),
-            color: Colors.grey,
-            onPressed: () {
-              addLike(postList[index]['_id']);
-            })
+          color: (postList[index]['likeCount'] != 0 ? (postList[index]['likedBy'][postList[index]['likeCount']-1]['_id']==_currentOrgID) : false) ? Color(0xff007397) : Color(0xff9A9A9A),
+            onPressed: ()
+            {
+              if(postList[index]['likeCount'] != 0)
+                if(postList[index]['likedBy'][postList[index]['likeCount']-1]['_id']!=_currentOrgID) {
+                  addLike(postList[index]['_id']);
+                }
+                else {
+                  removeLike(postList[index]['_id']);
+                }
+              else
+                {
+                  addLike(postList[index]['_id']);
+                }
+
+              },
+            ),
       ],
     );
   }
