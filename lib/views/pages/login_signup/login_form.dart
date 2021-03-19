@@ -124,6 +124,7 @@ class LoginFormState extends State<LoginForm> {
                   validator: (value) => Validator.validateEmail(value),
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
+                  //Changed text input action to next
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
