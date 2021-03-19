@@ -1,10 +1,15 @@
+
+//the flutter packages are imported here
 import 'package:flutter/material.dart';
+
+//the pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 
+// ignore: must_be_immutable
 class NewsArticle extends StatefulWidget {
   Map post;
   NewsArticle({Key key, @required this.post}) : super(key: key);
@@ -14,32 +19,43 @@ class NewsArticle extends StatefulWidget {
 }
 
 class _NewsArticleState extends State<NewsArticle> {
+
   void setState(fn) {
     if (mounted) {
       super.setState(fn);
     }
   }
 
-  final commentController = TextEditingController();
+  double _inputHeight = 50;
+  final TextEditingController commentController = TextEditingController();
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   bool loadComments = false;
   Timer timer = Timer();
   List comments = [];
-  initState() {
+
+  @override
+  void initState() {
     super.initState();
   }
 
+  @override
+  void dispose(){
+    commentController.dispose();
+    super.dispose();
+  }
+
+  //this method helps us to get the comments of the post
   getPostComments() async {
     String mutation = Queries().getPostsComments(widget.post['_id']);
     Map result = await apiFunctions.gqlmutation(mutation);
-    // print(result);
     setState(() {
       comments =
           result == null ? [] : result['commentsByPost'].reversed.toList();
     });
   }
 
+  //this method helps us to create any comments we are willing to
   createComment() async {
     if (commentController.text.isNotEmpty) {
       String mutation =
@@ -51,11 +67,8 @@ class _NewsArticleState extends State<NewsArticle> {
     }
   }
 
-  void dispose() {
-    commentController.dispose();
-    super.dispose();
-  }
 
+  //main build starts here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,12 +103,23 @@ class _NewsArticleState extends State<NewsArticle> {
                 leading: CircleAvatar(
                   backgroundImage: AssetImage(UIData.pkImage),
                 ),
-                title: TextField(
+                title:  Container(
+                  constraints: BoxConstraints(
+                    maxHeight: double.infinity,
+                    minHeight: 20,
+                  ),
+                child: TextField(
+                  textInputAction:  TextInputAction.newline,
+                  keyboardType: TextInputType.multiline,
+                  //minLines: 1,//Normal textInputField will be displayed
+                  //maxLines: 10,// when user presses enter it will adapt to it
+                  maxLines: null,
                   decoration: InputDecoration(
                       suffix: IconButton(
                         color: Colors.grey,
                         icon: Icon(Icons.send),
                         onPressed: () {
+                          print(commentController.text);
                           createComment();
                         },
                       ),
@@ -104,6 +128,7 @@ class _NewsArticleState extends State<NewsArticle> {
                           borderRadius: BorderRadius.circular(20.0),
                           borderSide: BorderSide(color: Colors.teal))),
                   controller: commentController,
+                ),
                 ),
               ),
               Container(
@@ -117,6 +142,8 @@ class _NewsArticleState extends State<NewsArticle> {
     );
   }
 
+
+  //this loads the comments button
   Widget loadCommentsButton() {
     return FlatButton(
         color: Colors.grey[200],
@@ -131,6 +158,8 @@ class _NewsArticleState extends State<NewsArticle> {
         ));
   }
 
+
+  // a new widget for comment list
   Widget commentList() {
     getPostComments();
     return Column(
@@ -152,7 +181,9 @@ class _NewsArticleState extends State<NewsArticle> {
                   ),
                   backgroundColor: UIData.secondaryColor,
                 ),
-                title: Text(comments[index]['text']),
+                title: Text(
+                    comments[index]['text'],
+                ),
                 subtitle: Row(
                   children: [
                     Text(comments[index]['creator']['firstName'] +

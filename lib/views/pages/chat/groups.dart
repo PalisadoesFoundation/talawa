@@ -1,4 +1,7 @@
+//flutter packages are called here
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:talawa/utils/uidata.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/chat/chat.dart';
@@ -23,9 +26,10 @@ class _GroupsState extends State<Groups> {
       body: ListView.builder(
           itemCount: 4,
           itemBuilder: (context, index) {
+            String groupName = 'Event ${index + 1}';
             return Card(
               child: ListTile(
-                title: Text('Event ${index + 1}'),
+                title: Text(groupName),
                 leading: CircleAvatar(
                   backgroundColor: UIData.secondaryColor,
                   child: Image.asset(UIData.talawaLogo),
@@ -34,7 +38,9 @@ class _GroupsState extends State<Groups> {
                 onTap: () {
                   pushNewScreen(
                     context,
-                    screen: Chat(),
+                    screen: Chat(
+                      groupName: groupName,
+                    ),
                   );
                 },
               ),

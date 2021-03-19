@@ -1,7 +1,10 @@
+//flutter packages are called here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'dart:io';
+
+// pages are called here
+import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -13,8 +16,9 @@ import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
-import 'package:file_picker/file_picker.dart';
 
+//pubspec packages are called here
+import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_password_strength/flutter_password_strength.dart';
 
@@ -71,7 +75,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast('Invalid Organisation URL');
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -97,6 +101,7 @@ class RegisterFormState extends State<RegisterForm> {
     }
   }
 
+  //function called when the user is called without the image
   registerUserWithoutImg() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(MutationOptions(
@@ -108,7 +113,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast("Invalid Organization URL");
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -286,9 +291,10 @@ class RegisterFormState extends State<RegisterForm> {
                           prefixIcon: Icon(Icons.lock, color: Colors.white),
                           suffixIcon: FlatButton(
                             onPressed: _toggle,
-                            child: Icon(_obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility,
+                            child: Icon(
+                              _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
                               color: Colors.white,
                             ),
                           ),
@@ -303,25 +309,33 @@ class RegisterFormState extends State<RegisterForm> {
                           FocusScope.of(context).unfocus();
                           FocusScope.of(context).requestFocus(confirmPassField);
                         },
-                        onChanged: (_){
-                          setState(() {
-                            
-                          });
+                        onChanged: (_) {
+                          setState(() {});
                         },
                         onSaved: (value) {
                           model.password = value;
                         },
                       ),
-                      SizedBox(
-                        height: 10,
+                      //Animation for space between TextField and Strength bar
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        height: originalPassword.text.isEmpty ? 0 : 10,
                       ),
-                      FlutterPasswordStrength(
-                          password: originalPassword.text,
-                          height: 5,
-                          radius: 10,
-                          strengthCallback: (strength) {
-                            debugPrint(strength.toString());
-                          }),
+                      //Animation for Password strength bar
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        height: originalPassword.text.isEmpty ? 0 : 5,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: FlutterPasswordStrength(
+                            password: originalPassword.text,
+                            height: 5,
+                            radius: 10,
+                            strengthCallback: (strength) {
+                              debugPrint(strength.toString());
+                            }),
+                      ),
                       SizedBox(
                         height: 20,
                       ),
@@ -394,6 +408,7 @@ class RegisterFormState extends State<RegisterForm> {
             )));
   }
 
+  //widget used to add the image
   Widget addImage() {
     return Column(
       children: <Widget>[
@@ -430,6 +445,7 @@ class RegisterFormState extends State<RegisterForm> {
     );
   }
 
+  //used to show the method user want to choose their pictures
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
@@ -460,7 +476,7 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
-  /*_successToast(String msg) {
+ /* _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -470,18 +486,17 @@ class RegisterFormState extends State<RegisterForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Expanded(
+            child: Text(
+              msg,
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
-    );
+    );*/
 
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
-    );
-  }*/
-
+  //this method is called when the result is an exception
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
@@ -492,7 +507,13 @@ class RegisterFormState extends State<RegisterForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Expanded(
+            child: Text(
+              msg,
+              style: TextStyle(fontSize: 15.0, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );

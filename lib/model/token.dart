@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+
+//class to represent he token of an user
 class Token {
   String tokenString;
 

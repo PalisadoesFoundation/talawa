@@ -1,4 +1,8 @@
+
+//flutter imported packages
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
@@ -18,11 +22,13 @@ class _AddPostState extends State<AddPost> {
   String oranizationId;
   Preferences preferences = Preferences();
 
+  //giving every variable its initial state
   initState() {
     super.initState();
     getCurrentOrgId();
   }
 
+  //this method is getting the current org id
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
@@ -31,6 +37,7 @@ class _AddPostState extends State<AddPost> {
     print(oranizationId);
   }
 
+  //creating post
   createPost() async {
     String mutation = Queries()
         .addPost(textController.text, oranizationId, titleController.text);
@@ -44,6 +51,9 @@ class _AddPostState extends State<AddPost> {
     super.dispose();
   }
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  
+  //main build starts from here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,16 +64,67 @@ class _AddPostState extends State<AddPost> {
         ),
       ),
       body: Container(
-          child: Column(
-        children: <Widget>[
-          inputField('Give your post a title....', titleController),
-          inputField('Write Your post here....', textController),
-        ],
+          child: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(9.0),
+              child: TextFormField(
+                validator: (String value) {
+                  if (value.isEmpty) {
+                    return "This field is Required";
+                  }
+                  if (value.length > 20) {
+                    return "Title cannot be longer than 20 letters";
+                  }
+                  return null;
+                },
+                controller: titleController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
+                  ),
+                  labelText: 'Give your post a title....',
+                ),
+                //  'Give your post a title....',
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(9.0),
+              child: TextFormField(
+                controller: textController,
+                validator: (String value) {
+                  if (value.isEmpty) {
+                    return "This field is Required";
+                  }
+                  if (value.length > 500) {
+                    return "Post cannot be longer than 500 letters";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
+                  ),
+                  labelText: 'Write Your post here....',
+                ),
+                //  'Give your post a title....',
+              ),
+            ),
+          ],
+        ),
       )),
       floatingActionButton: addPostFab(),
     );
   }
 
+  //this method adds the post
   Widget addPostFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
@@ -72,8 +133,11 @@ class _AddPostState extends State<AddPost> {
           color: Colors.white,
         ),
         onPressed: () {
-          createPost();
-          Navigator.pop(context, true);
+          if (_formKey.currentState.validate()) {
+            _formKey.currentState.save();
+            createPost();
+            Navigator.pop(context, true);
+          }
         });
   }
 
