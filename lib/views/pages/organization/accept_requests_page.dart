@@ -52,8 +52,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
             result.data['organizations'][0]['membershipRequests'];
       });
 
-      if (membershipRequestsList.isEmpty) {
-        showError(context, 'You have no new requests.');
+      if (membershipRequestsList.length==0) {
+        _exceptionToast('You have no new requests.');
       }
     }
   }
@@ -156,7 +156,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     return Center(
       child: Text(
         msg,
-        style: TextStyle(fontSize: 16),
+        style: TextStyle(fontSize: 16,color: Colors.black),
         textAlign: TextAlign.center,
       ),
     );

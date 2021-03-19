@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 //pages are called here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
@@ -19,6 +20,8 @@ import 'package:talawa/views/pages/organization/remove_member.dart';
 import 'update_organization.dart';
 
 class OrganizationSettings extends StatefulWidget {
+  final bool creator;
+  OrganizationSettings({this.creator});
   @override
   _OrganizationSettingsState createState() => _OrganizationSettingsState();
 }
@@ -37,6 +40,54 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     super.initState();
     fToast = FToast();
     fToast.init(context);
+  }
+
+  Future leaveOrg() async {
+    List remaindingOrg = [];
+    String newOrgId;
+    String newOrgName;
+
+    final String orgId = await Provider.of<Preferences>(context,listen: true).getCurrentOrgId();
+
+    GraphQLClient _client = graphQLConfiguration.authClient();
+
+    QueryResult result = await _client
+        .mutate(MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
+      return leaveOrg();
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
+      //_exceptionToast(result.exception.toString().substring(16));
+    } else if (!result.hasException && !result.loading) {
+      //set org at the top of the list as the new current org
+      setState(() {
+        remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
+        if (remaindingOrg.isEmpty) {
+          newOrgId = null;
+        } else if (remaindingOrg.isNotEmpty) {
+          setState(() {
+            newOrgId = result.data['leaveOrganization']['joinedOrganizations']
+            [0]['_id'];
+            newOrgName = result.data['leaveOrganization']['joinedOrganizations']
+            [0]['name'];
+          });
+        }
+      });
+
+      _orgController.setNewOrg(context, newOrgId, newOrgName);
+      Provider.of<Preferences>(context, listen: true)
+          .saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(context, listen: true)
+          .saveCurrentOrgId(newOrgId);
+      //  _successToast('You are no longer apart of this organization');
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
+    }
   }
 
   Future removeOrg() async { //this is called the organization has to be removed
@@ -72,50 +123,6 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      pushNewScreen(
-        context,
-        screen: ProfilePage(),
-      );
-    }
-  }
-
-  Future leaveOrg() async { //called when you want to leave the org
-    List remaindingOrg = [];
-    String newOrgId;
-    String newOrgName;
-
-    final String orgId = await preferences.getCurrentOrgId();
-
-    GraphQLClient _client = graphQLConfiguration.authClient();
-
-    QueryResult result = await _client
-        .mutate(MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
-
-    if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
-      _authController.getNewToken();
-      return leaveOrg();
-    } else if (result.hasException &&
-        result.exception.toString().substring(16) != accessTokenException) {
-      _exceptionToast(result.exception.toString().substring(16));
-    } else if (!result.hasException && !result.loading) {
-      //set org at the top of the list as the new current org
-      setState(() {
-        remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
-        if (remaindingOrg.isEmpty) {
-          newOrgId = null;
-        } else if (remaindingOrg.isNotEmpty) {
-          setState(() {
-            newOrgId = result.data['leaveOrganization']['joinedOrganizations']
-                [0]['_id'];
-            newOrgName = result.data['leaveOrganization']['joinedOrganizations']
-                [0]['name'];
-          });
-        }
-      });
-
-      _orgController.setNewOrg(context, newOrgId, newOrgName);
-      _successToast('You are no longer apart of this organization');
       pushNewScreen(
         context,
         screen: ProfilePage(),
@@ -185,6 +192,46 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
             Divider(),
             ListTile(
                 title: Text(
+                  'Leave Organization',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                leading: Icon(
+                  Icons.person,
+                  color: UIData.secondaryColor,
+                ),
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Confirmation"),
+                          content: Text(
+                              "Are you sure you want to remove this organization?"),
+                          actions: [
+                            FlatButton(
+                              child: Text("Close"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            FlatButton(
+                              child: Text("Yes"),
+                              onPressed: () async {
+                                leaveOrg();
+                                Navigator.of(context).pop();
+                              },
+                            )
+                          ],
+                        );
+                      });
+                  pushNewScreen(
+                    context,
+                    screen: ProfilePage(),
+                  );
+                }),
+            Divider(),
+            ListTile(
+                title: Text(
                   'Remove This Organization',
                   style: TextStyle(fontSize: 18.0),
                 ),
@@ -193,6 +240,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                   color: UIData.secondaryColor,
                 ),
                 onTap: () async {
+                  if(!widget.creator){
+                    _exceptionToast('Creator can only remove organization');
+                  }
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
