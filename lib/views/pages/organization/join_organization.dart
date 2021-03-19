@@ -398,7 +398,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
+          Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => new CreateOrganization(isFromProfile: widget.fromProfile,)));
         },
       ),
