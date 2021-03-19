@@ -1,6 +1,7 @@
 
 //the flutter packages are imported here
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //the pages are called here
 import 'package:talawa/services/Queries.dart';
