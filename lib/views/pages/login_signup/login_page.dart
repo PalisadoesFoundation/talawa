@@ -418,6 +418,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                   ),
                   FadeTransition(
                     // opacity: createAnimation,
+                    opacity: loginAnimation,
                     child: Container(
                       //padding: EdgeInsets.all(100.0),
                       child: new Container(
