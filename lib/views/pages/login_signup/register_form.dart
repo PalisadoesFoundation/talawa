@@ -476,7 +476,7 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
- /* _successToast(String msg) {
+  /* _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
