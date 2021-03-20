@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -39,7 +38,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     fToast.init(context);
   }
 
-  Future removeOrg() async { //this is called the organization has to be removed
+  Future removeOrg() async {
+    //this is called the organization has to be removed
     final String orgId = await preferences.getCurrentOrgId();
     List remaindingOrg = [];
     String newOrgId;
@@ -79,7 +79,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     }
   }
 
-  Future leaveOrg() async { //called when you want to leave the org
+  Future leaveOrg() async {
+    //called when you want to leave the org
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
@@ -128,16 +129,16 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Organization Settings',
-              style: TextStyle(color: Colors.white)),
+              style: const TextStyle(color: Colors.white)),
         ),
         body: Container(
           child: Column(children: <Widget>[
             ListTile(
-                title: Text(
+                title: const Text(
                   'Update This Organization',
-                  style: TextStyle(fontSize: 18.0),
+                  style: const TextStyle(fontSize: 18.0),
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.update,
                   color: UIData.secondaryColor,
                 ),
@@ -147,16 +148,16 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     screen: UpdateOrganization(),
                   );
                 }),
-            Divider(),
+            const Divider(),
             ListTile(
-                title: Text(
+                title: const Text(
                   'Accept MemberShip Requests',
-                  style: TextStyle(fontSize: 18.0),
+                  style: const TextStyle(fontSize: 18.0),
                 ),
-                subtitle: Text(
+                subtitle: const Text(
                   'For Private Organizations',
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.group_add,
                   color: UIData.secondaryColor,
                 ),
@@ -166,13 +167,13 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     screen: AcceptRequestsPage(),
                   );
                 }),
-            Divider(),
+            const Divider(),
             ListTile(
-                title: Text(
+                title: const Text(
                   'Remove Member(s)',
-                  style: TextStyle(fontSize: 18.0),
+                  style: const TextStyle(fontSize: 18.0),
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.person,
                   color: UIData.secondaryColor,
                 ),
@@ -182,13 +183,13 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     screen: RemoveMember(),
                   );
                 }),
-            Divider(),
+            const Divider(),
             ListTile(
-                title: Text(
+                title: const Text(
                   'Remove This Organization',
-                  style: TextStyle(fontSize: 18.0),
+                  style: const TextStyle(fontSize: 18.0),
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.delete,
                   color: UIData.secondaryColor,
                 ),
@@ -197,18 +198,18 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Confirmation"),
-                          content: Text(
+                          title: const Text("Confirmation"),
+                          content: const Text(
                               "Are you sure you want to remove this organization?"),
                           actions: [
                             FlatButton(
-                              child: Text("Close"),
+                              child: const Text("Close"),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
                             ),
                             FlatButton(
-                              child: Text("Yes"),
+                              child: const Text("Yes"),
                               onPressed: () async {
                                 removeOrg();
                                 Navigator.of(context).pop();
@@ -240,7 +241,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 
@@ -262,7 +263,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }

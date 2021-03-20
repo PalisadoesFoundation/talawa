@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 
@@ -43,7 +42,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     fetchUserDetails();
   }
 
-
   //method used to fetch the user details from the server
   Future fetchUserDetails() async {
     final String userID = await _pref.getUserId();
@@ -73,7 +71,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     }
   }
 
-
   //this method allows user to change the organization if he wants to
   Future switchOrg() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
@@ -101,18 +98,16 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     }
   }
 
-
-  // it is used to get the current organization id 
- getCurrentOrg()async{
+  // it is used to get the current organization id
+  getCurrentOrg() async {
     orgId = await Provider.of<Preferences>(context).getCurrentOrgId();
-    setState(() {
-    });
+    setState(() {});
   }
 
 //the build starts from here
   @override
   Widget build(BuildContext context) {
-    if(visit == 0){
+    if (visit == 0) {
       visit++;
       getCurrentOrg();
     }
@@ -120,52 +115,54 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       appBar: AppBar(
         title: const Text(
           'Switch Organization',
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: _progressBarState
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: const CircularProgressIndicator())
           : ListView.separated(
-        padding: EdgeInsets.only(top: 10.0),
-        itemCount: userOrg.length,
-        itemBuilder: (context, index) {
-          if(userOrg[index]['_id'] == orgId){
-            isSelected = index;
-          }
-          return RadioListTile(
-            secondary: userOrg[index]['image'] != null
-                ? CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(
-                    Provider.of<GraphQLConfiguration>(context)
-                        .displayImgRoute +
-                        userOrg[index]['image']))
-                : CircleAvatar(
-                radius: 30,
-                backgroundImage:
-                AssetImage("assets/images/team.png")),
-            activeColor: UIData.secondaryColor,
-            groupValue: isSelected,
-            title: Text(userOrg[index]['name'].toString() +
-                '\n' +
-                userOrg[index]['description'].toString()),
-            value: index,
-            onChanged: (val) {
-              setState(() {
-                orgId = null;
-                isSelected = val;
-                itemIndex = userOrg[index]['_id'].toString();
-              });
-            },
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider();
-        },
-      ),
+              padding: const EdgeInsets.only(top: 10.0),
+              itemCount: userOrg.length,
+              itemBuilder: (context, index) {
+                if (userOrg[index]['_id'] == orgId) {
+                  isSelected = index;
+                }
+                return RadioListTile(
+                  secondary: userOrg[index]['image'] != null
+                      ? CircleAvatar(
+                          radius: 30,
+                          backgroundImage: NetworkImage(
+                              Provider.of<GraphQLConfiguration>(context)
+                                      .displayImgRoute +
+                                  userOrg[index]['image']),
+                        )
+                      : const CircleAvatar(
+                          radius: 30,
+                          backgroundImage:
+                              const AssetImage("assets/images/team.png"),
+                        ),
+                  activeColor: UIData.secondaryColor,
+                  groupValue: isSelected,
+                  title: Text(userOrg[index]['name'].toString() +
+                      '\n' +
+                      userOrg[index]['description'].toString()),
+                  value: index,
+                  onChanged: (val) {
+                    setState(() {
+                      orgId = null;
+                      isSelected = val;
+                      itemIndex = userOrg[index]['_id'].toString();
+                    });
+                  },
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider();
+              },
+            ),
       floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.save),
-        label: Text("SAVE"),
+        icon: const Icon(Icons.save),
+        label: const Text("SAVE"),
         backgroundColor: UIData.secondaryColor,
         foregroundColor: Colors.white,
         elevation: 5.0,
@@ -177,18 +174,16 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     );
   }
 
-
   //widget to show error if there is some error in the lines
   Widget showError(String msg) {
     return Center(
       child: Text(
         msg,
-        style: TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 16),
         textAlign: TextAlign.center,
       ),
     );
   }
-
 
   //the method which is called when the result is successful
   _successToast(String msg) {
@@ -209,10 +204,9 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
-
 
   //the method is called when the result is an exception
   _exceptionToast(String msg) {
@@ -233,7 +227,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }

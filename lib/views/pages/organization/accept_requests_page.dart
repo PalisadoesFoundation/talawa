@@ -1,4 +1,3 @@
-
 //flutter packages are imported  here
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -27,20 +26,23 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   List membershipRequestsList = [];
 
   @override
-  void initState() { //setting the initial state for the different variables
+  void initState() {
+    //setting the initial state for the different variables
     super.initState();
     fToast = FToast();
     fToast.init(context);
     viewMemberShipRequests(); //this function is called here to get the request that are sent by the users to get the membership
   }
 
-  Future viewMemberShipRequests() async { //Same function giving us the way that a administrator can see the request got from the user to get the membership
+  Future viewMemberShipRequests() async {
+    //Same function giving us the way that a administrator can see the request got from the user to get the membership
     final String orgId = await _preferences.getCurrentOrgId();
 
     GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.query(
-        QueryOptions(documentNode: gql(_query.viewMembershipRequest(orgId)))); //calling the graphql query to see the membership request
+    QueryResult result = await _client.query(QueryOptions(
+        documentNode: gql(_query.viewMembershipRequest(
+            orgId)))); //calling the graphql query to see the membership request
     if (result.hasException) {
       print(result.exception);
       //showError(result.exception.toString());
@@ -58,7 +60,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     }
   }
 
-  Future acceptMemberShipRequests() async { //this function give the functionality of accepting the request of the user by the administrator
+  Future acceptMemberShipRequests() async {
+    //this function give the functionality of accepting the request of the user by the administrator
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.query(QueryOptions(
@@ -77,7 +80,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     }
   }
 
-  Future rejectMemberShipRequests() async { //this function give the functionality of rejecting the request of the user by the administrator
+  Future rejectMemberShipRequests() async {
+    //this function give the functionality of rejecting the request of the user by the administrator
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.query(QueryOptions(
@@ -98,18 +102,22 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   }
 
   @override
-  Widget build(BuildContext context) { //building the UI page
+  Widget build(BuildContext context) {
+    //building the UI page
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Membership Requests',
-              style: TextStyle(color: Colors.white)),
+          title: const Text(
+            'Membership Requests',
+            style: const TextStyle(color: Colors.white),
+          ),
         ),
         body: ListView.builder(
           itemCount: membershipRequestsList.length,
           itemBuilder: (context, index) {
             final membershipRequests = membershipRequestsList[index];
             return Card(
-              child: ListTile( //building the List of the organization in the database
+              child: ListTile(
+                //building the List of the organization in the database
                 leading: membershipRequests['user']['image'] != null
                     ? CircleAvatar(
                         radius: 30,
@@ -117,9 +125,10 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                             Provider.of<GraphQLConfiguration>(context)
                                     .displayImgRoute +
                                 membershipRequests['user']['image']))
-                    : CircleAvatar(
+                    : const CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage("assets/images/team.png")),
+                        backgroundImage:
+                            const AssetImage("assets/images/team.png")),
                 title: Text(membershipRequests['user']['firstName'] +
                     ' ' +
                     membershipRequests['user']['lastName']),
@@ -128,7 +137,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                   children: <Widget>[
                     IconButton(
                       iconSize: 26.0,
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       color: Colors.red,
                       onPressed: () {
                         itemIndex = membershipRequests['_id'];
@@ -137,7 +146,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                     ),
                     IconButton(
                       iconSize: 26.0,
-                      icon: Icon(Icons.check),
+                      icon: const Icon(Icons.check),
                       color: Colors.green,
                       onPressed: () {
                         itemIndex = membershipRequests['_id'];
@@ -152,17 +161,19 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
         ));
   }
 
-  Widget showError(BuildContext context, String msg) { //function which will be called if there is some error in the program
+  Widget showError(BuildContext context, String msg) {
+    //function which will be called if there is some error in the program
     return Center(
       child: Text(
         msg,
-        style: TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 16),
         textAlign: TextAlign.center,
       ),
     );
   }
 
-  _successToast(String msg) { //function to be called when the request is successful
+  _successToast(String msg) {
+    //function to be called when the request is successful
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -180,11 +191,12 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 
-  _exceptionToast(String msg) { //this function is the exception is called
+  _exceptionToast(String msg) {
+    //this function is the exception is called
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
@@ -202,7 +214,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }

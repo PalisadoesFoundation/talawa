@@ -1,4 +1,3 @@
-
 //flutter imported packages
 import 'package:flutter/material.dart';
 
@@ -25,14 +24,12 @@ class _RemoveMemberState extends State<RemoveMember> {
   List selectedMembers = List();
   Queries _query = Queries();
 
-
   //giving initial states to every variable
   @override
   void initState() {
     super.initState();
     viewMembers();
   }
-
 
   //method to show the members of the organization
   Future viewMembers() async {
@@ -51,7 +48,6 @@ class _RemoveMemberState extends State<RemoveMember> {
       });
     }
   }
-
 
   //method called when a member has to be removed by the admin
   Future removeMembers() async {
@@ -92,8 +88,10 @@ class _RemoveMemberState extends State<RemoveMember> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text('Remove Member', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Remove Member',
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
       body: ListView.separated(
         itemCount: membersList.length,
@@ -112,18 +110,19 @@ class _RemoveMemberState extends State<RemoveMember> {
                     radius: 30.0,
                     backgroundColor: Colors.white,
                     child: Text(
-                        members['firstName']
-                                .toString()
-                                .substring(0, 1)
-                                .toUpperCase() +
-                            members['lastName']
-                                .toString()
-                                .substring(0, 1)
-                                .toUpperCase(),
-                        style: TextStyle(
-                          color: UIData.primaryColor,
-                          fontSize: 22,
-                        )),
+                      members['firstName']
+                              .toString()
+                              .substring(0, 1)
+                              .toUpperCase() +
+                          members['lastName']
+                              .toString()
+                              .substring(0, 1)
+                              .toUpperCase(),
+                      style: const TextStyle(
+                        color: UIData.primaryColor,
+                        fontSize: 22,
+                      ),
+                    ),
                   ),
             title: Text(members['firstName'] + ' ' + members['lastName']),
             value: selectedMembers.contains('"$mId"'),
@@ -133,12 +132,12 @@ class _RemoveMemberState extends State<RemoveMember> {
           );
         },
         separatorBuilder: (BuildContext context, int index) {
-          return Divider();
+          return const Divider();
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.delete),
-        label: Text("REMOVE"),
+        icon: const Icon(Icons.delete),
+        label: const Text("REMOVE"),
         backgroundColor: UIData.secondaryColor,
         foregroundColor: Colors.white,
         elevation: 5.0,
@@ -150,25 +149,24 @@ class _RemoveMemberState extends State<RemoveMember> {
     );
   }
 
-
   //dialog to confirm if the admin really wants to remove the member or not
   void removeMemberDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Confirmation"),
-            content:
-                Text("Are you sure you want to remove selected member(s)?"),
+            title: const Text("Confirmation"),
+            content: const Text(
+                "Are you sure you want to remove selected member(s)?"),
             actions: [
               FlatButton(
-                child: Text("Close"),
+                child: const Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               FlatButton(
-                child: Text("Yes"),
+                child: const Text("Yes"),
                 onPressed: () async {
                   removeMembers();
                 },

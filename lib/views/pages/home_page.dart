@@ -38,8 +38,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl(); //Here we are getting the Current Organization URL that is being joined by the user
-    Provider.of<Preferences>(context, listen: false).getCurrentOrgId(); //Here we are getting the Current Org ID
+    Provider.of<GraphQLConfiguration>(context, listen: false)
+        .getOrgUrl(); //Here we are getting the Current Organization URL that is being joined by the user
+    Provider.of<Preferences>(context, listen: false)
+        .getCurrentOrgId(); //Here we are getting the Current Org ID
   }
 
   void dispose() {
@@ -48,13 +50,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> getUserInfo() async {
-    final String userID = await preferences.getUserId(); //getting the current user id from the server
-    String mutation = Queries().fetchUserInfo2(userID); //getting some more user information with the ID
+    final String userID = await preferences
+        .getUserId(); //getting the current user id from the server
+    String mutation = Queries().fetchUserInfo2(
+        userID); //getting some more user information with the ID
     ApiFunctions apiFunctions = ApiFunctions();
     final result = await apiFunctions.gqlmutation(mutation);
   }
 
-  List<Widget> _buildScreens() { //here we are building the screens that are mention in the app bar
+  List<Widget> _buildScreens() {
+    //here we are building the screens that are mention in the app bar
     return [
       NewsFeed(), //first page of the news feed
       Groups(), //second page of the Group chatting event
@@ -66,32 +71,37 @@ class _HomePageState extends State<HomePage> {
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      PersistentBottomNavBarItem( //mentioning the screen home in the bottom bar
-        icon: Icon(Icons.home),
+      PersistentBottomNavBarItem(
+        //mentioning the screen home in the bottom bar
+        icon: const Icon(Icons.home),
         title: ("Home"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
       ),
-      PersistentBottomNavBarItem( //mentioning the screen chats in the bottom bar
-        icon: Icon(Icons.chat),
+      PersistentBottomNavBarItem(
+        //mentioning the screen chats in the bottom bar
+        icon: const Icon(Icons.chat),
         title: ("Chats"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
       ),
-      PersistentBottomNavBarItem( //mentioning the Events home in the bottom bar
-        icon: Icon(Icons.calendar_today),
+      PersistentBottomNavBarItem(
+        //mentioning the Events home in the bottom bar
+        icon: const Icon(Icons.calendar_today),
         title: ("Events"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
       ),
-      PersistentBottomNavBarItem( //mentioning the screen home in the bottom bar
-        icon: Icon(Icons.group),
+      PersistentBottomNavBarItem(
+        //mentioning the screen home in the bottom bar
+        icon: const Icon(Icons.group),
         title: ("Members"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
       ),
-      PersistentBottomNavBarItem( //mentioning the screen Profile in the bottom bar
-        icon: Icon(Icons.folder),
+      PersistentBottomNavBarItem(
+        //mentioning the screen Profile in the bottom bar
+        icon: const Icon(Icons.folder),
         title: ("Profile"),
         activeColor: Colors.white,
         inactiveColor: Colors.white,
@@ -99,7 +109,8 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
-  void onTabTapped(int index) { //this function tells us what should be done if the particular tab is clicked
+  void onTabTapped(int index) {
+    //this function tells us what should be done if the particular tab is clicked
     setState(() {
       currentIndex = index;
     });
@@ -107,8 +118,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return
-        PersistentTabView( //calling the Persistent tab view here
+    return PersistentTabView(
+      //calling the Persistent tab view here
       backgroundColor: UIData.primaryColor,
       controller: _controller,
       items: _navBarsItems(),

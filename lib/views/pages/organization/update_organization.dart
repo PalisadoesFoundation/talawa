@@ -1,4 +1,3 @@
-
 //flutter packages
 import 'package:flutter/material.dart';
 
@@ -36,7 +35,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   Preferences _preferences = Preferences();
   AuthController _authController = AuthController();
 
-
   //providing with the initial states to the variables
   @override
   void initState() {
@@ -45,12 +43,10 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     fToast.init(context);
   }
 
-
   //this method shows the toggle bar
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
   }
-
 
   //this method is used if we want to update the organization
   updateOrg() async {
@@ -90,18 +86,20 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     }
   }
 
-
   //the main build starts here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: const Text('Update Organization',
-                style: TextStyle(color: Colors.white))),
+          title: const Text(
+            'Update Organization',
+            style: const TextStyle(color: Colors.white),
+          ),
+        ),
         body: Container(
           color: Colors.white,
           child: SingleChildScrollView(
-            padding: EdgeInsets.only(bottom: 10.0),
+            padding: const EdgeInsets.only(bottom: 10.0),
             scrollDirection: Axis.vertical,
             child: Form(
               key: _formKey,
@@ -110,33 +108,34 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                 padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                 child: Column(
                   children: <Widget>[
-                    Image(image: AssetImage('assets/images/team.png')),
-                    SizedBox(
+                    Image(image: const AssetImage('assets/images/team.png')),
+                    const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
                       validator: (value) => Validator.validateOrgName(value),
                       textAlign: TextAlign.left,
                       textCapitalization: TextCapitalization.words,
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: UIData.secondaryColor),
-                            borderRadius: BorderRadius.circular(20.0)),
-                        prefixIcon: Icon(
+                          borderSide:
+                              const BorderSide(color: UIData.secondaryColor),
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        prefixIcon: const Icon(
                           Icons.group,
                           color: UIData.secondaryColor,
                         ),
                         labelText: "Organization Name",
-                        labelStyle: TextStyle(color: Colors.black),
+                        labelStyle: const TextStyle(color: Colors.black),
                         alignLabelWithHint: true,
                         hintText: 'My Organization',
-                        hintStyle: TextStyle(color: Colors.grey),
+                        hintStyle: const TextStyle(color: Colors.grey),
                       ),
                       controller: orgNameController,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
@@ -145,30 +144,32 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                       textCapitalization: TextCapitalization.words,
                       validator: (value) => Validator.validateOrgDesc(value),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: UIData.secondaryColor),
+                                const BorderSide(color: UIData.secondaryColor),
                             borderRadius: BorderRadius.circular(20.0)),
-                        prefixIcon:
-                            Icon(Icons.note, color: UIData.secondaryColor),
+                        prefixIcon: const Icon(Icons.note,
+                            color: UIData.secondaryColor),
                         labelText: "Organization Description",
-                        labelStyle: TextStyle(color: Colors.black),
+                        labelStyle: const TextStyle(color: Colors.black),
                         alignLabelWithHint: true,
                         hintText: 'My Description',
-                        hintStyle: TextStyle(color: Colors.grey),
+                        hintStyle: const TextStyle(color: Colors.grey),
                       ),
                       controller: orgDescController,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Text('Do you want your organization to be public?',
-                        style: TextStyle(fontSize: 16, color: Colors.black)),
+                    const Text(
+                      'Do you want your organization to be public?',
+                      style: const TextStyle(fontSize: 16, color: Colors.black),
+                    ),
                     RadioListTile(
                       groupValue: radioValue,
-                      title: Text('Yes'),
+                      title: const Text('Yes'),
                       value: 0,
                       activeColor: UIData.secondaryColor,
                       onChanged: (val) {
@@ -183,7 +184,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                     RadioListTile(
                       activeColor: UIData.secondaryColor,
                       groupValue: radioValue,
-                      title: Text('No'),
+                      title: const Text('No'),
                       value: 1,
                       onChanged: (val) {
                         setState(() {
@@ -195,13 +196,14 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                         });
                       },
                     ),
-                    Text(
-                        'Do you want others to be able to find your organization from the search page?',
-                        style: TextStyle(fontSize: 16, color: Colors.black)),
+                    const Text(
+                      'Do you want others to be able to find your organization from the search page?',
+                      style: const TextStyle(fontSize: 16, color: Colors.black),
+                    ),
                     RadioListTile(
                       activeColor: UIData.secondaryColor,
                       groupValue: radioValue1,
-                      title: Text('Yes'),
+                      title: const Text('Yes'),
                       value: 0,
                       onChanged: (val) {
                         setState(() {
@@ -215,7 +217,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                     RadioListTile(
                       activeColor: UIData.secondaryColor,
                       groupValue: radioValue1,
-                      title: Text('No'),
+                      title: const Text('No'),
                       value: 1,
                       onChanged: (val) {
                         setState(() {
@@ -228,17 +230,19 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                       },
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 30.0),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20.0,
+                        horizontal: 30.0,
+                      ),
                       width: double.infinity,
                       child: RaisedButton(
-                        padding: EdgeInsets.all(16.0),
-                        shape: StadiumBorder(),
+                        padding: const EdgeInsets.all(16.0),
+                        shape: const StadiumBorder(),
                         child: _progressBarState
                             ? const CircularProgressIndicator()
-                            : Text(
+                            : const Text(
                                 "UPDATE ORGANIZATION",
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                         color: UIData.secondaryColor,
                         onPressed: () async {
@@ -264,7 +268,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
         ));
   }
 
-
   //a message if the result is successful
   _successToast(String msg) {
     Widget toast = Container(
@@ -284,10 +287,9 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 1),
+      toastDuration: const Duration(seconds: 1),
     );
   }
-
 
   //a method which is called when the result is an exception
   _exceptionToast(String msg) {
@@ -308,7 +310,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }

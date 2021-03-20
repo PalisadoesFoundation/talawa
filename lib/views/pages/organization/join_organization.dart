@@ -42,14 +42,16 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   TextEditingController searchController = TextEditingController();
 
   @override
-  void initState() { //creating the initial state for all the variables
+  void initState() {
+    //creating the initial state for all the variables
     super.initState();
     fToast = FToast();
     fToast.init(context);
     fetchOrg();
   }
 
-  void searchOrgName(String orgName) { //it is the search bar to search the organization
+  void searchOrgName(String orgName) {
+    //it is the search bar to search the organization
     filteredOrgInfo.clear();
     if (orgName.isNotEmpty) {
       for (int i = 0; i < organizationInfo.length; i++) {
@@ -67,7 +69,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  Future fetchOrg() async { //function to fetch the org from the server
+  Future fetchOrg() async {
+    //function to fetch the org from the server
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -82,7 +85,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  Future joinPrivateOrg() async { //function called if the person wants to enter a private organization
+  Future joinPrivateOrg() async {
+    //function called if the person wants to enter a private organization
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.mutate(MutationOptions(
@@ -108,7 +112,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  Future joinPublicOrg() async { //function which will be called if the person wants to join the organization which is not private
+  Future joinPublicOrg() async {
+    //function which will be called if the person wants to join the organization which is not private
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -156,23 +161,23 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Join Organization',
-            style: TextStyle(color: Colors.white)),
+            style: const TextStyle(color: Colors.white)),
       ),
       body: organizationInfo.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: const CircularProgressIndicator())
           : Container(
-              color: Color(0xffF3F6FF),
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+              color: const Color(0xffF3F6FF),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
               child: Column(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Welcome, \nJoin or Create your organization to get started",
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 18,
                         fontStyle: FontStyle.normal),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   TextFormField(
@@ -181,31 +186,31 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                     },
                     controller: searchController,
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 14),
+                    style: const TextStyle(fontSize: 14),
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
+                        contentPadding: const EdgeInsets.all(5),
                         fillColor: Colors.white,
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0),
                           borderSide:
-                              BorderSide(color: Colors.white, width: 0.0),
+                              const BorderSide(color: Colors.white, width: 0.0),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0),
                           borderSide:
-                              BorderSide(color: Colors.white, width: 0.0),
+                              const BorderSide(color: Colors.white, width: 0.0),
                         ),
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.all(0.0),
-                          child: Icon(Icons.search, color: Colors.black),
+                        prefixIcon: const Padding(
+                          padding: const EdgeInsets.all(0.0),
+                          child: const Icon(Icons.search, color: Colors.black),
                         ),
                         hintText: "Search Organization Name"),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Expanded(
                       child: Container(
-                          color: Color(0xffF3F6FF),
+                          color: const Color(0xffF3F6FF),
                           child: searchController.text.isNotEmpty
                               ? ListView.builder(
                                   itemCount: filteredOrgInfo.length,
@@ -221,9 +226,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                                 context)
                                                             .displayImgRoute +
                                                         organization['image']))
-                                            : CircleAvatar(
+                                            : const CircleAvatar(
                                                 radius: 30,
-                                                backgroundImage: AssetImage(
+                                                backgroundImage: const AssetImage(
                                                     "assets/images/team.png")),
                                         title: organization['isPublic']
                                                     .toString() !=
@@ -232,18 +237,22 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                 children: [
                                                   Text(organization['name']
                                                       .toString()),
-                                                  Icon(Icons.lock_open,
-                                                      color: Colors.green,
-                                                      size: 16)
+                                                  const Icon(
+                                                    Icons.lock_open,
+                                                    color: Colors.green,
+                                                    size: 16,
+                                                  )
                                                 ],
                                               )
                                             : Row(
                                                 children: [
                                                   Text(organization['name']
                                                       .toString()),
-                                                  Icon(Icons.lock,
-                                                      color: Colors.red,
-                                                      size: 16)
+                                                  const Icon(
+                                                    Icons.lock,
+                                                    color: Colors.red,
+                                                    size: 16,
+                                                  )
                                                 ],
                                               ),
                                         subtitle: Column(
@@ -288,7 +297,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               confirmOrgDialog();
                                             },
                                             color: UIData.primaryColor,
-                                            child: new Text("JOIN"),
+                                            child: const Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   new BorderRadius.circular(
@@ -313,9 +322,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                                 context)
                                                             .displayImgRoute +
                                                         organization['image']))
-                                            : CircleAvatar(
+                                            : const CircleAvatar(
                                                 radius: 30,
-                                                backgroundImage: AssetImage(
+                                                backgroundImage: const AssetImage(
                                                     "assets/images/team.png")),
                                         title: organization['isPublic']
                                                     .toString() !=
@@ -324,18 +333,22 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                 children: [
                                                   Text(organization['name']
                                                       .toString()),
-                                                  Icon(Icons.lock_open,
-                                                      color: Colors.green,
-                                                      size: 16)
+                                                  const Icon(
+                                                    Icons.lock_open,
+                                                    color: Colors.green,
+                                                    size: 16,
+                                                  )
                                                 ],
                                               )
                                             : Row(
                                                 children: [
                                                   Text(organization['name']
                                                       .toString()),
-                                                  Icon(Icons.lock,
-                                                      color: Colors.red,
-                                                      size: 16)
+                                                  const Icon(
+                                                    Icons.lock,
+                                                    color: Colors.red,
+                                                    size: 16,
+                                                  )
                                                 ],
                                               ),
                                         subtitle: Column(
@@ -380,7 +393,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               confirmOrgDialog();
                                             },
                                             color: UIData.primaryColor,
-                                            child: new Text("JOIN"),
+                                            child: const Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   new BorderRadius.circular(
@@ -393,7 +406,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 ],
               )),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         backgroundColor: UIData.secondaryColor,
         foregroundColor: Colors.white,
         elevation: 5.0,
@@ -406,22 +419,24 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     );
   }
 
-  void confirmOrgDialog() { //this is the pop up shown when the confirmation is required
+  void confirmOrgDialog() {
+    //this is the pop up shown when the confirmation is required
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Confirmation"),
-            content: Text("Are you sure you want to join this organization?"),
+            title: const Text("Confirmation"),
+            content:
+                const Text("Are you sure you want to join this organization?"),
             actions: [
               FlatButton(
-                child: Text("Close"),
+                child: const Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               FlatButton(
-                child: Text("Yes"),
+                child: const Text("Yes"),
                 onPressed: () async {
                   if (isPublic == 'true') {
                     joinPublicOrg();
@@ -441,7 +456,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     return Center(
       child: Text(
         msg,
-        style: TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 16),
         textAlign: TextAlign.center,
       ),
     );
@@ -465,7 +480,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 
@@ -487,7 +502,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }
