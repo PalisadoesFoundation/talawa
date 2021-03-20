@@ -111,8 +111,9 @@ class LoginFormState extends State<LoginForm> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            Text('Login', style: TextStyle(fontSize: 35, color: Colors.white)),
-            SizedBox(
+            const Text('Login',
+                style: const TextStyle(fontSize: 35, color: Colors.white)),
+            const SizedBox(
               height: 50,
             ),
             AutofillGroup(
@@ -123,33 +124,33 @@ class LoginFormState extends State<LoginForm> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) => Validator.validateEmail(value),
                   textAlign: TextAlign.left,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   //Changed text input action to next
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.orange),
+                      borderSide: const BorderSide(color: Colors.orange),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.email,
                       color: Colors.white,
                     ),
                     labelText: "Email",
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: const TextStyle(color: Colors.white),
                     alignLabelWithHint: true,
                     hintText: 'foo@bar.com',
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle: const TextStyle(color: Colors.grey),
                   ),
                   onSaved: (value) {
                     model.email = value;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
@@ -157,17 +158,17 @@ class LoginFormState extends State<LoginForm> {
                   obscureText: _obscureText,
                   validator: (value) => Validator.validatePassword(value),
                   textAlign: TextAlign.left,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.orange),
+                      borderSide: const BorderSide(color: Colors.orange),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.lock,
                       color: Colors.white,
                     ),
@@ -179,11 +180,11 @@ class LoginFormState extends State<LoginForm> {
                       ),
                     ),
                     labelText: "Password",
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: const TextStyle(color: Colors.white),
                     focusColor: UIData.primaryColor,
                     alignLabelWithHint: true,
                     hintText: '**********',
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle: const TextStyle(color: Colors.grey),
                   ),
                   onSaved: (value) {
                     model.password = value;
@@ -191,18 +192,19 @@ class LoginFormState extends State<LoginForm> {
                 ),
               ],
             )),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
               width: double.infinity,
               child: RaisedButton(
-                  padding: EdgeInsets.all(12.0),
-                  shape: StadiumBorder(),
+                  padding: const EdgeInsets.all(12.0),
+                  shape: const StadiumBorder(),
                   child: _progressBarState
                       ? const CircularProgressIndicator()
-                      : Text(
+                      : const Text(
                           "SIGN IN",
                         ),
                   color: Colors.white,
@@ -241,7 +243,7 @@ class LoginFormState extends State<LoginForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 
@@ -264,7 +266,7 @@ class LoginFormState extends State<LoginForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 5),
+      toastDuration: const Duration(seconds: 5),
     );
   }
 
