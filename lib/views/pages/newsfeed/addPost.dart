@@ -1,4 +1,3 @@
-
 //flutter imported packages
 import 'package:flutter/material.dart';
 
@@ -52,15 +51,15 @@ class _AddPostState extends State<AddPost> {
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+
   //main build starts from here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'New Post',
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: Container(
@@ -128,7 +127,7 @@ class _AddPostState extends State<AddPost> {
   Widget addPostFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
-        child: Icon(
+        child: const Icon(
           Icons.check,
           color: Colors.white,
         ),
@@ -143,14 +142,14 @@ class _AddPostState extends State<AddPost> {
 
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: TextField(
           maxLines: null,
           controller: controller,
           decoration: InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
-                  borderSide: BorderSide(color: Colors.teal)),
+                  borderSide: const BorderSide(color: Colors.teal)),
               hintText: name),
         ));
   }

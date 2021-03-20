@@ -1,4 +1,3 @@
-
 //the flutter packages are imported here
 import 'package:flutter/material.dart';
 
@@ -19,7 +18,6 @@ class NewsArticle extends StatefulWidget {
 }
 
 class _NewsArticleState extends State<NewsArticle> {
-
   void setState(fn) {
     if (mounted) {
       super.setState(fn);
@@ -40,7 +38,7 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     commentController.dispose();
     super.dispose();
   }
@@ -67,7 +65,6 @@ class _NewsArticleState extends State<NewsArticle> {
     }
   }
 
-
   //main build starts here
   @override
   Widget build(BuildContext context) {
@@ -79,7 +76,7 @@ class _NewsArticleState extends State<NewsArticle> {
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
                 widget.post['title'].toString(),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -90,7 +87,7 @@ class _NewsArticleState extends State<NewsArticle> {
             ),
           ),
           SliverPadding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             sliver: SliverToBoxAdapter(
               child: Text(widget.post['text'].toString()),
             ),
@@ -100,35 +97,35 @@ class _NewsArticleState extends State<NewsArticle> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage(UIData.pkImage),
+                leading: const CircleAvatar(
+                  backgroundImage: const AssetImage(UIData.pkImage),
                 ),
-                title:  Container(
-                  constraints: BoxConstraints(
+                title: Container(
+                  constraints: const BoxConstraints(
                     maxHeight: double.infinity,
                     minHeight: 20,
                   ),
-                child: TextField(
-                  textInputAction:  TextInputAction.newline,
-                  keyboardType: TextInputType.multiline,
-                  //minLines: 1,//Normal textInputField will be displayed
-                  //maxLines: 10,// when user presses enter it will adapt to it
-                  maxLines: null,
-                  decoration: InputDecoration(
-                      suffix: IconButton(
-                        color: Colors.grey,
-                        icon: Icon(Icons.send),
-                        onPressed: () {
-                          print(commentController.text);
-                          createComment();
-                        },
-                      ),
-                      hintText: 'Leave a Comment....',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide: BorderSide(color: Colors.teal))),
-                  controller: commentController,
-                ),
+                  child: TextField(
+                    textInputAction: TextInputAction.newline,
+                    keyboardType: TextInputType.multiline,
+                    //minLines: 1,//Normal textInputField will be displayed
+                    //maxLines: 10,// when user presses enter it will adapt to it
+                    maxLines: null,
+                    decoration: InputDecoration(
+                        suffix: IconButton(
+                          color: Colors.grey,
+                          icon: const Icon(Icons.send),
+                          onPressed: () {
+                            print(commentController.text);
+                            createComment();
+                          },
+                        ),
+                        hintText: 'Leave a Comment....',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: const BorderSide(color: Colors.teal))),
+                    controller: commentController,
+                  ),
                 ),
               ),
               Container(
@@ -142,7 +139,6 @@ class _NewsArticleState extends State<NewsArticle> {
     );
   }
 
-
   //this loads the comments button
   Widget loadCommentsButton() {
     return FlatButton(
@@ -152,12 +148,11 @@ class _NewsArticleState extends State<NewsArticle> {
             loadComments = true;
           });
         },
-        child: Text(
+        child: const Text(
           'Load Comments',
-          style: TextStyle(color: Colors.black54),
+          style: const TextStyle(color: Colors.black54),
         ));
   }
-
 
   // a new widget for comment list
   Widget commentList() {
@@ -165,7 +160,7 @@ class _NewsArticleState extends State<NewsArticle> {
     return Column(
       children: [
         ListTile(
-          leading: Icon(Icons.chat),
+          leading: const Icon(Icons.chat),
           title: Text(comments.length.toString() + '  Comments'),
         ),
         ListView.builder(
@@ -174,15 +169,15 @@ class _NewsArticleState extends State<NewsArticle> {
             itemCount: comments.length,
             itemBuilder: (context, index) {
               return ListTile(
-                leading: CircleAvatar(
-                  child: Icon(
+                leading: const CircleAvatar(
+                  child: const Icon(
                     Icons.person,
                     color: Colors.white10,
                   ),
                   backgroundColor: UIData.secondaryColor,
                 ),
                 title: Text(
-                    comments[index]['text'],
+                  comments[index]['text'],
                 ),
                 subtitle: Row(
                   children: [
@@ -191,7 +186,7 @@ class _NewsArticleState extends State<NewsArticle> {
                         comments[index]['creator']['lastName']),
                     Text(
                       ' - ',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                       ),
                     ),
