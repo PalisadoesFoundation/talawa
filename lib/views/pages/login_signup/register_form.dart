@@ -45,6 +45,7 @@ class RegisterFormState extends State<RegisterForm> {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
   bool _obscureText = true;
+  String _password;
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -275,9 +276,10 @@ class RegisterFormState extends State<RegisterForm> {
                         autofillHints: <String>[AutofillHints.password],
                         textInputAction: TextInputAction.next,
                         obscureText: _obscureText,
-                        controller: originalPassword,
                         validator: (value) => Validator.validatePassword(value),
+                        controller: originalPassword,
                         textAlign: TextAlign.left,
+                        enableSuggestions: true,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
@@ -288,7 +290,10 @@ class RegisterFormState extends State<RegisterForm> {
                             borderSide: BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: Icon(Icons.lock, color: Colors.white),
+                          prefixIcon: Icon(
+                            Icons.lock,
+                            color: Colors.white,
+                          ),
                           suffixIcon: FlatButton(
                             onPressed: _toggle,
                             child: Icon(
@@ -302,61 +307,50 @@ class RegisterFormState extends State<RegisterForm> {
                           labelStyle: TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
                           alignLabelWithHint: true,
-                          hintText: 'Strong Password',
+                          hintText: 'Password',
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
                         onFieldSubmitted: (_) {
                           FocusScope.of(context).unfocus();
                           FocusScope.of(context).requestFocus(confirmPassField);
                         },
-                        onChanged: (_) {
+                        onChanged: (value) {
                           setState(() {});
+                          passwordChecker(value);
+                          _password = originalPassword.text;
                         },
                         onSaved: (value) {
                           model.password = value;
+                          _password = value;
                         },
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () async {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Strong Password Criteria"),
-                                  content: Text(
-                                      "Minimum 1 Upper Case Character (eg: A,B..)\nMinimum 1 Lower Case Character (eg: a,b..)\nMinimum 1 Numeric Character (eg: 0,1..)\nMinimum 1 Special  Character (eg: !,@..)"),
-                                  actions: [
-                                    FlatButton(
-                                      child: Text("ok"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              });
-                        },
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Strong Password Info",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                      FlutterPasswordStrength(
-                          password: originalPassword.text,
-                          height: 5,
-                          radius: 10,
-                          strengthCallback: (strength) {
-                            debugPrint(strength.toString());
-                          }),
+                      passwordChecker(_password),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      //Animation for space between TextField and Strength bar
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        height: originalPassword.text.isEmpty ? 0 : 10,
+                      ),
+                      //Animation for Password strength bar
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        height: originalPassword.text.isEmpty ? 0 : 5,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: FlutterPasswordStrength(
+                            password: originalPassword.text,
+                            height: 5,
+                            radius: 10,
+                            strengthCallback: (strength) {
+                              debugPrint(strength.toString());
+                            }),
+                      ),
                       SizedBox(
                         height: 20,
                       ),
@@ -382,7 +376,13 @@ class RegisterFormState extends State<RegisterForm> {
                           labelStyle: TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
                         ),
+                        onChanged: (_) {
+                          setState(() {
+                            _password = null;
+                          });
+                        },
                       ),
+
                       SizedBox(
                         height: 20,
                       ),
@@ -427,6 +427,58 @@ class RegisterFormState extends State<RegisterForm> {
                 ),
               ],
             )));
+  }
+
+//fuction use to check proper form of password
+  Widget passwordChecker(String value) {
+    return value == null
+        ? SizedBox(
+            height: 0,
+          )
+        : Container(
+            padding: EdgeInsets.all(20),
+            color: Colors.yellow,
+            child: Column(
+              children: [
+                Text(
+                  "Password Length 8-20 Character",
+                  style: TextStyle(
+                    color: value.length > 7 && value.length < 21
+                        ? Colors.green
+                        : Colors.red,
+                  ),
+                ),
+                Text(
+                  "Minimum 1 Upper Case Character",
+                  style: TextStyle(
+                    color:
+                        Validator.upperAlpha(value) ? Colors.green : Colors.red,
+                  ),
+                ),
+                Text(
+                  "Minimum 1 Lower Case Character",
+                  style: TextStyle(
+                    color:
+                        Validator.lowerAlpha(value) ? Colors.green : Colors.red,
+                  ),
+                ),
+                Text(
+                  "Minimum 1 Numeric Character",
+                  style: TextStyle(
+                    color: Validator.numeric(value) ? Colors.green : Colors.red,
+                  ),
+                ),
+                Text(
+                  "Minimum 1 Special Character",
+                  style: TextStyle(
+                    color: Validator.specialChar(value)
+                        ? Colors.green
+                        : Colors.red,
+                  ),
+                )
+              ],
+            ),
+          );
   }
 
   //widget used to add the image
@@ -497,7 +549,7 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
-  _successToast(String msg) {
+  /* _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -515,8 +567,7 @@ class RegisterFormState extends State<RegisterForm> {
           ),
         ],
       ),
-    );
-  }
+    );*/
 
   //this method is called when the result is an exception
   _exceptionToast(String msg) {
