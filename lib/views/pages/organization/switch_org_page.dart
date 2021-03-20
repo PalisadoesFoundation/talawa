@@ -64,6 +64,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       setState(() {
         _progressBarState = false;
         userOrg = result.data['users'][0]['joinedOrganizations'];
+        print(userOrg);
         if (userOrg.isEmpty) {
           showError("You are not registered to any organization");
         }
