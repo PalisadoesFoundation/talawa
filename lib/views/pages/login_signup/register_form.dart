@@ -316,16 +316,26 @@ class RegisterFormState extends State<RegisterForm> {
                           model.password = value;
                         },
                       ),
-                      SizedBox(
-                        height: 10,
+                      //Animation for space between TextField and Strength bar
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        height: originalPassword.text.isEmpty ? 0 : 10,
                       ),
-                      FlutterPasswordStrength(
-                          password: originalPassword.text,
-                          height: 5,
-                          radius: 10,
-                          strengthCallback: (strength) {
-                            debugPrint(strength.toString());
-                          }),
+                      //Animation for Password strength bar
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                        height: originalPassword.text.isEmpty ? 0 : 5,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: FlutterPasswordStrength(
+                            password: originalPassword.text,
+                            height: 5,
+                            radius: 10,
+                            strengthCallback: (strength) {
+                              debugPrint(strength.toString());
+                            }),
+                      ),
                       SizedBox(
                         height: 20,
                       ),
@@ -466,7 +476,7 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
-  _successToast(String msg) {
+ /* _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -484,8 +494,7 @@ class RegisterFormState extends State<RegisterForm> {
           ),
         ],
       ),
-    );
-  }
+    );*/
 
   //this method is called when the result is an exception
   _exceptionToast(String msg) {
