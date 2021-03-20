@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
@@ -15,12 +14,12 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
 
-
 //pubspec packages are called here
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
 
@@ -128,14 +127,12 @@ class _EventsState extends State<Events> {
     return eventDates;
   }
 
-
   //function called to delete the event
   Future<void> _deleteEvent(context, eventId) async {
     String mutation = Queries().deleteEvent(eventId);
     Map result = await apiFunctions.gqlquery(mutation);
     getEvents();
   }
-
 
   //function to called be called for register
   Future<void> _register(context, eventId) async {
@@ -144,39 +141,37 @@ class _EventsState extends State<Events> {
     print(result);
   }
 
-
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-      Map result =
-      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-      eventList = result == null ? [] : result['events'].reversed.toList();
-      eventList.removeWhere((element) =>
-          element['title'] == 'Talawa Congress' ||
-          element['title'] == 'test' || element['title'] == 'Talawa Conference Test'); //dont know who keeps adding these
-      eventList.sort((a, b) {
-        return DateTime.fromMicrosecondsSinceEpoch(
-          int.parse(a['startTime']))
+    Map result =
+        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    eventList = result == null ? [] : result['events'].reversed.toList();
+    eventList.removeWhere((element) =>
+        element['title'] == 'Talawa Congress' ||
+        element['title'] == 'test' ||
+        element['title'] ==
+            'Talawa Conference Test'); //dont know who keeps adding these
+    eventList.sort((a, b) {
+      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime']))
           .compareTo(
-          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
-      });
-      eventsToDates(eventList, DateTime.now());
-      setState(() {
-        displayedEvents = eventList;
-      });
-      // print(displayedEvents);
-
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+    });
+    eventsToDates(eventList, DateTime.now());
+    setState(() {
+      displayedEvents = eventList;
+    });
+    // print(displayedEvents);
 
     eventList.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-        int.parse(a['startTime']))
+            int.parse(a['startTime']))
         .compareTo(
-        DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime']))));
+            DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime']))));
     eventsToDates(eventList, DateTime.now());
     setState(() {
       displayedEvents = eventList;
     });
   }
-
 
   //functions to edit the event
   Future<void> _editEvent(context, event) async {
@@ -205,9 +200,9 @@ class _EventsState extends State<Events> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Events',
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         floatingActionButton: eventFab(),
@@ -270,7 +265,7 @@ class _EventsState extends State<Events> {
 
   Widget carouselSliderBar() {
     return Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         alignment: Alignment.centerLeft,
         color: UIData.secondaryColor,
         height: 40,
@@ -278,11 +273,11 @@ class _EventsState extends State<Events> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 onPressed: () {
                   carouselController.previousPage();
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_left,
                   color: Colors.white,
                 )),
@@ -291,13 +286,13 @@ class _EventsState extends State<Events> {
               child: CarouselSlider(
                 carouselController: carouselController,
                 items: [
-                  Text(
+                  const Text(
                     'All',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   Text(
                     dateSelected,
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ],
                 options: CarouselOptions(
@@ -319,11 +314,11 @@ class _EventsState extends State<Events> {
               ),
             ),
             IconButton(
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 onPressed: () {
                   carouselController.nextPage();
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_right,
                   color: Colors.white,
                 )),
@@ -349,10 +344,10 @@ class _EventsState extends State<Events> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(vertical: 5),
+                              padding: const EdgeInsets.symmetric(vertical: 5),
                               child: Text(
                                 '${displayedEvents.length} Events',
-                                style: TextStyle(color: Colors.black45),
+                                style: const TextStyle(color: Colors.black45),
                               ),
                             ),
                             eventCard(index)
@@ -401,29 +396,29 @@ class _EventsState extends State<Events> {
                       screen: EventDetail(event: displayedEvents[index]),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     "More",
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
-                  shape: StadiumBorder(),
+                  shape: const StadiumBorder(),
                 ),
               ),
             ],
             title: Text(
               displayedEvents[index]['title'],
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black87,
                 fontSize: 16,
               ),
             ),
             subtitle: Text(
               displayedEvents[index]['description'],
-              style: TextStyle(color: Colors.black54),
+              style: const TextStyle(color: Colors.black54),
             ),
             trailing: popUpMenue(displayedEvents[index]),
           ),
           // ),
-          Divider(
+          const Divider(
             height: 0,
             thickness: 1,
           )
@@ -448,38 +443,38 @@ class _EventsState extends State<Events> {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
         const PopupMenuItem<int>(
             value: 1,
-            child: ListTile(
-              leading: Icon(Icons.playlist_add_check, color: Colors.grey),
-              title: Text(
+            child: const ListTile(
+              leading: const Icon(Icons.playlist_add_check, color: Colors.grey),
+              title: const Text(
                 'Register For Event',
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             )),
         const PopupMenuItem<int>(
             value: 2,
-            child: ListTile(
-              leading: Icon(Icons.note_add, color: Colors.grey),
-              title: Text(
+            child: const ListTile(
+              leading: const Icon(Icons.note_add, color: Colors.grey),
+              title: const Text(
                 'Add a Task to this Event',
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             )),
         const PopupMenuItem<int>(
             value: 3,
-            child: ListTile(
-              leading: Icon(Icons.edit, color: Colors.grey),
-              title: Text(
+            child: const ListTile(
+              leading: const Icon(Icons.edit, color: Colors.grey),
+              title: const Text(
                 'Edit this event',
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             )),
         const PopupMenuItem<int>(
             value: 4,
-            child: ListTile(
-              leading: Icon(Icons.delete, color: Colors.grey),
-              title: Text(
+            child: const ListTile(
+              leading: const Icon(Icons.delete, color: Colors.grey),
+              title: const Text(
                 'Delete This Event',
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             ))
       ],
@@ -489,7 +484,7 @@ class _EventsState extends State<Events> {
   Widget eventFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
