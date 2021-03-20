@@ -201,6 +201,7 @@ class _AddEventState extends State<AddEvent> {
                 _validateLocation = true;
               });
             }
+            Fluttertoast.showToast(msg: 'Fill in the empty fields', backgroundColor: Colors.grey[500]);
           }else {
             createEvent();
             Navigator.of(context).pop();
