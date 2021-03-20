@@ -37,6 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
   List org = [];
   List admins = [];
   bool isCreator;
+  bool isPublic;
   String creator;
   String userID;
   OrgController _orgController = OrgController();
@@ -80,6 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
         print(result.exception);
       } else if (!result.hasException) {
         creator = result.data['organizations'][0]['creator']['_id'];
+        isPublic = result.data['organizations'][0]['isPublic'];
         result.data['organizations'][0]['admins']
             .forEach((userId) => admins.add(userId));
         for (int i = 0; i < admins.length; i++) {
@@ -102,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
-
+    print('wroking');
     final String orgId = await _preferences.getCurrentOrgId();
 
     GraphQLClient _client = graphQLConfiguration.authClient();
@@ -287,7 +289,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       onTap: () {
                                         pushNewScreen(
                                           context,
-                                          screen: OrganizationSettings(creator: creator==userID),
+                                          screen: OrganizationSettings(creator: creator==userID,public:isPublic),
                                         );
                                       })
                                   : ListTile(

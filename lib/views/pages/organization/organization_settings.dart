@@ -20,49 +20,55 @@ import 'package:talawa/views/pages/organization/organization_members.dart';
 import 'update_organization.dart';
 
 class OrganizationSettings extends StatefulWidget {
+  final bool public;
   final bool creator;
-  OrganizationSettings({this.creator});
+  OrganizationSettings({this.public,this.creator});
   @override
   _OrganizationSettingsState createState() => _OrganizationSettingsState();
 }
 
 class _OrganizationSettingsState extends State<OrganizationSettings> {
-  Preferences preferences = Preferences();
-
+  Preferences _preferences = Preferences();
   Queries _query = Queries();
   AuthController _authController = AuthController();
   OrgController _orgController = OrgController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
+  String orgId;
 
   @override
   void initState() {
     super.initState();
     fToast = FToast();
     fToast.init(context);
+    getOrgId();
+  }
+
+  getOrgId()async{
+    orgId = await _preferences.getCurrentOrgId();
   }
 
   Future leaveOrg() async {
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
-
-    final String orgId = await Provider.of<Preferences>(context,listen: true).getCurrentOrgId();
-
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
-
+    print('here1');
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
+      print('here in loop');
       _authController.getNewToken();
       return leaveOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
+      print('here2');
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
+      print('left');
       setState(() {
         remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
         if (remaindingOrg.isEmpty) {
@@ -78,9 +84,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context, listen: true)
+      Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context, listen: true)
+      Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgId(newOrgId);
       //  _successToast('You are no longer apart of this organization');
       pushNewScreen(
@@ -91,7 +97,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   }
 
   Future removeOrg() async { //this is called the organization has to be removed
-    final String orgId = await preferences.getCurrentOrgId();
+    final String orgId = await _preferences.getCurrentOrgId();
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
@@ -106,6 +112,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       return removeOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
+      Navigator.of(context).pop();
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       _successToast('Successfully Removed');
@@ -123,6 +130,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
+      Navigator.of(context).pop();
       pushNewScreen(
         context,
         screen: ProfilePage(),
@@ -155,7 +163,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                   );
                 }),
             Divider(),
-            ListTile(
+            widget.public?SizedBox():ListTile(
                 title: Text(
                   'Accept MemberShip Requests',
                   style: TextStyle(fontSize: 18.0),
@@ -173,7 +181,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     screen: AcceptRequestsPage(),
                   );
                 }),
-            Divider(),
+            widget.public?SizedBox():Divider(),
             ListTile(
                 title: Text(
                   'Member(s)',
@@ -190,7 +198,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                   );
                 }),
             Divider(),
-            !widget.creator?ListTile(
+            ListTile(
                 title: Text(
                   'Leave Organization',
                   style: TextStyle(fontSize: 18.0),
@@ -217,58 +225,17 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                             FlatButton(
                               child: Text("Yes"),
                               onPressed: () async {
+                                print('here');
                                 leaveOrg();
-                                Navigator.of(context).pop();
+                                Navigator.pop(context);
                               },
                             )
                           ],
                         );
                       });
-                  pushNewScreen(
-                    context,
-                    screen: ProfilePage(),
-                  );
-                }):ListTile(
-                title: Text(
-                  'Leave Organization',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                leading: Icon(
-                  Icons.person,
-                  color: UIData.secondaryColor,
-                ),
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("Confirmation"),
-                          content: Text(
-                              "Are you sure you want to remove this organization?"),
-                          actions: [
-                            FlatButton(
-                              child: Text("Close"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            FlatButton(
-                              child: Text("Yes"),
-                              onPressed: () async {
-                                leaveOrg();
-                                Navigator.of(context).pop();
-                              },
-                            )
-                          ],
-                        );
-                      });
-                  pushNewScreen(
-                    context,
-                    screen: ProfilePage(),
-                  );
                 }),
             Divider(),
-            ListTile(
+            widget.creator?ListTile(
                 title: Text(
                   'Remove This Organization',
                   style: TextStyle(fontSize: 18.0),
@@ -305,7 +272,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                           ],
                         );
                       });
-                }),
+                }):SizedBox(),
           ]),
         ));
   }

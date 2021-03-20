@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
@@ -200,11 +199,11 @@ class _OrganizationMembersState extends State<OrganizationMembers>
               child: FloatingActionButton.extended(
                 heroTag: null,
                 backgroundColor: UIData.secondaryColor,
-                tooltip: index == 0 ? "Delete" : "Admin",
+                tooltip: index == 0 ? "Remove" : "Admin",
                 icon: Icon(
                     index == 0 ? Icons.delete : Icons.admin_panel_settings,
                     color: Colors.white),
-                label: Text(index == 0 ? "Delete" : "Admin"),
+                label: Text(index == 0 ? "Remove" : "Admin"),
                 onPressed: () {
                   if (index == 0) {
                     removeMemberDialog();
@@ -270,6 +269,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
               FlatButton(
                 child: Text("Yes"),
                 onPressed: () async {
+                  Navigator.of(context).pop();
                   removeMembers();
                 },
               )
@@ -285,7 +285,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
           return AlertDialog(
             title: Text("Confirmation"),
             content:
-                Text("Are you sure you want to remove selected member(s)?"),
+                Text("Are you sure you want to make admin selected member?"),
             actions: [
               FlatButton(
                 child: Text("Close"),
@@ -296,6 +296,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
               FlatButton(
                 child: Text("Yes"),
                 onPressed: () async {
+                  Navigator.of(context).pop();
                   addAdmin();
                 },
               )

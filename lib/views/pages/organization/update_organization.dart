@@ -229,6 +229,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             value: 0,
                             activeColor: UIData.secondaryColor,
                             onChanged: (val) {
+                              FocusScope.of(context).unfocus();
                               setState(() {
                                 radioValue = val;
                                 if (radioValue == 0) {
@@ -243,6 +244,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             title: Text('No'),
                             value: 1,
                             onChanged: (val) {
+                              FocusScope.of(context).unfocus();
                               setState(() {
                                 radioValue = val;
                                 if (radioValue == 1) {
@@ -262,6 +264,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             title: Text('Yes'),
                             value: 0,
                             onChanged: (val) {
+                              FocusScope.of(context).unfocus();
                               setState(() {
                                 radioValue1 = val;
                                 if (radioValue1 == 0) {
@@ -276,6 +279,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             title: Text('No'),
                             value: 1,
                             onChanged: (val) {
+                              FocusScope.of(context).unfocus();
                               setState(() {
                                 radioValue1 = val;
                                 if (radioValue1 == 1) {
