@@ -90,7 +90,7 @@ class _AddEventTaskState extends State<AddEventTask> {
       ),
       trailing: Text(
         '${DateFormat.yMMMd().format(selectedDate)}',
-        style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
+        style: const TextStyle(fontSize: 16, color: UIData.secondaryColor),
       ),
     );
   }

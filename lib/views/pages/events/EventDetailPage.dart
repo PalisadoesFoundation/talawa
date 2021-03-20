@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
@@ -36,7 +35,7 @@ class _EventDetailState extends State<EventDetail>
       appBar: AppBar(
         title: Text(
           widget.event['title'],
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -84,22 +83,22 @@ class _EventDetailState extends State<EventDetail>
                 child: Material(
                   color: UIData.secondaryColor,
                   child: TabBar(
-                    labelPadding: EdgeInsets.all(0),
+                    labelPadding: const EdgeInsets.all(0),
                     indicatorColor: Colors.white,
                     controller: _tabController,
                     tabs: [
-                      Tab(
-                        icon: Text(
+                      const Tab(
+                        icon: const Text(
                           'Tasks',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
                       ),
-                      Tab(
-                        icon: Text(
+                      const Tab(
+                        icon: const Text(
                           'Registrants',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ],
@@ -129,12 +128,12 @@ class _EventDetailState extends State<EventDetail>
       decoration: BoxDecoration(
           color: Colors.black26,
           borderRadius: BorderRadius.all(Radius.circular(5))),
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       height: 40,
       child: Text(
         text,
-        style: TextStyle(fontSize: 16, color: Colors.white),
+        style: const TextStyle(fontSize: 16, color: Colors.white),
         overflow: TextOverflow.ellipsis,
       ),
     );
