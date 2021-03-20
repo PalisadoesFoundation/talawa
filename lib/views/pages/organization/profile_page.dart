@@ -15,6 +15,7 @@ import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
+import 'package:talawa/views/widgets/alert_dialog_box.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -36,6 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
   List orgAdmin = [];
   List org = [];
   List admins = [];
+  List curOrganization = [];
   bool isCreator;
   bool isPublic;
   String creator;
@@ -80,6 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
       if (result.hasException) {
         print(result.exception);
       } else if (!result.hasException) {
+        curOrganization = result.data['organizations'];
         creator = result.data['organizations'][0]['creator']['_id'];
         isPublic = result.data['organizations'][0]['isPublic'];
         result.data['organizations'][0]['admins']
@@ -157,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
     return Scaffold(
         backgroundColor: Colors.white,
-        body: userDetails.isEmpty || isCreator==null
+        body: userDetails.isEmpty || isCreator == null
             ? Center(child: CircularProgressIndicator())
             : Column(
                 children: <Widget>[
@@ -289,7 +292,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       onTap: () {
                                         pushNewScreen(
                                           context,
-                                          screen: OrganizationSettings(creator: creator==userID,public:isPublic),
+                                          screen: OrganizationSettings(
+                                              creator: creator == userID,
+                                              public: isPublic,
+                                              organization: curOrganization),
                                         );
                                       })
                                   : ListTile(
@@ -302,7 +308,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                         color: UIData.secondaryColor,
                                       ),
                                       onTap: () async {
-                                        confirmLeave();
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertBox(
+                                                  message:
+                                                      "Are you sure you want to leave this organization?",
+                                                  function: leaveOrg);
+                                            });
                                       }),
                           ListTile(
                             title: Text(
@@ -317,24 +330,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text("Confirmation"),
-                                      content: Text(
-                                          "Are you sure you want to logout?"),
-                                      actions: [
-                                        FlatButton(
-                                          child: Text("No"),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                        FlatButton(
-                                          child: Text("Yes"),
-                                          onPressed: () {
-                                            _authController.logout(context);
-                                          },
-                                        )
-                                      ],
+                                    return AlertBox(
+                                      message:
+                                          "Are you sure you want to logout?",
+                                      function: () {
+                                        _authController.logout(context);
+                                      },
                                     );
                                   });
                             },
@@ -346,32 +347,5 @@ class _ProfilePageState extends State<ProfilePage> {
                   )
                 ],
               ));
-  }
-
-  //a pop up screen to ask the user if he wants to leave the organization or not
-  void confirmLeave() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Confirmation"),
-            content: Text("Are you sure you want to leave this organization?"),
-            actions: [
-              FlatButton(
-                child: Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text("Yes"),
-                onPressed: () async {
-                  leaveOrg();
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
   }
 }

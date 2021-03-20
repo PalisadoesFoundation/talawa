@@ -13,6 +13,9 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'dart:math' as math;
 
+import 'package:talawa/views/widgets/alert_dialog_box.dart';
+import 'package:talawa/views/widgets/toast_tile.dart';
+
 class OrganizationMembers extends StatefulWidget {
   @override
   _OrganizationMembersState createState() => _OrganizationMembersState();
@@ -31,7 +34,6 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   bool forward = false;
   String userId;
   Queries _query = Queries();
-  // Todo: to be replaced with creator's userId
   String creatorId;
 
   //giving initial states to every variable
@@ -86,6 +88,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       print(result.exception.toString().substring(16));
     } else if (!result.hasException) {
       print(result.data);
+      selectedMembers=[];
       viewMembers();
     }
   }
@@ -105,6 +108,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         print(result.exception.toString().substring(16));
       } else if (!result.hasException) {
         print(result.data);
+        selectedMembers = [];
         viewMembers();
       }
     } else {
@@ -115,7 +119,6 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   //add or remove selected members from list
   void _onMemberSelected(bool selected, String memberId) {
     if (selected == true) {
-      print('userId: $userId creatorId: $creatorId memberId: $memberId');
       if (!adminsList.contains(memberId)) {
         setState(() {
           selectedMembers.add('"$memberId"');
@@ -123,12 +126,10 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       } else {
         _exceptionToast('Can\'t select admins');
       }
-      print(selectedMembers);
     } else {
       setState(() {
         selectedMembers.remove('"$memberId"');
       });
-      print(selectedMembers);
     }
   }
 
@@ -206,10 +207,10 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                 label: Text(index == 0 ? "Remove" : "Admin"),
                 onPressed: () {
                   if (index == 0) {
-                    removeMemberDialog();
+                    dialog("Are you sure you want to remove selected member(s)?",removeMembers);
                   } else if (index == 1) {
                     if (selectedMembers.length == 1) {
-                      addAdminDialog();
+                      dialog("Are you sure you want to make admin selected member?", addAdmin);
                     } else {
                       _exceptionToast('You can make one admin at a time');
                     }
@@ -251,11 +252,11 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   }
 
   //dialog to confirm if the admin really wants to remove the member or not
-  void removeMemberDialog() {
+  void dialog(String msg, Function function) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
+          return AlertBox(message: msg,function: function,);/*AlertDialog(
             title: Text("Confirmation"),
             content:
                 Text("Are you sure you want to remove selected member(s)?"),
@@ -274,54 +275,13 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                 },
               )
             ],
-          );
-        });
-  }
-
-  void addAdminDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Confirmation"),
-            content:
-                Text("Are you sure you want to make admin selected member?"),
-            actions: [
-              FlatButton(
-                child: Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text("Yes"),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  addAdmin();
-                },
-              )
-            ],
-          );
+          );*/
         });
   }
 
   _exceptionToast(String msg) {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
     fToast.showToast(
-      child: toast,
+      child: ToastTile(msg: msg,success: false,),
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 3),
     );

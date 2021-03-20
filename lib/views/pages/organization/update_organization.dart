@@ -13,8 +13,16 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
+import 'package:talawa/views/widgets/text_field_decoration.dart';
+import 'package:talawa/views/widgets/toast_tile.dart';
 
 class UpdateOrganization extends StatefulWidget {
+  final String description;
+  final String name;
+  final int isPublic;
+  final int isVisible;
+  UpdateOrganization(
+      {this.isPublic, this.description, this.isVisible, this.name});
   @override
   _UpdateOrganizationState createState() => _UpdateOrganizationState();
 }
@@ -47,26 +55,10 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   }
 
   Future fetchOrg() async {
-    final String orgId = await _preferences.getCurrentOrgId();
-    if (orgId != null) {
-      GraphQLClient _client = graphQLConfiguration.authClient();
-      QueryResult result = await _client
-          .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
-      if (result.hasException) {
-        print(result.exception);
-      } else if (!result.hasException) {
-        orgDescController.text = result.data['organizations'][0]['description'];
-        orgNameController.text = result.data['organizations'][0]['name'];
-        radioValue = result.data['organizations'][0]['isPublic'] ? 0 : 1;
-        radioValue1 = result.data['organizations'][0]['visibleInSearch'] == null
-            ? -1
-            : result.data['organizations'][0]['visibleInSearch']
-                ? 0
-                : 1;
-        setState(() {});
-        //radioValue1 = result.data['organizations'][0]['name'];
-      }
-    }
+    orgNameController.text = widget.name;
+    orgDescController.text = widget.description;
+    radioValue = widget.isPublic;
+    radioValue1 = widget.isVisible;
   }
 
   //this method shows the toggle bar
@@ -116,6 +108,38 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     }
   }
 
+  Widget getRadioButton(int group, int count,bool public) {
+    return ListView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: List.generate(
+        count,
+        (index) => RadioListTile(
+          groupValue: group,
+          title: Text(index==0?'Yes':'No'),
+          value: index,
+          activeColor: UIData.secondaryColor,
+          onChanged: (val) {
+            FocusScope.of(context).unfocus();
+            setState(() {
+              public?radioValue = val:radioValue1=val;
+              if (radioValue == 0) {
+                return public?isPublic:isVisible;
+              }else if (radioValue == 1) {
+                if (public) {
+                  isPublic = false;
+                }else{
+                  isVisible = false;
+                }
+                return public?isPublic:isVisible;
+              }
+            });
+          },
+        ),
+      ),
+    );
+  }
+
   //the main build starts here
   @override
   Widget build(BuildContext context) {
@@ -147,20 +171,10 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             textAlign: TextAlign.left,
                             textCapitalization: TextCapitalization.words,
                             style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: UIData.secondaryColor),
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              prefixIcon: Icon(
-                                Icons.group,
-                                color: UIData.secondaryColor,
-                              ),
-                              labelText: "Organization Name",
-                              labelStyle: TextStyle(color: Colors.black),
-                              alignLabelWithHint: true,
-                              hintText: 'My Organization',
-                              hintStyle: TextStyle(color: Colors.grey),
+                            decoration: FormFieldFormatting.formFieldFormatting(
+                              hintText: "Organization Name",
+                              labelText: 'My Organization',
+                              prefixIcon: Icons.group,
                             ),
                             controller: orgNameController,
                           ),
@@ -175,19 +189,10 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                                 Validator.validateOrgDesc(value),
                             textAlign: TextAlign.left,
                             style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: UIData.secondaryColor),
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              prefixIcon: Icon(Icons.note,
-                                  color: UIData.secondaryColor),
-                              labelText: "Organization Description",
-                              labelStyle: TextStyle(color: Colors.black),
-                              alignLabelWithHint: true,
-                              hintText: 'My Description',
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
+                            decoration: FormFieldFormatting.formFieldFormatting(
+                                hintText: "My Description",
+                                labelText: "Organization Description",
+                                prefixIcon: Icons.note_sharp),
                             controller: orgDescController,
                           ),
                           SizedBox(
@@ -202,19 +207,10 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                                 Validator.validateOrgAttendeesDesc(value),
                             textAlign: TextAlign.left,
                             style: TextStyle(color: Colors.black),
-                            decoration: new InputDecoration(
-                              border: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(20.0),
-                                  borderSide: new BorderSide(
-                                      color: UIData.secondaryColor)),
-                              prefixIcon: Icon(Icons.note,
-                                  color: UIData.secondaryColor),
-                              labelText: "Member Description",
-                              labelStyle: TextStyle(color: Colors.black),
-                              alignLabelWithHint: true,
-                              hintText: 'Member Description',
-                              hintStyle: TextStyle(color: Colors.grey),
-                            ),
+                            decoration: FormFieldFormatting.formFieldFormatting(
+                                hintText: "Member Description",
+                                labelText: "Member Description",
+                                prefixIcon: Icons.note_sharp),
                             controller: orgMemberDescController,
                           ),
                           SizedBox(
@@ -223,72 +219,12 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                           Text('Do you want your organization to be public?',
                               style:
                                   TextStyle(fontSize: 16, color: Colors.black)),
-                          RadioListTile(
-                            groupValue: radioValue,
-                            title: Text('Yes'),
-                            value: 0,
-                            activeColor: UIData.secondaryColor,
-                            onChanged: (val) {
-                              FocusScope.of(context).unfocus();
-                              setState(() {
-                                radioValue = val;
-                                if (radioValue == 0) {
-                                  return isPublic;
-                                }
-                              });
-                            },
-                          ),
-                          RadioListTile(
-                            activeColor: UIData.secondaryColor,
-                            groupValue: radioValue,
-                            title: Text('No'),
-                            value: 1,
-                            onChanged: (val) {
-                              FocusScope.of(context).unfocus();
-                              setState(() {
-                                radioValue = val;
-                                if (radioValue == 1) {
-                                  isPublic = false;
-                                  return isPublic;
-                                }
-                              });
-                            },
-                          ),
+                          getRadioButton(radioValue,2,true),
                           Text(
                               'Do you want others to be able to find your organization from the search page?',
                               style:
                                   TextStyle(fontSize: 16, color: Colors.black)),
-                          RadioListTile(
-                            activeColor: UIData.secondaryColor,
-                            groupValue: radioValue1,
-                            title: Text('Yes'),
-                            value: 0,
-                            onChanged: (val) {
-                              FocusScope.of(context).unfocus();
-                              setState(() {
-                                radioValue1 = val;
-                                if (radioValue1 == 0) {
-                                  return isVisible;
-                                }
-                              });
-                            },
-                          ),
-                          RadioListTile(
-                            activeColor: UIData.secondaryColor,
-                            groupValue: radioValue1,
-                            title: Text('No'),
-                            value: 1,
-                            onChanged: (val) {
-                              FocusScope.of(context).unfocus();
-                              setState(() {
-                                radioValue1 = val;
-                                if (radioValue1 == 1) {
-                                  isVisible = false;
-                                  return isVisible;
-                                }
-                              });
-                            },
-                          ),
+                          getRadioButton(radioValue1,2,false),
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 20.0, horizontal: 30.0),
@@ -328,22 +264,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
 
   //a message if the result is successful
   _successToast(String msg) {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
     fToast.showToast(
-      child: toast,
+      child: ToastTile(msg: msg, success: true),
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 1),
     );
@@ -351,22 +273,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
 
   //a method which is called when the result is an exception
   _exceptionToast(String msg) {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
     fToast.showToast(
-      child: toast,
+      child: ToastTile(msg: msg, success: false),
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 3),
     );
