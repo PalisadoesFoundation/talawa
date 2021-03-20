@@ -59,10 +59,14 @@ class _UserTasksState extends State<UserTasks> {
                         leading: Text(
                             'Description: ${userTasks[index]["description"]}'),
                       ),
-                      ListTile(
-                        leading: Text(
-                            'Due Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"]))))}'),
-                      )
+                      userTasks[index]["deadline"] != null
+                          ? ListTile(
+                              leading: Text(
+                                  'Due Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"]))))}'),
+                            )
+                          : ListTile(
+                              leading: Text('Due Date: N/A'),
+                            )
                     ],
                   ));
                 }))
