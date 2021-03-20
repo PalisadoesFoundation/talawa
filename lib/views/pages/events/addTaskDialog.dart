@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 
@@ -23,7 +22,6 @@ class _AddEventTaskState extends State<AddEventTask> {
   ApiFunctions apiFunctions = ApiFunctions();
   DateTime selectedDate = DateTime.now();
 
-
   //function to add the task
   Future<void> addTask() async {
     String mutation = Queries().addEventTask(
@@ -33,7 +31,6 @@ class _AddEventTaskState extends State<AddEventTask> {
         deadline: DateTime.now().millisecondsSinceEpoch.toString());
     Map result = await apiFunctions.gqlquery(mutation);
   }
-
 
   //function to select the date
   Future<void> _selectDate(BuildContext context) async {
@@ -48,13 +45,12 @@ class _AddEventTaskState extends State<AddEventTask> {
       });
   }
 
-
   //main build starts here
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: EdgeInsets.all(0),
-      title: Text("Add A Task To This Event"),
+      insetPadding: const EdgeInsets.all(0),
+      title: const Text("Add A Task To This Event"),
       content: Container(
           height: 250,
           child: Column(
@@ -66,13 +62,13 @@ class _AddEventTaskState extends State<AddEventTask> {
           )),
       actions: <Widget>[
         FlatButton(
-          child: Text("Cancel"),
+          child: const Text("Cancel"),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
-          child: Text("Add"),
+          child: const Text("Add"),
           onPressed: () {
             addTask();
             Navigator.of(context).pop();
@@ -81,7 +77,6 @@ class _AddEventTaskState extends State<AddEventTask> {
       ],
     );
   }
-
 
   //widget to use date button
   Widget dateButton() {
@@ -100,11 +95,10 @@ class _AddEventTaskState extends State<AddEventTask> {
     );
   }
 
-
   //widget to use input field
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: TextField(
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
