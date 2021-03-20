@@ -1,4 +1,3 @@
-
 //flutter packages
 import 'package:flutter/material.dart';
 
@@ -32,14 +31,12 @@ class _AddEventState extends State<AddEvent> {
     super.initState();
   }
 
-
   //getting the date for the event
   DateTimeRange dateRange = DateTimeRange(
       start: DateTime(
           DateTime.now().year, DateTime.now().month, DateTime.now().day, 1, 0),
       end: DateTime(DateTime.now().year, DateTime.now().month,
           DateTime.now().day + 1, 1, 0));
-
 
   //storing the start time of an event
   Map<String, DateTime> startEndTimes = {
@@ -48,7 +45,6 @@ class _AddEventState extends State<AddEvent> {
     'End Time': DateTime(
         DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
   };
-
 
   //method to be called when the user wants to select the date
   Future<void> _selectDate(BuildContext context) async {
@@ -63,7 +59,6 @@ class _AddEventState extends State<AddEvent> {
         dateRange = picked;
       });
   }
-
 
   //method to be called when the user wants to select time
   Future<void> _selectTime(
@@ -83,10 +78,8 @@ class _AddEventState extends State<AddEvent> {
       });
   }
 
-
   //method used to create an event
   Future<void> createEvent() async {
-    
     DateTime startTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
@@ -110,19 +103,18 @@ class _AddEventState extends State<AddEvent> {
     }
   }
 
-
   //main build starts from here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'New Event',
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.only(bottom: 100),
+        padding: const EdgeInsets.only(bottom: 100),
         children: <Widget>[
           inputField('Title', titleController),
           inputField('Description', descriptionController),
@@ -141,7 +133,6 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
-
   //widget to get the date button
   Widget dateButton() {
     return ListTile(
@@ -154,11 +145,10 @@ class _AddEventState extends State<AddEvent> {
       ),
       trailing: Text(
         '${DateFormat.yMMMd().format(dateRange.start)} | ${DateFormat.yMMMd().format(dateRange.end)} ',
-        style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
+        style: const TextStyle(fontSize: 16, color: UIData.secondaryColor),
       ),
     );
   }
-
 
   //widget to get the time button
   Widget timeButton(String name, DateTime time) {
@@ -182,12 +172,11 @@ class _AddEventState extends State<AddEvent> {
         ));
   }
 
-
   //widget to add the event
   Widget addEventFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
-        child: Icon(
+        child: const Icon(
           Icons.check,
           color: Colors.white,
         ),
@@ -199,7 +188,7 @@ class _AddEventState extends State<AddEvent> {
 
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: TextField(
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
@@ -215,7 +204,7 @@ class _AddEventState extends State<AddEvent> {
     return SwitchListTile(
         activeColor: UIData.secondaryColor,
         value: switchVals[name],
-        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
         title: Text(
           name,
           style: TextStyle(color: Colors.grey[600]),
@@ -229,7 +218,7 @@ class _AddEventState extends State<AddEvent> {
 
   Widget recurrencedropdown() {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
       leading: Text(
         'Recurrence',
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
@@ -242,7 +231,7 @@ class _AddEventState extends State<AddEvent> {
                   ? UIData.secondaryColor
                   : Colors.grey),
           value: recurrance,
-          icon: Icon(Icons.arrow_drop_down),
+          icon: const Icon(Icons.arrow_drop_down),
           onChanged: (String newValue) {
             setState(() {
               recurrance = newValue;
