@@ -46,15 +46,42 @@ class Validator {
 
   static String validatePassword(String value) {
     String pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,20}$';
     RegExp regExp = new RegExp(pattern);
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters.';
-    } else if (!regExp.hasMatch(value)) {
-      return 'Invalid password! Please see Strong Password Info';
+    if (!regExp.hasMatch(value)) {
+      return "Invalid password";
     }
     return null;
   }
+
+  static bool upperAlpha(String value) {
+    String patternUpperAlpha = r'^(?=.*?[A-Z])';
+    RegExp regExp = new RegExp(patternUpperAlpha);
+    if (regExp.hasMatch(value)) return true;
+    return false;
+  }
+
+  static bool lowerAlpha(String value) {
+    String patternLowerAlpha = r'^(?=.*?[a-z])';
+    RegExp regExp = new RegExp(patternLowerAlpha);
+    if (regExp.hasMatch(value)) return true;
+    return false;
+  }
+
+  static bool numeric(String value) {
+    String patternNumeric = r'^(?=.*?[0-9])';
+    RegExp regExp = new RegExp(patternNumeric);
+    if (regExp.hasMatch(value)) return true;
+    return false;
+  }
+
+  static bool specialChar(String value) {
+    String patternSpecialChara = r'^(?=.*?[!@#\$&*~])';
+    RegExp regExp = new RegExp(patternSpecialChara);
+    if (regExp.hasMatch(value)) return true;
+    return false;
+  }
+  
 
   static String validatePasswordConfirm(String value, String comparator) {
     if (value != comparator) {
