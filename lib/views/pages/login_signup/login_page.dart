@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     urlController.addListener(listenToUrl);
     controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 2000),
     );
   }
 
@@ -79,12 +79,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
   loginScreenForm() => Center(
         child: Container(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                   maxWidth: 300.0, minWidth: 250.0, minHeight: 300.0),
               child: SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: 30.0),
+                padding: const EdgeInsets.only(bottom: 30.0),
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: <Widget>[
@@ -92,22 +92,23 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "Dont have an account?",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 8.0),
+                          margin: const EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
                             onTap: () {
                               gotoSignUp();
                             },
-                            child: Text(
+                            child: const Text(
                               "SIGN UP!",
                               textAlign: TextAlign.start,
-                              style: TextStyle(color: UIData.primaryColor),
+                              style:
+                                  const TextStyle(color: UIData.primaryColor),
                             ),
                           ),
                         ),
@@ -121,12 +122,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
   registrationScreenForm() => Center(
         child: Container(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                   maxWidth: 300.0, minWidth: 250.0, minHeight: 350.0),
               child: SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: 30.0),
+                padding: const EdgeInsets.only(bottom: 30.0),
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: <Widget>[
@@ -134,20 +135,21 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "Already have an account?",
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 8.0),
+                          margin: const EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
                             onTap: () {
                               gotoLogin();
                             },
-                            child: Text(
+                            child: const Text(
                               "SIGN IN!",
                               textAlign: TextAlign.start,
-                              style: TextStyle(color: UIData.primaryColor),
+                              style:
+                                  const TextStyle(color: UIData.primaryColor),
                             ),
                           ),
                         ),
@@ -163,7 +165,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   gotoLogin() {
     _pageController.animateToPage(
       0,
-      duration: Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 600),
       curve: Curves.bounceOut,
     );
   }
@@ -172,7 +174,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   gotoSignUp() {
     _pageController.animateToPage(
       2,
-      duration: Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 600),
       curve: Curves.bounceOut,
     );
   }
@@ -191,21 +193,21 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
     var helloController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
 
     var helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
 
     var createController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
 
     var createAnimation = Tween(begin: 0.0, end: 1.0).animate(createController);
 
     var loginController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
 
     var loginAnimation = Tween(begin: 0.0, end: 1.0).animate(loginController);
@@ -237,19 +239,19 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
               opacity: animation,
               child: Container(
                 //padding: EdgeInsets.all(100.0),
-                padding: EdgeInsets.symmetric(vertical: 50.0),
+                padding: const EdgeInsets.symmetric(vertical: 50.0),
                 child:
                     Center(child: Image(image: AssetImage(UIData.talawaLogo))),
               ),
             ),
             new Container(
               //container with login and sign up button
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
 
               child: Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                     width: _media != null
                         ? _media.size.width
                         : MediaQuery.of(context).size.width,
@@ -262,9 +264,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             FadeTransition(
                               opacity: helloAnimation,
                               child: Container(
-                                child: Text(
+                                child: const Text(
                                   "TALAWA",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 60,
@@ -277,9 +279,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                         FadeTransition(
                           opacity: helloAnimation,
                           child: Container(
-                            child: Text(
+                            child: const Text(
                               ".",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.orange,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 60,
@@ -309,11 +311,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                               children: <Widget>[
                                 DropdownButton<String>(
                                   value: dropdownValue,
-                                  icon: Icon(Icons.arrow_downward,
+                                  icon: const Icon(Icons.arrow_downward,
                                       color: Colors.orange),
                                   iconSize: 24,
                                   elevation: 16,
-                                  style: TextStyle(color: UIData.primaryColor),
+                                  style: const TextStyle(
+                                      color: UIData.primaryColor),
                                   underline: Container(
                                     height: 2,
                                     color: UIData.primaryColor,
@@ -333,7 +336,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     );
                                   }).toList(),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Expanded(
@@ -345,36 +348,37 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                             Validator.validateURL(
                                                 urlController.text),
                                         textAlign: TextAlign.left,
-                                        style: TextStyle(color: Colors.white),
+                                        style: const TextStyle(
+                                            color: Colors.white),
                                         decoration: InputDecoration(
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
+                                            borderSide: const BorderSide(
+                                                color: Colors.white),
                                             borderRadius:
                                                 BorderRadius.circular(50.0),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
+                                            borderSide: const BorderSide(
                                                 color: Colors.orange),
                                             borderRadius:
                                                 BorderRadius.circular(50.0),
                                           ),
-                                          prefixIcon: Icon(Icons.web,
+                                          prefixIcon: const Icon(Icons.web,
                                               color: Colors.white),
                                           labelText: "Type Org URL Here",
-                                          labelStyle:
-                                              TextStyle(color: Colors.white),
+                                          labelStyle: const TextStyle(
+                                              color: Colors.white),
                                           alignLabelWithHint: true,
                                           hintText: 'calico.palisadoes.org',
-                                          hintStyle:
-                                              TextStyle(color: Colors.grey),
+                                          hintStyle: const TextStyle(
+                                              color: Colors.grey),
                                         ),
                                         controller: urlController,
                                       )),
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
@@ -388,11 +392,13 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                       ),
                                     ),
                                     child: isUrlCalled
-                                        ? SizedBox(
+                                        ? const SizedBox(
                                             height: 14,
                                             width: 14,
-                                            child: CircularProgressIndicator(
-                                                backgroundColor: Colors.white),
+                                            child:
+                                                const CircularProgressIndicator(
+                                                    backgroundColor:
+                                                        Colors.white),
                                           )
                                         : Text(
                                             saveMsg,
@@ -413,7 +419,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   FadeTransition(
@@ -459,10 +465,10 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       new Expanded(
-                                        child: Text(
+                                        child: const Text(
                                           "Create an Account",
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             //color: UIData.quitoThemeColor,
                                             color: Colors.white,
                                             fontSize: 18,
@@ -480,7 +486,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   FadeTransition(
                     opacity: loginAnimation,
                     child: Container(
@@ -522,10 +528,10 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       new Expanded(
-                                        child: Text(
+                                        child: const Text(
                                           "Login",
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             //color: UIData.quitoThemeColor,
                                             color: Colors.white,
                                             fontSize: 18,
@@ -603,7 +609,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
           Expanded(
             child: Text(
               msg,
-              style: TextStyle(fontSize: 15.0, color: Colors.white),
+              style: const TextStyle(fontSize: 15.0, color: Colors.white),
               textAlign: TextAlign.center,
             ),
           ),
@@ -614,7 +620,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 5),
+      toastDuration: const Duration(seconds: 5),
     );
   }
 
