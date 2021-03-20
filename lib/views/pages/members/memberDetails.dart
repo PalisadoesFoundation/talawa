@@ -1,4 +1,3 @@
-
 //flutter imported function
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -31,15 +30,14 @@ class _MemberDetailState extends State<MemberDetail>
     _tabController = TabController(vsync: this, length: 2);
   }
 
-
   //main build starts here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'User Info',
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         body: CustomScrollView(slivers: [
@@ -55,7 +53,7 @@ class _MemberDetailState extends State<MemberDetail>
                   Card(
                       child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     height: 30,
                     child: Text(
@@ -64,10 +62,10 @@ class _MemberDetailState extends State<MemberDetail>
                   Card(
                       child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     height: 30,
-                    child: Text('User Privileges:'),
+                    child: const Text('User Privileges:'),
                   )),
                 ]),
               )),
@@ -79,22 +77,22 @@ class _MemberDetailState extends State<MemberDetail>
                 child: Material(
                   color: UIData.secondaryColor,
                   child: TabBar(
-                    labelPadding: EdgeInsets.all(0),
+                    labelPadding: const EdgeInsets.all(0),
                     indicatorColor: Colors.white,
                     controller: _tabController,
                     tabs: [
-                      Tab(
-                        icon: Text(
+                      const Tab(
+                        icon: const Text(
                           'Tasks',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
                       ),
-                      Tab(
-                        icon: Text(
+                      const Tab(
+                        icon: const Text(
                           'Registered Events',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                       ),
                     ],
@@ -116,7 +114,6 @@ class _MemberDetailState extends State<MemberDetail>
           ),
         ]));
   }
-
 
   //widget to get the user image
   Widget userImg(String link) {
@@ -152,7 +149,7 @@ class _MemberDetailState extends State<MemberDetail>
                   end: Alignment.topCenter,
                   colors: [Colors.black45, Colors.transparent]),
             ),
-            padding: EdgeInsets.only(left: 20),
+            padding: const EdgeInsets.only(left: 20),
             height: 40,
             child: Align(
               alignment: Alignment.centerLeft,
@@ -160,7 +157,7 @@ class _MemberDetailState extends State<MemberDetail>
                 widget.member['firstName'].toString() +
                     ' ' +
                     widget.member['lastName'].toString(),
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                 ),
@@ -169,7 +166,6 @@ class _MemberDetailState extends State<MemberDetail>
       ]),
     );
   }
-
 
   //this is widget for default user image
   Widget defaultUserImg() {
@@ -180,7 +176,7 @@ class _MemberDetailState extends State<MemberDetail>
         children: [
           Container(
               height: 130,
-              child: Icon(
+              child: const Icon(
                 Icons.person,
                 size: 100,
                 color: Colors.white54,
@@ -192,7 +188,7 @@ class _MemberDetailState extends State<MemberDetail>
                     end: Alignment.topCenter,
                     colors: [Colors.black45, Colors.transparent]),
               ),
-              padding: EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.only(left: 20),
               height: 40,
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -200,7 +196,7 @@ class _MemberDetailState extends State<MemberDetail>
                   widget.member['firstName'].toString() +
                       ' ' +
                       widget.member['lastName'].toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                   ),

@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 
@@ -31,7 +30,6 @@ class _UserTasksState extends State<UserTasks> {
     getUserDetails();
   }
 
-
   //getting user details
   getUserDetails() async {
     final String userID = widget.member['_id'];
@@ -41,7 +39,6 @@ class _UserTasksState extends State<UserTasks> {
       userTasks = result == null ? [] : result['tasksByUser'];
     });
   }
-
 
   //main building starts here
   @override
@@ -66,10 +63,10 @@ class _UserTasksState extends State<UserTasks> {
                   ));
                 }))
         : Container(
-            child: Center(
-                child: Text(
+            child: const Center(
+                child: const Text(
               "No Tasks found",
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             )),
           );

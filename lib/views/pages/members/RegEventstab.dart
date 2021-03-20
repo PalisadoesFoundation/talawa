@@ -1,4 +1,3 @@
-
 //flutter packages imported here
 import 'package:flutter/material.dart';
 
@@ -6,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
-
 
 // ignore: must_be_immutable
 class RegisteredEvents extends StatefulWidget {
@@ -26,13 +24,11 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
   ApiFunctions apiFunctions = ApiFunctions();
   List userEvents = [];
 
-
   //providing variables with the initial states
   void initState() {
     super.initState();
     getUserDetails();
   }
-
 
   //method to get the user details
   getUserDetails() async {
@@ -43,7 +39,6 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
       userEvents = result == null ? [] : result['registeredEventsByUser'];
     });
   }
-
 
   //the main build starts here
   @override
@@ -62,10 +57,10 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
               );
             })
         : Container(
-            child: Center(
-                child: Text(
+            child: const Center(
+                child: const Text(
               "No registered events",
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             )),
           );

@@ -1,4 +1,3 @@
-
 //flutter imported package
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -25,7 +24,6 @@ class _OrganizationsState extends State<Organizations> {
   List alphaMembersList = [];
   int isSelected = 0;
   Preferences preferences = Preferences();
-
 
   //providing initial states to the variables
   initState() {
@@ -93,7 +91,7 @@ class _OrganizationsState extends State<Organizations> {
   //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
     String userId = id.replaceAll(RegExp('[a-z]'), '');
-    int colorInt = int.parse(userId.substring(userId.length -10));
+    int colorInt = int.parse(userId.substring(userId.length - 10));
     colorInt = (colorInt % 18);
     return Color.alphaBlend(
       Colors.black45,
@@ -101,19 +99,17 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
-
-
   //main build starts here
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Members',
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         body: alphaMembersList.isEmpty
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: const CircularProgressIndicator())
             : RefreshIndicator(
                 onRefresh: () async {
                   getMembers();
@@ -129,13 +125,12 @@ class _OrganizationsState extends State<Organizations> {
                 )));
   }
 
-
   //widget which divides the list according to letters
   Widget alphabetDividerList(BuildContext context, List membersList) {
     return SliverStickyHeader(
       header: Container(
         height: 60.0,
-        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         alignment: Alignment.centerLeft,
         child: CircleAvatar(
             backgroundColor: UIData.secondaryColor,
@@ -158,7 +153,6 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
-
   //a custom card made for showing member details
   Widget memberCard(index, List membersList) {
     Color color = idToColor(membersList[index]['_id']);
@@ -177,7 +171,7 @@ class _OrganizationsState extends State<Organizations> {
               Flexible(
                 child: Container(
                     alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     height: 80,
                     color: Colors.white,
                     child: Text(
@@ -192,7 +186,6 @@ class _OrganizationsState extends State<Organizations> {
           ),
         ));
   }
-
 
   //widget to get the user images
   Widget userImage(Map member) {
@@ -223,7 +216,6 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
-
   //widget to get the default user image
   Widget defaultUserImage(Map member) {
     return Container(
@@ -231,11 +223,11 @@ class _OrganizationsState extends State<Organizations> {
         width: 100,
         height: 80,
         color: idToColor(member['_id']),
-        child: Padding(
-            padding: EdgeInsets.all(10),
+        child: const Padding(
+            padding: const EdgeInsets.all(10),
             child: CircleAvatar(
                 backgroundColor: Colors.black12,
-                child: Icon(
+                child: const Icon(
                   Icons.person,
                   size: 30,
                   color: Colors.white70,
@@ -248,15 +240,15 @@ class _OrganizationsState extends State<Organizations> {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
         const PopupMenuItem<int>(
             value: 1,
-            child: ListTile(
-              leading: Icon(Icons.playlist_add_check),
-              title: Text('View Assigned Tasks'),
+            child: const ListTile(
+              leading: const Icon(Icons.playlist_add_check),
+              title: const Text('View Assigned Tasks'),
             )),
         const PopupMenuItem<int>(
             value: 2,
-            child: ListTile(
-              leading: Icon(Icons.playlist_add_check),
-              title: Text('View Registered Events'),
+            child: const ListTile(
+              leading: const Icon(Icons.playlist_add_check),
+              title: const Text('View Registered Events'),
             )),
       ],
     );
