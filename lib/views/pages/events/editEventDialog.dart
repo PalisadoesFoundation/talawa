@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 
@@ -68,7 +67,6 @@ class _EditEventState extends State<EditEvent> {
     });
   }
 
-
   //getting current organization id
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
@@ -77,7 +75,6 @@ class _EditEventState extends State<EditEvent> {
     });
     print(currentOrgId);
   }
-
 
   //method called to select the date
   Future<void> _selectDate(BuildContext context) async {
@@ -92,7 +89,6 @@ class _EditEventState extends State<EditEvent> {
         dateRange = picked;
       });
   }
-
 
   //method to select the time
   Future<void> _selectTime(
@@ -111,7 +107,6 @@ class _EditEventState extends State<EditEvent> {
             picked.minute);
       });
   }
-
 
   //method used to create and event
   Future<void> createEvent() async {
@@ -144,13 +139,13 @@ class _EditEventState extends State<EditEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Edit Event',
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.only(bottom: 100),
+        padding: const EdgeInsets.only(bottom: 100),
         children: <Widget>[
           inputField('Title', titleController),
           inputField('Description', descriptionController),
@@ -169,7 +164,6 @@ class _EditEventState extends State<EditEvent> {
     );
   }
 
-
   //widget for the date buttons
   Widget dateButton() {
     return ListTile(
@@ -182,11 +176,10 @@ class _EditEventState extends State<EditEvent> {
       ),
       trailing: Text(
         '${DateFormat.yMMMd().format(dateRange.start)} | ${DateFormat.yMMMd().format(dateRange.end)} ',
-        style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
+        style: const TextStyle(fontSize: 16, color: UIData.secondaryColor),
       ),
     );
   }
-
 
   //widget for time buttons
   Widget timeButton(String name, DateTime time) {
@@ -210,11 +203,10 @@ class _EditEventState extends State<EditEvent> {
         ));
   }
 
-
   //widget for the input field
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: TextField(
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
@@ -230,7 +222,7 @@ class _EditEventState extends State<EditEvent> {
     return SwitchListTile(
         activeColor: UIData.secondaryColor,
         value: switchVals[name],
-        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
         title: Text(
           name,
           style: TextStyle(color: Colors.grey[600]),
@@ -244,7 +236,7 @@ class _EditEventState extends State<EditEvent> {
 
   Widget recurrencedropdown() {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
       leading: Text(
         'Recurrence',
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
@@ -257,7 +249,7 @@ class _EditEventState extends State<EditEvent> {
                   ? UIData.secondaryColor
                   : Colors.grey),
           value: recurrance,
-          icon: Icon(Icons.arrow_drop_down),
+          icon: const Icon(Icons.arrow_drop_down),
           onChanged: (String newValue) {
             setState(() {
               recurrance = newValue;
@@ -274,12 +266,11 @@ class _EditEventState extends State<EditEvent> {
     );
   }
 
-
   //widget to add the event
   Widget addEventFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
-        child: Icon(
+        child: const Icon(
           Icons.check,
           color: Colors.white,
         ),
