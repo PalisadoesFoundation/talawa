@@ -35,7 +35,9 @@ class _ChatState extends State<Chat> {
         ),
       ),
       body: Align(
-          alignment: Alignment.bottomCenter, child: _textComposerWidget()),
+        alignment: Alignment.bottomCenter,
+        child: _textComposerWidget(),
+      ),
     );
   }
 

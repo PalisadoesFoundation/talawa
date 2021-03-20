@@ -18,9 +18,9 @@ class _GroupsState extends State<Groups> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Chats',
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: ListView.builder(
@@ -34,7 +34,7 @@ class _GroupsState extends State<Groups> {
                   backgroundColor: UIData.secondaryColor,
                   child: Image.asset(UIData.talawaLogo),
                 ),
-                trailing: Icon(Icons.arrow_right),
+                trailing: const Icon(Icons.arrow_right),
                 onTap: () {
                   pushNewScreen(
                     context,
