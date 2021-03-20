@@ -1,6 +1,6 @@
-
 //flutter packages
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:talawa/services/preferences.dart';
@@ -18,7 +18,9 @@ class _AddEventState extends State<AddEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final locationController = TextEditingController();
-  bool _validate = false;
+  bool _validateTitle = false,
+      _validateDescription = false,
+      _validateLocation = false;
 
   Map switchVals = {
     'Make Public': true,
@@ -33,14 +35,12 @@ class _AddEventState extends State<AddEvent> {
     super.initState();
   }
 
-
   //getting the date for the event
   DateTimeRange dateRange = DateTimeRange(
       start: DateTime(
           DateTime.now().year, DateTime.now().month, DateTime.now().day, 1, 0),
       end: DateTime(DateTime.now().year, DateTime.now().month,
           DateTime.now().day + 1, 1, 0));
-
 
   //storing the start time of an event
   Map<String, DateTime> startEndTimes = {
@@ -49,7 +49,6 @@ class _AddEventState extends State<AddEvent> {
     'End Time': DateTime(
         DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
   };
-
 
   //method to be called when the user wants to select the date
   Future<void> _selectDate(BuildContext context) async {
@@ -64,7 +63,6 @@ class _AddEventState extends State<AddEvent> {
         dateRange = picked;
       });
   }
-
 
   //method to be called when the user wants to select time
   Future<void> _selectTime(
@@ -84,10 +82,8 @@ class _AddEventState extends State<AddEvent> {
       });
   }
 
-
   //method used to create an event
   Future<void> createEvent() async {
-    
     DateTime startTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
@@ -110,7 +106,6 @@ class _AddEventState extends State<AddEvent> {
       };
     }
   }
-
 
   //main build starts from here
   @override
@@ -142,7 +137,6 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
-
   //widget to get the date button
   Widget dateButton() {
     return ListTile(
@@ -159,7 +153,6 @@ class _AddEventState extends State<AddEvent> {
       ),
     );
   }
-
 
   //widget to get the time button
   Widget timeButton(String name, DateTime time) {
@@ -183,7 +176,6 @@ class _AddEventState extends State<AddEvent> {
         ));
   }
 
-
   //widget to add the event
   Widget addEventFab() {
     return FloatingActionButton(
@@ -194,10 +186,22 @@ class _AddEventState extends State<AddEvent> {
         ),
         onPressed: () {
           if(titleController.text.isEmpty || descriptionController.text.isEmpty || locationController.text.isEmpty){
-            setState(() {
-              _validate = true;
-            });
-          } else{
+            if (titleController.text.isEmpty){
+              setState(() {
+                _validateTitle = true;
+              });
+            }
+            if(descriptionController.text.isEmpty){
+              setState(() {
+                _validateDescription = true;
+              });
+            }
+            if(locationController.text.isEmpty){
+              setState(() {
+                _validateLocation = true;
+              });
+            }
+          }else {
             createEvent();
             Navigator.of(context).pop();
           }
@@ -211,7 +215,19 @@ class _AddEventState extends State<AddEvent> {
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
           decoration: InputDecoration(
-            errorText: _validate ? 'Field Can\'t Be Empty' : null,
+              errorText: name == 'Title'
+                  ? _validateTitle
+                      ? 'Field Can\'t Be Empty'
+                      : null
+                  : name == 'Description'
+                      ? _validateDescription
+                          ? 'Field Can\'t Be Empty'
+                          : null
+                      : name == 'Location'
+                          ? _validateLocation
+                              ? 'Field Can\'t Be Empty'
+                              : null
+                          : null,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
                   borderSide: BorderSide(color: Colors.teal)),
