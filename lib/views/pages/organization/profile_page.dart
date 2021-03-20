@@ -42,8 +42,9 @@ class _ProfilePageState extends State<ProfilePage> {
   bool isPublic;
   String creator;
   String userID;
+  String orgName;
   OrgController _orgController = OrgController();
-
+  String orgId;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
   //providing initial states to the variables
@@ -52,11 +53,11 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     Provider.of<Preferences>(context, listen: false).getCurrentOrgName();
     fetchUserDetails();
-    fetchOrgAdmin();
   }
 
   //used to fetch the users details from the server
   Future fetchUserDetails() async {
+    orgId = await _preferences.getCurrentOrgId();
     userID = await _preferences.getUserId();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.query(QueryOptions(
@@ -68,25 +69,50 @@ class _ProfilePageState extends State<ProfilePage> {
         userDetails = result.data['users'];
         org = userDetails[0]['joinedOrganizations'];
       });
+      int notFound = 0;
+      print(org);
+      for(int i = 0;i<org.length;i++){
+        if(org[i]['_id']==orgId){
+          print('equal: $orgId');
+          break;
+        }else{
+          print(org[i]['_id']);
+          notFound++;
+        }
+      }
+      if(notFound==org.length){
+        print('removed');
+        await _preferences.saveCurrentOrgId(org[0]['_id']);
+        await _preferences.saveCurrentOrgName(org[0]['name']);
+        await _preferences.saveCurrentOrgImgSrc(org[0]['image']);
+        print(orgId);
+      }else{
+        print('Still a member');
+      }
+      fetchOrgAdmin();
     }
   }
 
   //used to fetch Organization Admin details
   Future fetchOrgAdmin() async {
-    final String orgId = await _preferences.getCurrentOrgId();
+    orgName =await _preferences.getCurrentOrgName();
+    orgId = await _preferences.getCurrentOrgId();
+    print('working');
     if (orgId != null) {
       GraphQLClient _client = graphQLConfiguration.authClient();
       QueryResult result = await _client
           .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
       if (result.hasException) {
-        print(result.exception);
+        print(result.exception.toString());
       } else if (!result.hasException) {
+        print('here');
         curOrganization = result.data['organizations'];
         creator = result.data['organizations'][0]['creator']['_id'];
         isPublic = result.data['organizations'][0]['isPublic'];
         result.data['organizations'][0]['admins']
             .forEach((userId) => admins.add(userId));
         for (int i = 0; i < admins.length; i++) {
+          print(admins[i]['_id']);
           if (admins[i]['_id'] == userID) {
             isCreator = true;
             break;
@@ -106,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
-    print('wroking');
+    print('working');
     final String orgId = await _preferences.getCurrentOrgId();
 
     GraphQLClient _client = graphQLConfiguration.authClient();
@@ -117,12 +143,15 @@ class _ProfilePageState extends State<ProfilePage> {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
+      print('loop');
       return leaveOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
+      print('exception: ${result.exception.toString()}');
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
+      print('done');
       setState(() {
         remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
         if (remaindingOrg.isEmpty) {
@@ -153,10 +182,6 @@ class _ProfilePageState extends State<ProfilePage> {
   //main build starts from here
   @override
   Widget build(BuildContext context) {
-    var orgName = Provider.of<Preferences>(context).orgName;
-    if (orgName == null) {
-      orgName = 'No Organization Joined';
-    }
     return Scaffold(
         backgroundColor: Colors.white,
         body: userDetails.isEmpty || isCreator == null
@@ -219,7 +244,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0),
                           child: Text(
-                              "Current Organization: " + orgName.toString(),
+                              "Current Organization: " + orgName??'No Organization Joined',
                               style: TextStyle(
                                   fontSize: 16.0, color: Colors.white)),
                         ),
