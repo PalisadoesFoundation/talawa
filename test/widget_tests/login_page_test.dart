@@ -228,7 +228,7 @@ void main() {
         findsOneWidget,
       );
 
-      // Tap on the createAccountButton.
+      // Tap on the loginButton.
       await tester.tap(loginButton);
       await tester.pumpAndSettle();
 
