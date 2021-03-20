@@ -74,7 +74,6 @@ class _ProfilePageState extends State<ProfilePage> {
   //used to fetch Organization Admin details
   Future fetchOrgAdmin() async {
     final String orgId = await _preferences.getCurrentOrgId();
-    final String userId = await _preferences.getUserId();
     if (orgId != null) {
       GraphQLClient _client = graphQLConfiguration.authClient();
       QueryResult result = await _client
@@ -298,7 +297,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                               organization: curOrganization),
                                         );
                                       })
-                                  : ListTile(
+                                  : org.length==0?SizedBox():ListTile(
                                       title: Text(
                                         'Leave This Organization',
                                         style: TextStyle(fontSize: 18.0),

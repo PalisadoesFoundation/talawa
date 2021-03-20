@@ -36,6 +36,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   OrgController _orgController = OrgController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
+  bool processing = false;
 
   @override
   void initState() {
@@ -45,26 +46,27 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   }
 
   Future leaveOrg() async {
+    setState(() {
+      processing = true;
+    });
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
     GraphQLClient _client = graphQLConfiguration.authClient();
-
     QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.leaveOrg(widget.organization[0]['_id']))));
-    print('here1');
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
-      print('here in loop');
       _authController.getNewToken();
       return leaveOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print('here2');
-      //_exceptionToast(result.exception.toString().substring(16));
+      setState(() {
+        processing = false;
+      });
+      _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
-      print('left');
       setState(() {
         remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
         if (remaindingOrg.isEmpty) {
@@ -77,6 +79,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 [0]['name'];
           });
         }
+        processing = false;
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
@@ -93,6 +96,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   }
 
   Future removeOrg() async {
+    setState(() {
+      processing = true;
+    });
     //this is called the organization has to be removed
     final String orgId = await _preferences.getCurrentOrgId();
     List remaindingOrg = [];
@@ -110,9 +116,12 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       Navigator.of(context).pop();
+      setState(() {
+        processing = false;
+      });
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
-      _successToast('Successfully Removed');
+      _successToast('Successfully Removed Organization');
       setState(() {
         remaindingOrg =
             result.data['removeOrganization']['joinedOrganizations'];
@@ -124,9 +133,14 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
           newOrgName = result.data['removeOrganization']['joinedOrganizations']
               [0]['name'];
         }
+        processing = false;
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgId(newOrgId);
       Navigator.of(context).pop();
       pushNewScreen(
         context,
@@ -142,154 +156,136 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
           title: const Text('Organization Settings',
               style: TextStyle(color: Colors.white)),
         ),
-        body: Container(
-          child: Column(children: <Widget>[
-            ListTile(
-                title: Text(
-                  'Update This Organization',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                leading: Icon(
-                  Icons.update,
-                  color: UIData.secondaryColor,
-                ),
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    screen: UpdateOrganization(
-                        description: widget.organization[0]['description'],
-                        name: widget.organization[0]['name'],
-                        isPublic: widget.organization[0]['isPublic'] ? 0 : 1,
-                        isVisible:
-                            widget.organization[0]['visibleInSearch'] == null
-                                ? -1
-                                : widget.organization[0][0]['visibleInSearch']
-                                    ? 0
-                                    : 1),
-                  );
-                }),
-            Divider(),
-            widget.public
-                ? SizedBox()
-                : ListTile(
+        body: Stack(
+          children: [
+            processing
+                ? Container(
+                    color: Colors.transparent.withOpacity(0.3),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : SizedBox(),
+            Container(
+              child: Column(children: <Widget>[
+                ListTile(
                     title: Text(
-                      'Accept MemberShip Requests',
+                      'Update This Organization',
                       style: TextStyle(fontSize: 18.0),
                     ),
-                    subtitle: Text(
-                      'For Private Organizations',
-                    ),
                     leading: Icon(
-                      Icons.group_add,
+                      Icons.update,
                       color: UIData.secondaryColor,
                     ),
                     onTap: () {
                       pushNewScreen(
                         context,
-                        screen: AcceptRequestsPage(),
+                        screen: UpdateOrganization(
+                            description: widget.organization[0]['description'],
+                            name: widget.organization[0]['name'],
+                            isPublic:
+                                widget.organization[0]['isPublic'] ? 0 : 1,
+                            isVisible: widget.organization[0]
+                                        ['visibleInSearch'] ==
+                                    null
+                                ? -1
+                                : widget.organization[0][0]['visibleInSearch']
+                                    ? 0
+                                    : 1),
                       );
                     }),
-            widget.public ? SizedBox() : Divider(),
-            ListTile(
-                title: Text(
-                  'Member(s)',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                leading: Icon(
-                  Icons.person,
-                  color: UIData.secondaryColor,
-                ),
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    screen: OrganizationMembers(),
-                  );
-                }),
-            Divider(),
-            ListTile(
-                title: Text(
-                  'Leave Organization',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                leading: Icon(
-                  Icons.person,
-                  color: UIData.secondaryColor,
-                ),
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertBox(message: "Are you sure you want to leave this organization?",function: leaveOrg,);/*AlertDialog(
-                          title: Text("Confirmation"),
-                          content: Text(
-                              "Are you sure you want to leave this organization?"),
-                          actions: [
-                            FlatButton(
-                              child: Text("Close"),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            FlatButton(
-                              child: Text("Yes"),
-                              onPressed: () async {
-                                print('here');
-                                leaveOrg();
-                                Navigator.pop(context);
-                              },
-                            )
-                          ],
-                        );*/
-                      });
-                }),
-            Divider(),
-            widget.creator
-                ? ListTile(
+                Divider(),
+                widget.public
+                    ? SizedBox()
+                    : ListTile(
+                        title: Text(
+                          'Accept MemberShip Requests',
+                          style: TextStyle(fontSize: 18.0),
+                        ),
+                        subtitle: Text(
+                          'For Private Organizations',
+                        ),
+                        leading: Icon(
+                          Icons.group_add,
+                          color: UIData.secondaryColor,
+                        ),
+                        onTap: () {
+                          pushNewScreen(
+                            context,
+                            screen: AcceptRequestsPage(),
+                          );
+                        }),
+                widget.public ? SizedBox() : Divider(),
+                ListTile(
                     title: Text(
-                      'Remove This Organization',
+                      'Member(s)',
                       style: TextStyle(fontSize: 18.0),
                     ),
                     leading: Icon(
-                      Icons.delete,
+                      Icons.person,
                       color: UIData.secondaryColor,
                     ),
-                    onTap: () async {
-                      if (!widget.creator) {
-                        _exceptionToast('Creator can only remove organization');
-                      }
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertBox(message:  "Are you sure you want to remove this organization?",function: removeOrg,);/*AlertDialog(
-                              title: Text("Confirmation"),
-                              content: Text(
-                                  "Are you sure you want to remove this organization?"),
-                              actions: [
-                                FlatButton(
-                                  child: Text("Close"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                FlatButton(
-                                  child: Text("Yes"),
-                                  onPressed: () async {
-                                    removeOrg();
-                                    Navigator.of(context).pop();
-                                  },
-                                )
-                              ],
-                            );*/
-                          });
-                    })
-                : SizedBox(),
-          ]),
+                    onTap: () {
+                      pushNewScreen(
+                        context,
+                        screen: OrganizationMembers(),
+                      );
+                    }),
+                Divider(),
+                widget.creator
+                    ? ListTile(
+                        title: Text(
+                          'Remove This Organization',
+                          style: TextStyle(fontSize: 18.0),
+                        ),
+                        leading: Icon(
+                          Icons.delete,
+                          color: UIData.secondaryColor,
+                        ),
+                        onTap: () async {
+                          if (!widget.creator) {
+                            _exceptionToast(
+                                'Creator can only remove organization');
+                          }
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertBox(
+                                  message:
+                                      "Are you sure you want to remove this organization?",
+                                  function: removeOrg,
+                                );
+                              });
+                        })
+                    : ListTile(
+                        title: Text(
+                          'Leave Organization',
+                          style: TextStyle(fontSize: 18.0),
+                        ),
+                        leading: Icon(
+                          Icons.person,
+                          color: UIData.secondaryColor,
+                        ),
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertBox(
+                                  message:
+                                      "Are you sure you want to leave this organization?",
+                                  function: leaveOrg,
+                                );
+                              });
+                        }),
+              ]),
+            ),
+          ],
         ));
   }
 
   _successToast(String msg) {
     fToast.showToast(
-      child: ToastTile(msg:msg,success:true),
+      child: ToastTile(msg: msg, success: true),
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 3),
     );
@@ -297,7 +293,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
 
   _exceptionToast(String msg) {
     fToast.showToast(
-      child: ToastTile(msg:msg,success:false),
+      child: ToastTile(msg: msg, success: false),
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 3),
     );

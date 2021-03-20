@@ -29,9 +29,10 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   AuthController _authController = AuthController();
   List membersList = [];
   List adminsList = [];
-  List selectedMembers = List();
+  List selectedMembers = [];
   FToast fToast;
   bool forward = false;
+  bool processing = false;
   String userId;
   Queries _query = Queries();
   String creatorId;
@@ -52,7 +53,6 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   //method to show the members of the organization
   Future viewMembers() async {
     final String orgId = await _preferences.getCurrentOrgId();
-    userId = await _preferences.getUserId();
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -68,12 +68,16 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         membersList = result.data['organizations'][0]['members'];
       });
       if (membersList.length == 1) {
-        _exceptionToast('No More members available');
+        _exceptionToast('You are alone here.');
       }
     }
   }
+
   //method called when a member has to be removed by the admin
   Future removeMembers() async {
+    setState(() {
+      processing = true;
+    });
     GraphQLClient _client = graphQLConfiguration.authClient();
     final String orgId = await _preferences.getCurrentOrgId();
 
@@ -86,14 +90,24 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       print(result.exception.toString().substring(16));
+      _exceptionToast(result.exception.toString());
+      setState(() {
+        processing = false;
+      });
     } else if (!result.hasException) {
-      print(result.data);
-      selectedMembers=[];
+      selectedMembers = [];
+      setState(() {
+        processing = false;
+      });
+      _successToast('Member(s) removed successfully');
       viewMembers();
     }
   }
 
   Future addAdmin() async {
+    setState(() {
+      processing = true;
+    });
     if (!adminsList.contains(selectedMembers[0])) {
       GraphQLClient _client = graphQLConfiguration.authClient();
       final String orgId = await _preferences.getCurrentOrgId();
@@ -106,9 +120,15 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       } else if (result.hasException &&
           result.exception.toString().substring(16) != accessTokenException) {
         print(result.exception.toString().substring(16));
+        setState(() {
+          processing = false;
+        });
       } else if (!result.hasException) {
-        print(result.data);
         selectedMembers = [];
+        setState(() {
+          processing = false;
+        });
+        _successToast('Admin created');
         viewMembers();
       }
     } else {
@@ -140,57 +160,70 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         title: const Text('Organization Members',
             style: TextStyle(color: Colors.white)),
       ),
-      body: membersList.isEmpty
-          ? Center(child: CircularProgressIndicator())
-          : ListView.separated(
-              itemCount: membersList.length,
-              itemBuilder: (context, index) {
-                final members = membersList[index];
-                String mId = members['_id'];
-                String name = members['firstName'] + ' ' + members['lastName'];
-                return CheckboxListTile(
-                  secondary: members['image'] != null
-                      ? CircleAvatar(
-                          radius: 30,
-                          backgroundImage: NetworkImage(
-                              Provider.of<GraphQLConfiguration>(context)
-                                      .displayImgRoute +
-                                  members['image']))
-                      : CircleAvatar(
-                          radius: 30.0,
-                          backgroundColor: Colors.white,
-                          child: Text(
-                              members['firstName']
-                                      .toString()
-                                      .substring(0, 1)
-                                      .toUpperCase() +
-                                  members['lastName']
-                                      .toString()
-                                      .substring(0, 1)
-                                      .toUpperCase(),
-                              style: TextStyle(
-                                color: UIData.primaryColor,
-                                fontSize: 22,
-                              )),
-                        ),
-                  title: Text(name),
-                  subtitle: Text(adminsList.contains(mId) ? 'Admin' : ''),
-                  value: selectedMembers.contains('"$mId"'),
-                  onChanged: (bool value) {
-                    _onMemberSelected(value, members['_id'].toString());
+      body: Stack(
+        children: [
+          processing
+              ? Container(
+                  color: Colors.transparent.withOpacity(0.3),
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : SizedBox(),
+          membersList.isEmpty
+              ? Center(child: CircularProgressIndicator())
+              : ListView.separated(
+                  itemCount: membersList.length,
+                  itemBuilder: (context, index) {
+                    final members = membersList[index];
+                    String mId = members['_id'];
+                    String name =
+                        members['firstName'] + ' ' + members['lastName'];
+                    return CheckboxListTile(
+                      secondary: members['image'] != null
+                          ? CircleAvatar(
+                              radius: 30,
+                              backgroundImage: NetworkImage(
+                                  Provider.of<GraphQLConfiguration>(context)
+                                          .displayImgRoute +
+                                      members['image']))
+                          : CircleAvatar(
+                              radius: 30.0,
+                              backgroundColor: Colors.white,
+                              child: Text(
+                                  members['firstName']
+                                          .toString()
+                                          .substring(0, 1)
+                                          .toUpperCase() +
+                                      members['lastName']
+                                          .toString()
+                                          .substring(0, 1)
+                                          .toUpperCase(),
+                                  style: TextStyle(
+                                    color: UIData.primaryColor,
+                                    fontSize: 22,
+                                  )),
+                            ),
+                      title: Text(name),
+                      subtitle: Text(adminsList.contains(mId) ? 'Admin' : ''),
+                      value: selectedMembers.contains('"$mId"'),
+                      onChanged: (bool value) {
+                        _onMemberSelected(value, members['_id'].toString());
+                      },
+                    );
                   },
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return Divider();
-              },
-            ),
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider();
+                  },
+                ),
+        ],
+      ),
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.generate(2, (int index) {
           Widget child = Container(
-          margin: EdgeInsets.only(bottom: 15),
+            margin: EdgeInsets.only(bottom: 15),
             alignment: FractionalOffset.bottomRight,
             child: ScaleTransition(
               scale: CurvedAnimation(
@@ -207,10 +240,14 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                 label: Text(index == 0 ? "Remove" : "Admin"),
                 onPressed: () {
                   if (index == 0) {
-                    dialog("Are you sure you want to remove selected member(s)?",removeMembers);
+                    dialog(
+                        "Are you sure you want to remove selected member(s)?",
+                        removeMembers);
                   } else if (index == 1) {
                     if (selectedMembers.length == 1) {
-                      dialog("Are you sure you want to make admin selected member?", addAdmin);
+                      dialog(
+                          "Are you sure you want to make selected member and admin?",
+                          addAdmin);
                     } else {
                       _exceptionToast('You can make one admin at a time');
                     }
@@ -256,32 +293,27 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertBox(message: msg,function: function,);/*AlertDialog(
-            title: Text("Confirmation"),
-            content:
-                Text("Are you sure you want to remove selected member(s)?"),
-            actions: [
-              FlatButton(
-                child: Text("Close"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text("Yes"),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  removeMembers();
-                },
-              )
-            ],
-          );*/
+          return AlertBox(
+            message: msg,
+            function: function,
+          );
         });
+  }
+
+  _successToast(String msg) {
+    fToast.showToast(
+      child: ToastTile(msg: msg, success: true),
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 3),
+    );
   }
 
   _exceptionToast(String msg) {
     fToast.showToast(
-      child: ToastTile(msg: msg,success: false,),
+      child: ToastTile(
+        msg: msg,
+        success: false,
+      ),
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 3),
     );

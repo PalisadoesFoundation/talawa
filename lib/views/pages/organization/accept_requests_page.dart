@@ -25,6 +25,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   AuthController _authController = AuthController();
   List membershipRequestsList = [];
   bool loaded = false;
+  bool processing = false;
 
   @override
   void initState() {
@@ -63,6 +64,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   }
 
   Future acceptMemberShipRequests() async {
+    setState(() {
+      processing = true;
+    });
     //this function give the functionality of accepting the request of the user by the administrator
     GraphQLClient _client = graphQLConfiguration.authClient();
 
@@ -74,15 +78,23 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       return acceptMemberShipRequests();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
+      setState(() {
+        processing = false;
+      });
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException) {
-      print(result.data);
+      setState(() {
+        processing = false;
+      });
       _successToast('Success');
       viewMemberShipRequests();
     }
   }
 
   Future rejectMemberShipRequests() async {
+    setState(() {
+      processing = true;
+    });
     //this function give the functionality of rejecting the request of the user by the administrator
     GraphQLClient _client = graphQLConfiguration.authClient();
 
@@ -94,11 +106,15 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       return rejectMemberShipRequests();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
+      setState(() {
+        processing = false;
+      });
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException) {
-      print(result.data);
+      setState(() {
+        processing = false;
+      });
       _successToast('Success');
-
       viewMemberShipRequests();
     }
   }
@@ -111,58 +127,73 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
           title: const Text('Membership Requests',
               style: TextStyle(color: Colors.white)),
         ),
-        body: !loaded
-            ? Center(child: CircularProgressIndicator())
-            : membershipRequestsList.length == 0
-                ? Center(child: Text('No Member Requests Available'))
-                : ListView.builder(
-                    itemCount: membershipRequestsList.length,
-                    itemBuilder: (context, index) {
-                      final membershipRequests = membershipRequestsList[index];
-                      return Card(
-                        child: ListTile(
-                          //building the List of the organization in the database
-                          leading: membershipRequests['user']['image'] != null
-                              ? CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: NetworkImage(
-                                      Provider.of<GraphQLConfiguration>(context)
+        body: Stack(
+          children: [
+            processing
+                ? Container(
+                    color: Colors.transparent.withOpacity(0.3),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : SizedBox(),
+            !loaded
+                ? Center(child: CircularProgressIndicator())
+                : membershipRequestsList.length == 0
+                    ? Center(child: Text('No Member Requests Available'))
+                    : ListView.builder(
+                        itemCount: membershipRequestsList.length,
+                        itemBuilder: (context, index) {
+                          final membershipRequests =
+                              membershipRequestsList[index];
+                          return Card(
+                            child: ListTile(
+                              //building the List of the organization in the database
+                              leading: membershipRequests['user']['image'] !=
+                                      null
+                                  ? CircleAvatar(
+                                      radius: 30,
+                                      backgroundImage: NetworkImage(Provider.of<
+                                                  GraphQLConfiguration>(context)
                                               .displayImgRoute +
                                           membershipRequests['user']['image']))
-                              : CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage:
-                                      AssetImage("assets/images/team.png")),
-                          title: Text(membershipRequests['user']['firstName'] +
-                              ' ' +
-                              membershipRequests['user']['lastName']),
-                          trailing: Wrap(
-                            spacing: 4,
-                            children: <Widget>[
-                              IconButton(
-                                iconSize: 26.0,
-                                icon: Icon(Icons.delete),
-                                color: Colors.red,
-                                onPressed: () {
-                                  itemIndex = membershipRequests['_id'];
-                                  rejectMemberShipRequests();
-                                },
+                                  : CircleAvatar(
+                                      radius: 30,
+                                      backgroundImage:
+                                          AssetImage("assets/images/team.png")),
+                              title: Text(membershipRequests['user']
+                                      ['firstName'] +
+                                  ' ' +
+                                  membershipRequests['user']['lastName']),
+                              trailing: Wrap(
+                                spacing: 4,
+                                children: <Widget>[
+                                  IconButton(
+                                    iconSize: 26.0,
+                                    icon: Icon(Icons.delete),
+                                    color: Colors.red,
+                                    onPressed: () {
+                                      itemIndex = membershipRequests['_id'];
+                                      rejectMemberShipRequests();
+                                    },
+                                  ),
+                                  IconButton(
+                                    iconSize: 26.0,
+                                    icon: Icon(Icons.check),
+                                    color: Colors.green,
+                                    onPressed: () {
+                                      itemIndex = membershipRequests['_id'];
+                                      acceptMemberShipRequests();
+                                    },
+                                  ),
+                                ],
                               ),
-                              IconButton(
-                                iconSize: 26.0,
-                                icon: Icon(Icons.check),
-                                color: Colors.green,
-                                onPressed: () {
-                                  itemIndex = membershipRequests['_id'];
-                                  acceptMemberShipRequests();
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ));
+                            ),
+                          );
+                        },
+                      ),
+          ],
+        ));
   }
 
   Widget showError(BuildContext context, String msg) {

@@ -33,7 +33,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   final orgMemberDescController = TextEditingController();
   Queries _queries = Queries();
   bool _progressBarState = false;
-  bool _validate = false;
+  AutovalidateMode _validate = AutovalidateMode.disabled;
   final _formKey = GlobalKey<FormState>();
   int radioValue = -1;
   int radioValue1 = -1;
@@ -43,7 +43,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   FToast fToast;
   Preferences _preferences = Preferences();
   AuthController _authController = AuthController();
-  Queries _query = Queries();
 
   //providing with the initial states to the variables
   @override
@@ -51,10 +50,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     super.initState();
     fToast = FToast();
     fToast.init(context);
-    fetchOrg();
-  }
-
-  Future fetchOrg() async {
     orgNameController.text = widget.name;
     orgDescController.text = widget.description;
     radioValue = widget.isPublic;
@@ -156,7 +151,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                   scrollDirection: Axis.vertical,
                   child: Form(
                     key: _formKey,
-                    autovalidate: _validate,
+                    autovalidateMode: _validate,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                       child: Column(
@@ -229,16 +224,26 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             padding: EdgeInsets.symmetric(
                                 vertical: 20.0, horizontal: 30.0),
                             width: double.infinity,
-                            child: RaisedButton(
-                              padding: EdgeInsets.all(16.0),
-                              shape: StadiumBorder(),
+                            child:ElevatedButton(
+                              style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),),
                               child: _progressBarState
-                                  ? const CircularProgressIndicator()
+                                  ? const Center(
+                                  child: SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                        AlwaysStoppedAnimation<Color>(
+                                            Colors.white),
+                                        strokeWidth: 3,
+                                        backgroundColor: Colors.black,
+                                      )))
                                   : Text(
                                       "UPDATE ORGANIZATION",
                                       style: TextStyle(color: Colors.white),
                                     ),
-                              color: UIData.secondaryColor,
                               onPressed: () async {
                                 if (_formKey.currentState.validate() &&
                                     radioValue >= 0 &&
