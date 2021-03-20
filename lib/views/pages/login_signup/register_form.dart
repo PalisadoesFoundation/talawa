@@ -168,12 +168,13 @@ class RegisterFormState extends State<RegisterForm> {
             child: Column(
               children: <Widget>[
                 addImage(),
-                Padding(
+                const Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Add Profile Image',
-                      style: TextStyle(fontSize: 16, color: Colors.white)),
+                  child: const Text('Add Profile Image',
+                      style:
+                          const TextStyle(fontSize: 16, color: Colors.white)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 AutofillGroup(
@@ -186,28 +187,29 @@ class RegisterFormState extends State<RegisterForm> {
                         validator: (value) =>
                             Validator.validateFirstName(value),
                         textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
+                            borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: Icon(Icons.person, color: Colors.white),
+                          prefixIcon:
+                              const Icon(Icons.person, color: Colors.white),
                           labelText: "First Name",
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
                           hintText: 'Earl',
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: const TextStyle(color: Colors.grey),
                         ),
                         onSaved: (value) {
                           model.firstName = value;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
@@ -216,28 +218,29 @@ class RegisterFormState extends State<RegisterForm> {
                         textCapitalization: TextCapitalization.words,
                         validator: (value) => Validator.validateLastName(value),
                         textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
+                            borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: Icon(Icons.person, color: Colors.white),
+                          prefixIcon:
+                              const Icon(Icons.person, color: Colors.white),
                           labelText: "Last Name",
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
                           hintText: 'John',
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: const TextStyle(color: Colors.grey),
                         ),
                         onSaved: (value) {
                           model.lastName = value;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
@@ -247,28 +250,29 @@ class RegisterFormState extends State<RegisterForm> {
                         validator: (value) => Validator.validateEmail(value),
                         controller: emailController,
                         textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
+                            borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: Icon(Icons.email, color: Colors.white),
+                          prefixIcon:
+                              const Icon(Icons.email, color: Colors.white),
                           labelText: "Email",
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
                           hintText: 'foo@bar.com',
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: const TextStyle(color: Colors.grey),
                         ),
                         onSaved: (value) {
                           model.email = value;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
@@ -278,17 +282,18 @@ class RegisterFormState extends State<RegisterForm> {
                         controller: originalPassword,
                         validator: (value) => Validator.validatePassword(value),
                         textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
+                            borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: Icon(Icons.lock, color: Colors.white),
+                          prefixIcon:
+                              const Icon(Icons.lock, color: Colors.white),
                           suffixIcon: FlatButton(
                             onPressed: _toggle,
                             child: Icon(
@@ -299,11 +304,11 @@ class RegisterFormState extends State<RegisterForm> {
                             ),
                           ),
                           labelText: "Password",
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
                           alignLabelWithHint: true,
                           hintText: 'Password',
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: const TextStyle(color: Colors.grey),
                         ),
                         onFieldSubmitted: (_) {
                           FocusScope.of(context).unfocus();
@@ -318,13 +323,13 @@ class RegisterFormState extends State<RegisterForm> {
                       ),
                       //Animation for space between TextField and Strength bar
                       AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                         height: originalPassword.text.isEmpty ? 0 : 10,
                       ),
                       //Animation for Password strength bar
                       AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                         height: originalPassword.text.isEmpty ? 0 : 5,
                         padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -336,7 +341,7 @@ class RegisterFormState extends State<RegisterForm> {
                               debugPrint(strength.toString());
                             }),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
@@ -346,46 +351,47 @@ class RegisterFormState extends State<RegisterForm> {
                         validator: (value) => Validator.validatePasswordConfirm(
                             originalPassword.text, value),
                         textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
+                            borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: Icon(Icons.lock, color: Colors.white),
+                          prefixIcon:
+                              const Icon(Icons.lock, color: Colors.white),
                           labelText: "Confirm Password",
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20.0, horizontal: 30.0),
                   width: double.infinity,
                   child: RaisedButton(
-                    padding: EdgeInsets.all(12.0),
-                    shape: StadiumBorder(),
+                    padding: const EdgeInsets.all(12.0),
+                    shape: const StadiumBorder(),
                     child: _progressBarState
                         ? const SizedBox(
                             width: 20,
                             height: 20,
-                            child: CircularProgressIndicator(
+                            child: const CircularProgressIndicator(
                               valueColor:
                                   AlwaysStoppedAnimation<Color>(Colors.orange),
                               strokeWidth: 3,
                               backgroundColor: Colors.black,
                             ))
-                        : Text(
+                        : const Text(
                             "SIGN UP",
                           ),
                     color: Colors.white,
@@ -412,7 +418,7 @@ class RegisterFormState extends State<RegisterForm> {
   Widget addImage() {
     return Column(
       children: <Widget>[
-        SizedBox(
+        const SizedBox(
           height: 32,
         ),
         Center(
@@ -455,16 +461,16 @@ class RegisterFormState extends State<RegisterForm> {
               child: Wrap(
                 children: <Widget>[
                   ListTile(
-                    leading: Icon(Icons.camera_alt_outlined),
-                    title: Text('Camera'),
+                    leading: const Icon(Icons.camera_alt_outlined),
+                    title: const Text('Camera'),
                     onTap: () {
                       _imgFromCamera();
                       Navigator.of(context).pop();
                     },
                   ),
                   ListTile(
-                      leading: Icon(Icons.photo_library),
-                      title: Text('Photo Library'),
+                      leading: const Icon(Icons.photo_library),
+                      title: const Text('Photo Library'),
                       onTap: () {
                         _imgFromGallery();
                         Navigator.of(context).pop();
@@ -510,7 +516,7 @@ class RegisterFormState extends State<RegisterForm> {
           Expanded(
             child: Text(
               msg,
-              style: TextStyle(fontSize: 15.0, color: Colors.white),
+              style: const TextStyle(fontSize: 15.0, color: Colors.white),
               textAlign: TextAlign.center,
             ),
           ),
@@ -521,7 +527,7 @@ class RegisterFormState extends State<RegisterForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 5),
+      toastDuration: const Duration(seconds: 5),
     );
   }
 
