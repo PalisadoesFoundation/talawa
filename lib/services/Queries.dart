@@ -1,7 +1,5 @@
-
 //all the queries used in the program
 class Queries {
-
   //refresh the token
   String refreshToken(String refreshToken) {
     return '''
@@ -14,7 +12,6 @@ class Queries {
 
     ''';
   }
-
 
   //register the user
   String registerUser(
@@ -40,6 +37,30 @@ class Queries {
     """;
   }
 
+  //update profile the user
+  String updateUserProfile() {
+    return """
+        mutation (
+          \$file: Upload, 
+          \$firstName: String, 
+          \$lastName: String, 
+          \$email: String
+        ){
+          updateUserProfile(
+            data: {
+              firstName: \$firstName, 
+              lastName: \$lastName, 
+              email: \$email
+            },
+            file: \$file
+          ){
+            firstName
+            lastName
+            email
+          }
+        }
+    """;
+  }
 
   //register the user without the images
   String registerUserWithoutImg(
@@ -65,7 +86,6 @@ class Queries {
     """;
   }
 
-
   //login the user
   String loginUser(String email, String password) {
     return """
@@ -88,7 +108,6 @@ class Queries {
 
     """;
   }
-
 
   //fetches the user info
   String fetchUserInfo = ''' 
@@ -124,7 +143,6 @@ class Queries {
     }
     ''';
 
-
   //fetches the info two
   String fetchUserInfo2(String id) {
     return ''' 
@@ -153,7 +171,6 @@ class Queries {
     ''';
   }
 
-
   //fetch organization
   final String fetchOrganizations = '''
     query{
@@ -170,7 +187,6 @@ class Queries {
       }
     }
   ''';
-
 
   //fetch organization by id
   String fetchOrgById(String orgId) {
@@ -197,7 +213,6 @@ class Queries {
   ''';
   }
 
-
   //get the organization id
   String getOrgId(String orgId) {
     return '''
@@ -211,7 +226,6 @@ class Queries {
 	}
   ''';
   }
-
 
   //to create a organization
   String createOrg(String name, String description, String attendees,
@@ -235,7 +249,6 @@ class Queries {
   ''';
   }
 
-
   //create organization without image
   String createOrgWithoutImg(String name, String description, String attendees,
       bool isPublic, bool visibleInSearch) {
@@ -256,7 +269,6 @@ class Queries {
          ''';
   }
 
-
   //update the organization
   String updateOrg(String orgId, String name, String description, bool isPublic,
       bool visibleInSearch) {
@@ -269,7 +281,6 @@ class Queries {
     }
   ''';
   }
-
 
   //remove the organization
   String removeOrg(String orgId) {
@@ -287,7 +298,6 @@ class Queries {
   ''';
   }
 
-
   //leave the organization
   String leaveOrg(String orgId) {
     return '''
@@ -304,7 +314,6 @@ class Queries {
   ''';
   }
 
-
   //send membership request
   String sendMembershipRequest(String orgId) {
     return '''
@@ -315,7 +324,6 @@ class Queries {
     }
   ''';
   }
-
 
   //this enables to view the membership request
   String viewMembershipRequest(String orgId) {
@@ -335,7 +343,6 @@ class Queries {
   ''';
   }
 
-
   //allows to view members
   String viewMembers(String orgId) {
     return '''
@@ -353,7 +360,6 @@ class Queries {
   ''';
   }
 
-
   //accepts the membership request
   String acceptMembershipRequest(String membershipRequestId) {
     return '''
@@ -368,7 +374,6 @@ class Queries {
   ''';
   }
 
-
   //rejecting the membership request
   String rejectMembershipRequest(String membershipRequestId) {
     return '''
@@ -382,7 +387,6 @@ class Queries {
     }
   ''';
   }
-
 
   //remove the members
   String removeMember(String organizationId, List userIds) {
@@ -422,7 +426,6 @@ class Queries {
     """;
   }
 
-
   //to update an event
   String updateEvent(
       {organizationId,
@@ -458,7 +461,6 @@ class Queries {
           }""";
   }
 
-
   //delete any event
   String deleteEvent(String id) {
     return """
@@ -471,7 +473,6 @@ class Queries {
         }
     """;
   }
-
 
   //to register for an event
   String registerForEvent(String eventid) {
@@ -505,7 +506,6 @@ class Queries {
     """;
   }
 
-
   //to get the task by any event
   String getTasksByEvent(String id) {
     return """
@@ -520,7 +520,6 @@ class Queries {
   """;
   }
 
-
   //to get registrants for an event
   String getRegistrantsByEvent(String id) {
     return """
@@ -534,7 +533,6 @@ class Queries {
   }
   """;
   }
-
 
   //to add the events
   String addEvent(
@@ -578,7 +576,6 @@ class Queries {
   }
 
 /////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
-
 
   //task by users
   String tasksByUser(String id) {

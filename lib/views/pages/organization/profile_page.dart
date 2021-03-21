@@ -249,7 +249,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             onTap: () {
                               pushNewScreen(
                                 context,
-                                screen: UpdateProfilePage(),
+                                screen: UpdateProfilePage(
+                                  userDetails: userDetails,
+                                ),
                               );
                             },
                           ),
