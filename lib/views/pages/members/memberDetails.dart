@@ -1,18 +1,17 @@
-import 'dart:ui';
 
+//flutter imported function
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:provider/provider.dart';
-import 'package:talawa/services/Queries.dart';
-import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/apiFuctions.dart';
-import 'package:talawa/utils/globals.dart';
 
+//files are imported here
+import 'package:provider/provider.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import '../../../utils/uidata.dart';
 import 'RegEventstab.dart';
 import 'userTaskstab.dart';
 
+// ignore: must_be_immutable
 class MemberDetail extends StatefulWidget {
   Map member;
   Color color;
@@ -32,6 +31,8 @@ class _MemberDetailState extends State<MemberDetail>
     _tabController = TabController(vsync: this, length: 2);
   }
 
+
+  //main build starts here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +67,7 @@ class _MemberDetailState extends State<MemberDetail>
                     padding: EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     height: 30,
-                    child: Text('User Privilages:'),
+                    child: Text('User Privileges:'),
                   )),
                 ]),
               )),
@@ -106,7 +107,7 @@ class _MemberDetailState extends State<MemberDetail>
                   UserTasks(
                     member: widget.member,
                   ),
-                  RegisterdEvents(
+                  RegisteredEvents(
                     member: widget.member,
                   ),
                 ],
@@ -116,6 +117,8 @@ class _MemberDetailState extends State<MemberDetail>
         ]));
   }
 
+
+  //widget to get the user image
   Widget userImg(String link) {
     return Container(
       height: 170,
@@ -167,6 +170,8 @@ class _MemberDetailState extends State<MemberDetail>
     );
   }
 
+
+  //this is widget for default user image
   Widget defaultUserImg() {
     return Container(
       height: 170,

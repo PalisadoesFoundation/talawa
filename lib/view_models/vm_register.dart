@@ -1,3 +1,5 @@
+
+//register model
 class RegisterViewModel {
   String firstName;
   String lastName;

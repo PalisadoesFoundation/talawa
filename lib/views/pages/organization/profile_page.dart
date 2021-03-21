@@ -1,5 +1,9 @@
+
+//flutter packages are  imported here
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+//pages are imported here
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
@@ -9,11 +13,10 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
-
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
 import 'package:talawa/views/pages/organization/organization_settings.dart';
+import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -33,11 +36,13 @@ class _ProfilePageState extends State<ProfilePage> {
   AuthController _authController = AuthController();
   List userDetails = [];
   List orgAdmin = [];
+  List org = [];
   bool isCreator;
   OrgController _orgController = OrgController();
 
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
+  //providing initial states to the variables
   @override
   void initState() {
     super.initState();
@@ -46,6 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
     fetchOrgAdmin();
   }
 
+  //used to fetch the users details from the server
   Future fetchUserDetails() async {
     final String userID = await _preferences.getUserId();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
@@ -56,42 +62,52 @@ class _ProfilePageState extends State<ProfilePage> {
     } else if (!result.hasException) {
       setState(() {
         userDetails = result.data['users'];
+        org = userDetails.first['joinedOrganizations'];
       });
     }
   }
 
+  //used to fetch Organization Admin details
   Future fetchOrgAdmin() async {
     final String orgId = await _preferences.getCurrentOrgId();
-    final String fName = await _preferences.getUserFName();
-    final String lName = await _preferences.getUserLName();
+    if (orgId != null) {
+      final String fName = await _preferences.getUserFName();
+      final String lName = await _preferences.getUserLName();
 
-    String creatorFName;
-    String creatorLName;
+      String creatorFName;
+      String creatorLName;
 
-    GraphQLClient _client = graphQLConfiguration.authClient();
+      GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client
-        .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
-    if (result.hasException) {
-      print(result.exception);
-    } else if (!result.hasException) {
-      setState(() {
-        creatorFName = result.data['organizations'][0]['creator']['firstName'];
-        creatorLName = result.data['organizations'][0]['creator']['lastName'];
-      });
-
-      if (fName != creatorFName && lName != creatorLName) {
+      QueryResult result = await _client
+          .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
+      if (result.hasException) {
+        print(result.exception);
+      } else if (!result.hasException) {
         setState(() {
-          isCreator = false;
+          creatorFName =
+              result.data['organizations'][0]['creator']['firstName'];
+          creatorLName = result.data['organizations'][0]['creator']['lastName'];
         });
-      } else {
-        setState(() {
-          isCreator = true;
-        });
+
+        if (fName != creatorFName && lName != creatorLName) {
+          setState(() {
+            isCreator = false;
+          });
+        } else {
+          setState(() {
+            isCreator = true;
+          });
+        }
       }
+    } else {
+      setState(() {
+        isCreator = false;
+      });
     }
   }
 
+  //function used when someone wants to leave organization
   Future leaveOrg() async {
     List remaindingOrg = [];
     String newOrgId;
@@ -128,6 +144,8 @@ class _ProfilePageState extends State<ProfilePage> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
+      Provider.of<Preferences>(context,listen: false).saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(context,listen: false).saveCurrentOrgId(newOrgId);
       //  _successToast('You are no longer apart of this organization');
       pushNewScreen(
         context,
@@ -136,10 +154,13 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  //main build starts from here
   @override
   Widget build(BuildContext context) {
-    final orgName = Provider.of<Preferences>(context).orgName;
-
+    var orgName = Provider.of<Preferences>(context).orgName;
+    if(orgName == null){
+      orgName = 'No Organization Joined';
+    }
     return Scaffold(
         backgroundColor: Colors.white,
         body: userDetails.isEmpty
@@ -226,21 +247,23 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             onTap: () {},
                           ),
-                          ListTile(
-                              title: Text(
-                                'Switch Organization',
-                                style: TextStyle(fontSize: 18.0),
-                              ),
-                              leading: Icon(
-                                Icons.compare_arrows,
-                                color: UIData.secondaryColor,
-                              ),
-                              onTap: () {
-                                pushNewScreen(
-                                  context,
-                                  screen: SwitchOrganization(),
-                                );
-                              }),
+                          org.length == 0
+                              ? SizedBox()
+                              : ListTile(
+                                  title: Text(
+                                    'Switch Organization',
+                                    style: TextStyle(fontSize: 18.0),
+                                  ),
+                                  leading: Icon(
+                                    Icons.compare_arrows,
+                                    color: UIData.secondaryColor,
+                                  ),
+                                  onTap: () {
+                                    pushNewScreen(
+                                      context,
+                                      screen: SwitchOrganization(),
+                                    );
+                                  }),
                           ListTile(
                               title: Text(
                                 'Join or Create New Organization',
@@ -253,7 +276,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  screen: JoinOrganization(),
+                                  screen: JoinOrganization(fromProfile: true,),
                                 );
                               }),
                           isCreator == true
@@ -272,18 +295,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                       screen: OrganizationSettings(),
                                     );
                                   })
-                              : ListTile(
-                                  title: Text(
-                                    'Leave This Organization',
-                                    style: TextStyle(fontSize: 18.0),
-                                  ),
-                                  leading: Icon(
-                                    Icons.exit_to_app,
-                                    color: UIData.secondaryColor,
-                                  ),
-                                  onTap: () async {
-                                    confirmLeave();
-                                  }),
+                              : (org.isNotEmpty)
+                                  ? ListTile(
+                                      title: Text(
+                                        'Leave This Organization',
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
+                                      leading: Icon(
+                                        Icons.exit_to_app,
+                                        color: UIData.secondaryColor,
+                                      ),
+                                      onTap: () async {
+                                        confirmLeave();
+                                      })
+                                  : null,
                           ListTile(
                             title: Text(
                               "Logout",
@@ -302,13 +327,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                       content: Text(
                                           "Are you sure you want to logout?"),
                                       actions: [
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("No"),
                                           onPressed: () {
                                             Navigator.of(context).pop();
                                           },
                                         ),
-                                        FlatButton(
+                                        TextButton(
                                           child: Text("Yes"),
                                           onPressed: () {
                                             _authController.logout(context);
@@ -328,6 +353,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ));
   }
 
+  //a pop up screen to ask the user if he wants to leave the organization or not
   void confirmLeave() {
     showDialog(
         context: context,
@@ -336,13 +362,13 @@ class _ProfilePageState extends State<ProfilePage> {
             title: Text("Confirmation"),
             content: Text("Are you sure you want to leave this organization?"),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Yes"),
                 onPressed: () async {
                   leaveOrg();
