@@ -26,9 +26,10 @@ class UpdateProfilePage extends StatefulWidget {
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
   File _image;
+  FToast fToast;
+
   final _formKey = GlobalKey<FormState>();
   var _validate = AutovalidateMode.disabled;
-  FToast fToast;
   AuthController _authController = AuthController();
   Queries _updateProfileQuery = Queries();
   RegisterViewModel model = new RegisterViewModel();
@@ -43,15 +44,15 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     fToast.init(context);
   }
 
-  //function called when the user is called without the image
+  //Function called when the user update without the image
   updateProfileWithoutImg() async {
     setState(() {
       _progressBarState = true;
     });
 
-    //GraphQLClient _client = graphQLConfiguration.clientToQuery();
     GraphQLClient _client = graphQLConfiguration.authClient();
     QueryResult result;
+
     if (widget.userDetails[0]['email'] == model.email) {
       result = await _client.mutate(
         MutationOptions(
@@ -96,6 +97,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       setState(() {
         _progressBarState = false;
       });
+
+      await _successToast('Profile Updated');
 
       pushNewScreen(
         context,
@@ -160,6 +163,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         _progressBarState = false;
       });
 
+      _successToast('Profile Updated');
+
       pushNewScreen(
         context,
         screen: ProfilePage(),
@@ -167,7 +172,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     }
   }
 
-  //get image using camera
+  //Get image using camera
   _imgFromCamera() async {
     File image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50);
@@ -177,16 +182,16 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     });
   }
 
-  //get image using gallery
+  //Get image using gallery
   _imgFromGallery() async {
-    File image = File(
-        (await FilePicker.platform.pickFiles(type: FileType.image))
-            .files
-            .first
-            .path);
-    setState(() {
-      _image = image;
-    });
+    FilePickerResult filePicker =
+        await FilePicker.platform.pickFiles(type: FileType.image);
+    if (filePicker != null) {
+      File image = File(filePicker.files.first.path);
+      setState(() {
+        _image = image;
+      });
+    }
   }
 
   @override
@@ -521,7 +526,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         });
   }
 
-  //this method is called when the result is an exception
+  //This method is called when the result is an exception
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
@@ -547,6 +552,28 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       child: toast,
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 5),
+    );
+  }
+
+  //This method is called after complete mutation
+  _successToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.green,
+      ),
+      child: Text(
+        msg,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 2,
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 3),
     );
   }
 }
