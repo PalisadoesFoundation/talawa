@@ -1,7 +1,6 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'dart:convert';
 
 //pages are called here
 import 'package:talawa/services/Queries.dart';
@@ -41,8 +40,6 @@ class _UserTasksState extends State<UserTasks> {
       userTasks = result == null ? [] : result['tasksByUser'];
     });
   }
-
-  var formattedDate;
 
   //main building starts here
   @override
