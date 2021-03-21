@@ -104,7 +104,26 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
           title: const Text('Membership Requests',
               style: TextStyle(color: Colors.white)),
         ),
-        body: ListView.builder(
+        body: membershipRequestsList.isEmpty ?
+        Center(child :
+        Column(
+            children : <Widget>[
+              SizedBox(
+                height: 250,
+              ),
+              Text(
+                "No request",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+            ]
+        ))
+         : ListView.builder(
           itemCount: membershipRequestsList.length,
           itemBuilder: (context, index) {
             final membershipRequests = membershipRequestsList[index];

@@ -25,6 +25,7 @@ class Organizations extends StatefulWidget {
 
 class _OrganizationsState extends State<Organizations> {
 
+  String currentOrgID;
   List alphaMembersList = [];
   int isSelected = 0;
   Preferences preferences = Preferences();
@@ -81,18 +82,24 @@ class _OrganizationsState extends State<Organizations> {
   //function to get the members of an organization
   // ignore: missing_return
   Future<List> getMembers() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
-    ApiFunctions apiFunctions = ApiFunctions();
+     String currentOrgID = await preferences.getCurrentOrgId();
+     print(currentOrgID);
+     if(currentOrgID != null){
+      ApiFunctions apiFunctions = ApiFunctions();
     var result =
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
     print(result);
     List membersList = result == null ? [] : result['organizations'];
-    alphaMembersList = membersList[0]['members'];
-    if(membersList != null) {
+    if(membersList.isNotEmpty) {
+      alphaMembersList = membersList[0]['members'];
       setState(() {
         alphaMembersList = alphaSplitList(alphaMembersList);
       });
-    }
+    }}else{
+      setState(() {
+        alphaMembersList = [];
+      });
+     }
   }
 
   //returns a random color based on the user id (1 of 18)
@@ -116,27 +123,37 @@ class _OrganizationsState extends State<Organizations> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: alphaMembersList.isEmpty
-            ? Center(child :
-        Column(
-          children : <Widget>[
-            SizedBox(
-              height: 250,
-            ),
-              Text(
-                "Please join organization to see members",
-                style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+        body:alphaMembersList.isEmpty
+        ? RefreshIndicator(
+          onRefresh: () async {
+          getMembers();
+          },
+           child: Center(
+               child : Column(
+            children : <Widget>[
+                    SizedBox(
+                height: 250,
               ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-          ]
-        ))
-            : RefreshIndicator(
-                onRefresh: () async {
+                    Text(
+                "No member to Show",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+                    SizedBox(
+                height: 50,
+              ),
+              RaisedButton(onPressed: (){
+                getMembers();
+              },
+              child: Text("Refresh"),
+
+              )
+
+        ])))
+                : RefreshIndicator(
+                onRefresh: () async{
                   getMembers();
                 },
                 child: CustomScrollView(
