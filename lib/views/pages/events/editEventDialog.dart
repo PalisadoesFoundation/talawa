@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 
@@ -68,7 +67,6 @@ class _EditEventState extends State<EditEvent> {
     });
   }
 
-
   //getting current organization id
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
@@ -77,7 +75,6 @@ class _EditEventState extends State<EditEvent> {
     });
     print(currentOrgId);
   }
-
 
   //method called to select the date
   Future<void> _selectDate(BuildContext context) async {
@@ -92,7 +89,6 @@ class _EditEventState extends State<EditEvent> {
         dateRange = picked;
       });
   }
-
 
   //method to select the time
   Future<void> _selectTime(
@@ -111,7 +107,6 @@ class _EditEventState extends State<EditEvent> {
             picked.minute);
       });
   }
-
 
   //method used to create and event
   Future<void> createEvent() async {
@@ -169,7 +164,6 @@ class _EditEventState extends State<EditEvent> {
     );
   }
 
-
   //widget for the date buttons
   Widget dateButton() {
     return ListTile(
@@ -186,7 +180,6 @@ class _EditEventState extends State<EditEvent> {
       ),
     );
   }
-
 
   //widget for time buttons
   Widget timeButton(String name, DateTime time) {
@@ -209,7 +202,6 @@ class _EditEventState extends State<EditEvent> {
           ),
         ));
   }
-
 
   //widget for the input field
   Widget inputField(String name, TextEditingController controller) {
@@ -273,7 +265,6 @@ class _EditEventState extends State<EditEvent> {
       ),
     );
   }
-
 
   //widget to add the event
   Widget addEventFab() {
