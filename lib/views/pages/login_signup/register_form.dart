@@ -95,8 +95,10 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization(fromProfile: false,)));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => new JoinOrganization(
+                fromProfile: false,
+              )));
     }
   }
 
@@ -131,18 +133,21 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
 
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization(fromProfile: false,)));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => new JoinOrganization(
+                fromProfile: false,
+              )));
     }
   }
 
+  final _picker = ImagePicker();
   //get image using camera
   _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
+    PickedFile _image =
+        await _picker.getImage(source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
-      _image = image;
+      _image = _image;
     });
   }
 
@@ -475,7 +480,7 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
- /* _successToast(String msg) {
+  /* _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
