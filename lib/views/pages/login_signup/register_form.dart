@@ -96,9 +96,8 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => new JoinOrganization(),
-          settings: RouteSettings(name: '/register-form')));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new JoinOrganization(fromProfile: false,)));
     }
   }
 
@@ -134,7 +133,7 @@ class RegisterFormState extends State<RegisterForm> {
       await _pref.saveUserId(currentUserId);
 
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization()));
+          MaterialPageRoute(builder: (context) => new JoinOrganization(fromProfile: false,)));
     }
   }
 
@@ -324,12 +323,12 @@ class RegisterFormState extends State<RegisterForm> {
                           _password = value;
                         },
                       ),
-                      SizedBox(
+                       SizedBox(
                         height: 20,
                       ),
                       passwordChecker(_password),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       //Animation for space between TextField and Strength bar
                       AnimatedContainer(
@@ -437,7 +436,6 @@ class RegisterFormState extends State<RegisterForm> {
           )
         : Container(
             padding: EdgeInsets.all(20),
-            color: Colors.yellow,
             child: Column(
               children: [
                 Text(
@@ -549,8 +547,9 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
-  /* _successToast(String msg) {
-    Widget toast = Container(
+
+ /* _successToast(String msg) {
+      Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
