@@ -1,6 +1,7 @@
 
 //flutter imported package
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //pages are called here
@@ -13,6 +14,7 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/memberDetails.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 
 class Organizations extends StatefulWidget {
   Organizations({Key key}) : super(key: key);
@@ -22,13 +24,14 @@ class Organizations extends StatefulWidget {
 }
 
 class _OrganizationsState extends State<Organizations> {
+
   List alphaMembersList = [];
   int isSelected = 0;
   Preferences preferences = Preferences();
 
 
   //providing initial states to the variables
-  initState() {
+   initState( )  {
     super.initState();
     getMembers();
   }
@@ -82,12 +85,14 @@ class _OrganizationsState extends State<Organizations> {
     ApiFunctions apiFunctions = ApiFunctions();
     var result =
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
-    // print(result);
+    print(result);
     List membersList = result == null ? [] : result['organizations'];
     alphaMembersList = membersList[0]['members'];
-    setState(() {
-      alphaMembersList = alphaSplitList(alphaMembersList);
-    });
+    if(membersList != null) {
+      setState(() {
+        alphaMembersList = alphaSplitList(alphaMembersList);
+      });
+    }
   }
 
   //returns a random color based on the user id (1 of 18)
@@ -102,7 +107,6 @@ class _OrganizationsState extends State<Organizations> {
   }
 
 
-
   //main build starts here
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +117,24 @@ class _OrganizationsState extends State<Organizations> {
           ),
         ),
         body: alphaMembersList.isEmpty
-            ? Center(child: CircularProgressIndicator())
+            ? Center(child :
+        Column(
+          children : <Widget>[
+            SizedBox(
+              height: 250,
+            ),
+              Text(
+                "Please join organization to see members",
+                style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+          ]
+        ))
             : RefreshIndicator(
                 onRefresh: () async {
                   getMembers();
@@ -167,7 +188,8 @@ class _OrganizationsState extends State<Organizations> {
           pushNewScreen(context,
               screen: MemberDetail(member: membersList[index], color: color));
         },
-        child: Card(
+        child:
+        Card(
           clipBehavior: Clip.hardEdge,
           child: Row(
             children: [
