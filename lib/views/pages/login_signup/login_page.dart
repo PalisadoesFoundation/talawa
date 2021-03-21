@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
+                image: const AssetImage(UIData.cloud1), fit: BoxFit.cover),
           ),
           child: Center(
             child: SingleChildScrollView(
