@@ -15,6 +15,7 @@ import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 import 'package:talawa/views/widgets/custom_appbar.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 class NewsFeed extends StatefulWidget {
   NewsFeed({Key key}) : super(key: key);
@@ -99,7 +100,7 @@ class _NewsFeedState extends State<NewsFeed> {
         appBar: CustomAppBar('NewsFeed'),
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
-            ? Center(child: CircularProgressIndicator())
+            ? Center(child: Loading())
             : RefreshIndicator(
                 onRefresh: () async {
                   getPosts();

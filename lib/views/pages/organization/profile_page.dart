@@ -16,6 +16,7 @@ import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
+import 'package:talawa/views/widgets/loading.dart';
 import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
@@ -164,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: userDetails.isEmpty
-            ? Center(child: CircularProgressIndicator())
+            ? Center(child: Loading())
             : Column(
                 children: <Widget>[
                   Container(

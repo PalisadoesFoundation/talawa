@@ -14,6 +14,7 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 
 //pubspec packages are called here
@@ -212,7 +213,7 @@ class _EventsState extends State<Events> {
         ),
         floatingActionButton: eventFab(),
         body: eventList.isEmpty
-            ? Center(child: CircularProgressIndicator())
+            ? Center(child: Loading())
             : RefreshIndicator(
                 onRefresh: () async {
                   getEvents();
@@ -333,7 +334,7 @@ class _EventsState extends State<Events> {
 
   Widget eventListView() {
     return displayedEvents.isEmpty
-        ? Center(child: CircularProgressIndicator())
+        ? Center(child: Loading())
         : RefreshIndicator(
             onRefresh: () async {
               getEvents();
