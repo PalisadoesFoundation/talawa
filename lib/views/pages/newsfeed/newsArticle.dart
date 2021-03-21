@@ -35,6 +35,8 @@ class _NewsArticleState extends State<NewsArticle> {
   bool loadComments = false;
   Timer timer = Timer();
   List comments = [];
+  bool isCommentAdded = false;
+
 
   @override
   void initState() {
@@ -74,6 +76,7 @@ class _NewsArticleState extends State<NewsArticle> {
           msg: "Sorry, this comment could not be posted.",
         );
       } else {
+        isCommentAdded = true;
         FocusScope.of(context).requestFocus(FocusNode());
         commentController.text = '';
         Fluttertoast.showToast(
@@ -98,6 +101,15 @@ class _NewsArticleState extends State<NewsArticle> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            leading: GestureDetector(
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                onTap: () {
+                  Navigator.of(context).pop(isCommentAdded);
+                },
+              ),
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(
