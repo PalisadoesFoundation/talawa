@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
@@ -80,6 +81,69 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       return updateProfileWithoutImg();
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
+      print(result.exception);
+      setState(() {
+        _progressBarState = false;
+      });
+      if (result.exception.clientException != null) {
+        _exceptionToast(result.exception.clientException.message);
+      } else {
+        _exceptionToast(result.exception.graphqlErrors.first.message);
+      }
+    } else if (!result.hasException && !result.loading) {
+      setState(() {
+        _progressBarState = false;
+      });
+
+      pushNewScreen(
+        context,
+        screen: ProfilePage(),
+      );
+    }
+  }
+
+  //function called when the user is called without the image
+  updateProfileWithImg() async {
+    setState(() {
+      _progressBarState = true;
+    });
+
+    GraphQLClient _client = graphQLConfiguration.authClient();
+    final img = await multipartFileFrom(_image);
+    QueryResult result;
+    if (widget.userDetails[0]['email'] == model.email) {
+      result = await _client.mutate(
+        MutationOptions(
+          documentNode: gql(_updateProfileQuery.updateUserProfile()),
+          variables: {
+            'file': img,
+            "firstName": model.firstName,
+            "lastName": model.lastName,
+          },
+        ),
+      );
+    } else {
+      result = await _client.mutate(
+        MutationOptions(
+          documentNode: gql(_updateProfileQuery.updateUserProfile()),
+          variables: {
+            'file': img,
+            "firstName": model.firstName,
+            "lastName": model.lastName,
+            "email": widget.userDetails[0]['email'] == model.email
+                ? null
+                : model.email,
+          },
+        ),
+      );
+    }
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
+      return updateProfileWithImg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       print(result.exception);
@@ -317,9 +381,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             onPressed: () {
               FocusScope.of(context).unfocus();
               _validate = AutovalidateMode.always;
+
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                updateProfileWithoutImg();
+                _image == null
+                    ? updateProfileWithoutImg()
+                    : updateProfileWithImg();
               }
             },
             icon: _progressBarState
