@@ -81,14 +81,13 @@ class _ProfilePageState extends State<ProfilePage> {
           notFound++;
         }
       }
-      if(notFound==org.length){
-        print('removed');
-        await _preferences.saveCurrentOrgId(org[0]['_id']);
-        await _preferences.saveCurrentOrgName(org[0]['name']);
+      if(notFound==org.length && org.length>0){
+        _orgController.setNewOrg(context, org[0]['_id'], org[0]['name']);
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgName(org[0]['name']);
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgId(org[0]['_id']);
         await _preferences.saveCurrentOrgImgSrc(org[0]['image']);
-        print(orgId);
-      }else{
-        print('Still a member');
       }
       fetchOrgAdmin();
     }
