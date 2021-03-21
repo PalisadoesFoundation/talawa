@@ -1,5 +1,6 @@
 //flutter packages
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:talawa/services/preferences.dart';
@@ -17,6 +18,9 @@ class _AddEventState extends State<AddEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final locationController = TextEditingController();
+  bool _validateTitle = false,
+      _validateDescription = false,
+      _validateLocation = false;
 
   Map switchVals = {
     'Make Public': true,
@@ -181,8 +185,27 @@ class _AddEventState extends State<AddEvent> {
           color: Colors.white,
         ),
         onPressed: () {
-          createEvent();
-          Navigator.of(context).pop();
+          if(titleController.text.isEmpty || descriptionController.text.isEmpty || locationController.text.isEmpty){
+            if (titleController.text.isEmpty){
+              setState(() {
+                _validateTitle = true;
+              });
+            }
+            if(descriptionController.text.isEmpty){
+              setState(() {
+                _validateDescription = true;
+              });
+            }
+            if(locationController.text.isEmpty){
+              setState(() {
+                _validateLocation = true;
+              });
+            }
+            Fluttertoast.showToast(msg: 'Fill in the empty fields', backgroundColor: Colors.grey[500]);
+          }else {
+            createEvent();
+            Navigator.of(context).pop();
+          }
         });
   }
 
@@ -193,6 +216,19 @@ class _AddEventState extends State<AddEvent> {
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
           decoration: InputDecoration(
+              errorText: name == 'Title'
+                  ? _validateTitle
+                      ? 'Field Can\'t Be Empty'
+                      : null
+                  : name == 'Description'
+                      ? _validateDescription
+                          ? 'Field Can\'t Be Empty'
+                          : null
+                      : name == 'Location'
+                          ? _validateLocation
+                              ? 'Field Can\'t Be Empty'
+                              : null
+                          : null,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
                   borderSide: BorderSide(color: Colors.teal)),

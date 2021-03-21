@@ -14,10 +14,13 @@ import 'package:talawa/utils/validator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
+import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreateOrganization extends StatefulWidget {
+  final bool isFromProfile;
+  CreateOrganization({this.isFromProfile=false});
   @override
   _CreateOrganizationState createState() => _CreateOrganizationState();
 }
@@ -91,10 +94,15 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       });
       _successToast("Sucess!");
       print(result.data);
-      pushNewScreen(
-        context,
-        screen: ProfilePage(),
-      );
+
+      if(widget.isFromProfile){
+        Navigator.pop(context);
+        Navigator.pop(context);
+      }else {
+        Navigator.of(
+            context).pushReplacement(MaterialPageRoute(
+            builder: (context) => HomePage(openPageIndex: 2,)));
+      }
     }
   }
 
@@ -134,10 +142,14 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       });
       _successToast("Sucess!");
       print(result.data);
-      pushNewScreen(
-        context,
-        screen: ProfilePage(),
-      );
+      if(widget.isFromProfile){
+        Navigator.pop(context);
+        Navigator.pop(context);
+      }else {
+        Navigator.of(
+            context).pushReplacement(MaterialPageRoute(
+            builder: (context) => HomePage(openPageIndex: 2,)));
+      }
     }
   }
 

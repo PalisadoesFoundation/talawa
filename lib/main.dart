@@ -9,6 +9,7 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/login_signup/login_page.dart';
+import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
           print('build route for ${settings.name}'); //here we are building the routes for the app
           var routes = <String, WidgetBuilder>{
             UIData.homeRoute: (BuildContext context) => HomePage(),
-            UIData.loginPageRoute: (BuildContext context) => LoginPage(),
+            UIData.loginPageRoute: (BuildContext context) => UrlPage(),
             UIData.createOrgPage: (BuildContext context) =>
                 CreateOrganization(),
             UIData.joinOrganizationPage: (BuildContext context) =>
@@ -72,7 +73,7 @@ class MyApp extends StatelessWidget {
           WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));
         },
-        home: userID == null ? LoginPage() : HomePage(), //checking weather the user is logged in or not
+        home: userID == null ? UrlPage() : HomePage(), //checking weather the user is logged in or not
       ),
     );
   }

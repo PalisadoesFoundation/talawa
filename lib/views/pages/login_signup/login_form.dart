@@ -100,7 +100,7 @@ class LoginFormState extends State<LoginForm> {
       }
 
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage()));
+          MaterialPageRoute(builder: (context) => new HomePage(openPageIndex: 0,)));
     }
   }
 
