@@ -200,6 +200,7 @@ class _NewsArticleState extends State<NewsArticle> {
           leading: Icon(Icons.chat),
           title: Text(comments.length.toString() + '  Comments'),
         ),
+
         Flexible(
           child: ListView.builder(
               shrinkWrap: true,
@@ -212,8 +213,7 @@ class _NewsArticleState extends State<NewsArticle> {
                       Icons.person,
                       color: Colors.white10,
                     ),
-                    backgroundColor: UIData.secondaryColor,
-                  ),
+                    backgroundColor: UIData.secondaryColor,),
                   title: Text(
                     comments[index]['text'],
                   ),
