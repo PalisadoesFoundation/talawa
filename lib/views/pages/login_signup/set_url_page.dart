@@ -151,9 +151,10 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin{
 
       createAnimation = Tween(begin: 1.0, end: 1.0).animate(createController);
 
-      loginAnimation = Tween(begin: 1.0, end: 1.0).animate(loginController);
+      //loginAnimation = Tween(begin: 1.0, end: 1.0).animate(loginController);
     }
     load();
+
   Widget mainScreen(){
     return new Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

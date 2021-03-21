@@ -226,7 +226,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
 
       createAnimation = Tween(begin: 1.0, end: 1.0).animate(createController);
 
-      loginAnimation = Tween(begin: 1.0, end: 1.0).animate(loginController);
+      //loginAnimation = Tween(begin: 1.0, end: 1.0).animate(loginController);
     }
     load();
 
