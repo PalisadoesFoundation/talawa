@@ -28,14 +28,15 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   dispose() {
     super.dispose();
   }
+
   loginScreenForm() => Center(
         child: Container(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                   maxWidth: 300.0, minWidth: 250.0, minHeight: 300.0),
               child: SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: 30.0),
+                padding: const EdgeInsets.only(bottom: 30.0),
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: <Widget>[
@@ -43,23 +44,27 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "Dont have an account?",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 8.0),
+                          margin: const EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.pop(context);
-                              Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterPage()));
+                              // Navigator.pop(context);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegisterPage()));
                             },
-                            child: Text(
+                            child: const Text(
                               "SIGN UP!",
                               textAlign: TextAlign.start,
-                              style: TextStyle(color: UIData.primaryColor),
+                              style:
+                                  const TextStyle(color: UIData.primaryColor),
                             ),
                           ),
                         ),
@@ -80,13 +85,13 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
+                image: const AssetImage(UIData.cloud1), fit: BoxFit.cover),
           ),
-          child:Center(
-                child: SingleChildScrollView(
-                  child: loginScreenForm(),
-                ),
-              ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: loginScreenForm(),
+            ),
+          ),
         ));
   }
 }
