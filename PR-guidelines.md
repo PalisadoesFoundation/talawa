@@ -6,7 +6,7 @@ In order to give everyone a chance to submit a pull request and contribute to th
 
 1. Do not start working on any open issue and raise a PR unless it is assigned to you.
 2. Pull requests must be based on [open issues](https://github.com/PalisadoesFoundation/talawa/issues) available.
-3. Each contributor may only create one pull request at a time. We have this rule in place due to our limited resources - if everyone was allowed to post multiple pull requests we will not be able to review them properly. It is also better for contibutors because you can focus on creating one quality PR - so spend time making sure it is as good as it can be.
+3. Each contributor may only create one pull request at a time. We have this rule in place due to our limited resources - if everyone was allowed to post multiple pull requests we will not be able to review them properly. It is also better for contributors because you can focus on creating one quality PR - so spend time making sure it is as good as it can be.
 4. If the pull request's code quality is not up to par, or it would break the app, it will more likely be closed. So please be careful when creating a PR.
 5. Please follow the [PR template](https://github.com/PalisadoesFoundation/templates/pr-template.md). Ensure the PR title clearly describes the problem it is solving. In the description, include the relevant issue number, snapshots and videos after changes added.
 6. If you are borrowing code, please disclose it. It is fine and sometimes even recommended to borrow code, but we need to know about it to assess your work. If we find out that your pull request contains a lot of code copied from elsewhere, we will close the pull request.

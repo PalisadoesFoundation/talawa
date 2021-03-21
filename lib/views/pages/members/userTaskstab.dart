@@ -46,22 +46,32 @@ class _UserTasksState extends State<UserTasks> {
   //main building starts here
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: ListView.builder(
-            itemCount: userTasks.length,
-            itemBuilder: (context, index) {
-              return Card(
-                  child: Column(
-                children: <Widget>[
-                  ListTile(
-                    leading:
-                        Text('Description: ${userTasks[index]["description"]}'),
-                  ),
-                  ListTile(
-                    leading: Text('Due Date: ${userTasks[index]["deadline"]}'),
-                  )
-                ],
-              ));
-            }));
+    return userTasks.length != 0
+        ? Container(
+            child: ListView.builder(
+                itemCount: userTasks.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                      child: Column(
+                    children: <Widget>[
+                      ListTile(
+                        leading: Text(
+                            'Description: ${userTasks[index]["description"]}'),
+                      ),
+                      ListTile(
+                        leading:
+                            Text('Due Date: ${userTasks[index]["deadline"]}'),
+                      )
+                    ],
+                  ));
+                }))
+        : Container(
+            child: Center(
+                child: Text(
+              "No Tasks found",
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
+            )),
+          );
   }
 }

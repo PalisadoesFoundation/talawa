@@ -16,6 +16,7 @@ import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
+import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -100,12 +101,14 @@ class _ProfilePageState extends State<ProfilePage> {
       if (result.hasException) {
         print(result.exception.toString());
       } else if (!result.hasException) {
+        print('here');
         curOrganization = result.data['organizations'];
         creator = result.data['organizations'][0]['creator']['_id'];
         isPublic = result.data['organizations'][0]['isPublic'];
         result.data['organizations'][0]['admins']
             .forEach((userId) => admins.add(userId));
         for (int i = 0; i < admins.length; i++) {
+          print(admins[i]['_id']);
           if (admins[i]['_id'] == userID) {
             isCreator = true;
             break;
@@ -135,6 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
+      print('loop');
       return leaveOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
@@ -142,6 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
+      print('done');
       setState(() {
         remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
         if (remaindingOrg.isEmpty) {
