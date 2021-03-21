@@ -238,5 +238,12 @@ void main() {
         findsOneWidget,
       );
     });
+        
+    test('Empty url returns null' , () {
+
+      var result = Validator.validateURL("");
+      expect(result , 'Please enter and save url to continue'.toUpperCase());
+    });
+        
   });
 }
