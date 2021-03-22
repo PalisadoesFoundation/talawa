@@ -1,9 +1,11 @@
 //flutter packages
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/services/Queries.dart';
 
 //pages are called here
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 
@@ -21,6 +23,7 @@ class _AddEventState extends State<AddEvent> {
   bool _validateTitle = false,
       _validateDescription = false,
       _validateLocation = false;
+  ApiFunctions apiFunctions = ApiFunctions();
 
   Map switchVals = {
     'Make Public': true,
@@ -105,6 +108,24 @@ class _AddEventState extends State<AddEvent> {
             DateTime.now().day, 23, 59),
       };
     }
+    final String currentOrgID = await preferences.getCurrentOrgId();
+    String mutation = Queries().addEvent(
+      organizationId: currentOrgID,
+      title: titleController.text,
+      description: descriptionController.text,
+      location: locationController.text,
+      isPublic: switchVals['Make Public'],
+      isRegisterable: switchVals['Make Registerable'],
+      recurring: switchVals['Recurring'],
+      allDay: switchVals['All Day'],
+      recurrance: recurrance,
+      startDate: dateRange.start,
+      endDate: dateRange.end,
+      startTime: startTime,
+      endTime: endTime,
+    );
+    Map result = await apiFunctions.gqlquery(mutation);
+    print('Result is : $result');
   }
 
   //main build starts from here
