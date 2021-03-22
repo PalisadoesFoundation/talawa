@@ -153,7 +153,7 @@ class _EventsState extends State<Events> {
       eventList = result == null ? [] : result['events'].reversed.toList();
       eventList.removeWhere((element) =>
           element['title'] == 'Talawa Congress' ||
-          element['title'] == 'test' || element['title'] == 'Talawa Conference Test'); //dont know who keeps adding these
+          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' /*|| element['title'] == 'mayhem'*/); //dont know who keeps adding these
       eventList.sort((a, b) {
         return DateTime.fromMicrosecondsSinceEpoch(
           int.parse(a['startTime']))
