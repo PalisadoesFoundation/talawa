@@ -8,13 +8,13 @@ class MyAboutTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AboutListTile(
-      applicationIcon: FlutterLogo(),
-      icon: FlutterLogo(),
+      applicationIcon: const FlutterLogo(),
+      icon: const FlutterLogo(),
       aboutBoxChildren: <Widget>[
-        SizedBox(
+        const SizedBox(
           height: 10.0,
         ),
-        Text(
+        const Text(
           "Collaborative",
         ),
       ],
