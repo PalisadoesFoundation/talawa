@@ -40,6 +40,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   AuthController _authController = AuthController();
   String isPublic;
   TextEditingController searchController = TextEditingController();
+  bool disposed = false;
 
   @override
   void initState() {
@@ -48,6 +49,12 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     fToast = FToast();
     fToast.init(context);
     fetchOrg();
+  }
+
+  @override
+  void dispose() {
+    disposed = true;
+    super.dispose();
   }
 
   void searchOrgName(String orgName) {
@@ -78,7 +85,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     if (result.hasException) {
       print(result.exception);
       showError(result.exception.toString());
-    } else if (!result.hasException) {
+    } else if (!result.hasException && !disposed) {
       setState(() {
         organizationInfo = result.data['organizations'];
       });

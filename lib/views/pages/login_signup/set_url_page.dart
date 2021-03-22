@@ -118,6 +118,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
 
   @override
   dispose() {
+    controller.dispose();
     super.dispose();
   }
 
