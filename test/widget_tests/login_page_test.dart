@@ -8,7 +8,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/views/pages/_pages.dart';
+import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 
 Widget createLoginPageScreen() => MultiProvider(
       providers: [
@@ -26,7 +26,7 @@ Widget createLoginPageScreen() => MultiProvider(
         ),
       ],
       child: MaterialApp(
-        home: LoginPage(),
+        home: UrlPage(),
       ),
     );
 

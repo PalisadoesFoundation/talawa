@@ -28,65 +28,63 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   dispose() {
     super.dispose();
   }
-  loginScreenForm() => Center(
-        child: Container(
-          alignment: AlignmentDirectional(0.0, 0.0),
-          child: Container(
-              constraints: BoxConstraints(
-                  maxWidth: 300.0, minWidth: 250.0, minHeight: 300.0),
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: 30.0),
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: <Widget>[
-                    LoginForm(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Dont have an account?",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                              Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterPage()));
-                            },
-                            child: Text(
-                              "SIGN UP!",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(color: UIData.primaryColor),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              )),
+  loginScreenForm() => Container(
+    alignment: AlignmentDirectional(0.0, 0.0),
+    child: SingleChildScrollView(
+      padding: EdgeInsets.only(bottom: 30.0),
+      scrollDirection: Axis.vertical,
+      child: Container(
+        constraints: BoxConstraints(
+            maxWidth: 300.0, minWidth: 250.0, minHeight: 300.0),
+        child: Column(
+          children: <Widget>[
+            LoginForm(),
+            FittedBox(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Dont have an account?",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterPage()));
+                      },
+                      child: Text(
+                        "SIGN UP!",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(color: UIData.primaryColor),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
-      );
+      ),
+    ),
+  );
   //main build starts here
   @override
   build(BuildContext context) {
     return Scaffold(
-        //resizeToAvoidBottomInset: false,
+      //resizeToAvoidBottomInset: false,
         key: _scaffoldkey,
         backgroundColor: Colors.white,
         body: Container(
+          alignment: Alignment.center,
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
           ),
-          child:Center(
-                child: SingleChildScrollView(
-                  child: loginScreenForm(),
-                ),
-              ),
+          child:loginScreenForm(),
         ));
   }
 }
