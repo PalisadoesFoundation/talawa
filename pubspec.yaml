@@ -45,6 +45,8 @@ dependencies:
   get_it: ^4.0.4
   image_picker: ^0.6.6+5
   flutter_password_strength: ^0.1.6
+  data_connection_checker: ^0.3.4
+
 
 
 
@@ -60,6 +62,7 @@ dev_dependencies:
   random_pk:
   flutter_test:
     sdk: flutter
+  image_test_utils: ^1.0.0
 
 
 # For information on the generic Dart part of this file, see the

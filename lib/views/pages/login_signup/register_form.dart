@@ -75,7 +75,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast('Invalid Organisation URL');
+      _exceptionToast(result.exception.toString().substring(16,35));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -113,7 +113,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast("Invalid Organization URL");
+      _exceptionToast(result.exception.toString().substring(16,35));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -146,6 +146,7 @@ class RegisterFormState extends State<RegisterForm> {
       _image = image;
     });
   }
+
 
   //get image using gallery
   _imgFromGallery() async {
