@@ -109,7 +109,7 @@ class _AddEventState extends State<AddEvent> {
       };
     }
     final String currentOrgID = await preferences.getCurrentOrgId();
-    String mutation = Queries().addEvent(
+    /*String mutation = Queries().addEvent(
       organizationId: currentOrgID,
       title: titleController.text,
       description: descriptionController.text,
@@ -119,13 +119,19 @@ class _AddEventState extends State<AddEvent> {
       recurring: switchVals['Recurring'],
       allDay: switchVals['All Day'],
       recurrance: recurrance,
-      startDate: dateRange.start,
-      endDate: dateRange.end,
       startTime: startTime,
       endTime: endTime,
     );
-    Map result = await apiFunctions.gqlquery(mutation);
-    print('Result is : $result');
+    Map result = await apiFunctions.gqlquery(mutation);*/
+    print(startTime);
+    print('Start Time sent : ${startTime.microsecondsSinceEpoch}');
+    var t = startTime.microsecondsSinceEpoch;
+    print('Start Time converted  : ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(t)).toString()}');
+    print(endTime);
+    print('End Time : ${endTime.microsecondsSinceEpoch}');
+    var e = endTime.microsecondsSinceEpoch;
+    print('End Time converted  : ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(e)).toString()}');
+    //print('Result is : $result');
   }
 
   //main build starts from here
