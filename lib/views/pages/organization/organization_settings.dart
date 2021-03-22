@@ -169,8 +169,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
             Container(
               child: Column(children: <Widget>[
                 ListTile(
+                  key:Key('Update Organization'),
                     title: Text(
-                      'Update This Organization',
+                      'Update Organization',
                       style: TextStyle(fontSize: 18.0),
                     ),
                     leading: Icon(
@@ -198,6 +199,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 widget.public
                     ? SizedBox()
                     : ListTile(
+                    key:Key('Accept MemberShip Requests'),
                         title: Text(
                           'Accept MemberShip Requests',
                           style: TextStyle(fontSize: 18.0),
@@ -217,6 +219,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         }),
                 widget.public ? SizedBox() : Divider(),
                 ListTile(
+                    key:Key('Member(s)'),
                     title: Text(
                       'Member(s)',
                       style: TextStyle(fontSize: 18.0),
@@ -234,6 +237,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 Divider(),
                 widget.creator
                     ? ListTile(
+                    key:Key('Remove This Organization'),
                         title: Text(
                           'Remove This Organization',
                           style: TextStyle(fontSize: 18.0),
@@ -258,7 +262,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                               });
                         })
                     : ListTile(
-                        title: Text(
+                    key:Key('Leave Organization'),
+                    title: Text(
                           'Leave Organization',
                           style: TextStyle(fontSize: 18.0),
                         ),

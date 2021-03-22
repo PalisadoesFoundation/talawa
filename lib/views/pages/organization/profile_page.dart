@@ -20,6 +20,9 @@ import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
+  final bool isCreator;
+  final List test;
+  ProfilePage({this.isCreator,this.test});
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -52,7 +55,12 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<Preferences>(context, listen: false).getCurrentOrgName();
+    if(widget.isCreator != null && widget.test != null){
+      userDetails = widget.test;
+      isCreator = widget.isCreator;
+      org = userDetails[0]['joinedOrganizations'];
+    }
+    //Provider.of<Preferences>(context, listen: false).getCurrentOrgName();
     fetchUserDetails();
   }
 
@@ -66,10 +74,12 @@ class _ProfilePageState extends State<ProfilePage> {
     if (result.hasException) {
       print(result.exception);
     } else if (!result.hasException) {
+      print(result);
       setState(() {
         userDetails = result.data['users'];
         org = userDetails[0]['joinedOrganizations'];
       });
+      print(userDetails);
       int notFound = 0;
       for(int i = 0;i<org.length;i++){
         if(org[i]['_id']==orgId){
@@ -180,8 +190,9 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: userDetails.isEmpty || isCreator == null
-            ? Center(child: CircularProgressIndicator())
+            ? Center(child: CircularProgressIndicator(key: Key('loading'),))
             : Column(
+          key: Key('body'),
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 32.0),
@@ -253,6 +264,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         context: context,
                         tiles: [
                           ListTile(
+                            key: Key('Update Profile'),
                             title: Text(
                               'Update Profile',
                               style: TextStyle(fontSize: 18.0),
@@ -266,6 +278,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           org.length == 0
                               ? SizedBox()
                               : ListTile(
+                              key: Key('Switch Organization'),
                                   title: Text(
                                     'Switch Organization',
                                     style: TextStyle(fontSize: 18.0),
@@ -281,6 +294,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     );
                                   }),
                           ListTile(
+                              key: Key('Join or Create New Organization'),
                               title: Text(
                                 'Join or Create New Organization',
                                 style: TextStyle(fontSize: 18.0),
@@ -300,7 +314,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               ? SizedBox()
                               : isCreator == true
                                   ? ListTile(
-                                      title: Text(
+                              key: Key('Organization Settings'),
+                              title: Text(
                                         'Organization Settings',
                                         style: TextStyle(fontSize: 18.0),
                                       ),
@@ -318,7 +333,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                         );
                                       })
                                   : org.length==0?SizedBox():ListTile(
-                                      title: Text(
+                              key: Key('Leave This Organization'),
+                              title: Text(
                                         'Leave This Organization',
                                         style: TextStyle(fontSize: 18.0),
                                       ),
@@ -337,6 +353,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             });
                                       }),
                           ListTile(
+                            key: Key('Logout'),
                             title: Text(
                               "Logout",
                               style: TextStyle(fontSize: 18.0),

@@ -101,13 +101,18 @@ class Queries {
           image
           joinedOrganizations{
             image
-            _id
-            name
-            description
-          creator{
+        _id
+        name
+        admins{
+          _id
+        }
+        description
+        isPublic
+        creator{
+          _id
           firstName
           lastName
-          }
+        }
         }
          createdOrganizations {
           _id
