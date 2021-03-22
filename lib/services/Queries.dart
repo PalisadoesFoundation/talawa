@@ -180,8 +180,12 @@ class Queries {
         image
         _id
         name
+        admins{
+          _id
+        }
         description
         creator{
+          _id
           firstName
           lastName
         }
