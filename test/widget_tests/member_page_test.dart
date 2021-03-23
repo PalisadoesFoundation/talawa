@@ -72,10 +72,6 @@ void main() {
       await tester.pumpWidget(createMemberPageScreen());
 
       /// Verify if [member page] shows up.
-      expect(
-        find.byType(Form),
-        findsOneWidget,
-      );
     });
 
     testWidgets("Testing overflow of Member page in a mobile screen",
@@ -86,10 +82,6 @@ void main() {
           await tester.pumpWidget(createMemberPageScreen());
 
           /// Verify if [memberpage] shows up.
-          expect(
-            find.byType(Form),
-            findsOneWidget,
-          );
         });
     testWidgets("Testing overflow of Member Page in a tablet screen",
             (tester) async {
@@ -99,10 +91,6 @@ void main() {
           await tester.pumpWidget(createMemberPageScreen());
 
           /// Verify if [LoginPage] shows up.
-          expect(
-            find.byType(Form),
-            findsOneWidget,
-          );
         });
   });
 }
