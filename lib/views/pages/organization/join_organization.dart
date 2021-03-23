@@ -20,7 +20,7 @@ import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'create_organization.dart';
 
 class JoinOrganization extends StatefulWidget {
-  JoinOrganization({Key key, this.msg,this.fromProfile=false});
+  JoinOrganization({Key key, this.msg, this.fromProfile = false});
   final bool fromProfile;
   final String msg;
   @override
@@ -40,6 +40,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   AuthController _authController = AuthController();
   String isPublic;
   TextEditingController searchController = TextEditingController();
+  bool disposed = false;
 
   @override
   void initState() {
@@ -48,6 +49,12 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     fToast = FToast();
     fToast.init(context);
     fetchOrg();
+  }
+
+  @override
+  void dispose() {
+    disposed = true;
+    super.dispose();
   }
 
   void searchOrgName(String orgName) {
@@ -78,7 +85,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     if (result.hasException) {
       print(result.exception);
       showError(result.exception.toString());
-    } else if (!result.hasException) {
+    } else if (!result.hasException && !disposed) {
       setState(() {
         organizationInfo = result.data['organizations'];
       });
@@ -103,11 +110,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       print(result.data);
       _successToast("Request Sent to Organization Admin");
 
-      if(widget.fromProfile){
+      if (widget.fromProfile) {
         Navigator.pop(context);
-      }else{
-        Navigator.of(
-            context).pushReplacement(MaterialPageRoute(builder: (context)=>HomePage(openPageIndex: 4,),));
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => HomePage(
+            openPageIndex: 4,
+          ),
+        ));
       }
     }
   }
@@ -147,11 +157,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       _successToast("Sucess!");
 
       //Navigate user to newsfeed
-      if(widget.fromProfile){
+      if (widget.fromProfile) {
         Navigator.pop(context);
-      }else{
-        Navigator.of(
-            context).pushReplacement(MaterialPageRoute(builder: (context)=>HomePage(openPageIndex: 4,),));
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => HomePage(
+            openPageIndex: 4,
+          ),
+        ));
       }
     }
   }
@@ -432,7 +445,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         elevation: 5.0,
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => new CreateOrganization(isFromProfile: widget.fromProfile,)));
+              builder: (context) => new CreateOrganization(
+                    isFromProfile: widget.fromProfile,
+                  )));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
