@@ -38,7 +38,7 @@ void main() {
 
     
     test('Password not in proper format', () {
-      var result = Validator.validatePassword('password');
+      var result = Validator.validatePassword('');
       expect(result, 'Invalid password');
     });
     test('password valid', () {
