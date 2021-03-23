@@ -91,6 +91,11 @@ class _OrganizationsState extends State<Organizations> {
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
     print(result);
     List membersList = result == null ? [] : result['organizations'];
+      if(result['organizations'].length>0){
+        admins = result['organizations'][0]['admins'];
+        creatorId = result['organizations'][0]['creator']['_id'];
+        print(admins);
+      }
     if(membersList.isNotEmpty) {
       alphaMembersList = membersList[0]['members'];
       setState(() {
