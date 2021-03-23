@@ -42,7 +42,7 @@ void main() {
       expect(result, 'Invalid password');
     });
     test('password valid', () {
-      var result = Validator.validatePassword('PassworD1@');
+      var result = Validator.validatePassword('PASSWORD1@');
       expect(result, null);
     });
   });
