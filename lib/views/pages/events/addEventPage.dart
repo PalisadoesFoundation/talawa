@@ -109,7 +109,7 @@ class _AddEventState extends State<AddEvent> {
       };
     }
     final String currentOrgID = await preferences.getCurrentOrgId();
-    /*String mutation = Queries().addEvent(
+    String mutation = Queries().addEvent(
       organizationId: currentOrgID,
       title: titleController.text,
       description: descriptionController.text,
@@ -119,19 +119,20 @@ class _AddEventState extends State<AddEvent> {
       recurring: switchVals['Recurring'],
       allDay: switchVals['All Day'],
       recurrance: recurrance,
-      startTime: startTime,
-      endTime: endTime,
+      startTime: startTime.microsecondsSinceEpoch.toString(),
+      endTime: endTime.microsecondsSinceEpoch.toString(),
     );
-    Map result = await apiFunctions.gqlquery(mutation);*/
+    Map result = await apiFunctions.gqlquery(mutation);
     print(startTime);
     print('Start Time sent : ${startTime.microsecondsSinceEpoch}');
-    var t = startTime.microsecondsSinceEpoch;
-    print('Start Time converted  : ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(t)).toString()}');
+    var t = startTime.microsecondsSinceEpoch.toString();
+    print('Start Time converted  : ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(t))).toString()}');
     print(endTime);
     print('End Time : ${endTime.microsecondsSinceEpoch}');
-    var e = endTime.microsecondsSinceEpoch;
-    print('End Time converted  : ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(e)).toString()}');
-    //print('Result is : $result');
+    var e = endTime.microsecondsSinceEpoch.toString();
+    print('End Time converted  : ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(e))).toString()}');
+    print('Result is : $result');
+    print("From : ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(e))).toString() + ' to ' + DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(t))).toString()}");
   }
 
   //main build starts from here

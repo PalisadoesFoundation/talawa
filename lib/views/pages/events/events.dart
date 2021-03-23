@@ -151,30 +151,24 @@ class _EventsState extends State<Events> {
       Map result =
       await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
       eventList = result == null ? [] : result['events'].reversed.toList();
+      print(eventList.first);
       eventList.removeWhere((element) =>
           element['title'] == 'Talawa Congress' ||
-          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem'); //dont know who keeps adding these
-      eventList.sort((a, b) {
+          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1' /*|| element['title'] == 'mayhem2'*/); //dont know who keeps adding these
+      /*eventList.sort((a, b) {
+        print(a['startTime']);
+        print(b['startTime']);
         return DateTime.fromMicrosecondsSinceEpoch(
           int.parse(a['startTime']))
           .compareTo(
           DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
-      });
+      });*/
       eventsToDates(eventList, DateTime.now());
       setState(() {
         displayedEvents = eventList;
       });
       // print(displayedEvents);
 
-
-    eventList.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-        int.parse(a['startTime']))
-        .compareTo(
-        DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime']))));
-    eventsToDates(eventList, DateTime.now());
-    setState(() {
-      displayedEvents = eventList;
-    });
   }
 
 
