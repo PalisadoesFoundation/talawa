@@ -1,5 +1,5 @@
-
 //the flutter packages are imported here
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -21,21 +21,23 @@ class NewsArticle extends StatefulWidget {
 }
 
 class _NewsArticleState extends State<NewsArticle> {
-
   void setState(fn) {
     if (mounted) {
       super.setState(fn);
     }
   }
 
-  double _inputHeight = 50;
   final TextEditingController commentController = TextEditingController();
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   bool loadComments = false;
   Timer timer = Timer();
   List comments = [];
+
+  bool moreComments = false;
+
   bool isCommentAdded = false;
+
 
 
   @override
@@ -44,7 +46,7 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     commentController.dispose();
     super.dispose();
   }
@@ -90,93 +92,111 @@ class _NewsArticleState extends State<NewsArticle> {
     }
   }
 
+
   String addNewline(String rawComment) {
     rawComment = rawComment.replaceAll(newLineKey, "\n");
     return rawComment;
   }
+
   //main build starts here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            leading: GestureDetector(
-                child: Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
-                ),
-                onTap: () {
-                  Navigator.of(context).pop(isCommentAdded);
-                },
-              ),
-            expandedHeight: 200,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                widget.post['title'].toString(),
-                style: TextStyle(color: Colors.white),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              background: FittedBox(
-                child: Image.asset(UIData.shoppingImage),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.all(20),
-            sliver: SliverToBoxAdapter(
-              child: Text(widget.post['text'].toString()),
-            ),
-          ),
-          SliverToBoxAdapter(
-              child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage(UIData.pkImage),
-                ),
-                title:  Container(
-                  constraints: BoxConstraints(
-                    maxHeight: double.infinity,
-                    minHeight: 20,
+
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 4,
+            child: Stack(
+              children: [
+                SizedBox.expand(
+                  child: FittedBox(
+                    child: Image.asset(
+                      UIData.shoppingImage,
+                    ),
+                    fit: BoxFit.fill,
                   ),
-                child: TextField(
-                  textInputAction:  TextInputAction.newline,
-                  keyboardType: TextInputType.multiline,
-                  //minLines: 1,//Normal textInputField will be displayed
-                  //maxLines: 10,// when user presses enter it will adapt to it
-                  maxLines: null,
-                  decoration: InputDecoration(
-                      suffix: IconButton(
-                        color: Colors.grey,
-                        icon: Icon(Icons.send),
-                        onPressed: () {
-                          print(commentController.text);
-                          createComment();
-                        },
+                ),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      widget.post['title'].toString(),
+                      style: TextStyle(color: Colors.white, fontSize: 30.0),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 10,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 10),
+                    child: Text(widget.post['text'].toString()),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage(UIData.pkImage),
+                    ),
+                    title: Container(
+                      constraints: BoxConstraints(
+                        maxHeight: double.infinity,
+                        minHeight: 20,
                       ),
-                      hintText: 'Leave a Comment....',
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          borderSide: BorderSide(color: Colors.teal))),
-                  controller: commentController,
+                      child: TextField(
+                        textInputAction: TextInputAction.newline,
+                        keyboardType: TextInputType.multiline,
+                        //minLines: 1,//Normal textInputField will be displayed
+                        //maxLines: 10,// when user presses enter it will adapt to it
+                        maxLines: null,
+                        decoration: InputDecoration(
+                            suffix: IconButton(
+                              color: Colors.grey,
+                              icon: Icon(Icons.send),
+                              onPressed: () {
+                                print(commentController.text);
+                                createComment();
+                              },
+                            ),
+                            hintText: 'Leave a Comment....',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: BorderSide(color: Colors.teal))),
+                        controller: commentController,
+                      ),
+                    ),
+                  ),
                 ),
+                Flexible(
+                  flex: 10,
+                  child: Container(
+                      child: loadComments == false
+                          ? Align(
+                              alignment: Alignment.topCenter,
+                              child: loadCommentsButton())
+                          : commentList()),
                 ),
-              ),
-              Container(
-                  child: loadComments == false
-                      ? loadCommentsButton()
-                      : commentList())
-            ],
-          )),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
-
 
   //this loads the comments button
   Widget loadCommentsButton() {
@@ -193,48 +213,77 @@ class _NewsArticleState extends State<NewsArticle> {
         ));
   }
 
+  // For getting length of Comments to be displayed
+  int getCommentslength() {
+    getPostComments();
+    return comments.length;
+  }
 
   // a new widget for comment list
   Widget commentList() {
-    getPostComments();
+    int lenthOfCommentList = getCommentslength();
+
+    if (lenthOfCommentList > 3) {
+      if (moreComments == false) {
+        lenthOfCommentList = 3;
+      }
+    }
+
     return Column(
       children: [
         ListTile(
+          key: ValueKey('commentIcon'),
           leading: Icon(Icons.chat),
           title: Text(comments.length.toString() + '  Comments'),
         ),
-        ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: comments.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white10,
-                  ),
-                  backgroundColor: UIData.secondaryColor,
-                ),
-                title: Text(
-                  addNewline(comments[index]['text'])
-                ),
-                subtitle: Row(
-                  children: [
-                    Text(comments[index]['creator']['firstName'] +
-                        ' ' +
-                        comments[index]['creator']['lastName']),
-                    Text(
-                      ' - ',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+        Flexible(
+          child: ListView.builder(
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              itemCount: lenthOfCommentList,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white10,
                     ),
-                    Text(timer.hoursOrDays(comments[index]['createdAt']))
-                  ],
-                ),
-              );
-            })
+                    backgroundColor: UIData.secondaryColor,
+                  ),
+
+                  title: Text(
+                    comments[index]['text'],
+                  ),
+                  subtitle: Row(
+                    children: [
+                      Text(comments[index]['creator']['firstName'] +
+                          ' ' +
+                          comments[index]['creator']['lastName']),
+                      Text(
+                        ' - ',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+
+                      ),
+                      Text(timer.hoursOrDays(comments[index]['createdAt']))
+                    ],
+                  ),
+                );
+              }),
+        ),
+        (moreComments || comments.length <= 3)
+            ? SizedBox(
+                width: 0,
+                height: 0,
+              )
+            : TextButton(
+                onPressed: () {
+                  setState(() {
+                    moreComments = true;
+                  });
+                },
+                child: Text("View More Comments"))
       ],
     );
   }
