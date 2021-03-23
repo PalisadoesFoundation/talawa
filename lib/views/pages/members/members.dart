@@ -27,6 +27,8 @@ class _OrganizationsState extends State<Organizations> {
   String currentOrgID;
   List alphaMembersList = [];
   int isSelected = 0;
+  List admins = [];
+  String creatorId;
   Preferences preferences = Preferences();
 
 
@@ -202,7 +204,7 @@ class _OrganizationsState extends State<Organizations> {
     return GestureDetector(
         onTap: () {
           pushNewScreen(context,
-              screen: MemberDetail(member: membersList[index], color: color));
+              screen: MemberDetail(member: membersList[index], color: color,admins: admins,creatorId: creatorId,));
         },
         child:
         Card(
