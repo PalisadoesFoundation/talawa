@@ -1,4 +1,3 @@
-//flutter packages are called here
 import 'package:flutter/material.dart';
 
 //pages are called here
