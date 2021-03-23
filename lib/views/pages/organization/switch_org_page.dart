@@ -164,11 +164,9 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
-          if (userOrg[isSelected]['_id'] == orgId) {
-            _exceptionToast("Organization already selected!");
-          } else {
+      
             switchOrg();
-          }
+          
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -221,17 +219,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Flexible(
-            child: Container(
-              padding: new EdgeInsets.only(right: 13.0),
-              child: Text(
-                msg,
-                style: TextStyle(
-                  fontSize: 15,
-                ),
-                maxLines: 3,
-              ),
-            ),
+          Text(
+            msg,
           ),
         ],
       ),
