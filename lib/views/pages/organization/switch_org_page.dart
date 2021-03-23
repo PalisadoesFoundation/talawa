@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 
@@ -43,7 +42,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     fetchUserDetails();
   }
 
-
   //method used to fetch the user details from the server
   Future fetchUserDetails() async {
     final String userID = await _pref.getUserId();
@@ -66,6 +64,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       setState(() {
         _progressBarState = false;
         userOrg = result.data['users'][0]['joinedOrganizations'];
+        print(userOrg);
         if (userOrg.isEmpty) {
           showError("You are not registered to any organization");
         }
@@ -73,46 +72,52 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     }
   }
 
-
   //this method allows user to change the organization if he wants to
   Future switchOrg() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-
-    QueryResult result = await _client.mutate(
-        MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
-    if (result.hasException) {
-      print(result.exception);
-      _exceptionToast(result.exception.toString());
-    } else if (!result.hasException) {
-      _successToast(
-          "Switched to " + result.data['organizations'][0]['name'].toString());
-
-      //save new current org in preference
-      final String currentOrgId = result.data['organizations'][0]['_id'];
-      await _pref.saveCurrentOrgId(currentOrgId);
-      final String currentOrgImgSrc = result.data['organizations'][0]['image'];
-      await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-      final String currentOrgName = result.data['organizations'][0]['name'];
-      await _pref.saveCurrentOrgName(currentOrgName);
+    if (userOrg[isSelected]['_id'] == orgId) {
+      _successToast("Switched to " + userOrg[isSelected]['name'].toString());
       pushNewScreen(
         context,
         screen: ProfilePage(),
       );
+    } else {
+      GraphQLClient _client = graphQLConfiguration.clientToQuery();
+
+      QueryResult result = await _client.mutate(
+          MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
+      if (result.hasException) {
+        print(result.exception);
+        _exceptionToast(result.exception.toString());
+      } else if (!result.hasException) {
+        _successToast("Switched to " +
+            result.data['organizations'][0]['name'].toString());
+
+        //save new current org in preference
+        final String currentOrgId = result.data['organizations'][0]['_id'];
+        await _pref.saveCurrentOrgId(currentOrgId);
+        final String currentOrgImgSrc =
+            result.data['organizations'][0]['image'];
+        await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+        final String currentOrgName = result.data['organizations'][0]['name'];
+        await _pref.saveCurrentOrgName(currentOrgName);
+        pushNewScreen(
+          context,
+          screen: ProfilePage(),
+        );
+      }
     }
   }
 
-
-  // it is used to get the current organization id 
- getCurrentOrg()async{
+  // it is used to get the current organization id
+  getCurrentOrg() async {
     orgId = await Provider.of<Preferences>(context).getCurrentOrgId();
-    setState(() {
-    });
+    setState(() {});
   }
 
 //the build starts from here
   @override
   Widget build(BuildContext context) {
-    if(visit == 0){
+    if (visit == 0) {
       visit++;
       getCurrentOrg();
     }
@@ -126,43 +131,43 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       body: _progressBarState
           ? Center(child: CircularProgressIndicator())
           : ListView.separated(
-        padding: EdgeInsets.only(top: 10.0),
-        itemCount: userOrg.length,
-        itemBuilder: (context, index) {
-          if(userOrg[index]['_id'] == orgId){
-            isSelected = index;
-          }
-          return RadioListTile(
-            secondary: userOrg[index]['image'] != null
-                ? CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(
-                    Provider.of<GraphQLConfiguration>(context)
-                        .displayImgRoute +
-                        userOrg[index]['image']))
-                : CircleAvatar(
-                radius: 30,
-                backgroundImage:
-                AssetImage("assets/images/team.png")),
-            activeColor: UIData.secondaryColor,
-            groupValue: isSelected,
-            title: Text(userOrg[index]['name'].toString() +
-                '\n' +
-                userOrg[index]['description'].toString()),
-            value: index,
-            onChanged: (val) {
-              setState(() {
-                orgId = null;
-                isSelected = val;
-                itemIndex = userOrg[index]['_id'].toString();
-              });
-            },
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider();
-        },
-      ),
+              padding: EdgeInsets.only(top: 10.0),
+              itemCount: userOrg.length,
+              itemBuilder: (context, index) {
+                if (userOrg[index]['_id'] == orgId) {
+                  isSelected = index;
+                }
+                return RadioListTile(
+                  secondary: userOrg[index]['image'] != null
+                      ? CircleAvatar(
+                          radius: 30,
+                          backgroundImage: NetworkImage(
+                              Provider.of<GraphQLConfiguration>(context)
+                                      .displayImgRoute +
+                                  userOrg[index]['image']))
+                      : CircleAvatar(
+                          radius: 30,
+                          backgroundImage:
+                              AssetImage("assets/images/team.png")),
+                  activeColor: UIData.secondaryColor,
+                  groupValue: isSelected,
+                  title: Text(userOrg[index]['name'].toString() +
+                      '\n' +
+                      userOrg[index]['description'].toString()),
+                  value: index,
+                  onChanged: (val) {
+                    setState(() {
+                      orgId = null;
+                      isSelected = val;
+                      itemIndex = userOrg[index]['_id'].toString();
+                    });
+                  },
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider();
+              },
+            ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.save),
         label: Text("SAVE"),
@@ -177,7 +182,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     );
   }
 
-
   //widget to show error if there is some error in the lines
   Widget showError(String msg) {
     return Center(
@@ -188,7 +192,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       ),
     );
   }
-
 
   //the method which is called when the result is successful
   _successToast(String msg) {
@@ -212,7 +215,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       toastDuration: Duration(seconds: 3),
     );
   }
-
 
   //the method is called when the result is an exception
   _exceptionToast(String msg) {
