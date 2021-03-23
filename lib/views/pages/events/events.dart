@@ -156,7 +156,7 @@ class _EventsState extends State<Events> {
       print(eventList.first);
       eventList.removeWhere((element) =>
           element['title'] == 'Talawa Congress' ||
-          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1' /*|| element['title'] == 'mayhem2'*/); //dont know who keeps adding these
+          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1' ); //dont know who keeps adding these
       /*eventList.sort((a, b) {
         print(a['startTime']);
         print(b['startTime']);
