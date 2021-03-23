@@ -13,10 +13,12 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 
-const String newLineKey = "@123TALAWA321@";          
+const String newLineKey = "@123TALAWA321@";
+
 // ignore: must_be_immutable
 class NewsArticle extends StatefulWidget {
   Map post;
+
   NewsArticle({Key key, @required this.post}) : super(key: key);
 
   @override
@@ -71,36 +73,36 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     commentController.dispose();
     super.dispose();
   }
-  Widget _profileImage(){
+
+  Widget _profileImage() {
     return userDetails[0]['image'] != null
         ? CircleAvatar(
-        radius: 30,
-        backgroundImage: NetworkImage(
-            Provider.of<GraphQLConfiguration>(
-                context)
-                .displayImgRoute +
-                userDetails[0]['image']))
+            radius: 30,
+            backgroundImage: NetworkImage(
+                Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                    userDetails[0]['image']))
         : CircleAvatar(
-          radius: 45.0,
-          backgroundColor: Colors.white,
-          child: Text(
-          userDetails[0]['firstName']
-              .toString()
-              .substring(0, 1)
-              .toUpperCase() +
-              userDetails[0]['lastName']
-                  .toString()
-                  .substring(0, 1)
-                  .toUpperCase(),
-          style: TextStyle(
-            color: UIData.primaryColor,
-          )),
-    );
+            radius: 45.0,
+            backgroundColor: Colors.white,
+            child: Text(
+                userDetails[0]['firstName']
+                        .toString()
+                        .substring(0, 1)
+                        .toUpperCase() +
+                    userDetails[0]['lastName']
+                        .toString()
+                        .substring(0, 1)
+                        .toUpperCase(),
+                style: TextStyle(
+                  color: UIData.primaryColor,
+                )),
+          );
   }
+
   //this method helps us to get the comments of the post
   getPostComments() async {
     String mutation = Queries().getPostsComments(widget.post['_id']);
@@ -113,17 +115,14 @@ class _NewsArticleState extends State<NewsArticle> {
 
   //this method helps us to create any comments we are willing to
   createComment() async {
-    String queryText='';
+    String queryText = '';
     if (commentController.text.isNotEmpty) {
-        Fluttertoast.showToast(
-        msg: "Adding Comment...");
-        queryText =
-          commentController.text.replaceAll("\n", newLineKey).trim();
-      String mutation =
-          Queries().createComments(widget.post['_id'],queryText);
+      Fluttertoast.showToast(msg: "Adding Comment...");
+      queryText = commentController.text.replaceAll("\n", newLineKey).trim();
+      String mutation = Queries().createComments(widget.post['_id'], queryText);
       Map result = await apiFunctions.gqlmutation(mutation);
       print(result);
-       if (result == null) {
+      if (result == null) {
         Fluttertoast.showToast(
           msg: "Sorry, this comment could not be posted.",
         );
@@ -135,13 +134,10 @@ class _NewsArticleState extends State<NewsArticle> {
           msg: "Comment added.",
         );
       }
-    }
-    else{
-       Fluttertoast.showToast(
-        msg: "Please write comment");
+    } else {
+      Fluttertoast.showToast(msg: "Please write comment");
     }
   }
-
 
   String addNewline(String rawComment) {
     rawComment = rawComment.replaceAll(newLineKey, "\n");
@@ -151,101 +147,106 @@ class _NewsArticleState extends State<NewsArticle> {
   //main build starts here
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 4,
-            child: Stack(
-              children: [
-                SizedBox.expand(
-                  child: FittedBox(
-                    child: Image.asset(
-                      UIData.shoppingImage,
-                    ),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      widget.post['title'].toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 30.0),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ),
-              ],
+    return userDetails.isEmpty
+        ? Center(
+            child: CircularProgressIndicator(
+              key: Key("loading"),
             ),
-          ),
-          Expanded(
-            flex: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+          )
+        : Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: Column(
+              children: <Widget>[
                 Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 10),
-                    child: Text(widget.post['text'].toString()),
+                  flex: 4,
+                  child: Stack(
+                    children: [
+                      SizedBox.expand(
+                        child: FittedBox(
+                          child: Image.asset(
+                            UIData.shoppingImage,
+                          ),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Text(
+                            widget.post['title'].toString(),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 30.0),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Expanded(
-                  flex: 3,
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: AssetImage(UIData.pkImage),
-                    ),
-                    title: Container(
-                      constraints: BoxConstraints(
-                        maxHeight: double.infinity,
-                        minHeight: 20,
-                      ),
-                      child: TextField(
-                        textInputAction: TextInputAction.newline,
-                        keyboardType: TextInputType.multiline,
-                        //minLines: 1,//Normal textInputField will be displayed
-                        //maxLines: 10,// when user presses enter it will adapt to it
-                        maxLines: null,
-                        decoration: InputDecoration(
-                            suffix: IconButton(
-                              color: Colors.grey,
-                              icon: Icon(Icons.send),
-                              onPressed: () {
-                                print(commentController.text);
-                                createComment();
-                              },
-                            ),
-                            hintText: 'Leave a Comment....',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: BorderSide(color: Colors.teal))),
-                        controller: commentController,
-                      ),
-                    ),
-                  ),
-                ),
-                Flexible(
                   flex: 10,
-                  child: Container(
-                      child: loadComments == false
-                          ? Align(
-                              alignment: Alignment.topCenter,
-                              child: loadCommentsButton())
-                          : commentList()),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 10),
+                          child: Text(widget.post['text'].toString()),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: ListTile(
+                          leading: _profileImage(),
+                          title: Container(
+                            constraints: BoxConstraints(
+                              maxHeight: double.infinity,
+                              minHeight: 20,
+                            ),
+                            child: TextField(
+                              textInputAction: TextInputAction.newline,
+                              keyboardType: TextInputType.multiline,
+                              //minLines: 1,//Normal textInputField will be displayed
+                              //maxLines: 10,// when user presses enter it will adapt to it
+                              maxLines: null,
+                              decoration: InputDecoration(
+                                  suffix: IconButton(
+                                    color: Colors.grey,
+                                    icon: Icon(Icons.send),
+                                    onPressed: () {
+                                      print(commentController.text);
+                                      createComment();
+                                    },
+                                  ),
+                                  hintText: 'Leave a Comment....',
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      borderSide:
+                                          BorderSide(color: Colors.teal))),
+                              controller: commentController,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        flex: 10,
+                        child: Container(
+                            child: loadComments == false
+                                ? Align(
+                                    alignment: Alignment.topCenter,
+                                    child: loadCommentsButton())
+                                : commentList()),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 
   //this loads the comments button
@@ -300,7 +301,6 @@ class _NewsArticleState extends State<NewsArticle> {
                     ),
                     backgroundColor: UIData.secondaryColor,
                   ),
-
                   title: Text(
                     comments[index]['text'],
                   ),
@@ -314,7 +314,6 @@ class _NewsArticleState extends State<NewsArticle> {
                         style: TextStyle(
                           fontSize: 20,
                         ),
-
                       ),
                       Text(timer.hoursOrDays(comments[index]['createdAt']))
                     ],
