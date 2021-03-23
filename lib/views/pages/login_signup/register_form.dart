@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
 // pages are called here
 import 'package:provider/provider.dart';
@@ -95,8 +96,10 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization(fromProfile: false,)));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => new JoinOrganization(
+                fromProfile: false,
+              )));
     }
   }
 
@@ -131,8 +134,10 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
 
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization(fromProfile: false,)));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => new JoinOrganization(
+                fromProfile: false,
+              )));
     }
   }
 
@@ -311,26 +316,18 @@ class RegisterFormState extends State<RegisterForm> {
                           model.password = value;
                         },
                       ),
-                      //Animation for space between TextField and Strength bar
-                      AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                        height: originalPassword.text.isEmpty ? 0 : 10,
-                      ),
-                      //Animation for Password strength bar
-                      AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                        height: originalPassword.text.isEmpty ? 0 : 5,
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: FlutterPasswordStrength(
-                            password: originalPassword.text,
-                            height: 5,
-                            radius: 10,
-                            strengthCallback: (strength) {
-                              debugPrint(strength.toString());
-                            }),
-                      ),
+                      FlutterPwValidator(
+                          width: 400,
+                          height: 150,
+                          minLength: 8,
+                          uppercaseCharCount: 1,
+                          specialCharCount: 1,
+                          numericCharCount: 1,
+                          onSuccess: (_) {
+                            setState(() {});
+                          },
+                          controller: originalPassword),
+
                       SizedBox(
                         height: 20,
                       ),
@@ -471,7 +468,7 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
- /* _successToast(String msg) {
+  /* _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(

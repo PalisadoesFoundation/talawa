@@ -1,7 +1,5 @@
-
 //all the queries used in the program
 class Queries {
-
   //refresh the token
   String refreshToken(String refreshToken) {
     return '''
@@ -14,7 +12,6 @@ class Queries {
 
     ''';
   }
-
 
   //register the user
   String registerUser(
@@ -40,7 +37,6 @@ class Queries {
     """;
   }
 
-
   //register the user without the images
   String registerUserWithoutImg(
       String firstName, String lastName, String email, String password) {
@@ -65,7 +61,6 @@ class Queries {
     """;
   }
 
-
   //login the user
   String loginUser(String email, String password) {
     return """
@@ -89,24 +84,29 @@ class Queries {
     """;
   }
 
-
   //fetches the user info
   String fetchUserInfo = ''' 
        query Users(\$id: ID!){
           users(id:\$id){
+          _id
           firstName
           lastName
           email
           image
           joinedOrganizations{
             image
-            _id
-            name
-            description
-          creator{
+        _id
+        name
+        admins{
+          _id
+        }
+        description
+        isPublic
+        creator{
+          _id
           firstName
           lastName
-          }
+        }
         }
          createdOrganizations {
           _id
@@ -124,35 +124,34 @@ class Queries {
     }
     ''';
 
-
   //fetches the info two
   String fetchUserInfo2(String id) {
     return ''' 
        query {users(id:"$id"){
+          _id
           firstName
           lastName
           email
           joinedOrganizations{
             _id
             name
-          creator{
-          firstName
-          lastName
+            creator{
+              firstName
+              lastName
+            }
           }
-        }
-           createdOrganizations {
+          createdOrganizations {
             _id
             name
           }
           adminFor {
             _id
             name
-          }
+          }                                        
         }
       }
     ''';
   }
-
 
   //fetch organization
   final String fetchOrganizations = '''
@@ -161,16 +160,19 @@ class Queries {
         image
         _id
         name
+        admins{
+          _id
+        }
         description
         isPublic
         creator{
+          _id
           firstName
           lastName
         }
       }
     }
   ''';
-
 
   //fetch organization by id
   String fetchOrgById(String orgId) {
@@ -180,8 +182,13 @@ class Queries {
         image
         _id
         name
+        admins{
+          _id
+        }
         description
+        isPublic
         creator{
+          _id
           firstName
           lastName
         }
@@ -197,7 +204,6 @@ class Queries {
   ''';
   }
 
-
   //get the organization id
   String getOrgId(String orgId) {
     return '''
@@ -211,7 +217,6 @@ class Queries {
 	}
   ''';
   }
-
 
   //to create a organization
   String createOrg(String name, String description, String attendees,
@@ -228,13 +233,11 @@ class Queries {
           creator{
             firstName
             lastName
-            
           }
         }
     }
   ''';
   }
-
 
   //create organization without image
   String createOrgWithoutImg(String name, String description, String attendees,
@@ -256,7 +259,6 @@ class Queries {
          ''';
   }
 
-
   //update the organization
   String updateOrg(String orgId, String name, String description, bool isPublic,
       bool visibleInSearch) {
@@ -269,7 +271,6 @@ class Queries {
     }
   ''';
   }
-
 
   //remove the organization
   String removeOrg(String orgId) {
@@ -287,7 +288,6 @@ class Queries {
   ''';
   }
 
-
   //leave the organization
   String leaveOrg(String orgId) {
     return '''
@@ -304,7 +304,6 @@ class Queries {
   ''';
   }
 
-
   //send membership request
   String sendMembershipRequest(String orgId) {
     return '''
@@ -315,7 +314,6 @@ class Queries {
     }
   ''';
   }
-
 
   //this enables to view the membership request
   String viewMembershipRequest(String orgId) {
@@ -335,7 +333,6 @@ class Queries {
   ''';
   }
 
-
   //allows to view members
   String viewMembers(String orgId) {
     return '''
@@ -353,7 +350,6 @@ class Queries {
   ''';
   }
 
-
   //accepts the membership request
   String acceptMembershipRequest(String membershipRequestId) {
     return '''
@@ -367,7 +363,6 @@ class Queries {
     }
   ''';
   }
-
 
   //rejecting the membership request
   String rejectMembershipRequest(String membershipRequestId) {
@@ -383,7 +378,6 @@ class Queries {
   ''';
   }
 
-
   //remove the members
   String removeMember(String organizationId, List userIds) {
     return '''
@@ -393,6 +387,18 @@ class Queries {
             _id
             name
         }
+        
+    }
+  ''';
+  }
+
+  String addAdmin(String organizationId, String userId){
+    return '''
+      mutation {
+        createAdmin(data: {organizationId: "$organizationId", userId: $userId})
+         {
+            _id
+         }
         
     }
   ''';
@@ -421,7 +427,6 @@ class Queries {
       }
     """;
   }
-
 
   //to update an event
   String updateEvent(
@@ -458,7 +463,6 @@ class Queries {
           }""";
   }
 
-
   //delete any event
   String deleteEvent(String id) {
     return """
@@ -471,7 +475,6 @@ class Queries {
         }
     """;
   }
-
 
   //to register for an event
   String registerForEvent(String eventid) {
@@ -505,7 +508,6 @@ class Queries {
     """;
   }
 
-
   //to get the task by any event
   String getTasksByEvent(String id) {
     return """
@@ -520,7 +522,6 @@ class Queries {
   """;
   }
 
-
   //to get registrants for an event
   String getRegistrantsByEvent(String id) {
     return """
@@ -534,7 +535,6 @@ class Queries {
   }
   """;
   }
-
 
   //to add the events
   String addEvent(
@@ -579,13 +579,15 @@ class Queries {
 
 /////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
 
-
   //task by users
   String tasksByUser(String id) {
     return """
   query{
     tasksByUser(id:"$id"){
       _id
+      title
+      description
+      deadline
     }
   }
   
@@ -658,7 +660,7 @@ query{
 mutation{
   createComment(postId: "$postId", 
   data:{
-    text: ""$text"",
+    text: "$text",
   }
   ){
     _id
