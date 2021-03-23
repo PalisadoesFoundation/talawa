@@ -1,11 +1,12 @@
-
 //flutter packages are called here
+import 'dart:async' as RegularTimer;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/timer.dart';
+import 'package:talawa/utils/timer.dart' as UtilTimer;
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/events/EventDetailPage.dart';
 import 'package:talawa/views/pages/events/addEventPage.dart';
@@ -15,12 +16,12 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
 
-
 //pubspec packages are called here
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
 
@@ -39,11 +40,23 @@ class _EventsState extends State<Events> {
   StickyHeaderController stickyHeaderController = StickyHeaderController();
   CalendarController _calendarController = CalendarController();
   CarouselController carouselController = CarouselController();
-  Timer timer = Timer();
+  String notFetched = 'No Events Created';
+  bool fetched = true;
+  var events;
+  UtilTimer.Timer timer = UtilTimer.Timer();
+  RegularTimer.Timer _timer;
+
   initState() {
     super.initState();
     setState(() {
-      getEvents();
+      events = getEvents();
+      /*_timer = new RegularTimer.Timer(Duration(seconds: 5), () {
+        if(eventList == null){
+          fetched = false;
+        }else{
+          _timer.cancel();
+        }
+      });*/
     });
   }
 
@@ -130,14 +143,12 @@ class _EventsState extends State<Events> {
     return eventDates;
   }
 
-
   //function called to delete the event
   Future<void> _deleteEvent(context, eventId) async {
     String mutation = Queries().deleteEvent(eventId);
     Map result = await apiFunctions.gqlquery(mutation);
     getEvents();
   }
-
 
   //function to called be called for register
   Future<void> _register(context, eventId) async {
@@ -146,18 +157,20 @@ class _EventsState extends State<Events> {
     print(result);
   }
 
-
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-      Map result =
-      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-      eventList = result == null ? [] : result['events'].reversed.toList();
-      print(eventList.first);
-      eventList.removeWhere((element) =>
-          element['title'] == 'Talawa Congress' ||
-          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1' ); //dont know who keeps adding these
-      /*eventList.sort((a, b) {
+    Map result =
+        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    eventList = result == null ? [] : result['events'].reversed.toList();
+    print(eventList.first);
+    eventList.removeWhere((element) =>
+        element['title'] == 'Talawa Congress' ||
+        element['title'] == 'test' ||
+        element['title'] == 'Talawa Conference Test' ||
+        element['title'] == 'mayhem' ||
+        element['title'] == 'mayhem1'); //dont know who keeps adding these
+    /*eventList.sort((a, b) {
         print(a['startTime']);
         print(b['startTime']);
         return DateTime.fromMicrosecondsSinceEpoch(
@@ -165,14 +178,12 @@ class _EventsState extends State<Events> {
           .compareTo(
           DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
       });*/
-      eventsToDates(eventList, DateTime.now());
-      setState(() {
-        displayedEvents = eventList;
-      });
-      // print(displayedEvents);
-
+    eventsToDates(eventList, DateTime.now());
+    setState(() {
+      displayedEvents = eventList;
+    });
+    // print(displayedEvents);
   }
-
 
   //functions to edit the event
   Future<void> _editEvent(context, event) async {
@@ -207,7 +218,70 @@ class _EventsState extends State<Events> {
           ),
         ),
         floatingActionButton: eventFab(),
-        body: eventList.isEmpty
+        body: FutureBuilder(
+          future: events,
+          // ignore: missing_return
+          builder: (context, snapshot) {
+            var state = snapshot.connectionState;
+            if (state == ConnectionState.done) {
+              if (eventList.isEmpty) {
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      getEvents();
+                    },
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverAppBar(
+                            backgroundColor: Colors.white,
+                            automaticallyImplyLeading: false,
+                            expandedHeight: 380,
+                            flexibleSpace: FlexibleSpaceBar(
+                              background: calendar(),
+                            )),
+                        SliverStickyHeader(
+                          header: carouselSliderBar(),
+                          sliver: SliverFillRemaining(
+                              child: Center(
+                            child: Text(
+                              'No Event Created',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                              ),
+                            ),
+                          )),
+                        ),
+                      ],
+                    ));
+              } else {
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      getEvents();
+                    },
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverAppBar(
+                            backgroundColor: Colors.white,
+                            automaticallyImplyLeading: false,
+                            expandedHeight: 380,
+                            flexibleSpace: FlexibleSpaceBar(
+                              background: calendar(),
+                            )),
+                        SliverStickyHeader(
+                          header: carouselSliderBar(),
+                          sliver: SliverFillRemaining(child: eventListView()),
+                        ),
+                      ],
+                    ));
+              }
+            } else if (state == ConnectionState.waiting) {
+              print(snapshot.data);
+              return Center(child: CircularProgressIndicator());
+            } else if (state == ConnectionState.none) {
+              return Text('COULD NOT FETCH.');
+            }
+          },
+        ));
+    /* eventList.isEmpty
             ? Center(child: CircularProgressIndicator())
             : RefreshIndicator(
                 onRefresh: () async {
@@ -227,7 +301,7 @@ class _EventsState extends State<Events> {
                       sliver: SliverFillRemaining(child: eventListView()),
                     ),
                   ],
-                )));
+                )));*/
   }
 
   Widget calendar() {
