@@ -50,13 +50,6 @@ class _EventsState extends State<Events> {
     super.initState();
     setState(() {
       events = getEvents();
-      /*_timer = new RegularTimer.Timer(Duration(seconds: 5), () {
-        if(eventList == null){
-          fetched = false;
-        }else{
-          _timer.cancel();
-        }
-      });*/
     });
   }
 
@@ -316,7 +309,7 @@ class _EventsState extends State<Events> {
           });
         },
         calendarStyle: CalendarStyle(markersColor: Colors.black45),
-        /* onDaySelected: (day, events) {
+        /*onDaySelected: (day, events) {
           String carouselDay = DateFormat.yMMMd('en_US').format(day);
           if (timer.isSameDay(day, now)) {
             carouselDay = 'Today';
