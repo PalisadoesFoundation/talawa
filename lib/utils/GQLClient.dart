@@ -29,7 +29,7 @@ class GraphQLConfiguration with ChangeNotifier {
   }
 
   static HttpLink httpLink = HttpLink(
-    uri: /*${orgURI}*/"http://calico.palisadoes.org/talawa/graphql",
+    uri: "${orgURI}graphql",
   );
 
   static AuthLink authLink = AuthLink(
