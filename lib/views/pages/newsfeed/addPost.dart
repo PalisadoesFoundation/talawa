@@ -1,6 +1,7 @@
 
 //flutter imported packages
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //pages are called here
 import 'package:talawa/services/Queries.dart';
@@ -71,13 +72,20 @@ class _AddPostState extends State<AddPost> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(9.0),
+              child: Container(
               child: TextFormField(
+                maxLines: null,
+                keyboardType: TextInputType.multiline,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(10000)
+                ],
                 validator: (String value) {
+                  if (value.length > 30) {
+                    return "Title cannot be longer than 30 letters";
+                  }
+
                   if (value.isEmpty) {
                     return "This field is Required";
-                  }
-                  if (value.length > 20) {
-                    return "Title cannot be longer than 20 letters";
                   }
                   return null;
                 },
@@ -93,16 +101,24 @@ class _AddPostState extends State<AddPost> {
                 //  'Give your post a title....',
               ),
             ),
+            ),
             Padding(
               padding: const EdgeInsets.all(9.0),
+              child: Container(
               child: TextFormField(
+                maxLines: null,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(10000)
+                ],
+                keyboardType: TextInputType.multiline,
                 controller: textController,
                 validator: (String value) {
+                  if (value.length > 10000) {
+                    return "Title cannot be longer than 10000 letters";
+                  }
+
                   if (value.isEmpty) {
                     return "This field is Required";
-                  }
-                  if (value.length > 500) {
-                    return "Post cannot be longer than 500 letters";
                   }
                   return null;
                 },
@@ -116,6 +132,7 @@ class _AddPostState extends State<AddPost> {
                 ),
                 //  'Give your post a title....',
               ),
+            ),
             ),
           ],
         ),
@@ -145,7 +162,10 @@ class _AddPostState extends State<AddPost> {
     return Padding(
         padding: EdgeInsets.all(10),
         child: TextField(
-          maxLines: null,
+          inputFormatters: [
+            LengthLimitingTextInputFormatter(10),
+          ],
+          keyboardType: TextInputType.multiline,
           controller: controller,
           decoration: InputDecoration(
               border: OutlineInputBorder(
