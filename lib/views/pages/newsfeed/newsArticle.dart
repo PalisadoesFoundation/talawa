@@ -2,10 +2,13 @@
 //the flutter packages are imported here
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 
 //the pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
@@ -36,11 +39,34 @@ class _NewsArticleState extends State<NewsArticle> {
   Timer timer = Timer();
   List comments = [];
   bool isCommentAdded = false;
+  Queries _query = Queries();
+  List userDetails = [];
+  String userID;
+  String orgName;
+  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
-
+  //providing initial states to the variables
   @override
   void initState() {
     super.initState();
+    fetchUserDetails();
+  }
+
+  //used to fetch the users details for profile image
+  Future fetchUserDetails() async {
+    userID = await preferences.getUserId();
+    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    QueryResult result = await _client.query(QueryOptions(
+        documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
+    if (result.hasException) {
+      print(result.exception);
+    } else if (!result.hasException) {
+      //print(result);
+      setState(() {
+        userDetails = result.data['users'];
+      });
+      //print(userDetails);
+    }
   }
 
   @override
@@ -48,7 +74,32 @@ class _NewsArticleState extends State<NewsArticle> {
     commentController.dispose();
     super.dispose();
   }
-
+  Widget _profileImage(){
+    return userDetails[0]['image'] != null
+        ? CircleAvatar(
+        radius: 30,
+        backgroundImage: NetworkImage(
+            Provider.of<GraphQLConfiguration>(
+                context)
+                .displayImgRoute +
+                userDetails[0]['image']))
+        : CircleAvatar(
+          radius: 45.0,
+          backgroundColor: Colors.white,
+          child: Text(
+          userDetails[0]['firstName']
+              .toString()
+              .substring(0, 1)
+              .toUpperCase() +
+              userDetails[0]['lastName']
+                  .toString()
+                  .substring(0, 1)
+                  .toUpperCase(),
+          style: TextStyle(
+            color: UIData.primaryColor,
+          )),
+    );
+  }
   //this method helps us to get the comments of the post
   getPostComments() async {
     String mutation = Queries().getPostsComments(widget.post['_id']);
@@ -97,11 +148,13 @@ class _NewsArticleState extends State<NewsArticle> {
   //main build starts here
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            leading: GestureDetector(
+    return userDetails.isEmpty
+        ?Center(child: CircularProgressIndicator(key: Key('loading'),),)
+        : Scaffold(
+          body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              leading: GestureDetector(
                 child: Icon(
                   Icons.arrow_back,
                   color: Colors.black,
@@ -135,9 +188,7 @@ class _NewsArticleState extends State<NewsArticle> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage(UIData.pkImage),
-                ),
+                leading: _profileImage(),
                 title:  Container(
                   constraints: BoxConstraints(
                     maxHeight: double.infinity,
