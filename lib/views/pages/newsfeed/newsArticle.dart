@@ -25,7 +25,6 @@ class _NewsArticleState extends State<NewsArticle> {
     }
   }
 
-  double _inputHeight = 50;
   final TextEditingController commentController = TextEditingController();
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
@@ -60,7 +59,6 @@ class _NewsArticleState extends State<NewsArticle> {
       String mutation =
           Queries().createComments(widget.post['_id'], commentController.text);
       Map result = await apiFunctions.gqlmutation(mutation);
-      //print("knfkafasnfak");
       print(result);
       commentController.text = '';
       getPostComments();
@@ -78,11 +76,11 @@ class _NewsArticleState extends State<NewsArticle> {
             flex: 4,
             child: Stack(
               children: [
-                Container(
-                  width: double.infinity,
-                  //height: 200,
+                SizedBox.expand(
                   child: FittedBox(
-                    child: Image.asset(UIData.shoppingImage),
+                    child: Image.asset(
+                      UIData.shoppingImage,
+                    ),
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -181,26 +179,29 @@ class _NewsArticleState extends State<NewsArticle> {
         ));
   }
 
+  // For getting length of Comments to be displayed
+  int getCommentslength() {
+    getPostComments();
+    return comments.length;
+  }
+
   // a new widget for comment list
   Widget commentList() {
-    getPostComments();
-    int lenthOfCommentList;
-    if (comments.length > 3) {
-      if (moreComments) {
-        lenthOfCommentList = comments.length;
-      } else {
+    int lenthOfCommentList = getCommentslength();
+
+    if (lenthOfCommentList > 3) {
+      if (moreComments == false) {
         lenthOfCommentList = 3;
       }
-    } else {
-      lenthOfCommentList = comments.length;
     }
+
     return Column(
       children: [
         ListTile(
+          key: ValueKey('commentIcon'),
           leading: Icon(Icons.chat),
           title: Text(comments.length.toString() + '  Comments'),
         ),
-
         Flexible(
           child: ListView.builder(
               shrinkWrap: true,
@@ -213,7 +214,8 @@ class _NewsArticleState extends State<NewsArticle> {
                       Icons.person,
                       color: Colors.white10,
                     ),
-                    backgroundColor: UIData.secondaryColor,),
+                    backgroundColor: UIData.secondaryColor,
+                  ),
                   title: Text(
                     comments[index]['text'],
                   ),
