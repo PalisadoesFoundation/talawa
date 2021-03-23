@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
@@ -9,18 +10,18 @@ import 'package:talawa/view_models/base_model.dart';
 
 import '../../locator.dart';
 
-class JoinOrgnizationModel extends BaseModel {
+class JoinOrgnizationViewModel extends BaseModel {
   Queries _query = Queries();
   Preferences _pref = Preferences();
   String token;
-  static String itemIndex;
+  String _itemIndex;
   GraphQLConfiguration graphQLConfiguration = locator<GraphQLConfiguration>();
   FToast fToast;
   List _organizationInfo = List();
-  List filteredOrgInfo = List();
+  List _filteredOrgInfo = List();
   List joinedOrg = [];
   AuthController _authController = AuthController();
-  String isPublic;
+  String _isPublic;
   String _fetchingOrgError = "";
   bool _hasFetchingOrgError = false;
   String _sendingRequestToOrgError = "";
@@ -32,24 +33,97 @@ class JoinOrgnizationModel extends BaseModel {
   String get sendingRequestToOrgError => _sendingRequestToOrgError;
 
   List get organizationInfo => _organizationInfo;
+  List get filteredOrgInfo => _filteredOrgInfo;
 
-  void initialise() {
+  String get isPublic => _isPublic;
+  String get itemIndex => _itemIndex;
+
+  void initialise(BuildContext context) {
+    fToast = FToast();
+    fToast.init(context);
     fetchOrg();
+  }
+
+  void setIsPublic(String str) {
+    _isPublic = str;
+    notifyListeners();
+  }
+
+  void setItemIndex(String str) {
+    _itemIndex = str;
+    notifyListeners();
+  }
+
+  Widget showError(String msg) {
+    return Center(
+      child: Text(
+        msg,
+        style: TextStyle(fontSize: 16),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+  successToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.green,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 3),
+    );
+  }
+
+  exceptionToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            msg,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 3),
+    );
   }
 
   void searchOrgName(String orgName) {
     //it is the search bar to search the organization
-    filteredOrgInfo.clear();
+    _filteredOrgInfo.clear();
     if (orgName.isNotEmpty) {
       for (int i = 0; i < organizationInfo.length; i++) {
         String name = organizationInfo[i]['name'];
         if (name.toLowerCase().contains(orgName.toLowerCase())) {
-          filteredOrgInfo.add(organizationInfo[i]);
+          _filteredOrgInfo.add(organizationInfo[i]);
           notifyListeners();
         }
       }
     } else {
-      filteredOrgInfo.add(organizationInfo);
+      _filteredOrgInfo.add(organizationInfo);
       notifyListeners();
     }
   }
@@ -61,56 +135,55 @@ class JoinOrgnizationModel extends BaseModel {
     QueryResult result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
     if (result.hasException) {
-      _hasFetchingOrgError = true;
-      _fetchingOrgError = result.exception.toString();
-      notifyListeners();
+      showError(result.exception.toString());
     } else if (!result.hasException && !disposed) {
       _organizationInfo = result.data['organizations'];
       notifyListeners();
     }
   }
 
-  Future<bool> joinPrivateOrg() async {
+  Future joinPrivateOrg(BuildContext context) async {
     //function called if the person wants to enter a private organization
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.mutate(MutationOptions(
-        documentNode: gql(_query.sendMembershipRequest(itemIndex))));
+        documentNode: gql(_query.sendMembershipRequest(_itemIndex))));
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
+      print("getting new token");
       _authController.getNewToken();
-      return joinPrivateOrg();
+      return joinPrivateOrg(context);
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      _sendingRequestToOrgError = result.exception.toString().substring(16);
-      notifyListeners();
-      return false;
+      exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
-      return true;
+      successToast("Request Sent to Organization Admin");
+      Navigator.pop(context);
     }
-    return false;
   }
 
-  Future<bool> joinPublicOrg() async {
+  Future joinPublicOrg(BuildContext context) async {
     //function which will be called if the person wants to join the organization which is not private
     GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client
-        .mutate(MutationOptions(documentNode: gql(_query.getOrgId(itemIndex))));
+    QueryResult result = await _client.mutate(
+        MutationOptions(documentNode: gql(_query.getOrgId(_itemIndex))));
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      return joinPublicOrg();
+      print("getting new token");
+
+      return joinPublicOrg(context);
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      _sendingRequestToOrgError = result.exception.toString().substring(16);
+      exceptionToast(result.exception.toString().substring(16));
+
       notifyListeners();
-      return false;
     } else if (!result.hasException && !result.loading) {
       joinedOrg = result.data['joinPublicOrganization']['joinedOrganizations'];
-
+      notifyListeners();
       //set the default organization to the first one in the list
       if (joinedOrg.length == 1) {
         final String currentOrgId = result.data['joinPublicOrganization']
@@ -123,7 +196,9 @@ class JoinOrgnizationModel extends BaseModel {
             ['joinedOrganizations'][0]['name'];
         await _pref.saveCurrentOrgName(currentOrgName);
       }
-      return true;
+      successToast("Sucess!");
+      print("Success");
+      Navigator.pop(context);
     }
     return false;
   }

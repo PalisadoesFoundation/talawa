@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
             UIData.createOrgPage: (BuildContext context) =>
                 CreateOrganization(),
             UIData.joinOrganizationPage: (BuildContext context) =>
-                JoinOrganization(),
+                JoinOrganizationView(),
             UIData.switchOrgPage: (BuildContext context) =>
                 SwitchOrganization(),
             UIData.profilePage: (BuildContext context) => ProfilePage(),
