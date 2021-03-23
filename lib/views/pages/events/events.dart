@@ -42,7 +42,9 @@ class _EventsState extends State<Events> {
   Timer timer = Timer();
   initState() {
     super.initState();
-    getEvents();
+    setState(() {
+      getEvents();
+    });
   }
 
   //get all events for a given day

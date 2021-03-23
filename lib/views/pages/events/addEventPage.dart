@@ -8,6 +8,8 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/views/pages/_pages.dart';
+import 'package:talawa/views/pages/events/events.dart';
 
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);
@@ -232,7 +234,8 @@ class _AddEventState extends State<AddEvent> {
             Fluttertoast.showToast(msg: 'Fill in the empty fields', backgroundColor: Colors.grey[500]);
           }else {
             createEvent();
-            Navigator.of(context).pop();
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Events()), (route) => false);
+            //Navigator.push(context, MaterialPageRoute(builder: (context)=>Events()));
           }
         });
   }
