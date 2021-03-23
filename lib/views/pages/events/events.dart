@@ -167,16 +167,6 @@ class _EventsState extends State<Events> {
         displayedEvents = eventList;
       });
       // print(displayedEvents);
-
-
-    eventList.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-        int.parse(a['startTime']))
-        .compareTo(
-        DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime']))));
-    eventsToDates(eventList, DateTime.now());
-    setState(() {
-      displayedEvents = eventList;
-    });
   }
 
 
