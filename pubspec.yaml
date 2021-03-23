@@ -57,9 +57,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
 
 dev_dependencies:
-  random_pk:
-  flutter_test:
+  flutter_driver:
     sdk: flutter
+  random_pk:
 
 
 # For information on the generic Dart part of this file, see the
