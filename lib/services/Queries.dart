@@ -88,19 +88,25 @@ class Queries {
   String fetchUserInfo = ''' 
        query Users(\$id: ID!){
           users(id:\$id){
+          _id
           firstName
           lastName
           email
           image
           joinedOrganizations{
             image
-            _id
-            name
-            description
-          creator{
+        _id
+        name
+        admins{
+          _id
+        }
+        description
+        isPublic
+        creator{
+          _id
           firstName
           lastName
-          }
+        }
         }
          createdOrganizations {
           _id
@@ -122,25 +128,26 @@ class Queries {
   String fetchUserInfo2(String id) {
     return ''' 
        query {users(id:"$id"){
+          _id
           firstName
           lastName
           email
           joinedOrganizations{
             _id
             name
-          creator{
-          firstName
-          lastName
+            creator{
+              firstName
+              lastName
+            }
           }
-        }
-           createdOrganizations {
+          createdOrganizations {
             _id
             name
           }
           adminFor {
             _id
             name
-          }
+          }                                        
         }
       }
     ''';
@@ -153,9 +160,13 @@ class Queries {
         image
         _id
         name
+        admins{
+          _id
+        }
         description
         isPublic
         creator{
+          _id
           firstName
           lastName
         }
@@ -171,8 +182,13 @@ class Queries {
         image
         _id
         name
+        admins{
+          _id
+        }
         description
+        isPublic
         creator{
+          _id
           firstName
           lastName
         }
@@ -217,7 +233,6 @@ class Queries {
           creator{
             firstName
             lastName
-            
           }
         }
     }
@@ -372,6 +387,18 @@ class Queries {
             _id
             name
         }
+        
+    }
+  ''';
+  }
+
+  String addAdmin(String organizationId, String userId){
+    return '''
+      mutation {
+        createAdmin(data: {organizationId: "$organizationId", userId: $userId})
+         {
+            _id
+         }
         
     }
   ''';
@@ -633,7 +660,7 @@ query{
 mutation{
   createComment(postId: "$postId", 
   data:{
-    text: ""$text"",
+    text: "$text",
   }
   ){
     _id

@@ -24,6 +24,8 @@ class Organizations extends StatefulWidget {
 class _OrganizationsState extends State<Organizations> {
   List alphaMembersList = [];
   int isSelected = 0;
+  List admins = [];
+  String creatorId;
   Preferences preferences = Preferences();
 
 
@@ -82,8 +84,12 @@ class _OrganizationsState extends State<Organizations> {
     ApiFunctions apiFunctions = ApiFunctions();
     var result =
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
-    // print(result);
     List membersList = result == null ? [] : result['organizations'];
+    if(result['organizations'].length>0){
+      admins = result['organizations'][0]['admins'];
+      creatorId = result['organizations'][0]['creator']['_id'];
+      print(admins);
+    }
     alphaMembersList = membersList[0]['members'];
     setState(() {
       alphaMembersList = alphaSplitList(alphaMembersList);
@@ -165,7 +171,7 @@ class _OrganizationsState extends State<Organizations> {
     return GestureDetector(
         onTap: () {
           pushNewScreen(context,
-              screen: MemberDetail(member: membersList[index], color: color));
+              screen: MemberDetail(member: membersList[index], color: color,admins: admins,creatorId: creatorId,));
         },
         child: Card(
           clipBehavior: Clip.hardEdge,
