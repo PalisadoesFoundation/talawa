@@ -1,8 +1,11 @@
+//flutter packages are called here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:talawa/controllers/auth_controller.dart';
 import 'dart:io';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
+
+// pages are called here
+import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -14,8 +17,9 @@ import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
-import 'package:file_picker/file_picker.dart';
 
+//pubspec packages are called here
+import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_password_strength/flutter_password_strength.dart';
 
@@ -28,17 +32,19 @@ class RegisterForm extends StatefulWidget {
 
 class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController firstNameController = new TextEditingController();
+  TextEditingController lastController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
   TextEditingController originalPassword = new TextEditingController();
+  FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
   Queries _signupQuery = Queries();
-  bool _validate = false;
+  var _validate = AutovalidateMode.disabled;
   Preferences _pref = Preferences();
   FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
-  AuthController _authController = AuthController();
   bool _obscureText = true;
 
   void toggleProgressBarState() {
@@ -70,7 +76,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast('Invalid Organisation URL');
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -90,11 +96,14 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => new JoinOrganization(
+                fromProfile: false,
+              )));
     }
   }
 
+  //function called when the user is called without the image
   registerUserWithoutImg() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(MutationOptions(
@@ -106,7 +115,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast("Invalid Organization URL");
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -125,8 +134,10 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
 
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => new JoinOrganization(
+                fromProfile: false,
+              )));
     }
   }
 
@@ -153,7 +164,7 @@ class RegisterFormState extends State<RegisterForm> {
     return SingleChildScrollView(
         child: Form(
             key: _formKey,
-            autovalidate: _validate,
+            autovalidateMode: _validate,
             child: Column(
               children: <Widget>[
                 addImage(),
@@ -169,7 +180,8 @@ class RegisterFormState extends State<RegisterForm> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.name],
+                        autofillHints: <String>[AutofillHints.givenName],
+                        textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.words,
                         validator: (value) =>
                             Validator.validateFirstName(value),
@@ -199,7 +211,8 @@ class RegisterFormState extends State<RegisterForm> {
                         height: 20,
                       ),
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.name],
+                        autofillHints: <String>[AutofillHints.familyName],
+                        textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.words,
                         validator: (value) => Validator.validateLastName(value),
                         textAlign: TextAlign.left,
@@ -229,6 +242,7 @@ class RegisterFormState extends State<RegisterForm> {
                       ),
                       TextFormField(
                         autofillHints: <String>[AutofillHints.email],
+                        textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) => Validator.validateEmail(value),
                         controller: emailController,
@@ -259,7 +273,8 @@ class RegisterFormState extends State<RegisterForm> {
                       ),
                       TextFormField(
                         autofillHints: <String>[AutofillHints.password],
-                        obscureText: true,
+                        textInputAction: TextInputAction.next,
+                        obscureText: _obscureText,
                         controller: originalPassword,
                         validator: (value) => Validator.validatePassword(value),
                         textAlign: TextAlign.left,
@@ -274,6 +289,15 @@ class RegisterFormState extends State<RegisterForm> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           prefixIcon: Icon(Icons.lock, color: Colors.white),
+                          suffixIcon: FlatButton(
+                            onPressed: _toggle,
+                            child: Icon(
+                              _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.white,
+                            ),
+                          ),
                           labelText: "Password",
                           labelStyle: TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
@@ -281,26 +305,36 @@ class RegisterFormState extends State<RegisterForm> {
                           hintText: 'Password',
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
+                        onFieldSubmitted: (_) {
+                          FocusScope.of(context).unfocus();
+                          FocusScope.of(context).requestFocus(confirmPassField);
+                        },
+                        onChanged: (_) {
+                          setState(() {});
+                        },
                         onSaved: (value) {
                           model.password = value;
                         },
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      FlutterPasswordStrength(
-                          password: originalPassword.text,
-                          height: 5,
-                          radius: 10,
-                          strengthCallback: (strength) {
-                            debugPrint(strength.toString());
-                          }),
+                      FlutterPwValidator(
+                          width: 400,
+                          height: 150,
+                          minLength: 8,
+                          uppercaseCharCount: 1,
+                          specialCharCount: 1,
+                          numericCharCount: 1,
+                          onSuccess: (_) {
+                            setState(() {});
+                          },
+                          controller: originalPassword),
+
                       SizedBox(
                         height: 20,
                       ),
                       TextFormField(
                         autofillHints: <String>[AutofillHints.password],
                         obscureText: true,
+                        focusNode: confirmPassField,
                         validator: (value) => Validator.validatePasswordConfirm(
                             originalPassword.text, value),
                         textAlign: TextAlign.left,
@@ -349,13 +383,12 @@ class RegisterFormState extends State<RegisterForm> {
                     color: Colors.white,
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
-                      _validate = true;
+                      _validate = AutovalidateMode.always;
                       if (_formKey.currentState.validate()) {
                         _formKey.currentState.save();
                         _image != null
                             ? registerUser()
                             : registerUserWithoutImg();
-
                         setState(() {
                           toggleProgressBarState();
                         });
@@ -367,6 +400,7 @@ class RegisterFormState extends State<RegisterForm> {
             )));
   }
 
+  //widget used to add the image
   Widget addImage() {
     return Column(
       children: <Widget>[
@@ -403,6 +437,7 @@ class RegisterFormState extends State<RegisterForm> {
     );
   }
 
+  //used to show the method user want to choose their pictures
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
@@ -433,7 +468,7 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
-  _successToast(String msg) {
+  /* _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -443,18 +478,17 @@ class RegisterFormState extends State<RegisterForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Expanded(
+            child: Text(
+              msg,
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
-    );
+    );*/
 
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
-    );
-  }
-
+  //this method is called when the result is an exception
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
@@ -465,7 +499,13 @@ class RegisterFormState extends State<RegisterForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Expanded(
+            child: Text(
+              msg,
+              style: TextStyle(fontSize: 15.0, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );
