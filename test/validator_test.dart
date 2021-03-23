@@ -38,10 +38,10 @@ void main() {
 
     test('password less than 6 returns error string', () {
       var result = Validator.validatePassword('pass');
-      expect(result, 'Password must be at least 6 characters.');
+      expect(result, 'Invalid Password');
     });
        test('password valid', () {
-      var result = Validator.validatePassword('password');
+      var result = Validator.validatePassword('PASSWORD1@');
       expect(result, null);
     });
   });
