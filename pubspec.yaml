@@ -46,6 +46,7 @@ dependencies:
   image_picker: ^0.6.6+5
   flutter_password_strength: ^0.1.6
   intl: ^0.17.0
+  flutter_pw_validator: ^1.0.1+1
 
 
 
