@@ -10,6 +10,7 @@ class Preferences with ChangeNotifier {
   static const currentOrgImgSrc = "currentOrgImgSrc";
   static const currentOrgName = "currentOrgName";
   static const orgUrl = "orgUrl";
+  static const orgImgUrl = "orgUrl";
   static const userFName = "userFirstName";
   static const userLName = "userLastName";
 
@@ -46,6 +47,21 @@ class Preferences with ChangeNotifier {
     String lname = preferences.getString(userLName);
     notifyListeners();
     return lname;
+  }
+
+  //saves the organization url
+  Future saveOrgImgUrl(String url) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(orgImgUrl, url);
+  }
+
+
+  //get the organization url
+  Future<String> getOrgImgUrl() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String url = preferences.getString(orgImgUrl);
+    notifyListeners();
+    return url;
   }
 
 

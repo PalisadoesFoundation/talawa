@@ -24,6 +24,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   FToast fToast;
   AuthController _authController = AuthController();
   List membershipRequestsList = [];
+  bool loaded = false;
+  bool processing = false;
 
   @override
   void initState() {
@@ -52,15 +54,19 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       setState(() {
         membershipRequestsList =
             result.data['organizations'][0]['membershipRequests'];
+        loaded = true;
       });
 
-      if (membershipRequestsList.isEmpty) {
-        showError(context, 'You have no new requests.');
+      if (membershipRequestsList.length == 0) {
+        _exceptionToast('You have no new requests.');
       }
     }
   }
 
   Future acceptMemberShipRequests() async {
+    setState(() {
+      processing = true;
+    });
     //this function give the functionality of accepting the request of the user by the administrator
     GraphQLClient _client = graphQLConfiguration.authClient();
 
@@ -72,15 +78,23 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       return acceptMemberShipRequests();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
+      setState(() {
+        processing = false;
+      });
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException) {
-      print(result.data);
+      setState(() {
+        processing = false;
+      });
       _successToast('Success');
       viewMemberShipRequests();
     }
   }
 
   Future rejectMemberShipRequests() async {
+    setState(() {
+      processing = true;
+    });
     //this function give the functionality of rejecting the request of the user by the administrator
     GraphQLClient _client = graphQLConfiguration.authClient();
 
@@ -92,11 +106,15 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       return rejectMemberShipRequests();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
+      setState(() {
+        processing = false;
+      });
       _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException) {
-      print(result.data);
+      setState(() {
+        processing = false;
+      });
       _successToast('Success');
-
       viewMemberShipRequests();
     }
   }
@@ -111,53 +129,72 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
             style: const TextStyle(color: Colors.white),
           ),
         ),
-        body: ListView.builder(
-          itemCount: membershipRequestsList.length,
-          itemBuilder: (context, index) {
-            final membershipRequests = membershipRequestsList[index];
-            return Card(
-              child: ListTile(
-                //building the List of the organization in the database
-                leading: membershipRequests['user']['image'] != null
-                    ? CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage(
-                            Provider.of<GraphQLConfiguration>(context)
-                                    .displayImgRoute +
-                                membershipRequests['user']['image']))
-                    : const CircleAvatar(
-                        radius: 30,
-                        backgroundImage:
-                            const AssetImage("assets/images/team.png")),
-                title: Text(membershipRequests['user']['firstName'] +
-                    ' ' +
-                    membershipRequests['user']['lastName']),
-                trailing: Wrap(
-                  spacing: 4,
-                  children: <Widget>[
-                    IconButton(
-                      iconSize: 26.0,
-                      icon: const Icon(Icons.delete),
-                      color: Colors.red,
-                      onPressed: () {
-                        itemIndex = membershipRequests['_id'];
-                        rejectMemberShipRequests();
-                      },
+        body: Stack(
+          children: [
+            processing
+                ? Container(
+                    color: Colors.transparent.withOpacity(0.3),
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
-                    IconButton(
-                      iconSize: 26.0,
-                      icon: const Icon(Icons.check),
-                      color: Colors.green,
-                      onPressed: () {
-                        itemIndex = membershipRequests['_id'];
-                        acceptMemberShipRequests();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
+                  )
+                : SizedBox(),
+            !loaded
+                ? Center(child: CircularProgressIndicator())
+                : membershipRequestsList.length == 0
+                    ? Center(child: Text('No Member Requests Available'))
+                    : ListView.builder(
+                        itemCount: membershipRequestsList.length,
+                        itemBuilder: (context, index) {
+                          final membershipRequests =
+                              membershipRequestsList[index];
+                          return Card(
+                            child: ListTile(
+                              //building the List of the organization in the database
+                              leading: membershipRequests['user']['image'] !=
+                                      null
+                                  ? CircleAvatar(
+                                      radius: 30,
+                                      backgroundImage: NetworkImage(Provider.of<
+                                                  GraphQLConfiguration>(context)
+                                              .displayImgRoute +
+                                          membershipRequests['user']['image']))
+                                  : CircleAvatar(
+                                      radius: 30,
+                                      backgroundImage:
+                                          AssetImage("assets/images/team.png")),
+                              title: Text(membershipRequests['user']
+                                      ['firstName'] +
+                                  ' ' +
+                                  membershipRequests['user']['lastName']),
+                              trailing: Wrap(
+                                spacing: 4,
+                                children: <Widget>[
+                                  IconButton(
+                                    iconSize: 26.0,
+                                    icon: Icon(Icons.delete),
+                                    color: Colors.red,
+                                    onPressed: () {
+                                      itemIndex = membershipRequests['_id'];
+                                      rejectMemberShipRequests();
+                                    },
+                                  ),
+                                  IconButton(
+                                    iconSize: 26.0,
+                                    icon: Icon(Icons.check),
+                                    color: Colors.green,
+                                    onPressed: () {
+                                      itemIndex = membershipRequests['_id'];
+                                      acceptMemberShipRequests();
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+          ],
         ));
   }
 
@@ -166,7 +203,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     return Center(
       child: Text(
         msg,
-        style: const TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 16, color: Colors.black),
         textAlign: TextAlign.center,
       ),
     );

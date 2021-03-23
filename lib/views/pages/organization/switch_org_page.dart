@@ -64,6 +64,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       setState(() {
         _progressBarState = false;
         userOrg = result.data['users'][0]['joinedOrganizations'];
+        print(userOrg);
         if (userOrg.isEmpty) {
           showError("You are not registered to any organization");
         }
@@ -73,28 +74,37 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
 
   //this method allows user to change the organization if he wants to
   Future switchOrg() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-
-    QueryResult result = await _client.mutate(
-        MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
-    if (result.hasException) {
-      print(result.exception);
-      _exceptionToast(result.exception.toString());
-    } else if (!result.hasException) {
-      _successToast(
-          "Switched to " + result.data['organizations'][0]['name'].toString());
-
-      //save new current org in preference
-      final String currentOrgId = result.data['organizations'][0]['_id'];
-      await _pref.saveCurrentOrgId(currentOrgId);
-      final String currentOrgImgSrc = result.data['organizations'][0]['image'];
-      await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-      final String currentOrgName = result.data['organizations'][0]['name'];
-      await _pref.saveCurrentOrgName(currentOrgName);
+    if (userOrg[isSelected]['_id'] == orgId) {
+      _successToast("Switched to " + userOrg[isSelected]['name'].toString());
       pushNewScreen(
         context,
         screen: ProfilePage(),
       );
+    } else {
+      GraphQLClient _client = graphQLConfiguration.clientToQuery();
+
+      QueryResult result = await _client.mutate(
+          MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
+      if (result.hasException) {
+        print(result.exception);
+        _exceptionToast(result.exception.toString());
+      } else if (!result.hasException) {
+        _successToast("Switched to " +
+            result.data['organizations'][0]['name'].toString());
+
+        //save new current org in preference
+        final String currentOrgId = result.data['organizations'][0]['_id'];
+        await _pref.saveCurrentOrgId(currentOrgId);
+        final String currentOrgImgSrc =
+            result.data['organizations'][0]['image'];
+        await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+        final String currentOrgName = result.data['organizations'][0]['name'];
+        await _pref.saveCurrentOrgName(currentOrgName);
+        pushNewScreen(
+          context,
+          screen: ProfilePage(),
+        );
+      }
     }
   }
 
@@ -134,13 +144,11 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                           backgroundImage: NetworkImage(
                               Provider.of<GraphQLConfiguration>(context)
                                       .displayImgRoute +
-                                  userOrg[index]['image']),
-                        )
+                                  userOrg[index]['image']))
                       : const CircleAvatar(
                           radius: 30,
                           backgroundImage:
-                              const AssetImage("assets/images/team.png"),
-                        ),
+                              const AssetImage("assets/images/team.png")),
                   activeColor: UIData.secondaryColor,
                   groupValue: isSelected,
                   title: Text(userOrg[index]['name'].toString() +

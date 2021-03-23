@@ -54,8 +54,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                           margin: const EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.pop(context);
-                              Navigator.push(
+                              // Navigator.pop(context);
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => RegisterPage()));

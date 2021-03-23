@@ -12,9 +12,16 @@ import 'userTaskstab.dart';
 
 // ignore: must_be_immutable
 class MemberDetail extends StatefulWidget {
+  final List admins;
+  final String creatorId;
   Map member;
   Color color;
-  MemberDetail({Key key, @required this.member, @required this.color})
+  MemberDetail(
+      {Key key,
+      @required this.member,
+      @required this.color,
+      this.admins,
+      this.creatorId})
       : super(key: key);
 
   @override
@@ -28,6 +35,18 @@ class _MemberDetailState extends State<MemberDetail>
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 2);
+  }
+
+  getPrivilege(String id) {
+    if (widget.creatorId.compareTo(id) == 0) {
+      return 'Creator';
+    }
+    for (int i = 0; i < widget.admins.length; i++) {
+      if (widget.admins[i]['_id'] == id) {
+        return 'Admin';
+      }
+    }
+    return 'Member';
   }
 
   //main build starts here
@@ -65,7 +84,10 @@ class _MemberDetailState extends State<MemberDetail>
                     padding: const EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     height: 30,
-                    child: const Text('User Privileges:'),
+                    child: Text(
+                      'User Privileges: ' + getPrivilege(widget.member['_id']),
+                      key: Key('Privilege'),
+                    ),
                   )),
                 ]),
               )),

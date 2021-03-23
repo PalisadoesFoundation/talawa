@@ -51,8 +51,11 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
     setState(() {
       orgUrl =
           "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
+      orgImgUrl =
+          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
     });
     await _pref.saveOrgUrl(orgUrl);
+    await _pref.saveOrgImgUrl(orgImgUrl);
   }
 
   void _setURL() {
@@ -96,7 +99,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
   final urlController = TextEditingController();
   String dropdownValue = 'HTTP';
   Preferences _pref = Preferences();
-  String orgUrl;
+  String orgUrl, orgImgUrl;
   String saveMsg = "Set URL";
   String urlInput;
   FToast fToast;
