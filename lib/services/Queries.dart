@@ -658,7 +658,7 @@ query{
 mutation{
   createComment(postId: "$postId", 
   data:{
-    text: ""$text"",
+    text: "$text",
   }
   ){
     _id
