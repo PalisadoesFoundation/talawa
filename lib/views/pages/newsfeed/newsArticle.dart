@@ -145,106 +145,100 @@ class _NewsArticleState extends State<NewsArticle> {
   //main build starts here
   @override
   Widget build(BuildContext context) {
-    return userDetails.isEmpty
-        ? Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          )
-        : Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: Column(
-              children: <Widget>[
-                Expanded(
-                  flex: 4,
-                  child: Stack(
-                    children: [
-                      SizedBox.expand(
-                        child: FittedBox(
-                          child: Image.asset(
-                            UIData.shoppingImage,
-                          ),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Text(
-                            widget.post['title'].toString(),
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 30.0),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                    ],
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            flex: 4,
+            child: Stack(
+              children: [
+                SizedBox.expand(
+                  child: FittedBox(
+                    child: Image.asset(
+                      UIData.shoppingImage,
+                    ),
+                    fit: BoxFit.fill,
                   ),
                 ),
-                Expanded(
-                  flex: 10,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 10),
-                          child: Text(widget.post['text'].toString()),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: ListTile(
-                          leading: _profileImage(),
-                          title: Container(
-                            constraints: BoxConstraints(
-                              maxHeight: double.infinity,
-                              minHeight: 20,
-                            ),
-                            child: TextField(
-                              textInputAction: TextInputAction.newline,
-                              keyboardType: TextInputType.multiline,
-                              //minLines: 1,//Normal textInputField will be displayed
-                              //maxLines: 10,// when user presses enter it will adapt to it
-                              maxLines: null,
-                              decoration: InputDecoration(
-                                  suffix: IconButton(
-                                    color: Colors.grey,
-                                    icon: Icon(Icons.send),
-                                    onPressed: () {
-                                      print(commentController.text);
-                                      createComment();
-                                    },
-                                  ),
-                                  hintText: 'Leave a Comment....',
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      borderSide:
-                                          BorderSide(color: Colors.teal))),
-                              controller: commentController,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        flex: 10,
-                        child: Container(
-                            child: loadComments == false
-                                ? Align(
-                                    alignment: Alignment.topCenter,
-                                    child: loadCommentsButton())
-                                : commentList()),
-                      ),
-                    ],
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      widget.post['title'].toString(),
+                      style: TextStyle(color: Colors.white, fontSize: 30.0),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ],
             ),
-          );
+          ),
+          Expanded(
+            flex: 10,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 10),
+                    child: Text(widget.post['text'].toString()),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: ListTile(
+                    leading: userDetails.isEmpty
+                        ? null
+                        : _profileImage(),
+                    title: Container(
+                      constraints: BoxConstraints(
+                        maxHeight: double.infinity,
+                        minHeight: 20,
+                      ),
+                      child: TextField(
+                        textInputAction: TextInputAction.newline,
+                        keyboardType: TextInputType.multiline,
+                        //minLines: 1,//Normal textInputField will be displayed
+                        //maxLines: 10,// when user presses enter it will adapt to it
+                        maxLines: null,
+                        decoration: InputDecoration(
+                            suffix: IconButton(
+                              color: Colors.grey,
+                              icon: Icon(Icons.send),
+                              onPressed: () {
+                                print(commentController.text);
+                                createComment();
+                              },
+                            ),
+                            hintText: 'Leave a Comment....',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: BorderSide(color: Colors.teal))),
+                        controller: commentController,
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  flex: 10,
+                  child: Container(
+                      child: loadComments == false
+                          ? Align(
+                              alignment: Alignment.topCenter,
+                              child: loadCommentsButton())
+                          : commentList()),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   //this loads the comments button
