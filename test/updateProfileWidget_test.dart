@@ -39,27 +39,7 @@ void main() {
       )),
     ));
 
-    var textField = find.byType(FlexibleSpaceBar);
-    expect(textField, findsOneWidget);
-  });
-
-  testWidgets("Floating Action Button Profile Update",
-      (WidgetTester tester) async {
-    await tester.pumpWidget(new MediaQuery(
-      data: new MediaQueryData(),
-      child: new MaterialApp(
-          home: UpdateProfilePage(
-        userDetails: [
-          {
-            "firstName": "Test",
-            "lastName": "User",
-            "email": "test@test.com",
-          }
-        ],
-      )),
-    ));
-
-    var textField = find.byType(FloatingActionButton);
-    expect(textField, findsOneWidget);
+    var tile = find.byType(ListTile);
+    expect(tile, findsOneWidget);
   });
 }
