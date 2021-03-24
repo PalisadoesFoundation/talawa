@@ -1,5 +1,5 @@
-
 //flutter packages are called here
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +43,6 @@ class LoginFormState extends State<LoginForm> {
     _progressBarState = !_progressBarState;
   }
 
-
   //providing variables with initial states
   @override
   void initState() {
@@ -58,13 +57,21 @@ class LoginFormState extends State<LoginForm> {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.loginUser(model.email, model.password))));
-    if (result.hasException) {
+    bool connectionCheck = await DataConnectionChecker().hasConnection;
+    if (!connectionCheck) {
+      print('You are not connected to the internet');
+      setState(() {
+        _progressBarState = false;
+      });
+      _exceptionToast('Connection Error. Make sure your Internet connection is stable');
+    }
+    else if (result.hasException) {
       print(result.exception);
       setState(() {
         _progressBarState = false;
       });
 
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast(result.exception.toString().substring(16,35));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -84,28 +91,27 @@ class LoginFormState extends State<LoginForm> {
       await _pref.saveUserLName(userLName);
 
       List organisations = result.data['login']['user']['joinedOrganizations'];
-      if(organisations.isEmpty){
+      if (organisations.isEmpty) {
         //skip the steps below
-      }else{
+      } else {
         //execute the steps below
         final String currentOrgId =
-        result.data['login']['user']['joinedOrganizations'][0]['_id'];
+            result.data['login']['user']['joinedOrganizations'][0]['_id'];
         await _pref.saveCurrentOrgId(currentOrgId);
 
         final String currentOrgImgSrc =
-        result.data['login']['user']['joinedOrganizations'][0]['image'];
+            result.data['login']['user']['joinedOrganizations'][0]['image'];
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
 
         final String currentOrgName =
-        result.data['login']['user']['joinedOrganizations'][0]['name'];
+            result.data['login']['user']['joinedOrganizations'][0]['name'];
         await _pref.saveCurrentOrgName(currentOrgName);
       }
 
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage()));
+          MaterialPageRoute(builder: (context) => new HomePage(openPageIndex: 0,)));
     }
   }
-
 
   //main build starts here
   @override
@@ -118,7 +124,8 @@ class LoginFormState extends State<LoginForm> {
             SizedBox(
               height: 50,
             ),
-            AutofillGroup(child: Column(
+            AutofillGroup(
+                child: Column(
               children: <Widget>[
                 TextFormField(
                   autofillHints: <String>[AutofillHints.email],
@@ -126,6 +133,8 @@ class LoginFormState extends State<LoginForm> {
                   validator: (value) => Validator.validateEmail(value),
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
+                  //Changed text input action to next
+                  textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
@@ -135,7 +144,10 @@ class LoginFormState extends State<LoginForm> {
                       borderSide: BorderSide(color: Colors.orange),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    prefixIcon: Icon(Icons.email, color: Colors.white,),
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: Colors.white,
+                    ),
                     labelText: "Email",
                     labelStyle: TextStyle(color: Colors.white),
                     alignLabelWithHint: true,
@@ -164,13 +176,15 @@ class LoginFormState extends State<LoginForm> {
                       borderSide: BorderSide(color: Colors.orange),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    prefixIcon: Icon(Icons.lock, color: Colors.white,),
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Colors.white,
+                    ),
                     suffixIcon: FlatButton(
                       onPressed: _toggle,
-                      child: Icon(_obscureText
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                          color: Colors.white,
+                      child: Icon(
+                        _obscureText ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.white,
                       ),
                     ),
                     labelText: "Password",
@@ -217,7 +231,6 @@ class LoginFormState extends State<LoginForm> {
         ));
   }
 
-
   //the method called when the result is success
   _successToast(String msg) {
     Widget toast = Container(
@@ -241,7 +254,6 @@ class LoginFormState extends State<LoginForm> {
     );
   }
 
-
   //the method called when the result is an exception
   _exceptionToast(String msg) {
     Widget toast = Container(
@@ -253,7 +265,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child:Text(msg)),
+          Expanded(child: Text(msg, textAlign: TextAlign.center,)),
         ],
       ),
     );
@@ -261,7 +273,9 @@ class LoginFormState extends State<LoginForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
+
       toastDuration: Duration(seconds: 5),
+
     );
   }
 
