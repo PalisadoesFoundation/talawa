@@ -1,12 +1,10 @@
 //flutter packages are called here
-import 'dart:async' as RegularTimer;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/timer.dart' as UtilTimer;
+import 'package:talawa/utils/timer.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/events/EventDetailPage.dart';
 import 'package:talawa/views/pages/events/addEventPage.dart';
@@ -43,8 +41,7 @@ class _EventsState extends State<Events> {
   String notFetched = 'No Events Created';
   bool fetched = true;
   var events;
-  UtilTimer.Timer timer = UtilTimer.Timer();
-  RegularTimer.Timer _timer;
+  Timer timer = Timer();
 
   initState() {
     super.initState();
