@@ -113,9 +113,9 @@ class _EventsState extends State<Events> {
         if (event['recurrance'] == 'WEEKLY') {
           int day =
               DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
-                      .day %
-                  7;
-          while (day <= DateTime(now.year, now.month + 1, 0).day) {
+                      .day;
+          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
+          while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
 
             day += 7;
