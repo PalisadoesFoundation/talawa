@@ -30,7 +30,7 @@ Widget createMemberPageScreen() => MultiProvider(
     );
 
 void main() {
-  group("member Page Tests", () {
+  group("Member Page Tests", () {
     testWidgets(
         "Testing if addPost page shows up validations on empty submission",
         (tester) async {
