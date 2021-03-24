@@ -44,10 +44,9 @@ class _AddPostState extends State<AddPost> {
 
   //creating post
   Future createPost() async {
-    textController.text = textController.text.trim().replaceAll('\n', ' ');
-    titleController.text = titleController.text.trim().replaceAll('\n', ' ');
-    String mutation = Queries()
-        .addPost(textController.text, organizationId, titleController.text);
+    String description = textController.text.trim().replaceAll('\n', ' ');
+    String title = titleController.text.trim().replaceAll('\n', ' ');
+    String mutation = Queries().addPost(description, organizationId, title);
     ApiFunctions apiFunctions = ApiFunctions();
     try {
       result = await apiFunctions.gqlmutation(mutation);
@@ -150,7 +149,7 @@ class _AddPostState extends State<AddPost> {
   //this method adds the post
   Widget addPostFab() {
     return FloatingActionButton(
-      key: Key('submit'),
+        key: Key('submit'),
         backgroundColor: UIData.secondaryColor,
         child: Icon(
           Icons.check,
