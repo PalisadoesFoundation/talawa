@@ -53,16 +53,17 @@ class ApiFunctions {
   }
 
   Future<dynamic> sendLogs(String filePath) async {
-    var request = http.MultipartRequest('POST', Uri.parse(''));
-    request.files.add(
-      http.MultipartFile(
-        'zip',
-        File(filePath).readAsBytes().asStream(),
-        File(filePath).lengthSync(),
-        filename: filePath.split("/").last,
-      ),
-    );
-    var res = await request.send();
-    return res.statusCode;
+    //TODO: Add the Url and uncomment the block
+    // var request = http.MultipartRequest('POST', Uri.parse(''));
+    // request.files.add(
+    //   http.MultipartFile(
+    //     'zip',
+    //     File(filePath).readAsBytes().asStream(),
+    //     File(filePath).lengthSync(),
+    //     filename: filePath.split("/").last,
+    //   ),
+    // );
+    // var res = await request.send();
+    // return res.statusCode;
   }
 }
