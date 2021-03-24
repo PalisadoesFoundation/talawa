@@ -58,6 +58,7 @@ class _AddPostState extends State<AddPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         key: Key('AddPostAppBar'),
         title: Text(
           'New Post',
           style: TextStyle(color: Colors.white),
@@ -72,6 +73,7 @@ class _AddPostState extends State<AddPost> {
             Padding(
               padding: const EdgeInsets.all(9.0),
               child: TextFormField(
+                 key: Key('TITLE_FIELD'),
                 validator: (String value) {
                   if (value.isEmpty) {
                     return "This field is Required";
@@ -96,6 +98,7 @@ class _AddPostState extends State<AddPost> {
             Padding(
               padding: const EdgeInsets.all(9.0),
               child: TextFormField(
+                  key: Key('POST_FIELD'),
                 controller: textController,
                 validator: (String value) {
                   if (value.isEmpty) {
