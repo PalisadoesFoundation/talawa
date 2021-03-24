@@ -127,7 +127,7 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString());
+      _exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
