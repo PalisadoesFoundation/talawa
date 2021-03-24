@@ -164,14 +164,6 @@ class _EventsState extends State<Events> {
         element['title'] == 'Talawa Conference Test' ||
         element['title'] == 'mayhem' ||
         element['title'] == 'mayhem1'); //dont know who keeps adding these
-    /*eventList.sort((a, b) {
-        print(a['startTime']);
-        print(b['startTime']);
-        return DateTime.fromMicrosecondsSinceEpoch(
-          int.parse(a['startTime']))
-          .compareTo(
-          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
-      });*/
     eventsToDates(eventList, DateTime.now());
     setState(() {
       displayedEvents = eventList;
