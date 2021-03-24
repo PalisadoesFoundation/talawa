@@ -2,6 +2,7 @@
 class Queries {
   //refresh the token
   String refreshToken(String refreshToken) {
+    refreshToken = replaceAll(refreshToken);
     return '''
         mutation{
           refreshToken(refreshToken: "$refreshToken"){
@@ -16,6 +17,10 @@ class Queries {
   //register the user
   String registerUser(
       String firstName, String lastName, String email, String password) {
+    firstName = replaceAll(firstName);
+    lastName = replaceAll(lastName);
+    email = replaceAll(email);
+    password = replaceAll(password);
     return """
         mutation (\$file: Upload) {
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"},
@@ -40,6 +45,11 @@ class Queries {
   //register the user without the images
   String registerUserWithoutImg(
       String firstName, String lastName, String email, String password) {
+    firstName = replaceAll(firstName);
+    lastName = replaceAll(lastName);
+    email = replaceAll(email);
+    password = replaceAll(password);
+
     return """
         mutation{
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"})
@@ -63,6 +73,9 @@ class Queries {
 
   //login the user
   String loginUser(String email, String password) {
+    email = replaceAll(email);
+    password = replaceAll(password);
+
     return """
         mutation {
           login(data: {email: "$email", password: "$password"}){
@@ -126,6 +139,8 @@ class Queries {
 
   //fetches the info two
   String fetchUserInfo2(String id) {
+    id = replaceAll(id);
+
     return ''' 
        query {users(id:"$id"){
           _id
@@ -176,6 +191,7 @@ class Queries {
 
   //fetch organization by id
   String fetchOrgById(String orgId) {
+    orgId = replaceAll(orgId);
     return '''
     query{
       organizations(id: "$orgId"){
@@ -221,6 +237,9 @@ class Queries {
   //to create a organization
   String createOrg(String name, String description, String attendees,
       bool isPublic, bool visibleInSearch) {
+    name = replaceAll(name);
+    description = replaceAll(description);
+    attendees = replaceAll(attendees);
     return '''
       mutation (\$file: Upload){
           createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}, 
@@ -242,6 +261,9 @@ class Queries {
   //create organization without image
   String createOrgWithoutImg(String name, String description, String attendees,
       bool isPublic, bool visibleInSearch) {
+    name = replaceAll(name);
+    description = replaceAll(description);
+    attendees = replaceAll(attendees);
     return '''
        mutation {
            createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}), 
@@ -274,6 +296,7 @@ class Queries {
 
   //remove the organization
   String removeOrg(String orgId) {
+    orgId = replaceAll(orgId);
     return '''
       mutation {
           removeOrganization(id: "$orgId"){
@@ -290,6 +313,8 @@ class Queries {
 
   //leave the organization
   String leaveOrg(String orgId) {
+    orgId = replaceAll(orgId);
+
     return '''
       mutation {
           leaveOrganization(organizationId: "$orgId"){
@@ -306,6 +331,8 @@ class Queries {
 
   //send membership request
   String sendMembershipRequest(String orgId) {
+    orgId = replaceAll(orgId);
+
     return '''
       mutation {
           sendMembershipRequest(organizationId: "$orgId"){
@@ -317,6 +344,8 @@ class Queries {
 
   //this enables to view the membership request
   String viewMembershipRequest(String orgId) {
+    orgId = replaceAll(orgId);
+
     return '''
       query {
         organizations(id:"$orgId"){
@@ -335,6 +364,8 @@ class Queries {
 
   //allows to view members
   String viewMembers(String orgId) {
+    orgId = replaceAll(orgId);
+
     return '''
       query {
         organizations(id:"$orgId"){
@@ -352,6 +383,8 @@ class Queries {
 
   //accepts the membership request
   String acceptMembershipRequest(String membershipRequestId) {
+    membershipRequestId = replaceAll(membershipRequestId);
+
     return '''
       mutation {
         acceptMembershipRequest(membershipRequestId:"$membershipRequestId"){
@@ -366,6 +399,8 @@ class Queries {
 
   //rejecting the membership request
   String rejectMembershipRequest(String membershipRequestId) {
+    membershipRequestId = replaceAll(membershipRequestId);
+
     return '''
       mutation {
         rejectMembershipRequest(membershipRequestId:"$membershipRequestId"){
@@ -380,6 +415,10 @@ class Queries {
 
   //remove the members
   String removeMember(String organizationId, List userIds) {
+    organizationId = replaceAll(organizationId);
+    for (int i = 0; i < userIds.length; i++) {
+      userIds[i] = replaceAll(userIds[i]);
+    }
     return '''
       mutation {
         removeMember(data: {organizationId: "$organizationId", userIds: $userIds})
@@ -392,7 +431,10 @@ class Queries {
   ''';
   }
 
-  String addAdmin(String organizationId, String userId){
+  String addAdmin(String organizationId, String userId) {
+    organizationId = replaceAll(organizationId);
+    userId = replaceAll(userId);
+
     return '''
       mutation {
         createAdmin(data: {organizationId: "$organizationId", userId: $userId})
@@ -406,6 +448,7 @@ class Queries {
 
 //////////////EVENTS/////////////////////
   String fetchOrgEvents(String orgId) {
+    orgId = replaceAll(orgId);
     return """
       query {
         events(id: "$orgId"){ 
@@ -442,6 +485,14 @@ class Queries {
       date,
       startTime,
       endTime}) {
+    organizationId = replaceAll(organizationId);
+    title = replaceAll(title);
+    startTime = replaceAll(startTime);
+    endTime = replaceAll(endTime);
+    description = replaceAll(description);
+    recurrance = replaceAll(recurrance);
+    location = replaceAll(location);
+    date = replaceAll(date);
     return """updateEventInput(
           data:{
            organizationId: "$organizationId",
@@ -465,6 +516,7 @@ class Queries {
 
   //delete any event
   String deleteEvent(String id) {
+    id = replaceAll(id);
     return """
       mutation {
         removeEvent(
@@ -478,6 +530,7 @@ class Queries {
 
   //to register for an event
   String registerForEvent(String eventid) {
+    eventid = replaceAll(eventid);
     return """
       mutation {
         registerForEvent(
@@ -493,6 +546,11 @@ class Queries {
 
   String addEventTask(
       {String eventId, String title, String description, String deadline}) {
+    eventId = replaceAll(eventId);
+    title = replaceAll(title);
+    description = replaceAll(description);
+    deadline = replaceAll(deadline);
+
     return """
       mutation {
         createTask(
@@ -510,6 +568,7 @@ class Queries {
 
   //to get the task by any event
   String getTasksByEvent(String id) {
+    id = replaceAll(id);
     return """
   query{
     tasksByEvent(id:"$id"){
@@ -524,6 +583,8 @@ class Queries {
 
   //to get registrants for an event
   String getRegistrantsByEvent(String id) {
+    id = replaceAll(id);
+
     return """
   query{
     registrantsByEvent(id:"$id"){
@@ -551,6 +612,15 @@ class Queries {
       endDate,
       startTime,
       endTime}) {
+    organizationId = replaceAll(organizationId);
+    title = replaceAll(title);
+    startTime = replaceAll(startTime);
+    endTime = replaceAll(endTime);
+    description = replaceAll(description);
+    recurrance = replaceAll(recurrance);
+    location = replaceAll(location);
+    startDate = replaceAll(startDate);
+    endDate = replaceAll(endDate);
     return """
       mutation {
         createEvent(
@@ -581,6 +651,7 @@ class Queries {
 
   //task by users
   String tasksByUser(String id) {
+    id = replaceAll(id);
     return """
   query{
     tasksByUser(id:"$id"){
@@ -595,6 +666,8 @@ class Queries {
   }
 
   String registeredEventsByUser(String id) {
+    id = replaceAll(id);
+
     return """
   query{
     registeredEventsByUser(id:"$id"){
@@ -609,6 +682,7 @@ class Queries {
 
 ///////////////////NEWSFEED///////////////////////////////////////////////////////////////////////
   String getPostsById(String orgId) {
+    orgId = replaceAll(orgId);
     return """
       query {
         postsByOrganization(id: "$orgId")
@@ -640,6 +714,8 @@ class Queries {
   }
 
   String getPostsComments(String postId) {
+    postId = replaceAll(postId);
+
     return """
 query{
   commentsByPost(id: "$postId"){
@@ -656,6 +732,9 @@ query{
   }
 
   String createComments(String postId, var text) {
+    postId = replaceAll(postId);
+    text = replaceAll(text);
+
     return """
 mutation{
   createComment(postId: "$postId", 
@@ -670,6 +749,10 @@ mutation{
   }
 
   String addPost(String text, String organizationId, String title) {
+    organizationId = replaceAll(organizationId);
+    text = replaceAll(text);
+    title = replaceAll(title);
+
     return """
     mutation {
         createPost(
@@ -686,6 +769,8 @@ mutation{
   }
 
   String addLike(String postID) {
+    postID = replaceAll(postID);
+
     return """
   mutation{
     likePost(id:"$postID"){
@@ -696,6 +781,8 @@ mutation{
   }
 
   String removeLike(String postID) {
+    postID = replaceAll(postID);
+
     return """
   mutation{
     unlikePost(id:"$postID"){
@@ -706,5 +793,10 @@ mutation{
     }
   }
   """;
+  }
+
+  // Function to make it possible to pass backslashs(\) and double quotes(*) inside a query
+  String replaceAll(String str) {
+    return str.replaceAll("\\", "\\\\\\\\").replaceAll('"', '\\\\\\"');
   }
 }
