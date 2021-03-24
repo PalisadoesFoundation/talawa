@@ -98,13 +98,10 @@ class _EventsState extends State<Events> {
       } else {
         if (event['recurrance'] == 'DAILY') {
           int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
-          print('First day : $day');
           int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
-          print('Last day : $lastday');
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
             day += 1;
-            print(day);
           }
         }
         if (event['recurrance'] == 'WEEKLY') {
@@ -157,7 +154,6 @@ class _EventsState extends State<Events> {
     Map result =
         await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     eventList = result == null ? [] : result['events'].reversed.toList();
-    print(eventList.first);
     eventList.removeWhere((element) =>
         element['title'] == 'Talawa Congress' ||
         element['title'] == 'test' ||
