@@ -8,7 +8,6 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
-import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/views/pages/events/events.dart';
 
 class AddEvent extends StatefulWidget {
@@ -67,7 +66,6 @@ class _AddEventState extends State<AddEvent> {
       setState(() {
         dateRange = picked;
       });
-    print(dateRange);
   }
 
   //method to be called when the user wants to select time
@@ -126,16 +124,7 @@ class _AddEventState extends State<AddEvent> {
       endTime: endTime.microsecondsSinceEpoch.toString(),
     );
     Map result = await apiFunctions.gqlquery(mutation);
-    print(startTime);
-    print('Start Time sent : ${startTime.microsecondsSinceEpoch}');
-    var t = startTime.microsecondsSinceEpoch.toString();
-    print('Start Time converted  : ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(t))).toString()}');
-    print(endTime);
-    print('End Time : ${endTime.microsecondsSinceEpoch}');
-    var e = endTime.microsecondsSinceEpoch.toString();
-    print('End Time converted  : ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(e))).toString()}');
     print('Result is : $result');
-    print("From : ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(e))).toString() + ' to ' + DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(t))).toString()}");
   }
 
   //main build starts from here
@@ -236,7 +225,6 @@ class _AddEventState extends State<AddEvent> {
           }else {
             createEvent();
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Events()), (route) => false);
-            //Navigator.push(context, MaterialPageRoute(builder: (context)=>Events()));
           }
         });
   }
