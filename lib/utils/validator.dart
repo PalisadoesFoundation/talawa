@@ -43,15 +43,16 @@ class Validator {
   //   }
   //   return null;
   // }
-
   static String validatePassword(String value) {
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters.';
+    String pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
+    if (!regExp.hasMatch(value)) {
+      return "Invalid Password";
     }
-
     return null;
   }
 
+  
   static String validatePasswordConfirm(String value, String comparator) {
     if (value != comparator) {
       return 'Password does not match original';

@@ -1,5 +1,8 @@
+//flutter packages are called here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -39,6 +42,7 @@ class LoginFormState extends State<LoginForm> {
     _progressBarState = !_progressBarState;
   }
 
+  //providing variables with initial states
   @override
   void initState() {
     super.initState();
@@ -64,7 +68,6 @@ class LoginFormState extends State<LoginForm> {
         _progressBarState = true;
       });
       _successToast("All Set!");
-
       final Token accessToken =
           new Token(tokenString: result.data['login']['accessToken']);
       await _pref.saveToken(accessToken);
@@ -77,21 +80,31 @@ class LoginFormState extends State<LoginForm> {
       await _pref.saveUserFName(userFName);
       final String userLName = result.data['login']['user']['lastName'];
       await _pref.saveUserLName(userLName);
-      final String currentOrgId =
-          result.data['login']['user']['joinedOrganizations'][0]['_id'];
-      await _pref.saveCurrentOrgId(currentOrgId);
-      final String currentOrgImgSrc =
-          result.data['login']['user']['joinedOrganizations'][0]['image'];
-      await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-      final String currentOrgName =
-          result.data['login']['user']['joinedOrganizations'][0]['name'];
-      await _pref.saveCurrentOrgName(currentOrgName);
+
+      List organisations = result.data['login']['user']['joinedOrganizations'];
+      if (organisations.isEmpty) {
+        //skip the steps below
+      } else {
+        //execute the steps below
+        final String currentOrgId =
+            result.data['login']['user']['joinedOrganizations'][0]['_id'];
+        await _pref.saveCurrentOrgId(currentOrgId);
+
+        final String currentOrgImgSrc =
+            result.data['login']['user']['joinedOrganizations'][0]['image'];
+        await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+
+        final String currentOrgName =
+            result.data['login']['user']['joinedOrganizations'][0]['name'];
+        await _pref.saveCurrentOrgName(currentOrgName);
+      }
 
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage()));
+          MaterialPageRoute(builder: (context) => new HomePage(openPageIndex: 0,)));
     }
   }
 
+  //main build starts here
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -102,7 +115,8 @@ class LoginFormState extends State<LoginForm> {
             SizedBox(
               height: 50,
             ),
-            AutofillGroup(child: Column(
+            AutofillGroup(
+                child: Column(
               children: <Widget>[
                 TextFormField(
                   autofillHints: <String>[AutofillHints.email],
@@ -110,11 +124,21 @@ class LoginFormState extends State<LoginForm> {
                   validator: (value) => Validator.validateEmail(value),
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
+                  //Changed text input action to next
+                  textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20.0)),
-                    prefixIcon: Icon(Icons.email),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.orange),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: Colors.white,
+                    ),
                     labelText: "Email",
                     labelStyle: TextStyle(color: Colors.white),
                     alignLabelWithHint: true,
@@ -135,15 +159,24 @@ class LoginFormState extends State<LoginForm> {
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.circular(20.0)),
-                    prefixIcon: Icon(Icons.lock),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.orange),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Colors.white,
+                    ),
                     suffixIcon: FlatButton(
                       onPressed: _toggle,
-                      child: Icon(_obscureText
-                          ? Icons.visibility_off
-                          : Icons.visibility),
+                      child: Icon(
+                        _obscureText ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.white,
+                      ),
                     ),
                     labelText: "Password",
                     labelStyle: TextStyle(color: Colors.white),
@@ -189,6 +222,7 @@ class LoginFormState extends State<LoginForm> {
         ));
   }
 
+  //the method called when the result is success
   _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
@@ -199,7 +233,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child:Text(msg)),
+          Center(child: Text(msg)),
         ],
       ),
     );
@@ -211,6 +245,7 @@ class LoginFormState extends State<LoginForm> {
     );
   }
 
+  //the method called when the result is an exception
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
@@ -221,7 +256,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child:Text(msg)),
+          Expanded(child: Text(msg)),
         ],
       ),
     );

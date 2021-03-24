@@ -1,4 +1,6 @@
+//all the queries used in the program
 class Queries {
+  //refresh the token
   String refreshToken(String refreshToken) {
     return '''
         mutation{
@@ -11,6 +13,7 @@ class Queries {
     ''';
   }
 
+  //register the user
   String registerUser(
       String firstName, String lastName, String email, String password) {
     return """
@@ -34,6 +37,7 @@ class Queries {
     """;
   }
 
+  //register the user without the images
   String registerUserWithoutImg(
       String firstName, String lastName, String email, String password) {
     return """
@@ -57,6 +61,7 @@ class Queries {
     """;
   }
 
+  //login the user
   String loginUser(String email, String password) {
     return """
         mutation {
@@ -79,22 +84,29 @@ class Queries {
     """;
   }
 
+  //fetches the user info
   String fetchUserInfo = ''' 
        query Users(\$id: ID!){
           users(id:\$id){
+          _id
           firstName
           lastName
           email
           image
           joinedOrganizations{
             image
-            _id
-            name
-            description
-          creator{
+        _id
+        name
+        admins{
+          _id
+        }
+        description
+        isPublic
+        creator{
+          _id
           firstName
           lastName
-          }
+        }
         }
          createdOrganizations {
           _id
@@ -112,42 +124,49 @@ class Queries {
     }
     ''';
 
+  //fetches the info two
   String fetchUserInfo2(String id) {
     return ''' 
        query {users(id:"$id"){
+          _id
           firstName
           lastName
           email
           joinedOrganizations{
             _id
             name
-          creator{
-          firstName
-          lastName
+            creator{
+              firstName
+              lastName
+            }
           }
-        }
-           createdOrganizations {
+          createdOrganizations {
             _id
             name
           }
           adminFor {
             _id
             name
-          }
+          }                                        
         }
       }
     ''';
   }
 
+  //fetch organization
   final String fetchOrganizations = '''
     query{
       organizations(){
         image
         _id
         name
+        admins{
+          _id
+        }
         description
         isPublic
         creator{
+          _id
           firstName
           lastName
         }
@@ -155,6 +174,7 @@ class Queries {
     }
   ''';
 
+  //fetch organization by id
   String fetchOrgById(String orgId) {
     return '''
     query{
@@ -162,8 +182,13 @@ class Queries {
         image
         _id
         name
+        admins{
+          _id
+        }
         description
+        isPublic
         creator{
+          _id
           firstName
           lastName
         }
@@ -179,6 +204,7 @@ class Queries {
   ''';
   }
 
+  //get the organization id
   String getOrgId(String orgId) {
     return '''
     mutation {
@@ -192,6 +218,7 @@ class Queries {
   ''';
   }
 
+  //to create a organization
   String createOrg(String name, String description, String attendees,
       bool isPublic, bool visibleInSearch) {
     return '''
@@ -206,13 +233,13 @@ class Queries {
           creator{
             firstName
             lastName
-            
           }
         }
     }
   ''';
   }
 
+  //create organization without image
   String createOrgWithoutImg(String name, String description, String attendees,
       bool isPublic, bool visibleInSearch) {
     return '''
@@ -232,6 +259,7 @@ class Queries {
          ''';
   }
 
+  //update the organization
   String updateOrg(String orgId, String name, String description, bool isPublic,
       bool visibleInSearch) {
     return '''
@@ -244,6 +272,7 @@ class Queries {
   ''';
   }
 
+  //remove the organization
   String removeOrg(String orgId) {
     return '''
       mutation {
@@ -259,6 +288,7 @@ class Queries {
   ''';
   }
 
+  //leave the organization
   String leaveOrg(String orgId) {
     return '''
       mutation {
@@ -274,6 +304,7 @@ class Queries {
   ''';
   }
 
+  //send membership request
   String sendMembershipRequest(String orgId) {
     return '''
       mutation {
@@ -284,6 +315,7 @@ class Queries {
   ''';
   }
 
+  //this enables to view the membership request
   String viewMembershipRequest(String orgId) {
     return '''
       query {
@@ -301,6 +333,7 @@ class Queries {
   ''';
   }
 
+  //allows to view members
   String viewMembers(String orgId) {
     return '''
       query {
@@ -317,6 +350,7 @@ class Queries {
   ''';
   }
 
+  //accepts the membership request
   String acceptMembershipRequest(String membershipRequestId) {
     return '''
       mutation {
@@ -330,6 +364,7 @@ class Queries {
   ''';
   }
 
+  //rejecting the membership request
   String rejectMembershipRequest(String membershipRequestId) {
     return '''
       mutation {
@@ -343,6 +378,7 @@ class Queries {
   ''';
   }
 
+  //remove the members
   String removeMember(String organizationId, List userIds) {
     return '''
       mutation {
@@ -351,6 +387,18 @@ class Queries {
             _id
             name
         }
+        
+    }
+  ''';
+  }
+
+  String addAdmin(String organizationId, String userId){
+    return '''
+      mutation {
+        createAdmin(data: {organizationId: "$organizationId", userId: $userId})
+         {
+            _id
+         }
         
     }
   ''';
@@ -380,6 +428,7 @@ class Queries {
     """;
   }
 
+  //to update an event
   String updateEvent(
       {organizationId,
       title,
@@ -414,6 +463,7 @@ class Queries {
           }""";
   }
 
+  //delete any event
   String deleteEvent(String id) {
     return """
       mutation {
@@ -426,6 +476,7 @@ class Queries {
     """;
   }
 
+  //to register for an event
   String registerForEvent(String eventid) {
     return """
       mutation {
@@ -457,6 +508,7 @@ class Queries {
     """;
   }
 
+  //to get the task by any event
   String getTasksByEvent(String id) {
     return """
   query{
@@ -470,6 +522,7 @@ class Queries {
   """;
   }
 
+  //to get registrants for an event
   String getRegistrantsByEvent(String id) {
     return """
   query{
@@ -483,6 +536,7 @@ class Queries {
   """;
   }
 
+  //to add the events
   String addEvent(
       {organizationId,
       title,
@@ -525,11 +579,15 @@ class Queries {
 
 /////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
 
+  //task by users
   String tasksByUser(String id) {
     return """
   query{
     tasksByUser(id:"$id"){
       _id
+      title
+      description
+      deadline
     }
   }
   
@@ -541,6 +599,8 @@ class Queries {
   query{
     registeredEventsByUser(id:"$id"){
       _id
+      title
+      description
     }
   }
   
@@ -595,12 +655,12 @@ query{
 """;
   }
 
-  String createComments(String postId, String text) {
+  String createComments(String postId, var text) {
     return """
 mutation{
   createComment(postId: "$postId", 
   data:{
-    text: "$text"
+    text: "$text",
   }
   ){
     _id

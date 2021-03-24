@@ -1,17 +1,18 @@
-import 'dart:ui';
 
+//flutter imported package
+import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/apiFuctions.dart';
-import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/memberDetails.dart';
-import 'package:talawa/views/pages/members/RegEventstab.dart';
-import 'package:talawa/views/pages/members/userTaskstab.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 class Organizations extends StatefulWidget {
@@ -22,11 +23,17 @@ class Organizations extends StatefulWidget {
 }
 
 class _OrganizationsState extends State<Organizations> {
+
+  String currentOrgID;
   List alphaMembersList = [];
   int isSelected = 0;
+  List admins = [];
+  String creatorId;
   Preferences preferences = Preferences();
 
-  initState() {
+
+  //providing initial states to the variables
+   initState( )  {
     super.initState();
     getMembers();
   }
@@ -73,30 +80,47 @@ class _OrganizationsState extends State<Organizations> {
     return alphalist;
   }
 
+  //function to get the members of an organization
+  // ignore: missing_return
   Future<List> getMembers() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
-    ApiFunctions apiFunctions = ApiFunctions();
+     String currentOrgID = await preferences.getCurrentOrgId();
+     print(currentOrgID);
+     if(currentOrgID != null){
+      ApiFunctions apiFunctions = ApiFunctions();
     var result =
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
-    // print(result);
+    print(result);
     List membersList = result == null ? [] : result['organizations'];
-    alphaMembersList = membersList[0]['members'];
-    setState(() {
-      alphaMembersList = alphaSplitList(alphaMembersList);
-    });
+      if(result['organizations'].length>0){
+        admins = result['organizations'][0]['admins'];
+        creatorId = result['organizations'][0]['creator']['_id'];
+        print(admins);
+      }
+    if(membersList.isNotEmpty) {
+      alphaMembersList = membersList[0]['members'];
+      setState(() {
+        alphaMembersList = alphaSplitList(alphaMembersList);
+      });
+    }}else{
+      setState(() {
+        alphaMembersList = [];
+      });
+     }
   }
 
   //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
-    double colorDouble = double.parse(id.replaceAll(RegExp('[A-Za-z-\/:-@\[-\`{-~]'), ''));
-    int colorint = colorDouble.toInt();
-    colorint = (colorint % 18);
+    String userId = id.replaceAll(RegExp('[a-z]'), '');
+    int colorInt = int.parse(userId.substring(userId.length -10));
+    colorInt = (colorInt % 18);
     return Color.alphaBlend(
       Colors.black45,
-      Colors.primaries[colorint],
+      Colors.primaries[colorInt],
     );
   }
 
+
+  //main build starts here
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -105,10 +129,37 @@ class _OrganizationsState extends State<Organizations> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: alphaMembersList.isEmpty
-            ? Center(child: CircularProgressIndicator())
-            : RefreshIndicator(
-                onRefresh: () async {
+        body:alphaMembersList.isEmpty
+        ? RefreshIndicator(
+          onRefresh: () async {
+          getMembers();
+          },
+           child: Center(
+               child : Column(
+            children : <Widget>[
+                    SizedBox(
+                height: 250,
+              ),
+                    Text(
+                "No member to Show",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+                    SizedBox(
+                height: 50,
+              ),
+              RaisedButton(onPressed: (){
+                getMembers();
+              },
+              child: Text("Refresh"),
+
+              )
+
+        ])))
+                : RefreshIndicator(
+                onRefresh: () async{
                   getMembers();
                 },
                 child: CustomScrollView(
@@ -122,6 +173,8 @@ class _OrganizationsState extends State<Organizations> {
                 )));
   }
 
+
+  //widget which divides the list according to letters
   Widget alphabetDividerList(BuildContext context, List membersList) {
     return SliverStickyHeader(
       header: Container(
@@ -149,36 +202,44 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
+
+  //a custom card made for showing member details
   Widget memberCard(index, List membersList) {
     Color color = idToColor(membersList[index]['_id']);
     return GestureDetector(
         onTap: () {
           pushNewScreen(context,
-              screen: MemberDetail(member: membersList[index], color: color));
+              screen: MemberDetail(member: membersList[index], color: color,admins: admins,creatorId: creatorId,));
         },
-        child: Card(
+        child:
+        Card(
           clipBehavior: Clip.hardEdge,
           child: Row(
             children: [
               membersList[index]['image'] == null
                   ? defaultUserImage(membersList[index])
                   : userImage(membersList[index]),
-              Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.all(20),
-                  height: 80,
-                  color: Colors.white,
-                  child: Text(
-                    membersList[index]['firstName'].toString() +
-                        ' ' +
-                        membersList[index]['lastName'].toString(),
-                    textAlign: TextAlign.left,
-                  ))
+              Flexible(
+                child: Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(20),
+                    height: 80,
+                    color: Colors.white,
+                    child: Text(
+                      membersList[index]['firstName'].toString() +
+                          ' ' +
+                          membersList[index]['lastName'].toString(),
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                    )),
+              )
             ],
           ),
         ));
   }
 
+
+  //widget to get the user images
   Widget userImage(Map member) {
     return Container(
       height: 80,
@@ -207,6 +268,8 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
+
+  //widget to get the default user image
   Widget defaultUserImage(Map member) {
     return Container(
         padding: EdgeInsets.all(0),
@@ -224,23 +287,9 @@ class _OrganizationsState extends State<Organizations> {
                 ))));
   }
 
+  //the widget is user for pop up menu
   Widget popUpMenue(Map member) {
     return PopupMenuButton<int>(
-      // onSelected: (val) async {
-      //   if (val == 1) {
-      //     pushNewScreen(
-      //       context,
-      //       withNavBar: true,
-      //       screen: UserTasks(),
-      //     );
-      //   } else if (val == 2) {
-      //     pushNewScreen(
-      //       context,
-      //       withNavBar: true,
-      //       screen: RegisterdEvents(),
-      //     );
-      //   }
-      // },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
         const PopupMenuItem<int>(
             value: 1,

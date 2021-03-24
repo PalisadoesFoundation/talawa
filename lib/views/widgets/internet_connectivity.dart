@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//this file is there to check the internet connectivity of the device it is being running
+
 class NoInternetConnection extends StatefulWidget {
   @override
   _NoInternetConnectionState createState() => _NoInternetConnectionState();
