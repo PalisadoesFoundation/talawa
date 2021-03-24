@@ -143,9 +143,8 @@ class RegisterFormState extends State<RegisterForm> {
 
   //get image using camera
   _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
-
+    final pickImage = await ImagePicker().getImage(source: ImageSource.camera);
+    File image = File(pickImage.path);
     setState(() {
       _image = image;
     });
@@ -153,14 +152,11 @@ class RegisterFormState extends State<RegisterForm> {
 
   //get image using gallery
   _imgFromGallery() async {
-    FilePickerResult result =
-        await FilePicker.platform.pickFiles(type: FileType.image);
-    if (result != null) {
-      File image = File(result.files.first.path);
-      setState(() {
-        _image = image;
-      });
-    }
+    final pickImage = await ImagePicker().getImage(source: ImageSource.gallery);
+    File image = File(pickImage.path);
+    setState(() {
+      _image = image;
+    });
   }
 
   @override

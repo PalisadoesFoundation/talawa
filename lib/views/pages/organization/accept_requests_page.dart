@@ -123,80 +123,136 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   Widget build(BuildContext context) {
     //building the UI page
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Membership Requests',
-              style: TextStyle(color: Colors.white)),
-        ),
-        body: Stack(
-          children: [
-            processing
-                ? Container(
-                    color: Colors.transparent.withOpacity(0.3),
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
-                : SizedBox(),
-            !loaded
-                ? Center(child: CircularProgressIndicator())
-                : membershipRequestsList.length == 0
-                    ? Center(child: Text('No Member Requests Available'))
-                    : ListView.builder(
-                        itemCount: membershipRequestsList.length,
-                        itemBuilder: (context, index) {
-                          final membershipRequests =
-                              membershipRequestsList[index];
-                          return Card(
-                            child: ListTile(
-                              //building the List of the organization in the database
-                              leading: membershipRequests['user']['image'] !=
-                                      null
-                                  ? CircleAvatar(
-                                      radius: 30,
-                                      backgroundImage: NetworkImage(Provider.of<
-                                                  GraphQLConfiguration>(context)
-                                              .displayImgRoute +
-                                          membershipRequests['user']['image']))
-                                  : CircleAvatar(
-                                      radius: 30,
-                                      backgroundImage:
-                                          AssetImage("assets/images/team.png")),
-                              title: Text(membershipRequests['user']
-                                      ['firstName'] +
-                                  ' ' +
-                                  membershipRequests['user']['lastName']),
-                              trailing: Wrap(
-                                spacing: 4,
-                                children: <Widget>[
-                                  IconButton(
-                                    iconSize: 26.0,
-                                    icon: Icon(Icons.delete),
-                                    color: Colors.red,
-                                    onPressed: () {
-                                      itemIndex = membershipRequests['_id'];
-                                      rejectMemberShipRequests();
-                                    },
-                                  ),
-                                  IconButton(
-                                    iconSize: 26.0,
-                                    icon: Icon(Icons.check),
-                                    color: Colors.green,
-                                    onPressed: () {
-                                      itemIndex = membershipRequests['_id'];
-                                      acceptMemberShipRequests();
-                                    },
-                                  ),
-                                ],
+      appBar: AppBar(
+        title: const Text('Membership Requests',
+            style: TextStyle(color: Colors.white)),
+      ),
+      body: membershipRequestsList.isEmpty ?
+      Center(child:
+      Column(
+          children: <Widget>[
+            SizedBox(
+              height: 250,
+            ),
+            Text(
+              "No request",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+          ]
+      ))
+          : ListView.builder(
+          itemCount: membershipRequestsList.length,
+          itemBuilder: (context, index) {
+            final membershipRequests = membershipRequestsList[index];
+            return Card(
+                child: ListTile( //building the List of the organization in the database
+                    leading: membershipRequests['user']['image'] != null
+                        ? CircleAvatar(
+                        radius: 30,
+                        backgroundImage: NetworkImage(
+                            Provider
+                                .of<GraphQLConfiguration>(context)
+                                .displayImgRoute +
+                                membershipRequests['user']['image']))
+                        : CircleAvatar(
+                        radius: 30,
+                        backgroundImage: AssetImage("assets/images/team.png")),
+                    title: Text(membershipRequests['user']['firstName'] +
+                        ' ' +
+                        membershipRequests['user']['lastName']),
+                    trailing: Wrap(
+                      spacing: 4,
+                      children: <Widget>[
+                        IconButton(
+                          iconSize: 26.0,
+                          icon: Icon(Icons.delete),
+                          color: Colors.red,
+                          onPressed: () {
+                            itemIndex = membershipRequests['_id'];
+                            rejectMemberShipRequests();
+                          },
+                        ),
+                        IconButton(
+                          iconSize: 26.0,
+                          icon: Icon(Icons.check),
+                          color: Colors.green,
+                          onPressed: () {
+                            itemIndex = membershipRequests['_id'];
+                            acceptMemberShipRequests();
+                          },
+                        ),
+                        (!loaded)
+                            ? Center(child: CircularProgressIndicator())
+                            : membershipRequestsList.length == 0
+                            ? Center(
+                            child: Text('No Member Requests Available'))
+                            : ListView.builder(
+                          itemCount: membershipRequestsList.length,
+                          itemBuilder: (context, index) {
+                            final membershipRequests =
+                            membershipRequestsList[index];
+                            return Card(
+                              child: ListTile(
+                                //building the List of the organization in the database
+                                leading: membershipRequests['user']['image'] !=
+                                    null
+                                    ? CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: NetworkImage(Provider
+                                        .of<
+                                        GraphQLConfiguration>(context)
+                                        .displayImgRoute +
+                                        membershipRequests['user']['image']))
+                                    : CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage:
+                                    AssetImage("assets/images/team.png")),
+                                title: Text(membershipRequests['user']
+                                ['firstName'] +
+                                    ' ' +
+                                    membershipRequests['user']['lastName']),
+                                trailing: Wrap(
+                                  spacing: 4,
+                                  children: <Widget>[
+                                    IconButton(
+                                      iconSize: 26.0,
+                                      icon: Icon(Icons.delete),
+                                      color: Colors.red,
+                                      onPressed: () {
+                                        itemIndex = membershipRequests['_id'];
+                                        rejectMemberShipRequests();
+                                      },
+                                    ),
+                                    IconButton(
+                                      iconSize: 26.0,
+                                      icon: Icon(Icons.check),
+                                      color: Colors.green,
+                                      onPressed: () {
+                                        itemIndex = membershipRequests['_id'];
+                                        acceptMemberShipRequests();
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-          ],
-        ));
+                            );
+                          },
+                        ),
+                      ],
+                    )
+                )
+            );
+          }
+      ),
+    );
   }
-
-  Widget showError(BuildContext context, String msg) {
+        Widget showError(BuildContext context, String msg) {
     //function which will be called if there is some error in the program
     return Center(
       child: Text(
