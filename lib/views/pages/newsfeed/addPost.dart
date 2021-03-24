@@ -1,7 +1,5 @@
-
 //flutter imported packages
 import 'package:flutter/material.dart';
-
 //pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
@@ -18,8 +16,10 @@ class AddPost extends StatefulWidget {
 class _AddPostState extends State<AddPost> {
   final titleController = TextEditingController();
   final textController = TextEditingController();
+  AutovalidateMode validate = AutovalidateMode.disabled;
   String id;
-  String oranizationId;
+  String organizationId;
+  Map result;
   Preferences preferences = Preferences();
 
   //giving every variable its initial state
@@ -32,17 +32,19 @@ class _AddPostState extends State<AddPost> {
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
-      oranizationId = orgId;
+      organizationId = orgId;
     });
-    print(oranizationId);
+    print(organizationId);
   }
 
   //creating post
   createPost() async {
+    textController.text = textController.text.trim().replaceAll('\n', ' ');
+    titleController.text = titleController.text.trim().replaceAll('\n', ' ');
     String mutation = Queries()
-        .addPost(textController.text, oranizationId, titleController.text);
+        .addPost(textController.text, organizationId, titleController.text);
     ApiFunctions apiFunctions = ApiFunctions();
-    Map result = await apiFunctions.gqlmutation(mutation);
+    result = await apiFunctions.gqlmutation(mutation);
   }
 
   void dispose() {
@@ -52,7 +54,7 @@ class _AddPostState extends State<AddPost> {
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+
   //main build starts from here
   @override
   Widget build(BuildContext context) {
@@ -65,13 +67,14 @@ class _AddPostState extends State<AddPost> {
       ),
       body: Container(
           child: Form(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        autovalidateMode: validate,
         key: _formKey,
         child: Column(
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(9.0),
               child: TextFormField(
+                textInputAction: TextInputAction.next,
                 validator: (String value) {
                   if (value.isEmpty) {
                     return "This field is Required";
@@ -97,6 +100,8 @@ class _AddPostState extends State<AddPost> {
               padding: const EdgeInsets.all(9.0),
               child: TextFormField(
                 controller: textController,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
                 validator: (String value) {
                   if (value.isEmpty) {
                     return "This field is Required";
