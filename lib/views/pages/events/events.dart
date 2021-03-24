@@ -268,7 +268,6 @@ class _EventsState extends State<Events> {
   Widget calendar() {
     DateTime now = DateTime.now();
     Map thisMonthsEvents = eventsToDates(eventList, now);
-    print(thisMonthsEvents);
     return ListView(children: [
       TableCalendar(
         onVisibleDaysChanged: (m, n, b) {
