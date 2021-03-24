@@ -105,45 +105,6 @@ void main() {
       );
     });
 
-    testWidgets("Create an Account Button is disabled if url not verfied",
-        (tester) async {
-      // Ignore overflow errors.
-      FlutterError.onError = onErrorIgnoreOverflowErrors;
-      await tester.pumpWidget(createLoginPageScreen());
-
-      // Get the create account button.
-      var createAccountButton = find.text("Create an Account");
-
-      // Tap on the createAccountButton.
-      await tester.tap(createAccountButton);
-      await tester.pumpAndSettle();
-
-      // RegisterForm should not be displayed.
-      expect(
-        find.text("SIGN UP"),
-        findsNothing,
-      );
-    });
-
-    testWidgets("Login Button is disabled if url not verfied", (tester) async {
-      // Ignore overflow errors.
-      FlutterError.onError = onErrorIgnoreOverflowErrors;
-      await tester.pumpWidget(createLoginPageScreen());
-
-      // Get the login button.
-      var loginButton = find.text("Login");
-
-      // Tap on the login button
-      await tester.tap(loginButton);
-      await tester.pumpAndSettle();
-
-      // LoginForm should not be displayed.
-      expect(
-        find.text("SIGN IN"),
-        findsNothing,
-      );
-    });
-
     testWidgets("Create an Account Button is working if url is verfied",
         (tester) async {
       // Ignore overflow errors.
