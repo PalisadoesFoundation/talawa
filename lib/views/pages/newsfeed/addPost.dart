@@ -1,10 +1,12 @@
 //flutter imported packages
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 //pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/views/widgets/toast_tile.dart';
 
 class AddPost extends StatefulWidget {
   AddPost({Key key}) : super(key: key);
@@ -20,12 +22,15 @@ class _AddPostState extends State<AddPost> {
   String id;
   String organizationId;
   Map result;
+  FToast fToast;
   Preferences preferences = Preferences();
 
   //giving every variable its initial state
   initState() {
     super.initState();
     getCurrentOrgId();
+    fToast = FToast();
+    fToast.init(context);
   }
 
   //this method is getting the current org id
@@ -38,13 +43,24 @@ class _AddPostState extends State<AddPost> {
   }
 
   //creating post
-  createPost() async {
+  Future createPost() async {
     textController.text = textController.text.trim().replaceAll('\n', ' ');
     titleController.text = titleController.text.trim().replaceAll('\n', ' ');
     String mutation = Queries()
         .addPost(textController.text, organizationId, titleController.text);
     ApiFunctions apiFunctions = ApiFunctions();
-    result = await apiFunctions.gqlmutation(mutation);
+    try {
+      result = await apiFunctions.gqlmutation(mutation);
+      if (result != null) {
+        Navigator.pop(context, true);
+      } else {
+        _exceptionToast(result.toString().substring(20, 35));
+      }
+      return result;
+    } on Exception catch (e) {
+      print(e.toString());
+      _exceptionToast(e.toString().substring(28, 68));
+    }
   }
 
   void dispose() {
@@ -141,7 +157,6 @@ class _AddPostState extends State<AddPost> {
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
             createPost();
-            Navigator.pop(context, true);
           }
         });
   }
@@ -158,5 +173,16 @@ class _AddPostState extends State<AddPost> {
                   borderSide: BorderSide(color: Colors.teal)),
               hintText: name),
         ));
+  }
+
+  _exceptionToast(String msg) {
+    fToast.showToast(
+      child: ToastTile(
+        msg: msg,
+        success: false,
+      ),
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 3),
+    );
   }
 }
