@@ -90,6 +90,7 @@ class _AddPostState extends State<AddPost> {
             Padding(
               padding: const EdgeInsets.all(9.0),
               child: TextFormField(
+                key: Key('Title'),
                 textInputAction: TextInputAction.next,
                 validator: (String value) {
                   if (value.isEmpty) {
@@ -115,6 +116,7 @@ class _AddPostState extends State<AddPost> {
             Padding(
               padding: const EdgeInsets.all(9.0),
               child: TextFormField(
+                key: Key('Description'),
                 controller: textController,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
@@ -148,6 +150,7 @@ class _AddPostState extends State<AddPost> {
   //this method adds the post
   Widget addPostFab() {
     return FloatingActionButton(
+      key: Key('submit'),
         backgroundColor: UIData.secondaryColor,
         child: Icon(
           Icons.check,
