@@ -267,27 +267,6 @@ class _EventsState extends State<Events> {
             }
           },
         ));
-    /* eventList.isEmpty
-            ? Center(child: CircularProgressIndicator())
-            : RefreshIndicator(
-                onRefresh: () async {
-                  getEvents();
-                },
-                child: CustomScrollView(
-                  slivers: [
-                    SliverAppBar(
-                        backgroundColor: Colors.white,
-                        automaticallyImplyLeading: false,
-                        expandedHeight: 380,
-                        flexibleSpace: FlexibleSpaceBar(
-                          background: calendar(),
-                        )),
-                    SliverStickyHeader(
-                      header: carouselSliderBar(),
-                      sliver: SliverFillRemaining(child: eventListView()),
-                    ),
-                  ],
-                )));*/
   }
 
   Widget calendar() {
@@ -297,11 +276,10 @@ class _EventsState extends State<Events> {
     return ListView(children: [
       TableCalendar(
         onVisibleDaysChanged: (m, n, b) {
-          //now = now.add(Duration(days: 22));
+          now = now.add(Duration(days: 22));
           setState(() {
             thisMonthsEvents = eventsToDates(eventList, now);
           });
-          print('CAALEEDD');
         },
         calendarStyle: CalendarStyle(markersColor: Colors.black45),
         /*onDaySelected: (day, events) {
