@@ -100,12 +100,14 @@ class _EventsState extends State<Events> {
             event);
       } else {
         if (event['recurrance'] == 'DAILY') {
-          int day = 1;
-          int lastday = DateTime(now.year, now.month + 1, 0).day;
+          int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
+          print('First day : $day');
+          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
+          print('Last day : $lastday');
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
-
             day += 1;
+            print(day);
           }
         }
         if (event['recurrance'] == 'WEEKLY') {
@@ -140,7 +142,9 @@ class _EventsState extends State<Events> {
   Future<void> _deleteEvent(context, eventId) async {
     String mutation = Queries().deleteEvent(eventId);
     Map result = await apiFunctions.gqlquery(mutation);
-    getEvents();
+    setState(() {
+      getEvents();
+    });
   }
 
   //function to called be called for register
@@ -300,13 +304,15 @@ class _EventsState extends State<Events> {
   Widget calendar() {
     DateTime now = DateTime.now();
     Map thisMonthsEvents = eventsToDates(eventList, now);
+    print(thisMonthsEvents);
     return ListView(children: [
       TableCalendar(
         onVisibleDaysChanged: (m, n, b) {
-          now = now.add(Duration(days: 22));
+          //now = now.add(Duration(days: 22));
           setState(() {
             thisMonthsEvents = eventsToDates(eventList, now);
           });
+          print('CAALEEDD');
         },
         calendarStyle: CalendarStyle(markersColor: Colors.black45),
         /*onDaySelected: (day, events) {

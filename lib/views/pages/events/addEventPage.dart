@@ -67,6 +67,7 @@ class _AddEventState extends State<AddEvent> {
       setState(() {
         dateRange = picked;
       });
+    print(dateRange);
   }
 
   //method to be called when the user wants to select time
@@ -93,14 +94,14 @@ class _AddEventState extends State<AddEvent> {
         dateRange.start.year,
         dateRange.start.month,
         dateRange.start.day,
-        startEndTimes['End Time'].hour,
-        startEndTimes['End Time'].minute);
-    DateTime endTime = DateTime(
-        dateRange.start.year,
-        dateRange.start.month,
-        dateRange.start.day,
         startEndTimes['Start Time'].hour,
         startEndTimes['Start Time'].minute);
+    DateTime endTime = DateTime(
+        dateRange.end.year,
+        dateRange.end.month,
+        dateRange.end.day,
+        startEndTimes['End Time'].hour,
+        startEndTimes['End Time'].minute);
 
     if (switchVals['All Day']) {
       startEndTimes = {
