@@ -105,7 +105,21 @@ void main() {
       );
     });
 
-    testWidgets("Create an Account Button is working if url is verfied",
+    testWidgets("Create an Account Button is invisible if url not verfied",
+        (tester) async {
+      // Ignore overflow errors.
+      FlutterError.onError = onErrorIgnoreOverflowErrors;
+      await tester.pumpWidget(createLoginPageScreen());
+
+      // Button should not be displayed.
+      expect(
+        find.text("Create an Account"),
+        findsNothing,
+      );
+    });
+
+
+    testWidgets("Create an Account Button is visible if url is verfied",
         (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
@@ -155,7 +169,19 @@ void main() {
       );
     });
 
-    testWidgets("Login Button is working if url is verfied", (tester) async {
+    testWidgets("Login Button is invisible if url not verfied",
+            (tester) async {
+          // Ignore overflow errors.
+          FlutterError.onError = onErrorIgnoreOverflowErrors;
+          await tester.pumpWidget(createLoginPageScreen());
+
+          // Button should not be displayed.
+          expect(
+            find.text("Login"),
+            findsNothing,
+          );
+        });
+    testWidgets("Login Button is Visible if url is verfied", (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
