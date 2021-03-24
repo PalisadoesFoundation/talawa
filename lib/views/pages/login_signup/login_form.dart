@@ -265,7 +265,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child: Text(msg)),
+          Expanded(child: Text(msg, textAlign: TextAlign.center,)),
         ],
       ),
     );
@@ -273,7 +273,9 @@ class LoginFormState extends State<LoginForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
+
       toastDuration: Duration(seconds: 5),
+
     );
   }
 
