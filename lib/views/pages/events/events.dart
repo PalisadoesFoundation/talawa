@@ -213,7 +213,7 @@ class _EventsState extends State<Events> {
         ),
         floatingActionButton: eventFab(),
         body: eventList.isEmpty
-            ? Center(child: Loading())
+            ? Center(child: Loading(key: UniqueKey(),))
             : RefreshIndicator(
                 onRefresh: () async {
                   getEvents();
@@ -334,7 +334,7 @@ class _EventsState extends State<Events> {
 
   Widget eventListView() {
     return displayedEvents.isEmpty
-        ? Center(child: Loading())
+        ? Center(child: Loading(key: UniqueKey(),))
         : RefreshIndicator(
             onRefresh: () async {
               getEvents();

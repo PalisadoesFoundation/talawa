@@ -4,15 +4,19 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 
 class Loading extends StatefulWidget {
+  Loading({Key key}) : super(key: key);  
   @override
   _LoadingState createState() => _LoadingState();
 }
 
 class _LoadingState extends State<Loading> {
   bool loading = true;
-  @override
-  void initState(){
-    super.initState();
+  void loadingFunc(){
+    if(mounted){
+      setState(() {
+        loading=true;
+      });
+    }
     Timer(Duration(seconds: 10), () {
       if (mounted) {
         setState(() {
@@ -21,6 +25,18 @@ class _LoadingState extends State<Loading> {
       }
     });
   }
+  @override
+  void initState(){
+    super.initState();
+    loadingFunc();
+    print(1);
+  }
+  @override
+  void didUpdateWidget (Loading oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    loadingFunc();
+  }
+
   @override
   Widget build(BuildContext context) {
     return loading?CircularProgressIndicator():Column(

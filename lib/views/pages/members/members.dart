@@ -114,7 +114,7 @@ class _OrganizationsState extends State<Organizations> {
           ),
         ),
         body: alphaMembersList.isEmpty
-            ? Center(child: Loading())
+            ? Center(child: Loading(key:UniqueKey()))
             : RefreshIndicator(
                 onRefresh: () async {
                   getMembers();

@@ -165,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: userDetails.isEmpty
-            ? Center(child: Loading())
+            ? Center(child: Loading(key: UniqueKey(),))
             : Column(
                 children: <Widget>[
                   Container(

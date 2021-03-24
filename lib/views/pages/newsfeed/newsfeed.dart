@@ -100,7 +100,7 @@ class _NewsFeedState extends State<NewsFeed> {
         appBar: CustomAppBar('NewsFeed'),
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
-            ? Center(child: Loading())
+            ? Center(child: Loading(key: UniqueKey(),))
             : RefreshIndicator(
                 onRefresh: () async {
                   getPosts();
