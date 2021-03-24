@@ -77,7 +77,7 @@ class _AddPostState extends State<AddPost> {
                 maxLines: null,
                 keyboardType: TextInputType.multiline,
                 inputFormatters: [
-                  LengthLimitingTextInputFormatter(10000)
+                  LengthLimitingTextInputFormatter(30)
                 ],
                 validator: (String value) {
                   if (value.length > 30) {
