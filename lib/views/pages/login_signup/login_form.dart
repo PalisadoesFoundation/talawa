@@ -164,7 +164,6 @@ class LoginFormState extends State<LoginForm> {
                 TextFormField(
                   autofillHints: <String>[AutofillHints.password],
                   obscureText: _obscureText,
-                  validator: (value) => Validator.validatePassword(value),
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
