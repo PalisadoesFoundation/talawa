@@ -203,3 +203,4 @@ class JoinOrgnizationViewModel extends BaseModel {
     return false;
   }
 }
+}
