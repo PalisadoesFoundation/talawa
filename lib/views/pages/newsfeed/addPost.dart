@@ -135,8 +135,6 @@ class _AddPostState extends State<AddPost> {
                 keyboardType: TextInputType.multiline,
                 key: Key('Description'),
                 controller: textController,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
                 validator: (String value) {
                   if (value.length > 10000) {
                     return "Post cannot be longer than 10000 letters";
