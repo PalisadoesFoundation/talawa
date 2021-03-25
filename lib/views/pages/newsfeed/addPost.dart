@@ -81,7 +81,7 @@ class _AddPostState extends State<AddPost> {
                 ],
                 validator: (String value) {
                   if (value.length > 30) {
-                    return "Title cannot be longer than 30 letters";
+                    return "Post title cannot be longer than 30 letters";
                   }
 
                   if (value.isEmpty) {
@@ -114,7 +114,7 @@ class _AddPostState extends State<AddPost> {
                 controller: textController,
                 validator: (String value) {
                   if (value.length > 10000) {
-                    return "Title cannot be longer than 10000 letters";
+                    return "Post cannot be longer than 10000 letters";
                   }
 
                   if (value.isEmpty) {
