@@ -151,20 +151,25 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-    eventList = result == null ? [] : result['events'].reversed.toList();
-    eventList.removeWhere((element) =>
-        element['title'] == 'Talawa Congress' ||
-        element['title'] == 'test' ||
-        element['title'] == 'Talawa Conference Test' ||
-        element['title'] == 'mayhem' ||
-        element['title'] == 'mayhem1'); //dont know who keeps adding these
-    eventsToDates(eventList, DateTime.now());
-    setState(() {
-      displayedEvents = eventList;
-    });
-    // print(displayedEvents);
+      Map result =
+      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+      eventList = result == null ? [] : result['events'].reversed.toList();
+      eventList.removeWhere((element) =>
+          element['title'] == 'Talawa Congress' ||
+          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1'); //dont know who keeps adding these
+      // This removes all invalid date formats other than Unix time
+      eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
+      eventList.sort((a, b) {
+        return DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(a['startTime']))
+          .compareTo(
+          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+      });
+      eventsToDates(eventList, DateTime.now());
+      setState(() {
+        displayedEvents = eventList;
+      });
+      // print(displayedEvents);
   }
 
   //functions to edit the event

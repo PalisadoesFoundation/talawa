@@ -8,7 +8,6 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 
 Widget createLoginPageScreen() => MultiProvider(
@@ -241,6 +240,81 @@ void main() {
       expect(
         find.text("SIGN IN"),
         findsOneWidget,
+      );
+    });
+
+    testWidgets("Protocol selection button is available or not",
+        (tester) async {
+      // Ignore overflow errors.
+      FlutterError.onError = onErrorIgnoreOverflowErrors;
+
+      await tester.pumpWidget(createLoginPageScreen());
+
+      // Verify that protocol selection button is present.
+      expect(
+        find.text("HTTP"),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets("On changing protocol 'URL Saved!' text changes to 'Set URL'",
+        (tester) async {
+      // Ignore overflow errors.
+      FlutterError.onError = onErrorIgnoreOverflowErrors;
+
+      await tester.pumpWidget(createLoginPageScreen());
+
+      /// Enter [calico.palisadoes.org] in [TextFormField].
+      await tester.enterText(
+        find.byType(TextFormField),
+        'calico.palisadoes.org',
+      );
+
+      //  Check if saveMsg is "Set URL".
+      expect(
+        find.text("Set URL"),
+        findsOneWidget,
+      );
+
+      // Get the Set URL Button.
+      var setURLButton = find.text("Set URL");
+
+      // Tap on Set URL Button.
+      await tester.tap(setURLButton);
+      await tester.pumpAndSettle();
+
+      // Verify that saveMsg changes from "Set URL" to "URL SAVED!".
+      expect(
+        find.text("Set URL"),
+        findsNothing,
+      );
+      expect(
+        find.text("URL SAVED!"),
+        findsOneWidget,
+      );
+
+      // Get the DropdownButton
+      var dropDownButton = find.text("HTTP").first;
+
+      // Tap on the dropDownButton.
+      await tester.tap(dropDownButton);
+      await tester.pumpAndSettle();
+
+      // Get the httpsOptionButton.
+      var httpsOptionButton = find.text("HTTPS").first;
+
+      // Tap on the httpsOptionButton.
+      await tester.tap(httpsOptionButton);
+      await tester.pumpAndSettle();
+
+      // Verify that saveMsg changes from "URL SAVED!" to "Set URL".
+      expect(
+        find.text("Set URL"),
+        findsOneWidget,
+      );
+      expect(
+        find.text("URL SAVED!"),
+        findsNothing,
       );
     });
   });
