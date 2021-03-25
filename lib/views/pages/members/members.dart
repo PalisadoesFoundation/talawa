@@ -23,15 +23,26 @@ class Organizations extends StatefulWidget {
 
 class _OrganizationsState extends State<Organizations> {
   String currentOrgID;
+  int count = 0;
   List alphaMembersList = [];
   int isSelected = 0;
   List admins = [];
   String creatorId;
   bool loading = true;
   Preferences preferences = Preferences();
+  @override
+  void didChangeDependencies() {
+    // When parent widget `updateShouldNotify: true`,
+    // child widget can obtain new value when setting `listen: true`.
+    currentOrgID = Provider.of<Preferences>(context, listen: true).orgId;
+    loading = true;
+    getMembers();
+    super.didChangeDependencies();
+  }
 
   //providing initial states to the variables
-  initState() {
+  @override
+  void initState() {
     super.initState();
     getMembers();
   }
@@ -81,7 +92,6 @@ class _OrganizationsState extends State<Organizations> {
   //function to get the members of an organization
   // ignore: missing_return
   Future<List> getMembers() async {
-    String currentOrgID = await preferences.getCurrentOrgId();
     if (currentOrgID != null) {
       ApiFunctions apiFunctions = ApiFunctions();
       var result =
@@ -100,6 +110,7 @@ class _OrganizationsState extends State<Organizations> {
     } else {
       setState(() {
         alphaMembersList = [];
+        loading = false;
       });
     }
   }
@@ -118,55 +129,60 @@ class _OrganizationsState extends State<Organizations> {
   //main build starts here
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Members',
-            style: TextStyle(color: Colors.white),
-          ),
+      appBar: AppBar(
+        title: Text(
+          'Members',
+          style: TextStyle(color: Colors.white),
         ),
-        body: loading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : alphaMembersList.isEmpty
-                ? Center(
-                    child: Column(children: <Widget>[
-                    SizedBox(
-                      height: 250,
+      ),
+      body: loading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : alphaMembersList.isEmpty
+              ? Center(
+                  child: Column(children: <Widget>[
+                  SizedBox(
+                    height: 250,
+                  ),
+                  Text(
+                    currentOrgID == null
+                        ? "Join/Create organization"
+                        : "Something went wrong",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
-                    Text(
-                      "Something went wrong",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    RaisedButton(
-                      onPressed: () {
-                        setState(() {
-                          loading = true;
-                        });
-                        getMembers();
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  currentOrgID == null
+                      ? SizedBox()
+                      : RaisedButton(
+                          onPressed: () {
+                            setState(() {
+                              loading = true;
+                            });
+                            getMembers();
+                          },
+                          child: Text("Refresh"),
+                        )
+                ]))
+              : RefreshIndicator(
+                  onRefresh: () async {
+                    getMembers();
+                  },
+                  child: CustomScrollView(
+                    slivers: List.generate(
+                      alphaMembersList.length,
+                      (index) {
+                        return alphabetDividerList(
+                            context, alphaMembersList[index]);
                       },
-                      child: Text("Refresh"),
-                    )
-                  ]))
-                : RefreshIndicator(
-                    onRefresh: () async {
-                      getMembers();
-                    },
-                    child: CustomScrollView(
-                      slivers: List.generate(
-                        alphaMembersList.length,
-                        (index) {
-                          return alphabetDividerList(
-                              context, alphaMembersList[index]);
-                        },
-                      ),
-                    )));
+                    ),
+                  )),
+    );
   }
 
   //widget which divides the list according to letters

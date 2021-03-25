@@ -1,32 +1,32 @@
-
 //flutter packages
 import 'dart:io';
-import 'package:flutter/material.dart';
 
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:graphql/utilities.dart' show multipartFileFrom;
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:graphql/utilities.dart' show multipartFileFrom;
-import 'package:file_picker/file_picker.dart';
 import 'package:talawa/views/pages/_pages.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CreateOrganization extends StatefulWidget {
   final bool isFromProfile;
-  CreateOrganization({this.isFromProfile=false});
+  CreateOrganization({this.isFromProfile = false});
   @override
   _CreateOrganizationState createState() => _CreateOrganizationState();
 }
 
-class _CreateOrganizationState extends State<CreateOrganization> { //defining the Organization creation state
+class _CreateOrganizationState extends State<CreateOrganization> {
+  //defining the Organization creation state
   final orgNameController = TextEditingController();
   final orgDescController = TextEditingController();
   final orgMemberDescController = TextEditingController();
@@ -54,11 +54,15 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
     _progressBarState = !_progressBarState;
   }
 
-  createOrg() async { //this is the function which will be called when the organization is created
+  createOrg() async {
+    //this is the function which will be called when the organization is created
     GraphQLClient _client = graphQLConfiguration.authClient();
-    orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
-    orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
-    orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
+    orgNameController.text =
+        orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text =
+        orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text =
+        orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final img = await multipartFileFrom(_image);
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
@@ -90,23 +94,35 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
       });
       _successToast("Sucess!");
       print(result.data);
+      if (widget.isFromProfile) {
+        final String currentOrgId = result.data['createOrganization']['_id'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgId(currentOrgId);
 
-      if(widget.isFromProfile){
+        final String currentOrgName = result.data['createOrganization']['name'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgName(currentOrgName);
+
         Navigator.pop(context);
         Navigator.pop(context);
-      }else {
-        Navigator.of(
-            context).pushReplacement(MaterialPageRoute(
-            builder: (context) => HomePage(openPageIndex: 2,)));
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => HomePage(
+                  openPageIndex: 2,
+                )));
       }
     }
   }
 
-  createOrgWithoutImg() async { //the function is called when we are creating the organization without the display picture
+  createOrgWithoutImg() async {
+    //the function is called when we are creating the organization without the display picture
     GraphQLClient _client = graphQLConfiguration.authClient();
-    orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
-    orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
-    orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
+    orgNameController.text =
+        orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text =
+        orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text =
+        orgMemberDescController.text.trim().replaceAll('\n', ' ');
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrgWithoutImg(
         orgNameController.text,
@@ -134,18 +150,28 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
       });
       _successToast("Sucess!");
       print(result.data);
-      if(widget.isFromProfile){
+      if (widget.isFromProfile) {
+        final String currentOrgId = result.data['createOrganization']['_id'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgId(currentOrgId);
+
+        final String currentOrgName = result.data['createOrganization']['name'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgName(currentOrgName);
+
         Navigator.pop(context);
         Navigator.pop(context);
-      }else {
-        Navigator.of(
-            context).pushReplacement(MaterialPageRoute(
-            builder: (context) => HomePage(openPageIndex: 2,)));
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => HomePage(
+                  openPageIndex: 2,
+                )));
       }
     }
   }
 
-  _imgFromCamera() async { //this is the function when the user want to capture the image from the camera
+  _imgFromCamera() async {
+    //this is the function when the user want to capture the image from the camera
     File image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50);
 
@@ -154,8 +180,8 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
     });
   }
 
-
-  _imgFromGallery() async { //this is the function when the user want to take the picture from the gallery
+  _imgFromGallery() async {
+    //this is the function when the user want to take the picture from the gallery
     File image = File(
         (await FilePicker.platform.pickFiles(type: FileType.image))
             .files
@@ -359,9 +385,11 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                             vertical: 20.0, horizontal: 30.0),
                         width: double.infinity,
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
                           child: _progressBarState
                               ? const Center(
                                   child: SizedBox(
@@ -408,7 +436,8 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
     );
   }
 
-  Widget addImage() { //function which is being called when the image is being add
+  Widget addImage() {
+    //function which is being called when the image is being add
     return Column(
       children: <Widget>[
         SizedBox(
@@ -444,7 +473,8 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
     );
   }
 
-  void _showPicker(context) { //this is called when the image is clicked and it shows the options that can be used to take the picture
+  void _showPicker(context) {
+    //this is called when the image is clicked and it shows the options that can be used to take the picture
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -452,7 +482,8 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
             child: Container(
               child: Wrap(
                 children: <Widget>[
-                  ListTile( //taking picture from the camera
+                  ListTile(
+                    //taking picture from the camera
                     leading: Icon(Icons.camera_alt_outlined),
                     title: Text('Camera'),
                     onTap: () {
@@ -460,7 +491,8 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                       Navigator.of(context).pop();
                     },
                   ),
-                  ListTile( //taking picture from the library
+                  ListTile(
+                      //taking picture from the library
                       leading: Icon(Icons.photo_library),
                       title: Text('Photo Library'),
                       onTap: () {

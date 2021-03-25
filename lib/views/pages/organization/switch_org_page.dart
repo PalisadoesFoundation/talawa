@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 //pages are called here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 
@@ -93,16 +92,15 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
 
         //save new current org in preference
         final String currentOrgId = result.data['organizations'][0]['_id'];
-        await _pref.saveCurrentOrgId(currentOrgId);
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgId(currentOrgId);
+        final String currentOrgName = result.data['organizations'][0]['name'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgName(currentOrgName);
         final String currentOrgImgSrc =
             result.data['organizations'][0]['image'];
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-        final String currentOrgName = result.data['organizations'][0]['name'];
-        await _pref.saveCurrentOrgName(currentOrgName);
-        pushNewScreen(
-          context,
-          screen: ProfilePage(),
-        );
+        Navigator.pop(context);
       }
     }
   }
