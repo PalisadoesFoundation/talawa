@@ -94,105 +94,99 @@ class _NewsFeedState extends State<NewsFeed> {
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
             ? Center(child: CircularProgressIndicator())
-            : RefreshIndicator(
-                onRefresh: () async {
-                  getPosts();
-                },
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                            itemCount: postList.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                padding: EdgeInsets.only(top: 20),
-                                child: Column(
-                                  children: <Widget>[
-                                    InkWell(
-                                      onTap: () {
-                                        pushNewScreen(
-                                          context,
-                                          screen: NewsArticle(
-                                              post: postList[index]),
-                                        );
-                                      },
-                                      child: Card(
-                                        color: Colors.white,
-                                        child: Column(
-                                          children: <Widget>[
-                                            Container(
-                                                padding: EdgeInsets.all(5.0),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                  child: Image.asset(
-                                                      UIData.shoppingImage),
-                                                )),
-                                            Row(children: <Widget>[
-                                              SizedBox(
-                                                width: 30,
-                                              ),
-                                              Container(
-                                                  child: Text(
-                                                postList[index]['title']
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20.0,
-                                                ),
+            : Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: postList.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Column(
+                                children: <Widget>[
+                                  InkWell(
+                                    onTap: () {
+                                      pushNewScreen(
+                                        context,
+                                        screen:
+                                            NewsArticle(post: postList[index]),
+                                      );
+                                    },
+                                    child: Card(
+                                      color: Colors.white,
+                                      child: Column(
+                                        children: <Widget>[
+                                          Container(
+                                              padding: EdgeInsets.all(5.0),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                                child: Image.asset(
+                                                    UIData.shoppingImage),
                                               )),
-                                            ]),
+                                          Row(children: <Widget>[
                                             SizedBox(
-                                              height: 10,
+                                              width: 30,
                                             ),
-                                            Row(children: <Widget>[
-                                              SizedBox(
-                                                width: 30,
+                                            Container(
+                                                child: Text(
+                                              postList[index]['title']
+                                                  .toString(),
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20.0,
                                               ),
-                                              Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width -
-                                                      50,
-                                                  child: Text(
-                                                    postList[index]["text"]
-                                                        .toString(),
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 10,
-                                                    style: TextStyle(
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  )),
-                                            ]),
-                                            Padding(
-                                                padding: EdgeInsets.all(10),
-                                                child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: <Widget>[
-                                                      likeButton(index),
-                                                      commentCounter(index),
-                                                      Container(width: 80)
-                                                    ])),
-                                          ],
-                                        ),
+                                            )),
+                                          ]),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(children: <Widget>[
+                                            SizedBox(
+                                              width: 30,
+                                            ),
+                                            Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width -
+                                                    50,
+                                                child: Text(
+                                                  postList[index]["text"]
+                                                      .toString(),
+                                                  textAlign: TextAlign.justify,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 10,
+                                                  style: TextStyle(
+                                                    fontSize: 16.0,
+                                                  ),
+                                                )),
+                                          ]),
+                                          Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: <Widget>[
+                                                    likeButton(index),
+                                                    commentCounter(index),
+                                                    Container(width: 80)
+                                                  ])),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              );
-                            }),
-                      ),
-                    ],
-                  ),
-                )));
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
+                ),
+              ));
   }
 
   //function to add the post on the news feed
