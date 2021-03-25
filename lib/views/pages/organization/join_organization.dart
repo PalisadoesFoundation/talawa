@@ -451,5 +451,27 @@ class _JoinOrganizationViewState extends State<JoinOrganizationView> {
 
   void confirmOrgDialog(BuildContext context) {
     //this is the pop up shown when the confirmation is required
+  _exceptionToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Expanded(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(msg),
+          ],
+        ),
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 3),
+    );
   }
 }
