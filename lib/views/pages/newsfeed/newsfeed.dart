@@ -1,6 +1,7 @@
 import 'dart:ffi';
 //flutter packages are imported here
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -227,12 +228,16 @@ class _NewsFeedState extends State<NewsFeed> {
           ),
         ),
         IconButton(
-            icon: Icon(Icons.comment), color: Colors.grey, onPressed: () {
-          pushNewScreen(
-            context,
-            screen: NewsArticle(
-                post: postList[index]),
-          );
+            icon: Icon(Icons.comment), color: Colors.grey, onPressed: () async{
+        var refresh = await Navigator.push(context,CupertinoPageRoute(
+                    builder: (context) => NewsArticle(
+                          post: postList[index],
+                        )),
+              ).then((value) {
+                if (value != null && value) {
+                  getPosts();
+                }
+              });
         })
       ],
     );
