@@ -1,9 +1,9 @@
-
 //flutter imported package
 import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 //pages are called here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +13,6 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/memberDetails.dart';
-import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 class Organizations extends StatefulWidget {
   Organizations({Key key}) : super(key: key);
@@ -23,23 +22,22 @@ class Organizations extends StatefulWidget {
 }
 
 class _OrganizationsState extends State<Organizations> {
-
   String currentOrgID;
   List alphaMembersList = [];
   int isSelected = 0;
   List admins = [];
   String creatorId;
+  bool loading = true;
   Preferences preferences = Preferences();
 
-
   //providing initial states to the variables
-   initState( )  {
+  initState() {
     super.initState();
     getMembers();
   }
 
   List alphaSplitList(List list) {
-    //split list alphabeticaly
+    //split list alphabetically
     List alphabet = [
       'A',
       'B',
@@ -68,57 +66,54 @@ class _OrganizationsState extends State<Organizations> {
       'Y',
       'Z'
     ];
-    List alphalist = [];
+    List alphaList = [];
     for (String letter in alphabet) {
-      alphalist.add(list
+      alphaList.add(list
           .where((element) =>
               element['firstName'][0] == letter ||
               element['firstName'][0] == letter.toLowerCase())
           .toList());
     }
-    alphalist.removeWhere((element) => element.isEmpty);
-    return alphalist;
+    alphaList.removeWhere((element) => element.isEmpty);
+    return alphaList;
   }
 
   //function to get the members of an organization
   // ignore: missing_return
   Future<List> getMembers() async {
-     String currentOrgID = await preferences.getCurrentOrgId();
-     print(currentOrgID);
-     if(currentOrgID != null){
+    String currentOrgID = await preferences.getCurrentOrgId();
+    if (currentOrgID != null) {
       ApiFunctions apiFunctions = ApiFunctions();
-    var result =
-        await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
-    print(result);
-    List membersList = result == null ? [] : result['organizations'];
-      if(result['organizations'].length>0){
+      var result =
+          await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+
+      List membersList = result == null ? [] : result['organizations'];
+      if (result != null) {
         admins = result['organizations'][0]['admins'];
         creatorId = result['organizations'][0]['creator']['_id'];
-        print(admins);
-      }
-    if(membersList.isNotEmpty) {
-      alphaMembersList = membersList[0]['members'];
-      setState(() {
+        alphaMembersList = membersList[0]['members'];
         alphaMembersList = alphaSplitList(alphaMembersList);
+      }
+      setState(() {
+        loading = false;
       });
-    }}else{
+    } else {
       setState(() {
         alphaMembersList = [];
       });
-     }
+    }
   }
 
   //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
     String userId = id.replaceAll(RegExp('[a-z]'), '');
-    int colorInt = int.parse(userId.substring(userId.length -10));
+    int colorInt = int.parse(userId.substring(userId.length - 10));
     colorInt = (colorInt % 18);
     return Color.alphaBlend(
       Colors.black45,
       Colors.primaries[colorInt],
     );
   }
-
 
   //main build starts here
   Widget build(BuildContext context) {
@@ -129,50 +124,50 @@ class _OrganizationsState extends State<Organizations> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body:alphaMembersList.isEmpty
-        ? RefreshIndicator(
-          onRefresh: () async {
-          getMembers();
-          },
-           child: Center(
-               child : Column(
-            children : <Widget>[
-                    SizedBox(
-                height: 250,
-              ),
-                    Text(
-                "No member to Show",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-                    SizedBox(
-                height: 50,
-              ),
-              RaisedButton(onPressed: (){
-                getMembers();
-              },
-              child: Text("Refresh"),
-
+        body: loading
+            ? Center(
+                child: CircularProgressIndicator(),
               )
-
-        ])))
+            : alphaMembersList.isEmpty
+                ? Center(
+                    child: Column(children: <Widget>[
+                    SizedBox(
+                      height: 250,
+                    ),
+                    Text(
+                      "Something went wrong",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        setState(() {
+                          loading = true;
+                        });
+                        getMembers();
+                      },
+                      child: Text("Refresh"),
+                    )
+                  ]))
                 : RefreshIndicator(
-                onRefresh: () async{
-                  getMembers();
-                },
-                child: CustomScrollView(
-                  slivers: List.generate(
-                    alphaMembersList.length,
-                    (index) {
-                      return alphabetDividerList(
-                          context, alphaMembersList[index]);
+                    onRefresh: () async {
+                      getMembers();
                     },
-                  ),
-                )));
+                    child: CustomScrollView(
+                      slivers: List.generate(
+                        alphaMembersList.length,
+                        (index) {
+                          return alphabetDividerList(
+                              context, alphaMembersList[index]);
+                        },
+                      ),
+                    )));
   }
-
 
   //widget which divides the list according to letters
   Widget alphabetDividerList(BuildContext context, List membersList) {
@@ -202,17 +197,20 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
-
   //a custom card made for showing member details
   Widget memberCard(index, List membersList) {
     Color color = idToColor(membersList[index]['_id']);
     return GestureDetector(
         onTap: () {
           pushNewScreen(context,
-              screen: MemberDetail(member: membersList[index], color: color,admins: admins,creatorId: creatorId,));
+              screen: MemberDetail(
+                member: membersList[index],
+                color: color,
+                admins: admins,
+                creatorId: creatorId,
+              ));
         },
-        child:
-        Card(
+        child: Card(
           clipBehavior: Clip.hardEdge,
           child: Row(
             children: [
@@ -237,7 +235,6 @@ class _OrganizationsState extends State<Organizations> {
           ),
         ));
   }
-
 
   //widget to get the user images
   Widget userImage(Map member) {
@@ -267,7 +264,6 @@ class _OrganizationsState extends State<Organizations> {
       ),
     );
   }
-
 
   //widget to get the default user image
   Widget defaultUserImage(Map member) {
