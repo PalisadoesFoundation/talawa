@@ -142,6 +142,7 @@ class _EventsState extends State<Events> {
     String mutation = Queries().registerForEvent(eventId);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
+    await getEvents();
   }
 
 
