@@ -264,7 +264,7 @@ class _EventsState extends State<Events> {
               print(snapshot.data);
               return Center(child: CircularProgressIndicator());
             } else if (state == ConnectionState.none) {
-              return Text('COULD NOT FETCH.');
+              return Text('Could Not Fetch Data.');
             }
           },
         ));
