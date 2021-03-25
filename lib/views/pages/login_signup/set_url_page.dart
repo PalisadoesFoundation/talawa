@@ -6,6 +6,7 @@ import 'package:talawa/utils/validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
+import 'package:talawa/utils/SizeConfig.dart';
 
 class UrlPage extends StatefulWidget {
   @override
@@ -127,6 +128,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     var loginController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500),
