@@ -96,11 +96,13 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new HomePage()));
+      Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => new JoinOrganization(
                 fromProfile: false,
               )));
-    }
+          }
   }
 
   //function called when the user is called without the image
@@ -134,7 +136,9 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
 
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new HomePage()));
+      Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => new JoinOrganization(
                 fromProfile: false,
               )));
