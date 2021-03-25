@@ -448,8 +448,4 @@ class _JoinOrganizationViewState extends State<JoinOrganizationView> {
       ),
     );
   }
-
-  void confirmOrgDialog(BuildContext context) {
-    //this is the pop up shown when the confirmation is required
-  }
 }
