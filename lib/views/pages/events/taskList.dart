@@ -46,7 +46,7 @@ class _TaskListState extends State<TaskList> {
         itemCount: eventTasks.length,
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Text(eventTasks[index]['desctription']),
+            leading: Text(eventTasks[index]['description']),
           );
         });
   }
