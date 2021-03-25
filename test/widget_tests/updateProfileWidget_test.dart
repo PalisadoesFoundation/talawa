@@ -7,9 +7,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/organization/update_profile_page.dart';
 
-Widget createProfileUpdateScreen(
-        {String creatorId, List admins, Map member, Color color}) =>
-    MultiProvider(
+Widget createProfileUpdateScreen() => MultiProvider(
         providers: [
           ChangeNotifierProvider<GraphQLConfiguration>(
             create: (_) => GraphQLConfiguration(),
@@ -40,20 +38,7 @@ void main() {
     testWidgets("3 TestFormField Exist in Profile Page Update",
         (WidgetTester tester) async {
       await tester.pumpWidget(
-          new MediaQuery(
-            data: new MediaQueryData(),
-            child: new MaterialApp(
-                home: UpdateProfilePage(
-              userDetails: [
-                {
-                  "firstName": "Test",
-                  "lastName": "User",
-                  "email": "test@test.com",
-                }
-              ],
-            )),
-          ),
-          Duration(microseconds: 100));
+          createProfileUpdateScreen(), Duration(microseconds: 100));
 
       var textField = find.byType(TextFormField);
       expect(textField, findsNWidgets(3));
@@ -62,20 +47,7 @@ void main() {
     testWidgets("Flexible Space Bar in Profile Widget",
         (WidgetTester tester) async {
       await tester.pumpWidget(
-          new MediaQuery(
-            data: new MediaQueryData(),
-            child: new MaterialApp(
-                home: UpdateProfilePage(
-              userDetails: [
-                {
-                  "firstName": "Test",
-                  "lastName": "User",
-                  "email": "test@test.com",
-                }
-              ],
-            )),
-          ),
-          Duration(microseconds: 100));
+          createProfileUpdateScreen(), Duration(microseconds: 100));
 
       var tile = find.byType(ListTile);
       expect(tile, findsOneWidget);
