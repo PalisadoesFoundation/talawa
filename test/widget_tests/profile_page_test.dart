@@ -13,7 +13,7 @@ void main() {
     testWidgets('When not able to fetch data from server', (tester) async {
 
       List notJoinedInAny = [];
-
+       await tester.pumpAndSettle(const Duration(seconds: 10));
       await tester.pumpWidget(
           createProfileScreen(
             isCreator: null,
