@@ -130,7 +130,7 @@ class _AddPostState extends State<AddPost> {
                   ),
                   labelText: 'Write Your post here....',
                 ),
-                //  'Give your post a title....',
+                //  'Give your post Description here....',
               ),
             ),
             ),
