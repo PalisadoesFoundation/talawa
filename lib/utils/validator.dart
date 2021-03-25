@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 
+
 class Validator {
   static String validateURL(String value) {
     if (value.length == 0) {
