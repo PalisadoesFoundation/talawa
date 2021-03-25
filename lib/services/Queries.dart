@@ -797,6 +797,9 @@ mutation{
 
   // Function to make it possible to pass backslashs(\) and double quotes(*) inside a query
   String replaceAll(String str) {
-    return str.replaceAll("\\", "\\\\\\\\").replaceAll('"', '\\\\\\"');
+    return str
+        .toString()
+        .replaceAll("\\", "\\\\\\\\")
+        .replaceAll('"', '\\\\\\"');
   }
 }
