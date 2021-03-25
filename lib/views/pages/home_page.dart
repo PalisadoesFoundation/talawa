@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/SizeConfig.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
 import 'package:talawa/views/pages/members/members.dart';
@@ -112,9 +111,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-    SizeConfig().init(context);
-
     return
         PersistentTabView( //calling the Persistent tab view here
       backgroundColor: UIData.primaryColor,

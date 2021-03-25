@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/SizeConfig.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:http/http.dart' as http;
@@ -128,9 +127,6 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
-    SizeConfig().init(context);
-
     var loginController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500),
