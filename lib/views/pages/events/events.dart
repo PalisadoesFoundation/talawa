@@ -154,6 +154,8 @@ class _EventsState extends State<Events> {
       eventList.removeWhere((element) =>
           element['title'] == 'Talawa Congress' ||
           element['title'] == 'test' || element['title'] == 'Talawa Conference Test'); //dont know who keeps adding these
+      // This removes all invalid date formats other than Unix time
+      eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
       eventList.sort((a, b) {
         return DateTime.fromMicrosecondsSinceEpoch(
           int.parse(a['startTime']))
@@ -165,16 +167,6 @@ class _EventsState extends State<Events> {
         displayedEvents = eventList;
       });
       // print(displayedEvents);
-
-
-    eventList.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-        int.parse(a['startTime']))
-        .compareTo(
-        DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime']))));
-    eventsToDates(eventList, DateTime.now());
-    setState(() {
-      displayedEvents = eventList;
-    });
   }
 
 
