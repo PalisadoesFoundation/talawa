@@ -130,7 +130,6 @@ class LoginFormState extends State<LoginForm> {
                 TextFormField(
                   autofillHints: <String>[AutofillHints.email],
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) => Validator.validateEmail(value),
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
                   //Changed text input action to next
@@ -164,7 +163,6 @@ class LoginFormState extends State<LoginForm> {
                 TextFormField(
                   autofillHints: <String>[AutofillHints.password],
                   obscureText: _obscureText,
-                  validator: (value) => Validator.validatePassword(value),
                   textAlign: TextAlign.left,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(

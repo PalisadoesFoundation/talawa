@@ -43,8 +43,9 @@ class Validator {
   //   }
   //   return null;
   // }
+
   static String validatePassword(String value) {
-    String pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~]).{8,}$';
+    String pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~.]).{8,}$';
     RegExp regExp = new RegExp(pattern);
     if (!regExp.hasMatch(value)) {
       return "Invalid Password";
