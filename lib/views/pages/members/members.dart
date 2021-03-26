@@ -175,7 +175,7 @@ class _OrganizationsState extends State<Organizations> {
       overlapsContent: false,
       header: Container(
         color: Colors.white,
-        height: 60.0,
+        height: 61.0,
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         alignment: Alignment.centerLeft,
         child: CircleAvatar(
