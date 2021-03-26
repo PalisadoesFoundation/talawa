@@ -13,6 +13,7 @@ import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
+import 'controllers/post_controller.dart';
 import 'views/pages/organization/create_organization.dart';
 import 'views/pages/organization/switch_org_page.dart';
 
@@ -73,7 +74,16 @@ class MyApp extends StatelessWidget {
           WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));
         },
-        home: userID == null ? UrlPage() : HomePage(), //checking weather the user is logged in or not
+        //checking weather the user is logged in or not
+          home: userID == null
+            ? UrlPage()
+            : MultiProvider(
+                providers: [
+                  ChangeNotifierProvider<PostController>(
+                      create: (_) => PostController()),
+                ],
+                child: HomePage(),
+              ),
       ),
     );
   }

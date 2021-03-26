@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:talawa/controllers/post_controller.dart';
 
 //the pages are called here
 import 'package:talawa/services/Queries.dart';
@@ -20,9 +20,9 @@ const String newLineKey = "@123TALAWA321@";
 
 // ignore: must_be_immutable
 class NewsArticle extends StatefulWidget {
-  Map post;
+  int index;
 
-  NewsArticle({Key key, @required this.post}) : super(key: key);
+  NewsArticle({Key key, @required this.index}) : super(key: key);
 
   @override
   _NewsArticleState createState() => _NewsArticleState();
@@ -43,17 +43,21 @@ class _NewsArticleState extends State<NewsArticle> {
   List comments = [];
   bool moreComments = false;
   bool isCommentAdded = false;
+  int index;
+  Map post;
 
   Queries _query = Queries();
   List userDetails = [];
   String userID;
   String orgName;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+  PostController postController;
 
   @override
   void initState() {
     super.initState();
     fetchUserDetails();
+    index = widget.index;
   }
 
   Future fetchUserDetails() async {
@@ -106,7 +110,7 @@ class _NewsArticleState extends State<NewsArticle> {
 
   //this method helps us to get the comments of the post
   getPostComments() async {
-    String mutation = Queries().getPostsComments(widget.post['_id']);
+    String mutation = Queries().getPostsComments(post['_id']);
     Map result = await apiFunctions.gqlmutation(mutation);
     setState(() {
       comments =
@@ -120,7 +124,7 @@ class _NewsArticleState extends State<NewsArticle> {
     if (commentController.text.isNotEmpty) {
       Fluttertoast.showToast(msg: "Adding Comment...");
       queryText = commentController.text.replaceAll("\n", newLineKey).trim();
-      String mutation = Queries().createComments(widget.post['_id'], queryText);
+      String mutation = Queries().createComments(post['_id'], queryText);
       Map result = await apiFunctions.gqlmutation(mutation);
       print(result);
       if (result == null) {
@@ -134,6 +138,7 @@ class _NewsArticleState extends State<NewsArticle> {
         Fluttertoast.showToast(
           msg: "Comment added.",
         );
+        postController.addComment(index, result["createComment"]);
       }
     } else {
       Fluttertoast.showToast(msg: "Please write comment");
@@ -148,112 +153,116 @@ class _NewsArticleState extends State<NewsArticle> {
   //main build starts here
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 4,
-            child: Stack(
-              children: [
-                SizedBox.expand(
-                  child: FittedBox(
-                    child: Image.asset(
-                      UIData.shoppingImage,
-                    ),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      widget.post['title'].toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 30.0),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 10),
-                    child: Text(widget.post['text'].toString()),
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: ListTile(
-                    leading: userDetails.isEmpty
-                        ? null
-                        : _profileImage(),
-                    title: Container(
-                      constraints: BoxConstraints(
-                        maxHeight: double.infinity,
-                        minHeight: 20,
-                      ),
-                      child: TextFormField(
-                        textInputAction: TextInputAction.newline,
-                        keyboardType: TextInputType.multiline,
-                        validator: (String value) {
-                          if (value.length > 500) {
-                            return "Comment cannot be longer than 500 letters";
-                          }
-                          if(value.length == 0)
-                            {
-                              return "Comment cannot be empty";
-                            }
-                          return null;
-                          },
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(500)
-                        ],
-                        //minLines: 1,//Normal textInputField will be displayed
-                        //maxLines: 10,// when user presses enter it will adapt to it
-                        maxLines: null,
-                        decoration: InputDecoration(
-                            suffix: IconButton(
-                              color: Colors.grey,
-                              icon: Icon(Icons.send),
-                              onPressed: () {
-                                print(commentController.text);
-                                createComment();
-                              },
-                            ),
-                            hintText: 'Leave a Comment....',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: BorderSide(color: Colors.teal))),
-                        controller: commentController,
+    postController = Provider.of<PostController>(context);
+    return Consumer<PostController>(
+      builder: (context, postController, child) {
+        post = postController.posts[index];
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 4,
+                child: Stack(
+                  children: [
+                    SizedBox.expand(
+                      child: FittedBox(
+                        child: Image.asset(
+                          UIData.shoppingImage,
+                        ),
+                        fit: BoxFit.fill,
                       ),
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          post['title'].toString(),
+                          style: TextStyle(color: Colors.white, fontSize: 30.0),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Flexible(
-                  flex: 10,
-                  child: Container(
-                      child: loadComments == false
-                          ? Align(
-                              alignment: Alignment.topCenter,
-                              child: loadCommentsButton())
-                          : commentList()),
+              ),
+              Expanded(
+                flex: 10,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 10),
+                        child: Text(post['text'].toString()),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: ListTile(
+                        leading: userDetails.isEmpty ? null : _profileImage(),
+                        title: Container(
+                          constraints: BoxConstraints(
+                            maxHeight: double.infinity,
+                            minHeight: 20,
+                          ),
+                          child: TextFormField(
+                            textInputAction: TextInputAction.newline,
+                            keyboardType: TextInputType.multiline,
+                            validator: (String value) {
+                              if (value.length > 500) {
+                                return "Comment cannot be longer than 500 letters";
+                              }
+                              if (value.length == 0) {
+                                return "Comment cannot be empty";
+                              }
+                              return null;
+                            },
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(500)
+                            ],
+                            //minLines: 1,//Normal textInputField will be displayed
+                            //maxLines: 10,// when user presses enter it will adapt to it
+                            maxLines: null,
+                            decoration: InputDecoration(
+                                suffix: IconButton(
+                                  color: Colors.grey,
+                                  icon: Icon(Icons.send),
+                                  onPressed: () {
+                                    print(commentController.text);
+                                    createComment();
+                                  },
+                                ),
+                                hintText: 'Leave a Comment....',
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    borderSide:
+                                        BorderSide(color: Colors.teal))),
+                            controller: commentController,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 10,
+                      child: Container(
+                          child: loadComments == false
+                              ? Align(
+                                  alignment: Alignment.topCenter,
+                                  child: loadCommentsButton())
+                              : commentList()),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 

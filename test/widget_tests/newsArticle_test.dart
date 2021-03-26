@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
@@ -24,14 +25,13 @@ Widget NewsArticlePage() => MultiProvider(
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
         ),
+        ChangeNotifierProvider<PostController>(
+          create: (_) => PostController(),
+        ),
       ],
       child: MaterialApp(
         home: NewsArticle(
-          post: {
-            '_id': '605259ecb1257f67811d7ae3',
-            'text': 'ndlnldwnl',
-            'title': 'naanlls'
-          },
+          index: 0,
         ),
       ),
     );
