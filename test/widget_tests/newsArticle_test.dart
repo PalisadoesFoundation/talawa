@@ -74,7 +74,10 @@ void main() {
   };
   group("News Article Tests", () {
     testWidgets("Testing if newsArticle Page shows up", (tester) async {
-      await tester.pumpWidget(NewsArticlePage());
+      PostController().getPosts();
+      await Future.delayed(const Duration(milliseconds: 1), () async {
+        await tester.pumpWidget(NewsArticlePage());
+      });
 
       /// Verify if [News Article Page] shows up.
 
