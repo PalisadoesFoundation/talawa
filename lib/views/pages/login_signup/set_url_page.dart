@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/SizeConfig.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:http/http.dart' as http;
@@ -51,9 +50,9 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
   Future setApiUrl() async {
     setState(() {
       orgUrl =
-          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
+      "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
       orgImgUrl =
-          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
+      "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
     });
     await _pref.saveOrgUrl(orgUrl);
     await _pref.saveOrgImgUrl(orgImgUrl);
@@ -128,9 +127,6 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
-    SizeConfig().init(context);
-
     var loginController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 500),
@@ -172,9 +168,8 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
           FadeTransition(
             opacity: animation,
             child: Container(
-              width: SizeConfig.screenWidth*0.6,
-              height: SizeConfig.screenHeight*0.4,
               //padding: EdgeInsets.all(100.0),
+              padding: EdgeInsets.symmetric(vertical: 50.0),
               child: Center(child: Image(image: AssetImage(UIData.talawaLogo))),
             ),
           ),
@@ -188,7 +183,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                   padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                   width: _media != null
                       ? _media.size.width
-                      : SizeConfig.screenWidth,
+                      : MediaQuery.of(context).size.width,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
@@ -203,7 +198,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: SizeConfig.screenWidth * 0.2,
+                                  fontSize: 60,
                                 ),
                               ),
                             ),
@@ -218,7 +213,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                             style: TextStyle(
                               color: Colors.orange,
                               fontWeight: FontWeight.bold,
-                              fontSize: SizeConfig.screenWidth * 0.2,
+                              fontSize: 60,
                             ),
                           ),
                         ),
@@ -235,8 +230,8 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                     child: Container(
                       width: _media != null
                           ? _media.size.width
-                          : SizeConfig.screenWidth,
-                      margin: EdgeInsets.only(
+                          : MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(
                           left: 20.0, right: 30.0, top: 10.0),
                       alignment: Alignment.center,
                       child: Column(
@@ -247,11 +242,11 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                                 value: dropdownValue,
                                 icon: Icon(Icons.arrow_downward,
                                     color: Colors.orange),
-                                iconSize: SizeConfig.blockSizeVertical * 4,
+                                iconSize: 24,
                                 elevation: 16,
                                 style: TextStyle(color: UIData.primaryColor),
                                 underline: Container(
-                                  height: SizeConfig.blockSizeHorizontal * 1,
+                                  height: 2,
                                   color: UIData.primaryColor,
                                 ),
                                 onChanged: (String newValue) {
@@ -286,25 +281,25 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                                       decoration: InputDecoration(
                                         enabledBorder: OutlineInputBorder(
                                           borderSide:
-                                              BorderSide(color: Colors.white),
+                                          BorderSide(color: Colors.white),
                                           borderRadius:
-                                              BorderRadius.circular(50.0),
+                                          BorderRadius.circular(50.0),
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide:
-                                              BorderSide(color: Colors.orange),
+                                          BorderSide(color: Colors.orange),
                                           borderRadius:
-                                              BorderRadius.circular(50.0),
+                                          BorderRadius.circular(50.0),
                                         ),
                                         prefixIcon: Icon(Icons.web,
                                             color: Colors.white),
                                         labelText: "Type Org URL Here",
                                         labelStyle:
-                                            TextStyle(color: Colors.white),
+                                        TextStyle(color: Colors.white),
                                         alignLabelWithHint: true,
                                         hintText: 'calico.palisadoes.org',
                                         hintStyle:
-                                            TextStyle(color: Colors.grey),
+                                        TextStyle(color: Colors.grey),
                                       ),
                                       controller: urlController,
                                     )),
@@ -312,7 +307,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                             ],
                           ),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical,
+                            height: 5,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -325,14 +320,14 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                                   ),
                                   child: isUrlCalled
                                       ? SizedBox(
-                                          height: 14,
-                                          width: 14,
-                                          child: CircularProgressIndicator(
-                                              backgroundColor: Colors.white),
-                                        )
+                                    height: 14,
+                                    width: 14,
+                                    child: CircularProgressIndicator(
+                                        backgroundColor: Colors.white),
+                                  )
                                       : Text(
-                                          saveMsg,
-                                        ),
+                                    saveMsg,
+                                  ),
                                   //color: Colors.white,
                                   onPressed: () async {
                                     FocusScope.of(context).unfocus();
@@ -353,10 +348,10 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                   height: 20,
                 ),
                 Visibility(
+                  visible: saveMsg == "URL SAVED!",
+                  maintainState: true,
                   maintainSize: true,
                   maintainAnimation: true,
-                  maintainState: true,
-                  visible:  saveMsg == "URL SAVED!",
                   child: FadeTransition(
                     //changed opacity animation to match login button animation
                     opacity: loginAnimation,
@@ -382,16 +377,16 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
                                     : () async {
-                                        if (_formKey.currentState.validate()) {
-                                          _formKey.currentState.save();
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    RegisterPage()),
-                                          );
-                                        }
-                                      },
+                                  if (_formKey.currentState.validate()) {
+                                    _formKey.currentState.save();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              RegisterPage()),
+                                    );
+                                  }
+                                },
                                 child: new Container(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 20.0,
@@ -400,7 +395,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                                   decoration: BoxDecoration(
                                       border: Border.all(color: Colors.orange),
                                       borderRadius:
-                                          new BorderRadius.circular(50.0)),
+                                      new BorderRadius.circular(50.0)),
                                   child: new Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
@@ -429,10 +424,10 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                 ),
                 SizedBox(height: 5),
                 Visibility(
+                  visible: saveMsg == "URL SAVED!",
+                  maintainState: true,
                   maintainSize: true,
                   maintainAnimation: true,
-                  maintainState: true,
-                  visible:  saveMsg == "URL SAVED!",
                   child: FadeTransition(
                     opacity: loginAnimation,
                     child: Container(
@@ -456,15 +451,15 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                                 onPressed: saveMsg != "URL SAVED!"
                                     ? null
                                     : () async {
-                                        if (_formKey.currentState.validate()) {
-                                          _formKey.currentState.save();
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      LoginPage()));
-                                        }
-                                      },
+                                  if (_formKey.currentState.validate()) {
+                                    _formKey.currentState.save();
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                LoginPage()));
+                                  }
+                                },
                                 child: new Container(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 20.0,
@@ -473,7 +468,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                                   decoration: BoxDecoration(
                                       border: Border.all(color: Colors.orange),
                                       borderRadius:
-                                          new BorderRadius.circular(50.0)),
+                                      new BorderRadius.circular(50.0)),
                                   child: new Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
