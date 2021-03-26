@@ -46,6 +46,10 @@ class _HomePageState extends State<HomePage> {
     Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
   }
 
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   Future<void> getUserInfo() async {
     final String userID = await preferences.getUserId(); //getting the current user id from the server
