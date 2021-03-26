@@ -1,17 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/_pages.dart';
 
-Widget createProfileScreen({bool isCreator, List userDetails}) => MaterialApp(
-      home: ProfilePage(isCreator: isCreator, test: userDetails),
+Widget createProfileScreen({bool isCreator, List userDetails}) => MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
+        ChangeNotifierProvider<GraphQLConfiguration>(
+          create: (_) => GraphQLConfiguration(),
+        ),
+        ChangeNotifierProvider<OrgController>(
+          create: (_) => OrgController(),
+        ),
+        ChangeNotifierProvider<AuthController>(
+          create: (_) => AuthController(),
+        ),
+        ChangeNotifierProvider<Preferences>(
+          create: (_) => Preferences(),
+        ),
+      ],
+      child: MaterialApp(
+        home: ProfilePage(isCreator: isCreator, test: userDetails),
+      ),
     );
 
 void main() {
   group('Profile Page Widget Tests', () {
-
     //Test when there is error loading data
     testWidgets('When not able to fetch data from server', (tester) async {
-
       List notJoinedInAny = [];
 
       await tester.pumpWidget(
@@ -27,7 +47,6 @@ void main() {
 
     //Test when the user has no current organization/not joined any organization
     testWidgets('When user is not in any organization', (tester) async {
-
       List notJoinedInAny = [
         {
           '_id': '60573d99cf13b54d55284aac',
@@ -59,7 +78,6 @@ void main() {
       expect(find.byKey(Key('Logout')), findsOneWidget);
     });
     testWidgets('When user is member in current organization', (tester) async {
-
       List joinedCreator = [
         {
           '_id': '60573d99cf13b54d55284aac',
@@ -117,7 +135,6 @@ void main() {
     });
 
     testWidgets('When user is member in current organization', (tester) async {
-
       List joinedAdmin = [
         {
           '_id': '60573d99cf13b54d55284aac',
@@ -177,7 +194,6 @@ void main() {
 
     testWidgets('When user is creator/admin in current organization',
         (tester) async {
-
       List joinedMember = [
         {
           '_id': '60573d99cf13b54d55284aac',
