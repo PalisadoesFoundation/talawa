@@ -2,8 +2,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+
 
 //the pages are called here
 import 'package:talawa/services/Queries.dart';
@@ -200,9 +203,22 @@ class _NewsArticleState extends State<NewsArticle> {
                         maxHeight: double.infinity,
                         minHeight: 20,
                       ),
-                      child: TextField(
+                      child: TextFormField(
                         textInputAction: TextInputAction.newline,
                         keyboardType: TextInputType.multiline,
+                        validator: (String value) {
+                          if (value.length > 500) {
+                            return "Comment cannot be longer than 500 letters";
+                          }
+                          if(value.length == 0)
+                            {
+                              return "Comment cannot be empty";
+                            }
+                          return null;
+                          },
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(500)
+                        ],
                         //minLines: 1,//Normal textInputField will be displayed
                         //maxLines: 10,// when user presses enter it will adapt to it
                         maxLines: null,

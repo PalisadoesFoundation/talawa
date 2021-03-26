@@ -19,9 +19,9 @@ Core features to be developed include:
 This has been a Calico Challenge project in 2019. It will be written in python with close integrations with the Plone open source content management system.
 
 # Documentation
- - The talawa documentation can be found [here][readthedocs].
- - Visit the [Talawa GitHub][repo] to see the code.
+ - The talawa documentation can be found [here](https://palisadoesfoundation.github.io/talawa-docs/).
  - Want to contribute? Look at [CONTRIBUTING.md][link] to get started.
+ - Visit the [Talawa GitHub][repo] to see the code.
 
 # About Talawa
  
