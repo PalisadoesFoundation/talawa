@@ -353,6 +353,9 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                   height: 20,
                 ),
                 Visibility(
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
                   visible:  saveMsg == "URL SAVED!",
                   child: FadeTransition(
                     //changed opacity animation to match login button animation
@@ -426,6 +429,9 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                 ),
                 SizedBox(height: 5),
                 Visibility(
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
                   visible:  saveMsg == "URL SAVED!",
                   child: FadeTransition(
                     opacity: loginAnimation,
