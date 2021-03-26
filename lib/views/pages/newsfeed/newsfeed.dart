@@ -88,7 +88,8 @@ class _NewsFeedState extends State<NewsFeed> {
                                         pushNewScreen(
                                           context,
                                           screen: NewsArticle(
-                                              index: index,),
+                                            index: index,
+                                          ),
                                         );
                                       },
                                       child: Card(
@@ -184,7 +185,7 @@ class _NewsFeedState extends State<NewsFeed> {
                   screen: AddPost(), settings: RouteSettings())
               .then((value) async {
             if (value != null && value) {
-             await  postController.getPosts();
+              await postController.getPosts();
             }
           });
         });
@@ -208,9 +209,10 @@ class _NewsFeedState extends State<NewsFeed> {
               await Navigator.push(
                 context,
                 CupertinoPageRoute(
-                    builder: (context) => NewsArticle(
-                          index: index,
-                        )),
+                  builder: (context) => NewsArticle(
+                    index: index,
+                  ),
+                ),
               );
             })
       ],
