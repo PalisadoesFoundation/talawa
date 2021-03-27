@@ -8,12 +8,10 @@ Widget createProfileScreen({bool isCreator, List userDetails}) => MaterialApp(
 
 void main() {
   group('Profile Page Widget Tests', () {
-
     //Test when there is error loading data
     testWidgets('When not able to fetch data from server', (tester) async {
-
       List notJoinedInAny = [];
-       await tester.pumpAndSettle(const Duration(seconds: 10));
+      //await tester.pumpAndSettle(const Duration(seconds: 10));
       await tester.pumpWidget(
           createProfileScreen(
             isCreator: null,
@@ -27,7 +25,6 @@ void main() {
 
     //Test when the user has no current organization/not joined any organization
     testWidgets('When user is not in any organization', (tester) async {
-
       List notJoinedInAny = [
         {
           '_id': '60573d99cf13b54d55284aac',
@@ -59,7 +56,6 @@ void main() {
       expect(find.byKey(Key('Logout')), findsOneWidget);
     });
     testWidgets('When user is member in current organization', (tester) async {
-
       List joinedCreator = [
         {
           '_id': '60573d99cf13b54d55284aac',
@@ -117,7 +113,6 @@ void main() {
     });
 
     testWidgets('When user is member in current organization', (tester) async {
-
       List joinedAdmin = [
         {
           '_id': '60573d99cf13b54d55284aac',
@@ -177,7 +172,6 @@ void main() {
 
     testWidgets('When user is creator/admin in current organization',
         (tester) async {
-
       List joinedMember = [
         {
           '_id': '60573d99cf13b54d55284aac',
