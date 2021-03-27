@@ -88,6 +88,17 @@ class _AddEventState extends State<AddEvent> {
 
   //method used to create an event
   Future<void> createEvent() async {
+
+    DateTime startDate = DateTime(
+        dateRange.start.year,
+        dateRange.start.month,
+        dateRange.start.day
+    );
+    DateTime endDate = DateTime(
+        dateRange.start.year,
+        dateRange.start.month,
+        dateRange.start.day
+    );
     DateTime startTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
@@ -101,6 +112,7 @@ class _AddEventState extends State<AddEvent> {
         startEndTimes['End Time'].hour,
         startEndTimes['End Time'].minute);
 
+
     if (switchVals['All Day']) {
       startEndTimes = {
         'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
@@ -110,7 +122,9 @@ class _AddEventState extends State<AddEvent> {
       };
     }
     final String currentOrgID = await preferences.getCurrentOrgId();
-    String mutation = Queries().addEvent(
+    Map result = await Queries().addEvent(
+      startDate : startDate.toString(),
+      endDate : endDate.toString(),
       organizationId: currentOrgID,
       title: titleController.text,
       description: descriptionController.text,
@@ -123,7 +137,6 @@ class _AddEventState extends State<AddEvent> {
       startTime: startTime.microsecondsSinceEpoch.toString(),
       endTime: endTime.microsecondsSinceEpoch.toString(),
     );
-    Map result = await apiFunctions.gqlquery(mutation);
     print('Result is : $result');
   }
 

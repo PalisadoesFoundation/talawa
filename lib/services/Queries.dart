@@ -542,8 +542,11 @@ class Queries {
   }
 
   //to add the events
-  String addEvent(
-      {organizationId,
+  addEvent(
+      {
+        startDate,
+        endDate,
+        organizationId,
       title,
       description,
       location,
@@ -552,34 +555,75 @@ class Queries {
       recurring,
       allDay,
       recurrance,
-      startDate,
-      endDate,
       startTime,
-      endTime}) {
-    return """
-      mutation {
-        createEvent(
-          data:{
-           organizationId: "$organizationId",
-           title: "$title",
-           description: "$description",
-           isPublic: $isPublic,
-           isRegisterable: $isRegisterable,
-           recurring: $recurring,
-           recurrance: "$recurrance",
-           allDay: $allDay,
-           startTime: "$startTime"
-           endTime: "$endTime"
-           startDate: "$startDate",
-           endDate,: "$endDate",
-           location: "$location"
-          }){
-            _id
-            title
-            description
-          }
+      endTime}) async{
+    String createEventMutation = """
+     mutation createEvent( \$organizationId: ID!,
+        \$title:String!,
+        \$description: String!,
+        \$startTime: String,
+        \$endTime: String,
+        \$allDay: Boolean!,
+        \$recurring: Boolean!,
+        \$recurrance: String,
+        \$isPublic: Boolean!,
+        \$isRegisterable: Boolean!,
+        \$location: String,
+        \$startDate : String!,
+        \$endDate : String!,
+      ) { 
+      createEvent(
+        data:{
+          organizationId: \$organizationId,
+           title: \$title,
+           description: \$description,
+           isPublic: \$isPublic,
+           isRegisterable: \$isRegisterable,
+           recurring: \$recurring,
+           recurrance: \$recurrance,
+           allDay: \$allDay,
+           startTime: \$startTime,
+           endTime: \$endTime,
+           startDate: \$startDate,
+           endDate: \$endDate,
+           location: \$location
         }
-    """;
+      ){
+        _id
+        title
+        description
+      }
+    }
+  """;
+    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    GraphQLClient _client = graphQLConfiguration.authClient();
+    AuthController _authController = AuthController();
+    _authController.getNewToken();
+
+    dynamic _resp = await _client
+        .mutate(MutationOptions(
+      documentNode: gql(createEventMutation),
+      variables: {
+        'startDate' : startDate,
+        'endDate' : endDate,
+        'organizationId': organizationId,
+        'title': title,
+        'description': description,
+        'isPublic': isPublic,
+        'isRegisterable': isRegisterable,
+        'recurring': recurring,
+        'recurrance': recurrance,
+        'allDay': allDay,
+        'startTime': startTime,
+        'endTime': endTime,
+        'location': location
+      },
+    ));
+    if(!_resp.loading) {
+      print(_resp.data);
+      print(_resp.exception);
+      return _resp.data;
+    }
   }
 
 /////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
