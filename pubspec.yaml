@@ -35,7 +35,7 @@ dependencies:
   graphql_flutter: ^3.0.1
   email_validator: ^1.0.4
   fluttertoast: ^7.1.8
-  persistent_bottom_nav_bar: ^1.5.5
+  persistent_bottom_nav_bar: ^3.2.0
   file_picker: ^2.0.7
   timeline_list: ^0.0.5
   flutter_sticky_header: ^0.4.5

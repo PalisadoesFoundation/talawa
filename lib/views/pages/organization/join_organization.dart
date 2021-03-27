@@ -8,6 +8,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
@@ -113,11 +114,18 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       if (widget.fromProfile) {
         Navigator.pop(context);
       } else {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => HomePage(
-            openPageIndex: 4,
+        Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => MultiProvider(
+            providers: [
+              ChangeNotifierProvider<PostController>(
+                create: (_) => PostController(),
+              ),
+            ],
+            child: HomePage(openPageIndex: 4),
           ),
-        ));
+        ),
+      );
       }
     }
   }
@@ -160,11 +168,18 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       if (widget.fromProfile) {
         Navigator.pop(context);
       } else {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => HomePage(
-            openPageIndex: 4,
+        Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => MultiProvider(
+            providers: [
+              ChangeNotifierProvider<PostController>(
+                create: (_) => PostController(),
+              ),
+            ],
+            child: HomePage(openPageIndex: 4),
           ),
-        ));
+        ),
+      );
       }
     }
   }

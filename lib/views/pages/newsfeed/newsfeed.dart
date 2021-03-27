@@ -70,7 +70,9 @@ class _NewsFeedState extends State<NewsFeed> {
           appBar: CustomAppBar('NewsFeed'),
           floatingActionButton: addPostFab(),
           body: postList.isEmpty
-              ? Center(child: CircularProgressIndicator())
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
               : Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

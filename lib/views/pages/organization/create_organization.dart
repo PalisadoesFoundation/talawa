@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
@@ -94,9 +96,18 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
         Navigator.pop(context);
         Navigator.pop(context);
       }else {
-        Navigator.of(
-            context).pushReplacement(MaterialPageRoute(
-            builder: (context) => HomePage(openPageIndex: 2,)));
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => MultiProvider(
+              providers: [
+                ChangeNotifierProvider<PostController>(
+                  create: (_) => PostController(),
+                ),
+              ],
+              child: HomePage(openPageIndex: 2),
+            ),
+          ),
+        );
       }
     }
   }
@@ -137,9 +148,18 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
         Navigator.pop(context);
         Navigator.pop(context);
       }else {
-        Navigator.of(
-            context).pushReplacement(MaterialPageRoute(
-            builder: (context) => HomePage(openPageIndex: 2,)));
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => MultiProvider(
+              providers: [
+                ChangeNotifierProvider<PostController>(
+                  create: (_) => PostController(),
+                ),
+              ],
+              child: HomePage(openPageIndex: 0),
+            ),
+          ),
+        );
       }
     }
   }

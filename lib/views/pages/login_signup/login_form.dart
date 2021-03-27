@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 //pages are called here
 import 'package:provider/provider.dart';
+import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
@@ -63,15 +64,15 @@ class LoginFormState extends State<LoginForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast('Connection Error. Make sure your Internet connection is stable');
-    }
-    else if (result.hasException) {
+      _exceptionToast(
+          'Connection Error. Make sure your Internet connection is stable');
+    } else if (result.hasException) {
       print(result.exception);
       setState(() {
         _progressBarState = false;
       });
 
-      _exceptionToast(result.exception.toString().substring(16,35));
+      _exceptionToast(result.exception.toString().substring(16, 35));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -109,7 +110,17 @@ class LoginFormState extends State<LoginForm> {
       }
 
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage(openPageIndex: 0,)));
+        MaterialPageRoute(
+          builder: (context) => MultiProvider(
+            providers: [
+              ChangeNotifierProvider<PostController>(
+                create: (_) => PostController(),
+              ),
+            ],
+            child: HomePage(openPageIndex: 0),
+          ),
+        ),
+      );
     }
   }
 
