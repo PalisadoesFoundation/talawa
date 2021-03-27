@@ -1,4 +1,9 @@
 //all the queries used in the program
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/utils/globals.dart';
+
 class Queries {
   //refresh the token
   String refreshToken(String refreshToken) {
@@ -655,18 +660,42 @@ query{
 """;
   }
 
-  String createComments(String postId, var text) {
-    return """
-mutation{
-  createComment(postId: "$postId", 
-  data:{
-    text: "$text",
-  }
-  ){
-    _id
-  }
-}
-""";
+  createComments (String postId, var text) async {
+    print(postId);
+    print(text);
+    String createCommentMutation = """
+     mutation createComment(\$postId: ID!, \$text: String!) { 
+      createComment(postId: \$postId, 
+        data:{
+          text: \$text,
+        }
+      ){
+        _id
+      }
+    }
+  """;
+    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    GraphQLClient _client = graphQLConfiguration.authClient();
+    AuthController _authController = AuthController();
+
+    dynamic _resp = await _client
+          .mutate(MutationOptions(
+        documentNode: gql(createCommentMutation),
+        variables: {
+          'postId' : postId, //Add your variables here
+          'text' : text
+        },
+      ));
+    if(_resp.exception.toString().substring(16) == accessTokenException)
+      {
+        _authController.getNewToken();
+        createComments(postId, text);
+      }
+    if(!_resp.loading) {
+      print(_resp.data);
+      print(_resp.exception);
+      return _resp.data;
+    }
   }
 
   String addPost(String text, String organizationId, String title) {
