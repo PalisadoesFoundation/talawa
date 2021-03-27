@@ -737,26 +737,64 @@ query{
     }
   }
 
-  String addLike(String postID) {
-    return """
-  mutation{
-    likePost(id:"$postID"){
-      _id
-    }
-  }
-  """;
-  }
-
-  String removeLike(String postID) {
-    return """
-  mutation{
-    unlikePost(id:"$postID"){
-      _id
-      likedBy{
+  addLike(String postID) async{
+    print(postID);
+    String addLikeMutation = """
+     mutation likePost(\$postID: ID!) { 
+      likePost( id: \$postID,)
+      {
         _id
       }
     }
-  }
   """;
+    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    GraphQLClient _client = graphQLConfiguration.authClient();
+    AuthController _authController = AuthController();
+    _authController.getNewToken();
+
+    dynamic _resp = await _client
+        .mutate(MutationOptions(
+      documentNode: gql(addLikeMutation),
+      variables: {
+        'postID' : postID, //Add your variables here
+      },
+    ));
+    if(!_resp.loading) {
+      print(_resp.data);
+      print(_resp.exception);
+      return _resp.data;
+    }
+  }
+
+  removeLike(String postID) async{
+    print(postID);
+    String unLikeMutation = """
+     mutation unlikePost(\$postID: ID!) { 
+      unlikePost( id: \$postID,)
+      {
+        _id
+        likedBy{
+        _id
+        }
+      }
+    }
+  """;
+    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    GraphQLClient _client = graphQLConfiguration.authClient();
+    AuthController _authController = AuthController();
+    _authController.getNewToken();
+
+    dynamic _resp = await _client
+        .mutate(MutationOptions(
+      documentNode: gql(unLikeMutation),
+      variables: {
+        'postID' : postID, //Add your variables here
+      },
+    ));
+    if(!_resp.loading) {
+      print(_resp.data);
+      print(_resp.exception);
+      return _resp.data;
+    }
   }
 }
