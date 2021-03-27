@@ -1,4 +1,5 @@
 //flutter packages are called here
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -56,13 +57,21 @@ class LoginFormState extends State<LoginForm> {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.loginUser(model.email, model.password))));
-    if (result.hasException) {
+    bool connectionCheck = await DataConnectionChecker().hasConnection;
+    if (!connectionCheck) {
+      print('You are not connected to the internet');
+      setState(() {
+        _progressBarState = false;
+      });
+      _exceptionToast('Connection Error. Make sure your Internet connection is stable');
+    }
+    else if (result.hasException) {
       print(result.exception);
       setState(() {
         _progressBarState = false;
       });
 
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast(result.exception.toString().substring(16,35));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -122,7 +131,6 @@ class LoginFormState extends State<LoginForm> {
                 TextFormField(
                   autofillHints: <String>[AutofillHints.email],
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) => Validator.validateEmail(value),
                   textAlign: TextAlign.left,
                   style: const TextStyle(color: Colors.white),
                   //Changed text input action to next
@@ -156,7 +164,6 @@ class LoginFormState extends State<LoginForm> {
                 TextFormField(
                   autofillHints: <String>[AutofillHints.password],
                   obscureText: _obscureText,
-                  validator: (value) => Validator.validatePassword(value),
                   textAlign: TextAlign.left,
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
@@ -258,7 +265,7 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child: Text(msg)),
+          Expanded(child: Text(msg, textAlign: TextAlign.center,)),
         ],
       ),
     );
@@ -266,7 +273,13 @@ class LoginFormState extends State<LoginForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
+<<<<<<< HEAD
       toastDuration: const Duration(seconds: 5),
+=======
+
+      toastDuration: Duration(seconds: 5),
+
+>>>>>>> upstream/master
     );
   }
 

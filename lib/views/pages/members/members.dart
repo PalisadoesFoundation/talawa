@@ -1,5 +1,6 @@
 //flutter imported package
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //pages are called here
@@ -21,6 +22,8 @@ class Organizations extends StatefulWidget {
 }
 
 class _OrganizationsState extends State<Organizations> {
+
+  String currentOrgID;
   List alphaMembersList = [];
   int isSelected = 0;
   List admins = [];
@@ -28,7 +31,7 @@ class _OrganizationsState extends State<Organizations> {
   Preferences preferences = Preferences();
 
   //providing initial states to the variables
-  initState() {
+   initState( )  {
     super.initState();
     getMembers();
   }
@@ -78,20 +81,29 @@ class _OrganizationsState extends State<Organizations> {
   //function to get the members of an organization
   // ignore: missing_return
   Future<List> getMembers() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
-    ApiFunctions apiFunctions = ApiFunctions();
+     String currentOrgID = await preferences.getCurrentOrgId();
+     print(currentOrgID);
+     if(currentOrgID != null){
+      ApiFunctions apiFunctions = ApiFunctions();
     var result =
         await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+    print(result);
     List membersList = result == null ? [] : result['organizations'];
-    if(result['organizations'].length>0){
-      admins = result['organizations'][0]['admins'];
-      creatorId = result['organizations'][0]['creator']['_id'];
-      print(admins);
-    }
-    alphaMembersList = membersList[0]['members'];
-    setState(() {
-      alphaMembersList = alphaSplitList(alphaMembersList);
-    });
+      if(result['organizations'].length>0){
+        admins = result['organizations'][0]['admins'];
+        creatorId = result['organizations'][0]['creator']['_id'];
+        print(admins);
+      }
+    if(membersList.isNotEmpty) {
+      alphaMembersList = membersList[0]['members'];
+      setState(() {
+        alphaMembersList = alphaSplitList(alphaMembersList);
+      });
+    }}else{
+      setState(() {
+        alphaMembersList = [];
+      });
+     }
   }
 
   //returns a random color based on the user id (1 of 18)
@@ -105,6 +117,10 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
   //main build starts here
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,10 +130,44 @@ class _OrganizationsState extends State<Organizations> {
             style: const TextStyle(color: Colors.white),
           ),
         ),
+<<<<<<< HEAD
         body: alphaMembersList.isEmpty
             ? const Center(child: const CircularProgressIndicator())
             : RefreshIndicator(
                 onRefresh: () async {
+=======
+        body:alphaMembersList.isEmpty
+        ? RefreshIndicator(
+          onRefresh: () async {
+          getMembers();
+          },
+           child: Center(
+               child : Column(
+            children : <Widget>[
+                    SizedBox(
+                height: 250,
+              ),
+                    Text(
+                "No member to Show",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+                    SizedBox(
+                height: 50,
+              ),
+              RaisedButton(onPressed: (){
+                getMembers();
+              },
+              child: Text("Refresh"),
+
+              )
+
+        ])))
+                : RefreshIndicator(
+                onRefresh: () async{
+>>>>>>> upstream/master
                   getMembers();
                 },
                 child: CustomScrollView(
@@ -167,7 +217,8 @@ class _OrganizationsState extends State<Organizations> {
           pushNewScreen(context,
               screen: MemberDetail(member: membersList[index], color: color,admins: admins,creatorId: creatorId,));
         },
-        child: Card(
+        child:
+        Card(
           clipBehavior: Clip.hardEdge,
           child: Row(
             children: [
