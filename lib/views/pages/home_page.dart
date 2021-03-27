@@ -40,8 +40,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     currentIndex = widget.openPageIndex;
     _controller = PersistentTabController(initialIndex: currentIndex);
-    Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
-    Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
   }
 
   void dispose() {
@@ -75,36 +73,36 @@ class _HomePageState extends State<HomePage> {
         //mentioning the screen home in the bottom bar
         icon: Icon(Icons.home),
         title: ("Home"),
-        activeColor: Colors.white,
-        inactiveColor: Colors.white,
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         //mentioning the screen chats in the bottom bar
         icon: Icon(Icons.chat),
         title: ("Chats"),
-        activeColor: Colors.white,
-        inactiveColor: Colors.white,
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         //mentioning the Events home in the bottom bar
         icon: Icon(Icons.calendar_today),
         title: ("Events"),
-        activeColor: Colors.white,
-        inactiveColor: Colors.white,
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         //mentioning the screen home in the bottom bar
         icon: Icon(Icons.group),
         title: ("Members"),
-        activeColor: Colors.white,
-        inactiveColor: Colors.white,
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         //mentioning the screen Profile in the bottom bar
         icon: Icon(Icons.folder),
         title: ("Profile"),
-        activeColor: Colors.white,
-        inactiveColor: Colors.white,
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white,
       ),
     ];
   }
@@ -118,21 +116,38 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Provider.value(
-      value: Preferences().orgId,
-      updateShouldNotify: (oldId, newId) => oldId != newId,
-      child: PersistentTabView(
-        //calling the Persistent tab view here
-        backgroundColor: UIData.primaryColor,
-        controller: _controller,
-        items: _navBarsItems(),
-        screens: _buildScreens(),
-        confineInSafeArea: true,
-        handleAndroidBackButtonPress: true,
-        iconSize: 26.0,
-        navBarStyle: NavBarStyle.style4,
-        resizeToAvoidBottomInset: true,
-      ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<GraphQLConfiguration>(
+          create: (_) => GraphQLConfiguration(),
+        ),
+        ChangeNotifierProvider<Preferences>(
+          create: (_) => Preferences(),
+        )
+      ],
+      child: Builder(builder: (BuildContext context) {
+        BuildContext rootContext = context;
+        Provider.of<GraphQLConfiguration>(rootContext, listen: false)
+            .getOrgUrl();
+        Provider.of<Preferences>(rootContext, listen: false).getCurrentOrgId();
+        return PersistentTabView(rootContext,
+            backgroundColor: UIData.primaryColor,
+            controller: _controller,
+            items: _navBarsItems(),
+            screens: _buildScreens(),
+            confineInSafeArea: true,
+            handleAndroidBackButtonPress: true,
+            navBarStyle: NavBarStyle.style4,
+            itemAnimationProperties: ItemAnimationProperties(
+              duration: Duration(milliseconds: 200),
+              curve: Curves.ease,
+            ),
+            screenTransitionAnimation: ScreenTransitionAnimation(
+              animateTabTransition: true,
+              curve: Curves.ease,
+              duration: Duration(milliseconds: 200),
+            ));
+      }),
     );
   }
 }

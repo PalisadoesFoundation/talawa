@@ -198,6 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('PROFILE_PAGE_SCAFFOLD'),
         backgroundColor: Colors.white,
         body: userDetails.isEmpty
             ? Center(
