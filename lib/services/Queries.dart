@@ -698,20 +698,43 @@ query{
     }
   }
 
-  String addPost(String text, String organizationId, String title) {
-    return """
-    mutation {
-        createPost(
-            data: {
-                text: "$text",
-                title: "$title",
-                organizationId: "$organizationId",
-        }) {
-            _id
-            text
+  addPost(String text, String organizationId, String title) async{
+    print(text);
+    print(organizationId);
+    print(title);
+    String addPostMutation = """
+     mutation createPost(\$text: String!, \$organizationId: ID!, \$title: String!) { 
+      createPost( 
+        data:{
+          text: \$text,
+          title: \$title,
+          organizationId: \$organizationId,
         }
+      ){
+        _id
+        text
+      }
     }
   """;
+    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    GraphQLClient _client = graphQLConfiguration.authClient();
+    AuthController _authController = AuthController();
+    _authController.getNewToken();
+
+    dynamic _resp = await _client
+        .mutate(MutationOptions(
+      documentNode: gql(addPostMutation),
+      variables: {
+        'title' : title, //Add your variables here
+        'text' : text,
+        'organizationId' : organizationId
+      },
+    ));
+    if(!_resp.loading) {
+      print(_resp.data);
+      print(_resp.exception);
+      return _resp.data;
+    }
   }
 
   String addLike(String postID) {
