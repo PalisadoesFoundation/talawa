@@ -496,21 +496,41 @@ class Queries {
     """;
   }
 
-  String addEventTask(
-      {String eventId, String title, String description, String deadline}) {
-    return """
-      mutation {
-        createTask(
-        eventId: "$eventId",
-        data: {
-        title: "$title",
-        description: "$description",
-        deadline: "$deadline",}
-        ){
-          _id
+  addEventTask(
+      {String eventId, String title, String description, String deadline}) async{
+    String createTaskMutation = """
+     mutation createTask(\$eventId: ID!, \$title: String!, \$description: String, \$deadline: String) { 
+      createTask(eventId: \$eventId, 
+        data:{
+          title: \$title,
+          description: \$description,
+          deadline: \$deadline,
         }
+      ){
+        _id
       }
-    """;
+    }
+  """;
+    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    GraphQLClient _client = graphQLConfiguration.authClient();
+    AuthController _authController = AuthController();
+    _authController.getNewToken();
+
+    dynamic _resp = await _client
+        .mutate(MutationOptions(
+      documentNode: gql(createTaskMutation),
+      variables: {
+        'eventId': eventId,
+        'title': title,
+        'description': description,
+        'deadline': deadline, //Add your variables here
+      },
+    ));
+    if(!_resp.loading) {
+      print(_resp.data);
+      print(_resp.exception);
+      return _resp.data;
+    }
   }
 
   //to get the task by any event
