@@ -55,7 +55,6 @@ class _ProfilePageState extends State<ProfilePage> {
     // When parent widget `updateShouldNotify: true`,
     // child widget can obtain new value when setting `listen: true`.
     orgId = Provider.of<Preferences>(context, listen: true).orgId;
-    isCreator = null;
     admins = [];
     fetchUserDetails();
     super.didChangeDependencies();
@@ -198,8 +197,9 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: Key('PROFILE_PAGE_SCAFFOLD'),
         backgroundColor: Colors.white,
-        body: userDetails.isEmpty
+        body: userDetails.isEmpty || isCreator == null
             ? Center(
                 child: CircularProgressIndicator(
                 key: Key('loading'),
