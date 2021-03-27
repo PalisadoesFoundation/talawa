@@ -9,6 +9,7 @@ import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
+import '../helper.dart';
 
 Widget createLoginPageScreen() => MultiProvider(
       providers: [
@@ -34,38 +35,6 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
 
-  // Function for ignoring overflow errors.
-  Function onErrorIgnoreOverflowErrors = (
-    FlutterErrorDetails details, {
-    bool forceReport = false,
-  }) {
-    assert(details != null);
-    assert(details.exception != null);
-
-    bool ifIsOverflowError = false;
-
-    // Detect overflow error.
-    var exception = details.exception;
-    if (exception is FlutterError)
-      ifIsOverflowError = !exception.diagnostics.any(
-        (e) => e.value.toString().startsWith(
-              "A RenderFlex overflowed by",
-            ),
-      );
-
-    // Ignore if is overflow error.
-    if (ifIsOverflowError) {
-      print("Over flow error");
-    }
-
-    // Throw other errors.
-    else {
-      FlutterError.dumpErrorToConsole(
-        details,
-        forceReport: forceReport,
-      );
-    }
-  };
   group("Login Page Tests", () {
     testWidgets("Testing if LoginPage shows up", (tester) async {
       await tester.pumpWidget(createLoginPageScreen());
