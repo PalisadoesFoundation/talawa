@@ -124,6 +124,7 @@ class _OrganizationsState extends State<Organizations> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+           key: Key('ORGANIZATION_APP_BAR'),
           title: Text(
             'Members',
             style: TextStyle(color: Colors.white),
