@@ -21,11 +21,13 @@ class PostController with ChangeNotifier {
 
   //function to get all Posts
   Future<void> getPosts() async {
+    DateTime d1 = DateTime.now();
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
     this.currentOrgID = currentUserID;
     String query = Queries().getPostsById(currentOrgID);
     Map result = await apiFunctions.gqlquery(query);
+    print(DateTime.now().difference(d1));
     if (result != null) {
       print(posts.isEmpty);
       posts.isEmpty

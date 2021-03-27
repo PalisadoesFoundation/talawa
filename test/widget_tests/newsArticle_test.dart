@@ -1,4 +1,6 @@
 // Packages imports.
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +34,11 @@ Widget NewsArticlePage() => MultiProvider(
       child: MaterialApp(
         home: NewsArticle(
           index: 0,
+          post: {
+            '_id': '605259ecb1257f67811d7ae3',
+            'text': 'ndlnldwnl',
+            'title': 'naanlls'
+          },
         ),
       ),
     );
@@ -74,10 +81,8 @@ void main() {
   };
   group("News Article Tests", () {
     testWidgets("Testing if newsArticle Page shows up", (tester) async {
-      PostController().getPosts();
-      await Future.delayed(const Duration(milliseconds: 1), () async {
-        await tester.pumpWidget(NewsArticlePage());
-      });
+      await tester.pumpWidget(NewsArticlePage());
+      await tester.pump(Duration(seconds: 3));
 
       /// Verify if [News Article Page] shows up.
 

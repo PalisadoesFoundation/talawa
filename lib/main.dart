@@ -8,7 +8,6 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'controllers/auth_controller.dart';
@@ -20,9 +19,12 @@ import 'views/pages/organization/switch_org_page.dart';
 Preferences preferences = Preferences();
 String userID;
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized(); //ensuring weather the app is being initialized or not
+  WidgetsFlutterBinding
+      .ensureInitialized(); //ensuring weather the app is being initialized or not
   userID = await preferences.getUserId(); //getting user id
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])  //setting the orientation according to the screen it is running on
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]) //setting the orientation according to the screen it is running on
       .then((_) {
     runApp(MultiProvider(
       providers: [
@@ -59,7 +61,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {
-          print('build route for ${settings.name}'); //here we are building the routes for the app
+          print(
+              'build route for ${settings.name}'); //here we are building the routes for the app
           var routes = <String, WidgetBuilder>{
             UIData.homeRoute: (BuildContext context) => HomePage(),
             UIData.loginPageRoute: (BuildContext context) => UrlPage(),
@@ -75,12 +78,13 @@ class MyApp extends StatelessWidget {
           return MaterialPageRoute(builder: (ctx) => builder(ctx));
         },
         //checking weather the user is logged in or not
-          home: userID == null
+        home: userID == null
             ? UrlPage()
             : MultiProvider(
                 providers: [
                   ChangeNotifierProvider<PostController>(
-                      create: (_) => PostController()),
+                    create: (_) => PostController(),
+                  ),
                 ],
                 child: HomePage(),
               ),

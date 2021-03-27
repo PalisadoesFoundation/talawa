@@ -89,6 +89,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                           context,
                                           screen: NewsArticle(
                                             index: index,
+                                            post: postList[index],
                                           ),
                                         );
                                       },
@@ -211,6 +212,7 @@ class _NewsFeedState extends State<NewsFeed> {
                 CupertinoPageRoute(
                   builder: (context) => NewsArticle(
                     index: index,
+                    post: postList[index],
                   ),
                 ),
               );
