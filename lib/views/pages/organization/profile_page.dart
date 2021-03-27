@@ -55,6 +55,8 @@ class _ProfilePageState extends State<ProfilePage> {
     // When parent widget `updateShouldNotify: true`,
     // child widget can obtain new value when setting `listen: true`.
     orgId = Provider.of<Preferences>(context, listen: true).orgId;
+    isCreator = null;
+    admins = [];
     fetchUserDetails();
     super.didChangeDependencies();
   }
@@ -87,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
         userDetails = result.data['users'];
         org = userDetails[0]['joinedOrganizations'];
       });
-      print(userDetails);
+      //print(userDetails);
       int notFound = 0;
       for (int i = 0; i < org.length; i++) {
         if (org[i]['_id'] == orgId) {
@@ -197,7 +199,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        body: userDetails.isEmpty || isCreator == null
+        body: userDetails.isEmpty
             ? Center(
                 child: CircularProgressIndicator(
                 key: Key('loading'),
