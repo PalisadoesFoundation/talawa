@@ -1,11 +1,12 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/views/pages/events/events.dart';
 
 // ignore: must_be_immutable
 class EditEvent extends StatefulWidget {
@@ -20,6 +21,9 @@ class _EditEventState extends State<EditEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final locationController = TextEditingController();
+  bool _validateTitle = false,
+      _validateDescription = false,
+      _validateLocation = false;
 
   DateTimeRange dateRange = DateTimeRange(
       start: DateTime(
@@ -68,7 +72,6 @@ class _EditEventState extends State<EditEvent> {
     });
   }
 
-
   //getting current organization id
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
@@ -77,7 +80,6 @@ class _EditEventState extends State<EditEvent> {
     });
     print(currentOrgId);
   }
-
 
   //method called to select the date
   Future<void> _selectDate(BuildContext context) async {
@@ -92,7 +94,6 @@ class _EditEventState extends State<EditEvent> {
         dateRange = picked;
       });
   }
-
 
   //method to select the time
   Future<void> _selectTime(
@@ -111,7 +112,6 @@ class _EditEventState extends State<EditEvent> {
             picked.minute);
       });
   }
-
 
   //method used to create and event
   Future<void> createEvent() async {
@@ -169,7 +169,6 @@ class _EditEventState extends State<EditEvent> {
     );
   }
 
-
   //widget for the date buttons
   Widget dateButton() {
     return ListTile(
@@ -186,7 +185,6 @@ class _EditEventState extends State<EditEvent> {
       ),
     );
   }
-
 
   //widget for time buttons
   Widget timeButton(String name, DateTime time) {
@@ -210,7 +208,6 @@ class _EditEventState extends State<EditEvent> {
         ));
   }
 
-
   //widget for the input field
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
@@ -219,6 +216,19 @@ class _EditEventState extends State<EditEvent> {
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
           decoration: InputDecoration(
+              errorText: name == 'Title'
+                  ? _validateTitle
+                      ? 'Field Can\'t Be Empty'
+                      : null
+                  : name == 'Description'
+                      ? _validateDescription
+                          ? 'Field Can\'t Be Empty'
+                          : null
+                      : name == 'Location'
+                          ? _validateLocation
+                              ? 'Field Can\'t Be Empty'
+                              : null
+                          : null,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
                   borderSide: BorderSide(color: Colors.teal)),
@@ -274,7 +284,6 @@ class _EditEventState extends State<EditEvent> {
     );
   }
 
-
   //widget to add the event
   Widget addEventFab() {
     return FloatingActionButton(
@@ -284,8 +293,35 @@ class _EditEventState extends State<EditEvent> {
           color: Colors.white,
         ),
         onPressed: () {
-          createEvent();
-          Navigator.of(context).pop();
+          if (titleController.text.isEmpty ||
+              descriptionController.text.isEmpty ||
+              locationController.text.isEmpty) {
+            if (titleController.text.isEmpty) {
+              setState(() {
+                _validateTitle = true;
+              });
+            }
+            if (descriptionController.text.isEmpty) {
+              setState(() {
+                _validateDescription = true;
+              });
+            }
+            if (locationController.text.isEmpty) {
+              setState(() {
+                _validateLocation = true;
+              });
+            }
+            Fluttertoast.showToast(
+                msg: 'Fill in the empty fields',
+                backgroundColor: Colors.grey[500]);
+          } else {
+            //createEvent();
+            print('EDITING');
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => Events()),
+                (route) => false);
+          }
         });
   }
 }
