@@ -47,6 +47,7 @@ dependencies:
   flutter_password_strength: ^0.1.6
   intl: ^0.17.0
   flutter_pw_validator: ^1.0.1+1
+  data_connection_checker: ^0.3.4
 
 
 
