@@ -482,18 +482,34 @@ class Queries {
   }
 
   //to register for an event
-  String registerForEvent(String eventid) {
-    return """
-      mutation {
-        registerForEvent(
-          id: "$eventid",
-          ){
-            _id
-            title
-            description
-          }
-        }
-    """;
+  registerForEvent(String eventId) async{
+    String registerForEventMutation = """
+     mutation registerForEvent(\$eventId: ID!) { 
+      registerForEvent(id: \$eventId})
+        {
+        _id
+        title
+        description
+      }
+    }
+  """;
+    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    GraphQLClient _client = graphQLConfiguration.authClient();
+    AuthController _authController = AuthController();
+    _authController.getNewToken();
+
+    dynamic _resp = await _client
+        .mutate(MutationOptions(
+      documentNode: gql(registerForEventMutation),
+      variables: {
+        'eventId': eventId,//Add your variables here
+      },
+    ));
+    if(!_resp.loading) {
+      print(_resp.data);
+      print(_resp.exception);
+      return _resp.data;
+    }
   }
 
   addEventTask(
