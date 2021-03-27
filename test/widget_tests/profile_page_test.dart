@@ -175,7 +175,7 @@ void main() {
       await tester.pumpWidget(
           createProfileScreen(
             //admins and creator's have same UI hence passing isCreator = true
-            isCreator: true,
+            isCreator: false,
             userDetails: joinedAdmin,
           ),
           Duration(microseconds: 100));
@@ -225,7 +225,7 @@ void main() {
 
       await tester.pumpWidget(
           createProfileScreen(
-            isCreator: false,
+            isCreator: true,
             userDetails: joinedMember,
           ),
           Duration(microseconds: 100));
