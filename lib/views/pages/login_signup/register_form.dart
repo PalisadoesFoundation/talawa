@@ -101,7 +101,7 @@ class RegisterFormState extends State<RegisterForm> {
           MaterialPageRoute(builder: (context) => new HomePage()));
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => new JoinOrganization(
-                fromProfile: false,
+                fromSignUp: true,
               )));
           }
   }
@@ -141,7 +141,7 @@ class RegisterFormState extends State<RegisterForm> {
           MaterialPageRoute(builder: (context) => new HomePage()));
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => new JoinOrganization(
-                fromProfile: false,
+                fromSignUp:true,
               )));
     }
   }
