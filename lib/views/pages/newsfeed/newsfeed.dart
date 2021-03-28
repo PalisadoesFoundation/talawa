@@ -15,6 +15,7 @@ import 'package:talawa/views/pages/newsfeed/addPost.dart';
 import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
+import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:talawa/views/widgets/custom_appbar.dart';
 
 class NewsFeed extends StatefulWidget {
@@ -58,18 +59,31 @@ class _NewsFeedState extends State<NewsFeed> {
     });
   }
 
+  //function to return currrent org
+  Future<void> getOrg() async {
+    final String currentOrgID = await preferences.getCurrentOrgId();
+    print(currentOrgID);
+    Map result = await apiFunctions.gqlquery(currentOrgID);
+    print(result);
+    setState(() {
+      _currentOrgID = currentOrgID;
+    });
+  }
+
 
   //function to get the current posts
   Future<void> getPosts() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
-    _currentOrgID = currentUserID;
+    _currentOrgID = currentOrgID;
     String query = Queries().getPostsById(currentOrgID);
     Map result = await apiFunctions.gqlquery(query);
     // print(result);
     setState(() {
       postList =
           result == null ? [] : result['postsByOrganization'].reversed.toList();
+      _currentOrgID = currentOrgID;
+      build(context);
     });
   }
 
@@ -98,9 +112,59 @@ class _NewsFeedState extends State<NewsFeed> {
 
     return Scaffold(
         appBar: CustomAppBar('NewsFeed'),
-        floatingActionButton: addPostFab(),
+        floatingActionButton: _currentOrgID != null ? addPostFab() : Container(),
         body: postList.isEmpty
-            ? Center(child: CircularProgressIndicator())
+             ? _currentOrgID ==null
+                ?RefreshIndicator(
+                    onRefresh: () async {
+                      getOrg();
+                      getPosts();
+                    },
+                    child: Center(
+                        child: Column(children: <Widget>[
+                      SizedBox(
+                        height: 250,
+                      ),
+                      Text(
+                        "No Organization Joined Or Created",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => JoinOrganization(
+                                    fromSignUp: true,
+                                  )));
+                          getPosts();
+                        },
+                        child: Text("Want to Join Or Create One?!"),
+                      )
+                    ])))
+                :RefreshIndicator(
+                    onRefresh: () async {
+                      getOrg();
+                      getPosts();
+                    },
+                    child: Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 250,
+                          ),
+                          Text(
+                            "No Posts yet",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ))
             : RefreshIndicator(
                 onRefresh: () async {
                   getPosts();
