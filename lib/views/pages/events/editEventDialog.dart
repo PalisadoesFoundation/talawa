@@ -334,7 +334,15 @@ class _EditEventState extends State<EditEvent> {
                 backgroundColor: Colors.grey[500]);
           } else {
             setState(() {
-              updateEvent();
+              try{
+                updateEvent();
+              }catch(e){
+                if(e == "User cannot delete event they didn't create"){
+                  Fluttertoast.showToast(
+                      msg: "You can't edit events you didn't create",
+                      backgroundColor: Colors.grey[500]);
+                }
+              }
             });
             print('EDITING DONE');
             Navigator.pushAndRemoveUntil(
