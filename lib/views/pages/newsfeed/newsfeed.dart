@@ -109,9 +109,8 @@ class _NewsFeedState extends State<NewsFeed> {
   //the main build starts from here
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        appBar: CustomAppBar('NewsFeed'),
+        appBar: CustomAppBar('NewsFeed',key: Key('NEWSFEED_APP_BAR')),
         floatingActionButton: _currentOrgID != null ? addPostFab() : Container(),
         body: postList.isEmpty
              ? _currentOrgID ==null

@@ -2,10 +2,10 @@
 //flutter packages
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
@@ -16,7 +16,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
 import 'package:talawa/views/pages/_pages.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreateOrganization extends StatefulWidget {
@@ -203,6 +202,10 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                           child: Column(
                         children: <Widget>[
                           TextFormField(
+                            keyboardType: TextInputType.multiline,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(40)
+                            ],
                             autofillHints: <String>[
                               AutofillHints.organizationName
                             ],
@@ -233,6 +236,9 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                             height: 20,
                           ),
                           TextFormField(
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(5000)
+                            ],
                             autofillHints: <String>[AutofillHints.impp],
                             keyboardType: TextInputType.multiline,
                             maxLines: null,
@@ -260,6 +266,9 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                             height: 20,
                           ),
                           TextFormField(
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(5000)
+                            ],
                             autofillHints: <String>[AutofillHints.impp],
                             keyboardType: TextInputType.multiline,
                             maxLines: null,
