@@ -21,7 +21,8 @@ import 'package:image_picker/image_picker.dart';
 
 class CreateOrganization extends StatefulWidget {
   final bool isFromProfile;
-  CreateOrganization({this.isFromProfile=false});
+  final bool isFromSignUp;
+  CreateOrganization({this.isFromProfile=false,this.isFromSignUp = false});
   @override
   _CreateOrganizationState createState() => _CreateOrganizationState();
 }
@@ -91,7 +92,7 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
       _successToast("Sucess!");
       print(result.data);
 
-      if(widget.isFromProfile){
+      if(widget.isFromProfile||widget.isFromSignUp){
         Navigator.pop(context);
         Navigator.pop(context);
       }else {
@@ -134,7 +135,7 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
       });
       _successToast("Sucess!");
       print(result.data);
-      if(widget.isFromProfile){
+      if(widget.isFromProfile||widget.isFromSignUp){
         Navigator.pop(context);
         Navigator.pop(context);
       }else {
