@@ -20,8 +20,9 @@ import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'create_organization.dart';
 
 class JoinOrganization extends StatefulWidget {
-  JoinOrganization({Key key, this.msg, this.fromProfile = false});
+  JoinOrganization({Key key, this.msg, this.fromProfile = false,this.SignUp = false});
   final bool fromProfile;
+  final bool fromSignUp;
   final String msg;
   @override
   _JoinOrganizationState createState() => _JoinOrganizationState();
@@ -110,7 +111,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       print(result.data);
       _successToast("Request Sent to Organization Admin");
 
-      if (widget.fromProfile) {
+      if (widget.fromProfile||widget.fromSignUp) {
         Navigator.pop(context);
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -157,7 +158,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       _successToast("Sucess!");
 
       //Navigate user to newsfeed
-      if (widget.fromProfile) {
+      if (widget.fromProfile||widget.fromSignUp) {
         Navigator.pop(context);
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
