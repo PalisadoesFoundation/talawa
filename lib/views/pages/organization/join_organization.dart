@@ -20,7 +20,7 @@ import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'create_organization.dart';
 
 class JoinOrganization extends StatefulWidget {
-  JoinOrganization({Key key, this.msg, this.fromProfile = false,this.SignUp = false});
+  JoinOrganization({Key key, this.msg, this.fromProfile = false,this.fromSignUp = false});
   final bool fromProfile;
   final bool fromSignUp;
   final String msg;
