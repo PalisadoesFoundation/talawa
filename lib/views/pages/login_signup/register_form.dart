@@ -381,7 +381,11 @@ class RegisterFormState extends State<RegisterForm> {
                             "SIGN UP",
                           ),
                     color: Colors.white,
-                    onPressed: () async {
+                    onPressed: _progressBarState
+                        ? (){
+                      _exceptionToast('Please wait signing you in');
+                    }
+                        :() async {
                       FocusScope.of(context).unfocus();
                       _validate = AutovalidateMode.always;
                       if (_formKey.currentState.validate()) {

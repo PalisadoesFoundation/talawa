@@ -213,7 +213,11 @@ class LoginFormState extends State<LoginForm> {
                           "SIGN IN",
                         ),
                   color: Colors.white,
-                  onPressed: () async {
+                  onPressed: _progressBarState
+                      ? (){
+                    _exceptionToast('Please wait Logging you in');
+                  }
+                      :() async {
                     FocusScope.of(context).unfocus();
                     //checks to see if all the fields have been validated then authenticate a user
                     if (_formKey.currentState.validate()) {
