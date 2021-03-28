@@ -1,9 +1,11 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/services/Queries.dart';
 
 //pages are called here
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
@@ -24,6 +26,7 @@ class _EditEventState extends State<EditEvent> {
   bool _validateTitle = false,
       _validateDescription = false,
       _validateLocation = false;
+  ApiFunctions apiFunctions = ApiFunctions();
 
   DateTimeRange dateRange = DateTimeRange(
       start: DateTime(
@@ -62,6 +65,7 @@ class _EditEventState extends State<EditEvent> {
     setState(() {
       titleController.text = widget.event['title'];
       descriptionController.text = widget.event['description'];
+      locationController.text = widget.event['location'];
       switchVals = {
         'Make Public': widget.event['isPublic'],
         'Make Registerable': widget.event['isRegisterable'],
@@ -114,21 +118,19 @@ class _EditEventState extends State<EditEvent> {
   }
 
   //method used to create and event
-  Future<void> createEvent() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
-
+  Future<void> updateEvent() async {
     DateTime startTime = DateTime(
-        dateRange.start.year,
-        dateRange.start.month,
-        dateRange.start.day,
-        startEndTimes['End Time'].hour,
-        startEndTimes['End Time'].minute);
-    DateTime endTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
         dateRange.start.day,
         startEndTimes['Start Time'].hour,
         startEndTimes['Start Time'].minute);
+    DateTime endTime = DateTime(
+        dateRange.end.year,
+        dateRange.end.month,
+        dateRange.end.day,
+        startEndTimes['End Time'].hour,
+        startEndTimes['End Time'].minute);
 
     if (switchVals['All Day']) {
       startEndTimes = {
@@ -138,6 +140,22 @@ class _EditEventState extends State<EditEvent> {
             DateTime.now().day, 23, 59),
       };
     }
+    final String currentOrgID = await preferences.getCurrentOrgId();
+    String mutation = Queries().updateEvent(
+      eventId: widget.event['_id'],
+      title: titleController.text,
+      description: descriptionController.text,
+      location: locationController.text,
+      isPublic: switchVals['Make Public'],
+      isRegisterable: switchVals['Make Registerable'],
+      recurring: switchVals['Recurring'],
+      allDay: switchVals['All Day'],
+      recurrance: recurrance,
+      startTime: startTime.microsecondsSinceEpoch.toString(),
+      endTime: endTime.microsecondsSinceEpoch.toString(),
+    );
+    Map result = await apiFunctions.gqlquery(mutation);
+    print('Result is : $result');
   }
 
   @override
@@ -315,8 +333,10 @@ class _EditEventState extends State<EditEvent> {
                 msg: 'Fill in the empty fields',
                 backgroundColor: Colors.grey[500]);
           } else {
-            //createEvent();
-            print('EDITING');
+            setState(() {
+              updateEvent();
+            });
+            print('EDITING DONE');
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => Events()),

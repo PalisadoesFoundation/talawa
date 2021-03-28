@@ -392,7 +392,7 @@ class Queries {
   ''';
   }
 
-  String addAdmin(String organizationId, String userId){
+  String addAdmin(String organizationId, String userId) {
     return '''
       mutation {
         createAdmin(data: {organizationId: "$organizationId", userId: $userId})
@@ -430,7 +430,7 @@ class Queries {
 
   //to update an event
   String updateEvent(
-      {organizationId,
+      {eventId,
       title,
       description,
       location,
@@ -442,9 +442,10 @@ class Queries {
       date,
       startTime,
       endTime}) {
-    return """updateEventInput(
-          data:{
-           organizationId: "$organizationId",
+    return """mutation {
+      updateEvent(
+         id: "$eventId"
+         data:{
            title: "$title",
            description: "$description",
            isPublic: $isPublic,
@@ -454,13 +455,13 @@ class Queries {
            allDay: $allDay,
            startTime: "$startTime"
            endTime: "$endTime"
-           date: "$date",
            location: "$location"
-          }){
+         }){
             _id
             title
             description
-          }""";
+          }
+      }""";
   }
 
   //delete any event
