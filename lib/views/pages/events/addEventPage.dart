@@ -1,11 +1,14 @@
 //flutter packages
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/services/Queries.dart';
 
 //pages are called here
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/views/pages/events/events.dart';
 
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);
@@ -21,6 +24,7 @@ class _AddEventState extends State<AddEvent> {
   bool _validateTitle = false,
       _validateDescription = false,
       _validateLocation = false;
+  ApiFunctions apiFunctions = ApiFunctions();
 
   Map switchVals = {
     'Make Public': true,
@@ -88,14 +92,14 @@ class _AddEventState extends State<AddEvent> {
         dateRange.start.year,
         dateRange.start.month,
         dateRange.start.day,
-        startEndTimes['End Time'].hour,
-        startEndTimes['End Time'].minute);
-    DateTime endTime = DateTime(
-        dateRange.start.year,
-        dateRange.start.month,
-        dateRange.start.day,
         startEndTimes['Start Time'].hour,
         startEndTimes['Start Time'].minute);
+    DateTime endTime = DateTime(
+        dateRange.end.year,
+        dateRange.end.month,
+        dateRange.end.day,
+        startEndTimes['End Time'].hour,
+        startEndTimes['End Time'].minute);
 
     if (switchVals['All Day']) {
       startEndTimes = {
@@ -105,6 +109,22 @@ class _AddEventState extends State<AddEvent> {
             DateTime.now().day, 23, 59),
       };
     }
+    final String currentOrgID = await preferences.getCurrentOrgId();
+    String mutation = Queries().addEvent(
+      organizationId: currentOrgID,
+      title: titleController.text,
+      description: descriptionController.text,
+      location: locationController.text,
+      isPublic: switchVals['Make Public'],
+      isRegisterable: switchVals['Make Registerable'],
+      recurring: switchVals['Recurring'],
+      allDay: switchVals['All Day'],
+      recurrance: recurrance,
+      startTime: startTime.microsecondsSinceEpoch.toString(),
+      endTime: endTime.microsecondsSinceEpoch.toString(),
+    );
+    Map result = await apiFunctions.gqlquery(mutation);
+    print('Result is : $result');
   }
 
   //main build starts from here
@@ -204,7 +224,7 @@ class _AddEventState extends State<AddEvent> {
             Fluttertoast.showToast(msg: 'Fill in the empty fields', backgroundColor: Colors.grey[500]);
           }else {
             createEvent();
-            Navigator.of(context).pop();
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Events()), (route) => false);
           }
         });
   }

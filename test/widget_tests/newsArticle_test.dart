@@ -40,38 +40,6 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
 
-  // Function for ignoring overflow errors.
-  Function onErrorIgnoreOverflowErrors = (
-    FlutterErrorDetails details, {
-    bool forceReport = false,
-  }) {
-    assert(details != null);
-    assert(details.exception != null);
-
-    bool ifIsOverflowError = false;
-
-    // Detect overflow error.
-    var exception = details.exception;
-    if (exception is FlutterError)
-      ifIsOverflowError = !exception.diagnostics.any(
-        (e) => e.value.toString().startsWith(
-              "A RenderFlex overflowed by",
-            ),
-      );
-
-    // Ignore if is overflow error.
-    if (ifIsOverflowError) {
-      print("Over flow error");
-    }
-
-    // Throw other errors.
-    else {
-      FlutterError.dumpErrorToConsole(
-        details,
-        forceReport: forceReport,
-      );
-    }
-  };
   group("News Article Tests", () {
     testWidgets("Testing if newsArticle Page shows up", (tester) async {
       await tester.pumpWidget(NewsArticlePage());
