@@ -201,6 +201,7 @@ class _NewsArticleState extends State<NewsArticle> {
                         // minHeight: 20,
                       ),
                       child: TextFormField(
+                        key: Key("leaveCommentField"),
                         textInputAction: TextInputAction.newline,
                         keyboardType: TextInputType.multiline,
                         validator: (String value) {
@@ -220,6 +221,7 @@ class _NewsArticleState extends State<NewsArticle> {
                         maxLines: null,
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
+                            key: Key("leaveCommentButton"),
                             color: Colors.grey,
                             icon: Icon(Icons.send),
                             onPressed: () {
