@@ -5,8 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 
 //the pages are called here
 import 'package:talawa/services/Queries.dart';
@@ -185,19 +185,22 @@ class _NewsArticleState extends State<NewsArticle> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  flex: 1,
+                Flexible(
+                  flex: 3,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 10),
-                    child: Text(widget.post['text'].toString()),
+                    padding: const EdgeInsets.fromLTRB(20.0, 10, 10, 10),
+                    child: Text(
+                      widget.post['text'].toString(),
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.justify,
+                      maxLines: 10,
+                    ),
                   ),
                 ),
-                Expanded(
+                Flexible(
                   flex: 3,
                   child: ListTile(
-                    leading: userDetails.isEmpty
-                        ? null
-                        : _profileImage(),
+                    leading: userDetails.isEmpty ? null : _profileImage(),
                     title: Container(
                       constraints: BoxConstraints(
                         maxHeight: double.infinity,
@@ -210,12 +213,11 @@ class _NewsArticleState extends State<NewsArticle> {
                           if (value.length > 500) {
                             return "Comment cannot be longer than 500 letters";
                           }
-                          if(value.length == 0)
-                            {
-                              return "Comment cannot be empty";
-                            }
+                          if (value.length == 0) {
+                            return "Comment cannot be empty";
+                          }
                           return null;
-                          },
+                        },
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(500)
                         ],
