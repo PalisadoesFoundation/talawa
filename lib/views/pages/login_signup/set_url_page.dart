@@ -18,7 +18,32 @@ void changeFirst() {
   first = false;
 }
 
-class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
+class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage> {
+
+  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+
+  var _media;
+  final _formKey = GlobalKey<FormState>();
+  final urlController = TextEditingController();
+  String dropdownValue = 'HTTP';
+  Preferences _pref = Preferences();
+  String orgUrl, orgImgUrl;
+  String saveMsg = "Set URL";
+  String urlInput;
+  FToast fToast;
+  bool isUrlCalled = false;
+  //animation Controllers
+  AnimationController controller;
+  AnimationController loginController;
+  AnimationController helloController;
+  AnimationController createController;
+  // animation
+  Animation loginAnimation;
+  Animation createAnimation;
+  Animation animation;
+  Animation helloAnimation;
+
+
   listenToUrl() {
     if (saveMsg == "URL SAVED!" && urlController.text != urlInput) {
       setState(() {
@@ -50,9 +75,9 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
   Future setApiUrl() async {
     setState(() {
       orgUrl =
-      "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
+          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
       orgImgUrl =
-      "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
+          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
     });
     await _pref.saveOrgUrl(orgUrl);
     await _pref.saveOrgImgUrl(orgImgUrl);
@@ -92,74 +117,66 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
     );
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
 
-  var _media;
-  final _formKey = GlobalKey<FormState>();
-  final urlController = TextEditingController();
-  String dropdownValue = 'HTTP';
-  Preferences _pref = Preferences();
-  String orgUrl, orgImgUrl;
-  String saveMsg = "Set URL";
-  String urlInput;
-  FToast fToast;
-  bool isUrlCalled = false;
-  //this animation length has to be larger becasuse it includes startup time
-  AnimationController controller;
 
+    void assignAnimation(bool firstTime) {
+    if (!firstTime) {
+      animation = Tween(begin: 1.0, end: 1.0).animate(controller);
+
+      helloAnimation = Tween(begin: 1.0, end: 1.0).animate(helloController);
+
+      createAnimation = Tween(begin: 1.0, end: 1.0).animate(createController);
+
+      loginAnimation = Tween(begin: 1.0, end: 1.0).animate(loginController);
+    } else {
+      loginAnimation = Tween(begin: 0.0, end: 1.0).animate(loginController);
+
+      createAnimation = Tween(begin: 0.0, end: 1.0).animate(createController);
+
+      animation = Tween(begin: 0.0, end: 1.0).animate(controller);
+
+      helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
+    }
+  }
+  Future<void> load() async {
+      await controller?.forward();
+      await helloController?.forward();
+      await createController?.forward();
+      await loginController?.forward();
+      changeFirst();
+  }
   @override
   void initState() {
     super.initState();
     fToast = FToast();
     fToast.init(context);
     urlController.addListener(listenToUrl);
+    // Initializing all the animationControllers
     controller = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 2000),
     );
+    loginController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+
+    helloController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+
+    createController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
   }
 
-  @override
-  dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    var loginController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    var loginAnimation = Tween(begin: 0.0, end: 1.0).animate(loginController);
-    var createController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    //AnimationController controller;
-    var createAnimation = Tween(begin: 0.0, end: 1.0).animate(createController);
-    var helloController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    var animation = Tween(begin: 0.0, end: 1.0).animate(controller);
-    var helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
-    Future<void> load() async {
-      await controller.forward();
-      await helloController.forward();
-      await createController.forward();
-      if(saveMsg == "URL SAVED!")
-      await loginController.forward();
-      changeFirst();
-    }
-
-    if (first != true) {
-      animation = Tween(begin: 1.0, end: 1.0).animate(controller);
-
-      helloAnimation = Tween(begin: 1.0, end: 1.0).animate(helloController);
-
-      createAnimation = Tween(begin: 1.0, end: 1.0).animate(createController);
-    }
+    assignAnimation(first);
     load();
     Widget mainScreen() {
       return new Column(
@@ -281,25 +298,25 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                                       decoration: InputDecoration(
                                         enabledBorder: OutlineInputBorder(
                                           borderSide:
-                                          BorderSide(color: Colors.white),
+                                              BorderSide(color: Colors.white),
                                           borderRadius:
-                                          BorderRadius.circular(50.0),
+                                              BorderRadius.circular(50.0),
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide:
-                                          BorderSide(color: Colors.orange),
+                                              BorderSide(color: Colors.orange),
                                           borderRadius:
-                                          BorderRadius.circular(50.0),
+                                              BorderRadius.circular(50.0),
                                         ),
                                         prefixIcon: Icon(Icons.web,
                                             color: Colors.white),
                                         labelText: "Type Org URL Here",
                                         labelStyle:
-                                        TextStyle(color: Colors.white),
+                                            TextStyle(color: Colors.white),
                                         alignLabelWithHint: true,
                                         hintText: 'calico.palisadoes.org',
                                         hintStyle:
-                                        TextStyle(color: Colors.grey),
+                                            TextStyle(color: Colors.grey),
                                       ),
                                       controller: urlController,
                                     )),
@@ -320,14 +337,14 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                                   ),
                                   child: isUrlCalled
                                       ? SizedBox(
-                                    height: 14,
-                                    width: 14,
-                                    child: CircularProgressIndicator(
-                                        backgroundColor: Colors.white),
-                                  )
+                                          height: 14,
+                                          width: 14,
+                                          child: CircularProgressIndicator(
+                                              backgroundColor: Colors.white),
+                                        )
                                       : Text(
-                                    saveMsg,
-                                  ),
+                                          saveMsg,
+                                        ),
                                   //color: Colors.white,
                                   onPressed: () async {
                                     FocusScope.of(context).unfocus();
@@ -347,150 +364,138 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
                 SizedBox(
                   height: 20,
                 ),
-                Visibility(
-                  visible: saveMsg == "URL SAVED!",
-                  maintainState: true,
-                  maintainSize: true,
-                  maintainAnimation: true,
-                  child: FadeTransition(
-                    //changed opacity animation to match login button animation
-                    opacity: loginAnimation,
-                    child: Container(
-                      //padding: EdgeInsets.all(100.0),
-                      child: new Container(
-                        width: _media != null
-                            ? _media.size.width
-                            : MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.only(
-                            left: 50.0, right: 50.0, top: 10.0),
-                        alignment: Alignment.center,
-                        child: new Row(
-                          children: <Widget>[
-                            new Expanded(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                  ),
+                FadeTransition(
+                  //changed opacity animation to match login button animation
+                  opacity: loginAnimation,
+                  child: Container(
+                    //padding: EdgeInsets.all(100.0),
+                    child: new Container(
+                      width: _media != null
+                          ? _media.size.width
+                          : MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(
+                          left: 50.0, right: 50.0, top: 10.0),
+                      alignment: Alignment.center,
+                      child: new Row(
+                        children: <Widget>[
+                          new Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
                                 ),
-                                onPressed: saveMsg != "URL SAVED!"
-                                    ? null
-                                    : () async {
-                                  if (_formKey.currentState.validate()) {
-                                    _formKey.currentState.save();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              RegisterPage()),
-                                    );
-                                  }
-                                },
-                                child: new Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 20.0,
-                                    horizontal: 20.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.orange),
-                                      borderRadius:
-                                      new BorderRadius.circular(50.0)),
-                                  child: new Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Expanded(
-                                        child: Text(
-                                          "Create an Account",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            //color: UIData.quitoThemeColor,
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            //fontWeight: FontWeight.bold
-                                          ),
+                              ),
+                              onPressed: saveMsg != "URL SAVED!"
+                                  ? null
+                                  : () async {
+                                      if (_formKey.currentState.validate()) {
+                                        _formKey.currentState.save();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RegisterPage()),
+                                        );
+                                      }
+                                    },
+                              child: new Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 20.0,
+                                  horizontal: 20.0,
+                                ),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.orange),
+                                    borderRadius:
+                                        new BorderRadius.circular(50.0)),
+                                child: new Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Expanded(
+                                      child: Text(
+                                        "Create an Account",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          //color: UIData.quitoThemeColor,
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          //fontWeight: FontWeight.bold
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ),
                 SizedBox(height: 5),
-                Visibility(
-                  visible: saveMsg == "URL SAVED!",
-                  maintainState: true,
-                  maintainSize: true,
-                  maintainAnimation: true,
-                  child: FadeTransition(
-                    opacity: loginAnimation,
-                    child: Container(
-                      child: new Container(
-                        width: _media != null
-                            ? _media.size.width
-                            : MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.only(
-                            left: 50.0, right: 50.0, top: 10.0),
-                        alignment: Alignment.center,
-                        child: new Row(
-                          children: <Widget>[
-                            new Expanded(
-                              child: new ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                  ),
+                FadeTransition(
+                  opacity: loginAnimation,
+                  child: Container(
+                    child: new Container(
+                      width: _media != null
+                          ? _media.size.width
+                          : MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(
+                          left: 50.0, right: 50.0, top: 10.0),
+                      alignment: Alignment.center,
+                      child: new Row(
+                        children: <Widget>[
+                          new Expanded(
+                            child: new ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
                                 ),
-                                onPressed: saveMsg != "URL SAVED!"
-                                    ? null
-                                    : () async {
-                                  if (_formKey.currentState.validate()) {
-                                    _formKey.currentState.save();
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginPage()));
-                                  }
-                                },
-                                child: new Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 20.0,
-                                    horizontal: 20.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.orange),
-                                      borderRadius:
-                                      new BorderRadius.circular(50.0)),
-                                  child: new Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Expanded(
-                                        child: Text(
-                                          "Login",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            //color: UIData.quitoThemeColor,
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            //fontWeight: FontWeight.bold
-                                          ),
+                              ),
+                              onPressed: saveMsg != "URL SAVED!"
+                                  ? null
+                                  : () async {
+                                      if (_formKey.currentState.validate()) {
+                                        _formKey.currentState.save();
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginPage()));
+                                      }
+                                    },
+                              child: new Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 20.0,
+                                  horizontal: 20.0,
+                                ),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.orange),
+                                    borderRadius:
+                                        new BorderRadius.circular(50.0)),
+                                child: new Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Expanded(
+                                      child: Text(
+                                        "Login",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          //color: UIData.quitoThemeColor,
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          //fontWeight: FontWeight.bold
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -518,5 +523,14 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  @override
+  dispose() {
+    controller.dispose();
+    helloController.dispose();
+    createController.dispose();
+    loginController.dispose();
+    super.dispose();
   }
 }
