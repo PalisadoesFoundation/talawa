@@ -16,6 +16,7 @@ import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
+import 'package:talawa/views/widgets/loading.dart';
 import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
@@ -191,7 +192,7 @@ class _ProfilePageState extends State<ProfilePage> {
       key: Key('PROFILE_PAGE_SCAFFOLD'),
         backgroundColor: Colors.white,
         body: userDetails.isEmpty || isCreator == null
-            ? Center(child: CircularProgressIndicator(key: Key('loading'),))
+            ? Center(child: Loading(key: UniqueKey(),))
             : Column(
           key: Key('body'),
                 children: <Widget>[
@@ -271,7 +272,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               style: TextStyle(fontSize: 18.0),
                             ),
                             leading: Icon(
-                              Icons.person,
+                              Icons.edit,
                               color: UIData.secondaryColor,
                             ),
                             onTap: () {},

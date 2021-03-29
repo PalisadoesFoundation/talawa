@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
@@ -8,6 +10,8 @@ class PostController with ChangeNotifier {
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   String currentOrgID;
+  Map<String, bool> likePostMap = new Map<String, bool>();
+  Timer timer;
 
   PostController() {
     getPosts();
@@ -30,6 +34,7 @@ class PostController with ChangeNotifier {
     print(DateTime.now().difference(d1));
     if (result != null) {
       print(posts.isEmpty);
+      updateLikepostMap(currentUserID);
       posts.isEmpty
           ? addAllPost(result['postsByOrganization'].reversed.toList())
           : updatePosts(result['postsByOrganization'].reversed.toList());
@@ -78,5 +83,26 @@ class PostController with ChangeNotifier {
         return;
       }
     });
+  }
+
+  // void : function to set the map of userLikedPost
+  void updateLikepostMap(String currentUserID) {
+    // traverse through post objects.
+    for (var item in posts) {
+      likePostMap[item['_id']] = false;
+      //Get userIds who liked the post.
+      var _likedBy = item['likedBy'];
+      for (var user in _likedBy) {
+        if (user['_id'] == currentUserID) {
+          //if(userId is in the list we make value true;)
+          likePostMap[item['_id']] = true;
+        }
+      }
+    }
+  }
+
+  // bool : Method to get (true/false) if a user has liked a post or Not.
+  bool hasUserLiked(String postId) {
+    return likePostMap[postId];
   }
 }

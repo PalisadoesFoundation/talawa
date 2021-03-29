@@ -1,6 +1,3 @@
-import 'dart:ffi';
-//flutter packages are imported here
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -17,6 +14,7 @@ import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 import 'package:talawa/views/widgets/custom_appbar.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 class NewsFeed extends StatefulWidget {
   NewsFeed({Key key}) : super(key: key);
@@ -236,11 +234,7 @@ class _NewsFeedState extends State<NewsFeed> {
         ),
         IconButton(
           icon: Icon(Icons.thumb_up),
-          color: (postList[index]['likeCount'] != 0
-                  ? (postList[index]['likedBy']
-                          [postList[index]['likeCount'] - 1]['_id'] ==
-                      _currentOrgID)
-                  : false)
+          color: postController.likePostMap[postList[index]['_id']]
               ? Color(0xff007397)
               : Color(0xff9A9A9A),
           onPressed: () {

@@ -25,10 +25,9 @@ class LoginForm extends StatefulWidget {
 }
 
 class LoginFormState extends State<LoginForm> {
-  final email = TextEditingController();
-  final newPassword = TextEditingController();
-  final repeatNewPassword = TextEditingController();
-  final password = TextEditingController();
+  /// [TextEditingController]'s for email and password.
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   LoginViewModel model = new LoginViewModel();
@@ -142,6 +141,8 @@ class LoginFormState extends State<LoginForm> {
                   autofillHints: <String>[AutofillHints.email],
                   keyboardType: TextInputType.emailAddress,
                   textAlign: TextAlign.left,
+                  controller: _emailController,
+                  validator: Validator.validateEmail,
                   style: TextStyle(color: Colors.white),
                   //Changed text input action to next
                   textInputAction: TextInputAction.next,
@@ -175,6 +176,8 @@ class LoginFormState extends State<LoginForm> {
                   autofillHints: <String>[AutofillHints.password],
                   obscureText: _obscureText,
                   textAlign: TextAlign.left,
+                  controller: _passwordController,
+                  validator: Validator.validatePassword,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -274,7 +277,11 @@ class LoginFormState extends State<LoginForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(child: Text(msg, textAlign: TextAlign.center,)),
+          Expanded(
+              child: Text(
+            msg,
+            textAlign: TextAlign.center,
+          )),
         ],
       ),
     );
@@ -282,9 +289,7 @@ class LoginFormState extends State<LoginForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-
       toastDuration: Duration(seconds: 5),
-
     );
   }
 
