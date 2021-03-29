@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 //importing the pages here
 import 'package:provider/provider.dart';
+import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> _buildScreens() { //here we are building the screens that are mention in the app bar
     return [
-      NewsFeed(), //first page of the news feed
+      NewsFeed(),//first page of the news feed
       Groups(), //second page of the Group chatting event
       Events(), //Third page of creating the events and viewing it
       Organizations(), //fourth page of seeing the organization
@@ -115,7 +116,10 @@ class _HomePageState extends State<HomePage> {
         ),
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
-        )
+        ),
+        ChangeNotifierProvider<PostController>(
+          create: (_)=>PostController(), 
+        ),
       ],
       child: Builder(builder: (BuildContext context) {
         BuildContext rootContext = context;

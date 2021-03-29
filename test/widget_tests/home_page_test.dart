@@ -24,9 +24,6 @@ Widget createHomePageScreen() => MultiProvider(
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
         ),
-        ChangeNotifierProvider<PostController>(
-          create: (_) => PostController(),
-        )
       ],
       child: MaterialApp(
         home: HomePage(),

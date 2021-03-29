@@ -118,17 +118,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         Navigator.pop(context);
       } else {
         Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => MultiProvider(
-            providers: [
-              ChangeNotifierProvider<PostController>(
-                create: (_) => PostController(),
-              ),
-            ],
-            child: HomePage(openPageIndex: 4),
+          MaterialPageRoute(
+            builder: (context) => HomePage(openPageIndex: 4),
           ),
-        ),
-      );
+        );
       }
     }
   }
@@ -172,17 +165,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         Navigator.pop(context);
       } else {
         Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => MultiProvider(
-            providers: [
-              ChangeNotifierProvider<PostController>(
-                create: (_) => PostController(),
-              ),
-            ],
-            child: HomePage(openPageIndex: 4),
+          MaterialPageRoute(
+            builder: (context) => HomePage(openPageIndex: 4),
           ),
-        ),
-      );
+        );
       }
     }
   }
@@ -195,7 +181,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             style: TextStyle(color: Colors.white)),
       ),
       body: organizationInfo.isEmpty
-          ? Center(child: Loading(key: UniqueKey(),))
+          ? Center(
+              child: Loading(
+              key: UniqueKey(),
+            ))
           : Container(
               color: Color(0xffF3F6FF),
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),

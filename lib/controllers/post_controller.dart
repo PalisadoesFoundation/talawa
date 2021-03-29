@@ -9,26 +9,32 @@ class PostController with ChangeNotifier {
   List posts = [];
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
-  String currentOrgID;
-  Map<String, bool> likePostMap = new Map<String, bool>();
+  String currentUserID;
+  Map<String, bool> likePostMap = {};
   Timer timer;
 
   PostController() {
     getPosts();
   }
-
-  // function to all posts
+  
+  // void : function function to all posts
   void addAllPost(List posts) {
     this.posts = posts;
     notifyListeners();
   }
 
-  //function to get all Posts
+  void switchOrg() {
+    print(posts);
+    posts.clear();
+    getPosts();
+  }
+
+  // void : function to get all Posts
   Future<void> getPosts() async {
     DateTime d1 = DateTime.now();
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
-    this.currentOrgID = currentUserID;
+    this.currentUserID = currentUserID;
     String query = Queries().getPostsById(currentOrgID);
     Map result = await apiFunctions.gqlquery(query);
     print(DateTime.now().difference(d1));
@@ -38,22 +44,24 @@ class PostController with ChangeNotifier {
       posts.isEmpty
           ? addAllPost(result['postsByOrganization'].reversed.toList())
           : updatePosts(result['postsByOrganization'].reversed.toList());
+      updateLikepostMap(currentUserID);
     }
   }
 
-  //function to addlike
+  // void : function to addlike
   Future<void> addLike(int index, String postID) async {
     String mutation = Queries().addLike(postID);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
     posts[index]["likeCount"]++;
     print(index);
-    posts[index]['likedBy'].add({'_id': currentOrgID});
+    posts[index]['likedBy'].add({'_id': currentUserID});
     print(posts[index]["likeCount"]);
+    likePostMap[posts[index]['_id']] = true;
     notifyListeners();
   }
 
-  //function to remove the likes
+  // void : function to remove the likes
   Future<void> removeLike(int index, String postID) async {
     String mutation = Queries().removeLike(postID);
     Map result = await apiFunctions.gqlmutation(mutation);
@@ -61,6 +69,7 @@ class PostController with ChangeNotifier {
     posts[index]["likeCount"]--;
     posts[index]['likedBy'].remove(posts[index]['likedCount']);
     print(posts[index]["likeCount"]);
+    likePostMap[posts[index]['_id']] = false;
     notifyListeners();
   }
 
@@ -70,7 +79,7 @@ class PostController with ChangeNotifier {
     notifyListeners();
   }
 
-  //update Posts
+  // void : function to update Posts
   void updatePosts(List updatedposts) {
     int insertAt = 0;
     updatedposts.forEach((element) {
@@ -99,6 +108,7 @@ class PostController with ChangeNotifier {
         }
       }
     }
+    return;
   }
 
   // bool : Method to get (true/false) if a user has liked a post or Not.

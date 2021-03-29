@@ -78,16 +78,7 @@ class MyApp extends StatelessWidget {
           return MaterialPageRoute(builder: (ctx) => builder(ctx));
         },
         //checking weather the user is logged in or not
-        home: userID == null
-            ? UrlPage()
-            : MultiProvider(
-                providers: [
-                  ChangeNotifierProvider<PostController>(
-                    create: (_) => PostController(),
-                  ),
-                ],
-                child: HomePage(),
-              ),
+        home: userID == null ? UrlPage() : HomePage(),
       ),
     );
   }

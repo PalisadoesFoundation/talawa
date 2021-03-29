@@ -110,14 +110,7 @@ class LoginFormState extends State<LoginForm> {
 
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => MultiProvider(
-            providers: [
-              ChangeNotifierProvider<PostController>(
-                create: (_) => PostController(),
-              ),
-            ],
-            child: HomePage(openPageIndex: 0),
-          ),
+          builder: (context) => HomePage(openPageIndex: 0),
         ),
       );
     }

@@ -63,13 +63,15 @@ class _NewsFeedState extends State<NewsFeed> {
     return Consumer<PostController>(
       builder: (context, postController, child) {
         postList = postController.posts;
-        _currentOrgID = postController.currentOrgID;
+        _currentOrgID = postController.currentUserID;
         return Scaffold(
-          appBar: CustomAppBar('NewsFeed'),
+          appBar: CustomAppBar('NewsFeed', key: Key('NEWSFEED_APP_BAR')),
           floatingActionButton: addPostFab(),
           body: postList.isEmpty
               ? Center(
-                  child: CircularProgressIndicator(),
+                  child: Loading(
+                    key: UniqueKey(),
+                  ),
                 )
               : Container(
                   child: Column(
@@ -234,13 +236,12 @@ class _NewsFeedState extends State<NewsFeed> {
         ),
         IconButton(
           icon: Icon(Icons.thumb_up),
-          color: postController.likePostMap[postList[index]['_id']]
+          color: postController.hasUserLiked(postList[index]['_id'])
               ? Color(0xff007397)
               : Color(0xff9A9A9A),
           onPressed: () {
-            if (postList[index]['likeCount'] != 0) if (postList[index]
-                    ['likedBy'][postList[index]['likeCount'] - 1]['_id'] !=
-                _currentOrgID) {
+            if (postList[index]['likeCount'] != 0) if (postController
+                .hasUserLiked(postList[index]['_id'])) {
               postController.addLike(index, postList[index]['_id']);
             } else {
               postController.removeLike(index, postList[index]['_id']);
