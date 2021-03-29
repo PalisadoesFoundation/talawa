@@ -97,12 +97,8 @@ class _EventsState extends State<Events> {
             event);
       } else {
         if (event['recurrance'] == 'DAILY') {
-          int day =
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
-                  .day;
-          int lastday =
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime']))
-                  .day;
+          int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
+          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
             day += 1;
@@ -111,10 +107,8 @@ class _EventsState extends State<Events> {
         if (event['recurrance'] == 'WEEKLY') {
           int day =
               DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
-                  .day;
-          int lastday =
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime']))
-                  .day;
+                      .day;
+          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
 
@@ -157,28 +151,25 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-    eventList = result == null ? [] : result['events'].reversed.toList();
-    eventList.removeWhere((element) =>
-        element['title'] == 'Talawa Congress' ||
-        element['title'] == 'test' ||
-        element['title'] == 'Talawa Conference Test' ||
-        element['title'] == 'mayhem' ||
-        element['title'] == 'mayhem1'); //dont know who keeps adding these
-    // This removes all invalid date formats other than Unix time
-    eventList
-        .removeWhere((element) => int.tryParse(element['startTime']) == null);
-    eventList.sort((a, b) {
-      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime']))
+      Map result =
+      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+      eventList = result == null ? [] : result['events'].reversed.toList();
+      eventList.removeWhere((element) =>
+          element['title'] == 'Talawa Congress' ||
+          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1'); //dont know who keeps adding these
+      // This removes all invalid date formats other than Unix time
+      eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
+      eventList.sort((a, b) {
+        return DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(a['startTime']))
           .compareTo(
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
-    });
-    eventsToDates(eventList, DateTime.now());
-    setState(() {
-      displayedEvents = eventList;
-    });
-    // print(displayedEvents);
+          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+      });
+      eventsToDates(eventList, DateTime.now());
+      setState(() {
+        displayedEvents = eventList;
+      });
+      // print(displayedEvents);
   }
 
   //functions to edit the event
@@ -208,7 +199,7 @@ class _EventsState extends State<Events> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          key: Key('EVENTS_APP_BAR'),
+           key: Key('EVENTS_APP_BAR'),
           title: Text(
             'Events',
             style: TextStyle(color: Colors.white),
@@ -251,10 +242,10 @@ class _EventsState extends State<Events> {
                     ));
               } else {
                 return RefreshIndicator(
-                  onRefresh: () async {
-                    getEvents();
-                  },
-                  child: Container(
+                    onRefresh: () async {
+                      getEvents();
+                    },
+                    child: Container(
                     color: Colors.white,
                     child: Stack(
                       children: [
@@ -323,8 +314,7 @@ class _EventsState extends State<Events> {
                         ),
                       ],
                     ),
-                  ),
-                );
+                  ));
               }
             } else if (state == ConnectionState.waiting) {
               print(snapshot.data);
@@ -372,66 +362,65 @@ class _EventsState extends State<Events> {
 
   Widget carouselSliderBar() {
     return Container(
-      padding: EdgeInsets.all(10),
-      alignment: Alignment.centerLeft,
-      color: UIData.secondaryColor,
-      height: 40,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          IconButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {
-                carouselController.previousPage();
-              },
-              icon: Icon(
-                Icons.arrow_left,
-                color: Colors.white,
-              )),
-          SizedBox(
-            width: 230,
-            child: CarouselSlider(
-              carouselController: carouselController,
-              items: [
-                Text(
-                  'All',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                Text(
-                  dateSelected,
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ],
-              options: CarouselOptions(
-                onPageChanged: (item, reason) {
-                  currentFilterEvents = filterEventsByDay(
-                      _calendarController.selectedDay, eventList);
-                  if (item == 0) {
-                    setState(() {
-                      displayedEvents = eventList;
-                    });
-                  } else if (item == 1) {
-                    setState(() {
-                      displayedEvents = currentFilterEvents;
-                    });
-                  }
+        padding: EdgeInsets.all(10),
+        alignment: Alignment.centerLeft,
+        color: UIData.secondaryColor,
+        height: 40,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+                padding: EdgeInsets.all(0),
+                onPressed: () {
+                  carouselController.previousPage();
                 },
-                height: 40,
+                icon: Icon(
+                  Icons.arrow_left,
+                  color: Colors.white,
+                )),
+            SizedBox(
+              width: 230,
+              child: CarouselSlider(
+                carouselController: carouselController,
+                items: [
+                  Text(
+                    'All',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  Text(
+                    dateSelected,
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ],
+                options: CarouselOptions(
+                  onPageChanged: (item, reason) {
+                    currentFilterEvents = filterEventsByDay(
+                        _calendarController.selectedDay, eventList);
+                    if (item == 0) {
+                      setState(() {
+                        displayedEvents = eventList;
+                      });
+                    } else if (item == 1) {
+                      setState(() {
+                        displayedEvents = currentFilterEvents;
+                      });
+                    }
+                  },
+                  height: 40,
+                ),
               ),
             ),
-          ),
-          IconButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {
-                carouselController.nextPage();
-              },
-              icon: Icon(
-                Icons.arrow_right,
-                color: Colors.white,
-              )),
-        ],
-      ),
-    );
+            IconButton(
+                padding: EdgeInsets.all(0),
+                onPressed: () {
+                  carouselController.nextPage();
+                },
+                icon: Icon(
+                  Icons.arrow_right,
+                  color: Colors.white,
+                )),
+          ],
+        ));
   }
 
   Widget menueText(String text) {
