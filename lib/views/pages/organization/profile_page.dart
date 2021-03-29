@@ -272,7 +272,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               style: TextStyle(fontSize: 18.0),
                             ),
                             leading: Icon(
-                              Icons.person,
+                              Icons.edit,
                               color: UIData.secondaryColor,
                             ),
                             onTap: () {},
