@@ -15,7 +15,8 @@ import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
-
+import 'package:talawa/views/widgets/loading.dart';
+import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -284,7 +285,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               style: TextStyle(fontSize: 18.0),
                             ),
                             leading: Icon(
-                              Icons.person,
+                              Icons.edit,
                               color: UIData.secondaryColor,
                             ),
                             onTap: () {},
