@@ -16,6 +16,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 import 'create_organization.dart';
 
@@ -177,7 +178,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             style: TextStyle(color: Colors.white)),
       ),
       body: organizationInfo.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: Loading(key: UniqueKey(),))
           : Container(
               color: Color(0xffF3F6FF),
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),

@@ -25,7 +25,7 @@ dependencies:
   font_awesome_flutter:
   http: ^0.12.0+1
   flutter_masked_text: ^0.8.0
-  flutter_svg: ^0.17.3+1
+  flutter_svg: ^0.20.0-nullsafety.3
   datetime_picker_formfield: ^1.0.0
   grouped_buttons: ^1.0.4
   provider: ^4.0.1
