@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/controllers/post_controller.dart';
 
 import '../../lib/controllers/auth_controller.dart';
 import '../../lib/controllers/org_controller.dart';
@@ -23,6 +24,9 @@ Widget createHomePageScreen() => MultiProvider(
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
         ),
+        ChangeNotifierProvider<PostController>(
+          create: (_) => PostController(),
+        )
       ],
       child: MaterialApp(
         home: HomePage(),
@@ -35,7 +39,7 @@ void main() {
   group('HomePage Widget Test', () {
     testWidgets("Testing if HomePage shows up", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
-
+      // debugDumpApp();
       // Verify if HomePage Page shows up by checking PersistentTabView.
       expect(find.byType(PersistentTabView), findsOneWidget);
     });

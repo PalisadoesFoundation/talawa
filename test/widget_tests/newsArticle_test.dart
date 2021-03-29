@@ -50,7 +50,6 @@ void main() {
   group("News Article Tests", () {
     testWidgets("Testing if newsArticle Page shows up", (tester) async {
       await tester.pumpWidget(NewsArticlePage());
-      await tester.pump(Duration(seconds: 3));
 
       /// Verify if [News Article Page] shows up.
 
