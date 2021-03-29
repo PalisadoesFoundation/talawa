@@ -14,6 +14,7 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/memberDetails.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 class Organizations extends StatefulWidget {
   Organizations({Key key}) : super(key: key);
@@ -124,6 +125,7 @@ class _OrganizationsState extends State<Organizations> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+           key: Key('ORGANIZATION_APP_BAR'),
           title: Text(
             'Members',
             style: TextStyle(color: Colors.white),
