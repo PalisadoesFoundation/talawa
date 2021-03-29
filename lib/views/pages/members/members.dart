@@ -13,6 +13,7 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/memberDetails.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 class Organizations extends StatefulWidget {
   Organizations({Key key}) : super(key: key);
@@ -117,25 +118,16 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> upstream/master
   //main build starts here
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
+           key: Key('ORGANIZATION_APP_BAR'),
+          title: Text(
             'Members',
             style: const TextStyle(color: Colors.white),
           ),
         ),
-<<<<<<< HEAD
-        body: alphaMembersList.isEmpty
-            ? const Center(child: const CircularProgressIndicator())
-            : RefreshIndicator(
-                onRefresh: () async {
-=======
         body:alphaMembersList.isEmpty
         ? RefreshIndicator(
           onRefresh: () async {
@@ -167,7 +159,6 @@ class _OrganizationsState extends State<Organizations> {
         ])))
                 : RefreshIndicator(
                 onRefresh: () async{
->>>>>>> upstream/master
                   getMembers();
                 },
                 child: CustomScrollView(

@@ -13,6 +13,7 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 //pubspec packages are called here
 import 'package:timeline_list/timeline.dart';
@@ -151,35 +152,6 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-<<<<<<< HEAD
-    Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-    eventList = result == null ? [] : result['events'].reversed.toList();
-    eventList.removeWhere((element) =>
-        element['title'] == 'Talawa Congress' ||
-        element['title'] == 'test' ||
-        element['title'] ==
-            'Talawa Conference Test'); //dont know who keeps adding these
-    eventList.sort((a, b) {
-      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime']))
-          .compareTo(
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
-    });
-    eventsToDates(eventList, DateTime.now());
-    setState(() {
-      displayedEvents = eventList;
-    });
-    // print(displayedEvents);
-
-    eventList.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-            int.parse(a['startTime']))
-        .compareTo(
-            DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime']))));
-    eventsToDates(eventList, DateTime.now());
-    setState(() {
-      displayedEvents = eventList;
-    });
-=======
       Map result =
       await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
       eventList = result == null ? [] : result['events'].reversed.toList();
@@ -199,7 +171,6 @@ class _EventsState extends State<Events> {
         displayedEvents = eventList;
       });
       // print(displayedEvents);
->>>>>>> upstream/master
   }
 
   //functions to edit the event
@@ -229,7 +200,8 @@ class _EventsState extends State<Events> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
+           key: Key('EVENTS_APP_BAR'),
+          title: Text(
             'Events',
             style: const TextStyle(color: Colors.white),
           ),
@@ -292,7 +264,7 @@ class _EventsState extends State<Events> {
               }
             } else if (state == ConnectionState.waiting) {
               print(snapshot.data);
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Loading(key: UniqueKey(),));
             } else if (state == ConnectionState.none) {
               return Text('Could Not Fetch Data.');
             }
@@ -399,7 +371,7 @@ class _EventsState extends State<Events> {
 
   Widget eventListView() {
     return displayedEvents.isEmpty
-        ? Center(child: CircularProgressIndicator())
+        ? Center(child: Loading(key: UniqueKey(),))
         : RefreshIndicator(
             onRefresh: () async {
               getEvents();

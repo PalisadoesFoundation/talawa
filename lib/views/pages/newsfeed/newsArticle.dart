@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
-
 //the pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
@@ -44,15 +43,12 @@ class _NewsArticleState extends State<NewsArticle> {
   bool moreComments = false;
   bool isCommentAdded = false;
 
-<<<<<<< HEAD
-=======
   Queries _query = Queries();
   List userDetails = [];
   String userID;
   String orgName;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
->>>>>>> upstream/master
   @override
   void initState() {
     super.initState();
@@ -152,74 +148,6 @@ class _NewsArticleState extends State<NewsArticle> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            leading: GestureDetector(
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
-              onTap: () {
-                Navigator.of(context).pop(isCommentAdded);
-              },
-            ),
-            expandedHeight: 200,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                widget.post['title'].toString(),
-                style: const TextStyle(color: Colors.white),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              background: FittedBox(
-                child: Image.asset(UIData.shoppingImage),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.all(20),
-            sliver: SliverToBoxAdapter(
-              child: Text(widget.post['text'].toString()),
-            ),
-          ),
-          SliverToBoxAdapter(
-              child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                leading: const CircleAvatar(
-                  backgroundImage: const AssetImage(UIData.pkImage),
-                ),
-                title: Container(
-                  constraints: const BoxConstraints(
-                    maxHeight: double.infinity,
-                    minHeight: 20,
-                  ),
-                  child: TextField(
-                    textInputAction: TextInputAction.newline,
-                    keyboardType: TextInputType.multiline,
-                    //minLines: 1,//Normal textInputField will be displayed
-                    //maxLines: 10,// when user presses enter it will adapt to it
-                    maxLines: null,
-                    decoration: InputDecoration(
-                        suffix: IconButton(
-                          color: Colors.grey,
-                          icon: const Icon(Icons.send),
-                          onPressed: () {
-                            print(commentController.text);
-                            createComment();
-                          },
-                        ),
-                        hintText: 'Leave a Comment....',
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: const BorderSide(color: Colors.teal))),
-                    controller: commentController,
-                  ),
-=======
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[
@@ -266,27 +194,25 @@ class _NewsArticleState extends State<NewsArticle> {
                 Expanded(
                   flex: 3,
                   child: ListTile(
-                    leading: userDetails.isEmpty
-                        ? null
-                        : _profileImage(),
+                    leading: userDetails.isEmpty ? null : _profileImage(),
                     title: Container(
                       constraints: BoxConstraints(
                         maxHeight: double.infinity,
-                        minHeight: 20,
+                        // minHeight: 20,
                       ),
                       child: TextFormField(
+                        key: Key("leaveCommentField"),
                         textInputAction: TextInputAction.newline,
                         keyboardType: TextInputType.multiline,
                         validator: (String value) {
                           if (value.length > 500) {
                             return "Comment cannot be longer than 500 letters";
                           }
-                          if(value.length == 0)
-                            {
-                              return "Comment cannot be empty";
-                            }
+                          if (value.length == 0) {
+                            return "Comment cannot be empty";
+                          }
                           return null;
-                          },
+                        },
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(500)
                         ],
@@ -294,18 +220,23 @@ class _NewsArticleState extends State<NewsArticle> {
                         //maxLines: 10,// when user presses enter it will adapt to it
                         maxLines: null,
                         decoration: InputDecoration(
-                            suffix: IconButton(
-                              color: Colors.grey,
-                              icon: Icon(Icons.send),
-                              onPressed: () {
-                                print(commentController.text);
-                                createComment();
-                              },
+                          suffixIcon: IconButton(
+                            key: Key("leaveCommentButton"),
+                            color: Colors.grey,
+                            icon: Icon(Icons.send),
+                            onPressed: () {
+                              print(commentController.text);
+                              createComment();
+                            },
+                          ),
+                          hintText: 'Leave a Comment...',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: BorderSide(
+                              color: Colors.teal,
                             ),
-                            hintText: 'Leave a Comment....',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: BorderSide(color: Colors.teal))),
+                          ),
+                        ),
                         controller: commentController,
                       ),
                     ),
@@ -319,7 +250,6 @@ class _NewsArticleState extends State<NewsArticle> {
                               alignment: Alignment.topCenter,
                               child: loadCommentsButton())
                           : commentList()),
->>>>>>> upstream/master
                 ),
               ],
             ),
@@ -344,15 +274,12 @@ class _NewsArticleState extends State<NewsArticle> {
         ));
   }
 
-<<<<<<< HEAD
-=======
   // For getting length of Comments to be displayed
   int getCommentslength() {
     getPostComments();
     return comments.length;
   }
 
->>>>>>> upstream/master
   // a new widget for comment list
   Widget commentList() {
     int lenthOfCommentList = getCommentslength();
@@ -366,34 +293,6 @@ class _NewsArticleState extends State<NewsArticle> {
     return Column(
       children: [
         ListTile(
-<<<<<<< HEAD
-          leading: const Icon(Icons.chat),
-          title: Text(comments.length.toString() + '  Comments'),
-        ),
-        ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: comments.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: const CircleAvatar(
-                  child: const Icon(
-                    Icons.person,
-                    color: Colors.white10,
-                  ),
-                  backgroundColor: UIData.secondaryColor,
-                ),
-                title: Text(addNewline(comments[index]['text'])),
-                subtitle: Row(
-                  children: [
-                    Text(comments[index]['creator']['firstName'] +
-                        ' ' +
-                        comments[index]['creator']['lastName']),
-                    Text(
-                      ' - ',
-                      style: const TextStyle(
-                        fontSize: 20,
-=======
           key: ValueKey('commentIcon'),
           leading: Icon(Icons.chat),
           title: Text(comments.length.toString() + '  Comments'),
@@ -425,7 +324,6 @@ class _NewsArticleState extends State<NewsArticle> {
                         style: TextStyle(
                           fontSize: 20,
                         ),
->>>>>>> upstream/master
                       ),
                       Text(timer.hoursOrDays(comments[index]['createdAt']))
                     ],
