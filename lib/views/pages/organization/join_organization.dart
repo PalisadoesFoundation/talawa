@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-//PAges are imported here
+//Pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +41,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   AuthController _authController = AuthController();
   String isPublic;
   TextEditingController searchController = TextEditingController();
+  OrgController _orgController = OrgController();
+  bool _isLoaderActive = false;
   bool disposed = false;
 
   @override
@@ -321,7 +323,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               confirmOrgDialog();
                                             },
                                             color: UIData.primaryColor,
-                                            child: new Text("JOIN"),
+                                            child: _isLoaderActive
+                                                ? CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation(
+                                                            Colors.white),
+                                                    strokeWidth: 2,
+                                                  )
+                                                : new Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   new BorderRadius.circular(
@@ -427,7 +436,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               confirmOrgDialog();
                                             },
                                             color: UIData.primaryColor,
-                                            child: new Text("JOIN"),
+                                            child: _isLoaderActive
+                                                ? CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation(
+                                                            Colors.white),
+                                                    strokeWidth: 2,
+                                                  )
+                                                : new Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   new BorderRadius.circular(
@@ -473,12 +489,18 @@ class _JoinOrganizationState extends State<JoinOrganization> {
               FlatButton(
                 child: Text("Yes"),
                 onPressed: () async {
+                  setState(() {
+                    _isLoaderActive = true;
+                  });
+                  Navigator.of(context).pop();
                   if (isPublic == 'true') {
-                    joinPublicOrg();
-                    Navigator.of(context).pop();
+                    await joinPublicOrg().whenComplete(() => setState(() {
+                          _isLoaderActive = false;
+                        }));
                   } else if (isPublic == 'false') {
-                    joinPrivateOrg();
-                    Navigator.of(context).pop();
+                    await joinPrivateOrg().whenComplete(() => setState(() {
+                          _isLoaderActive = false;
+                        }));
                   }
                 },
               )
