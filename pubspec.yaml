@@ -63,12 +63,12 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   random_pk:
-  flutter_launcher_icons: "^0.8.0"
+  #flutter_launcher_icons: "^0.8.0"
 
-flutter_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "assets/images/talawaLogo.png"
+#flutter_icons:
+#  android: "launcher_icon"
+#  ios: true
+#  image_path: "assets/images/talawaLogo.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
