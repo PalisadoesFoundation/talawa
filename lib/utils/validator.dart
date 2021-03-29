@@ -1,10 +1,9 @@
 import 'package:email_validator/email_validator.dart';
 
-
 class Validator {
   static String validateURL(String value) {
     if (value.length == 0) {
-      return 'Please enter and save url to continue'.toUpperCase();
+      return 'Please verify URL first'.toUpperCase();
     }
     return null;
   }
@@ -24,9 +23,14 @@ class Validator {
   }
 
   static String validateEmail(String email) {
+    // If email is empty return.
+    if (email.isEmpty) {
+      return "Email must not be left blank";
+    }
+
     final bool isValid = EmailValidator.validate(email);
     if (!isValid) {
-      return 'Not a Valid Email Address';
+      return 'Please enter a valid Email Address';
     }
     return null;
   }
@@ -45,16 +49,19 @@ class Validator {
   //   return null;
   // }
 
-  static String validatePassword(String value) {
+  static String validatePassword(String password) {
+    // If password is empty return.
+    if (password.isEmpty) {
+      return "Password must not be left blank";
+    }
     String pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~.]).{8,}$';
     RegExp regExp = new RegExp(pattern);
-    if (!regExp.hasMatch(value)) {
+    if (!regExp.hasMatch(password)) {
       return "Invalid Password";
     }
     return null;
   }
 
-  
   static String validatePasswordConfirm(String value, String comparator) {
     if (value != comparator) {
       return 'Password does not match original';
@@ -90,7 +97,7 @@ class Validator {
     if (value.length == 0) {
       return 'Organization Name must not be left blank.';
     }
-    if(value.length > 40) {
+    if (value.length > 40) {
       return 'Organization Name must not exceed 40 letters';
     }
     return null;
@@ -100,7 +107,7 @@ class Validator {
     if (value.length == 0) {
       return 'Organization Description must not be left blank.';
     }
-    if(value.length > 5000) {
+    if (value.length > 5000) {
       return 'Organization Description must not exceed 5000 letters';
     }
     return null;
@@ -110,7 +117,7 @@ class Validator {
     if (value.length == 0) {
       return 'Attendees Description must not be left blank.';
     }
-    if(value.length > 5000) {
+    if (value.length > 5000) {
       return 'Attendees Description must not exceed 5000 letters';
     }
     return null;
