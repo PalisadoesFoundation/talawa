@@ -140,7 +140,6 @@ class _EditEventState extends State<EditEvent> {
             DateTime.now().day, 23, 59),
       };
     }
-    final String currentOrgID = await preferences.getCurrentOrgId();
     String mutation = Queries().updateEvent(
       eventId: widget.event['_id'],
       title: titleController.text,
