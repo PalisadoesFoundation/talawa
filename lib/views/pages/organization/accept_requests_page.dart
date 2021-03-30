@@ -146,7 +146,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
             ),
           ]
       ))
-          : ListView.builder(
+          : ListView.builder(  //Builds list of awaiting membership requests
           itemCount: membershipRequestsList.length,
           itemBuilder: (context, index) {
             final membershipRequests = membershipRequestsList[index];
