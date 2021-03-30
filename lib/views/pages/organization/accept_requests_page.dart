@@ -151,7 +151,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
           itemBuilder: (context, index) {
             final membershipRequests = membershipRequestsList[index];
             return Card(
-                child: ListTile( //building the List of the organization in the database
+                child: ListTile(
                     leading: membershipRequests['user']['image'] != null
                         ? CircleAvatar(
                         radius: 30,
