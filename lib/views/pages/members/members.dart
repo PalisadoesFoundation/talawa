@@ -122,7 +122,7 @@ class _OrganizationsState extends State<Organizations> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-           key: Key('ORGANIZATION_APP_BAR'),
+          key: Key('ORGANIZATION_APP_BAR'),
           title: Text(
             'Members',
             style: TextStyle(color: Colors.white),
@@ -173,8 +173,6 @@ class _OrganizationsState extends State<Organizations> {
   //widget which divides the list according to letters
   Widget alphabetDividerList(BuildContext context, List membersList) {
     return SliverStickyHeader(
-      sticky: true,
-      overlapsContent: false,
       header: Container(
         color: Colors.white,
         height: 60.0,
