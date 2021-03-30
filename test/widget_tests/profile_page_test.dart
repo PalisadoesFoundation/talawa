@@ -8,7 +8,6 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 
 Widget createLoginPageScreen() => MultiProvider(
@@ -43,20 +42,21 @@ void main() {
     assert(details != null);
     assert(details.exception != null);
 
-    bool ifIsOverflowError = false;
+    var ifIsOverflowError = false;
 
     // Detect overflow error.
     var exception = details.exception;
-    if (exception is FlutterError)
+    if (exception is FlutterError) {
       ifIsOverflowError = !exception.diagnostics.any(
         (e) => e.value.toString().startsWith(
-              "A RenderFlex overflowed by",
+              'A RenderFlex overflowed by',
             ),
       );
+    }
 
     // Ignore if is overflow error.
     if (ifIsOverflowError) {
-      print("Over flow error");
+      print('Over flow error');
     }
 
     // Throw other errors.
@@ -67,8 +67,8 @@ void main() {
       );
     }
   };
-  group("Login Page Tests", () {
-    testWidgets("Testing if LoginPage shows up", (tester) async {
+  group('Login Page Tests', () {
+    testWidgets('Testing if LoginPage shows up', (tester) async {
       await tester.pumpWidget(createLoginPageScreen());
 
       /// Verify if [LoginPage] shows up.
@@ -78,7 +78,7 @@ void main() {
       );
     });
 
-    testWidgets("Testing overflow of LoginPage in a mobile screen",
+    testWidgets('Testing overflow of LoginPage in a mobile screen',
         (tester) async {
       binding.window.physicalSizeTestValue = Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
@@ -89,7 +89,7 @@ void main() {
       //expect(find.byKey(Key('loading')), findsOneWidget);
     });
 
-    testWidgets("Testing overflow of LoginPage in a tablet screen",
+    testWidgets('Testing overflow of LoginPage in a tablet screen',
         (tester) async {
       binding.window.physicalSizeTestValue = Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
@@ -103,14 +103,14 @@ void main() {
       );
     });
 
-    testWidgets("Create an Account Button is disabled if url not verfied",
+    testWidgets('Create an Account Button is disabled if url not verfied',
         (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the create account button.
-      var createAccountButton = find.text("Create an Account");
+      var createAccountButton = find.text('Create an Account');
 
       // Tap on the createAccountButton.
       await tester.tap(createAccountButton);
@@ -118,18 +118,18 @@ void main() {
 
       // RegisterForm should not be displayed.
       expect(
-        find.text("SIGN UP"),
+        find.text('SIGN UP'),
         findsNothing,
       );
     });
 
-    testWidgets("Login Button is disabled if url not verfied", (tester) async {
+    testWidgets('Login Button is disabled if url not verfied', (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the login button.
-      var loginButton = find.text("Login");
+      var loginButton = find.text('Login');
 
       // Tap on the login button
       await tester.tap(loginButton);
@@ -137,12 +137,12 @@ void main() {
 
       // LoginForm should not be displayed.
       expect(
-        find.text("SIGN IN"),
+        find.text('SIGN IN'),
         findsNothing,
       );
     });
 
-    testWidgets("Create an Account Button is working if url is verfied",
+    testWidgets('Create an Account Button is working if url is verfied',
         (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
@@ -150,7 +150,7 @@ void main() {
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the create account button.
-      var createAccountButton = find.text("Create an Account");
+      var createAccountButton = find.text('Create an Account');
 
       /// Enter [calico.palisadoes.org] in [TextFormField].
       await tester.enterText(
@@ -160,12 +160,12 @@ void main() {
 
       //  Check if saveMsg is "Set URL".
       expect(
-        find.text("Set URL"),
+        find.text('Set URL'),
         findsOneWidget,
       );
 
       // Get the Set URL Button.
-      var setURLButton = find.text("Set URL");
+      var setURLButton = find.text('Set URL');
 
       // Tap on Set URL Button.
       await tester.tap(setURLButton);
@@ -173,11 +173,11 @@ void main() {
 
       // Verify that saveMsg changes from "Set URL" to "URL SAVED!".
       expect(
-        find.text("Set URL"),
+        find.text('Set URL'),
         findsNothing,
       );
       expect(
-        find.text("URL SAVED!"),
+        find.text('URL SAVED!'),
         findsOneWidget,
       );
 
@@ -187,19 +187,19 @@ void main() {
 
       // RegisterForm should be displayed.
       expect(
-        find.text("SIGN UP"),
+        find.text('SIGN UP'),
         findsOneWidget,
       );
     });
 
-    testWidgets("Login Button is working if url is verfied", (tester) async {
+    testWidgets('Login Button is working if url is verfied', (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the create account button.
-      var loginButton = find.text("Login");
+      var loginButton = find.text('Login');
 
       /// Enter [calico.palisadoes.org] in [TextFormField].
       await tester.enterText(
@@ -209,12 +209,12 @@ void main() {
 
       //  Check if saveMsg is "Set URL".
       expect(
-        find.text("Set URL"),
+        find.text('Set URL'),
         findsOneWidget,
       );
 
       // Get the Set URL Button.
-      var setURLButton = find.text("Set URL");
+      var setURLButton = find.text('Set URL');
 
       // Tap on Set URL Button.
       await tester.tap(setURLButton);
@@ -222,11 +222,11 @@ void main() {
 
       // Verify that saveMsg changes from "Set URL" to "URL SAVED!".
       expect(
-        find.text("Set URL"),
+        find.text('Set URL'),
         findsNothing,
       );
       expect(
-        find.text("URL SAVED!"),
+        find.text('URL SAVED!'),
         findsOneWidget,
       );
 
@@ -236,7 +236,7 @@ void main() {
 
       // LoginForm should be displayed.
       expect(
-        find.text("SIGN IN"),
+        find.text('SIGN IN'),
         findsOneWidget,
       );
     });

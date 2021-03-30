@@ -17,12 +17,12 @@ class AcceptRequestsPage extends StatefulWidget {
 }
 
 class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
-  Queries _query = Queries();
-  Preferences _preferences = Preferences();
+  final Queries _query = Queries();
+  final Preferences _preferences = Preferences();
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  AuthController _authController = AuthController();
+  final AuthController _authController = AuthController();
   List membershipRequestsList = [];
   bool loaded = false;
   bool processing = false;
@@ -38,11 +38,11 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
 
   Future viewMemberShipRequests() async {
     //Same function giving us the way that a administrator can see the request got from the user to get the membership
-    final String orgId = await _preferences.getCurrentOrgId();
+    final orgId = await _preferences.getCurrentOrgId();
 
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    var _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.query(QueryOptions(
+    var result = await _client.query(QueryOptions(
         documentNode: gql(_query.viewMembershipRequest(
             orgId)))); //calling the graphql query to see the membership request
     if (result.hasException) {
@@ -57,7 +57,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
         loaded = true;
       });
 
-      if (membershipRequestsList.length == 0) {
+      if (membershipRequestsList.isEmpty) {
         _exceptionToast('You have no new requests.');
       }
     }
@@ -68,9 +68,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       processing = true;
     });
     //this function give the functionality of accepting the request of the user by the administrator
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    var _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.query(QueryOptions(
+    var result = await _client.query(QueryOptions(
         documentNode: gql(_query.acceptMembershipRequest(itemIndex))));
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
@@ -87,7 +87,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
         processing = false;
       });
       _successToast('Success');
-      viewMemberShipRequests();
+      await viewMemberShipRequests();
     }
   }
 
@@ -96,9 +96,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       processing = true;
     });
     //this function give the functionality of rejecting the request of the user by the administrator
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    var _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.query(QueryOptions(
+    var result = await _client.query(QueryOptions(
         documentNode: gql(_query.rejectMembershipRequest(itemIndex))));
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
@@ -115,7 +115,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
         processing = false;
       });
       _successToast('Success');
-      viewMemberShipRequests();
+      await viewMemberShipRequests();
     }
   }
 
@@ -135,7 +135,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
               height: 250,
             ),
             Text(
-              "No request",
+              'No request',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -162,7 +162,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                 membershipRequests['user']['image']))
                         : CircleAvatar(
                         radius: 30,
-                        backgroundImage: AssetImage("assets/images/team.png")),
+                        backgroundImage: AssetImage('assets/images/team.png')),
                     title: Text(membershipRequests['user']['firstName'] +
                         ' ' +
                         membershipRequests['user']['lastName']),
@@ -189,7 +189,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                         ),
                         (!loaded)
                             ? Center(child: CircularProgressIndicator())
-                            : membershipRequestsList.length == 0
+                            : membershipRequestsList.isEmpty
                             ? Center(
                             child: Text('No Member Requests Available'))
                             : ListView.builder(
@@ -212,7 +212,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                     : CircleAvatar(
                                     radius: 30,
                                     backgroundImage:
-                                    AssetImage("assets/images/team.png")),
+                                    AssetImage('assets/images/team.png')),
                                 title: Text(membershipRequests['user']
                                 ['firstName'] +
                                     ' ' +
@@ -263,6 +263,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     );
   }
 
+  // ignore: always_declare_return_types
   _successToast(String msg) {
     //function to be called when the request is successful
     Widget toast = Container(
@@ -286,6 +287,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     );
   }
 
+  // ignore: always_declare_return_types
   _exceptionToast(String msg) {
     //this function is the exception is called
     Widget toast = Container(

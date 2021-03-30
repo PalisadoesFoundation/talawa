@@ -29,9 +29,9 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
   final orgNameController = TextEditingController();
   final orgDescController = TextEditingController();
   final orgMemberDescController = TextEditingController();
-  Queries _queries = Queries();
+  final Queries _queries = Queries();
   bool _progressBarState = false;
-  var _validate = AutovalidateMode.disabled;
+  final _validate = AutovalidateMode.disabled;
   final _formKey = GlobalKey<FormState>();
   int radioValue = -1;
   int radioValue1 = -1;
@@ -39,7 +39,7 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
   bool isVisible = true;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  AuthController _authController = AuthController();
+  final AuthController _authController = AuthController();
   File _image;
 
   @override
@@ -53,13 +53,13 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
     _progressBarState = !_progressBarState;
   }
 
-  createOrg() async { //this is the function which will be called when the organization is created
-    GraphQLClient _client = graphQLConfiguration.authClient();
+  Future createOrg() async { //this is the function which will be called when the organization is created
+    var _client = graphQLConfiguration.authClient();
     orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
     orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
     orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final img = await multipartFileFrom(_image);
-    QueryResult result = await _client.mutate(MutationOptions(
+    var result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
         orgNameController.text,
         orgDescController.text,
@@ -87,26 +87,26 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Sucess!");
+      _successToast('Sucess!');
       print(result.data);
 
       if(widget.isFromProfile){
         Navigator.pop(context);
         Navigator.pop(context);
       }else {
-        Navigator.of(
+        await Navigator.of(
             context).pushReplacement(MaterialPageRoute(
             builder: (context) => HomePage(openPageIndex: 2,)));
       }
     }
   }
 
-  createOrgWithoutImg() async { //the function is called when we are creating the organization without the display picture
-    GraphQLClient _client = graphQLConfiguration.authClient();
+  Future createOrgWithoutImg() async { //the function is called when we are creating the organization without the display picture
+    var _client = graphQLConfiguration.authClient();
     orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
     orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
     orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
-    QueryResult result = await _client.mutate(MutationOptions(
+    var result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrgWithoutImg(
         orgNameController.text,
         orgDescController.text,
@@ -131,21 +131,23 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Sucess!");
+      _successToast('Sucess!');
       print(result.data);
       if(widget.isFromProfile){
         Navigator.pop(context);
         Navigator.pop(context);
       }else {
-        Navigator.of(
+        await Navigator.of(
             context).pushReplacement(MaterialPageRoute(
             builder: (context) => HomePage(openPageIndex: 2,)));
       }
     }
   }
 
+  // ignore: always_declare_return_types
   _imgFromCamera() async { //this is the function when the user want to capture the image from the camera
-    File image = await ImagePicker.pickImage(
+    // ignore: deprecated_member_use
+    var image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
@@ -154,8 +156,9 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
   }
 
 
+  // ignore: always_declare_return_types
   _imgFromGallery() async { //this is the function when the user want to take the picture from the gallery
-    File image = File(
+    var image = File(
         (await FilePicker.platform.pickFiles(type: FileType.image))
             .files
             .first
@@ -223,7 +226,7 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                                 Icons.group,
                                 color: UIData.secondaryColor,
                               ),
-                              labelText: "Organization Name",
+                              labelText: 'Organization Name',
                               labelStyle: TextStyle(color: Colors.black),
                               alignLabelWithHint: true,
                               hintText: 'My Organization',
@@ -253,7 +256,7 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                                   borderRadius: BorderRadius.circular(20.0)),
                               prefixIcon: Icon(Icons.note,
                                   color: UIData.secondaryColor),
-                              labelText: "Organization Description",
+                              labelText: 'Organization Description',
                               labelStyle: TextStyle(color: Colors.black),
                               alignLabelWithHint: true,
                               hintText: 'My Description',
@@ -276,14 +279,14 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                                 Validator.validateOrgAttendeesDesc(value),
                             textAlign: TextAlign.left,
                             style: TextStyle(color: Colors.black),
-                            decoration: new InputDecoration(
-                              border: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(20.0),
-                                  borderSide: new BorderSide(
+                            decoration:  InputDecoration(
+                              border:  OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderSide: BorderSide(
                                       color: UIData.secondaryColor)),
                               prefixIcon: Icon(Icons.note,
                                   color: UIData.secondaryColor),
-                              labelText: "Member Description",
+                              labelText: 'Member Description',
                               labelStyle: TextStyle(color: Colors.black),
                               alignLabelWithHint: true,
                               hintText: 'Member Description',
@@ -371,6 +374,25 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                           style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),),
+                          onPressed: _progressBarState?(){
+                            _exceptionToast('Request in Progress');
+                          }:() async {
+                            if (_formKey.currentState.validate() &&
+                                radioValue >= 0 &&
+                                radioValue1 >= 0) {
+                              _formKey.currentState.save();
+                              if (_image != null) {
+                                await createOrg();
+                              } else {
+                                await createOrgWithoutImg();
+                              }
+                              setState(() {
+                                toggleProgressBarState();
+                              });
+                            } else if (radioValue < 0 || radioValue1 < 0) {
+                              _exceptionToast('A choice must be selected');
+                            }
+                          },
                           child: _progressBarState
                               ? const Center(
                                   child: SizedBox(
@@ -384,28 +406,9 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                                         backgroundColor: Colors.black,
                                       )))
                               : Text(
-                                  "CREATE ORGANIZATION",
+                                  'CREATE ORGANIZATION',
                                   style: TextStyle(color: Colors.white),
                                 ),
-                          onPressed: _progressBarState?(){
-                            _exceptionToast('Request in Progress');
-                          }:() async {
-                            if (_formKey.currentState.validate() &&
-                                radioValue >= 0 &&
-                                radioValue1 >= 0) {
-                              _formKey.currentState.save();
-                              if (_image != null) {
-                                createOrg();
-                              } else {
-                                createOrgWithoutImg();
-                              }
-                              setState(() {
-                                toggleProgressBarState();
-                              });
-                            } else if (radioValue < 0 || radioValue1 < 0) {
-                              _exceptionToast("A choice must be selected");
-                            }
-                          },
                         ),
                       ),
                     ],
@@ -485,6 +488,7 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
         });
   }
 
+  // ignore: always_declare_return_types
   _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
@@ -507,6 +511,7 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
     );
   }
 
+  // ignore: always_declare_return_types
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),

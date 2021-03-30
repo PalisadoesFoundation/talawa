@@ -40,8 +40,8 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
 
-  group("News Article Tests", () {
-    testWidgets("Testing if newsArticle Page shows up", (tester) async {
+  group('News Article Tests', () {
+    testWidgets('Testing if newsArticle Page shows up', (tester) async {
       await tester.pumpWidget(NewsArticlePage());
 
       /// Verify if [News Article Page] shows up.
@@ -52,7 +52,7 @@ void main() {
       );
     });
 
-    testWidgets("Testing overflow of New Article in a mobile screen",
+    testWidgets('Testing overflow of New Article in a mobile screen',
         (tester) async {
       binding.window.physicalSizeTestValue = Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
@@ -66,7 +66,7 @@ void main() {
       );
     });
 
-    testWidgets("Testing overflow of New Article in a tablet screen",
+    testWidgets('Testing overflow of New Article in a tablet screen',
         (tester) async {
       binding.window.physicalSizeTestValue = Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
@@ -80,11 +80,11 @@ void main() {
       );
     });
 
-    testWidgets("Load Comments Button is working", (tester) async {
+    testWidgets('Load Comments Button is working', (tester) async {
       await tester.pumpWidget(NewsArticlePage());
 
       // Get the Load Comment button.
-      var loadCommentsButton = find.text("Load Comments");
+      var loadCommentsButton = find.text('Load Comments');
 
       // Tap on the loadCommentsButton.
       await tester.tap(loadCommentsButton);
@@ -100,7 +100,7 @@ void main() {
     });
   });
 
-  testWidgets("Check if Leave a Comments Button is Working",(WidgetTester tester)async{
+  testWidgets('Check if Leave a Comments Button is Working',(WidgetTester tester)async{
     //find all the widget needed
     
     final leaveCommentTextField = find.byKey(ValueKey('leaveCommentField'));
@@ -108,12 +108,12 @@ void main() {
     
     //execute the test
     await tester.pumpWidget(NewsArticlePage());
-    await tester.enterText(leaveCommentTextField,"hello how are you");
+    await tester.enterText(leaveCommentTextField,'hello how are you');
     await tester.tap(leaveCommentButton);
     await tester.pump();
 
     //check output
-    expect(find.text("hello how are you"),findsOneWidget);
+    expect(find.text('hello how are you'),findsOneWidget);
 
 
   });

@@ -25,6 +25,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
   void setState(fn) {
     if (mounted) {
       super.setState(fn);
@@ -43,15 +44,17 @@ class _HomePageState extends State<HomePage> {
     _controller  = PersistentTabController(initialIndex: currentIndex);
   }
 
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
   Future<void> getUserInfo() async {
-    final String userID = await preferences.getUserId(); //getting the current user id from the server
-    String mutation = Queries().fetchUserInfo2(userID); //getting some more user information with the ID
-    ApiFunctions apiFunctions = ApiFunctions();
+    final userID = await preferences.getUserId(); //getting the current user id from the server
+    var mutation = Queries().fetchUserInfo2(userID); //getting some more user information with the ID
+    var apiFunctions = ApiFunctions();
+    // ignore: unused_local_variable
     final result = await apiFunctions.gqlmutation(mutation);
   }
 
@@ -69,31 +72,31 @@ class _HomePageState extends State<HomePage> {
     return [
       PersistentBottomNavBarItem( //mentioning the screen home in the bottom bar
         icon: Icon(Icons.home),
-        title: ("Home"),
+        title: ('Home'),
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem( //mentioning the screen chats in the bottom bar
         icon: Icon(Icons.chat),
-        title: ("Chats"),
+        title: ('Chats'),
        activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem( //mentioning the Events home in the bottom bar
         icon: Icon(Icons.calendar_today),
-        title: ("Events"),
+        title: ('Events'),
        activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem( //mentioning the screen home in the bottom bar
         icon: Icon(Icons.group),
-        title: ("Members"),
+        title: ('Members'),
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem( //mentioning the screen Profile in the bottom bar
         icon: Icon(Icons.folder),
-        title: ("Profile"),
+        title: ('Profile'),
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
@@ -118,7 +121,7 @@ class _HomePageState extends State<HomePage> {
         )
       ],
       child: Builder(builder: (BuildContext context) {
-        BuildContext rootContext = context;
+        var rootContext = context;
         Provider.of<GraphQLConfiguration>(rootContext, listen: false)
             .getOrgUrl();
         Provider.of<Preferences>(rootContext, listen: false).getCurrentOrgId();

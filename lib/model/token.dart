@@ -8,7 +8,7 @@ class Token {
   Token({this.tokenString});
 
   String _decodeBase64(String str) {
-    String output = str.replaceAll('-', '+').replaceAll('_', '/');
+    var output = str.replaceAll('-', '+').replaceAll('_', '/');
     switch (output.length % 4) {
       case 0:
         break;
@@ -25,7 +25,7 @@ class Token {
   }
 
   Map<String, dynamic> parseJwt() {
-    final parts = this.tokenString.split('.');
+    final parts = tokenString.split('.');
     if (parts.length != 3) {
       throw Exception('invalid token');
     }

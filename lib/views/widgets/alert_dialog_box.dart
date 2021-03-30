@@ -12,23 +12,23 @@ class _AlertBoxState extends State<AlertBox> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Confirmation"),
+      title: Text('Confirmation'),
       content: Text(
           widget.message),
       actions: [
         ElevatedButton(
-          child: Text("Close"),
           onPressed: () {
             Navigator.of(context).pop();
           },
+          child: Text('Close'),
         ),
         ElevatedButton(
-          child: Text("Yes"),
           onPressed: () async {
             print('here');
             widget.function();
             Navigator.pop(context);
           },
+          child: Text('Yes'),
         )
       ],
     );

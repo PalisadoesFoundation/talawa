@@ -28,6 +28,7 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
 
 
   //providing variables with the initial states
+  @override
   void initState() {
     super.initState();
     getUserDetails();
@@ -35,9 +36,10 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
 
 
   //method to get the user details
+  // ignore: always_declare_return_types
   getUserDetails() async {
     final String userID = widget.member['_id'];
-    Map result =
+    var result =
         await apiFunctions.gqlquery(Queries().registeredEventsByUser(userID));
     setState(() {
       userEvents = result == null ? [] : result['registeredEventsByUser'];
@@ -48,12 +50,12 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
   //the main build starts here
   @override
   Widget build(BuildContext context) {
-    if (userEvents.length != 0) {
+    if (userEvents.isNotEmpty) {
       if (userEvents[0]['title'] == null) {
         userEvents = [];
       }
     }
-    return userEvents.length != 0
+    return userEvents.isNotEmpty
         ? ListView.builder(
             itemCount: userEvents.length,
             itemBuilder: (context, index) {
@@ -64,7 +66,7 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
         : Container(
             child: Center(
                 child: Text(
-              "No registered events",
+              'No registered events',
               style: TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             )),

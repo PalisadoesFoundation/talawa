@@ -10,9 +10,9 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterePageState extends State<RegisterPage>
     with TickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
 
-  registrationScreenForm() => Center(
+  Center registrationScreenForm() => Center(
         child: Container(
           alignment: AlignmentDirectional(0.0, 0.0),
           child: Container(
@@ -28,7 +28,7 @@ class _RegisterePageState extends State<RegisterPage>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "Already have an account?",
+                          'Already have an account?',
                           style: TextStyle(color: Colors.white),
                         ),
                         Container(
@@ -42,7 +42,7 @@ class _RegisterePageState extends State<RegisterPage>
                                       builder: (context) => LoginPage()));
                             },
                             child: Text(
-                              "SIGN IN!",
+                              'SIGN IN!',
                               textAlign: TextAlign.start,
                               style: TextStyle(color: UIData.primaryColor),
                             ),

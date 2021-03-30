@@ -20,15 +20,15 @@ void changeFirst() {
 
 class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage> {
 
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
 
   var _media;
   final _formKey = GlobalKey<FormState>();
   final urlController = TextEditingController();
   String dropdownValue = 'HTTP';
-  Preferences _pref = Preferences();
+  final Preferences _pref = Preferences();
   String orgUrl, orgImgUrl;
-  String saveMsg = "Set URL";
+  String saveMsg = 'Set URL';
   String urlInput;
   FToast fToast;
   bool isUrlCalled = false;
@@ -44,10 +44,11 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
   Animation helloAnimation;
 
 
+  // ignore: always_declare_return_types
   listenToUrl() {
-    if (saveMsg == "URL SAVED!" && urlController.text != urlInput) {
+    if (saveMsg == 'URL SAVED!' && urlController.text != urlInput) {
       setState(() {
-        saveMsg = "Set URL";
+        saveMsg = 'Set URL';
       });
     }
     urlInput = urlController.text;
@@ -61,7 +62,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
     try {
       await http.get('${dropdownValue.toLowerCase()}://${urlController.text}/');
 
-      setApiUrl();
+      await setApiUrl();
       _setURL();
     } catch (e) {
       _exceptionToast('Incorrect Organization Entered');
@@ -75,9 +76,9 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
   Future setApiUrl() async {
     setState(() {
       orgUrl =
-          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
+          '${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/';
       orgImgUrl =
-          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
+          '${dropdownValue.toLowerCase()}://${urlController.text}/talawa/';
     });
     await _pref.saveOrgUrl(orgUrl);
     await _pref.saveOrgImgUrl(orgImgUrl);
@@ -85,10 +86,11 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
 
   void _setURL() {
     setState(() {
-      saveMsg = "URL SAVED!";
+      saveMsg = 'URL SAVED!';
     });
   }
 
+  // ignore: always_declare_return_types
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
@@ -179,7 +181,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
     assignAnimation(first);
     load();
     Widget mainScreen() {
-      return new Column(
+      return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           FadeTransition(
@@ -190,7 +192,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
               child: Center(child: Image(image: AssetImage(UIData.talawaLogo))),
             ),
           ),
-          new Container(
+          Container(
             //container with login and sign up button
             padding: EdgeInsets.fromLTRB(0, 0, 0, 50),
 
@@ -211,7 +213,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                             opacity: helloAnimation,
                             child: Container(
                               child: Text(
-                                "TALAWA",
+                                'TALAWA',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -226,7 +228,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                         opacity: helloAnimation,
                         child: Container(
                           child: Text(
-                            ".",
+                            '.',
                             style: TextStyle(
                               color: Colors.orange,
                               fontWeight: FontWeight.bold,
@@ -310,7 +312,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                         ),
                                         prefixIcon: Icon(Icons.web,
                                             color: Colors.white),
-                                        labelText: "Type Org URL Here",
+                                        labelText: 'Type Org URL Here',
                                         labelStyle:
                                             TextStyle(color: Colors.white),
                                         alignLabelWithHint: true,
@@ -335,6 +337,15 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                   ),
+                                  //color: Colors.white,
+                                  onPressed: () async {
+                                    FocusScope.of(context).unfocus();
+                                    if (_formKey.currentState.validate()) {
+                                      _formKey.currentState.save();
+
+                                      await checkAndSetUrl();
+                                    }
+                                  },
                                   child: isUrlCalled
                                       ? SizedBox(
                                           height: 14,
@@ -344,16 +355,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                         )
                                       : Text(
                                           saveMsg,
-                                        ),
-                                  //color: Colors.white,
-                                  onPressed: () async {
-                                    FocusScope.of(context).unfocus();
-                                    if (_formKey.currentState.validate()) {
-                                      _formKey.currentState.save();
-
-                                      await checkAndSetUrl();
-                                    }
-                                  }),
+                                        ),),
                             ],
                           ),
                         ],
@@ -369,16 +371,16 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                   opacity: loginAnimation,
                   child: Container(
                     //padding: EdgeInsets.all(100.0),
-                    child: new Container(
+                    child: Container(
                       width: _media != null
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(
                           left: 50.0, right: 50.0, top: 10.0),
                       alignment: Alignment.center,
-                      child: new Row(
+                      child: Row(
                         children: <Widget>[
-                          new Expanded(
+                           Expanded(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.zero,
@@ -386,12 +388,12 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                               ),
-                              onPressed: saveMsg != "URL SAVED!"
+                              onPressed: saveMsg != 'URL SAVED!'
                                   ? null
                                   : () async {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        Navigator.push(
+                                        await Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
@@ -399,7 +401,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                         );
                                       }
                                     },
-                              child: new Container(
+                              child:  Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 20.0,
                                   horizontal: 20.0,
@@ -407,13 +409,13 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.orange),
                                     borderRadius:
-                                        new BorderRadius.circular(50.0)),
-                                child: new Row(
+                                         BorderRadius.circular(50.0)),
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    new Expanded(
+                                    Expanded(
                                       child: Text(
-                                        "Create an Account",
+                                        'Create an Account',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           //color: UIData.quitoThemeColor,
@@ -437,36 +439,36 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                 FadeTransition(
                   opacity: loginAnimation,
                   child: Container(
-                    child: new Container(
+                    child:  Container(
                       width: _media != null
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(
                           left: 50.0, right: 50.0, top: 10.0),
                       alignment: Alignment.center,
-                      child: new Row(
+                      child: Row(
                         children: <Widget>[
-                          new Expanded(
-                            child: new ElevatedButton(
+                          Expanded(
+                            child:  ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                               ),
-                              onPressed: saveMsg != "URL SAVED!"
+                              onPressed: saveMsg != 'URL SAVED!'
                                   ? null
                                   : () async {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        Navigator.push(
+                                        await Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     LoginPage()));
                                       }
                                     },
-                              child: new Container(
+                              child:  Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 20.0,
                                   horizontal: 20.0,
@@ -474,13 +476,13 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.orange),
                                     borderRadius:
-                                        new BorderRadius.circular(50.0)),
-                                child: new Row(
+                                       BorderRadius.circular(50.0)),
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    new Expanded(
+                                    Expanded(
                                       child: Text(
-                                        "Login",
+                                        'Login',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           //color: UIData.quitoThemeColor,
@@ -526,6 +528,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
   }
 
   @override
+  // ignore: always_declare_return_types
   dispose() {
     controller.dispose();
     helloController.dispose();

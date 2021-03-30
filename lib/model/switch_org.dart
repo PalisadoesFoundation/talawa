@@ -16,11 +16,11 @@ class SwitchOrg {
   Data data;
 
   factory SwitchOrg.fromJson(Map<String, dynamic> json) => SwitchOrg(
-        data: Data.fromJson(json["data"]),
+        data: Data.fromJson(json['data']),
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data.toJson(),
+        'data': data.toJson(),
       };
 }
 
@@ -32,11 +32,11 @@ class Data {
   List<User> users;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        users: List<User>.from(json["users"].map((x) => User.fromJson(x))),
+        users: List<User>.from(json['users'].map((x) => User.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "users": List<dynamic>.from(users.map((x) => x.toJson())),
+        'users': List<dynamic>.from(users.map((x) => x.toJson())),
       };
 }
 
@@ -49,12 +49,12 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         joinedOrganizations: List<JoinedOrganization>.from(
-            json["joinedOrganizations"]
+            json['joinedOrganizations']
                 .map((x) => JoinedOrganization.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "joinedOrganizations":
+        'joinedOrganizations':
             List<dynamic>.from(joinedOrganizations.map((x) => x.toJson())),
       };
 }
@@ -76,19 +76,19 @@ class JoinedOrganization {
 
   factory JoinedOrganization.fromJson(Map<String, dynamic> json) =>
       JoinedOrganization(
-        image: json["image"],
-        id: json["_id"],
-        name: json["name"],
-        description: json["description"],
-        creator: Creator.fromJson(json["creator"]),
+        image: json['image'],
+        id: json['_id'],
+        name: json['name'],
+        description: json['description'],
+        creator: Creator.fromJson(json['creator']),
       );
 
   Map<String, dynamic> toJson() => {
-        "image": image,
-        "_id": id,
-        "name": name,
-        "description": description,
-        "creator": creator.toJson(),
+        'image': image,
+        '_id': id,
+        'name': name,
+        'description': description,
+        'creator': creator.toJson(),
       };
 }
 
@@ -102,12 +102,12 @@ class Creator {
   String lastName;
 
   factory Creator.fromJson(Map<String, dynamic> json) => Creator(
-        firstName: json["firstName"],
-        lastName: json["lastName"],
+        firstName: json['firstName'],
+        lastName: json['lastName'],
       );
 
   Map<String, dynamic> toJson() => {
-        "firstName": firstName,
-        "lastName": lastName,
+        'firstName': firstName,
+        'lastName': lastName,
       };
 }

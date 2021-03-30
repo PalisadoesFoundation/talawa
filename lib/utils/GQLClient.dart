@@ -4,23 +4,25 @@ import 'package:talawa/services/preferences.dart';
 import 'package:flutter/material.dart';
 
 class GraphQLConfiguration with ChangeNotifier {
-  Preferences _pref = Preferences();
+  final Preferences _pref = Preferences();
   static String token;
   static String orgURI;
 
 //prefix route for showing images
   String displayImgRoute;
 
+  // ignore: always_declare_return_types
   getToken() async {
     final id = await _pref.getToken();
     token = id;
   }
 
+  // ignore: always_declare_return_types
   getOrgUrl() async {
     final url = await _pref.getOrgUrl();
     orgURI = url;
     httpLink = HttpLink(
-      uri: "${orgURI}graphql",
+      uri: '${orgURI}graphql',
     );
     final imgUrl = await _pref.getOrgImgUrl();
     displayImgRoute = imgUrl;
@@ -29,7 +31,7 @@ class GraphQLConfiguration with ChangeNotifier {
   }
 
   static HttpLink httpLink = HttpLink(
-    uri: "${orgURI}graphql",
+    uri: '${orgURI}graphql',
   );
 
   static AuthLink authLink = AuthLink(

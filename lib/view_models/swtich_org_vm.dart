@@ -8,7 +8,7 @@ import '../locator.dart';
 
 //class to switch the model base model
 class SwitchOrgModel extends BaseModel {
-  API _api = locator<API>();
+  final API _api = locator<API>();
 
   List<SwitchOrg> joinedOrgs;
 

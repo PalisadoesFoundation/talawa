@@ -3,10 +3,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
+// ignore: avoid_relative_lib_imports
 import '../../lib/controllers/auth_controller.dart';
+// ignore: avoid_relative_lib_imports
 import '../../lib/controllers/org_controller.dart';
+// ignore: avoid_relative_lib_imports
 import '../../lib/services/preferences.dart';
+// ignore: avoid_relative_lib_imports
 import '../../lib/utils/GQLClient.dart';
+// ignore: avoid_relative_lib_imports
 import '../../lib/views/pages/home_page.dart';
 
 Widget createHomePageScreen() => MultiProvider(
@@ -33,14 +38,14 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
   group('HomePage Widget Test', () {
-    testWidgets("Testing if HomePage shows up", (tester) async {
+    testWidgets('Testing if HomePage shows up', (tester) async {
       await tester.pumpWidget(createHomePageScreen());
 
       // Verify if HomePage Page shows up by checking PersistentTabView.
       expect(find.byType(PersistentTabView), findsOneWidget);
     });
 
-    testWidgets("Testing overflow of New Article in a mobile screen",
+    testWidgets('Testing overflow of New Article in a mobile screen',
         (tester) async {
       binding.window.physicalSizeTestValue = Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
@@ -50,7 +55,7 @@ void main() {
       expect(find.byType(PersistentTabView), findsOneWidget);
     });
 
-    testWidgets("Testing overflow of New Article in a tablet screen",
+    testWidgets('Testing overflow of New Article in a tablet screen',
         (tester) async {
       binding.window.physicalSizeTestValue = Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;

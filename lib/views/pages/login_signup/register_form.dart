@@ -19,9 +19,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 
 //pubspec packages are called here
-import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_password_strength/flutter_password_strength.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -32,19 +30,18 @@ class RegisterForm extends StatefulWidget {
 
 class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _firstNameController = new TextEditingController();
-  TextEditingController _lastNameController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _originalPasswordController =
-      new TextEditingController();
-  TextEditingController _confirmPasswordController =
-      new TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController =  TextEditingController();
+  final TextEditingController _originalPasswordController = TextEditingController();
+  // ignore: unused_field
+  final TextEditingController _confirmPasswordController = TextEditingController();
   FocusNode confirmPassField = FocusNode();
-  RegisterViewModel model = new RegisterViewModel();
+  RegisterViewModel model = RegisterViewModel();
   bool _progressBarState = false;
-  Queries _signupQuery = Queries();
+  final Queries _signupQuery = Queries();
   var _validate = AutovalidateMode.disabled;
-  Preferences _pref = Preferences();
+  final Preferences _pref = Preferences();
   FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
@@ -63,11 +60,12 @@ class RegisterFormState extends State<RegisterForm> {
   }
 
   //function for registering user which gets called when sign up is press
+  // ignore: always_declare_return_types
   registerUser() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    var _client = graphQLConfiguration.clientToQuery();
     final img = await multipartFileFrom(_image);
     print(_image);
-    QueryResult result = await _client.mutate(MutationOptions(
+    var result = await _client.mutate(MutationOptions(
       documentNode: gql(_signupQuery.registerUser(
           model.firstName, model.lastName, model.email, model.password)),
       variables: {
@@ -90,26 +88,25 @@ class RegisterFormState extends State<RegisterForm> {
       final String userLName = result.data['signUp']['user']['lastName'];
       await _pref.saveUserLName(userLName);
 
-      final Token accessToken =
-          new Token(tokenString: result.data['signUp']['accessToken']);
+      final accessToken =Token(tokenString: result.data['signUp']['accessToken']);
       await _pref.saveToken(accessToken);
-      final Token refreshToken =
-          new Token(tokenString: result.data['signUp']['refreshToken']);
+      final refreshToken = Token(tokenString: result.data['signUp']['refreshToken']);
       await _pref.saveRefreshToken(refreshToken);
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => new JoinOrganization(
+      await Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => JoinOrganization(
                 fromProfile: false,
               )));
     }
   }
 
   //function called when the user is called without the image
+  // ignore: always_declare_return_types
   registerUserWithoutImg() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    QueryResult result = await _client.mutate(MutationOptions(
+    var _client = graphQLConfiguration.clientToQuery();
+    var result = await _client.mutate(MutationOptions(
       documentNode: gql(_signupQuery.registerUserWithoutImg(
           model.firstName, model.lastName, model.email, model.password)),
     ));
@@ -128,35 +125,35 @@ class RegisterFormState extends State<RegisterForm> {
       await _pref.saveUserFName(userFName);
       final String userLName = result.data['signUp']['user']['lastName'];
       await _pref.saveUserLName(userLName);
-      final Token accessToken =
-          new Token(tokenString: result.data['signUp']['accessToken']);
+      final accessToken = Token(tokenString: result.data['signUp']['accessToken']);
       await _pref.saveToken(accessToken);
-      final Token refreshToken =
-          new Token(tokenString: result.data['signUp']['refreshToken']);
+      final refreshToken = Token(tokenString: result.data['signUp']['refreshToken']);
       await _pref.saveRefreshToken(refreshToken);
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
 
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => new JoinOrganization(
+      await Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) =>  JoinOrganization(
                 fromProfile: false,
               )));
     }
   }
 
   //get image using camera
+  // ignore: always_declare_return_types
   _imgFromCamera() async {
     final pickImage = await ImagePicker().getImage(source: ImageSource.camera);
-    File image = File(pickImage.path);
+    var image = File(pickImage.path);
     setState(() {
       _image = image;
     });
   }
 
   //get image using gallery
+  // ignore: always_declare_return_types
   _imgFromGallery() async {
     final pickImage = await ImagePicker().getImage(source: ImageSource.gallery);
-    File image = File(pickImage.path);
+    var image = File(pickImage.path);
     setState(() {
       _image = image;
     });
@@ -201,7 +198,7 @@ class RegisterFormState extends State<RegisterForm> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           prefixIcon: Icon(Icons.person, color: Colors.white),
-                          labelText: "First Name",
+                          labelText: 'First Name',
                           labelStyle: TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
                           hintText: 'Earl',
@@ -232,7 +229,7 @@ class RegisterFormState extends State<RegisterForm> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           prefixIcon: Icon(Icons.person, color: Colors.white),
-                          labelText: "Last Name",
+                          labelText: 'Last Name',
                           labelStyle: TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
                           hintText: 'John',
@@ -263,7 +260,7 @@ class RegisterFormState extends State<RegisterForm> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           prefixIcon: Icon(Icons.email, color: Colors.white),
-                          labelText: "Email",
+                          labelText: 'Email',
                           labelStyle: TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
                           hintText: 'foo@bar.com',
@@ -294,6 +291,7 @@ class RegisterFormState extends State<RegisterForm> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           prefixIcon: Icon(Icons.lock, color: Colors.white),
+                          // ignore: deprecated_member_use
                           suffixIcon: FlatButton(
                             onPressed: _toggle,
                             child: Icon(
@@ -303,7 +301,7 @@ class RegisterFormState extends State<RegisterForm> {
                               color: Colors.white,
                             ),
                           ),
-                          labelText: "Password",
+                          labelText: 'Password',
                           labelStyle: TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
                           alignLabelWithHint: true,
@@ -356,7 +354,7 @@ class RegisterFormState extends State<RegisterForm> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           prefixIcon: Icon(Icons.lock, color: Colors.white),
-                          labelText: "Confirm Password",
+                          labelText: 'Confirm Password',
                           labelStyle: TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
                         ),
@@ -371,22 +369,10 @@ class RegisterFormState extends State<RegisterForm> {
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
                   width: double.infinity,
+                  // ignore: deprecated_member_use
                   child: RaisedButton(
                     padding: EdgeInsets.all(12.0),
                     shape: StadiumBorder(),
-                    child: _progressBarState
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.orange),
-                              strokeWidth: 3,
-                              backgroundColor: Colors.black,
-                            ))
-                        : Text(
-                            "SIGN UP",
-                          ),
                     color: Colors.white,
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
@@ -401,6 +387,19 @@ class RegisterFormState extends State<RegisterForm> {
                         });
                       }
                     },
+                    child: _progressBarState
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.orange),
+                              strokeWidth: 3,
+                              backgroundColor: Colors.black,
+                            ))
+                        : Text(
+                            'SIGN UP',
+                          ),
                   ),
                 ),
               ],
@@ -496,6 +495,7 @@ class RegisterFormState extends State<RegisterForm> {
     );*/
 
   //this method is called when the result is an exception
+  // ignore: always_declare_return_types
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),

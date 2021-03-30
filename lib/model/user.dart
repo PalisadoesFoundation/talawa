@@ -10,18 +10,18 @@ class User {
 
   User(
       {this.id = 0,
-      this.firstName = "",
-      this.lastName = "",
-      this.email = "",
-      this.userImage = "",
+      this.firstName = '',
+      this.lastName = '',
+      this.email = '',
+      this.userImage = '',
       this.selected = false});
 
   User.copy(User tUser) {
-    this.id = tUser.id;
-    this.firstName = tUser.firstName;
-    this.lastName = tUser.lastName;
-    this.email = tUser.email;
-    this.userImage = tUser.userImage;
+    id = tUser.id;
+    firstName = tUser.firstName;
+    lastName = tUser.lastName;
+    email = tUser.email;
+    userImage = tUser.userImage;
   }
 
   factory User.fromJson(Map<String, dynamic> json) {

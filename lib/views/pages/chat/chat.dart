@@ -54,7 +54,7 @@ class _ChatState extends State<Chat> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
-                        hintText: "    Enter your message...."),
+                        hintText: '    Enter your message....'),
                   ),
                 ),
                 Container(

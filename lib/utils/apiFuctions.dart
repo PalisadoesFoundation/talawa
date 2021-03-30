@@ -5,27 +5,27 @@ import 'package:talawa/utils/globals.dart';
 
 class ApiFunctions {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  AuthController _authController = AuthController();
+  final AuthController _authController = AuthController();
 
-  String userAuthError = "User is not authenticated: Undefined location";
+  String userAuthError = 'User is not authenticated: Undefined location';
 
 
   //this is the query used to get the token
   // ignore: missing_return
   Future<Map> gqlquery(String query) async {
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    var _client = graphQLConfiguration.authClient();
 
-    final QueryOptions options = QueryOptions(
+    final options = QueryOptions(
       documentNode: gql(query),
       variables: <String, dynamic>{
       },
     );
 
-    final QueryResult result = await _client.query(options);
+    final result = await _client.query(options);
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      gqlquery(query);
+      await gqlquery(query);
     } else if (result.hasException) {
       print(result.exception);
     } else {
@@ -36,8 +36,8 @@ class ApiFunctions {
 
   //function to mutate the query
   Future<dynamic> gqlmutation(String mutation) async {
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    QueryResult result = await _client.mutate(MutationOptions(
+    var _client = graphQLConfiguration.authClient();
+    var result = await _client.mutate(MutationOptions(
       documentNode: gql(mutation),
     ));
 

@@ -13,7 +13,6 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/memberDetails.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:talawa/views/widgets/loading.dart';
 
 class Organizations extends StatefulWidget {
   Organizations({Key key}) : super(key: key);
@@ -31,6 +30,7 @@ class _OrganizationsState extends State<Organizations> {
   Preferences preferences = Preferences();
 
   //providing initial states to the variables
+  // ignore: annotate_overrides, always_declare_return_types
   initState() {
     super.initState();
     getMembers();
@@ -38,7 +38,7 @@ class _OrganizationsState extends State<Organizations> {
 
   List alphaSplitList(List list) {
     //split list alphabeticaly
-    List alphabet = [
+    var alphabet = [
       'A',
       'B',
       'C',
@@ -66,8 +66,8 @@ class _OrganizationsState extends State<Organizations> {
       'Y',
       'Z'
     ];
-    List alphalist = [];
-    for (String letter in alphabet) {
+    var alphalist = [];
+    for (var letter in alphabet) {
       alphalist.add(list
           .where((element) =>
               element['firstName'][0] == letter ||
@@ -81,10 +81,10 @@ class _OrganizationsState extends State<Organizations> {
   //function to get the members of an organization
   // ignore: missing_return
   Future<List> getMembers() async {
-    String currentOrgID = await preferences.getCurrentOrgId();
+    var currentOrgID = await preferences.getCurrentOrgId();
     print(currentOrgID);
     if (currentOrgID != null) {
-      ApiFunctions apiFunctions = ApiFunctions();
+      var apiFunctions = ApiFunctions();
       var result =
           await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
       print(result);
@@ -109,8 +109,8 @@ class _OrganizationsState extends State<Organizations> {
 
   //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
-    String userId = id.replaceAll(RegExp('[a-z]'), '');
-    int colorInt = int.parse(userId.substring(userId.length - 10));
+    var userId = id.replaceAll(RegExp('[a-z]'), '');
+    var colorInt = int.parse(userId.substring(userId.length - 10));
     colorInt = (colorInt % 18);
     return Color.alphaBlend(
       Colors.black45,
@@ -119,6 +119,7 @@ class _OrganizationsState extends State<Organizations> {
   }
 
   //main build starts here
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -131,7 +132,7 @@ class _OrganizationsState extends State<Organizations> {
         body: alphaMembersList.isEmpty
             ? RefreshIndicator(
                 onRefresh: () async {
-                  getMembers();
+                  await getMembers();
                 },
                 child: Center(
                     child: Column(children: <Widget>[
@@ -139,7 +140,7 @@ class _OrganizationsState extends State<Organizations> {
                     height: 250,
                   ),
                   Text(
-                    "No member to Show",
+                    'No member to Show',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -148,16 +149,17 @@ class _OrganizationsState extends State<Organizations> {
                   SizedBox(
                     height: 50,
                   ),
+                  // ignore: deprecated_member_use
                   RaisedButton(
                     onPressed: () {
                       getMembers();
                     },
-                    child: Text("Refresh"),
+                    child: Text('Refresh'),
                   )
                 ])))
             : RefreshIndicator(
                 onRefresh: () async {
-                  getMembers();
+                  await getMembers();
                 },
                 child: CustomScrollView(
                   slivers: List.generate(
@@ -201,7 +203,7 @@ class _OrganizationsState extends State<Organizations> {
 
   //a custom card made for showing member details
   Widget memberCard(index, List membersList) {
-    Color color = idToColor(membersList[index]['_id']);
+    var color = idToColor(membersList[index]['_id']);
     return GestureDetector(
         onTap: () {
           pushNewScreen(context,

@@ -25,16 +25,16 @@ class LoginForm extends StatefulWidget {
 
 class LoginFormState extends State<LoginForm> {
   /// [TextEditingController]'s for email and password.
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  LoginViewModel model = new LoginViewModel();
+  LoginViewModel model = LoginViewModel();
   bool _progressBarState = false;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  Queries _query = Queries();
+  final Queries _query = Queries();
   FToast fToast;
-  Preferences _pref = Preferences();
+  final Preferences _pref = Preferences();
   static String orgURI;
   bool _obscureText = true;
 
@@ -53,10 +53,10 @@ class LoginFormState extends State<LoginForm> {
 
   //function for login user which gets called when sign in is press
   Future loginUser() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    QueryResult result = await _client.mutate(MutationOptions(
+    var _client = graphQLConfiguration.clientToQuery();
+    var result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.loginUser(model.email, model.password))));
-    bool connectionCheck = await DataConnectionChecker().hasConnection;
+    var connectionCheck = await DataConnectionChecker().hasConnection;
     if (!connectionCheck) {
       print('You are not connected to the internet');
       setState(() {
@@ -75,12 +75,12 @@ class LoginFormState extends State<LoginForm> {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("All Set!");
-      final Token accessToken =
-          new Token(tokenString: result.data['login']['accessToken']);
+      _successToast('All Set!');
+      final accessToken =
+          Token(tokenString: result.data['login']['accessToken']);
       await _pref.saveToken(accessToken);
-      final Token refreshToken =
-          new Token(tokenString: result.data['login']['refreshToken']);
+      final refreshToken =
+          Token(tokenString: result.data['login']['refreshToken']);
       await _pref.saveRefreshToken(refreshToken);
       final String currentUserId = result.data['login']['user']['_id'];
       await _pref.saveUserId(currentUserId);
@@ -107,8 +107,8 @@ class LoginFormState extends State<LoginForm> {
         await _pref.saveCurrentOrgName(currentOrgName);
       }
 
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => new HomePage(
+      await Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => HomePage(
                 openPageIndex: 0,
               )));
     }
@@ -150,7 +150,7 @@ class LoginFormState extends State<LoginForm> {
                       Icons.email,
                       color: Colors.white,
                     ),
-                    labelText: "Email",
+                    labelText: 'Email',
                     labelStyle: TextStyle(color: Colors.white),
                     alignLabelWithHint: true,
                     hintText: 'foo@bar.com',
@@ -183,6 +183,7 @@ class LoginFormState extends State<LoginForm> {
                       Icons.lock,
                       color: Colors.white,
                     ),
+                    // ignore: deprecated_member_use
                     suffixIcon: FlatButton(
                       onPressed: _toggle,
                       child: Icon(
@@ -190,7 +191,7 @@ class LoginFormState extends State<LoginForm> {
                         color: Colors.white,
                       ),
                     ),
-                    labelText: "Password",
+                    labelText: 'Password',
                     labelStyle: TextStyle(color: Colors.white),
                     focusColor: UIData.primaryColor,
                     alignLabelWithHint: true,
@@ -209,32 +210,34 @@ class LoginFormState extends State<LoginForm> {
             Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
               width: double.infinity,
+              // ignore: deprecated_member_use
               child: RaisedButton(
                   padding: EdgeInsets.all(12.0),
                   shape: StadiumBorder(),
-                  child: _progressBarState
-                      ? const CircularProgressIndicator()
-                      : Text(
-                          "SIGN IN",
-                        ),
                   color: Colors.white,
                   onPressed: () async {
                     FocusScope.of(context).unfocus();
                     //checks to see if all the fields have been validated then authenticate a user
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
-                      loginUser();
+                      await loginUser();
                       setState(() {
                         toggleProgressBarState();
                       });
                     }
-                  }),
+                  },
+                  child: _progressBarState
+                      ? const CircularProgressIndicator()
+                      : Text(
+                          'SIGN IN',
+                        ),),
             ),
           ],
         ));
   }
 
   //the method called when the result is success
+  // ignore: always_declare_return_types
   _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
@@ -258,6 +261,7 @@ class LoginFormState extends State<LoginForm> {
   }
 
   //the method called when the result is an exception
+  // ignore: always_declare_return_types
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),

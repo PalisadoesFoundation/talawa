@@ -25,15 +25,17 @@ class _TaskListState extends State<TaskList> {
   ApiFunctions apiFunctions = ApiFunctions();
   List eventTasks = [];
 
+  @override
   void initState() {
     super.initState();
     getTasks();
   }
 
   //function to get the task list
+  // ignore: always_declare_return_types
   getTasks() async {
     final String userID = widget.event['_id'];
-    Map result = await apiFunctions.gqlquery(Queries().getTasksByEvent(userID));
+    var result = await apiFunctions.gqlquery(Queries().getTasksByEvent(userID));
     setState(() {
       eventTasks = result == null ? [] : result['tasksByEvent'];
     });
@@ -41,7 +43,7 @@ class _TaskListState extends State<TaskList> {
 
   @override
   Widget build(BuildContext context) {
-    return eventTasks.length != 0
+    return eventTasks.isNotEmpty
         ? ListView.builder(
             itemCount: eventTasks.length,
             itemBuilder: (context, index) {
@@ -52,7 +54,7 @@ class _TaskListState extends State<TaskList> {
         : Container(
             child: Center(
                 child: Text(
-              "No Tasks found",
+              'No Tasks found',
               style: TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             )),

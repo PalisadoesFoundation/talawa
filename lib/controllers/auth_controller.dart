@@ -12,27 +12,27 @@ import 'package:talawa/utils/uidata.dart';
 
 class AuthController with ChangeNotifier {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  Queries _queries = Queries();
-  Preferences _pref = Preferences();
+  final Queries _queries = Queries();
+  final Preferences _pref = Preferences();
   String imgSrc;
 
   //function that uses refresh token to get new access token and refresh token when access token is expired
   void getNewToken() async {
-    String refreshToken = await _pref.getRefreshToken();
+    var refreshToken = await _pref.getRefreshToken();
 
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    var _client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.mutate(MutationOptions(
+    var result = await _client.mutate(MutationOptions(
         documentNode: gql(_queries.refreshToken(refreshToken))));
 
     if (result.hasException) {
       print(result.exception);
     } else if (!result.hasException && !result.loading) {
-      final Token accessToken =
-          new Token(tokenString: result.data['refreshToken']['accessToken']);
+      final accessToken =
+          Token(tokenString: result.data['refreshToken']['accessToken']);
       await _pref.saveToken(accessToken);
-      final Token refreshToken =
-          new Token(tokenString: result.data['refreshToken']['refreshToken']);
+      final refreshToken =
+          Token(tokenString: result.data['refreshToken']['refreshToken']);
       await _pref.saveRefreshToken(refreshToken);
     } else {
       return null;
@@ -43,7 +43,7 @@ class AuthController with ChangeNotifier {
   void logout(BuildContext context) async {
     await Preferences.clearUser();
     super.dispose();
-    Navigator.pushNamedAndRemoveUntil(
+    await Navigator.pushNamedAndRemoveUntil(
         context, UIData.loginPageRoute, (r) => false);
   }
 }

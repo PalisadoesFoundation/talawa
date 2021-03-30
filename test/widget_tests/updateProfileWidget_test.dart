@@ -26,16 +26,16 @@ Widget createProfileUpdateScreen() => MultiProvider(
             home: UpdateProfilePage(
           userDetails: [
             {
-              "firstName": "Test",
-              "lastName": "User",
-              "email": "test@test.com",
+              'firstName': 'Test',
+              'lastName': 'User',
+              'email': 'test@test.com',
             }
           ],
         )));
 
 void main() {
   group('Member Info Page Widget Tests', () {
-    testWidgets("3 TestFormField Exist in Profile Page Update",
+    testWidgets('3 TestFormField Exist in Profile Page Update',
         (WidgetTester tester) async {
       await tester.pumpWidget(
           createProfileUpdateScreen(), Duration(microseconds: 100));
@@ -44,7 +44,7 @@ void main() {
       expect(textField, findsNWidgets(3));
     });
 
-    testWidgets("Flexible Space Bar in Profile Widget",
+    testWidgets('Flexible Space Bar in Profile Widget',
         (WidgetTester tester) async {
       await tester.pumpWidget(
           createProfileUpdateScreen(), Duration(microseconds: 100));

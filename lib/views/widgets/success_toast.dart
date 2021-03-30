@@ -18,6 +18,8 @@ class SuccessToast extends StatefulWidget {
 class _SuccessToastState extends State<SuccessToast> {
   FToast fToast;
 
+  @override
+  // ignore: always_declare_return_types
   initState() {
     super.initState();
     fToast = FToast();
@@ -29,6 +31,7 @@ class _SuccessToastState extends State<SuccessToast> {
     return _successToast();
   }
 
+  // ignore: always_declare_return_types
   _successToast() {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),

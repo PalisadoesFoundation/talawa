@@ -1,11 +1,11 @@
 class Timer {
   //takes a created date and returns time passed since then as a string
   String hoursOrDays(String createdAt) {
-    String time = 'seconds';
-    DateTime now = DateTime.now();
-    Duration since = now
+    var time = 'seconds';
+    var now = DateTime.now();
+    var since = now
         .difference(DateTime.fromMillisecondsSinceEpoch(int.parse(createdAt)));
-    int intTime = since.inSeconds;
+    var intTime = since.inSeconds;
     if (since.inSeconds > 60) {
       time = 'minutes';
       intTime = since.inMinutes;
@@ -33,8 +33,8 @@ class Timer {
     return intTime.toString() + ' ' + time.toString() + ' ago';
   }
 
-  isToday(date) {
-    DateTime now = DateTime.now();
+  bool isToday(date) {
+    var now = DateTime.now();
     if (DateTime(date.year, date.month, date.day)
             .difference(DateTime(now.year, now.month, now.day))
             .inDays ==
@@ -45,7 +45,7 @@ class Timer {
     }
   }
 
-  isSameDay(DateTime date1, DateTime date2) {
+  bool isSameDay(DateTime date1, DateTime date2) {
     if (DateTime(date1.year, date1.month, date1.day)
             .difference(DateTime(date2.year, date2.month, date2.day))
             .inDays ==
@@ -56,7 +56,7 @@ class Timer {
     }
   }
 
-  isSameWeekDay(DateTime date1, DateTime date2) {
+  bool isSameWeekDay(DateTime date1, DateTime date2) {
     return date1.day % 7 == date2.day % 7;
   }
 }

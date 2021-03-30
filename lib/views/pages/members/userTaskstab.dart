@@ -26,15 +26,17 @@ class _UserTasksState extends State<UserTasks> {
   ApiFunctions apiFunctions = ApiFunctions();
   List userTasks = [];
 
+  @override
   void initState() {
     super.initState();
     getUserDetails();
   }
 
   //getting user details
+  // ignore: always_declare_return_types
   getUserDetails() async {
     final String userID = widget.member['_id'];
-    Map result = await apiFunctions.gqlquery(Queries().tasksByUser(userID));
+    var result = await apiFunctions.gqlquery(Queries().tasksByUser(userID));
     // print(result);
     setState(() {
       userTasks = result == null ? [] : result['tasksByUser'];
@@ -44,7 +46,7 @@ class _UserTasksState extends State<UserTasks> {
   //main building starts here
   @override
   Widget build(BuildContext context) {
-    return userTasks.length != 0
+    return userTasks.isNotEmpty
         ? Container(
             child: ListView.builder(
                 itemCount: userTasks.length,
@@ -56,7 +58,7 @@ class _UserTasksState extends State<UserTasks> {
                         leading: Text(
                             'Description: ${userTasks[index]["description"]}'),
                       ),
-                      userTasks[index]["deadline"] != null
+                      userTasks[index]['deadline'] != null
                           ? ListTile(
                               leading: Text(
                                   'Due Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"]))))}'),
@@ -70,7 +72,7 @@ class _UserTasksState extends State<UserTasks> {
         : Container(
             child: Center(
                 child: Text(
-              "No Tasks found",
+              'No Tasks found',
               style: TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             )),

@@ -26,26 +26,28 @@ class _AddEventTaskState extends State<AddEventTask> {
 
   //function to add the task
   Future<void> addTask() async {
-    String mutation = Queries().addEventTask(
+    var mutation = Queries().addEventTask(
         eventId: widget.eventId,
         title: titleController.text,
         description: descriptionController.text,
         deadline: DateTime.now().millisecondsSinceEpoch.toString());
-    Map result = await apiFunctions.gqlquery(mutation);
+    // ignore: unused_local_variable
+    var result = await apiFunctions.gqlquery(mutation);
   }
 
 
   //function to select the date
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
       });
+    }
   }
 
 
@@ -54,7 +56,7 @@ class _AddEventTaskState extends State<AddEventTask> {
   Widget build(BuildContext context) {
     return AlertDialog(
       insetPadding: EdgeInsets.all(0),
-      title: Text("Add A Task To This Event"),
+      title: Text('Add A Task To This Event'),
       content: Container(
           height: 250,
           child: Column(
@@ -65,14 +67,17 @@ class _AddEventTaskState extends State<AddEventTask> {
             ],
           )),
       actions: <Widget>[
+        // ignore: deprecated_member_use
         FlatButton(
-          child: Text("Cancel"),
+          child: Text('Cancel'), // ignore: sort_child_properties_last
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
+        // ignore: deprecated_member_use
         FlatButton(
-          child: Text("Add"),
+          // ignore: sort_child_properties_last
+          child: Text('Add'),
           onPressed: () {
             addTask();
             Navigator.of(context).pop();

@@ -30,6 +30,8 @@ class _AddPostState extends State<AddPost> {
   Preferences preferences = Preferences();
 
   //giving every variable its initial state
+  @override
+  // ignore: always_declare_return_types
   initState() {
     super.initState();
     getCurrentOrgId();
@@ -38,6 +40,7 @@ class _AddPostState extends State<AddPost> {
   }
 
   //this method is getting the current org id
+  // ignore: always_declare_return_types
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
@@ -48,10 +51,10 @@ class _AddPostState extends State<AddPost> {
 
   //creating post
   Future createPost() async {
-    String description = textController.text.trim().replaceAll('\n', ' ');
-    String title = titleController.text.trim().replaceAll('\n', ' ');
-    String mutation = Queries().addPost(description, organizationId, title);
-    ApiFunctions apiFunctions = ApiFunctions();
+    var description = textController.text.trim().replaceAll('\n', ' ');
+    var title = titleController.text.trim().replaceAll('\n', ' ');
+    var mutation = Queries().addPost(description, organizationId, title);
+    var apiFunctions = ApiFunctions();
     try {
       result = await apiFunctions.gqlmutation(mutation);
       if (result != null) {
@@ -66,6 +69,7 @@ class _AddPostState extends State<AddPost> {
     }
   }
 
+  @override
   void dispose() {
     titleController.dispose();
     textController.dispose();
@@ -103,11 +107,11 @@ class _AddPostState extends State<AddPost> {
                 textInputAction: TextInputAction.next,
                 validator: (String value) {
                   if (value.length > 30) {
-                    return "Post title cannot be longer than 30 letters";
+                    return 'Post title cannot be longer than 30 letters';
                   }
 
                   if (value.isEmpty) {
-                    return "This field is Required";
+                    return 'This field is Required';
                   }
                   return null;
                 },
@@ -137,11 +141,11 @@ class _AddPostState extends State<AddPost> {
                 controller: textController,
                 validator: (String value) {
                   if (value.length > 10000) {
-                    return "Post cannot be longer than 10000 letters";
+                    return 'Post cannot be longer than 10000 letters';
                   }
 
                   if (value.isEmpty) {
-                    return "This field is Required";
+                    return 'This field is Required';
                   }
                   return null;
                 },
@@ -169,16 +173,16 @@ class _AddPostState extends State<AddPost> {
     return FloatingActionButton(
         key: Key('submit'),
         backgroundColor: UIData.secondaryColor,
-        child: Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
         onPressed: () {
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
             createPost();
           }
-        });
+        },
+        child: Icon(
+          Icons.check,
+          color: Colors.white,
+        ),);
   }
 
   Widget inputField(String name, TextEditingController controller) {
@@ -198,6 +202,7 @@ class _AddPostState extends State<AddPost> {
         ));
   }
 
+  // ignore: always_declare_return_types
   _exceptionToast(String msg) {
     fToast.showToast(
       child: ToastTile(

@@ -16,7 +16,7 @@ class Queries {
   //register the user
   String registerUser(
       String firstName, String lastName, String email, String password) {
-    return """
+    return '''
         mutation (\$file: Upload) {
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"},
            file: \$file){
@@ -34,12 +34,12 @@ class Queries {
             }
         }
 
-    """;
+    ''';
   }
 
   //update profile the user
   String updateUserProfile() {
-    return """
+    return '''
         mutation (
           \$file: Upload, 
           \$firstName: String, 
@@ -59,13 +59,13 @@ class Queries {
             email
           }
         }
-    """;
+    ''';
   }
 
   //register the user without the images
   String registerUserWithoutImg(
       String firstName, String lastName, String email, String password) {
-    return """
+    return '''
         mutation{
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"})
           {
@@ -83,12 +83,12 @@ class Queries {
             }
         }
 
-    """;
+    ''';
   }
 
   //login the user
   String loginUser(String email, String password) {
-    return """
+    return '''
         mutation {
           login(data: {email: "$email", password: "$password"}){
             accessToken
@@ -106,7 +106,7 @@ class Queries {
             }
         }
 
-    """;
+    ''';
   }
 
   //fetches the user info
@@ -431,7 +431,7 @@ class Queries {
 
 //////////////EVENTS/////////////////////
   String fetchOrgEvents(String orgId) {
-    return """
+    return '''
       query {
         events(id: "$orgId"){ 
           _id
@@ -450,7 +450,7 @@ class Queries {
           isRegistered
         }
       }
-    """;
+    ''';
   }
 
   //to update an event
@@ -467,7 +467,7 @@ class Queries {
       date,
       startTime,
       endTime}) {
-    return """updateEventInput(
+    return '''updateEventInput(
           data:{
            organizationId: "$organizationId",
            title: "$title",
@@ -485,12 +485,12 @@ class Queries {
             _id
             title
             description
-          }""";
+          }''';
   }
 
   //delete any event
   String deleteEvent(String id) {
-    return """
+    return '''
       mutation {
         removeEvent(
           id: "$id",
@@ -498,12 +498,12 @@ class Queries {
             _id
           }
         }
-    """;
+    ''';
   }
 
   //to register for an event
   String registerForEvent(String eventid) {
-    return """
+    return '''
       mutation {
         registerForEvent(
           id: "$eventid",
@@ -513,12 +513,12 @@ class Queries {
             description
           }
         }
-    """;
+    ''';
   }
 
   String addEventTask(
       {String eventId, String title, String description, String deadline}) {
-    return """
+    return '''
       mutation {
         createTask(
         eventId: "$eventId",
@@ -530,12 +530,12 @@ class Queries {
           _id
         }
       }
-    """;
+    ''';
   }
 
   //to get the task by any event
   String getTasksByEvent(String id) {
-    return """
+    return '''
   query{
     tasksByEvent(id:"$id"){
         title
@@ -544,12 +544,12 @@ class Queries {
     }
   }
   
-  """;
+  ''';
   }
 
   //to get registrants for an event
   String getRegistrantsByEvent(String id) {
-    return """
+    return '''
   query{
     registrantsByEvent(id:"$id"){
     firstName
@@ -558,7 +558,7 @@ class Queries {
     image
     }
   }
-  """;
+  ''';
   }
 
   //to add the events
@@ -576,7 +576,7 @@ class Queries {
       endDate,
       startTime,
       endTime}) {
-    return """
+    return '''
       mutation {
         createEvent(
           data:{
@@ -599,14 +599,14 @@ class Queries {
             description
           }
         }
-    """;
+    ''';
   }
 
 /////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
 
   //task by users
   String tasksByUser(String id) {
-    return """
+    return '''
   query{
     tasksByUser(id:"$id"){
       _id
@@ -616,11 +616,11 @@ class Queries {
     }
   }
   
-  """;
+  ''';
   }
 
   String registeredEventsByUser(String id) {
-    return """
+    return '''
   query{
     registeredEventsByUser(id:"$id"){
       _id
@@ -629,12 +629,12 @@ class Queries {
     }
   }
   
-  """;
+  ''';
   }
 
 ///////////////////NEWSFEED///////////////////////////////////////////////////////////////////////
   String getPostsById(String orgId) {
-    return """
+    return '''
       query {
         postsByOrganization(id: "$orgId")
         { 
@@ -661,11 +661,11 @@ class Queries {
           }
         }
       }
-""";
+''';
   }
 
   String getPostsComments(String postId) {
-    return """
+    return '''
 query{
   commentsByPost(id: "$postId"){
     _id
@@ -677,11 +677,11 @@ query{
     }
   }
 }
-""";
+''';
   }
 
   String createComments(String postId, var text) {
-    return """
+    return '''
 mutation{
   createComment(postId: "$postId", 
   data:{
@@ -691,11 +691,11 @@ mutation{
     _id
   }
 }
-""";
+''';
   }
 
   String addPost(String text, String organizationId, String title) {
-    return """
+    return '''
     mutation {
         createPost(
             data: {
@@ -707,21 +707,21 @@ mutation{
             text
         }
     }
-  """;
+  ''';
   }
 
   String addLike(String postID) {
-    return """
+    return '''
   mutation{
     likePost(id:"$postID"){
       _id
     }
   }
-  """;
+  ''';
   }
 
   String removeLike(String postID) {
-    return """
+    return '''
   mutation{
     unlikePost(id:"$postID"){
       _id
@@ -730,6 +730,6 @@ mutation{
       }
     }
   }
-  """;
+  ''';
   }
 }

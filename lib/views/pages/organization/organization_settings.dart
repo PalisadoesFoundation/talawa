@@ -30,10 +30,10 @@ class OrganizationSettings extends StatefulWidget {
 }
 
 class _OrganizationSettingsState extends State<OrganizationSettings> {
-  Preferences _preferences = Preferences();
-  Queries _query = Queries();
-  AuthController _authController = AuthController();
-  OrgController _orgController = OrgController();
+  final Preferences _preferences = Preferences();
+  final Queries _query = Queries();
+  final AuthController _authController = AuthController();
+  final OrgController _orgController = OrgController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   bool processing = false;
@@ -49,11 +49,11 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     setState(() {
       processing = true;
     });
-    List remaindingOrg = [];
+    var remaindingOrg = [];
     String newOrgId;
     String newOrgName;
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    QueryResult result = await _client.mutate(MutationOptions(
+    var _client = graphQLConfiguration.authClient();
+    var result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.leaveOrg(widget.organization[0]['_id']))));
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
@@ -83,12 +83,12 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context, listen: false)
+      await Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context, listen: false)
+      await Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgId(newOrgId);
       _successToast('You are no longer apart of this organization');
-      pushNewScreen(
+      await pushNewScreen(
         context,
         screen: ProfilePage(),
       );
@@ -100,13 +100,13 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       processing = true;
     });
     //this is called the organization has to be removed
-    final String orgId = await _preferences.getCurrentOrgId();
-    List remaindingOrg = [];
+    final orgId = await _preferences.getCurrentOrgId();
+    var remaindingOrg = [];
     String newOrgId;
     String newOrgName;
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    var _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client
+    var result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.removeOrg(orgId))));
 
     if (result.hasException &&
@@ -137,12 +137,12 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context, listen: false)
+      await Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context, listen: false)
+      await Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgId(newOrgId);
       Navigator.of(context).pop();
-      pushNewScreen(
+      await pushNewScreen(
         context,
         screen: ProfilePage(),
       );
@@ -251,12 +251,12 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                             _exceptionToast(
                                 'Creator can only remove organization');
                           }
-                          showDialog(
+                          await showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertBox(
                                   message:
-                                      "Are you sure you want to remove this organization?",
+                                      'Are you sure you want to remove this organization?',
                                   function: removeOrg,
                                 );
                               });
@@ -277,7 +277,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                               builder: (BuildContext context) {
                                 return AlertBox(
                                   message:
-                                      "Are you sure you want to leave this organization?",
+                                      'Are you sure you want to leave this organization?',
                                   function: leaveOrg,
                                 );
                               });
@@ -288,6 +288,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         ));
   }
 
+  // ignore: always_declare_return_types
   _successToast(String msg) {
     fToast.showToast(
       child: ToastTile(msg: msg, success: true),
@@ -296,6 +297,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     );
   }
 
+  // ignore: always_declare_return_types
   _exceptionToast(String msg) {
     fToast.showToast(
       child: ToastTile(msg: msg, success: false),

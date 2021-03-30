@@ -30,9 +30,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
   final _formKey = GlobalKey<FormState>();
   var _validate = AutovalidateMode.disabled;
-  AuthController _authController = AuthController();
-  Queries _updateProfileQuery = Queries();
-  RegisterViewModel model = new RegisterViewModel();
+  final AuthController _authController = AuthController();
+  final Queries _updateProfileQuery = Queries();
+  RegisterViewModel model = RegisterViewModel();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   bool _progressBarState = false;
 
@@ -45,12 +45,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   //Function called when the user update without the image
-  updateProfileWithoutImg() async {
+  Future updateProfileWithoutImg() async {
     setState(() {
       _progressBarState = true;
     });
 
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    var _client = graphQLConfiguration.authClient();
     QueryResult result;
 
     if (widget.userDetails[0]['email'] == model.email) {
@@ -58,8 +58,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         MutationOptions(
           documentNode: gql(_updateProfileQuery.updateUserProfile()),
           variables: {
-            "firstName": model.firstName,
-            "lastName": model.lastName,
+            'firstName': model.firstName,
+            'lastName': model.lastName,
           },
         ),
       );
@@ -68,9 +68,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         MutationOptions(
           documentNode: gql(_updateProfileQuery.updateUserProfile()),
           variables: {
-            "firstName": model.firstName,
-            "lastName": model.lastName,
-            "email": widget.userDetails[0]['email'] == model.email
+            'firstName': model.firstName,
+            'lastName': model.lastName,
+            'email': widget.userDetails[0]['email'] == model.email
                 ? null
                 : model.email,
           },
@@ -100,7 +100,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
       await _successToast('Profile Updated');
 
-      pushNewScreen(
+      await pushNewScreen(
         context,
         screen: ProfilePage(),
       );
@@ -108,12 +108,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   //function called when the user is called without the image
-  updateProfileWithImg() async {
+  Future updateProfileWithImg() async {
     setState(() {
       _progressBarState = true;
     });
 
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    var _client = graphQLConfiguration.authClient();
     final img = await multipartFileFrom(_image);
     QueryResult result;
     if (widget.userDetails[0]['email'] == model.email) {
@@ -122,8 +122,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
           documentNode: gql(_updateProfileQuery.updateUserProfile()),
           variables: {
             'file': img,
-            "firstName": model.firstName,
-            "lastName": model.lastName,
+            'firstName': model.firstName,
+            'lastName': model.lastName,
           },
         ),
       );
@@ -133,9 +133,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
           documentNode: gql(_updateProfileQuery.updateUserProfile()),
           variables: {
             'file': img,
-            "firstName": model.firstName,
-            "lastName": model.lastName,
-            "email": widget.userDetails[0]['email'] == model.email
+            'firstName': model.firstName,
+            'lastName': model.lastName,
+            'email': widget.userDetails[0]['email'] == model.email
                 ? null
                 : model.email,
           },
@@ -165,7 +165,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
       _successToast('Profile Updated');
 
-      pushNewScreen(
+      await pushNewScreen(
         context,
         screen: ProfilePage(),
       );
@@ -173,8 +173,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   //Get image using camera
+  // ignore: always_declare_return_types
   _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
+    // ignore: deprecated_member_use
+    var image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50);
 
     setState(() {
@@ -183,11 +185,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   //Get image using gallery
+  // ignore: always_declare_return_types
   _imgFromGallery() async {
-    FilePickerResult filePicker =
+    var filePicker =
         await FilePicker.platform.pickFiles(type: FileType.image);
     if (filePicker != null) {
-      File image = File(filePicker.files.first.path);
+      var image = File(filePicker.files.first.path);
       setState(() {
         _image = image;
       });
@@ -359,6 +362,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  // ignore: deprecated_member_use
                   child: RaisedButton.icon(
                     onPressed: () {
                       FocusScope.of(context).unfocus();
@@ -514,6 +518,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   //This method is called when the result is an exception
+  // ignore: always_declare_return_types
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
@@ -543,6 +548,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   //This method is called after complete mutation
+  // ignore: always_declare_return_types
   _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),

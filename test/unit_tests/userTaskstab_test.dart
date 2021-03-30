@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 
 Map userData = {
-  "_id": "605492dbcf13b54d55284731",
-  "title": "Ay",
-  "description": "ry",
-  "deadline": "1616155355596",
+  '_id': '605492dbcf13b54d55284731',
+  'title': 'Ay',
+  'description': 'ry',
+  'deadline': '1616155355596',
 };
 void main() {
   group('Testing valid displays in task tab', () {

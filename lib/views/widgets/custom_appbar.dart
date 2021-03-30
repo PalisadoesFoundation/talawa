@@ -27,7 +27,7 @@ class CustomAppBar extends StatefulWidget with PreferredSizeWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  Queries _query = Queries();
+  final Queries _query = Queries();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   Preferences preferences = Preferences();
   String _imgSrc;
@@ -39,10 +39,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
   Future getImg() async { //this function gets the image from the graphql query
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    String orgId = await preferences.getCurrentOrgId();
+    var _client = graphQLConfiguration.clientToQuery();
+    var orgId = await preferences.getCurrentOrgId();
 
-    QueryResult result = await _client
+    var result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
     if (result.hasException) {
       print(result.exception);
@@ -74,7 +74,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               padding: const EdgeInsets.all(5.0),
               child: CircleAvatar(
                   radius: 40,
-                  backgroundImage: AssetImage("assets/images/team.png")),
+                  backgroundImage: AssetImage('assets/images/team.png')),
             ),
     );
   }

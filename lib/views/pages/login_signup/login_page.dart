@@ -1,14 +1,9 @@
 //flutter packages are called here
-import 'package:flutter/animation.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
-import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/login_signup/login_form.dart';
-import 'package:talawa/views/pages/login_signup/register_form.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   //providing the initial states to the variables
   @override
   void initState() {
@@ -25,11 +20,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
   }
 
   @override
+  // ignore: always_declare_return_types
   dispose() {
     super.dispose();
   }
 
-  loginScreenForm() => Center(
+  Center loginScreenForm() => Center(
         child: Container(
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
@@ -45,8 +41,8 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         const Text(
-                          "Dont have an account?",
-                          style: const TextStyle(
+                          'Dont have an account?',
+                          style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
@@ -61,10 +57,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                                       builder: (context) => RegisterPage()));
                             },
                             child: const Text(
-                              "SIGN UP!",
+                              'SIGN UP!',
                               textAlign: TextAlign.start,
-                              style:
-                                  const TextStyle(color: UIData.primaryColor),
+                              style:TextStyle(color: UIData.primaryColor),
                             ),
                           ),
                         ),
@@ -77,7 +72,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
       );
   //main build starts here
   @override
-  build(BuildContext context) {
+  Scaffold build(BuildContext context) {
     return Scaffold(
         //resizeToAvoidBottomInset: false,
         key: _scaffoldkey,

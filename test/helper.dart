@@ -8,20 +8,21 @@ Function onErrorIgnoreOverflowErrors = (
   assert(details != null);
   assert(details.exception != null);
 
-  bool ifIsOverflowError = false;
+  var ifIsOverflowError = false;
 
   // Detect overflow error.
   var exception = details.exception;
-  if (exception is FlutterError)
+  if (exception is FlutterError) {
     ifIsOverflowError = !exception.diagnostics.any(
       (e) => e.value.toString().startsWith(
-            "A RenderFlex overflowed by",
+            'A RenderFlex overflowed by',
           ),
     );
+  }
 
   // Ignore if is overflow error.
   if (ifIsOverflowError) {
-    print("Over flow error");
+    print('Over flow error');
   }
 
   // Throw other errors.

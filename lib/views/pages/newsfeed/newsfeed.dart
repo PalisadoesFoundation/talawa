@@ -25,19 +25,22 @@ class NewsFeed extends StatefulWidget {
 
 class _NewsFeedState extends State<NewsFeed> {
 
-  ScrollController scrollController = new ScrollController();
+  ScrollController scrollController = ScrollController();
   bool isVisible = true;
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   List postList = [];
   Timer timer = Timer();
+  // ignore: unused_field
   String _currentOrgID;
 
-  Map<String, bool> likePostMap = new Map<String , bool>(); 
+  Map<String, bool> likePostMap = <String , bool>{};
   // key = postId and value will be true if user has liked a post.
 
 
   //setting initial state to the variables
+  @override
+  // ignore: always_declare_return_types
   initState() {
     super.initState();
     getPosts();
@@ -45,17 +48,19 @@ class _NewsFeedState extends State<NewsFeed> {
       scrollController.addListener(() {
         if (scrollController.position.userScrollDirection ==
             ScrollDirection.reverse) {
-          if (isVisible)
+          if (isVisible) {
             setState(() {
               isVisible = false;
             });
+          }
         }
         if (scrollController.position.userScrollDirection ==
             ScrollDirection.forward) {
-          if (!isVisible)
+          if (!isVisible) {
             setState(() {
               isVisible = true;
             });
+          }
         }
     });
   }
@@ -68,11 +73,11 @@ class _NewsFeedState extends State<NewsFeed> {
 
   //function to get the current posts
   Future<void> getPosts() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
-    final String currentUserID = await preferences.getUserId();
+    final currentOrgID = await preferences.getCurrentOrgId();
+    final currentUserID = await preferences.getUserId();
     _currentOrgID = currentUserID;
-    String query = Queries().getPostsById(currentOrgID);
-    Map result = await apiFunctions.gqlquery(query);
+    var query = Queries().getPostsById(currentOrgID);
+    var result = await apiFunctions.gqlquery(query);
     // print(result);
     setState(() {
       postList =
@@ -101,20 +106,20 @@ class _NewsFeedState extends State<NewsFeed> {
 
   //function to addlike
   Future<void> addLike(String postID) async {
-    String mutation = Queries().addLike(postID);
+    var mutation = Queries().addLike(postID);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
-    getPosts();
+    await getPosts();
   }
 
 
 
   //function to remove the likes
   Future<void> removeLike(String postID) async {
-    String mutation = Queries().removeLike(postID);
+    var mutation = Queries().removeLike(postID);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
-    getPosts();
+    await getPosts();
   }
 
 
@@ -129,7 +134,7 @@ class _NewsFeedState extends State<NewsFeed> {
             ? Center(child: Loading(key: UniqueKey(),))
             : RefreshIndicator(
                 onRefresh: () async {
-                  getPosts();
+                  await getPosts();
                 },
                 child: Container(
                   child: Column(
@@ -189,7 +194,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                                   Container(
                                                     width: MediaQuery.of(context).size.width - 50,
                                                       child: Text(
-                                                          postList[index]["text"].toString(),
+                                                          postList[index]['text'].toString(),
                                                         textAlign: TextAlign.justify,
                                                         overflow: TextOverflow.ellipsis,
                                                         maxLines: 10,
@@ -231,14 +236,14 @@ class _NewsFeedState extends State<NewsFeed> {
   Widget addPostFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
         onPressed: () {
           pushNewScreenWithRouteSettings(context,
               screen: AddPost(), settings: RouteSettings());
-        });
+        },
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),);
   }
 
 
@@ -255,6 +260,7 @@ class _NewsFeedState extends State<NewsFeed> {
         ),
         IconButton(
             icon: Icon(Icons.comment), color: Colors.grey, onPressed: () async{
+        // ignore: unused_local_variable
         var refresh = await Navigator.push(context,CupertinoPageRoute(
                     builder: (context) => NewsArticle(
                           post: postList[index],
@@ -287,6 +293,7 @@ class _NewsFeedState extends State<NewsFeed> {
             onPressed: ()
             {
               if(postList[index]['likeCount'] != 0)
+                // ignore: curly_braces_in_flow_control_structures
                 if(likePostMap[postList[index]['_id']] == false) {
                   //If user has not liked the post addLike().
                   addLike(postList[index]['_id']);

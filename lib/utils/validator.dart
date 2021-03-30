@@ -2,21 +2,21 @@ import 'package:email_validator/email_validator.dart';
 
 class Validator {
   static String validateURL(String value) {
-    if (value.length == 0) {
+    if (value.isEmpty) {
       return 'Please verify URL first'.toUpperCase();
     }
     return null;
   }
 
   static String validateFirstName(String value) {
-    if (value.length == 0) {
+    if (value.isEmpty) {
       return 'Firstname must not be left blank.';
     }
     return null;
   }
 
   static String validateLastName(String value) {
-    if (value.length == 0) {
+    if (value.isEmpty) {
       return 'Lastname must not be left blank.';
     }
     return null;
@@ -25,10 +25,10 @@ class Validator {
   static String validateEmail(String email) {
     // If email is empty return.
     if (email.isEmpty) {
-      return "Email must not be left blank";
+      return 'Email must not be left blank';
     }
 
-    final bool isValid = EmailValidator.validate(email);
+    final isValid = EmailValidator.validate(email);
     if (!isValid) {
       return 'Please enter a valid Email Address';
     }
@@ -52,12 +52,12 @@ class Validator {
   static String validatePassword(String password) {
     // If password is empty return.
     if (password.isEmpty) {
-      return "Password must not be left blank";
+      return 'Password must not be left blank';
     }
-    String pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~.]).{8,}$';
-    RegExp regExp = new RegExp(pattern);
+    var pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~.]).{8,}$';
+    var regExp = RegExp(pattern);
     if (!regExp.hasMatch(password)) {
-      return "Invalid Password";
+      return 'Invalid Password';
     }
     return null;
   }
@@ -94,7 +94,7 @@ class Validator {
   }
 
   static String validateOrgName(String value) {
-    if (value.length == 0) {
+    if (value.isEmpty) {
       return 'Organization Name must not be left blank.';
     }
     if (value.length > 40) {
@@ -104,7 +104,7 @@ class Validator {
   }
 
   static String validateOrgDesc(String value) {
-    if (value.length == 0) {
+    if (value.isEmpty) {
       return 'Organization Description must not be left blank.';
     }
     if (value.length > 5000) {
@@ -114,7 +114,7 @@ class Validator {
   }
 
   static String validateOrgAttendeesDesc(String value) {
-    if (value.length == 0) {
+    if (value.isEmpty) {
       return 'Attendees Description must not be left blank.';
     }
     if (value.length > 5000) {

@@ -47,6 +47,7 @@ class _EventDetailState extends State<EventDetail>
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
               background: FittedBox(
+                // ignore: sort_child_properties_last
                 child: Container(
                   height: 300,
                   width: width,

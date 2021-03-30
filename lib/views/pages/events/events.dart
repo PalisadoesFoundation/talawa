@@ -37,13 +37,15 @@ class _EventsState extends State<Events> {
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   StickyHeaderController stickyHeaderController = StickyHeaderController();
-  CalendarController _calendarController = CalendarController();
+  final CalendarController _calendarController = CalendarController();
   CarouselController carouselController = CarouselController();
   String notFetched = 'No Events Created';
   bool fetched = true;
   var events;
   Timer timer = Timer();
 
+  @override
+  // ignore: always_declare_return_types
   initState() {
     super.initState();
     setState(() {
@@ -54,10 +56,10 @@ class _EventsState extends State<Events> {
   //get all events for a given day
   //account for recurring events
   List filterEventsByDay(DateTime currentDate, List events) {
-    List currentevents = [];
+    var currentevents = [];
 
     for (var event in events) {
-      DateTime startTime =
+      var startTime =
           DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']));
       if (!event['recurring'] && timer.isSameDay(currentDate, startTime)) {
         currentevents.add(event);
@@ -82,7 +84,8 @@ class _EventsState extends State<Events> {
   //return events in calendar display format ''Map<DateTime, List<dynamic>>''
   //account for recurring events
   Map eventsToDates(List events, DateTime now) {
-    Map<DateTime, List<dynamic>> eventDates = {};
+    var eventDates = <DateTime, List<dynamic>>{};
+    // ignore: always_declare_return_types
     addDateToMap(DateTime date, Map event) {
       if (eventDates[date] == null) {
         eventDates[date] = [event];
@@ -98,18 +101,18 @@ class _EventsState extends State<Events> {
             event);
       } else {
         if (event['recurrance'] == 'DAILY') {
-          int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
-          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
+          var day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
+          var lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
             day += 1;
           }
         }
         if (event['recurrance'] == 'WEEKLY') {
-          int day =
+          var day =
               DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
                       .day;
-          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
+          var lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
 
@@ -117,12 +120,12 @@ class _EventsState extends State<Events> {
           }
         }
         if (event['recurrance'] == 'MONTHLY') {
-          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
+          var firstDate = DateTime.fromMicrosecondsSinceEpoch(
               int.parse(event['startTime']));
           addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
         }
         if (event['recurrance'] == 'YEARLY') {
-          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
+          var firstDate = DateTime.fromMicrosecondsSinceEpoch(
               int.parse(event['startTime']));
           if (now.month == firstDate.month) {
             addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
@@ -135,8 +138,9 @@ class _EventsState extends State<Events> {
 
   //function called to delete the event
   Future<void> _deleteEvent(context, eventId) async {
-    String mutation = Queries().deleteEvent(eventId);
-    Map result = await apiFunctions.gqlquery(mutation);
+    var mutation = Queries().deleteEvent(eventId);
+    // ignore: unused_local_variable
+    var result = await apiFunctions.gqlquery(mutation);
     setState(() {
       getEvents();
     });
@@ -144,15 +148,15 @@ class _EventsState extends State<Events> {
 
   //function to called be called for register
   Future<void> _register(context, eventId) async {
-    String mutation = Queries().registerForEvent(eventId);
+    var mutation = Queries().registerForEvent(eventId);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
   }
 
   //function to get the events
   Future<void> getEvents() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
-      Map result =
+    final currentOrgID = await preferences.getCurrentOrgId();
+      var result =
       await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
       eventList = result == null ? [] : result['events'].reversed.toList();
       eventList.removeWhere((element) =>
@@ -175,7 +179,7 @@ class _EventsState extends State<Events> {
 
   //functions to edit the event
   Future<void> _editEvent(context, event) async {
-    showDialog(
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
         return EditEvent(
@@ -186,7 +190,7 @@ class _EventsState extends State<Events> {
   }
 
   Future<void> addEventTask(context, eventId) async {
-    showDialog(
+    await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AddEventTask(
@@ -216,7 +220,7 @@ class _EventsState extends State<Events> {
               if (eventList.isEmpty) {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      getEvents();
+                      await getEvents();
                     },
                     child: CustomScrollView(
                       slivers: [
@@ -244,7 +248,7 @@ class _EventsState extends State<Events> {
               } else {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      getEvents();
+                      await getEvents();
                     },
                     child: Container(
                     color: Colors.white,
@@ -328,8 +332,8 @@ class _EventsState extends State<Events> {
   }
 
   Widget calendar() {
-    DateTime now = DateTime.now();
-    Map thisMonthsEvents = eventsToDates(eventList, now);
+    var now = DateTime.now();
+    var thisMonthsEvents = eventsToDates(eventList, now);
     return ListView(children: [
       TableCalendar(
         onVisibleDaysChanged: (m, n, b) {
@@ -437,6 +441,18 @@ class _EventsState extends State<Events> {
       child: Column(
         children: [
           ExpansionTile(
+            title: Text(
+              displayedEvents[index]['title'],
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 16,
+              ),
+            ),
+            subtitle: Text(
+              displayedEvents[index]['description'],
+              style: TextStyle(color: Colors.black54),
+            ),
+            trailing: popUpMenue(displayedEvents[index]),
             children: <Widget>[
               displayedEvents[index]['isPublic']
                   ? menueText('This event is Public')
@@ -450,6 +466,7 @@ class _EventsState extends State<Events> {
               //             int.parse(displayedEvents[index]['startTime'])))
               //         .toString()),
               ListTile(
+                // ignore: deprecated_member_use
                 trailing: RaisedButton(
                   color: UIData.secondaryColor,
                   onPressed: () {
@@ -459,26 +476,14 @@ class _EventsState extends State<Events> {
                       screen: EventDetail(event: displayedEvents[index]),
                     );
                   },
+                  shape: StadiumBorder(),
                   child: Text(
-                    "More",
+                    'More',
                     style: TextStyle(color: Colors.white),
                   ),
-                  shape: StadiumBorder(),
                 ),
               ),
             ],
-            title: Text(
-              displayedEvents[index]['title'],
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
-              ),
-            ),
-            subtitle: Text(
-              displayedEvents[index]['description'],
-              style: TextStyle(color: Colors.black54),
-            ),
-            trailing: popUpMenue(displayedEvents[index]),
           ),
           // ),
           Divider(
@@ -547,16 +552,16 @@ class _EventsState extends State<Events> {
   Widget eventFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
         onPressed: () {
           pushNewScreen(
             context,
             withNavBar: true,
             screen: AddEvent(),
           );
-        });
+        },
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),);
   }
 }

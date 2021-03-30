@@ -34,7 +34,7 @@ Widget createRegisterPageScreen() => MultiProvider(
 
 void main() {
   group('Register Page Tests', () {
-    testWidgets("Check if Register Page shows up", (tester) async {
+    testWidgets('Check if Register Page shows up', (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
@@ -47,7 +47,7 @@ void main() {
       );
     });
 
-    testWidgets("Validations return false when empty form is submitted",
+    testWidgets('Validations return false when empty form is submitted',
         (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
@@ -61,7 +61,7 @@ void main() {
       var formKey = form.key as GlobalKey<FormState>;
 
       // Get hold of SIGN UP button.
-      var signUpButton = find.text("SIGN UP");
+      var signUpButton = find.text('SIGN UP');
 
       // Tap on the signUpButton.
       await tester.tap(signUpButton);
@@ -81,7 +81,7 @@ void main() {
     });
 
     testWidgets(
-        "Validations return false when any one of five fields are empty",
+        'Validations return false when any one of five fields are empty',
         (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
@@ -89,7 +89,7 @@ void main() {
       await tester.pumpWidget(createRegisterPageScreen());
 
       /// Make an instance of [Random] class.
-      Random random = new Random();
+      var random = Random();
 
       /// Get the hold of [Form] Widget.
       var form = tester.widget(find.byType(Form));
@@ -101,137 +101,137 @@ void main() {
       var length = tester.widgetList(find.byType(TextFormField)).length;
 
       /// Generate random number between [0, 5].
-      int index = random.nextInt(length);
+      var index = random.nextInt(length);
 
       if (index == 0) {
         // Fill all the other TextFormFields except at index 0.
         // Fill in last name field.
         await tester.enterText(
           find.byType(TextFormField).at(1),
-          "Last Name",
+          'Last Name',
         );
 
         // Fill in email field.
         await tester.enterText(
           find.byType(TextFormField).at(2),
-          "test@gmail.com",
+          'test@gmail.com',
         );
 
         // Fill in password field.
         await tester.enterText(
           find.byType(TextFormField).at(3),
-          "Password1@",
+          'Password1@',
         );
 
         // Fill in confirm password field.
         await tester.enterText(
           find.byType(TextFormField).at(4),
-          "Password1@",
+          'Password1@',
         );
       } else if (index == 1) {
         // Fill all the other TextFormFields except at index 1.
         // Fill in first name.
         await tester.enterText(
           find.byType(TextFormField).at(0),
-          "First Name",
+          'First Name',
         );
 
         // Fill in email field.
         await tester.enterText(
           find.byType(TextFormField).at(2),
-          "test@gmail.com",
+          'test@gmail.com',
         );
 
         // Fill in password field.
         await tester.enterText(
           find.byType(TextFormField).at(3),
-          "Password1@",
+          'Password1@',
         );
 
         // Fill in confirm password field.
         await tester.enterText(
           find.byType(TextFormField).at(4),
-          "Password1@",
+          'Password1@',
         );
       } else if (index == 2) {
         // Fill all the other TextFormFields except at index 2.
         // Fill in first name.
         await tester.enterText(
           find.byType(TextFormField).at(0),
-          "First Name",
+          'First Name',
         );
 
         // Fill in last name field.
         await tester.enterText(
           find.byType(TextFormField).at(1),
-          "Last Name",
+          'Last Name',
         );
 
         // Fill in password field.
         await tester.enterText(
           find.byType(TextFormField).at(3),
-          "Password1@",
+          'Password1@',
         );
 
         // Fill in confirm password field.
         await tester.enterText(
           find.byType(TextFormField).at(4),
-          "Password1@",
+          'Password1@',
         );
       } else if (index == 3) {
         // Fill all the other TextFormFields except at index 3.
         // Fill in first name.
         await tester.enterText(
           find.byType(TextFormField).at(0),
-          "First Name",
+          'First Name',
         );
 
         // Fill in last name field.
         await tester.enterText(
           find.byType(TextFormField).at(1),
-          "Last Name",
+          'Last Name',
         );
 
         // Fill in email field.
         await tester.enterText(
           find.byType(TextFormField).at(2),
-          "test@gmail.com",
+          'test@gmail.com',
         );
 
         // Fill in confirm password field.
         await tester.enterText(
           find.byType(TextFormField).at(4),
-          "Password1@",
+          'Password1@',
         );
       } else if (index == 4) {
         // Fill all the other TextFormFields except at index 4.
         // Fill in first name.
         await tester.enterText(
           find.byType(TextFormField).at(0),
-          "First Name",
+          'First Name',
         );
 
         // Fill in last name field.
         await tester.enterText(
           find.byType(TextFormField).at(1),
-          "Last Name",
+          'Last Name',
         );
 
         // Fill in email field.
         await tester.enterText(
           find.byType(TextFormField).at(2),
-          "test@gmail.com",
+          'test@gmail.com',
         );
 
         // Fill in password field.
         await tester.enterText(
           find.byType(TextFormField).at(3),
-          "Password1@",
+          'Password1@',
         );
       }
 
       // Get hold of SIGN UP button.
-      var signUpButton = find.text("SIGN UP");
+      var signUpButton = find.text('SIGN UP');
 
       // Tap on the signUpButton.
       await tester.tap(signUpButton);
@@ -266,35 +266,35 @@ void main() {
       // Fill in first name.
       await tester.enterText(
         find.byType(TextFormField).at(0),
-        "First Name",
+        'First Name',
       );
 
       // Fill in last name field.
       await tester.enterText(
         find.byType(TextFormField).at(1),
-        "Last Name",
+        'Last Name',
       );
 
       // Fill in email field.
       await tester.enterText(
         find.byType(TextFormField).at(2),
-        "test@gmail.com",
+        'test@gmail.com',
       );
 
       // Fill in password field.
       await tester.enterText(
         find.byType(TextFormField).at(3),
-        "Password1@",
+        'Password1@',
       );
 
       // Fill in confirm password field (slightly different this time).
       await tester.enterText(
         find.byType(TextFormField).at(4),
-        "Password1@2",
+        'Password1@2',
       );
 
       // Get hold of SIGN UP button.
-      var signUpButton = find.text("SIGN UP");
+      var signUpButton = find.text('SIGN UP');
 
       // Tap on the signUpButton.
       await tester.tap(signUpButton);
@@ -307,7 +307,7 @@ void main() {
       );
     });
 
-    testWidgets("Validations return true when all fields are correctly filled",
+    testWidgets('Validations return true when all fields are correctly filled',
         (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
@@ -323,35 +323,35 @@ void main() {
       // Fill in first name.
       await tester.enterText(
         find.byType(TextFormField).at(0),
-        "First Name",
+        'First Name',
       );
 
       // Fill in last name field.
       await tester.enterText(
         find.byType(TextFormField).at(1),
-        "Last Name",
+        'Last Name',
       );
 
       // Fill in email field.
       await tester.enterText(
         find.byType(TextFormField).at(2),
-        "test@gmail.com",
+        'test@gmail.com',
       );
 
       // Fill in password field.
       await tester.enterText(
         find.byType(TextFormField).at(3),
-        "Password1@",
+        'Password1@',
       );
 
       // Fill in confirm password field.
       await tester.enterText(
         find.byType(TextFormField).at(4),
-        "Password1@",
+        'Password1@',
       );
 
       // Get hold of SIGN UP button.
-      var signUpButton = find.text("SIGN UP");
+      var signUpButton = find.text('SIGN UP');
 
       // Tap on the signUpButton.
       await tester.tap(signUpButton);

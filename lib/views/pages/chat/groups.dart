@@ -27,7 +27,7 @@ class _GroupsState extends State<Groups> {
       body: ListView.builder(
           itemCount: 4,
           itemBuilder: (context, index) {
-            String groupName = 'Event ${index + 1}';
+            var groupName = 'Event ${index + 1}';
             return Card(
               child: ListTile(
                 title: Text(groupName),

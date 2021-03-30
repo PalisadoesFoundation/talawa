@@ -19,12 +19,12 @@ class MyAboutTile extends StatelessWidget {
           height: 10.0,
         ),
         Text(
-          "Collaborative",
+          'Collaborative',
         ),
       ],
       applicationName: UIData.appName,
-      applicationVersion: "1.0.1",
-      applicationLegalese: "Apache License 2.0",
+      applicationVersion: '1.0.1',
+      applicationLegalese: 'Apache License 2.0',
     );
   }
 }

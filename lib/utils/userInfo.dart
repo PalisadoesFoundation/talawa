@@ -2,8 +2,8 @@ class UserInfo{
   static int userOrg = 0;
   static List orgList = [];
 
-  get currentOrg => userOrg;
-  get currentOrgList => orgList;
+  int get currentOrg => userOrg;
+  List get currentOrgList => orgList;
 
   set currentOrg(int val){
     userOrg = val;

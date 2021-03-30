@@ -28,7 +28,7 @@ void main() {
       var result = Validator.validateEmail('');
 
       // Verify that correct error is shown.
-      expect(result, "Email must not be left blank");
+      expect(result, 'Email must not be left blank');
     });
 
     test('Shows error when email is invalid', () {

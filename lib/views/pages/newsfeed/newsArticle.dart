@@ -15,7 +15,7 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 
-const String newLineKey = "@123TALAWA321@";
+const String newLineKey = '@123TALAWA321@';
 
 // ignore: must_be_immutable
 class NewsArticle extends StatefulWidget {
@@ -28,6 +28,7 @@ class NewsArticle extends StatefulWidget {
 }
 
 class _NewsArticleState extends State<NewsArticle> {
+  @override
   void setState(fn) {
     if (mounted) {
       super.setState(fn);
@@ -43,7 +44,7 @@ class _NewsArticleState extends State<NewsArticle> {
   bool moreComments = false;
   bool isCommentAdded = false;
 
-  Queries _query = Queries();
+  final Queries _query = Queries();
   List userDetails = [];
   String userID;
   String orgName;
@@ -57,8 +58,8 @@ class _NewsArticleState extends State<NewsArticle> {
 
   Future fetchUserDetails() async {
     userID = await preferences.getUserId();
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    QueryResult result = await _client.query(QueryOptions(
+    var _client = graphQLConfiguration.clientToQuery();
+    var result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
@@ -104,8 +105,9 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   //this method helps us to get the comments of the post
+  // ignore: always_declare_return_types
   getPostComments() async {
-    String mutation = Queries().getPostsComments(widget.post['_id']);
+    var mutation = Queries().getPostsComments(widget.post['_id']);
     Map result = await apiFunctions.gqlmutation(mutation);
     setState(() {
       comments =
@@ -114,33 +116,34 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   //this method helps us to create any comments we are willing to
+  // ignore: always_declare_return_types
   createComment() async {
-    String queryText = '';
+    var queryText = '';
     if (commentController.text.isNotEmpty) {
-      Fluttertoast.showToast(msg: "Adding Comment...");
-      queryText = commentController.text.replaceAll("\n", newLineKey).trim();
-      String mutation = Queries().createComments(widget.post['_id'], queryText);
+      await Fluttertoast.showToast(msg: 'Adding Comment...');
+      queryText = commentController.text.replaceAll('\n', newLineKey).trim();
+      var mutation = Queries().createComments(widget.post['_id'], queryText);
       Map result = await apiFunctions.gqlmutation(mutation);
       print(result);
       if (result == null) {
-        Fluttertoast.showToast(
-          msg: "Sorry, this comment could not be posted.",
+        await Fluttertoast.showToast(
+          msg: 'Sorry, this comment could not be posted.',
         );
       } else {
         isCommentAdded = true;
         FocusScope.of(context).requestFocus(FocusNode());
         commentController.text = '';
-        Fluttertoast.showToast(
-          msg: "Comment added.",
+        await Fluttertoast.showToast(
+          msg: 'Comment added.',
         );
       }
     } else {
-      Fluttertoast.showToast(msg: "Please write comment");
+      await Fluttertoast.showToast(msg: 'Please write comment');
     }
   }
 
   String addNewline(String rawComment) {
-    rawComment = rawComment.replaceAll(newLineKey, "\n");
+    rawComment = rawComment.replaceAll(newLineKey, '\n');
     return rawComment;
   }
 
@@ -157,10 +160,10 @@ class _NewsArticleState extends State<NewsArticle> {
               children: [
                 SizedBox.expand(
                   child: FittedBox(
+                    fit: BoxFit.fill,
                     child: Image.asset(
                       UIData.shoppingImage,
                     ),
-                    fit: BoxFit.fill,
                   ),
                 ),
                 Align(
@@ -201,15 +204,15 @@ class _NewsArticleState extends State<NewsArticle> {
                         // minHeight: 20,
                       ),
                       child: TextFormField(
-                        key: Key("leaveCommentField"),
+                        key: Key('leaveCommentField'),
                         textInputAction: TextInputAction.newline,
                         keyboardType: TextInputType.multiline,
                         validator: (String value) {
                           if (value.length > 500) {
-                            return "Comment cannot be longer than 500 letters";
+                            return 'Comment cannot be longer than 500 letters';
                           }
-                          if (value.length == 0) {
-                            return "Comment cannot be empty";
+                          if (value.isEmpty) {
+                            return 'Comment cannot be empty';
                           }
                           return null;
                         },
@@ -221,7 +224,7 @@ class _NewsArticleState extends State<NewsArticle> {
                         maxLines: null,
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
-                            key: Key("leaveCommentButton"),
+                            key: Key('leaveCommentButton'),
                             color: Colors.grey,
                             icon: Icon(Icons.send),
                             onPressed: () {
@@ -261,6 +264,7 @@ class _NewsArticleState extends State<NewsArticle> {
 
   //this loads the comments button
   Widget loadCommentsButton() {
+    // ignore: deprecated_member_use
     return FlatButton(
         color: Colors.grey[200],
         onPressed: () {
@@ -282,7 +286,7 @@ class _NewsArticleState extends State<NewsArticle> {
 
   // a new widget for comment list
   Widget commentList() {
-    int lenthOfCommentList = getCommentslength();
+    var lenthOfCommentList = getCommentslength();
 
     if (lenthOfCommentList > 3) {
       if (moreComments == false) {
@@ -305,11 +309,11 @@ class _NewsArticleState extends State<NewsArticle> {
               itemBuilder: (context, index) {
                 return ListTile(
                   leading: CircleAvatar(
+                    backgroundColor: UIData.secondaryColor,
                     child: Icon(
                       Icons.person,
                       color: Colors.white10,
                     ),
-                    backgroundColor: UIData.secondaryColor,
                   ),
                   title: Text(
                     comments[index]['text'],
@@ -342,7 +346,7 @@ class _NewsArticleState extends State<NewsArticle> {
                     moreComments = true;
                   });
                 },
-                child: Text("View More Comments"))
+                child: Text('View More Comments'))
       ],
     );
   }

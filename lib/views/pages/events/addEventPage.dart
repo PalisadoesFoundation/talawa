@@ -35,6 +35,7 @@ class _AddEventState extends State<AddEvent> {
   var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
   Preferences preferences = Preferences();
+  @override
   void initState() {
     super.initState();
   }
@@ -56,26 +57,27 @@ class _AddEventState extends State<AddEvent> {
 
   //method to be called when the user wants to select the date
   Future<void> _selectDate(BuildContext context) async {
-    DateTime now = DateTime.now();
-    final DateTimeRange picked = await showDateRangePicker(
+    var now = DateTime.now();
+    final picked = await showDateRangePicker(
         context: context,
         // initialDate: selectedDate,
         firstDate: DateTime(now.year, now.month, now.day),
         lastDate: DateTime(2101));
-    if (picked != null && picked != dateRange)
+    if (picked != null && picked != dateRange) {
       setState(() {
         dateRange = picked;
       });
+    }
   }
 
   //method to be called when the user wants to select time
   Future<void> _selectTime(
       BuildContext context, String name, TimeOfDay time) async {
-    final TimeOfDay picked = await showTimePicker(
+    final picked = await showTimePicker(
       context: context,
       initialTime: time,
     );
-    if (picked != null && picked != time)
+    if (picked != null && picked != time) {
       setState(() {
         startEndTimes[name] = DateTime(
             DateTime.now().year,
@@ -84,17 +86,18 @@ class _AddEventState extends State<AddEvent> {
             picked.hour,
             picked.minute);
       });
+    }
   }
 
   //method used to create an event
   Future<void> createEvent() async {
-    DateTime startTime = DateTime(
+    var startTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
         dateRange.start.day,
         startEndTimes['Start Time'].hour,
         startEndTimes['Start Time'].minute);
-    DateTime endTime = DateTime(
+    var endTime = DateTime(
         dateRange.end.year,
         dateRange.end.month,
         dateRange.end.day,
@@ -109,8 +112,8 @@ class _AddEventState extends State<AddEvent> {
             DateTime.now().day, 23, 59),
       };
     }
-    final String currentOrgID = await preferences.getCurrentOrgId();
-    String mutation = Queries().addEvent(
+    final currentOrgID = await preferences.getCurrentOrgId();
+    var mutation = Queries().addEvent(
       organizationId: currentOrgID,
       title: titleController.text,
       description: descriptionController.text,
@@ -123,7 +126,7 @@ class _AddEventState extends State<AddEvent> {
       startTime: startTime.microsecondsSinceEpoch.toString(),
       endTime: endTime.microsecondsSinceEpoch.toString(),
     );
-    Map result = await apiFunctions.gqlquery(mutation);
+    var result = await apiFunctions.gqlquery(mutation);
     print('Result is : $result');
   }
 
@@ -200,7 +203,7 @@ class _AddEventState extends State<AddEvent> {
   Widget addEventFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
-        child: Icon(
+        child: Icon( // ignore: sort_child_properties_last
           Icons.check,
           color: Colors.white,
         ),

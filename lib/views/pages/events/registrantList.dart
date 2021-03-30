@@ -25,15 +25,17 @@ class _RegListState extends State<RegList> {
   ApiFunctions apiFunctions = ApiFunctions();
   List eventTasks = [];
 
+  @override
   void initState() {
     super.initState();
     getRegistrants();
   }
 
   //method to get the list of registrants
+  // ignore: always_declare_return_types
   getRegistrants() async {
     final String userID = widget.event['_id'];
-    Map result =
+    var result =
         await apiFunctions.gqlquery(Queries().getRegistrantsByEvent(userID));
     setState(() {
       eventTasks = result == null ? [] : result['registrantsByEvent'];
@@ -42,7 +44,7 @@ class _RegListState extends State<RegList> {
 
   @override
   Widget build(BuildContext context) {
-    return eventTasks.length != 0
+    return eventTasks.isNotEmpty
         ? ListView.builder(
             itemCount: eventTasks.length,
             itemBuilder: (context, index) {
@@ -53,7 +55,7 @@ class _RegListState extends State<RegList> {
         : Container(
             child: Center(
                 child: Text(
-              "No Registrants found",
+              'No Registrants found',
               style: TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             )),

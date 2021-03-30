@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class FormFieldFormatting {
-  static formFieldFormatting(
+  static InputDecoration formFieldFormatting(
       {String hintText, String labelText, IconData prefixIcon}) {
     return InputDecoration(
       border: OutlineInputBorder(

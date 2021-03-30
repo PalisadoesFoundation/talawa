@@ -47,6 +47,7 @@ class _EditEventState extends State<EditEvent> {
   Preferences preferences = Preferences();
   String currentOrgId;
 
+  @override
   void initState() {
     super.initState();
     getCurrentOrgId();
@@ -54,6 +55,7 @@ class _EditEventState extends State<EditEvent> {
     initevent();
   }
 
+  // ignore: always_declare_return_types
   initevent() {
     setState(() {
       titleController.text = widget.event['title'];
@@ -70,6 +72,7 @@ class _EditEventState extends State<EditEvent> {
 
 
   //getting current organization id
+  // ignore: always_declare_return_types
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
     setState(() {
@@ -81,27 +84,28 @@ class _EditEventState extends State<EditEvent> {
 
   //method called to select the date
   Future<void> _selectDate(BuildContext context) async {
-    DateTime now = DateTime.now();
-    final DateTimeRange picked = await showDateRangePicker(
+    var now = DateTime.now();
+    final picked = await showDateRangePicker(
         context: context,
         // initialDate: selectedDate,
         firstDate: DateTime(now.year, now.month, now.day),
         lastDate: DateTime(2101));
-    if (picked != null && picked != dateRange)
+    if (picked != null && picked != dateRange) {
       setState(() {
         dateRange = picked;
       });
+    }
   }
 
 
   //method to select the time
   Future<void> _selectTime(
       BuildContext context, String name, TimeOfDay time) async {
-    final TimeOfDay picked = await showTimePicker(
+    final picked = await showTimePicker(
       context: context,
       initialTime: time,
     );
-    if (picked != null && picked != time)
+    if (picked != null && picked != time) {
       setState(() {
         startEndTimes[name] = DateTime(
             DateTime.now().year,
@@ -110,20 +114,23 @@ class _EditEventState extends State<EditEvent> {
             picked.hour,
             picked.minute);
       });
+    }
   }
 
 
   //method used to create and event
   Future<void> createEvent() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
+    // ignore: unused_local_variable
+    final currentOrgID = await preferences.getCurrentOrgId();
 
-    DateTime startTime = DateTime(
+    // ignore: unused_local_variable
+    var startTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
         dateRange.start.day,
         startEndTimes['End Time'].hour,
         startEndTimes['End Time'].minute);
-    DateTime endTime = DateTime(
+    var endTime = DateTime( // ignore: unused_local_variable
         dateRange.start.year,
         dateRange.start.month,
         dateRange.start.day,
@@ -279,6 +286,7 @@ class _EditEventState extends State<EditEvent> {
   Widget addEventFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
+        // ignore: sort_child_properties_last
         child: Icon(
           Icons.check,
           color: Colors.white,

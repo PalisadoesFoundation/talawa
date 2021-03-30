@@ -8,7 +8,6 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'controllers/auth_controller.dart';
@@ -21,7 +20,7 @@ String userID;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); //ensuring weather the app is being initialized or not
   userID = await preferences.getUserId(); //getting user id
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])  //setting the orientation according to the screen it is running on
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])  //setting the orientation according to the screen it is running on
       .then((_) {
     runApp(MultiProvider(
       providers: [
@@ -43,7 +42,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
+        var currentFocus = FocusScope.of(context);
         if (!currentFocus.hasPrimaryFocus &&
             currentFocus.focusedChild != null) {
           FocusManager.instance.primaryFocus.unfocus();
@@ -70,7 +69,7 @@ class MyApp extends StatelessWidget {
                 SwitchOrganization(),
             UIData.profilePage: (BuildContext context) => ProfilePage(),
           };
-          WidgetBuilder builder = routes[settings.name];
+          var builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));
         },
         home: userID == null ? UrlPage() : HomePage(), //checking weather the user is logged in or not

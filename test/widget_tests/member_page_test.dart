@@ -33,14 +33,14 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
 
-  group("member Page Tests", () {
-    testWidgets("Testing if member page shows up", (tester) async {
+  group('member Page Tests', () {
+    testWidgets('Testing if member page shows up', (tester) async {
       await tester.pumpWidget(createMemberPageScreen());
 
       /// Verify if [member page] shows up.
     });
 
-    testWidgets("Testing overflow of Member page in a mobile screen",
+    testWidgets('Testing overflow of Member page in a mobile screen',
         (tester) async {
       binding.window.physicalSizeTestValue = Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
@@ -49,7 +49,7 @@ void main() {
 
       /// Verify if [memberpage] shows up.
     });
-    testWidgets("Testing overflow of Member Page in a tablet screen",
+    testWidgets('Testing overflow of Member Page in a tablet screen',
         (tester) async {
       binding.window.physicalSizeTestValue = Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;

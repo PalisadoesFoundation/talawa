@@ -31,9 +31,9 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   final orgNameController = TextEditingController();
   final orgDescController = TextEditingController();
   final orgMemberDescController = TextEditingController();
-  Queries _queries = Queries();
+  final Queries _queries = Queries();
   bool _progressBarState = false;
-  AutovalidateMode _validate = AutovalidateMode.disabled;
+  final AutovalidateMode _validate = AutovalidateMode.disabled;
   final _formKey = GlobalKey<FormState>();
   int radioValue = -1;
   int radioValue1 = -1;
@@ -41,8 +41,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   bool isVisible = true;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  Preferences _preferences = Preferences();
-  AuthController _authController = AuthController();
+  final Preferences _preferences = Preferences();
+  final AuthController _authController = AuthController();
 
   //providing with the initial states to the variables
   @override
@@ -62,16 +62,16 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   }
 
   //this method is used if we want to update the organization
-  updateOrg() async {
-    final String currentOrgId = await _preferences.getCurrentOrgId();
+  Future updateOrg() async {
+    final currentOrgId = await _preferences.getCurrentOrgId();
     orgNameController.text =
         orgNameController.text.trim().replaceAll('\n', ' ');
     orgDescController.text =
         orgDescController.text.trim().replaceAll('\n', ' ');
     orgMemberDescController.text =
         orgMemberDescController.text.trim().replaceAll('\n', ' ');
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    QueryResult result = await _client.mutate(MutationOptions(
+    var _client = graphQLConfiguration.authClient();
+    var result = await _client.mutate(MutationOptions(
         documentNode: gql(_queries.updateOrg(
       currentOrgId,
       orgNameController.text,
@@ -95,8 +95,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Success!");
-      pushNewScreen(
+      _successToast('Success!');
+      await pushNewScreen(
         context,
         screen: ProfilePage(),
       );
@@ -167,7 +167,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             textCapitalization: TextCapitalization.words,
                             style: TextStyle(color: Colors.black),
                             decoration: FormFieldFormatting.formFieldFormatting(
-                              hintText: "Organization Name",
+                              hintText: 'Organization Name',
                               labelText: 'My Organization',
                               prefixIcon: Icons.group,
                             ),
@@ -185,8 +185,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             textAlign: TextAlign.left,
                             style: TextStyle(color: Colors.black),
                             decoration: FormFieldFormatting.formFieldFormatting(
-                                hintText: "My Description",
-                                labelText: "Organization Description",
+                                hintText: 'My Description',
+                                labelText: 'Organization Description',
                                 prefixIcon: Icons.note_sharp),
                             controller: orgDescController,
                           ),
@@ -203,8 +203,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             textAlign: TextAlign.left,
                             style: TextStyle(color: Colors.black),
                             decoration: FormFieldFormatting.formFieldFormatting(
-                                hintText: "Member Description",
-                                labelText: "Member Description",
+                                hintText: 'Member Description',
+                                labelText: 'Member Description',
                                 prefixIcon: Icons.note_sharp),
                             controller: orgMemberDescController,
                           ),
@@ -228,6 +228,19 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                               style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),),
+                              onPressed: () async {
+                                if (_formKey.currentState.validate() &&
+                                    radioValue >= 0 &&
+                                    radioValue1 >= 0) {
+                                  _formKey.currentState.save();
+                                  await updateOrg();
+                                  setState(() {
+                                    toggleProgressBarState();
+                                  });
+                                } else if (radioValue < 0 || radioValue1 < 0) {
+                                  _exceptionToast('A choice must be selected');
+                                }
+                              },
                               child: _progressBarState
                                   ? const Center(
                                   child: SizedBox(
@@ -241,22 +254,9 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                                         backgroundColor: Colors.black,
                                       )))
                                   : Text(
-                                      "UPDATE ORGANIZATION",
+                                      'UPDATE ORGANIZATION',
                                       style: TextStyle(color: Colors.white),
                                     ),
-                              onPressed: () async {
-                                if (_formKey.currentState.validate() &&
-                                    radioValue >= 0 &&
-                                    radioValue1 >= 0) {
-                                  _formKey.currentState.save();
-                                  updateOrg();
-                                  setState(() {
-                                    toggleProgressBarState();
-                                  });
-                                } else if (radioValue < 0 || radioValue1 < 0) {
-                                  _exceptionToast("A choice must be selected");
-                                }
-                              },
                             ),
                           ),
                         ],
@@ -268,6 +268,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   }
 
   //a message if the result is successful
+  // ignore: always_declare_return_types
   _successToast(String msg) {
     fToast.showToast(
       child: ToastTile(msg: msg, success: true),
@@ -277,6 +278,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   }
 
   //a method which is called when the result is an exception
+  // ignore: always_declare_return_types
   _exceptionToast(String msg) {
     fToast.showToast(
       child: ToastTile(msg: msg, success: false),

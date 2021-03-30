@@ -12,7 +12,7 @@ void main() {
     testWidgets(
         'When user is creator of the organization and organization is not public', (
         tester) async {
-      List joinedCreator = [
+      var joinedCreator = [
         {
           'image': null,
           '_id': '60581ebccf13b54d55284afd',
@@ -52,7 +52,7 @@ void main() {
     testWidgets(
         'When user is creator of the organization and organization is public', (
         tester) async {
-      List joinedCreator = [
+      var joinedCreator = [
         {
           'image': null,
           '_id': '60581ebccf13b54d55284afd',
@@ -88,7 +88,7 @@ void main() {
     });
 
     testWidgets('When user is admin of the organization and organization is  not public', (tester) async {
-      List joinedCreator = [
+      var joinedCreator = [
         {
           'image': null,
           '_id': '60581ebccf13b54d55284afd',
@@ -126,7 +126,7 @@ void main() {
     });
 
     testWidgets('When user is admin of the organization and organization is public', (tester) async {
-      List joinedCreator = [
+      var joinedCreator = [
         {
           'image': null,
           '_id': '60581ebccf13b54d55284afd',

@@ -31,8 +31,9 @@ void main() {
     testWidgets(
         'When member is creator of the organization ', (
         tester) async {
+      // ignore: omit_local_variable_types
       Map memberData = {'_id': '5f566b32dc1b6076634d30a0', 'firstName': 'Arya', 'lastName': 'Stark', 'email': 'arya@stark.com', 'image': null};
-      List adminsData = [{'_id': '5f566b32dc1b6076634d30a0'},{'_id': '5f566b32dsie6076634d30a0'}];
+      var adminsData = [{'_id': '5f566b32dc1b6076634d30a0'},{'_id': '5f566b32dsie6076634d30a0'}];
       await tester.pumpWidget(
           createProfileScreen(
             admins: adminsData,
@@ -51,8 +52,9 @@ void main() {
     testWidgets(
         'When member is admin of the organization ', (
         tester) async {
+      // ignore: omit_local_variable_types
       Map memberData = {'_id': '5f566b32dc1b6076634d30a0', 'firstName': 'Arya', 'lastName': 'Stark', 'email': 'arya@stark.com', 'image': null};
-      List adminsData = [{'_id': '5f566b32dc1b6076634d30a0'},{'_id': '5f566badsie6076634d30a0'}];
+      var adminsData = [{'_id': '5f566b32dc1b6076634d30a0'},{'_id': '5f566badsie6076634d30a0'}];
       await tester.pumpWidget(
           createProfileScreen(
               admins: adminsData,
@@ -71,8 +73,9 @@ void main() {
     testWidgets(
         'When member is not a creator/admin of the organization ', (
         tester) async {
+      // ignore: omit_local_variable_types
       Map memberData = {'_id': '5f566b32dc1b6076634d30a0', 'firstName': 'Arya', 'lastName': 'Stark', 'email': 'arya@stark.com', 'image': null};
-      List adminsData = [{'_id': '5f566b32dc2j5076634d30a0'},{'_id': '5f566badsie6076634d30a0'}];
+      var adminsData = [{'_id': '5f566b32dc2j5076634d30a0'},{'_id': '5f566badsie6076634d30a0'}];
       await tester.pumpWidget(
           createProfileScreen(
               admins: adminsData,

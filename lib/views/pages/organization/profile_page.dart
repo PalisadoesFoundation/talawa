@@ -19,7 +19,6 @@ import 'package:talawa/views/pages/organization/organization_settings.dart';
 
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
 import 'package:talawa/views/widgets/loading.dart';
-import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -31,15 +30,16 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  @override
   void setState(fn) {
     if (mounted) {
       super.setState(fn);
     }
   }
 
-  Queries _query = Queries();
-  Preferences _preferences = Preferences();
-  AuthController _authController = AuthController();
+  final Queries _query = Queries();
+  final Preferences _preferences = Preferences();
+  final AuthController _authController = AuthController();
   List userDetails = [];
   List orgAdmin = [];
   List org = [];
@@ -50,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String creator;
   String userID;
   String orgName;
-  OrgController _orgController = OrgController();
+  final OrgController _orgController = OrgController();
   String orgId;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
@@ -71,8 +71,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Future fetchUserDetails() async {
     orgId = await _preferences.getCurrentOrgId();
     userID = await _preferences.getUserId();
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    QueryResult result = await _client.query(QueryOptions(
+    var _client = graphQLConfiguration.clientToQuery();
+    var result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
@@ -83,23 +83,23 @@ class _ProfilePageState extends State<ProfilePage> {
         org = userDetails[0]['joinedOrganizations'];
       });
       print(userDetails);
-      int notFound = 0;
-      for(int i = 0;i<org.length;i++){
+      var notFound = 0;
+      for(var i = 0;i<org.length;i++){
         if(org[i]['_id']==orgId){
           break;
         }else{
           notFound++;
         }
       }
-      if(notFound==org.length && org.length>0){
+      if(notFound==org.length && org.isNotEmpty){
         _orgController.setNewOrg(context, org[0]['_id'], org[0]['name']);
-        Provider.of<Preferences>(context, listen: false)
+        await Provider.of<Preferences>(context, listen: false)
             .saveCurrentOrgName(org[0]['name']);
-        Provider.of<Preferences>(context, listen: false)
+        await Provider.of<Preferences>(context, listen: false)
             .saveCurrentOrgId(org[0]['_id']);
         await _preferences.saveCurrentOrgImgSrc(org[0]['image']);
       }
-      fetchOrgAdmin();
+      await fetchOrgAdmin();
     }
   }
 
@@ -108,8 +108,8 @@ class _ProfilePageState extends State<ProfilePage> {
     orgName =await _preferences.getCurrentOrgName();
     orgId = await _preferences.getCurrentOrgId();
     if (orgId != null) {
-      GraphQLClient _client = graphQLConfiguration.authClient();
-      QueryResult result = await _client
+      var _client = graphQLConfiguration.authClient();
+      var result = await _client
           .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
       if (result.hasException) {
         print(result.exception.toString());
@@ -120,7 +120,7 @@ class _ProfilePageState extends State<ProfilePage> {
         isPublic = result.data['organizations'][0]['isPublic'];
         result.data['organizations'][0]['admins']
             .forEach((userId) => admins.add(userId));
-        for (int i = 0; i < admins.length; i++) {
+        for (var i = 0; i < admins.length; i++) {
           print(admins[i]['_id']);
           if (admins[i]['_id'] == userID) {
             isCreator = true;
@@ -138,14 +138,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
   //function used when someone wants to leave organization
   Future leaveOrg() async {
-    List remaindingOrg = [];
+    var remaindingOrg = [];
     String newOrgId;
     String newOrgName;
-    final String orgId = await _preferences.getCurrentOrgId();
+    final orgId = await _preferences.getCurrentOrgId();
 
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    var _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client
+    var result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
 
     if (result.hasException &&
@@ -175,12 +175,12 @@ class _ProfilePageState extends State<ProfilePage> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context, listen: false)
+      await Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context, listen: false)
+      await Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgId(newOrgId);
       //  _successToast('You are no longer apart of this organization');
-      pushNewScreen(
+      await pushNewScreen(
         context,
         screen: ProfilePage(),
       );
@@ -191,9 +191,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     var orgName = Provider.of<Preferences>(context).orgName;
-    if (orgName == null) {
-      orgName = 'No Organization Joined';
-    }
+    orgName ??= 'No Organization Joined';
 
     return Scaffold(
       key: Key('PROFILE_PAGE_SCAFFOLD'),
@@ -216,7 +214,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         ListTile(
-                            title: Text("Profile",
+                            title: Text('Profile',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20.0,
@@ -250,7 +248,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           padding: const EdgeInsets.only(left: 16.0),
                           child: Text(
                               userDetails[0]['firstName'].toString() +
-                                  " " +
+                                  ' ' +
                                   userDetails[0]['lastName'].toString(),
                               style: TextStyle(
                                   fontSize: 20.0, color: Colors.white)),
@@ -259,7 +257,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 16.0),
                           child: Text(
-                              "Current Organization: " + (orgName??'No Organization Joined'),
+                              'Current Organization: ' + (orgName??'No Organization Joined'),
                               style: TextStyle(
                                   fontSize: 16.0, color: Colors.white)),
                         ),
@@ -291,7 +289,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               );
                             },
                           ),
-                          org.length == 0
+                          org.isEmpty
                               ? SizedBox()
                               : ListTile(
                               key: Key('Switch Organization'),
@@ -347,7 +345,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                               organization: curOrganization),
                                         );
                                       })
-                                  : org.length==0?SizedBox():ListTile(
+                                  : org.isEmpty?SizedBox():ListTile(
                               key: Key('Leave This Organization'),
                               title: Text(
                                         'Leave This Organization',
@@ -358,19 +356,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                         color: UIData.secondaryColor,
                                       ),
                                       onTap: () async {
-                                        showDialog(
+                                        await showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertBox(
                                                   message:
-                                                      "Are you sure you want to leave this organization?",
+                                                      'Are you sure you want to leave this organization?',
                                                   function: leaveOrg);
                                             });
                                       }),
                           ListTile(
                             key: Key('Logout'),
                             title: Text(
-                              "Logout",
+                              'Logout',
                               style: TextStyle(fontSize: 18.0),
                             ),
                             leading: Icon(
@@ -383,7 +381,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   builder: (BuildContext context) {
                                     return AlertBox(
                                       message:
-                                          "Are you sure you want to logout?",
+                                          'Are you sure you want to logout?',
                                       function: () {
                                         _authController.logout(context);
                                       },

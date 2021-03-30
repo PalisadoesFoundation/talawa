@@ -17,7 +17,7 @@ class SwitchOrganization extends StatefulWidget {
 }
 
 class _SwitchOrganizationState extends State<SwitchOrganization> {
-  Queries _query = Queries();
+  final Queries _query = Queries();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   int visit = 0;
@@ -25,7 +25,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   int isSelected;
   String itemIndex;
   List userOrg = [];
-  Preferences _pref = Preferences();
+  final Preferences _pref = Preferences();
   bool _progressBarState = false;
 
   void toggleProgressBarState() {
@@ -43,11 +43,11 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
 
   //method used to fetch the user details from the server
   Future fetchUserDetails() async {
-    final String userID = await _pref.getUserId();
+    final userID = await _pref.getUserId();
 
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    var _client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.query(QueryOptions(
+    var result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.loading) {
       setState(() {
@@ -65,7 +65,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         userOrg = result.data['users'][0]['joinedOrganizations'];
         print(userOrg);
         if (userOrg.isEmpty) {
-          showError("You are not registered to any organization");
+          showError('You are not registered to any organization');
         }
       });
     }
@@ -74,21 +74,21 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   //this method allows user to change the organization if he wants to
   Future switchOrg() async {
     if (userOrg[isSelected]['_id'] == orgId) {
-      _successToast("Switched to " + userOrg[isSelected]['name'].toString());
-      pushNewScreen(
+      _successToast('Switched to ' + userOrg[isSelected]['name'].toString());
+      await pushNewScreen(
         context,
         screen: ProfilePage(),
       );
     } else {
-      GraphQLClient _client = graphQLConfiguration.clientToQuery();
+      var _client = graphQLConfiguration.clientToQuery();
 
-      QueryResult result = await _client.mutate(
+      var result = await _client.mutate(
           MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
       if (result.hasException) {
         print(result.exception);
         _exceptionToast(result.exception.toString());
       } else if (!result.hasException) {
-        _successToast("Switched to " +
+        _successToast('Switched to ' +
             result.data['organizations'][0]['name'].toString());
 
         //save new current org in preference
@@ -99,7 +99,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
         final String currentOrgName = result.data['organizations'][0]['name'];
         await _pref.saveCurrentOrgName(currentOrgName);
-        pushNewScreen(
+        await pushNewScreen(
           context,
           screen: ProfilePage(),
         );
@@ -108,6 +108,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   }
 
   // it is used to get the current organization id
+  // ignore: always_declare_return_types
   getCurrentOrg() async {
     orgId = await Provider.of<Preferences>(context).getCurrentOrgId();
     setState(() {});
@@ -147,7 +148,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                       : CircleAvatar(
                           radius: 30,
                           backgroundImage:
-                              AssetImage("assets/images/team.png")),
+                              AssetImage('assets/images/team.png')),
                   activeColor: UIData.secondaryColor,
                   groupValue: isSelected,
                   title: Text(userOrg[index]['name'].toString() +
@@ -169,7 +170,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
             ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.save),
-        label: Text("SAVE"),
+        label: Text('SAVE'),
         backgroundColor: UIData.secondaryColor,
         foregroundColor: Colors.white,
         elevation: 5.0,
@@ -193,6 +194,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   }
 
   //the method which is called when the result is successful
+  // ignore: always_declare_return_types
   _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
@@ -216,6 +218,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   }
 
   //the method is called when the result is an exception
+  // ignore: always_declare_return_types
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),

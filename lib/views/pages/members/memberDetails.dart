@@ -33,11 +33,11 @@ class _MemberDetailState extends State<MemberDetail>
     _tabController = TabController(vsync: this, length: 2);
   }
 
-  getPrivilege(String id){
+  String getPrivilege(String id){
     if(widget.creatorId.compareTo(id)==0){
       return 'Creator';
     }
-    for(int i=0;i<widget.admins.length;i++) {
+    for(var i=0;i<widget.admins.length;i++) {
       if (widget.admins[i]['_id'] == id) {
         return 'Admin';
       }
@@ -189,6 +189,7 @@ class _MemberDetailState extends State<MemberDetail>
     return Container(
       height: 170,
       width: MediaQuery.of(context).size.width,
+      color: widget.color,
       child: Column(
         children: [
           Container(
@@ -221,7 +222,6 @@ class _MemberDetailState extends State<MemberDetail>
               ))
         ],
       ),
-      color: widget.color,
     );
   }
 }
