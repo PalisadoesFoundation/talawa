@@ -37,6 +37,7 @@ void main() {
     testWidgets("Testing if member page shows up", (tester) async {
       await tester.pumpWidget(accepRequestsPage());
 
+      //verify if [accept_members_requests] page appears
       expect(find.byType(Scaffold),findsOneWidget);
       expect(find.byType(Card),findsNothing);
 
@@ -49,6 +50,8 @@ void main() {
 
       await tester.pumpWidget(accepRequestsPage());
 
+      //verify if [accept_members_requests] page appears
+
       expect(find.byType(Scaffold),findsOneWidget);
       expect(find.byType(Card),findsNothing);
 
@@ -60,6 +63,8 @@ void main() {
 
       await tester.pumpWidget(accepRequestsPage());
 
+      //verify if [accept_members_requests] page appears
+      
       expect(find.byType(Scaffold),findsOneWidget);
       expect(find.byType(Card),findsNothing);
 
