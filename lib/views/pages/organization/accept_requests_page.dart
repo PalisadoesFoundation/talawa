@@ -52,8 +52,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       print(result.data['organizations'][0]['membershipRequests']);
 
       setState(() {
-        membershipRequestsList =
-            result.data['organizations'][0]['membershipRequests'];
+        membershipRequestsList = result.data['organizations'][0]['membershipRequests'];
         loaded = true;
       });
 
@@ -70,10 +69,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     //this function give the functionality of accepting the request of the user by the administrator
     GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.query(QueryOptions(
-        documentNode: gql(_query.acceptMembershipRequest(itemIndex))));
-    if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
+    QueryResult result = await _client
+        .query(QueryOptions(documentNode: gql(_query.acceptMembershipRequest(itemIndex))));
+    if (result.hasException && result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       return acceptMemberShipRequests();
     } else if (result.hasException &&
@@ -98,10 +96,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     //this function give the functionality of rejecting the request of the user by the administrator
     GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.query(QueryOptions(
-        documentNode: gql(_query.rejectMembershipRequest(itemIndex))));
-    if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
+    QueryResult result = await _client
+        .query(QueryOptions(documentNode: gql(_query.rejectMembershipRequest(itemIndex))));
+    if (result.hasException && result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       return rejectMemberShipRequests();
     } else if (result.hasException &&
@@ -125,8 +122,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     //building the UI page
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Membership Requests',
-            style: const TextStyle(color: Colors.white)),
+        title: const Text('Membership Requests', style: const TextStyle(color: Colors.white)),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -163,20 +159,17 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                       final membershipRequests = membershipRequestsList[index];
                       return Card(
                           child: ListTile(
-                              leading: membershipRequests['user']['image'] !=
-                                      null
+                              leading: membershipRequests['user']['image'] != null
                                   ? CircleAvatar(
                                       radius: 30,
-                                      backgroundImage: NetworkImage(Provider.of<
-                                                  GraphQLConfiguration>(context)
-                                              .displayImgRoute +
-                                          membershipRequests['user']['image']))
+                                      backgroundImage: NetworkImage(
+                                          Provider.of<GraphQLConfiguration>(context)
+                                                  .displayImgRoute +
+                                              membershipRequests['user']['image']))
                                   : const CircleAvatar(
                                       radius: 30,
-                                      backgroundImage:
-                                          AssetImage("assets/images/team.png")),
-                              title: Text(membershipRequests['user']
-                                      ['firstName'] +
+                                      backgroundImage: AssetImage("assets/images/team.png")),
+                              title: Text(membershipRequests['user']['firstName'] +
                                   ' ' +
                                   membershipRequests['user']['lastName']),
                               trailing: processing
@@ -191,12 +184,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                           icon: const Icon(Icons.delete),
                                           color: Colors.red,
                                           onPressed: () {
-                                            itemIndex =
-                                                membershipRequests['_id'];
-                                            setState(() {
-                                              processing = false;
-                                            });
-                                            // rejectMemberShipRequests();
+                                            itemIndex = membershipRequests['_id'];
+                                            rejectMemberShipRequests();
                                           },
                                         ),
                                         IconButton(
@@ -204,12 +193,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                           icon: const Icon(Icons.check),
                                           color: Colors.green,
                                           onPressed: () {
-                                            itemIndex =
-                                                membershipRequests['_id'];
-                                            setState(() {
-                                              processing = true;
-                                            });
-                                            // acceptMemberShipRequests();
+                                            itemIndex = membershipRequests['_id'];
+                                            acceptMemberShipRequests();
                                           },
                                         ),
                                       ],
