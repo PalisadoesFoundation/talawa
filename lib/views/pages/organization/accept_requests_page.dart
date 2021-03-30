@@ -179,41 +179,41 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                       ['firstName'] +
                                   ' ' +
                                   membershipRequests['user']['lastName']),
-                              trailing: Wrap(
-                                spacing: 4,
-                                children: <Widget>[
-                                  if (!processing)
-                                    IconButton(
-                                      iconSize: 26.0,
-                                      icon: const Icon(Icons.delete),
-                                      color: Colors.red,
-                                      onPressed: () {
-                                        itemIndex = membershipRequests['_id'];
-                                        setState(() {
-                                          processing = false;
-                                        });
-                                        // rejectMemberShipRequests();
-                                      },
-                                    ),
-                                  if (!processing)
-                                    IconButton(
-                                      iconSize: 26.0,
-                                      icon: const Icon(Icons.check),
-                                      color: Colors.green,
-                                      onPressed: () {
-                                        itemIndex = membershipRequests['_id'];
-                                        setState(() {
-                                          processing = true;
-                                        });
-                                        // acceptMemberShipRequests();
-                                      },
-                                    ),
-                                  if (processing)
-                                    FittedBox(
+                              trailing: processing
+                                  ? FittedBox(
                                       child: CircularProgressIndicator(),
-                                    ),
-                                ],
-                              )));
+                                    )
+                                  : Wrap(
+                                      spacing: 4,
+                                      children: <Widget>[
+                                        IconButton(
+                                          iconSize: 26.0,
+                                          icon: const Icon(Icons.delete),
+                                          color: Colors.red,
+                                          onPressed: () {
+                                            itemIndex =
+                                                membershipRequests['_id'];
+                                            setState(() {
+                                              processing = false;
+                                            });
+                                            // rejectMemberShipRequests();
+                                          },
+                                        ),
+                                        IconButton(
+                                          iconSize: 26.0,
+                                          icon: const Icon(Icons.check),
+                                          color: Colors.green,
+                                          onPressed: () {
+                                            itemIndex =
+                                                membershipRequests['_id'];
+                                            setState(() {
+                                              processing = true;
+                                            });
+                                            // acceptMemberShipRequests();
+                                          },
+                                        ),
+                                      ],
+                                    )));
                     }),
       ),
     );
