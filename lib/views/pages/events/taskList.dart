@@ -1,4 +1,3 @@
-
 //flutter packages are imported here
 import 'package:flutter/material.dart';
 
@@ -10,6 +9,7 @@ import 'package:talawa/utils/apiFuctions.dart';
 // ignore: must_be_immutable
 class TaskList extends StatefulWidget {
   Map event;
+
   TaskList({
     Key key,
     @required this.event,
@@ -30,7 +30,6 @@ class _TaskListState extends State<TaskList> {
     getTasks();
   }
 
-
   //function to get the task list
   getTasks() async {
     final String userID = widget.event['_id'];
@@ -42,12 +41,21 @@ class _TaskListState extends State<TaskList> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: eventTasks.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: Text(eventTasks[index]['desctription']),
+    return eventTasks.length != 0
+        ? ListView.builder(
+            itemCount: eventTasks.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: Text(eventTasks[index]['description']),
+              );
+            })
+        : Container(
+            child: Center(
+                child: Text(
+              "No Tasks found",
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
+            )),
           );
-        });
   }
 }
