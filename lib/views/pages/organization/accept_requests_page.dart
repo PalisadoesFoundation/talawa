@@ -118,7 +118,6 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('processinggg === $processing');
     //building the UI page
     return Scaffold(
       appBar: AppBar(
