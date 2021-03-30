@@ -121,6 +121,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('processinggg === $processing');
     //building the UI page
     return Scaffold(
       appBar: AppBar(
@@ -181,30 +182,36 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                               trailing: Wrap(
                                 spacing: 4,
                                 children: <Widget>[
-                                  IconButton(
-                                    iconSize: 26.0,
-                                    icon: const Icon(Icons.delete),
-                                    color: Colors.red,
-                                    onPressed: () {
-                                      itemIndex = membershipRequests['_id'];
-                                      setState(() {
-                                        processing = true;
-                                      });
-                                      // rejectMemberShipRequests();
-                                    },
-                                  ),
-                                  IconButton(
-                                    iconSize: 26.0,
-                                    icon: const Icon(Icons.check),
-                                    color: Colors.green,
-                                    onPressed: () {
-                                      itemIndex = membershipRequests['_id'];
-                                      setState(() {
-                                        processing = true;
-                                      });
-                                      // acceptMemberShipRequests();
-                                    },
-                                  ),
+                                  if (!processing)
+                                    IconButton(
+                                      iconSize: 26.0,
+                                      icon: const Icon(Icons.delete),
+                                      color: Colors.red,
+                                      onPressed: () {
+                                        itemIndex = membershipRequests['_id'];
+                                        setState(() {
+                                          processing = false;
+                                        });
+                                        // rejectMemberShipRequests();
+                                      },
+                                    ),
+                                  if (!processing)
+                                    IconButton(
+                                      iconSize: 26.0,
+                                      icon: const Icon(Icons.check),
+                                      color: Colors.green,
+                                      onPressed: () {
+                                        itemIndex = membershipRequests['_id'];
+                                        setState(() {
+                                          processing = true;
+                                        });
+                                        // acceptMemberShipRequests();
+                                      },
+                                    ),
+                                  if (processing)
+                                    FittedBox(
+                                      child: CircularProgressIndicator(),
+                                    ),
                                 ],
                               )));
                     }),
