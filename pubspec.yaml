@@ -63,7 +63,8 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   random_pk:
-  #flutter_launcher_icons: "^0.8.0"
+
+#flutter_launcher_icons: "^0.8.0"
 
 #flutter_icons:
 #  android: "launcher_icon"
