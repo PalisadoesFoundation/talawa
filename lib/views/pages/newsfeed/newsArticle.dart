@@ -7,7 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
-
 //the pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
@@ -193,27 +192,25 @@ class _NewsArticleState extends State<NewsArticle> {
                 Expanded(
                   flex: 3,
                   child: ListTile(
-                    leading: userDetails.isEmpty
-                        ? null
-                        : _profileImage(),
+                    leading: userDetails.isEmpty ? null : _profileImage(),
                     title: Container(
                       constraints: BoxConstraints(
                         maxHeight: double.infinity,
-                        minHeight: 20,
+                        // minHeight: 20,
                       ),
                       child: TextFormField(
+                        key: Key("leaveCommentField"),
                         textInputAction: TextInputAction.newline,
                         keyboardType: TextInputType.multiline,
                         validator: (String value) {
                           if (value.length > 500) {
                             return "Comment cannot be longer than 500 letters";
                           }
-                          if(value.length == 0)
-                            {
-                              return "Comment cannot be empty";
-                            }
+                          if (value.length == 0) {
+                            return "Comment cannot be empty";
+                          }
                           return null;
-                          },
+                        },
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(500)
                         ],
@@ -221,18 +218,23 @@ class _NewsArticleState extends State<NewsArticle> {
                         //maxLines: 10,// when user presses enter it will adapt to it
                         maxLines: null,
                         decoration: InputDecoration(
-                            suffix: IconButton(
-                              color: Colors.grey,
-                              icon: Icon(Icons.send),
-                              onPressed: () {
-                                print(commentController.text);
-                                createComment();
-                              },
+                          suffixIcon: IconButton(
+                            key: Key("leaveCommentButton"),
+                            color: Colors.grey,
+                            icon: Icon(Icons.send),
+                            onPressed: () {
+                              print(commentController.text);
+                              createComment();
+                            },
+                          ),
+                          hintText: 'Leave a Comment...',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: BorderSide(
+                              color: Colors.teal,
                             ),
-                            hintText: 'Leave a Comment....',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: BorderSide(color: Colors.teal))),
+                          ),
+                        ),
                         controller: commentController,
                       ),
                     ),

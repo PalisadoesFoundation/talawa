@@ -13,6 +13,7 @@ import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 //pubspec packages are called here
 import 'package:timeline_list/timeline.dart';
@@ -198,6 +199,7 @@ class _EventsState extends State<Events> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+           key: Key('EVENTS_APP_BAR'),
           title: Text(
             'Events',
             style: TextStyle(color: Colors.white),
@@ -261,7 +263,7 @@ class _EventsState extends State<Events> {
               }
             } else if (state == ConnectionState.waiting) {
               print(snapshot.data);
-              return Center(child: CircularProgressIndicator());
+              return Center(child: Loading(key: UniqueKey(),));
             } else if (state == ConnectionState.none) {
               return Text('Could Not Fetch Data.');
             }
@@ -368,7 +370,7 @@ class _EventsState extends State<Events> {
 
   Widget eventListView() {
     return displayedEvents.isEmpty
-        ? Center(child: CircularProgressIndicator())
+        ? Center(child: Loading(key: UniqueKey(),))
         : RefreshIndicator(
             onRefresh: () async {
               getEvents();
