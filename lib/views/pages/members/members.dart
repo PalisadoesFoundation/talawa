@@ -174,7 +174,6 @@ class _OrganizationsState extends State<Organizations> {
   Widget alphabetDividerList(BuildContext context, List membersList) {
     return SliverStickyHeader(
       header: Container(
-        color: Colors.white,
         height: 60.0,
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         alignment: Alignment.centerLeft,
@@ -243,6 +242,7 @@ class _OrganizationsState extends State<Organizations> {
     return Container(
       height: 80,
       width: 100,
+      color: Colors.white,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
