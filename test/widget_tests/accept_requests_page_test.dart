@@ -50,6 +50,8 @@ void main() {
       await tester.pumpWidget(accepRequestsPage());
 
       expect(find.byType(Scaffold),findsOneWidget);
+      expect(find.byType(Card),findsNothing);
+
     });
     testWidgets("Testing overflow of Member Page in a tablet screen",
         (tester) async {
@@ -59,6 +61,8 @@ void main() {
       await tester.pumpWidget(accepRequestsPage());
 
       expect(find.byType(Scaffold),findsOneWidget);
+      expect(find.byType(Card),findsNothing);
+
     });
   });
 }

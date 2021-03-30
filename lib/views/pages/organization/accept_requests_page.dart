@@ -230,7 +230,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   }
 
   _exceptionToast(String msg) {
-    //this function is the exception is called
+    //this function is used when the exception is called
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
