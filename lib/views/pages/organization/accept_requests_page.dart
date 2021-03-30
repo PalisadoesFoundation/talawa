@@ -187,7 +187,10 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                     color: Colors.red,
                                     onPressed: () {
                                       itemIndex = membershipRequests['_id'];
-                                      rejectMemberShipRequests();
+                                      setState(() {
+                                        processing = true;
+                                      });
+                                      // rejectMemberShipRequests();
                                     },
                                   ),
                                   IconButton(
@@ -196,7 +199,10 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                     color: Colors.green,
                                     onPressed: () {
                                       itemIndex = membershipRequests['_id'];
-                                      acceptMemberShipRequests();
+                                      setState(() {
+                                        processing = true;
+                                      });
+                                      // acceptMemberShipRequests();
                                     },
                                   ),
                                 ],
