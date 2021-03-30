@@ -187,63 +187,6 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                             acceptMemberShipRequests();
                           },
                         ),
-                        (!loaded)
-                            ? Center(child: CircularProgressIndicator())
-                            : membershipRequestsList.length == 0
-                            ? Center(
-                            child: Text('No Member Requests Available'))
-                            : ListView.builder(
-                          itemCount: membershipRequestsList.length,
-                          itemBuilder: (context, index) {
-                            final membershipRequests =
-                            membershipRequestsList[index];
-                            return Card(
-                              child: ListTile(
-                                //building the List of the organization in the database
-                                leading: membershipRequests['user']['image'] !=
-                                    null
-                                    ? CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage: NetworkImage(Provider
-                                        .of<
-                                        GraphQLConfiguration>(context)
-                                        .displayImgRoute +
-                                        membershipRequests['user']['image']))
-                                    : CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage:
-                                    AssetImage("assets/images/team.png")),
-                                title: Text(membershipRequests['user']
-                                ['firstName'] +
-                                    ' ' +
-                                    membershipRequests['user']['lastName']),
-                                trailing: Wrap(
-                                  spacing: 4,
-                                  children: <Widget>[
-                                    IconButton(
-                                      iconSize: 26.0,
-                                      icon: Icon(Icons.delete),
-                                      color: Colors.red,
-                                      onPressed: () {
-                                        itemIndex = membershipRequests['_id'];
-                                        rejectMemberShipRequests();
-                                      },
-                                    ),
-                                    IconButton(
-                                      iconSize: 26.0,
-                                      icon: Icon(Icons.check),
-                                      color: Colors.green,
-                                      onPressed: () {
-                                        itemIndex = membershipRequests['_id'];
-                                        acceptMemberShipRequests();
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
                       ],
                     )
                 )
