@@ -9,7 +9,7 @@ void main() {
 
   test('Invalid Email Test', () {
     var result = Validator.validateEmail('abc');
-    expect(result, 'Not a Valid Email Address');
+    expect(result, 'Please enter a valid Email Address');
   });
 
   test('Valid Email Test', () {
