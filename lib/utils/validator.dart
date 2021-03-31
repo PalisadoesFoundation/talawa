@@ -11,14 +11,16 @@ class Validator {
   static String validateFirstName(String value) {
     if (value.length == 0) {
       return 'Firstname must not be left blank.';
-    }
+    } else if (!RegExp(r"^[a-zA-Z '.-]*$").hasMatch(value) || value.length < 2)
+      return "First name is invalid.";
     return null;
   }
 
   static String validateLastName(String value) {
     if (value.length == 0) {
       return 'Lastname must not be left blank.';
-    }
+    } else if (!RegExp(r"^[a-zA-Z '.-]*$").hasMatch(value) || value.length < 2)
+      return "Last name is invalid.";
     return null;
   }
 
