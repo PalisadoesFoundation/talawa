@@ -98,7 +98,8 @@ class Validator {
   static String validateOrgName(String value) {
     if (value.length == 0) {
       return 'Organization Name must not be left blank.';
-    }
+    } else if (!RegExp(r"^[a-zA-Z0-9 '.-]*$").hasMatch(value))
+      return 'Organization name is invalid.';
     if (value.length > 40) {
       return 'Organization Name must not exceed 40 letters';
     }
@@ -108,7 +109,8 @@ class Validator {
   static String validateOrgDesc(String value) {
     if (value.length == 0) {
       return 'Organization Description must not be left blank.';
-    }
+    } else if (!RegExp(r"^[a-zA-Z0-9 '.-]*$").hasMatch(value))
+      return 'Organization Description is invalid.';
     if (value.length > 5000) {
       return 'Organization Description must not exceed 5000 letters';
     }
@@ -118,7 +120,8 @@ class Validator {
   static String validateOrgAttendeesDesc(String value) {
     if (value.length == 0) {
       return 'Attendees Description must not be left blank.';
-    }
+    } else if (!RegExp(r"^[a-zA-Z0-9 '.-]*$").hasMatch(value))
+      return 'Attendees Description is invalid.';
     if (value.length > 5000) {
       return 'Attendees Description must not exceed 5000 letters';
     }
