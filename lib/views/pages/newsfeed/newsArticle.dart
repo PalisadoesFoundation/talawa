@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 //the pages are called here
