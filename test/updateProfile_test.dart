@@ -16,26 +16,35 @@ void main() {
 
   test('Valid Email Test', () {
     var result = Validator.validateEmail('test@test.com');
+    //Valid email returns null
+
     expect(result, null);
   });
 
   test('Empty First Name Test', () {
     var result = Validator.validateFirstName('');
+    //First name should be non-empty
     expect(result, 'Firstname must not be left blank.');
   });
 
   test('Valid First Name Test', () {
     var result = Validator.validateLastName('Test');
+    //Valid first name returns null
+
     expect(result, null);
   });
 
   test('Empty Last Name Test', () {
     var result = Validator.validateLastName('');
+    //Last name should be non-empty
+
     expect(result, 'Lastname must not be left blank.');
   });
 
   test('Valid Last Name Test', () {
     var result = Validator.validateLastName('User');
+    //Valid last name returns null
+
     expect(result, null);
   });
 }
