@@ -4,10 +4,12 @@ import 'package:talawa/utils/validator.dart';
 void main() {
   test('Empty Email Test', () {
     var result = Validator.validateEmail('');
+    expect(result, 'Email must not be left blank');
   });
 
   test('Invalid Email Test', () {
     var result = Validator.validateEmail('abc');
+    expect(result, 'Not a Valid Email Address');
   });
 
   test('Valid Email Test', () {
