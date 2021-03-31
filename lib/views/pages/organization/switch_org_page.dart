@@ -100,6 +100,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         final String currentOrgImgSrc =
             result.data['organizations'][0]['image'];
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+        print(currentOrgName);
         Navigator.pop(context);
       }
     }

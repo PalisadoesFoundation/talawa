@@ -1,5 +1,3 @@
-import 'dart:ffi';
-//flutter packages are imported here
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +33,9 @@ class _NewsFeedState extends State<NewsFeed> {
   Timer timer = Timer();
   String _currentOrgID;
 
+  Map<String, bool> likePostMap = new Map<String , bool>(); 
+  // key = postId and value will be true if user has liked a post.
+
 
   //setting initial state to the variables
   initState() {
@@ -59,6 +60,11 @@ class _NewsFeedState extends State<NewsFeed> {
     });
   }
 
+  // bool : Method to get (true/false) if a user has liked a post or Not.
+  bool hasUserLiked(String postId){
+    return likePostMap[postId];
+  }
+
 
   //function to get the current posts
   Future<void> getPosts() async {
@@ -71,7 +77,26 @@ class _NewsFeedState extends State<NewsFeed> {
     setState(() {
       postList =
           result == null ? [] : result['postsByOrganization'].reversed.toList();
+      updateLikepostMap(currentUserID);
     });
+    
+  }
+
+
+// void : function to set the map of userLikedPost
+  void updateLikepostMap(String currentUserID){
+    // traverse through post objects.
+      for (var item in postList) {
+        likePostMap[item['_id']] = false;
+        //Get userIds who liked the post.
+        var _likedBy = item['likedBy'];
+        for(var user in _likedBy){
+          if(user['_id'] == currentUserID){
+            //if(userId is in the list we make value true;)
+            likePostMap[item['_id']] = true;
+          }
+        }
+      }
   }
 
   //function to addlike
@@ -258,24 +283,28 @@ class _NewsFeedState extends State<NewsFeed> {
         ),
         IconButton(
             icon: Icon(Icons.thumb_up),
-          color: (postList[index]['likeCount'] != 0 ? (postList[index]['likedBy'][postList[index]['likeCount']-1]['_id']==_currentOrgID) : false) ? Color(0xff007397) : Color(0xff9A9A9A),
+          color: likePostMap[postList[index]['_id']] ? Color(0xff007397) : Color(0xff9A9A9A),
             onPressed: ()
             {
               if(postList[index]['likeCount'] != 0)
-                if(postList[index]['likedBy'][postList[index]['likeCount']-1]['_id']!=_currentOrgID) {
+                if(likePostMap[postList[index]['_id']] == false) {
+                  //If user has not liked the post addLike().
                   addLike(postList[index]['_id']);
                 }
                 else {
+                  //If user has  liked the post remove().
                   removeLike(postList[index]['_id']);
                 }
               else
                 {
+                  //if the likeCount is 0 addLike().
                   addLike(postList[index]['_id']);
                 }
 
               },
             ),
       ],
+
     );
   }
 }

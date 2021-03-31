@@ -1,3 +1,4 @@
+// Packages imports.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,7 @@ void main() {
           Duration(microseconds: 100));
 
       //finding is the circular progress indicator is visible to user
-      //expect(find.byKey(Key('loading')), findsOneWidget);
+      expect(find.byKey(Key('loading')), findsOneWidget);
     });
 
     //Test when the user has no current organization/not joined any organization

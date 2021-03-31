@@ -14,9 +14,8 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
+import 'package:talawa/views/pages/organization/update_profile_page.dart';
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
-import 'package:talawa/views/widgets/loading.dart';
-import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -78,13 +77,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Future fetchUserDetails() async {
     orgId = await _preferences.getCurrentOrgId();
     userID = await _preferences.getUserId();
+    orgName = await _preferences.getCurrentOrgName();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
     } else if (!result.hasException) {
-      print(result);
       setState(() {
         userDetails = result.data['users'];
         org = userDetails[0]['joinedOrganizations'];
@@ -186,17 +185,17 @@ class _ProfilePageState extends State<ProfilePage> {
           .saveCurrentOrgName(newOrgName);
       Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgId(newOrgId);
-      //  _successToast('You are no longer apart of this organization');
-      /*pushNewScreen(
-        context,
-        screen: ProfilePage(),
-      );*/
     }
   }
 
   //main build starts from here
   @override
   Widget build(BuildContext context) {
+    var orgName = Provider.of<Preferences>(context).orgName;
+    if (orgName == null) {
+      orgName = 'No Organization Joined';
+    }
+
     return Scaffold(
         key: Key('PROFILE_PAGE_SCAFFOLD'),
         backgroundColor: Colors.white,
@@ -288,7 +287,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               Icons.edit,
                               color: UIData.secondaryColor,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              pushNewScreen(
+                                context,
+                                screen: UpdateProfilePage(
+                                  userDetails: userDetails,
+                                ),
+                              );
+                            },
                           ),
                           org.length == 0
                               ? SizedBox()
