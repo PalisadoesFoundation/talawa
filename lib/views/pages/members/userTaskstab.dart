@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 // ignore: must_be_immutable
 class UserTasks extends StatefulWidget {
@@ -24,7 +25,7 @@ class _UserTasksState extends State<UserTasks> {
   Preferences preferences = Preferences();
 
   ApiFunctions apiFunctions = ApiFunctions();
-  List userTasks = [];
+  List userTasks;
 
   void initState() {
     super.initState();
@@ -44,36 +45,40 @@ class _UserTasksState extends State<UserTasks> {
   //main building starts here
   @override
   Widget build(BuildContext context) {
-    return userTasks.length != 0
-        ? Container(
-            child: ListView.builder(
-                itemCount: userTasks.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                      child: Column(
-                    children: <Widget>[
-                      ListTile(
-                        leading: Text(
-                            'Description: ${userTasks[index]["description"]}'),
-                      ),
-                      userTasks[index]["deadline"] != null
-                          ? ListTile(
-                              leading: Text(
-                                  'Due Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"]))))}'),
-                            )
-                          : ListTile(
-                              leading: Text('Due Date: N/A'),
-                            )
-                    ],
-                  ));
-                }))
-        : Container(
-            child: Center(
-                child: Text(
-              "No Tasks found",
-              style: TextStyle(fontSize: 20),
-              textAlign: TextAlign.center,
-            )),
-          );
+    return userTasks == null
+        ? Center(
+            child: Loading(),
+          )
+        : userTasks.length != 0
+            ? Container(
+                child: ListView.builder(
+                    itemCount: userTasks.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          child: Column(
+                        children: <Widget>[
+                          ListTile(
+                            leading: Text(
+                                'Description: ${userTasks[index]["description"]}'),
+                          ),
+                          userTasks[index]["deadline"] != null
+                              ? ListTile(
+                                  leading: Text(
+                                      'Due Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"]))))}'),
+                                )
+                              : ListTile(
+                                  leading: Text('Due Date: N/A'),
+                                )
+                        ],
+                      ));
+                    }))
+            : Container(
+                child: Center(
+                    child: Text(
+                  "No Tasks found",
+                  style: TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
+                )),
+              );
   }
 }

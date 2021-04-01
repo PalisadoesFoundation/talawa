@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 // ignore: must_be_immutable
 class TaskList extends StatefulWidget {
@@ -23,7 +24,7 @@ class _TaskListState extends State<TaskList> {
   Preferences preferences = Preferences();
 
   ApiFunctions apiFunctions = ApiFunctions();
-  List eventTasks = [];
+  List eventTasks;
 
   void initState() {
     super.initState();
@@ -41,21 +42,25 @@ class _TaskListState extends State<TaskList> {
 
   @override
   Widget build(BuildContext context) {
-    return eventTasks.length != 0
-        ? ListView.builder(
-            itemCount: eventTasks.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: Text(eventTasks[index]['description']),
+    return eventTasks == null
+        ? Center(
+            child: Loading(),
+          )
+        : eventTasks.length != 0
+            ? ListView.builder(
+                itemCount: eventTasks.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Text(eventTasks[index]['description']),
+                  );
+                })
+            : Container(
+                child: Center(
+                    child: Text(
+                  "No Tasks found",
+                  style: TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
+                )),
               );
-            })
-        : Container(
-            child: Center(
-                child: Text(
-              "No Tasks found",
-              style: TextStyle(fontSize: 20),
-              textAlign: TextAlign.center,
-            )),
-          );
   }
 }

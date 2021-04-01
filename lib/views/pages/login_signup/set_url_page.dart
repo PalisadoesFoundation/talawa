@@ -75,9 +75,8 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
   Future setApiUrl() async {
     setState(() {
       orgUrl =
-          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
-      orgImgUrl =
-          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
+          "${dropdownValue.toLowerCase()}://${urlController.text}/graphql/";
+      orgImgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/";
     });
     await _pref.saveOrgUrl(orgUrl);
     await _pref.saveOrgImgUrl(orgImgUrl);
@@ -117,9 +116,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
     );
   }
 
-
-
-    void assignAnimation(bool firstTime) {
+  void assignAnimation(bool firstTime) {
     if (!firstTime) {
       animation = Tween(begin: 1.0, end: 1.0).animate(controller);
 
