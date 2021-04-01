@@ -69,9 +69,10 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     //this function give the functionality of accepting the request of the user by the administrator
     GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client
-        .query(QueryOptions(documentNode: gql(_query.acceptMembershipRequest(itemIndex))));
-    if (result.hasException && result.exception.toString().substring(16) == accessTokenException) {
+    QueryResult result = await _client.query(QueryOptions(
+        documentNode: gql(_query.acceptMembershipRequest(itemIndex))));
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       return acceptMemberShipRequests();
     } else if (result.hasException &&
@@ -96,9 +97,10 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     //this function give the functionality of rejecting the request of the user by the administrator
     GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client
-        .query(QueryOptions(documentNode: gql(_query.rejectMembershipRequest(itemIndex))));
-    if (result.hasException && result.exception.toString().substring(16) == accessTokenException) {
+    QueryResult result = await _client.query(QueryOptions(
+        documentNode: gql(_query.rejectMembershipRequest(itemIndex))));
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       return rejectMemberShipRequests();
     } else if (result.hasException &&
