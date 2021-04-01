@@ -1,22 +1,25 @@
+//flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+
+//pages are imported here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/timer.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/events/EventDetailPage.dart';
 import 'package:talawa/views/pages/events/addEventPage.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
+//pubspec packages are called here
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:intl/intl.dart';
 
 class Events extends StatefulWidget {
   Events({Key key}) : super(key: key);
@@ -36,10 +39,16 @@ class _EventsState extends State<Events> {
   StickyHeaderController stickyHeaderController = StickyHeaderController();
   CalendarController _calendarController = CalendarController();
   CarouselController carouselController = CarouselController();
+  String notFetched = 'No Events Created';
+  bool fetched = true;
+  var events;
   Timer timer = Timer();
+
   initState() {
     super.initState();
-    getEvents();
+    setState(() {
+      events = getEvents();
+    });
   }
 
   //get all events for a given day
@@ -89,20 +98,19 @@ class _EventsState extends State<Events> {
             event);
       } else {
         if (event['recurrance'] == 'DAILY') {
-          int day = 1;
-          int lastday = DateTime(now.year, now.month + 1, 0).day;
+          int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
+          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
-
             day += 1;
           }
         }
         if (event['recurrance'] == 'WEEKLY') {
           int day =
               DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
-                      .day %
-                  7;
-          while (day <= DateTime(now.year, now.month + 1, 0).day) {
+                      .day;
+          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
+          while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
 
             day += 7;
@@ -125,38 +133,47 @@ class _EventsState extends State<Events> {
     return eventDates;
   }
 
+  //function called to delete the event
   Future<void> _deleteEvent(context, eventId) async {
     String mutation = Queries().deleteEvent(eventId);
     Map result = await apiFunctions.gqlquery(mutation);
-    getEvents();
+    setState(() {
+      getEvents();
+    });
   }
 
+  //function to called be called for register
   Future<void> _register(context, eventId) async {
     String mutation = Queries().registerForEvent(eventId);
     Map result = await apiFunctions.gqlmutation(mutation);
     print(result);
   }
 
+  //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-    eventList = result == null ? [] : result['events'].reversed.toList();
-    eventList.removeWhere((element) =>
-        element['title'] == 'Talawa Congress' ||
-        element['title'] == 'test'); //dont know who keeps adding these
-
-    eventList.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-            int.parse(a['startTime']))
-        .compareTo(
-            DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime']))));
-    eventsToDates(eventList, DateTime.now());
-    setState(() {
-      displayedEvents = eventList;
-    });
-    // print(displayedEvents);
+      Map result =
+      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+      eventList = result == null ? [] : result['events'].reversed.toList();
+      eventList.removeWhere((element) =>
+          element['title'] == 'Talawa Congress' ||
+          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1'); //dont know who keeps adding these
+      // This removes all invalid date formats other than Unix time
+      eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
+      eventList.sort((a, b) {
+        return DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(a['startTime']))
+          .compareTo(
+          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+      });
+      eventsToDates(eventList, DateTime.now());
+      setState(() {
+        displayedEvents = eventList;
+      });
+      // print(displayedEvents);
   }
 
+  //functions to edit the event
   Future<void> _editEvent(context, event) async {
     showDialog(
       context: context,
@@ -183,33 +200,131 @@ class _EventsState extends State<Events> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+           key: Key('EVENTS_APP_BAR'),
           title: Text(
             'Events',
             style: TextStyle(color: Colors.white),
           ),
         ),
         floatingActionButton: eventFab(),
-        body: eventList.isEmpty
-            ? Center(child: CircularProgressIndicator())
-            : RefreshIndicator(
-                onRefresh: () async {
-                  getEvents();
-                },
-                child: CustomScrollView(
-                  slivers: [
-                    SliverAppBar(
-                        backgroundColor: Colors.white,
-                        automaticallyImplyLeading: false,
-                        expandedHeight: 380,
-                        flexibleSpace: FlexibleSpaceBar(
-                          background: calendar(),
-                        )),
-                    SliverStickyHeader(
-                      header: carouselSliderBar(),
-                      sliver: SliverFillRemaining(child: eventListView()),
+        body: FutureBuilder(
+          future: events,
+          // ignore: missing_return
+          builder: (context, snapshot) {
+            var state = snapshot.connectionState;
+            if (state == ConnectionState.done) {
+              if (eventList.isEmpty) {
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      getEvents();
+                    },
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverAppBar(
+                            backgroundColor: Colors.white,
+                            automaticallyImplyLeading: false,
+                            expandedHeight: 380,
+                            flexibleSpace: FlexibleSpaceBar(
+                              background: calendar(),
+                            )),
+                        SliverStickyHeader(
+                          header: carouselSliderBar(),
+                          sliver: SliverFillRemaining(
+                              child: Center(
+                            child: Text(
+                              'No Event Created',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                              ),
+                            ),
+                          )),
+                        ),
+                      ],
+                    ));
+              } else {
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      getEvents();
+                    },
+                    child: Container(
+                    color: Colors.white,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          child: calendar(),
+                        ),
+                        DraggableScrollableSheet(
+                          initialChildSize: 0.3,
+                          minChildSize: 0.3,
+                          maxChildSize: 1.0,
+                          expand: true,
+                          builder: (BuildContext context, myscrollController) {
+                            return Container(
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  ListView(
+                                    controller: myscrollController,
+                                    shrinkWrap: true,
+                                    children: [carouselSliderBar()],
+                                  ),
+                                  Expanded(
+                                    child: Timeline.builder(
+                                      controller: myscrollController,
+                                      lineColor: UIData.primaryColor,
+                                      position: TimelinePosition.Left,
+                                      itemCount: displayedEvents.length,
+                                      itemBuilder: (context, index) {
+                                        if (index == 0) {
+                                          return TimelineModel(
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 5),
+                                                  child: Text(
+                                                    '${displayedEvents.length} Events',
+                                                    style: TextStyle(
+                                                        color: Colors.black45),
+                                                  ),
+                                                ),
+                                                eventCard(index)
+                                              ],
+                                            ),
+                                            iconBackground:
+                                                UIData.secondaryColor,
+                                          );
+                                        }
+                                        return TimelineModel(
+                                          eventCard(index),
+                                          iconBackground: UIData.secondaryColor,
+                                          position: TimelineItemPosition.right,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                )));
+                  ));
+              }
+            } else if (state == ConnectionState.waiting) {
+              print(snapshot.data);
+              return Center(child: Loading(key: UniqueKey(),));
+            } else if (state == ConnectionState.none) {
+              return Text('Could Not Fetch Data.');
+            }
+          },
+        ));
   }
 
   Widget calendar() {
@@ -224,7 +339,7 @@ class _EventsState extends State<Events> {
           });
         },
         calendarStyle: CalendarStyle(markersColor: Colors.black45),
-        /* onDaySelected: (day, events) {
+        /*onDaySelected: (day, events) {
           String carouselDay = DateFormat.yMMMd('en_US').format(day);
           if (timer.isSameDay(day, now)) {
             carouselDay = 'Today';
@@ -307,41 +422,6 @@ class _EventsState extends State<Events> {
                 )),
           ],
         ));
-  }
-
-  Widget eventListView() {
-    return displayedEvents.isEmpty
-        ? Center(child: CircularProgressIndicator())
-        : RefreshIndicator(
-            onRefresh: () async {
-              getEvents();
-            },
-            child: Timeline.builder(
-              lineColor: UIData.primaryColor,
-              position: TimelinePosition.Left,
-              itemCount: displayedEvents.length,
-              itemBuilder: (context, index) {
-                return index == 0
-                    ? TimelineModel(
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(vertical: 5),
-                              child: Text(
-                                '${displayedEvents.length} Events',
-                                style: TextStyle(color: Colors.black45),
-                              ),
-                            ),
-                            eventCard(index)
-                          ],
-                        ),
-                        iconBackground: UIData.secondaryColor)
-                    : TimelineModel(eventCard(index),
-                        iconBackground: UIData.secondaryColor,
-                        position: TimelineItemPosition.right);
-              },
-            ));
   }
 
   Widget menueText(String text) {

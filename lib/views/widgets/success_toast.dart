@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+//Here we are making the Success bar it will be called when user gets some success
+
 class SuccessToast extends StatefulWidget {
   final String msg;
 

@@ -1,9 +1,14 @@
+
+//flutter packages are called here
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/utils/uidata.dart';
 
+// ignore: must_be_immutable
 class AddEventTask extends StatefulWidget {
   String eventId;
   AddEventTask({Key key, @required this.eventId}) : super(key: key);
@@ -18,6 +23,8 @@ class _AddEventTaskState extends State<AddEventTask> {
   ApiFunctions apiFunctions = ApiFunctions();
   DateTime selectedDate = DateTime.now();
 
+
+  //function to add the task
   Future<void> addTask() async {
     String mutation = Queries().addEventTask(
         eventId: widget.eventId,
@@ -27,6 +34,8 @@ class _AddEventTaskState extends State<AddEventTask> {
     Map result = await apiFunctions.gqlquery(mutation);
   }
 
+
+  //function to select the date
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -39,6 +48,8 @@ class _AddEventTaskState extends State<AddEventTask> {
       });
   }
 
+
+  //main build starts here
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -71,6 +82,8 @@ class _AddEventTaskState extends State<AddEventTask> {
     );
   }
 
+
+  //widget to use date button
   Widget dateButton() {
     return ListTile(
       onTap: () {
@@ -87,6 +100,8 @@ class _AddEventTaskState extends State<AddEventTask> {
     );
   }
 
+
+  //widget to use input field
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
         padding: EdgeInsets.all(10),

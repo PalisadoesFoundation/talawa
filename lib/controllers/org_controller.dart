@@ -1,7 +1,10 @@
+
+//flutter packages are called here
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+//pages are called here
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/uidata.dart';
 
 class OrgController with ChangeNotifier {
   Preferences _pref = Preferences();
@@ -11,7 +14,5 @@ class OrgController with ChangeNotifier {
     await Preferences.removeOrg();
     await _pref.saveCurrentOrgId(newOrgId);
     await _pref.saveCurrentOrgName(newOrgName);
-    // Navigator.pushNamedAndRemoveUntil(
-    //     context, UIData.profilePage, (r) => false);
   }
 }

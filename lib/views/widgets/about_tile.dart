@@ -1,12 +1,19 @@
+//flutter package imported
 import 'package:flutter/material.dart';
+
+//pages are imported here
 import 'package:talawa/utils/uidata.dart';
 
 class MyAboutTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AboutListTile(
-      applicationIcon: FlutterLogo(),
-      icon: FlutterLogo(),
+      applicationIcon: Container(
+        width: 50,
+      height: 50,
+      child:  Image.asset('assets/images/talawaLogo-dark.png'),
+      ),
+      icon: Image.asset('assets/images/talawaLogo-dark.png'),
       aboutBoxChildren: <Widget>[
         SizedBox(
           height: 10.0,

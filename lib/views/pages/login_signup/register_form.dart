@@ -1,8 +1,11 @@
+//flutter packages are called here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:talawa/controllers/auth_controller.dart';
 import 'dart:io';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
+
+// pages are called here
+import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -14,8 +17,9 @@ import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
-import 'package:file_picker/file_picker.dart';
 
+//pubspec packages are called here
+import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_password_strength/flutter_password_strength.dart';
 
@@ -28,17 +32,20 @@ class RegisterForm extends StatefulWidget {
 
 class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController originalPassword = new TextEditingController();
+  TextEditingController _firstNameController = new TextEditingController();
+  TextEditingController _lastNameController = new TextEditingController();
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _originalPasswordController = new TextEditingController();
+  TextEditingController _confirmPasswordController = new TextEditingController();
+  FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
   Queries _signupQuery = Queries();
-  bool _validate = false;
+  var _validate = AutovalidateMode.disabled;
   Preferences _pref = Preferences();
   FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
-  AuthController _authController = AuthController();
   bool _obscureText = true;
 
   void toggleProgressBarState() {
@@ -59,7 +66,6 @@ class RegisterFormState extends State<RegisterForm> {
     final img = await multipartFileFrom(_image);
     print(_image);
     QueryResult result = await _client.mutate(MutationOptions(
-
       documentNode: gql(_signupQuery.registerUser(
           model.firstName, model.lastName, model.email, model.password)),
       variables: {
@@ -71,7 +77,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast(result.hasException.toString().substring(16, 35));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -91,11 +97,14 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => new JoinOrganization(
+                fromProfile: false,
+              )));
     }
   }
 
+  //function called when the user is called without the image
   registerUserWithoutImg() async {
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
     QueryResult result = await _client.mutate(MutationOptions(
@@ -107,7 +116,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      _exceptionToast(result.exception.toString().substring(16, 35));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -126,17 +135,17 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
 
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new JoinOrganization()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => new JoinOrganization(
+                fromProfile: false,
+              )));
     }
   }
 
   //get image using camera
   _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50
-    );
-
+    final pickImage = await ImagePicker().getImage(source: ImageSource.camera);
+    File image = File(pickImage.path);
     setState(() {
       _image = image;
     });
@@ -144,7 +153,8 @@ class RegisterFormState extends State<RegisterForm> {
 
   //get image using gallery
   _imgFromGallery() async {
-    File image = File((await FilePicker.platform.pickFiles(type: FileType.image)).files.first.path);
+    final pickImage = await ImagePicker().getImage(source: ImageSource.gallery);
+    File image = File(pickImage.path);
     setState(() {
       _image = image;
     });
@@ -153,194 +163,252 @@ class RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Form(
-        key: _formKey,
-        autovalidate: _validate,
-        child: Column(
-          children: <Widget>[
-            addImage(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Add Profile Image',
-                  style: TextStyle(fontSize: 16, color: Colors.white)),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            AutofillGroup(
-              child : Column(
-    children :  <Widget>[
-                TextFormField(
-                  autofillHints: <String>[AutofillHints.name] ,
-                    textCapitalization: TextCapitalization.words,
-                    validator: (value) => Validator.validateFirstName(value),
-                    textAlign: TextAlign.left,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.person),
-                labelText: "First Name",
-                labelStyle: TextStyle(color: Colors.white),
-                alignLabelWithHint: true,
-                hintText: 'Earl',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-              onSaved: (value) {
-                model.firstName = value;
-              },
-            ),
-                SizedBox(
-              height: 20,
-            ),
-                TextFormField(
-              autofillHints: <String>[AutofillHints.name] ,
-              textCapitalization: TextCapitalization.words,
-              validator: (value) => Validator.validateLastName(value),
-              textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.person),
-                labelText: "Last Name",
-                labelStyle: TextStyle(color: Colors.white),
-                alignLabelWithHint: true,
-                hintText: 'John',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-              onSaved: (value) {
-                model.lastName = value;
-              },
-            ),
-                SizedBox(
-              height: 20,
-            ),
-                TextFormField(
-              autofillHints: <String>[AutofillHints.email] ,
-              keyboardType: TextInputType.emailAddress,
-              validator: (value) => Validator.validateEmail(value),
-              controller: emailController,
-              textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.email),
-                labelText: "Email",
-                labelStyle: TextStyle(color: Colors.white),
-                alignLabelWithHint: true,
-                hintText: 'foo@bar.com',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-              onSaved: (value) {
-                model.email = value;
-              },
-            ),
-                SizedBox(
-              height: 20,
-            ),
-                TextFormField(
-              autofillHints: <String>[AutofillHints.password],
-              obscureText: _obscureText,
-              controller: originalPassword,
-              validator: (value) => Validator.validatePassword(value),
-              textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.lock),
-                suffixIcon: FlatButton(
-                  onPressed: _toggle,
-                  child: Icon(_obscureText
-                      ? Icons.visibility_off
-                      : Icons.visibility),
+        child: Form(
+            key: _formKey,
+            autovalidateMode: _validate,
+            child: Column(
+              children: <Widget>[
+                addImage(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Add Profile Image',
+                      style: TextStyle(fontSize: 16, color: Colors.white)),
                 ),
-                labelText: "Password",
-                labelStyle: TextStyle(color: Colors.white),
-                focusColor: UIData.primaryColor,
-                alignLabelWithHint: true,
-                hintText: 'password',
-                hintStyle: TextStyle(color: Colors.grey),
-              ),
-              onSaved: (value) {
-                model.password = value;
-              },
-            ),
                 SizedBox(
-                  height: 20,
+                  height: 25,
                 ),
-                FlutterPasswordStrength(
-                password: originalPassword.text,
-                height: 10,
-                radius: 10,
-                strengthCallback: (strength){
-                debugPrint(strength.toString());
-              }
-                ),
-                  SizedBox(
-              height: 20,
-            ),
-            TextFormField(
-              autofillHints: <String>[AutofillHints.password] ,
-              obscureText: true,
-              validator: (value) => Validator.validatePasswordConfirm(
-                  originalPassword.text, value),
-              textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.lock),
-                labelText: "Confirm Password",
-                labelStyle: TextStyle(color: Colors.white),
-                focusColor: UIData.primaryColor,
-              ),
-            ),
-                SizedBox(
-              height: 20,
-            ),
-              ],
-            ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-              width: double.infinity,
-              child: RaisedButton(
-                padding: EdgeInsets.all(12.0),
-                shape: StadiumBorder(),
-                child: _progressBarState
-                    ? const CircularProgressIndicator()
-                    : Text(
-                        "SIGN UP",
+                AutofillGroup(
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        autofillHints: <String>[AutofillHints.givenName],
+                        textInputAction: TextInputAction.next,
+                        textCapitalization: TextCapitalization.words,
+                        controller: _firstNameController,
+                        validator: (value) =>
+                            Validator.validateFirstName(value),
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          prefixIcon: Icon(Icons.person, color: Colors.white),
+                          labelText: "First Name",
+                          labelStyle: TextStyle(color: Colors.white),
+                          alignLabelWithHint: true,
+                          hintText: 'Earl',
+                          hintStyle: TextStyle(color: Colors.grey),
+                        ),
+                        onSaved: (value) {
+                          model.firstName = value;
+                        },
                       ),
-                color: Colors.white,
-                onPressed: () async {
-                  FocusScope.of(context).unfocus();
-                  _validate = true;
-                  if (_formKey.currentState.validate()) {
-                    _formKey.currentState.save();
-                    _image != null
-                        ? registerUser()
-                        : registerUserWithoutImg();
-
-                    setState(() {
-                      toggleProgressBarState();
-                    });
-                  }
-                },
-              ),
-            ),
-          ],
-        )));
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        autofillHints: <String>[AutofillHints.familyName],
+                        textInputAction: TextInputAction.next,
+                        textCapitalization: TextCapitalization.words,
+                        controller: _lastNameController,
+                        validator: Validator.validateLastName,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          prefixIcon: Icon(Icons.person, color: Colors.white),
+                          labelText: "Last Name",
+                          labelStyle: TextStyle(color: Colors.white),
+                          alignLabelWithHint: true,
+                          hintText: 'John',
+                          hintStyle: TextStyle(color: Colors.grey),
+                        ),
+                        onSaved: (value) {
+                          model.lastName = value;
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        autofillHints: <String>[AutofillHints.email],
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: Validator.validateEmail,
+                        controller: _emailController,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          prefixIcon: Icon(Icons.email, color: Colors.white),
+                          labelText: "Email",
+                          labelStyle: TextStyle(color: Colors.white),
+                          alignLabelWithHint: true,
+                          hintText: 'foo@bar.com',
+                          hintStyle: TextStyle(color: Colors.grey),
+                        ),
+                        onSaved: (value) {
+                          model.email = value;
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        autofillHints: <String>[AutofillHints.password],
+                        textInputAction: TextInputAction.next,
+                        obscureText: _obscureText,
+                        controller: _originalPasswordController,
+                        validator: Validator.validatePassword,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          prefixIcon: Icon(Icons.lock, color: Colors.white),
+                          suffixIcon: FlatButton(
+                            onPressed: _toggle,
+                            child: Icon(
+                              _obscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.white,
+                            ),
+                          ),
+                          labelText: "Password",
+                          labelStyle: TextStyle(color: Colors.white),
+                          focusColor: UIData.primaryColor,
+                          alignLabelWithHint: true,
+                          hintText: 'Password',
+                          hintStyle: TextStyle(color: Colors.grey),
+                        ),
+                        onFieldSubmitted: (_) {
+                          FocusScope.of(context).unfocus();
+                          FocusScope.of(context).requestFocus(confirmPassField);
+                        },
+                        onChanged: (_) {
+                          setState(() {});
+                        },
+                        onSaved: (value) {
+                          model.password = value;
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      FlutterPwValidator(
+                        width: 400,
+                        height: 150,
+                        minLength: 8,
+                        uppercaseCharCount: 1,
+                        specialCharCount: 1,
+                        numericCharCount: 1,
+                        onSuccess: (_) {
+                          setState(() {});
+                        },
+                        controller: _originalPasswordController,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        autofillHints: <String>[AutofillHints.password],
+                        obscureText: true,
+                        focusNode: confirmPassField,
+                        validator: (value) => Validator.validatePasswordConfirm(
+                          _originalPasswordController.text,
+                          value,
+                        ),
+                        textAlign: TextAlign.left,
+                        style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.orange),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          prefixIcon: Icon(Icons.lock, color: Colors.white),
+                          labelText: "Confirm Password",
+                          labelStyle: TextStyle(color: Colors.white),
+                          focusColor: UIData.primaryColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+                  width: double.infinity,
+                  child: RaisedButton(
+                    padding: EdgeInsets.all(12.0),
+                    shape: StadiumBorder(),
+                    child: _progressBarState
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.orange),
+                              strokeWidth: 3,
+                              backgroundColor: Colors.black,
+                            ))
+                        : Text(
+                            "SIGN UP",
+                          ),
+                    color: Colors.white,
+                    onPressed: () async {
+                      FocusScope.of(context).unfocus();
+                      _validate = AutovalidateMode.always;
+                      if (_formKey.currentState.validate()) {
+                        _formKey.currentState.save();
+                        _image != null
+                            ? registerUser()
+                            : registerUserWithoutImg();
+                        setState(() {
+                          toggleProgressBarState();
+                        });
+                      }
+                    },
+                  ),
+                ),
+              ],
+            )));
   }
 
+  //widget used to add the image
   Widget addImage() {
     return Column(
       children: <Widget>[
@@ -377,6 +445,7 @@ class RegisterFormState extends State<RegisterForm> {
     );
   }
 
+  //used to show the method user want to choose their pictures
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
@@ -386,7 +455,6 @@ class RegisterFormState extends State<RegisterForm> {
               child: Wrap(
                 children: <Widget>[
                   ListTile(
-
                     leading: Icon(Icons.camera_alt_outlined),
                     title: Text('Camera'),
                     onTap: () {
@@ -408,7 +476,7 @@ class RegisterFormState extends State<RegisterForm> {
         });
   }
 
-  _successToast(String msg) {
+  /* _successToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
@@ -418,18 +486,17 @@ class RegisterFormState extends State<RegisterForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Expanded(
+            child: Text(
+              msg,
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
-    );
+    );*/
 
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
-    );
-  }
-
+  //this method is called when the result is an exception
   _exceptionToast(String msg) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
@@ -440,7 +507,13 @@ class RegisterFormState extends State<RegisterForm> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(msg),
+          Expanded(
+            child: Text(
+              msg,
+              style: TextStyle(fontSize: 15.0, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
         ],
       ),
     );

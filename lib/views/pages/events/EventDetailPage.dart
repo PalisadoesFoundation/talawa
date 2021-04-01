@@ -1,11 +1,15 @@
+
+//flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+
+//pages are imported here
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/events/registrantList.dart';
 import 'package:talawa/views/pages/events/taskList.dart';
-
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class EventDetail extends StatefulWidget {
   Map event;
   EventDetail({Key key, @required this.event}) : super(key: key);
@@ -50,19 +54,19 @@ class _EventDetailState extends State<EventDetail>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      dispayText(
+                      displayText(
                         "To Do: ${widget.event['description'].toString()}",
                       ),
-                      dispayText(
+                      displayText(
                         "Held: ${widget.event['recurrance'][0]}${widget.event['recurrance'].substring(1).toLowerCase()}",
                       ),
-                      dispayText(
+                      displayText(
                         "Next: ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime']))).toString()}",
                       ),
-                      dispayText(
+                      displayText(
                         "Where: ${widget.event['location'].toString()}",
                       ),
-                      dispayText(
+                      displayText(
                         "From: ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime']))).toString() + ' to ' + DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['endTime']))).toString()}",
                       ),
                     ],
@@ -120,7 +124,7 @@ class _EventDetailState extends State<EventDetail>
     );
   }
 
-  Widget dispayText(String text) {
+  Widget displayText(String text) {
     return Container(
       decoration: BoxDecoration(
           color: Colors.black26,

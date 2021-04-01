@@ -10,12 +10,10 @@ If you are ready to start contributing code right away, we have a list of [good 
 We utilize GitHub issues and pull requests to keep track of issues and contributions from the community. 
 
 #### Issues 
-Feel free to open an issue if you spot any bugs or improvements you see in Talawa. Once an issue has been created, it will be triaged by the members of the Palisadoes Foundation. If passed, the issue will be open for assignment. 
-
-As you work through these issues, you will start to get a better understanding of the type of problems that get reported. You may even start noticing the same issue gets reported. In these cases, you can close the issue and add a comment that says “Duplicate of #issue”.
+Make sure you are following [issue report guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/issue-guidelines.md) available here before creating any new issues on Talawa project.
 
 #### Pull Requests
-Every pull request should be linked to an existing issue. A pull request should consist of a summary, to help us understand the motivation behind the changes. 
+[Pull Request guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/PR-guidelines.md) is best resource to follow to start working on open issues.
 
 #### Git Flow
 For Talawa, we utilize the GitFlow branching model. GitFlow is geared towards efficiently tracking development and managing releases. The model makes parallel development efforts easy and safe by isolating new development efforts from completed work. 
@@ -69,7 +67,7 @@ core
 - enums: common enums shared
 - models: business data models, entities
 - theme: application theme, colors, dimens
-- utils: utilitity classes
+- utils: utility classes
 ```
 
 #### Structure code this way
@@ -91,7 +89,7 @@ rfac: (refactoring the code: optimization/ different logic of existing code - ou
 docs: (documenting the code, be it readme, or extra comments)
 bfix: (bug fixing)
 chor: (chore - beautifying code, indents, spaces, camelcasing, changing variable names to have an appropriate meaning)
-ptch: (patches - small changes in code, mainly UI, for example color of a button, incrasing size of tet, etc etc)
+ptch: (patches - small changes in code, mainly UI, for example color of a button, increasing size of text, etc)
 conf: (configurational settings - changing directory structure, updating gitignore, add libraries, changing manifest etc)
 ```
 

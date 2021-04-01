@@ -1,9 +1,10 @@
 import 'dart:io';
-
+//flutter packages are imported here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+//Pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
@@ -12,16 +13,15 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
+import 'package:talawa/views/pages/home_page.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 import 'create_organization.dart';
 
 class JoinOrganization extends StatefulWidget {
-  JoinOrganization({Key key, this.msg});
-
+  JoinOrganization({Key key, this.msg, this.fromProfile = false});
+  final bool fromProfile;
   final String msg;
   @override
   _JoinOrganizationState createState() => _JoinOrganizationState();
@@ -41,16 +41,26 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   String isPublic;
   TextEditingController searchController = TextEditingController();
   OrgController _orgController = OrgController();
+  bool _isLoaderActive = false;
+  bool disposed = false;
 
   @override
   void initState() {
+    //creating the initial state for all the variables
     super.initState();
     fToast = FToast();
     fToast.init(context);
     fetchOrg();
   }
 
+  @override
+  void dispose() {
+    disposed = true;
+    super.dispose();
+  }
+
   void searchOrgName(String orgName) {
+    //it is the search bar to search the organization
     filteredOrgInfo.clear();
     if (orgName.isNotEmpty) {
       for (int i = 0; i < organizationInfo.length; i++) {
@@ -69,6 +79,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   Future fetchOrg() async {
+    //function to fetch the org from the server
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -76,7 +87,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     if (result.hasException) {
       print(result.exception);
       showError(result.exception.toString());
-    } else if (!result.hasException) {
+    } else if (!result.hasException && !disposed) {
       setState(() {
         organizationInfo = result.data['organizations'];
       });
@@ -84,6 +95,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   Future joinPrivateOrg() async {
+    //function called if the person wants to enter a private organization
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client.mutate(MutationOptions(
@@ -100,14 +112,20 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       print(result.data);
       _successToast("Request Sent to Organization Admin");
 
-      pushNewScreen(
-        context,
-        screen: NewsFeed(),
-      );
+      if (widget.fromProfile) {
+        Navigator.pop(context);
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => HomePage(
+            openPageIndex: 4,
+          ),
+        ));
+      }
     }
   }
 
   Future joinPublicOrg() async {
+    //function which will be called if the person wants to join the organization which is not private
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
@@ -141,10 +159,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       _successToast("Sucess!");
 
       //Navigate user to newsfeed
-      pushNewScreen(
-        context,
-        screen: ProfilePage(),
-      );
+      if (widget.fromProfile) {
+        Navigator.pop(context);
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => HomePage(
+            openPageIndex: 4,
+          ),
+        ));
+      }
     }
   }
 
@@ -156,7 +179,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             style: TextStyle(color: Colors.white)),
       ),
       body: organizationInfo.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: Loading(key: UniqueKey(),))
           : Container(
               color: Color(0xffF3F6FF),
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
@@ -227,8 +250,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                 'false'
                                             ? Row(
                                                 children: [
-                                                  Text(organization['name']
-                                                      .toString()),
+                                                  Flexible(
+                                                    child: Text(
+                                                      organization['name']
+                                                          .toString(),
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
                                                   Icon(Icons.lock_open,
                                                       color: Colors.green,
                                                       size: 16)
@@ -236,8 +266,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               )
                                             : Row(
                                                 children: [
-                                                  Text(organization['name']
-                                                      .toString()),
+                                                  Flexible(
+                                                    child: Text(
+                                                      organization['name']
+                                                          .toString(),
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
                                                   Icon(Icons.lock,
                                                       color: Colors.red,
                                                       size: 16)
@@ -285,7 +322,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               confirmOrgDialog();
                                             },
                                             color: UIData.primaryColor,
-                                            child: new Text("JOIN"),
+                                            child: _isLoaderActive
+                                                ? CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation(
+                                                            Colors.white),
+                                                    strokeWidth: 2,
+                                                  )
+                                                : new Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   new BorderRadius.circular(
@@ -319,8 +363,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                 'false'
                                             ? Row(
                                                 children: [
-                                                  Text(organization['name']
-                                                      .toString()),
+                                                  Flexible(
+                                                    child: Text(
+                                                      organization['name']
+                                                          .toString(),
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
                                                   Icon(Icons.lock_open,
                                                       color: Colors.green,
                                                       size: 16)
@@ -328,8 +379,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               )
                                             : Row(
                                                 children: [
-                                                  Text(organization['name']
-                                                      .toString()),
+                                                  Flexible(
+                                                    child: Text(
+                                                      organization['name']
+                                                          .toString(),
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
                                                   Icon(Icons.lock,
                                                       color: Colors.red,
                                                       size: 16)
@@ -377,7 +435,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               confirmOrgDialog();
                                             },
                                             color: UIData.primaryColor,
-                                            child: new Text("JOIN"),
+                                            child: _isLoaderActive
+                                                ? CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation(
+                                                            Colors.white),
+                                                    strokeWidth: 2,
+                                                  )
+                                                : new Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   new BorderRadius.circular(
@@ -395,8 +460,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => new CreateOrganization()));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => new CreateOrganization(
+                    isFromProfile: widget.fromProfile,
+                  )));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -425,6 +492,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 if (isPublic == 'true') {
                   joinPublicOrg();
                   Navigator.of(context).pop();
+
                 } else if (isPublic == 'false') {
                   joinPrivateOrg();
                   Navigator.of(context).pop();
@@ -505,11 +573,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
+      child: Expanded(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(msg),
+          ],
+        ),
       ),
     );
 
