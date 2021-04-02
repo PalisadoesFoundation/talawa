@@ -131,6 +131,8 @@ class _NewsFeedState extends State<NewsFeed> {
               key: Key('empty_newsfeed_text'),
               style: TextStyle(
                 fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
                 ),
               )
             : RefreshIndicator(
