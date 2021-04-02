@@ -128,6 +128,7 @@ class _NewsFeedState extends State<NewsFeed> {
         body: postList.isEmpty
             ? Text(
               'No posts to show',
+              key: Key('empty_newsfeed_text'),
               style: TextStyle(
                 fontSize: 16,
                 ),
