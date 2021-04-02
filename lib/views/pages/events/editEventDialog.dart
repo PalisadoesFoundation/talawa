@@ -232,6 +232,7 @@ class _EditEventState extends State<EditEvent> {
         child: TextField(
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
+          keyboardType: TextInputType.text,
           decoration: InputDecoration(
               errorText: name == 'Title'
                   ? _validateTitle
