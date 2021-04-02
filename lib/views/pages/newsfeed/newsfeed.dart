@@ -129,6 +129,7 @@ class _NewsFeedState extends State<NewsFeed> {
             ? Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                const Spacer(),
                 const Text(
                   'No posts to show',
                   key: Key('empty_newsfeed_text'),
@@ -138,6 +139,7 @@ class _NewsFeedState extends State<NewsFeed> {
                     color: Colors.grey,
                   ),
                 ),
+                const Spacer(),
                 TextButton.icon(
                   icon: const Icon(Icons.refresh),
                   label: const Text('Click to Refresh..'),
