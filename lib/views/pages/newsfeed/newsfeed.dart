@@ -130,13 +130,16 @@ class _NewsFeedState extends State<NewsFeed> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Spacer(),
-                const Text(
-                  'No posts to show',
-                  key: Key('empty_newsfeed_text'),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
+                Align(
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'No posts to show',
+                    key: Key('empty_newsfeed_text'),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
                 const Spacer(),
