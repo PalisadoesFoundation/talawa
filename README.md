@@ -8,15 +8,13 @@
 
 Talawa is a modular open source project to manage group activities of both non-profit organizations and businesses.
 
-Core features to be developed include:
+Core features include:
 
  1. Membership management
  2. Groups management
  3. Event registrations
  4. Recurring meetings
  5. Facilities registrations
-
-This has been a Calico Challenge project in 2019. It will be written in python with close integrations with the Plone open source content management system.
 
 # Documentation
  - The talawa documentation can be found [here](https://palisadoesfoundation.github.io/talawa-docs/).
