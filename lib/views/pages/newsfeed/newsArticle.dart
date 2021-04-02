@@ -184,14 +184,19 @@ class _NewsArticleState extends State<NewsArticle> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  flex: 1,
+                Flexible(
+                  flex: 3,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 10),
-                    child: Text(widget.post['text'].toString()),
+                    padding: const EdgeInsets.fromLTRB(20.0, 10, 10, 10),
+                    child: Text(
+                      widget.post['text'].toString(),
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.justify,
+                      maxLines: 10,
+                    ),
                   ),
                 ),
-                Expanded(
+                Flexible(
                   flex: 3,
                   child: ListTile(
                     leading: userDetails.isEmpty ? null : _profileImage(),

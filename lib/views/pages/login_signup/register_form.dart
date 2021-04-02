@@ -37,10 +37,8 @@ class RegisterFormState extends State<RegisterForm> {
   TextEditingController _firstNameController = new TextEditingController();
   TextEditingController _lastNameController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
-  TextEditingController _originalPasswordController =
-      new TextEditingController();
-  TextEditingController _confirmPasswordController =
-      new TextEditingController();
+  TextEditingController _originalPasswordController = new TextEditingController();
+  TextEditingController _confirmPasswordController = new TextEditingController();
   FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
@@ -316,6 +314,9 @@ class RegisterFormState extends State<RegisterForm> {
                         onSaved: (value) {
                           model.password = value;
                         },
+                      ),
+                      SizedBox(
+                        height: 10,
                       ),
                       FlutterPwValidator(
                         width: 400,
