@@ -26,6 +26,13 @@ class _GroupsState extends State<Groups> {
   //variable for organization Id
   String _currOrgId;
 
+  initState() {
+    super.initState();
+    setState(() {
+      events = getEvents();
+    });
+  }
+
   //function to get the events
   Future<void> getEvents() async {
     fetched = false;
@@ -68,29 +75,34 @@ class _GroupsState extends State<Groups> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: ListView.builder(
-          itemCount: 4,
-          itemBuilder: (context, index) {
-            String groupName = 'Event ${index + 1}';
-            return Card(
-              child: ListTile(
-                title: Text(groupName),
-                leading: CircleAvatar(
-                  backgroundColor: UIData.secondaryColor,
-                  child: Image.asset(UIData.talawaLogo),
-                ),
-                trailing: Icon(Icons.arrow_right),
-                onTap: () {
-                  pushNewScreen(
-                    context,
-                    screen: Chat(
-                      groupName: groupName,
-                    ),
-                  );
-                },
-              ),
-            );
-          }),
+      body: RefreshIndicator(
+              onRefresh: () async {
+                await getEvents();
+              },
+              child: ListView.builder(
+                  itemCount: displayedEvents.length,
+                  itemBuilder: (context, index) {
+                    String groupName = '${displayedEvents[index]['title']}';
+                    return Card(
+                      child: ListTile(
+                        title: Text(groupName),
+                        leading: CircleAvatar(
+                          backgroundColor: UIData.secondaryColor,
+                          child: Image.asset(UIData.talawaLogo),
+                        ),
+                        trailing: Icon(Icons.arrow_right),
+                        onTap: () {
+                          pushNewScreen(
+                            context,
+                            screen: Chat(
+                              groupName: groupName,
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }),
+            ),
     );
   }
 }
