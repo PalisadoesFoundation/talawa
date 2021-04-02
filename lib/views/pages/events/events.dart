@@ -157,7 +157,11 @@ class _EventsState extends State<Events> {
       eventList = result == null ? [] : result['events'].reversed.toList();
       eventList.removeWhere((element) =>
           element['title'] == 'Talawa Congress' ||
-          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1'); //dont know who keeps adding these
+          element['title'] == 'test' || 
+          element['title'] == 'Talawa Conference Test' || 
+          element['title'] == 'mayhem' || 
+          element['title'] == 'mayhem1' ||
+          element['organization']['_id'] != currentOrgID); //dont know who keeps adding these
       // This removes all invalid date formats other than Unix time
       eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
       eventList.sort((a, b) {
@@ -170,6 +174,7 @@ class _EventsState extends State<Events> {
       setState(() {
         displayedEvents = eventList;
       });
+      print('orgID ==== $currentOrgID');
       print(displayedEvents);
   }
 
@@ -216,7 +221,7 @@ class _EventsState extends State<Events> {
               if (eventList.isEmpty) {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      getEvents();
+                      await getEvents();
                     },
                     child: CustomScrollView(
                       slivers: [
