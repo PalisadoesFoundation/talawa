@@ -85,26 +85,5 @@ void main() {
         findsNothing,
       );
     });
-
-    testWidgets("Click to refresh works test", (tester) async {
-      await tester.runAsync(() async {
-        await tester.pumpWidget(groupsPage());
-
-        //page loades initially
-        expect(find.byType(CircularProgressIndicator), findsOneWidget);
-        await tester.pumpAndSettle();
-        //loading stops
-        expect(find.byType(CircularProgressIndicator), findsNothing);
-
-        //get refresh button
-        var clickTORefreshButton = find.byKey(Key('click_to_refresh_button'));
-        expect(clickTORefreshButton, findsOneWidget);
-
-        //tap refresh button
-        await tester.tap(clickTORefreshButton);
-        await tester.pump();
-        expect(find.byType(CircularProgressIndicator), findsOneWidget);
-      });
-    });
   });
 }
