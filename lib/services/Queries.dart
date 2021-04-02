@@ -437,6 +437,7 @@ class Queries {
           _id
           organization {
             _id
+            image
           }
           title
           description

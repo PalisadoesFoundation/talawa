@@ -1,5 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/utils/GQLClient.dart';
 //pages are called here
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/services/preferences.dart';
@@ -62,7 +64,7 @@ class _GroupsState extends State<Groups> {
     fetched = true;
 
     // print('orgID ==== $currentOrgID');
-    // print(displayedEvents);
+    print(displayedEvents);
   }
   
   @override
@@ -84,7 +86,7 @@ class _GroupsState extends State<Groups> {
                   Container(
                     alignment: Alignment.center,
                     child: const Text(
-                      "Register in an event to start chatting...",
+                      "Register in an event to start chatting",
                       key: Key('empty_chat_group'),
                       style: const TextStyle(
                         fontSize: 16,
@@ -123,12 +125,18 @@ class _GroupsState extends State<Groups> {
                   itemCount: displayedEvents.length,
                   itemBuilder: (context, index) {
                     String groupName = '${displayedEvents[index]['title']}';
+                    String _imgSrc = displayedEvents[index]['organization']['image'];
                     return Card(
                       child: ListTile(
                         title: Text(groupName),
                         leading: CircleAvatar(
                           backgroundColor: UIData.secondaryColor,
-                          child: Image.asset(UIData.talawaLogo),
+                          child: _imgSrc == null ? 
+                                    Image.asset(UIData.talawaLogo):
+                                    NetworkImage(
+                                        Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                                          _imgSrc
+                                    ),
                         ),
                         trailing: Icon(Icons.arrow_right),
                         onTap: () {
