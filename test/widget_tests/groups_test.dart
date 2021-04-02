@@ -1,0 +1,110 @@
+// Packages imports.
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+
+// Local files imports.
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/views/pages/chat/groups.dart';
+
+Widget groupsPage() => MultiProvider(
+      providers: [
+        ChangeNotifierProvider<GraphQLConfiguration>(
+          create: (_) => GraphQLConfiguration(),
+        ),
+        ChangeNotifierProvider<OrgController>(
+          create: (_) => OrgController(),
+        ),
+        ChangeNotifierProvider<AuthController>(
+          create: (_) => AuthController(),
+        ),
+        ChangeNotifierProvider<Preferences>(
+          create: (_) => Preferences(),
+        ),
+      ],
+      child: MaterialApp(
+        home: Groups(),
+      ),
+    );
+
+void main() {
+  final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
+
+  group("Groups page Tests", () {
+    testWidgets("Testing if Groups page shows up", (tester) async {
+      await tester.pumpWidget(groupsPage());
+
+      /// Verify if [Groups page] shows up.
+
+      expect(
+        find.byType(Groups),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets("Testing overflow of Groups page in a mobile screen", (tester) async {
+      binding.window.physicalSizeTestValue = Size(440, 800);
+      binding.window.devicePixelRatioTestValue = 1.0;
+
+      await tester.pumpWidget(groupsPage());
+
+      /// Verify if [Groups page] shows up.
+      expect(
+        find.byType(Groups),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets("Testing overflow of Groups page in a tablet screen", (tester) async {
+      binding.window.physicalSizeTestValue = Size(1024, 768);
+      binding.window.devicePixelRatioTestValue = 1.0;
+
+      await tester.pumpWidget(groupsPage());
+
+      /// Verify if [Groups page] shows up.
+      expect(
+        find.byType(Groups),
+        findsOneWidget,
+      );
+    });
+
+    testWidgets("empty groups for user with no org", (tester) async {
+      await tester.pumpWidget(groupsPage());
+
+      var emptyTextWidget = find.byKey(Key('empty_chat_group'));
+
+      expect(emptyTextWidget, findsOneWidget);
+
+      // get the [ListView] widget
+      var listView = find.byType(ListView);
+      expect(
+        listView,
+        findsNothing,
+      );
+    });
+
+    testWidgets("Click to refresh works test", (tester) async {
+      await tester.runAsync(() async {
+        await tester.pumpWidget(groupsPage());
+
+        //page loades initially
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+        await tester.pumpAndSettle();
+        //loading stops
+        expect(find.byType(CircularProgressIndicator), findsNothing);
+
+        //get refresh button
+        var clickTORefreshButton = find.byKey(Key('click_to_refresh_button'));
+        expect(clickTORefreshButton, findsOneWidget);
+
+        //tap refresh button
+        await tester.tap(clickTORefreshButton);
+        await tester.pump();
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      });
+    });
+  });
+}
