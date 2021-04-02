@@ -170,7 +170,7 @@ class _EventsState extends State<Events> {
       setState(() {
         displayedEvents = eventList;
       });
-      // print(displayedEvents);
+      print(displayedEvents);
   }
 
   //functions to edit the event
