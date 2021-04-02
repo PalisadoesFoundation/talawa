@@ -136,8 +136,17 @@ class _NewsFeedState extends State<NewsFeed> {
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey,
-                    ),
                   ),
+                ),
+                TextButton.icon(
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Click to Refresh..'),
+                  onPressed: () {
+                    setState(() {
+                      getPosts();
+                    });
+                  },
+                ),
               ],
             )
             : RefreshIndicator(
