@@ -127,6 +127,7 @@ class _NewsFeedState extends State<NewsFeed> {
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
             ? Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Text(
                   'No posts to show',
