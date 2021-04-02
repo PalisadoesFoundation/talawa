@@ -129,7 +129,7 @@ class _NewsFeedState extends State<NewsFeed> {
             ? Center(child: Loading(key: UniqueKey(),))
             : RefreshIndicator(
                 onRefresh: () async {
-                  getPosts();
+                  await getPosts();
                 },
                 child: Container(
                   child: Column(
