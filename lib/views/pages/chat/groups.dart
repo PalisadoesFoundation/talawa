@@ -75,7 +75,47 @@ class _GroupsState extends State<Groups> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: RefreshIndicator(
+      body: (_currOrgId == null || displayedEvents.isEmpty)
+          ? Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Spacer(),
+                  Container(
+                    alignment: Alignment.center,
+                    child: const Text(
+                      "Register in an event to start chatting...",
+                      key: Key('empty_chat_group'),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  !fetched
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: const CircularProgressIndicator(),
+                          ),
+                        )
+                      : TextButton.icon(
+                          key: Key('click_to_refresh_button'),
+                          icon: const Icon(Icons.refresh),
+                          label: const Text('Click to Refresh..'),
+                          onPressed: () {
+                            setState(() {
+                              getEvents();
+                            });
+                          },
+                        ),
+                ],
+              ),
+            )
+          : RefreshIndicator(
               onRefresh: () async {
                 await getEvents();
               },
