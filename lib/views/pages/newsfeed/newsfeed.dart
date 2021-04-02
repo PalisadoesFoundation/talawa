@@ -33,6 +33,9 @@ class _NewsFeedState extends State<NewsFeed> {
   Timer timer = Timer();
   String _currentOrgID;
 
+  //bool value to indicate whether post fetching is in progress or not
+  bool _isFetchingPost = false;
+
   Map<String, bool> likePostMap = new Map<String , bool>(); 
   // key = postId and value will be true if user has liked a post.
 
@@ -68,6 +71,9 @@ class _NewsFeedState extends State<NewsFeed> {
 
   //function to get the current posts
   Future<void> getPosts() async {
+    print("getting posts...");
+    _isFetchingPost = true;
+
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
     _currentOrgID = currentUserID;
@@ -79,7 +85,8 @@ class _NewsFeedState extends State<NewsFeed> {
           result == null ? [] : result['postsByOrganization'].reversed.toList();
       updateLikepostMap(currentUserID);
     });
-    
+    print("getting posts completed!");    
+    _isFetchingPost = false;
   }
 
 
@@ -143,15 +150,23 @@ class _NewsFeedState extends State<NewsFeed> {
                   ),
                 ),
                 const Spacer(),
-                TextButton.icon(
-                  icon: const Icon(Icons.refresh),
-                  label: const Text('Click to Refresh..'),
-                  onPressed: () {
-                    setState(() {
-                      getPosts();
-                    });
-                  },
-                ),
+                _isFetchingPost
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: const CircularProgressIndicator(),
+                        ),
+                      )
+                    : TextButton.icon(
+                        icon: const Icon(Icons.refresh),
+                        label: const Text('Click to Refresh...'),
+                        onPressed: () {
+                          setState(() {
+                            getPosts();
+                          });
+                        },
+                      ),
               ],
             )
             : RefreshIndicator(
