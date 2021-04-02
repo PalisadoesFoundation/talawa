@@ -17,7 +17,15 @@ Core features include:
  5. Facilities registrations
 
  ``talawa`` is based on the original ``quito`` code created by the [Palisadoes Foundation][pfd] as part of its annual Calico Challenge program. Calico provides paid summer internships for  Jamaican university students to work on selected open source projects. They are mentored by software professionals and receive stipends based on the completion of predefined milestones. Calico was started in 2015. Visit [The Palisadoes Foundation's website](http://www.palisadoes.org/) for more details on its origin and activities.
- 
+
+# Talawa Components
+
+`talawa` has these major software components:
+
+1. **talawa**: [A mobile application with social media features](https://github.com/PalisadoesFoundation/talawa)
+1. **talawa-api**: [An API providing access to user data and features](https://github.com/PalisadoesFoundation/talawa-api)
+1. **talawa-admin**: [A web based administrative portal](https://github.com/PalisadoesFoundation/talawa-admin)
+
 # Documentation
  - The talawa documentation can be found [here](https://palisadoesfoundation.github.io/talawa-docs/).
  - Want to contribute? Look at [CONTRIBUTING.md][link] to get started.
