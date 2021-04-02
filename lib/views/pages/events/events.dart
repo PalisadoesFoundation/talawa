@@ -44,6 +44,9 @@ class _EventsState extends State<Events> {
   var events;
   Timer timer = Timer();
 
+  //variable for organization Id
+  String _currOrgId;
+
   initState() {
     super.initState();
     setState(() {
@@ -152,6 +155,7 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
+    _currOrgId = currentOrgID;
       Map result =
       await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
       eventList = result == null ? [] : result['events'].reversed.toList();
@@ -174,8 +178,8 @@ class _EventsState extends State<Events> {
       setState(() {
         displayedEvents = eventList;
       });
-      print('orgID ==== $currentOrgID');
-      print(displayedEvents);
+      // print('orgID ==== $currentOrgID');
+      // print(displayedEvents);
   }
 
   //functions to edit the event
@@ -211,7 +215,7 @@ class _EventsState extends State<Events> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        floatingActionButton: eventFab(),
+        floatingActionButton: _currOrgId == null ? null : eventFab(),
         body: FutureBuilder(
           future: events,
           // ignore: missing_return
