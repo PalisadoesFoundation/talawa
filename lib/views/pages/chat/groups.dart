@@ -1,8 +1,9 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
-
 //pages are called here
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/apiFuctions.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/chat/chat.dart';
 
@@ -14,6 +15,13 @@ class Groups extends StatefulWidget {
 }
 
 class _GroupsState extends State<Groups> {
+  List eventList = [];
+  List displayedEvents = [];
+  Preferences preferences = Preferences();
+  ApiFunctions apiFunctions = ApiFunctions();
+  bool fetched = true;
+  var events;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
