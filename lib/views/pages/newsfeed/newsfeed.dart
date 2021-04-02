@@ -126,15 +126,17 @@ class _NewsFeedState extends State<NewsFeed> {
         appBar: CustomAppBar('NewsFeed',key: Key('NEWSFEED_APP_BAR')),
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
-            ? const Text(
-              'No posts to show',
-              key: Key('empty_newsfeed_text'),
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
+            ? Center(
+              child: const Text(
+                'No posts to show',
+                key: Key('empty_newsfeed_text'),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                  ),
                 ),
-              )
+            )
             : RefreshIndicator(
                 onRefresh: () async {
                   await getPosts();
