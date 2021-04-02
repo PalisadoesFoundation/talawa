@@ -98,8 +98,12 @@ class _EventsState extends State<Events> {
             event);
       } else {
         if (event['recurrance'] == 'DAILY') {
-          int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
-          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
+          int day =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
+                  .day;
+          int lastday =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime']))
+                  .day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
             day += 1;
@@ -108,8 +112,10 @@ class _EventsState extends State<Events> {
         if (event['recurrance'] == 'WEEKLY') {
           int day =
               DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
-                      .day;
-          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
+                  .day;
+          int lastday =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime']))
+                  .day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
 
@@ -152,37 +158,45 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-      Map result =
-      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-      eventList = result == null ? [] : result['events'].reversed.toList();
-      eventList.removeWhere((element) =>
-          element['title'] == 'Talawa Congress' ||
-          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1'); //dont know who keeps adding these
-      // This removes all invalid date formats other than Unix time
-      eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
-      eventList.sort((a, b) {
-        return DateTime.fromMicrosecondsSinceEpoch(
-          int.parse(a['startTime']))
+    Map result =
+        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    eventList = result == null ? [] : result['events'].reversed.toList();
+    eventList.removeWhere((element) =>
+        element['title'] == 'Talawa Congress' ||
+        element['title'] == 'test' ||
+        element['title'] == 'Talawa Conference Test' ||
+        element['title'] == 'mayhem' ||
+        element['title'] == 'mayhem1'); //dont know who keeps adding these
+    // This removes all invalid date formats other than Unix time
+    eventList
+        .removeWhere((element) => int.tryParse(element['startTime']) == null);
+    eventList.sort((a, b) {
+      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime']))
           .compareTo(
-          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
-      });
-      eventsToDates(eventList, DateTime.now());
-      setState(() {
-        displayedEvents = eventList;
-      });
-      // print(displayedEvents);
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+    });
+    eventsToDates(eventList, DateTime.now());
+    setState(() {
+      displayedEvents = eventList;
+    });
+    // print(displayedEvents);
   }
 
   //functions to edit the event
-  Future<void> _editEvent(context, event) async {
-    showDialog(
+  void _editEvent(context, event) async {
+    pushNewScreen(context,
+        withNavBar: true,
+        screen: EditEvent(
+          event: event,
+        ));
+    /*showDialog(
       context: context,
       builder: (BuildContext context) {
         return EditEvent(
           event: event,
         );
       },
-    );
+    );*/
   }
 
   Future<void> addEventTask(context, eventId) async {
@@ -200,7 +214,7 @@ class _EventsState extends State<Events> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-           key: Key('EVENTS_APP_BAR'),
+          key: Key('EVENTS_APP_BAR'),
           title: Text(
             'Events',
             style: TextStyle(color: Colors.white),
@@ -247,79 +261,87 @@ class _EventsState extends State<Events> {
                       getEvents();
                     },
                     child: Container(
-                    color: Colors.white,
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          child: calendar(),
-                        ),
-                        DraggableScrollableSheet(
-                          initialChildSize: 0.3,
-                          minChildSize: 0.3,
-                          maxChildSize: 1.0,
-                          expand: true,
-                          builder: (BuildContext context, myscrollController) {
-                            return Container(
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  ListView(
-                                    controller: myscrollController,
-                                    shrinkWrap: true,
-                                    children: [carouselSliderBar()],
-                                  ),
-                                  Expanded(
-                                    child: Timeline.builder(
+                      color: Colors.white,
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            child: calendar(),
+                          ),
+                          DraggableScrollableSheet(
+                            initialChildSize: 0.3,
+                            minChildSize: 0.3,
+                            maxChildSize: 1.0,
+                            expand: true,
+                            builder:
+                                (BuildContext context, myscrollController) {
+                              return Container(
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    ListView(
                                       controller: myscrollController,
-                                      lineColor: UIData.primaryColor,
-                                      position: TimelinePosition.Left,
-                                      itemCount: displayedEvents.length,
-                                      itemBuilder: (context, index) {
-                                        if (index == 0) {
-                                          return TimelineModel(
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 5),
-                                                  child: Text(
-                                                    '${displayedEvents.length} Events',
-                                                    style: TextStyle(
-                                                        color: Colors.black45),
+                                      shrinkWrap: true,
+                                      children: [carouselSliderBar()],
+                                    ),
+                                    Expanded(
+                                      child: Timeline.builder(
+                                        controller: myscrollController,
+                                        lineColor: UIData.primaryColor,
+                                        position: TimelinePosition.Left,
+                                        itemCount: displayedEvents.length,
+                                        itemBuilder: (context, index) {
+                                          if (index == 0) {
+                                            return TimelineModel(
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 5),
+                                                    child: Text(
+                                                      '${displayedEvents.length} Events',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.black45),
+                                                    ),
                                                   ),
-                                                ),
-                                                eventCard(index)
-                                              ],
-                                            ),
+                                                  eventCard(index)
+                                                ],
+                                              ),
+                                              iconBackground:
+                                                  UIData.secondaryColor,
+                                            );
+                                          }
+                                          return TimelineModel(
+                                            eventCard(index),
                                             iconBackground:
                                                 UIData.secondaryColor,
+                                            position:
+                                                TimelineItemPosition.right,
                                           );
-                                        }
-                                        return TimelineModel(
-                                          eventCard(index),
-                                          iconBackground: UIData.secondaryColor,
-                                          position: TimelineItemPosition.right,
-                                        );
-                                      },
+                                        },
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ));
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ));
               }
             } else if (state == ConnectionState.waiting) {
               print(snapshot.data);
-              return Center(child: Loading(key: UniqueKey(),));
+              return Center(
+                  child: Loading(
+                key: UniqueKey(),
+              ));
             } else if (state == ConnectionState.none) {
               return Text('Could Not Fetch Data.');
             }
