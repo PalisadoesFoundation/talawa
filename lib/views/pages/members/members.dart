@@ -131,7 +131,7 @@ class _OrganizationsState extends State<Organizations> {
         body: alphaMembersList.isEmpty
             ? RefreshIndicator(
                 onRefresh: () async {
-                  getMembers();
+                  await getMembers();
                 },
                 child: Center(
                     child: Column(children: <Widget>[
