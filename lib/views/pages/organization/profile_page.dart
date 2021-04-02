@@ -12,10 +12,13 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
+import 'package:talawa/views/pages/organization/update_profile_page.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
+
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
+import 'package:talawa/views/widgets/loading.dart';
 import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
@@ -187,10 +190,16 @@ class _ProfilePageState extends State<ProfilePage> {
   //main build starts from here
   @override
   Widget build(BuildContext context) {
+    var orgName = Provider.of<Preferences>(context).orgName;
+    if (orgName == null) {
+      orgName = 'No Organization Joined';
+    }
+
     return Scaffold(
+      key: Key('PROFILE_PAGE_SCAFFOLD'),
         backgroundColor: Colors.white,
         body: userDetails.isEmpty || isCreator == null
-            ? Center(child: CircularProgressIndicator(key: Key('loading'),))
+            ? Center(child: Loading(key: UniqueKey(),))
             : Column(
           key: Key('body'),
                 children: <Widget>[
@@ -270,10 +279,17 @@ class _ProfilePageState extends State<ProfilePage> {
                               style: TextStyle(fontSize: 18.0),
                             ),
                             leading: Icon(
-                              Icons.person,
+                              Icons.edit,
                               color: UIData.secondaryColor,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              pushNewScreen(
+                                context,
+                                screen: UpdateProfilePage(
+                                  userDetails: userDetails,
+                                ),
+                              );
+                            },
                           ),
                           org.length == 0
                               ? SizedBox()

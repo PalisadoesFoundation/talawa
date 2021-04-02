@@ -37,6 +37,31 @@ class Queries {
     """;
   }
 
+  //update profile the user
+  String updateUserProfile() {
+    return """
+        mutation (
+          \$file: Upload, 
+          \$firstName: String, 
+          \$lastName: String, 
+          \$email: String
+        ){
+          updateUserProfile(
+            data: {
+              firstName: \$firstName, 
+              lastName: \$lastName, 
+              email: \$email
+            },
+            file: \$file
+          ){
+            firstName
+            lastName
+            email
+          }
+        }
+    """;
+  }
+
   //register the user without the images
   String registerUserWithoutImg(
       String firstName, String lastName, String email, String password) {
