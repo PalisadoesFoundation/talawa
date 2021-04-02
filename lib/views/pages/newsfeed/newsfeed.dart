@@ -34,7 +34,10 @@ class _NewsFeedState extends State<NewsFeed> {
   String _currentOrgID;
 
   //bool value to indicate whether post fetching is in progress or not
+  bool _hasUserJoinedOrg = false;
+  //bool value to indicate whether post fetching is in progress or not
   bool _isFetchingPost = false;
+  
 
   Map<String, bool> likePostMap = new Map<String , bool>(); 
   // key = postId and value will be true if user has liked a post.
@@ -75,6 +78,7 @@ class _NewsFeedState extends State<NewsFeed> {
     _isFetchingPost = true;
 
     final String currentOrgID = await preferences.getCurrentOrgId();
+    _hasUserJoinedOrg = currentOrgID == null ? false : true;
     final String currentUserID = await preferences.getUserId();
     _currentOrgID = currentUserID;
     String query = Queries().getPostsById(currentOrgID);
@@ -131,7 +135,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
     return Scaffold(
         appBar: CustomAppBar('NewsFeed',key: Key('NEWSFEED_APP_BAR')),
-        floatingActionButton: addPostFab(),
+        floatingActionButton: _hasUserJoinedOrg ? addPostFab() : null,
         body: postList.isEmpty
             ? Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
