@@ -20,7 +20,7 @@ class GraphQLConfiguration with ChangeNotifier {
     final url = await _pref.getOrgUrl();
     orgURI = url;
     httpLink = HttpLink(
-      uri: "${orgURI}graphql",
+      uri: orgURI,
     );
     final imgUrl = await _pref.getOrgImgUrl();
     displayImgRoute = imgUrl;
@@ -29,7 +29,7 @@ class GraphQLConfiguration with ChangeNotifier {
   }
 
   static HttpLink httpLink = HttpLink(
-    uri: "${orgURI}graphql",
+    uri: orgURI,
   );
 
   static AuthLink authLink = AuthLink(

@@ -10,7 +10,7 @@ class Preferences with ChangeNotifier {
   static const currentOrgImgSrc = "currentOrgImgSrc";
   static const currentOrgName = "currentOrgName";
   static const orgUrl = "orgUrl";
-  static const orgImgUrl = "orgUrl";
+  static const orgImgUrl = "orgImgUrl";
   static const userFName = "userFirstName";
   static const userLName = "userLastName";
 
