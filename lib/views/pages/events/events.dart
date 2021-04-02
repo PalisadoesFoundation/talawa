@@ -44,11 +44,10 @@ class _EventsState extends State<Events> {
   var events;
   Timer timer = Timer();
 
-  initState() {
+  @override
+  void initState() {
     super.initState();
-    setState(() {
-      events = getEvents();
-    });
+    events = getEvents();
   }
 
   //get all events for a given day
