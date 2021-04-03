@@ -10,7 +10,7 @@ import 'package:talawa/views/pages/events/EventDetailPage.dart';
 import 'package:talawa/views/pages/events/addEventPage.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/services/Queries.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
 import 'package:talawa/views/widgets/loading.dart';

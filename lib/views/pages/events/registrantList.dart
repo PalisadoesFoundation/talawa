@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 //imported the pages here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 
 // ignore: must_be_immutable
 class RegList extends StatefulWidget {
