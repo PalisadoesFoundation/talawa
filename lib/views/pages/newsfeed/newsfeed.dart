@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -31,6 +32,7 @@ class _NewsFeedState extends State<NewsFeed> {
   ApiFunctions apiFunctions = ApiFunctions();
   List postList = [];
   Timer timer = Timer();
+  FToast fToast;
   String _currentOrgID;
 
   //bool value to indicate whether post fetching is in progress or not
@@ -164,7 +166,11 @@ class _NewsFeedState extends State<NewsFeed> {
                         label: const Text('Click to Refresh...'),
                         onPressed: () {
                           setState(() {
-                            getPosts();
+                            try{
+                              getPosts();
+                            }catch(e){
+                              _exceptionToast(e);
+                            }
                           });
                         },
                       ),
@@ -172,7 +178,11 @@ class _NewsFeedState extends State<NewsFeed> {
             )
             : RefreshIndicator(
                 onRefresh: () async {
-                  await getPosts();
+                  try{
+                    await getPosts();
+                  }catch(e){
+                     _exceptionToast(e);
+                  }
                 },
                 child: Container(
                   child: Column(
@@ -348,6 +358,29 @@ class _NewsFeedState extends State<NewsFeed> {
             ),
       ],
 
+    );
+  }
+
+  //function to show exceptions
+  _exceptionToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 1),
     );
   }
 }

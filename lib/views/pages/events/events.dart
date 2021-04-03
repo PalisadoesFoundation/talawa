@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
@@ -43,6 +44,7 @@ class _EventsState extends State<Events> {
   bool fetched = true;
   var events;
   Timer timer = Timer();
+  FToast fToast;
 
   //variable for organization Id
   String _currOrgId;
@@ -225,7 +227,11 @@ class _EventsState extends State<Events> {
               if (eventList.isEmpty) {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      await getEvents();
+                      try{
+                        await getEvents();
+                      }catch(e){
+                        _exceptionToast(e);
+                      }
                     },
                     child: CustomScrollView(
                       slivers: [
@@ -253,7 +259,11 @@ class _EventsState extends State<Events> {
               } else {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      getEvents();
+                      try{
+                        await getEvents();
+                      }catch(e){
+                        _exceptionToast(e);
+                      }
                     },
                     child: Container(
                     color: Colors.white,
@@ -567,5 +577,28 @@ class _EventsState extends State<Events> {
             screen: AddEvent(),
           );
         });
+  }
+
+  //function to show exceptions
+  _exceptionToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 1),
+    );
   }
 }
