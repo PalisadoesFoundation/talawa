@@ -18,10 +18,6 @@ class UIData {
   static const String switchOrgPage = "/switchOrgPage";
   static const String profilePage = "/profilePage";
 
-
-
-  
-
   //strings
   static const String appName = "Talawa";
 
@@ -45,7 +41,7 @@ class UIData {
   static const String timelineImage = "$imageDir/timeline.jpeg";
   static const String verifyImage = "$imageDir/verification.jpg";
   static const String splashScreen = "$imageDir/splashscreen.jpg";
-  static const String talawaLogo = "$imageDir/talawaLogo.png";
+  static const String talawaLogo = "$imageDir/talawaLogo-noBg.png";
   static const String cloud1 = "$imageDir/cloud1.jpg";
   static const String talawaLogoDark = "$imageDir/talawaLogo-dark.png";
   static const String quitoBackground = "$imageDir/quitoBackground.jpg";

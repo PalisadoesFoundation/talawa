@@ -23,25 +23,34 @@ void main() {
       expect(result, null);
     });
 
-    test('Empty email returns error string', () {
+    test('Shows error when email is empty', () {
+      // Get the result.
       var result = Validator.validateEmail('');
-      expect(result, 'Not a Valid Email Address');
+
+      // Verify that correct error is shown.
+      expect(result, "Email must not be left blank");
     });
-    test('Incorrectly formated email return error string', () {
-      var result = Validator.validateEmail('example@email');
-      expect(result, 'Not a Valid Email Address');
+
+    test('Shows error when email is invalid', () {
+      // Get the result.
+      var result = Validator.validateEmail('example@com');
+
+      // Verify that correct error is shown.
+      expect(result, 'Please enter a valid Email Address');
     });
-    test('Correctly foramtted email returns null', () {
+
+    test('Correctly formatted email returns null', () {
       var result = Validator.validateEmail('example@email.com');
       expect(result, null);
     });
 
     test('password less than 6 returns error string', () {
       var result = Validator.validatePassword('pass');
-      expect(result, 'Password must be at least 6 characters.');
+      expect(result, 'Invalid Password');
     });
-       test('password valid', () {
-      var result = Validator.validatePassword('password');
+
+    test('password valid', () {
+      var result = Validator.validatePassword('PASSWORD1@');
       expect(result, null);
     });
   });

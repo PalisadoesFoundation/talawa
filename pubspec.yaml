@@ -25,7 +25,7 @@ dependencies:
   font_awesome_flutter:
   http: ^0.12.0+1
   flutter_masked_text: ^0.8.0
-  flutter_svg: ^0.17.3+1
+  flutter_svg: ^0.20.0-nullsafety.3
   datetime_picker_formfield: ^1.0.0
   grouped_buttons: ^1.0.4
   provider: ^4.0.1
@@ -35,8 +35,8 @@ dependencies:
   graphql_flutter: ^3.0.1
   email_validator: ^1.0.4
   fluttertoast: ^7.1.8
-  persistent_bottom_nav_bar: ^1.5.5
-  file_picker: ^2.0.7
+  persistent_bottom_nav_bar: ^3.2.0
+  file_picker: ^2.1.7
   timeline_list: ^0.0.5
   flutter_sticky_header: ^0.4.5
   filter_list: ^0.0.4
@@ -45,6 +45,9 @@ dependencies:
   get_it: ^4.0.4
   image_picker: ^0.6.6+5
   flutter_password_strength: ^0.1.6
+  intl: ^0.17.0
+  flutter_pw_validator: ^1.2.1
+  data_connection_checker: ^0.3.4
 
 
 
@@ -60,8 +63,12 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   random_pk:
+#flutter_launcher_icons: "^0.8.0"
 
-
+#flutter_icons:
+#  android: "launcher_icon"
+#  ios: true
+#  image_path: "assets/images/talawaLogo.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

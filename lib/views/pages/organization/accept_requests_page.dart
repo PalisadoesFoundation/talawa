@@ -52,8 +52,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       print(result.data['organizations'][0]['membershipRequests']);
 
       setState(() {
-        membershipRequestsList =
-            result.data['organizations'][0]['membershipRequests'];
+        membershipRequestsList = result.data['organizations'][0]['membershipRequests'];
         loaded = true;
       });
 
@@ -123,77 +122,87 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   Widget build(BuildContext context) {
     //building the UI page
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Membership Requests',
-              style: TextStyle(color: Colors.white)),
-        ),
-        body: Stack(
-          children: [
-            processing
-                ? Container(
-                    color: Colors.transparent.withOpacity(0.3),
-                    child: Center(
-                      child: CircularProgressIndicator(),
+      appBar: AppBar(
+        title: const Text('Membership Requests', style: const TextStyle(color: Colors.white)),
+      ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await viewMemberShipRequests();
+        },
+        child: (!loaded)
+            ? Center(
+                child: const CircularProgressIndicator(),
+              )
+            : membershipRequestsList.isEmpty
+                ? Center(
+                    child: Column(
+                      children: <Widget>[
+                        const SizedBox(
+                          height: 250,
+                        ),
+                        const Text(
+                          "No request",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                      ],
                     ),
                   )
-                : SizedBox(),
-            !loaded
-                ? Center(child: CircularProgressIndicator())
-                : membershipRequestsList.length == 0
-                    ? Center(child: Text('No Member Requests Available'))
-                    : ListView.builder(
-                        itemCount: membershipRequestsList.length,
-                        itemBuilder: (context, index) {
-                          final membershipRequests =
-                              membershipRequestsList[index];
-                          return Card(
-                            child: ListTile(
-                              //building the List of the organization in the database
-                              leading: membershipRequests['user']['image'] !=
-                                      null
+                : ListView.builder(
+                    //Builds list of awaiting membership requests
+                    itemCount: membershipRequestsList.length,
+                    itemBuilder: (context, index) {
+                      final membershipRequests = membershipRequestsList[index];
+                      return Card(
+                          child: ListTile(
+                              leading: membershipRequests['user']['image'] != null
                                   ? CircleAvatar(
                                       radius: 30,
-                                      backgroundImage: NetworkImage(Provider.of<
-                                                  GraphQLConfiguration>(context)
-                                              .displayImgRoute +
-                                          membershipRequests['user']['image']))
-                                  : CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                          Provider.of<GraphQLConfiguration>(context)
+                                                  .displayImgRoute +
+                                              membershipRequests['user']['image']))
+                                  : const CircleAvatar(
                                       radius: 30,
-                                      backgroundImage:
-                                          AssetImage("assets/images/team.png")),
-                              title: Text(membershipRequests['user']
-                                      ['firstName'] +
+                                      backgroundImage: AssetImage("assets/images/team.png")),
+                              title: Text(membershipRequests['user']['firstName'] +
                                   ' ' +
                                   membershipRequests['user']['lastName']),
-                              trailing: Wrap(
-                                spacing: 4,
-                                children: <Widget>[
-                                  IconButton(
-                                    iconSize: 26.0,
-                                    icon: Icon(Icons.delete),
-                                    color: Colors.red,
-                                    onPressed: () {
-                                      itemIndex = membershipRequests['_id'];
-                                      rejectMemberShipRequests();
-                                    },
-                                  ),
-                                  IconButton(
-                                    iconSize: 26.0,
-                                    icon: Icon(Icons.check),
-                                    color: Colors.green,
-                                    onPressed: () {
-                                      itemIndex = membershipRequests['_id'];
-                                      acceptMemberShipRequests();
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-          ],
-        ));
+                              trailing: processing
+                                  ? FittedBox(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : Wrap(
+                                      spacing: 4,
+                                      children: <Widget>[
+                                        IconButton(
+                                          iconSize: 26.0,
+                                          icon: const Icon(Icons.delete),
+                                          color: Colors.red,
+                                          onPressed: () {
+                                            itemIndex = membershipRequests['_id'];
+                                            rejectMemberShipRequests();
+                                          },
+                                        ),
+                                        IconButton(
+                                          iconSize: 26.0,
+                                          icon: const Icon(Icons.check),
+                                          color: Colors.green,
+                                          onPressed: () {
+                                            itemIndex = membershipRequests['_id'];
+                                            acceptMemberShipRequests();
+                                          },
+                                        ),
+                                      ],
+                                    )));
+                    }),
+      ),
+    );
   }
 
   Widget showError(BuildContext context, String msg) {
@@ -201,7 +210,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     return Center(
       child: Text(
         msg,
-        style: TextStyle(fontSize: 16, color: Colors.black),
+        style: const TextStyle(fontSize: 16, color: Colors.black),
         textAlign: TextAlign.center,
       ),
     );
@@ -226,12 +235,12 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 
   _exceptionToast(String msg) {
-    //this function is the exception is called
+    //this function is used when the exception is called
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
@@ -249,7 +258,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }

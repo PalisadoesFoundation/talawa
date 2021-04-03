@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
 // pages are called here
 import 'package:provider/provider.dart';
@@ -31,10 +32,11 @@ class RegisterForm extends StatefulWidget {
 
 class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController firstNameController = new TextEditingController();
-  TextEditingController lastController = new TextEditingController();
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController originalPassword = new TextEditingController();
+  TextEditingController _firstNameController = new TextEditingController();
+  TextEditingController _lastNameController = new TextEditingController();
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _originalPasswordController = new TextEditingController();
+  TextEditingController _confirmPasswordController = new TextEditingController();
   FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
@@ -75,7 +77,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast('Invalid Organisation URL');
+      _exceptionToast(result.hasException.toString().substring(16, 35));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -114,7 +116,7 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast("Invalid Organization URL");
+      _exceptionToast(result.exception.toString().substring(16, 35));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -142,9 +144,8 @@ class RegisterFormState extends State<RegisterForm> {
 
   //get image using camera
   _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
-
+    final pickImage = await ImagePicker().getImage(source: ImageSource.camera);
+    File image = File(pickImage.path);
     setState(() {
       _image = image;
     });
@@ -152,14 +153,11 @@ class RegisterFormState extends State<RegisterForm> {
 
   //get image using gallery
   _imgFromGallery() async {
-    FilePickerResult result =
-        await FilePicker.platform.pickFiles(type: FileType.image);
-    if (result != null) {
-      File image = File(result.files.first.path);
-      setState(() {
-        _image = image;
-      });
-    }
+    final pickImage = await ImagePicker().getImage(source: ImageSource.gallery);
+    File image = File(pickImage.path);
+    setState(() {
+      _image = image;
+    });
   }
 
   @override
@@ -186,6 +184,7 @@ class RegisterFormState extends State<RegisterForm> {
                         autofillHints: <String>[AutofillHints.givenName],
                         textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.words,
+                        controller: _firstNameController,
                         validator: (value) =>
                             Validator.validateFirstName(value),
                         textAlign: TextAlign.left,
@@ -217,7 +216,8 @@ class RegisterFormState extends State<RegisterForm> {
                         autofillHints: <String>[AutofillHints.familyName],
                         textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.words,
-                        validator: (value) => Validator.validateLastName(value),
+                        controller: _lastNameController,
+                        validator: Validator.validateLastName,
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
@@ -247,8 +247,8 @@ class RegisterFormState extends State<RegisterForm> {
                         autofillHints: <String>[AutofillHints.email],
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
-                        validator: (value) => Validator.validateEmail(value),
-                        controller: emailController,
+                        validator: Validator.validateEmail,
+                        controller: _emailController,
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
@@ -278,8 +278,8 @@ class RegisterFormState extends State<RegisterForm> {
                         autofillHints: <String>[AutofillHints.password],
                         textInputAction: TextInputAction.next,
                         obscureText: _obscureText,
-                        controller: originalPassword,
-                        validator: (value) => Validator.validatePassword(value),
+                        controller: _originalPasswordController,
+                        validator: Validator.validatePassword,
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
@@ -319,25 +319,20 @@ class RegisterFormState extends State<RegisterForm> {
                           model.password = value;
                         },
                       ),
-                      //Animation for space between TextField and Strength bar
-                      AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                        height: originalPassword.text.isEmpty ? 0 : 10,
+                      SizedBox(
+                        height: 10,
                       ),
-                      //Animation for Password strength bar
-                      AnimatedContainer(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                        height: originalPassword.text.isEmpty ? 0 : 5,
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: FlutterPasswordStrength(
-                            password: originalPassword.text,
-                            height: 5,
-                            radius: 10,
-                            strengthCallback: (strength) {
-                              debugPrint(strength.toString());
-                            }),
+                      FlutterPwValidator(
+                        width: 400,
+                        height: 150,
+                        minLength: 8,
+                        uppercaseCharCount: 1,
+                        specialCharCount: 1,
+                        numericCharCount: 1,
+                        onSuccess: (_) {
+                          setState(() {});
+                        },
+                        controller: _originalPasswordController,
                       ),
                       SizedBox(
                         height: 20,
@@ -347,7 +342,9 @@ class RegisterFormState extends State<RegisterForm> {
                         obscureText: true,
                         focusNode: confirmPassField,
                         validator: (value) => Validator.validatePasswordConfirm(
-                            originalPassword.text, value),
+                          _originalPasswordController.text,
+                          value,
+                        ),
                         textAlign: TextAlign.left,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(

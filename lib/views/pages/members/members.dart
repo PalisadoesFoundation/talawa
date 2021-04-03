@@ -1,6 +1,6 @@
-
 //flutter imported package
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //pages are called here
@@ -13,6 +13,7 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/memberDetails.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 class Organizations extends StatefulWidget {
   Organizations({Key key}) : super(key: key);
@@ -22,12 +23,12 @@ class Organizations extends StatefulWidget {
 }
 
 class _OrganizationsState extends State<Organizations> {
+  String currentOrgID;
   List alphaMembersList = [];
   int isSelected = 0;
   List admins = [];
   String creatorId;
   Preferences preferences = Preferences();
-
 
   //providing initial states to the variables
   initState() {
@@ -80,26 +81,36 @@ class _OrganizationsState extends State<Organizations> {
   //function to get the members of an organization
   // ignore: missing_return
   Future<List> getMembers() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
-    ApiFunctions apiFunctions = ApiFunctions();
-    var result =
-        await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
-    List membersList = result == null ? [] : result['organizations'];
-    if(result['organizations'].length>0){
-      admins = result['organizations'][0]['admins'];
-      creatorId = result['organizations'][0]['creator']['_id'];
-      print(admins);
+    String currentOrgID = await preferences.getCurrentOrgId();
+    print(currentOrgID);
+    if (currentOrgID != null) {
+      ApiFunctions apiFunctions = ApiFunctions();
+      var result =
+          await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+      print(result);
+      List membersList = result == null ? [] : result['organizations'];
+      if (result['organizations'].length > 0) {
+        admins = result['organizations'][0]['admins'];
+        creatorId = result['organizations'][0]['creator']['_id'];
+        print(admins);
+      }
+      if (membersList.isNotEmpty) {
+        alphaMembersList = membersList[0]['members'];
+        setState(() {
+          alphaMembersList = alphaSplitList(alphaMembersList);
+        });
+      }
+    } else {
+      setState(() {
+        alphaMembersList = [];
+      });
     }
-    alphaMembersList = membersList[0]['members'];
-    setState(() {
-      alphaMembersList = alphaSplitList(alphaMembersList);
-    });
   }
 
   //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
     String userId = id.replaceAll(RegExp('[a-z]'), '');
-    int colorInt = int.parse(userId.substring(userId.length -10));
+    int colorInt = int.parse(userId.substring(userId.length - 10));
     colorInt = (colorInt % 18);
     return Color.alphaBlend(
       Colors.black45,
@@ -107,19 +118,43 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
-
-
   //main build starts here
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          key: Key('ORGANIZATION_APP_BAR'),
           title: Text(
             'Members',
             style: TextStyle(color: Colors.white),
           ),
         ),
         body: alphaMembersList.isEmpty
-            ? Center(child: CircularProgressIndicator())
+            ? RefreshIndicator(
+                onRefresh: () async {
+                  getMembers();
+                },
+                child: Center(
+                    child: Column(children: <Widget>[
+                  SizedBox(
+                    height: 250,
+                  ),
+                  Text(
+                    "No member to Show",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  RaisedButton(
+                    onPressed: () {
+                      getMembers();
+                    },
+                    child: Text("Refresh"),
+                  )
+                ])))
             : RefreshIndicator(
                 onRefresh: () async {
                   getMembers();
@@ -135,11 +170,11 @@ class _OrganizationsState extends State<Organizations> {
                 )));
   }
 
-
   //widget which divides the list according to letters
   Widget alphabetDividerList(BuildContext context, List membersList) {
     return SliverStickyHeader(
       header: Container(
+        color: Colors.white,
         height: 60.0,
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         alignment: Alignment.centerLeft,
@@ -164,14 +199,18 @@ class _OrganizationsState extends State<Organizations> {
     );
   }
 
-
   //a custom card made for showing member details
   Widget memberCard(index, List membersList) {
     Color color = idToColor(membersList[index]['_id']);
     return GestureDetector(
         onTap: () {
           pushNewScreen(context,
-              screen: MemberDetail(member: membersList[index], color: color,admins: admins,creatorId: creatorId,));
+              screen: MemberDetail(
+                member: membersList[index],
+                color: color,
+                admins: admins,
+                creatorId: creatorId,
+              ));
         },
         child: Card(
           clipBehavior: Clip.hardEdge,
@@ -198,7 +237,6 @@ class _OrganizationsState extends State<Organizations> {
           ),
         ));
   }
-
 
   //widget to get the user images
   Widget userImage(Map member) {
@@ -228,7 +266,6 @@ class _OrganizationsState extends State<Organizations> {
       ),
     );
   }
-
 
   //widget to get the default user image
   Widget defaultUserImage(Map member) {
