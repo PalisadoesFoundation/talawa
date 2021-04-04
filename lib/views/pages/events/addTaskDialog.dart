@@ -1,6 +1,6 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //pages are called here
 import 'package:talawa/services/Queries.dart';
@@ -22,7 +22,7 @@ class _AddEventTaskState extends State<AddEventTask> {
   final descriptionController = TextEditingController();
   ApiFunctions apiFunctions = ApiFunctions();
   DateTime selectedDate = DateTime.now();
-
+  final _formkey = GlobalKey<FormState>();
 
   //function to add the task
   Future<void> addTask() async {
@@ -34,20 +34,18 @@ class _AddEventTaskState extends State<AddEventTask> {
     Map result = await apiFunctions.gqlquery(mutation);
   }
 
-
   //function to select the date
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
+        firstDate: DateTime.now(),
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
       });
   }
-
 
   //main build starts here
   @override
@@ -57,12 +55,34 @@ class _AddEventTaskState extends State<AddEventTask> {
       title: Text("Add A Task To This Event"),
       content: Container(
           height: 250,
-          child: Column(
-            children: <Widget>[
-              inputField('title', titleController),
-              inputField('description', descriptionController),
-              dateButton()
-            ],
+          child: Form(
+            key: _formkey,
+            child: Column(
+              children: <Widget>[
+                Flexible(
+                  child: inputField('title', titleController, (value) {
+                    if (titleController.text == "")
+                      return "This Field is Required";
+                    if (titleController.text.length > 30)
+                      return "title cannot be longer than 30 letters";
+                    return null;
+                  }, 30),
+                ),
+                Flexible(
+                  child:
+                      inputField('description', descriptionController, (value) {
+                    if (descriptionController.text == "")
+                      return "This Field is Required";
+                    if (descriptionController.text.length > 10000)
+                      return "description cannot be longer than 10000 letters";
+                    return null;
+                  }, 10000),
+                ),
+                Flexible(
+                  child: dateButton(),
+                ),
+              ],
+            ),
           )),
       actions: <Widget>[
         FlatButton(
@@ -73,15 +93,16 @@ class _AddEventTaskState extends State<AddEventTask> {
         ),
         FlatButton(
           child: Text("Add"),
-          onPressed: () {
-            addTask();
-            Navigator.of(context).pop();
+          onPressed: () async {
+            if (_formkey.currentState.validate()) {
+              addTask();
+              Navigator.of(context).pop();
+            }
           },
         ),
       ],
     );
   }
-
 
   //widget to use date button
   Widget dateButton() {
@@ -100,12 +121,14 @@ class _AddEventTaskState extends State<AddEventTask> {
     );
   }
 
-
   //widget to use input field
-  Widget inputField(String name, TextEditingController controller) {
+  Widget inputField(String name, TextEditingController controller,
+      Function validate, int maxLength) {
     return Padding(
         padding: EdgeInsets.all(10),
-        child: TextField(
+        child: TextFormField(
+          inputFormatters: [LengthLimitingTextInputFormatter(maxLength)],
+          validator: validate,
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
           decoration: InputDecoration(
