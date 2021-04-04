@@ -284,6 +284,7 @@ class LoginFormState extends State<LoginForm> {
     );
   }
 
+
   //function toggles _obscureText value
   void _toggle() {
     setState(() {
