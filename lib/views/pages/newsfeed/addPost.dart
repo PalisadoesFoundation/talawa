@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
@@ -57,7 +56,7 @@ class _AddPostState extends State<AddPost> {
       if (result != null) {
         Navigator.pop(context, true);
       } else {
-        _exceptionToast(result.toString().substring(20, 35));
+        _exceptionToast("Pleae elaborate your content");
       }
       return result;
     } on Exception catch (e) {
@@ -93,69 +92,65 @@ class _AddPostState extends State<AddPost> {
             Padding(
               padding: const EdgeInsets.all(9.0),
               child: Container(
-              child: TextFormField(
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(30)
-                ],
-                key: Key('Title'),
-                textInputAction: TextInputAction.next,
-                validator: (String value) {
-                  if (value.length > 30) {
-                    return "Post title cannot be longer than 30 letters";
-                  }
+                child: TextFormField(
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  inputFormatters: [LengthLimitingTextInputFormatter(30)],
+                  key: Key('Title'),
+                  textInputAction: TextInputAction.next,
+                  validator: (String value) {
+                    if (value.length > 30) {
+                      return "Post title cannot be longer than 30 letters";
+                    }
 
-                  if (value.isEmpty) {
-                    return "This field is Required";
-                  }
-                  return null;
-                },
-                controller: titleController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20.0),
+                    if (value.isEmpty) {
+                      return "This field is Required";
+                    }
+                    return null;
+                  },
+                  controller: titleController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20.0),
+                      ),
                     ),
+                    labelText: 'Give your post a title....',
                   ),
-                  labelText: 'Give your post a title....',
+                  //  'Give your post a title....',
                 ),
-                //  'Give your post a title....',
               ),
-            ),
             ),
             Padding(
               padding: const EdgeInsets.all(9.0),
               child: Container(
-              child: TextFormField(
-                maxLines: null,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(10000)
-                ],
-                keyboardType: TextInputType.multiline,
-                key: Key('Description'),
-                controller: textController,
-                validator: (String value) {
-                  if (value.length > 10000) {
-                    return "Post cannot be longer than 10000 letters";
-                  }
+                child: TextFormField(
+                  maxLines: null,
+                  inputFormatters: [LengthLimitingTextInputFormatter(10000)],
+                  keyboardType: TextInputType.multiline,
+                  key: Key('Description'),
+                  controller: textController,
+                  validator: (String value) {
+                    if (value.length > 10000) {
+                      return "Post cannot be longer than 10000 letters";
+                    }
 
-                  if (value.isEmpty) {
-                    return "This field is Required";
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20.0),
+                    if (value.isEmpty) {
+                      return "This field is Required";
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20.0),
+                      ),
                     ),
+                    labelText: 'Write Your post here....',
                   ),
-                  labelText: 'Write Your post here....',
+                  //  'Give your post Description here....',
                 ),
-                //  'Give your post Description here....',
               ),
-            ),
             ),
           ],
         ),
