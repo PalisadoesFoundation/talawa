@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 //pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 
 // ignore: must_be_immutable
 class UserTasks extends StatefulWidget {
