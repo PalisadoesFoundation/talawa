@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
           return MaterialPageRoute(builder: (ctx) => builder(ctx));
         },
         home: userID == null
-            ? CreateOrganization()
+            ? UrlPage()
             : HomePage(), //checking weather the user is logged in or not
       ),
     );
