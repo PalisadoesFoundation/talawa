@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/model/token.dart';
 
@@ -145,40 +146,48 @@ class Preferences with ChangeNotifier {
 
   //saves the current token
   Future saveToken(Token token) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var storage=FlutterSecureStorage();
     token.parseJwt();
-    await preferences.setString(
+    await storage.write(
+      key:
         tokenKey,
+        value:
         (token.tokenString != null && token.tokenString.length > 0)
             ? token.tokenString
             : "");
+    //print("Saved token");
   }
 
 
   //gets the current token
   Future<String> getToken() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String userToken = preferences.getString(tokenKey);
+    var storage=FlutterSecureStorage();
+    String userToken = await storage.read(key:tokenKey);
+    //print("getToken");
     return userToken;
   }
 
 
   //saves the refreshed token
   Future saveRefreshToken(Token token) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var storage=FlutterSecureStorage();
     token.parseJwt();
-    await preferences.setString(
+    await storage.write(
+      key:
         refreshTokenKey,
+        value:
         (token.tokenString != null && token.tokenString.length > 0)
             ? token.tokenString
             : "");
+    //print("Saved refresh token");
   }
 
 
   //get the refreshed token
   Future<String> getRefreshToken() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String refreshToken = preferences.getString(refreshTokenKey);
+    var storage=FlutterSecureStorage();
+    String refreshToken = await storage.read(key:refreshTokenKey);
+    //print("Got refresh token");
     return refreshToken;
   }
 
@@ -186,10 +195,12 @@ class Preferences with ChangeNotifier {
   //get the current user id
   static Future<int> getCurrentUserId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
+    var storage=FlutterSecureStorage();
     try {
       Token token =
-          new Token(tokenString: preferences.getString(tokenKey) ?? "");
+          new Token(tokenString: await storage.read(key:tokenKey) ?? "");
       Map<String, dynamic> tokenMap = token.parseJwt();
+      //print("Got uid");
       return tokenMap['id'];
     } catch (e) {
       print(e);
@@ -201,10 +212,13 @@ class Preferences with ChangeNotifier {
   //clears the user
   static Future<bool> clearUser() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
+    var storage=FlutterSecureStorage();
     try {
-      preferences.remove(tokenKey);
+      await storage.delete(key: tokenKey);
+      //print("Delete token");
       preferences.remove(currentOrgId);
-      preferences.remove(refreshTokenKey);
+      await storage.delete(key: refreshTokenKey);
+      //print("Refresh token");
       preferences.remove(userId);
       preferences.remove(currentOrgName);
       preferences.remove(currentOrgImgSrc);
