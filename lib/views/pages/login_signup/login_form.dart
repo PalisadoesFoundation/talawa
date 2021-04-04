@@ -131,7 +131,7 @@ class LoginFormState extends State<LoginForm> {
                   keyboardType: TextInputType.emailAddress,
                   textAlign: TextAlign.left,
                   controller: _emailController,
-                  validator: Validator.validateEmail,
+                  validator: (value) => value.isEmpty? 'Field required' : null,
                   style: TextStyle(color: Colors.white),
                   //Changed text input action to next
                   textInputAction: TextInputAction.next,
@@ -166,7 +166,7 @@ class LoginFormState extends State<LoginForm> {
                   obscureText: _obscureText,
                   textAlign: TextAlign.left,
                   controller: _passwordController,
-                  validator: Validator.validatePassword,
+                  validator: (value) => value.isEmpty? 'Field Required' : null,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
