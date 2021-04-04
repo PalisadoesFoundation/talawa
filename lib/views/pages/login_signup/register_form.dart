@@ -23,6 +23,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_password_strength/flutter_password_strength.dart';
 
+import '../_pages.dart';
+
 class RegisterForm extends StatefulWidget {
   @override
   RegisterFormState createState() {
@@ -97,10 +99,7 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => new JoinOrganization(
-                fromProfile: false,
-              )));
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>JoinOrganization(fromProfile: false,)), (route) => false);
     }
   }
 
@@ -135,10 +134,7 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
 
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => new JoinOrganization(
-                fromProfile: false,
-              )));
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>JoinOrganization(fromProfile: false,)), (route) => false);
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/model/token.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -172,7 +173,7 @@ class Preferences with ChangeNotifier {
     var storage=FlutterSecureStorage();
     token.parseJwt();
     await storage.write(
-        key:
+      key:
         refreshTokenKey,
         value:
         (token.tokenString != null && token.tokenString.length > 0)

@@ -69,6 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   //used to fetch the users details from the server
   Future fetchUserDetails() async {
+    orgName = await _preferences.getCurrentOrgName();
     orgId = await _preferences.getCurrentOrgId();
     userID = await _preferences.getUserId();
     GraphQLClient _client = graphQLConfiguration.clientToQuery();
@@ -190,11 +191,6 @@ class _ProfilePageState extends State<ProfilePage> {
   //main build starts from here
   @override
   Widget build(BuildContext context) {
-    var orgName = Provider.of<Preferences>(context).orgName;
-    if (orgName == null) {
-      orgName = 'No Organization Joined';
-    }
-
     return Scaffold(
       key: Key('PROFILE_PAGE_SCAFFOLD'),
         backgroundColor: Colors.white,
