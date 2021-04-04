@@ -47,7 +47,9 @@ class _EventsState extends State<Events> {
   @override
   void initState() {
     super.initState();
-    events = getEvents();
+    setState(() {
+      events = getEvents();
+    });
   }
 
   //get all events for a given day
@@ -97,12 +99,8 @@ class _EventsState extends State<Events> {
             event);
       } else {
         if (event['recurrance'] == 'DAILY') {
-          int day =
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
-                  .day;
-          int lastday =
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime']))
-                  .day;
+          int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
+          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
             day += 1;
@@ -112,9 +110,7 @@ class _EventsState extends State<Events> {
           int day =
               DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
                   .day;
-          int lastday =
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime']))
-                  .day;
+          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
 
@@ -158,21 +154,18 @@ class _EventsState extends State<Events> {
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     eventList = result == null ? [] : result['events'].reversed.toList();
     eventList.removeWhere((element) =>
-        element['title'] == 'Talawa Congress' ||
-        element['title'] == 'test' ||
-        element['title'] == 'Talawa Conference Test' ||
-        element['title'] == 'mayhem' ||
-        element['title'] == 'mayhem1'); //dont know who keeps adding these
+    element['title'] == 'Talawa Congress' ||
+        element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1'); //dont know who keeps adding these
     // This removes all invalid date formats other than Unix time
-    eventList
-        .removeWhere((element) => int.tryParse(element['startTime']) == null);
+    eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
     eventList.sort((a, b) {
-      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime']))
+      return DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(a['startTime']))
           .compareTo(
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
     });
     eventsToDates(eventList, DateTime.now());
     setState(() {
@@ -188,14 +181,6 @@ class _EventsState extends State<Events> {
         screen: EditEvent(
           event: event,
         ));
-    /*showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return EditEvent(
-          event: event,
-        );
-      },
-    );*/
   }
 
   Future<void> addEventTask(context, eventId) async {
@@ -337,10 +322,7 @@ class _EventsState extends State<Events> {
               }
             } else if (state == ConnectionState.waiting) {
               print(snapshot.data);
-              return Center(
-                  child: Loading(
-                key: UniqueKey(),
-              ));
+              return Center(child: Loading(key: UniqueKey(),));
             } else if (state == ConnectionState.none) {
               return Text('Could Not Fetch Data.');
             }
