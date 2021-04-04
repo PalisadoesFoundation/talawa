@@ -147,7 +147,26 @@ class _NewsArticleState extends State<NewsArticle> {
   //main build starts here
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async{ 
+         Navigator.of(context).pop(isCommentAdded);
+         return true;
+       },
+    child: Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        leading: GestureDetector(
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onTap: () {
+            Navigator.of(context).pop(isCommentAdded);
+          },
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[
@@ -184,14 +203,19 @@ class _NewsArticleState extends State<NewsArticle> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  flex: 1,
+                Flexible(
+                  flex: 3,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 10, 0, 10),
-                    child: Text(widget.post['text'].toString()),
+                    padding: const EdgeInsets.fromLTRB(20.0, 10, 10, 10),
+                    child: Text(
+                      widget.post['text'].toString(),
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.justify,
+                      maxLines: 10,
+                    ),
                   ),
                 ),
-                Expanded(
+                Flexible(
                   flex: 3,
                   child: ListTile(
                     leading: userDetails.isEmpty ? null : _profileImage(),
@@ -256,7 +280,7 @@ class _NewsArticleState extends State<NewsArticle> {
           ),
         ],
       ),
-    );
+    ));
   }
 
   //this loads the comments button
