@@ -6,8 +6,10 @@ import 'package:flutter/services.dart';
 
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -91,6 +93,13 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
       print(result.data);
 
       if(widget.isFromProfile){
+        final String currentOrgId = result.data['createOrganization']['_id'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgId(currentOrgId);
+
+        final String currentOrgName = result.data['createOrganization']['name'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgName(currentOrgName);
         Navigator.pop(context);
         Navigator.pop(context);
       }else {
@@ -134,6 +143,13 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
       _successToast("Sucess!");
       print(result.data);
       if(widget.isFromProfile){
+        final String currentOrgId = result.data['createOrganization']['_id'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgId(currentOrgId);
+
+        final String currentOrgName = result.data['createOrganization']['name'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgName(currentOrgName);
         Navigator.pop(context);
         Navigator.pop(context);
       }else {

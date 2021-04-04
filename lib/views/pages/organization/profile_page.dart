@@ -54,6 +54,16 @@ class _ProfilePageState extends State<ProfilePage> {
   String orgId;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
+  @override
+  void didChangeDependencies() {
+    // When parent widget `updateShouldNotify: true`,
+    // child widget can obtain new value when setting `listen: true`.
+    orgId = Provider.of<Preferences>(context, listen: true).orgId;
+    admins = [];
+    fetchUserDetails();
+    super.didChangeDependencies();
+  }
+
   //providing initial states to the variables
   @override
   void initState() {
@@ -195,7 +205,7 @@ class _ProfilePageState extends State<ProfilePage> {
       key: Key('PROFILE_PAGE_SCAFFOLD'),
         backgroundColor: Colors.white,
         body: userDetails.isEmpty || isCreator == null
-            ? Center(child: Loading(key: UniqueKey(),))
+            ? Center(child: Loading(key: Key('loading'),))
             : Column(
           key: Key('body'),
                 children: <Widget>[

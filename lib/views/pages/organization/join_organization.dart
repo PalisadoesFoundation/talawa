@@ -147,15 +147,17 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
       //set the default organization to the first one in the list
       if (joinedOrg.length == 1) {
-        final String currentOrgId = result.data['joinPublicOrganization']
-            ['joinedOrganizations'][0]['_id'];
-        await _pref.saveCurrentOrgId(currentOrgId);
-        final String currentOrgImgSrc = result.data['joinPublicOrganization']
-            ['joinedOrganizations'][0]['image'];
-        await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+        final String currentOrgId = result.data['joinPublicOrganization']['joinedOrganizations'][0]['_id'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgId(currentOrgId);
+
         final String currentOrgName = result.data['joinPublicOrganization']
-            ['joinedOrganizations'][0]['name'];
-        await _pref.saveCurrentOrgName(currentOrgName);
+        ['joinedOrganizations'][0]['name'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgName(currentOrgName);
+
+        final String currentOrgImgSrc = result.data['joinPublicOrganization']['joinedOrganizations'][0]['image'];
+        await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
       }
       _successToast("Sucess!");
 

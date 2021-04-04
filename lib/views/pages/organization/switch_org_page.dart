@@ -93,16 +93,17 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
 
         //save new current org in preference
         final String currentOrgId = result.data['organizations'][0]['_id'];
-        await _pref.saveCurrentOrgId(currentOrgId);
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgId(currentOrgId);
+
+        final String currentOrgName = result.data['organizations'][0]['name'];
+        Provider.of<Preferences>(context, listen: false)
+            .saveCurrentOrgName(currentOrgName);
+
         final String currentOrgImgSrc =
             result.data['organizations'][0]['image'];
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-        final String currentOrgName = result.data['organizations'][0]['name'];
-        await _pref.saveCurrentOrgName(currentOrgName);
-        pushNewScreen(
-          context,
-          screen: ProfilePage(),
-        );
+        Navigator.pop(context);
       }
     }
   }

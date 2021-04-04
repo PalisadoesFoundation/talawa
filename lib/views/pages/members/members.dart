@@ -29,11 +29,24 @@ class _OrganizationsState extends State<Organizations> {
   List admins = [];
   String creatorId;
   Preferences preferences = Preferences();
+  bool loading = true;
 
   //providing initial states to the variables
-  initState() {
+  @override
+  void initState() {
     super.initState();
     getMembers();
+  }
+
+  @override
+  void didChangeDependencies() {
+    // When parent widget `updateShouldNotify: true`,
+    // child widget can obtain new value when setting `listen: true`.
+    currentOrgID = Provider.of<Preferences>(context, listen: true).orgId;
+    print('did change: $currentOrgID');
+    loading = true;
+    getMembers();
+    super.didChangeDependencies();
   }
 
   List alphaSplitList(List list) {
@@ -66,16 +79,16 @@ class _OrganizationsState extends State<Organizations> {
       'Y',
       'Z'
     ];
-    List alphalist = [];
+    List alphaList = [];
     for (String letter in alphabet) {
-      alphalist.add(list
+      alphaList.add(list
           .where((element) =>
-              element['firstName'][0] == letter ||
-              element['firstName'][0] == letter.toLowerCase())
+      element['firstName'][0] == letter ||
+          element['firstName'][0] == letter.toLowerCase())
           .toList());
     }
-    alphalist.removeWhere((element) => element.isEmpty);
-    return alphalist;
+    alphaList.removeWhere((element) => element.isEmpty);
+    return alphaList;
   }
 
   //function to get the members of an organization
@@ -86,23 +99,21 @@ class _OrganizationsState extends State<Organizations> {
     if (currentOrgID != null) {
       ApiFunctions apiFunctions = ApiFunctions();
       var result =
-          await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+      await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
       print(result);
-      List membersList = result == null ? [] : result['organizations'];
       if (result['organizations'].length > 0) {
         admins = result['organizations'][0]['admins'];
         creatorId = result['organizations'][0]['creator']['_id'];
-        print(admins);
+        alphaMembersList = result['organizations'][0]['members'];
+        alphaMembersList = alphaSplitList(alphaMembersList);
       }
-      if (membersList.isNotEmpty) {
-        alphaMembersList = membersList[0]['members'];
-        setState(() {
-          alphaMembersList = alphaSplitList(alphaMembersList);
-        });
-      }
+      setState(() {
+        loading = false;
+      });
     } else {
       setState(() {
         alphaMembersList = [];
+        loading = false;
       });
     }
   }
@@ -128,46 +139,53 @@ class _OrganizationsState extends State<Organizations> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: alphaMembersList.isEmpty
-            ? RefreshIndicator(
-                onRefresh: () async {
+        body: loading
+            ? Center(
+          child: CircularProgressIndicator(),
+        )
+            : alphaMembersList.isEmpty
+            ? Center(
+            child: Column(children: <Widget>[
+              SizedBox(
+                height: 250,
+              ),
+              Text(
+                currentOrgID == null
+                    ? "Join/Create organization"
+                    : "Something went wrong",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              currentOrgID == null
+                  ? SizedBox()
+                  : RaisedButton(
+                onPressed: () {
+                  setState(() {
+                    loading = true;
+                  });
                   getMembers();
                 },
-                child: Center(
-                    child: Column(children: <Widget>[
-                  SizedBox(
-                    height: 250,
-                  ),
-                  Text(
-                    "No member to Show",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  RaisedButton(
-                    onPressed: () {
-                      getMembers();
-                    },
-                    child: Text("Refresh"),
-                  )
-                ])))
+                child: Text("Refresh"),
+              )
+            ]))
             : RefreshIndicator(
-                onRefresh: () async {
-                  getMembers();
-                },
-                child: CustomScrollView(
-                  slivers: List.generate(
-                    alphaMembersList.length,
+            onRefresh: () async {
+              getMembers();
+            },
+            child: CustomScrollView(
+              slivers: List.generate(
+                alphaMembersList.length,
                     (index) {
-                      return alphabetDividerList(
-                          context, alphaMembersList[index]);
-                    },
-                  ),
-                )));
+                  return alphabetDividerList(
+                      context, alphaMembersList[index]);
+                },
+              ),
+            )));
   }
 
   //widget which divides the list according to letters
@@ -190,7 +208,7 @@ class _OrganizationsState extends State<Organizations> {
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
-          (context, index) {
+              (context, index) {
             return memberCard(index, membersList);
           },
           childCount: membersList.length,

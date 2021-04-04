@@ -1,10 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
 
-Widget createProfileScreen({bool isCreator, List organization,bool public}) => MaterialApp(
-  home: OrganizationSettings(creator: isCreator, organization: organization,public: public,),
-);
+Widget createOrganizationSettingsScreen({bool isCreator, List organization, bool public}) =>
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
+        ChangeNotifierProvider<GraphQLConfiguration>(
+          create: (_) => GraphQLConfiguration(),
+        ),
+        ChangeNotifierProvider<OrgController>(
+          create: (_) => OrgController(),
+        ),
+        ChangeNotifierProvider<AuthController>(
+          create: (_) => AuthController(),
+        ),
+        ChangeNotifierProvider<Preferences>(
+          create: (_) => Preferences(),
+        ),
+      ],
+      child: MaterialApp(
+          home: OrganizationSettings(
+            creator: isCreator,
+            organization: organization,
+            public: public,
+          )),
+    );
 
 void main() {
   group('Organization Page Widget Tests', ()
@@ -31,7 +57,7 @@ void main() {
       ];
 
       await tester.pumpWidget(
-          createProfileScreen(
+          createOrganizationSettingsScreen(
             public: false,
             isCreator: true,
             organization: joinedCreator,
@@ -71,7 +97,7 @@ void main() {
       ];
 
       await tester.pumpWidget(
-          createProfileScreen(
+          createOrganizationSettingsScreen(
             public: false,
             isCreator: true,
             organization: joinedCreator,
@@ -107,7 +133,7 @@ void main() {
       ];
 
       await tester.pumpWidget(
-          createProfileScreen(
+          createOrganizationSettingsScreen(
             public: false,
             isCreator: false,
             organization: joinedCreator,
@@ -145,7 +171,7 @@ void main() {
       ];
 
       await tester.pumpWidget(
-          createProfileScreen(
+          createOrganizationSettingsScreen(
             public: false,
             isCreator: false,
             organization: joinedCreator,
