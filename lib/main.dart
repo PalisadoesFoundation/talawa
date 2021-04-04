@@ -15,25 +15,24 @@ import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
 import 'views/pages/organization/create_organization.dart';
 import 'views/pages/organization/switch_org_page.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 Preferences preferences = Preferences();
 String userID;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); //ensuring weather the app is being initialized or not
   userID = await preferences.getUserId(); //getting user id
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])  //setting the orientation according to the screen it is running on
-      .then((_) {
-    runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider<GraphQLConfiguration>(
-            create: (_) => GraphQLConfiguration()),
-        ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
-        ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
-        ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
-      ],
-      child: MyApp(),
-    ));
-  });
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);//setting the orientation according to the screen it is running on
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<GraphQLConfiguration>(
+          create: (_) => GraphQLConfiguration()),
+      ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
+      ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
+      ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
