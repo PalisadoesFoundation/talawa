@@ -147,7 +147,26 @@ class _NewsArticleState extends State<NewsArticle> {
   //main build starts here
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async{ 
+         Navigator.of(context).pop(isCommentAdded);
+         return true;
+       },
+    child: Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        leading: GestureDetector(
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onTap: () {
+            Navigator.of(context).pop(isCommentAdded);
+          },
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       body: Column(
         children: <Widget>[
@@ -261,7 +280,7 @@ class _NewsArticleState extends State<NewsArticle> {
           ),
         ],
       ),
-    );
+    ));
   }
 
   //this loads the comments button
