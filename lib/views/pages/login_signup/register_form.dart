@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
 // pages are called here
 import 'package:provider/provider.dart';
@@ -22,6 +21,7 @@ import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_password_strength/flutter_password_strength.dart';
+import 'package:talawa/views/widgets/flutter_pw_validator/flutter_pw_validator.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
