@@ -56,7 +56,7 @@ class _AddPostState extends State<AddPost> {
       if (result != null) {
         Navigator.pop(context, true);
       } else {
-        _exceptionToast("Pleae elaborate your content");
+        _exceptionToast("Please ellaborate your content");
       }
       return result;
     } on Exception catch (e) {
