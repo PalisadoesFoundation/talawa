@@ -54,10 +54,11 @@ class _AddEventTaskState extends State<AddEventTask> {
       insetPadding: EdgeInsets.all(0),
       title: Text("Add A Task To This Event"),
       content: Container(
-          height: 250,
+          height: 300,
           child: Form(
             key: _formkey,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Flexible(
                   child: inputField('Title', titleController, (value) {
@@ -125,18 +126,19 @@ class _AddEventTaskState extends State<AddEventTask> {
   Widget inputField(String name, TextEditingController controller,
       Function validate, int maxLength) {
     return Padding(
-        padding: EdgeInsets.all(10),
-        child: TextFormField(
-          key: Key(name),
-          inputFormatters: [LengthLimitingTextInputFormatter(maxLength)],
-          validator: validate,
-          maxLines: name == 'Description' ? null : 1,
-          controller: controller,
-          decoration: InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: BorderSide(color: Colors.teal)),
-              hintText: name),
-        ));
+      padding: EdgeInsets.all(10),
+      child: TextFormField(
+        key: Key(name),
+        inputFormatters: [LengthLimitingTextInputFormatter(maxLength)],
+        validator: validate,
+        maxLines: name == 'Description' ? null : 1,
+        controller: controller,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide: BorderSide(color: Colors.teal)),
+            hintText: name),
+      ),
+    );
   }
 }
