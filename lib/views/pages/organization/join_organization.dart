@@ -175,7 +175,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
           }
         }
       }
-      _successToast("Sucess!");
+      _successToast("Success!");
 
       //Navigate user to newsfeed
       if (widget.fromProfile) {
