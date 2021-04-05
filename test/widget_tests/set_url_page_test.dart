@@ -74,6 +74,33 @@ void main() {
       );
     });
 
+    testWidgets("Create an Account Button is not rendered if url not verified",
+        (tester) async {
+      //Ignore overflow errors.
+      await tester.pumpWidget(createLoginPageScreen());
+      FlutterError.onError = onErrorIgnoreOverflowErrors;
+      //getting create account button if available
+      var createAccountButton = find.text("Create an Account");
+
+      //createAccountButton should not be displayed should not be displayed or no widget found as result
+      expect(createAccountButton,findsNothing);
+    });
+
+    testWidgets("Login Button is not rendered if url not verified",
+        (tester) async {
+      //Ignore overflow errors.
+      FlutterError.onError = onErrorIgnoreOverflowErrors;
+      await tester.pumpWidget(createLoginPageScreen());
+
+      //getting create account button if available
+      var loginButton = find.text("Login");
+
+      //createAccountButton should not be displayed or no widget found as result
+      expect(loginButton,findsNothing);
+    });
+
+
+    /* Since Button will not be rendered until url not verified. This code will be deprecated.
     testWidgets("Create an Account Button is disabled if url not verfied",
         (tester) async {
       // Ignore overflow errors.
@@ -112,7 +139,7 @@ void main() {
         findsNothing,
       );
     });
-
+ */
     testWidgets("Create an Account Button is working if url is verfied",
         (tester) async {
       // Ignore overflow errors.

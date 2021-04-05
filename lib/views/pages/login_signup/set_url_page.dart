@@ -364,7 +364,8 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                 SizedBox(
                   height: 20,
                 ),
-                FadeTransition(
+                (saveMsg == "URL SAVED!")?Column(children: [ //This checks if Org Url is called and correct and then renders the button if org url is correct
+                  FadeTransition(
                   //changed opacity animation to match login button animation
                   opacity: loginAnimation,
                   child: Container(
@@ -500,6 +501,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                     ),
                   ),
                 ),
+                ],):SizedBox(height: 0,),
               ],
             ),
           ),
