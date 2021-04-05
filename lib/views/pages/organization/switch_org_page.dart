@@ -122,7 +122,11 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       getCurrentOrg();
     }
     return Scaffold(
+      key: Key('SWITCH_ORGANIZATION_PAGE'),
       appBar: AppBar(
+        leading: IconButton(key:Key('back'),icon:Icon(Icons.arrow_back),onPressed: (){
+          Navigator.pop(context);
+        },),
         title: const Text(
           'Switch Organization',
           style: TextStyle(color: Colors.white),

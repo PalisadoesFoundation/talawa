@@ -180,6 +180,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
     load();
     Widget mainScreen() {
       return new Column(
+        key: Key('SET_URL_PAGE'),
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           FadeTransition(

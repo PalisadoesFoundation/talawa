@@ -153,6 +153,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(key:Key('back'),icon:Icon(Icons.arrow_back),onPressed: (){
+            Navigator.pop(context);
+          },),
           title: const Text('Organization Settings',
               style: TextStyle(color: Colors.white)),
         ),

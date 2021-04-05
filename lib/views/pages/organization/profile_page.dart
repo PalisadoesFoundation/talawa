@@ -11,6 +11,7 @@ import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:talawa/views/pages/organization/update_profile_page.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
@@ -348,9 +349,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                         pushNewScreen(
                                           context,
                                           screen: OrganizationSettings(
-                                              creator: creator == userID,
-                                              public: isPublic,
-                                              organization: curOrganization),
+                                              creator: widget.isCreator!=null?widget.test[0]['joinedOrganizations'][0]['_id'].compareTo(widget.test[0]['createdOrganizations'][0]['_id'])==0:creator == userID,
+                                              public: widget.isCreator!=null?widget.test[0]['joinedOrganizations'][0]['isPublic']:isPublic,
+                                              organization: widget.isCreator!=null?widget.test[0]['joinedOrganizations']:curOrganization),
                                         );
                                       })
                                   : org.length==0?SizedBox():ListTile(
