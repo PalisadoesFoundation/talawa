@@ -60,7 +60,7 @@ class _AddEventTaskState extends State<AddEventTask> {
             child: Column(
               children: <Widget>[
                 Flexible(
-                  child: inputField('title', titleController, (value) {
+                  child: inputField('Title', titleController, (value) {
                     if (titleController.text == "")
                       return "This Field is Required";
                     if (titleController.text.length > 30)
@@ -70,7 +70,7 @@ class _AddEventTaskState extends State<AddEventTask> {
                 ),
                 Flexible(
                   child:
-                      inputField('description', descriptionController, (value) {
+                      inputField('Description', descriptionController, (value) {
                     if (descriptionController.text == "")
                       return "This Field is Required";
                     if (descriptionController.text.length > 10000)
@@ -127,6 +127,7 @@ class _AddEventTaskState extends State<AddEventTask> {
     return Padding(
         padding: EdgeInsets.all(10),
         child: TextFormField(
+          key: Key(name),
           inputFormatters: [LengthLimitingTextInputFormatter(maxLength)],
           validator: validate,
           maxLines: name == 'Description' ? null : 1,
