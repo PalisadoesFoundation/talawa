@@ -79,11 +79,12 @@ void main() {
       //Ignore overflow errors.
       await tester.pumpWidget(createLoginPageScreen());
       FlutterError.onError = onErrorIgnoreOverflowErrors;
-      //getting create account button if available
-      var createAccountButton = find.text("Create an Account");
-
+  
       //createAccountButton should not be displayed should not be displayed or no widget found as result
-      expect(createAccountButton,findsNothing);
+      expect(
+        find.text("Create an Account"),
+      findsNothing,
+      );
     });
 
     testWidgets("Login Button is not rendered if url not verified",
@@ -92,11 +93,11 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
 
-      //getting create account button if available
-      var loginButton = find.text("Login");
-
       //createAccountButton should not be displayed or no widget found as result
-      expect(loginButton,findsNothing);
+      expect(
+        find.text("Login"),
+      findsNothing,
+      );
     });
 
 
