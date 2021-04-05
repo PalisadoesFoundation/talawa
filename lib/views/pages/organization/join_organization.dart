@@ -548,14 +548,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
       ),
-      child: Expanded(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Text(msg),
-          ],
-        ),
-      ),
+      child: Text(msg),
     );
 
     fToast.showToast(
