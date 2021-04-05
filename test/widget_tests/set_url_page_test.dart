@@ -83,7 +83,7 @@ void main() {
       var createAccountButton = find.text("Create an Account");
 
       //createAccountButton should not be displayed should not be displayed or no widget found as result
-      expect(createAccountButton,0);
+      expect(createAccountButton,findsNothing);
     });
 
     testWidgets("Login Button is not rendered if url not verified",
