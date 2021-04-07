@@ -88,43 +88,51 @@ class _AddEventState extends State<AddEvent> {
 
   //method used to create an event
   Future<void> createEvent() async {
-    DateTime startTime = DateTime(
-        dateRange.start.year,
-        dateRange.start.month,
-        dateRange.start.day,
-        startEndTimes['Start Time'].hour,
-        startEndTimes['Start Time'].minute);
-    DateTime endTime = DateTime(
-        dateRange.end.year,
-        dateRange.end.month,
-        dateRange.end.day,
-        startEndTimes['End Time'].hour,
-        startEndTimes['End Time'].minute);
-
-    if (switchVals['All Day']) {
-      startEndTimes = {
-        'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
-            DateTime.now().day, 12, 0),
-        'End Time': DateTime(DateTime.now().year, DateTime.now().month,
-            DateTime.now().day, 23, 59),
-      };
-    }
     final String currentOrgID = await preferences.getCurrentOrgId();
-    String mutation = Queries().addEvent(
-      organizationId: currentOrgID,
-      title: titleController.text,
-      description: descriptionController.text,
-      location: locationController.text,
-      isPublic: switchVals['Make Public'],
-      isRegisterable: switchVals['Make Registerable'],
-      recurring: switchVals['Recurring'],
-      allDay: switchVals['All Day'],
-      recurrance: recurrance,
-      startTime: startTime.microsecondsSinceEpoch.toString(),
-      endTime: endTime.microsecondsSinceEpoch.toString(),
-    );
-    Map result = await apiFunctions.gqlquery(mutation);
-    print('Result is : $result');
+    if (currentOrgID == null) {
+      Fluttertoast.showToast(
+          msg:
+              'Unable to create an event.\nJoin an organization to create an event.',
+          backgroundColor: Colors.grey[500]);
+    } else {
+      DateTime startTime = DateTime(
+          dateRange.start.year,
+          dateRange.start.month,
+          dateRange.start.day,
+          startEndTimes['Start Time'].hour,
+          startEndTimes['Start Time'].minute);
+      DateTime endTime = DateTime(
+          dateRange.end.year,
+          dateRange.end.month,
+          dateRange.end.day,
+          startEndTimes['End Time'].hour,
+          startEndTimes['End Time'].minute);
+
+      if (switchVals['All Day']) {
+        startEndTimes = {
+          'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
+              DateTime.now().day, 12, 0),
+          'End Time': DateTime(DateTime.now().year, DateTime.now().month,
+              DateTime.now().day, 23, 59),
+        };
+      }
+
+      String mutation = Queries().addEvent(
+        organizationId: currentOrgID,
+        title: titleController.text,
+        description: descriptionController.text,
+        location: locationController.text,
+        isPublic: switchVals['Make Public'],
+        isRegisterable: switchVals['Make Registerable'],
+        recurring: switchVals['Recurring'],
+        allDay: switchVals['All Day'],
+        recurrance: recurrance,
+        startTime: startTime.microsecondsSinceEpoch.toString(),
+        endTime: endTime.microsecondsSinceEpoch.toString(),
+      );
+      Map result = await apiFunctions.gqlquery(mutation);
+      print('Result is : $result');
+    }
   }
 
   //main build starts from here
@@ -205,26 +213,33 @@ class _AddEventState extends State<AddEvent> {
           color: Colors.white,
         ),
         onPressed: () {
-          if(titleController.text.isEmpty || descriptionController.text.isEmpty || locationController.text.isEmpty){
-            if (titleController.text.isEmpty){
+          if (titleController.text.isEmpty ||
+              descriptionController.text.isEmpty ||
+              locationController.text.isEmpty) {
+            if (titleController.text.isEmpty) {
               setState(() {
                 _validateTitle = true;
               });
             }
-            if(descriptionController.text.isEmpty){
+            if (descriptionController.text.isEmpty) {
               setState(() {
                 _validateDescription = true;
               });
             }
-            if(locationController.text.isEmpty){
+            if (locationController.text.isEmpty) {
               setState(() {
                 _validateLocation = true;
               });
             }
-            Fluttertoast.showToast(msg: 'Fill in the empty fields', backgroundColor: Colors.grey[500]);
-          }else {
+            Fluttertoast.showToast(
+                msg: 'Fill in the empty fields',
+                backgroundColor: Colors.grey[500]);
+          } else {
             createEvent();
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Events()), (route) => false);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => Events()),
+                (route) => false);
           }
         });
   }
