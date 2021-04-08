@@ -96,6 +96,9 @@ class Validator {
   static String validateOrgName(String value) {
     String validatingValue = value.replaceAll(new RegExp(r"\s+"), "");
     print(validatingValue.length);
+    if (validatingValue.length == 0) {
+      return 'Organization Description must not be left blank.';
+    }
     if (value.length > 40) {
       return 'Organization Name must not exceed 40 letters';
     }
