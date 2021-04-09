@@ -107,10 +107,11 @@ class _NewsArticleState extends State<NewsArticle> {
   getPostComments() async {
     String mutation = Queries().getPostsComments(widget.post['_id']);
     Map result = await apiFunctions.gqlmutation(mutation);
-    // setState(() {
+    setState(() {
+      print('getPostComments------');
       comments =
           result == null ? [] : result['commentsByPost'].reversed.toList();
-    // });
+    });
   }
 
   //this method helps us to create any comments we are willing to
@@ -148,19 +149,19 @@ class _NewsArticleState extends State<NewsArticle> {
     );
 
     if(commentTimeDuration.inMinutes < 1){
-      return commentTimeDuration.inSeconds.toString() + 'seconds ago';
+      return commentTimeDuration.inSeconds.toString() + ' seconds ago';
     }else if(commentTimeDuration.inHours < 1){
-      return commentTimeDuration.inMinutes.toString() + 'minutes ago';
+      return commentTimeDuration.inMinutes.toString() + ' mins ago';
     }else if(commentTimeDuration.inDays < 1){
-      return commentTimeDuration.inHours.toString() + 'hours ago';
+      return commentTimeDuration.inHours.toString() + ' hours ago';
     }else if(commentTimeDuration.inDays < 7){
-      return commentTimeDuration.inDays.toString() + 'days ago';
+      return commentTimeDuration.inDays.toString() + ' days ago';
     }else if(commentTimeDuration.inDays < 52){
       int weeks = commentTimeDuration.inDays ~/ 7;
-      return weeks.toString() + 'weeks ago';
+      return weeks.toString() + ' weeks ago';
     }else{
       int years = commentTimeDuration.inDays ~/ 365;
-      return years.toString() + 'years ago';
+      return years.toString() + ' years ago';
     }
   }
 
@@ -314,6 +315,7 @@ class _NewsArticleState extends State<NewsArticle> {
         color: Colors.grey[200],
         onPressed: () {
           setState(() {
+            print('loadCommentsButton------------');
             loadComments = true;
           });
         },
@@ -374,7 +376,7 @@ class _NewsArticleState extends State<NewsArticle> {
                           fontSize: 20,
                         ),
                       ),
-                      Text(.toString()),
+                      Text(commentTime(index)),
                       // Text(timer.hoursOrDays(comments[index]['createdAt']))
                     ],
                   ),
@@ -389,6 +391,7 @@ class _NewsArticleState extends State<NewsArticle> {
             : TextButton(
                 onPressed: () {
                   setState(() {
+                    print('moreCommentsButton---------');
                     moreComments = true;
                   });
                 },
