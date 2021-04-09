@@ -354,6 +354,7 @@ class _NewsArticleState extends State<NewsArticle> {
                           fontSize: 20,
                         ),
                       ),
+                      Text(DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(int.parse(comments[index]['createdAt']))).inDays.toString()),
                       // Text(timer.hoursOrDays(comments[index]['createdAt']))
                     ],
                   ),
