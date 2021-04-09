@@ -139,6 +139,11 @@ class _NewsArticleState extends State<NewsArticle> {
     }
   }
 
+  //get time of comment
+  String commentTime(int index){
+    timer.hoursOrDays(comments[index]['createdAt']);
+  }
+
   String addNewline(String rawComment) {
     rawComment = rawComment.replaceAll(newLineKey, "\n");
     return rawComment;
