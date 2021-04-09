@@ -354,7 +354,7 @@ class _NewsArticleState extends State<NewsArticle> {
                           fontSize: 20,
                         ),
                       ),
-                      Text(timer.hoursOrDays(comments[index]['createdAt']))
+                      // Text(timer.hoursOrDays(comments[index]['createdAt']))
                     ],
                   ),
                 );
