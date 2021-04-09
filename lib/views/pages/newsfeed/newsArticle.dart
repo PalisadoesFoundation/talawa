@@ -37,7 +37,7 @@ class _NewsArticleState extends State<NewsArticle> {
   final TextEditingController commentController = TextEditingController();
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
-  bool loadComments = false;
+  bool showLoadComments = false;
   Timer timer = Timer();
   List comments = [];
   bool moreComments = false;
@@ -54,6 +54,13 @@ class _NewsArticleState extends State<NewsArticle> {
     super.initState();
     fetchUserDetails();
   }
+
+  @override
+    void didChangeDependencies() {
+      // TODO: implement didChangeDependencies
+      super.didChangeDependencies();
+      getPostComments();
+    }
 
   Future fetchUserDetails() async {
     userID = await preferences.getUserId();
@@ -107,11 +114,11 @@ class _NewsArticleState extends State<NewsArticle> {
   getPostComments() async {
     String mutation = Queries().getPostsComments(widget.post['_id']);
     Map result = await apiFunctions.gqlmutation(mutation);
-    setState(() {
+    // setState(() {
       print('getPostComments------');
       comments =
           result == null ? [] : result['commentsByPost'].reversed.toList();
-    });
+    // });
   }
 
   //this method helps us to create any comments we are willing to
@@ -295,7 +302,7 @@ class _NewsArticleState extends State<NewsArticle> {
                 Flexible(
                   flex: 10,
                   child: Container(
-                      child: loadComments == false
+                      child: showLoadComments == false
                           ? Align(
                               alignment: Alignment.topCenter,
                               child: loadCommentsButton())
@@ -316,7 +323,7 @@ class _NewsArticleState extends State<NewsArticle> {
         onPressed: () {
           setState(() {
             print('loadCommentsButton------------');
-            loadComments = true;
+            showLoadComments = true;
           });
         },
         child: Text(
