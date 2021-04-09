@@ -141,7 +141,27 @@ class _NewsArticleState extends State<NewsArticle> {
 
   //get time of comment
   String commentTime(int index){
-    timer.hoursOrDays(comments[index]['createdAt']);
+    Duration commentTimeDuration = DateTime.now().difference(
+      DateTime.fromMillisecondsSinceEpoch(
+        int.parse(comments[index]['createdAt'])
+      ),
+    );
+
+    if(commentTimeDuration.inMinutes < 1){
+      return commentTimeDuration.inSeconds.toString() + 'seconds ago';
+    }else if(commentTimeDuration.inHours < 1){
+      return commentTimeDuration.inMinutes.toString() + 'minutes ago';
+    }else if(commentTimeDuration.inDays < 1){
+      return commentTimeDuration.inHours.toString() + 'hours ago';
+    }else if(commentTimeDuration.inDays < 7){
+      return commentTimeDuration.inDays.toString() + 'days ago';
+    }else if(commentTimeDuration.inDays < 52){
+      int weeks = commentTimeDuration.inDays ~/ 7;
+      return weeks.toString() + 'weeks ago';
+    }else{
+      int years = commentTimeDuration.inDays ~/ 365;
+      return years.toString() + 'years ago';
+    }
   }
 
   String addNewline(String rawComment) {
@@ -354,7 +374,7 @@ class _NewsArticleState extends State<NewsArticle> {
                           fontSize: 20,
                         ),
                       ),
-                      Text(DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(int.parse(comments[index]['createdAt']))).inDays.toString()),
+                      Text(.toString()),
                       // Text(timer.hoursOrDays(comments[index]['createdAt']))
                     ],
                   ),
