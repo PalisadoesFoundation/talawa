@@ -115,7 +115,6 @@ class _NewsArticleState extends State<NewsArticle> {
     String mutation = Queries().getPostsComments(widget.post['_id']);
     Map result = await apiFunctions.gqlmutation(mutation);
     // setState(() {
-      print('getPostComments------');
       comments =
           result == null ? [] : result['commentsByPost'].reversed.toList();
     // });
@@ -325,7 +324,6 @@ class _NewsArticleState extends State<NewsArticle> {
         color: Colors.grey[200],
         onPressed: () {
           setState(() {
-            print('loadCommentsButton------------');
             showLoadComments = true;
           });
         },
@@ -401,7 +399,6 @@ class _NewsArticleState extends State<NewsArticle> {
             : TextButton(
                 onPressed: () {
                   setState(() {
-                    print('moreCommentsButton---------');
                     moreComments = true;
                   });
                 },
