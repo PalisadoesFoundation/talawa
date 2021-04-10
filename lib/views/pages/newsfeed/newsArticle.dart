@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 //the pages are called here
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/apiFuctions.dart';
@@ -20,7 +21,6 @@ const String newLineKey = "@123TALAWA321@";
 // ignore: must_be_immutable
 class NewsArticle extends StatefulWidget {
   Map post;
-
   NewsArticle({Key key, @required this.post}) : super(key: key);
 
   @override
@@ -34,7 +34,7 @@ class _NewsArticleState extends State<NewsArticle> {
     }
   }
 
-  final TextEditingController commentController = TextEditingController();
+  TextEditingController commentController;
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   bool loadComments = false;
@@ -52,7 +52,17 @@ class _NewsArticleState extends State<NewsArticle> {
   @override
   void initState() {
     super.initState();
+    commentController = TextEditingController(
+      text: Provider.of<CommentHandler>(context, listen: false).comment(widget.post["_id"])
+    );
     fetchUserDetails();
+    commentController.addListener(_notifyData);
+  }
+
+  void _notifyData(){
+    Provider.of<CommentHandler>(
+      context, listen: false
+    ).commentEntry(widget.post["_id"], commentController.text);
   }
 
   Future fetchUserDetails() async {
@@ -225,44 +235,44 @@ class _NewsArticleState extends State<NewsArticle> {
                         // minHeight: 20,
                       ),
                       child: TextFormField(
-                        key: Key("leaveCommentField"),
-                        textInputAction: TextInputAction.newline,
-                        keyboardType: TextInputType.multiline,
-                        validator: (String value) {
-                          if (value.length > 500) {
-                            return "Comment cannot be longer than 500 letters";
-                          }
-                          if (value.length == 0) {
-                            return "Comment cannot be empty";
-                          }
-                          return null;
-                        },
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(500)
-                        ],
-                        //minLines: 1,//Normal textInputField will be displayed
-                        //maxLines: 10,// when user presses enter it will adapt to it
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            key: Key("leaveCommentButton"),
-                            color: Colors.grey,
-                            icon: Icon(Icons.send),
-                            onPressed: () {
-                              print(commentController.text);
-                              createComment();
-                            },
-                          ),
-                          hintText: 'Leave a Comment...',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: BorderSide(
-                              color: Colors.teal,
+                          key: Key("leaveCommentField"),
+                          textInputAction: TextInputAction.newline,
+                          keyboardType: TextInputType.multiline,
+                          validator: (String value) {
+                            if (value.length > 500) {
+                              return "Comment cannot be longer than 500 letters";
+                            }
+                            if (value.length == 0) {
+                              return "Comment cannot be empty";
+                            }
+                            return null;
+                          },
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(500)
+                          ],
+                          //minLines: 1,//Normal textInputField will be displayed
+                          //maxLines: 10,// when user presses enter it will adapt to it
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              key: Key("leaveCommentButton"),
+                              color: Colors.grey,
+                              icon: Icon(Icons.send),
+                              onPressed: () {
+                                print(commentController.text);
+                                createComment();
+                              },
+                            ),
+                            hintText: 'Leave a Comment...',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: BorderSide(
+                                color: Colors.teal,
+                              ),
                             ),
                           ),
+                          controller: commentController,
                         ),
-                        controller: commentController,
-                      ),
                     ),
                   ),
                 ),
