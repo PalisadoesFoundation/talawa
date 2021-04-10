@@ -114,10 +114,8 @@ class _NewsArticleState extends State<NewsArticle> {
   Future getPostComments() async {
     String mutation = Queries().getPostsComments(widget.post['_id']);
     Map result = await apiFunctions.gqlmutation(mutation);
-    // setState(() {
-      comments =
-          result == null ? [] : result['commentsByPost'].reversed.toList();
-    // });
+    comments =
+        result == null ? [] : result['commentsByPost'].reversed.toList();
   }
 
   //this method helps us to create any comments we are willing to
