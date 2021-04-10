@@ -111,7 +111,7 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   //this method helps us to get the comments of the post
-  getPostComments() async {
+  Future getPostComments() async {
     String mutation = Queries().getPostsComments(widget.post['_id']);
     Map result = await apiFunctions.gqlmutation(mutation);
     // setState(() {
@@ -122,7 +122,7 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   //this method helps us to create any comments we are willing to
-  createComment() async {
+  Future createComment() async {
     String queryText = '';
     if (commentController.text.isNotEmpty) {
       Fluttertoast.showToast(msg: "Adding Comment...");
@@ -138,9 +138,12 @@ class _NewsArticleState extends State<NewsArticle> {
         isCommentAdded = true;
         FocusScope.of(context).requestFocus(FocusNode());
         commentController.text = '';
-        Fluttertoast.showToast(
+        await Fluttertoast.showToast(
           msg: "Comment added.",
         );
+        await getPostComments();
+        print(comments.length);
+        setState(() { });
       }
     } else {
       Fluttertoast.showToast(msg: "Please write comment");
