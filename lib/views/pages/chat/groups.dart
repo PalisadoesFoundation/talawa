@@ -24,7 +24,10 @@ class _GroupsState extends State<Groups> {
   List displayedEvents = [];
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
+  
+  //variable to monitor fetching of events
   bool fetched = true;
+
   var events;
   FToast fToast;
 
@@ -88,6 +91,7 @@ class _GroupsState extends State<Groups> {
                   const Spacer(),
                   Container(
                     alignment: Alignment.center,
+                    //Text for empty chat groups
                     child: const Text(
                       "Register in an event to start chatting",
                       key: Key('empty_chat_group'),
@@ -99,6 +103,8 @@ class _GroupsState extends State<Groups> {
                     ),
                   ),
                   const Spacer(),
+                  //Shows spinner while fetching is performed
+                  //else shows a refresh text button with icon
                   !fetched
                       ? Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -124,6 +130,7 @@ class _GroupsState extends State<Groups> {
                 ],
               ),
             )
+            //Refresh indicator for calling getEvents
           : RefreshIndicator(
               onRefresh: () async {
                 try{
@@ -132,6 +139,7 @@ class _GroupsState extends State<Groups> {
                   _exceptionToast(e);
                 }
               },
+              //List of chat groups
               child: ListView.builder(
                   itemCount: displayedEvents.length,
                   itemBuilder: (context, index) {
