@@ -200,7 +200,7 @@ class _NewsArticleState extends State<NewsArticle> {
       }else{
         timeText = ' years ago';
       }
-      return years.toString() + ' years ago';
+      return years.toString() + timeText;
     }
   }
 
