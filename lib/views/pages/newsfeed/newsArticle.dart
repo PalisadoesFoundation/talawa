@@ -140,7 +140,6 @@ class _NewsArticleState extends State<NewsArticle> {
           msg: "Comment added.",
         );
         await getPostComments();
-        print(comments.length);
         setState(() { });
       }
     } else {
