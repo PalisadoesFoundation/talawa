@@ -120,6 +120,7 @@ class _NewsArticleState extends State<NewsArticle> {
 
   //this method helps us to create any comments we are willing to
   Future createComment() async {
+    FocusScope.of(context).unfocus();
     String queryText = '';
     if (commentController.text.isNotEmpty) {
       Fluttertoast.showToast(msg: "Adding Comment...");
