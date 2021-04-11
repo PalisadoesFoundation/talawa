@@ -17,6 +17,7 @@ import 'package:talawa/views/pages/organization/profile_page.dart';
 
 class UpdateProfilePage extends StatefulWidget {
   final List userDetails;
+
   const UpdateProfilePage({Key key, @required this.userDetails})
       : super(key: key);
 
@@ -243,6 +244,28 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   ),
                 ),
                 addImage(),
+                _image == null
+                    ? Container()
+                    : Container(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.delete,
+                                size: 30,
+                                color: Colors.red,
+                              ),
+                              onPressed: (){
+                                setState(() {
+                                  _image=null;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                    ),
                 SizedBox(
                   height: 30,
                 ),
