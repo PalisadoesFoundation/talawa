@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
@@ -106,16 +105,18 @@ class _EventDetailState extends State<EventDetail>
                   ),
                 )),
             sliver: SliverFillRemaining(
-              child: TabBarView(
-                controller: _tabController,
-                children: <Widget>[
-                  TaskList(
-                    event: widget.event,
-                  ),
-                  RegList(
-                    event: widget.event,
-                  ),
-                ],
+              child: Container(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: <Widget>[
+                    TaskList(
+                      event: widget.event,
+                    ),
+                    RegList(
+                      event: widget.event,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

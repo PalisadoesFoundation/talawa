@@ -32,29 +32,31 @@ class _TaskListState extends State<TaskList> {
   }
 
   //function to get the task list
-  getTasks() async {
+  Future<List<dynamic>> getTasks() async {
     final String userID = widget.event['_id'];
+    print("ishan");
+
     Map result = await apiFunctions.gqlquery(Queries().getTasksByEvent(userID));
-    setState(() {
-      eventTasks = result == null ? [] : result['tasksByEvent'];
-    });
+    //setState(() {
+
+    //});
+    eventTasks = result == null ? [] : result['tasksByEvent'];
+    return eventTasks;
   }
 
   @override
   Widget build(BuildContext context) {
-    return eventTasks == null
-        ? Center(
-            child: Loading(),
-          )
-        : eventTasks.length != 0
-            ? ListView.builder(
-                itemCount: eventTasks.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Text(eventTasks[index]['description']),
-                  );
-                })
-            : Container(
+    var task = getTasks();
+    return Container(
+      child: FutureBuilder<List<dynamic>>(
+          future: task,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.data.length == 0) {
+              return Container(
                 child: Center(
                     child: Text(
                   "No Tasks found",
@@ -62,5 +64,20 @@ class _TaskListState extends State<TaskList> {
                   textAlign: TextAlign.center,
                 )),
               );
+            } else {
+              return SingleChildScrollView(
+                child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        leading: Text(snapshot.data[index]['title']),
+                      );
+                    }),
+              );
+            }
+          }),
+    );
   }
 }

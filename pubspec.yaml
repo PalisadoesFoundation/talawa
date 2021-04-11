@@ -36,14 +36,15 @@ dependencies:
   email_validator: ^1.0.4
   fluttertoast: ^7.1.8
   persistent_bottom_nav_bar: ^3.2.0
-  file_picker: ^2.1.7
+  file_picker: any
+  flutter_secure_storage: any
   timeline_list: ^0.0.5
   flutter_sticky_header: ^0.4.5
   filter_list: ^0.0.4
   table_calendar: ^2.2.3
   carousel_slider: ^2.2.1
   get_it: ^4.0.4
-  image_picker: ^0.6.6+5
+  image_picker: any
   flutter_password_strength: ^0.1.6
   intl: ^0.17.0
   flutter_pw_validator: ^1.2.1
@@ -83,7 +84,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - assets/images/team.png
 
   # assets:
   #  - images/a_dot_burr.jpeg
