@@ -4,7 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 
 class Loading extends StatefulWidget {
-  Loading({Key key}) : super(key: key);
+  final Function reload;
+  Loading({Key key,this.reload}) : super(key: key);
   @override
   _LoadingState createState() => _LoadingState();
 }
@@ -62,6 +63,10 @@ class _LoadingState extends State<Loading> {
                 'No data or something went wrong',
                 style: TextStyle(color: Colors.red),
               ),
+              SizedBox(height: 30),
+              TextButton.icon(
+                label: Text('Re-Try'), onPressed: widget.reload, icon: Icon(Icons.autorenew),
+              )
             ],
           );
   }

@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:provider/provider.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
@@ -40,6 +41,7 @@ class _EventsState extends State<Events> {
   CalendarController _calendarController = CalendarController();
   CarouselController carouselController = CarouselController();
   String notFetched = 'No Events Created';
+  String orgId;
   bool fetched = true;
   var events;
   Timer timer = Timer();
@@ -49,6 +51,17 @@ class _EventsState extends State<Events> {
     setState(() {
       events = getEvents();
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    orgId = Provider.of<Preferences>(context, listen: true).orgId;
+    events = [];
+    displayedEvents = [];
+    currentFilterEvents = [];
+    eventsToDate = [];
+    events = getEvents();
+    super.didChangeDependencies();
   }
 
   //get all events for a given day
@@ -151,9 +164,9 @@ class _EventsState extends State<Events> {
 
   //function to get the events
   Future<void> getEvents() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
+    orgId = await preferences.getCurrentOrgId();
       Map result =
-      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+      await apiFunctions.gqlquery(Queries().fetchOrgEvents(orgId));
       eventList = result == null ? [] : result['events'].reversed.toList();
       eventList.removeWhere((element) =>
           element['title'] == 'Talawa Congress' ||

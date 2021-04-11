@@ -60,6 +60,15 @@ class _NewsFeedState extends State<NewsFeed> {
     });
   }
 
+  @override
+  void didChangeDependencies() {
+    // When parent widget `updateShouldNotify: true`,
+    // child widget can obtain new value when setting `listen: true`.
+    _currentOrgID = Provider.of<Preferences>(context, listen: true).orgId;
+    getPosts();
+    super.didChangeDependencies();
+  }
+
   // bool : Method to get (true/false) if a user has liked a post or Not.
   bool hasUserLiked(String postId){
     return likePostMap[postId];
@@ -68,6 +77,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
   //function to get the current posts
   Future<void> getPosts() async {
+    postList = [];
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
     _currentOrgID = currentUserID;
@@ -126,7 +136,14 @@ class _NewsFeedState extends State<NewsFeed> {
         appBar: CustomAppBar('NewsFeed',key: Key('NEWSFEED_APP_BAR')),
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
-            ? Center(child: Loading(key: UniqueKey(),))
+            ? Center(
+              child: Loading(
+                key: UniqueKey(),
+                reload: () {
+                  getPosts();
+                  },
+                )
+              )
             : RefreshIndicator(
                 onRefresh: () async {
                   getPosts();
