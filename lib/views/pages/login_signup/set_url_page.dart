@@ -20,7 +20,32 @@ void changeFirst() {
   first = false;
 }
 
-class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
+class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage> {
+
+  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+
+  var _media;
+  final _formKey = GlobalKey<FormState>();
+  final urlController = TextEditingController();
+  String dropdownValue = 'HTTP';
+  Preferences _pref = Preferences();
+  String orgUrl, orgImgUrl;
+  String saveMsg = "Set URL";
+  String urlInput;
+  FToast fToast;
+  bool isUrlCalled = false;
+  //animation Controllers
+  AnimationController controller;
+  AnimationController loginController;
+  AnimationController helloController;
+  AnimationController createController;
+  // animation
+  Animation loginAnimation;
+  Animation createAnimation;
+  Animation animation;
+  Animation helloAnimation;
+
+
   listenToUrl() {
     if (saveMsg == "URL SAVED!" && urlController.text != urlInput) {
       setState(() {
@@ -55,7 +80,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
   Future setApiUrl() async {
     setState(() {
       orgUrl =
-          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
+          "${dropdownValue.toLowerCase()}://${urlController.text}/";
       orgImgUrl =
           "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
     });
@@ -97,67 +122,10 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
     );
   }
 
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
 
-  var _media;
-  final _formKey = GlobalKey<FormState>();
-  final urlController = TextEditingController();
-  String dropdownValue = 'HTTP';
-  Preferences _pref = Preferences();
-  String orgUrl, orgImgUrl;
-  String saveMsg = "Set URL";
-  String urlInput;
-  FToast fToast;
-  bool isUrlCalled = false;
-  //this animation length has to be larger becasuse it includes startup time
-  AnimationController controller;
 
-  @override
-  void initState() {
-    super.initState();
-    fToast = FToast();
-    fToast.init(context);
-    urlController.addListener(listenToUrl);
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 2000),
-    );
-  }
-
-  @override
-  dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var loginController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    var loginAnimation = Tween(begin: 0.0, end: 1.0).animate(loginController);
-    var createController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    //AnimationController controller;
-    var createAnimation = Tween(begin: 0.0, end: 1.0).animate(createController);
-    var helloController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 500),
-    );
-    var animation = Tween(begin: 0.0, end: 1.0).animate(controller);
-    var helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
-    Future<void> load() async {
-      await controller.forward();
-      await helloController.forward();
-      await createController.forward();
-      await loginController.forward();
-      changeFirst();
-    }
-
-    if (first != true) {
+    void assignAnimation(bool firstTime) {
+    if (!firstTime) {
       animation = Tween(begin: 1.0, end: 1.0).animate(controller);
 
       helloAnimation = Tween(begin: 1.0, end: 1.0).animate(helloController);
@@ -165,7 +133,55 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
       createAnimation = Tween(begin: 1.0, end: 1.0).animate(createController);
 
       loginAnimation = Tween(begin: 1.0, end: 1.0).animate(loginController);
+    } else {
+      loginAnimation = Tween(begin: 0.0, end: 1.0).animate(loginController);
+
+      createAnimation = Tween(begin: 0.0, end: 1.0).animate(createController);
+
+      animation = Tween(begin: 0.0, end: 1.0).animate(controller);
+
+      helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
     }
+  }
+  Future<void> load() async {
+      await controller?.forward();
+      await helloController?.forward();
+      await createController?.forward();
+      await loginController?.forward();
+      changeFirst();
+  }
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    urlController.addListener(listenToUrl);
+    // Initializing all the animationControllers
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 2000),
+    );
+    loginController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+
+    helloController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+
+    createController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+  }
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    assignAnimation(first);
     load();
     Widget mainScreen() {
       return new Column(
@@ -512,5 +528,14 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  @override
+  dispose() {
+    controller.dispose();
+    helloController.dispose();
+    createController.dispose();
+    loginController.dispose();
+    super.dispose();
   }
 }

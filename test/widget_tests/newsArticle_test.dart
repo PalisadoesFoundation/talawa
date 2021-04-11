@@ -40,38 +40,6 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized();
 
-  // Function for ignoring overflow errors.
-  Function onErrorIgnoreOverflowErrors = (
-    FlutterErrorDetails details, {
-    bool forceReport = false,
-  }) {
-    assert(details != null);
-    assert(details.exception != null);
-
-    bool ifIsOverflowError = false;
-
-    // Detect overflow error.
-    var exception = details.exception;
-    if (exception is FlutterError)
-      ifIsOverflowError = !exception.diagnostics.any(
-        (e) => e.value.toString().startsWith(
-              "A RenderFlex overflowed by",
-            ),
-      );
-
-    // Ignore if is overflow error.
-    if (ifIsOverflowError) {
-      print("Over flow error");
-    }
-
-    // Throw other errors.
-    else {
-      FlutterError.dumpErrorToConsole(
-        details,
-        forceReport: forceReport,
-      );
-    }
-  };
   group("News Article Tests", () {
     testWidgets("Testing if newsArticle Page shows up", (tester) async {
       await tester.pumpWidget(NewsArticlePage());
@@ -130,5 +98,23 @@ void main() {
         findsWidgets,
       );
     });
+  });
+
+  testWidgets("Check if Leave a Comments Button is Working",(WidgetTester tester)async{
+    //find all the widget needed
+    
+    final leaveCommentTextField = find.byKey(ValueKey('leaveCommentField'));
+    final leaveCommentButton = find.byKey(ValueKey('leaveCommentButton'));
+    
+    //execute the test
+    await tester.pumpWidget(NewsArticlePage());
+    await tester.enterText(leaveCommentTextField,"hello how are you");
+    await tester.tap(leaveCommentButton);
+    await tester.pump();
+
+    //check output
+    expect(find.text("hello how are you"),findsOneWidget);
+
+
   });
 }

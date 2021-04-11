@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-//PAges are imported here
+//Pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +16,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 import 'create_organization.dart';
 
@@ -40,6 +41,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   AuthController _authController = AuthController();
   String isPublic;
   TextEditingController searchController = TextEditingController();
+  OrgController _orgController = OrgController();
+  bool _isLoaderActive = false;
   bool disposed = false;
 
   @override
@@ -177,7 +180,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             style: TextStyle(color: Colors.white)),
       ),
       body: organizationInfo.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: Loading(key: UniqueKey(),))
           : Container(
               color: Color(0xffF3F6FF),
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
@@ -320,7 +323,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               confirmOrgDialog();
                                             },
                                             color: UIData.primaryColor,
-                                            child: new Text("JOIN"),
+                                            child: _isLoaderActive
+                                                ? CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation(
+                                                            Colors.white),
+                                                    strokeWidth: 2,
+                                                  )
+                                                : new Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   new BorderRadius.circular(
@@ -426,7 +436,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               confirmOrgDialog();
                                             },
                                             color: UIData.primaryColor,
-                                            child: new Text("JOIN"),
+                                            child: _isLoaderActive
+                                                ? CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation(
+                                                            Colors.white),
+                                                    strokeWidth: 2,
+                                                  )
+                                                : new Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   new BorderRadius.circular(
@@ -472,12 +489,18 @@ class _JoinOrganizationState extends State<JoinOrganization> {
               FlatButton(
                 child: Text("Yes"),
                 onPressed: () async {
+                  setState(() {
+                    _isLoaderActive = true;
+                  });
+                  Navigator.of(context).pop();
                   if (isPublic == 'true') {
-                    joinPublicOrg();
-                    Navigator.of(context).pop();
+                    await joinPublicOrg().whenComplete(() => setState(() {
+                          _isLoaderActive = false;
+                        }));
                   } else if (isPublic == 'false') {
-                    joinPrivateOrg();
-                    Navigator.of(context).pop();
+                    await joinPrivateOrg().whenComplete(() => setState(() {
+                          _isLoaderActive = false;
+                        }));
                   }
                 },
               )
@@ -525,11 +548,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
+      child: Expanded(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text(msg),
+          ],
+        ),
       ),
     );
 
