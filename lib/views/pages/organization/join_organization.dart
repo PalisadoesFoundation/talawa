@@ -125,9 +125,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  Future joinPublicOrg() async {
+  Future joinPublicOrg(String orgName) async {
     //function which will be called if the person wants to join the organization which is not private
     GraphQLClient _client = graphQLConfiguration.authClient();
+
+    print(orgName);
 
     QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.getOrgId(itemIndex))));
@@ -135,7 +137,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      return joinPublicOrg();
+      _exceptionToast(result.exception.toString().substring(16));
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       _exceptionToast(result.exception.toString().substring(16));
@@ -146,6 +148,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       });
 
       //set the default organization to the first one in the list
+
       if (joinedOrg.length == 1) {
         final String currentOrgId = result.data['joinPublicOrganization']['joinedOrganizations'][0]['_id'];
         Provider.of<Preferences>(context, listen: false)
@@ -159,11 +162,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         final String currentOrgImgSrc = result.data['joinPublicOrganization']['joinedOrganizations'][0]['image'];
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
       }
-      _successToast("Sucess!");
+      _successToast("Success!");
 
       //Navigate user to newsfeed
       if (widget.fromProfile) {
-        Navigator.pop(context);
+        pushNewScreen(
+          context,
+          screen: ProfilePage(),
+        );
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => HomePage(
@@ -322,7 +328,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                   isPublic = 'true';
                                                 });
                                               }
-                                              confirmOrgDialog();
+                                              confirmOrgDialog(organization['name']);
                                             },
                                             color: UIData.primaryColor,
                                             child: _isLoaderActive
@@ -435,7 +441,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                   isPublic = 'true';
                                                 });
                                               }
-                                              confirmOrgDialog();
+                                              confirmOrgDialog(organization['name']);
                                             },
                                             color: UIData.primaryColor,
                                             child: _isLoaderActive
@@ -473,7 +479,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     );
   }
 
-  void confirmOrgDialog() {
+  void confirmOrgDialog(String orgName) {
     //this is the pop up shown when the confirmation is required
     showDialog(
         context: context,
@@ -496,7 +502,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                   });
                   Navigator.of(context).pop();
                   if (isPublic == 'true') {
-                    await joinPublicOrg().whenComplete(() => setState(() {
+                    await joinPublicOrg(orgName).whenComplete(() => setState(() {
                           _isLoaderActive = false;
                         }));
                   } else if (isPublic == 'false') {
@@ -550,14 +556,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
       ),
-      child: Expanded(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Text(msg),
-          ],
-        ),
-      ),
+      child: Text(msg),
     );
 
     fToast.showToast(

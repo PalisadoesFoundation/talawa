@@ -100,6 +100,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
       await _successToast('Profile Updated');
 
+      Navigator.of(context).popUntil(ModalRoute.withName("/"));
+
       pushNewScreen(
         context,
         screen: ProfilePage(),
@@ -165,6 +167,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
       _successToast('Profile Updated');
 
+      //Navigate to home screen
+      Navigator.of(context).popUntil(ModalRoute.withName("/"));
+
+      //Push New Screen
       pushNewScreen(
         context,
         screen: ProfilePage(),

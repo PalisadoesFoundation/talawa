@@ -9,9 +9,10 @@ import 'package:provider/provider.dart';
 
 //the pages are called here
 import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 
@@ -20,7 +21,6 @@ const String newLineKey = "@123TALAWA321@";
 // ignore: must_be_immutable
 class NewsArticle extends StatefulWidget {
   Map post;
-
   NewsArticle({Key key, @required this.post}) : super(key: key);
 
   @override
@@ -34,10 +34,10 @@ class _NewsArticleState extends State<NewsArticle> {
     }
   }
 
-  final TextEditingController commentController = TextEditingController();
+  TextEditingController commentController;
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
-  bool loadComments = false;
+  bool showLoadComments = false;
   Timer timer = Timer();
   List comments = [];
   bool moreComments = false;
@@ -52,8 +52,25 @@ class _NewsArticleState extends State<NewsArticle> {
   @override
   void initState() {
     super.initState();
+    commentController = TextEditingController(
+      text: Provider.of<CommentHandler>(context, listen: false).comment(widget.post["_id"])
+    );
     fetchUserDetails();
+    commentController.addListener(_notifyData);
   }
+
+  void _notifyData(){
+    Provider.of<CommentHandler>(
+      context, listen: false
+    ).commentEntry(widget.post["_id"], commentController.text);
+  }
+
+  @override
+    void didChangeDependencies() {
+      // TODO: implement didChangeDependencies
+      super.didChangeDependencies();
+      getPostComments();
+    }
 
   Future fetchUserDetails() async {
     userID = await preferences.getUserId();
@@ -104,17 +121,16 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   //this method helps us to get the comments of the post
-  getPostComments() async {
+  Future getPostComments() async {
     String mutation = Queries().getPostsComments(widget.post['_id']);
     Map result = await apiFunctions.gqlmutation(mutation);
-    setState(() {
-      comments =
-          result == null ? [] : result['commentsByPost'].reversed.toList();
-    });
+    comments =
+        result == null ? [] : result['commentsByPost'].reversed.toList();
   }
 
   //this method helps us to create any comments we are willing to
-  createComment() async {
+  Future createComment() async {
+    FocusScope.of(context).unfocus();
     String queryText = '';
     if (commentController.text.isNotEmpty) {
       Fluttertoast.showToast(msg: "Adding Comment...");
@@ -130,12 +146,71 @@ class _NewsArticleState extends State<NewsArticle> {
         isCommentAdded = true;
         FocusScope.of(context).requestFocus(FocusNode());
         commentController.text = '';
-        Fluttertoast.showToast(
+        await Fluttertoast.showToast(
           msg: "Comment added.",
         );
+        await getPostComments();
+        setState(() { });
       }
     } else {
       Fluttertoast.showToast(msg: "Please write comment");
+    }
+  }
+
+  //get time of comment
+  String commentTime(int index){
+    Duration commentTimeDuration = DateTime.now().difference(
+      DateTime.fromMillisecondsSinceEpoch(
+        int.parse(comments[index]['createdAt'])
+      ),
+    );
+
+    String timeText = '';
+
+    if(commentTimeDuration.inMinutes < 1){
+      if(commentTimeDuration.inSeconds == 1){
+        timeText = ' second ago';
+      }else{
+        timeText = ' seconds ago';
+      }
+      return commentTimeDuration.inSeconds.toString() + timeText;
+    }else if(commentTimeDuration.inHours < 1){
+      if(commentTimeDuration.inMinutes == 1){
+        timeText = ' min ago';
+      }else{
+        timeText = ' mins ago';
+      }
+      return commentTimeDuration.inMinutes.toString() + timeText;
+    }else if(commentTimeDuration.inDays < 1){
+      if(commentTimeDuration.inHours == 1){
+        timeText = ' hour ago';
+      }else{
+        timeText = ' hours ago';
+      }
+      return commentTimeDuration.inHours.toString() + timeText;
+    }else if(commentTimeDuration.inDays < 7){
+      if(commentTimeDuration.inDays == 1){
+        timeText = ' day ago';
+      }else{
+        timeText = ' days ago';
+      }
+      return commentTimeDuration.inDays.toString() + timeText;
+    }else if(commentTimeDuration.inDays < 52){
+      int weeks = commentTimeDuration.inDays ~/ 7;
+      if(weeks == 1){
+        timeText = ' week ago';
+      }else{
+        timeText = ' weeks ago';
+      }
+      return weeks.toString() + timeText;
+    }else{
+      int years = commentTimeDuration.inDays ~/ 365;
+      if(years == 1){
+        timeText = ' year ago';
+      }else{
+        timeText = ' years ago';
+      }
+      return years.toString() + timeText;
     }
   }
 
@@ -225,51 +300,51 @@ class _NewsArticleState extends State<NewsArticle> {
                         // minHeight: 20,
                       ),
                       child: TextFormField(
-                        key: Key("leaveCommentField"),
-                        textInputAction: TextInputAction.newline,
-                        keyboardType: TextInputType.multiline,
-                        validator: (String value) {
-                          if (value.length > 500) {
-                            return "Comment cannot be longer than 500 letters";
-                          }
-                          if (value.length == 0) {
-                            return "Comment cannot be empty";
-                          }
-                          return null;
-                        },
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(500)
-                        ],
-                        //minLines: 1,//Normal textInputField will be displayed
-                        //maxLines: 10,// when user presses enter it will adapt to it
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            key: Key("leaveCommentButton"),
-                            color: Colors.grey,
-                            icon: Icon(Icons.send),
-                            onPressed: () {
-                              print(commentController.text);
-                              createComment();
-                            },
-                          ),
-                          hintText: 'Leave a Comment...',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: BorderSide(
-                              color: Colors.teal,
+                          key: Key("leaveCommentField"),
+                          textInputAction: TextInputAction.newline,
+                          keyboardType: TextInputType.multiline,
+                          validator: (String value) {
+                            if (value.length > 500) {
+                              return "Comment cannot be longer than 500 letters";
+                            }
+                            if (value.length == 0) {
+                              return "Comment cannot be empty";
+                            }
+                            return null;
+                          },
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(500)
+                          ],
+                          //minLines: 1,//Normal textInputField will be displayed
+                          //maxLines: 10,// when user presses enter it will adapt to it
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              key: Key("leaveCommentButton"),
+                              color: Colors.grey,
+                              icon: Icon(Icons.send),
+                              onPressed: () {
+                                print(commentController.text);
+                                createComment();
+                              },
+                            ),
+                            hintText: 'Leave a Comment...',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: BorderSide(
+                                color: Colors.teal,
+                              ),
                             ),
                           ),
+                          controller: commentController,
                         ),
-                        controller: commentController,
-                      ),
                     ),
                   ),
                 ),
                 Flexible(
                   flex: 10,
                   child: Container(
-                      child: loadComments == false
+                      child: showLoadComments == false
                           ? Align(
                               alignment: Alignment.topCenter,
                               child: loadCommentsButton())
@@ -289,7 +364,7 @@ class _NewsArticleState extends State<NewsArticle> {
         color: Colors.grey[200],
         onPressed: () {
           setState(() {
-            loadComments = true;
+            showLoadComments = true;
           });
         },
         child: Text(
@@ -349,7 +424,8 @@ class _NewsArticleState extends State<NewsArticle> {
                           fontSize: 20,
                         ),
                       ),
-                      Text(timer.hoursOrDays(comments[index]['createdAt']))
+                      Text(commentTime(index)),
+                      // Text(timer.hoursOrDays(comments[index]['createdAt']))
                     ],
                   ),
                 );
