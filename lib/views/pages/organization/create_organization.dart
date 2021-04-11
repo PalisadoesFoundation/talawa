@@ -216,7 +216,6 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                             textInputAction: TextInputAction.next,
                             textAlign: TextAlign.left,
                             textCapitalization: TextCapitalization.words,
-                            textInputAction: TextInputAction.next,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
