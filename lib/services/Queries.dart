@@ -417,7 +417,7 @@ class Queries {
   ''';
   }
 
-  String addAdmin(String organizationId, String userId){
+  String addAdmin(String organizationId, String userId) {
     return '''
       mutation {
         createAdmin(data: {organizationId: "$organizationId", userId: $userId})
@@ -613,6 +613,9 @@ class Queries {
       title
       description
       deadline
+      event{
+        title
+      }
     }
   }
   

@@ -36,7 +36,7 @@ class _UserTasksState extends State<UserTasks> {
   getUserDetails() async {
     final String userID = widget.member['_id'];
     Map result = await apiFunctions.gqlquery(Queries().tasksByUser(userID));
-    // print(result);
+    print(result);
     setState(() {
       userTasks = result == null ? [] : result['tasksByUser'];
     });
@@ -54,31 +54,37 @@ class _UserTasksState extends State<UserTasks> {
                 child: ListView.builder(
                     itemCount: userTasks.length,
                     itemBuilder: (context, index) {
+                      String title = "Title: ${userTasks[index]["title"]}";
+                      title += userTasks[index]["event"] != null
+                          ? '\nEvent: ${userTasks[index]["event"]["title"]}'
+                          : "";
+                      String description = userTasks[index]["description"];
+                      description += userTasks[index]["deadline"] != null
+                          ? ' \nDue Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"]))))}'
+                          : '\nDue Date: N/A';
                       return Card(
                           child: Column(
                         children: <Widget>[
                           ListTile(
-                            leading: Text(
-                                'Description: ${userTasks[index]["description"]}'),
+                            title: Text(
+                              title,
+                            ),
+                            subtitle: Text(
+                              'Description: $description',
+                            ),
+                            contentPadding: EdgeInsets.fromLTRB(8, 8, 8, 8),
                           ),
-                          userTasks[index]["deadline"] != null
-                              ? ListTile(
-                                  leading: Text(
-                                      'Due Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"]))))}'),
-                                )
-                              : ListTile(
-                                  leading: Text('Due Date: N/A'),
-                                )
                         ],
                       ));
                     }))
             : Container(
                 child: Center(
-                    child: Text(
-                  "No Tasks found",
-                  style: TextStyle(fontSize: 20),
-                  textAlign: TextAlign.center,
-                )),
+                  child: Text(
+                    "No Tasks found",
+                    style: TextStyle(fontSize: 20),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               );
   }
 }
