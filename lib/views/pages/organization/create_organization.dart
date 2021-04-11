@@ -59,6 +59,9 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
     orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
     orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final img = await multipartFileFrom(_image);
+    orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
         orgNameController.text,
@@ -210,6 +213,7 @@ class _CreateOrganizationState extends State<CreateOrganization> { //defining th
                             ],
                             validator: (value) =>
                                 Validator.validateOrgName(value),
+                            textInputAction: TextInputAction.next,
                             textAlign: TextAlign.left,
                             textCapitalization: TextCapitalization.words,
                             textInputAction: TextInputAction.next,
