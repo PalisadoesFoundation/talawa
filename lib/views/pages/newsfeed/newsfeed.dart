@@ -8,7 +8,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 import 'package:talawa/views/pages/newsfeed/addPost.dart';
 import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -255,10 +255,8 @@ class _NewsFeedState extends State<NewsFeed> {
         ),
         IconButton(
             icon: Icon(Icons.comment), color: Colors.grey, onPressed: () async{
-        var refresh = await Navigator.push(context,CupertinoPageRoute(
-                    builder: (context) => NewsArticle(
-                          post: postList[index],
-                        )),
+              pushNewScreenWithRouteSettings(context,
+              screen: NewsArticle( post: postList[index],), settings: RouteSettings(),withNavBar:false
               ).then((value) {
                 if (value != null && value) {
                   getPosts();
