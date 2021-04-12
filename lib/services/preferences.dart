@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talawa/generated/l10n.dart';
 import 'package:talawa/model/token.dart';
 
 class Preferences with ChangeNotifier {
@@ -14,17 +15,16 @@ class Preferences with ChangeNotifier {
   static const orgImgUrl = "orgUrl";
   static const userFName = "userFirstName";
   static const userLName = "userLastName";
+  static const LANGUAGE_CODE = "languageCode";
 
   String orgName;
   String orgImgSrc;
-
 
   //it saves the user first name
   Future saveUserFName(String fName) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(userFName, fName);
   }
-
 
   //it gets the user first name
   Future<String> getUserFName() async {
@@ -34,13 +34,11 @@ class Preferences with ChangeNotifier {
     return fname;
   }
 
-
   //saves the user last name
   Future saveUserLName(String lName) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(userLName, lName);
   }
-
 
   //gets the user last name
   Future<String> getUserLName() async {
@@ -56,7 +54,6 @@ class Preferences with ChangeNotifier {
     await preferences.setString(orgImgUrl, url);
   }
 
-
   //get the organization url
   Future<String> getOrgImgUrl() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -65,13 +62,11 @@ class Preferences with ChangeNotifier {
     return url;
   }
 
-
   //saves the organization url
   Future saveOrgUrl(String url) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(orgUrl, url);
   }
-
 
   //get the organization url
   Future<String> getOrgUrl() async {
@@ -80,7 +75,6 @@ class Preferences with ChangeNotifier {
     notifyListeners();
     return url;
   }
-
 
   //saves the current organization name
   Future saveCurrentOrgName(String currName) async {
@@ -96,13 +90,11 @@ class Preferences with ChangeNotifier {
     return orgName;
   }
 
-
   //saves the current organization image source
   Future saveCurrentOrgImgSrc(String currImgSrc) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(currentOrgImgSrc, currImgSrc);
   }
-
 
   //gets the current organization image source
   Future<String> getCurrentOrgImgSrc() async {
@@ -112,13 +104,11 @@ class Preferences with ChangeNotifier {
     return orgImgSrc;
   }
 
-
   //saves the current organization id
   Future saveCurrentOrgId(String currOrgId) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(currentOrgId, currOrgId);
   }
-
 
   //get the current organization id
   Future<String> getCurrentOrgId() async {
@@ -128,13 +118,11 @@ class Preferences with ChangeNotifier {
     return currentId;
   }
 
-
   //saves the user id
   Future saveUserId(String userID) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(userId, userID);
   }
-
 
   //gets the user id
   Future<String> getUserId() async {
@@ -143,62 +131,53 @@ class Preferences with ChangeNotifier {
     return uid;
   }
 
-
   //saves the current token
   Future saveToken(Token token) async {
-    var storage=FlutterSecureStorage();
+    var storage = FlutterSecureStorage();
     token.parseJwt();
     await storage.write(
-      key:
-        tokenKey,
-        value:
-        (token.tokenString != null && token.tokenString.length > 0)
+        key: tokenKey,
+        value: (token.tokenString != null && token.tokenString.length > 0)
             ? token.tokenString
             : "");
     //print("Saved token");
   }
 
-
   //gets the current token
   Future<String> getToken() async {
-    var storage=FlutterSecureStorage();
-    String userToken = await storage.read(key:tokenKey);
+    var storage = FlutterSecureStorage();
+    String userToken = await storage.read(key: tokenKey);
     //print("getToken");
     return userToken;
   }
 
-
   //saves the refreshed token
   Future saveRefreshToken(Token token) async {
-    var storage=FlutterSecureStorage();
+    var storage = FlutterSecureStorage();
     token.parseJwt();
     await storage.write(
-      key:
-        refreshTokenKey,
-        value:
-        (token.tokenString != null && token.tokenString.length > 0)
+        key: refreshTokenKey,
+        value: (token.tokenString != null && token.tokenString.length > 0)
             ? token.tokenString
             : "");
     //print("Saved refresh token");
   }
 
-
   //get the refreshed token
   Future<String> getRefreshToken() async {
-    var storage=FlutterSecureStorage();
-    String refreshToken = await storage.read(key:refreshTokenKey);
+    var storage = FlutterSecureStorage();
+    String refreshToken = await storage.read(key: refreshTokenKey);
     //print("Got refresh token");
     return refreshToken;
   }
 
-
   //get the current user id
   static Future<int> getCurrentUserId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    var storage=FlutterSecureStorage();
+    var storage = FlutterSecureStorage();
     try {
       Token token =
-          new Token(tokenString: await storage.read(key:tokenKey) ?? "");
+          new Token(tokenString: await storage.read(key: tokenKey) ?? "");
       Map<String, dynamic> tokenMap = token.parseJwt();
       //print("Got uid");
       return tokenMap['id'];
@@ -208,11 +187,25 @@ class Preferences with ChangeNotifier {
     return -1;
   }
 
+  // set local Language
+  Future<bool> setLocal(Locale local) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool isSet = await preferences.setString(LANGUAGE_CODE, local.languageCode);
+    return isSet;
+  }
+
+  // Get local Language
+  Future<void> getLocal() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String languageCode = await preferences.getString(LANGUAGE_CODE);
+    Locale locale = Locale(languageCode);
+    S.delegate.load(locale);
+  }
 
   //clears the user
   static Future<bool> clearUser() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    var storage=FlutterSecureStorage();
+    var storage = FlutterSecureStorage();
     try {
       await storage.delete(key: tokenKey);
       //print("Delete token");
@@ -231,7 +224,6 @@ class Preferences with ChangeNotifier {
     }
     return true;
   }
-
 
   //removes the organization
   static Future<bool> removeOrg() async {

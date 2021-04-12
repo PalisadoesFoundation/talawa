@@ -13,15 +13,20 @@ import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
+import 'generated/l10n.dart';
 import 'views/pages/organization/create_organization.dart';
 import 'views/pages/organization/switch_org_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Preferences preferences = Preferences();
 String userID;
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized(); //ensuring weather the app is being initialized or not
+  WidgetsFlutterBinding
+      .ensureInitialized(); //ensuring weather the app is being initialized or not
   userID = await preferences.getUserId(); //getting user id
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])  //setting the orientation according to the screen it is running on
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]) //setting the orientation according to the screen it is running on
       .then((_) {
     runApp(MultiProvider(
       providers: [
@@ -41,6 +46,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<Preferences>(context).getLocal();
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -51,6 +57,14 @@ class MyApp extends StatelessWidget {
       },
       child: MaterialApp(
         title: UIData.appName,
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+
         theme: ThemeData(
             primaryColor: UIData.primaryColor,
             fontFamily: UIData.quickFont,
@@ -58,7 +72,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {
-          print('build route for ${settings.name}'); //here we are building the routes for the app
+          print(
+              'build route for ${settings.name}'); //here we are building the routes for the app
           var routes = <String, WidgetBuilder>{
             UIData.homeRoute: (BuildContext context) => HomePage(),
             UIData.loginPageRoute: (BuildContext context) => UrlPage(),
@@ -73,7 +88,9 @@ class MyApp extends StatelessWidget {
           WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));
         },
-        home: userID == null ? UrlPage() : HomePage(), //checking weather the user is logged in or not
+        home: userID == null
+            ? UrlPage()
+            : HomePage(), //checking weather the user is logged in or not
       ),
     );
   }

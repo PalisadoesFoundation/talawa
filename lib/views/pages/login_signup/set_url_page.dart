@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/generated/l10n.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:http/http.dart' as http;
+import 'package:talawa/views/pages/language/lanuage.dart';
 import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
 
@@ -18,8 +20,8 @@ void changeFirst() {
   first = false;
 }
 
-class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage> {
-
+class _UrlPageState extends State<UrlPage>
+    with TickerProviderStateMixin<UrlPage> {
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
 
   var _media;
@@ -29,6 +31,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
   Preferences _pref = Preferences();
   String orgUrl, orgImgUrl;
   String saveMsg = "Set URL";
+  bool urlIsSet = true;
   String urlInput;
   FToast fToast;
   bool isUrlCalled = false;
@@ -43,11 +46,10 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
   Animation animation;
   Animation helloAnimation;
 
-
   listenToUrl() {
-    if (saveMsg == "URL SAVED!" && urlController.text != urlInput) {
+    if (saveMsg == S.of(context).urlSaved && urlController.text != urlInput) {
       setState(() {
-        saveMsg = "Set URL";
+        saveMsg = S.of(context).setUrl;
       });
     }
     urlInput = urlController.text;
@@ -64,7 +66,11 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
       setApiUrl();
       _setURL();
     } catch (e) {
-      _exceptionToast('Incorrect Organization Entered');
+      setState(() {
+        urlIsSet = true;
+      });
+
+      _exceptionToast(S.of(context).incorrectUrl);
     }
 
     setState(() {
@@ -74,8 +80,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
 
   Future setApiUrl() async {
     setState(() {
-      orgUrl =
-          "${dropdownValue.toLowerCase()}://${urlController.text}/";
+      orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/";
       orgImgUrl =
           "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
     });
@@ -85,7 +90,8 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
 
   void _setURL() {
     setState(() {
-      saveMsg = "URL SAVED!";
+      urlIsSet = false;
+      saveMsg = S.of(context).urlSaved;
     });
   }
 
@@ -117,9 +123,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
     );
   }
 
-
-
-    void assignAnimation(bool firstTime) {
+  void assignAnimation(bool firstTime) {
     if (!firstTime) {
       animation = Tween(begin: 1.0, end: 1.0).animate(controller);
 
@@ -138,18 +142,21 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
       helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
     }
   }
+
   Future<void> load() async {
-      await controller?.forward();
-      await helloController?.forward();
-      await createController?.forward();
-      await loginController?.forward();
-      changeFirst();
+    await controller?.forward();
+    await helloController?.forward();
+    await createController?.forward();
+    await loginController?.forward();
+    changeFirst();
   }
+
   @override
   void initState() {
     super.initState();
     fToast = FToast();
     fToast.init(context);
+
     urlController.addListener(listenToUrl);
     // Initializing all the animationControllers
     controller = AnimationController(
@@ -172,21 +179,42 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+    if (urlIsSet) {
+      saveMsg = S.of(context).setUrl;
+    }
+    //saveMsg = S.of(context).setUrl;
     assignAnimation(first);
     load();
     Widget mainScreen() {
       return new Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
+          Container(
+              padding: EdgeInsets.all(10),
+              width: double.infinity,
+              child: IconButton(
+                icon: Icon(
+                  Icons.language,
+                  size: 30.0,
+                  color: Colors.white,
+                ),
+                alignment: Alignment.topRight,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LanguageSelection(),
+                    ),
+                  );
+                },
+              )),
           FadeTransition(
             opacity: animation,
             child: Container(
               //padding: EdgeInsets.all(100.0),
-              padding: EdgeInsets.symmetric(vertical: 50.0),
+              //padding: EdgeInsets.symmetric(vertical: 50.0),
               child: Center(child: Image(image: AssetImage(UIData.talawaLogo))),
             ),
           ),
@@ -211,7 +239,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                             opacity: helloAnimation,
                             child: Container(
                               child: Text(
-                                "TALAWA",
+                                S.of(context).appTitle,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -269,7 +297,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                 onChanged: (String newValue) {
                                   setState(() {
                                     dropdownValue = newValue;
-                                    saveMsg = 'Set URL';
+                                    saveMsg = S.of(context).setUrl;
                                   });
                                 },
                                 items: <String>[
@@ -310,7 +338,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                         ),
                                         prefixIcon: Icon(Icons.web,
                                             color: Colors.white),
-                                        labelText: "Type Org URL Here",
+                                        labelText: S.of(context).urlHelperText,
                                         labelStyle:
                                             TextStyle(color: Colors.white),
                                         alignLabelWithHint: true,
@@ -386,7 +414,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                               ),
-                              onPressed: saveMsg != "URL SAVED!"
+                              onPressed: saveMsg != S.of(context).urlSaved
                                   ? null
                                   : () async {
                                       if (_formKey.currentState.validate()) {
@@ -413,7 +441,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                   children: <Widget>[
                                     new Expanded(
                                       child: Text(
-                                        "Create an Account",
+                                        S.of(context).createAccount,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           //color: UIData.quitoThemeColor,
@@ -454,7 +482,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                               ),
-                              onPressed: saveMsg != "URL SAVED!"
+                              onPressed: saveMsg != S.of(context).urlSaved
                                   ? null
                                   : () async {
                                       if (_formKey.currentState.validate()) {
@@ -480,7 +508,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                   children: <Widget>[
                                     new Expanded(
                                       child: Text(
-                                        "Login",
+                                        S.of(context).login,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           //color: UIData.quitoThemeColor,
@@ -507,18 +535,20 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
       );
     }
 
-    return Scaffold(
-      //resizeToAvoidBottomInset: false,
-      key: _scaffoldkey,
-      backgroundColor: Colors.white,
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: mainScreen(),
+    return SafeArea(
+      child: Scaffold(
+        //resizeToAvoidBottomInset: false,
+        key: _scaffoldkey,
+        backgroundColor: Colors.white,
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: mainScreen(),
+            ),
           ),
         ),
       ),

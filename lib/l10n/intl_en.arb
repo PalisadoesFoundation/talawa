@@ -1,0 +1,12 @@
+{
+    "urlHelperText": "Type Org URL Here",
+    "@urlHelperText": {
+        "description": "Enter url helper text"
+    },
+    "appTitle": "TALAWA",
+    "setUrl": "Set URL",
+    "urlSaved": "URL SAVED",
+    "createAccount": "Create an Account",
+    "login": "Login",
+    "incorrectUrl": "Incorrect Organization Entered"
+}

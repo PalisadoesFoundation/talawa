@@ -120,6 +120,7 @@ class _NewsArticleState extends State<NewsArticle> {
       Fluttertoast.showToast(msg: "Adding Comment...");
       queryText = commentController.text.replaceAll("\n", newLineKey).trim();
       String mutation = Queries().createComments(widget.post['_id'], queryText);
+      print(mutation);
       Map result = await apiFunctions.gqlmutation(mutation);
       print(result);
       if (result == null) {
@@ -148,139 +149,139 @@ class _NewsArticleState extends State<NewsArticle> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async{ 
-         Navigator.of(context).pop(isCommentAdded);
-         return true;
-       },
-    child: Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        leading: GestureDetector(
-          child: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-          onTap: () {
-            Navigator.of(context).pop(isCommentAdded);
-          },
-        ),
-      ),
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 4,
-            child: Stack(
-              children: [
-                SizedBox.expand(
-                  child: FittedBox(
-                    child: Image.asset(
-                      UIData.shoppingImage,
-                    ),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      widget.post['title'].toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 30.0),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ),
-              ],
+        onWillPop: () async {
+          Navigator.of(context).pop(isCommentAdded);
+          return true;
+        },
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            leading: GestureDetector(
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              onTap: () {
+                Navigator.of(context).pop(isCommentAdded);
+              },
             ),
           ),
-          Expanded(
-            flex: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Flexible(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 10, 10, 10),
-                    child: Text(
-                      widget.post['text'].toString(),
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.justify,
-                      maxLines: 10,
-                    ),
-                  ),
-                ),
-                Flexible(
-                  flex: 3,
-                  child: ListTile(
-                    leading: userDetails.isEmpty ? null : _profileImage(),
-                    title: Container(
-                      constraints: BoxConstraints(
-                        maxHeight: double.infinity,
-                        // minHeight: 20,
+          resizeToAvoidBottomInset: false,
+          body: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 4,
+                child: Stack(
+                  children: [
+                    SizedBox.expand(
+                      child: FittedBox(
+                        child: Image.asset(
+                          UIData.shoppingImage,
+                        ),
+                        fit: BoxFit.fill,
                       ),
-                      child: TextFormField(
-                        key: Key("leaveCommentField"),
-                        textInputAction: TextInputAction.newline,
-                        keyboardType: TextInputType.multiline,
-                        validator: (String value) {
-                          if (value.length > 500) {
-                            return "Comment cannot be longer than 500 letters";
-                          }
-                          if (value.length == 0) {
-                            return "Comment cannot be empty";
-                          }
-                          return null;
-                        },
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(500)
-                        ],
-                        //minLines: 1,//Normal textInputField will be displayed
-                        //maxLines: 10,// when user presses enter it will adapt to it
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          suffixIcon: IconButton(
-                            key: Key("leaveCommentButton"),
-                            color: Colors.grey,
-                            icon: Icon(Icons.send),
-                            onPressed: () {
-                              print(commentController.text);
-                              createComment();
-                            },
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          widget.post['title'].toString(),
+                          style: TextStyle(color: Colors.white, fontSize: 30.0),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 10,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 10, 10, 10),
+                        child: Text(
+                          widget.post['text'].toString(),
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.justify,
+                          maxLines: 10,
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 3,
+                      child: ListTile(
+                        leading: userDetails.isEmpty ? null : _profileImage(),
+                        title: Container(
+                          constraints: BoxConstraints(
+                            maxHeight: double.infinity,
+                            // minHeight: 20,
                           ),
-                          hintText: 'Leave a Comment...',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: BorderSide(
-                              color: Colors.teal,
+                          child: TextFormField(
+                            key: Key("leaveCommentField"),
+                            textInputAction: TextInputAction.newline,
+                            keyboardType: TextInputType.multiline,
+                            validator: (String value) {
+                              if (value.length > 500) {
+                                return "Comment cannot be longer than 500 letters";
+                              }
+                              if (value.length == 0) {
+                                return "Comment cannot be empty";
+                              }
+                              return null;
+                            },
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(500)
+                            ],
+                            //minLines: 1,//Normal textInputField will be displayed
+                            //maxLines: 10,// when user presses enter it will adapt to it
+                            maxLines: null,
+                            decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                key: Key("leaveCommentButton"),
+                                color: Colors.grey,
+                                icon: Icon(Icons.send),
+                                onPressed: () {
+                                  print(commentController.text);
+                                  createComment();
+                                },
+                              ),
+                              hintText: 'Leave a Comment...',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: BorderSide(
+                                  color: Colors.teal,
+                                ),
+                              ),
                             ),
+                            controller: commentController,
                           ),
                         ),
-                        controller: commentController,
                       ),
                     ),
-                  ),
+                    Flexible(
+                      flex: 10,
+                      child: Container(
+                          child: loadComments == false
+                              ? Align(
+                                  alignment: Alignment.topCenter,
+                                  child: loadCommentsButton())
+                              : commentList()),
+                    ),
+                  ],
                 ),
-                Flexible(
-                  flex: 10,
-                  child: Container(
-                      child: loadComments == false
-                          ? Align(
-                              alignment: Alignment.topCenter,
-                              child: loadCommentsButton())
-                          : commentList()),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 
   //this loads the comments button
