@@ -1,6 +1,7 @@
 //imported flutter packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //importing the pages here
 import 'package:provider/provider.dart';
@@ -38,6 +39,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: UIData.primaryColor));
     super.initState();
     currentIndex = widget.openPageIndex;
     _controller  = PersistentTabController(initialIndex: currentIndex);

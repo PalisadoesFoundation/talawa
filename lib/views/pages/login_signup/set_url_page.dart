@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -147,6 +148,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
   }
   @override
   void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: UIData.primaryColor));
     super.initState();
     fToast = FToast();
     fToast.init(context);

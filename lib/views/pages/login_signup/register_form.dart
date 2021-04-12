@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
-import 'package:flutter/services.dart';
 
 // pages are called here
 import 'package:provider/provider.dart';
@@ -61,7 +60,6 @@ class RegisterFormState extends State<RegisterForm> {
     fToast = FToast();
     fToast.init(context);
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.black));
   }
 
   //function for registering user which gets called when sign up is press
