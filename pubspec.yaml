@@ -49,7 +49,7 @@ dependencies:
   intl: ^0.17.0
   flutter_pw_validator: ^1.2.1
   data_connection_checker: ^0.3.4
-
+  razorpay_flutter: ^1.2.5
 
 
 
