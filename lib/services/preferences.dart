@@ -198,8 +198,10 @@ class Preferences with ChangeNotifier {
   Future<void> getLocal() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String languageCode = await preferences.getString(LANGUAGE_CODE);
-    Locale locale = Locale(languageCode);
-    S.delegate.load(locale);
+    if (languageCode != null) {
+      Locale locale = Locale(languageCode);
+      S.delegate.load(locale);
+    }
   }
 
   //clears the user

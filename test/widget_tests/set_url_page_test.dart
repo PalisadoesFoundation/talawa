@@ -1,11 +1,13 @@
 // Packages imports.
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/generated/l10n.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
@@ -27,6 +29,13 @@ Widget createLoginPageScreen() => MultiProvider(
         ),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
         home: UrlPage(),
       ),
     );
@@ -38,6 +47,7 @@ void main() {
   group("Login Page Tests", () {
     testWidgets("Testing if LoginPage shows up", (tester) async {
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       /// Verify if [LoginPage] shows up.
       expect(
@@ -52,6 +62,7 @@ void main() {
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       /// Verify if [LoginPage] shows up.
       expect(
@@ -66,6 +77,7 @@ void main() {
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       /// Verify if [LoginPage] shows up.
       expect(
@@ -79,7 +91,7 @@ void main() {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
-
+      await tester.pumpAndSettle();
       // Get the create account button.
       var createAccountButton = find.text("Create an Account");
 
@@ -98,7 +110,7 @@ void main() {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
-
+      await tester.pumpAndSettle();
       // Get the login button.
       var loginButton = find.text("Login");
 
@@ -119,9 +131,10 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createLoginPageScreen());
-
+      await tester.pumpAndSettle();
       // Get the create account button.
       var createAccountButton = find.text("Create an Account");
+      await tester.pumpAndSettle();
 
       /// Enter [calico.palisadoes.org] in [TextFormField].
       await tester.enterText(
@@ -148,7 +161,7 @@ void main() {
         findsNothing,
       );
       expect(
-        find.text("URL SAVED!"),
+        find.text("URL SAVED"),
         findsOneWidget,
       );
 
@@ -168,7 +181,7 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createLoginPageScreen());
-
+      await tester.pumpAndSettle();
       // Get the create account button.
       var loginButton = find.text("Login");
 
@@ -177,7 +190,7 @@ void main() {
         find.byType(TextFormField),
         'calico.palisadoes.org',
       );
-
+      await tester.pumpAndSettle();
       //  Check if saveMsg is "Set URL".
       expect(
         find.text("Set URL"),
@@ -197,7 +210,7 @@ void main() {
         findsNothing,
       );
       expect(
-        find.text("URL SAVED!"),
+        find.text("URL SAVED"),
         findsOneWidget,
       );
 
@@ -218,7 +231,7 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createLoginPageScreen());
-
+      await tester.pumpAndSettle();
       // Verify that protocol selection button is present.
       expect(
         find.text("HTTP"),
@@ -226,12 +239,13 @@ void main() {
       );
     });
 
-    testWidgets("On changing protocol 'URL Saved!' text changes to 'Set URL'",
+    testWidgets("On changing protocol 'URL Saved' text changes to 'Set URL'",
         (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       /// Enter [calico.palisadoes.org] in [TextFormField].
       await tester.enterText(
@@ -258,7 +272,7 @@ void main() {
         findsNothing,
       );
       expect(
-        find.text("URL SAVED!"),
+        find.text("URL SAVED"),
         findsOneWidget,
       );
 
@@ -282,7 +296,7 @@ void main() {
         findsOneWidget,
       );
       expect(
-        find.text("URL SAVED!"),
+        find.text("URL SAVED"),
         findsNothing,
       );
     });

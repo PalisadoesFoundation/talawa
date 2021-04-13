@@ -536,6 +536,7 @@ class _UrlPageState extends State<UrlPage>
     }
 
     return SafeArea(
+      key: Key("save"),
       child: Scaffold(
         //resizeToAvoidBottomInset: false,
         key: _scaffoldkey,
