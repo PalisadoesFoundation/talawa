@@ -8,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 //pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/toast_tile.dart';
 
