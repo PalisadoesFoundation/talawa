@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 //pages are called here
 import 'package:provider/provider.dart';
+import 'package:talawa/Animation/FadeAnimation.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
@@ -115,121 +116,139 @@ class LoginFormState extends State<LoginForm> {
   //main build starts here
   @override
   Widget build(BuildContext context) {
-    return Form(
-        key: _formKey,
-        child: Column(
-          children: <Widget>[
-            Text('Login', style: TextStyle(fontSize: 35, color: Colors.white)),
-            SizedBox(
-              height: 50,
-            ),
-            AutofillGroup(
-                child: Column(
-              children: <Widget>[
-                TextFormField(
-                  autofillHints: <String>[AutofillHints.email],
-                  keyboardType: TextInputType.emailAddress,
-                  textAlign: TextAlign.left,
-                  controller: _emailController,
-                  validator: Validator.validateEmail,
-                  style: TextStyle(color: Colors.white),
-                  //Changed text input action to next
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20.0),
+    return Positioned(
+      child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              Text('Login', style: TextStyle(fontSize: 35, color: Colors.white)),
+
+              AutofillGroup(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        FadeAnimation(1.5, Text("Login", style: TextStyle(color: Color.fromRGBO(49, 39, 79, 1), fontWeight: FontWeight.bold, fontSize: 30),)),
+                        SizedBox(height: 30,),
+                        FadeAnimation(1.7, Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromRGBO(196, 135, 198, .3),
+                                  blurRadius: 20,
+                                  offset: Offset(0, 10),
+                                )
+                              ]
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border(bottom: BorderSide(
+                                        color: Colors.grey[200]
+                                    ))
+                                ),
+                                child: TextFormField(
+                                  autofillHints: <String>[AutofillHints.email],
+                                  keyboardType: TextInputType.emailAddress,
+                                  textAlign: TextAlign.left,
+                                  controller: _emailController,
+                                  validator: Validator.validateEmail,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: "foo@bar.com",
+                                      hintStyle: TextStyle(color: Colors.grey)
+                                  ),
+                                  onSaved: (value) {
+                                    model.email = value;
+                                  },
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                child: TextFormField(
+                                  autofillHints: <String>[AutofillHints.password],
+                                  obscureText: _obscureText,
+                                  textAlign: TextAlign.left,
+                                  controller: _passwordController,
+                                  validator: Validator.validatePassword,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: "**********",
+                                      hintStyle: TextStyle(color: Colors.grey)
+                                  ),
+                                  onSaved: (value) {
+                                    model.password = value;
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
+                        )),
+                        SizedBox(height: 20,),
+                        // FadeAnimation(1.7, Center(child: Text("Forgot Password?", style: TextStyle(color: Color.fromRGBO(196, 135, 198, 1)),))),
+                        SizedBox(height: 30,),
+                        FadeAnimation(1.9, GestureDetector(
+                          onTap: ()async{
+                            FocusScope.of(context).unfocus();
+                            //checks to see if all the fields have been validated then authenticate a user
+                            if (_formKey.currentState.validate()) {
+                              _formKey.currentState.save();
+                              loginUser();
+                              setState(() {
+                                toggleProgressBarState();
+                              });
+                            }
+                          },
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Color.fromRGBO(49, 39, 79, 1),
+                            ),
+                            child: Center(
+                              child: Text("Login", style: TextStyle(color: Colors.white),),
+                            ),
+                          ),
+                        )),
+                        SizedBox(height: 30,),
+                        FadeAnimation(2, Center(child: Text("Create Account", style: TextStyle(color: Color.fromRGBO(49, 39, 79, .6)),))),
+                      ],
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.orange),
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    prefixIcon: Icon(
-                      Icons.email,
-                      color: Colors.white,
-                    ),
-                    labelText: "Email",
-                    labelStyle: TextStyle(color: Colors.white),
-                    alignLabelWithHint: true,
-                    hintText: 'foo@bar.com',
-                    hintStyle: TextStyle(color: Colors.grey),
-                  ),
-                  onSaved: (value) {
-                    model.email = value;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  autofillHints: <String>[AutofillHints.password],
-                  obscureText: _obscureText,
-                  textAlign: TextAlign.left,
-                  controller: _passwordController,
-                  validator: Validator.validatePassword,
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.orange),
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    prefixIcon: Icon(
-                      Icons.lock,
-                      color: Colors.white,
-                    ),
-                    suffixIcon: FlatButton(
-                      onPressed: _toggle,
-                      child: Icon(
-                        _obscureText ? Icons.visibility_off : Icons.visibility,
-                        color: Colors.white,
-                      ),
-                    ),
-                    labelText: "Password",
-                    labelStyle: TextStyle(color: Colors.white),
-                    focusColor: UIData.primaryColor,
-                    alignLabelWithHint: true,
-                    hintText: '**********',
-                    hintStyle: TextStyle(color: Colors.grey),
-                  ),
-                  onSaved: (value) {
-                    model.password = value;
-                  },
-                ),
-              ],
-            )),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-              width: double.infinity,
-              child: RaisedButton(
-                  padding: EdgeInsets.all(12.0),
-                  shape: StadiumBorder(),
-                  child: _progressBarState
-                      ? const CircularProgressIndicator()
-                      : Text(
-                          "SIGN IN",
-                        ),
-                  color: Colors.white,
-                  onPressed: () async {
-                    FocusScope.of(context).unfocus();
-                    //checks to see if all the fields have been validated then authenticate a user
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      loginUser();
-                      setState(() {
-                        toggleProgressBarState();
-                      });
-                    }
-                  }),
-            ),
-          ],
-        ));
+                  )
+              ),
+
+              // Container(
+              //   padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+              //   width: double.infinity,
+              //   child: RaisedButton(
+              //       padding: EdgeInsets.all(12.0),
+              //       shape: StadiumBorder(),
+              //       child: _progressBarState
+              //           ? const CircularProgressIndicator()
+              //           : Text(
+              //               "SIGN IN",
+              //             ),
+              //       color: Colors.white,
+              //       onPressed: () async {
+              //         FocusScope.of(context).unfocus();
+              //         //checks to see if all the fields have been validated then authenticate a user
+              //         if (_formKey.currentState.validate()) {
+              //           _formKey.currentState.save();
+              //           loginUser();
+              //           setState(() {
+              //             toggleProgressBarState();
+              //           });
+              //         }
+              //       }),
+              // ),
+            ],
+          )),
+    );
   }
 
   //the method called when the result is success
