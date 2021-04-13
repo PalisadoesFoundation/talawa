@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 //Pages are imported here
 import 'package:provider/provider.dart';
+import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/_pages.dart';
@@ -35,6 +36,7 @@ Future<void> main() async {
         ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
+        ChangeNotifierProvider<CommentHandler>(create: (_) =>CommentHandler())
       ],
       child: MyApp(),
     ));
