@@ -45,6 +45,12 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   bool _isLoaderActive = false;
   bool disposed = false;
 
+  // Variables for filtering out alread joined
+  // and created organizations.
+  String currentUserId;
+  List joinedOrganizations = [];
+  List joinedOrganizationsIds = [];
+
   @override
   void initState() {
     //creating the initial state for all the variables
@@ -58,6 +64,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   void dispose() {
     disposed = true;
     super.dispose();
+  }
+
+  // Function for getting the current user id.
+  void getCurrentUserId () async {
+    currentUserId = await _pref.getUserId();
   }
 
   void searchOrgName(String orgName) {
@@ -80,18 +91,49 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   Future fetchOrg() async {
+    // Get current User Id.
+    getCurrentUserId();
+
     //function to fetch the org from the server
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
-    if (result.hasException) {
+
+
+    // Get the details of the current user.
+    QueryResult userDetailsResult = await _client.query(QueryOptions(
+     documentNode: gql(_query.fetchUserInfo), variables: {'id': currentUserId}));
+
+    if (result.hasException || userDetailsResult.hasException) {
       print(result.exception);
       showError(result.exception.toString());
-    } else if (!result.hasException && !disposed) {
-      setState(() {
-        organizationInfo = result.data['organizations'];
-      });
+    } else if (!result.hasException && !disposed && 
+      !userDetailsResult.hasException){
+        setState(() {
+          organizationInfo = result.data['organizations'];
+
+          // Get the details of joined organizations.
+          joinedOrganizations = 
+                userDetailsResult.data['users'][0]['joinedOrganizations'];
+                
+          // Get the id's of joined organizations.
+          joinedOrganizations.forEach((element) {
+            joinedOrganizationsIds.add(element['_id']);
+          });
+
+          // Filtering out organizations that are created by current user.
+          organizationInfo = 
+            organizationInfo.where((element) => element['admins'][0]['_id'] 
+              != currentUserId).toList();
+
+          // Filtering out organizations that are already joined by user.
+          joinedOrganizationsIds.forEach((e) {
+            print(e);
+            organizationInfo = 
+              organizationInfo.where((element) => element['_id'] != e).toList();
+          });
+        });
     }
   }
 
