@@ -175,9 +175,6 @@ class _EventsState extends State<Events> {
         displayedEvents = eventList;
       });
       userId = await preferences.getUserId();
-      print(userId.toString());
-      print(myEvents.toString());
-      print('helllllo' + displayedEvents[0].toString());
   }
 
   //functions to edit the event
