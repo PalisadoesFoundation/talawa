@@ -42,15 +42,27 @@ class _UserTasksState extends State<UserTasks> {
     });
   }
 
+  @override
+  void setState(fn) {
+    if (mounted)
+      super.setState(fn);
+    else
+      return;
+  }
+
   //main building starts here
   @override
   Widget build(BuildContext context) {
     return userTasks == null
-        ? Center(
-            child: Loading(),
+        ? Container(
+            key: Key("User Task Loading"),
+            child: Center(
+              child: Loading(),
+            ),
           )
         : userTasks.length != 0
             ? Container(
+                key: Key("User Task Exists"),
                 child: ListView.builder(
                     itemCount: userTasks.length,
                     itemBuilder: (context, index) {
@@ -78,6 +90,7 @@ class _UserTasksState extends State<UserTasks> {
                       ));
                     }))
             : Container(
+                key: Key("User Task Not Exists"),
                 child: Center(
                   child: Text(
                     "No Tasks found",
