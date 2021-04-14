@@ -312,7 +312,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                         labelStyle:
                                             TextStyle(color: Colors.white),
                                         alignLabelWithHint: true,
-                                        hintText: 'calico.palisadoes.org',
+                                        hintText: 'talawa-graphql-api.herokuapp.com',
                                         hintStyle:
                                             TextStyle(color: Colors.grey),
                                       ),
