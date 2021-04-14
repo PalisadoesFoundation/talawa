@@ -448,6 +448,9 @@ class Queries {
           endTime
           location
           isRegistered
+          creator{
+            _id
+          }
         }
       }
     """;

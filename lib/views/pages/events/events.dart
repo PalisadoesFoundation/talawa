@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
@@ -33,6 +34,7 @@ class _EventsState extends State<Events> {
   List displayedEvents = [];
   List currentFilterEvents = [];
   List eventsToDate = [];
+  List myEvents = [];
   String dateSelected = 'Today';
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
@@ -43,6 +45,7 @@ class _EventsState extends State<Events> {
   bool fetched = true;
   var events;
   Timer timer = Timer();
+  String userId;
 
   @override
   void initState() {
@@ -171,16 +174,23 @@ class _EventsState extends State<Events> {
       setState(() {
         displayedEvents = eventList;
       });
-      // print(displayedEvents);
+      userId = await preferences.getUserId();
+      print(userId.toString());
+      print(myEvents.toString());
+      print('helllllo' + displayedEvents[0].toString());
   }
 
   //functions to edit the event
   void _editEvent(context, event) async {
-    pushNewScreen(context,
-        withNavBar: true,
-        screen: EditEvent(
-          event: event,
-        ));
+    if(event['creator']['_id'] != userId){
+      Fluttertoast.showToast(msg: 'You cannot edit events you didn\'t create');
+    }else{
+      pushNewScreen(context,
+          withNavBar: true,
+          screen: EditEvent(
+            event: event,
+          ));
+    }
   }
 
   Future<void> addEventTask(context, eventId) async {
