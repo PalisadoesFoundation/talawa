@@ -9,6 +9,7 @@ import 'package:talawa/utils/apiFuctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
+import 'package:talawa/views/widgets/showProgress.dart';
 
 // ignore: must_be_immutable
 class EditEvent extends StatefulWidget {
@@ -334,6 +335,7 @@ class _EditEventState extends State<EditEvent> {
                 backgroundColor: Colors.grey[500]);
           } else {
               try{
+                showProgress(context, 'Updating Event Details . . .', false);
                 await updateEvent();
               }catch(e){
                 if(e == "User cannot delete event they didn't create"){
@@ -342,6 +344,7 @@ class _EditEventState extends State<EditEvent> {
                       backgroundColor: Colors.grey[500]);
                 }
               }
+            hideProgress();
             print('EDITING DONE');
             Navigator.pushAndRemoveUntil(
                 context,
