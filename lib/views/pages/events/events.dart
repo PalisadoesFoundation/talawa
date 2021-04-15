@@ -199,149 +199,140 @@ class _EventsState extends State<Events> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Preferences>(
-      builder: (_,prefs,__){ 
-        // try{
-        //   getEvents();
-        // }catch(e){
-        //   _exceptionToast(e);
-        // }
-        return Scaffold(
-          appBar: AppBar(
-            key: Key('EVENTS_APP_BAR'),
-            title: Text(
-              'Events',
-              style: TextStyle(color: Colors.white),
-            ),
+    return Scaffold(
+        appBar: AppBar(
+          key: Key('EVENTS_APP_BAR'),
+          title: Text(
+            'Events',
+            style: TextStyle(color: Colors.white),
           ),
-          floatingActionButton: _currOrgId == null ? null : eventFab(),
-          body: FutureBuilder(
-            future: events,
-            // ignore: missing_return
-            builder: (context, snapshot) {
-              var state = snapshot.connectionState;
-              if (state == ConnectionState.done) {
-                if (eventList.isEmpty) {
-                  return RefreshIndicator(
-                      onRefresh: () async {
-                        try{
-                          await getEvents();
-                        }catch(e){
-                          _exceptionToast(e);
-                        }
-                      },
-                      child: CustomScrollView(
-                        slivers: [
-                          SliverAppBar(
-                              backgroundColor: Colors.white,
-                              automaticallyImplyLeading: false,
-                              expandedHeight: 380,
-                              flexibleSpace: FlexibleSpaceBar(
-                                background: calendar(),
-                              )),
-                          SliverStickyHeader(
-                            header: carouselSliderBar(),
-                            sliver: SliverFillRemaining(
-                                child: Center(
-                              child: Text(
-                                'No Event Created',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                ),
-                              ),
+        ),
+        floatingActionButton: _currOrgId == null ? null : eventFab(),
+        body: FutureBuilder(
+          future: events,
+          // ignore: missing_return
+          builder: (context, snapshot) {
+            var state = snapshot.connectionState;
+            if (state == ConnectionState.done) {
+              if (eventList.isEmpty) {
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      try{
+                        await getEvents();
+                      }catch(e){
+                        _exceptionToast(e);
+                      }
+                    },
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverAppBar(
+                            backgroundColor: Colors.white,
+                            automaticallyImplyLeading: false,
+                            expandedHeight: 380,
+                            flexibleSpace: FlexibleSpaceBar(
+                              background: calendar(),
                             )),
+                        SliverStickyHeader(
+                          header: carouselSliderBar(),
+                          sliver: SliverFillRemaining(
+                              child: Center(
+                            child: Text(
+                              'No Event Created',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                              ),
+                            ),
+                          )),
+                        ),
+                      ],
+                    ));
+              } else {
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      try{
+                        await getEvents();
+                      }catch(e){
+                        _exceptionToast(e);
+                      }
+                    },
+                    child: Container(
+                      color: Colors.white,
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            child: calendar(),
+                          ),
+                          DraggableScrollableSheet(
+                            initialChildSize: 0.3,
+                            minChildSize: 0.3,
+                            maxChildSize: 1.0,
+                            expand: true,
+                            builder: (BuildContext context, myscrollController) {
+                              return Container(
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    ListView(
+                                      controller: myscrollController,
+                                      shrinkWrap: true,
+                                      children: [carouselSliderBar()],
+                                    ),
+                                    Expanded(
+                                      child: Timeline.builder(
+                                        controller: myscrollController,
+                                        lineColor: UIData.primaryColor,
+                                        position: TimelinePosition.Left,
+                                        itemCount: displayedEvents.length,
+                                        itemBuilder: (context, index) {
+                                          if (index == 0) {
+                                            return TimelineModel(
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    padding: EdgeInsets.symmetric(vertical: 5),
+                                                    child: Text(
+                                                      '${displayedEvents.length} Events',
+                                                      style: TextStyle(color: Colors.black45),
+                                                    ),
+                                                  ),
+                                                  eventCard(index)
+                                                ],
+                                              ),
+                                              iconBackground: UIData.secondaryColor,
+                                            );
+                                          }
+                                          return TimelineModel(
+                                            eventCard(index),
+                                            iconBackground: UIData.secondaryColor,
+                                            position: TimelineItemPosition.right,
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                           ),
                         ],
-                      ));
-                } else {
-                  return RefreshIndicator(
-                      onRefresh: () async {
-                        try{
-                          await getEvents();
-                        }catch(e){
-                          _exceptionToast(e);
-                        }
-                      },
-                      child: Container(
-                        color: Colors.white,
-                        child: Stack(
-                          children: [
-                            Positioned.fill(
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              child: calendar(),
-                            ),
-                            DraggableScrollableSheet(
-                              initialChildSize: 0.3,
-                              minChildSize: 0.3,
-                              maxChildSize: 1.0,
-                              expand: true,
-                              builder: (BuildContext context, myscrollController) {
-                                return Container(
-                                  color: Colors.white,
-                                  child: Column(
-                                    children: [
-                                      ListView(
-                                        controller: myscrollController,
-                                        shrinkWrap: true,
-                                        children: [carouselSliderBar()],
-                                      ),
-                                      Expanded(
-                                        child: Timeline.builder(
-                                          controller: myscrollController,
-                                          lineColor: UIData.primaryColor,
-                                          position: TimelinePosition.Left,
-                                          itemCount: displayedEvents.length,
-                                          itemBuilder: (context, index) {
-                                            if (index == 0) {
-                                              return TimelineModel(
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      padding: EdgeInsets.symmetric(vertical: 5),
-                                                      child: Text(
-                                                        '${displayedEvents.length} Events',
-                                                        style: TextStyle(color: Colors.black45),
-                                                      ),
-                                                    ),
-                                                    eventCard(index)
-                                                  ],
-                                                ),
-                                                iconBackground: UIData.secondaryColor,
-                                              );
-                                            }
-                                            return TimelineModel(
-                                              eventCard(index),
-                                              iconBackground: UIData.secondaryColor,
-                                              position: TimelineItemPosition.right,
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ));
-                }
-              } else if (state == ConnectionState.waiting) {
-                print(snapshot.data);
-                return Center(
-                    child: Loading(
-                  key: UniqueKey(),
-                ));
-              } else if (state == ConnectionState.none) {
-                return Text('Could Not Fetch Data.');
+                      ),
+                    ));
               }
-            },
-          ));
-      },
-    );
+            } else if (state == ConnectionState.waiting) {
+              print(snapshot.data);
+              return Center(
+                  child: Loading(
+                key: UniqueKey(),
+              ));
+            } else if (state == ConnectionState.none) {
+              return Text('Could Not Fetch Data.');
+            }
+          },
+        ));
   }
 
   Widget calendar() {
