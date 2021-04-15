@@ -302,19 +302,23 @@ class _EventsState extends State<Events> {
                                         if (index == 0) {
                                           return TimelineModel(
                                             Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Container(
-                                                  padding: EdgeInsets.symmetric(vertical: 5),
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 5),
                                                   child: Text(
                                                     '${displayedEvents.length} Events',
-                                                    style: TextStyle(color: Colors.black45),
+                                                    style: TextStyle(
+                                                        color: Colors.black45),
                                                   ),
                                                 ),
                                                 eventCard(index)
                                               ],
                                             ),
-                                            iconBackground: UIData.secondaryColor,
+                                            iconBackground:
+                                                UIData.secondaryColor,
                                           );
                                         }
                                         return TimelineModel(
@@ -332,14 +336,11 @@ class _EventsState extends State<Events> {
                         ),
                       ],
                     ),
-                    ));
+                  ));
               }
             } else if (state == ConnectionState.waiting) {
               print(snapshot.data);
-              return Center(
-                  child: Loading(
-                key: UniqueKey(),
-              ));
+              return Center(child: Loading(key: UniqueKey(),));
             } else if (state == ConnectionState.none) {
               return Text('Could Not Fetch Data.');
             }
@@ -415,8 +416,8 @@ class _EventsState extends State<Events> {
                 ],
                 options: CarouselOptions(
                   onPageChanged: (item, reason) {
-                    currentFilterEvents =
-                        filterEventsByDay(_calendarController.selectedDay, eventList);
+                    currentFilterEvents = filterEventsByDay(
+                        _calendarController.selectedDay, eventList);
                     if (item == 0) {
                       setState(() {
                         displayedEvents = eventList;
