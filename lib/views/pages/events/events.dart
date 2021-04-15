@@ -216,7 +216,11 @@ class _EventsState extends State<Events> {
               if (eventList.isEmpty) {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      getEvents();
+                      try{
+                        await getEvents();
+                      }catch(e){
+                        _exceptionToast(e);
+                      }
                     },
                     child: CustomScrollView(
                       slivers: [
