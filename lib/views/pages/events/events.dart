@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
@@ -43,6 +44,8 @@ class _EventsState extends State<Events> {
   bool fetched = true;
   var events;
   Timer timer = Timer();
+
+  FToast fToast;
 
   //variable for organization Id
   String _currOrgId;
