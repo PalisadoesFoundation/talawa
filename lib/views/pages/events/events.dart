@@ -149,6 +149,7 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
+    _currOrgId = currentOrgID;
     Map result = await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     eventList = result == null ? [] : result['events'].reversed.toList();
     eventList.removeWhere((element) =>
@@ -156,7 +157,8 @@ class _EventsState extends State<Events> {
         element['title'] == 'test' ||
         element['title'] == 'Talawa Conference Test' ||
         element['title'] == 'mayhem' ||
-        element['title'] == 'mayhem1'); //dont know who keeps adding these
+        element['title'] == 'mayhem1' ||
+        element['organization']['_id'] != currentOrgID); //dont know who keeps adding these
     // This removes all invalid date formats other than Unix time
     eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
     eventList.sort((a, b) {
@@ -167,6 +169,7 @@ class _EventsState extends State<Events> {
     setState(() {
       displayedEvents = eventList;
     });
+    // print('orgID ==== $currentOrgID');
     // print(displayedEvents);
   }
 
