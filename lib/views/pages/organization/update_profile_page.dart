@@ -250,6 +250,15 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 ),
                 addImage(),
                 SizedBox(
+                  height: 20,
+                ),
+                _image!=null?IconButton(icon: Icon(Icons.delete,size: 30,color: Colors.red,),onPressed: (){setState(() {
+                  _image=null;
+                });},):Container(),
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
                   height: 30,
                 ),
                 //First Name
