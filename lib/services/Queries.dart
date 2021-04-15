@@ -14,8 +14,7 @@ class Queries {
   }
 
   //register the user
-  String registerUser(
-      String firstName, String lastName, String email, String password) {
+  String registerUser(String firstName, String lastName, String email, String password) {
     return """
         mutation (\$file: Upload) {
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"},
@@ -63,8 +62,7 @@ class Queries {
   }
 
   //register the user without the images
-  String registerUserWithoutImg(
-      String firstName, String lastName, String email, String password) {
+  String registerUserWithoutImg(String firstName, String lastName, String email, String password) {
     return """
         mutation{
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"})
@@ -244,8 +242,8 @@ class Queries {
   }
 
   //to create a organization
-  String createOrg(String name, String description, String attendees,
-      bool isPublic, bool visibleInSearch) {
+  String createOrg(
+      String name, String description, String attendees, bool isPublic, bool visibleInSearch) {
     return '''
       mutation (\$file: Upload){
           createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}, 
@@ -265,8 +263,8 @@ class Queries {
   }
 
   //create organization without image
-  String createOrgWithoutImg(String name, String description, String attendees,
-      bool isPublic, bool visibleInSearch) {
+  String createOrgWithoutImg(
+      String name, String description, String attendees, bool isPublic, bool visibleInSearch) {
     return '''
        mutation {
            createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}), 
@@ -285,8 +283,8 @@ class Queries {
   }
 
   //update the organization
-  String updateOrg(String orgId, String name, String description, bool isPublic,
-      bool visibleInSearch) {
+  String updateOrg(
+      String orgId, String name, String description, bool isPublic, bool visibleInSearch) {
     return '''
       mutation {
           updateOrganization(id: "$orgId", data: {name: "$name", description: "$description", isPublic: $isPublic, visibleInSearch: $visibleInSearch}){
@@ -417,7 +415,7 @@ class Queries {
   ''';
   }
 
-  String addAdmin(String organizationId, String userId){
+  String addAdmin(String organizationId, String userId) {
     return '''
       mutation {
         createAdmin(data: {organizationId: "$organizationId", userId: $userId})
@@ -435,6 +433,10 @@ class Queries {
       query {
         events(id: "$orgId"){ 
           _id
+          organization {
+            _id
+            image
+          }
           title
           description
           isPublic
@@ -516,8 +518,7 @@ class Queries {
     """;
   }
 
-  String addEventTask(
-      {String eventId, String title, String description, String deadline}) {
+  String addEventTask({String eventId, String title, String description, String deadline}) {
     return """
       mutation {
         createTask(
