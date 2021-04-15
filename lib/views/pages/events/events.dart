@@ -206,7 +206,7 @@ class _EventsState extends State<Events> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        floatingActionButton: eventFab(),
+        floatingActionButton: _currOrgId == null ? null : eventFab(),
         body: FutureBuilder(
           future: events,
           // ignore: missing_return
