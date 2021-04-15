@@ -80,7 +80,9 @@ class _NewsFeedState extends State<NewsFeed> {
 
   //function to get the current posts
   Future<void> getPosts() async {
+    _isFetchingPost = true;
     final String currentOrgID = await preferences.getCurrentOrgId();
+    _hasUserJoinedOrg = currentOrgID == null ? false : true;
     final String currentUserID = await preferences.getUserId();
     _currentOrgID = currentUserID;
     String query = Queries().getPostsById(currentOrgID);
@@ -92,6 +94,7 @@ class _NewsFeedState extends State<NewsFeed> {
       updateLikepostMap(currentUserID);
     });
     
+     _isFetchingPost = false;
   }
 
 
