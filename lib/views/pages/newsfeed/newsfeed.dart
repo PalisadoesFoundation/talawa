@@ -139,12 +139,55 @@ class _NewsFeedState extends State<NewsFeed> {
 
     return Scaffold(
         appBar: CustomAppBar('NewsFeed',key: Key('NEWSFEED_APP_BAR')),
-        floatingActionButton: addPostFab(),
+        floatingActionButton: _hasUserJoinedOrg ? addPostFab() : null,
         body: postList.isEmpty
-            ? Center(child: Loading(key: UniqueKey(),))
+            ? Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Spacer(),
+                Align(
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'No posts to show',
+                    key: Key('empty_newsfeed_text'),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                _isFetchingPost
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: const CircularProgressIndicator(),
+                        ),
+                      )
+                    : TextButton.icon(
+                        icon: const Icon(Icons.refresh),
+                        label: const Text('Click to Refresh...'),
+                        onPressed: () {
+                          setState(() {
+                            try{
+                              getPosts();
+                            }catch(e){
+                              _exceptionToast(e);
+                            }
+                          });
+                        },
+                      ),
+              ],
+            )
             : RefreshIndicator(
                 onRefresh: () async {
-                  getPosts();
+                  try{
+                    await getPosts();
+                  }catch(e){
+                     _exceptionToast(e);
+                  }
                 },
                 child: Container(
                   child: Column(
@@ -320,4 +363,27 @@ class _NewsFeedState extends State<NewsFeed> {
 
     );
   }
+
+   _exceptionToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 1),
+    );
+  }
+  
 }
