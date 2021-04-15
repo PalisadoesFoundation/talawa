@@ -19,6 +19,7 @@ class Preferences with ChangeNotifier {
   String orgImgSrc;
 
 
+
   //it saves the user first name
   Future saveUserFName(String fName) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -149,7 +150,7 @@ class Preferences with ChangeNotifier {
     var storage=FlutterSecureStorage();
     token.parseJwt();
     await storage.write(
-      key:
+        key:
         tokenKey,
         value:
         (token.tokenString != null && token.tokenString.length > 0)
@@ -173,7 +174,7 @@ class Preferences with ChangeNotifier {
     var storage=FlutterSecureStorage();
     token.parseJwt();
     await storage.write(
-      key:
+        key:
         refreshTokenKey,
         value:
         (token.tokenString != null && token.tokenString.length > 0)
@@ -198,7 +199,7 @@ class Preferences with ChangeNotifier {
     var storage=FlutterSecureStorage();
     try {
       Token token =
-          new Token(tokenString: await storage.read(key:tokenKey) ?? "");
+      new Token(tokenString: await storage.read(key:tokenKey) ?? "");
       Map<String, dynamic> tokenMap = token.parseJwt();
       //print("Got uid");
       return tokenMap['id'];
