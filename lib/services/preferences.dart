@@ -118,7 +118,6 @@ class Preferences with ChangeNotifier {
   Future saveCurrentOrgId(String currOrgId) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(currentOrgId, currOrgId);
-    notifyListeners();
   }
 
 
