@@ -35,8 +35,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  List organizationInfo = List();
-  List filteredOrgInfo = List();
+  List organizationInfo = [];
+  List filteredOrgInfo = [];
   List joinedOrg = [];
   AuthController _authController = AuthController();
   String isPublic;
@@ -44,6 +44,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   OrgController _orgController = OrgController();
   bool _isLoaderActive = false;
   bool disposed = false;
+  int loadingIndex = -1;
 
   @override
   void initState() {
@@ -328,16 +329,19 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                   isPublic = 'true';
                                                 });
                                               }
-                                              confirmOrgDialog(organization['name']);
+                                              confirmOrgDialog(organization['name'], index);
                                             },
                                             color: UIData.primaryColor,
-                                            child: _isLoaderActive
-                                                ? CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation(
-                                                            Colors.white),
-                                                    strokeWidth: 2,
-                                                  )
+                                            child: _isLoaderActive == true && loadingIndex == index
+                                                ? const SizedBox(
+                                                    width: 20,
+                                                    height: 20,
+                                                    child: CircularProgressIndicator(
+                                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                                      strokeWidth: 3,
+                                                      backgroundColor:
+                                                          Colors.black,
+                                                    ))
                                                 : new Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
@@ -441,16 +445,18 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                   isPublic = 'true';
                                                 });
                                               }
-                                              confirmOrgDialog(organization['name']);
+                                              confirmOrgDialog(organization['name'], index);  
                                             },
                                             color: UIData.primaryColor,
-                                            child: _isLoaderActive
-                                                ? CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation(
-                                                            Colors.white),
-                                                    strokeWidth: 2,
-                                                  )
+                                            child: _isLoaderActive == true && loadingIndex == index
+                                                ? const SizedBox(
+                                                  width: 20,
+                                                  height: 20,
+                                                  child: CircularProgressIndicator(
+                                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                                    strokeWidth: 3,
+                                                    backgroundColor: Colors.black,
+                                                  )) 
                                                 : new Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
@@ -479,7 +485,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     );
   }
 
-  void confirmOrgDialog(String orgName) {
+  void confirmOrgDialog(String orgName, index) {
     //this is the pop up shown when the confirmation is required
     showDialog(
         context: context,
@@ -498,15 +504,19 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 child: Text("Yes"),
                 onPressed: () async {
                   setState(() {
+                    loadingIndex = index;
                     _isLoaderActive = true;
                   });
                   Navigator.of(context).pop();
                   if (isPublic == 'true') {
-                    await joinPublicOrg(orgName).whenComplete(() => setState(() {
-                          _isLoaderActive = false;
-                        }));
+                    await joinPublicOrg(orgName)
+                        .whenComplete(() => setState(() {
+                              loadingIndex = -1;
+                              _isLoaderActive = false;
+                            }));
                   } else if (isPublic == 'false') {
                     await joinPrivateOrg().whenComplete(() => setState(() {
+                          loadingIndex = -1;
                           _isLoaderActive = false;
                         }));
                   }
