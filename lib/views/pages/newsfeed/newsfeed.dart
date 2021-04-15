@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -31,7 +32,18 @@ class _NewsFeedState extends State<NewsFeed> {
   ApiFunctions apiFunctions = ApiFunctions();
   List postList = [];
   Timer timer = Timer();
+
+  FToast fToast;
+
   String _currentOrgID;
+
+  
+  //bool value to indicate whether user has joined organization or not
+  bool _hasUserJoinedOrg = false;
+  //bool value to indicate whether post fetching is in progress or not
+  bool _isFetchingPost = false;
+
+
 
   Map<String, bool> likePostMap = new Map<String , bool>(); 
   // key = postId and value will be true if user has liked a post.
