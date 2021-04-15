@@ -1,11 +1,15 @@
-
 //flutter packages are called here
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/services/Queries.dart';
 
 //pages are called here
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/views/pages/events/events.dart';
+import 'package:talawa/views/widgets/showProgress.dart';
 
 // ignore: must_be_immutable
 class EditEvent extends StatefulWidget {
@@ -20,6 +24,10 @@ class _EditEventState extends State<EditEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final locationController = TextEditingController();
+  bool _validateTitle = false,
+      _validateDescription = false,
+      _validateLocation = false;
+  ApiFunctions apiFunctions = ApiFunctions();
 
   DateTimeRange dateRange = DateTimeRange(
       start: DateTime(
@@ -58,6 +66,7 @@ class _EditEventState extends State<EditEvent> {
     setState(() {
       titleController.text = widget.event['title'];
       descriptionController.text = widget.event['description'];
+      locationController.text = widget.event['location'];
       switchVals = {
         'Make Public': widget.event['isPublic'],
         'Make Registerable': widget.event['isRegisterable'],
@@ -68,7 +77,6 @@ class _EditEventState extends State<EditEvent> {
     });
   }
 
-
   //getting current organization id
   getCurrentOrgId() async {
     final orgId = await preferences.getCurrentOrgId();
@@ -77,7 +85,6 @@ class _EditEventState extends State<EditEvent> {
     });
     print(currentOrgId);
   }
-
 
   //method called to select the date
   Future<void> _selectDate(BuildContext context) async {
@@ -92,7 +99,6 @@ class _EditEventState extends State<EditEvent> {
         dateRange = picked;
       });
   }
-
 
   //method to select the time
   Future<void> _selectTime(
@@ -112,23 +118,20 @@ class _EditEventState extends State<EditEvent> {
       });
   }
 
-
   //method used to create and event
-  Future<void> createEvent() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
-
+  Future<void> updateEvent() async {
     DateTime startTime = DateTime(
-        dateRange.start.year,
-        dateRange.start.month,
-        dateRange.start.day,
-        startEndTimes['End Time'].hour,
-        startEndTimes['End Time'].minute);
-    DateTime endTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
         dateRange.start.day,
         startEndTimes['Start Time'].hour,
         startEndTimes['Start Time'].minute);
+    DateTime endTime = DateTime(
+        dateRange.end.year,
+        dateRange.end.month,
+        dateRange.end.day,
+        startEndTimes['End Time'].hour,
+        startEndTimes['End Time'].minute);
 
     if (switchVals['All Day']) {
       startEndTimes = {
@@ -138,6 +141,21 @@ class _EditEventState extends State<EditEvent> {
             DateTime.now().day, 23, 59),
       };
     }
+    String mutation = Queries().updateEvent(
+      eventId: widget.event['_id'],
+      title: titleController.text,
+      description: descriptionController.text,
+      location: locationController.text,
+      isPublic: switchVals['Make Public'],
+      isRegisterable: switchVals['Make Registerable'],
+      recurring: switchVals['Recurring'],
+      allDay: switchVals['All Day'],
+      recurrance: recurrance,
+      startTime: startTime.microsecondsSinceEpoch.toString(),
+      endTime: endTime.microsecondsSinceEpoch.toString(),
+    );
+    Map result = await apiFunctions.gqlquery(mutation);
+    print('Result is : $result');
   }
 
   @override
@@ -169,7 +187,6 @@ class _EditEventState extends State<EditEvent> {
     );
   }
 
-
   //widget for the date buttons
   Widget dateButton() {
     return ListTile(
@@ -186,7 +203,6 @@ class _EditEventState extends State<EditEvent> {
       ),
     );
   }
-
 
   //widget for time buttons
   Widget timeButton(String name, DateTime time) {
@@ -210,7 +226,6 @@ class _EditEventState extends State<EditEvent> {
         ));
   }
 
-
   //widget for the input field
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
@@ -218,7 +233,21 @@ class _EditEventState extends State<EditEvent> {
         child: TextField(
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
+          keyboardType: TextInputType.text,
           decoration: InputDecoration(
+              errorText: name == 'Title'
+                  ? _validateTitle
+                      ? 'Field Can\'t Be Empty'
+                      : null
+                  : name == 'Description'
+                      ? _validateDescription
+                          ? 'Field Can\'t Be Empty'
+                          : null
+                      : name == 'Location'
+                          ? _validateLocation
+                              ? 'Field Can\'t Be Empty'
+                              : null
+                          : null,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
                   borderSide: BorderSide(color: Colors.teal)),
@@ -274,7 +303,6 @@ class _EditEventState extends State<EditEvent> {
     );
   }
 
-
   //widget to add the event
   Widget addEventFab() {
     return FloatingActionButton(
@@ -283,9 +311,46 @@ class _EditEventState extends State<EditEvent> {
           Icons.check,
           color: Colors.white,
         ),
-        onPressed: () {
-          createEvent();
-          Navigator.of(context).pop();
+        onPressed: () async{
+          if (titleController.text.isEmpty ||
+              descriptionController.text.isEmpty ||
+              locationController.text.isEmpty) {
+            if (titleController.text.isEmpty) {
+              setState(() {
+                _validateTitle = true;
+              });
+            }
+            if (descriptionController.text.isEmpty) {
+              setState(() {
+                _validateDescription = true;
+              });
+            }
+            if (locationController.text.isEmpty) {
+              setState(() {
+                _validateLocation = true;
+              });
+            }
+            Fluttertoast.showToast(
+                msg: 'Fill in the empty fields',
+                backgroundColor: Colors.grey[500]);
+          } else {
+              try{
+                showProgress(context, 'Updating Event Details . . .', false);
+                await updateEvent();
+              }catch(e){
+                if(e == "User cannot delete event they didn't create"){
+                  Fluttertoast.showToast(
+                      msg: "You can't edit events you didn't create",
+                      backgroundColor: Colors.grey[500]);
+                }
+              }
+            hideProgress();
+            print('EDITING DONE');
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => Events()),
+                (route) => false);
+          }
         });
   }
 }
