@@ -9,6 +9,7 @@ import 'package:talawa/utils/apiFunctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
+import 'package:talawa/views/widgets/showProgress.dart';
 
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);
@@ -204,7 +205,7 @@ class _AddEventState extends State<AddEvent> {
           Icons.check,
           color: Colors.white,
         ),
-        onPressed: () {
+        onPressed: () async {
           if(titleController.text.isEmpty || descriptionController.text.isEmpty || locationController.text.isEmpty){
             if (titleController.text.isEmpty){
               setState(() {
@@ -223,7 +224,9 @@ class _AddEventState extends State<AddEvent> {
             }
             Fluttertoast.showToast(msg: 'Fill in the empty fields', backgroundColor: Colors.grey[500]);
           }else {
-            createEvent();
+            showProgress(context, 'Creating New Event . . .', false);
+            await createEvent();
+            hideProgress();
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Events()), (route) => false);
           }
         });
