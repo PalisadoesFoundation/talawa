@@ -64,15 +64,18 @@ class _EventsState extends State<Events> {
     List currentevents = [];
 
     for (var event in events) {
-      DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']));
+      DateTime startTime =
+          DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']));
       if (!event['recurring'] && timer.isSameDay(currentDate, startTime)) {
         currentevents.add(event);
       }
       if (event['recurrance'] == 'DAILY') {
         currentevents.add(event);
-      } else if (event['recurrance'] == 'WEEKLY' && timer.isSameWeekDay(currentDate, startTime)) {
+      } else if (event['recurrance'] == 'WEEKLY' &&
+          timer.isSameWeekDay(currentDate, startTime)) {
         currentevents.add(event);
-      } else if (event['recurrance'] == 'MONTHLY' && currentDate.day == startTime.day) {
+      } else if (event['recurrance'] == 'MONTHLY' &&
+          currentDate.day == startTime.day) {
         currentevents.add(event);
       } else if (event['recurrance'] == 'YEARLY' &&
           currentDate.month == startTime.month &&
@@ -97,7 +100,9 @@ class _EventsState extends State<Events> {
 
     for (var event in events) {
       if (!event['recurring']) {
-        addDateToMap(DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])), event);
+        addDateToMap(
+            DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])),
+            event);
       } else {
         if (event['recurrance'] == 'DAILY') {
           int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
@@ -108,7 +113,9 @@ class _EventsState extends State<Events> {
           }
         }
         if (event['recurrance'] == 'WEEKLY') {
-          int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
+          int day =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
+                      .day;
           int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
@@ -117,11 +124,13 @@ class _EventsState extends State<Events> {
           }
         }
         if (event['recurrance'] == 'MONTHLY') {
-          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']));
+          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(event['startTime']));
           addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
         }
         if (event['recurrance'] == 'YEARLY') {
-          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']));
+          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(event['startTime']));
           if (now.month == firstDate.month) {
             addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
           }
@@ -151,7 +160,8 @@ class _EventsState extends State<Events> {
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     _currOrgId = currentOrgID;
-    Map result = await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    Map result =
+      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     eventList = result == null ? [] : result['events'].reversed.toList();
     eventList.removeWhere((element) =>
         element['title'] == 'Talawa Congress' ||
@@ -163,8 +173,10 @@ class _EventsState extends State<Events> {
     // This removes all invalid date formats other than Unix time
     eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
     eventList.sort((a, b) {
-      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime']))
-          .compareTo(DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+      return DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(a['startTime']))
+          .compareTo(
+          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
     });
     eventsToDates(eventList, DateTime.now());
     setState(() {
@@ -201,7 +213,7 @@ class _EventsState extends State<Events> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          key: Key('EVENTS_APP_BAR'),
+           key: Key('EVENTS_APP_BAR'),
           title: Text(
             'Events',
             style: TextStyle(color: Colors.white),
