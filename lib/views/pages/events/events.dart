@@ -44,6 +44,9 @@ class _EventsState extends State<Events> {
   var events;
   Timer timer = Timer();
 
+  //variable for organization Id
+  String _currOrgId;
+
   initState() {
     super.initState();
     setState(() {
@@ -57,18 +60,15 @@ class _EventsState extends State<Events> {
     List currentevents = [];
 
     for (var event in events) {
-      DateTime startTime =
-          DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']));
+      DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']));
       if (!event['recurring'] && timer.isSameDay(currentDate, startTime)) {
         currentevents.add(event);
       }
       if (event['recurrance'] == 'DAILY') {
         currentevents.add(event);
-      } else if (event['recurrance'] == 'WEEKLY' &&
-          timer.isSameWeekDay(currentDate, startTime)) {
+      } else if (event['recurrance'] == 'WEEKLY' && timer.isSameWeekDay(currentDate, startTime)) {
         currentevents.add(event);
-      } else if (event['recurrance'] == 'MONTHLY' &&
-          currentDate.day == startTime.day) {
+      } else if (event['recurrance'] == 'MONTHLY' && currentDate.day == startTime.day) {
         currentevents.add(event);
       } else if (event['recurrance'] == 'YEARLY' &&
           currentDate.month == startTime.month &&
@@ -93,9 +93,7 @@ class _EventsState extends State<Events> {
 
     for (var event in events) {
       if (!event['recurring']) {
-        addDateToMap(
-            DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])),
-            event);
+        addDateToMap(DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])), event);
       } else {
         if (event['recurrance'] == 'DAILY') {
           int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
@@ -106,9 +104,7 @@ class _EventsState extends State<Events> {
           }
         }
         if (event['recurrance'] == 'WEEKLY') {
-          int day =
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
-                      .day;
+          int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
           int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
@@ -117,13 +113,11 @@ class _EventsState extends State<Events> {
           }
         }
         if (event['recurrance'] == 'MONTHLY') {
-          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
-              int.parse(event['startTime']));
+          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']));
           addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
         }
         if (event['recurrance'] == 'YEARLY') {
-          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
-              int.parse(event['startTime']));
+          DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']));
           if (now.month == firstDate.month) {
             addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
           }
@@ -152,25 +146,25 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-      Map result =
-      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-      eventList = result == null ? [] : result['events'].reversed.toList();
-      eventList.removeWhere((element) =>
-          element['title'] == 'Talawa Congress' ||
-          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1'); //dont know who keeps adding these
-      // This removes all invalid date formats other than Unix time
-      eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
-      eventList.sort((a, b) {
-        return DateTime.fromMicrosecondsSinceEpoch(
-          int.parse(a['startTime']))
-          .compareTo(
-          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
-      });
-      eventsToDates(eventList, DateTime.now());
-      setState(() {
-        displayedEvents = eventList;
-      });
-      // print(displayedEvents);
+    Map result = await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    eventList = result == null ? [] : result['events'].reversed.toList();
+    eventList.removeWhere((element) =>
+        element['title'] == 'Talawa Congress' ||
+        element['title'] == 'test' ||
+        element['title'] == 'Talawa Conference Test' ||
+        element['title'] == 'mayhem' ||
+        element['title'] == 'mayhem1'); //dont know who keeps adding these
+    // This removes all invalid date formats other than Unix time
+    eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
+    eventList.sort((a, b) {
+      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime']))
+          .compareTo(DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+    });
+    eventsToDates(eventList, DateTime.now());
+    setState(() {
+      displayedEvents = eventList;
+    });
+    // print(displayedEvents);
   }
 
   //functions to edit the event
@@ -200,7 +194,7 @@ class _EventsState extends State<Events> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-           key: Key('EVENTS_APP_BAR'),
+          key: Key('EVENTS_APP_BAR'),
           title: Text(
             'Events',
             style: TextStyle(color: Colors.white),
@@ -247,79 +241,78 @@ class _EventsState extends State<Events> {
                       getEvents();
                     },
                     child: Container(
-                    color: Colors.white,
-                    child: Stack(
-                      children: [
-                        Positioned.fill(
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          child: calendar(),
-                        ),
-                        DraggableScrollableSheet(
-                          initialChildSize: 0.3,
-                          minChildSize: 0.3,
-                          maxChildSize: 1.0,
-                          expand: true,
-                          builder: (BuildContext context, myscrollController) {
-                            return Container(
-                              color: Colors.white,
-                              child: Column(
-                                children: [
-                                  ListView(
-                                    controller: myscrollController,
-                                    shrinkWrap: true,
-                                    children: [carouselSliderBar()],
-                                  ),
-                                  Expanded(
-                                    child: Timeline.builder(
+                      color: Colors.white,
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            child: calendar(),
+                          ),
+                          DraggableScrollableSheet(
+                            initialChildSize: 0.3,
+                            minChildSize: 0.3,
+                            maxChildSize: 1.0,
+                            expand: true,
+                            builder: (BuildContext context, myscrollController) {
+                              return Container(
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    ListView(
                                       controller: myscrollController,
-                                      lineColor: UIData.primaryColor,
-                                      position: TimelinePosition.Left,
-                                      itemCount: displayedEvents.length,
-                                      itemBuilder: (context, index) {
-                                        if (index == 0) {
-                                          return TimelineModel(
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 5),
-                                                  child: Text(
-                                                    '${displayedEvents.length} Events',
-                                                    style: TextStyle(
-                                                        color: Colors.black45),
-                                                  ),
-                                                ),
-                                                eventCard(index)
-                                              ],
-                                            ),
-                                            iconBackground:
-                                                UIData.secondaryColor,
-                                          );
-                                        }
-                                        return TimelineModel(
-                                          eventCard(index),
-                                          iconBackground: UIData.secondaryColor,
-                                          position: TimelineItemPosition.right,
-                                        );
-                                      },
+                                      shrinkWrap: true,
+                                      children: [carouselSliderBar()],
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ));
+                                    Expanded(
+                                      child: Timeline.builder(
+                                        controller: myscrollController,
+                                        lineColor: UIData.primaryColor,
+                                        position: TimelinePosition.Left,
+                                        itemCount: displayedEvents.length,
+                                        itemBuilder: (context, index) {
+                                          if (index == 0) {
+                                            return TimelineModel(
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    padding: EdgeInsets.symmetric(vertical: 5),
+                                                    child: Text(
+                                                      '${displayedEvents.length} Events',
+                                                      style: TextStyle(color: Colors.black45),
+                                                    ),
+                                                  ),
+                                                  eventCard(index)
+                                                ],
+                                              ),
+                                              iconBackground: UIData.secondaryColor,
+                                            );
+                                          }
+                                          return TimelineModel(
+                                            eventCard(index),
+                                            iconBackground: UIData.secondaryColor,
+                                            position: TimelineItemPosition.right,
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ));
               }
             } else if (state == ConnectionState.waiting) {
               print(snapshot.data);
-              return Center(child: Loading(key: UniqueKey(),));
+              return Center(
+                  child: Loading(
+                key: UniqueKey(),
+              ));
             } else if (state == ConnectionState.none) {
               return Text('Could Not Fetch Data.');
             }
@@ -395,8 +388,8 @@ class _EventsState extends State<Events> {
                 ],
                 options: CarouselOptions(
                   onPageChanged: (item, reason) {
-                    currentFilterEvents = filterEventsByDay(
-                        _calendarController.selectedDay, eventList);
+                    currentFilterEvents =
+                        filterEventsByDay(_calendarController.selectedDay, eventList);
                     if (item == 0) {
                       setState(() {
                         displayedEvents = eventList;
