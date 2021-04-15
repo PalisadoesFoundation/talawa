@@ -5,10 +5,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 //pages are called here
 import 'package:provider/provider.dart';
 import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/Queries.dart';
-import 'package:talawa/utils/apiFuctions.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/chat/chat.dart';
 
@@ -24,7 +24,7 @@ class _GroupsState extends State<Groups> {
   List displayedEvents = [];
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
-  
+
   //variable to monitor fetching of events
   bool fetched = true;
 
@@ -72,7 +72,7 @@ class _GroupsState extends State<Groups> {
     // print('orgID ==== $currentOrgID');
     print(displayedEvents);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,9 +119,9 @@ class _GroupsState extends State<Groups> {
                           label: const Text('Click to Refresh..'),
                           onPressed: () {
                             setState(() {
-                              try{
+                              try {
                                 getEvents();
-                              }catch(e){
+                              } catch (e) {
                                 _exceptionToast(e);
                               }
                             });
@@ -130,12 +130,12 @@ class _GroupsState extends State<Groups> {
                 ],
               ),
             )
-            //Refresh indicator for calling getEvents
+          //Refresh indicator for calling getEvents
           : RefreshIndicator(
               onRefresh: () async {
-                try{
+                try {
                   await getEvents();
-                }catch(e){
+                } catch (e) {
                   _exceptionToast(e);
                 }
               },
@@ -150,12 +150,11 @@ class _GroupsState extends State<Groups> {
                         title: Text(groupName),
                         leading: CircleAvatar(
                           backgroundColor: UIData.secondaryColor,
-                          child: _imgSrc == null ? 
-                                    Image.asset(UIData.talawaLogo):
-                                    NetworkImage(
-                                        Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                                          _imgSrc
-                                    ),
+                          child: _imgSrc == null
+                              ? Image.asset(UIData.talawaLogo)
+                              : NetworkImage(
+                                  Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                                      _imgSrc),
                         ),
                         trailing: Icon(Icons.arrow_right),
                         onTap: () {
