@@ -165,11 +165,13 @@ class RegisterFormState extends State<RegisterForm> {
             child: Column(
               children: <Widget>[
                 addImage(),
-                Padding(
+                _image==null?Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Add Profile Image',
                       style: TextStyle(fontSize: 16, color: Colors.white)),
-                ),
+                ):IconButton(icon: Icon(Icons.delete,size: 30,color: Colors.red,),onPressed: (){setState(() {
+                  _image=null;
+                });},),
                 SizedBox(
                   height: 25,
                 ),
