@@ -248,7 +248,11 @@ class _EventsState extends State<Events> {
               } else {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      getEvents();
+                      try{
+                        await getEvents();
+                      }catch(e){
+                        _exceptionToast(e);
+                      }
                     },
                     child: Container(
                       color: Colors.white,
