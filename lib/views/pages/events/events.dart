@@ -268,70 +268,70 @@ class _EventsState extends State<Events> {
                       }
                     },
                     child: Container(
-                      color: Colors.white,
-                      child: Stack(
-                        children: [
-                          Positioned.fill(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            child: calendar(),
-                          ),
-                          DraggableScrollableSheet(
-                            initialChildSize: 0.3,
-                            minChildSize: 0.3,
-                            maxChildSize: 1.0,
-                            expand: true,
-                            builder: (BuildContext context, myscrollController) {
-                              return Container(
-                                color: Colors.white,
-                                child: Column(
-                                  children: [
-                                    ListView(
+                    color: Colors.white,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          child: calendar(),
+                        ),
+                        DraggableScrollableSheet(
+                          initialChildSize: 0.3,
+                          minChildSize: 0.3,
+                          maxChildSize: 1.0,
+                          expand: true,
+                          builder: (BuildContext context, myscrollController) {
+                            return Container(
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  ListView(
+                                    controller: myscrollController,
+                                    shrinkWrap: true,
+                                    children: [carouselSliderBar()],
+                                  ),
+                                  Expanded(
+                                    child: Timeline.builder(
                                       controller: myscrollController,
-                                      shrinkWrap: true,
-                                      children: [carouselSliderBar()],
-                                    ),
-                                    Expanded(
-                                      child: Timeline.builder(
-                                        controller: myscrollController,
-                                        lineColor: UIData.primaryColor,
-                                        position: TimelinePosition.Left,
-                                        itemCount: displayedEvents.length,
-                                        itemBuilder: (context, index) {
-                                          if (index == 0) {
-                                            return TimelineModel(
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    padding: EdgeInsets.symmetric(vertical: 5),
-                                                    child: Text(
-                                                      '${displayedEvents.length} Events',
-                                                      style: TextStyle(color: Colors.black45),
-                                                    ),
-                                                  ),
-                                                  eventCard(index)
-                                                ],
-                                              ),
-                                              iconBackground: UIData.secondaryColor,
-                                            );
-                                          }
+                                      lineColor: UIData.primaryColor,
+                                      position: TimelinePosition.Left,
+                                      itemCount: displayedEvents.length,
+                                      itemBuilder: (context, index) {
+                                        if (index == 0) {
                                           return TimelineModel(
-                                            eventCard(index),
+                                            Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(vertical: 5),
+                                                  child: Text(
+                                                    '${displayedEvents.length} Events',
+                                                    style: TextStyle(color: Colors.black45),
+                                                  ),
+                                                ),
+                                                eventCard(index)
+                                              ],
+                                            ),
                                             iconBackground: UIData.secondaryColor,
-                                            position: TimelineItemPosition.right,
                                           );
-                                        },
-                                      ),
+                                        }
+                                        return TimelineModel(
+                                          eventCard(index),
+                                          iconBackground: UIData.secondaryColor,
+                                          position: TimelineItemPosition.right,
+                                        );
+                                      },
                                     ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                     ));
               }
             } else if (state == ConnectionState.waiting) {
