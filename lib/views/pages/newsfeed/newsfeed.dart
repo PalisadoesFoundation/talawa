@@ -71,14 +71,20 @@ class _NewsFeedState extends State<NewsFeed> {
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
     _currentOrgID = currentUserID;
-    String query = Queries().getPostsById(currentOrgID);
-    Map result = await apiFunctions.gqlquery(query);
-    // print(result);
-    setState(() {
-      postList =
-          result == null ? [] : result['postsByOrganization'].reversed.toList();
-      updateLikepostMap(currentUserID);
-    });
+        if(currentOrgID != null){
+          String query = Queries().getPostsById(currentOrgID);
+          Map result = await apiFunctions.gqlquery(query);
+          // print(result);
+          setState(() {
+            postList = result == null ? [] : result['postsByOrganization'].reversed.toList();
+            updateLikepostMap(currentUserID);
+          });
+        }else{
+          setState(() {
+            postList = [];
+            updateLikepostMap(currentUserID);
+          });
+        }
     
   }
 
