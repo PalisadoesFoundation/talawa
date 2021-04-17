@@ -11,7 +11,17 @@ void main() async {
     return {'appName': 'talawa', 'version': '1.0.0', 'buildNumber': '1'};
   });
   final packageInfo = await PackageInfo.fromPlatform();
-  print(packageInfo.appName);
+  group('Testing mocked package_info plugin', () {
+    test('Test for name of the App', () async {
+      expect(packageInfo.appName, 'talawa');
+    });
+    test('Test for version of App', () async {
+      expect(packageInfo.version, '1.0.0');
+    });
+    test('Test for buildNumber of App', () async {
+      expect(packageInfo.buildNumber, '1');
+    });
+  });
 
   channel.setMockMethodCallHandler(null);
 }
