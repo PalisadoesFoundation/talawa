@@ -23,7 +23,7 @@ class _RegListState extends State<RegList> {
   Preferences preferences = Preferences();
 
   ApiFunctions apiFunctions = ApiFunctions();
-  List eventTasks = [];
+  List eventTasks;
 
   void initState() {
     super.initState();
