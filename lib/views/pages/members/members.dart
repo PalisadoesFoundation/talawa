@@ -25,7 +25,8 @@ class Organizations extends StatefulWidget {
 
 class _OrganizationsState extends State<Organizations> {
   String currentOrgID;
-  List alphaMembersList = [];
+  Map alphaMembersMap;
+  List membersList = [];
   int isSelected = 0;
   List admins = [];
   String creatorId;
@@ -40,46 +41,19 @@ class _OrganizationsState extends State<Organizations> {
     getMembers();
   }
 
-  List alphaSplitList(List list) {
-    //split list alphabeticaly
-    List alphabet = [
-      'A',
-      'B',
-      'C',
-      'D',
-      'E',
-      'F',
-      'G',
-      'H',
-      'I',
-      'J',
-      'K',
-      'L',
-      'M',
-      'N',
-      'O',
-      'P',
-      'Q',
-      'R',
-      'S',
-      'T',
-      'U',
-      'V',
-      'W',
-      'X',
-      'Y',
-      'Z'
-    ];
-    List alphalist = [];
-    for (String letter in alphabet) {
-      alphalist.add(list
-          .where((element) =>
-              element['firstName'][0] == letter ||
-              element['firstName'][0] == letter.toLowerCase())
-          .toList());
-    }
-    alphalist.removeWhere((element) => element.isEmpty);
-    return alphalist;
+  Map alphaSplitList(List list) {
+    Map<String, List> alphaMap = new Map();
+
+    list.forEach((element) {
+      if (alphaMap[element['firstName'][0].toUpperCase()] == null) {
+        alphaMap[element['firstName'][0].toUpperCase()] = [];
+        alphaMap[element['firstName'][0].toUpperCase()].add(element);
+      } else {
+        alphaMap[element['firstName'][0].toUpperCase()].add(element);
+      }
+    });
+
+    return alphaMap;
   }
 
   //function to get the members of an organization
@@ -99,14 +73,15 @@ class _OrganizationsState extends State<Organizations> {
         print(admins);
       }
       if (membersList.isNotEmpty) {
-        alphaMembersList = membersList[0]['members'];
+        membersList = membersList[0]['members'];
+        membersList.sort((a, b) => a['firstName'].compareTo(b['firstName']));
         setState(() {
-          alphaMembersList = alphaSplitList(alphaMembersList);
+          alphaMembersMap = alphaSplitList(membersList);
         });
       }
     } else {
       setState(() {
-        alphaMembersList = [];
+        alphaMembersMap = {};
       });
     }
   }
@@ -132,62 +107,66 @@ class _OrganizationsState extends State<Organizations> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: alphaMembersList.isEmpty
-            ? RefreshIndicator(
-                onRefresh: () async {
-                  try{
-                    await getMembers();
-                  }catch(e){
-                    _exceptionToast(e);
-                  }
-                },
-                child: Center(
-                    child: Column(children: <Widget>[
-                  SizedBox(
-                    height: 250,
-                  ),
-                  Text(
-                    "No member to Show",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  RaisedButton(
-                    onPressed: () {
+        body: alphaMembersMap == null
+            ? Center(
+                child: Loading(),
+              )
+            : alphaMembersMap.isEmpty
+                ? RefreshIndicator(
+                    onRefresh: () async {
                       try{
-                        getMembers();
+                        await getMembers();
                       }catch(e){
                         _exceptionToast(e);
                       }
                     },
-                    child: Text("Refresh"),
-                  )
-                ])))
-            : RefreshIndicator(
-                onRefresh: () async {
-                  try{
-                    await getMembers();
-                  }catch(e){
-                    _exceptionToast(e);
-                  }
-                },
-                child: CustomScrollView(
-                  slivers: List.generate(
-                    alphaMembersList.length,
-                    (index) {
-                      return alphabetDividerList(
-                          context, alphaMembersList[index]);
+                    child: Center(
+                        child: Column(children: <Widget>[
+                      SizedBox(
+                        height: 250,
+                      ),
+                      Text(
+                        "No member to Show",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      RaisedButton(
+                        onPressed: () async {
+                          try{
+                            await getMembers();
+                          }catch(e){
+                            _exceptionToast(e);
+                          }
+                        },
+                        child: Text("Refresh"),
+                      )
+                    ])))
+                : RefreshIndicator(
+                    onRefresh: () async {
+                      try{
+                        await getMembers();
+                      }catch(e){
+                        _exceptionToast(e);
+                      }
                     },
-                  ),
-                )));
+                    child: CustomScrollView(
+                      slivers: List.generate(
+                        alphaMembersMap.length,
+                        (index) {
+                          return alphabetDividerList(
+                              context, alphaMembersMap.keys.toList()[index]);
+                        },
+                      ),
+                    )));
   }
 
   //widget which divides the list according to letters
-  Widget alphabetDividerList(BuildContext context, List membersList) {
+  Widget alphabetDividerList(BuildContext context, String alphabet) {
     return SliverStickyHeader(
       header: Container(
         color: Colors.white,
@@ -197,7 +176,7 @@ class _OrganizationsState extends State<Organizations> {
         child: CircleAvatar(
             backgroundColor: UIData.secondaryColor,
             child: Text(
-              '${membersList[0]['firstName'][0].toUpperCase()}',
+              '$alphabet',
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -207,9 +186,9 @@ class _OrganizationsState extends State<Organizations> {
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
-            return memberCard(index, membersList);
+            return memberCard(index, alphaMembersMap[alphabet]);
           },
-          childCount: membersList.length,
+          childCount: alphaMembersMap[alphabet].length,
         ),
       ),
     );

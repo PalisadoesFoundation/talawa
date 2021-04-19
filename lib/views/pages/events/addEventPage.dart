@@ -9,6 +9,7 @@ import 'package:talawa/utils/apiFunctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
+import 'package:talawa/views/widgets/showProgress.dart';
 
 class AddEvent extends StatefulWidget {
   AddEvent({Key key}) : super(key: key);
@@ -88,6 +89,17 @@ class _AddEventState extends State<AddEvent> {
 
   //method used to create an event
   Future<void> createEvent() async {
+
+    DateTime startDate = DateTime(
+        dateRange.start.year,
+        dateRange.start.month,
+        dateRange.start.day
+    );
+    DateTime endDate = DateTime(
+        dateRange.start.year,
+        dateRange.start.month,
+        dateRange.start.day
+    );
     DateTime startTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
@@ -101,6 +113,7 @@ class _AddEventState extends State<AddEvent> {
         startEndTimes['End Time'].hour,
         startEndTimes['End Time'].minute);
 
+
     if (switchVals['All Day']) {
       startEndTimes = {
         'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
@@ -110,7 +123,9 @@ class _AddEventState extends State<AddEvent> {
       };
     }
     final String currentOrgID = await preferences.getCurrentOrgId();
-    String mutation = Queries().addEvent(
+    Map result = await Queries().addEvent(
+      startDate : startDate.toString(),
+      endDate : endDate.toString(),
       organizationId: currentOrgID,
       title: titleController.text,
       description: descriptionController.text,
@@ -123,7 +138,6 @@ class _AddEventState extends State<AddEvent> {
       startTime: startTime.microsecondsSinceEpoch.toString(),
       endTime: endTime.microsecondsSinceEpoch.toString(),
     );
-    Map result = await apiFunctions.gqlquery(mutation);
     print('Result is : $result');
   }
 
@@ -204,7 +218,7 @@ class _AddEventState extends State<AddEvent> {
           Icons.check,
           color: Colors.white,
         ),
-        onPressed: () {
+        onPressed: () async {
           if(titleController.text.isEmpty || descriptionController.text.isEmpty || locationController.text.isEmpty){
             if (titleController.text.isEmpty){
               setState(() {
@@ -223,7 +237,9 @@ class _AddEventState extends State<AddEvent> {
             }
             Fluttertoast.showToast(msg: 'Fill in the empty fields', backgroundColor: Colors.grey[500]);
           }else {
-            createEvent();
+            showProgress(context, 'Creating New Event . . .', false);
+            await createEvent();
+            hideProgress();
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Events()), (route) => false);
           }
         });
