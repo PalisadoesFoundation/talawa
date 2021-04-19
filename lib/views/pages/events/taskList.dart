@@ -23,7 +23,7 @@ class _TaskListState extends State<TaskList> {
   Preferences preferences = Preferences();
 
   ApiFunctions apiFunctions = ApiFunctions();
-  List eventTasks = [];
+  List eventTasks;
 
   void initState() {
     super.initState();
@@ -51,7 +51,9 @@ class _TaskListState extends State<TaskList> {
           future: task,
           builder: (context, snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
-              return Center(child: CircularProgressIndicator());
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             } else if (snapshot.data.length == 0) {
               return Container(
                 child: Center(

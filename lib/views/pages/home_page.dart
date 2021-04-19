@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
       super.setState(fn);
     }
   }
-
   int currentIndex = 0;
 
   PersistentTabController _controller;

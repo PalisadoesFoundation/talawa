@@ -85,14 +85,20 @@ class _NewsFeedState extends State<NewsFeed> {
     _hasUserJoinedOrg = currentOrgID == null ? false : true;
     final String currentUserID = await preferences.getUserId();
     _currentOrgID = currentUserID;
-    String query = Queries().getPostsById(currentOrgID);
-    Map result = await apiFunctions.gqlquery(query);
-    // print(result);
-    setState(() {
-      postList =
-          result == null ? [] : result['postsByOrganization'].reversed.toList();
-      updateLikepostMap(currentUserID);
-    });
+        if(currentOrgID != null){
+          String query = Queries().getPostsById(currentOrgID);
+          Map result = await apiFunctions.gqlquery(query);
+          // print(result);
+          setState(() {
+            postList = result == null ? [] : result['postsByOrganization'].reversed.toList();
+            updateLikepostMap(currentUserID);
+          });
+        }else{
+          setState(() {
+            postList = [];
+            updateLikepostMap(currentUserID);
+          });
+        }
     
      _isFetchingPost = false;
   }
@@ -116,8 +122,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
   //function to addlike
   Future<void> addLike(String postID) async {
-    String mutation = Queries().addLike(postID);
-    Map result = await apiFunctions.gqlmutation(mutation);
+    Map result = await Queries().addLike(postID);
     print(result);
     getPosts();
   }
@@ -126,8 +131,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
   //function to remove the likes
   Future<void> removeLike(String postID) async {
-    String mutation = Queries().removeLike(postID);
-    Map result = await apiFunctions.gqlmutation(mutation);
+    Map result = await Queries().removeLike(postID);
     print(result);
     getPosts();
   }

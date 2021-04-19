@@ -50,6 +50,7 @@ dependencies:
   flutter_pw_validator: ^1.2.1
   data_connection_checker: ^0.3.4
   progress_dialog: ^1.2.4
+  package_info: ^2.0.0
 
 
 
