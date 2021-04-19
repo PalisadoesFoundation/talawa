@@ -117,9 +117,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
     );
   }
 
-
-
-    void assignAnimation(bool firstTime) {
+  void assignAnimation(bool firstTime) {
     if (!firstTime) {
       animation = Tween(begin: 1.0, end: 1.0).animate(controller);
 

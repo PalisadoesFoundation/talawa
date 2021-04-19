@@ -15,6 +15,7 @@ import 'package:talawa/utils/apiFunctions.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 import 'package:talawa/views/pages/events/editEventDialog.dart';
 import 'package:talawa/views/widgets/loading.dart';
+import 'package:talawa/views/widgets/showProgress.dart';
 
 //pubspec packages are called here
 import 'package:timeline_list/timeline.dart';
@@ -139,17 +140,16 @@ class _EventsState extends State<Events> {
 
   //function called to delete the event
   Future<void> _deleteEvent(context, eventId) async {
+    showProgress(context, 'Deleting Event . . .', false);
     String mutation = Queries().deleteEvent(eventId);
     Map result = await apiFunctions.gqlquery(mutation);
-    setState(() {
-      getEvents();
-    });
+    await getEvents();
+    hideProgress();
   }
 
   //function to called be called for register
   Future<void> _register(context, eventId) async {
-    String mutation = Queries().registerForEvent(eventId);
-    Map result = await apiFunctions.gqlmutation(mutation);
+    Map result = await Queries().registerForEvent(eventId);
     print(result);
   }
 
