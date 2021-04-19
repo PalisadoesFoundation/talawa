@@ -75,10 +75,13 @@ class _AddPostState extends State<AddPost> {
       appBar: AppBar(
         title: Text(
           'New Post',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white
+          ),
         ),
       ),
-      body: Container(
+      body: SingleChildScrollView(
+      child: Container(
           child: Form(
         autovalidateMode: validate,
         key: _formKey,
@@ -153,7 +156,9 @@ class _AddPostState extends State<AddPost> {
             ),
           ],
         ),
-      )),
+          ),
+      ),
+      ),
       floatingActionButton: addPostFab(),
     );
   }
