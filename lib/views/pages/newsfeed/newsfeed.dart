@@ -101,8 +101,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
   //function to addlike
   Future<void> addLike(String postID) async {
-    String mutation = Queries().addLike(postID);
-    Map result = await apiFunctions.gqlmutation(mutation);
+    Map result = await Queries().addLike(postID);
     print(result);
     getPosts();
   }
@@ -111,8 +110,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
   //function to remove the likes
   Future<void> removeLike(String postID) async {
-    String mutation = Queries().removeLike(postID);
-    Map result = await apiFunctions.gqlmutation(mutation);
+    Map result = await Queries().removeLike(postID);
     print(result);
     getPosts();
   }

@@ -148,8 +148,7 @@ class _EventsState extends State<Events> {
 
   //function to called be called for register
   Future<void> _register(context, eventId) async {
-    String mutation = Queries().registerForEvent(eventId);
-    Map result = await apiFunctions.gqlmutation(mutation);
+    Map result = await Queries().registerForEvent(eventId);
     print(result);
   }
 
