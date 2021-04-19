@@ -702,6 +702,9 @@ class Queries {
       title
       description
       deadline
+      event{
+        title
+      }
     }
   }
   
