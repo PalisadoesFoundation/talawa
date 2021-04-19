@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 //pages are imported here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 
 // ignore: must_be_immutable
 class TaskList extends StatefulWidget {
@@ -23,7 +23,7 @@ class _TaskListState extends State<TaskList> {
   Preferences preferences = Preferences();
 
   ApiFunctions apiFunctions = ApiFunctions();
-  List eventTasks = [];
+  List eventTasks;
 
   void initState() {
     super.initState();
@@ -51,7 +51,9 @@ class _TaskListState extends State<TaskList> {
           future: task,
           builder: (context, snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
-              return Center(child: CircularProgressIndicator());
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             } else if (snapshot.data.length == 0) {
               return Container(
                 child: Center(

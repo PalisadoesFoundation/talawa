@@ -94,8 +94,10 @@ class Validator {
   }
 
   static String validateOrgName(String value) {
-    if (value.length == 0) {
-      return 'Organization Name must not be left blank.';
+    String validatingValue = value.replaceAll(new RegExp(r"\s+"), "");
+    print(validatingValue.length);
+    if (validatingValue.length == 0) {
+      return 'Organization Description must not be left blank.';
     }
     if (value.length > 40) {
       return 'Organization Name must not exceed 40 letters';
@@ -104,7 +106,9 @@ class Validator {
   }
 
   static String validateOrgDesc(String value) {
-    if (value.length == 0) {
+    String validatingValue = value.replaceAll(new RegExp(r"\s+"), "");
+    print(validatingValue.length);
+    if (validatingValue.length == 0) {
       return 'Organization Description must not be left blank.';
     }
     if (value.length > 5000) {
@@ -114,7 +118,9 @@ class Validator {
   }
 
   static String validateOrgAttendeesDesc(String value) {
-    if (value.length == 0) {
+    String validatingValue = value.replaceAll(new RegExp(r"\s+"), "");
+    print(validatingValue.length);
+    if (validatingValue.length == 0) {
       return 'Attendees Description must not be left blank.';
     }
     if (value.length > 5000) {
