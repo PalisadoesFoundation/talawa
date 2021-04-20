@@ -35,12 +35,15 @@ The process of proposing a change to Talawa can be summarized as:
 3. Make the desired changes to the Talawa source.
 4. Run the app and test your changes.
 5. If you've added code that should be tested, write tests.
-6. After making changes you can add them to git locally using `git add <file_name>`(to add changes only in a particular file) or `git add .` (to add all changes).
-7. After adding the changes you need to commit them using `git commit -m '<commit message>'`(look at the commit guidelines below for commit messages).
-8. Once you have successfully commited your changes, you need to push the changes to the forked repo on github using: `git push origin <branch_name>`.(Here branch name must be name of the branch you want to push the changes to.)
-9. Now create a pull request to the Talawa repository from your forked repo. Open an issue regarding the same and link your PR to it.
-10. Ensure the test suite passes, either locally or on CI once a PR has been created. 
-11. Review and address comments on your pull request if requested.
+6. Ensure that your code is appropriately formatted before making your submission. Submissions which are not properly formatted will be rejected if they are not fixed by the contributor.
+    - Visual Studio Code has a setting which allows your code to be formatted [automatically when you save](https://stackoverflow.com/a/66538607/15290492), or you may manually trigger it using ```Ctrl + Shift + P``` or ```Cmd + Shift + P``` and typing ```Format Document```.
+    - IntelliJ, Android Studio, and other Jetbrains-based IDEs use the ```Ctrl + Alt + L``` or ```Cmd + Opt + L``` to trigger code formatting.
+7. After making changes you can add them to git locally using `git add <file_name>`(to add changes only in a particular file) or `git add .` (to add all changes).
+8. After adding the changes you need to commit them using `git commit -m '<commit message>'`(look at the commit guidelines below for commit messages).
+9. Once you have successfully commited your changes, you need to push the changes to the forked repo on github using: `git push origin <branch_name>`.(Here branch name must be name of the branch you want to push the changes to.)
+10. Now create a pull request to the Talawa repository from your forked repo. Open an issue regarding the same and link your PR to it.
+11. Ensure the test suite passes, either locally or on CI once a PR has been created. 
+12. Review and address comments on your pull request if requested.
 
 ### General Guidelines
 
