@@ -51,7 +51,7 @@ dependencies:
   data_connection_checker: ^0.3.4
   progress_dialog: ^1.2.4
   package_info: ^2.0.0
-
+  sliding_up_panel: ^1.0.2
 
 
 

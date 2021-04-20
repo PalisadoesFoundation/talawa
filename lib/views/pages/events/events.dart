@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
@@ -47,6 +48,7 @@ class _EventsState extends State<Events> {
   var events;
   Timer timer = Timer();
   String userId;
+  ScrollController listScrollController = new ScrollController();
 
   @override
   void initState() {
@@ -261,68 +263,61 @@ class _EventsState extends State<Events> {
                             right: 0,
                             child: calendar(),
                           ),
-                          DraggableScrollableSheet(
-                            initialChildSize: 0.3,
-                            minChildSize: 0.3,
-                            maxChildSize: 1.0,
-                            expand: true,
-                            builder:
-                                (BuildContext context, myscrollController) {
-                              return Container(
-                                color: Colors.white,
-                                child: Column(
-                                  children: [
-                                    ListView(
-                                      controller: myscrollController,
-                                      shrinkWrap: true,
-                                      children: [carouselSliderBar()],
-                                    ),
-                                    Expanded(
-                                      child: Timeline.builder(
-                                        controller: myscrollController,
-                                        lineColor: UIData.primaryColor,
-                                        position: TimelinePosition.Left,
-                                        itemCount: displayedEvents.length,
-                                        itemBuilder: (context, index) {
-                                          if (index == 0) {
-                                            return TimelineModel(
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 5),
-                                                    child: Text(
-                                                      '${displayedEvents.length} Events',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.black45),
-                                                    ),
-                                                  ),
-                                                  eventCard(index)
-                                                ],
-                                              ),
-                                              iconBackground:
-                                                  UIData.secondaryColor,
-                                            );
-                                          }
-                                          return TimelineModel(
-                                            eventCard(index),
-                                            iconBackground:
-                                                UIData.secondaryColor,
-                                            position:
-                                                TimelineItemPosition.right,
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                         SlidingUpPanel(
+                           backdropEnabled: true,
+                           panel: Container(
+                             color: Colors.white,
+                             child: Column(
+                               children: [
+                                 ListView(
+                                   controller: listScrollController,
+                                   shrinkWrap: true,
+                                   children: [carouselSliderBar()],
+                                 ),
+                                 Expanded(
+                                   child: Timeline.builder(
+                                     lineColor: UIData.primaryColor,
+                                     position: TimelinePosition.Left,
+                                     itemCount: displayedEvents.length,
+                                     itemBuilder: (context, index) {
+                                       if (index == 0) {
+                                         return TimelineModel(
+                                           Column(
+                                             mainAxisAlignment:
+                                             MainAxisAlignment.center,
+                                             children: [
+                                               Container(
+                                                 padding:
+                                                 EdgeInsets.symmetric(
+                                                     vertical: 5),
+                                                 child: Text(
+                                                   '${displayedEvents.length} Events',
+                                                   style: TextStyle(
+                                                       color:
+                                                       Colors.black45),
+                                                 ),
+                                               ),
+                                               eventCard(index)
+                                             ],
+                                           ),
+                                           iconBackground:
+                                           UIData.secondaryColor,
+                                         );
+                                       }
+                                       return TimelineModel(
+                                         eventCard(index),
+                                         iconBackground:
+                                         UIData.secondaryColor,
+                                         position:
+                                         TimelineItemPosition.right,
+                                       );
+                                     },
+                                   ),
+                                 ),
+                               ],
+                             ),
+                           ),
+                         ),
                         ],
                       ),
                     ));
@@ -570,3 +565,4 @@ class _EventsState extends State<Events> {
         });
   }
 }
+
