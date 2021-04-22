@@ -5,12 +5,14 @@ void main() {
   test('Empty Email Test', () {
     var result = Validator.validateEmail('');
     //Email should be non-empty
+    
     expect(result, 'Email must not be left blank');
   });
 
   test('Invalid Email Test', () {
     var result = Validator.validateEmail('abc');
     //Email should be valid
+    
     expect(result, 'Please enter a valid Email Address');
   });
 
