@@ -142,8 +142,7 @@ class _NewsArticleState extends State<NewsArticle> {
     if (commentController.text.isNotEmpty) {
       Fluttertoast.showToast(msg: "Adding Comment...");
       queryText = commentController.text.replaceAll("\n", newLineKey).trim();
-      String mutation = Queries().createComments(post['_id'], queryText);
-      Map result = await apiFunctions.gqlmutation(mutation);
+      Map result = await Queries().createComments(post['_id'], queryText);
       print(result);
       if (result == null) {
         Fluttertoast.showToast(
