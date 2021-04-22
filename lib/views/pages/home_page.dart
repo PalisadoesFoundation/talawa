@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
     final String userID = await preferences.getUserId(); //getting the current user id from the server
     String mutation = Queries().fetchUserInfo2(userID); //getting some more user information with the ID
     ApiFunctions apiFunctions = ApiFunctions();
-    final result = await apiFunctions.gqlmutation(mutation);
+    await apiFunctions.gqlmutation(mutation);
   }
 
   List<Widget> _buildScreens() { //here we are building the screens that are mention in the app bar

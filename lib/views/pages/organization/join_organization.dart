@@ -7,7 +7,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
@@ -41,7 +40,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   AuthController _authController = AuthController();
   String isPublic;
   TextEditingController searchController = TextEditingController();
-  OrgController _orgController = OrgController();
   bool _isLoaderActive = false;
   bool disposed = false;
   int loadingIndex = -1;
@@ -369,7 +367,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                     TextOverflow.ellipsis),
                                           ],
                                         ),
-                                        trailing: new RaisedButton(
+                                        trailing: new ElevatedButton(
+                                          style: ButtonStyle(
+                                            backgroundColor: MaterialStateProperty.all<Color>(UIData.primaryColor),
+                                            shape: MaterialStateProperty.all<OutlinedBorder>(RoundedRectangleBorder(
+                                              borderRadius:
+                                                  new BorderRadius.circular(
+                                                      12.0),
+                                            )),
+                                          ),
                                             onPressed: () {
                                               itemIndex = organization['_id']
                                                   .toString();
@@ -386,7 +392,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               }
                                               confirmOrgDialog(organization['name'], index);
                                             },
-                                            color: UIData.primaryColor,
                                             child: _isLoaderActive == true && loadingIndex == index
                                                 ? const SizedBox(
                                                     width: 20,
@@ -397,12 +402,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                       backgroundColor:
                                                           Colors.black,
                                                     ))
-                                                : new Text("JOIN"),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      12.0),
-                                            )),
+                                                : new Text("JOIN"), 
+                                          ),
                                         isThreeLine: true,
                                       ),
                                     );
@@ -485,7 +486,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                     TextOverflow.ellipsis),
                                           ],
                                         ),
-                                        trailing: new RaisedButton(
+                                        trailing: new ElevatedButton(
+                                          style: ButtonStyle(
+                                            backgroundColor: MaterialStateProperty.all<Color>(UIData.primaryColor),
+                                            shape: MaterialStateProperty.all<OutlinedBorder>(RoundedRectangleBorder(
+                                              borderRadius:
+                                                  new BorderRadius.circular(
+                                                      12.0),
+                                            )),
+                                          ),
                                             onPressed: () {
                                               itemIndex = organization['_id']
                                                   .toString();
@@ -502,7 +511,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               }
                                               confirmOrgDialog(organization['name'], index);  
                                             },
-                                            color: UIData.primaryColor,
                                             child: _isLoaderActive == true && loadingIndex == index
                                                 ? const SizedBox(
                                                   width: 20,
@@ -513,11 +521,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                     backgroundColor: Colors.black,
                                                   )) 
                                                 : new Text("JOIN"),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      12.0),
-                                            )),
+                                            ),
                                         isThreeLine: true,
                                       ),
                                     );
@@ -549,13 +553,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             title: Text("Confirmation"),
             content: Text("Are you sure you want to join this organization?"),
             actions: [
-              FlatButton(
+              TextButton(
                 child: Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
-              FlatButton(
+              TextButton(
                 child: Text("Yes"),
                 onPressed: () async {
                   setState(() {

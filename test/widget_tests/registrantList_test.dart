@@ -10,7 +10,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/events/registrantList.dart';
 
-Widget RegistrantListPage() => MultiProvider(
+Widget registrantListPage() => MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
           create: (_) => GraphQLConfiguration(),
@@ -50,7 +50,7 @@ void main() {
 
   group("Registrant List Tests", () {
     testWidgets("Testing if Registrant List  Page shows up", (tester) async {
-      await tester.pumpWidget(RegistrantListPage());
+      await tester.pumpWidget(registrantListPage());
 
       /// Verify if [Registrant List Page] shows up.
 
@@ -65,7 +65,7 @@ void main() {
       binding.window.physicalSizeTestValue = Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(RegistrantListPage());
+      await tester.pumpWidget(registrantListPage());
     });
 
     testWidgets("Testing overflow of Registrant List in a tablet screen",
@@ -73,7 +73,7 @@ void main() {
       binding.window.physicalSizeTestValue = Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(RegistrantListPage());
+      await tester.pumpWidget(registrantListPage());
     });
   });
 }

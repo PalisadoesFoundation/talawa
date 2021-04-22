@@ -19,7 +19,6 @@ import 'package:talawa/views/pages/organization/organization_settings.dart';
 
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
 import 'package:talawa/views/widgets/loading.dart';
-import 'package:talawa/views/widgets/snackbar.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {

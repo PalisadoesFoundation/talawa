@@ -142,7 +142,7 @@ class _EventsState extends State<Events> {
   Future<void> _deleteEvent(context, eventId) async {
     showProgress(context, 'Deleting Event . . .', false);
     String mutation = Queries().deleteEvent(eventId);
-    Map result = await apiFunctions.gqlquery(mutation);
+    await apiFunctions.gqlquery(mutation);
     await getEvents();
     hideProgress();
   }
@@ -156,25 +156,25 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-      Map result =
-      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-      eventList = result == null ? [] : result['events'].reversed.toList();
-      eventList.removeWhere((element) =>
-          element['title'] == 'Talawa Congress' ||
-          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1'); //dont know who keeps adding these
-      // This removes all invalid date formats other than Unix time
-      eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
-      eventList.sort((a, b) {
-        return DateTime.fromMicrosecondsSinceEpoch(
-          int.parse(a['startTime']))
+    Map result =
+        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    eventList = result == null ? [] : result['events'].reversed.toList();
+    eventList.removeWhere((element) =>
+        element['title'] == 'Talawa Congress' || 
+        element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1'); //dont know who keeps adding these
+    // This removes all invalid date formats other than Unix time
+    eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
+    eventList.sort((a, b) {
+      return DateTime.fromMicrosecondsSinceEpoch(
+        int.parse(a['startTime']))
           .compareTo(
-          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
-      });
-      eventsToDates(eventList, DateTime.now());
-      setState(() {
-        displayedEvents = eventList;
-      });
-      userId = await preferences.getUserId();
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+    });
+    eventsToDates(eventList, DateTime.now());
+    setState(() {
+      displayedEvents = eventList;
+    });
+    userId = await preferences.getUserId();
   }
 
   //functions to edit the event
@@ -460,8 +460,11 @@ class _EventsState extends State<Events> {
               //             int.parse(displayedEvents[index]['startTime'])))
               //         .toString()),
               ListTile(
-                trailing: RaisedButton(
-                  color: UIData.secondaryColor,
+                trailing: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(UIData.secondaryColor),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
+                  ),
                   onPressed: () {
                     pushNewScreen(
                       context,
@@ -473,7 +476,6 @@ class _EventsState extends State<Events> {
                     "More",
                     style: TextStyle(color: Colors.white),
                   ),
-                  shape: StadiumBorder(),
                 ),
               ),
             ],

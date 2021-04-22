@@ -11,7 +11,7 @@ class API {
   Preferences _pref = Preferences();
 
   Future<List<SwitchOrg>> fetchUserDetails() async {
-    var joinedOrgs = List<SwitchOrg>();
+    List<SwitchOrg> joinedOrgs;
     final String userID = await _pref.getUserId();
     GraphQLClient _client = _graphQLConfiguration.clientToQuery();
 

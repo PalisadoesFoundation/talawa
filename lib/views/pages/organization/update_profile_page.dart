@@ -180,8 +180,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
   //Get image using camera
   _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
+    PickedFile selectedImage  = await ImagePicker().getImage(
         source: ImageSource.camera, imageQuality: 50);
+    File image = File(selectedImage.path);
 
     setState(() {
       _image = image;
@@ -374,7 +375,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: RaisedButton.icon(
+                  child: ElevatedButton.icon(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(15.0)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
                       _validate = AutovalidateMode.always;
@@ -386,11 +392,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             : updateProfileWithImg();
                       }
                     },
-                    padding: EdgeInsets.all(15),
-                    color: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
                     icon: _progressBarState
                         ? SizedBox(
                             height: 14,

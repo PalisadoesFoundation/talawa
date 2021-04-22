@@ -10,7 +10,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/events/taskList.dart';
 
-Widget TaskListPage() => MultiProvider(
+Widget taskListPage() => MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
           create: (_) => GraphQLConfiguration(),
@@ -50,7 +50,7 @@ void main() {
 
   group("Task List Tests", () {
     testWidgets("Testing if tasklist  Page shows up", (tester) async {
-      await tester.pumpWidget(TaskListPage());
+      await tester.pumpWidget(taskListPage());
 
       /// Verify if [tasklist Page] shows up.
 
@@ -65,7 +65,7 @@ void main() {
       binding.window.physicalSizeTestValue = Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(TaskListPage());
+      await tester.pumpWidget(taskListPage());
     });
 
     testWidgets("Testing overflow of Task List in a tablet screen",
@@ -73,7 +73,7 @@ void main() {
       binding.window.physicalSizeTestValue = Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(TaskListPage());
+      await tester.pumpWidget(taskListPage());
     });
   });
 }

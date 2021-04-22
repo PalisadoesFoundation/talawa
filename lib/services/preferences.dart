@@ -195,7 +195,7 @@ class Preferences with ChangeNotifier {
 
   //get the current user id
   static Future<int> getCurrentUserId() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+    
     var storage=FlutterSecureStorage();
     try {
       Token token =

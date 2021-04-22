@@ -127,7 +127,7 @@ class _OrganizationsState extends State<Organizations> {
                       SizedBox(
                         height: 50,
                       ),
-                      RaisedButton(
+                      ElevatedButton(
                         onPressed: () {
                           getMembers();
                         },

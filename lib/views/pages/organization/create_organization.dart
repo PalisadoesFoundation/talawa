@@ -159,8 +159,10 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   _imgFromCamera() async {
     //this is the function when the user want to capture the image from the camera
-    File image = await ImagePicker.pickImage(
+    PickedFile pickedImage = await ImagePicker().getImage(
         source: ImageSource.camera, imageQuality: 50);
+    
+    File image = File(pickedImage.path);
 
     setState(() {
       _image = image;

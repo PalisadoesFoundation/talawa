@@ -31,7 +31,6 @@ class _NewsFeedState extends State<NewsFeed> {
   ApiFunctions apiFunctions = ApiFunctions();
   List postList = [];
   Timer timer = Timer();
-  String _currentOrgID;
 
   Map<String, bool> likePostMap = new Map<String , bool>(); 
   // key = postId and value will be true if user has liked a post.
@@ -70,7 +69,6 @@ class _NewsFeedState extends State<NewsFeed> {
   Future<void> getPosts() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
-    _currentOrgID = currentUserID;
         if(currentOrgID != null){
           String query = Queries().getPostsById(currentOrgID);
           Map result = await apiFunctions.gqlquery(query);

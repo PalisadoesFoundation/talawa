@@ -19,9 +19,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 
 //pubspec packages are called here
-import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_password_strength/flutter_password_strength.dart';
 
 import '../_pages.dart';
 
@@ -38,7 +36,6 @@ class RegisterFormState extends State<RegisterForm> {
   TextEditingController _lastNameController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _originalPasswordController = new TextEditingController();
-  TextEditingController _confirmPasswordController = new TextEditingController();
   FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
@@ -141,11 +138,12 @@ class RegisterFormState extends State<RegisterForm> {
   //get image from camera and gallery based on the enum passed
   _imgFrom({From pickFrom = From.none}) async {
     File pickImageFile;
-    if (pickFrom != From.none) {
-      pickImageFile = await ImagePicker.pickImage(
+    if (pickFrom != From.none) { 
+      PickedFile selectedImage = await ImagePicker().getImage(
           source: pickFrom == From.camera
               ? ImageSource.camera
               : ImageSource.gallery);
+      pickImageFile = File(selectedImage.path);
       setState(() {
         _image = pickImageFile;
       });
@@ -286,7 +284,7 @@ class RegisterFormState extends State<RegisterForm> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           prefixIcon: Icon(Icons.lock, color: Colors.white),
-                          suffixIcon: FlatButton(
+                          suffixIcon: TextButton(
                             onPressed: _toggle,
                             child: Icon(
                               _obscureText
@@ -366,9 +364,12 @@ class RegisterFormState extends State<RegisterForm> {
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
                   width: double.infinity,
-                  child: RaisedButton(
-                    padding: EdgeInsets.all(12.0),
-                    shape: StadiumBorder(),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(12.0)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    ),
                     child: _progressBarState
                         ? const SizedBox(
                             width: 20,
@@ -382,7 +383,6 @@ class RegisterFormState extends State<RegisterForm> {
                         : Text(
                             "SIGN UP",
                           ),
-                    color: Colors.white,
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
                       _validate = AutovalidateMode.always;

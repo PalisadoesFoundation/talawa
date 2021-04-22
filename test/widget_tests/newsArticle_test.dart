@@ -11,7 +11,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
 
-Widget NewsArticlePage() => MultiProvider(
+Widget newsArticlePage() => MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
           create: (_) => GraphQLConfiguration(),
@@ -46,7 +46,7 @@ void main() {
 
   group("News Article Tests", () {
     testWidgets("Testing if newsArticle Page shows up", (tester) async {
-      await tester.pumpWidget(NewsArticlePage());
+      await tester.pumpWidget(newsArticlePage());
 
       /// Verify if [News Article Page] shows up.
 
@@ -61,7 +61,7 @@ void main() {
       binding.window.physicalSizeTestValue = Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(NewsArticlePage());
+      await tester.pumpWidget(newsArticlePage());
 
       /// Verify if [News Article Page] shows up.
       expect(
@@ -75,7 +75,7 @@ void main() {
       binding.window.physicalSizeTestValue = Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(NewsArticlePage());
+      await tester.pumpWidget(newsArticlePage());
 
       /// Verify if [News Article Page] shows up.
       expect(
@@ -85,7 +85,7 @@ void main() {
     });
 
     testWidgets("Load Comments Button is working", (tester) async {
-      await tester.pumpWidget(NewsArticlePage());
+      await tester.pumpWidget(newsArticlePage());
 
       // Get the Load Comment button.
       var loadCommentsButton = find.text("Load Comments");
@@ -95,10 +95,10 @@ void main() {
       await tester.pumpAndSettle();
 
       // Comments Icon Should be displayed.
-      final icon_key = ValueKey('commentIcon');
+      final iconKey = ValueKey('commentIcon');
 
       expect(
-        find.byKey(icon_key),
+        find.byKey(iconKey),
         findsWidgets,
       );
     });
@@ -111,7 +111,7 @@ void main() {
     final leaveCommentButton = find.byKey(ValueKey('leaveCommentButton'));
     
     //execute the test
-    await tester.pumpWidget(NewsArticlePage());
+    await tester.pumpWidget(newsArticlePage());
     await tester.enterText(leaveCommentTextField,"hello how are you");
     await tester.tap(leaveCommentButton);
     await tester.pump();

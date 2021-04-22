@@ -67,7 +67,6 @@ class _NewsArticleState extends State<NewsArticle> {
 
   @override
     void didChangeDependencies() {
-      // TODO: implement didChangeDependencies
       super.didChangeDependencies();
       getPostComments();
     }
@@ -358,8 +357,10 @@ class _NewsArticleState extends State<NewsArticle> {
 
   //this loads the comments button
   Widget loadCommentsButton() {
-    return FlatButton(
-        color: Colors.grey[200],
+    return TextButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[200]),
+        ),
         onPressed: () {
           setState(() {
             showLoadComments = true;

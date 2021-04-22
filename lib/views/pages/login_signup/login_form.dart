@@ -181,7 +181,7 @@ class LoginFormState extends State<LoginForm> {
                       Icons.lock,
                       color: Colors.white,
                     ),
-                    suffixIcon: FlatButton(
+                    suffixIcon: TextButton(
                       onPressed: _toggle,
                       child: Icon(
                         _obscureText ? Icons.visibility_off : Icons.visibility,
@@ -207,15 +207,17 @@ class LoginFormState extends State<LoginForm> {
             Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
               width: double.infinity,
-              child: RaisedButton(
-                  padding: EdgeInsets.all(12.0),
-                  shape: StadiumBorder(),
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(12.0)),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  ),
                   child: _progressBarState
                       ? const CircularProgressIndicator()
                       : Text(
                           "SIGN IN",
                         ),
-                  color: Colors.white,
                   onPressed: () async {
                     FocusScope.of(context).unfocus();
                     //checks to see if all the fields have been validated then authenticate a user

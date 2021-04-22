@@ -31,7 +31,7 @@ class _AddEventTaskState extends State<AddEventTask> {
         title: titleController.text,
         description: descriptionController.text,
         deadline: DateTime.now().millisecondsSinceEpoch.toString());
-    Map result = await apiFunctions.gqlquery(mutation);
+    await apiFunctions.gqlquery(mutation);
   }
 
   //function to select the date
@@ -86,13 +86,13 @@ class _AddEventTaskState extends State<AddEventTask> {
             ),
           )),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: Text("Cancel"),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        FlatButton(
+        TextButton(
           child: Text("Add"),
           onPressed: () async {
             if (_formkey.currentState.validate()) {

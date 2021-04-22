@@ -8,7 +8,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/events/addTaskDialog.dart';
 
-Widget AddTaskDialog() => MultiProvider(
+Widget addTaskDialog() => MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
           create: (_) => GraphQLConfiguration(),
@@ -35,7 +35,7 @@ void main() {
     testWidgets(
         "Testing if add Task Dialog page shows up validations on empty submission",
         (tester) async {
-      await tester.pumpWidget(AddTaskDialog());
+      await tester.pumpWidget(addTaskDialog());
       Finder formWidgetFinder = find.byType(Form);
       Form formWidget = tester.widget(formWidgetFinder) as Form;
       GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
@@ -44,7 +44,7 @@ void main() {
     testWidgets(
         "Testing if add Task Dialog page shows up validations on empty submission of description field",
         (tester) async {
-      await tester.pumpWidget(AddTaskDialog());
+      await tester.pumpWidget(addTaskDialog());
       Finder title = find.byKey(Key('Title'));
       await tester.enterText(title, "Something post title");
       await tester.pump();
@@ -56,7 +56,7 @@ void main() {
     testWidgets(
         "Testing if add Task Dialog page shows up validations on empty submission of title field",
         (tester) async {
-      await tester.pumpWidget(AddTaskDialog());
+      await tester.pumpWidget(addTaskDialog());
       Finder description = find.byKey(Key('Description'));
       await tester.enterText(description, "Description for the post");
       await tester.pump();
@@ -68,7 +68,7 @@ void main() {
     testWidgets(
         "Testing if add Task Dialog page shows up validations on submission on fields with data",
         (tester) async {
-      await tester.pumpWidget(AddTaskDialog());
+      await tester.pumpWidget(addTaskDialog());
       Finder title = find.byKey(Key('Title'));
       await tester.enterText(title, "Something post title");
       Finder description = find.byKey(Key('Description'));
