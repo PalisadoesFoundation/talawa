@@ -9,10 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: axel-op/dart-package-analyzer@v3
-        with:
-          # Required:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+      # - uses: axel-op/dart-package-analyzer@v3
+      #   with:
+      #     # Required:
+      #     githubToken: ${{ secrets.GITHUB_TOKEN }}
       - uses: subosito/flutter-action@v1
         with:
           channel: 'beta'
