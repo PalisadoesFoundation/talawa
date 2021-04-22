@@ -100,6 +100,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
       await _successToast('Profile Updated');
 
+      Navigator.of(context).popUntil(ModalRoute.withName("/"));
+
       pushNewScreen(
         context,
         screen: ProfilePage(),
@@ -165,6 +167,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
       _successToast('Profile Updated');
 
+      //Navigate to home screen
+      Navigator.of(context).popUntil(ModalRoute.withName("/"));
+
+      //Push New Screen
       pushNewScreen(
         context,
         screen: ProfilePage(),
@@ -243,6 +249,15 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   ),
                 ),
                 addImage(),
+                SizedBox(
+                  height: 20,
+                ),
+                _image!=null?IconButton(icon: Icon(Icons.delete,size: 30,color: Colors.red,),onPressed: (){setState(() {
+                  _image=null;
+                });},):Container(),
+                SizedBox(
+                  height: 20,
+                ),
                 SizedBox(
                   height: 30,
                 ),

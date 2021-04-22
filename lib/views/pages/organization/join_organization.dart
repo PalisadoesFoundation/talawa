@@ -35,8 +35,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  List organizationInfo = List();
-  List filteredOrgInfo = List();
+  List organizationInfo = [];
+  List filteredOrgInfo = [];
   List joinedOrg = [];
   AuthController _authController = AuthController();
   String isPublic;
@@ -44,6 +44,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   OrgController _orgController = OrgController();
   bool _isLoaderActive = false;
   bool disposed = false;
+  int loadingIndex = -1;
+
+  // Variables for filtering out alread joined
+  // and created organizations.
+  String currentUserId;
+  List joinedOrganizations = [];
+  List joinedOrganizationsIds = [];
 
   @override
   void initState() {
@@ -58,6 +65,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   void dispose() {
     disposed = true;
     super.dispose();
+  }
+
+  // Function for getting the current user id.
+  void getCurrentUserId () async {
+    currentUserId = await _pref.getUserId();
   }
 
   void searchOrgName(String orgName) {
@@ -80,18 +92,49 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   Future fetchOrg() async {
+    // Get current User Id.
+    getCurrentUserId();
+
     //function to fetch the org from the server
     GraphQLClient _client = graphQLConfiguration.authClient();
 
     QueryResult result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
-    if (result.hasException) {
+
+
+    // Get the details of the current user.
+    QueryResult userDetailsResult = await _client.query(QueryOptions(
+     documentNode: gql(_query.fetchUserInfo), variables: {'id': currentUserId}));
+
+    if (result.hasException || userDetailsResult.hasException) {
       print(result.exception);
       showError(result.exception.toString());
-    } else if (!result.hasException && !disposed) {
-      setState(() {
-        organizationInfo = result.data['organizations'];
-      });
+    } else if (!result.hasException && !disposed && 
+      !userDetailsResult.hasException){
+        setState(() {
+          organizationInfo = result.data['organizations'];
+
+          // Get the details of joined organizations.
+          joinedOrganizations = 
+                userDetailsResult.data['users'][0]['joinedOrganizations'];
+                
+          // Get the id's of joined organizations.
+          joinedOrganizations.forEach((element) {
+            joinedOrganizationsIds.add(element['_id']);
+          });
+
+          // Filtering out organizations that are created by current user.
+          organizationInfo = 
+            organizationInfo.where((element) => element['admins'][0]['_id'] 
+              != currentUserId).toList();
+
+          // Filtering out organizations that are already joined by user.
+          joinedOrganizationsIds.forEach((e) {
+            print(e);
+            organizationInfo = 
+              organizationInfo.where((element) => element['_id'] != e).toList();
+          });
+        });
     }
   }
 
@@ -125,9 +168,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
-  Future joinPublicOrg() async {
+  Future joinPublicOrg(String orgName) async {
     //function which will be called if the person wants to join the organization which is not private
     GraphQLClient _client = graphQLConfiguration.authClient();
+
+    print(orgName);
 
     QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.getOrgId(itemIndex))));
@@ -135,7 +180,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      return joinPublicOrg();
+      _exceptionToast(result.exception.toString().substring(16));
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       _exceptionToast(result.exception.toString().substring(16));
@@ -146,6 +191,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       });
 
       //set the default organization to the first one in the list
+
       if (joinedOrg.length == 1) {
         final String currentOrgId = result.data['joinPublicOrganization']
             ['joinedOrganizations'][0]['_id'];
@@ -156,12 +202,30 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         final String currentOrgName = result.data['joinPublicOrganization']
             ['joinedOrganizations'][0]['name'];
         await _pref.saveCurrentOrgName(currentOrgName);
+      } else {
+        // If there are multiple number of organizations.
+        for(int i = 0; i < joinedOrg.length; i++) {
+          if(joinedOrg[i]['name'] == orgName) {
+            final String currentOrgId = result.data['joinPublicOrganization']
+            ['joinedOrganizations'][i]['_id'];
+        await _pref.saveCurrentOrgId(currentOrgId);
+        final String currentOrgImgSrc = result.data['joinPublicOrganization']
+            ['joinedOrganizations'][i]['image'];
+        await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+        final String currentOrgName = result.data['joinPublicOrganization']
+            ['joinedOrganizations'][i]['name'];
+        await _pref.saveCurrentOrgName(currentOrgName);
+          }
+        }
       }
-      _successToast("Sucess!");
+      _successToast("Success!");
 
       //Navigate user to newsfeed
       if (widget.fromProfile) {
-        Navigator.pop(context);
+        pushNewScreen(
+          context,
+          screen: ProfilePage(),
+        );
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => HomePage(
@@ -320,16 +384,19 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                   isPublic = 'true';
                                                 });
                                               }
-                                              confirmOrgDialog();
+                                              confirmOrgDialog(organization['name'], index);
                                             },
                                             color: UIData.primaryColor,
-                                            child: _isLoaderActive
-                                                ? CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation(
-                                                            Colors.white),
-                                                    strokeWidth: 2,
-                                                  )
+                                            child: _isLoaderActive == true && loadingIndex == index
+                                                ? const SizedBox(
+                                                    width: 20,
+                                                    height: 20,
+                                                    child: CircularProgressIndicator(
+                                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                                      strokeWidth: 3,
+                                                      backgroundColor:
+                                                          Colors.black,
+                                                    ))
                                                 : new Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
@@ -433,16 +500,18 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                   isPublic = 'true';
                                                 });
                                               }
-                                              confirmOrgDialog();
+                                              confirmOrgDialog(organization['name'], index);  
                                             },
                                             color: UIData.primaryColor,
-                                            child: _isLoaderActive
-                                                ? CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation(
-                                                            Colors.white),
-                                                    strokeWidth: 2,
-                                                  )
+                                            child: _isLoaderActive == true && loadingIndex == index
+                                                ? const SizedBox(
+                                                  width: 20,
+                                                  height: 20,
+                                                  child: CircularProgressIndicator(
+                                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                                    strokeWidth: 3,
+                                                    backgroundColor: Colors.black,
+                                                  )) 
                                                 : new Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
@@ -471,7 +540,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     );
   }
 
-  void confirmOrgDialog() {
+  void confirmOrgDialog(String orgName, index) {
     //this is the pop up shown when the confirmation is required
     showDialog(
         context: context,
@@ -490,15 +559,19 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 child: Text("Yes"),
                 onPressed: () async {
                   setState(() {
+                    loadingIndex = index;
                     _isLoaderActive = true;
                   });
                   Navigator.of(context).pop();
                   if (isPublic == 'true') {
-                    await joinPublicOrg().whenComplete(() => setState(() {
-                          _isLoaderActive = false;
-                        }));
+                    await joinPublicOrg(orgName)
+                        .whenComplete(() => setState(() {
+                              loadingIndex = -1;
+                              _isLoaderActive = false;
+                            }));
                   } else if (isPublic == 'false') {
                     await joinPrivateOrg().whenComplete(() => setState(() {
+                          loadingIndex = -1;
                           _isLoaderActive = false;
                         }));
                   }
@@ -548,14 +621,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
       ),
-      child: Expanded(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Text(msg),
-          ],
-        ),
-      ),
+      child: Text(msg),
     );
 
     fToast.showToast(

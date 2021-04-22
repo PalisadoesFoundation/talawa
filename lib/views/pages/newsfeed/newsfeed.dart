@@ -8,7 +8,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 import 'package:talawa/views/pages/newsfeed/addPost.dart';
 import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -71,14 +71,20 @@ class _NewsFeedState extends State<NewsFeed> {
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
     _currentOrgID = currentUserID;
-    String query = Queries().getPostsById(currentOrgID);
-    Map result = await apiFunctions.gqlquery(query);
-    // print(result);
-    setState(() {
-      postList =
-          result == null ? [] : result['postsByOrganization'].reversed.toList();
-      updateLikepostMap(currentUserID);
-    });
+        if(currentOrgID != null){
+          String query = Queries().getPostsById(currentOrgID);
+          Map result = await apiFunctions.gqlquery(query);
+          // print(result);
+          setState(() {
+            postList = result == null ? [] : result['postsByOrganization'].reversed.toList();
+            updateLikepostMap(currentUserID);
+          });
+        }else{
+          setState(() {
+            postList = [];
+            updateLikepostMap(currentUserID);
+          });
+        }
     
   }
 
@@ -101,8 +107,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
   //function to addlike
   Future<void> addLike(String postID) async {
-    String mutation = Queries().addLike(postID);
-    Map result = await apiFunctions.gqlmutation(mutation);
+    Map result = await Queries().addLike(postID);
     print(result);
     getPosts();
   }
@@ -111,8 +116,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
   //function to remove the likes
   Future<void> removeLike(String postID) async {
-    String mutation = Queries().removeLike(postID);
-    Map result = await apiFunctions.gqlmutation(mutation);
+    Map result = await Queries().removeLike(postID);
     print(result);
     getPosts();
   }
