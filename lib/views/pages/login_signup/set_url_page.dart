@@ -18,8 +18,8 @@ void changeFirst() {
   first = false;
 }
 
-class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage> {
-
+class _UrlPageState extends State<UrlPage>
+    with TickerProviderStateMixin<UrlPage> {
   final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
 
   var _media;
@@ -42,7 +42,6 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
   Animation createAnimation;
   Animation animation;
   Animation helloAnimation;
-
 
   listenToUrl() {
     if (saveMsg == "URL SAVED!" && urlController.text != urlInput) {
@@ -74,8 +73,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
 
   Future setApiUrl() async {
     setState(() {
-      orgUrl =
-          "${dropdownValue.toLowerCase()}://${urlController.text}/";
+      orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/";
       orgImgUrl =
           "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
     });
@@ -136,13 +134,15 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
       helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
     }
   }
+
   Future<void> load() async {
-      await controller?.forward();
-      await helloController?.forward();
-      await createController?.forward();
-      await loginController?.forward();
-      changeFirst();
+    await controller?.forward();
+    await helloController?.forward();
+    await createController?.forward();
+    await loginController?.forward();
+    changeFirst();
   }
+
   @override
   void initState() {
     super.initState();
@@ -169,8 +169,6 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
       duration: Duration(milliseconds: 500),
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -312,7 +310,8 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                         labelStyle:
                                             TextStyle(color: Colors.white),
                                         alignLabelWithHint: true,
-                                        hintText: 'talawa-graphql-api.herokuapp.com',
+                                        hintText:
+                                            'talawa-graphql-api.herokuapp.com',
                                         hintStyle:
                                             TextStyle(color: Colors.grey),
                                       ),

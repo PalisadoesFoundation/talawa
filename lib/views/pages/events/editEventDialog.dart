@@ -311,7 +311,7 @@ class _EditEventState extends State<EditEvent> {
           Icons.check,
           color: Colors.white,
         ),
-        onPressed: () async{
+        onPressed: () async {
           if (titleController.text.isEmpty ||
               descriptionController.text.isEmpty ||
               locationController.text.isEmpty) {
@@ -334,16 +334,16 @@ class _EditEventState extends State<EditEvent> {
                 msg: 'Fill in the empty fields',
                 backgroundColor: Colors.grey[500]);
           } else {
-              try{
-                showProgress(context, 'Updating Event Details . . .', false);
-                await updateEvent();
-              }catch(e){
-                if(e == "User cannot delete event they didn't create"){
-                  Fluttertoast.showToast(
-                      msg: "You can't edit events you didn't create",
-                      backgroundColor: Colors.grey[500]);
-                }
+            try {
+              showProgress(context, 'Updating Event Details . . .', false);
+              await updateEvent();
+            } catch (e) {
+              if (e == "User cannot delete event they didn't create") {
+                Fluttertoast.showToast(
+                    msg: "You can't edit events you didn't create",
+                    backgroundColor: Colors.grey[500]);
               }
+            }
             hideProgress();
             print('EDITING DONE');
             Navigator.pushAndRemoveUntil(

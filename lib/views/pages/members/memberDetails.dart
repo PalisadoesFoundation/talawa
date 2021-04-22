@@ -1,4 +1,3 @@
-
 //flutter imported function
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -17,7 +16,12 @@ class MemberDetail extends StatefulWidget {
   final String creatorId;
   Map member;
   Color color;
-  MemberDetail({Key key, @required this.member, @required this.color, this.admins, this.creatorId})
+  MemberDetail(
+      {Key key,
+      @required this.member,
+      @required this.color,
+      this.admins,
+      this.creatorId})
       : super(key: key);
 
   @override
@@ -33,11 +37,11 @@ class _MemberDetailState extends State<MemberDetail>
     _tabController = TabController(vsync: this, length: 2);
   }
 
-  getPrivilege(String id){
-    if(widget.creatorId.compareTo(id)==0){
+  getPrivilege(String id) {
+    if (widget.creatorId.compareTo(id) == 0) {
       return 'Creator';
     }
-    for(int i=0;i<widget.admins.length;i++) {
+    for (int i = 0; i < widget.admins.length; i++) {
       if (widget.admins[i]['_id'] == id) {
         return 'Admin';
       }
@@ -80,7 +84,10 @@ class _MemberDetailState extends State<MemberDetail>
                     padding: EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     height: 30,
-                    child: Text('User Privileges: '+getPrivilege(widget.member['_id']),key: Key('Privilege'),),
+                    child: Text(
+                      'User Privileges: ' + getPrivilege(widget.member['_id']),
+                      key: Key('Privilege'),
+                    ),
                   )),
                 ]),
               )),
@@ -129,7 +136,6 @@ class _MemberDetailState extends State<MemberDetail>
           ),
         ]));
   }
-
 
   //widget to get the user image
   Widget userImg(String link) {
@@ -182,7 +188,6 @@ class _MemberDetailState extends State<MemberDetail>
       ]),
     );
   }
-
 
   //this is widget for default user image
   Widget defaultUserImg() {

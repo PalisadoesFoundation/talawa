@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
@@ -50,14 +49,14 @@ class _AddPostState extends State<AddPost> {
     String description = textController.text.trim().replaceAll('\n', ' ');
     String title = titleController.text.trim().replaceAll('\n', ' ');
     result = await Queries().addPost(description, organizationId, title);
-      print(result);
-      if (result != null) {
-        Navigator.pop(context, true);
-      } else {
-        _exceptionToast(result.toString().substring(16));
-      }
-      return result;
+    print(result);
+    if (result != null) {
+      Navigator.pop(context, true);
+    } else {
+      _exceptionToast(result.toString().substring(16));
     }
+    return result;
+  }
 
   void dispose() {
     titleController.dispose();
@@ -74,89 +73,85 @@ class _AddPostState extends State<AddPost> {
       appBar: AppBar(
         title: Text(
           'New Post',
-          style: TextStyle(
-              color: Colors.white
-          ),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: SingleChildScrollView(
-      child: Container(
+        child: Container(
           child: Form(
-        autovalidateMode: validate,
-        key: _formKey,
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(9.0),
-              child: Container(
-              child: TextFormField(
-                maxLines: null,
-                keyboardType: TextInputType.multiline,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(30)
-                ],
-                key: Key('Title'),
-                textInputAction: TextInputAction.next,
-                validator: (String value) {
-                  if (value.length > 30) {
-                    return "Post title cannot be longer than 30 letters";
-                  }
+            autovalidateMode: validate,
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: Container(
+                    child: TextFormField(
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
+                      inputFormatters: [LengthLimitingTextInputFormatter(30)],
+                      key: Key('Title'),
+                      textInputAction: TextInputAction.next,
+                      validator: (String value) {
+                        if (value.length > 30) {
+                          return "Post title cannot be longer than 30 letters";
+                        }
 
-                  if (value.isEmpty) {
-                    return "This field is Required";
-                  }
-                  return null;
-                },
-                controller: titleController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20.0),
+                        if (value.isEmpty) {
+                          return "This field is Required";
+                        }
+                        return null;
+                      },
+                      controller: titleController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20.0),
+                          ),
+                        ),
+                        labelText: 'Give your post a title....',
+                      ),
+                      //  'Give your post a title....',
                     ),
                   ),
-                  labelText: 'Give your post a title....',
                 ),
-                //  'Give your post a title....',
-              ),
-            ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(9.0),
-              child: Container(
-              child: TextFormField(
-                maxLines: null,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(10000)
-                ],
-                keyboardType: TextInputType.multiline,
-                key: Key('Description'),
-                controller: textController,
-                validator: (String value) {
-                  if (value.length > 10000) {
-                    return "Post cannot be longer than 10000 letters";
-                  }
+                Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: Container(
+                    child: TextFormField(
+                      maxLines: null,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(10000)
+                      ],
+                      keyboardType: TextInputType.multiline,
+                      key: Key('Description'),
+                      controller: textController,
+                      validator: (String value) {
+                        if (value.length > 10000) {
+                          return "Post cannot be longer than 10000 letters";
+                        }
 
-                  if (value.isEmpty) {
-                    return "This field is Required";
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20.0),
+                        if (value.isEmpty) {
+                          return "This field is Required";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20.0),
+                          ),
+                        ),
+                        labelText: 'Write Your post here....',
+                      ),
+                      //  'Give your post Description here....',
                     ),
                   ),
-                  labelText: 'Write Your post here....',
                 ),
-                //  'Give your post Description here....',
-              ),
+              ],
             ),
-            ),
-          ],
-        ),
           ),
-      ),
+        ),
       ),
       floatingActionButton: addPostFab(),
     );

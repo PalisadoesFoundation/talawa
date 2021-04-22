@@ -180,8 +180,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
 
   //Get image using camera
   _imgFromCamera() async {
-    PickedFile selectedImage  = await ImagePicker().getImage(
-        source: ImageSource.camera, imageQuality: 50);
+    PickedFile selectedImage = await ImagePicker()
+        .getImage(source: ImageSource.camera, imageQuality: 50);
     File image = File(selectedImage.path);
 
     setState(() {
@@ -253,9 +253,20 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 SizedBox(
                   height: 20,
                 ),
-                _image!=null?IconButton(icon: Icon(Icons.delete,size: 30,color: Colors.red,),onPressed: (){setState(() {
-                  _image=null;
-                });},):Container(),
+                _image != null
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          size: 30,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _image = null;
+                          });
+                        },
+                      )
+                    : Container(),
                 SizedBox(
                   height: 20,
                 ),
@@ -377,9 +388,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: ElevatedButton.icon(
                     style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(15.0)),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          EdgeInsets.all(15.0)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                          StadiumBorder()),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blue),
                     ),
                     onPressed: () {
                       FocusScope.of(context).unfocus();

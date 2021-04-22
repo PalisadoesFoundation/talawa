@@ -511,7 +511,7 @@ class Queries {
   }
 
   //to register for an event
-  registerForEvent(String eventId) async{
+  registerForEvent(String eventId) async {
     String registerForEventMutation = """
      mutation registerForEvent(\$eventId: ID!) { 
       registerForEvent(id: \$eventId})
@@ -527,14 +527,13 @@ class Queries {
     AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    dynamic _resp = await _client.mutate(MutationOptions(
       documentNode: gql(registerForEventMutation),
       variables: {
-        'eventId': eventId,//Add your variables here
+        'eventId': eventId, //Add your variables here
       },
     ));
-    if(!_resp.loading) {
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
@@ -542,7 +541,10 @@ class Queries {
   }
 
   addEventTask(
-      {String eventId, String title, String description, String deadline}) async{
+      {String eventId,
+      String title,
+      String description,
+      String deadline}) async {
     String createTaskMutation = """
      mutation createTask(\$eventId: ID!, \$title: String!, \$description: String, \$deadline: String) { 
       createTask(eventId: \$eventId, 
@@ -561,8 +563,7 @@ class Queries {
     AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    dynamic _resp = await _client.mutate(MutationOptions(
       documentNode: gql(createTaskMutation),
       variables: {
         'eventId': eventId,
@@ -571,7 +572,7 @@ class Queries {
         'deadline': deadline, //Add your variables here
       },
     ));
-    if(!_resp.loading) {
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
@@ -608,10 +609,9 @@ class Queries {
 
   //to add the events
   addEvent(
-      {
-        startDate,
-        endDate,
-        organizationId,
+      {startDate,
+      endDate,
+      organizationId,
       title,
       description,
       location,
@@ -621,7 +621,7 @@ class Queries {
       allDay,
       recurrance,
       startTime,
-      endTime}) async{
+      endTime}) async {
     String createEventMutation = """
      mutation createEvent( \$organizationId: ID!,
         \$title:String!,
@@ -665,12 +665,11 @@ class Queries {
     AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    dynamic _resp = await _client.mutate(MutationOptions(
       documentNode: gql(createEventMutation),
       variables: {
-        'startDate' : startDate,
-        'endDate' : endDate,
+        'startDate': startDate,
+        'endDate': endDate,
         'organizationId': organizationId,
         'title': title,
         'description': description,
@@ -684,7 +683,7 @@ class Queries {
         'location': location
       },
     ));
-    if(!_resp.loading) {
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
@@ -772,7 +771,7 @@ query{
 """;
   }
 
-  createComments (String postId, var text) async {
+  createComments(String postId, var text) async {
     print(postId);
     print(text);
     String createCommentMutation = """
@@ -790,27 +789,25 @@ query{
     GraphQLClient _client = graphQLConfiguration.authClient();
     AuthController _authController = AuthController();
 
-    dynamic _resp = await _client
-          .mutate(MutationOptions(
-        documentNode: gql(createCommentMutation),
-        variables: {
-          'postId' : postId, //Add your variables here
-          'text' : text
-        },
-      ));
-    if(_resp.exception.toString().substring(16) == accessTokenException)
-      {
-        _authController.getNewToken();
-        createComments(postId, text);
-      }
-    if(!_resp.loading) {
+    dynamic _resp = await _client.mutate(MutationOptions(
+      documentNode: gql(createCommentMutation),
+      variables: {
+        'postId': postId, //Add your variables here
+        'text': text
+      },
+    ));
+    if (_resp.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
+      createComments(postId, text);
+    }
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
     }
   }
 
-  addPost(String text, String organizationId, String title) async{
+  addPost(String text, String organizationId, String title) async {
     print(text);
     print(organizationId);
     print(title);
@@ -833,23 +830,22 @@ query{
     AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    dynamic _resp = await _client.mutate(MutationOptions(
       documentNode: gql(addPostMutation),
       variables: {
-        'title' : title, //Add your variables here
-        'text' : text,
-        'organizationId' : organizationId
+        'title': title, //Add your variables here
+        'text': text,
+        'organizationId': organizationId
       },
     ));
-    if(!_resp.loading) {
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
     }
   }
 
-  addLike(String postID) async{
+  addLike(String postID) async {
     print(postID);
     String addLikeMutation = """
      mutation likePost(\$postID: ID!) { 
@@ -864,21 +860,20 @@ query{
     AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    dynamic _resp = await _client.mutate(MutationOptions(
       documentNode: gql(addLikeMutation),
       variables: {
-        'postID' : postID, //Add your variables here
+        'postID': postID, //Add your variables here
       },
     ));
-    if(!_resp.loading) {
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
     }
   }
 
-  removeLike(String postID) async{
+  removeLike(String postID) async {
     print(postID);
     String unLikeMutation = """
      mutation unlikePost(\$postID: ID!) { 
@@ -896,14 +891,13 @@ query{
     AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    dynamic _resp = await _client.mutate(MutationOptions(
       documentNode: gql(unLikeMutation),
       variables: {
-        'postID' : postID, //Add your variables here
+        'postID': postID, //Add your variables here
       },
     ));
-    if(!_resp.loading) {
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;

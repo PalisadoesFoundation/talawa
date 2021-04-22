@@ -104,21 +104,20 @@ void main() {
     });
   });
 
-  testWidgets("Check if Leave a Comments Button is Working",(WidgetTester tester)async{
+  testWidgets("Check if Leave a Comments Button is Working",
+      (WidgetTester tester) async {
     //find all the widget needed
-    
+
     final leaveCommentTextField = find.byKey(ValueKey('leaveCommentField'));
     final leaveCommentButton = find.byKey(ValueKey('leaveCommentButton'));
-    
+
     //execute the test
     await tester.pumpWidget(newsArticlePage());
-    await tester.enterText(leaveCommentTextField,"hello how are you");
+    await tester.enterText(leaveCommentTextField, "hello how are you");
     await tester.tap(leaveCommentButton);
     await tester.pump();
 
     //check output
-    expect(find.text("hello how are you"),findsOneWidget);
-
-
+    expect(find.text("hello how are you"), findsOneWidget);
   });
 }

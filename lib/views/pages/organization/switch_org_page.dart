@@ -75,7 +75,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Future switchOrg() async {
     if (userOrg[isSelected]['_id'] == orgId) {
       _successToast("Switched to " + userOrg[isSelected]['name'].toString());
-      
+
       //Kill all previous stacked screen
       Navigator.of(context).popUntil(ModalRoute.withName("/"));
 
@@ -104,7 +104,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
         final String currentOrgName = result.data['organizations'][0]['name'];
         await _pref.saveCurrentOrgName(currentOrgName);
-        
+
         //Kill all previous stacked screen
         Navigator.of(context).popUntil(ModalRoute.withName("/"));
 

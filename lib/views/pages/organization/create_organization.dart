@@ -63,9 +63,12 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     orgMemberDescController.text =
         orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final img = await multipartFileFrom(_image);
-    orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
-    orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
-    orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
+    orgNameController.text =
+        orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text =
+        orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text =
+        orgMemberDescController.text.trim().replaceAll('\n', ' ');
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
         orgNameController.text,
@@ -159,9 +162,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   _imgFromCamera() async {
     //this is the function when the user want to capture the image from the camera
-    PickedFile pickedImage = await ImagePicker().getImage(
-        source: ImageSource.camera, imageQuality: 50);
-    
+    PickedFile pickedImage = await ImagePicker()
+        .getImage(source: ImageSource.camera, imageQuality: 50);
+
     File image = File(pickedImage.path);
 
     setState(() {

@@ -108,7 +108,13 @@ class LoginFormState extends State<LoginForm> {
             result.data['login']['user']['joinedOrganizations'][0]['name'];
         await _pref.saveCurrentOrgName(currentOrgName);
       }
-      Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context)=>HomePage(openPageIndex: 0,)), (route) => false);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage(
+                    openPageIndex: 0,
+                  )),
+          (route) => false);
     }
   }
 
@@ -209,9 +215,12 @@ class LoginFormState extends State<LoginForm> {
               width: double.infinity,
               child: ElevatedButton(
                   style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(12.0)),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(StadiumBorder()),
-                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        EdgeInsets.all(12.0)),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                        StadiumBorder()),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
                   ),
                   child: _progressBarState
                       ? const CircularProgressIndicator()

@@ -103,7 +103,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     }
   }
 
-  Widget getRadioButton(int group, int count,bool public) {
+  Widget getRadioButton(int group, int count, bool public) {
     return ListView(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -111,22 +111,22 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
         count,
         (index) => RadioListTile(
           groupValue: group,
-          title: Text(index==0?'Yes':'No'),
+          title: Text(index == 0 ? 'Yes' : 'No'),
           value: index,
           activeColor: UIData.secondaryColor,
           onChanged: (val) {
             FocusScope.of(context).unfocus();
             setState(() {
-              public?radioValue = val:radioValue1=val;
+              public ? radioValue = val : radioValue1 = val;
               if (radioValue == 0) {
-                return public?isPublic:isVisible;
-              }else if (radioValue == 1) {
+                return public ? isPublic : isVisible;
+              } else if (radioValue == 1) {
                 if (public) {
                   isPublic = false;
-                }else{
+                } else {
                   isVisible = false;
                 }
-                return public?isPublic:isVisible;
+                return public ? isPublic : isVisible;
               }
             });
           },
@@ -214,32 +214,34 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                           Text('Do you want your organization to be public?',
                               style:
                                   TextStyle(fontSize: 16, color: Colors.black)),
-                          getRadioButton(radioValue,2,true),
+                          getRadioButton(radioValue, 2, true),
                           Text(
                               'Do you want others to be able to find your organization from the search page?',
                               style:
                                   TextStyle(fontSize: 16, color: Colors.black)),
-                          getRadioButton(radioValue1,2,false),
+                          getRadioButton(radioValue1, 2, false),
                           Container(
                             padding: EdgeInsets.symmetric(
                                 vertical: 20.0, horizontal: 30.0),
                             width: double.infinity,
-                            child:ElevatedButton(
-                              style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                              ),
                               child: _progressBarState
                                   ? const Center(
-                                  child: SizedBox(
-                                      width: 20,
-                                      height: 20,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                        AlwaysStoppedAnimation<Color>(
-                                            Colors.white),
-                                        strokeWidth: 3,
-                                        backgroundColor: Colors.black,
-                                      )))
+                                      child: SizedBox(
+                                          width: 20,
+                                          height: 20,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    Colors.white),
+                                            strokeWidth: 3,
+                                            backgroundColor: Colors.black,
+                                          )))
                                   : Text(
                                       "UPDATE ORGANIZATION",
                                       style: TextStyle(color: Colors.white),
