@@ -344,6 +344,9 @@ class _EventsState extends State<Events> {
           });
         },
         calendarStyle: CalendarStyle(markersColor: Colors.black45),
+        headerStyle: HeaderStyle(
+          formatButtonShowsNext: false,
+        ),
         /*onDaySelected: (day, events) {
           String carouselDay = DateFormat.yMMMd('en_US').format(day);
           if (timer.isSameDay(day, now)) {
