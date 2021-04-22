@@ -65,6 +65,12 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     orgMemberDescController.text =
         orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final img = await multipartFileFrom(_image);
+    orgNameController.text =
+        orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text =
+        orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text =
+        orgMemberDescController.text.trim().replaceAll('\n', ' ');
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
         orgNameController.text,
@@ -149,11 +155,10 @@ class _CreateOrganizationState extends State<CreateOrganization> {
         Navigator.pop(context);
         Navigator.pop(context);
       } else {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => HomePage(openPageIndex: 0),
-          ),
-        );
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => HomePage(
+                  openPageIndex: 2,
+                )));
       }
     }
   }
@@ -225,9 +230,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             ],
                             validator: (value) =>
                                 Validator.validateOrgName(value),
+                            textInputAction: TextInputAction.next,
                             textAlign: TextAlign.left,
                             textCapitalization: TextCapitalization.words,
-                            textInputAction: TextInputAction.next,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -251,7 +256,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                           ),
                           TextFormField(
                             inputFormatters: [
-                              LengthLimitingTextInputFormatter(5000)
+                              LengthLimitingTextInputFormatter(5000),
                             ],
                             autofillHints: <String>[AutofillHints.impp],
                             keyboardType: TextInputType.multiline,

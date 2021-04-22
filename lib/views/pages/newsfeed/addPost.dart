@@ -8,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 //pages are called here
 import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/toast_tile.dart';
 
@@ -50,21 +50,15 @@ class _AddPostState extends State<AddPost> {
   Future createPost() async {
     String description = textController.text.trim().replaceAll('\n', ' ');
     String title = titleController.text.trim().replaceAll('\n', ' ');
-    String mutation = Queries().addPost(description, organizationId, title);
-    ApiFunctions apiFunctions = ApiFunctions();
-    try {
-      result = await apiFunctions.gqlmutation(mutation);
+    result = await Queries().addPost(description, organizationId, title);
+      print(result);
       if (result != null) {
         Navigator.pop(context, true);
       } else {
-        _exceptionToast(result.toString().substring(20, 35));
+        _exceptionToast(result.toString().substring(16));
       }
       return result;
-    } on Exception catch (e) {
-      print(e.toString());
-      _exceptionToast(e.toString().substring(28, 68));
     }
-  }
 
   void dispose() {
     titleController.dispose();
@@ -81,10 +75,13 @@ class _AddPostState extends State<AddPost> {
       appBar: AppBar(
         title: Text(
           'New Post',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+              color: Colors.white
+          ),
         ),
       ),
-      body: Container(
+      body: SingleChildScrollView(
+      child: Container(
           child: Form(
         autovalidateMode: validate,
         key: _formKey,
@@ -159,7 +156,9 @@ class _AddPostState extends State<AddPost> {
             ),
           ],
         ),
-      )),
+          ),
+      ),
+      ),
       floatingActionButton: addPostFab(),
     );
   }

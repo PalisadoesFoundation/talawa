@@ -23,6 +23,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_password_strength/flutter_password_strength.dart';
 
+import '../_pages.dart';
+
 class RegisterForm extends StatefulWidget {
   @override
   RegisterFormState createState() {
@@ -35,10 +37,8 @@ class RegisterFormState extends State<RegisterForm> {
   TextEditingController _firstNameController = new TextEditingController();
   TextEditingController _lastNameController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
-  TextEditingController _originalPasswordController =
-      new TextEditingController();
-  TextEditingController _confirmPasswordController =
-      new TextEditingController();
+  TextEditingController _originalPasswordController = new TextEditingController();
+  TextEditingController _confirmPasswordController = new TextEditingController();
   FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
@@ -99,10 +99,7 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => new JoinOrganization(
-                fromProfile: false,
-              )));
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>JoinOrganization(fromProfile: false,)), (route) => false);
     }
   }
 
@@ -137,29 +134,22 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
 
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => new JoinOrganization(
-                fromProfile: false,
-              )));
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>JoinOrganization(fromProfile: false,)), (route) => false);
     }
   }
 
-  //get image using camera
-  _imgFromCamera() async {
-    final pickImage = await ImagePicker().getImage(source: ImageSource.camera);
-    File image = File(pickImage.path);
-    setState(() {
-      _image = image;
-    });
-  }
-
-  //get image using gallery
-  _imgFromGallery() async {
-    final pickImage = await ImagePicker().getImage(source: ImageSource.gallery);
-    File image = File(pickImage.path);
-    setState(() {
-      _image = image;
-    });
+  //get image from camera and gallery based on the enum passed
+  _imgFrom({From pickFrom = From.none}) async {
+    File pickImageFile;
+    if (pickFrom != From.none) {
+      pickImageFile = await ImagePicker.pickImage(
+          source: pickFrom == From.camera
+              ? ImageSource.camera
+              : ImageSource.gallery);
+      setState(() {
+        _image = pickImageFile;
+      });
+    }
   }
 
   @override
@@ -171,11 +161,13 @@ class RegisterFormState extends State<RegisterForm> {
             child: Column(
               children: <Widget>[
                 addImage(),
-                Padding(
+                _image==null?Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text('Add Profile Image',
                       style: TextStyle(fontSize: 16, color: Colors.white)),
-                ),
+                ):IconButton(icon: Icon(Icons.delete,size: 30,color: Colors.red,),onPressed: (){setState(() {
+                  _image=null;
+                });},),
                 SizedBox(
                   height: 25,
                 ),
@@ -321,6 +313,9 @@ class RegisterFormState extends State<RegisterForm> {
                           model.password = value;
                         },
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       FlutterPwValidator(
                         width: 400,
                         height: 150,
@@ -457,7 +452,7 @@ class RegisterFormState extends State<RegisterForm> {
                     leading: Icon(Icons.camera_alt_outlined),
                     title: Text('Camera'),
                     onTap: () {
-                      _imgFromCamera();
+                      _imgFrom(pickFrom: From.camera);
                       Navigator.of(context).pop();
                     },
                   ),
@@ -465,7 +460,7 @@ class RegisterFormState extends State<RegisterForm> {
                       leading: Icon(Icons.photo_library),
                       title: Text('Photo Library'),
                       onTap: () {
-                        _imgFromGallery();
+                        _imgFrom(pickFrom: From.gallery);
                         Navigator.of(context).pop();
                       }),
                 ],
@@ -530,4 +525,10 @@ class RegisterFormState extends State<RegisterForm> {
       _obscureText = !_obscureText;
     });
   }
+}
+
+enum From {
+  none,
+  camera,
+  gallery,
 }

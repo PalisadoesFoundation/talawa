@@ -75,7 +75,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
   Future setApiUrl() async {
     setState(() {
       orgUrl =
-          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
+          "${dropdownValue.toLowerCase()}://${urlController.text}/";
       orgImgUrl =
           "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
     });
@@ -117,9 +117,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
     );
   }
 
-
-
-    void assignAnimation(bool firstTime) {
+  void assignAnimation(bool firstTime) {
     if (!firstTime) {
       animation = Tween(begin: 1.0, end: 1.0).animate(controller);
 
@@ -314,7 +312,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                         labelStyle:
                                             TextStyle(color: Colors.white),
                                         alignLabelWithHint: true,
-                                        hintText: 'calico.palisadoes.org',
+                                        hintText: 'talawa-graphql-api.herokuapp.com',
                                         hintStyle:
                                             TextStyle(color: Colors.grey),
                                       ),

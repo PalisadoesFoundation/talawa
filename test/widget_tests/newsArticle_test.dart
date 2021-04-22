@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/controllers/post_controller.dart';
+import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
@@ -29,6 +30,9 @@ Widget NewsArticlePage() => MultiProvider(
         ),
         ChangeNotifierProvider<PostController>(
           create: (_) => PostController(),
+        ),
+        ChangeNotifierProvider<CommentHandler>(
+          create: (_) => CommentHandler(),
         ),
       ],
       child: MaterialApp(
@@ -107,21 +111,20 @@ void main() {
     });
   });
 
-  testWidgets("Check if Leave a Comments Button is Working",(WidgetTester tester)async{
+  testWidgets("Check if Leave a Comments Button is Working",
+      (WidgetTester tester) async {
     //find all the widget needed
-    
+
     final leaveCommentTextField = find.byKey(ValueKey('leaveCommentField'));
     final leaveCommentButton = find.byKey(ValueKey('leaveCommentButton'));
-    
+
     //execute the test
     await tester.pumpWidget(NewsArticlePage());
-    await tester.enterText(leaveCommentTextField,"hello how are you");
+    await tester.enterText(leaveCommentTextField, "hello how are you");
     await tester.tap(leaveCommentButton);
     await tester.pump();
 
     //check output
-    expect(find.text("hello how are you"),findsOneWidget);
-
-
+    expect(find.text("hello how are you"), findsOneWidget);
   });
 }

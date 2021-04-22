@@ -17,6 +17,8 @@ import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../_pages.dart';
+
 class LoginForm extends StatefulWidget {
   @override
   LoginFormState createState() {
@@ -107,12 +109,14 @@ class LoginFormState extends State<LoginForm> {
             result.data['login']['user']['joinedOrganizations'][0]['name'];
         await _pref.saveCurrentOrgName(currentOrgName);
       }
-
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => HomePage(openPageIndex: 0),
-        ),
-      );
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(
+              openPageIndex: 0,
+            ),
+          ),
+          (route) => false);
     }
   }
 

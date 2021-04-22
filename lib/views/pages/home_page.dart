@@ -13,7 +13,7 @@ import 'package:talawa/views/pages/members/members.dart';
 
 import 'package:talawa/views/pages/events/events.dart';
 import 'package:talawa/views/pages/chat/groups.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/apiFunctions.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'organization/profile_page.dart';
 import 'package:talawa/services/preferences.dart';
@@ -31,7 +31,6 @@ class _HomePageState extends State<HomePage> {
       super.setState(fn);
     }
   }
-
   int currentIndex = 0;
 
   PersistentTabController _controller;
