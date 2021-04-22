@@ -1,4 +1,4 @@
-name: Example workflow
+name: Format Check
 on: [pull_request]
 
 jobs:
