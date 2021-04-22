@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/uidata.dart';
 
@@ -7,11 +6,9 @@ class FormFieldFormatting {
       {String hintText, String labelText, IconData prefixIcon}) {
     return InputDecoration(
       border: OutlineInputBorder(
-          borderSide:
-          BorderSide(color: UIData.secondaryColor),
+          borderSide: BorderSide(color: UIData.secondaryColor),
           borderRadius: BorderRadius.circular(20.0)),
-      prefixIcon: Icon(prefixIcon,
-          color: UIData.secondaryColor),
+      prefixIcon: Icon(prefixIcon, color: UIData.secondaryColor),
       labelText: labelText,
       labelStyle: TextStyle(color: Colors.black),
       alignLabelWithHint: true,

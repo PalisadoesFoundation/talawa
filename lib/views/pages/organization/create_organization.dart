@@ -63,9 +63,12 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     orgMemberDescController.text =
         orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final img = await multipartFileFrom(_image);
-    orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
-    orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
-    orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
+    orgNameController.text =
+        orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text =
+        orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text =
+        orgMemberDescController.text.trim().replaceAll('\n', ' ');
     QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
         orgNameController.text,

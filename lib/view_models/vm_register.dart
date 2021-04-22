@@ -1,4 +1,3 @@
-
 //register model
 class RegisterViewModel {
   String firstName;

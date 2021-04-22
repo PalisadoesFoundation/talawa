@@ -68,7 +68,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   // Function for getting the current user id.
-  void getCurrentUserId () async {
+  void getCurrentUserId() async {
     currentUserId = await _pref.getUserId();
   }
 
@@ -101,40 +101,41 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     QueryResult result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
 
-
     // Get the details of the current user.
     QueryResult userDetailsResult = await _client.query(QueryOptions(
-     documentNode: gql(_query.fetchUserInfo), variables: {'id': currentUserId}));
+        documentNode: gql(_query.fetchUserInfo),
+        variables: {'id': currentUserId}));
 
     if (result.hasException || userDetailsResult.hasException) {
       print(result.exception);
       showError(result.exception.toString());
-    } else if (!result.hasException && !disposed && 
-      !userDetailsResult.hasException){
-        setState(() {
-          organizationInfo = result.data['organizations'];
+    } else if (!result.hasException &&
+        !disposed &&
+        !userDetailsResult.hasException) {
+      setState(() {
+        organizationInfo = result.data['organizations'];
 
-          // Get the details of joined organizations.
-          joinedOrganizations = 
-                userDetailsResult.data['users'][0]['joinedOrganizations'];
-                
-          // Get the id's of joined organizations.
-          joinedOrganizations.forEach((element) {
-            joinedOrganizationsIds.add(element['_id']);
-          });
+        // Get the details of joined organizations.
+        joinedOrganizations =
+            userDetailsResult.data['users'][0]['joinedOrganizations'];
 
-          // Filtering out organizations that are created by current user.
-          organizationInfo = 
-            organizationInfo.where((element) => element['admins'][0]['_id'] 
-              != currentUserId).toList();
-
-          // Filtering out organizations that are already joined by user.
-          joinedOrganizationsIds.forEach((e) {
-            print(e);
-            organizationInfo = 
-              organizationInfo.where((element) => element['_id'] != e).toList();
-          });
+        // Get the id's of joined organizations.
+        joinedOrganizations.forEach((element) {
+          joinedOrganizationsIds.add(element['_id']);
         });
+
+        // Filtering out organizations that are created by current user.
+        organizationInfo = organizationInfo
+            .where((element) => element['admins'][0]['_id'] != currentUserId)
+            .toList();
+
+        // Filtering out organizations that are already joined by user.
+        joinedOrganizationsIds.forEach((e) {
+          print(e);
+          organizationInfo =
+              organizationInfo.where((element) => element['_id'] != e).toList();
+        });
+      });
     }
   }
 
@@ -204,17 +205,18 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         await _pref.saveCurrentOrgName(currentOrgName);
       } else {
         // If there are multiple number of organizations.
-        for(int i = 0; i < joinedOrg.length; i++) {
-          if(joinedOrg[i]['name'] == orgName) {
+        for (int i = 0; i < joinedOrg.length; i++) {
+          if (joinedOrg[i]['name'] == orgName) {
             final String currentOrgId = result.data['joinPublicOrganization']
-            ['joinedOrganizations'][i]['_id'];
-        await _pref.saveCurrentOrgId(currentOrgId);
-        final String currentOrgImgSrc = result.data['joinPublicOrganization']
-            ['joinedOrganizations'][i]['image'];
-        await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-        final String currentOrgName = result.data['joinPublicOrganization']
-            ['joinedOrganizations'][i]['name'];
-        await _pref.saveCurrentOrgName(currentOrgName);
+                ['joinedOrganizations'][i]['_id'];
+            await _pref.saveCurrentOrgId(currentOrgId);
+            final String currentOrgImgSrc =
+                result.data['joinPublicOrganization']['joinedOrganizations'][i]
+                    ['image'];
+            await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
+            final String currentOrgName = result.data['joinPublicOrganization']
+                ['joinedOrganizations'][i]['name'];
+            await _pref.saveCurrentOrgName(currentOrgName);
           }
         }
       }
@@ -244,7 +246,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             style: TextStyle(color: Colors.white)),
       ),
       body: organizationInfo.isEmpty
-          ? Center(child: Loading(key: UniqueKey(),))
+          ? Center(
+              child: Loading(
+              key: UniqueKey(),
+            ))
           : Container(
               color: Color(0xffF3F6FF),
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
@@ -384,15 +389,21 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                   isPublic = 'true';
                                                 });
                                               }
-                                              confirmOrgDialog(organization['name'], index);
+                                              confirmOrgDialog(
+                                                  organization['name'], index);
                                             },
                                             color: UIData.primaryColor,
-                                            child: _isLoaderActive == true && loadingIndex == index
+                                            child: _isLoaderActive == true &&
+                                                    loadingIndex == index
                                                 ? const SizedBox(
                                                     width: 20,
                                                     height: 20,
-                                                    child: CircularProgressIndicator(
-                                                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                              Colors.white),
                                                       strokeWidth: 3,
                                                       backgroundColor:
                                                           Colors.black,
@@ -500,18 +511,25 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                   isPublic = 'true';
                                                 });
                                               }
-                                              confirmOrgDialog(organization['name'], index);  
+                                              confirmOrgDialog(
+                                                  organization['name'], index);
                                             },
                                             color: UIData.primaryColor,
-                                            child: _isLoaderActive == true && loadingIndex == index
+                                            child: _isLoaderActive == true &&
+                                                    loadingIndex == index
                                                 ? const SizedBox(
-                                                  width: 20,
-                                                  height: 20,
-                                                  child: CircularProgressIndicator(
-                                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                                    strokeWidth: 3,
-                                                    backgroundColor: Colors.black,
-                                                  )) 
+                                                    width: 20,
+                                                    height: 20,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                                  Color>(
+                                                              Colors.white),
+                                                      strokeWidth: 3,
+                                                      backgroundColor:
+                                                          Colors.black,
+                                                    ))
                                                 : new Text("JOIN"),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:

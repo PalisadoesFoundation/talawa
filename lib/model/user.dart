@@ -1,4 +1,3 @@
-
 //model class for an user
 class User {
   int id;
@@ -33,6 +32,4 @@ class User {
       userImage: json['userImage'],
     );
   }
-
-  
 }

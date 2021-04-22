@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -24,7 +23,6 @@ class NewsFeed extends StatefulWidget {
 }
 
 class _NewsFeedState extends State<NewsFeed> {
-
   ScrollController scrollController = new ScrollController();
   bool isVisible = true;
   Preferences preferences = Preferences();
@@ -33,76 +31,74 @@ class _NewsFeedState extends State<NewsFeed> {
   Timer timer = Timer();
   String _currentOrgID;
 
-  Map<String, bool> likePostMap = new Map<String , bool>(); 
+  Map<String, bool> likePostMap = new Map<String, bool>();
   // key = postId and value will be true if user has liked a post.
-
 
   //setting initial state to the variables
   initState() {
     super.initState();
     getPosts();
     Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
-      scrollController.addListener(() {
-        if (scrollController.position.userScrollDirection ==
-            ScrollDirection.reverse) {
-          if (isVisible)
-            setState(() {
-              isVisible = false;
-            });
-        }
-        if (scrollController.position.userScrollDirection ==
-            ScrollDirection.forward) {
-          if (!isVisible)
-            setState(() {
-              isVisible = true;
-            });
-        }
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        if (isVisible)
+          setState(() {
+            isVisible = false;
+          });
+      }
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        if (!isVisible)
+          setState(() {
+            isVisible = true;
+          });
+      }
     });
   }
 
   // bool : Method to get (true/false) if a user has liked a post or Not.
-  bool hasUserLiked(String postId){
+  bool hasUserLiked(String postId) {
     return likePostMap[postId];
   }
-
 
   //function to get the current posts
   Future<void> getPosts() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
     _currentOrgID = currentUserID;
-        if(currentOrgID != null){
-          String query = Queries().getPostsById(currentOrgID);
-          Map result = await apiFunctions.gqlquery(query);
-          // print(result);
-          setState(() {
-            postList = result == null ? [] : result['postsByOrganization'].reversed.toList();
-            updateLikepostMap(currentUserID);
-          });
-        }else{
-          setState(() {
-            postList = [];
-            updateLikepostMap(currentUserID);
-          });
-        }
-    
+    if (currentOrgID != null) {
+      String query = Queries().getPostsById(currentOrgID);
+      Map result = await apiFunctions.gqlquery(query);
+      // print(result);
+      setState(() {
+        postList = result == null
+            ? []
+            : result['postsByOrganization'].reversed.toList();
+        updateLikepostMap(currentUserID);
+      });
+    } else {
+      setState(() {
+        postList = [];
+        updateLikepostMap(currentUserID);
+      });
+    }
   }
 
-
 // void : function to set the map of userLikedPost
-  void updateLikepostMap(String currentUserID){
+  void updateLikepostMap(String currentUserID) {
     // traverse through post objects.
-      for (var item in postList) {
-        likePostMap[item['_id']] = false;
-        //Get userIds who liked the post.
-        var _likedBy = item['likedBy'];
-        for(var user in _likedBy){
-          if(user['_id'] == currentUserID){
-            //if(userId is in the list we make value true;)
-            likePostMap[item['_id']] = true;
-          }
+    for (var item in postList) {
+      likePostMap[item['_id']] = false;
+      //Get userIds who liked the post.
+      var _likedBy = item['likedBy'];
+      for (var user in _likedBy) {
+        if (user['_id'] == currentUserID) {
+          //if(userId is in the list we make value true;)
+          likePostMap[item['_id']] = true;
         }
       }
+    }
   }
 
   //function to addlike
@@ -112,8 +108,6 @@ class _NewsFeedState extends State<NewsFeed> {
     getPosts();
   }
 
-
-
   //function to remove the likes
   Future<void> removeLike(String postID) async {
     Map result = await Queries().removeLike(postID);
@@ -121,16 +115,17 @@ class _NewsFeedState extends State<NewsFeed> {
     getPosts();
   }
 
-
   //the main build starts from here
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        appBar: CustomAppBar('NewsFeed',key: Key('NEWSFEED_APP_BAR')),
+        appBar: CustomAppBar('NewsFeed', key: Key('NEWSFEED_APP_BAR')),
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
-            ? Center(child: Loading(key: UniqueKey(),))
+            ? Center(
+                child: Loading(
+                key: UniqueKey(),
+              ))
             : RefreshIndicator(
                 onRefresh: () async {
                   getPosts();
@@ -148,67 +143,71 @@ class _NewsFeedState extends State<NewsFeed> {
                                 child: Column(
                                   children: <Widget>[
                                     InkWell(
-                                        onTap: () {
-                                          pushNewScreen(
-                                            context,
-                                            screen: NewsArticle(
-                                                post: postList[index]),
-                                          );
-                                        },
-                                        child: Card(
-                                          color: Colors.white,
+                                      onTap: () {
+                                        pushNewScreen(
+                                          context,
+                                          screen: NewsArticle(
+                                              post: postList[index]),
+                                        );
+                                      },
+                                      child: Card(
+                                        color: Colors.white,
                                         child: Column(
                                           children: <Widget>[
                                             Container(
-                                              padding: EdgeInsets.all(5.0),
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(20.0),
-                                                child:  Image.asset(UIData.shoppingImage),
-                                              )
-                                            ),
-                                            Row(
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    width: 30,
-                                                  ),
-                                                  Container(
-                                                      child: Text(
-                                                          postList[index]['title'].toString(),
-                                                        style: TextStyle(
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 20.0,
-                                                        ),
-                                                      )
-                                                  ),
-                                                ]
-                                            ),
+                                                padding: EdgeInsets.all(5.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  child: Image.asset(
+                                                      UIData.shoppingImage),
+                                                )),
+                                            Row(children: <Widget>[
+                                              SizedBox(
+                                                width: 30,
+                                              ),
+                                              Container(
+                                                  child: Text(
+                                                postList[index]['title']
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20.0,
+                                                ),
+                                              )),
+                                            ]),
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            Row(
-                                                children: <Widget>[
-                                                  SizedBox(
-                                                    width: 30,
-                                                  ),
-                                                  Container(
-                                                    width: MediaQuery.of(context).size.width - 50,
-                                                      child: Text(
-                                                          postList[index]["text"].toString(),
-                                                        textAlign: TextAlign.justify,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        maxLines: 10,
-                                                        style: TextStyle(
-                                                          fontSize: 16.0,
-                                                        ),
-                                                      )
-                                                  ),
-                                                ]
-                                            ),
+                                            Row(children: <Widget>[
+                                              SizedBox(
+                                                width: 30,
+                                              ),
+                                              Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width -
+                                                      50,
+                                                  child: Text(
+                                                    postList[index]["text"]
+                                                        .toString(),
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 10,
+                                                    style: TextStyle(
+                                                      fontSize: 16.0,
+                                                    ),
+                                                  )),
+                                            ]),
                                             Padding(
                                                 padding: EdgeInsets.all(10),
                                                 child: Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.spaceAround,
+                                                        MainAxisAlignment
+                                                            .spaceAround,
                                                     children: <Widget>[
                                                       likeButton(index),
                                                       commentCounter(index),
@@ -216,7 +215,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                                     ])),
                                           ],
                                         ),
-                                    ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -225,11 +224,8 @@ class _NewsFeedState extends State<NewsFeed> {
                       ),
                     ],
                   ),
-                )
-        )
-    );
+                )));
   }
-
 
   //function to add the post on the news feed
   Widget addPostFab() {
@@ -245,7 +241,6 @@ class _NewsFeedState extends State<NewsFeed> {
         });
   }
 
-
   //function which counts the number of comments on a particular post
   Widget commentCounter(index) {
     return Row(
@@ -258,19 +253,24 @@ class _NewsFeedState extends State<NewsFeed> {
           ),
         ),
         IconButton(
-            icon: Icon(Icons.comment), color: Colors.grey, onPressed: () async{
+            icon: Icon(Icons.comment),
+            color: Colors.grey,
+            onPressed: () async {
               pushNewScreenWithRouteSettings(context,
-              screen: NewsArticle( post: postList[index],), settings: RouteSettings(),withNavBar:false
-              ).then((value) {
+                      screen: NewsArticle(
+                        post: postList[index],
+                      ),
+                      settings: RouteSettings(),
+                      withNavBar: false)
+                  .then((value) {
                 if (value != null && value) {
                   getPosts();
                 }
               });
-        })
+            })
       ],
     );
   }
-
 
   //function to like
   Widget likeButton(index) {
@@ -284,29 +284,26 @@ class _NewsFeedState extends State<NewsFeed> {
           ),
         ),
         IconButton(
-            icon: Icon(Icons.thumb_up),
-          color: likePostMap[postList[index]['_id']] ? Color(0xff007397) : Color(0xff9A9A9A),
-            onPressed: ()
-            {
-              if(postList[index]['likeCount'] != 0)
-                if(likePostMap[postList[index]['_id']] == false) {
-                  //If user has not liked the post addLike().
-                  addLike(postList[index]['_id']);
-                }
-                else {
-                  //If user has  liked the post remove().
-                  removeLike(postList[index]['_id']);
-                }
-              else
-                {
-                  //if the likeCount is 0 addLike().
-                  addLike(postList[index]['_id']);
-                }
-
-              },
-            ),
+          icon: Icon(Icons.thumb_up),
+          color: likePostMap[postList[index]['_id']]
+              ? Color(0xff007397)
+              : Color(0xff9A9A9A),
+          onPressed: () {
+            if (postList[index]['likeCount'] !=
+                0) if (likePostMap[postList[index]['_id']] == false) {
+              //If user has not liked the post addLike().
+              addLike(postList[index]['_id']);
+            } else {
+              //If user has  liked the post remove().
+              removeLike(postList[index]['_id']);
+            }
+            else {
+              //if the likeCount is 0 addLike().
+              addLike(postList[index]['_id']);
+            }
+          },
+        ),
       ],
-
     );
   }
 }

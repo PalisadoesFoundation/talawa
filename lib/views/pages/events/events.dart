@@ -103,8 +103,12 @@ class _EventsState extends State<Events> {
             event);
       } else {
         if (event['recurrance'] == 'DAILY') {
-          int day = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'])).day;
-          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
+          int day =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
+                  .day;
+          int lastday =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime']))
+                  .day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
             day += 1;
@@ -114,7 +118,9 @@ class _EventsState extends State<Events> {
           int day =
               DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime']))
                   .day;
-          int lastday = DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'])).day;
+          int lastday =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime']))
+                  .day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event);
 
@@ -156,32 +162,35 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-      Map result =
-      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-      eventList = result == null ? [] : result['events'].reversed.toList();
-      eventList.removeWhere((element) =>
-          element['title'] == 'Talawa Congress' ||
-          element['title'] == 'test' || element['title'] == 'Talawa Conference Test' || element['title'] == 'mayhem' || element['title'] == 'mayhem1'); //dont know who keeps adding these
-      // This removes all invalid date formats other than Unix time
-      eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
-      eventList.sort((a, b) {
-        return DateTime.fromMicrosecondsSinceEpoch(
-          int.parse(a['startTime']))
+    Map result =
+        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    eventList = result == null ? [] : result['events'].reversed.toList();
+    eventList.removeWhere((element) =>
+        element['title'] == 'Talawa Congress' ||
+        element['title'] == 'test' ||
+        element['title'] == 'Talawa Conference Test' ||
+        element['title'] == 'mayhem' ||
+        element['title'] == 'mayhem1'); //dont know who keeps adding these
+    // This removes all invalid date formats other than Unix time
+    eventList
+        .removeWhere((element) => int.tryParse(element['startTime']) == null);
+    eventList.sort((a, b) {
+      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime']))
           .compareTo(
-          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
-      });
-      eventsToDates(eventList, DateTime.now());
-      setState(() {
-        displayedEvents = eventList;
-      });
-      userId = await preferences.getUserId();
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+    });
+    eventsToDates(eventList, DateTime.now());
+    setState(() {
+      displayedEvents = eventList;
+    });
+    userId = await preferences.getUserId();
   }
 
   //functions to edit the event
   void _editEvent(context, event) async {
-    if(event['creator']['_id'] != userId){
+    if (event['creator']['_id'] != userId) {
       Fluttertoast.showToast(msg: 'You cannot edit events you didn\'t create');
-    }else{
+    } else {
       pushNewScreen(context,
           withNavBar: true,
           screen: EditEvent(
@@ -329,7 +338,10 @@ class _EventsState extends State<Events> {
               }
             } else if (state == ConnectionState.waiting) {
               print(snapshot.data);
-              return Center(child: Loading(key: UniqueKey(),));
+              return Center(
+                  child: Loading(
+                key: UniqueKey(),
+              ));
             } else if (state == ConnectionState.none) {
               return Text('Could Not Fetch Data.');
             }

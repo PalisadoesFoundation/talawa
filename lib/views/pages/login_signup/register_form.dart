@@ -37,8 +37,10 @@ class RegisterFormState extends State<RegisterForm> {
   TextEditingController _firstNameController = new TextEditingController();
   TextEditingController _lastNameController = new TextEditingController();
   TextEditingController _emailController = new TextEditingController();
-  TextEditingController _originalPasswordController = new TextEditingController();
-  TextEditingController _confirmPasswordController = new TextEditingController();
+  TextEditingController _originalPasswordController =
+      new TextEditingController();
+  TextEditingController _confirmPasswordController =
+      new TextEditingController();
   FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = new RegisterViewModel();
   bool _progressBarState = false;
@@ -99,7 +101,12 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>JoinOrganization(fromProfile: false,)), (route) => false);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => JoinOrganization(
+                    fromProfile: false,
+                  )),
+          (route) => false);
     }
   }
 
@@ -134,7 +141,12 @@ class RegisterFormState extends State<RegisterForm> {
       final String currentUserId = result.data['signUp']['user']['_id'];
       await _pref.saveUserId(currentUserId);
 
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>JoinOrganization(fromProfile: false,)), (route) => false);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => JoinOrganization(
+                    fromProfile: false,
+                  )),
+          (route) => false);
     }
   }
 
@@ -161,13 +173,25 @@ class RegisterFormState extends State<RegisterForm> {
             child: Column(
               children: <Widget>[
                 addImage(),
-                _image==null?Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('Add Profile Image',
-                      style: TextStyle(fontSize: 16, color: Colors.white)),
-                ):IconButton(icon: Icon(Icons.delete,size: 30,color: Colors.red,),onPressed: (){setState(() {
-                  _image=null;
-                });},),
+                _image == null
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Add Profile Image',
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.white)),
+                      )
+                    : IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          size: 30,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _image = null;
+                          });
+                        },
+                      ),
                 SizedBox(
                   height: 25,
                 ),

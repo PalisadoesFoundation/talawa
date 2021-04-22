@@ -1,4 +1,3 @@
-
 //login model
 class LoginViewModel {
   String email;

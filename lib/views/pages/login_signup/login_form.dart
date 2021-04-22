@@ -108,7 +108,13 @@ class LoginFormState extends State<LoginForm> {
             result.data['login']['user']['joinedOrganizations'][0]['name'];
         await _pref.saveCurrentOrgName(currentOrgName);
       }
-      Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context)=>HomePage(openPageIndex: 0,)), (route) => false);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => HomePage(
+                    openPageIndex: 0,
+                  )),
+          (route) => false);
     }
   }
 

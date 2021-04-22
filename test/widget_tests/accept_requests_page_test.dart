@@ -38,12 +38,12 @@ void main() {
       await tester.pumpWidget(accepRequestsPage());
 
       //verify if [accept_members_requests] page appears
-      expect(find.byType(Scaffold),findsOneWidget);
-      expect(find.byType(Card),findsNothing);
-
+      expect(find.byType(Scaffold), findsOneWidget);
+      expect(find.byType(Card), findsNothing);
     });
 
-    testWidgets("Testing overflow of accept_members_requests page in a mobile screen",
+    testWidgets(
+        "Testing overflow of accept_members_requests page in a mobile screen",
         (tester) async {
       binding.window.physicalSizeTestValue = Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
@@ -52,9 +52,8 @@ void main() {
 
       //verify if [accept_members_requests] page appears
 
-      expect(find.byType(Scaffold),findsOneWidget);
-      expect(find.byType(Card),findsNothing);
-
+      expect(find.byType(Scaffold), findsOneWidget);
+      expect(find.byType(Card), findsNothing);
     });
     testWidgets("Testing overflow of Member Page in a tablet screen",
         (tester) async {
@@ -64,10 +63,9 @@ void main() {
       await tester.pumpWidget(accepRequestsPage());
 
       //verify if [accept_members_requests] page appears
-      
-      expect(find.byType(Scaffold),findsOneWidget);
-      expect(find.byType(Card),findsNothing);
 
+      expect(find.byType(Scaffold), findsOneWidget);
+      expect(find.byType(Card), findsNothing);
     });
   });
 }

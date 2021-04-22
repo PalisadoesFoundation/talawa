@@ -89,17 +89,10 @@ class _AddEventState extends State<AddEvent> {
 
   //method used to create an event
   Future<void> createEvent() async {
-
     DateTime startDate = DateTime(
-        dateRange.start.year,
-        dateRange.start.month,
-        dateRange.start.day
-    );
+        dateRange.start.year, dateRange.start.month, dateRange.start.day);
     DateTime endDate = DateTime(
-        dateRange.start.year,
-        dateRange.start.month,
-        dateRange.start.day
-    );
+        dateRange.start.year, dateRange.start.month, dateRange.start.day);
     DateTime startTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
@@ -113,7 +106,6 @@ class _AddEventState extends State<AddEvent> {
         startEndTimes['End Time'].hour,
         startEndTimes['End Time'].minute);
 
-
     if (switchVals['All Day']) {
       startEndTimes = {
         'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
@@ -124,8 +116,8 @@ class _AddEventState extends State<AddEvent> {
     }
     final String currentOrgID = await preferences.getCurrentOrgId();
     Map result = await Queries().addEvent(
-      startDate : startDate.toString(),
-      endDate : endDate.toString(),
+      startDate: startDate.toString(),
+      endDate: endDate.toString(),
       organizationId: currentOrgID,
       title: titleController.text,
       description: descriptionController.text,
@@ -219,28 +211,35 @@ class _AddEventState extends State<AddEvent> {
           color: Colors.white,
         ),
         onPressed: () async {
-          if(titleController.text.isEmpty || descriptionController.text.isEmpty || locationController.text.isEmpty){
-            if (titleController.text.isEmpty){
+          if (titleController.text.isEmpty ||
+              descriptionController.text.isEmpty ||
+              locationController.text.isEmpty) {
+            if (titleController.text.isEmpty) {
               setState(() {
                 _validateTitle = true;
               });
             }
-            if(descriptionController.text.isEmpty){
+            if (descriptionController.text.isEmpty) {
               setState(() {
                 _validateDescription = true;
               });
             }
-            if(locationController.text.isEmpty){
+            if (locationController.text.isEmpty) {
               setState(() {
                 _validateLocation = true;
               });
             }
-            Fluttertoast.showToast(msg: 'Fill in the empty fields', backgroundColor: Colors.grey[500]);
-          }else {
+            Fluttertoast.showToast(
+                msg: 'Fill in the empty fields',
+                backgroundColor: Colors.grey[500]);
+          } else {
             showProgress(context, 'Creating New Event . . .', false);
             await createEvent();
             hideProgress();
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Events()), (route) => false);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => Events()),
+                (route) => false);
           }
         });
   }
