@@ -209,13 +209,15 @@ class _NewsFeedState extends State<NewsFeed> {
           icon: Icon(Icons.comment),
           color: Colors.grey,
           onPressed: () async {
-            await pushNewScreenWithRouteSettings(context,
-                screen: NewsArticle(
+            await Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => NewsArticle(
                   index: index,
                   post: postList[index],
                 ),
-                settings: RouteSettings(),
-                withNavBar: false);
+              ),
+            );
           },
         )
       ],
