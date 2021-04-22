@@ -67,12 +67,12 @@ class _UserTasksState extends State<UserTasks> {
                     itemCount: userTasks.length,
                     itemBuilder: (context, index) {
                       String title = "Title: ${userTasks[index]["title"]}";
-                      title += userTasks[index]["event"] != null
-                          ? '\nEvent: ${userTasks[index]["event"]["title"]}'
+                      title = userTasks[index]["event"] != null
+                          ? '${'Title: ${userTasks[index]["title"]}'}\nEvent: ${userTasks[index]["event"]["title"]}'
                           : "";
                       String description = userTasks[index]["description"];
-                      description += userTasks[index]["deadline"] != null
-                          ? ' \nDue Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"]))))}'
+                      description = userTasks[index]["deadline"] != null
+                          ? '${ userTasks[index]["description"]} \nDue Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"]))))}'
                           : '\nDue Date: N/A';
                       return Card(
                           child: Column(
