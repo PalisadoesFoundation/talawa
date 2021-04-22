@@ -65,6 +65,7 @@ dependencies:
 dev_dependencies:
   flutter_driver:
     sdk: flutter
+  lint: ^1.5.3
   random_pk:
 #flutter_launcher_icons: "^0.8.0"
 
