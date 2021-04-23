@@ -32,26 +32,34 @@ Core features include:
  - Want to contribute? Look at [CONTRIBUTING.md][link] to get started.
  - Visit the [Talawa GitHub][repo] to see the code.
  
-# Installation
+# Installation for Developers
 
-Talawa system prerequisites
-- [Flutter SDK][fsdk]
-- [Android Studio][astudio]
+## Prerequisites
 
-Clone and change into the project
-```sh
-$ git clone https://github.com/PalisadoesFoundation/talawa.git
-$ cd talawa
-```
+You'll need to setup the IDE and mobile device emulator on your local system, and have access to a system running the Talawa API which the mobile needs to access to operate properly.
 
-Install packages
-```sh
-$ flutter pub get
-```
+1. **Development Environment**: You'll need to have the following installed:
+    1. [Flutter SDK][fsdk]
+    1. [Android Studio][astudio]
+1. **API Environment**: 
+    1. Check the [Talawa API repository](https://github.com/PalisadoesFoundation/talawa-api) for information on how to setup the API on your local machine or a machine under your legitimate control. There is a section in the README.md file that discusses installation.
+    2. We also have a test environment if you are not inclined to setup or customize your own API server. Information about this can be found in the [Talawa documentation site](https://palisadoesfoundation.github.io/talawa-docs/)
 
-Start developing!
+## Command Line Steps
+
+1. Clone and change into the project.
+    ```sh
+    $ git clone https://github.com/PalisadoesFoundation/talawa.git
+    $ cd talawa
+    ```
+1. Install packages
+    ```sh
+    $ flutter pub get
+    ```
+1. Start developing!
+
+# Other Important LInks
  
-[readthedocs]: <https://talawa.readthedocs.io/>
 [repo]: <https://github.com/PalisadoesFoundation/talawa>
 [pfd]: <http://www.palisadoes.org>
 [fsdk]: <https://flutter.dev/docs/get-started/install>
