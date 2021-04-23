@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:package_info/package_info.dart';
 
-void main() async {
+Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   const MethodChannel channel =
       MethodChannel('plugins.flutter.io/package_info');

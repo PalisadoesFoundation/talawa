@@ -1,61 +1,65 @@
-//flutter packages are called here
+//flutter packages are imported here
 import 'package:flutter/material.dart';
 
-//imported the pages here
-import 'package:talawa/services/Queries.dart';
+//pages are imported here
+import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFunctions.dart';
+import 'package:talawa/utils/api_functions.dart';
 
-// ignore: must_be_immutable
-class RegList extends StatefulWidget {
-  Map event;
-
-  RegList({
+class TaskList extends StatefulWidget {
+  const TaskList({
     Key key,
     @required this.event,
   }) : super(key: key);
 
+  final Map event;
+
   @override
-  _RegListState createState() => _RegListState();
+  _TaskListState createState() => _TaskListState();
 }
 
-class _RegListState extends State<RegList> {
+class _TaskListState extends State<TaskList> {
   Preferences preferences = Preferences();
 
   ApiFunctions apiFunctions = ApiFunctions();
   List eventTasks;
 
+  @override
   void initState() {
     super.initState();
-    getRegistrants();
+    getTasks();
   }
 
-  //method to get the list of registrants
-  Future<List<dynamic>> getRegistrants() async {
-    final String userID = widget.event['_id'];
-    Map result =
-        await apiFunctions.gqlquery(Queries().getRegistrantsByEvent(userID));
+  //function to get the task list
+  Future<List<dynamic>> getTasks() async {
+    final String userID = widget.event['_id'].toString();
+    print("ishan");
+
+    final Map result =
+        await apiFunctions.gqlquery(Queries().getTasksByEvent(userID));
     //setState(() {
 
-    // });
-    eventTasks = result == null ? [] : result['registrantsByEvent'];
+    //});
+    eventTasks = result == null ? [] : result['tasksByEvent'] as List;
     return eventTasks;
   }
 
   @override
   Widget build(BuildContext context) {
-    var task = getRegistrants();
+    final task = getTasks();
     return Container(
       child: FutureBuilder<List<dynamic>>(
           future: task,
           builder: (context, snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.data.length == 0) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.data.isEmpty) {
               return Container(
-                child: Center(
+                child: const Center(
                     child: Text(
-                  "No Registrants found",
+                  "No Tasks found",
                   style: TextStyle(fontSize: 20),
                   textAlign: TextAlign.center,
                 )),
@@ -63,12 +67,12 @@ class _RegListState extends State<RegList> {
             } else {
               return SingleChildScrollView(
                 child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        leading: Text(snapshot.data[index]['firstName']),
+                        leading: Text(snapshot.data[index]['title'].toString()),
                       );
                     }),
               );

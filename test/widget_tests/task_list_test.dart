@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/views/pages/events/taskList.dart';
+import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/views/pages/events/task_list.dart';
 
-Widget TaskListPage() => MultiProvider(
+Widget taskListPage() => MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
           create: (_) => GraphQLConfiguration(),
@@ -25,7 +25,7 @@ Widget TaskListPage() => MultiProvider(
           create: (_) => Preferences(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: TaskList(
           event: {
             '_id': "6065ab230499450027b568af",
@@ -46,11 +46,12 @@ Widget TaskListPage() => MultiProvider(
     );
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized();
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("Task List Tests", () {
     testWidgets("Testing if tasklist  Page shows up", (tester) async {
-      await tester.pumpWidget(TaskListPage());
+      await tester.pumpWidget(taskListPage());
 
       /// Verify if [tasklist Page] shows up.
 
@@ -62,18 +63,18 @@ void main() {
 
     testWidgets("Testing overflow of Task List in a mobile screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(440, 800);
+      binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(TaskListPage());
+      await tester.pumpWidget(taskListPage());
     });
 
     testWidgets("Testing overflow of Task List in a tablet screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(1024, 768);
+      binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(TaskListPage());
+      await tester.pumpWidget(taskListPage());
     });
   });
 }

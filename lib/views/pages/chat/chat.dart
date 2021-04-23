@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class Chat extends StatefulWidget {
+  const Chat({Key key, this.groupName}) : super(key: key);
   final String groupName;
-
-  Chat({Key key, this.groupName}) : super(key: key);
 
   @override
   _ChatState createState() => _ChatState();
@@ -25,10 +24,10 @@ class _ChatState extends State<Chat> {
               child: Image.asset(UIData.talawaLogo),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10),
               child: Text(
                 widget.groupName,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             )
           ],
@@ -41,9 +40,9 @@ class _ChatState extends State<Chat> {
 
   Widget _textComposerWidget() {
     return Padding(
-      padding: EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       child: IconTheme(
-        data: IconThemeData(color: Colors.blue),
+        data: const IconThemeData(color: Colors.blue),
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
@@ -63,7 +62,7 @@ class _ChatState extends State<Chat> {
                 margin: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                 ),
               )
             ],
