@@ -1,4 +1,5 @@
 //flutter imported packages
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -6,12 +7,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'dart:math' as math;
 
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
 import 'package:talawa/views/widgets/toast_tile.dart';
@@ -23,10 +23,10 @@ class OrganizationMembers extends StatefulWidget {
 
 class _OrganizationMembersState extends State<OrganizationMembers>
     with SingleTickerProviderStateMixin {
-  Preferences _preferences = Preferences();
+  final Preferences _preferences = Preferences();
   AnimationController _controller;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  AuthController _authController = AuthController();
+  final AuthController _authController = AuthController();
   List membersList = [];
   List adminsList = [];
   List selectedMembers = [];
@@ -34,7 +34,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   bool forward = false;
   bool processing = false;
   String userId;
-  Queries _query = Queries();
+  final Queries _query = Queries();
   String creatorId;
 
   //giving initial states to every variable
@@ -43,7 +43,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     super.initState();
     fToast = FToast();
     fToast.init(context);
-    _controller = new AnimationController(
+    _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
@@ -53,9 +53,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   //method to show the members of the organization
   Future viewMembers() async {
     final String orgId = await _preferences.getCurrentOrgId();
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client
+    final QueryResult result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
     if (result.hasException) {
       print(result.exception);
@@ -64,8 +64,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       result.data['organizations'][0]['admins']
           .forEach((admin) => adminsList.add(admin['_id']));
       setState(() {
-        creatorId = result.data['organizations'][0]['creator']['_id'];
-        membersList = result.data['organizations'][0]['members'];
+        creatorId =
+            result.data['organizations'][0]['creator']['_id'].toString();
+        membersList = result.data['organizations'][0]['members'] as List;
       });
       if (membersList.length == 1) {
         _exceptionToast('You are alone here.');
@@ -78,10 +79,10 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     setState(() {
       processing = true;
     });
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
     final String orgId = await _preferences.getCurrentOrgId();
 
-    QueryResult result = await _client.query(QueryOptions(
+    final QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.removeMember(orgId, selectedMembers))));
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
@@ -109,10 +110,11 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       processing = true;
     });
     if (!adminsList.contains(selectedMembers[0])) {
-      GraphQLClient _client = graphQLConfiguration.authClient();
+      final GraphQLClient _client = graphQLConfiguration.authClient();
       final String orgId = await _preferences.getCurrentOrgId();
-      QueryResult result = await _client.query(QueryOptions(
-          documentNode: gql(_query.addAdmin(orgId, selectedMembers[0]))));
+      final QueryResult result = await _client.query(QueryOptions(
+          documentNode:
+              gql(_query.addAdmin(orgId, selectedMembers[0].toString()))));
       if (result.hasException &&
           result.exception.toString().substring(16) == accessTokenException) {
         _authController.getNewToken();
@@ -144,7 +146,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
           selectedMembers.add('"$memberId"');
         });
       } else {
-        _exceptionToast('Can\'t select admins');
+        _exceptionToast("Can't select admins");
       }
     } else {
       setState(() {
@@ -165,20 +167,20 @@ class _OrganizationMembersState extends State<OrganizationMembers>
           processing
               ? Container(
                   color: Colors.transparent.withOpacity(0.3),
-                  child: Center(
+                  child: const Center(
                     child: CircularProgressIndicator(),
                   ),
                 )
-              : SizedBox(),
+              : const SizedBox(),
           membersList.isEmpty
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : ListView.separated(
                   itemCount: membersList.length,
                   itemBuilder: (context, index) {
                     final members = membersList[index];
-                    String mId = members['_id'];
-                    String name =
-                        members['firstName'] + ' ' + members['lastName'];
+                    final String mId = members['_id'].toString();
+                    final String name =
+                        '${members['firstName']} ${members['lastName']}';
                     return CheckboxListTile(
                       secondary: members['image'] != null
                           ? CircleAvatar(
@@ -186,7 +188,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                               backgroundImage: NetworkImage(
                                   Provider.of<GraphQLConfiguration>(context)
                                           .displayImgRoute +
-                                      members['image']))
+                                      members['image'].toString()))
                           : CircleAvatar(
                               radius: 30.0,
                               backgroundColor: Colors.white,
@@ -199,7 +201,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                                           .toString()
                                           .substring(0, 1)
                                           .toUpperCase(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: UIData.primaryColor,
                                     fontSize: 22,
                                   )),
@@ -213,7 +215,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) {
-                    return Divider();
+                    return const Divider();
                   },
                 ),
         ],
@@ -222,8 +224,8 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.generate(2, (int index) {
-          Widget child = Container(
-            margin: EdgeInsets.only(bottom: 15),
+          final Widget child = Container(
+            margin: const EdgeInsets.only(bottom: 15),
             alignment: FractionalOffset.bottomRight,
             child: ScaleTransition(
               scale: CurvedAnimation(
@@ -261,17 +263,6 @@ class _OrganizationMembersState extends State<OrganizationMembers>
           ..add(
             FloatingActionButton(
               heroTag: null,
-              child: AnimatedBuilder(
-                animation: _controller,
-                builder: (BuildContext context, Widget child) {
-                  return Transform(
-                    transform:
-                        Matrix4.rotationZ(_controller.value * 1 * math.pi),
-                    alignment: FractionalOffset.center,
-                    child: Icon(Icons.expand_more),
-                  );
-                },
-              ),
               onPressed: () {
                 setState(() {
                   forward = !forward;
@@ -282,6 +273,17 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                   _controller.reverse();
                 }
               },
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (BuildContext context, Widget child) {
+                  return Transform(
+                    transform:
+                        Matrix4.rotationZ(_controller.value * 1 * math.pi),
+                    alignment: FractionalOffset.center,
+                    child: const Icon(Icons.expand_more),
+                  );
+                },
+              ),
             ),
           ),
       ),
@@ -304,7 +306,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     fToast.showToast(
       child: ToastTile(msg: msg, success: true),
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 
@@ -315,7 +317,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         success: false,
       ),
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }

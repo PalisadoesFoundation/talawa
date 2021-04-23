@@ -8,9 +8,9 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/accept_requests_page.dart';
@@ -21,19 +21,20 @@ import 'package:talawa/views/widgets/toast_tile.dart';
 import 'update_organization.dart';
 
 class OrganizationSettings extends StatefulWidget {
+  const OrganizationSettings({this.public, this.creator, this.organization});
+
   final bool public;
   final bool creator;
   final List organization;
-  OrganizationSettings({this.public, this.creator, this.organization});
   @override
   _OrganizationSettingsState createState() => _OrganizationSettingsState();
 }
 
 class _OrganizationSettingsState extends State<OrganizationSettings> {
-  Preferences _preferences = Preferences();
-  Queries _query = Queries();
-  AuthController _authController = AuthController();
-  OrgController _orgController = OrgController();
+  final Preferences _preferences = Preferences();
+  final Queries _query = Queries();
+  final AuthController _authController = AuthController();
+  final OrgController _orgController = OrgController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   bool processing = false;
@@ -52,9 +53,10 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    QueryResult result = await _client.mutate(MutationOptions(
-        documentNode: gql(_query.leaveOrg(widget.organization[0]['_id']))));
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    final QueryResult result = await _client.mutate(MutationOptions(
+        documentNode:
+            gql(_query.leaveOrg(widget.organization[0]['_id'].toString()))));
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
@@ -68,15 +70,18 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
       setState(() {
-        remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'];
+        remaindingOrg =
+            result.data['leaveOrganization']['joinedOrganizations'] as List;
         if (remaindingOrg.isEmpty) {
           newOrgId = null;
         } else if (remaindingOrg.isNotEmpty) {
           setState(() {
             newOrgId = result.data['leaveOrganization']['joinedOrganizations']
-                [0]['_id'];
+                    [0]['_id']
+                .toString();
             newOrgName = result.data['leaveOrganization']['joinedOrganizations']
-                [0]['name'];
+                    [0]['name']
+                .toString();
           });
         }
         processing = false;
@@ -90,7 +95,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       _successToast('You are no longer apart of this organization');
       pushNewScreen(
         context,
-        screen: ProfilePage(),
+        screen: const ProfilePage(),
       );
     }
   }
@@ -104,9 +109,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client
+    final QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.removeOrg(orgId))));
 
     if (result.hasException &&
@@ -124,14 +129,16 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       _successToast('Successfully Removed Organization');
       setState(() {
         remaindingOrg =
-            result.data['removeOrganization']['joinedOrganizations'];
+            result.data['removeOrganization']['joinedOrganizations'] as List;
         if (remaindingOrg.isEmpty) {
           newOrgId = null;
         } else if (remaindingOrg.isNotEmpty) {
           newOrgId = result.data['removeOrganization']['joinedOrganizations'][0]
-              ['_id'];
+                  ['_id']
+              .toString();
           newOrgName = result.data['removeOrganization']['joinedOrganizations']
-              [0]['name'];
+                  [0]['name']
+              .toString();
         }
         processing = false;
       });
@@ -144,7 +151,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       Navigator.of(context).pop();
       pushNewScreen(
         context,
-        screen: ProfilePage(),
+        screen: const ProfilePage(),
       );
     }
   }
@@ -169,7 +176,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
             Container(
               child: Column(children: <Widget>[
                 ListTile(
-                    key: Key('Update Organization'),
+                    key: const Key('Update Organization'),
                     title: const Text(
                       'Update Organization',
                       style: const TextStyle(fontSize: 18.0),
@@ -182,24 +189,28 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                       pushNewScreen(
                         context,
                         screen: UpdateOrganization(
-                            description: widget.organization[0]['description'],
-                            name: widget.organization[0]['name'],
+                            description: widget.organization[0]['description']
+                                .toString(),
+                            name: widget.organization[0]['name'].toString(),
                             isPublic:
-                                widget.organization[0]['isPublic'] ? 0 : 1,
+                                (widget.organization[0]['isPublic'] as bool)
+                                    ? 0
+                                    : 1,
                             isVisible: widget.organization[0]
                                         ['visibleInSearch'] ==
                                     null
                                 ? -1
-                                : widget.organization[0][0]['visibleInSearch']
+                                : (widget.organization[0][0]['visibleInSearch']
+                                        as bool)
                                     ? 0
                                     : 1),
                       );
                     }),
-                Divider(),
+                const Divider(),
                 widget.public
-                    ? SizedBox()
+                    ? const SizedBox()
                     : ListTile(
-                        key: Key('Accept MemberShip Requests'),
+                        key: const Key('Accept MemberShip Requests'),
                         title: const Text(
                           'Accept MemberShip Requests',
                           style: TextStyle(fontSize: 18.0),
@@ -217,9 +228,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                             screen: AcceptRequestsPage(),
                           );
                         }),
-                widget.public ? SizedBox() : Divider(),
+                widget.public ? const SizedBox() : const Divider(),
                 ListTile(
-                    key: Key('Member(s)'),
+                    key: const Key('Member(s)'),
                     title: const Text(
                       'Member(s)',
                       style: TextStyle(fontSize: 18.0),
@@ -234,10 +245,10 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         screen: OrganizationMembers(),
                       );
                     }),
-                Divider(),
+                const Divider(),
                 widget.creator
                     ? ListTile(
-                        key: Key('Remove This Organization'),
+                        key: const Key('Remove This Organization'),
                         title: const Text(
                           'Remove This Organization',
                           style: TextStyle(fontSize: 18.0),
@@ -262,7 +273,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                               });
                         })
                     : ListTile(
-                        key: Key('Leave Organization'),
+                        key: const Key('Leave Organization'),
                         title: const Text(
                           'Leave Organization',
                           style: TextStyle(fontSize: 18.0),
@@ -288,7 +299,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         ));
   }
 
-  _successToast(String msg) {
+  void _successToast(String msg) {
     fToast.showToast(
       child: ToastTile(msg: msg, success: true),
       gravity: ToastGravity.BOTTOM,
@@ -296,7 +307,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     );
   }
 
-  _exceptionToast(String msg) {
+  void _exceptionToast(String msg) {
     fToast.showToast(
       child: ToastTile(msg: msg, success: false),
       gravity: ToastGravity.BOTTOM,

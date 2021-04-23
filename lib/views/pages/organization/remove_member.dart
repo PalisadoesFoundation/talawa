@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/globals.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class RemoveMember extends StatefulWidget {
@@ -17,12 +17,12 @@ class RemoveMember extends StatefulWidget {
 }
 
 class _RemoveMemberState extends State<RemoveMember> {
-  Preferences _preferences = Preferences();
+  final Preferences _preferences = Preferences();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  AuthController _authController = AuthController();
+  final AuthController _authController = AuthController();
   List membersList = [];
-  List selectedMembers = List();
-  Queries _query = Queries();
+  List selectedMembers = [];
+  final Queries _query = Queries();
 
   //giving initial states to every variable
   @override
@@ -37,14 +37,14 @@ class _RemoveMemberState extends State<RemoveMember> {
 
     GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client
+    final QueryResult result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
     if (result.hasException) {
       print(result.exception);
       //showError(result.exception.toString());
     } else if (!result.hasException) {
       setState(() {
-        membersList = result.data['organizations'][0]['members'];
+        membersList = result.data['organizations'][0]['members'] as List;
       });
     }
   }
@@ -97,7 +97,7 @@ class _RemoveMemberState extends State<RemoveMember> {
         itemCount: membersList.length,
         itemBuilder: (context, index) {
           final members = membersList[index];
-          String mId = members['_id'];
+          final String mId = members['_id'] as String;
           return CheckboxListTile(
             secondary: members['image'] != null
                 ? CircleAvatar(
@@ -105,7 +105,7 @@ class _RemoveMemberState extends State<RemoveMember> {
                     backgroundImage: NetworkImage(
                         Provider.of<GraphQLConfiguration>(context)
                                 .displayImgRoute +
-                            members['image']))
+                            members['image'].toString()))
                 : CircleAvatar(
                     radius: 30.0,
                     backgroundColor: Colors.white,
@@ -124,7 +124,7 @@ class _RemoveMemberState extends State<RemoveMember> {
                       ),
                     ),
                   ),
-            title: Text(members['firstName'] + ' ' + members['lastName']),
+            title: Text('${members['firstName']}' '${members['lastName']}'),
             value: selectedMembers.contains('"$mId"'),
             onChanged: (bool value) {
               _onMemberSelected(value, members['_id'].toString());

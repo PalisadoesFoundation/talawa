@@ -1,3 +1,4 @@
+// ignore: file_names
 //flutter imported packages
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,14 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
-import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/toast_tile.dart';
 
 class AddPost extends StatefulWidget {
-  AddPost({Key key}) : super(key: key);
+  const AddPost({Key key}) : super(key: key);
 
   @override
   _AddPostState createState() => _AddPostState();
@@ -30,6 +31,7 @@ class _AddPostState extends State<AddPost> {
   Preferences preferences = Preferences();
 
   //giving every variable its initial state
+  @override
   initState() {
     super.initState();
     getCurrentOrgId();
@@ -48,12 +50,12 @@ class _AddPostState extends State<AddPost> {
 
   //creating post
   Future createPost() async {
-    String description = textController.text.trim().replaceAll('\n', ' ');
-    String title = titleController.text.trim().replaceAll('\n', ' ');
-    String mutation = Queries().addPost(description, organizationId, title);
-    ApiFunctions apiFunctions = ApiFunctions();
+    final String description = textController.text.trim().replaceAll('\n', ' ');
+    final String title = titleController.text.trim().replaceAll('\n', ' ');
+    final String mutation = Queries().addPost(description, organizationId, title) as String;
+    final ApiFunctions apiFunctions = ApiFunctions();
     try {
-      result = await apiFunctions.gqlmutation(mutation);
+      result = await apiFunctions.gqlmutation(mutation) as Map;
       if (result != null) {
         Navigator.pop(context, true);
       } else {
@@ -66,6 +68,7 @@ class _AddPostState extends State<AddPost> {
     }
   }
 
+  @override
   void dispose() {
     titleController.dispose();
     textController.dispose();
@@ -81,7 +84,7 @@ class _AddPostState extends State<AddPost> {
       appBar: AppBar(
         title: const Text(
           'New Post',
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Container(
@@ -205,7 +208,7 @@ class _AddPostState extends State<AddPost> {
         success: false,
       ),
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }

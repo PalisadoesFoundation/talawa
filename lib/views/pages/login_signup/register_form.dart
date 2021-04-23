@@ -1,13 +1,14 @@
 //flutter packages are called here
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
 // pages are called here
 import 'package:provider/provider.dart';
-import 'package:talawa/services/Queries.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_register.dart';
@@ -19,9 +20,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 
 //pubspec packages are called here
-import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_password_strength/flutter_password_strength.dart';
+
+import '../_pages.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -32,19 +33,17 @@ class RegisterForm extends StatefulWidget {
 
 class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _firstNameController = new TextEditingController();
-  TextEditingController _lastNameController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _originalPasswordController =
-      new TextEditingController();
-  TextEditingController _confirmPasswordController =
-      new TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _originalPasswordController =
+      TextEditingController();
   FocusNode confirmPassField = FocusNode();
-  RegisterViewModel model = new RegisterViewModel();
+  RegisterViewModel model = RegisterViewModel();
   bool _progressBarState = false;
-  Queries _signupQuery = Queries();
+  final Queries _signupQuery = Queries();
   var _validate = AutovalidateMode.disabled;
-  Preferences _pref = Preferences();
+  final Preferences _pref = Preferences();
   FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
@@ -64,10 +63,10 @@ class RegisterFormState extends State<RegisterForm> {
 
   //function for registering user which gets called when sign up is press
   registerUser() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    final GraphQLClient _client = graphQLConfiguration.clientToQuery();
     final img = await multipartFileFrom(_image);
     print(_image);
-    QueryResult result = await _client.mutate(MutationOptions(
+    final QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_signupQuery.registerUser(
           model.firstName, model.lastName, model.email, model.password)),
       variables: {
@@ -85,31 +84,36 @@ class RegisterFormState extends State<RegisterForm> {
         _progressBarState = true;
       });
 
-      final String userFName = result.data['signUp']['user']['firstName'];
+      final String userFName =
+          result.data['signUp']['user']['firstName'].toString();
       await _pref.saveUserFName(userFName);
-      final String userLName = result.data['signUp']['user']['lastName'];
+      final String userLName =
+          result.data['signUp']['user']['lastName'].toString();
       await _pref.saveUserLName(userLName);
 
       final Token accessToken =
-          new Token(tokenString: result.data['signUp']['accessToken']);
+          Token(tokenString: result.data['signUp']['accessToken'].toString());
       await _pref.saveToken(accessToken);
       final Token refreshToken =
-          new Token(tokenString: result.data['signUp']['refreshToken']);
+          Token(tokenString: result.data['signUp']['refreshToken'].toString());
       await _pref.saveRefreshToken(refreshToken);
-      final String currentUserId = result.data['signUp']['user']['_id'];
+      final String currentUserId =
+          result.data['signUp']['user']['_id'].toString();
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => new JoinOrganization(
-                fromProfile: false,
-              )));
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => const JoinOrganization(
+                    fromProfile: false,
+                  )),
+          (route) => false);
     }
   }
 
   //function called when the user is called without the image
   registerUserWithoutImg() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    QueryResult result = await _client.mutate(MutationOptions(
+    final GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    final QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_signupQuery.registerUserWithoutImg(
           model.firstName, model.lastName, model.email, model.password)),
     ));
@@ -124,42 +128,44 @@ class RegisterFormState extends State<RegisterForm> {
         _progressBarState = true;
       });
 
-      final String userFName = result.data['signUp']['user']['firstName'];
+      final String userFName =
+          result.data['signUp']['user']['firstName'].toString();
       await _pref.saveUserFName(userFName);
-      final String userLName = result.data['signUp']['user']['lastName'];
+      final String userLName =
+          result.data['signUp']['user']['lastName'].toString();
       await _pref.saveUserLName(userLName);
       final Token accessToken =
-          new Token(tokenString: result.data['signUp']['accessToken']);
+          Token(tokenString: result.data['signUp']['accessToken'].toString());
       await _pref.saveToken(accessToken);
       final Token refreshToken =
-          new Token(tokenString: result.data['signUp']['refreshToken']);
+          Token(tokenString: result.data['signUp']['refreshToken'].toString());
       await _pref.saveRefreshToken(refreshToken);
-      final String currentUserId = result.data['signUp']['user']['_id'];
+      final String currentUserId =
+          result.data['signUp']['user']['_id'].toString();
       await _pref.saveUserId(currentUserId);
 
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => new JoinOrganization(
-                fromProfile: false,
-              )));
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => const JoinOrganization(
+                    fromProfile: false,
+                  )),
+          (route) => false);
     }
   }
 
-  //get image using camera
-  _imgFromCamera() async {
-    final pickImage = await ImagePicker().getImage(source: ImageSource.camera);
-    File image = File(pickImage.path);
-    setState(() {
-      _image = image;
-    });
-  }
-
-  //get image using gallery
-  _imgFromGallery() async {
-    final pickImage = await ImagePicker().getImage(source: ImageSource.gallery);
-    File image = File(pickImage.path);
-    setState(() {
-      _image = image;
-    });
+  //get image from camera and gallery based on the enum passed
+  _imgFrom({From pickFrom = From.none}) async {
+    File pickImageFile;
+    if (pickFrom != From.none) {
+      final PickedFile selectedImage = await ImagePicker().getImage(
+          source: pickFrom == From.camera
+              ? ImageSource.camera
+              : ImageSource.gallery);
+      pickImageFile = File(selectedImage.path);
+      setState(() {
+        _image = pickImageFile;
+      });
+    }
   }
 
   @override
@@ -171,12 +177,25 @@ class RegisterFormState extends State<RegisterForm> {
             child: Column(
               children: <Widget>[
                 addImage(),
-                const Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: const Text('Add Profile Image',
-                      style:
-                          const TextStyle(fontSize: 16, color: Colors.white)),
-                ),
+                _image == null
+                    ? const Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Add Profile Image',
+                            style:
+                                const TextStyle(fontSize: 16, color: Colors.white)),
+                      )
+                    : IconButton(
+                        icon: const Icon(
+                          Icons.delete,
+                          size: 30,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _image = null;
+                          });
+                        },
+                      ),
                 const SizedBox(
                   height: 25,
                 ),
@@ -184,7 +203,7 @@ class RegisterFormState extends State<RegisterForm> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.givenName],
+                        autofillHints: const <String>[AutofillHints.givenName],
                         textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.words,
                         controller: _firstNameController,
@@ -217,7 +236,7 @@ class RegisterFormState extends State<RegisterForm> {
                         height: 20,
                       ),
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.familyName],
+                        autofillHints: const [AutofillHints.familyName],
                         textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.words,
                         controller: _lastNameController,
@@ -249,7 +268,7 @@ class RegisterFormState extends State<RegisterForm> {
                         height: 20,
                       ),
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.email],
+                        autofillHints: const <String>[AutofillHints.email],
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
                         validator: Validator.validateEmail,
@@ -281,7 +300,7 @@ class RegisterFormState extends State<RegisterForm> {
                         height: 20,
                       ),
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.password],
+                        autofillHints: const <String>[AutofillHints.password],
                         textInputAction: TextInputAction.next,
                         obscureText: _obscureText,
                         controller: _originalPasswordController,
@@ -299,7 +318,7 @@ class RegisterFormState extends State<RegisterForm> {
                           ),
                           prefixIcon:
                               const Icon(Icons.lock, color: Colors.white),
-                          suffixIcon: FlatButton(
+                          suffixIcon: TextButton(
                             onPressed: _toggle,
                             child: Icon(
                               _obscureText
@@ -326,6 +345,9 @@ class RegisterFormState extends State<RegisterForm> {
                           model.password = value;
                         },
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       FlutterPwValidator(
                         width: 400,
                         height: 150,
@@ -338,11 +360,11 @@ class RegisterFormState extends State<RegisterForm> {
                         },
                         controller: _originalPasswordController,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.password],
+                        autofillHints: const <String>[AutofillHints.password],
                         obscureText: true,
                         focusNode: confirmPassField,
                         validator: (value) => Validator.validatePasswordConfirm(
@@ -377,23 +399,15 @@ class RegisterFormState extends State<RegisterForm> {
                   padding: const EdgeInsets.symmetric(
                       vertical: 20.0, horizontal: 30.0),
                   width: double.infinity,
-                  child: RaisedButton(
-                    padding: const EdgeInsets.all(12.0),
-                    shape: const StadiumBorder(),
-                    child: _progressBarState
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: const CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.orange),
-                              strokeWidth: 3,
-                              backgroundColor: Colors.black,
-                            ))
-                        : const Text(
-                            "SIGN UP",
-                          ),
-                    color: Colors.white,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          const EdgeInsets.all(12.0)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                          const StadiumBorder()),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                    ),
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
                       _validate = AutovalidateMode.always;
@@ -407,6 +421,19 @@ class RegisterFormState extends State<RegisterForm> {
                         });
                       }
                     },
+                    child: _progressBarState
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.orange),
+                              strokeWidth: 3,
+                              backgroundColor: Colors.black,
+                            ))
+                        : const Text(
+                            "SIGN UP",
+                          ),
                   ),
                 ),
               ],
@@ -451,7 +478,7 @@ class RegisterFormState extends State<RegisterForm> {
   }
 
   //used to show the method user want to choose their pictures
-  void _showPicker(context) {
+  void _showPicker(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -463,7 +490,7 @@ class RegisterFormState extends State<RegisterForm> {
                     leading: const Icon(Icons.camera_alt_outlined),
                     title: const Text('Camera'),
                     onTap: () {
-                      _imgFromCamera();
+                      _imgFrom(pickFrom: From.camera);
                       Navigator.of(context).pop();
                     },
                   ),
@@ -471,7 +498,7 @@ class RegisterFormState extends State<RegisterForm> {
                       leading: const Icon(Icons.photo_library),
                       title: const Text('Photo Library'),
                       onTap: () {
-                        _imgFromGallery();
+                        _imgFrom(pickFrom: From.gallery);
                         Navigator.of(context).pop();
                       }),
                 ],
@@ -503,7 +530,7 @@ class RegisterFormState extends State<RegisterForm> {
 
   //this method is called when the result is an exception
   _exceptionToast(String msg) {
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -536,4 +563,10 @@ class RegisterFormState extends State<RegisterForm> {
       _obscureText = !_obscureText;
     });
   }
+}
+
+enum From {
+  none,
+  camera,
+  gallery,
 }

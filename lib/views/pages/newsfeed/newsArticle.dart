@@ -8,10 +8,10 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
 //the pages are called here
-import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 
@@ -43,7 +43,7 @@ class _NewsArticleState extends State<NewsArticle> {
   bool moreComments = false;
   bool isCommentAdded = false;
 
-  Queries _query = Queries();
+  final Queries _query = Queries();
   List userDetails = [];
   String userID;
   String orgName;
@@ -65,7 +65,7 @@ class _NewsArticleState extends State<NewsArticle> {
     } else if (!result.hasException) {
       //print(result);
       setState(() {
-        userDetails = result.data['users'];
+        userDetails = result.data['users'] as List;
       });
       //print(userDetails);
     }
@@ -84,7 +84,7 @@ class _NewsArticleState extends State<NewsArticle> {
             radius: 30,
             backgroundImage: NetworkImage(
                 Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                    userDetails[0]['image']))
+                    userDetails[0]['image'].toString()))
         : CircleAvatar(
             radius: 45.0,
             backgroundColor: Colors.white,
@@ -105,11 +105,11 @@ class _NewsArticleState extends State<NewsArticle> {
 
   //this method helps us to get the comments of the post
   getPostComments() async {
-    String mutation = Queries().getPostsComments(widget.post['_id']);
-    Map result = await apiFunctions.gqlmutation(mutation);
+    String mutation = Queries().getPostsComments(widget.post['_id'].toString());
+    Map result = await apiFunctions.gqlmutation(mutation) as Map;
     setState(() {
       comments =
-          result == null ? [] : result['commentsByPost'].reversed.toList();
+          result == null ? [] : result['commentsByPost'].reversed.toList() as List;
     });
   }
 
@@ -119,8 +119,8 @@ class _NewsArticleState extends State<NewsArticle> {
     if (commentController.text.isNotEmpty) {
       Fluttertoast.showToast(msg: "Adding Comment...");
       queryText = commentController.text.replaceAll("\n", newLineKey).trim();
-      String mutation = Queries().createComments(widget.post['_id'], queryText);
-      Map result = await apiFunctions.gqlmutation(mutation);
+      String mutation = Queries().createComments(widget.post['_id'].toString(), queryText) as String;
+      Map result = await apiFunctions.gqlmutation(mutation) as Map;
       print(result);
       if (result == null) {
         Fluttertoast.showToast(
@@ -312,20 +312,20 @@ class _NewsArticleState extends State<NewsArticle> {
                     backgroundColor: UIData.secondaryColor,
                   ),
                   title: Text(
-                    comments[index]['text'],
+                    comments[index]['text'].toString(),
                   ),
                   subtitle: Row(
                     children: [
-                      Text(comments[index]['creator']['firstName'] +
+                      Text(comments[index]['creator']['firstName'].toString() +
                           ' ' +
-                          comments[index]['creator']['lastName']),
+                          comments[index]['creator']['lastName'].toString()),
                       Text(
                         ' - ',
                         style: TextStyle(
                           fontSize: 20,
                         ),
                       ),
-                      Text(timer.hoursOrDays(comments[index]['createdAt']))
+                      Text(timer.hoursOrDays(comments[index]['createdAt'].toString()).toString())
                     ],
                   ),
                 );

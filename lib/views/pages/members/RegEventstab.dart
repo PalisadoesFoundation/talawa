@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 //packages for pages are imported here
-import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/api_functions.dart';
 
 // ignore: must_be_immutable
 class RegisteredEvents extends StatefulWidget {
@@ -32,11 +32,11 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
 
   //method to get the user details
   getUserDetails() async {
-    final String userID = widget.member['_id'];
+    final String userID = widget.member['_id'].toString();
     Map result =
-        await apiFunctions.gqlquery(Queries().registeredEventsByUser(userID));
+        await apiFunctions.gqlquery(Queries().registeredEventsByUser(userID)) as Map;
     setState(() {
-      userEvents = result == null ? [] : result['registeredEventsByUser'];
+      userEvents = result == null ? [] : result['registeredEventsByUser'] as List;
     });
   }
 

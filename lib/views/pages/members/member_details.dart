@@ -5,17 +5,13 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 //files are imported here
 import 'package:provider/provider.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import '../../../utils/uidata.dart';
-import 'RegEventstab.dart';
-import 'userTaskstab.dart';
+import 'reg_eventstab.dart';
+import 'user_taskstab.dart';
 
 // ignore: must_be_immutable
 class MemberDetail extends StatefulWidget {
-  final List admins;
-  final String creatorId;
-  Map member;
-  Color color;
   MemberDetail(
       {Key key,
       @required this.member,
@@ -23,6 +19,11 @@ class MemberDetail extends StatefulWidget {
       this.admins,
       this.creatorId})
       : super(key: key);
+
+  final List admins;
+  final String creatorId;
+  Map member;
+  Color color;
 
   @override
   _MemberDetailState createState() => _MemberDetailState();
@@ -37,7 +38,7 @@ class _MemberDetailState extends State<MemberDetail>
     _tabController = TabController(vsync: this, length: 2);
   }
 
-  getPrivilege(String id) {
+  String getPrivilege(String id) {
     if (widget.creatorId.compareTo(id) == 0) {
       return 'Creator';
     }
@@ -68,15 +69,14 @@ class _MemberDetailState extends State<MemberDetail>
                 background: Column(children: [
                   widget.member['image'] == null
                       ? defaultUserImg()
-                      : userImg(widget.member['image']),
+                      : userImg(widget.member['image'].toString()),
                   Card(
                       child: Container(
                     width: MediaQuery.of(context).size.width,
                     padding: const EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     height: 30,
-                    child: Text(
-                        'User email: ' + widget.member['email'].toString()),
+                    child: Text('User email: ${widget.member['email']}'),
                   )),
                   Card(
                       child: Container(
@@ -85,7 +85,7 @@ class _MemberDetailState extends State<MemberDetail>
                     alignment: Alignment.centerLeft,
                     height: 30,
                     child: Text(
-                      'User Privileges: ' + getPrivilege(widget.member['_id']),
+                      'User Privileges: ' + getPrivilege(widget.member['_id'].toString()),
                       key: Key('Privilege'),
                     ),
                   )),
@@ -165,7 +165,7 @@ class _MemberDetailState extends State<MemberDetail>
           ),
         ),
         Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
@@ -194,8 +194,10 @@ class _MemberDetailState extends State<MemberDetail>
     return Container(
       height: 170,
       width: MediaQuery.of(context).size.width,
+      color: widget.color,
       child: Column(
         children: [
+          // ignore: sized_box_for_whitespace
           Container(
               height: 130,
               child: const Icon(
@@ -204,7 +206,7 @@ class _MemberDetailState extends State<MemberDetail>
                 color: Colors.white54,
               )),
           Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
@@ -226,7 +228,12 @@ class _MemberDetailState extends State<MemberDetail>
               ))
         ],
       ),
-      color: widget.color,
     );
   }
 }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }

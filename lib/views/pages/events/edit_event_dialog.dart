@@ -1,23 +1,26 @@
-//flutter packages
+//flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 
 //pages are called here
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
+import 'package:talawa/views/widgets/show_progress.dart';
 
-class AddEvent extends StatefulWidget {
-  AddEvent({Key key}) : super(key: key);
+// ignore: must_be_immutable
+class EditEvent extends StatefulWidget {
+  EditEvent({Key key, @required this.event}) : super(key: key);
+  Map event;
 
   @override
-  _AddEventState createState() => _AddEventState();
+  _EditEventState createState() => _EditEventState();
 }
 
-class _AddEventState extends State<AddEvent> {
+class _EditEventState extends State<EditEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final locationController = TextEditingController();
@@ -26,27 +29,12 @@ class _AddEventState extends State<AddEvent> {
       _validateLocation = false;
   ApiFunctions apiFunctions = ApiFunctions();
 
-  Map switchVals = {
-    'Make Public': true,
-    'Make Registerable': true,
-    'Recurring': true,
-    'All Day': false
-  };
-  var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
-  String recurrance = 'DAILY';
-  Preferences preferences = Preferences();
-  void initState() {
-    super.initState();
-  }
-
-  //getting the date for the event
   DateTimeRange dateRange = DateTimeRange(
       start: DateTime(
           DateTime.now().year, DateTime.now().month, DateTime.now().day, 1, 0),
       end: DateTime(DateTime.now().year, DateTime.now().month,
           DateTime.now().day + 1, 1, 0));
 
-  //storing the start time of an event
   Map<String, DateTime> startEndTimes = {
     'Start Time': DateTime(
         DateTime.now().year, DateTime.now().month, DateTime.now().day, 12, 0),
@@ -54,28 +42,74 @@ class _AddEventState extends State<AddEvent> {
         DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
   };
 
-  //method to be called when the user wants to select the date
+  Map event;
+  Map<String, bool> switchVals = {
+    'Make Public': true,
+    'Make Registerable': true,
+    'Recurring': true,
+    'All Day': false
+  };
+
+  var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
+  String recurrance = 'DAILY';
+  Preferences preferences = Preferences();
+  String currentOrgId;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentOrgId();
+    print(widget.event);
+    initevent();
+  }
+
+  initevent() {
+    setState(() {
+      titleController.text = widget.event['title'].toString();
+      descriptionController.text = widget.event['description'].toString();
+      locationController.text = widget.event['location'].toString();
+      switchVals = {
+        'Make Public': widget.event['isPublic'] as bool,
+        'Make Registerable': widget.event['isRegisterable'] as bool,
+        'Recurring': widget.event['recurring'] as bool,
+        'All Day': widget.event['allDay'] as bool,
+      };
+      recurrance = widget.event['recurrance'].toString();
+    });
+  }
+
+  //getting current organization id
+  getCurrentOrgId() async {
+    final orgId = await preferences.getCurrentOrgId();
+    setState(() {
+      currentOrgId = orgId;
+    });
+    print(currentOrgId);
+  }
+
+  //method called to select the date
   Future<void> _selectDate(BuildContext context) async {
-    DateTime now = DateTime.now();
+    final DateTime now = DateTime.now();
     final DateTimeRange picked = await showDateRangePicker(
         context: context,
         // initialDate: selectedDate,
         firstDate: DateTime(now.year, now.month, now.day),
         lastDate: DateTime(2101));
-    if (picked != null && picked != dateRange)
+    if (picked != null && picked != dateRange) {
       setState(() {
         dateRange = picked;
       });
+    }
   }
 
-  //method to be called when the user wants to select time
+  //method to select the time
   Future<void> _selectTime(
       BuildContext context, String name, TimeOfDay time) async {
     final TimeOfDay picked = await showTimePicker(
       context: context,
       initialTime: time,
     );
-    if (picked != null && picked != time)
+    if (picked != null && picked != time) {
       setState(() {
         startEndTimes[name] = DateTime(
             DateTime.now().year,
@@ -84,17 +118,18 @@ class _AddEventState extends State<AddEvent> {
             picked.hour,
             picked.minute);
       });
+    }
   }
 
-  //method used to create an event
-  Future<void> createEvent() async {
-    DateTime startTime = DateTime(
+  //method used to create and event
+  Future<void> updateEvent() async {
+    final DateTime startTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
         dateRange.start.day,
         startEndTimes['Start Time'].hour,
         startEndTimes['Start Time'].minute);
-    DateTime endTime = DateTime(
+    final DateTime endTime = DateTime(
         dateRange.end.year,
         dateRange.end.month,
         dateRange.end.day,
@@ -109,9 +144,8 @@ class _AddEventState extends State<AddEvent> {
             DateTime.now().day, 23, 59),
       };
     }
-    final String currentOrgID = await preferences.getCurrentOrgId();
-    String mutation = Queries().addEvent(
-      organizationId: currentOrgID,
+    final String mutation = Queries().updateEvent(
+      eventId: widget.event['_id'],
       title: titleController.text,
       description: descriptionController.text,
       location: locationController.text,
@@ -123,17 +157,16 @@ class _AddEventState extends State<AddEvent> {
       startTime: startTime.microsecondsSinceEpoch.toString(),
       endTime: endTime.microsecondsSinceEpoch.toString(),
     );
-    Map result = await apiFunctions.gqlquery(mutation);
+    final Map result = await apiFunctions.gqlquery(mutation);
     print('Result is : $result');
   }
 
-  //main build starts from here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'New Event',
+          'Edit Event',
           style: const TextStyle(color: Colors.white),
         ),
       ),
@@ -157,7 +190,7 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
-  //widget to get the date button
+  //widget for the date buttons
   Widget dateButton() {
     return ListTile(
       onTap: () {
@@ -174,7 +207,7 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
-  //widget to get the time button
+  //widget for time buttons
   Widget timeButton(String name, DateTime time) {
     return AbsorbPointer(
         absorbing: switchVals['All Day'],
@@ -196,62 +229,31 @@ class _AddEventState extends State<AddEvent> {
         ));
   }
 
-  //widget to add the event
-  Widget addEventFab() {
-    return FloatingActionButton(
-        backgroundColor: UIData.secondaryColor,
-        child: const Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          if(titleController.text.isEmpty || descriptionController.text.isEmpty || locationController.text.isEmpty){
-            if (titleController.text.isEmpty){
-              setState(() {
-                _validateTitle = true;
-              });
-            }
-            if(descriptionController.text.isEmpty){
-              setState(() {
-                _validateDescription = true;
-              });
-            }
-            if(locationController.text.isEmpty){
-              setState(() {
-                _validateLocation = true;
-              });
-            }
-            Fluttertoast.showToast(msg: 'Fill in the empty fields', backgroundColor: Colors.grey[500]);
-          }else {
-            createEvent();
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Events()), (route) => false);
-          }
-        });
-  }
-
+  //widget for the input field
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
         padding: const EdgeInsets.all(10),
         child: TextField(
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
+          keyboardType: TextInputType.text,
           decoration: InputDecoration(
               errorText: name == 'Title'
                   ? _validateTitle
-                      ? 'Field Can\'t Be Empty'
+                      ? "Field Can't Be Empty"
                       : null
                   : name == 'Description'
                       ? _validateDescription
-                          ? 'Field Can\'t Be Empty'
+                          ? "Field Can't Be Empty"
                           : null
                       : name == 'Location'
                           ? _validateLocation
-                              ? 'Field Can\'t Be Empty'
+                              ? "Field Can't Be Empty"
                               : null
                           : null,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
-                  borderSide: BorderSide(color: Colors.teal)),
+                  borderSide: const BorderSide(color: Colors.teal)),
               hintText: name),
         ));
   }
@@ -300,6 +302,59 @@ class _AddEventState extends State<AddEvent> {
             );
           }).toList(),
         ),
+      ),
+    );
+  }
+
+  //widget to add the event
+  Widget addEventFab() {
+    return FloatingActionButton(
+      backgroundColor: UIData.secondaryColor,
+      onPressed: () async {
+        if (titleController.text.isEmpty ||
+            descriptionController.text.isEmpty ||
+            locationController.text.isEmpty) {
+          if (titleController.text.isEmpty) {
+            setState(() {
+              _validateTitle = true;
+            });
+          }
+          if (descriptionController.text.isEmpty) {
+            setState(() {
+              _validateDescription = true;
+            });
+          }
+          if (locationController.text.isEmpty) {
+            setState(() {
+              _validateLocation = true;
+            });
+          }
+          Fluttertoast.showToast(
+              msg: 'Fill in the empty fields',
+              backgroundColor: Colors.grey[500]);
+        } else {
+          try {
+            showProgress(context, 'Updating Event Details . . .',
+                isDismissible: false);
+            await updateEvent();
+          } catch (e) {
+            if (e == "User cannot delete event they didn't create") {
+              Fluttertoast.showToast(
+                  msg: "You can't edit events you didn't create",
+                  backgroundColor: Colors.grey[500]);
+            }
+          }
+          hideProgress();
+          print('EDITING DONE');
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Events()),
+              (route) => false);
+        }
+      },
+      child: const Icon(
+        Icons.check,
+        color: Colors.white,
       ),
     );
   }

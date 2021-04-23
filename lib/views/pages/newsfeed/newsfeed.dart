@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -6,18 +5,18 @@ import 'package:flutter/rendering.dart';
 //pages are imported here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
-import 'package:talawa/views/pages/newsfeed/addPost.dart';
-import 'package:talawa/views/pages/newsfeed/newsArticle.dart';
+import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/views/pages/newsfeed/add_post.dart';
+import 'package:talawa/views/pages/newsfeed/news_article.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 import 'package:talawa/views/widgets/custom_appbar.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 class NewsFeed extends StatefulWidget {
-  NewsFeed({Key key}) : super(key: key);
+  const NewsFeed({Key key}) : super(key: key);
 
   @override
   _NewsFeedState createState() => _NewsFeedState();
@@ -30,13 +29,12 @@ class _NewsFeedState extends State<NewsFeed> {
   ApiFunctions apiFunctions = ApiFunctions();
   List postList = [];
   Timer timer = Timer();
-  String _currentOrgID;
 
-  Map<String, bool> likePostMap = new Map<String , bool>(); 
+  Map<String, bool> likePostMap = <String, bool>{};
   // key = postId and value will be true if user has liked a post.
 
-
   //setting initial state to the variables
+  @override
   initState() {
     super.initState();
     getPosts();
@@ -44,72 +42,76 @@ class _NewsFeedState extends State<NewsFeed> {
     scrollController.addListener(() {
       if (scrollController.position.userScrollDirection ==
           ScrollDirection.reverse) {
-        if (isVisible)
+        if (isVisible) {
           setState(() {
             isVisible = false;
           });
+        }
       }
       if (scrollController.position.userScrollDirection ==
           ScrollDirection.forward) {
-        if (!isVisible)
+        if (!isVisible) {
           setState(() {
             isVisible = true;
           });
+        }
       }
     });
   }
 
   // bool : Method to get (true/false) if a user has liked a post or Not.
-  bool hasUserLiked(String postId){
+  bool hasUserLiked(String postId) {
     return likePostMap[postId];
   }
-
 
   //function to get the current posts
   Future<void> getPosts() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
-    _currentOrgID = currentUserID;
-    String query = Queries().getPostsById(currentOrgID);
-    Map result = await apiFunctions.gqlquery(query);
-    // print(result);
-    setState(() {
-      postList =
-          result == null ? [] : result['postsByOrganization'].reversed.toList();
-      updateLikepostMap(currentUserID);
-    });
-    
+    if (currentOrgID != null) {
+      final String query = Queries().getPostsById(currentOrgID);
+      final Map result = await apiFunctions.gqlquery(query);
+      // print(result);
+      setState(() {
+        postList = result == null
+            ? []
+            : (result['postsByOrganization'] as List).reversed.toList();
+        updateLikepostMap(currentUserID);
+      });
+    } else {
+      setState(() {
+        postList = [];
+        updateLikepostMap(currentUserID);
+      });
+    }
   }
 
-
 // void : function to set the map of userLikedPost
-  void updateLikepostMap(String currentUserID){
+  void updateLikepostMap(String currentUserID) {
     // traverse through post objects.
-      for (var item in postList) {
-        likePostMap[item['_id']] = false;
-        //Get userIds who liked the post.
-        var _likedBy = item['likedBy'];
-        for(var user in _likedBy){
-          if(user['_id'] == currentUserID){
-            //if(userId is in the list we make value true;)
-            likePostMap[item['_id']] = true;
-          }
+    for (final item in postList) {
+      likePostMap[item['_id'].toString()] = false;
+      //Get userIds who liked the post.
+      final _likedBy = item['likedBy'];
+      for (final user in _likedBy) {
+        if (user['_id'] == currentUserID) {
+          //if(userId is in the list we make value true;)
+          likePostMap[item['_id'].toString()] = true;
         }
       }
+    }
   }
 
   //function to addlike
   Future<void> addLike(String postID) async {
-    String mutation = Queries().addLike(postID);
-    Map result = await apiFunctions.gqlmutation(mutation);
+    final Map result = await Queries().addLike(postID) as Map;
     print(result);
     getPosts();
   }
 
   //function to remove the likes
   Future<void> removeLike(String postID) async {
-    String mutation = Queries().removeLike(postID);
-    Map result = await apiFunctions.gqlmutation(mutation);
+    final Map result = await Queries().removeLike(postID) as Map;
     print(result);
     getPosts();
   }
@@ -118,14 +120,18 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar('NewsFeed',key: Key('NEWSFEED_APP_BAR')),
+        appBar: CustomAppBar('NewsFeed', key: const Key('NEWSFEED_APP_BAR')),
         floatingActionButton: addPostFab(),
         body: postList.isEmpty
-            ? Center(child: Loading(key: UniqueKey(),))
+            ? Center(
+                child: Loading(
+                key: UniqueKey(),
+              ))
             : RefreshIndicator(
                 onRefresh: () async {
                   getPosts();
                 },
+                // ignore: avoid_unnecessary_containers
                 child: Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -143,7 +149,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                         pushNewScreen(
                                           context,
                                           screen: NewsArticle(
-                                              post: postList[index]),
+                                              post: postList[index] as Map),
                                         );
                                       },
                                       child: Card(
@@ -164,6 +170,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                               const SizedBox(
                                                 width: 30,
                                               ),
+                                              // ignore: avoid_unnecessary_containers
                                               Container(
                                                   child: Text(
                                                 postList[index]['title']
@@ -181,6 +188,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                               const SizedBox(
                                                 width: 30,
                                               ),
+                                              // ignore: sized_box_for_whitespace
                                               Container(
                                                   width: MediaQuery.of(context)
                                                           .size
@@ -200,7 +208,8 @@ class _NewsFeedState extends State<NewsFeed> {
                                                   )),
                                             ]),
                                             Padding(
-                                                padding: EdgeInsets.all(10),
+                                                padding:
+                                                    const EdgeInsets.all(10),
                                                 child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -239,7 +248,7 @@ class _NewsFeedState extends State<NewsFeed> {
   }
 
   //function which counts the number of comments on a particular post
-  Widget commentCounter(index) {
+  Widget commentCounter(int index) {
     return Row(
       children: [
         Text(
@@ -253,14 +262,15 @@ class _NewsFeedState extends State<NewsFeed> {
             icon: const Icon(Icons.comment),
             color: Colors.grey,
             onPressed: () async {
-              var refresh = await Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => NewsArticle(
-                          post: postList[index],
-                        )),
-              ).then((value) {
-                if (value != null && value) {
+              pushNewScreenWithRouteSettings(context,
+                      screen: NewsArticle(
+                        post: postList[index] as Map,
+                      ),
+                      settings: const RouteSettings(),
+                      withNavBar: false)
+                  .then((value) {
+                //if (value != null && value)
+                if (value != null) {
                   getPosts();
                 }
               });
@@ -270,7 +280,7 @@ class _NewsFeedState extends State<NewsFeed> {
   }
 
   //function to like
-  Widget likeButton(index) {
+  Widget likeButton(int index) {
     return Row(
       children: [
         Text(
@@ -281,29 +291,27 @@ class _NewsFeedState extends State<NewsFeed> {
           ),
         ),
         IconButton(
-            icon: Icon(Icons.thumb_up),
-          color: likePostMap[postList[index]['_id']] ? Color(0xff007397) : Color(0xff9A9A9A),
-            onPressed: ()
-            {
-              if(postList[index]['likeCount'] != 0)
-                if(likePostMap[postList[index]['_id']] == false) {
-                  //If user has not liked the post addLike().
-                  addLike(postList[index]['_id']);
-                }
-                else {
-                  //If user has  liked the post remove().
-                  removeLike(postList[index]['_id']);
-                }
-              else
-                {
-                  //if the likeCount is 0 addLike().
-                  addLike(postList[index]['_id']);
-                }
-
-              },
-            ),
+          icon: const Icon(Icons.thumb_up),
+          color: likePostMap[postList[index]['_id']]
+              ? const Color(0xff007397)
+              : const Color(0xff9A9A9A),
+          onPressed: () {
+            if (postList[index]['likeCount'] !=
+                // ignore: curly_braces_in_flow_control_structures
+                0) if (likePostMap[postList[index]['_id']] == false) {
+              //If user has not liked the post addLike().
+              addLike(postList[index]['_id'].toString());
+            } else {
+              //If user has  liked the post remove().
+              removeLike(postList[index]['_id'].toString());
+            }
+            else {
+              //if the likeCount is 0 addLike().
+              addLike(postList[index]['_id'].toString());
+            }
+          },
+        ),
       ],
-
     );
   }
 }

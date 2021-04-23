@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 //pages are called here
-import 'package:talawa/services/Queries.dart';
-import 'package:talawa/utils/apiFuctions.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
 
 // ignore: must_be_immutable
@@ -24,11 +24,11 @@ class _AddEventTaskState extends State<AddEventTask> {
 
   //function to add the task
   Future<void> addTask() async {
-    String mutation = Queries().addEventTask(
+    final String mutation = Queries().addEventTask(
         eventId: widget.eventId,
         title: titleController.text,
         description: descriptionController.text,
-        deadline: DateTime.now().millisecondsSinceEpoch.toString());
+        deadline: DateTime.now().millisecondsSinceEpoch.toString()) as String;
     Map result = await apiFunctions.gqlquery(mutation);
   }
 

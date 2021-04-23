@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class Chat extends StatefulWidget {
+  const Chat({Key key, this.groupName}) : super(key: key);
   final String groupName;
-
-  Chat({Key key, this.groupName}) : super(key: key);
 
   @override
   _ChatState createState() => _ChatState();
@@ -69,6 +68,7 @@ class _ChatState extends State<Chat> {
               ],
             ),
           ),
-        ));
+        ),
+      );
   }
 }

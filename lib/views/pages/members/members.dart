@@ -6,105 +6,82 @@ import 'package:flutter/material.dart';
 //pages are called here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/members/memberDetails.dart';
+import 'package:talawa/views/pages/members/member_details.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 class Organizations extends StatefulWidget {
-  Organizations({Key key}) : super(key: key);
+  const Organizations({Key key}) : super(key: key);
 
   @override
   _OrganizationsState createState() => _OrganizationsState();
 }
 
 class _OrganizationsState extends State<Organizations> {
-
   String currentOrgID;
-  List alphaMembersList = [];
+  Map alphaMembersMap;
+  List membersList = [];
   int isSelected = 0;
   List admins = [];
   String creatorId;
   Preferences preferences = Preferences();
 
   //providing initial states to the variables
-   initState( )  {
+  @override
+  initState() {
     super.initState();
     getMembers();
   }
 
-  List alphaSplitList(List list) {
-    //split list alphabeticaly
-    List alphabet = [
-      'A',
-      'B',
-      'C',
-      'D',
-      'E',
-      'F',
-      'G',
-      'H',
-      'I',
-      'J',
-      'K',
-      'L',
-      'M',
-      'N',
-      'O',
-      'P',
-      'Q',
-      'R',
-      'S',
-      'T',
-      'U',
-      'V',
-      'W',
-      'X',
-      'Y',
-      'Z'
-    ];
-    List alphalist = [];
-    for (String letter in alphabet) {
-      alphalist.add(list
-          .where((element) =>
-              element['firstName'][0] == letter ||
-              element['firstName'][0] == letter.toLowerCase())
-          .toList());
-    }
-    alphalist.removeWhere((element) => element.isEmpty);
-    return alphalist;
+  Map alphaSplitList(List list) {
+    final Map<String, List> alphaMap = {};
+
+    list.forEach((element) {
+      if (alphaMap[element['firstName'][0].toUpperCase()] == null) {
+        alphaMap[element['firstName'][0].toString().toUpperCase()] = [];
+        alphaMap[element['firstName'][0].toUpperCase()].add(element);
+      } else {
+        alphaMap[element['firstName'][0].toUpperCase()].add(element);
+      }
+    });
+
+    return alphaMap;
   }
 
   //function to get the members of an organization
   // ignore: missing_return
   Future<List> getMembers() async {
-     String currentOrgID = await preferences.getCurrentOrgId();
-     print(currentOrgID);
-     if(currentOrgID != null){
-      ApiFunctions apiFunctions = ApiFunctions();
-    var result =
-        await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
-    print(result);
-    List membersList = result == null ? [] : result['organizations'];
-      if(result['organizations'].length>0){
-        admins = result['organizations'][0]['admins'];
-        creatorId = result['organizations'][0]['creator']['_id'];
+    final String currentOrgID = await preferences.getCurrentOrgId();
+    print(currentOrgID);
+    if (currentOrgID != null) {
+      final ApiFunctions apiFunctions = ApiFunctions();
+      final result =
+          await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+      print(result);
+      List membersList = result == null ? [] : result['organizations'] as List;
+      if ((result['organizations'] as List).isNotEmpty) {
+        admins = result['organizations'][0]['admins'] as List;
+        creatorId = result['organizations'][0]['creator']['_id'].toString();
         print(admins);
       }
-    if(membersList.isNotEmpty) {
-      alphaMembersList = membersList[0]['members'];
+      if (membersList.isNotEmpty) {
+        membersList = membersList[0]['members'] as List;
+        membersList.sort((a, b) =>
+            (a['firstName'].toString()).compareTo(b['firstName'].toString()));
+        setState(() {
+          alphaMembersMap = alphaSplitList(membersList);
+        });
+      }
+    } else {
       setState(() {
-        alphaMembersList = alphaSplitList(alphaMembersList);
+        alphaMembersMap = {};
       });
-    }}else{
-      setState(() {
-        alphaMembersList = [];
-      });
-     }
+    }
   }
 
   //returns a random color based on the user id (1 of 18)
@@ -119,70 +96,74 @@ class _OrganizationsState extends State<Organizations> {
   }
 
   //main build starts here
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-           key: Key('ORGANIZATION_APP_BAR'),
-          title: Text(
+          key: const Key('ORGANIZATION_APP_BAR'),
+          title: const Text(
             'Members',
             style: const TextStyle(color: Colors.white),
           ),
         ),
-        body:alphaMembersList.isEmpty
-        ? RefreshIndicator(
-          onRefresh: () async {
-          getMembers();
-          },
-           child: Center(
-               child : Column(
-            children : <Widget>[
-                    SizedBox(
-                height: 250,
-              ),
-                    Text(
-                "No member to Show",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-                    SizedBox(
-                height: 50,
-              ),
-              RaisedButton(onPressed: (){
-                getMembers();
-              },
-              child: Text("Refresh"),
-
+        body: alphaMembersMap == null
+            ? const Center(
+                child: Loading(),
               )
-
-        ])))
-                : RefreshIndicator(
-                onRefresh: () async{
-                  getMembers();
-                },
-                child: CustomScrollView(
-                  slivers: List.generate(
-                    alphaMembersList.length,
-                    (index) {
-                      return alphabetDividerList(
-                          context, alphaMembersList[index]);
+            : alphaMembersMap.isEmpty
+                ? RefreshIndicator(
+                    onRefresh: () async {
+                      getMembers();
                     },
-                  ),
-                )));
+                    child: Center(
+                        child: Column(children: <Widget>[
+                      const SizedBox(
+                        height: 250,
+                      ),
+                      const Text(
+                        "No member to Show",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          getMembers();
+                        },
+                        child: const Text("Refresh"),
+                      )
+                    ])))
+                : RefreshIndicator(
+                    onRefresh: () async {
+                      getMembers();
+                    },
+                    child: CustomScrollView(
+                      slivers: List.generate(
+                        alphaMembersMap.length,
+                        (index) {
+                          return alphabetDividerList(context,
+                              alphaMembersMap.keys.toList()[index].toString());
+                        },
+                      ),
+                    )));
   }
 
   //widget which divides the list according to letters
-  Widget alphabetDividerList(BuildContext context, List membersList) {
+  Widget alphabetDividerList(BuildContext context, String alphabet) {
     return SliverStickyHeader(
       header: Container(
+        color: Colors.white,
         height: 60.0,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         alignment: Alignment.centerLeft,
         child: CircleAvatar(
             backgroundColor: UIData.secondaryColor,
             child: Text(
-              '${membersList[0]['firstName'][0].toUpperCase()}',
+              alphabet,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -192,30 +173,34 @@ class _OrganizationsState extends State<Organizations> {
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
-            return memberCard(index, membersList);
+            return memberCard(index, alphaMembersMap[alphabet] as List);
           },
-          childCount: membersList.length,
+          childCount: (alphaMembersMap[alphabet] as List).length,
         ),
       ),
     );
   }
 
   //a custom card made for showing member details
-  Widget memberCard(index, List membersList) {
-    Color color = idToColor(membersList[index]['_id']);
+  Widget memberCard(int index, List membersList) {
+    final Color color = idToColor(membersList[index]['_id'].toString());
     return GestureDetector(
         onTap: () {
           pushNewScreen(context,
-              screen: MemberDetail(member: membersList[index], color: color,admins: admins,creatorId: creatorId,));
+              screen: MemberDetail(
+                member: membersList[index] as Map,
+                color: color,
+                admins: admins,
+                creatorId: creatorId,
+              ));
         },
-        child:
-        Card(
+        child: Card(
           clipBehavior: Clip.hardEdge,
           child: Row(
             children: [
               membersList[index]['image'] == null
-                  ? defaultUserImage(membersList[index])
-                  : userImage(membersList[index]),
+                  ? defaultUserImage(membersList[index] as Map)
+                  : userImage(membersList[index] as Map),
               Flexible(
                 child: Container(
                     alignment: Alignment.centerLeft,
@@ -223,9 +208,7 @@ class _OrganizationsState extends State<Organizations> {
                     height: 80,
                     color: Colors.white,
                     child: Text(
-                      membersList[index]['firstName'].toString() +
-                          ' ' +
-                          membersList[index]['lastName'].toString(),
+                      '${membersList[index]['firstName']} ${membersList[index]['lastName']}',
                       textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
                     )),
@@ -244,7 +227,7 @@ class _OrganizationsState extends State<Organizations> {
         image: DecorationImage(
           image: NetworkImage(
               Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                  member['image']),
+                  member['image'].toString()),
           fit: BoxFit.cover,
         ),
       ),
@@ -256,7 +239,7 @@ class _OrganizationsState extends State<Organizations> {
             color: Colors.grey.withOpacity(0.1),
             child: Image.network(
               Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                  member['image'],
+                  member['image'].toString(),
             ),
           ),
         ),
@@ -267,10 +250,10 @@ class _OrganizationsState extends State<Organizations> {
   //widget to get the default user image
   Widget defaultUserImage(Map member) {
     return Container(
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         width: 100,
         height: 80,
-        color: idToColor(member['_id']),
+        color: idToColor(member['_id'].toString()),
         child: const Padding(
             padding: const EdgeInsets.all(10),
             child: CircleAvatar(

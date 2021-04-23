@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/services/Queries.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -18,8 +18,9 @@ import 'package:talawa/views/pages/_pages.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreateOrganization extends StatefulWidget {
+  const CreateOrganization({this.isFromProfile = false});
   final bool isFromProfile;
-  CreateOrganization({this.isFromProfile=false});
+
   @override
   _CreateOrganizationState createState() => _CreateOrganizationState();
 }
@@ -29,9 +30,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   final orgNameController = TextEditingController();
   final orgDescController = TextEditingController();
   final orgMemberDescController = TextEditingController();
-  Queries _queries = Queries();
+  final Queries _queries = Queries();
   bool _progressBarState = false;
-  var _validate = AutovalidateMode.disabled;
+  final _validate = AutovalidateMode.disabled;
   final _formKey = GlobalKey<FormState>();
   int radioValue = -1;
   int radioValue1 = -1;
@@ -39,7 +40,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   bool isVisible = true;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  AuthController _authController = AuthController();
+  final AuthController _authController = AuthController();
   File _image;
 
   @override
@@ -55,7 +56,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   createOrg() async {
     //this is the function which will be called when the organization is created
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
     orgNameController.text =
         orgNameController.text.trim().replaceAll('\n', ' ');
     orgDescController.text =
@@ -63,13 +64,19 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     orgMemberDescController.text =
         orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final img = await multipartFileFrom(_image);
-    QueryResult result = await _client.mutate(MutationOptions(
+    orgNameController.text =
+        orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text =
+        orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text =
+        orgMemberDescController.text.trim().replaceAll('\n', ' ');
+    final QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
         orgNameController.text,
         orgDescController.text,
         orgMemberDescController.text,
-        isPublic,
-        isVisible,
+        isPublic: isPublic,
+        visibleInSearch: isVisible,
       )),
       variables: {
         'file': img,
@@ -94,33 +101,34 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       _successToast("Sucess!");
       print(result.data);
 
-      if(widget.isFromProfile){
+      if (widget.isFromProfile) {
         Navigator.pop(context);
         Navigator.pop(context);
-      }else {
-        Navigator.of(
-            context).pushReplacement(MaterialPageRoute(
-            builder: (context) => HomePage(openPageIndex: 2,)));
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const HomePage(
+                  openPageIndex: 2,
+                )));
       }
     }
   }
 
   createOrgWithoutImg() async {
     //the function is called when we are creating the organization without the display picture
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
     orgNameController.text =
         orgNameController.text.trim().replaceAll('\n', ' ');
     orgDescController.text =
         orgDescController.text.trim().replaceAll('\n', ' ');
     orgMemberDescController.text =
         orgMemberDescController.text.trim().replaceAll('\n', ' ');
-    QueryResult result = await _client.mutate(MutationOptions(
+    final QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrgWithoutImg(
         orgNameController.text,
         orgDescController.text,
         orgMemberDescController.text,
-        isPublic,
-        isVisible,
+        isPublic: isPublic,
+        visibleInSearch: isVisible,
       )),
     ));
 
@@ -141,21 +149,24 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       });
       _successToast("Sucess!");
       print(result.data);
-      if(widget.isFromProfile){
+      if (widget.isFromProfile) {
         Navigator.pop(context);
         Navigator.pop(context);
-      }else {
-        Navigator.of(
-            context).pushReplacement(MaterialPageRoute(
-            builder: (context) => HomePage(openPageIndex: 2,)));
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const HomePage(
+                  openPageIndex: 2,
+                )));
       }
     }
   }
 
   _imgFromCamera() async {
     //this is the function when the user want to capture the image from the camera
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
+    final PickedFile pickedImage = await ImagePicker()
+        .getImage(source: ImageSource.camera, imageQuality: 50);
+
+    final File image = File(pickedImage.path);
 
     setState(() {
       _image = image;
@@ -164,7 +175,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   _imgFromGallery() async {
     //this is the function when the user want to take the picture from the gallery
-    File image = File(
+    final File image = File(
         (await FilePicker.platform.pickFiles(type: FileType.image))
             .files
             .first
@@ -216,7 +227,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(40)
                             ],
-                            autofillHints: <String>[
+                            autofillHints: const <String>[
                               AutofillHints.organizationName
                             ],
                             validator: (value) =>
@@ -248,9 +259,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                           ),
                           TextFormField(
                             inputFormatters: [
-                              LengthLimitingTextInputFormatter(5000)
+                              LengthLimitingTextInputFormatter(5000),
                             ],
-                            autofillHints: <String>[AutofillHints.impp],
+                            autofillHints: const <String>[AutofillHints.impp],
                             keyboardType: TextInputType.multiline,
                             maxLines: null,
                             textCapitalization: TextCapitalization.words,
@@ -283,7 +294,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(5000)
                             ],
-                            autofillHints: <String>[AutofillHints.impp],
+                            autofillHints: const <String>[AutofillHints.impp],
                             keyboardType: TextInputType.multiline,
                             maxLines: null,
                             textCapitalization: TextCapitalization.words,
@@ -324,8 +335,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         title: const Text('Yes'),
                         value: 0,
                         activeColor: UIData.secondaryColor,
-                        onChanged: (val) {
+                        onChanged: (int val) {
                           FocusScope.of(context).unfocus();
+                          // ignore: void_checks
                           setState(() {
                             radioValue = val;
                             if (radioValue == 0) {
@@ -339,8 +351,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         groupValue: radioValue,
                         title: const Text('No'),
                         value: 1,
-                        onChanged: (val) {
+                        onChanged: (int val) {
                           FocusScope.of(context).unfocus();
+                          // ignore: void_checks
                           setState(() {
                             radioValue = val;
                             if (radioValue == 1) {
@@ -360,8 +373,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         groupValue: radioValue1,
                         title: const Text('Yes'),
                         value: 0,
-                        onChanged: (val) {
+                        onChanged: (int val) {
                           FocusScope.of(context).unfocus();
+                          // ignore: void_checks
                           setState(() {
                             radioValue1 = val;
                             if (radioValue1 == 0) {
@@ -375,8 +389,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         groupValue: radioValue1,
                         title: const Text('No'),
                         value: 1,
-                        onChanged: (val) {
+                        onChanged: (int val) {
                           FocusScope.of(context).unfocus();
+                          // ignore: void_checks
                           setState(() {
                             radioValue1 = val;
                             if (radioValue1 == 1) {
@@ -415,23 +430,29 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                   "CREATE ORGANIZATION",
                                   style: const TextStyle(color: Colors.white),
                                 ),
-                          onPressed: () async {
-                            if (_formKey.currentState.validate() &&
-                                radioValue >= 0 &&
-                                radioValue1 >= 0) {
-                              _formKey.currentState.save();
-                              if (_image != null) {
-                                createOrg();
-                              } else {
-                                createOrgWithoutImg();
-                              }
-                              setState(() {
-                                toggleProgressBarState();
-                              });
-                            } else if (radioValue < 0 || radioValue1 < 0) {
-                              _exceptionToast("A choice must be selected");
-                            }
-                          },
+                          onPressed: _progressBarState
+                              ? () {
+                                  _exceptionToast('Request in Progress');
+                                }
+                              : () async {
+                                  if (_formKey.currentState.validate() &&
+                                      radioValue >= 0 &&
+                                      radioValue1 >= 0) {
+                                    _formKey.currentState.save();
+                                    if (_image != null) {
+                                      createOrg();
+                                    } else {
+                                      createOrgWithoutImg();
+                                    }
+                                    setState(() {
+                                      toggleProgressBarState();
+                                    });
+                                  } else if (radioValue < 0 ||
+                                      radioValue1 < 0) {
+                                    _exceptionToast(
+                                        "A choice must be selected");
+                                  }
+                                },
                         ),
                       ),
                     ],
@@ -482,41 +503,39 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     );
   }
 
-  void _showPicker(context) {
+  void _showPicker(BuildContext context) {
     //this is called when the image is clicked and it shows the options that can be used to take the picture
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
           return SafeArea(
-            child: Container(
-              child: Wrap(
-                children: <Widget>[
-                  ListTile(
-                    //taking picture from the camera
-                    leading: const Icon(Icons.camera_alt_outlined),
-                    title: const Text('Camera'),
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                  //taking picture from the camera
+                  leading: const Icon(Icons.camera_alt_outlined),
+                  title: const Text('Camera'),
+                  onTap: () {
+                    _imgFromCamera();
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                    //taking picture from the library
+                    leading: const Icon(Icons.photo_library),
+                    title: const Text('Photo Library'),
                     onTap: () {
-                      _imgFromCamera();
+                      _imgFromGallery();
                       Navigator.of(context).pop();
-                    },
-                  ),
-                  ListTile(
-                      //taking picture from the library
-                      leading: const Icon(Icons.photo_library),
-                      title: const Text('Photo Library'),
-                      onTap: () {
-                        _imgFromGallery();
-                        Navigator.of(context).pop();
-                      }),
-                ],
-              ),
+                    }),
+              ],
             ),
           );
         });
   }
 
-  _successToast(String msg) {
-    Widget toast = Container(
+  void _successToast(String msg) {
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -537,8 +556,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     );
   }
 
-  _exceptionToast(String msg) {
-    Widget toast = Container(
+  void _exceptionToast(String msg) {
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -559,3 +578,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     );
   }
 }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }

@@ -18,15 +18,15 @@ void changeFirst() {
   first = false;
 }
 
-class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage> {
+class _UrlPageState extends State<UrlPage>
+    with TickerProviderStateMixin<UrlPage> {
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
 
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
-
-  var _media;
+  MediaQueryData _media;
   final _formKey = GlobalKey<FormState>();
   final urlController = TextEditingController();
   String dropdownValue = 'HTTP';
-  Preferences _pref = Preferences();
+  final Preferences _pref = Preferences();
   String orgUrl, orgImgUrl;
   String saveMsg = "Set URL";
   String urlInput;
@@ -38,11 +38,10 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
   AnimationController helloController;
   AnimationController createController;
   // animation
-  Animation loginAnimation;
-  Animation createAnimation;
-  Animation animation;
-  Animation helloAnimation;
-
+  Animation<double> loginAnimation;
+  Animation<double> createAnimation;
+  Animation<double> animation;
+  Animation<double> helloAnimation;
 
   listenToUrl() {
     if (saveMsg == "URL SAVED!" && urlController.text != urlInput) {
@@ -74,8 +73,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
 
   Future setApiUrl() async {
     setState(() {
-      orgUrl =
-          "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/graphql/";
+      orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/";
       orgImgUrl =
           "${dropdownValue.toLowerCase()}://${urlController.text}/talawa/";
     });
@@ -90,7 +88,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
   }
 
   _exceptionToast(String msg) {
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -102,7 +100,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
           Expanded(
             child: Text(
               msg,
-              style: TextStyle(fontSize: 15.0, color: Colors.white),
+              style: const TextStyle(fontSize: 15.0, color: Colors.white),
               textAlign: TextAlign.center,
             ),
           ),
@@ -113,13 +111,11 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 5),
+      toastDuration: const Duration(seconds: 5),
     );
   }
 
-
-
-    void assignAnimation(bool firstTime) {
+  void assignAnimation({@required bool firstTime}) {
     if (!firstTime) {
       animation = Tween(begin: 1.0, end: 1.0).animate(controller);
 
@@ -138,13 +134,15 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
       helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
     }
   }
+
   Future<void> load() async {
-      await controller?.forward();
-      await helloController?.forward();
-      await createController?.forward();
-      await loginController?.forward();
-      changeFirst();
+    await controller?.forward();
+    await helloController?.forward();
+    await createController?.forward();
+    await loginController?.forward();
+    changeFirst();
   }
+
   @override
   void initState() {
     super.initState();
@@ -154,32 +152,30 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
     // Initializing all the animationControllers
     controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 2000),
     );
     loginController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
 
     helloController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
 
     createController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    assignAnimation(first);
+    assignAnimation(firstTime: first);
     load();
     Widget mainScreen() {
-      return new Column(
+      return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           FadeTransition(
@@ -192,7 +188,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                       const Image(image: const AssetImage(UIData.talawaLogo))),
             ),
           ),
-          new Container(
+          Container(
             //container with login and sign up button
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
 
@@ -318,7 +314,8 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                         labelStyle: const TextStyle(
                                             color: Colors.white),
                                         alignLabelWithHint: true,
-                                        hintText: 'calico.palisadoes.org',
+                                        hintText:
+                                            'talawa-graphql-api.herokuapp.com',
                                         hintStyle:
                                             const TextStyle(color: Colors.grey),
                                       ),
@@ -339,6 +336,14 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                   ),
+                                  onPressed: () async {
+                                    FocusScope.of(context).unfocus();
+                                    if (_formKey.currentState.validate()) {
+                                      _formKey.currentState.save();
+
+                                      await checkAndSetUrl();
+                                    }
+                                  },
                                   child: isUrlCalled
                                       ? const SizedBox(
                                           height: 14,
@@ -350,16 +355,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                         )
                                       : Text(
                                           saveMsg,
-                                        ),
-                                  //color: Colors.white,
-                                  onPressed: () async {
-                                    FocusScope.of(context).unfocus();
-                                    if (_formKey.currentState.validate()) {
-                                      _formKey.currentState.save();
-
-                                      await checkAndSetUrl();
-                                    }
-                                  }),
+                                        )),
                             ],
                           ),
                         ],
@@ -375,16 +371,16 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                   opacity: loginAnimation,
                   child: Container(
                     //padding: EdgeInsets.all(100.0),
-                    child: new Container(
+                    child: Container(
                       width: _media != null
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(
                           left: 50.0, right: 50.0, top: 10.0),
                       alignment: Alignment.center,
-                      child: new Row(
+                      child: Row(
                         children: <Widget>[
-                          new Expanded(
+                          Expanded(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.zero,
@@ -405,16 +401,15 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                         );
                                       }
                                     },
-                              child: new Container(
+                              child: Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 20.0,
                                   horizontal: 20.0,
                                 ),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.orange),
-                                    borderRadius:
-                                        new BorderRadius.circular(50.0)),
-                                child: new Row(
+                                    borderRadius: BorderRadius.circular(50.0)),
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     new Expanded(
@@ -443,17 +438,17 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                 FadeTransition(
                   opacity: loginAnimation,
                   child: Container(
-                    child: new Container(
+                    child: Container(
                       width: _media != null
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(
                           left: 50.0, right: 50.0, top: 10.0),
                       alignment: Alignment.center,
-                      child: new Row(
+                      child: Row(
                         children: <Widget>[
-                          new Expanded(
-                            child: new ElevatedButton(
+                          Expanded(
+                            child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 shape: RoundedRectangleBorder(
@@ -472,19 +467,18 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
                                                     LoginPage()));
                                       }
                                     },
-                              child: new Container(
+                              child: Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 20.0,
                                   horizontal: 20.0,
                                 ),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.orange),
-                                    borderRadius:
-                                        new BorderRadius.circular(50.0)),
-                                child: new Row(
+                                    borderRadius: BorderRadius.circular(50.0)),
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Expanded(
+                                  children: const <Widget>[
+                                    Expanded(
                                       child: Text(
                                         "Login",
                                         textAlign: TextAlign.center,
@@ -518,7 +512,7 @@ class _UrlPageState extends State<UrlPage> with TickerProviderStateMixin<UrlPage
       key: _scaffoldkey,
       backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: const AssetImage(UIData.cloud1), fit: BoxFit.cover),
         ),

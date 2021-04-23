@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //pages are called here
-import 'package:talawa/services/Queries.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFuctions.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/api_functions.dart';
 
 // ignore: must_be_immutable
 class UserTasks extends StatefulWidget {
@@ -33,11 +33,11 @@ class _UserTasksState extends State<UserTasks> {
 
   //getting user details
   getUserDetails() async {
-    final String userID = widget.member['_id'];
+    final String userID = widget.member['_id'].toString();
     Map result = await apiFunctions.gqlquery(Queries().tasksByUser(userID));
     // print(result);
     setState(() {
-      userTasks = result == null ? [] : result['tasksByUser'];
+      userTasks = result == null ? [] : result['tasksByUser'] as List;
     });
   }
 
@@ -59,7 +59,7 @@ class _UserTasksState extends State<UserTasks> {
                       userTasks[index]["deadline"] != null
                           ? ListTile(
                               leading: Text(
-                                  'Due Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"]))))}'),
+                                  'Due Date: ${DateFormat("dd-MM-yyyy").format((DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"].toString()))))}'),
                             )
                           : ListTile(
                               leading: Text('Due Date: N/A'),

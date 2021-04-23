@@ -1,3 +1,2 @@
 //accessTokenException from server
-String accessTokenException =
-    "Access Token has expired. Please refresh session.: Undefined location";
+String accessTokenException = "User is not authenticated: Undefined location";

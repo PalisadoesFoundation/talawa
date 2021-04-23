@@ -10,9 +10,9 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterePageState extends State<RegisterPage>
     with TickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
 
-  registrationScreenForm() => Center(
+  Widget registrationScreenForm() => Center(
         child: Container(
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
@@ -64,7 +64,7 @@ class _RegisterePageState extends State<RegisterPage>
       key: _scaffoldkey,
       backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: const AssetImage(UIData.cloud1), fit: BoxFit.cover),
         ),
