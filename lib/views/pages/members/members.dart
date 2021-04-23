@@ -302,7 +302,7 @@ class _OrganizationsState extends State<Organizations> {
   }
 
   _exceptionToast(String msg) {
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -319,7 +319,7 @@ class _OrganizationsState extends State<Organizations> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 1),
+      toastDuration: const Duration(seconds: 1),
     );
   }
 }

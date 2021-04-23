@@ -10,8 +10,6 @@ import 'package:talawa/utils/gql_client.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/home_page.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
-
 class SwitchOrganization extends StatefulWidget {
   @override
   _SwitchOrganizationState createState() => _SwitchOrganizationState();
