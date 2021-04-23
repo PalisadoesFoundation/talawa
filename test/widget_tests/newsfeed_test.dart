@@ -25,7 +25,7 @@ Widget newsfeedPage() => MultiProvider(
           create: (_) => Preferences(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: NewsFeed(),
       ),
     );
@@ -47,7 +47,7 @@ void main() {
 
     testWidgets("Testing overflow of Newsfeed in a mobile screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(440, 800);
+      binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(newsfeedPage());
@@ -61,7 +61,7 @@ void main() {
 
     testWidgets("Testing overflow of Newsfeed in a tablet screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(1024, 768);
+      binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(newsfeedPage());
@@ -76,12 +76,12 @@ void main() {
     testWidgets("empty newsfeed for user with no org", (tester) async {
       await tester.pumpWidget(newsfeedPage());
 
-      var emptyTextWidget = find.byKey(Key('empty_newsfeed_text'));
+      final emptyTextWidget = find.byKey(const Key('empty_newsfeed_text'));
 
       expect(emptyTextWidget, findsOneWidget);
 
       // get the fab button
-      var addPostButton = find.byIcon(Icons.add);
+      final addPostButton = find.byIcon(Icons.add);
       expect(
         addPostButton,
         findsNothing,

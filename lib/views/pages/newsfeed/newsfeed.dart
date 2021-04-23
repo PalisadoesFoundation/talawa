@@ -14,7 +14,6 @@ import 'package:talawa/views/pages/newsfeed/news_article.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 import 'package:talawa/views/widgets/custom_appbar.dart';
-import 'package:talawa/views/widgets/loading.dart';
 
 class NewsFeed extends StatefulWidget {
   const NewsFeed({Key key}) : super(key: key);
@@ -33,7 +32,7 @@ class _NewsFeedState extends State<NewsFeed> {
 
   FToast fToast;
 
-  String _currentOrgID;
+  // String _currentOrgID;
 
   
   //bool value to indicate whether user has joined organization or not
@@ -80,9 +79,10 @@ class _NewsFeedState extends State<NewsFeed> {
   Future<void> getPosts() async {
     _isFetchingPost = true;
     final String currentOrgID = await preferences.getCurrentOrgId();
+    // ignore: avoid_bool_literals_in_conditional_expressions
     _hasUserJoinedOrg = currentOrgID == null ? false : true;
     final String currentUserID = await preferences.getUserId();
-    _currentOrgID = currentUserID;
+    // _currentOrgID = currentUserID;
         if (currentOrgID != null) {
       final String query = Queries().getPostsById(currentOrgID);
       final Map result = await apiFunctions.gqlquery(query);
@@ -136,19 +136,19 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar('NewsFeed',key: Key('NEWSFEED_APP_BAR')),
+        appBar: CustomAppBar('NewsFeed',key: const Key('NEWSFEED_APP_BAR')),
         floatingActionButton: _hasUserJoinedOrg ? addPostFab() : null,
         body: postList.isEmpty
             ? Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Spacer(),
-                Align(
+                const Align(
                   alignment: Alignment.center,
-                  child: const Text(
+                  child: Text(
                     'No posts to show',
                     key: Key('empty_newsfeed_text'),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey,
@@ -157,11 +157,11 @@ class _NewsFeedState extends State<NewsFeed> {
                 ),
                 const Spacer(),
                 _isFetchingPost
-                    ? Padding(
-                        padding: const EdgeInsets.all(8.0),
+                    ? const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
-                          child: const CircularProgressIndicator(),
+                          child: CircularProgressIndicator(),
                         ),
                       )
                     : TextButton.icon(
@@ -373,7 +373,7 @@ class _NewsFeedState extends State<NewsFeed> {
   }
 
    _exceptionToast(String msg) {
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -390,7 +390,7 @@ class _NewsFeedState extends State<NewsFeed> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 1),
+      toastDuration: const Duration(seconds: 1),
     );
   }
   
