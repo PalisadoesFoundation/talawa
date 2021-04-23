@@ -236,6 +236,7 @@ class _NewsFeedState extends State<NewsFeed> {
   //function to add the post on the news feed
   Widget addPostFab() {
     return FloatingActionButton(
+      heroTag: "btn2",
       backgroundColor: UIData.secondaryColor,
       onPressed: () {
         pushNewScreenWithRouteSettings(context,
