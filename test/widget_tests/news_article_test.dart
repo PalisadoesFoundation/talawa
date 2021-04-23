@@ -34,7 +34,7 @@ Widget newsArticlePage() => MultiProvider(
           create: (_) => CommentHandler(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: NewsArticle(
           index: 0,
           post: {
