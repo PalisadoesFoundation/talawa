@@ -66,7 +66,7 @@ class _UrlPageState extends State<UrlPage>
     } catch (e) {
       LogHelper().log(LogLevel.ERROR, widget.toStringShort(), "checkAndSetUrl",
           "Incorrect Oraganization",
-          exception: e);
+          exception: e as Exception);
       _exceptionToast('Incorrect Organization Entered');
       LogHelper().exportLogs();
     }

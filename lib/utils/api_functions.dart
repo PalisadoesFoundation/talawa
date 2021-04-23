@@ -1,11 +1,8 @@
-import 'dart:io';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
-import 'package:http/http.dart' as http;
-
 class ApiFunctions {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   final AuthController _authController = AuthController();

@@ -29,7 +29,7 @@ class LogHelper {
     );
     FlutterLogs.channel.setMethodCallHandler((call) async {
       if (call.method == 'logsExported') {
-        var zipName = "${call.arguments.toString()}";
+        final zipName = call.arguments.toString();
         Directory externalDirectory;
 
         if (Platform.isIOS) {
@@ -38,7 +38,7 @@ class LogHelper {
           externalDirectory = await getExternalStorageDirectory();
         }
 
-        File file = File("${externalDirectory.path}/$zipName");
+        final File file = File("${externalDirectory.path}/$zipName");
 
         if (file.existsSync()) {
           // TODO: Make a api call to sever
