@@ -25,7 +25,7 @@ Future<void> main() async {
       .ensureInitialized(); //ensuring weather the app is being initialized or not
   userID = await preferences.getUserId(); //getting user id
   await logHelper.init(); // To intialise FlutterLog
-  SystemChrome.setPreferredOrientations([ 
+  SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp
   ]) //setting the orientation according to the screen it is running on
       .then((_) {
