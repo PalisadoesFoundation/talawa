@@ -8,12 +8,8 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
-<<<<<<< HEAD
-import 'package:talawa/utils/GQLClient.dart';
 import 'package:talawa/utils/loghelper.dart';
-=======
 import 'package:talawa/utils/gql_client.dart';
->>>>>>> a0d95ff36bf3abe0a1ec154c95a4c6e687e76119
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
@@ -28,12 +24,8 @@ Future<void> main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); //ensuring weather the app is being initialized or not
   userID = await preferences.getUserId(); //getting user id
-<<<<<<< HEAD
   await logHelper.init(); // To intialise FlutterLog
   SystemChrome.setPreferredOrientations([ 
-=======
-  SystemChrome.setPreferredOrientations([
->>>>>>> a0d95ff36bf3abe0a1ec154c95a4c6e687e76119
     DeviceOrientation.portraitUp
   ]) //setting the orientation according to the screen it is running on
       .then((_) {
@@ -91,11 +83,7 @@ class MyApp extends StatelessWidget {
         },
         home: userID == null
             ? UrlPage()
-<<<<<<< HEAD
-            : HomePage(), //checking weather the user is logged in or not
-=======
             : const HomePage(), //checking weather the user is logged in or not
->>>>>>> a0d95ff36bf3abe0a1ec154c95a4c6e687e76119
       ),
     );
   }
