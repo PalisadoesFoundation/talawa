@@ -4,7 +4,7 @@ Thank you for your interest in contributing to Talawa. Regardless of the size of
 If you are new to contributing to open source, please read the Open Source Guides on [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
 
 ## Code of Conduct
-A safe environment is required for everyone to contribute. Read our [Code of Conduct guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/CODE_OF_CONDUCT.md) to understand what this means. Let us know immediately if you have unacceptable experiences in this area.
+A safe environment is required for everyone to contribute. Read our [Code of Conduct Guide](https://github.com/PalisadoesFoundation/talawa/blob/master/CODE_OF_CONDUCT.md) to understand what this means. Let us know immediately if you have unacceptable experiences in this area.
 
 No one should fear voicing their opinion. Respones must be respectful.
 
