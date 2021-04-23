@@ -21,7 +21,7 @@ const String newLineKey = "@123TALAWA321@";
 
 // ignore: must_be_immutable
 class NewsArticle extends StatefulWidget {
-  const NewsArticle({Key key,@required this.index, @required this.post})
+  const NewsArticle({Key key, @required this.index, @required this.post})
       : super(key: key);
   final Map post;
   final int index;
