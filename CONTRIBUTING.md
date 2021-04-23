@@ -41,8 +41,13 @@ The process of proposing a change to Talawa can be summarized as:
 1. Run the app and test your changes.
 1. If you've added code that should be tested, write tests.
 1. Ensure that your code is appropriately formatted before making your submission. Submissions which are not properly formatted will be rejected if they are not fixed by the contributor.
-    1. **Visual Studio Code:** There is a setting which allows your code to be formatted [automatically when you save](https://stackoverflow.com/a/66538607/15290492), or you may manually trigger it using ```Ctrl + Shift + P``` or ```Cmd + Shift + P``` and typing ```Format Document```.
-    1. **IntelliJ**, **Android Studio**, and other **Jetbrains**-based IDEs. Use the ```Ctrl + Alt + L``` or ```Cmd + Opt + L``` to trigger code formatting.
+    1. **In your IDE:**
+        1. *Visual Studio Code:* There is a setting which allows your code to be formatted [automatically when you save](https://stackoverflow.com/a/66538607/15290492), or you may manually trigger it using `Ctrl + Shift + P` or `Cmd + Shift + P` and typing `Format Document`.
+        1. *IntelliJ*, *Android Studio*, and other *Jetbrains*-based IDEs. Use the `Ctrl + Alt + L` or `Cmd + Opt + L` to trigger code formatting.
+    1. **On the command line before committing**: Run this command from the root of your repository directory tree.
+```
+flutter format --set-exit-if-changed .
+```
 1. After making changes you can add them to git locally using `git add <file_name>`(to add changes only in a particular file) or `git add .` (to add all changes).
 1. After adding the changes you need to commit them using `git commit -m '<commit message>'`(look at the commit guidelines below for commit messages).
 1. Once you have successfully commited your changes, you need to push the changes to the forked repo on github using: `git push origin <branch_name>`.(Here branch name must be name of the branch you want to push the changes to.)
