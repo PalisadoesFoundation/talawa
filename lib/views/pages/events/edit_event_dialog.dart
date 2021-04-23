@@ -1,20 +1,20 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 
 //pages are called here
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFunctions.dart';
+import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
-import 'package:talawa/views/widgets/showProgress.dart';
+import 'package:talawa/views/widgets/show_progress.dart';
 
 // ignore: must_be_immutable
 class EditEvent extends StatefulWidget {
-  Map event;
   EditEvent({Key key, @required this.event}) : super(key: key);
+  Map event;
 
   @override
   _EditEventState createState() => _EditEventState();
@@ -43,7 +43,7 @@ class _EditEventState extends State<EditEvent> {
   };
 
   Map event;
-  Map switchVals = {
+  Map<String, bool> switchVals = {
     'Make Public': true,
     'Make Registerable': true,
     'Recurring': true,
@@ -55,6 +55,7 @@ class _EditEventState extends State<EditEvent> {
   Preferences preferences = Preferences();
   String currentOrgId;
 
+  @override
   void initState() {
     super.initState();
     getCurrentOrgId();
@@ -64,16 +65,16 @@ class _EditEventState extends State<EditEvent> {
 
   initevent() {
     setState(() {
-      titleController.text = widget.event['title'];
-      descriptionController.text = widget.event['description'];
-      locationController.text = widget.event['location'];
+      titleController.text = widget.event['title'].toString();
+      descriptionController.text = widget.event['description'].toString();
+      locationController.text = widget.event['location'].toString();
       switchVals = {
-        'Make Public': widget.event['isPublic'],
-        'Make Registerable': widget.event['isRegisterable'],
-        'Recurring': widget.event['recurring'],
-        'All Day': widget.event['allDay']
+        'Make Public': widget.event['isPublic'] as bool,
+        'Make Registerable': widget.event['isRegisterable'] as bool,
+        'Recurring': widget.event['recurring'] as bool,
+        'All Day': widget.event['allDay'] as bool,
       };
-      recurrance = widget.event['recurrance'];
+      recurrance = widget.event['recurrance'].toString();
     });
   }
 
@@ -88,16 +89,17 @@ class _EditEventState extends State<EditEvent> {
 
   //method called to select the date
   Future<void> _selectDate(BuildContext context) async {
-    DateTime now = DateTime.now();
+    final DateTime now = DateTime.now();
     final DateTimeRange picked = await showDateRangePicker(
         context: context,
         // initialDate: selectedDate,
         firstDate: DateTime(now.year, now.month, now.day),
         lastDate: DateTime(2101));
-    if (picked != null && picked != dateRange)
+    if (picked != null && picked != dateRange) {
       setState(() {
         dateRange = picked;
       });
+    }
   }
 
   //method to select the time
@@ -107,7 +109,7 @@ class _EditEventState extends State<EditEvent> {
       context: context,
       initialTime: time,
     );
-    if (picked != null && picked != time)
+    if (picked != null && picked != time) {
       setState(() {
         startEndTimes[name] = DateTime(
             DateTime.now().year,
@@ -116,17 +118,18 @@ class _EditEventState extends State<EditEvent> {
             picked.hour,
             picked.minute);
       });
+    }
   }
 
   //method used to create and event
   Future<void> updateEvent() async {
-    DateTime startTime = DateTime(
+    final DateTime startTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
         dateRange.start.day,
         startEndTimes['Start Time'].hour,
         startEndTimes['Start Time'].minute);
-    DateTime endTime = DateTime(
+    final DateTime endTime = DateTime(
         dateRange.end.year,
         dateRange.end.month,
         dateRange.end.day,
@@ -141,7 +144,7 @@ class _EditEventState extends State<EditEvent> {
             DateTime.now().day, 23, 59),
       };
     }
-    String mutation = Queries().updateEvent(
+    final String mutation = Queries().updateEvent(
       eventId: widget.event['_id'],
       title: titleController.text,
       description: descriptionController.text,
@@ -154,7 +157,7 @@ class _EditEventState extends State<EditEvent> {
       startTime: startTime.microsecondsSinceEpoch.toString(),
       endTime: endTime.microsecondsSinceEpoch.toString(),
     );
-    Map result = await apiFunctions.gqlquery(mutation);
+    final Map result = await apiFunctions.gqlquery(mutation);
     print('Result is : $result');
   }
 
@@ -162,13 +165,13 @@ class _EditEventState extends State<EditEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Edit Event',
           style: TextStyle(color: Colors.white),
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.only(bottom: 100),
+        padding: const EdgeInsets.only(bottom: 100),
         children: <Widget>[
           inputField('Title', titleController),
           inputField('Description', descriptionController),
@@ -199,7 +202,7 @@ class _EditEventState extends State<EditEvent> {
       ),
       trailing: Text(
         '${DateFormat.yMMMd().format(dateRange.start)} | ${DateFormat.yMMMd().format(dateRange.end)} ',
-        style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
+        style: const TextStyle(fontSize: 16, color: UIData.secondaryColor),
       ),
     );
   }
@@ -229,7 +232,7 @@ class _EditEventState extends State<EditEvent> {
   //widget for the input field
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: TextField(
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
@@ -237,20 +240,20 @@ class _EditEventState extends State<EditEvent> {
           decoration: InputDecoration(
               errorText: name == 'Title'
                   ? _validateTitle
-                      ? 'Field Can\'t Be Empty'
+                      ? "Field Can't Be Empty"
                       : null
                   : name == 'Description'
                       ? _validateDescription
-                          ? 'Field Can\'t Be Empty'
+                          ? "Field Can't Be Empty"
                           : null
                       : name == 'Location'
                           ? _validateLocation
-                              ? 'Field Can\'t Be Empty'
+                              ? "Field Can't Be Empty"
                               : null
                           : null,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
-                  borderSide: BorderSide(color: Colors.teal)),
+                  borderSide: const BorderSide(color: Colors.teal)),
               hintText: name),
         ));
   }
@@ -259,7 +262,7 @@ class _EditEventState extends State<EditEvent> {
     return SwitchListTile(
         activeColor: UIData.secondaryColor,
         value: switchVals[name],
-        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
         title: Text(
           name,
           style: TextStyle(color: Colors.grey[600]),
@@ -273,7 +276,7 @@ class _EditEventState extends State<EditEvent> {
 
   Widget recurrencedropdown() {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
       leading: Text(
         'Recurrence',
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
@@ -286,7 +289,7 @@ class _EditEventState extends State<EditEvent> {
                   ? UIData.secondaryColor
                   : Colors.grey),
           value: recurrance,
-          icon: Icon(Icons.arrow_drop_down),
+          icon: const Icon(Icons.arrow_drop_down),
           onChanged: (String newValue) {
             setState(() {
               recurrance = newValue;
@@ -306,51 +309,53 @@ class _EditEventState extends State<EditEvent> {
   //widget to add the event
   Widget addEventFab() {
     return FloatingActionButton(
-        backgroundColor: UIData.secondaryColor,
-        child: Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
-        onPressed: () async{
-          if (titleController.text.isEmpty ||
-              descriptionController.text.isEmpty ||
-              locationController.text.isEmpty) {
-            if (titleController.text.isEmpty) {
-              setState(() {
-                _validateTitle = true;
-              });
-            }
-            if (descriptionController.text.isEmpty) {
-              setState(() {
-                _validateDescription = true;
-              });
-            }
-            if (locationController.text.isEmpty) {
-              setState(() {
-                _validateLocation = true;
-              });
-            }
-            Fluttertoast.showToast(
-                msg: 'Fill in the empty fields',
-                backgroundColor: Colors.grey[500]);
-          } else {
-              try{
-                showProgress(context, 'Updating Event Details . . .', false);
-                await updateEvent();
-              }catch(e){
-                if(e == "User cannot delete event they didn't create"){
-                  Fluttertoast.showToast(
-                      msg: "You can't edit events you didn't create",
-                      backgroundColor: Colors.grey[500]);
-                }
-              }
-            hideProgress();
-            print('EDITING DONE');
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => Events()),
-                (route) => false);
+      backgroundColor: UIData.secondaryColor,
+      onPressed: () async {
+        if (titleController.text.isEmpty ||
+            descriptionController.text.isEmpty ||
+            locationController.text.isEmpty) {
+          if (titleController.text.isEmpty) {
+            setState(() {
+              _validateTitle = true;
+            });
           }
-        });
+          if (descriptionController.text.isEmpty) {
+            setState(() {
+              _validateDescription = true;
+            });
+          }
+          if (locationController.text.isEmpty) {
+            setState(() {
+              _validateLocation = true;
+            });
+          }
+          Fluttertoast.showToast(
+              msg: 'Fill in the empty fields',
+              backgroundColor: Colors.grey[500]);
+        } else {
+          try {
+            showProgress(context, 'Updating Event Details . . .',
+                isDismissible: false);
+            await updateEvent();
+          } catch (e) {
+            if (e == "User cannot delete event they didn't create") {
+              Fluttertoast.showToast(
+                  msg: "You can't edit events you didn't create",
+                  backgroundColor: Colors.grey[500]);
+            }
+          }
+          hideProgress();
+          print('EDITING DONE');
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Events()),
+              (route) => false);
+        }
+      },
+      child: const Icon(
+        Icons.check,
+        color: Colors.white,
+      ),
+    );
   }
 }
