@@ -5,9 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
-
-import '../../lib/views/pages/newsfeed/addPost.dart';
+import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/views/pages/newsfeed/add_post.dart';
 
 Widget createMemberPageScreen() => MultiProvider(
       providers: [
@@ -24,7 +23,7 @@ Widget createMemberPageScreen() => MultiProvider(
           create: (_) => Preferences(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: AddPost(),
       ),
     );
@@ -35,62 +34,67 @@ void main() {
         "Testing if addPost page shows up validations on empty submission",
         (tester) async {
       await tester.pumpWidget(createMemberPageScreen());
-      Finder formWidgetFinder = find.byType(Form);
-      Form formWidget = tester.widget(formWidgetFinder) as Form;
-      GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
+      final Finder formWidgetFinder = find.byType(Form);
+      final Form formWidget = tester.widget(formWidgetFinder) as Form;
+      final GlobalKey<FormState> formKey =
+          formWidget.key as GlobalKey<FormState>;
       expect(formKey.currentState.validate(), isFalse);
     });
     testWidgets(
         "Testing if addPost page shows up validations on empty submission of description field",
         (tester) async {
       await tester.pumpWidget(createMemberPageScreen());
-      Finder title = find.byKey(Key('Title'));
+      final Finder title = find.byKey(const Key('Title'));
       await tester.enterText(title, "Something post title");
       await tester.pump();
-      Finder formWidgetFinder = find.byType(Form);
-      Form formWidget = tester.widget(formWidgetFinder) as Form;
-      GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
+      final Finder formWidgetFinder = find.byType(Form);
+      final Form formWidget = tester.widget(formWidgetFinder) as Form;
+      final GlobalKey<FormState> formKey =
+          formWidget.key as GlobalKey<FormState>;
       expect(formKey.currentState.validate(), isFalse);
     });
     testWidgets(
         "Testing if addPost page shows up validations on empty submission of title field",
         (tester) async {
       await tester.pumpWidget(createMemberPageScreen());
-      Finder description = find.byKey(Key('Description'));
+      final Finder description = find.byKey(const Key('Description'));
       await tester.enterText(description, "Description for the post");
       await tester.pump();
-      Finder formWidgetFinder = find.byType(Form);
-      Form formWidget = tester.widget(formWidgetFinder) as Form;
-      GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
+      final Finder formWidgetFinder = find.byType(Form);
+      final Form formWidget = tester.widget(formWidgetFinder) as Form;
+      final GlobalKey<FormState> formKey =
+          formWidget.key as GlobalKey<FormState>;
       expect(formKey.currentState.validate(), isFalse);
     });
     testWidgets(
         "Testing if addPost page shows up validations on submission on fields with data",
         (tester) async {
       await tester.pumpWidget(createMemberPageScreen());
-      Finder title = find.byKey(Key('Title'));
+      final Finder title = find.byKey(const Key('Title'));
       await tester.enterText(title, "Something post title");
-      Finder description = find.byKey(Key('Description'));
+      final Finder description = find.byKey(const Key('Description'));
       await tester.enterText(description, "Description for the post");
       await tester.pump();
-      Finder formWidgetFinder = find.byType(Form);
-      Form formWidget = tester.widget(formWidgetFinder) as Form;
-      GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
+      final Finder formWidgetFinder = find.byType(Form);
+      final Form formWidget = tester.widget(formWidgetFinder) as Form;
+      final GlobalKey<FormState> formKey =
+          formWidget.key as GlobalKey<FormState>;
       expect(formKey.currentState.validate(), isTrue);
     });
     testWidgets(
         "Testing if addPost page shows up error toast on submission on fields with multiline description",
         (tester) async {
       await tester.pumpWidget(createMemberPageScreen());
-      Finder title = find.byKey(Key('Title'));
+      final Finder title = find.byKey(const Key('Title'));
       await tester.enterText(title, 'Something post\n title');
       await tester.pump();
-      Finder description = find.byKey(Key('Description'));
+      final Finder description = find.byKey(const Key('Description'));
       await tester.enterText(description, 'Description for\n the post');
       await tester.pump();
-      Finder formWidgetFinder = find.byType(Form);
-      Form formWidget = tester.widget(formWidgetFinder) as Form;
-      GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
+      final Finder formWidgetFinder = find.byType(Form);
+      final Form formWidget = tester.widget(formWidgetFinder) as Form;
+      final GlobalKey<FormState> formKey =
+          formWidget.key as GlobalKey<FormState>;
       expect(formKey.currentState.validate(), isTrue);
     });
   });

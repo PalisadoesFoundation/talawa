@@ -4,7 +4,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:flutter/material.dart';
 
 class GraphQLConfiguration with ChangeNotifier {
-  Preferences _pref = Preferences();
+  final Preferences _pref = Preferences();
   static String token;
   static String orgURI;
 
