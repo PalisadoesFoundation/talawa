@@ -45,6 +45,10 @@ class ApiFunctions {
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
      return gqlmutation(mutation);
+    }if (result.hasException &&
+        result.exception.toString().contains(refreshAccessTokenExpiredException)) {
+      _authController.getNewToken();
+     return gqlmutation(mutation);
     } else if (result.hasException) {
       print(result.exception);
     } else {

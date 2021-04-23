@@ -803,6 +803,10 @@ query{
         _authController.getNewToken();
         createComments(postId, text);
       }
+     if (_resp.exception.toString().contains(refreshAccessTokenExpiredException)){
+      _authController.getNewToken();
+      createComments(postId, text);
+    }
     if(!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
