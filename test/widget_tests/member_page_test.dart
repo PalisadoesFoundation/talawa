@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/members/members.dart';
 
 Widget createMemberPageScreen() => MultiProvider(
@@ -24,14 +24,15 @@ Widget createMemberPageScreen() => MultiProvider(
           create: (_) => Preferences(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: Organizations(),
       ),
     );
 
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized();
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("member Page Tests", () {
     testWidgets("Testing if member page shows up", (tester) async {
@@ -42,7 +43,7 @@ void main() {
 
     testWidgets("Testing overflow of Member page in a mobile screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(440, 800);
+      binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createMemberPageScreen());
@@ -51,7 +52,7 @@ void main() {
     });
     testWidgets("Testing overflow of Member Page in a tablet screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(1024, 768);
+      binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createMemberPageScreen());

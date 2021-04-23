@@ -13,7 +13,7 @@ class _NoInternetConnectionState extends State<NoInternetConnection> {
     return Container(
       child: Center(
           child: Column(
-        children: [
+        children: const [
           Text(
             'No Internet Connection.',
             style: TextStyle(fontSize: 20),

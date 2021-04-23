@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 //creating the snackbar here to be shown if any error is occurred
 
 class SnackBarFactory extends StatelessWidget {
-  final String msg;
+  const SnackBarFactory(this.msg);
 
-  SnackBarFactory(
-    this.msg, {
-    Key key,
-  });
+  final String msg;
 
   @override
   Widget build(BuildContext context) {

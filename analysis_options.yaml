@@ -1,0 +1,37 @@
+include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    # Make constructors the first thing in every class
+    sort_constructors_first: true
+
+    # Use parameter order as in json response
+    always_put_required_named_parameters_first: false
+
+    # Util classes
+    avoid_classes_with_only_static_members: false
+
+    avoid_redundant_argument_values: false
+
+    # Unessary use of this in contructors should not be done
+    unnecessary_this: false
+
+    # source files name using lowercase_with_underscores
+    lowercase_with_underscores: true
+
+    leading_newlines_in_multiline_strings: false
+
+    always_declare_return_types: false
+
+    type_annotate_public_apis: false
+
+    # In case of production should be set to true
+    avoid_print: false
+
+    avoid_unnecessary_containers: false
+
+    prefer_if_elements_to_conditional_expressions: false
+
+    avoid_function_literals_in_foreach_calls: false
+
+    join_return_with_assignment: false
