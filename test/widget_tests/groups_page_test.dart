@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/chat/groups.dart';
 
 Widget groupsPage() => MultiProvider(
@@ -31,7 +31,7 @@ Widget groupsPage() => MultiProvider(
     );
 
 void main() {
-  final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
+  final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
 
   group("Groups page Tests", () {
     testWidgets("Testing if Groups page shows up", (tester) async {

@@ -4,16 +4,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:provider/provider.dart';
-import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/apiFunctions.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/services/Queries.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/chat/chat.dart';
 
 class Groups extends StatefulWidget {
-  Groups({Key key}) : super(key: key);
+  const Groups({Key key}) : super(key: key);
 
   @override
   _GroupsState createState() => _GroupsState();
@@ -49,7 +49,7 @@ class _GroupsState extends State<Groups> {
     _currOrgId = currentOrgID;
     Map result = await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     // print(result);
-    eventList = result == null ? [] : result['events'].reversed.toList();
+    eventList = result == null ? [] : result['events'].reversed.toList() as List<dynamic>;
     eventList.removeWhere((element) =>
         element['title'] == 'Talawa Congress' ||
         element['title'] == 'test' ||
@@ -59,10 +59,10 @@ class _GroupsState extends State<Groups> {
         element['isRegistered'] == false ||
         element['organization']['_id'] != currentOrgID); //dont know who keeps adding these
     // This removes all invalid date formats other than Unix time
-    eventList.removeWhere((element) => int.tryParse(element['startTime']) == null);
+    eventList.removeWhere((element) => int.tryParse(element['startTime'] as String) == null);
     eventList.sort((a, b) {
-      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime']))
-          .compareTo(DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'])));
+      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime'] as String))
+          .compareTo(DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'] as String)));
     });
     // eventsToDates(eventList, DateTime.now());
     setState(() {
@@ -79,8 +79,8 @@ class _GroupsState extends State<Groups> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        key: Key('GROUPS_APP_BAR'),
-        title: Text(
+        key: const Key('GROUPS_APP_BAR'),
+        title: const Text(
           'Chats',
           style: TextStyle(color: Colors.white),
         ),
@@ -124,7 +124,7 @@ class _GroupsState extends State<Groups> {
                               try {
                                 getEvents();
                               } catch (e) {
-                                _exceptionToast(e);
+                                _exceptionToast(e.toString());
                               }
                             });
                           },
@@ -138,7 +138,7 @@ class _GroupsState extends State<Groups> {
                 try {
                   await getEvents();
                 } catch (e) {
-                  _exceptionToast(e);
+                  _exceptionToast(e.toString());
                 }
               },
               //List of chat groups
@@ -146,7 +146,7 @@ class _GroupsState extends State<Groups> {
                   itemCount: displayedEvents.length,
                   itemBuilder: (context, index) {
                     String groupName = '${displayedEvents[index]['title']}';
-                    String _imgSrc = displayedEvents[index]['organization']['image'];
+                    String _imgSrc = displayedEvents[index]['organization']['image'] as String;
                     return Card(
                       child: ListTile(
                         title: Text(groupName),
@@ -156,7 +156,7 @@ class _GroupsState extends State<Groups> {
                               ? Image.asset(UIData.talawaLogo)
                               : NetworkImage(
                                   Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                                      _imgSrc),
+                                      _imgSrc) as Widget,
                         ),
                         trailing: Icon(Icons.arrow_right),
                         onTap: () {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 // Function for ignoring overflow errors.
-Function onErrorIgnoreOverflowErrors = (
+// ignore: prefer_function_declarations_over_variables
+void Function(FlutterErrorDetails) onErrorIgnoreOverflowErrors = (
   FlutterErrorDetails details, {
   bool forceReport = false,
 }) {
@@ -11,13 +12,14 @@ Function onErrorIgnoreOverflowErrors = (
   bool ifIsOverflowError = false;
 
   // Detect overflow error.
-  var exception = details.exception;
-  if (exception is FlutterError)
+  final exception = details.exception;
+  if (exception is FlutterError) {
     ifIsOverflowError = !exception.diagnostics.any(
       (e) => e.value.toString().startsWith(
             "A RenderFlex overflowed by",
           ),
     );
+  }
 
   // Ignore if is overflow error.
   if (ifIsOverflowError) {

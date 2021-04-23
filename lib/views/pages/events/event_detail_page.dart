@@ -4,14 +4,14 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 //pages are imported here
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/events/registrantList.dart';
-import 'package:talawa/views/pages/events/taskList.dart';
+import 'package:talawa/views/pages/events/registrant_list.dart';
+import 'package:talawa/views/pages/events/task_list.dart';
 import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class EventDetail extends StatefulWidget {
-  Map event;
   EventDetail({Key key, @required this.event}) : super(key: key);
+  Map event;
 
   @override
   _EventDetailState createState() => _EventDetailState();
@@ -29,13 +29,13 @@ class _EventDetailState extends State<EventDetail>
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
+    final double width = MediaQuery.of(context).size.width;
     print(widget.event);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.event['title'],
-          style: TextStyle(color: Colors.white),
+          widget.event['title'].toString(),
+          style: const TextStyle(color: Colors.white),
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -46,6 +46,7 @@ class _EventDetailState extends State<EventDetail>
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
               background: FittedBox(
+                fit: BoxFit.fill,
                 child: Container(
                   height: 300,
                   width: width,
@@ -60,18 +61,17 @@ class _EventDetailState extends State<EventDetail>
                         "Held: ${widget.event['recurrance'][0]}${widget.event['recurrance'].substring(1).toLowerCase()}",
                       ),
                       displayText(
-                        "Next: ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime']))).toString()}",
+                        "Next: ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime'].toString()))).toString()}",
                       ),
                       displayText(
                         "Where: ${widget.event['location'].toString()}",
                       ),
                       displayText(
-                        "From: ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime']))).toString() + ' to ' + DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['endTime']))).toString()}",
+                        "From: ${'${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime'].toString())))} to ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['endTime'].toString())))}'}",
                       ),
                     ],
                   ),
                 ),
-                fit: BoxFit.fill,
               ),
             ),
           ),
@@ -83,10 +83,10 @@ class _EventDetailState extends State<EventDetail>
                 child: Material(
                   color: UIData.secondaryColor,
                   child: TabBar(
-                    labelPadding: EdgeInsets.all(0),
+                    labelPadding: const EdgeInsets.all(0),
                     indicatorColor: Colors.white,
                     controller: _tabController,
-                    tabs: [
+                    tabs: const [
                       Tab(
                         icon: Text(
                           'Tasks',
@@ -127,15 +127,15 @@ class _EventDetailState extends State<EventDetail>
 
   Widget displayText(String text) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           color: Colors.black26,
           borderRadius: BorderRadius.all(Radius.circular(5))),
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       height: 40,
       child: Text(
         text,
-        style: TextStyle(fontSize: 16, color: Colors.white),
+        style: const TextStyle(fontSize: 16, color: Colors.white),
         overflow: TextOverflow.ellipsis,
       ),
     );
