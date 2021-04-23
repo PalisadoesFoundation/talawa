@@ -4,25 +4,27 @@ import 'package:flutter/services.dart';
 
 //Pages are imported here
 import 'package:provider/provider.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
+import 'package:talawa/views/pages/organization/create_organization.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
-import 'controllers/auth_controller.dart';
-import 'controllers/org_controller.dart';
-import 'views/pages/organization/create_organization.dart';
-import 'views/pages/organization/switch_org_page.dart';
+import 'package:talawa/views/pages/organization/switch_org_page.dart';
 
 Preferences preferences = Preferences();
 String userID;
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized(); //ensuring weather the app is being initialized or not
+  WidgetsFlutterBinding
+      .ensureInitialized(); //ensuring weather the app is being initialized or not
   userID = await preferences.getUserId(); //getting user id
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])  //setting the orientation according to the screen it is running on
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]) //setting the orientation according to the screen it is running on
       .then((_) {
     runApp(MultiProvider(
       providers: [
@@ -31,7 +33,7 @@ Future<void> main() async {
         ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
-        ChangeNotifierProvider<CommentHandler>(create: (_) =>CommentHandler())
+        ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler())
       ],
       child: MyApp(),
     ));
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
+        final FocusScopeNode currentFocus = FocusScope.of(context);
         if (!currentFocus.hasPrimaryFocus &&
             currentFocus.focusedChild != null) {
           FocusManager.instance.primaryFocus.unfocus();
@@ -56,26 +58,29 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primaryColor: UIData.primaryColor,
             fontFamily: UIData.quickFont,
-            primarySwatch: UIData.primaryColor),
+            primarySwatch: UIData.primaryColor as MaterialColor),
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {
-          print('build route for ${settings.name}'); //here we are building the routes for the app
-          var routes = <String, WidgetBuilder>{
-            UIData.homeRoute: (BuildContext context) => HomePage(),
+          print(
+              'build route for ${settings.name}'); //here we are building the routes for the app
+          final routes = <String, WidgetBuilder>{
+            UIData.homeRoute: (BuildContext context) => const HomePage(),
             UIData.loginPageRoute: (BuildContext context) => UrlPage(),
             UIData.createOrgPage: (BuildContext context) =>
-                CreateOrganization(),
+                const CreateOrganization(),
             UIData.joinOrganizationPage: (BuildContext context) =>
-                JoinOrganization(),
+                const JoinOrganization(),
             UIData.switchOrgPage: (BuildContext context) =>
                 SwitchOrganization(),
-            UIData.profilePage: (BuildContext context) => ProfilePage(),
+            UIData.profilePage: (BuildContext context) => const ProfilePage(),
           };
-          WidgetBuilder builder = routes[settings.name];
+          final WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));
         },
-        home: userID == null ? UrlPage() : HomePage(), //checking weather the user is logged in or not
+        home: userID == null
+            ? UrlPage()
+            : const HomePage(), //checking weather the user is logged in or not
       ),
     );
   }

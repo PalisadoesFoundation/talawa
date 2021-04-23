@@ -1,14 +1,15 @@
 // Packages imports.
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
 import '../helper.dart';
 
@@ -55,13 +56,13 @@ void main() {
       await tester.pumpWidget(createRegisterPageScreen());
 
       /// Get the hold of [Form] Widget.
-      var form = tester.widget(find.byType(Form));
+      final form = tester.widget(find.byType(Form));
 
       /// Get the hold of [Form Key].
-      var formKey = form.key as GlobalKey<FormState>;
+      final formKey = form.key as GlobalKey<FormState>;
 
       // Get hold of SIGN UP button.
-      var signUpButton = find.text("SIGN UP");
+      final signUpButton = find.text("SIGN UP");
 
       // Tap on the signUpButton.
       await tester.tap(signUpButton);
@@ -89,19 +90,19 @@ void main() {
       await tester.pumpWidget(createRegisterPageScreen());
 
       /// Make an instance of [Random] class.
-      Random random = new Random();
+      final Random random = Random();
 
       /// Get the hold of [Form] Widget.
-      var form = tester.widget(find.byType(Form));
+      final form = tester.widget(find.byType(Form));
 
       /// Get the hold of [Form Key].
-      var formKey = form.key as GlobalKey<FormState>;
+      final formKey = form.key as GlobalKey<FormState>;
 
       /// Get the total number of [TextFormField]'s.
-      var length = tester.widgetList(find.byType(TextFormField)).length;
+      final length = tester.widgetList(find.byType(TextFormField)).length;
 
       /// Generate random number between [0, 5].
-      int index = random.nextInt(length);
+      final int index = random.nextInt(length);
 
       if (index == 0) {
         // Fill all the other TextFormFields except at index 0.
@@ -231,7 +232,7 @@ void main() {
       }
 
       // Get hold of SIGN UP button.
-      var signUpButton = find.text("SIGN UP");
+      final signUpButton = find.text("SIGN UP");
 
       // Tap on the signUpButton.
       await tester.tap(signUpButton);
@@ -258,10 +259,10 @@ void main() {
       await tester.pumpWidget(createRegisterPageScreen());
 
       /// Get the hold of [Form] Widget.
-      var form = tester.widget(find.byType(Form));
+      final form = tester.widget(find.byType(Form));
 
       /// Get the hold of [Form Key].
-      var formKey = form.key as GlobalKey<FormState>;
+      final formKey = form.key as GlobalKey<FormState>;
 
       // Fill in first name.
       await tester.enterText(
@@ -294,7 +295,7 @@ void main() {
       );
 
       // Get hold of SIGN UP button.
-      var signUpButton = find.text("SIGN UP");
+      final signUpButton = find.text("SIGN UP");
 
       // Tap on the signUpButton.
       await tester.tap(signUpButton);
@@ -315,10 +316,10 @@ void main() {
       await tester.pumpWidget(createRegisterPageScreen());
 
       /// Get the hold of [Form] Widget.
-      var form = tester.widget(find.byType(Form));
+      final form = tester.widget(find.byType(Form));
 
       /// Get the hold of [Form Key].
-      var formKey = form.key as GlobalKey<FormState>;
+      final formKey = form.key as GlobalKey<FormState>;
 
       // Fill in first name.
       await tester.enterText(
@@ -351,7 +352,7 @@ void main() {
       );
 
       // Get hold of SIGN UP button.
-      var signUpButton = find.text("SIGN UP");
+      final signUpButton = find.text("SIGN UP");
 
       // Tap on the signUpButton.
       await tester.tap(signUpButton);

@@ -1,4 +1,3 @@
-
 //flutter imported function
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -6,19 +5,25 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 //files are imported here
 import 'package:provider/provider.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import '../../../utils/uidata.dart';
-import 'RegEventstab.dart';
-import 'userTaskstab.dart';
+import 'reg_eventstab.dart';
+import 'user_taskstab.dart';
 
 // ignore: must_be_immutable
 class MemberDetail extends StatefulWidget {
+  MemberDetail(
+      {Key key,
+      @required this.member,
+      @required this.color,
+      this.admins,
+      this.creatorId})
+      : super(key: key);
+
   final List admins;
   final String creatorId;
   Map member;
   Color color;
-  MemberDetail({Key key, @required this.member, @required this.color, this.admins, this.creatorId})
-      : super(key: key);
 
   @override
   _MemberDetailState createState() => _MemberDetailState();
@@ -33,11 +38,11 @@ class _MemberDetailState extends State<MemberDetail>
     _tabController = TabController(vsync: this, length: 2);
   }
 
-  getPrivilege(String id){
-    if(widget.creatorId.compareTo(id)==0){
+  String getPrivilege(String id) {
+    if (widget.creatorId.compareTo(id) == 0) {
       return 'Creator';
     }
-    for(int i=0;i<widget.admins.length;i++) {
+    for (int i = 0; i < widget.admins.length; i++) {
       if (widget.admins[i]['_id'] == id) {
         return 'Admin';
       }
@@ -50,7 +55,7 @@ class _MemberDetailState extends State<MemberDetail>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'User Info',
             style: TextStyle(color: Colors.white),
           ),
@@ -64,23 +69,27 @@ class _MemberDetailState extends State<MemberDetail>
                 background: Column(children: [
                   widget.member['image'] == null
                       ? defaultUserImg()
-                      : userImg(widget.member['image']),
+                      : userImg(widget.member['image'].toString()),
                   Card(
                       child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     height: 30,
-                    child: Text(
-                        'User email: ' + widget.member['email'].toString()),
+                    child: Text('User email: ${widget.member['email']}'),
                   )),
                   Card(
                       child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     height: 30,
-                    child: Text('User Privileges: '+getPrivilege(widget.member['_id']),key: Key('Privilege'),),
+                    child: Text(
+                      // ignore: prefer_interpolation_to_compose_strings
+                      'User Privileges: ' +
+                          getPrivilege(widget.member['_id'].toString()),
+                      key: const Key('Privilege'),
+                    ),
                   )),
                 ]),
               )),
@@ -92,10 +101,10 @@ class _MemberDetailState extends State<MemberDetail>
                 child: Material(
                   color: UIData.secondaryColor,
                   child: TabBar(
-                    labelPadding: EdgeInsets.all(0),
+                    labelPadding: const EdgeInsets.all(0),
                     indicatorColor: Colors.white,
                     controller: _tabController,
-                    tabs: [
+                    tabs: const [
                       Tab(
                         icon: Text(
                           'Tasks',
@@ -130,7 +139,6 @@ class _MemberDetailState extends State<MemberDetail>
         ]));
   }
 
-
   //widget to get the user image
   Widget userImg(String link) {
     return Container(
@@ -159,21 +167,19 @@ class _MemberDetailState extends State<MemberDetail>
           ),
         ),
         Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   colors: [Colors.black45, Colors.transparent]),
             ),
-            padding: EdgeInsets.only(left: 20),
+            padding: const EdgeInsets.only(left: 20),
             height: 40,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                widget.member['firstName'].toString() +
-                    ' ' +
-                    widget.member['lastName'].toString(),
-                style: TextStyle(
+                '${widget.member['firstName']} ${widget.member['lastName']}',
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                 ),
@@ -183,37 +189,36 @@ class _MemberDetailState extends State<MemberDetail>
     );
   }
 
-
   //this is widget for default user image
   Widget defaultUserImg() {
     return Container(
       height: 170,
       width: MediaQuery.of(context).size.width,
+      color: widget.color,
       child: Column(
         children: [
+          // ignore: sized_box_for_whitespace
           Container(
               height: 130,
-              child: Icon(
+              child: const Icon(
                 Icons.person,
                 size: 100,
                 color: Colors.white54,
               )),
           Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                     colors: [Colors.black45, Colors.transparent]),
               ),
-              padding: EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.only(left: 20),
               height: 40,
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  widget.member['firstName'].toString() +
-                      ' ' +
-                      widget.member['lastName'].toString(),
-                  style: TextStyle(
+                  '${widget.member['firstName']} ${widget.member['lastName']}',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                   ),
@@ -221,7 +226,6 @@ class _MemberDetailState extends State<MemberDetail>
               ))
         ],
       ),
-      color: widget.color,
     );
   }
 }
