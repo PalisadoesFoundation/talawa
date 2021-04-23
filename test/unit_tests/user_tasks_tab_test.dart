@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-Map userData = {
+Map userData = const {
   "_id": "605492dbcf13b54d55284731",
   "title": "Ay",
   "description": "ry",

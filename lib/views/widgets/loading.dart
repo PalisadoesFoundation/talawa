@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 class Loading extends StatefulWidget {
-  Loading({Key key}) : super(key: key);
+  const Loading({Key key}) : super(key: key);
   @override
   _LoadingState createState() => _LoadingState();
 }
@@ -18,7 +18,7 @@ class _LoadingState extends State<Loading> {
         loading = true;
       });
     }
-    _timer = Timer(Duration(seconds: 10), () {
+    _timer = Timer(const Duration(seconds: 10), () {
       if (mounted) {
         setState(() {
           loading = false;
@@ -49,7 +49,7 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? CircularProgressIndicator()
+        ? const CircularProgressIndicator()
         : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -57,8 +57,8 @@ class _LoadingState extends State<Loading> {
                 'assets/images/error.svg',
                 width: MediaQuery.of(context).size.width / 1.3,
               ),
-              SizedBox(height: 30),
-              Text(
+              const SizedBox(height: 30),
+              const Text(
                 'No data or something went wrong',
                 style: TextStyle(color: Colors.red),
               ),

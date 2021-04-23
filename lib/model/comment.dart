@@ -1,6 +1,6 @@
-class CommentModel{
+class CommentModel {
+  CommentModel(this.postId, this.comment);
+
   final String postId;
   String comment;
-
-  CommentModel(this.postId, this.comment);
 }

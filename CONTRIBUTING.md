@@ -74,11 +74,19 @@ core
 
 ```
 // Inside widget class
--- variables (private if possible)
+-- constructor
+-- explicitly defined variables using its type (private if possible)
 -- build method (Inside build(), use sub methods like _buildAppBar()
 -- sub-build methods
 -- other methods
 -- utility methods
+```
+
+#### Other Information
+
+```
+-- file should be named using lowercase and underscore
+-- const and final keywords should be specified along with the widget
 ```
 
 #### Commit guidelines
@@ -93,8 +101,16 @@ ptch: (patches - small changes in code, mainly UI, for example color of a button
 conf: (configurational settings - changing directory structure, updating gitignore, add libraries, changing manifest etc)
 ```
 
-### GSoC
-If you are participating in the 2021 Summer of Code, please read more about us and our processes [here](http://www.palisadoes.org/gsoc/)
+### Internships
+
+We have internship partnerships with a number of organizations. See below for more details.
+
+#### GSoC
+If you are participating in the 2021 Summer of Code, please read more about us and our processes [here](https://palisadoesfoundation.github.io/talawa-docs/docs/internships/gsoc/gsoc-introduction)
+
+#### GitHub Externship
+If you are participating in the 2021 GitHub Externship, please read more about us and our processes [here](https://palisadoesfoundation.github.io/talawa-docs/docs/internships/github/github-introduction)
+
 
 ### Community
 The Palisadoes Foundation has a Slack channel where members can assist with support and clarification. Click [here](https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-nk79xxlg-OxTdlrD7RLaswu8EO_Q5rg) to join our slack channel.

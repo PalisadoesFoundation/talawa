@@ -10,16 +10,16 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterePageState extends State<RegisterPage>
     with TickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
 
-  registrationScreenForm() => Center(
+  Widget registrationScreenForm() => Center(
         child: Container(
-          alignment: AlignmentDirectional(0.0, 0.0),
+          alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                   maxWidth: 300.0, minWidth: 250.0, minHeight: 350.0),
               child: SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: 30.0),
+                padding: const EdgeInsets.only(bottom: 30.0),
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: <Widget>[
@@ -27,12 +27,12 @@ class _RegisterePageState extends State<RegisterPage>
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "Already have an account?",
                           style: TextStyle(color: Colors.white),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 8.0),
+                          margin: const EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
                             onTap: () {
                               // Navigator.pop(context);
@@ -41,7 +41,7 @@ class _RegisterePageState extends State<RegisterPage>
                                   MaterialPageRoute(
                                       builder: (context) => LoginPage()));
                             },
-                            child: Text(
+                            child: const Text(
                               "SIGN IN!",
                               textAlign: TextAlign.start,
                               style: TextStyle(color: UIData.primaryColor),
@@ -63,7 +63,7 @@ class _RegisterePageState extends State<RegisterPage>
       key: _scaffoldkey,
       backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
         ),

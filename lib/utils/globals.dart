@@ -1,3 +1,2 @@
 //accessTokenException from server
-String accessTokenException =
-    "User is not authenticated: Undefined location";
+String accessTokenException = "User is not authenticated: Undefined location";
