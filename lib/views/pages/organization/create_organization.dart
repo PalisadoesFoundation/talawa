@@ -1,0 +1,564 @@
+//flutter packages
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+//pages are imported here
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/utils/globals.dart';
+import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/utils/validator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:graphql/utilities.dart' show multipartFileFrom;
+import 'package:file_picker/file_picker.dart';
+import 'package:talawa/views/pages/_pages.dart';
+import 'package:image_picker/image_picker.dart';
+
+class CreateOrganization extends StatefulWidget {
+  const CreateOrganization({this.isFromProfile = false});
+  final bool isFromProfile;
+
+  @override
+  _CreateOrganizationState createState() => _CreateOrganizationState();
+}
+
+class _CreateOrganizationState extends State<CreateOrganization> {
+  //defining the Organization creation state
+  final orgNameController = TextEditingController();
+  final orgDescController = TextEditingController();
+  final orgMemberDescController = TextEditingController();
+  final Queries _queries = Queries();
+  bool _progressBarState = false;
+  final _validate = AutovalidateMode.disabled;
+  final _formKey = GlobalKey<FormState>();
+  int radioValue = -1;
+  int radioValue1 = -1;
+  bool isPublic = true;
+  bool isVisible = true;
+  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+  FToast fToast;
+  final AuthController _authController = AuthController();
+  File _image;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
+
+  void toggleProgressBarState() {
+    _progressBarState = !_progressBarState;
+  }
+
+  createOrg() async {
+    //this is the function which will be called when the organization is created
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    orgNameController.text =
+        orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text =
+        orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text =
+        orgMemberDescController.text.trim().replaceAll('\n', ' ');
+    final img = await multipartFileFrom(_image);
+    orgNameController.text =
+        orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text =
+        orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text =
+        orgMemberDescController.text.trim().replaceAll('\n', ' ');
+    final QueryResult result = await _client.mutate(MutationOptions(
+      documentNode: gql(_queries.createOrg(
+        orgNameController.text,
+        orgDescController.text,
+        orgMemberDescController.text,
+        isPublic: isPublic,
+        visibleInSearch: isVisible,
+      )),
+      variables: {
+        'file': img,
+      },
+    ));
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
+      return createOrg();
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
+      print(result.exception);
+      setState(() {
+        _progressBarState = false;
+      });
+      _exceptionToast(result.exception.toString());
+    } else if (!result.hasException && !result.loading) {
+      setState(() {
+        _progressBarState = true;
+      });
+      _successToast("Sucess!");
+      print(result.data);
+
+      if (widget.isFromProfile) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const HomePage(
+                  openPageIndex: 2,
+                )));
+      }
+    }
+  }
+
+  createOrgWithoutImg() async {
+    //the function is called when we are creating the organization without the display picture
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    orgNameController.text =
+        orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text =
+        orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text =
+        orgMemberDescController.text.trim().replaceAll('\n', ' ');
+    final QueryResult result = await _client.mutate(MutationOptions(
+      documentNode: gql(_queries.createOrgWithoutImg(
+        orgNameController.text,
+        orgDescController.text,
+        orgMemberDescController.text,
+        isPublic: isPublic,
+        visibleInSearch: isVisible,
+      )),
+    ));
+
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
+      return createOrgWithoutImg();
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
+      print(result.exception);
+      setState(() {
+        _progressBarState = false;
+      });
+      _exceptionToast(result.exception.toString());
+    } else if (!result.hasException && !result.loading) {
+      setState(() {
+        _progressBarState = true;
+      });
+      _successToast("Sucess!");
+      print(result.data);
+      if (widget.isFromProfile) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      } else {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => const HomePage(
+                  openPageIndex: 2,
+                )));
+      }
+    }
+  }
+
+  _imgFromCamera() async {
+    //this is the function when the user want to capture the image from the camera
+    final PickedFile pickedImage = await ImagePicker()
+        .getImage(source: ImageSource.camera, imageQuality: 50);
+
+    final File image = File(pickedImage.path);
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  _imgFromGallery() async {
+    //this is the function when the user want to take the picture from the gallery
+    final File image = File(
+        (await FilePicker.platform.pickFiles(type: FileType.image))
+            .files
+            .first
+            .path);
+    setState(() {
+      _image = image;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text('Create Organization'),
+      ),
+      body: Container(
+        color: Colors.white,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: <Widget>[
+              addImage(),
+              const Text("Upload Organization Image",
+                  style: TextStyle(fontSize: 16, color: Colors.black)),
+              Form(
+                key: _formKey,
+                autovalidateMode: _validate,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                  child: Column(
+                    children: <Widget>[
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      AutofillGroup(
+                          child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            keyboardType: TextInputType.multiline,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(40)
+                            ],
+                            autofillHints: const <String>[
+                              AutofillHints.organizationName
+                            ],
+                            validator: (value) =>
+                                Validator.validateOrgName(value),
+                            textInputAction: TextInputAction.next,
+                            textAlign: TextAlign.left,
+                            textCapitalization: TextCapitalization.words,
+                            style: const TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: UIData.secondaryColor),
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              prefixIcon: const Icon(
+                                Icons.group,
+                                color: UIData.secondaryColor,
+                              ),
+                              labelText: "Organization Name",
+                              labelStyle: const TextStyle(color: Colors.black),
+                              alignLabelWithHint: true,
+                              hintText: 'My Organization',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                            ),
+                            controller: orgNameController,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(5000),
+                            ],
+                            autofillHints: const <String>[AutofillHints.impp],
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            textCapitalization: TextCapitalization.words,
+                            validator: (value) =>
+                                Validator.validateOrgDesc(value),
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: UIData.secondaryColor),
+                                  borderRadius: BorderRadius.circular(20.0)),
+                              prefixIcon: const Icon(Icons.note,
+                                  color: UIData.secondaryColor),
+                              labelText: "Organization Description",
+                              labelStyle: const TextStyle(color: Colors.black),
+                              alignLabelWithHint: true,
+                              hintText: 'My Description',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                            ),
+                            controller: orgDescController,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(5000)
+                            ],
+                            autofillHints: const <String>[AutofillHints.impp],
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            textCapitalization: TextCapitalization.words,
+                            validator: (value) =>
+                                Validator.validateOrgAttendeesDesc(value),
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderSide: const BorderSide(
+                                      color: UIData.secondaryColor)),
+                              prefixIcon: const Icon(Icons.note,
+                                  color: UIData.secondaryColor),
+                              labelText: "Member Description",
+                              labelStyle: const TextStyle(color: Colors.black),
+                              alignLabelWithHint: true,
+                              hintText: 'Member Description',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                            ),
+                            controller: orgMemberDescController,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      )),
+                      const Text('Do you want your organization to be public?',
+                          style: TextStyle(fontSize: 16, color: Colors.black)),
+                      RadioListTile(
+                        groupValue: radioValue,
+                        title: const Text('Yes'),
+                        value: 0,
+                        activeColor: UIData.secondaryColor,
+                        onChanged: (int val) {
+                          FocusScope.of(context).unfocus();
+                          // ignore: void_checks
+                          setState(() {
+                            radioValue = val;
+                            if (radioValue == 0) {
+                              return isPublic;
+                            }
+                          });
+                        },
+                      ),
+                      RadioListTile(
+                        activeColor: UIData.secondaryColor,
+                        groupValue: radioValue,
+                        title: const Text('No'),
+                        value: 1,
+                        onChanged: (int val) {
+                          FocusScope.of(context).unfocus();
+                          // ignore: void_checks
+                          setState(() {
+                            radioValue = val;
+                            if (radioValue == 1) {
+                              isPublic = false;
+                              return isPublic;
+                            }
+                          });
+                        },
+                      ),
+                      const Text(
+                          'Do you want others to be able to find your organization from the search page?',
+                          style: TextStyle(fontSize: 16, color: Colors.black)),
+                      RadioListTile(
+                        activeColor: UIData.secondaryColor,
+                        groupValue: radioValue1,
+                        title: const Text('Yes'),
+                        value: 0,
+                        onChanged: (int val) {
+                          FocusScope.of(context).unfocus();
+                          // ignore: void_checks
+                          setState(() {
+                            radioValue1 = val;
+                            if (radioValue1 == 0) {
+                              return isVisible;
+                            }
+                          });
+                        },
+                      ),
+                      RadioListTile(
+                        activeColor: UIData.secondaryColor,
+                        groupValue: radioValue1,
+                        title: const Text('No'),
+                        value: 1,
+                        onChanged: (int val) {
+                          FocusScope.of(context).unfocus();
+                          // ignore: void_checks
+                          setState(() {
+                            radioValue1 = val;
+                            if (radioValue1 == 1) {
+                              isVisible = false;
+                              return isVisible;
+                            }
+                          });
+                        },
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 30.0),
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                          // ignore: sort_child_properties_last
+                          child: _progressBarState
+                              ? const Center(
+                                  child: SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.white),
+                                        strokeWidth: 3,
+                                        backgroundColor: Colors.black,
+                                      )))
+                              : const Text(
+                                  "CREATE ORGANIZATION",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                          onPressed: _progressBarState
+                              ? () {
+                                  _exceptionToast('Request in Progress');
+                                }
+                              : () async {
+                                  if (_formKey.currentState.validate() &&
+                                      radioValue >= 0 &&
+                                      radioValue1 >= 0) {
+                                    _formKey.currentState.save();
+                                    if (_image != null) {
+                                      createOrg();
+                                    } else {
+                                      createOrgWithoutImg();
+                                    }
+                                    setState(() {
+                                      toggleProgressBarState();
+                                    });
+                                  } else if (radioValue < 0 ||
+                                      radioValue1 < 0) {
+                                    _exceptionToast(
+                                        "A choice must be selected");
+                                  }
+                                },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget addImage() {
+    //function which is being called when the image is being add
+    return Column(
+      children: <Widget>[
+        const SizedBox(
+          height: 32,
+        ),
+        Center(
+          child: GestureDetector(
+            onTap: () {
+              _showPicker(context);
+            },
+            child: CircleAvatar(
+              radius: 55,
+              backgroundColor: UIData.secondaryColor,
+              child: _image != null
+                  ? CircleAvatar(
+                      radius: 52,
+                      backgroundImage: FileImage(
+                        _image,
+                      ),
+                    )
+                  : CircleAvatar(
+                      radius: 52,
+                      backgroundColor: Colors.lightBlue[50],
+                      child: Icon(
+                        Icons.camera_alt,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  void _showPicker(BuildContext context) {
+    //this is called when the image is clicked and it shows the options that can be used to take the picture
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return SafeArea(
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                  //taking picture from the camera
+                  leading: const Icon(Icons.camera_alt_outlined),
+                  title: const Text('Camera'),
+                  onTap: () {
+                    _imgFromCamera();
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                    //taking picture from the library
+                    leading: const Icon(Icons.photo_library),
+                    title: const Text('Photo Library'),
+                    onTap: () {
+                      _imgFromGallery();
+                      Navigator.of(context).pop();
+                    }),
+              ],
+            ),
+          );
+        });
+  }
+
+  void _successToast(String msg) {
+    final Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.green,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 1),
+    );
+  }
+
+  void _exceptionToast(String msg) {
+    final Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 1),
+    );
+  }
+}

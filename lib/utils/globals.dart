@@ -1,4 +1,2 @@
-//API base route
-const String baseRoute = "https://talawa-api.herokuapp.com";
-
-
+//accessTokenException from server
+String accessTokenException = "User is not authenticated: Undefined location";

@@ -1,210 +1,156 @@
+//imported flutter packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+//importing the pages here
 import 'package:provider/provider.dart';
-import 'package:talawa/controllers/activity_controller.dart';
-import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/controllers/note_controller.dart';
-import 'package:talawa/model/activity.dart';
+import 'package:talawa/services/preferences.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/widgets/common_drawer.dart';
-import 'package:intl/intl.dart';
+import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
+import 'package:talawa/views/pages/members/members.dart';
 
-import 'package:talawa/controllers/user_controller.dart';
-import 'package:talawa/model/user.dart';
-
-import 'package:talawa/enums/connectivity_status.dart';
-
+import 'package:talawa/views/pages/events/events.dart';
+import 'package:talawa/views/pages/chat/groups.dart';
+import 'package:talawa/utils/api_functions.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'organization/profile_page.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({this.openPageIndex = 0});
+  final int openPageIndex;
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
 
-  @override void initState() {
+  int currentIndex = 0;
+
+  PersistentTabController _controller;
+  Preferences preferences = Preferences();
+
+  @override
+  void initState() {
     super.initState();
-    Provider.of<NoteController>(context, listen: false).initializeSocket(
-      Provider.of<AuthController>(context, listen: false).currentUserId
-    );
-  }
-  _showSnackBar() {
-    print("Show SnackBar Here");
-    final snackBar = new SnackBar(
-      content: new Text("Device Disconnected")
-    );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
-    return CircularProgressIndicator();
+    currentIndex = widget.openPageIndex;
+    _controller = PersistentTabController(initialIndex: currentIndex);
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
+  Future<void> getUserInfo() async {
+    final String userID = await preferences
+        .getUserId(); //getting the current user id from the server
+    final String mutation = Queries().fetchUserInfo2(
+        userID); //getting some more user information with the ID
+    final ApiFunctions apiFunctions = ApiFunctions();
+    await apiFunctions.gqlmutation(mutation);
+  }
 
-  BuildContext _context;
+  List<Widget> _buildScreens() {
+    //here we are building the screens that are mention in the app bar
+    return const [
+      NewsFeed(), //first page of the news feed
+      Groups(), //second page of the Group chatting event
+      Events(), //Third page of creating the events and viewing it
+      Organizations(), //fourth page of seeing the organization
+      ProfilePage(), //last page of the profile
+    ];
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItems() {
+    return [
+      PersistentBottomNavBarItem(
+        //mentioning the screen home in the bottom bar
+        icon: const Icon(Icons.home),
+        title: "Home",
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white,
+      ),
+      PersistentBottomNavBarItem(
+        //mentioning the screen chats in the bottom bar
+        icon: const Icon(Icons.chat),
+        title: "Chats",
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white,
+      ),
+      PersistentBottomNavBarItem(
+        //mentioning the Events home in the bottom bar
+        icon: const Icon(Icons.calendar_today),
+        title: "Events",
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white,
+      ),
+      PersistentBottomNavBarItem(
+        //mentioning the screen home in the bottom bar
+        icon: const Icon(Icons.group),
+        title: "Members",
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white,
+      ),
+      PersistentBottomNavBarItem(
+        //mentioning the screen Profile in the bottom bar
+        icon: const Icon(Icons.folder),
+        title: "Profile",
+        activeColorPrimary: Colors.white,
+        inactiveColorPrimary: Colors.white,
+      ),
+    ];
+  }
+
+  void onTabTapped(int index) {
+    //this function tells us what should be done if the particular tab is clicked
+    setState(() {
+      currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    var connectionStatus = Provider.of<ConnectivityStatus>(context, listen:true);
-    if (connectionStatus == ConnectivityStatus.Offline ) {
-      _showSnackBar();
-    }
-    _context = context;
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: new AppBar(
-        // title: Image(
-        //   image: AssetImage(UIData.talawaLogoDark),
-        //   height: 50,
-        // ),
-        title: Text("Activities"),
-        leading: Consumer2<AuthController, UserController>(
-            builder: (context, authController, userController, child) {
-          return FutureBuilder(
-              future: userController.getUser(authController.currentUserId),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  User user = snapshot.data;
-                  return Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: InkWell(
-                        child: CircleAvatar(
-                          
-                          backgroundColor: Colors.blue,
-                          child: Text(
-                            user.firstName.substring(0, 1),
-                            style: TextStyle(fontSize: 25),
-                          ),
-                        ),
-                        onTap: () => _scaffoldKey.currentState.openDrawer()),
-                  );
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              });
-        }),
-
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      drawer: CommonDrawer(),
-      body: Stack(
-        children: <Widget>[
-          Positioned.fill(
-            child: Image(
-              image: AssetImage(UIData.quitoBackground),
-              fit: BoxFit.fill,
-            ),
-          ),
-          activityList()
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(_context, UIData.addActivityPage);
-        },
-        child: Icon(Icons.add),
-      ),
-    );
-  }
-
-  Widget activityList() {
-    return Column(
-      children: <Widget>[
-        Expanded(
-            flex: 9,
-            child: Consumer2<ActivityController, AuthController>(
-                builder: (context, activityController, authController, child) {
-              return FutureBuilder<List<Activity>>(
-                  future: activityController.getActivitiesByUser(
-                      context, authController.currentUserId),
-                  builder: (_context, snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data.length > 0) {
-                        return ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (_context, index) {
-                            Activity activity = snapshot.data[index];
-                            return Column(
-                              children: <Widget>[eventCard(activity)],
-                            );
-                          },
-                        );
-                      } else {
-                        return Center(
-                            child: Text('No Activities',
-                                style: TextStyle(color: Colors.grey)));
-                      }
-                    } else {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  });
-            }))
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<GraphQLConfiguration>(
+          create: (_) => GraphQLConfiguration(),
+        ),
+        ChangeNotifierProvider<Preferences>(
+          create: (_) => Preferences(),
+        )
       ],
-    );
-  }
-
-  Widget eventCard(Activity activity) {
-    return InkWell(
-        onTap: () {
-          Navigator.pushNamed(_context, UIData.activityDetails,
-              arguments: activity);
-        },
-        child: new Container(
-          height: 135,
-          width: double.infinity,
-          child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        activity.title,
-                        style: TextStyle(fontSize: 25),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                          DateFormat("MMMM d, y\nh:mm aaa")
-                              .format(activity.datetime),
-                          style: TextStyle(fontSize: 18)),
-                    ],
-                  ),
-                  Row(
-                    children: <Widget>[
-                      // CircleAvatar(
-                      //     backgroundColor: Colors.blue,
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.center,
-                      //       children: <Widget>[
-                      //         Icon(
-                      //           Icons.person,
-                      //           color: Colors.white,
-                      //           size: 18,
-                      //         ),
-                      //         activity.userCount > 9
-                      //             ? Text('+9',
-                      //                 style: TextStyle(
-                      //                     color: Colors.white, fontSize: 18.0))
-                      //             : Text(activity.userCount.toString(),
-                      //                 style: TextStyle(
-                      //                     color: Colors.white, fontSize: 18.0)),
-                      //       ],
-                      //     )),
-                    ],
-                  )
-                ],
-              ),
+      child: Builder(builder: (BuildContext context) {
+        final BuildContext rootContext = context;
+        Provider.of<GraphQLConfiguration>(rootContext, listen: false)
+            .getOrgUrl();
+        Provider.of<Preferences>(rootContext, listen: false).getCurrentOrgId();
+        return PersistentTabView(rootContext,
+            backgroundColor: UIData.primaryColor,
+            controller: _controller,
+            items: _navBarsItems(),
+            screens: _buildScreens(),
+            confineInSafeArea: true,
+            handleAndroidBackButtonPress: true,
+            navBarStyle: NavBarStyle.style4,
+            itemAnimationProperties: const ItemAnimationProperties(
+              duration: Duration(milliseconds: 200),
+              curve: Curves.ease,
             ),
-          ),
-        ));
+            screenTransitionAnimation: const ScreenTransitionAnimation(
+              animateTabTransition: true,
+              curve: Curves.ease,
+              duration: Duration(milliseconds: 200),
+            ));
+      }),
+    );
   }
 }
