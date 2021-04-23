@@ -43,9 +43,9 @@ You'll need to setup the IDE and mobile device emulator on your local system, an
 1. **Development Environment**: You'll need to have the following installed:
     1. [Flutter SDK](https://flutter.dev/docs/get-started/install)
     1. [Android Studio](https://developer.android.com/studio)
-1. **API Environment**: 
-    1. Check the [Talawa API repository](https://github.com/PalisadoesFoundation/talawa-api) for information on how to setup the API on your local machine or a machine under your legitimate control. There is a section in the README.md file that discusses installation.
-    2. We also have a test environment if you are not inclined to setup or customize your own API server. Information about this can be found in the [Talawa documentation site](https://palisadoesfoundation.github.io/talawa-docs/)
+1. **API Environment**: You will need to enter the URL of the API server in the Talawa app when it first starts up. The URL could be active on a system you control or in our test environment.
+    1. *Your API Server:* Check the [Talawa API repository](https://github.com/PalisadoesFoundation/talawa-api) for information on how to setup the API on your local machine or a machine under your legitimate control. There is a section in the README.md file that discusses installation.
+    2. *Our API Server for Talawa Contributors*: We also have a test environment that our open source contributors use. Try it if you are not inclined to setup or customize your own API server.This is a development environment. The data stored on this server may be modified or deleted without warning. Information about this server can be found in the [Talawa documentation site](https://palisadoesfoundation.github.io/talawa-docs/)
 
 ## Command Line Steps
 
