@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 //pages are called here
-import 'package:talawa/services/Queries.dart';
-import 'package:talawa/utils/apiFunctions.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/api_functions.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/utils/uidata.dart';
 
 // ignore: must_be_immutable
 class AddEventTask extends StatefulWidget {
-  String eventId;
   AddEventTask({Key key, @required this.eventId}) : super(key: key);
+  String eventId;
 
   @override
   _AddEventTaskState createState() => _AddEventTaskState();
@@ -26,12 +26,12 @@ class _AddEventTaskState extends State<AddEventTask> {
 
   //function to add the task
   Future<void> addTask() async {
-    String mutation = Queries().addEventTask(
+    final String mutation = Queries().addEventTask(
         eventId: widget.eventId,
         title: titleController.text,
         description: descriptionController.text,
-        deadline: DateTime.now().millisecondsSinceEpoch.toString());
-    Map result = await apiFunctions.gqlquery(mutation);
+        deadline: DateTime.now().millisecondsSinceEpoch.toString()) as String;
+    await apiFunctions.gqlquery(mutation);
   }
 
   //function to select the date
@@ -41,18 +41,20 @@ class _AddEventTaskState extends State<AddEventTask> {
         initialDate: selectedDate,
         firstDate: DateTime.now(),
         lastDate: DateTime(2101));
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
       });
+    }
   }
 
   //main build starts here
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: EdgeInsets.all(0),
-      title: Text("Add A Task To This Event"),
+      insetPadding: const EdgeInsets.all(0),
+      title: const Text("Add A Task To This Event"),
+      // ignore: sized_box_for_whitespace
       content: Container(
           height: 300,
           child: Form(
@@ -62,20 +64,24 @@ class _AddEventTaskState extends State<AddEventTask> {
               children: <Widget>[
                 Flexible(
                   child: inputField('Title', titleController, (value) {
-                    if (titleController.text == "")
+                    if (titleController.text == "") {
                       return "This Field is Required";
-                    if (titleController.text.length > 30)
+                    }
+                    if (titleController.text.length > 30) {
                       return "title cannot be longer than 30 letters";
+                    }
                     return null;
                   }, 30),
                 ),
                 Flexible(
                   child:
                       inputField('Description', descriptionController, (value) {
-                    if (descriptionController.text == "")
+                    if (descriptionController.text == "") {
                       return "This Field is Required";
-                    if (descriptionController.text.length > 10000)
+                    }
+                    if (descriptionController.text.length > 10000) {
                       return "description cannot be longer than 10000 letters";
+                    }
                     return null;
                   }, 10000),
                 ),
@@ -86,20 +92,20 @@ class _AddEventTaskState extends State<AddEventTask> {
             ),
           )),
       actions: <Widget>[
-        FlatButton(
-          child: Text("Cancel"),
+        TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
+          child: const Text("Cancel"),
         ),
-        FlatButton(
-          child: Text("Add"),
+        TextButton(
           onPressed: () async {
             if (_formkey.currentState.validate()) {
               addTask();
               Navigator.of(context).pop();
             }
           },
+          child: const Text("Add"),
         ),
       ],
     );
@@ -116,17 +122,17 @@ class _AddEventTaskState extends State<AddEventTask> {
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
       ),
       trailing: Text(
-        '${DateFormat.yMMMd().format(selectedDate)}',
-        style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
+        DateFormat.yMMMd().format(selectedDate),
+        style: const TextStyle(fontSize: 16, color: UIData.secondaryColor),
       ),
     );
   }
 
   //widget to use input field
   Widget inputField(String name, TextEditingController controller,
-      Function validate, int maxLength) {
+      String Function(String) validate, int maxLength) {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: TextFormField(
         key: Key(name),
         inputFormatters: [LengthLimitingTextInputFormatter(maxLength)],
@@ -136,7 +142,7 @@ class _AddEventTaskState extends State<AddEventTask> {
         decoration: InputDecoration(
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20.0),
-                borderSide: BorderSide(color: Colors.teal)),
+                borderSide: const BorderSide(color: Colors.teal)),
             hintText: name),
       ),
     );

@@ -1,6 +1,7 @@
 //all the queries used in the program
+import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/utils/globals.dart';
 
@@ -250,7 +251,7 @@ class Queries {
 
   //to create a organization
   String createOrg(String name, String description, String attendees,
-      bool isPublic, bool visibleInSearch) {
+      {@required bool isPublic, @required bool visibleInSearch}) {
     return '''
       mutation (\$file: Upload){
           createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}, 
@@ -271,7 +272,7 @@ class Queries {
 
   //create organization without image
   String createOrgWithoutImg(String name, String description, String attendees,
-      bool isPublic, bool visibleInSearch) {
+      {@required bool isPublic, @required bool visibleInSearch}) {
     return '''
        mutation {
            createOrganization(data: {name: "$name", description: "$description", attendees: "$attendees", isPublic: $isPublic, visibleInSearch: $visibleInSearch}), 
@@ -290,8 +291,8 @@ class Queries {
   }
 
   //update the organization
-  String updateOrg(String orgId, String name, String description, bool isPublic,
-      bool visibleInSearch) {
+  String updateOrg(String orgId, String name, String description,
+      {@required bool isPublic, @required bool visibleInSearch}) {
     return '''
       mutation {
           updateOrganization(id: "$orgId", data: {name: "$name", description: "$description", isPublic: $isPublic, visibleInSearch: $visibleInSearch}){
@@ -511,10 +512,10 @@ class Queries {
   }
 
   //to register for an event
-  registerForEvent(String eventId) async{
-    String registerForEventMutation = """
+  registerForEvent(String eventId) async {
+    const String registerForEventMutation = """
      mutation registerForEvent(\$eventId: ID!) { 
-      registerForEvent(id: \$eventId})
+      registerForEvent(id: \$eventId)
         {
         _id
         title
@@ -522,19 +523,18 @@ class Queries {
       }
     }
   """;
-    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    AuthController _authController = AuthController();
+    final GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    final AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    final QueryResult _resp = await _client.mutate(MutationOptions(
       documentNode: gql(registerForEventMutation),
       variables: {
-        'eventId': eventId,//Add your variables here
+        'eventId': eventId, //Add your variables here
       },
     ));
-    if(!_resp.loading) {
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
@@ -542,8 +542,11 @@ class Queries {
   }
 
   addEventTask(
-      {String eventId, String title, String description, String deadline}) async{
-    String createTaskMutation = """
+      {String eventId,
+      String title,
+      String description,
+      String deadline}) async {
+    const String createTaskMutation = """
      mutation createTask(\$eventId: ID!, \$title: String!, \$description: String, \$deadline: String) { 
       createTask(eventId: \$eventId, 
         data:{
@@ -556,13 +559,13 @@ class Queries {
       }
     }
   """;
-    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    AuthController _authController = AuthController();
+
+    final GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    final AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    final QueryResult _resp = await _client.mutate(MutationOptions(
       documentNode: gql(createTaskMutation),
       variables: {
         'eventId': eventId,
@@ -571,7 +574,7 @@ class Queries {
         'deadline': deadline, //Add your variables here
       },
     ));
-    if(!_resp.loading) {
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
@@ -608,10 +611,9 @@ class Queries {
 
   //to add the events
   addEvent(
-      {
-        startDate,
-        endDate,
-        organizationId,
+      {startDate,
+      endDate,
+      organizationId,
       title,
       description,
       location,
@@ -621,8 +623,8 @@ class Queries {
       allDay,
       recurrance,
       startTime,
-      endTime}) async{
-    String createEventMutation = """
+      endTime}) async {
+    const String createEventMutation = """
      mutation createEvent( \$organizationId: ID!,
         \$title:String!,
         \$description: String!,
@@ -660,17 +662,16 @@ class Queries {
       }
     }
   """;
-    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    AuthController _authController = AuthController();
+    final GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    final AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    final QueryResult _resp = await _client.mutate(MutationOptions(
       documentNode: gql(createEventMutation),
       variables: {
-        'startDate' : startDate,
-        'endDate' : endDate,
+        'startDate': startDate,
+        'endDate': endDate,
         'organizationId': organizationId,
         'title': title,
         'description': description,
@@ -684,10 +685,11 @@ class Queries {
         'location': location
       },
     ));
-    if(!_resp.loading) {
+
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
-      return _resp.data;
+      return _resp.data as Map<String, dynamic>;
     }
   }
 
@@ -772,10 +774,10 @@ query{
 """;
   }
 
-  createComments (String postId, var text) async {
+  createComments(String postId, var text) async {
     print(postId);
     print(text);
-    String createCommentMutation = """
+    const String createCommentMutation = """
      mutation createComment(\$postId: ID!, \$text: String!) { 
       createComment(postId: \$postId, 
         data:{
@@ -786,35 +788,34 @@ query{
       }
     }
   """;
-    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    AuthController _authController = AuthController();
+    final GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    final AuthController _authController = AuthController();
 
-    dynamic _resp = await _client
-          .mutate(MutationOptions(
-        documentNode: gql(createCommentMutation),
-        variables: {
-          'postId' : postId, //Add your variables here
-          'text' : text
-        },
-      ));
-    if(_resp.exception.toString().substring(16) == accessTokenException)
-      {
-        _authController.getNewToken();
-        createComments(postId, text);
-      }
-    if(!_resp.loading) {
+    final QueryResult _resp = await _client.mutate(MutationOptions(
+      documentNode: gql(createCommentMutation),
+      variables: {
+        'postId': postId, //Add your variables here
+        'text': text
+      },
+    ));
+    if (_resp.exception != null &&
+        _resp.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
+      createComments(postId, text);
+    }
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
     }
   }
 
-  addPost(String text, String organizationId, String title) async{
+  addPost(String text, String organizationId, String title) async {
     print(text);
     print(organizationId);
     print(title);
-    String addPostMutation = """
+    const String addPostMutation = """
      mutation createPost(\$text: String!, \$organizationId: ID!, \$title: String!) { 
       createPost( 
         data:{
@@ -828,30 +829,29 @@ query{
       }
     }
   """;
-    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    AuthController _authController = AuthController();
+    final GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    final AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    final QueryResult _resp = await _client.mutate(MutationOptions(
       documentNode: gql(addPostMutation),
       variables: {
-        'title' : title, //Add your variables here
-        'text' : text,
-        'organizationId' : organizationId
+        'title': title, //Add your variables here
+        'text': text,
+        'organizationId': organizationId
       },
     ));
-    if(!_resp.loading) {
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
     }
   }
 
-  addLike(String postID) async{
+  addLike(String postID) async {
     print(postID);
-    String addLikeMutation = """
+    const String addLikeMutation = """
      mutation likePost(\$postID: ID!) { 
       likePost( id: \$postID,)
       {
@@ -859,28 +859,27 @@ query{
       }
     }
   """;
-    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    AuthController _authController = AuthController();
+    final GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    final AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    final QueryResult _resp = await _client.mutate(MutationOptions(
       documentNode: gql(addLikeMutation),
       variables: {
-        'postID' : postID, //Add your variables here
+        'postID': postID, //Add your variables here
       },
     ));
-    if(!_resp.loading) {
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
     }
   }
 
-  removeLike(String postID) async{
+  removeLike(String postID) async {
     print(postID);
-    String unLikeMutation = """
+    const String unLikeMutation = """
      mutation unlikePost(\$postID: ID!) { 
       unlikePost( id: \$postID,)
       {
@@ -891,19 +890,18 @@ query{
       }
     }
   """;
-    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-    GraphQLClient _client = graphQLConfiguration.authClient();
-    AuthController _authController = AuthController();
+    final GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    final AuthController _authController = AuthController();
     _authController.getNewToken();
 
-    dynamic _resp = await _client
-        .mutate(MutationOptions(
+    final QueryResult _resp = await _client.mutate(MutationOptions(
       documentNode: gql(unLikeMutation),
       variables: {
-        'postID' : postID, //Add your variables here
+        'postID': postID, //Add your variables here
       },
     ));
-    if(!_resp.loading) {
+    if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
       return _resp.data;
