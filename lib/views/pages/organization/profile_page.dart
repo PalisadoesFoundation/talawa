@@ -466,8 +466,8 @@ class _ProfilePageState extends State<ProfilePage> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: const Text("Confirmation"),
-              content:
-                  const Text("Are you sure you want to leave this organization?"),
+              content: const Text(
+                  "Are you sure you want to leave this organization?"),
               actions: [
                 TextButton(
                   onPressed: () {
@@ -492,7 +492,8 @@ class _ProfilePageState extends State<ProfilePage> {
         useRootNavigator: false,
         builder: (_) => CupertinoAlertDialog(
           title: const Text("Confirmation"),
-          content: const Text("Are you sure you want to leave this organization?"),
+          content:
+              const Text("Are you sure you want to leave this organization?"),
           actions: <Widget>[
             TextButton(
               onPressed: () {
