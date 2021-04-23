@@ -1,55 +1,20 @@
----
-###########################
-###########################
-## Linter GitHub Actions ##
-###########################
-###########################
 name: Lint Code Base
+on: [pull_request]
 
-#
-# Documentation:
-# https://help.github.com/en/articles/workflow-syntax-for-github-actions
-#
+ jobs:
+   package-analysis:
 
-#############################
-# Start the job on all push #
-#############################
-on:
-  push:
-    branches-ignore: [master]
-    # Remove the line above to run when pushing to master
-  pull_request:
-    branches: [master]
+     runs-on: ubuntu-latest
 
-###############
-# Set the Job #
-###############
-jobs:
-  build:
-    # Name the Job
-    name: Lint Code Base
-    # Set the agent to run on
-    runs-on: ubuntu-latest
+     steps:
+       - uses: actions/checkout@v2
 
-    ##################
-    # Load all steps #
-    ##################
-    steps:
-      ##########################
-      # Checkout the code base #
-      ##########################
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          # Full git history is needed to get a proper list of changed files within `super-linter`
-          fetch-depth: 0
+       - uses: axel-op/dart-package-analyzer@v3
+         with:
+           # Required:
+           githubToken: ${{ secrets.GITHUB_TOKEN }}
+       - uses: subosito/flutter-action@v1
+         with:
+           channel: 'beta'
 
-      ################################
-      # Run Linter against code base #
-      ################################
-      - name: Lint Code Base
-        uses: github/super-linter@v3
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: master
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       - run: flutter format --set-exit-if-changed . 
