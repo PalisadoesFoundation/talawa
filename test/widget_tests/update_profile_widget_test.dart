@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/organization/update_profile_page.dart';
 
 Widget createProfileUpdateScreen() => MultiProvider(
@@ -22,7 +22,7 @@ Widget createProfileUpdateScreen() => MultiProvider(
             create: (_) => Preferences(),
           ),
         ],
-        child: MaterialApp(
+        child: const MaterialApp(
             home: UpdateProfilePage(
           userDetails: [
             {
@@ -38,18 +38,18 @@ void main() {
     testWidgets("3 TestFormField Exist in Profile Page Update",
         (WidgetTester tester) async {
       await tester.pumpWidget(
-          createProfileUpdateScreen(), Duration(microseconds: 100));
+          createProfileUpdateScreen(), const Duration(microseconds: 100));
 
-      var textField = find.byType(TextFormField);
+      final textField = find.byType(TextFormField);
       expect(textField, findsNWidgets(3));
     });
 
     testWidgets("Flexible Space Bar in Profile Widget",
         (WidgetTester tester) async {
       await tester.pumpWidget(
-          createProfileUpdateScreen(), Duration(microseconds: 100));
+          createProfileUpdateScreen(), const Duration(microseconds: 100));
 
-      var tile = find.byType(ListTile);
+      final tile = find.byType(ListTile);
       expect(tile, findsOneWidget);
     });
   });

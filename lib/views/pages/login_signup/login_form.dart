@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 //pages are called here
 import 'package:provider/provider.dart';
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_login.dart';
@@ -26,17 +26,16 @@ class LoginForm extends StatefulWidget {
 }
 
 class LoginFormState extends State<LoginForm> {
-  /// [TextEditingController]'s for email and password.
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
-  LoginViewModel model = new LoginViewModel();
+  LoginViewModel model = LoginViewModel();
   bool _progressBarState = false;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  Queries _query = Queries();
+  final Queries _query = Queries();
   FToast fToast;
-  Preferences _pref = Preferences();
+  final Preferences _pref = Preferences();
   static String orgURI;
   bool _obscureText = true;
 
@@ -55,10 +54,10 @@ class LoginFormState extends State<LoginForm> {
 
   //function for login user which gets called when sign in is press
   Future loginUser() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    QueryResult result = await _client.mutate(MutationOptions(
+    final GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    final QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.loginUser(model.email, model.password))));
-    bool connectionCheck = await DataConnectionChecker().hasConnection;
+    final bool connectionCheck = await DataConnectionChecker().hasConnection;
     if (!connectionCheck) {
       print('You are not connected to the internet');
       setState(() {
@@ -79,36 +78,49 @@ class LoginFormState extends State<LoginForm> {
       });
       _successToast("All Set!");
       final Token accessToken =
-          new Token(tokenString: result.data['login']['accessToken']);
+          Token(tokenString: result.data['login']['accessToken'].toString());
       await _pref.saveToken(accessToken);
       final Token refreshToken =
-          new Token(tokenString: result.data['login']['refreshToken']);
+          Token(tokenString: result.data['login']['refreshToken'].toString());
       await _pref.saveRefreshToken(refreshToken);
-      final String currentUserId = result.data['login']['user']['_id'];
+      final String currentUserId =
+          result.data['login']['user']['_id'].toString();
       await _pref.saveUserId(currentUserId);
-      final String userFName = result.data['login']['user']['firstName'];
+      final String userFName =
+          result.data['login']['user']['firstName'].toString();
       await _pref.saveUserFName(userFName);
-      final String userLName = result.data['login']['user']['lastName'];
+      final String userLName =
+          result.data['login']['user']['lastName'].toString();
       await _pref.saveUserLName(userLName);
 
-      List organisations = result.data['login']['user']['joinedOrganizations'];
+      final List organisations =
+          result.data['login']['user']['joinedOrganizations'] as List;
       if (organisations.isEmpty) {
         //skip the steps below
       } else {
         //execute the steps below
-        final String currentOrgId =
-            result.data['login']['user']['joinedOrganizations'][0]['_id'];
+        final String currentOrgId = result.data['login']['user']
+                ['joinedOrganizations'][0]['_id']
+            .toString();
         await _pref.saveCurrentOrgId(currentOrgId);
 
-        final String currentOrgImgSrc =
-            result.data['login']['user']['joinedOrganizations'][0]['image'];
+        final String currentOrgImgSrc = result.data['login']['user']
+                ['joinedOrganizations'][0]['image']
+            .toString();
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
 
-        final String currentOrgName =
-            result.data['login']['user']['joinedOrganizations'][0]['name'];
+        final String currentOrgName = result.data['login']['user']
+                ['joinedOrganizations'][0]['name']
+            .toString();
         await _pref.saveCurrentOrgName(currentOrgName);
       }
-      Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context)=>HomePage(openPageIndex: 0,)), (route) => false);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const HomePage(
+                    openPageIndex: 0,
+                  )),
+          (route) => false);
     }
   }
 
@@ -119,69 +131,70 @@ class LoginFormState extends State<LoginForm> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            Text('Login', style: TextStyle(fontSize: 35, color: Colors.white)),
-            SizedBox(
+            const Text('Login',
+                style: TextStyle(fontSize: 35, color: Colors.white)),
+            const SizedBox(
               height: 50,
             ),
             AutofillGroup(
                 child: Column(
               children: <Widget>[
                 TextFormField(
-                  autofillHints: <String>[AutofillHints.email],
+                  autofillHints: const <String>[AutofillHints.email],
                   keyboardType: TextInputType.emailAddress,
                   textAlign: TextAlign.left,
                   controller: _emailController,
                   validator: Validator.validateEmail,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   //Changed text input action to next
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.orange),
+                      borderSide: const BorderSide(color: Colors.orange),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.email,
                       color: Colors.white,
                     ),
                     labelText: "Email",
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: const TextStyle(color: Colors.white),
                     alignLabelWithHint: true,
                     hintText: 'foo@bar.com',
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle: const TextStyle(color: Colors.grey),
                   ),
                   onSaved: (value) {
                     model.email = value;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
-                  autofillHints: <String>[AutofillHints.password],
+                  autofillHints: const <String>[AutofillHints.password],
                   obscureText: _obscureText,
                   textAlign: TextAlign.left,
                   controller: _passwordController,
                   validator: Validator.validatePassword,
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.orange),
+                      borderSide: const BorderSide(color: Colors.orange),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.lock,
                       color: Colors.white,
                     ),
-                    suffixIcon: FlatButton(
+                    suffixIcon: TextButton(
                       onPressed: _toggle,
                       child: Icon(
                         _obscureText ? Icons.visibility_off : Icons.visibility,
@@ -189,11 +202,11 @@ class LoginFormState extends State<LoginForm> {
                       ),
                     ),
                     labelText: "Password",
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: const TextStyle(color: Colors.white),
                     focusColor: UIData.primaryColor,
                     alignLabelWithHint: true,
                     hintText: '**********',
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle: const TextStyle(color: Colors.grey),
                   ),
                   onSaved: (value) {
                     model.password = value;
@@ -201,32 +214,39 @@ class LoginFormState extends State<LoginForm> {
                 ),
               ],
             )),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
               width: double.infinity,
-              child: RaisedButton(
-                  padding: EdgeInsets.all(12.0),
-                  shape: StadiumBorder(),
-                  child: _progressBarState
-                      ? const CircularProgressIndicator()
-                      : Text(
-                          "SIGN IN",
-                        ),
-                  color: Colors.white,
-                  onPressed: () async {
-                    FocusScope.of(context).unfocus();
-                    //checks to see if all the fields have been validated then authenticate a user
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      loginUser();
-                      setState(() {
-                        toggleProgressBarState();
-                      });
-                    }
-                  }),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                      const EdgeInsets.all(12.0)),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                      const StadiumBorder()),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                ),
+                onPressed: () async {
+                  FocusScope.of(context).unfocus();
+                  //checks to see if all the fields have been validated then authenticate a user
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    loginUser();
+                    setState(() {
+                      toggleProgressBarState();
+                    });
+                  }
+                },
+                child: _progressBarState
+                    ? const CircularProgressIndicator()
+                    : const Text(
+                        "SIGN IN",
+                      ),
+              ),
             ),
           ],
         ));
@@ -234,7 +254,7 @@ class LoginFormState extends State<LoginForm> {
 
   //the method called when the result is success
   _successToast(String msg) {
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -251,13 +271,13 @@ class LoginFormState extends State<LoginForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 
   //the method called when the result is an exception
   _exceptionToast(String msg) {
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -278,7 +298,7 @@ class LoginFormState extends State<LoginForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 5),
+      toastDuration: const Duration(seconds: 5),
     );
   }
 

@@ -47,10 +47,11 @@ class UIData {
   static const String quitoBackground = "$imageDir/quitoBackground.jpg";
 
   //gneric
-  static const String coming_soon = "Coming Soon";
+  static const String comingsoon = "Coming Soon";
 
+  // ignore: constant_identifier_names
   static const MaterialColor ui_kit_color = Colors.grey;
-  static const LightGrey = Color.fromRGBO(242, 242, 242, 1);
+  static const lightGrey = Color.fromRGBO(242, 242, 242, 1);
 
   // static const Color quitoThemeColor = MaterialColor(0xFF7e1946, {50:Color.fromRGBO(126,25,70, .1),
   //   100:Color.fromRGBO(126,25,70, .2),
@@ -79,10 +80,10 @@ class UIData {
   ];
 
   //randomcolor
-  static final Random _random = new Random();
+  static final Random _random = Random();
 
   /// Returns a random color.
   static Color next() {
-    return new Color(0xFF000000 + _random.nextInt(0x00FFFFFF));
+    return Color(0xFF000000 + _random.nextInt(0x00FFFFFF));
   }
 }
