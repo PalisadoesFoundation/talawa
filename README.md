@@ -16,7 +16,7 @@ Core features include:
  4. Recurring meetings
  5. Facilities registrations
 
- ``talawa`` is based on the original ``quito`` code created by the [Palisadoes Foundation][pfd] as part of its annual Calico Challenge program. Calico provides paid summer internships for  Jamaican university students to work on selected open source projects. They are mentored by software professionals and receive stipends based on the completion of predefined milestones. Calico was started in 2015. Visit [The Palisadoes Foundation's website](http://www.palisadoes.org/) for more details on its origin and activities.
+ ``talawa`` is based on the original ``quito`` code created by the [Palisadoes Foundation](http://www.palisadoes.org) as part of its annual Calico Challenge program. Calico provides paid summer internships for  Jamaican university students to work on selected open source projects. They are mentored by software professionals and receive stipends based on the completion of predefined milestones. Calico was started in 2015. Visit [The Palisadoes Foundation's website](http://www.palisadoes.org/) for more details on its origin and activities.
 
 # Talawa Components
 
@@ -29,8 +29,8 @@ Core features include:
 
 # Documentation
  - The talawa documentation can be found [here](https://palisadoesfoundation.github.io/talawa-docs/).
- - Want to contribute? Look at [CONTRIBUTING.md][link] to get started.
- - Visit the [Talawa GitHub][repo] to see the code.
+ - Want to contribute? Look at [CONTRIBUTING.md](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md) to get started.
+ - Visit the [Talawa GitHub](https://github.com/PalisadoesFoundation/talawa) to see the code.
  
 # Installation for Developers
 
@@ -39,8 +39,8 @@ Core features include:
 You'll need to setup the IDE and mobile device emulator on your local system, and have access to a system running the Talawa API which the mobile needs to access to operate properly.
 
 1. **Development Environment**: You'll need to have the following installed:
-    1. [Flutter SDK][fsdk]
-    1. [Android Studio][astudio]
+    1. [Flutter SDK](https://flutter.dev/docs/get-started/install)
+    1. [Android Studio](https://developer.android.com/studio)
 1. **API Environment**: 
     1. Check the [Talawa API repository](https://github.com/PalisadoesFoundation/talawa-api) for information on how to setup the API on your local machine or a machine under your legitimate control. There is a section in the README.md file that discusses installation.
     2. We also have a test environment if you are not inclined to setup or customize your own API server. Information about this can be found in the [Talawa documentation site](https://palisadoesfoundation.github.io/talawa-docs/)
@@ -57,11 +57,3 @@ You'll need to setup the IDE and mobile device emulator on your local system, an
     $ flutter pub get
     ```
 1. Start developing!
-
-# Other Important LInks
- 
-[repo]: <https://github.com/PalisadoesFoundation/talawa>
-[pfd]: <http://www.palisadoes.org>
-[fsdk]: <https://flutter.dev/docs/get-started/install>
-[astudio]: <https://developer.android.com/studio>
-[link]:<https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md>
