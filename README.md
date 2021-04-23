@@ -34,6 +34,8 @@ Core features include:
  
 # Installation for Developers
 
+You can test talawa in your own development environment. This section shows you how.
+
 ## Prerequisites
 
 You'll need to setup the IDE and mobile device emulator on your local system, and have access to a system running the Talawa API which the mobile needs to access to operate properly.
@@ -46,6 +48,8 @@ You'll need to setup the IDE and mobile device emulator on your local system, an
     2. We also have a test environment if you are not inclined to setup or customize your own API server. Information about this can be found in the [Talawa documentation site](https://palisadoesfoundation.github.io/talawa-docs/)
 
 ## Command Line Steps
+
+We have tried to make the process simple. Here's what you need to do.
 
 1. Clone and change into the project.
     ```sh
