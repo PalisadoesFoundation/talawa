@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/services/Queries.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -18,8 +18,9 @@ import 'package:talawa/views/pages/_pages.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CreateOrganization extends StatefulWidget {
+  const CreateOrganization({this.isFromProfile = false});
   final bool isFromProfile;
-  CreateOrganization({this.isFromProfile = false});
+
   @override
   _CreateOrganizationState createState() => _CreateOrganizationState();
 }
@@ -29,9 +30,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   final orgNameController = TextEditingController();
   final orgDescController = TextEditingController();
   final orgMemberDescController = TextEditingController();
-  Queries _queries = Queries();
+  final Queries _queries = Queries();
   bool _progressBarState = false;
-  var _validate = AutovalidateMode.disabled;
+  final _validate = AutovalidateMode.disabled;
   final _formKey = GlobalKey<FormState>();
   int radioValue = -1;
   int radioValue1 = -1;
@@ -39,7 +40,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   bool isVisible = true;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  AuthController _authController = AuthController();
+  final AuthController _authController = AuthController();
   File _image;
 
   @override
@@ -55,7 +56,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   createOrg() async {
     //this is the function which will be called when the organization is created
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
     orgNameController.text =
         orgNameController.text.trim().replaceAll('\n', ' ');
     orgDescController.text =
@@ -63,16 +64,19 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     orgMemberDescController.text =
         orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final img = await multipartFileFrom(_image);
-    orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
-    orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
-    orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
-    QueryResult result = await _client.mutate(MutationOptions(
+    orgNameController.text =
+        orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text =
+        orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text =
+        orgMemberDescController.text.trim().replaceAll('\n', ' ');
+    final QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrg(
         orgNameController.text,
         orgDescController.text,
         orgMemberDescController.text,
-        isPublic,
-        isVisible,
+        isPublic: isPublic,
+        visibleInSearch: isVisible,
       )),
       variables: {
         'file': img,
@@ -102,7 +106,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
         Navigator.pop(context);
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => HomePage(
+            builder: (context) => const HomePage(
                   openPageIndex: 2,
                 )));
       }
@@ -111,20 +115,20 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   createOrgWithoutImg() async {
     //the function is called when we are creating the organization without the display picture
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
     orgNameController.text =
         orgNameController.text.trim().replaceAll('\n', ' ');
     orgDescController.text =
         orgDescController.text.trim().replaceAll('\n', ' ');
     orgMemberDescController.text =
         orgMemberDescController.text.trim().replaceAll('\n', ' ');
-    QueryResult result = await _client.mutate(MutationOptions(
+    final QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_queries.createOrgWithoutImg(
         orgNameController.text,
         orgDescController.text,
         orgMemberDescController.text,
-        isPublic,
-        isVisible,
+        isPublic: isPublic,
+        visibleInSearch: isVisible,
       )),
     ));
 
@@ -150,7 +154,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
         Navigator.pop(context);
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => HomePage(
+            builder: (context) => const HomePage(
                   openPageIndex: 2,
                 )));
       }
@@ -159,8 +163,10 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   _imgFromCamera() async {
     //this is the function when the user want to capture the image from the camera
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
+    final PickedFile pickedImage = await ImagePicker()
+        .getImage(source: ImageSource.camera, imageQuality: 50);
+
+    final File image = File(pickedImage.path);
 
     setState(() {
       _image = image;
@@ -169,7 +175,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   _imgFromGallery() async {
     //this is the function when the user want to take the picture from the gallery
-    File image = File(
+    final File image = File(
         (await FilePicker.platform.pickFiles(type: FileType.image))
             .files
             .first
@@ -184,7 +190,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -194,12 +200,12 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       body: Container(
         color: Colors.white,
         child: SingleChildScrollView(
-          padding: EdgeInsets.only(bottom: 10.0),
+          padding: const EdgeInsets.only(bottom: 10.0),
           scrollDirection: Axis.vertical,
           child: Column(
             children: <Widget>[
               addImage(),
-              Text('Upload Organization Image',
+              const Text("Upload Organization Image",
                   style: TextStyle(fontSize: 16, color: Colors.black)),
               Form(
                 key: _formKey,
@@ -208,7 +214,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                   padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                   child: Column(
                     children: <Widget>[
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       AutofillGroup(
@@ -219,7 +225,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(40)
                             ],
-                            autofillHints: <String>[
+                            autofillHints: const <String>[
                               AutofillHints.organizationName
                             ],
                             validator: (value) =>
@@ -227,98 +233,99 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             textInputAction: TextInputAction.next,
                             textAlign: TextAlign.left,
                             textCapitalization: TextCapitalization.words,
-                            style: TextStyle(color: Colors.black),
+                            style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: UIData.secondaryColor),
+                                  borderSide: const BorderSide(
+                                      color: UIData.secondaryColor),
                                   borderRadius: BorderRadius.circular(20.0)),
-                              prefixIcon: Icon(
+                              prefixIcon: const Icon(
                                 Icons.group,
                                 color: UIData.secondaryColor,
                               ),
                               labelText: "Organization Name",
-                              labelStyle: TextStyle(color: Colors.black),
+                              labelStyle: const TextStyle(color: Colors.black),
                               alignLabelWithHint: true,
                               hintText: 'My Organization',
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                             ),
                             controller: orgNameController,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           TextFormField(
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(5000),
                             ],
-                            autofillHints: <String>[AutofillHints.impp],
+                            autofillHints: const <String>[AutofillHints.impp],
                             keyboardType: TextInputType.multiline,
                             maxLines: null,
                             textCapitalization: TextCapitalization.words,
                             validator: (value) =>
                                 Validator.validateOrgDesc(value),
                             textAlign: TextAlign.left,
-                            style: TextStyle(color: Colors.black),
+                            style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: UIData.secondaryColor),
+                                  borderSide: const BorderSide(
+                                      color: UIData.secondaryColor),
                                   borderRadius: BorderRadius.circular(20.0)),
-                              prefixIcon: Icon(Icons.note,
+                              prefixIcon: const Icon(Icons.note,
                                   color: UIData.secondaryColor),
                               labelText: "Organization Description",
-                              labelStyle: TextStyle(color: Colors.black),
+                              labelStyle: const TextStyle(color: Colors.black),
                               alignLabelWithHint: true,
                               hintText: 'My Description',
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                             ),
                             controller: orgDescController,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           TextFormField(
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(5000)
                             ],
-                            autofillHints: <String>[AutofillHints.impp],
+                            autofillHints: const <String>[AutofillHints.impp],
                             keyboardType: TextInputType.multiline,
                             maxLines: null,
                             textCapitalization: TextCapitalization.words,
                             validator: (value) =>
                                 Validator.validateOrgAttendeesDesc(value),
                             textAlign: TextAlign.left,
-                            style: TextStyle(color: Colors.black),
-                            decoration: new InputDecoration(
-                              border: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(20.0),
-                                  borderSide: new BorderSide(
+                            style: const TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  borderSide: const BorderSide(
                                       color: UIData.secondaryColor)),
-                              prefixIcon: Icon(Icons.note,
+                              prefixIcon: const Icon(Icons.note,
                                   color: UIData.secondaryColor),
                               labelText: "Member Description",
-                              labelStyle: TextStyle(color: Colors.black),
+                              labelStyle: const TextStyle(color: Colors.black),
                               alignLabelWithHint: true,
                               hintText: 'Member Description',
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: const TextStyle(color: Colors.grey),
                             ),
                             controller: orgMemberDescController,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                         ],
                       )),
-                      Text('Do you want your organization to be public?',
+                      const Text('Do you want your organization to be public?',
                           style: TextStyle(fontSize: 16, color: Colors.black)),
                       RadioListTile(
                         groupValue: radioValue,
-                        title: Text('Yes'),
+                        title: const Text('Yes'),
                         value: 0,
                         activeColor: UIData.secondaryColor,
-                        onChanged: (val) {
+                        onChanged: (int val) {
                           FocusScope.of(context).unfocus();
+                          // ignore: void_checks
                           setState(() {
                             radioValue = val;
                             if (radioValue == 0) {
@@ -330,10 +337,11 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                       RadioListTile(
                         activeColor: UIData.secondaryColor,
                         groupValue: radioValue,
-                        title: Text('No'),
+                        title: const Text('No'),
                         value: 1,
-                        onChanged: (val) {
+                        onChanged: (int val) {
                           FocusScope.of(context).unfocus();
+                          // ignore: void_checks
                           setState(() {
                             radioValue = val;
                             if (radioValue == 1) {
@@ -343,16 +351,17 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                           });
                         },
                       ),
-                      Text(
+                      const Text(
                           'Do you want others to be able to find your organization from the search page?',
                           style: TextStyle(fontSize: 16, color: Colors.black)),
                       RadioListTile(
                         activeColor: UIData.secondaryColor,
                         groupValue: radioValue1,
-                        title: Text('Yes'),
+                        title: const Text('Yes'),
                         value: 0,
-                        onChanged: (val) {
+                        onChanged: (int val) {
                           FocusScope.of(context).unfocus();
+                          // ignore: void_checks
                           setState(() {
                             radioValue1 = val;
                             if (radioValue1 == 0) {
@@ -364,10 +373,11 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                       RadioListTile(
                         activeColor: UIData.secondaryColor,
                         groupValue: radioValue1,
-                        title: Text('No'),
+                        title: const Text('No'),
                         value: 1,
-                        onChanged: (val) {
+                        onChanged: (int val) {
                           FocusScope.of(context).unfocus();
+                          // ignore: void_checks
                           setState(() {
                             radioValue1 = val;
                             if (radioValue1 == 1) {
@@ -378,7 +388,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         },
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             vertical: 20.0, horizontal: 30.0),
                         width: double.infinity,
                         child: ElevatedButton(
@@ -387,6 +397,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
+                          // ignore: sort_child_properties_last
                           child: _progressBarState
                               ? const Center(
                                   child: SizedBox(
@@ -399,7 +410,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                         strokeWidth: 3,
                                         backgroundColor: Colors.black,
                                       )))
-                              : Text(
+                              : const Text(
                                   "CREATE ORGANIZATION",
                                   style: TextStyle(color: Colors.white),
                                 ),
@@ -443,7 +454,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     //function which is being called when the image is being add
     return Column(
       children: <Widget>[
-        SizedBox(
+        const SizedBox(
           height: 32,
         ),
         Center(
@@ -476,41 +487,39 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     );
   }
 
-  void _showPicker(context) {
+  void _showPicker(BuildContext context) {
     //this is called when the image is clicked and it shows the options that can be used to take the picture
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
           return SafeArea(
-            child: Container(
-              child: Wrap(
-                children: <Widget>[
-                  ListTile(
-                    //taking picture from the camera
-                    leading: Icon(Icons.camera_alt_outlined),
-                    title: Text('Camera'),
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                  //taking picture from the camera
+                  leading: const Icon(Icons.camera_alt_outlined),
+                  title: const Text('Camera'),
+                  onTap: () {
+                    _imgFromCamera();
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                    //taking picture from the library
+                    leading: const Icon(Icons.photo_library),
+                    title: const Text('Photo Library'),
                     onTap: () {
-                      _imgFromCamera();
+                      _imgFromGallery();
                       Navigator.of(context).pop();
-                    },
-                  ),
-                  ListTile(
-                      //taking picture from the library
-                      leading: Icon(Icons.photo_library),
-                      title: Text('Photo Library'),
-                      onTap: () {
-                        _imgFromGallery();
-                        Navigator.of(context).pop();
-                      }),
-                ],
-              ),
+                    }),
+              ],
             ),
           );
         });
   }
 
-  _successToast(String msg) {
-    Widget toast = Container(
+  void _successToast(String msg) {
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -527,12 +536,12 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 1),
+      toastDuration: const Duration(seconds: 1),
     );
   }
 
-  _exceptionToast(String msg) {
-    Widget toast = Container(
+  void _exceptionToast(String msg) {
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -549,7 +558,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 1),
+      toastDuration: const Duration(seconds: 1),
     );
   }
 }

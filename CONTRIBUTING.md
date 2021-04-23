@@ -74,11 +74,19 @@ core
 
 ```
 // Inside widget class
--- variables (private if possible)
+-- constructor
+-- explicitly defined variables using its type (private if possible)
 -- build method (Inside build(), use sub methods like _buildAppBar()
 -- sub-build methods
 -- other methods
 -- utility methods
+```
+
+#### Other Information
+
+```
+-- file should be named using lowercase and underscore
+-- const and final keywords should be specified along with the widget
 ```
 
 #### Commit guidelines

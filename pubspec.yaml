@@ -17,47 +17,42 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
-  font_awesome_flutter:
-  http: ^0.12.0+1
-  flutter_masked_text: ^0.8.0
-  flutter_svg: ^0.20.0-nullsafety.3
-  datetime_picker_formfield: ^1.0.0
-  grouped_buttons: ^1.0.4
-  provider: ^4.0.1
-  shared_preferences: any
   adhara_socket_io: ^0.4.1
-  sqflite: ^1.3.0
-  graphql_flutter: ^3.0.1
-  email_validator: ^1.0.4
-  fluttertoast: ^7.1.8
-  persistent_bottom_nav_bar: ^3.2.0
-  file_picker: any
-  flutter_secure_storage: any
-  timeline_list: ^0.0.5
-  flutter_sticky_header: ^0.4.5
-  filter_list: ^0.0.4
-  table_calendar: ^2.2.3
   carousel_slider: ^2.2.1
-  get_it: ^4.0.4
-  image_picker: any
-  flutter_password_strength: ^0.1.6
-  intl: ^0.17.0
-  flutter_pw_validator: ^1.2.1
+  cupertino_icons: ^0.1.2
   data_connection_checker: ^0.3.4
-  progress_dialog: ^1.2.4
-  package_info: ^2.0.0
-
-
-
-
-
+  datetime_picker_formfield: ^1.0.0
+  email_validator: ^1.0.4
+  file_picker: any
+  filter_list: ^0.0.4
+  flutter:
+    sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_masked_text: ^0.8.0
+  flutter_password_strength: ^0.1.6
+  flutter_pw_validator: ^1.2.1
+  flutter_secure_storage: any
+  flutter_sticky_header: ^0.4.5
+  flutter_svg: ^0.20.0-nullsafety.3
+  fluttertoast: ^7.1.8
+  font_awesome_flutter:
+  get_it: ^4.0.4
+  graphql_flutter: ^3.0.1
+  grouped_buttons: ^1.0.4
+  http: ^0.12.0+1
+  image_picker: any
+  intl: ^0.17.0
+  package_info: ^2.0.0
+  persistent_bottom_nav_bar: ^3.2.0
+  progress_dialog: ^1.2.4
+  provider: ^4.0.1
+  shared_preferences: any
+  sqflite: ^1.3.0
+  table_calendar: ^2.2.3
+  timeline_list: ^0.0.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -65,6 +60,7 @@ dependencies:
 dev_dependencies:
   flutter_driver:
     sdk: flutter
+  lint: ^1.5.3
   random_pk:
 #flutter_launcher_icons: "^0.8.0"
 

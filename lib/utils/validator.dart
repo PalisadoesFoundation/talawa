@@ -2,21 +2,21 @@ import 'package:email_validator/email_validator.dart';
 
 class Validator {
   static String validateURL(String value) {
-    if (value.length == 0) {
+    if (value.isEmpty) {
       return 'Please verify URL first'.toUpperCase();
     }
     return null;
   }
 
   static String validateFirstName(String value) {
-    if (value.length == 0) {
+    if (value.isEmpty) {
       return 'Firstname must not be left blank.';
     }
     return null;
   }
 
   static String validateLastName(String value) {
-    if (value.length == 0) {
+    if (value.isEmpty) {
       return 'Lastname must not be left blank.';
     }
     return null;
@@ -54,8 +54,9 @@ class Validator {
     if (password.isEmpty) {
       return "Password must not be left blank";
     }
-    String pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~.]).{8,}$';
-    RegExp regExp = new RegExp(pattern);
+    const String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~.]).{8,}$';
+    final RegExp regExp = RegExp(pattern);
     if (!regExp.hasMatch(password)) {
       return "Invalid Password";
     }
@@ -94,9 +95,9 @@ class Validator {
   }
 
   static String validateOrgName(String value) {
-    String validatingValue = value.replaceAll(new RegExp(r"\s+"), "");
+    final String validatingValue = value.replaceAll(RegExp(r"\s+"), "");
     print(validatingValue.length);
-    if (validatingValue.length == 0) {
+    if (validatingValue.isEmpty) {
       return 'Organization Description must not be left blank.';
     }
     if (value.length > 40) {
@@ -106,9 +107,9 @@ class Validator {
   }
 
   static String validateOrgDesc(String value) {
-    String validatingValue = value.replaceAll(new RegExp(r"\s+"), "");
+    final String validatingValue = value.replaceAll(RegExp(r"\s+"), "");
     print(validatingValue.length);
-    if (validatingValue.length == 0) {
+    if (validatingValue.isEmpty) {
       return 'Organization Description must not be left blank.';
     }
     if (value.length > 5000) {
@@ -118,9 +119,9 @@ class Validator {
   }
 
   static String validateOrgAttendeesDesc(String value) {
-    String validatingValue = value.replaceAll(new RegExp(r"\s+"), "");
+    final String validatingValue = value.replaceAll(RegExp(r"\s+"), "");
     print(validatingValue.length);
-    if (validatingValue.length == 0) {
+    if (validatingValue.isEmpty) {
       return 'Attendees Description must not be left blank.';
     }
     if (value.length > 5000) {
