@@ -515,7 +515,7 @@ class Queries {
   registerForEvent(String eventId) async {
     const String registerForEventMutation = """
      mutation registerForEvent(\$eventId: ID!) { 
-      registerForEvent(id: \$eventId})
+      registerForEvent(id: \$eventId)
         {
         _id
         title
@@ -799,7 +799,8 @@ query{
         'text': text
       },
     ));
-    if (_resp.exception.toString().substring(16) == accessTokenException) {
+    if (_resp.exception != null &&
+        _resp.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       createComments(postId, text);
     }

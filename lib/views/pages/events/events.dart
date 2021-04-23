@@ -577,13 +577,18 @@ class _EventsState extends State<Events> {
 
   Widget eventFab() {
     return FloatingActionButton(
-        backgroundColor: UIData.secondaryColor,
-        onPressed: () {
-          pushNewScreen(
-            context,
-            withNavBar: true,
-            screen: const AddEvent(),
-          );
-        });
+      backgroundColor: UIData.secondaryColor,
+      onPressed: () {
+        pushNewScreen(
+          context,
+          withNavBar: true,
+          screen: const AddEvent(),
+        );
+      },
+      child: const Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
+    );
   }
 }
