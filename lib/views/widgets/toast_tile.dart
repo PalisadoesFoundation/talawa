@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ToastTile extends StatelessWidget {
+  const ToastTile({this.success, this.msg});
+
   final bool success;
   final String msg;
-  ToastTile({this.success, this.msg});
+  
   @override
   Widget build(BuildContext context) {
     return Container(

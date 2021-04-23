@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 
 Widget createLoginPageScreen() => MultiProvider(
@@ -32,10 +32,11 @@ Widget createLoginPageScreen() => MultiProvider(
 
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized();
+      TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
 
   // Function for ignoring overflow errors.
-  Function onErrorIgnoreOverflowErrors = (
+  // ignore: prefer_function_declarations_over_variables
+  final void Function(FlutterErrorDetails) onErrorIgnoreOverflowErrors = (
     FlutterErrorDetails details, {
     bool forceReport = false,
   }) {
@@ -45,16 +46,18 @@ void main() {
     bool ifIsOverflowError = false;
 
     // Detect overflow error.
-    var exception = details.exception;
-    if (exception is FlutterError)
+    final exception = details.exception;
+    if (exception is FlutterError) {
       ifIsOverflowError = !exception.diagnostics.any(
         (e) => e.value.toString().startsWith(
               "A RenderFlex overflowed by",
             ),
       );
+    }
 
     // Ignore if is overflow error.
     if (ifIsOverflowError) {
+      // ignore: avoid_print
       print("Over flow error");
     }
 
@@ -79,7 +82,7 @@ void main() {
 
     testWidgets("Testing overflow of LoginPage in a mobile screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(440, 800);
+      binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createLoginPageScreen());
@@ -90,7 +93,7 @@ void main() {
 
     testWidgets("Testing overflow of LoginPage in a tablet screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(1024, 768);
+      binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createLoginPageScreen());
@@ -109,7 +112,7 @@ void main() {
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the create account button.
-      var createAccountButton = find.text("Create an Account");
+      final createAccountButton = find.text("Create an Account");
 
       // Tap on the createAccountButton.
       await tester.tap(createAccountButton);
@@ -128,7 +131,7 @@ void main() {
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the login button.
-      var loginButton = find.text("Login");
+      final loginButton = find.text("Login");
 
       // Tap on the login button
       await tester.tap(loginButton);
@@ -149,7 +152,7 @@ void main() {
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the create account button.
-      var createAccountButton = find.text("Create an Account");
+      final createAccountButton = find.text("Create an Account");
 
       /// Enter [calico.palisadoes.org] in [TextFormField].
       await tester.enterText(
@@ -164,7 +167,7 @@ void main() {
       );
 
       // Get the Set URL Button.
-      var setURLButton = find.text("Set URL");
+      final setURLButton = find.text("Set URL");
 
       // Tap on Set URL Button.
       await tester.tap(setURLButton);
@@ -198,7 +201,7 @@ void main() {
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the create account button.
-      var loginButton = find.text("Login");
+      final loginButton = find.text("Login");
 
       /// Enter [calico.palisadoes.org] in [TextFormField].
       await tester.enterText(
@@ -213,7 +216,7 @@ void main() {
       );
 
       // Get the Set URL Button.
-      var setURLButton = find.text("Set URL");
+      final setURLButton = find.text("Set URL");
 
       // Tap on Set URL Button.
       await tester.tap(setURLButton);

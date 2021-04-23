@@ -8,11 +8,11 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
 //the pages are called here
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/utils/apiFunctions.dart';
+import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 
@@ -20,14 +20,15 @@ const String newLineKey = "@123TALAWA321@";
 
 // ignore: must_be_immutable
 class NewsArticle extends StatefulWidget {
-  Map post;
   NewsArticle({Key key, @required this.post}) : super(key: key);
+  Map post;
 
   @override
   _NewsArticleState createState() => _NewsArticleState();
 }
 
 class _NewsArticleState extends State<NewsArticle> {
+  @override
   void setState(fn) {
     if (mounted) {
       super.setState(fn);
@@ -43,7 +44,7 @@ class _NewsArticleState extends State<NewsArticle> {
   bool moreComments = false;
   bool isCommentAdded = false;
 
-  Queries _query = Queries();
+  final Queries _query = Queries();
   List userDetails = [];
   String userID;
   String orgName;
@@ -54,14 +55,14 @@ class _NewsArticleState extends State<NewsArticle> {
     super.initState();
     commentController = TextEditingController(
         text: Provider.of<CommentHandler>(context, listen: false)
-            .comment(widget.post["_id"]));
+            .comment(widget.post["_id"].toString()));
     fetchUserDetails();
     commentController.addListener(_notifyData);
   }
 
   void _notifyData() {
     Provider.of<CommentHandler>(context, listen: false)
-        .commentEntry(widget.post["_id"], commentController.text);
+        .commentEntry(widget.post["_id"].toString(), commentController.text);
   }
 
   @override
@@ -72,15 +73,15 @@ class _NewsArticleState extends State<NewsArticle> {
 
   Future fetchUserDetails() async {
     userID = await preferences.getUserId();
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    QueryResult result = await _client.query(QueryOptions(
+    final GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    final QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
     } else if (!result.hasException) {
       //print(result);
       setState(() {
-        userDetails = result.data['users'];
+        userDetails = result.data['users'] as List;
       });
       //print(userDetails);
     }
@@ -99,7 +100,7 @@ class _NewsArticleState extends State<NewsArticle> {
             radius: 30,
             backgroundImage: NetworkImage(
                 Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                    userDetails[0]['image']))
+                    userDetails[0]['image'].toString()))
         : CircleAvatar(
             radius: 45.0,
             backgroundColor: Colors.white,
@@ -112,7 +113,7 @@ class _NewsArticleState extends State<NewsArticle> {
                         .toString()
                         .substring(0, 1)
                         .toUpperCase(),
-                style: TextStyle(
+                style: const TextStyle(
                   color: UIData.primaryColor,
                 )),
           );
@@ -120,9 +121,9 @@ class _NewsArticleState extends State<NewsArticle> {
 
   //this method helps us to get the comments of the post
   Future getPostComments() async {
-    String mutation = Queries().getPostsComments(widget.post['_id']);
-    Map result = await apiFunctions.gqlmutation(mutation);
-    comments = result == null ? [] : result['commentsByPost'].reversed.toList();
+    final String mutation = Queries().getPostsComments(widget.post['_id'].toString());
+    final Map result = await apiFunctions.gqlmutation(mutation) as Map;
+    comments = result == null ? [] : (result['commentsByPost'] as List).reversed.toList();
   }
 
   //this method helps us to create any comments we are willing to
@@ -132,8 +133,8 @@ class _NewsArticleState extends State<NewsArticle> {
     if (commentController.text.isNotEmpty) {
       Fluttertoast.showToast(msg: "Adding Comment...");
       queryText = commentController.text.replaceAll("\n", newLineKey).trim();
-      Map result =
-          await Queries().createComments(widget.post['_id'], queryText);
+      final Map result =
+          await Queries().createComments(widget.post['_id'].toString(), queryText) as Map;
       if (result == null) {
         Fluttertoast.showToast(
           msg: "Sorry, this comment could not be posted.",
@@ -155,9 +156,9 @@ class _NewsArticleState extends State<NewsArticle> {
 
   //get time of comment
   String commentTime(int index) {
-    Duration commentTimeDuration = DateTime.now().difference(
+    final Duration commentTimeDuration = DateTime.now().difference(
       DateTime.fromMillisecondsSinceEpoch(
-          int.parse(comments[index]['createdAt'])),
+          int.parse(comments[index]['createdAt'].toString())),
     );
 
     String timeText = '';
@@ -191,7 +192,7 @@ class _NewsArticleState extends State<NewsArticle> {
       }
       return commentTimeDuration.inDays.toString() + timeText;
     } else if (commentTimeDuration.inDays < 52) {
-      int weeks = commentTimeDuration.inDays ~/ 7;
+      final int weeks = commentTimeDuration.inDays ~/ 7;
       if (weeks == 1) {
         timeText = ' week ago';
       } else {
@@ -199,7 +200,7 @@ class _NewsArticleState extends State<NewsArticle> {
       }
       return weeks.toString() + timeText;
     } else {
-      int years = commentTimeDuration.inDays ~/ 365;
+      final int years = commentTimeDuration.inDays ~/ 365;
       if (years == 1) {
         timeText = ' year ago';
       } else {
@@ -210,6 +211,7 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   String addNewline(String rawComment) {
+    // ignore: parameter_assignments
     rawComment = rawComment.replaceAll(newLineKey, "\n");
     return rawComment;
   }
@@ -228,13 +230,13 @@ class _NewsArticleState extends State<NewsArticle> {
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             leading: GestureDetector(
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
               onTap: () {
                 Navigator.of(context).pop(isCommentAdded);
               },
+              child: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
             ),
           ),
           resizeToAvoidBottomInset: false,
@@ -246,10 +248,10 @@ class _NewsArticleState extends State<NewsArticle> {
                   children: [
                     SizedBox.expand(
                       child: FittedBox(
+                        fit: BoxFit.fill,
                         child: Image.asset(
                           UIData.shoppingImage,
                         ),
-                        fit: BoxFit.fill,
                       ),
                     ),
                     Align(
@@ -258,7 +260,7 @@ class _NewsArticleState extends State<NewsArticle> {
                         padding: const EdgeInsets.all(15.0),
                         child: Text(
                           widget.post['title'].toString(),
-                          style: TextStyle(color: Colors.white, fontSize: 30.0),
+                          style: const TextStyle(color: Colors.white, fontSize: 30.0),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -290,19 +292,19 @@ class _NewsArticleState extends State<NewsArticle> {
                       child: ListTile(
                         leading: userDetails.isEmpty ? null : _profileImage(),
                         title: Container(
-                          constraints: BoxConstraints(
+                          constraints: const BoxConstraints(
                             maxHeight: double.infinity,
                             // minHeight: 20,
                           ),
                           child: TextFormField(
-                            key: Key("leaveCommentField"),
+                            key: const Key("leaveCommentField"),
                             textInputAction: TextInputAction.newline,
                             keyboardType: TextInputType.multiline,
                             validator: (String value) {
                               if (value.length > 500) {
                                 return "Comment cannot be longer than 500 letters";
                               }
-                              if (value.length == 0) {
+                              if (value.isEmpty) {
                                 return "Comment cannot be empty";
                               }
                               return null;
@@ -315,9 +317,9 @@ class _NewsArticleState extends State<NewsArticle> {
                             maxLines: null,
                             decoration: InputDecoration(
                               suffixIcon: IconButton(
-                                key: Key("leaveCommentButton"),
+                                key: const Key("leaveCommentButton"),
                                 color: Colors.grey,
-                                icon: Icon(Icons.send),
+                                icon: const Icon(Icons.send),
                                 onPressed: () {
                                   print(commentController.text);
                                   createComment();
@@ -326,7 +328,7 @@ class _NewsArticleState extends State<NewsArticle> {
                               hintText: 'Leave a Comment...',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20.0),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.teal,
                                 ),
                               ),
@@ -364,7 +366,7 @@ class _NewsArticleState extends State<NewsArticle> {
             showLoadComments = true;
           });
         },
-        child: Text(
+        child: const Text(
           'Load Comments',
           style: TextStyle(color: Colors.black54),
         ));
@@ -389,34 +391,32 @@ class _NewsArticleState extends State<NewsArticle> {
     return Column(
       children: [
         ListTile(
-          key: ValueKey('commentIcon'),
-          leading: Icon(Icons.chat),
-          title: Text(comments.length.toString() + '  Comments'),
+          key: const ValueKey('commentIcon'),
+          leading: const Icon(Icons.chat),
+          title: Text('${comments.length}  Comments'),
         ),
         Flexible(
           child: ListView.builder(
               shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               itemCount: lenthOfCommentList,
               itemBuilder: (context, index) {
                 return ListTile(
-                  leading: CircleAvatar(
+                  leading: const CircleAvatar(
+                    backgroundColor: UIData.secondaryColor,
                     child: Icon(
                       Icons.person,
                       color: Colors.white10,
                     ),
-                    backgroundColor: UIData.secondaryColor,
                   ),
                   title: Text(
-                    comments[index]['text'],
+                    comments[index]['text'].toString(),
                   ),
                   subtitle: Row(
                     children: [
-                      Text(comments[index]['creator']['firstName'] +
-                          ' ' +
-                          comments[index]['creator']['lastName']),
-                      Text(
-                        ' - ',
+                      Text('${comments[index]['creator']['firstName']} ${comments[index]['creator']['lastName']}'),
+                      const Text(
+                        " - ",
                         style: TextStyle(
                           fontSize: 20,
                         ),
@@ -429,7 +429,7 @@ class _NewsArticleState extends State<NewsArticle> {
               }),
         ),
         (moreComments || comments.length <= 3)
-            ? SizedBox(
+            ? const SizedBox(
                 width: 0,
                 height: 0,
               )
@@ -439,7 +439,7 @@ class _NewsArticleState extends State<NewsArticle> {
                     moreComments = true;
                   });
                 },
-                child: Text("View More Comments"))
+                child: const Text("View More Comments"))
       ],
     );
   }

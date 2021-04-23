@@ -1,13 +1,14 @@
 //flutter packages are called here
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
 // pages are called here
 import 'package:provider/provider.dart';
-import 'package:talawa/services/Queries.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_register.dart';
@@ -32,17 +33,17 @@ class RegisterForm extends StatefulWidget {
 
 class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _firstNameController = new TextEditingController();
-  TextEditingController _lastNameController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _originalPasswordController =
-      new TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _originalPasswordController =
+      TextEditingController();
   FocusNode confirmPassField = FocusNode();
-  RegisterViewModel model = new RegisterViewModel();
+  RegisterViewModel model = RegisterViewModel();
   bool _progressBarState = false;
-  Queries _signupQuery = Queries();
+  final Queries _signupQuery = Queries();
   var _validate = AutovalidateMode.disabled;
-  Preferences _pref = Preferences();
+  final Preferences _pref = Preferences();
   FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
@@ -62,10 +63,10 @@ class RegisterFormState extends State<RegisterForm> {
 
   //function for registering user which gets called when sign up is press
   registerUser() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    final GraphQLClient _client = graphQLConfiguration.clientToQuery();
     final img = await multipartFileFrom(_image);
     print(_image);
-    QueryResult result = await _client.mutate(MutationOptions(
+    final QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_signupQuery.registerUser(
           model.firstName, model.lastName, model.email, model.password)),
       variables: {
@@ -83,23 +84,23 @@ class RegisterFormState extends State<RegisterForm> {
         _progressBarState = true;
       });
 
-      final String userFName = result.data['signUp']['user']['firstName'];
+      final String userFName = result.data['signUp']['user']['firstName'].toString();
       await _pref.saveUserFName(userFName);
-      final String userLName = result.data['signUp']['user']['lastName'];
+      final String userLName = result.data['signUp']['user']['lastName'].toString();
       await _pref.saveUserLName(userLName);
 
       final Token accessToken =
-          new Token(tokenString: result.data['signUp']['accessToken']);
+          Token(tokenString: result.data['signUp']['accessToken'].toString());
       await _pref.saveToken(accessToken);
       final Token refreshToken =
-          new Token(tokenString: result.data['signUp']['refreshToken']);
+          Token(tokenString: result.data['signUp']['refreshToken'].toString());
       await _pref.saveRefreshToken(refreshToken);
-      final String currentUserId = result.data['signUp']['user']['_id'];
+      final String currentUserId = result.data['signUp']['user']['_id'].toString();
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (context) => JoinOrganization(
+              builder: (context) => const JoinOrganization(
                     fromProfile: false,
                   )),
           (route) => false);
@@ -108,8 +109,8 @@ class RegisterFormState extends State<RegisterForm> {
 
   //function called when the user is called without the image
   registerUserWithoutImg() async {
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    QueryResult result = await _client.mutate(MutationOptions(
+    final GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    final QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_signupQuery.registerUserWithoutImg(
           model.firstName, model.lastName, model.email, model.password)),
     ));
@@ -124,22 +125,22 @@ class RegisterFormState extends State<RegisterForm> {
         _progressBarState = true;
       });
 
-      final String userFName = result.data['signUp']['user']['firstName'];
+      final String userFName = result.data['signUp']['user']['firstName'].toString();
       await _pref.saveUserFName(userFName);
-      final String userLName = result.data['signUp']['user']['lastName'];
+      final String userLName = result.data['signUp']['user']['lastName'].toString();
       await _pref.saveUserLName(userLName);
       final Token accessToken =
-          new Token(tokenString: result.data['signUp']['accessToken']);
+          Token(tokenString: result.data['signUp']['accessToken'].toString());
       await _pref.saveToken(accessToken);
       final Token refreshToken =
-          new Token(tokenString: result.data['signUp']['refreshToken']);
+          Token(tokenString: result.data['signUp']['refreshToken'].toString());
       await _pref.saveRefreshToken(refreshToken);
-      final String currentUserId = result.data['signUp']['user']['_id'];
+      final String currentUserId = result.data['signUp']['user']['_id'].toString();
       await _pref.saveUserId(currentUserId);
 
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (context) => JoinOrganization(
+              builder: (context) => const JoinOrganization(
                     fromProfile: false,
                   )),
           (route) => false);
@@ -150,7 +151,7 @@ class RegisterFormState extends State<RegisterForm> {
   _imgFrom({From pickFrom = From.none}) async {
     File pickImageFile;
     if (pickFrom != From.none) {
-      PickedFile selectedImage = await ImagePicker().getImage(
+      final PickedFile selectedImage = await ImagePicker().getImage(
           source: pickFrom == From.camera
               ? ImageSource.camera
               : ImageSource.gallery);
@@ -171,14 +172,14 @@ class RegisterFormState extends State<RegisterForm> {
               children: <Widget>[
                 addImage(),
                 _image == null
-                    ? Padding(
-                        padding: const EdgeInsets.all(8.0),
+                    ? const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Text('Add Profile Image',
                             style:
                                 TextStyle(fontSize: 16, color: Colors.white)),
                       )
                     : IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.delete,
                           size: 30,
                           color: Colors.red,
@@ -189,124 +190,124 @@ class RegisterFormState extends State<RegisterForm> {
                           });
                         },
                       ),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 AutofillGroup(
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.givenName],
+                        autofillHints: const <String>[AutofillHints.givenName],
                         textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.words,
                         controller: _firstNameController,
                         validator: (value) =>
                             Validator.validateFirstName(value),
                         textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
+                            borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: Icon(Icons.person, color: Colors.white),
+                          prefixIcon: const Icon(Icons.person, color: Colors.white),
                           labelText: "First Name",
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
                           hintText: 'Earl',
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: const TextStyle(color: Colors.grey),
                         ),
                         onSaved: (value) {
                           model.firstName = value;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.familyName],
+                        autofillHints: const [AutofillHints.familyName],
                         textInputAction: TextInputAction.next,
                         textCapitalization: TextCapitalization.words,
                         controller: _lastNameController,
                         validator: Validator.validateLastName,
                         textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
+                            borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: Icon(Icons.person, color: Colors.white),
+                          prefixIcon: const Icon(Icons.person, color: Colors.white),
                           labelText: "Last Name",
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
                           hintText: 'John',
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: const TextStyle(color: Colors.grey),
                         ),
                         onSaved: (value) {
                           model.lastName = value;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.email],
+                        autofillHints: const <String>[AutofillHints.email],
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
                         validator: Validator.validateEmail,
                         controller: _emailController,
                         textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
+                            borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: Icon(Icons.email, color: Colors.white),
+                          prefixIcon: const Icon(Icons.email, color: Colors.white),
                           labelText: "Email",
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
                           hintText: 'foo@bar.com',
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: const TextStyle(color: Colors.grey),
                         ),
                         onSaved: (value) {
                           model.email = value;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.password],
+                        autofillHints: const <String>[AutofillHints.password],
                         textInputAction: TextInputAction.next,
                         obscureText: _obscureText,
                         controller: _originalPasswordController,
                         validator: Validator.validatePassword,
                         textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
+                            borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: Icon(Icons.lock, color: Colors.white),
+                          prefixIcon: const Icon(Icons.lock, color: Colors.white),
                           suffixIcon: TextButton(
                             onPressed: _toggle,
                             child: Icon(
@@ -317,11 +318,11 @@ class RegisterFormState extends State<RegisterForm> {
                             ),
                           ),
                           labelText: "Password",
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
                           alignLabelWithHint: true,
                           hintText: 'Password',
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintStyle: const TextStyle(color: Colors.grey),
                         ),
                         onFieldSubmitted: (_) {
                           FocusScope.of(context).unfocus();
@@ -334,7 +335,7 @@ class RegisterFormState extends State<RegisterForm> {
                           model.password = value;
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       FlutterPwValidator(
@@ -349,11 +350,11 @@ class RegisterFormState extends State<RegisterForm> {
                         },
                         controller: _originalPasswordController,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       TextFormField(
-                        autofillHints: <String>[AutofillHints.password],
+                        autofillHints: const <String>[AutofillHints.password],
                         obscureText: true,
                         focusNode: confirmPassField,
                         validator: (value) => Validator.validatePasswordConfirm(
@@ -361,23 +362,23 @@ class RegisterFormState extends State<RegisterForm> {
                           value,
                         ),
                         textAlign: TextAlign.left,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
+                            borderSide: const BorderSide(color: Colors.white),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
+                            borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: Icon(Icons.lock, color: Colors.white),
+                          prefixIcon: const Icon(Icons.lock, color: Colors.white),
                           labelText: "Confirm Password",
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle: const TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                     ],
@@ -385,30 +386,17 @@ class RegisterFormState extends State<RegisterForm> {
                 ),
                 Container(
                   padding:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                          EdgeInsets.all(12.0)),
+                          const EdgeInsets.all(12.0)),
                       shape: MaterialStateProperty.all<OutlinedBorder>(
-                          StadiumBorder()),
+                          const StadiumBorder()),
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.white),
                     ),
-                    child: _progressBarState
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.orange),
-                              strokeWidth: 3,
-                              backgroundColor: Colors.black,
-                            ))
-                        : Text(
-                            "SIGN UP",
-                          ),
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
                       _validate = AutovalidateMode.always;
@@ -422,6 +410,19 @@ class RegisterFormState extends State<RegisterForm> {
                         });
                       }
                     },
+                    child: _progressBarState
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.orange),
+                              strokeWidth: 3,
+                              backgroundColor: Colors.black,
+                            ))
+                        : const Text(
+                            "SIGN UP",
+                          ),
                   ),
                 ),
               ],
@@ -432,7 +433,7 @@ class RegisterFormState extends State<RegisterForm> {
   Widget addImage() {
     return Column(
       children: <Widget>[
-        SizedBox(
+        const SizedBox(
           height: 32,
         ),
         Center(
@@ -466,7 +467,7 @@ class RegisterFormState extends State<RegisterForm> {
   }
 
   //used to show the method user want to choose their pictures
-  void _showPicker(context) {
+  void _showPicker(BuildContext context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -475,16 +476,16 @@ class RegisterFormState extends State<RegisterForm> {
               child: Wrap(
                 children: <Widget>[
                   ListTile(
-                    leading: Icon(Icons.camera_alt_outlined),
-                    title: Text('Camera'),
+                    leading: const Icon(Icons.camera_alt_outlined),
+                    title: const Text('Camera'),
                     onTap: () {
                       _imgFrom(pickFrom: From.camera);
                       Navigator.of(context).pop();
                     },
                   ),
                   ListTile(
-                      leading: Icon(Icons.photo_library),
-                      title: Text('Photo Library'),
+                      leading: const Icon(Icons.photo_library),
+                      title: const Text('Photo Library'),
                       onTap: () {
                         _imgFrom(pickFrom: From.gallery);
                         Navigator.of(context).pop();
@@ -518,7 +519,7 @@ class RegisterFormState extends State<RegisterForm> {
 
   //this method is called when the result is an exception
   _exceptionToast(String msg) {
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -530,7 +531,7 @@ class RegisterFormState extends State<RegisterForm> {
           Expanded(
             child: Text(
               msg,
-              style: TextStyle(fontSize: 15.0, color: Colors.white),
+              style: const TextStyle(fontSize: 15.0, color: Colors.white),
               textAlign: TextAlign.center,
             ),
           ),
@@ -541,7 +542,7 @@ class RegisterFormState extends State<RegisterForm> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 5),
+      toastDuration: const Duration(seconds: 5),
     );
   }
 

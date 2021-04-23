@@ -6,9 +6,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 
 class AcceptRequestsPage extends StatefulWidget {
@@ -17,12 +17,12 @@ class AcceptRequestsPage extends StatefulWidget {
 }
 
 class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
-  Queries _query = Queries();
-  Preferences _preferences = Preferences();
+  final Queries _query = Queries();
+  final Preferences _preferences = Preferences();
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  AuthController _authController = AuthController();
+  final AuthController _authController = AuthController();
   List membershipRequestsList = [];
   bool loaded = false;
   bool processing = false;
@@ -40,9 +40,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     //Same function giving us the way that a administrator can see the request got from the user to get the membership
     final String orgId = await _preferences.getCurrentOrgId();
 
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.query(QueryOptions(
+    final QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.viewMembershipRequest(
             orgId)))); //calling the graphql query to see the membership request
     if (result.hasException) {
@@ -53,11 +53,11 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
 
       setState(() {
         membershipRequestsList =
-            result.data['organizations'][0]['membershipRequests'];
+            result.data['organizations'][0]['membershipRequests'] as List;
         loaded = true;
       });
 
-      if (membershipRequestsList.length == 0) {
+      if (membershipRequestsList.isEmpty) {
         _exceptionToast('You have no new requests.');
       }
     }
@@ -68,9 +68,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       processing = true;
     });
     //this function give the functionality of accepting the request of the user by the administrator
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.query(QueryOptions(
+    final QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.acceptMembershipRequest(itemIndex))));
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
@@ -96,9 +96,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       processing = true;
     });
     //this function give the functionality of rejecting the request of the user by the administrator
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.query(QueryOptions(
+    final QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.rejectMembershipRequest(itemIndex))));
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
@@ -125,31 +125,31 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Membership Requests',
-            style: const TextStyle(color: Colors.white)),
+            style: TextStyle(color: Colors.white)),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
           await viewMemberShipRequests();
         },
         child: (!loaded)
-            ? Center(
-                child: const CircularProgressIndicator(),
+            ? const Center(
+                child: CircularProgressIndicator(),
               )
             : membershipRequestsList.isEmpty
                 ? Center(
                     child: Column(
-                      children: <Widget>[
-                        const SizedBox(
+                      children: const <Widget>[
+                         SizedBox(
                           height: 250,
                         ),
-                        const Text(
+                         Text(
                           "No request",
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
                         ),
-                        const SizedBox(
+                         SizedBox(
                           height: 50,
                         ),
                       ],
@@ -169,17 +169,14 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                       backgroundImage: NetworkImage(Provider.of<
                                                   GraphQLConfiguration>(context)
                                               .displayImgRoute +
-                                          membershipRequests['user']['image']))
+                                          membershipRequests['user']['image'].toString()))
                                   : const CircleAvatar(
                                       radius: 30,
                                       backgroundImage:
                                           AssetImage("assets/images/team.png")),
-                              title: Text(membershipRequests['user']
-                                      ['firstName'] +
-                                  ' ' +
-                                  membershipRequests['user']['lastName']),
+                              title: Text('${membershipRequests['user']['firstName']} ${membershipRequests['user']['lastName']}'),
                               trailing: processing
-                                  ? FittedBox(
+                                  ? const FittedBox(
                                       child: CircularProgressIndicator(),
                                     )
                                   : Wrap(
@@ -191,7 +188,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                           color: Colors.red,
                                           onPressed: () {
                                             itemIndex =
-                                                membershipRequests['_id'];
+                                                membershipRequests['_id'].toString();
                                             rejectMemberShipRequests();
                                           },
                                         ),
@@ -201,7 +198,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                           color: Colors.green,
                                           onPressed: () {
                                             itemIndex =
-                                                membershipRequests['_id'];
+                                                membershipRequests['_id'].toString();
                                             acceptMemberShipRequests();
                                           },
                                         ),
@@ -225,7 +222,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
 
   _successToast(String msg) {
     //function to be called when the request is successful
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -248,7 +245,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
 
   _exceptionToast(String msg) {
     //this function is used when the exception is called
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),

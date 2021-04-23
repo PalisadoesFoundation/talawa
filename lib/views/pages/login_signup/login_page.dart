@@ -11,7 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   //providing the initial states to the variables
   @override
   void initState() {
@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  loginScreenForm() => Center(
+  Widget loginScreenForm() => Center(
         child: Container(
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                       children: <Widget>[
                         const Text(
                           "Dont have an account?",
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                               "SIGN UP!",
                               textAlign: TextAlign.start,
                               style:
-                                  const TextStyle(color: UIData.primaryColor),
+                                  TextStyle(color: UIData.primaryColor),
                             ),
                           ),
                         ),
@@ -77,9 +77,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         key: _scaffoldkey,
         backgroundColor: Colors.white,
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
-                image: const AssetImage(UIData.cloud1), fit: BoxFit.cover),
+                image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
           ),
           child: Center(
             child: SingleChildScrollView(

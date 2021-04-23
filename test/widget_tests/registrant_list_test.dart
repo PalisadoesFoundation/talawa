@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
-import 'package:talawa/views/pages/events/taskList.dart';
+import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/views/pages/events/registrant_list.dart';
 
-Widget taskListPage() => MultiProvider(
+Widget registrantListPage() => MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
           create: (_) => GraphQLConfiguration(),
@@ -25,8 +25,8 @@ Widget taskListPage() => MultiProvider(
           create: (_) => Preferences(),
         ),
       ],
-      child: MaterialApp(
-        home: TaskList(
+      child: const MaterialApp(
+        home: RegList(
           event: {
             '_id': "6065ab230499450027b568af",
             'title': 'Weeb meet',
@@ -46,13 +46,13 @@ Widget taskListPage() => MultiProvider(
     );
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized();
+      TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
 
-  group("Task List Tests", () {
-    testWidgets("Testing if tasklist  Page shows up", (tester) async {
-      await tester.pumpWidget(taskListPage());
+  group("Registrant List Tests", () {
+    testWidgets("Testing if Registrant List  Page shows up", (tester) async {
+      await tester.pumpWidget(registrantListPage());
 
-      /// Verify if [tasklist Page] shows up.
+      /// Verify if [Registrant List Page] shows up.
 
       expect(
         find.byType(Container),
@@ -60,20 +60,20 @@ void main() {
       );
     });
 
-    testWidgets("Testing overflow of Task List in a mobile screen",
+    testWidgets("Testing overflow of Registrant List in a mobile screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(440, 800);
+      binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(taskListPage());
+      await tester.pumpWidget(registrantListPage());
     });
 
-    testWidgets("Testing overflow of Task List in a tablet screen",
+    testWidgets("Testing overflow of Registrant List in a tablet screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(1024, 768);
+      binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(taskListPage());
+      await tester.pumpWidget(registrantListPage());
     });
   });
 }

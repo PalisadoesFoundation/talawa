@@ -7,9 +7,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -20,7 +20,7 @@ import 'package:talawa/views/widgets/loading.dart';
 import 'create_organization.dart';
 
 class JoinOrganization extends StatefulWidget {
-  JoinOrganization({Key key, this.msg, this.fromProfile = false});
+  const JoinOrganization({this.msg, this.fromProfile = false});
   final bool fromProfile;
   final String msg;
   @override
@@ -28,8 +28,8 @@ class JoinOrganization extends StatefulWidget {
 }
 
 class _JoinOrganizationState extends State<JoinOrganization> {
-  Queries _query = Queries();
-  Preferences _pref = Preferences();
+  final Queries _query = Queries();
+  final Preferences _pref = Preferences();
   String token;
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -37,7 +37,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   List organizationInfo = [];
   List filteredOrgInfo = [];
   List joinedOrg = [];
-  AuthController _authController = AuthController();
+  final AuthController _authController = AuthController();
   String isPublic;
   TextEditingController searchController = TextEditingController();
   bool _isLoaderActive = false;
@@ -66,7 +66,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   }
 
   // Function for getting the current user id.
-  void getCurrentUserId() async {
+  Future<void> getCurrentUserId() async {
     currentUserId = await _pref.getUserId();
   }
 
@@ -75,7 +75,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     filteredOrgInfo.clear();
     if (orgName.isNotEmpty) {
       for (int i = 0; i < organizationInfo.length; i++) {
-        String name = organizationInfo[i]['name'];
+        final String name = organizationInfo[i]['name'].toString();
         if (name.toLowerCase().contains(orgName.toLowerCase())) {
           setState(() {
             filteredOrgInfo.add(organizationInfo[i]);
@@ -94,13 +94,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     getCurrentUserId();
 
     //function to fetch the org from the server
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client
+    final QueryResult result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
 
     // Get the details of the current user.
-    QueryResult userDetailsResult = await _client.query(QueryOptions(
+    final QueryResult userDetailsResult = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo),
         variables: {'id': currentUserId}));
 
@@ -111,11 +111,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         !disposed &&
         !userDetailsResult.hasException) {
       setState(() {
-        organizationInfo = result.data['organizations'];
+        organizationInfo = result.data['organizations'] as List;
 
         // Get the details of joined organizations.
         joinedOrganizations =
-            userDetailsResult.data['users'][0]['joinedOrganizations'];
+            userDetailsResult.data['users'][0]['joinedOrganizations'] as List;
 
         // Get the id's of joined organizations.
         joinedOrganizations.forEach((element) {
@@ -139,9 +139,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
   Future joinPrivateOrg() async {
     //function called if the person wants to enter a private organization
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    QueryResult result = await _client.mutate(MutationOptions(
+    final QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.sendMembershipRequest(itemIndex))));
 
     if (result.hasException &&
@@ -159,7 +159,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         Navigator.pop(context);
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => HomePage(
+          builder: (context) => const HomePage(
             openPageIndex: 4,
           ),
         ));
@@ -169,11 +169,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
   Future joinPublicOrg(String orgName) async {
     //function which will be called if the person wants to join the organization which is not private
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
 
     print(orgName);
 
-    QueryResult result = await _client
+    final QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.getOrgId(itemIndex))));
 
     if (result.hasException &&
@@ -186,34 +186,34 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     } else if (!result.hasException && !result.loading) {
       setState(() {
         joinedOrg =
-            result.data['joinPublicOrganization']['joinedOrganizations'];
+            result.data['joinPublicOrganization']['joinedOrganizations'] as List;
       });
 
       //set the default organization to the first one in the list
 
       if (joinedOrg.length == 1) {
         final String currentOrgId = result.data['joinPublicOrganization']
-            ['joinedOrganizations'][0]['_id'];
+            ['joinedOrganizations'][0]['_id'].toString();
         await _pref.saveCurrentOrgId(currentOrgId);
         final String currentOrgImgSrc = result.data['joinPublicOrganization']
-            ['joinedOrganizations'][0]['image'];
+            ['joinedOrganizations'][0]['image'].toString();
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
         final String currentOrgName = result.data['joinPublicOrganization']
-            ['joinedOrganizations'][0]['name'];
+            ['joinedOrganizations'][0]['name'].toString();
         await _pref.saveCurrentOrgName(currentOrgName);
       } else {
         // If there are multiple number of organizations.
         for (int i = 0; i < joinedOrg.length; i++) {
           if (joinedOrg[i]['name'] == orgName) {
             final String currentOrgId = result.data['joinPublicOrganization']
-                ['joinedOrganizations'][i]['_id'];
+                ['joinedOrganizations'][i]['_id'].toString();
             await _pref.saveCurrentOrgId(currentOrgId);
             final String currentOrgImgSrc =
                 result.data['joinPublicOrganization']['joinedOrganizations'][i]
-                    ['image'];
+                    ['image'].toString();
             await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
             final String currentOrgName = result.data['joinPublicOrganization']
-                ['joinedOrganizations'][i]['name'];
+                ['joinedOrganizations'][i]['name'].toString();
             await _pref.saveCurrentOrgName(currentOrgName);
           }
         }
@@ -224,11 +224,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       if (widget.fromProfile) {
         pushNewScreen(
           context,
-          screen: ProfilePage(),
+          screen: const ProfilePage(),
         );
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => HomePage(
+          builder: (context) => const HomePage(
             openPageIndex: 4,
           ),
         ));
@@ -249,18 +249,18 @@ class _JoinOrganizationState extends State<JoinOrganization> {
               key: UniqueKey(),
             ))
           : Container(
-              color: Color(0xffF3F6FF),
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+              color: const Color(0xffF3F6FF),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
               child: Column(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Welcome, \nJoin or Create your organization to get started",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
                         fontStyle: FontStyle.normal),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   TextFormField(
@@ -269,31 +269,31 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                     },
                     controller: searchController,
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 14),
+                    style: const TextStyle(fontSize: 14),
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(5),
+                        contentPadding: const EdgeInsets.all(5),
                         fillColor: Colors.white,
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0),
                           borderSide:
-                              BorderSide(color: Colors.white, width: 0.0),
+                              const BorderSide(color: Colors.white, width: 0.0),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15.0),
                           borderSide:
-                              BorderSide(color: Colors.white, width: 0.0),
+                              const BorderSide(color: Colors.white, width: 0.0),
                         ),
-                        prefixIcon: Padding(
+                        prefixIcon: const Padding(
                           padding: EdgeInsets.all(0.0),
                           child: Icon(Icons.search, color: Colors.black),
                         ),
                         hintText: "Search Organization Name"),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Expanded(
                       child: Container(
-                          color: Color(0xffF3F6FF),
+                          color: const Color(0xffF3F6FF),
                           child: searchController.text.isNotEmpty
                               ? ListView.builder(
                                   itemCount: filteredOrgInfo.length,
@@ -308,8 +308,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                     Provider.of<GraphQLConfiguration>(
                                                                 context)
                                                             .displayImgRoute +
-                                                        organization['image']))
-                                            : CircleAvatar(
+                                                        organization['image'].toString()))
+                                            :const  CircleAvatar(
                                                 radius: 30,
                                                 backgroundImage: AssetImage(
                                                     "assets/images/team.png")),
@@ -327,7 +327,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                   ),
-                                                  Icon(Icons.lock_open,
+                                                 const  Icon(Icons.lock_open,
                                                       color: Colors.green,
                                                       size: 16)
                                                 ],
@@ -343,7 +343,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                   ),
-                                                  Icon(Icons.lock,
+                                                  const Icon(Icons.lock,
                                                       color: Colors.red,
                                                       size: 16)
                                                 ],
@@ -359,20 +359,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                 overflow:
                                                     TextOverflow.ellipsis),
                                             Text(
-                                                'Created by: ' +
-                                                    organization['creator']
-                                                            ['firstName']
-                                                        .toString() +
-                                                    ' ' +
-                                                    organization['creator']
-                                                            ['lastName']
-                                                        .toString(),
+                                                'Created by: ${organization['creator']
+                                                            ['firstName']} ${organization['creator']
+                                                            ['lastName']}',
                                                 maxLines: 2,
                                                 overflow:
                                                     TextOverflow.ellipsis),
                                           ],
                                         ),
-                                        trailing: new ElevatedButton(
+                                        trailing: ElevatedButton(
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all<
@@ -381,7 +376,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                     OutlinedBorder>(
                                                 RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
+                                                  BorderRadius.circular(
                                                       12.0),
                                             )),
                                           ),
@@ -400,7 +395,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               });
                                             }
                                             confirmOrgDialog(
-                                                organization['name'], index);
+                                                organization['name'].toString(), index);
                                           },
                                           child: _isLoaderActive == true &&
                                                   loadingIndex == index
@@ -417,7 +412,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                     backgroundColor:
                                                         Colors.black,
                                                   ))
-                                              : new Text("JOIN"),
+                                              : const Text("JOIN"),
                                         ),
                                         isThreeLine: true,
                                       ),
@@ -437,8 +432,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                     Provider.of<GraphQLConfiguration>(
                                                                 context)
                                                             .displayImgRoute +
-                                                        organization['image']))
-                                            : CircleAvatar(
+                                                        organization['image'].toString()))
+                                            : const CircleAvatar(
                                                 radius: 30,
                                                 backgroundImage: AssetImage(
                                                     "assets/images/team.png")),
@@ -456,7 +451,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                   ),
-                                                  Icon(Icons.lock_open,
+                                                  const Icon(Icons.lock_open,
                                                       color: Colors.green,
                                                       size: 16)
                                                 ],
@@ -472,7 +467,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                   ),
-                                                  Icon(Icons.lock,
+                                                  const Icon(Icons.lock,
                                                       color: Colors.red,
                                                       size: 16)
                                                 ],
@@ -488,20 +483,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                 overflow:
                                                     TextOverflow.ellipsis),
                                             Text(
-                                                'Created by: ' +
-                                                    organization['creator']
-                                                            ['firstName']
-                                                        .toString() +
-                                                    ' ' +
-                                                    organization['creator']
-                                                            ['lastName']
-                                                        .toString(),
+                                                'Created by: ${organization['creator']
+                                                            ['firstName']} ${organization['creator']
+                                                            ['lastName']}',
                                                 maxLines: 2,
                                                 overflow:
                                                     TextOverflow.ellipsis),
                                           ],
                                         ),
-                                        trailing: new ElevatedButton(
+                                        trailing: ElevatedButton(
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all<
@@ -510,7 +500,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                     OutlinedBorder>(
                                                 RoundedRectangleBorder(
                                               borderRadius:
-                                                  new BorderRadius.circular(
+                                                   BorderRadius.circular(
                                                       12.0),
                                             )),
                                           ),
@@ -529,7 +519,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                               });
                                             }
                                             confirmOrgDialog(
-                                                organization['name'], index);
+                                                organization['name'].toString(), index);
                                           },
                                           child: _isLoaderActive == true &&
                                                   loadingIndex == index
@@ -546,7 +536,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                     backgroundColor:
                                                         Colors.black,
                                                   ))
-                                              : new Text("JOIN"),
+                                              : const Text("JOIN"),
                                         ),
                                         isThreeLine: true,
                                       ),
@@ -555,38 +545,37 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 ],
               )),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
         backgroundColor: UIData.secondaryColor,
         foregroundColor: Colors.white,
         elevation: 5.0,
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => new CreateOrganization(
+              builder: (context) => CreateOrganization(
                     isFromProfile: widget.fromProfile,
                   )));
         },
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
-  void confirmOrgDialog(String orgName, index) {
+  void confirmOrgDialog(String orgName, int index) {
     //this is the pop up shown when the confirmation is required
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Confirmation"),
-            content: Text("Are you sure you want to join this organization?"),
+            title: const Text("Confirmation"),
+            content: const Text("Are you sure you want to join this organization?"),
             actions: [
               TextButton(
-                child: Text("Close"),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
+                child: const Text("Close"),
               ),
               TextButton(
-                child: Text("Yes"),
                 onPressed: () async {
                   setState(() {
                     loadingIndex = index;
@@ -606,6 +595,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                         }));
                   }
                 },
+                child: const Text("Yes"),
               )
             ],
           );
@@ -616,14 +606,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     return Center(
       child: Text(
         msg,
-        style: TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 16),
         textAlign: TextAlign.center,
       ),
     );
   }
 
   _successToast(String msg) {
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -640,12 +630,12 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 
   _exceptionToast(String msg) {
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -657,7 +647,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }

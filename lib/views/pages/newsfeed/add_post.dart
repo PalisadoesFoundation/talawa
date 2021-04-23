@@ -5,13 +5,13 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/toast_tile.dart';
 
 class AddPost extends StatefulWidget {
-  AddPost({Key key}) : super(key: key);
+  const AddPost({Key key}) : super(key: key);
 
   @override
   _AddPostState createState() => _AddPostState();
@@ -28,6 +28,7 @@ class _AddPostState extends State<AddPost> {
   Preferences preferences = Preferences();
 
   //giving every variable its initial state
+  @override
   initState() {
     super.initState();
     getCurrentOrgId();
@@ -46,9 +47,9 @@ class _AddPostState extends State<AddPost> {
 
   //creating post
   Future createPost() async {
-    String description = textController.text.trim().replaceAll('\n', ' ');
-    String title = titleController.text.trim().replaceAll('\n', ' ');
-    result = await Queries().addPost(description, organizationId, title);
+    final String description = textController.text.trim().replaceAll('\n', ' ');
+    final String title = titleController.text.trim().replaceAll('\n', ' ');
+    result = await Queries().addPost(description, organizationId, title) as Map;
     print(result);
     if (result != null) {
       Navigator.pop(context, true);
@@ -58,6 +59,7 @@ class _AddPostState extends State<AddPost> {
     return result;
   }
 
+  @override
   void dispose() {
     titleController.dispose();
     textController.dispose();
@@ -71,7 +73,7 @@ class _AddPostState extends State<AddPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'New Post',
           style: TextStyle(color: Colors.white),
         ),
@@ -90,7 +92,7 @@ class _AddPostState extends State<AddPost> {
                       maxLines: null,
                       keyboardType: TextInputType.multiline,
                       inputFormatters: [LengthLimitingTextInputFormatter(30)],
-                      key: Key('Title'),
+                      key: const Key('Title'),
                       textInputAction: TextInputAction.next,
                       validator: (String value) {
                         if (value.length > 30) {
@@ -103,7 +105,7 @@ class _AddPostState extends State<AddPost> {
                         return null;
                       },
                       controller: titleController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(20.0),
@@ -124,7 +126,7 @@ class _AddPostState extends State<AddPost> {
                         LengthLimitingTextInputFormatter(10000)
                       ],
                       keyboardType: TextInputType.multiline,
-                      key: Key('Description'),
+                      key: const Key('Description'),
                       controller: textController,
                       validator: (String value) {
                         if (value.length > 10000) {
@@ -136,7 +138,7 @@ class _AddPostState extends State<AddPost> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(20.0),
@@ -160,23 +162,23 @@ class _AddPostState extends State<AddPost> {
   //this method adds the post
   Widget addPostFab() {
     return FloatingActionButton(
-        key: Key('submit'),
+        key: const Key('submit'),
         backgroundColor: UIData.secondaryColor,
-        child: Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
         onPressed: () {
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
             createPost();
           }
-        });
+        },
+        child: const Icon(
+          Icons.check,
+          color: Colors.white,
+        ),);
   }
 
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: TextField(
           inputFormatters: [
             LengthLimitingTextInputFormatter(10),
@@ -186,7 +188,7 @@ class _AddPostState extends State<AddPost> {
           decoration: InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
-                  borderSide: BorderSide(color: Colors.teal)),
+                  borderSide: const BorderSide(color: Colors.teal)),
               hintText: name),
         ));
   }
@@ -198,7 +200,7 @@ class _AddPostState extends State<AddPost> {
         success: false,
       ),
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }

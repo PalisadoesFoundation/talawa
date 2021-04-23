@@ -1,18 +1,18 @@
 //flutter packages
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:talawa/services/Queries.dart';
+import 'package:talawa/services/queries_.dart';
 
 //pages are called here
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/apiFunctions.dart';
+import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
-import 'package:talawa/views/widgets/showProgress.dart';
+import 'package:talawa/views/widgets/show_progress.dart';
 
 class AddEvent extends StatefulWidget {
-  AddEvent({Key key}) : super(key: key);
+  const AddEvent({Key key}) : super(key: key);
 
   @override
   _AddEventState createState() => _AddEventState();
@@ -27,15 +27,16 @@ class _AddEventState extends State<AddEvent> {
       _validateLocation = false;
   ApiFunctions apiFunctions = ApiFunctions();
 
-  Map switchVals = {
+  Map<String, bool> switchVals = {
     'Make Public': true,
     'Make Registerable': true,
     'Recurring': true,
     'All Day': false
   };
-  var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
+  List<String> recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
   Preferences preferences = Preferences();
+  @override
   void initState() {
     super.initState();
   }
@@ -57,16 +58,17 @@ class _AddEventState extends State<AddEvent> {
 
   //method to be called when the user wants to select the date
   Future<void> _selectDate(BuildContext context) async {
-    DateTime now = DateTime.now();
+    final DateTime now = DateTime.now();
     final DateTimeRange picked = await showDateRangePicker(
         context: context,
         // initialDate: selectedDate,
         firstDate: DateTime(now.year, now.month, now.day),
         lastDate: DateTime(2101));
-    if (picked != null && picked != dateRange)
+    if (picked != null && picked != dateRange) {
       setState(() {
         dateRange = picked;
       });
+    }
   }
 
   //method to be called when the user wants to select time
@@ -76,7 +78,7 @@ class _AddEventState extends State<AddEvent> {
       context: context,
       initialTime: time,
     );
-    if (picked != null && picked != time)
+    if (picked != null && picked != time) {
       setState(() {
         startEndTimes[name] = DateTime(
             DateTime.now().year,
@@ -85,21 +87,22 @@ class _AddEventState extends State<AddEvent> {
             picked.hour,
             picked.minute);
       });
+    }
   }
 
   //method used to create an event
   Future<void> createEvent() async {
-    DateTime startDate = DateTime(
+    final DateTime startDate = DateTime(
         dateRange.start.year, dateRange.start.month, dateRange.start.day);
-    DateTime endDate = DateTime(
+    final DateTime endDate = DateTime(
         dateRange.start.year, dateRange.start.month, dateRange.start.day);
-    DateTime startTime = DateTime(
+    final DateTime startTime = DateTime(
         dateRange.start.year,
         dateRange.start.month,
         dateRange.start.day,
         startEndTimes['Start Time'].hour,
         startEndTimes['Start Time'].minute);
-    DateTime endTime = DateTime(
+    final DateTime endTime = DateTime(
         dateRange.end.year,
         dateRange.end.month,
         dateRange.end.day,
@@ -115,7 +118,7 @@ class _AddEventState extends State<AddEvent> {
       };
     }
     final String currentOrgID = await preferences.getCurrentOrgId();
-    Map result = await Queries().addEvent(
+    final result = await Queries().addEvent(
       startDate: startDate.toString(),
       endDate: endDate.toString(),
       organizationId: currentOrgID,
@@ -138,13 +141,13 @@ class _AddEventState extends State<AddEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'New Event',
           style: TextStyle(color: Colors.white),
         ),
       ),
       body: ListView(
-        padding: EdgeInsets.only(bottom: 100),
+        padding: const EdgeInsets.only(bottom: 100),
         children: <Widget>[
           inputField('Title', titleController),
           inputField('Description', descriptionController),
@@ -175,7 +178,7 @@ class _AddEventState extends State<AddEvent> {
       ),
       trailing: Text(
         '${DateFormat.yMMMd().format(dateRange.start)} | ${DateFormat.yMMMd().format(dateRange.end)} ',
-        style: TextStyle(fontSize: 16, color: UIData.secondaryColor),
+        style: const TextStyle(fontSize: 16, color: UIData.secondaryColor),
       ),
     );
   }
@@ -206,10 +209,6 @@ class _AddEventState extends State<AddEvent> {
   Widget addEventFab() {
     return FloatingActionButton(
         backgroundColor: UIData.secondaryColor,
-        child: Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
         onPressed: () async {
           if (titleController.text.isEmpty ||
               descriptionController.text.isEmpty ||
@@ -233,40 +232,43 @@ class _AddEventState extends State<AddEvent> {
                 msg: 'Fill in the empty fields',
                 backgroundColor: Colors.grey[500]);
           } else {
-            showProgress(context, 'Creating New Event . . .', false);
+            showProgress(context, 'Creating New Event . . .', isDismissible: false);
             await createEvent();
             hideProgress();
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => Events()),
+                MaterialPageRoute(builder: (context) => const Events()),
                 (route) => false);
           }
-        });
+        }, child: const Icon(
+          Icons.check,
+          color: Colors.white,
+        ),);
   }
 
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: TextField(
           maxLines: name == 'Description' ? null : 1,
           controller: controller,
           decoration: InputDecoration(
               errorText: name == 'Title'
                   ? _validateTitle
-                      ? 'Field Can\'t Be Empty'
+                      ? "Field Can't Be Empty"
                       : null
                   : name == 'Description'
                       ? _validateDescription
-                          ? 'Field Can\'t Be Empty'
+                          ? "Field Can't Be Empty"
                           : null
                       : name == 'Location'
                           ? _validateLocation
-                              ? 'Field Can\'t Be Empty'
+                              ? "Field Can't Be Empty"
                               : null
                           : null,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20.0),
-                  borderSide: BorderSide(color: Colors.teal)),
+                  borderSide: const BorderSide(color: Colors.teal)),
               hintText: name),
         ));
   }
@@ -275,7 +277,7 @@ class _AddEventState extends State<AddEvent> {
     return SwitchListTile(
         activeColor: UIData.secondaryColor,
         value: switchVals[name],
-        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
         title: Text(
           name,
           style: TextStyle(color: Colors.grey[600]),
@@ -289,7 +291,7 @@ class _AddEventState extends State<AddEvent> {
 
   Widget recurrencedropdown() {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: 20),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
       leading: Text(
         'Recurrence',
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
@@ -302,7 +304,7 @@ class _AddEventState extends State<AddEvent> {
                   ? UIData.secondaryColor
                   : Colors.grey),
           value: recurrance,
-          icon: Icon(Icons.arrow_drop_down),
+          icon: const Icon(Icons.arrow_drop_down),
           onChanged: (String newValue) {
             setState(() {
               recurrance = newValue;
