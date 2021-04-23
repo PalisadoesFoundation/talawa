@@ -38,7 +38,8 @@ void main() {
       await tester.pumpWidget(addTaskDialog());
       final Finder formWidgetFinder = find.byType(Form);
       final Form formWidget = tester.widget(formWidgetFinder) as Form;
-      final GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
+      final GlobalKey<FormState> formKey =
+          formWidget.key as GlobalKey<FormState>;
       expect(formKey.currentState.validate(), isFalse);
     });
     testWidgets(
@@ -50,7 +51,8 @@ void main() {
       await tester.pump();
       final Finder formWidgetFinder = find.byType(Form);
       final Form formWidget = tester.widget(formWidgetFinder) as Form;
-      final GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
+      final GlobalKey<FormState> formKey =
+          formWidget.key as GlobalKey<FormState>;
       expect(formKey.currentState.validate(), isFalse);
     });
     testWidgets(
@@ -62,7 +64,8 @@ void main() {
       await tester.pump();
       final Finder formWidgetFinder = find.byType(Form);
       final Form formWidget = tester.widget(formWidgetFinder) as Form;
-      final GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
+      final GlobalKey<FormState> formKey =
+          formWidget.key as GlobalKey<FormState>;
       expect(formKey.currentState.validate(), isFalse);
     });
     testWidgets(
@@ -76,7 +79,8 @@ void main() {
       await tester.pump();
       final Finder formWidgetFinder = find.byType(Form);
       final Form formWidget = tester.widget(formWidgetFinder) as Form;
-      final GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
+      final GlobalKey<FormState> formKey =
+          formWidget.key as GlobalKey<FormState>;
       expect(formKey.currentState.validate(), isTrue);
     });
   });

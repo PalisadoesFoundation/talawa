@@ -55,7 +55,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     String newOrgName;
     final GraphQLClient _client = graphQLConfiguration.authClient();
     final QueryResult result = await _client.mutate(MutationOptions(
-        documentNode: gql(_query.leaveOrg(widget.organization[0]['_id'].toString()))));
+        documentNode:
+            gql(_query.leaveOrg(widget.organization[0]['_id'].toString()))));
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
@@ -69,15 +70,18 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
       setState(() {
-        remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'] as List;
+        remaindingOrg =
+            result.data['leaveOrganization']['joinedOrganizations'] as List;
         if (remaindingOrg.isEmpty) {
           newOrgId = null;
         } else if (remaindingOrg.isNotEmpty) {
           setState(() {
             newOrgId = result.data['leaveOrganization']['joinedOrganizations']
-                [0]['_id'].toString();
+                    [0]['_id']
+                .toString();
             newOrgName = result.data['leaveOrganization']['joinedOrganizations']
-                [0]['name'].toString();
+                    [0]['name']
+                .toString();
           });
         }
         processing = false;
@@ -130,9 +134,11 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
           newOrgId = null;
         } else if (remaindingOrg.isNotEmpty) {
           newOrgId = result.data['removeOrganization']['joinedOrganizations'][0]
-              ['_id'].toString();
+                  ['_id']
+              .toString();
           newOrgName = result.data['removeOrganization']['joinedOrganizations']
-              [0]['name'].toString();
+                  [0]['name']
+              .toString();
         }
         processing = false;
       });
@@ -183,15 +189,19 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                       pushNewScreen(
                         context,
                         screen: UpdateOrganization(
-                            description: widget.organization[0]['description'].toString(),
+                            description: widget.organization[0]['description']
+                                .toString(),
                             name: widget.organization[0]['name'].toString(),
                             isPublic:
-                                (widget.organization[0]['isPublic'] as bool) ? 0 : 1,
+                                (widget.organization[0]['isPublic'] as bool)
+                                    ? 0
+                                    : 1,
                             isVisible: widget.organization[0]
                                         ['visibleInSearch'] ==
                                     null
                                 ? -1
-                                : (widget.organization[0][0]['visibleInSearch'] as bool)
+                                : (widget.organization[0][0]['visibleInSearch']
+                                        as bool)
                                     ? 0
                                     : 1),
                       );

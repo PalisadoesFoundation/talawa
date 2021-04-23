@@ -12,7 +12,7 @@ import 'user_taskstab.dart';
 
 // ignore: must_be_immutable
 class MemberDetail extends StatefulWidget {
-    MemberDetail(
+  MemberDetail(
       {Key key,
       @required this.member,
       @required this.color,
@@ -24,7 +24,6 @@ class MemberDetail extends StatefulWidget {
   final String creatorId;
   Map member;
   Color color;
-
 
   @override
   _MemberDetailState createState() => _MemberDetailState();
@@ -77,8 +76,7 @@ class _MemberDetailState extends State<MemberDetail>
                     padding: const EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     height: 30,
-                    child: Text(
-                        'User email: ${widget.member['email']}'),
+                    child: Text('User email: ${widget.member['email']}'),
                   )),
                   Card(
                       child: Container(
@@ -88,7 +86,8 @@ class _MemberDetailState extends State<MemberDetail>
                     height: 30,
                     child: Text(
                       // ignore: prefer_interpolation_to_compose_strings
-                      'User Privileges: ' + getPrivilege(widget.member['_id'].toString()),
+                      'User Privileges: ' +
+                          getPrivilege(widget.member['_id'].toString()),
                       key: const Key('Privilege'),
                     ),
                   )),
@@ -168,7 +167,7 @@ class _MemberDetailState extends State<MemberDetail>
           ),
         ),
         Container(
-            decoration:const  BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,

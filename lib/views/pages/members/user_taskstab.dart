@@ -10,7 +10,7 @@ import 'package:talawa/views/widgets/loading.dart';
 
 // ignore: must_be_immutable
 class UserTasks extends StatefulWidget {
-    UserTasks({
+  UserTasks({
     Key key,
     @required this.member,
   }) : super(key: key);
@@ -36,7 +36,8 @@ class _UserTasksState extends State<UserTasks> {
   //getting user details
   getUserDetails() async {
     final String userID = widget.member['_id'].toString();
-    final Map result = await apiFunctions.gqlquery(Queries().tasksByUser(userID));
+    final Map result =
+        await apiFunctions.gqlquery(Queries().tasksByUser(userID));
     print(result);
     setState(() {
       userTasks = result == null ? [] : result['tasksByUser'] as List;
@@ -72,7 +73,8 @@ class _UserTasksState extends State<UserTasks> {
                       title += userTasks[index]["event"] != null
                           ? '\nEvent: ${userTasks[index]["event"]["title"]}'
                           : "";
-                      String description = userTasks[index]["description"].toString();
+                      String description =
+                          userTasks[index]["description"].toString();
                       description += userTasks[index]["deadline"] != null
                           ? ' \nDue Date: ${DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"].toString())))}'
                           : '\nDue Date: N/A';
@@ -86,7 +88,8 @@ class _UserTasksState extends State<UserTasks> {
                             subtitle: Text(
                               'Description: $description',
                             ),
-                            contentPadding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(8, 8, 8, 8),
                           ),
                         ],
                       ));

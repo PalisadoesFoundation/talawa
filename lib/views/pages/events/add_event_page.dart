@@ -208,42 +208,45 @@ class _AddEventState extends State<AddEvent> {
   //widget to add the event
   Widget addEventFab() {
     return FloatingActionButton(
-        backgroundColor: UIData.secondaryColor,
-        onPressed: () async {
-          if (titleController.text.isEmpty ||
-              descriptionController.text.isEmpty ||
-              locationController.text.isEmpty) {
-            if (titleController.text.isEmpty) {
-              setState(() {
-                _validateTitle = true;
-              });
-            }
-            if (descriptionController.text.isEmpty) {
-              setState(() {
-                _validateDescription = true;
-              });
-            }
-            if (locationController.text.isEmpty) {
-              setState(() {
-                _validateLocation = true;
-              });
-            }
-            Fluttertoast.showToast(
-                msg: 'Fill in the empty fields',
-                backgroundColor: Colors.grey[500]);
-          } else {
-            showProgress(context, 'Creating New Event . . .', isDismissible: false);
-            await createEvent();
-            hideProgress();
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const Events()),
-                (route) => false);
+      backgroundColor: UIData.secondaryColor,
+      onPressed: () async {
+        if (titleController.text.isEmpty ||
+            descriptionController.text.isEmpty ||
+            locationController.text.isEmpty) {
+          if (titleController.text.isEmpty) {
+            setState(() {
+              _validateTitle = true;
+            });
           }
-        }, child: const Icon(
-          Icons.check,
-          color: Colors.white,
-        ),);
+          if (descriptionController.text.isEmpty) {
+            setState(() {
+              _validateDescription = true;
+            });
+          }
+          if (locationController.text.isEmpty) {
+            setState(() {
+              _validateLocation = true;
+            });
+          }
+          Fluttertoast.showToast(
+              msg: 'Fill in the empty fields',
+              backgroundColor: Colors.grey[500]);
+        } else {
+          showProgress(context, 'Creating New Event . . .',
+              isDismissible: false);
+          await createEvent();
+          hideProgress();
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Events()),
+              (route) => false);
+        }
+      },
+      child: const Icon(
+        Icons.check,
+        color: Colors.white,
+      ),
+    );
   }
 
   Widget inputField(String name, TextEditingController controller) {

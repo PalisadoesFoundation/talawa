@@ -236,8 +236,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: UIData.secondaryColor),
+                                  borderSide: const BorderSide(
+                                      color: UIData.secondaryColor),
                                   borderRadius: BorderRadius.circular(20.0)),
                               prefixIcon: const Icon(
                                 Icons.group,
@@ -268,8 +268,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             style: const TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: UIData.secondaryColor),
+                                  borderSide: const BorderSide(
+                                      color: UIData.secondaryColor),
                                   borderRadius: BorderRadius.circular(20.0)),
                               prefixIcon: const Icon(Icons.note,
                                   color: UIData.secondaryColor),

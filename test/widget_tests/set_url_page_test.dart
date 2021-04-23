@@ -33,7 +33,8 @@ Widget createLoginPageScreen() => MultiProvider(
 
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("Login Page Tests", () {
     testWidgets("Testing if LoginPage shows up", (tester) async {

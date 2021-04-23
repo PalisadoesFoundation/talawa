@@ -31,7 +31,8 @@ Widget createMemberPageScreen() => MultiProvider(
 
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("member Page Tests", () {
     testWidgets("Testing if member page shows up", (tester) async {

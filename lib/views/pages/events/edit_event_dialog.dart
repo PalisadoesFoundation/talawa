@@ -309,51 +309,53 @@ class _EditEventState extends State<EditEvent> {
   //widget to add the event
   Widget addEventFab() {
     return FloatingActionButton(
-        backgroundColor: UIData.secondaryColor,
-        onPressed: () async {
-          if (titleController.text.isEmpty ||
-              descriptionController.text.isEmpty ||
-              locationController.text.isEmpty) {
-            if (titleController.text.isEmpty) {
-              setState(() {
-                _validateTitle = true;
-              });
-            }
-            if (descriptionController.text.isEmpty) {
-              setState(() {
-                _validateDescription = true;
-              });
-            }
-            if (locationController.text.isEmpty) {
-              setState(() {
-                _validateLocation = true;
-              });
-            }
-            Fluttertoast.showToast(
-                msg: 'Fill in the empty fields',
-                backgroundColor: Colors.grey[500]);
-          } else {
-            try {
-              showProgress(context, 'Updating Event Details . . .', isDismissible: false);
-              await updateEvent();
-            } catch (e) {
-              if (e == "User cannot delete event they didn't create") {
-                Fluttertoast.showToast(
-                    msg: "You can't edit events you didn't create",
-                    backgroundColor: Colors.grey[500]);
-              }
-            }
-            hideProgress();
-            print('EDITING DONE');
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const Events()),
-                (route) => false);
+      backgroundColor: UIData.secondaryColor,
+      onPressed: () async {
+        if (titleController.text.isEmpty ||
+            descriptionController.text.isEmpty ||
+            locationController.text.isEmpty) {
+          if (titleController.text.isEmpty) {
+            setState(() {
+              _validateTitle = true;
+            });
           }
-        }, child: const Icon(
-          Icons.check,
-          color: Colors.white,
-        ),)
-        ;
+          if (descriptionController.text.isEmpty) {
+            setState(() {
+              _validateDescription = true;
+            });
+          }
+          if (locationController.text.isEmpty) {
+            setState(() {
+              _validateLocation = true;
+            });
+          }
+          Fluttertoast.showToast(
+              msg: 'Fill in the empty fields',
+              backgroundColor: Colors.grey[500]);
+        } else {
+          try {
+            showProgress(context, 'Updating Event Details . . .',
+                isDismissible: false);
+            await updateEvent();
+          } catch (e) {
+            if (e == "User cannot delete event they didn't create") {
+              Fluttertoast.showToast(
+                  msg: "You can't edit events you didn't create",
+                  backgroundColor: Colors.grey[500]);
+            }
+          }
+          hideProgress();
+          print('EDITING DONE');
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Events()),
+              (route) => false);
+        }
+      },
+      child: const Icon(
+        Icons.check,
+        color: Colors.white,
+      ),
+    );
   }
 }

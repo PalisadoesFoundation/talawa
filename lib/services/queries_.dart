@@ -291,8 +291,8 @@ class Queries {
   }
 
   //update the organization
-  String updateOrg(String orgId, String name, String description, { @required bool isPublic,
-      @required bool visibleInSearch}) {
+  String updateOrg(String orgId, String name, String description,
+      {@required bool isPublic, @required bool visibleInSearch}) {
     return '''
       mutation {
           updateOrganization(id: "$orgId", data: {name: "$name", description: "$description", isPublic: $isPublic, visibleInSearch: $visibleInSearch}){
@@ -559,7 +559,7 @@ class Queries {
       }
     }
   """;
-  
+
     final GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
     final GraphQLClient _client = graphQLConfiguration.authClient();
     final AuthController _authController = AuthController();
@@ -685,7 +685,7 @@ class Queries {
         'location': location
       },
     ));
-    
+
     if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);

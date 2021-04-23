@@ -64,7 +64,8 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       result.data['organizations'][0]['admins']
           .forEach((admin) => adminsList.add(admin['_id']));
       setState(() {
-        creatorId = result.data['organizations'][0]['creator']['_id'].toString();
+        creatorId =
+            result.data['organizations'][0]['creator']['_id'].toString();
         membersList = result.data['organizations'][0]['members'] as List;
       });
       if (membersList.length == 1) {
@@ -112,7 +113,8 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       final GraphQLClient _client = graphQLConfiguration.authClient();
       final String orgId = await _preferences.getCurrentOrgId();
       final QueryResult result = await _client.query(QueryOptions(
-          documentNode: gql(_query.addAdmin(orgId, selectedMembers[0].toString()))));
+          documentNode:
+              gql(_query.addAdmin(orgId, selectedMembers[0].toString()))));
       if (result.hasException &&
           result.exception.toString().substring(16) == accessTokenException) {
         _authController.getNewToken();

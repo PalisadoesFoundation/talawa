@@ -77,8 +77,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       currentOrgId,
       orgNameController.text,
       orgDescController.text,
-        isPublic: isPublic,
-        visibleInSearch: isVisible,
+      isPublic: isPublic,
+      visibleInSearch: isVisible,
     ))));
 
     if (result.hasException &&
@@ -158,7 +158,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                       padding: const EdgeInsets.only(left: 30.0, right: 30.0),
                       child: Column(
                         children: <Widget>[
-                          const Image(image: AssetImage('assets/images/team.png')),
+                          const Image(
+                              image: AssetImage('assets/images/team.png')),
                           const SizedBox(
                             height: 20,
                           ),
@@ -196,7 +197,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             height: 20,
                           ),
                           TextFormField(
-                            autofillHints:const  <String>[AutofillHints.impp],
+                            autofillHints: const <String>[AutofillHints.impp],
                             keyboardType: TextInputType.multiline,
                             maxLines: null,
                             textCapitalization: TextCapitalization.words,
@@ -213,7 +214,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                           const SizedBox(
                             height: 20,
                           ),
-                          const Text('Do you want your organization to be public?',
+                          const Text(
+                              'Do you want your organization to be public?',
                               style:
                                   TextStyle(fontSize: 16, color: Colors.black)),
                           getRadioButton(radioValue, 2, public: true),

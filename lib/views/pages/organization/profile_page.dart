@@ -93,7 +93,8 @@ class _ProfilePageState extends State<ProfilePage> {
         }
       }
       if (notFound == org.length && org.isNotEmpty) {
-        _orgController.setNewOrg(context, org[0]['_id'].toString(), org[0]['name'].toString());
+        _orgController.setNewOrg(
+            context, org[0]['_id'].toString(), org[0]['name'].toString());
         Provider.of<Preferences>(context, listen: false)
             .saveCurrentOrgName(org[0]['name'].toString());
         Provider.of<Preferences>(context, listen: false)
@@ -162,15 +163,18 @@ class _ProfilePageState extends State<ProfilePage> {
       //set org at the top of the list as the new current org
       print('done');
       setState(() {
-        remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'] as List;
+        remaindingOrg =
+            result.data['leaveOrganization']['joinedOrganizations'] as List;
         if (remaindingOrg.isEmpty) {
           newOrgId = null;
         } else if (remaindingOrg.isNotEmpty) {
           setState(() {
             newOrgId = result.data['leaveOrganization']['joinedOrganizations']
-                [0]['_id'].toString();
+                    [0]['_id']
+                .toString();
             newOrgName = result.data['leaveOrganization']['joinedOrganizations']
-                [0]['name'].toString();
+                    [0]['name']
+                .toString();
           });
         }
       });
@@ -349,7 +353,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   : org.isEmpty
                                       ? const SizedBox()
                                       : ListTile(
-                                          key: const Key('Leave This Organization'),
+                                          key: const Key(
+                                              'Leave This Organization'),
                                           title: const Text(
                                             'Leave This Organization',
                                             style: TextStyle(fontSize: 18.0),

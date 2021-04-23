@@ -16,7 +16,8 @@ class CommentHandler with ChangeNotifier {
 
   ///Store entry of a given comment on post
   void commentEntry(String postId, String comment) {
-    final int index = _comments.indexWhere((element) => element.postId == postId);
+    final int index =
+        _comments.indexWhere((element) => element.postId == postId);
 
     if (index == -1) {
       _comments.add(CommentModel(postId, comment));
@@ -27,7 +28,8 @@ class CommentHandler with ChangeNotifier {
 
   ///Store entry of a given comment on post
   void commentCompleted(String postId, String comment) {
-    final int index = _comments.indexWhere((element) => element.postId == postId);
+    final int index =
+        _comments.indexWhere((element) => element.postId == postId);
     if (index != -1) {
       _comments.add(CommentModel(postId, comment));
       _comments.removeAt(index);

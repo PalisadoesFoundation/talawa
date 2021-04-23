@@ -69,7 +69,8 @@ class _RegListState extends State<RegList> {
                     itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        leading: Text(snapshot.data[index]['firstName'].toString()),
+                        leading:
+                            Text(snapshot.data[index]['firstName'].toString()),
                       );
                     }),
               );

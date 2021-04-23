@@ -5,7 +5,7 @@ class ToastTile extends StatelessWidget {
 
   final bool success;
   final String msg;
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(

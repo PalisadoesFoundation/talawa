@@ -3,7 +3,8 @@ import 'package:progress_dialog/progress_dialog.dart';
 
 ProgressDialog progressDialog;
 
-Future<void> showProgress(BuildContext context, String message, { @required bool isDismissible}) async {
+Future<void> showProgress(BuildContext context, String message,
+    {@required bool isDismissible}) async {
   progressDialog = ProgressDialog(context,
       type: ProgressDialogType.Normal, isDismissible: isDismissible);
   progressDialog.style(

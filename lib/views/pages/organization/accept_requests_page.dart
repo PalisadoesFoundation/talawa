@@ -139,17 +139,17 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                 ? Center(
                     child: Column(
                       children: const <Widget>[
-                         SizedBox(
+                        SizedBox(
                           height: 250,
                         ),
-                         Text(
+                        Text(
                           "No request",
-                          style:  TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
                         ),
-                         SizedBox(
+                        SizedBox(
                           height: 50,
                         ),
                       ],
@@ -169,12 +169,14 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                       backgroundImage: NetworkImage(Provider.of<
                                                   GraphQLConfiguration>(context)
                                               .displayImgRoute +
-                                          membershipRequests['user']['image'].toString()))
+                                          membershipRequests['user']['image']
+                                              .toString()))
                                   : const CircleAvatar(
                                       radius: 30,
                                       backgroundImage:
                                           AssetImage("assets/images/team.png")),
-                              title: Text('${membershipRequests['user']['firstName']} ${membershipRequests['user']['lastName']}'),
+                              title: Text(
+                                  '${membershipRequests['user']['firstName']} ${membershipRequests['user']['lastName']}'),
                               trailing: processing
                                   ? const FittedBox(
                                       child: CircularProgressIndicator(),
@@ -188,7 +190,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                           color: Colors.red,
                                           onPressed: () {
                                             itemIndex =
-                                                membershipRequests['_id'].toString();
+                                                membershipRequests['_id']
+                                                    .toString();
                                             rejectMemberShipRequests();
                                           },
                                         ),
@@ -198,7 +201,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                                           color: Colors.green,
                                           onPressed: () {
                                             itemIndex =
-                                                membershipRequests['_id'].toString();
+                                                membershipRequests['_id']
+                                                    .toString();
                                             acceptMemberShipRequests();
                                           },
                                         ),

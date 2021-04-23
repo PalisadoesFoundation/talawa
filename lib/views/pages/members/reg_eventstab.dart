@@ -9,7 +9,7 @@ import 'package:talawa/views/widgets/loading.dart';
 
 // ignore: must_be_immutable
 class RegisteredEvents extends StatefulWidget {
-    RegisteredEvents({
+  RegisteredEvents({
     Key key,
     @required this.member,
   }) : super(key: key);
@@ -38,7 +38,8 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
     final Map result =
         await apiFunctions.gqlquery(Queries().registeredEventsByUser(userID));
     setState(() {
-      userEvents = result == null ? [] : result['registeredEventsByUser'] as List;
+      userEvents =
+          result == null ? [] : result['registeredEventsByUser'] as List;
     });
   }
 

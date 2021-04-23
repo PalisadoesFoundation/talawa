@@ -46,7 +46,8 @@ Widget registrantListPage() => MultiProvider(
     );
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("Registrant List Tests", () {
     testWidgets("Testing if Registrant List  Page shows up", (tester) async {

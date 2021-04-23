@@ -35,7 +35,8 @@ Widget userTasksPage() => MultiProvider(
 
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("users task tab page tests", () {
     testWidgets("Testing if users task tab shows up", (tester) async {

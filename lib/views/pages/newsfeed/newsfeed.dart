@@ -157,7 +157,8 @@ class _NewsFeedState extends State<NewsFeed> {
                                         child: Column(
                                           children: <Widget>[
                                             Container(
-                                                padding: const EdgeInsets.all(5.0),
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(
@@ -207,7 +208,8 @@ class _NewsFeedState extends State<NewsFeed> {
                                                   )),
                                             ]),
                                             Padding(
-                                                padding: const EdgeInsets.all(10),
+                                                padding:
+                                                    const EdgeInsets.all(10),
                                                 child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -234,15 +236,16 @@ class _NewsFeedState extends State<NewsFeed> {
   //function to add the post on the news feed
   Widget addPostFab() {
     return FloatingActionButton(
-        backgroundColor: UIData.secondaryColor,
-        
-        onPressed: () {
-          pushNewScreenWithRouteSettings(context,
-              screen: const AddPost(), settings: const RouteSettings());
-        }, child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),);
+      backgroundColor: UIData.secondaryColor,
+      onPressed: () {
+        pushNewScreenWithRouteSettings(context,
+            screen: const AddPost(), settings: const RouteSettings());
+      },
+      child: const Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
+    );
   }
 
   //function which counts the number of comments on a particular post
@@ -267,8 +270,8 @@ class _NewsFeedState extends State<NewsFeed> {
                       settings: const RouteSettings(),
                       withNavBar: false)
                   .then((value) {
-                //if (value != null && value) 
-                if (value != null){
+                //if (value != null && value)
+                if (value != null) {
                   getPosts();
                 }
               });

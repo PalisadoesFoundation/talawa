@@ -84,9 +84,11 @@ class RegisterFormState extends State<RegisterForm> {
         _progressBarState = true;
       });
 
-      final String userFName = result.data['signUp']['user']['firstName'].toString();
+      final String userFName =
+          result.data['signUp']['user']['firstName'].toString();
       await _pref.saveUserFName(userFName);
-      final String userLName = result.data['signUp']['user']['lastName'].toString();
+      final String userLName =
+          result.data['signUp']['user']['lastName'].toString();
       await _pref.saveUserLName(userLName);
 
       final Token accessToken =
@@ -95,7 +97,8 @@ class RegisterFormState extends State<RegisterForm> {
       final Token refreshToken =
           Token(tokenString: result.data['signUp']['refreshToken'].toString());
       await _pref.saveRefreshToken(refreshToken);
-      final String currentUserId = result.data['signUp']['user']['_id'].toString();
+      final String currentUserId =
+          result.data['signUp']['user']['_id'].toString();
       await _pref.saveUserId(currentUserId);
       //Navigate user to join organization screen
       Navigator.of(context).pushAndRemoveUntil(
@@ -125,9 +128,11 @@ class RegisterFormState extends State<RegisterForm> {
         _progressBarState = true;
       });
 
-      final String userFName = result.data['signUp']['user']['firstName'].toString();
+      final String userFName =
+          result.data['signUp']['user']['firstName'].toString();
       await _pref.saveUserFName(userFName);
-      final String userLName = result.data['signUp']['user']['lastName'].toString();
+      final String userLName =
+          result.data['signUp']['user']['lastName'].toString();
       await _pref.saveUserLName(userLName);
       final Token accessToken =
           Token(tokenString: result.data['signUp']['accessToken'].toString());
@@ -135,7 +140,8 @@ class RegisterFormState extends State<RegisterForm> {
       final Token refreshToken =
           Token(tokenString: result.data['signUp']['refreshToken'].toString());
       await _pref.saveRefreshToken(refreshToken);
-      final String currentUserId = result.data['signUp']['user']['_id'].toString();
+      final String currentUserId =
+          result.data['signUp']['user']['_id'].toString();
       await _pref.saveUserId(currentUserId);
 
       Navigator.of(context).pushAndRemoveUntil(
@@ -214,7 +220,8 @@ class RegisterFormState extends State<RegisterForm> {
                             borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: const Icon(Icons.person, color: Colors.white),
+                          prefixIcon:
+                              const Icon(Icons.person, color: Colors.white),
                           labelText: "First Name",
                           labelStyle: const TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
@@ -245,7 +252,8 @@ class RegisterFormState extends State<RegisterForm> {
                             borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: const Icon(Icons.person, color: Colors.white),
+                          prefixIcon:
+                              const Icon(Icons.person, color: Colors.white),
                           labelText: "Last Name",
                           labelStyle: const TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
@@ -276,7 +284,8 @@ class RegisterFormState extends State<RegisterForm> {
                             borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: const Icon(Icons.email, color: Colors.white),
+                          prefixIcon:
+                              const Icon(Icons.email, color: Colors.white),
                           labelText: "Email",
                           labelStyle: const TextStyle(color: Colors.white),
                           alignLabelWithHint: true,
@@ -307,7 +316,8 @@ class RegisterFormState extends State<RegisterForm> {
                             borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: const Icon(Icons.lock, color: Colors.white),
+                          prefixIcon:
+                              const Icon(Icons.lock, color: Colors.white),
                           suffixIcon: TextButton(
                             onPressed: _toggle,
                             child: Icon(
@@ -372,7 +382,8 @@ class RegisterFormState extends State<RegisterForm> {
                             borderSide: const BorderSide(color: Colors.orange),
                             borderRadius: BorderRadius.circular(20.0),
                           ),
-                          prefixIcon: const Icon(Icons.lock, color: Colors.white),
+                          prefixIcon:
+                              const Icon(Icons.lock, color: Colors.white),
                           labelText: "Confirm Password",
                           labelStyle: const TextStyle(color: Colors.white),
                           focusColor: UIData.primaryColor,
@@ -385,8 +396,8 @@ class RegisterFormState extends State<RegisterForm> {
                   ),
                 ),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20.0, horizontal: 30.0),
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ButtonStyle(

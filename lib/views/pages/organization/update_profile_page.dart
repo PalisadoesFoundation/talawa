@@ -16,7 +16,6 @@ import 'package:talawa/view_models/vm_register.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 
 class UpdateProfilePage extends StatefulWidget {
-
   const UpdateProfilePage({Key key, @required this.userDetails})
       : super(key: key);
   final List userDetails;

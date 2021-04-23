@@ -152,7 +152,7 @@ class _UrlPageState extends State<UrlPage>
     // Initializing all the animationControllers
     controller = AnimationController(
       vsync: this,
-      duration:const  Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 2000),
     );
     loginController = AnimationController(
       vsync: this,
@@ -183,7 +183,8 @@ class _UrlPageState extends State<UrlPage>
             child: Container(
               //padding: EdgeInsets.all(100.0),
               padding: const EdgeInsets.symmetric(vertical: 50.0),
-              child: const Center(child: Image(image: AssetImage(UIData.talawaLogo))),
+              child: const Center(
+                  child: Image(image: AssetImage(UIData.talawaLogo))),
             ),
           ),
           Container(
@@ -253,11 +254,12 @@ class _UrlPageState extends State<UrlPage>
                             children: <Widget>[
                               DropdownButton<String>(
                                 value: dropdownValue,
-                                icon:const  Icon(Icons.arrow_downward,
+                                icon: const Icon(Icons.arrow_downward,
                                     color: Colors.orange),
                                 iconSize: 24,
                                 elevation: 16,
-                                style: const TextStyle(color: UIData.primaryColor),
+                                style:
+                                    const TextStyle(color: UIData.primaryColor),
                                 underline: Container(
                                   height: 2,
                                   color: UIData.primaryColor,
@@ -290,25 +292,26 @@ class _UrlPageState extends State<UrlPage>
                                           Validator.validateURL(
                                               urlController.text),
                                       textAlign: TextAlign.left,
-                                      style: const TextStyle(color: Colors.white),
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                       decoration: InputDecoration(
                                         enabledBorder: OutlineInputBorder(
-                                          borderSide:
-                                              const BorderSide(color: Colors.white),
+                                          borderSide: const BorderSide(
+                                              color: Colors.white),
                                           borderRadius:
                                               BorderRadius.circular(50.0),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide:
-                                              const BorderSide(color: Colors.orange),
+                                          borderSide: const BorderSide(
+                                              color: Colors.orange),
                                           borderRadius:
                                               BorderRadius.circular(50.0),
                                         ),
-                                        prefixIcon:const  Icon(Icons.web,
+                                        prefixIcon: const Icon(Icons.web,
                                             color: Colors.white),
                                         labelText: "Type Org URL Here",
-                                        labelStyle:
-                                            const TextStyle(color: Colors.white),
+                                        labelStyle: const TextStyle(
+                                            color: Colors.white),
                                         alignLabelWithHint: true,
                                         hintText:
                                             'talawa-graphql-api.herokuapp.com',
@@ -320,7 +323,7 @@ class _UrlPageState extends State<UrlPage>
                               ),
                             ],
                           ),
-                         const  SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Row(
@@ -339,7 +342,8 @@ class _UrlPageState extends State<UrlPage>
 
                                       await checkAndSetUrl();
                                     }
-                                  }, child: isUrlCalled
+                                  },
+                                  child: isUrlCalled
                                       ? const SizedBox(
                                           height: 14,
                                           width: 14,
@@ -401,8 +405,7 @@ class _UrlPageState extends State<UrlPage>
                                 ),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.orange),
-                                    borderRadius:
-                                        BorderRadius.circular(50.0)),
+                                    borderRadius: BorderRadius.circular(50.0)),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const <Widget>[
@@ -468,12 +471,11 @@ class _UrlPageState extends State<UrlPage>
                                 ),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.orange),
-                                    borderRadius:
-                                        BorderRadius.circular(50.0)),
+                                    borderRadius: BorderRadius.circular(50.0)),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const <Widget>[
-                                     Expanded(
+                                    Expanded(
                                       child: Text(
                                         "Login",
                                         textAlign: TextAlign.center,

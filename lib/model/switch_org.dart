@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-SwitchOrg switchOrgFromJson(String str) => SwitchOrg.fromJson(json.decode(str) as Map<String, dynamic>);
+SwitchOrg switchOrgFromJson(String str) =>
+    SwitchOrg.fromJson(json.decode(str) as Map<String, dynamic>);
 
 String switchOrgToJson(SwitchOrg data) => json.encode(data.toJson());
 
@@ -30,9 +31,10 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        users: List<User>.from((json["users"] as List).map((x) => User.fromJson(x as Map<String, dynamic>))),
+        users: List<User>.from((json["users"] as List)
+            .map((x) => User.fromJson(x as Map<String, dynamic>))),
       );
-      
+
   List<User> users;
 
   Map<String, dynamic> toJson() => {
@@ -44,11 +46,11 @@ class User {
   User({
     this.joinedOrganizations,
   });
-  
-    factory User.fromJson(Map<String, dynamic> json) => User(
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
         joinedOrganizations: List<JoinedOrganization>.from(
-            (json["joinedOrganizations"] as List)
-                .map((x) => JoinedOrganization.fromJson(x as Map<String, dynamic>))),
+            (json["joinedOrganizations"] as List).map(
+                (x) => JoinedOrganization.fromJson(x as Map<String, dynamic>))),
       );
 
   List<JoinedOrganization> joinedOrganizations;

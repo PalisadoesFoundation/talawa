@@ -121,9 +121,12 @@ class _NewsArticleState extends State<NewsArticle> {
 
   //this method helps us to get the comments of the post
   Future getPostComments() async {
-    final String mutation = Queries().getPostsComments(widget.post['_id'].toString());
+    final String mutation =
+        Queries().getPostsComments(widget.post['_id'].toString());
     final Map result = await apiFunctions.gqlmutation(mutation) as Map;
-    comments = result == null ? [] : (result['commentsByPost'] as List).reversed.toList();
+    comments = result == null
+        ? []
+        : (result['commentsByPost'] as List).reversed.toList();
   }
 
   //this method helps us to create any comments we are willing to
@@ -133,8 +136,8 @@ class _NewsArticleState extends State<NewsArticle> {
     if (commentController.text.isNotEmpty) {
       Fluttertoast.showToast(msg: "Adding Comment...");
       queryText = commentController.text.replaceAll("\n", newLineKey).trim();
-      final Map result =
-          await Queries().createComments(widget.post['_id'].toString(), queryText) as Map;
+      final Map result = await Queries()
+          .createComments(widget.post['_id'].toString(), queryText) as Map;
       if (result == null) {
         Fluttertoast.showToast(
           msg: "Sorry, this comment could not be posted.",
@@ -260,7 +263,8 @@ class _NewsArticleState extends State<NewsArticle> {
                         padding: const EdgeInsets.all(15.0),
                         child: Text(
                           widget.post['title'].toString(),
-                          style: const TextStyle(color: Colors.white, fontSize: 30.0),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 30.0),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -414,7 +418,8 @@ class _NewsArticleState extends State<NewsArticle> {
                   ),
                   subtitle: Row(
                     children: [
-                      Text('${comments[index]['creator']['firstName']} ${comments[index]['creator']['lastName']}'),
+                      Text(
+                          '${comments[index]['creator']['firstName']} ${comments[index]['creator']['lastName']}'),
                       const Text(
                         " - ",
                         style: TextStyle(

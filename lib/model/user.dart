@@ -25,7 +25,7 @@ class User {
     this.email = tUser.email;
     this.userImage = tUser.userImage;
   }
-      
+
   int id;
   String firstName;
   String lastName;

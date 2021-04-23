@@ -162,18 +162,19 @@ class _AddPostState extends State<AddPost> {
   //this method adds the post
   Widget addPostFab() {
     return FloatingActionButton(
-        key: const Key('submit'),
-        backgroundColor: UIData.secondaryColor,
-        onPressed: () {
-          if (_formKey.currentState.validate()) {
-            _formKey.currentState.save();
-            createPost();
-          }
-        },
-        child: const Icon(
-          Icons.check,
-          color: Colors.white,
-        ),);
+      key: const Key('submit'),
+      backgroundColor: UIData.secondaryColor,
+      onPressed: () {
+        if (_formKey.currentState.validate()) {
+          _formKey.currentState.save();
+          createPost();
+        }
+      },
+      child: const Icon(
+        Icons.check,
+        color: Colors.white,
+      ),
+    );
   }
 
   Widget inputField(String name, TextEditingController controller) {

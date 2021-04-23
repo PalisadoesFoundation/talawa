@@ -57,8 +57,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             child: const Text(
                               "SIGN UP!",
                               textAlign: TextAlign.start,
-                              style:
-                                  TextStyle(color: UIData.primaryColor),
+                              style: TextStyle(color: UIData.primaryColor),
                             ),
                           ),
                         ),

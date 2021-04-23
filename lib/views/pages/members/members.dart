@@ -71,7 +71,8 @@ class _OrganizationsState extends State<Organizations> {
       }
       if (membersList.isNotEmpty) {
         membersList = membersList[0]['members'] as List;
-        membersList.sort((a, b) => (a['firstName'].toString()).compareTo(b['firstName'].toString()));
+        membersList.sort((a, b) =>
+            (a['firstName'].toString()).compareTo(b['firstName'].toString()));
         setState(() {
           alphaMembersMap = alphaSplitList(membersList);
         });
@@ -116,7 +117,7 @@ class _OrganizationsState extends State<Organizations> {
                     },
                     child: Center(
                         child: Column(children: <Widget>[
-                     const  SizedBox(
+                      const SizedBox(
                         height: 250,
                       ),
                       const Text(
@@ -133,7 +134,7 @@ class _OrganizationsState extends State<Organizations> {
                         onPressed: () {
                           getMembers();
                         },
-                        child:const  Text("Refresh"),
+                        child: const Text("Refresh"),
                       )
                     ])))
                 : RefreshIndicator(
@@ -144,8 +145,8 @@ class _OrganizationsState extends State<Organizations> {
                       slivers: List.generate(
                         alphaMembersMap.length,
                         (index) {
-                          return alphabetDividerList(
-                              context, alphaMembersMap.keys.toList()[index].toString());
+                          return alphabetDividerList(context,
+                              alphaMembersMap.keys.toList()[index].toString());
                         },
                       ),
                     )));

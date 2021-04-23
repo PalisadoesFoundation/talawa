@@ -54,7 +54,8 @@ class Validator {
     if (password.isEmpty) {
       return "Password must not be left blank";
     }
-    const String pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~.]).{8,}$';
+    const String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~.]).{8,}$';
     final RegExp regExp = RegExp(pattern);
     if (!regExp.hasMatch(password)) {
       return "Invalid Password";

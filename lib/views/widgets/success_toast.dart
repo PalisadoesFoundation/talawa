@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 //Here we are making the Success bar it will be called when user gets some success
 
-class SuccessToast extends StatefulWidget {  
+class SuccessToast extends StatefulWidget {
   const SuccessToast(this.msg);
   final String msg;
 
@@ -27,7 +27,7 @@ class _SuccessToastState extends State<SuccessToast> {
     return _successToast() as Widget;
   }
 
-   _successToast() {
+  _successToast() {
     final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
       decoration: BoxDecoration(

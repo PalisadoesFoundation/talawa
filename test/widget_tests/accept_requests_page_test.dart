@@ -31,7 +31,8 @@ Widget accepRequestsPage() => MultiProvider(
 
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("accept_members_requests page tests", () {
     testWidgets("Testing if member page shows up", (tester) async {

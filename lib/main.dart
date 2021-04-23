@@ -58,8 +58,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primaryColor: UIData.primaryColor,
             fontFamily: UIData.quickFont,
-            primarySwatch: UIData.primaryColor as MaterialColor
-        ),
+            primarySwatch: UIData.primaryColor as MaterialColor),
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {

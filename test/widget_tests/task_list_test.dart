@@ -46,7 +46,8 @@ Widget taskListPage() => MultiProvider(
     );
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("Task List Tests", () {
     testWidgets("Testing if tasklist  Page shows up", (tester) async {

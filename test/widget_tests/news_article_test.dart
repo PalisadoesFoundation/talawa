@@ -43,7 +43,8 @@ Widget newsArticlePage() => MultiProvider(
 
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("News Article Tests", () {
     testWidgets("Testing if newsArticle Page shows up", (tester) async {
@@ -109,7 +110,8 @@ void main() {
       (WidgetTester tester) async {
     //find all the widget needed
 
-    final leaveCommentTextField = find.byKey(const ValueKey('leaveCommentField'));
+    final leaveCommentTextField =
+        find.byKey(const ValueKey('leaveCommentField'));
     final leaveCommentButton = find.byKey(const ValueKey('leaveCommentButton'));
 
     //execute the test

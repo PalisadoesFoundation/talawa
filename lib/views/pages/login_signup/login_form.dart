@@ -83,28 +83,35 @@ class LoginFormState extends State<LoginForm> {
       final Token refreshToken =
           Token(tokenString: result.data['login']['refreshToken'].toString());
       await _pref.saveRefreshToken(refreshToken);
-      final String currentUserId = result.data['login']['user']['_id'].toString();
+      final String currentUserId =
+          result.data['login']['user']['_id'].toString();
       await _pref.saveUserId(currentUserId);
-      final String userFName = result.data['login']['user']['firstName'].toString();
+      final String userFName =
+          result.data['login']['user']['firstName'].toString();
       await _pref.saveUserFName(userFName);
-      final String userLName = result.data['login']['user']['lastName'].toString();
+      final String userLName =
+          result.data['login']['user']['lastName'].toString();
       await _pref.saveUserLName(userLName);
 
-      final List organisations = result.data['login']['user']['joinedOrganizations'] as List;
+      final List organisations =
+          result.data['login']['user']['joinedOrganizations'] as List;
       if (organisations.isEmpty) {
         //skip the steps below
       } else {
         //execute the steps below
-        final String currentOrgId =
-            result.data['login']['user']['joinedOrganizations'][0]['_id'].toString();
+        final String currentOrgId = result.data['login']['user']
+                ['joinedOrganizations'][0]['_id']
+            .toString();
         await _pref.saveCurrentOrgId(currentOrgId);
 
-        final String currentOrgImgSrc =
-            result.data['login']['user']['joinedOrganizations'][0]['image'].toString();
+        final String currentOrgImgSrc = result.data['login']['user']
+                ['joinedOrganizations'][0]['image']
+            .toString();
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
 
-        final String currentOrgName =
-            result.data['login']['user']['joinedOrganizations'][0]['name'].toString();
+        final String currentOrgName = result.data['login']['user']
+                ['joinedOrganizations'][0]['name']
+            .toString();
         await _pref.saveCurrentOrgName(currentOrgName);
       }
       Navigator.pushAndRemoveUntil(
@@ -124,7 +131,8 @@ class LoginFormState extends State<LoginForm> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            const Text('Login', style: TextStyle(fontSize: 35, color: Colors.white)),
+            const Text('Login',
+                style: TextStyle(fontSize: 35, color: Colors.white)),
             const SizedBox(
               height: 50,
             ),
@@ -210,33 +218,35 @@ class LoginFormState extends State<LoginForm> {
               height: 20,
             ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
               width: double.infinity,
               child: ElevatedButton(
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        const EdgeInsets.all(12.0)),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                        const StadiumBorder()),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                  ),
-                  onPressed: () async {
-                    FocusScope.of(context).unfocus();
-                    //checks to see if all the fields have been validated then authenticate a user
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-                      loginUser();
-                      setState(() {
-                        toggleProgressBarState();
-                      });
-                    }
-                  },
-                  child: _progressBarState
-                      ? const CircularProgressIndicator()
-                      : const Text(
-                          "SIGN IN",
-                        ),),
+                style: ButtonStyle(
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                      const EdgeInsets.all(12.0)),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                      const StadiumBorder()),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                ),
+                onPressed: () async {
+                  FocusScope.of(context).unfocus();
+                  //checks to see if all the fields have been validated then authenticate a user
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+                    loginUser();
+                    setState(() {
+                      toggleProgressBarState();
+                    });
+                  }
+                },
+                child: _progressBarState
+                    ? const CircularProgressIndicator()
+                    : const Text(
+                        "SIGN IN",
+                      ),
+              ),
             ),
           ],
         ));

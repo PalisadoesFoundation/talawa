@@ -62,9 +62,10 @@ class _EventsState extends State<Events> {
     final List currentevents = [];
 
     for (final event in events) {
-      final DateTime startTime =
-          DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'].toString()));
-      if (!(event['recurring'] as bool) && timer.isSameDay(currentDate, startTime)) {
+      final DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(event['startTime'].toString()));
+      if (!(event['recurring'] as bool) &&
+          timer.isSameDay(currentDate, startTime)) {
         currentevents.add(event);
       }
       if (event['recurrance'] == 'DAILY') {
@@ -99,28 +100,29 @@ class _EventsState extends State<Events> {
     for (final event in events) {
       if (!(event['recurring'] as bool)) {
         addDateToMap(
-            DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'].toString())),
+            DateTime.fromMicrosecondsSinceEpoch(
+                int.parse(event['startTime'].toString())),
             event as Map);
       } else {
         if (event['recurrance'] == 'DAILY') {
-          int day =
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'].toString()))
-                  .day;
-          final int lastday =
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'].toString()))
-                  .day;
+          int day = DateTime.fromMicrosecondsSinceEpoch(
+                  int.parse(event['startTime'].toString()))
+              .day;
+          final int lastday = DateTime.fromMicrosecondsSinceEpoch(
+                  int.parse(event['endTime'].toString()))
+              .day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event as Map);
             day += 1;
           }
         }
         if (event['recurrance'] == 'WEEKLY') {
-          int day =
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['startTime'].toString()))
-                  .day;
-          final int lastday =
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(event['endTime'].toString()))
-                  .day;
+          int day = DateTime.fromMicrosecondsSinceEpoch(
+                  int.parse(event['startTime'].toString()))
+              .day;
+          final int lastday = DateTime.fromMicrosecondsSinceEpoch(
+                  int.parse(event['endTime'].toString()))
+              .day;
           while (day <= lastday) {
             addDateToMap(DateTime(now.year, now.month, day), event as Map);
 
@@ -130,13 +132,15 @@ class _EventsState extends State<Events> {
         if (event['recurrance'] == 'MONTHLY') {
           final DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
               int.parse(event['startTime'].toString()));
-          addDateToMap(DateTime(now.year, now.month, firstDate.day), event as Map);
+          addDateToMap(
+              DateTime(now.year, now.month, firstDate.day), event as Map);
         }
         if (event['recurrance'] == 'YEARLY') {
           final DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
               int.parse(event['startTime'].toString()));
           if (now.month == firstDate.month) {
-            addDateToMap(DateTime(now.year, now.month, firstDate.day), event as Map);
+            addDateToMap(
+                DateTime(now.year, now.month, firstDate.day), event as Map);
           }
         }
       }
@@ -164,7 +168,8 @@ class _EventsState extends State<Events> {
     final String currentOrgID = await preferences.getCurrentOrgId();
     final Map result =
         await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-    eventList = result == null ? [] : (result['events'] as List).reversed.toList();
+    eventList =
+        result == null ? [] : (result['events'] as List).reversed.toList();
     eventList.removeWhere((element) =>
         element['title'] == 'Talawa Congress' ||
         element['title'] == 'test' ||
@@ -172,12 +177,13 @@ class _EventsState extends State<Events> {
         element['title'] == 'mayhem' ||
         element['title'] == 'mayhem1'); //dont know who keeps adding these
     // This removes all invalid date formats other than Unix time
-    eventList
-        .removeWhere((element) => int.tryParse(element['startTime'].toString()) == null);
+    eventList.removeWhere(
+        (element) => int.tryParse(element['startTime'].toString()) == null);
     eventList.sort((a, b) {
-      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime'].toString()))
-          .compareTo(
-              DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'].toString())));
+      return DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(a['startTime'].toString()))
+          .compareTo(DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(b['startTime'].toString())));
     });
     eventsToDates(eventList, DateTime.now());
     setState(() {
@@ -300,9 +306,8 @@ class _EventsState extends State<Events> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                            vertical: 5),
+                                                    padding: const EdgeInsets
+                                                        .symmetric(vertical: 5),
                                                     child: Text(
                                                       '${displayedEvents.length} Events',
                                                       style: const TextStyle(
@@ -495,7 +500,7 @@ class _EventsState extends State<Events> {
                     pushNewScreen(
                       context,
                       withNavBar: true,
-                      screen: EventDetail(event: displayedEvents[index]as Map),
+                      screen: EventDetail(event: displayedEvents[index] as Map),
                     );
                   },
                   child: const Text(

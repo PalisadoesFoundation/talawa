@@ -35,7 +35,8 @@ class _TaskListState extends State<TaskList> {
     final String userID = widget.event['_id'].toString();
     print("ishan");
 
-    final Map result = await apiFunctions.gqlquery(Queries().getTasksByEvent(userID));
+    final Map result =
+        await apiFunctions.gqlquery(Queries().getTasksByEvent(userID));
     //setState(() {
 
     //});

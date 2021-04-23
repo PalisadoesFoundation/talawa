@@ -32,7 +32,8 @@ Widget createLoginPageScreen() => MultiProvider(
 
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   // Function for ignoring overflow errors.
   // ignore: prefer_function_declarations_over_variables

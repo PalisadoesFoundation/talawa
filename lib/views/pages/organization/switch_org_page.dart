@@ -96,12 +96,14 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         _successToast("Switched to ${result.data['organizations'][0]['name']}");
 
         //save new current org in preference
-        final String currentOrgId = result.data['organizations'][0]['_id'].toString();
+        final String currentOrgId =
+            result.data['organizations'][0]['_id'].toString();
         await _pref.saveCurrentOrgId(currentOrgId);
         final String currentOrgImgSrc =
             result.data['organizations'][0]['image'].toString();
         await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-        final String currentOrgName = result.data['organizations'][0]['name'].toString();
+        final String currentOrgName =
+            result.data['organizations'][0]['name'].toString();
         await _pref.saveCurrentOrgName(currentOrgName);
 
         //Kill all previous stacked screen
@@ -159,7 +161,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                               AssetImage("assets/images/team.png")),
                   activeColor: UIData.secondaryColor,
                   groupValue: isSelected,
-                  title: Text('${userOrg[index]['name']}\n${userOrg[index]['description']}'),
+                  title: Text(
+                      '${userOrg[index]['name']}\n${userOrg[index]['description']}'),
                   value: index,
                   onChanged: (int val) {
                     setState(() {
