@@ -14,4 +14,4 @@ jobs:
         with:
           channel: 'beta'
 
-      - run: find . -type f -name "*.dart" |  xargs wc -l | awk '$1 > 1000' | if wc -l > 1; then exit 0; else exit 1;   
+      - run: find . -type f -name "*.dart" |  xargs wc -l | awk '$1 > 400' | if wc -l > 1; then exit 0; else exit 1;   
