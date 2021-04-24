@@ -67,7 +67,10 @@ class NewsFeed extends StatelessWidget {
                                             onTap: () {
                                               pushNewScreen(
                                                 context,
-                                                screen: NewsArticle(post: post),
+                                                screen: NewsArticle(
+                                                  index: index,
+                                                  post: post,
+                                                ),
                                               );
                                             },
                                             child: Card(
@@ -141,7 +144,9 @@ class NewsFeed extends StatelessWidget {
                                                             likeButton(
                                                                 post, context),
                                                             commentCounter(
-                                                                post, context),
+                                                                index,
+                                                                post,
+                                                                context),
                                                             Container(width: 80)
                                                           ])),
                                                 ],
@@ -177,7 +182,7 @@ class NewsFeed extends StatelessWidget {
   }
 
   //function which counts the number of comments on a particular post
-  Widget commentCounter(Map post, BuildContext context) {
+  Widget commentCounter(int index, Map post, BuildContext context) {
     return Row(
       children: [
         Text(
@@ -193,6 +198,7 @@ class NewsFeed extends StatelessWidget {
             onPressed: () async {
               pushNewScreenWithRouteSettings(context,
                       screen: NewsArticle(
+                        index: index,
                         post: post,
                       ),
                       settings: const RouteSettings(),
