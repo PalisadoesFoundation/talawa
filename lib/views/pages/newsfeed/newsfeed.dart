@@ -163,6 +163,7 @@ class NewsFeed extends StatelessWidget {
   //function to add the post on the news feed
   Widget addPostFab(BuildContext context) {
     return FloatingActionButton(
+      heroTag: "btn2",
       backgroundColor: UIData.secondaryColor,
       onPressed: () {
         pushNewScreenWithRouteSettings(context,

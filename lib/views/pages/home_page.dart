@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 //importing the pages here
 import 'package:provider/provider.dart';
+import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -126,7 +127,10 @@ class _HomePageState extends State<HomePage> {
         ),
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
-        )
+        ),
+        ChangeNotifierProvider<PostController>(
+          create: (_) => PostController(),
+        ),
       ],
       child: Builder(builder: (BuildContext context) {
         final BuildContext rootContext = context;

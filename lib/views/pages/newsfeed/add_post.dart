@@ -165,6 +165,7 @@ class _AddPostState extends State<AddPost> {
   //this method adds the post
   Widget addPostFab() {
     return FloatingActionButton(
+      heroTag: "btn1",
       key: const Key('submit'),
       backgroundColor: UIData.secondaryColor,
       onPressed: () {

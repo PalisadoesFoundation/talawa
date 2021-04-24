@@ -37,7 +37,7 @@ void main() {
   group('HomePage Widget Test', () {
     testWidgets("Testing if HomePage shows up", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
-
+      // debugDumpApp();
       // Verify if HomePage Page shows up by checking PersistentTabView.
       expect(find.byType(PersistentTabView), findsOneWidget);
     });
