@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:http/http.dart' as http;
@@ -174,6 +175,7 @@ class _UrlPageState extends State<UrlPage>
   Widget build(BuildContext context) {
     assignAnimation(firstTime: first);
     load();
+    SizeConfig().init(context);
     Widget mainScreen() {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
