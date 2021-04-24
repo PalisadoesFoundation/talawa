@@ -9,4 +9,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: git ls-files "*.dart" |  xargs wc -l | awk '$1 > 400' | if wc -l > 1; then exit 0; else exit 1;   
+      - run: git ls-files "*.dart" | xargs wc -l | awk '$1 > 500' | awk 'END{print (NR==1)?0:1}'   
