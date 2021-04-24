@@ -179,17 +179,6 @@ class _NewsFeedState extends State<NewsFeed> {
   //function to add the post on the news feed
   Widget addPostFab() {
     return FloatingActionButton(
-<<<<<<< HEAD
-        backgroundColor: UIData.secondaryColor,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          pushNewScreenWithRouteSettings(context,
-              screen: AddPost(), settings: RouteSettings());
-        });
-=======
       heroTag: "btn2",
       backgroundColor: UIData.secondaryColor,
       onPressed: () {
@@ -206,7 +195,6 @@ class _NewsFeedState extends State<NewsFeed> {
         color: Colors.white,
       ),
     );
->>>>>>> upstream/master
   }
 
   //function which counts the number of comments on a particular post
