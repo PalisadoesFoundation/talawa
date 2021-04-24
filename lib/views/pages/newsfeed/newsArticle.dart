@@ -108,8 +108,9 @@ class _NewsArticleState extends State<NewsArticle> {
     String mutation = Queries().getPostsComments(widget.post['_id'].toString());
     Map result = await apiFunctions.gqlmutation(mutation) as Map;
     setState(() {
-      comments =
-          result == null ? [] : result['commentsByPost'].reversed.toList() as List;
+      comments = result == null
+          ? []
+          : result['commentsByPost'].reversed.toList() as List;
     });
   }
 
@@ -119,7 +120,8 @@ class _NewsArticleState extends State<NewsArticle> {
     if (commentController.text.isNotEmpty) {
       Fluttertoast.showToast(msg: "Adding Comment...");
       queryText = commentController.text.replaceAll("\n", newLineKey).trim();
-      String mutation = Queries().createComments(widget.post['_id'].toString(), queryText) as String;
+      String mutation = Queries()
+          .createComments(widget.post['_id'].toString(), queryText) as String;
       Map result = await apiFunctions.gqlmutation(mutation) as Map;
       print(result);
       if (result == null) {
@@ -325,7 +327,9 @@ class _NewsArticleState extends State<NewsArticle> {
                           fontSize: 20,
                         ),
                       ),
-                      Text(timer.hoursOrDays(comments[index]['createdAt'].toString()).toString())
+                      Text(timer
+                          .hoursOrDays(comments[index]['createdAt'].toString())
+                          .toString())
                     ],
                   ),
                 );

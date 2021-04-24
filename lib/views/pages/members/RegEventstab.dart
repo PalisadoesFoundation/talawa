@@ -33,10 +33,11 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
   //method to get the user details
   getUserDetails() async {
     final String userID = widget.member['_id'].toString();
-    Map result =
-        await apiFunctions.gqlquery(Queries().registeredEventsByUser(userID)) as Map;
+    Map result = await apiFunctions
+        .gqlquery(Queries().registeredEventsByUser(userID)) as Map;
     setState(() {
-      userEvents = result == null ? [] : result['registeredEventsByUser'] as List;
+      userEvents =
+          result == null ? [] : result['registeredEventsByUser'] as List;
     });
   }
 

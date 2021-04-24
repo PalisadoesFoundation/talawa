@@ -579,8 +579,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   }
 }
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
+}

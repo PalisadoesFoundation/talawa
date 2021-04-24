@@ -85,7 +85,8 @@ class _MemberDetailState extends State<MemberDetail>
                     alignment: Alignment.centerLeft,
                     height: 30,
                     child: Text(
-                      'User Privileges: ' + getPrivilege(widget.member['_id'].toString()),
+                      'User Privileges: ' +
+                          getPrivilege(widget.member['_id'].toString()),
                       key: Key('Privilege'),
                     ),
                   )),
@@ -232,8 +233,8 @@ class _MemberDetailState extends State<MemberDetail>
   }
 }
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
+}

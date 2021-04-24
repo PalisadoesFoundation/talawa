@@ -181,8 +181,8 @@ class RegisterFormState extends State<RegisterForm> {
                     ? const Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text('Add Profile Image',
-                            style:
-                                const TextStyle(fontSize: 16, color: Colors.white)),
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.white)),
                       )
                     : IconButton(
                         icon: const Icon(

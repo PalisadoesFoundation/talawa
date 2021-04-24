@@ -162,8 +162,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                       child: Column(
                         children: <Widget>[
                           const Image(
-                              image:
-                                  AssetImage('assets/images/team.png')),
+                              image: AssetImage('assets/images/team.png')),
                           const SizedBox(
                             height: 20,
                           ),
@@ -296,8 +295,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   }
 }
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
+}

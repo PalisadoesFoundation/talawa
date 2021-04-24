@@ -453,7 +453,10 @@ class _EventsState extends State<Events> {
 
   Widget eventListView() {
     return displayedEvents.isEmpty
-        ? Center(child: Loading(key: UniqueKey(),))
+        ? Center(
+            child: Loading(
+            key: UniqueKey(),
+          ))
         : RefreshIndicator(
             onRefresh: () async {
               getEvents();

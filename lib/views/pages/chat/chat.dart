@@ -42,33 +42,33 @@ class _ChatState extends State<Chat> {
 
   Widget _textComposerWidget() {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: IconTheme(
-          data: const IconThemeData(color: Colors.blue),
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              children: <Widget>[
-                Flexible(
-                  child: TextField(
-                    decoration: InputDecoration.collapsed(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        hintText: "    Enter your message...."),
-                  ),
+      padding: const EdgeInsets.only(bottom: 10),
+      child: IconTheme(
+        data: const IconThemeData(color: Colors.blue),
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Row(
+            children: <Widget>[
+              Flexible(
+                child: TextField(
+                  decoration: InputDecoration.collapsed(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      hintText: "    Enter your message...."),
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.send),
-                  ),
-                )
-              ],
-            ),
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.send),
+                ),
+              )
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
