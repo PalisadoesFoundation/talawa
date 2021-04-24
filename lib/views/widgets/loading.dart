@@ -5,7 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 
 class Loading extends StatefulWidget {
-  const Loading({Key key}) : super(key: key);
+  const Loading({Key key, this.isShowingError}) : super(key: key);
+  final bool isShowingError;
   @override
   _LoadingState createState() => _LoadingState();
 }
@@ -49,7 +50,7 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-    return loading
+    return loading && widget.isShowingError == null
         ? const CircularProgressIndicator()
         : Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -59,9 +60,13 @@ class _LoadingState extends State<Loading> {
                 width: SizeConfig.screenWidth / 1.3,
               ),
               SizedBox(height: SizeConfig.safeBlockVertical * 3.75),
-              const Text(
-                'No data or something went wrong',
-                style: TextStyle(color: Colors.red),
+              Text(
+                widget.isShowingError != null
+                    ? widget.isShowingError
+                        ? "Something went wrong"
+                        : "No News Feed to show"
+                    : 'No data or something went wrong',
+                style: const TextStyle(color: Colors.red),
               ),
             ],
           );
