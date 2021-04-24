@@ -1,0 +1,17 @@
+name: Count Lines 
+on: [pull_request]
+
+jobs:
+  count-lines-of-code:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'beta'
+
+      - run: find . -type f -name "*.dart" |  xargs wc -l | awk '$1 > 1000' | if wc -l > 1; then exit 0; else exit 1;   
