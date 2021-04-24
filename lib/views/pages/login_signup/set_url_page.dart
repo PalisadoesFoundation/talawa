@@ -191,12 +191,12 @@ class _UrlPageState extends State<UrlPage>
           ),
           Container(
             //container with login and sign up button
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+            padding: EdgeInsets.fromLTRB(0, 0, 0, SizeConfig.safeBlockVertical *6.25),
 
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  padding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal * 5, 0, 0, 0),
                   width: _media != null
                       ? _media.size.width
                       : MediaQuery.of(context).size.width,
@@ -237,8 +237,8 @@ class _UrlPageState extends State<UrlPage>
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical * 2,
                 ),
                 FadeTransition(
                   opacity: createAnimation,
@@ -247,8 +247,8 @@ class _UrlPageState extends State<UrlPage>
                       width: _media != null
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(
-                          left: 20.0, right: 30.0, top: 10.0),
+                      margin: EdgeInsets.only(
+                          left: SizeConfig.safeBlockHorizontal * 5, right: SizeConfig.safeBlockHorizontal * 7.5, top: SizeConfig.safeBlockVertical * 1.25),
                       alignment: Alignment.center,
                       child: Column(
                         children: [
@@ -282,8 +282,8 @@ class _UrlPageState extends State<UrlPage>
                                   );
                                 }).toList(),
                               ),
-                              const SizedBox(
-                                width: 10,
+                              SizedBox(
+                                width: SizeConfig.safeBlockHorizontal * 2.5,
                               ),
                               Expanded(
                                 child: Form(
@@ -325,8 +325,8 @@ class _UrlPageState extends State<UrlPage>
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
+                          SizedBox(
+                            height: SizeConfig.safeBlockVertical * 0.75,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -346,10 +346,10 @@ class _UrlPageState extends State<UrlPage>
                                     }
                                   },
                                   child: isUrlCalled
-                                      ? const SizedBox(
-                                          height: 14,
-                                          width: 14,
-                                          child: CircularProgressIndicator(
+                                      ? SizedBox(
+                                          height: SizeConfig.safeBlockVertical * 1.75,
+                                          width: SizeConfig.safeBlockHorizontal * 3.5,
+                                          child: const CircularProgressIndicator(
                                               backgroundColor: Colors.white),
                                         )
                                       : Text(
@@ -362,8 +362,8 @@ class _UrlPageState extends State<UrlPage>
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical * 2.5,
                 ),
                 FadeTransition(
                   //changed opacity animation to match login button animation
@@ -374,8 +374,8 @@ class _UrlPageState extends State<UrlPage>
                       width: _media != null
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(
-                          left: 50.0, right: 50.0, top: 10.0),
+                      margin: EdgeInsets.only(
+                          left: SizeConfig.safeBlockHorizontal * 12.5, right: SizeConfig.safeBlockHorizontal * 12.5, top: SizeConfig.safeBlockVertical * 1.25),
                       alignment: Alignment.center,
                       child: Row(
                         children: <Widget>[
@@ -401,9 +401,9 @@ class _UrlPageState extends State<UrlPage>
                                       }
                                     },
                               child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 20.0,
-                                  horizontal: 20.0,
+                                padding: EdgeInsets.symmetric(
+                                  vertical: SizeConfig.safeBlockVertical * 2.5,
+                                  horizontal: SizeConfig.safeBlockHorizontal * 5,
                                 ),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.orange),
@@ -433,7 +433,7 @@ class _UrlPageState extends State<UrlPage>
                     ),
                   ),
                 ),
-                const SizedBox(height: 5),
+                SizedBox(height: SizeConfig.safeBlockVertical * 0.75),
                 FadeTransition(
                   opacity: loginAnimation,
                   child: Container(
@@ -441,8 +441,8 @@ class _UrlPageState extends State<UrlPage>
                       width: _media != null
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(
-                          left: 50.0, right: 50.0, top: 10.0),
+                      margin: EdgeInsets.only(
+                          left: SizeConfig.safeBlockHorizontal * 12.5, right: SizeConfig.safeBlockHorizontal * 12.5, top: SizeConfig.safeBlockVertical * 1.25),
                       alignment: Alignment.center,
                       child: Row(
                         children: <Widget>[
@@ -467,9 +467,9 @@ class _UrlPageState extends State<UrlPage>
                                       }
                                     },
                               child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 20.0,
-                                  horizontal: 20.0,
+                                padding: EdgeInsets.symmetric(
+                                  vertical: SizeConfig.safeBlockVertical * 2.5,
+                                  horizontal: SizeConfig.safeBlockHorizontal * 5,
                                 ),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.orange),
