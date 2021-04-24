@@ -67,7 +67,8 @@ class NewsFeed extends StatelessWidget {
                                             onTap: () {
                                               pushNewScreen(
                                                 context,
-                                                screen: NewsArticle(post: post, index: index),
+                                                screen: NewsArticle(
+                                                    post: post, index: index),
                                               );
                                             },
                                             child: Card(
@@ -140,8 +141,8 @@ class NewsFeed extends StatelessWidget {
                                                           children: <Widget>[
                                                             likeButton(
                                                                 post, context),
-                                                            commentCounter(
-                                                                post, index, context),
+                                                            commentCounter(post,
+                                                                index, context),
                                                             Container(width: 80)
                                                           ])),
                                                 ],
