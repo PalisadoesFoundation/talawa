@@ -81,14 +81,14 @@ void main() {
       await tester.runAsync(() async {
         await tester.pumpWidget(createHomePageScreen());
         //checking if the first page is newsfeed page
-        expect(find.byKey(Key('NEWSFEED_APP_BAR')), findsOneWidget);
-        expect(find.byKey(Key('GROUPS_APP_BAR')), findsNothing);
-        var chatIcon = find.byIcon(Icons.chat);
+        expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
+        expect(find.byKey(const Key('GROUPS_APP_BAR')), findsNothing);
+        final chatIcon = find.byIcon(Icons.chat);
         //tapping the chatIcon
         await tester.tap(chatIcon);
         await tester.pump();
         // //Group page should be present
-        expect(find.byKey(Key('GROUPS_APP_BAR')), findsOneWidget);
+        expect(find.byKey(const Key('GROUPS_APP_BAR')), findsOneWidget);
       });
     });
 

@@ -10,7 +10,6 @@ import 'package:talawa/utils/gql_client.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/home_page.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
 
 class SwitchOrganization extends StatefulWidget {
   @override
@@ -83,7 +82,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       //New Screen with updated data set
       pushNewScreen(
         context,
-        screen: HomePage(openPageIndex: 4,),
+        screen: const HomePage(openPageIndex: 4,),
         withNavBar: false
       );
     } else {
@@ -114,7 +113,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         //New Screen with Updated data set
         pushNewScreen(
           context,
-          screen: HomePage(openPageIndex: 4,),
+          screen: const HomePage(openPageIndex: 4,),
           withNavBar: false
         );
       }

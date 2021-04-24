@@ -29,12 +29,14 @@ class _GroupsState extends State<Groups> {
   //variable to monitor fetching of events
   bool fetched = true;
 
+  // ignore: prefer_typing_uninitialized_variables
   var events;
   FToast fToast;
 
   //variable for organization Id
   String _currOrgId;
 
+  @override
   initState() {
     super.initState();
     setState(() {
@@ -47,7 +49,7 @@ class _GroupsState extends State<Groups> {
     fetched = false;
     final String currentOrgID = await preferences.getCurrentOrgId();
     _currOrgId = currentOrgID;
-    Map result = await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    final Map result = await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     // print(result);
     eventList = result == null ? [] : result['events'].reversed.toList() as List<dynamic>;
     eventList.removeWhere((element) =>
@@ -97,7 +99,7 @@ class _GroupsState extends State<Groups> {
                     child: const Text(
                       "Register in an event to start chatting",
                       key: Key('empty_chat_group'),
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.grey,
@@ -108,15 +110,15 @@ class _GroupsState extends State<Groups> {
                   //Shows spinner while fetching is performed
                   //else shows a refresh text button with icon
                   !fetched
-                      ? Padding(
-                          padding: const EdgeInsets.all(8.0),
+                      ? const Padding(
+                          padding: EdgeInsets.all(8.0),
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
-                            child: const CircularProgressIndicator(),
+                            child: CircularProgressIndicator(),
                           ),
                         )
                       : TextButton.icon(
-                          key: Key('click_to_refresh_button'),
+                          key: const Key('click_to_refresh_button'),
                           icon: const Icon(Icons.refresh),
                           label: const Text('Click to Refresh..'),
                           onPressed: () {
@@ -145,8 +147,8 @@ class _GroupsState extends State<Groups> {
               child: ListView.builder(
                   itemCount: displayedEvents.length,
                   itemBuilder: (context, index) {
-                    String groupName = '${displayedEvents[index]['title']}';
-                    String _imgSrc = displayedEvents[index]['organization']['image'] as String;
+                    final String groupName = '${displayedEvents[index]['title']}';
+                    final String _imgSrc = displayedEvents[index]['organization']['image'] as String;
                     return Card(
                       child: ListTile(
                         title: Text(groupName),
@@ -158,7 +160,7 @@ class _GroupsState extends State<Groups> {
                                   Provider.of<GraphQLConfiguration>(context).displayImgRoute +
                                       _imgSrc) as Widget,
                         ),
-                        trailing: Icon(Icons.arrow_right),
+                        trailing: const Icon(Icons.arrow_right),
                         onTap: () {
                           pushNewScreen(
                             context,
@@ -176,7 +178,7 @@ class _GroupsState extends State<Groups> {
 
   //function to show exceptions
   _exceptionToast(String msg) {
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -193,7 +195,7 @@ class _GroupsState extends State<Groups> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 1),
+      toastDuration: const Duration(seconds: 1),
     );
   }
 }

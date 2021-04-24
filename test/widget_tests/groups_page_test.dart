@@ -25,7 +25,7 @@ Widget groupsPage() => MultiProvider(
           create: (_) => Preferences(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: Groups(),
       ),
     );
@@ -45,7 +45,7 @@ void main() {
     });
 
     testWidgets("Testing overflow of Groups page in a mobile screen", (tester) async {
-      binding.window.physicalSizeTestValue = Size(440, 800);
+      binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(groupsPage());
@@ -58,7 +58,7 @@ void main() {
     });
 
     testWidgets("Testing overflow of Groups page in a tablet screen", (tester) async {
-      binding.window.physicalSizeTestValue = Size(1024, 768);
+      binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(groupsPage());
@@ -73,12 +73,12 @@ void main() {
     testWidgets("empty groups for user with no org", (tester) async {
       await tester.pumpWidget(groupsPage());
 
-      var emptyTextWidget = find.byKey(Key('empty_chat_group'));
+      final emptyTextWidget = find.byKey(const Key('empty_chat_group'));
 
       expect(emptyTextWidget, findsOneWidget);
 
       // get the [ListView] widget
-      var listView = find.byType(ListView);
+      final listView = find.byType(ListView);
       expect(
         listView,
         findsNothing,
