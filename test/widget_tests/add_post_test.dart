@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/newsfeed/add_post.dart';
@@ -22,6 +23,9 @@ Widget createMemberPageScreen() => MultiProvider(
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
         ),
+        ChangeNotifierProvider<PostController>(
+          create: (_) => PostController(),
+        )
       ],
       child: const MaterialApp(
         home: AddPost(),

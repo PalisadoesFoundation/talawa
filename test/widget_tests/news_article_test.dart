@@ -1,4 +1,5 @@
 // Packages imports.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -25,13 +27,16 @@ Widget newsArticlePage() => MultiProvider(
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
         ),
+        ChangeNotifierProvider<PostController>(
+          create: (_) => PostController(),
+        ),
         ChangeNotifierProvider<CommentHandler>(
           create: (_) => CommentHandler(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: NewsArticle(
-          // ignore: prefer_const_literals_to_create_immutables
+          index: 0,
           post: {
             '_id': '605259ecb1257f67811d7ae3',
             'text': 'ndlnldwnl',
