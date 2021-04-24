@@ -67,7 +67,7 @@ class NewsFeed extends StatelessWidget {
                                             onTap: () {
                                               pushNewScreen(
                                                 context,
-                                                screen: NewsArticle(post: post,index: index,),
+                                                screen: NewsArticle(post: post),
                                               );
                                             },
                                             child: Card(
@@ -141,7 +141,7 @@ class NewsFeed extends StatelessWidget {
                                                             likeButton(
                                                                 post, context),
                                                             commentCounter(
-                                                                post, context,index),
+                                                                post, context),
                                                             Container(width: 80)
                                                           ])),
                                                 ],
@@ -177,7 +177,7 @@ class NewsFeed extends StatelessWidget {
   }
 
   //function which counts the number of comments on a particular post
-  Widget commentCounter(Map post, BuildContext context,int index) {
+  Widget commentCounter(Map post, BuildContext context) {
     return Row(
       children: [
         Text(
@@ -194,7 +194,6 @@ class NewsFeed extends StatelessWidget {
               pushNewScreenWithRouteSettings(context,
                       screen: NewsArticle(
                         post: post,
-                        index: index,
                       ),
                       settings: const RouteSettings(),
                       withNavBar: false)
