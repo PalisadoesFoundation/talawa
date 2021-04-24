@@ -89,8 +89,11 @@ class _UserTasksState extends State<UserTasks> {
                             subtitle: Text(
                               'Description: $description',
                             ),
-                            contentPadding:
-                               EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal * 2, SizeConfig.safeBlockVertical, SizeConfig.safeBlockHorizontal * 2, SizeConfig.safeBlockVertical),
+                            contentPadding: EdgeInsets.fromLTRB(
+                                SizeConfig.safeBlockHorizontal * 2,
+                                SizeConfig.safeBlockVertical,
+                                SizeConfig.safeBlockHorizontal * 2,
+                                SizeConfig.safeBlockVertical),
                           ),
                         ],
                       ));

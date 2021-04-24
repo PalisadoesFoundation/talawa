@@ -159,7 +159,8 @@ class _OrganizationsState extends State<Organizations> {
       header: Container(
         color: Colors.white,
         height: SizeConfig.safeBlockVertical * 7.5,
-        padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 4),
+        padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.safeBlockHorizontal * 4),
         alignment: Alignment.centerLeft,
         child: CircleAvatar(
             backgroundColor: UIData.secondaryColor,
@@ -252,8 +253,8 @@ class _OrganizationsState extends State<Organizations> {
   Widget defaultUserImage(Map member) {
     return Container(
         padding: const EdgeInsets.all(0),
-      height: SizeConfig.safeBlockVertical * 10,
-      width: SizeConfig.safeBlockHorizontal * 25,
+        height: SizeConfig.safeBlockVertical * 10,
+        width: SizeConfig.safeBlockHorizontal * 25,
         color: idToColor(member['_id'].toString()),
         child: Padding(
             padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 2.5),

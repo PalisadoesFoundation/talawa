@@ -74,7 +74,8 @@ class _MemberDetailState extends State<MemberDetail>
                   Card(
                       child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 5),
+                    padding: EdgeInsets.only(
+                        left: SizeConfig.safeBlockHorizontal * 5),
                     alignment: Alignment.centerLeft,
                     height: SizeConfig.safeBlockVertical * 3.75,
                     child: Text('User email: ${widget.member['email']}'),
@@ -82,7 +83,8 @@ class _MemberDetailState extends State<MemberDetail>
                   Card(
                       child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 5),
+                    padding: EdgeInsets.only(
+                        left: SizeConfig.safeBlockHorizontal * 5),
                     alignment: Alignment.centerLeft,
                     height: SizeConfig.safeBlockVertical * 3.75,
                     child: Text(
@@ -213,7 +215,8 @@ class _MemberDetailState extends State<MemberDetail>
                     end: Alignment.topCenter,
                     colors: [Colors.black45, Colors.transparent]),
               ),
-              padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 5),
+              padding:
+                  EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 5),
               height: SizeConfig.safeBlockVertical * 5,
               child: Align(
                 alignment: Alignment.centerLeft,

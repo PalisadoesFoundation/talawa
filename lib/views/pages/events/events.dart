@@ -307,8 +307,10 @@ class _EventsState extends State<Events> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    padding: EdgeInsets
-                                                        .symmetric(vertical: SizeConfig.safeBlockVertical * 0.625),
+                                                    padding: EdgeInsets.symmetric(
+                                                        vertical: SizeConfig
+                                                                .safeBlockVertical *
+                                                            0.625),
                                                     child: Text(
                                                       '${displayedEvents.length} Events',
                                                       style: const TextStyle(

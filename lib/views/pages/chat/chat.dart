@@ -25,7 +25,8 @@ class _ChatState extends State<Chat> {
               child: Image.asset(UIData.talawaLogo),
             ),
             Padding(
-              padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 2.5),
+              padding:
+                  EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 2.5),
               child: Text(
                 widget.groupName,
                 style: const TextStyle(color: Colors.white),
@@ -45,7 +46,8 @@ class _ChatState extends State<Chat> {
       child: IconTheme(
         data: const IconThemeData(color: Colors.blue),
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 2),
+          margin: EdgeInsets.symmetric(
+              horizontal: SizeConfig.safeBlockHorizontal * 2),
           child: Row(
             children: <Widget>[
               Flexible(
@@ -60,7 +62,8 @@ class _ChatState extends State<Chat> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 2),
+                margin: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.safeBlockHorizontal * 2),
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.send),

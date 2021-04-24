@@ -193,11 +193,17 @@ class _NewsFeedState extends State<NewsFeed> {
                                             ),
                                             Row(children: <Widget>[
                                               SizedBox(
-                                                width: SizeConfig.safeBlockHorizontal * 7.5,
+                                                width: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    7.5,
                                               ),
                                               // ignore: sized_box_for_whitespace
                                               Container(
-                                                  width: SizeConfig.screenWidth - SizeConfig.safeBlockHorizontal * 12.5,
+                                                  width: SizeConfig
+                                                          .screenWidth -
+                                                      SizeConfig
+                                                              .safeBlockHorizontal *
+                                                          12.5,
                                                   child: Text(
                                                     postList[index]["text"]
                                                         .toString(),
@@ -212,8 +218,9 @@ class _NewsFeedState extends State<NewsFeed> {
                                                   )),
                                             ]),
                                             Padding(
-                                                padding:
-                                                     EdgeInsets.all(SizeConfig.safeBlockHorizontal * 2.5),
+                                                padding: EdgeInsets.all(SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    2.5),
                                                 child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -221,7 +228,10 @@ class _NewsFeedState extends State<NewsFeed> {
                                                     children: <Widget>[
                                                       likeButton(index),
                                                       commentCounter(index),
-                                                      Container(width: SizeConfig.safeBlockHorizontal * 20)
+                                                      Container(
+                                                          width: SizeConfig
+                                                                  .safeBlockHorizontal *
+                                                              20)
                                                     ])),
                                           ],
                                         ),

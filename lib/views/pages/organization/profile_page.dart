@@ -9,6 +9,7 @@ import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
@@ -207,7 +208,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 key: const Key('body'),
                 children: <Widget>[
                   Container(
-                    padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 32.0),
+                    padding: EdgeInsets.fromLTRB(
+                        0,
+                        SizeConfig.safeBlockVertical * 6.25,
+                        0,
+                        SizeConfig.safeBlockVertical * 4),
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20.0),
@@ -226,14 +231,15 @@ class _ProfilePageState extends State<ProfilePage> {
                                     color: Colors.white)),
                             trailing: userDetails[0]['image'] != null
                                 ? CircleAvatar(
-                                    radius: 30,
+                                    radius: SizeConfig.safeBlockVertical * 3.75,
                                     backgroundImage: NetworkImage(
                                         Provider.of<GraphQLConfiguration>(
                                                     context)
                                                 .displayImgRoute +
                                             userDetails[0]['image'].toString()))
                                 : CircleAvatar(
-                                    radius: 45.0,
+                                    radius:
+                                        SizeConfig.safeBlockVertical * 5.625,
                                     backgroundColor: Colors.white,
                                     child: Text(
                                         userDetails[0]['firstName']
@@ -248,17 +254,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                           color: UIData.primaryColor,
                                         )),
                                   )),
-                        const SizedBox(height: 10.0),
+                        SizedBox(height: SizeConfig.safeBlockVertical * 1.25),
                         Padding(
-                          padding: const EdgeInsets.only(left: 16.0),
+                          padding: EdgeInsets.only(
+                              left: SizeConfig.safeBlockHorizontal * 4),
                           child: Text(
                               "${userDetails[0]['firstName']} ${userDetails[0]['lastName']}",
                               style: const TextStyle(
                                   fontSize: 20.0, color: Colors.white)),
                         ),
-                        const SizedBox(height: 5.0),
+                        SizedBox(height: SizeConfig.safeBlockVertical * 0.625),
                         Padding(
-                          padding: const EdgeInsets.only(left: 16.0),
+                          padding: EdgeInsets.only(
+                              left: SizeConfig.safeBlockHorizontal * 4),
                           child: Text(
                               "Current Organization: ${orgName ?? 'No Organization Joined'}",
                               style: const TextStyle(
@@ -267,7 +275,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20.0),
+                  SizedBox(height: SizeConfig.safeBlockVertical * 2.5),
                   Expanded(
                     child: ListView(
                       children: ListTile.divideTiles(
