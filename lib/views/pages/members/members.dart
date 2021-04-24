@@ -117,9 +117,9 @@ class _OrganizationsState extends State<Organizations> {
             : alphaMembersMap.isEmpty
                 ? RefreshIndicator(
                     onRefresh: () async {
-                      try{
+                      try {
                         await getMembers();
-                      }catch(e){
+                      } catch (e) {
                         _exceptionToast(e.toString());
                       }
                     },
@@ -140,9 +140,9 @@ class _OrganizationsState extends State<Organizations> {
                       ),
                       ElevatedButton(
                         onPressed: () async {
-                          try{
+                          try {
                             await getMembers();
-                          }catch(e){
+                          } catch (e) {
                             _exceptionToast(e.toString());
                           }
                         },
@@ -151,9 +151,9 @@ class _OrganizationsState extends State<Organizations> {
                     ])))
                 : RefreshIndicator(
                     onRefresh: () async {
-                      try{
+                      try {
                         await getMembers();
-                      }catch(e){
+                      } catch (e) {
                         _exceptionToast(e.toString());
                       }
                     },
