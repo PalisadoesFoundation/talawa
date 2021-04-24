@@ -26,6 +26,14 @@ class ApiFunctions {
       gqlquery(query);
     } else if (result.hasException) {
       print(result.exception);
+      String message = "";
+      if (result.exception.clientException != null) {
+        message = result.exception.clientException.message;
+      } else {
+        message = result.exception.graphqlErrors.first.message;
+      }
+
+      return {"exception": message};
     } else {
       return result.data as Map<String, dynamic>;
     }
