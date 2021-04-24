@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 //Pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -14,7 +14,6 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/home_page.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 import 'create_organization.dart';
@@ -192,46 +191,31 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       //set the default organization to the first one in the list
 
       if (joinedOrg.length == 1) {
-        final String currentOrgId = result.data['joinPublicOrganization']
-                ['joinedOrganizations'][0]['_id']
-            .toString();
-        await _pref.saveCurrentOrgId(currentOrgId);
-        final String currentOrgImgSrc = result.data['joinPublicOrganization']
-                ['joinedOrganizations'][0]['image']
-            .toString();
-        await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-        final String currentOrgName = result.data['joinPublicOrganization']
-                ['joinedOrganizations'][0]['name']
-            .toString();
-        await _pref.saveCurrentOrgName(currentOrgName);
+        final currentOrg =
+            result.data['joinPublicOrganization']['joinedOrganizations'][0];
+        Provider.of<OrgController>(context, listen: false).setNewOrg(
+            context,
+            currentOrg['_id'].toString(),
+            currentOrg['name'].toString(),
+            currentOrg['image'].toString());
+        //save new current org in preference
       } else {
         // If there are multiple number of organizations.
         for (int i = 0; i < joinedOrg.length; i++) {
           if (joinedOrg[i]['name'] == orgName) {
-            final String currentOrgId = result.data['joinPublicOrganization']
-                    ['joinedOrganizations'][i]['_id']
-                .toString();
-            await _pref.saveCurrentOrgId(currentOrgId);
-            final String currentOrgImgSrc = result
-                .data['joinPublicOrganization']['joinedOrganizations'][i]
-                    ['image']
-                .toString();
-            await _pref.saveCurrentOrgImgSrc(currentOrgImgSrc);
-            final String currentOrgName = result.data['joinPublicOrganization']
-                    ['joinedOrganizations'][i]['name']
-                .toString();
-            await _pref.saveCurrentOrgName(currentOrgName);
+            Provider.of<OrgController>(context, listen: false).setNewOrg(
+                context,
+                joinedOrg[i]['_id'].toString(),
+                joinedOrg[i]['name'].toString(),
+                joinedOrg[i]['image'].toString());
           }
         }
       }
       _successToast("Success!");
 
-      //Navigate user to newsfeed
+      //Navigate user to newsfeed if user not coming from profile
       if (widget.fromProfile) {
-        pushNewScreen(
-          context,
-          screen: const ProfilePage(),
-        );
+        Navigator.pop(context);
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const HomePage(

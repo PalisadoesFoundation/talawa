@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 //pages are called here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -30,6 +31,13 @@ class _OrganizationsState extends State<Organizations> {
   List admins = [];
   String creatorId;
   Preferences preferences = Preferences();
+
+  @override
+  void didChangeDependencies() {
+    Provider.of<OrgController>(context, listen: true);
+    getMembers();
+    super.didChangeDependencies();
+  }
 
   //providing initial states to the variables
   @override

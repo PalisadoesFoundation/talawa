@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 //importing the pages here
 import 'package:provider/provider.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -126,6 +127,9 @@ class _HomePageState extends State<HomePage> {
         ),
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
+        ),
+        ChangeNotifierProvider<OrgController>(
+          create: (_) => OrgController(),
         )
       ],
       child: Builder(builder: (BuildContext context) {
@@ -133,23 +137,27 @@ class _HomePageState extends State<HomePage> {
         Provider.of<GraphQLConfiguration>(rootContext, listen: false)
             .getOrgUrl();
         Provider.of<Preferences>(rootContext, listen: false).getCurrentOrgId();
-        return PersistentTabView(rootContext,
-            backgroundColor: UIData.primaryColor,
-            controller: _controller,
-            items: _navBarsItems(),
-            screens: _buildScreens(),
-            confineInSafeArea: true,
-            handleAndroidBackButtonPress: true,
-            navBarStyle: NavBarStyle.style4,
-            itemAnimationProperties: const ItemAnimationProperties(
-              duration: Duration(milliseconds: 200),
-              curve: Curves.ease,
-            ),
-            screenTransitionAnimation: const ScreenTransitionAnimation(
-              animateTabTransition: true,
-              curve: Curves.ease,
-              duration: Duration(milliseconds: 200),
-            ));
+        return Consumer<OrgController>(
+          builder: (BuildContext context, value, Widget child) {
+            return PersistentTabView(rootContext,
+                backgroundColor: UIData.primaryColor,
+                controller: _controller,
+                items: _navBarsItems(),
+                screens: _buildScreens(),
+                confineInSafeArea: true,
+                handleAndroidBackButtonPress: true,
+                navBarStyle: NavBarStyle.style4,
+                itemAnimationProperties: const ItemAnimationProperties(
+                  duration: Duration(milliseconds: 200),
+                  curve: Curves.ease,
+                ),
+                screenTransitionAnimation: const ScreenTransitionAnimation(
+                  animateTabTransition: true,
+                  curve: Curves.ease,
+                  duration: Duration(milliseconds: 200),
+                ));
+          },
+        );
       }),
     );
   }

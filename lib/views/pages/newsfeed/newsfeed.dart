@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 //pages are imported here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/api_functions.dart';
@@ -33,10 +34,21 @@ class _NewsFeedState extends State<NewsFeed> {
   Map<String, bool> likePostMap = <String, bool>{};
   // key = postId and value will be true if user has liked a post.
 
+  @override
+  void didChangeDependencies() {
+    Provider.of<OrgController>(context, listen: true);
+    getData();
+    super.didChangeDependencies();
+  }
+
   //setting initial state to the variables
   @override
   initState() {
     super.initState();
+    getData();
+  }
+
+  getData() {
     getPosts();
     Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
     scrollController.addListener(() {

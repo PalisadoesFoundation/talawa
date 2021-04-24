@@ -41,7 +41,6 @@ class _ProfilePageState extends State<ProfilePage> {
   final Preferences _preferences = Preferences();
   final AuthController _authController = AuthController();
   List userDetails = [];
-  List orgAdmin = [];
   List org = [];
   List admins = [];
   List curOrganization = [];
@@ -53,6 +52,15 @@ class _ProfilePageState extends State<ProfilePage> {
   final OrgController _orgController = OrgController();
   String orgId;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+
+  @override
+  void didChangeDependencies() {
+    Provider.of<OrgController>(context, listen: true);
+    fetchUserDetails();
+    isCreator = null;
+    isPublic = null;
+    super.didChangeDependencies();
+  }
 
   //providing initial states to the variables
   @override
@@ -78,6 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (result.hasException) {
       print(result.exception);
     } else if (!result.hasException) {
+      userDetails = [];
       print(result);
       setState(() {
         userDetails = result.data['users'] as List;
@@ -93,13 +102,8 @@ class _ProfilePageState extends State<ProfilePage> {
         }
       }
       if (notFound == org.length && org.isNotEmpty) {
-        _orgController.setNewOrg(
-            context, org[0]['_id'].toString(), org[0]['name'].toString());
-        Provider.of<Preferences>(context, listen: false)
-            .saveCurrentOrgName(org[0]['name'].toString());
-        Provider.of<Preferences>(context, listen: false)
-            .saveCurrentOrgId(org[0]['_id'].toString());
-        await _preferences.saveCurrentOrgImgSrc(org[0]['image'].toString());
+        _orgController.setNewOrg(context, org[0]['_id'].toString(),
+            org[0]['name'].toString(), org[0]['image'].toString());
       }
       fetchOrgAdmin();
     }
@@ -117,6 +121,8 @@ class _ProfilePageState extends State<ProfilePage> {
         print(result.exception.toString());
       } else if (!result.hasException) {
         print('here');
+        curOrganization = [];
+        admins = [];
         curOrganization = result.data['organizations'] as List;
         creator = result.data['organizations'][0]['creator']['_id'].toString();
         isPublic = result.data['organizations'][0]['isPublic'] as bool;
@@ -143,6 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
+    String newOrgImgSrc;
     final String orgId = await _preferences.getCurrentOrgId();
 
     final GraphQLClient _client = graphQLConfiguration.authClient();
@@ -175,15 +182,14 @@ class _ProfilePageState extends State<ProfilePage> {
             newOrgName = result.data['leaveOrganization']['joinedOrganizations']
                     [0]['name']
                 .toString();
+            newOrgImgSrc = result.data['removeOrganization']
+                    ['joinedOrganizations'][0]['image']
+                .toString();
           });
         }
       });
 
-      _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context, listen: false)
-          .saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context, listen: false)
-          .saveCurrentOrgId(newOrgId);
+      _orgController.setNewOrg(context, newOrgId, newOrgName, newOrgImgSrc);
       //  _successToast('You are no longer apart of this organization');
       pushNewScreen(
         context,

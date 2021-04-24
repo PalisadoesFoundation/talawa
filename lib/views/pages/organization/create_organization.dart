@@ -5,7 +5,9 @@ import 'package:flutter/services.dart';
 
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
@@ -13,7 +15,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
-import 'package:file_picker/file_picker.dart';
+//import 'package:file_picker/file_picker.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -98,8 +100,13 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Sucess!");
-      print(result.data);
+      _successToast("Success!");
+      final currentOrg = result.data['createOrganization'];
+      Provider.of<OrgController>(context, listen: false).setNewOrg(
+          context,
+          currentOrg['_id'].toString(),
+          currentOrg['name'].toString(),
+          currentOrg['image'].toString());
 
       if (widget.isFromProfile) {
         Navigator.pop(context);
@@ -147,8 +154,14 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Sucess!");
-      print(result.data);
+      _successToast("Success!");
+      print(result);
+      final currentOrg = result.data['createOrganization'];
+      Provider.of<OrgController>(context, listen: false).setNewOrg(
+          context,
+          currentOrg['_id'].toString(),
+          currentOrg['name'].toString(),
+          currentOrg['image'].toString());
       if (widget.isFromProfile) {
         Navigator.pop(context);
         Navigator.pop(context);
@@ -536,7 +549,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
+      toastDuration: const Duration(seconds: 20),
     );
   }
 

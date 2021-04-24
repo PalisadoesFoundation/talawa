@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/org_controller.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
@@ -47,6 +49,13 @@ class _EventsState extends State<Events> {
   Future<void> events;
   Timer timer = Timer();
   String userId;
+
+  @override
+  void didChangeDependencies() {
+    Provider.of<OrgController>(context, listen: true);
+    events = getEvents();
+    super.didChangeDependencies();
+  }
 
   @override
   void initState() {

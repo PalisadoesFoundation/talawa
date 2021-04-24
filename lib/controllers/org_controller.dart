@@ -8,10 +8,12 @@ import 'package:talawa/services/preferences.dart';
 class OrgController with ChangeNotifier {
   final Preferences _pref = Preferences();
 
-  Future<void> setNewOrg(
-      BuildContext context, String newOrgId, String newOrgName) async {
+  Future<void> setNewOrg(BuildContext context, String newOrgId,
+      String newOrgName, String newOrgImgSrc) async {
     await Preferences.removeOrg();
     await _pref.saveCurrentOrgId(newOrgId);
     await _pref.saveCurrentOrgName(newOrgName);
+    await _pref.saveCurrentOrgImgSrc(newOrgImgSrc);
+    notifyListeners();
   }
 }

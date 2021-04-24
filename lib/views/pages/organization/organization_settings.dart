@@ -14,7 +14,6 @@ import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/organization/accept_requests_page.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/pages/organization/organization_members.dart';
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
 import 'package:talawa/views/widgets/toast_tile.dart';
@@ -34,7 +33,6 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   final Preferences _preferences = Preferences();
   final Queries _query = Queries();
   final AuthController _authController = AuthController();
-  final OrgController _orgController = OrgController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
   bool processing = false;
@@ -53,6 +51,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
+    String newOrgImgSrc;
     final GraphQLClient _client = graphQLConfiguration.authClient();
     final QueryResult result = await _client.mutate(MutationOptions(
         documentNode:
@@ -82,21 +81,22 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
             newOrgName = result.data['leaveOrganization']['joinedOrganizations']
                     [0]['name']
                 .toString();
+            newOrgImgSrc = result.data['removeOrganization']
+                    ['joinedOrganizations'][0]['image']
+                .toString();
           });
         }
         processing = false;
       });
 
-      _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context, listen: false)
-          .saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context, listen: false)
-          .saveCurrentOrgId(newOrgId);
+      Provider.of<OrgController>(context, listen: false)
+          .setNewOrg(context, newOrgId, newOrgName, newOrgImgSrc);
       _successToast('You are no longer apart of this organization');
-      pushNewScreen(
+      /*pushNewScreen(
         context,
         screen: const ProfilePage(),
-      );
+      );*/
+      Navigator.pop(context);
     }
   }
 
@@ -109,6 +109,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
+    String newOrgImgSrc;
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
     final QueryResult result = await _client
@@ -132,6 +133,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
             result.data['removeOrganization']['joinedOrganizations'] as List;
         if (remaindingOrg.isEmpty) {
           newOrgId = null;
+          newOrgName = null;
+          newOrgImgSrc = null;
         } else if (remaindingOrg.isNotEmpty) {
           newOrgId = result.data['removeOrganization']['joinedOrganizations'][0]
                   ['_id']
@@ -139,20 +142,16 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
           newOrgName = result.data['removeOrganization']['joinedOrganizations']
                   [0]['name']
               .toString();
+          newOrgImgSrc = result.data['removeOrganization']
+                  ['joinedOrganizations'][0]['image']
+              .toString();
         }
         processing = false;
       });
 
-      _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context, listen: false)
-          .saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context, listen: false)
-          .saveCurrentOrgId(newOrgId);
+      Provider.of<OrgController>(context, listen: false)
+          .setNewOrg(context, newOrgId, newOrgName, newOrgImgSrc);
       Navigator.of(context).pop();
-      pushNewScreen(
-        context,
-        screen: const ProfilePage(),
-      );
     }
   }
 

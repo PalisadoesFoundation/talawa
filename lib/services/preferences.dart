@@ -78,6 +78,7 @@ class Preferences with ChangeNotifier {
   Future saveCurrentOrgName(String currName) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(currentOrgName, currName);
+    notifyListeners();
   }
 
   //get the current organization name
@@ -92,6 +93,7 @@ class Preferences with ChangeNotifier {
   Future saveCurrentOrgImgSrc(String currImgSrc) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(currentOrgImgSrc, currImgSrc);
+    notifyListeners();
   }
 
   //gets the current organization image source
@@ -106,6 +108,7 @@ class Preferences with ChangeNotifier {
   Future saveCurrentOrgId(String currOrgId) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(currentOrgId, currOrgId);
+    notifyListeners();
   }
 
   //get the current organization id
