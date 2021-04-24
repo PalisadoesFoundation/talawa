@@ -390,7 +390,7 @@ class RegisterFormState extends State<RegisterForm> {
                           focusColor: UIData.primaryColor,
                         ),
                       ),
-                       SizedBox(
+                      SizedBox(
                         height: SizeConfig.safeBlockVertical * 2.5,
                       ),
                     ],
@@ -398,7 +398,8 @@ class RegisterFormState extends State<RegisterForm> {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(
-                      vertical: SizeConfig.safeBlockVertical * 2.5, horizontal: SizeConfig.safeBlockHorizontal * 7.5),
+                      vertical: SizeConfig.safeBlockVertical * 2.5,
+                      horizontal: SizeConfig.safeBlockHorizontal * 7.5),
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ButtonStyle(
@@ -532,7 +533,9 @@ class RegisterFormState extends State<RegisterForm> {
   //this method is called when the result is an exception
   _exceptionToast(String msg) {
     final Widget toast = Container(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 6, vertical: SizeConfig.safeBlockVertical * 1.75),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 6,
+          vertical: SizeConfig.safeBlockVertical * 1.75),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,

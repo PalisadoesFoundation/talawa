@@ -257,7 +257,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             ))
           : Container(
               color: const Color(0xffF3F6FF),
-              padding: EdgeInsets.symmetric(vertical: SizeConfig.safeBlockVertical * 0.75, horizontal: SizeConfig.safeBlockHorizontal * 4),
+              padding: EdgeInsets.symmetric(
+                  vertical: SizeConfig.safeBlockVertical * 0.75,
+                  horizontal: SizeConfig.safeBlockHorizontal * 4),
               child: Column(
                 children: <Widget>[
                   const Text(
@@ -267,7 +269,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                         fontSize: 18,
                         fontStyle: FontStyle.normal),
                   ),
-                   SizedBox(
+                  SizedBox(
                     height: SizeConfig.safeBlockVertical * 2,
                   ),
                   TextFormField(
@@ -297,7 +299,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                         ),
                         hintText: "Search Organization Name"),
                   ),
-                   SizedBox(height: SizeConfig.safeBlockVertical * 2),
+                  SizedBox(height: SizeConfig.safeBlockVertical * 2),
                   Expanded(
                       child: Container(
                           color: const Color(0xffF3F6FF),
@@ -310,7 +312,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                       child: ListTile(
                                         leading: organization['image'] != null
                                             ? CircleAvatar(
-                                                radius: SizeConfig.safeBlockVertical * 3.75,
+                                                radius: SizeConfig
+                                                        .safeBlockVertical *
+                                                    3.75,
                                                 backgroundImage: NetworkImage(
                                                     Provider.of<GraphQLConfiguration>(
                                                                 context)
@@ -318,7 +322,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                         organization['image']
                                                             .toString()))
                                             : CircleAvatar(
-                                                radius: SizeConfig.safeBlockVertical * 3.75,
+                                                radius: SizeConfig
+                                                        .safeBlockVertical *
+                                                    3.75,
                                                 backgroundImage: const AssetImage(
                                                     "assets/images/team.png")),
                                         title: organization['isPublic']
@@ -406,8 +412,12 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                           child: _isLoaderActive == true &&
                                                   loadingIndex == index
                                               ? SizedBox(
-                                                  width: SizeConfig.safeBlockHorizontal * 5,
-                                                  height: SizeConfig.safeBlockVertical * 2.5,
+                                                  width: SizeConfig
+                                                          .safeBlockHorizontal *
+                                                      5,
+                                                  height: SizeConfig
+                                                          .safeBlockVertical *
+                                                      2.5,
                                                   child:
                                                       const CircularProgressIndicator(
                                                     valueColor:
@@ -433,7 +443,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                       child: ListTile(
                                         leading: organization['image'] != null
                                             ? CircleAvatar(
-                                                radius: SizeConfig.safeBlockVertical * 3.75,
+                                                radius: SizeConfig
+                                                        .safeBlockVertical *
+                                                    3.75,
                                                 backgroundImage: NetworkImage(
                                                     Provider.of<GraphQLConfiguration>(
                                                                 context)
@@ -441,7 +453,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                         organization['image']
                                                             .toString()))
                                             : CircleAvatar(
-                                                radius: SizeConfig.safeBlockVertical * 3.75,
+                                                radius: SizeConfig
+                                                        .safeBlockVertical *
+                                                    3.75,
                                                 backgroundImage: const AssetImage(
                                                     "assets/images/team.png")),
                                         title: organization['isPublic']
@@ -458,9 +472,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                   ),
-                                                   Icon(Icons.lock_open,
+                                                  Icon(Icons.lock_open,
                                                       color: Colors.green,
-                                                      size: SizeConfig.safeBlockVertical * 2)
+                                                      size: SizeConfig
+                                                              .safeBlockVertical *
+                                                          2)
                                                 ],
                                               )
                                             : Row(
@@ -474,9 +490,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                   ),
-                                                   Icon(Icons.lock,
+                                                  Icon(Icons.lock,
                                                       color: Colors.red,
-                                                      size: SizeConfig.safeBlockVertical * 2)
+                                                      size: SizeConfig
+                                                              .safeBlockVertical *
+                                                          2)
                                                 ],
                                               ),
                                         subtitle: Column(
@@ -529,8 +547,12 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                           child: _isLoaderActive == true &&
                                                   loadingIndex == index
                                               ? SizedBox(
-                                                  width: SizeConfig.safeBlockHorizontal * 5,
-                                                  height: SizeConfig.safeBlockVertical * 2.5,
+                                                  width: SizeConfig
+                                                          .safeBlockHorizontal *
+                                                      5,
+                                                  height: SizeConfig
+                                                          .safeBlockVertical *
+                                                      2.5,
                                                   child:
                                                       const CircularProgressIndicator(
                                                     valueColor:
@@ -620,7 +642,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
   _successToast(String msg) {
     final Widget toast = Container(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5, vertical: SizeConfig.safeBlockVertical * 1.5),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 5,
+          vertical: SizeConfig.safeBlockVertical * 1.5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.green,
@@ -642,7 +666,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
   _exceptionToast(String msg) {
     final Widget toast = Container(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 6, vertical: SizeConfig.safeBlockVertical * 1.75),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 6,
+          vertical: SizeConfig.safeBlockVertical * 1.75),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,

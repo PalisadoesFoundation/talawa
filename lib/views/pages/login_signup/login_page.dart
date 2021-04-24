@@ -29,9 +29,12 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
               constraints: BoxConstraints(
-                  maxWidth: SizeConfig.safeBlockHorizontal * 75, minWidth: SizeConfig.safeBlockHorizontal * 62.5, minHeight: SizeConfig.safeBlockVertical * 37.5),
+                  maxWidth: SizeConfig.safeBlockHorizontal * 75,
+                  minWidth: SizeConfig.safeBlockHorizontal * 62.5,
+                  minHeight: SizeConfig.safeBlockVertical * 37.5),
               child: SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 7.5),
+                padding:
+                    EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 7.5),
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: <Widget>[

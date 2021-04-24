@@ -263,7 +263,8 @@ class _EditEventState extends State<EditEvent> {
     return SwitchListTile(
         activeColor: UIData.secondaryColor,
         value: switchVals[name],
-        contentPadding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5),
+        contentPadding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.safeBlockHorizontal * 5),
         title: Text(
           name,
           style: TextStyle(color: Colors.grey[600]),
@@ -277,7 +278,8 @@ class _EditEventState extends State<EditEvent> {
 
   Widget recurrencedropdown() {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5),
+      contentPadding:
+          EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5),
       leading: Text(
         'Recurrence',
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),

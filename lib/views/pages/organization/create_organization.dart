@@ -212,7 +212,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                 key: _formKey,
                 autovalidateMode: _validate,
                 child: Padding(
-                  padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 7.5, right: SizeConfig.safeBlockHorizontal * 7.5),
+                  padding: EdgeInsets.only(
+                      left: SizeConfig.safeBlockHorizontal * 7.5,
+                      right: SizeConfig.safeBlockHorizontal * 7.5),
                   child: Column(
                     children: <Widget>[
                       SizedBox(
@@ -252,7 +254,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             ),
                             controller: orgNameController,
                           ),
-                           SizedBox(
+                          SizedBox(
                             height: SizeConfig.safeBlockVertical * 2.5,
                           ),
                           TextFormField(
@@ -282,7 +284,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             ),
                             controller: orgDescController,
                           ),
-                           SizedBox(
+                          SizedBox(
                             height: SizeConfig.safeBlockVertical * 2.5,
                           ),
                           TextFormField(
@@ -312,7 +314,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             ),
                             controller: orgMemberDescController,
                           ),
-                           SizedBox(
+                          SizedBox(
                             height: SizeConfig.safeBlockVertical * 2.5,
                           ),
                         ],
@@ -455,7 +457,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     //function which is being called when the image is being add
     return Column(
       children: <Widget>[
-         SizedBox(
+        SizedBox(
           height: SizeConfig.safeBlockVertical * 4,
         ),
         Center(
@@ -521,7 +523,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   void _successToast(String msg) {
     final Widget toast = Container(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5, vertical: SizeConfig.safeBlockVertical * 1.5),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 5,
+          vertical: SizeConfig.safeBlockVertical * 1.5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.green,
@@ -543,7 +547,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   void _exceptionToast(String msg) {
     final Widget toast = Container(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 6, vertical: SizeConfig.safeBlockVertical * 1.75),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 6,
+          vertical: SizeConfig.safeBlockVertical * 1.75),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,

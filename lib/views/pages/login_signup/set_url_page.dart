@@ -191,12 +191,14 @@ class _UrlPageState extends State<UrlPage>
           ),
           Container(
             //container with login and sign up button
-            padding: EdgeInsets.fromLTRB(0, 0, 0, SizeConfig.safeBlockVertical *6.25),
+            padding: EdgeInsets.fromLTRB(
+                0, 0, 0, SizeConfig.safeBlockVertical * 6.25),
 
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.fromLTRB(SizeConfig.safeBlockHorizontal * 5, 0, 0, 0),
+                  padding: EdgeInsets.fromLTRB(
+                      SizeConfig.safeBlockHorizontal * 5, 0, 0, 0),
                   width: _media != null
                       ? _media.size.width
                       : MediaQuery.of(context).size.width,
@@ -248,7 +250,9 @@ class _UrlPageState extends State<UrlPage>
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(
-                          left: SizeConfig.safeBlockHorizontal * 5, right: SizeConfig.safeBlockHorizontal * 7.5, top: SizeConfig.safeBlockVertical * 1.25),
+                          left: SizeConfig.safeBlockHorizontal * 5,
+                          right: SizeConfig.safeBlockHorizontal * 7.5,
+                          top: SizeConfig.safeBlockVertical * 1.25),
                       alignment: Alignment.center,
                       child: Column(
                         children: [
@@ -347,10 +351,15 @@ class _UrlPageState extends State<UrlPage>
                                   },
                                   child: isUrlCalled
                                       ? SizedBox(
-                                          height: SizeConfig.safeBlockVertical * 1.75,
-                                          width: SizeConfig.safeBlockHorizontal * 3.5,
-                                          child: const CircularProgressIndicator(
-                                              backgroundColor: Colors.white),
+                                          height: SizeConfig.safeBlockVertical *
+                                              1.75,
+                                          width:
+                                              SizeConfig.safeBlockHorizontal *
+                                                  3.5,
+                                          child:
+                                              const CircularProgressIndicator(
+                                                  backgroundColor:
+                                                      Colors.white),
                                         )
                                       : Text(
                                           saveMsg,
@@ -375,7 +384,9 @@ class _UrlPageState extends State<UrlPage>
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(
-                          left: SizeConfig.safeBlockHorizontal * 12.5, right: SizeConfig.safeBlockHorizontal * 12.5, top: SizeConfig.safeBlockVertical * 1.25),
+                          left: SizeConfig.safeBlockHorizontal * 12.5,
+                          right: SizeConfig.safeBlockHorizontal * 12.5,
+                          top: SizeConfig.safeBlockVertical * 1.25),
                       alignment: Alignment.center,
                       child: Row(
                         children: <Widget>[
@@ -403,7 +414,8 @@ class _UrlPageState extends State<UrlPage>
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                   vertical: SizeConfig.safeBlockVertical * 2.5,
-                                  horizontal: SizeConfig.safeBlockHorizontal * 5,
+                                  horizontal:
+                                      SizeConfig.safeBlockHorizontal * 5,
                                 ),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.orange),
@@ -442,7 +454,9 @@ class _UrlPageState extends State<UrlPage>
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(
-                          left: SizeConfig.safeBlockHorizontal * 12.5, right: SizeConfig.safeBlockHorizontal * 12.5, top: SizeConfig.safeBlockVertical * 1.25),
+                          left: SizeConfig.safeBlockHorizontal * 12.5,
+                          right: SizeConfig.safeBlockHorizontal * 12.5,
+                          top: SizeConfig.safeBlockVertical * 1.25),
                       alignment: Alignment.center,
                       child: Row(
                         children: <Widget>[
@@ -469,7 +483,8 @@ class _UrlPageState extends State<UrlPage>
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                   vertical: SizeConfig.safeBlockVertical * 2.5,
-                                  horizontal: SizeConfig.safeBlockHorizontal * 5,
+                                  horizontal:
+                                      SizeConfig.safeBlockHorizontal * 5,
                                 ),
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.orange),

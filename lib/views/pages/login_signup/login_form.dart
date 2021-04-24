@@ -219,7 +219,9 @@ class LoginFormState extends State<LoginForm> {
               height: SizeConfig.safeBlockVertical * 2.5,
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: SizeConfig.safeBlockVertical * 2.5, horizontal: SizeConfig.safeBlockHorizontal * 7.25),
+              padding: EdgeInsets.symmetric(
+                  vertical: SizeConfig.safeBlockVertical * 2.5,
+                  horizontal: SizeConfig.safeBlockHorizontal * 7.25),
               width: double.infinity,
               child: ElevatedButton(
                 style: ButtonStyle(
@@ -255,7 +257,9 @@ class LoginFormState extends State<LoginForm> {
   //the method called when the result is success
   _successToast(String msg) {
     final Widget toast = Container(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5, vertical: SizeConfig.safeBlockVertical * 1.5),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 5,
+          vertical: SizeConfig.safeBlockVertical * 1.5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.green,
@@ -278,7 +282,9 @@ class LoginFormState extends State<LoginForm> {
   //the method called when the result is an exception
   _exceptionToast(String msg) {
     final Widget toast = Container(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 6, vertical: SizeConfig.safeBlockVertical * 1.75),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 6,
+          vertical: SizeConfig.safeBlockVertical * 1.75),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,

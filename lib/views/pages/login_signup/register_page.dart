@@ -18,7 +18,9 @@ class _RegisterePageState extends State<RegisterPage>
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
               constraints: BoxConstraints(
-                  maxWidth: SizeConfig.safeBlockHorizontal * 75, minWidth: SizeConfig.safeBlockHorizontal * 62.5, minHeight: SizeConfig.safeBlockVertical * 43.75),
+                  maxWidth: SizeConfig.safeBlockHorizontal * 75,
+                  minWidth: SizeConfig.safeBlockHorizontal * 62.5,
+                  minHeight: SizeConfig.safeBlockVertical * 43.75),
               child: SingleChildScrollView(
                 padding: const EdgeInsets.only(bottom: 30.0),
                 scrollDirection: Axis.vertical,

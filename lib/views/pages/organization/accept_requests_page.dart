@@ -166,16 +166,18 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                               leading: membershipRequests['user']['image'] !=
                                       null
                                   ? CircleAvatar(
-                                      radius: SizeConfig.safeBlockVertical * 3.75,
+                                      radius:
+                                          SizeConfig.safeBlockVertical * 3.75,
                                       backgroundImage: NetworkImage(Provider.of<
                                                   GraphQLConfiguration>(context)
                                               .displayImgRoute +
                                           membershipRequests['user']['image']
                                               .toString()))
                                   : CircleAvatar(
-                                      radius: SizeConfig.safeBlockVertical * 3.75,
-                                      backgroundImage:
-                                          const AssetImage("assets/images/team.png")),
+                                      radius:
+                                          SizeConfig.safeBlockVertical * 3.75,
+                                      backgroundImage: const AssetImage(
+                                          "assets/images/team.png")),
                               title: Text(
                                   '${membershipRequests['user']['firstName']} ${membershipRequests['user']['lastName']}'),
                               trailing: processing

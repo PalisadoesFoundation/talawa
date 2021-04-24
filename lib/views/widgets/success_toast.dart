@@ -30,7 +30,9 @@ class _SuccessToastState extends State<SuccessToast> {
 
   _successToast() {
     final Widget toast = Container(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5, vertical: SizeConfig.safeBlockVertical * 1.5),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 5,
+          vertical: SizeConfig.safeBlockVertical * 1.5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.green,
