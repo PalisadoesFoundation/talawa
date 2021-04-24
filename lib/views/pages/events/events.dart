@@ -172,31 +172,34 @@ class _EventsState extends State<Events> {
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     _currOrgId = currentOrgID;
-      final Map result =
-      await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-      eventList = result == null ? [] : (result['events'] as List).reversed.toList();
-      eventList.removeWhere((element) =>
-          element['title'] == 'Talawa Congress' ||
-          element['title'] == 'test' ||
-          element['title'] == 'Talawa Conference Test' ||
-          element['title'] == 'mayhem' ||
-          element['title'] == 'mayhem1' ||
-          element['organization']['_id'] != currentOrgID); //dont know who keeps adding these
-      // This removes all invalid date formats other than Unix time
-      eventList.removeWhere((element) => int.tryParse(element['startTime'] as String) == null);
-      eventList.sort((a, b) {
-        return DateTime.fromMicrosecondsSinceEpoch(
-          int.parse(a['startTime'] as String))
-          .compareTo(
-          DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'] as String)));
-      });
-      eventsToDates(eventList, DateTime.now());
-      setState(() {
-        displayedEvents = eventList;
-      });
-      // print('orgID ==== $currentOrgID');
-      // print(displayedEvents);
-      userId = await preferences.getUserId();
+    final Map result =
+        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    eventList =
+        result == null ? [] : (result['events'] as List).reversed.toList();
+    eventList.removeWhere((element) =>
+        element['title'] == 'Talawa Congress' ||
+        element['title'] == 'test' ||
+        element['title'] == 'Talawa Conference Test' ||
+        element['title'] == 'mayhem' ||
+        element['title'] == 'mayhem1' ||
+        element['organization']['_id'] !=
+            currentOrgID); //dont know who keeps adding these
+    // This removes all invalid date formats other than Unix time
+    eventList.removeWhere(
+        (element) => int.tryParse(element['startTime'] as String) == null);
+    eventList.sort((a, b) {
+      return DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(a['startTime'] as String))
+          .compareTo(DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(b['startTime'] as String)));
+    });
+    eventsToDates(eventList, DateTime.now());
+    setState(() {
+      displayedEvents = eventList;
+    });
+    // print('orgID ==== $currentOrgID');
+    // print(displayedEvents);
+    userId = await preferences.getUserId();
   }
 
   //functions to edit the event
@@ -243,9 +246,9 @@ class _EventsState extends State<Events> {
               if (eventList.isEmpty) {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      try{
+                      try {
                         await getEvents();
-                      }catch(e){
+                      } catch (e) {
                         _exceptionToast(e.toString());
                       }
                     },
@@ -275,9 +278,9 @@ class _EventsState extends State<Events> {
               } else {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      try{
+                      try {
                         await getEvents();
-                      }catch(e){
+                      } catch (e) {
                         _exceptionToast(e.toString());
                       }
                     },

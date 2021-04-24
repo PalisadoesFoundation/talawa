@@ -31,15 +31,16 @@ Widget createEventsPageScreen() => MultiProvider(
 
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("events Page Tests", () {
     testWidgets("Testing if events page shows up", (tester) async {
       await tester.pumpWidget(createEventsPageScreen());
 
       /// Verify if [events page] shows up.
-      expect(find.byKey(const Key('EVENTS_APP_BAR')),findsOneWidget);
-      expect(find.byType(FutureBuilder),findsOneWidget);
+      expect(find.byKey(const Key('EVENTS_APP_BAR')), findsOneWidget);
+      expect(find.text('Events'), findsOneWidget);
     });
 
     testWidgets("Testing overflow of events page in a mobile screen",
@@ -50,7 +51,7 @@ void main() {
       await tester.pumpWidget(createEventsPageScreen());
 
       /// Verify if [events page] shows up.
-      expect(find.byKey(const Key('EVENTS_APP_BAR')),findsOneWidget);
+      expect(find.byKey(const Key('EVENTS_APP_BAR')), findsOneWidget);
     });
     testWidgets("Testing overflow of events Page in a tablet screen",
         (tester) async {
@@ -60,7 +61,7 @@ void main() {
       await tester.pumpWidget(createEventsPageScreen());
 
       /// Verify if [events page] shows up.
-      expect(find.byKey(const Key('EVENTS_APP_BAR')),findsOneWidget);
+      expect(find.byKey(const Key('EVENTS_APP_BAR')), findsOneWidget);
     });
   });
 }
