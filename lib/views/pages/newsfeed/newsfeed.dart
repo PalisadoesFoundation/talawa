@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 //pages are imported here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/services/queries_.dart';
+import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/views/pages/newsfeed/add_post.dart';
@@ -28,16 +28,14 @@ class _NewsFeedState extends State<NewsFeed> {
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   List postList = [];
+  PostController postController;
   Timer timer = Timer();
-
-  Map<String, bool> likePostMap = <String, bool>{};
-  // key = postId and value will be true if user has liked a post.
 
   //setting initial state to the variables
   @override
   initState() {
     super.initState();
-    getPosts();
+    // getPosts();
     Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
     scrollController.addListener(() {
       if (scrollController.position.userScrollDirection ==
@@ -59,80 +57,22 @@ class _NewsFeedState extends State<NewsFeed> {
     });
   }
 
-  // bool : Method to get (true/false) if a user has liked a post or Not.
-  bool hasUserLiked(String postId) {
-    return likePostMap[postId];
-  }
-
-  //function to get the current posts
-  Future<void> getPosts() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
-    final String currentUserID = await preferences.getUserId();
-    if (currentOrgID != null) {
-      final String query = Queries().getPostsById(currentOrgID);
-      final Map result = await apiFunctions.gqlquery(query);
-      // print(result);
-      setState(() {
-        postList = result == null
-            ? []
-            : (result['postsByOrganization'] as List).reversed.toList();
-        updateLikepostMap(currentUserID);
-      });
-    } else {
-      setState(() {
-        postList = [];
-        updateLikepostMap(currentUserID);
-      });
-    }
-  }
-
-// void : function to set the map of userLikedPost
-  void updateLikepostMap(String currentUserID) {
-    // traverse through post objects.
-    for (final item in postList) {
-      likePostMap[item['_id'].toString()] = false;
-      //Get userIds who liked the post.
-      final _likedBy = item['likedBy'];
-      for (final user in _likedBy) {
-        if (user['_id'] == currentUserID) {
-          //if(userId is in the list we make value true;)
-          likePostMap[item['_id'].toString()] = true;
-        }
-      }
-    }
-  }
-
-  //function to addlike
-  Future<void> addLike(String postID) async {
-    final Map result = await Queries().addLike(postID) as Map;
-    print(result);
-    getPosts();
-  }
-
-  //function to remove the likes
-  Future<void> removeLike(String postID) async {
-    final Map result = await Queries().removeLike(postID) as Map;
-    print(result);
-    getPosts();
-  }
-
   //the main build starts from here
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: CustomAppBar('NewsFeed', key: const Key('NEWSFEED_APP_BAR')),
-        floatingActionButton: addPostFab(),
-        body: postList.isEmpty
-            ? Center(
-                child: Loading(
-                key: UniqueKey(),
-              ))
-            : RefreshIndicator(
-                onRefresh: () async {
-                  getPosts();
-                },
-                // ignore: avoid_unnecessary_containers
-                child: Container(
+    postController = Provider.of<PostController>(context);
+    return Consumer<PostController>(builder: (context, postController, child) {
+      postList = postController.posts;
+      return Scaffold(
+          appBar: CustomAppBar('NewsFeed', key: const Key('NEWSFEED_APP_BAR')),
+          floatingActionButton: addPostFab(),
+          body: postList.isEmpty
+              ? Center(
+                  child: Loading(
+                    key: UniqueKey(),
+                  ),
+                )
+              : Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -149,7 +89,9 @@ class _NewsFeedState extends State<NewsFeed> {
                                         pushNewScreen(
                                           context,
                                           screen: NewsArticle(
-                                              post: postList[index] as Map),
+                                            index: index,
+                                            post: postList[index] as Map,
+                                          ),
                                         );
                                       },
                                       child: Card(
@@ -230,12 +172,14 @@ class _NewsFeedState extends State<NewsFeed> {
                       ),
                     ],
                   ),
-                )));
+                ));
+    });
   }
 
   //function to add the post on the news feed
   Widget addPostFab() {
     return FloatingActionButton(
+<<<<<<< HEAD
         backgroundColor: UIData.secondaryColor,
         child: const Icon(
           Icons.add,
@@ -245,6 +189,24 @@ class _NewsFeedState extends State<NewsFeed> {
           pushNewScreenWithRouteSettings(context,
               screen: AddPost(), settings: RouteSettings());
         });
+=======
+      heroTag: "btn2",
+      backgroundColor: UIData.secondaryColor,
+      onPressed: () {
+        pushNewScreenWithRouteSettings(context,
+                screen: const AddPost(), settings: const RouteSettings())
+            .then((value) async {
+          if (value != null && value as bool) {
+            await postController.getPosts();
+          }
+        });
+      },
+      child: const Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
+    );
+>>>>>>> upstream/master
   }
 
   //function which counts the number of comments on a particular post
@@ -259,22 +221,20 @@ class _NewsFeedState extends State<NewsFeed> {
           ),
         ),
         IconButton(
-            icon: const Icon(Icons.comment),
-            color: Colors.grey,
-            onPressed: () async {
-              pushNewScreenWithRouteSettings(context,
-                      screen: NewsArticle(
-                        post: postList[index] as Map,
-                      ),
-                      settings: const RouteSettings(),
-                      withNavBar: false)
-                  .then((value) {
-                //if (value != null && value)
-                if (value != null) {
-                  getPosts();
-                }
-              });
-            })
+          icon: const Icon(Icons.comment),
+          color: Colors.grey,
+          onPressed: () async {
+            await Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => NewsArticle(
+                  index: index,
+                  post: postList[index] as Map,
+                ),
+              ),
+            );
+          },
+        )
       ],
     );
   }
@@ -292,22 +252,18 @@ class _NewsFeedState extends State<NewsFeed> {
         ),
         IconButton(
           icon: const Icon(Icons.thumb_up),
-          color: likePostMap[postList[index]['_id']]
+          color: postController.hasUserLiked(postList[index]['_id'] as String)
               ? const Color(0xff007397)
               : const Color(0xff9A9A9A),
           onPressed: () {
-            if (postList[index]['likeCount'] !=
-                // ignore: curly_braces_in_flow_control_structures
-                0) if (likePostMap[postList[index]['_id']] == false) {
-              //If user has not liked the post addLike().
-              addLike(postList[index]['_id'].toString());
+            if (postList[index]['likeCount'] != 0) {
+              if (postController
+                  .hasUserLiked(postList[index]['_id'] as String)) {
+                postController.addLike(index, postList[index]['_id'] as String);
+              }
             } else {
-              //If user has  liked the post remove().
-              removeLike(postList[index]['_id'].toString());
-            }
-            else {
-              //if the likeCount is 0 addLike().
-              addLike(postList[index]['_id'].toString());
+              postController.removeLike(
+                  index, postList[index]['_id'] as String);
             }
           },
         ),

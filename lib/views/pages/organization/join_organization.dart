@@ -233,11 +233,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
           screen: const ProfilePage(),
         );
       } else {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const HomePage(
-            openPageIndex: 4,
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const HomePage(
+              openPageIndex: 4,
+            ),
           ),
-        ));
+        );
       }
     }
   }
