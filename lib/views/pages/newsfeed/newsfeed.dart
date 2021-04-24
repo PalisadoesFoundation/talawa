@@ -61,14 +61,19 @@ class NewsFeed extends StatelessWidget {
                                             .getPostList[index] as Map;
 
                                     return Container(
-                                      padding: EdgeInsets.only(top: SizeConfig.safeBlockVertical * 2.5),
+                                      padding: EdgeInsets.only(
+                                          top: SizeConfig.safeBlockVertical *
+                                              2.5),
                                       child: Column(
                                         children: <Widget>[
                                           InkWell(
                                             onTap: () {
                                               pushNewScreen(
                                                 context,
-                                                screen: NewsArticle(post: post, index: index,),
+                                                screen: NewsArticle(
+                                                  post: post,
+                                                  index: index,
+                                                ),
                                               );
                                             },
                                             child: Card(
@@ -89,7 +94,9 @@ class NewsFeed extends StatelessWidget {
                                                       )),
                                                   Row(children: <Widget>[
                                                     SizedBox(
-                                                      width: SizeConfig.safeBlockHorizontal * 7.5,
+                                                      width: SizeConfig
+                                                              .safeBlockHorizontal *
+                                                          7.5,
                                                     ),
                                                     // ignore: avoid_unnecessary_containers
                                                     Container(
@@ -103,16 +110,23 @@ class NewsFeed extends StatelessWidget {
                                                     )),
                                                   ]),
                                                   SizedBox(
-                                                    height: SizeConfig.safeBlockVertical * 1.25,
+                                                    height: SizeConfig
+                                                            .safeBlockVertical *
+                                                        1.25,
                                                   ),
                                                   Row(children: <Widget>[
                                                     SizedBox(
-                                                      width: SizeConfig.safeBlockHorizontal * 7.5,
+                                                      width: SizeConfig
+                                                              .safeBlockHorizontal *
+                                                          7.5,
                                                     ),
                                                     // ignore: sized_box_for_whitespace
                                                     Container(
-                                                        width: SizeConfig.screenWidth -
-                                                            SizeConfig.safeBlockHorizontal * 12.5,
+                                                        width: SizeConfig
+                                                                .screenWidth -
+                                                            SizeConfig
+                                                                    .safeBlockHorizontal *
+                                                                12.5,
                                                         child: Text(
                                                           post["text"]
                                                               .toString(),
@@ -138,9 +152,12 @@ class NewsFeed extends StatelessWidget {
                                                           children: <Widget>[
                                                             likeButton(
                                                                 post, context),
-                                                            commentCounter(
-                                                                post, index ,context),
-                                                            Container(width: SizeConfig.safeBlockHorizontal * 20)
+                                                            commentCounter(post,
+                                                                index, context),
+                                                            Container(
+                                                                width: SizeConfig
+                                                                        .safeBlockHorizontal *
+                                                                    20)
                                                           ])),
                                                 ],
                                               ),
