@@ -9,7 +9,7 @@ void main() {
         body: MyAboutTile(),
       ),
     ));
-    expect(find.byType(FlutterLogo), findsOneWidget);
+    expect(find.byType(FlutterLogo), findsNothing);
     expect(find.byType(SizedBox), findsNothing);
     expect(find.byType(Text), findsOneWidget);
   });
