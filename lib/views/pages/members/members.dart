@@ -14,7 +14,7 @@ import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/member_details.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:talawa/views/widgets/loading.dart';
+import 'package:talawa/views/widgets/data_loading_refresh.dart';
 
 class Organizations extends StatefulWidget {
   const Organizations({Key key}) : super(key: key);
@@ -29,13 +29,16 @@ class _OrganizationsState extends State<Organizations> {
   List membersList = [];
   int isSelected = 0;
   List admins = [];
+  Future<void> _fetchData;
   String creatorId;
   Preferences preferences = Preferences();
 
   @override
   void didChangeDependencies() {
     Provider.of<OrgController>(context, listen: true);
-    getMembers();
+    setState(() {
+      _fetchData = getMembers();
+    });
     super.didChangeDependencies();
   }
 
@@ -43,7 +46,9 @@ class _OrganizationsState extends State<Organizations> {
   @override
   initState() {
     super.initState();
-    getMembers();
+    setState(() {
+      _fetchData = getMembers();
+    });
   }
 
   Map alphaSplitList(List list) {
@@ -114,7 +119,65 @@ class _OrganizationsState extends State<Organizations> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: alphaMembersMap == null
+        body: FutureBuilder(
+          future: _fetchData,
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                  child: LoadAndRefresh(
+                loading: true,
+                key: UniqueKey(),
+              ));
+            } else if (snapshot.hasError) {
+              return Center(
+                  child: LoadAndRefresh(
+                loading: false,
+                refresh: () {
+                  setState(() {
+                    _fetchData = getMembers();
+                  });
+                },
+                key: UniqueKey(),
+              ));
+            } else {
+              return alphaMembersMap.isEmpty
+                  ? RefreshIndicator(
+                      onRefresh: () async {
+                        setState(() {
+                          _fetchData = getMembers();
+                        });
+                      },
+                      child: Center(
+                          child: LoadAndRefresh(
+                        loading: false,
+                        error: 'No members to show',
+                        refresh: () {
+                          setState(() {
+                            _fetchData = getMembers();
+                          });
+                        },
+                        key: UniqueKey(),
+                      )))
+                  : RefreshIndicator(
+                      onRefresh: () async {
+                        getMembers();
+                      },
+                      child: CustomScrollView(
+                        slivers: List.generate(
+                          alphaMembersMap.length,
+                          (index) {
+                            return alphabetDividerList(
+                                context,
+                                alphaMembersMap.keys
+                                    .toList()[index]
+                                    .toString());
+                          },
+                        ),
+                      ));
+            }
+          },
+        ));
+    /*alphaMembersMap == null
             ? const Center(
                 child: Loading(),
               )
@@ -157,7 +220,7 @@ class _OrganizationsState extends State<Organizations> {
                               alphaMembersMap.keys.toList()[index].toString());
                         },
                       ),
-                    )));
+                    )));*/
   }
 
   //widget which divides the list according to letters

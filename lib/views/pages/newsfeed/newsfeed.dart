@@ -14,7 +14,7 @@ import 'package:talawa/views/pages/newsfeed/news_article.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
 import 'package:talawa/views/widgets/custom_appbar.dart';
-import 'package:talawa/views/widgets/loading.dart';
+import 'package:talawa/views/widgets/data_loading_refresh.dart';
 
 class NewsFeed extends StatefulWidget {
   const NewsFeed({Key key}) : super(key: key);
@@ -30,14 +30,17 @@ class _NewsFeedState extends State<NewsFeed> {
   ApiFunctions apiFunctions = ApiFunctions();
   List postList = [];
   Timer timer = Timer();
-
+  Future<void> _fetchData;
   Map<String, bool> likePostMap = <String, bool>{};
   // key = postId and value will be true if user has liked a post.
 
   @override
   void didChangeDependencies() {
     Provider.of<OrgController>(context, listen: true);
-    getData();
+    _fetchData = null;
+    setState(() {
+      _fetchData = getPosts();
+    });
     super.didChangeDependencies();
   }
 
@@ -45,12 +48,6 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   initState() {
     super.initState();
-    getData();
-  }
-
-  getData() {
-    getPosts();
-    Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
     scrollController.addListener(() {
       if (scrollController.position.userScrollDirection ==
           ScrollDirection.reverse) {
@@ -68,6 +65,9 @@ class _NewsFeedState extends State<NewsFeed> {
           });
         }
       }
+    });
+    setState(() {
+      _fetchData = getPosts();
     });
   }
 
@@ -134,115 +134,152 @@ class _NewsFeedState extends State<NewsFeed> {
     return Scaffold(
         appBar: CustomAppBar('NewsFeed', key: const Key('NEWSFEED_APP_BAR')),
         floatingActionButton: addPostFab(),
-        body: postList.isEmpty
-            ? Center(
-                child: Loading(
+        body: FutureBuilder(
+          future: _fetchData,
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                  child: LoadAndRefresh(
+                loading: true,
                 key: UniqueKey(),
-              ))
-            : RefreshIndicator(
-                onRefresh: () async {
-                  getPosts();
+              ));
+            } else if (snapshot.hasError) {
+              return Center(
+                  child: LoadAndRefresh(
+                loading: false,
+                refresh: () {
+                  setState(() {
+                    _fetchData = getPosts();
+                  });
                 },
-                // ignore: avoid_unnecessary_containers
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                            itemCount: postList.length,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                padding: const EdgeInsets.only(top: 20),
-                                child: Column(
-                                  children: <Widget>[
-                                    InkWell(
-                                      onTap: () {
-                                        pushNewScreen(
-                                          context,
-                                          screen: NewsArticle(
-                                              post: postList[index] as Map),
-                                        );
-                                      },
-                                      child: Card(
-                                        color: Colors.white,
-                                        child: Column(
-                                          children: <Widget>[
-                                            Container(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                  child: Image.asset(
-                                                      UIData.shoppingImage),
-                                                )),
-                                            Row(children: <Widget>[
-                                              const SizedBox(
-                                                width: 30,
-                                              ),
-                                              // ignore: avoid_unnecessary_containers
-                                              Container(
-                                                  child: Text(
-                                                postList[index]['title']
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20.0,
-                                                ),
-                                              )),
-                                            ]),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Row(children: <Widget>[
-                                              const SizedBox(
-                                                width: 30,
-                                              ),
-                                              // ignore: sized_box_for_whitespace
-                                              Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width -
-                                                      50,
-                                                  child: Text(
-                                                    postList[index]["text"]
+                key: UniqueKey(),
+              ));
+            } else {
+              if (postList.isNotEmpty) {
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      getPosts();
+                    },
+                    // ignore: avoid_unnecessary_containers
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                                itemCount: postList.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: Column(
+                                      children: <Widget>[
+                                        InkWell(
+                                          onTap: () {
+                                            pushNewScreen(
+                                              context,
+                                              screen: NewsArticle(
+                                                  post: postList[index] as Map),
+                                            );
+                                          },
+                                          child: Card(
+                                            color: Colors.white,
+                                            child: Column(
+                                              children: <Widget>[
+                                                Container(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            5.0),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0),
+                                                      child: Image.asset(
+                                                          UIData.shoppingImage),
+                                                    )),
+                                                Row(children: <Widget>[
+                                                  const SizedBox(
+                                                    width: 30,
+                                                  ),
+                                                  // ignore: avoid_unnecessary_containers
+                                                  Container(
+                                                      child: Text(
+                                                    postList[index]['title']
                                                         .toString(),
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 10,
                                                     style: const TextStyle(
-                                                      fontSize: 16.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20.0,
                                                     ),
                                                   )),
-                                            ]),
-                                            Padding(
-                                                padding:
-                                                    const EdgeInsets.all(10),
-                                                child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: <Widget>[
-                                                      likeButton(index),
-                                                      commentCounter(index),
-                                                      Container(width: 80)
-                                                    ])),
-                                          ],
+                                                ]),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Row(children: <Widget>[
+                                                  const SizedBox(
+                                                    width: 30,
+                                                  ),
+                                                  // ignore: sized_box_for_whitespace
+                                                  Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width -
+                                                              50,
+                                                      child: Text(
+                                                        postList[index]["text"]
+                                                            .toString(),
+                                                        textAlign:
+                                                            TextAlign.justify,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 10,
+                                                        style: const TextStyle(
+                                                          fontSize: 16.0,
+                                                        ),
+                                                      )),
+                                                ]),
+                                                Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            10),
+                                                    child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: <Widget>[
+                                                          likeButton(index),
+                                                          commentCounter(index),
+                                                          Container(width: 80)
+                                                        ])),
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              );
-                            }),
+                                  );
+                                }),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                )));
+                    ));
+              } else {
+                return Center(
+                    child: LoadAndRefresh(
+                  loading: false,
+                  error: 'No Post to Show',
+                  refresh: () {
+                    setState(() {
+                      _fetchData = getPosts();
+                    });
+                  },
+                  key: UniqueKey(),
+                ));
+              }
+            }
+          },
+        ));
   }
 
   //function to add the post on the news feed

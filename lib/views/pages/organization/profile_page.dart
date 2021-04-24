@@ -18,7 +18,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
 
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
-import 'package:talawa/views/widgets/loading.dart';
+import 'package:talawa/views/widgets/data_loading_refresh.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -49,6 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String creator;
   String userID;
   String orgName;
+  Future<void> _fetchData;
   final OrgController _orgController = OrgController();
   String orgId;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -56,7 +57,10 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void didChangeDependencies() {
     Provider.of<OrgController>(context, listen: true);
-    fetchUserDetails();
+    _fetchData = null;
+    setState(() {
+      _fetchData = fetchUserDetails();
+    });
     isCreator = null;
     isPublic = null;
     super.didChangeDependencies();
@@ -72,7 +76,9 @@ class _ProfilePageState extends State<ProfilePage> {
       org = userDetails[0]['joinedOrganizations'] as List;
     }
     //Provider.of<Preferences>(context, listen: false).getCurrentOrgName();
-    fetchUserDetails();
+    setState(() {
+      _fetchData = fetchUserDetails();
+    });
   }
 
   //used to fetch the users details from the server
@@ -105,7 +111,9 @@ class _ProfilePageState extends State<ProfilePage> {
         _orgController.setNewOrg(context, org[0]['_id'].toString(),
             org[0]['name'].toString(), org[0]['image'].toString());
       }
-      fetchOrgAdmin();
+      if (org.isNotEmpty) {
+        fetchOrgAdmin();
+      }
     }
   }
 
@@ -191,10 +199,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
       _orgController.setNewOrg(context, newOrgId, newOrgName, newOrgImgSrc);
       //  _successToast('You are no longer apart of this organization');
-      pushNewScreen(
-        context,
-        screen: const ProfilePage(),
-      );
     }
   }
 
@@ -204,12 +208,28 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
         key: const Key('PROFILE_PAGE_SCAFFOLD'),
         backgroundColor: Colors.white,
-        body: userDetails.isEmpty || isCreator == null
-            ? Center(
-                child: Loading(
+        body: FutureBuilder(
+          future: _fetchData,
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                  child: LoadAndRefresh(
+                loading: true,
                 key: UniqueKey(),
-              ))
-            : Column(
+              ));
+            } else if (snapshot.hasError) {
+              return Center(
+                  child: LoadAndRefresh(
+                loading: false,
+                refresh: () {
+                  setState(() {
+                    _fetchData = fetchUserDetails();
+                  });
+                },
+                key: UniqueKey(),
+              ));
+            } else {
+              return Column(
                 key: const Key('body'),
                 children: <Widget>[
                   Container(
@@ -410,6 +430,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   )
                 ],
-              ));
+              );
+            }
+          },
+        ));
   }
 }
