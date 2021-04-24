@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/newsfeed/add_post.dart';
 import 'package:talawa/views/pages/newsfeed/news_article.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -141,7 +142,8 @@ class _NewsFeedState extends State<NewsFeed> {
                             itemCount: postList.length,
                             itemBuilder: (context, index) {
                               return Container(
-                                padding: const EdgeInsets.only(top: 20),
+                                padding: EdgeInsets.only(
+                                    top: SizeConfig.safeBlockVertical * 2.5),
                                 child: Column(
                                   children: <Widget>[
                                     InkWell(
@@ -157,8 +159,9 @@ class _NewsFeedState extends State<NewsFeed> {
                                         child: Column(
                                           children: <Widget>[
                                             Container(
-                                                padding:
-                                                    const EdgeInsets.all(5.0),
+                                                padding: EdgeInsets.all(
+                                                    SizeConfig
+                                                        .safeBlockHorizontal),
                                                 child: ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(
@@ -167,8 +170,10 @@ class _NewsFeedState extends State<NewsFeed> {
                                                       UIData.shoppingImage),
                                                 )),
                                             Row(children: <Widget>[
-                                              const SizedBox(
-                                                width: 30,
+                                              SizedBox(
+                                                width: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    7.5,
                                               ),
                                               // ignore: avoid_unnecessary_containers
                                               Container(
@@ -181,19 +186,18 @@ class _NewsFeedState extends State<NewsFeed> {
                                                 ),
                                               )),
                                             ]),
-                                            const SizedBox(
-                                              height: 10,
+                                            SizedBox(
+                                              height:
+                                                  SizeConfig.safeBlockVertical *
+                                                      1.0,
                                             ),
                                             Row(children: <Widget>[
-                                              const SizedBox(
-                                                width: 30,
+                                              SizedBox(
+                                                width: SizeConfig.safeBlockHorizontal * 7.5,
                                               ),
                                               // ignore: sized_box_for_whitespace
                                               Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width -
-                                                      50,
+                                                  width: SizeConfig.screenWidth - SizeConfig.safeBlockHorizontal * 12.5,
                                                   child: Text(
                                                     postList[index]["text"]
                                                         .toString(),
@@ -209,7 +213,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                             ]),
                                             Padding(
                                                 padding:
-                                                    const EdgeInsets.all(10),
+                                                     EdgeInsets.all(SizeConfig.safeBlockHorizontal * 2.5),
                                                 child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -217,7 +221,7 @@ class _NewsFeedState extends State<NewsFeed> {
                                                     children: <Widget>[
                                                       likeButton(index),
                                                       commentCounter(index),
-                                                      Container(width: 80)
+                                                      Container(width: SizeConfig.safeBlockHorizontal * 20)
                                                     ])),
                                           ],
                                         ),
