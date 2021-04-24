@@ -20,7 +20,6 @@ class Groups extends StatefulWidget {
 }
 
 class _GroupsState extends State<Groups> {
-
   List eventList = [];
   List displayedEvents = [];
   Preferences preferences = Preferences();
@@ -49,9 +48,12 @@ class _GroupsState extends State<Groups> {
     fetched = false;
     final String currentOrgID = await preferences.getCurrentOrgId();
     _currOrgId = currentOrgID;
-    final Map result = await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    final Map result =
+        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     // print(result);
-    eventList = result == null ? [] : result['events'].reversed.toList() as List<dynamic>;
+    eventList = result == null
+        ? []
+        : result['events'].reversed.toList() as List<dynamic>;
     eventList.removeWhere((element) =>
         element['title'] == 'Talawa Congress' ||
         element['title'] == 'test' ||
@@ -59,12 +61,16 @@ class _GroupsState extends State<Groups> {
         element['title'] == 'mayhem' ||
         element['title'] == 'mayhem1' ||
         element['isRegistered'] == false ||
-        element['organization']['_id'] != currentOrgID); //dont know who keeps adding these
+        element['organization']['_id'] !=
+            currentOrgID); //dont know who keeps adding these
     // This removes all invalid date formats other than Unix time
-    eventList.removeWhere((element) => int.tryParse(element['startTime'] as String) == null);
+    eventList.removeWhere(
+        (element) => int.tryParse(element['startTime'] as String) == null);
     eventList.sort((a, b) {
-      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a['startTime'] as String))
-          .compareTo(DateTime.fromMicrosecondsSinceEpoch(int.parse(b['startTime'] as String)));
+      return DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(a['startTime'] as String))
+          .compareTo(DateTime.fromMicrosecondsSinceEpoch(
+              int.parse(b['startTime'] as String)));
     });
     // eventsToDates(eventList, DateTime.now());
     setState(() {
@@ -75,7 +81,6 @@ class _GroupsState extends State<Groups> {
     // print('orgID ==== $currentOrgID');
     print(displayedEvents);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -147,8 +152,10 @@ class _GroupsState extends State<Groups> {
               child: ListView.builder(
                   itemCount: displayedEvents.length,
                   itemBuilder: (context, index) {
-                    final String groupName = '${displayedEvents[index]['title']}';
-                    final String _imgSrc = displayedEvents[index]['organization']['image'] as String;
+                    final String groupName =
+                        '${displayedEvents[index]['title']}';
+                    final String _imgSrc = displayedEvents[index]
+                        ['organization']['image'] as String;
                     return Card(
                       child: ListTile(
                         title: Text(groupName),
@@ -157,7 +164,8 @@ class _GroupsState extends State<Groups> {
                           child: _imgSrc == null
                               ? Image.asset(UIData.talawaLogo)
                               : NetworkImage(
-                                  Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                                  Provider.of<GraphQLConfiguration>(context)
+                                          .displayImgRoute +
                                       _imgSrc) as Widget,
                         ),
                         trailing: const Icon(Icons.arrow_right),

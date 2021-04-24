@@ -31,7 +31,9 @@ Widget groupsPage() => MultiProvider(
     );
 
 void main() {
-  final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized() as TestWidgetsFlutterBinding;
+  final TestWidgetsFlutterBinding binding =
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("Groups page Tests", () {
     testWidgets("Testing if Groups page shows up", (tester) async {
@@ -44,7 +46,8 @@ void main() {
       );
     });
 
-    testWidgets("Testing overflow of Groups page in a mobile screen", (tester) async {
+    testWidgets("Testing overflow of Groups page in a mobile screen",
+        (tester) async {
       binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
@@ -57,7 +60,8 @@ void main() {
       );
     });
 
-    testWidgets("Testing overflow of Groups page in a tablet screen", (tester) async {
+    testWidgets("Testing overflow of Groups page in a tablet screen",
+        (tester) async {
       binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
