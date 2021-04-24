@@ -11,6 +11,7 @@ import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
@@ -184,13 +185,13 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                     return CheckboxListTile(
                       secondary: members['image'] != null
                           ? CircleAvatar(
-                              radius: 30,
+                              radius: SizeConfig.safeBlockVertical * 3.75,
                               backgroundImage: NetworkImage(
                                   Provider.of<GraphQLConfiguration>(context)
                                           .displayImgRoute +
                                       members['image'].toString()))
                           : CircleAvatar(
-                              radius: 30.0,
+                              radius: SizeConfig.safeBlockVertical * 3.75,
                               backgroundColor: Colors.white,
                               child: Text(
                                   members['firstName']

@@ -9,6 +9,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -200,7 +201,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       body: Container(
         color: Colors.white,
         child: SingleChildScrollView(
-          padding: const EdgeInsets.only(bottom: 10.0),
+          padding: EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 1.25),
           scrollDirection: Axis.vertical,
           child: Column(
             children: <Widget>[
@@ -211,11 +212,11 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                 key: _formKey,
                 autovalidateMode: _validate,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                  padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 7.5, right: SizeConfig.safeBlockHorizontal * 7.5),
                   child: Column(
                     children: <Widget>[
-                      const SizedBox(
-                        height: 30,
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 3.75,
                       ),
                       AutofillGroup(
                           child: Column(
@@ -251,8 +252,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             ),
                             controller: orgNameController,
                           ),
-                          const SizedBox(
-                            height: 20,
+                           SizedBox(
+                            height: SizeConfig.safeBlockVertical * 2.5,
                           ),
                           TextFormField(
                             inputFormatters: [
@@ -281,8 +282,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             ),
                             controller: orgDescController,
                           ),
-                          const SizedBox(
-                            height: 20,
+                           SizedBox(
+                            height: SizeConfig.safeBlockVertical * 2.5,
                           ),
                           TextFormField(
                             inputFormatters: [
@@ -311,8 +312,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             ),
                             controller: orgMemberDescController,
                           ),
-                          const SizedBox(
-                            height: 20,
+                           SizedBox(
+                            height: SizeConfig.safeBlockVertical * 2.5,
                           ),
                         ],
                       )),
@@ -454,8 +455,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     //function which is being called when the image is being add
     return Column(
       children: <Widget>[
-        const SizedBox(
-          height: 32,
+         SizedBox(
+          height: SizeConfig.safeBlockVertical * 4,
         ),
         Center(
           child: GestureDetector(
@@ -463,17 +464,17 @@ class _CreateOrganizationState extends State<CreateOrganization> {
               _showPicker(context);
             },
             child: CircleAvatar(
-              radius: 55,
+              radius: SizeConfig.safeBlockVertical * 6.875,
               backgroundColor: UIData.secondaryColor,
               child: _image != null
                   ? CircleAvatar(
-                      radius: 52,
+                      radius: SizeConfig.safeBlockVertical * 6.5,
                       backgroundImage: FileImage(
                         _image,
                       ),
                     )
                   : CircleAvatar(
-                      radius: 52,
+                      radius: SizeConfig.safeBlockVertical * 6.5,
                       backgroundColor: Colors.lightBlue[50],
                       child: Icon(
                         Icons.camera_alt,
@@ -520,7 +521,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   void _successToast(String msg) {
     final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5, vertical: SizeConfig.safeBlockVertical * 1.5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.green,
@@ -542,7 +543,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
 
   void _exceptionToast(String msg) {
     final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 6, vertical: SizeConfig.safeBlockVertical * 1.75),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
