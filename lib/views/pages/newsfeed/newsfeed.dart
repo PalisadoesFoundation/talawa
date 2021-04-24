@@ -34,12 +34,10 @@ class _NewsFeedState extends State<NewsFeed> {
 
   // String _currentOrgID;
 
-  
   //bool value to indicate whether user has joined organization or not
   bool _hasUserJoinedOrg = false;
   //bool value to indicate whether post fetching is in progress or not
   bool _isFetchingPost = false;
-
 
   Map<String, bool> likePostMap = <String, bool>{};
   // key = postId and value will be true if user has liked a post.
@@ -83,7 +81,7 @@ class _NewsFeedState extends State<NewsFeed> {
     _hasUserJoinedOrg = currentOrgID == null ? false : true;
     final String currentUserID = await preferences.getUserId();
     // _currentOrgID = currentUserID;
-        if (currentOrgID != null) {
+    if (currentOrgID != null) {
       final String query = Queries().getPostsById(currentOrgID);
       final Map result = await apiFunctions.gqlquery(query);
       // print(result);
@@ -99,7 +97,7 @@ class _NewsFeedState extends State<NewsFeed> {
         updateLikepostMap(currentUserID);
       });
     }
-     _isFetchingPost = false;
+    _isFetchingPost = false;
   }
 
 // void : function to set the map of userLikedPost
@@ -136,55 +134,55 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar('NewsFeed',key: const Key('NEWSFEED_APP_BAR')),
+        appBar: CustomAppBar('NewsFeed', key: const Key('NEWSFEED_APP_BAR')),
         floatingActionButton: _hasUserJoinedOrg ? addPostFab() : null,
         body: postList.isEmpty
             ? Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Spacer(),
-                const Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'No posts to show',
-                    key: Key('empty_newsfeed_text'),
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Spacer(),
+                  const Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'No posts to show',
+                      key: Key('empty_newsfeed_text'),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
-                ),
-                const Spacer(),
-                _isFetchingPost
-                    ? const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: CircularProgressIndicator(),
+                  const Spacer(),
+                  _isFetchingPost
+                      ? const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : TextButton.icon(
+                          icon: const Icon(Icons.refresh),
+                          label: const Text('Click to Refresh...'),
+                          onPressed: () {
+                            setState(() {
+                              try {
+                                getPosts();
+                              } catch (e) {
+                                _exceptionToast(e.toString());
+                              }
+                            });
+                          },
                         ),
-                      )
-                    : TextButton.icon(
-                        icon: const Icon(Icons.refresh),
-                        label: const Text('Click to Refresh...'),
-                        onPressed: () {
-                          setState(() {
-                            try{
-                              getPosts();
-                            }catch(e){
-                              _exceptionToast(e.toString());
-                            }
-                          });
-                        },
-                      ),
-              ],
-            )
+                ],
+              )
             : RefreshIndicator(
                 onRefresh: () async {
-                  try{
+                  try {
                     await getPosts();
-                  }catch(e){
-                     _exceptionToast(e.toString());
+                  } catch (e) {
+                    _exceptionToast(e.toString());
                   }
                 },
                 // ignore: avoid_unnecessary_containers
@@ -372,7 +370,7 @@ class _NewsFeedState extends State<NewsFeed> {
     );
   }
 
-   _exceptionToast(String msg) {
+  _exceptionToast(String msg) {
     final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
@@ -393,5 +391,4 @@ class _NewsFeedState extends State<NewsFeed> {
       toastDuration: const Duration(seconds: 1),
     );
   }
-  
 }

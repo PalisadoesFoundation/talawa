@@ -80,11 +80,11 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       // Navigator.of(context).popUntil(ModalRoute.withName("/"));
 
       //New Screen with updated data set
-      pushNewScreen(
-        context,
-        screen: const HomePage(openPageIndex: 4,),
-        withNavBar: false
-      );
+      pushNewScreen(context,
+          screen: const HomePage(
+            openPageIndex: 4,
+          ),
+          withNavBar: false);
     } else {
       final GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
@@ -111,11 +111,11 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         // Navigator.of(context).popUntil(ModalRoute.withName("/"));
 
         //New Screen with Updated data set
-        pushNewScreen(
-          context,
-          screen: const HomePage(openPageIndex: 4,),
-          withNavBar: false
-        );
+        pushNewScreen(context,
+            screen: const HomePage(
+              openPageIndex: 4,
+            ),
+            withNavBar: false);
       }
     }
   }
