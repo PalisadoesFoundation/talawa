@@ -297,7 +297,7 @@ class _EventsState extends State<Events> {
                                         controller: myscrollController,
                                         lineColor: UIData.primaryColor,
                                         position: TimelinePosition.Left,
-                                        itemCount: displayedEvents.length,
+                                        itemCount: displayedEvents.length+1,
                                         itemBuilder: (context, index) {
                                           if (index == 0) {
                                             return TimelineModel(
@@ -331,6 +331,9 @@ class _EventsState extends State<Events> {
                                           );
                                         },
                                       ),
+                                    ),
+                                    Container(
+                                      height: 10
                                     ),
                                   ],
                                 ),
