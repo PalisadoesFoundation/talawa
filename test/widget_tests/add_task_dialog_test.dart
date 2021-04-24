@@ -22,14 +22,12 @@ Widget addTaskDialog() => MultiProvider(
         ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
       ],
       child: MaterialApp(
-        home: Builder(
-          builder: (context){
-            SizeConfig().init(context);
-            return AddEventTask(
+        home: Builder(builder: (context) {
+          SizeConfig().init(context);
+          return AddEventTask(
             eventId: "",
           );
-          }
-        ),
+        }),
       ),
     );
 
