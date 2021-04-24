@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -178,25 +177,17 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     }
   }
 
-  //Get image using camera
-  _imgFromCamera() async {
-    final PickedFile selectedImage = await ImagePicker()
-        .getImage(source: ImageSource.camera, imageQuality: 50);
-    final File image = File(selectedImage.path);
-
-    setState(() {
-      _image = image;
-    });
-  }
-
-  //Get image using gallery
-  _imgFromGallery() async {
-    final FilePickerResult filePicker =
-        await FilePicker.platform.pickFiles(type: FileType.image);
-    if (filePicker != null) {
-      final File image = File(filePicker.files.first.path);
+  //get image from camera and gallery based on the enum passed
+  _imgFrom({From pickFrom = From.none}) async {
+    File pickImageFile;
+    if (pickFrom != From.none) {
+      final PickedFile selectedImage = await ImagePicker().getImage(
+          source: pickFrom == From.camera
+              ? ImageSource.camera
+              : ImageSource.gallery);
+      pickImageFile = File(selectedImage.path);
       setState(() {
-        _image = image;
+        _image = pickImageFile;
       });
     }
   }
@@ -524,7 +515,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       leading: const Icon(Icons.camera_alt_outlined),
                       title: const Text('Camera'),
                       onTap: () {
-                        _imgFromCamera();
+                        _imgFrom(pickFrom: From.camera);
                         Navigator.of(context).pop();
                       },
                     ),
@@ -532,7 +523,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         leading: const Icon(Icons.photo_library),
                         title: const Text('Photo Library'),
                         onTap: () {
-                          _imgFromGallery();
+                          _imgFrom(pickFrom: From.gallery);
                           Navigator.of(context).pop();
                         }),
                   ],
