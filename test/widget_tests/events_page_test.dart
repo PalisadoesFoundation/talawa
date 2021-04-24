@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +24,7 @@ Widget createEventsPageScreen() => MultiProvider(
           create: (_) => Preferences(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: Events(),
       ),
     );
@@ -39,29 +38,29 @@ void main() {
       await tester.pumpWidget(createEventsPageScreen());
 
       /// Verify if [events page] shows up.
-      expect(find.byKey(Key('EVENTS_APP_BAR')),findsOneWidget);
+      expect(find.byKey(const Key('EVENTS_APP_BAR')),findsOneWidget);
       expect(find.byType(FutureBuilder),findsOneWidget);
     });
 
     testWidgets("Testing overflow of events page in a mobile screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(440, 800);
+      binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createEventsPageScreen());
 
       /// Verify if [events page] shows up.
-      expect(find.byKey(Key('EVENTS_APP_BAR')),findsOneWidget);
+      expect(find.byKey(const Key('EVENTS_APP_BAR')),findsOneWidget);
     });
     testWidgets("Testing overflow of events Page in a tablet screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(1024, 768);
+      binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createEventsPageScreen());
 
       /// Verify if [events page] shows up.
-      expect(find.byKey(Key('EVENTS_APP_BAR')),findsOneWidget);
+      expect(find.byKey(const Key('EVENTS_APP_BAR')),findsOneWidget);
     });
   });
 }

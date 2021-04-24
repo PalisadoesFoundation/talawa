@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
@@ -173,7 +172,7 @@ class _EventsState extends State<Events> {
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     _currOrgId = currentOrgID;
-      Map result =
+      final Map result =
       await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
       eventList = result == null ? [] : (result['events'] as List).reversed.toList();
       eventList.removeWhere((element) =>
@@ -610,7 +609,7 @@ class _EventsState extends State<Events> {
 
   //function to show exceptions
   _exceptionToast(String msg) {
-    Widget toast = Container(
+    final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
@@ -627,7 +626,7 @@ class _EventsState extends State<Events> {
     fToast.showToast(
       child: toast,
       gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 1),
+      toastDuration: const Duration(seconds: 1),
     );
   }
 }
