@@ -8,6 +8,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/loghelper.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -18,10 +19,12 @@ import 'package:talawa/views/pages/organization/switch_org_page.dart';
 
 Preferences preferences = Preferences();
 String userID;
+LogHelper logHelper = LogHelper();
 Future<void> main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); //ensuring weather the app is being initialized or not
   userID = await preferences.getUserId(); //getting user id
+  await logHelper.init(); // To intialise FlutterLog
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp
   ]) //setting the orientation according to the screen it is running on
