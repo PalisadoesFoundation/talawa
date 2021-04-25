@@ -325,7 +325,7 @@ class _UrlPageState extends State<UrlPage>
                                             color: Colors.white),
                                         alignLabelWithHint: true,
                                         hintText:
-                                            'talawa-graphql-api.herokuapp.com',
+                                            'talawa-graphql-api.herokuapp.com/graphql',
                                         hintStyle:
                                             const TextStyle(color: Colors.grey),
                                       ),
