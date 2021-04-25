@@ -1,3 +1,4 @@
+import 'dart:io';
 //flutter packages are imported here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -568,45 +569,86 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
   void confirmOrgDialog(String orgName, int index) {
     //this is the pop up shown when the confirmation is required
-    showDialog(
+    if (Platform.isIOS) {
+      showCupertinoDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Confirmation"),
-            content:
-                const Text("Are you sure you want to join this organization?"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("Close"),
-              ),
-              TextButton(
-                onPressed: () async {
-                  setState(() {
-                    loadingIndex = index;
-                    _isLoaderActive = true;
-                  });
-                  Navigator.of(context).pop();
-                  if (isPublic == 'true') {
-                    await joinPublicOrg(orgName)
-                        .whenComplete(() => setState(() {
-                              loadingIndex = -1;
-                              _isLoaderActive = false;
-                            }));
-                  } else if (isPublic == 'false') {
-                    await joinPrivateOrg().whenComplete(() => setState(() {
-                          loadingIndex = -1;
-                          _isLoaderActive = false;
-                        }));
-                  }
-                },
-                child: const Text("Yes"),
-              )
-            ],
-          );
-        });
+        useRootNavigator: false,
+        builder: (_) => CupertinoAlertDialog(
+          title: const Text("Confirmation"),
+          content:
+              const Text("Are you sure you want to join this organization?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Close"),
+            ),
+            TextButton(
+              onPressed: () async {
+                setState(() {
+                  loadingIndex = index;
+                  _isLoaderActive = true;
+                });
+                Navigator.of(context).pop();
+                if (isPublic == 'true') {
+                  await joinPublicOrg(orgName).whenComplete(() => setState(() {
+                        loadingIndex = -1;
+                        _isLoaderActive = false;
+                      }));
+                } else if (isPublic == 'false') {
+                  await joinPrivateOrg().whenComplete(() => setState(() {
+                        loadingIndex = -1;
+                        _isLoaderActive = false;
+                      }));
+                }
+              },
+              child: const Text("Yes"),
+            )
+          ],
+        ),
+      );
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Confirmation"),
+              content: const Text(
+                  "Are you sure you want to join this organization?"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Close"),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    setState(() {
+                      loadingIndex = index;
+                      _isLoaderActive = true;
+                    });
+                    Navigator.of(context).pop();
+                    if (isPublic == 'true') {
+                      await joinPublicOrg(orgName)
+                          .whenComplete(() => setState(() {
+                                loadingIndex = -1;
+                                _isLoaderActive = false;
+                              }));
+                    } else if (isPublic == 'false') {
+                      await joinPrivateOrg().whenComplete(() => setState(() {
+                            loadingIndex = -1;
+                            _isLoaderActive = false;
+                          }));
+                    }
+                  },
+                  child: const Text("Yes"),
+                )
+              ],
+            );
+          });
+    }
   }
 
   Widget showError(String msg) {

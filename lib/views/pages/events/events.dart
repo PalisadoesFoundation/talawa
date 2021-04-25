@@ -197,8 +197,6 @@ class _EventsState extends State<Events> {
     setState(() {
       displayedEvents = eventList;
     });
-    // print('orgID ==== $currentOrgID');
-    // print(displayedEvents);
     userId = await preferences.getUserId();
   }
 

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 //flutter packages are  imported here
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -385,17 +388,66 @@ class _ProfilePageState extends State<ProfilePage> {
                               color: UIData.secondaryColor,
                             ),
                             onTap: () {
-                              showDialog(
+                              if (Platform.isAndroid) {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text("Confirmation"),
+                                        content: const Text(
+                                            "Are you sure you want to logout?"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text("No"),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              _authController.logout(context);
+                                            },
+                                            child: const Text("Yes"),
+                                          )
+                                        ],
+                                      );
+                                    });
+                              } else {
+                                // iOS-specific
+                                showCupertinoDialog(
                                   context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertBox(
-                                      message:
-                                          "Are you sure you want to logout?",
-                                      function: () {
-                                        _authController.logout(context);
-                                      },
-                                    );
-                                  });
+                                  useRootNavigator: false,
+                                  builder: (_) => CupertinoAlertDialog(
+                                    title: const Text(
+                                      "Confirmation",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    content: const Text(
+                                      "Are you sure you want to log out?",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text("No"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          _authController.logout(context);
+                                        },
+                                        child: const Text("Yes"),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }
                             },
                           ),
                           MyAboutTile(),
@@ -405,5 +457,60 @@ class _ProfilePageState extends State<ProfilePage> {
                   )
                 ],
               ));
+  }
+
+  void confirmLeave() {
+    if (Platform.isAndroid) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Confirmation"),
+              content: const Text(
+                  "Are you sure you want to leave this organization?"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Close"),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    leaveOrg();
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Yes"),
+                )
+              ],
+            );
+          });
+    } else {
+      // iOS-specific
+      showCupertinoDialog(
+        context: context,
+        useRootNavigator: false,
+        builder: (_) => CupertinoAlertDialog(
+          title: const Text("Confirmation"),
+          content:
+              const Text("Are you sure you want to leave this organization?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Close"),
+            ),
+            TextButton(
+              onPressed: () async {
+                leaveOrg();
+                Navigator.of(context).pop();
+              },
+              child: const Text("Yes"),
+            )
+          ],
+        ),
+      );
+    }
   }
 }
