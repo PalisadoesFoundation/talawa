@@ -76,11 +76,7 @@ void main() {
 
       //get the fab
       final addEventFab = find.byType(FloatingActionButton);
-      expect(
-        addEventFab,
-        findsOneWidget
-      );
+      expect(addEventFab, findsOneWidget);
     });
-
   });
 }
