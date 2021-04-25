@@ -9,6 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: chmod +x countline.sh
-      
-      - run: ./countline.sh 
+      - run: chmod +x ./.github/workflows/countline.sh
+
+      - run: cd ./.github/workflows/ && ./countline.sh 
