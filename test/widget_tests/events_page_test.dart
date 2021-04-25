@@ -52,7 +52,9 @@ void main() {
 
       /// Verify if [events page] shows up.
       expect(find.byKey(const Key('EVENTS_APP_BAR')), findsOneWidget);
+      expect(find.text('Events'), findsOneWidget);
     });
+
     testWidgets("Testing overflow of events Page in a tablet screen",
         (tester) async {
       binding.window.physicalSizeTestValue = const Size(1024, 768);
@@ -62,6 +64,23 @@ void main() {
 
       /// Verify if [events page] shows up.
       expect(find.byKey(const Key('EVENTS_APP_BAR')), findsOneWidget);
+      expect(find.text('Events'), findsOneWidget);
     });
+
+    testWidgets("Testing if add event fab shows up", (tester) async {
+      await tester.pumpWidget(createEventsPageScreen());
+
+      /// Verify if [events page] shows up.
+      expect(find.byKey(const Key('EVENTS_APP_BAR')), findsOneWidget);
+      expect(find.text('Events'), findsOneWidget);
+
+      //get the fab
+      final addEventFab = find.byType(FloatingActionButton);
+      expect(
+        addEventFab,
+        findsOneWidget
+      );
+    });
+
   });
 }
