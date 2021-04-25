@@ -774,6 +774,31 @@ query{
 """;
   }
 
+  String get getOrganizationsConnection {
+    return """
+    query organizationsConnection(\$first: Int, \$skip: Int){
+      organizationsConnection(
+        first: \$first,
+        skip: \$skip,
+      ){
+        image
+        _id
+        name
+        admins{
+          _id
+        }
+        description
+        isPublic
+        creator{
+          _id
+          firstName
+          lastName
+        }
+      }
+    }
+""";
+  }
+
   createComments(String postId, var text) async {
     print(postId);
     print(text);

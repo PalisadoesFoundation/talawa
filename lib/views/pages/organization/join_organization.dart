@@ -34,7 +34,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   FToast fToast;
-  List organizationInfo = [];
+  List organizationInfo;
   List filteredOrgInfo = [];
   List joinedOrg = [];
   final AuthController _authController = AuthController();
@@ -43,6 +43,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   bool _isLoaderActive = false;
   bool disposed = false;
   int loadingIndex = -1;
+  FetchMore fetchMore;
 
   // Variables for filtering out alread joined
   // and created organizations.
@@ -52,7 +53,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
   @override
   void initState() {
-    //creating the initial state for all the variables
     super.initState();
     fToast = FToast();
     fToast.init(context);
@@ -65,13 +65,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     super.dispose();
   }
 
-  // Function for getting the current user id.
+  /// FUNCTION FOR GETTING CURRENT USER ID
   Future<void> getCurrentUserId() async {
     currentUserId = await _pref.getUserId();
   }
 
+  /// SEARCH BAR TO SEARCH THE ORGANIZATION
   void searchOrgName(String orgName) {
-    //it is the search bar to search the organization
     filteredOrgInfo.clear();
     if (orgName.isNotEmpty) {
       for (int i = 0; i < organizationInfo.length; i++) {
@@ -89,20 +89,22 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
+  /// FETCH THE LIST OF ALL THE ORGANIZATIONS
   Future fetchOrg() async {
-    // Get current User Id.
     getCurrentUserId();
 
-    //function to fetch the org from the server
     final GraphQLClient _client = graphQLConfiguration.authClient();
+    final QueryResult result = await _client.query(
+      QueryOptions(documentNode: gql(_query.getOrganizationsConnection)),
+    );
 
-    final QueryResult result = await _client
-        .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
-
-    // Get the details of the current user.
-    final QueryResult userDetailsResult = await _client.query(QueryOptions(
+    /// GET THE DETAILS OF THE CURRENT USER
+    final QueryResult userDetailsResult = await _client.query(
+      QueryOptions(
         documentNode: gql(_query.fetchUserInfo),
-        variables: {'id': currentUserId}));
+        variables: {'id': currentUserId},
+      ),
+    );
 
     if (result.hasException || userDetailsResult.hasException) {
       print(result.exception);
@@ -111,7 +113,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         !disposed &&
         !userDetailsResult.hasException) {
       setState(() {
-        organizationInfo = result.data['organizations'] as List;
+        organizationInfo = result.data['organizationsConnection'] as List;
 
         // Get the details of joined organizations.
         joinedOrganizations =
@@ -137,8 +139,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
+  /// FUNCTION CALLED TP JOIN THE PRIVATE ORGANIZATION
   Future joinPrivateOrg() async {
-    //function called if the person wants to enter a private organization
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
     final QueryResult result = await _client.mutate(MutationOptions(
@@ -167,8 +169,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     }
   }
 
+  /// Function which will be called if the person wants to join the public organization
   Future joinPublicOrg(String orgName) async {
-    //function which will be called if the person wants to join the organization which is not private
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
     print(orgName);
@@ -246,323 +248,162 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Join Organization',
-            style: TextStyle(color: Colors.white)),
+    return GraphQLProvider(
+      client: ValueNotifier<GraphQLClient>(GraphQLConfiguration().authClient()),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Join Organization',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        body: Query(
+          options: QueryOptions(
+            documentNode: gql(_query.getOrganizationsConnection),
+            variables: {
+              'first': 15,
+              'skip': 0,
+            },
+          ),
+          builder: (
+            QueryResult result, {
+            Future<QueryResult> Function() refetch,
+            FetchMore fetchMore,
+          }) {
+            if (result.hasException) {
+              print(result.exception);
+              return const Loading(isShowingError: true);
+            }
+
+            ///WIDGET TO screenBody WHEN LOADING DATA
+            if (result.loading && result.data == null) {
+              return Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const <Widget>[
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(),
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Loading...',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'OpenSans',
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+
+            final List organizations =
+                result.data['organizationsConnection'] as List;
+
+            if (organizations.isEmpty) {
+              return Center(
+                  child: Loading(
+                key: UniqueKey(),
+              ));
+            }
+
+            return screenBody(
+              fetchMore: fetchMore,
+              result: result,
+              organizations: organizations,
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: UIData.secondaryColor,
+          foregroundColor: Colors.white,
+          elevation: 5.0,
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => CreateOrganization(
+                  isFromProfile: widget.fromProfile,
+                ),
+              ),
+            );
+          },
+          child: const Icon(Icons.add),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
-      body: organizationInfo.isEmpty
-          ? Center(
-              child: Loading(
-              key: UniqueKey(),
-            ))
-          : Container(
+    );
+  }
+
+  Widget screenBody({
+    @required List organizations,
+    @required QueryResult result,
+    @required FetchMore fetchMore,
+  }) {
+    return Container(
+      color: const Color(0xffF3F6FF),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+      child: Column(
+        children: <Widget>[
+          const Text(
+            "Welcome, \nJoin or Create your organization to get started",
+            style: TextStyle(
+                color: Colors.black, fontSize: 18, fontStyle: FontStyle.normal),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          TextFormField(
+            onChanged: (value) {
+              searchOrgName(value);
+            },
+            controller: searchController,
+            textAlign: TextAlign.left,
+            style: const TextStyle(fontSize: 14),
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(5),
+              fillColor: Colors.white,
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15.0),
+                borderSide: const BorderSide(
+                  color: Colors.white,
+                  width: 0.0,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15.0),
+                borderSide: const BorderSide(
+                  color: Colors.white,
+                  width: 0.0,
+                ),
+              ),
+              prefixIcon: const Padding(
+                padding: EdgeInsets.all(0.0),
+                child: Icon(Icons.search, color: Colors.black),
+              ),
+              hintText: "Search Organization Name",
+            ),
+          ),
+          const SizedBox(height: 15),
+          Expanded(
+            child: Container(
               color: const Color(0xffF3F6FF),
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-              child: Column(
-                children: <Widget>[
-                  const Text(
-                    "Welcome, \nJoin or Create your organization to get started",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontStyle: FontStyle.normal),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    onChanged: (value) {
-                      searchOrgName(value);
-                    },
-                    controller: searchController,
-                    textAlign: TextAlign.left,
-                    style: const TextStyle(fontSize: 14),
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(5),
-                        fillColor: Colors.white,
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                          borderSide:
-                              const BorderSide(color: Colors.white, width: 0.0),
-                        ),
-                        prefixIcon: const Padding(
-                          padding: EdgeInsets.all(0.0),
-                          child: Icon(Icons.search, color: Colors.black),
-                        ),
-                        hintText: "Search Organization Name"),
-                  ),
-                  const SizedBox(height: 15),
-                  Expanded(
-                      child: Container(
-                          color: const Color(0xffF3F6FF),
-                          child: searchController.text.isNotEmpty
-                              ? ListView.builder(
-                                  itemCount: filteredOrgInfo.length,
-                                  itemBuilder: (context, index) {
-                                    final organization = filteredOrgInfo[index];
-                                    return Card(
-                                      child: ListTile(
-                                        leading: organization['image'] != null
-                                            ? CircleAvatar(
-                                                radius: 30,
-                                                backgroundImage: NetworkImage(
-                                                    Provider.of<GraphQLConfiguration>(
-                                                                context)
-                                                            .displayImgRoute +
-                                                        organization['image']
-                                                            .toString()))
-                                            : const CircleAvatar(
-                                                radius: 30,
-                                                backgroundImage: AssetImage(
-                                                    "assets/images/team.png")),
-                                        title: organization['isPublic']
-                                                    .toString() !=
-                                                'false'
-                                            ? Row(
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      organization['name']
-                                                          .toString(),
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                  const Icon(Icons.lock_open,
-                                                      color: Colors.green,
-                                                      size: 16)
-                                                ],
-                                              )
-                                            : Row(
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      organization['name']
-                                                          .toString(),
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                  const Icon(Icons.lock,
-                                                      color: Colors.red,
-                                                      size: 16)
-                                                ],
-                                              ),
-                                        subtitle: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                                organization['description']
-                                                    .toString(),
-                                                maxLines: 2,
-                                                overflow:
-                                                    TextOverflow.ellipsis),
-                                            Text(
-                                                'Created by: ${organization['creator']['firstName']} ${organization['creator']['lastName']}',
-                                                maxLines: 2,
-                                                overflow:
-                                                    TextOverflow.ellipsis),
-                                          ],
-                                        ),
-                                        trailing: ElevatedButton(
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                    Color>(UIData.primaryColor),
-                                            shape: MaterialStateProperty.all<
-                                                    OutlinedBorder>(
-                                                RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            )),
-                                          ),
-                                          onPressed: () {
-                                            itemIndex =
-                                                organization['_id'].toString();
-                                            if (organization['isPublic']
-                                                    .toString() ==
-                                                'false') {
-                                              setState(() {
-                                                isPublic = 'false';
-                                              });
-                                            } else {
-                                              setState(() {
-                                                isPublic = 'true';
-                                              });
-                                            }
-                                            confirmOrgDialog(
-                                                organization['name'].toString(),
-                                                index);
-                                          },
-                                          child: _isLoaderActive == true &&
-                                                  loadingIndex == index
-                                              ? const SizedBox(
-                                                  width: 20,
-                                                  height: 20,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                                Color>(
-                                                            Colors.white),
-                                                    strokeWidth: 3,
-                                                    backgroundColor:
-                                                        Colors.black,
-                                                  ))
-                                              : const Text("JOIN"),
-                                        ),
-                                        isThreeLine: true,
-                                      ),
-                                    );
-                                  })
-                              : ListView.builder(
-                                  itemCount: organizationInfo.length,
-                                  itemBuilder: (context, index) {
-                                    final organization =
-                                        organizationInfo[index];
-                                    return Card(
-                                      child: ListTile(
-                                        leading: organization['image'] != null
-                                            ? CircleAvatar(
-                                                radius: 30,
-                                                backgroundImage: NetworkImage(
-                                                    Provider.of<GraphQLConfiguration>(
-                                                                context)
-                                                            .displayImgRoute +
-                                                        organization['image']
-                                                            .toString()))
-                                            : const CircleAvatar(
-                                                radius: 30,
-                                                backgroundImage: AssetImage(
-                                                    "assets/images/team.png")),
-                                        title: organization['isPublic']
-                                                    .toString() !=
-                                                'false'
-                                            ? Row(
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      organization['name']
-                                                          .toString(),
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                  const Icon(Icons.lock_open,
-                                                      color: Colors.green,
-                                                      size: 16)
-                                                ],
-                                              )
-                                            : Row(
-                                                children: [
-                                                  Flexible(
-                                                    child: Text(
-                                                      organization['name']
-                                                          .toString(),
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                  ),
-                                                  const Icon(Icons.lock,
-                                                      color: Colors.red,
-                                                      size: 16)
-                                                ],
-                                              ),
-                                        subtitle: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                                organization['description']
-                                                    .toString(),
-                                                maxLines: 2,
-                                                overflow:
-                                                    TextOverflow.ellipsis),
-                                            Text(
-                                                'Created by: ${organization['creator']['firstName']} ${organization['creator']['lastName']}',
-                                                maxLines: 2,
-                                                overflow:
-                                                    TextOverflow.ellipsis),
-                                          ],
-                                        ),
-                                        trailing: ElevatedButton(
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                    Color>(UIData.primaryColor),
-                                            shape: MaterialStateProperty.all<
-                                                    OutlinedBorder>(
-                                                RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            )),
-                                          ),
-                                          onPressed: () {
-                                            itemIndex =
-                                                organization['_id'].toString();
-                                            if (organization['isPublic']
-                                                    .toString() ==
-                                                'false') {
-                                              setState(() {
-                                                isPublic = 'false';
-                                              });
-                                            } else {
-                                              setState(() {
-                                                isPublic = 'true';
-                                              });
-                                            }
-                                            confirmOrgDialog(
-                                                organization['name'].toString(),
-                                                index);
-                                          },
-                                          child: _isLoaderActive == true &&
-                                                  loadingIndex == index
-                                              ? const SizedBox(
-                                                  width: 20,
-                                                  height: 20,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                                Color>(
-                                                            Colors.white),
-                                                    strokeWidth: 3,
-                                                    backgroundColor:
-                                                        Colors.black,
-                                                  ))
-                                              : const Text("JOIN"),
-                                        ),
-                                        isThreeLine: true,
-                                      ),
-                                    );
-                                  })))
-                ],
-              )),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: UIData.secondaryColor,
-        foregroundColor: Colors.white,
-        elevation: 5.0,
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => CreateOrganization(
-                    isFromProfile: widget.fromProfile,
-                  )));
-        },
-        child: const Icon(Icons.add),
+              child: searchController.text.isNotEmpty
+                  ? _searchWidget()
+                  : _organizationList(
+                      fetchMore: fetchMore,
+                      orgaizations: organizations,
+                      result: result,
+                    ),
+            ),
+          )
+        ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -656,5 +497,287 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       gravity: ToastGravity.BOTTOM,
       toastDuration: const Duration(seconds: 3),
     );
+  }
+
+  Widget _searchWidget() {
+    return ListView.builder(
+        itemCount: filteredOrgInfo.length,
+        itemBuilder: (context, index) {
+          final organization = filteredOrgInfo[index];
+          return Card(
+            child: ListTile(
+              leading: organization['image'] != null
+                  ? CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                          Provider.of<GraphQLConfiguration>(context)
+                                  .displayImgRoute +
+                              organization['image'].toString()),
+                    )
+                  : const CircleAvatar(
+                      radius: 30,
+                      backgroundImage: AssetImage("assets/images/team.png")),
+              title: organization['isPublic'].toString() != 'false'
+                  ? Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            organization['name'].toString(),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const Icon(Icons.lock_open,
+                            color: Colors.green, size: 16)
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        Flexible(
+                          child: Text(
+                            organization['name'].toString(),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const Icon(Icons.lock, color: Colors.red, size: 16)
+                      ],
+                    ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(organization['description'].toString(),
+                      maxLines: 2, overflow: TextOverflow.ellipsis),
+                  Text(
+                      'Created by: ${organization['creator']['firstName']} ${organization['creator']['lastName']}',
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis),
+                ],
+              ),
+              trailing: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(UIData.primaryColor),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  )),
+                ),
+                onPressed: () {
+                  itemIndex = organization['_id'].toString();
+                  if (organization['isPublic'].toString() == 'false') {
+                    setState(() {
+                      isPublic = 'false';
+                    });
+                  } else {
+                    setState(() {
+                      isPublic = 'true';
+                    });
+                  }
+                  confirmOrgDialog(organization['name'].toString(), index);
+                },
+                child: _isLoaderActive == true && loadingIndex == index
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                          strokeWidth: 3,
+                          backgroundColor: Colors.black,
+                        ))
+                    : const Text("JOIN"),
+              ),
+              isThreeLine: true,
+            ),
+          );
+        });
+  }
+
+  Widget _organizationList({
+    @required List orgaizations,
+    @required QueryResult result,
+    @required FetchMore fetchMore,
+  }) {
+    return ListView.builder(
+      itemCount: orgaizations.length + 1,
+      itemBuilder: (context, index) {
+        // Pagination Widget
+        if (index == orgaizations.length) {
+          return _paginationWidget(
+            fetchMore: fetchMore,
+            organizations: orgaizations,
+            result: result,
+          );
+        }
+
+        final organization = orgaizations[index];
+
+        return Card(
+          child: ListTile(
+            leading: organization['image'] != null
+                ? CircleAvatar(
+                    radius: 30,
+                    backgroundImage: NetworkImage(
+                        Provider.of<GraphQLConfiguration>(context)
+                                .displayImgRoute +
+                            organization['image'].toString()),
+                  )
+                : const CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage("assets/images/team.png"),
+                  ),
+            title: organization['isPublic'].toString() != 'false'
+                ? Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          organization['name'].toString(),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const Icon(Icons.lock_open, color: Colors.green, size: 16)
+                    ],
+                  )
+                : Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          organization['name'].toString(),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const Icon(Icons.lock, color: Colors.red, size: 16)
+                    ],
+                  ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(organization['description'].toString(),
+                    maxLines: 2, overflow: TextOverflow.ellipsis),
+                Text(
+                  'Created by: ${organization['creator']['firstName']} ${organization['creator']['lastName']}',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+            trailing: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(UIData.primaryColor),
+                shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                )),
+              ),
+              onPressed: () {
+                itemIndex = organization['_id'].toString();
+                if (organization['isPublic'].toString() == 'false') {
+                  setState(() {
+                    isPublic = 'false';
+                  });
+                } else {
+                  setState(() {
+                    isPublic = 'true';
+                  });
+                }
+                confirmOrgDialog(organization['name'].toString(), index);
+              },
+              child: _isLoaderActive == true && loadingIndex == index
+                  ? const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        strokeWidth: 3,
+                        backgroundColor: Colors.black,
+                      ))
+                  : const Text("JOIN"),
+            ),
+            isThreeLine: true,
+          ),
+        );
+      },
+    );
+  }
+
+  ///Pagination will be based on the end cursor
+  void fetchMoreHelper(FetchMore fetchMore, List organizations) {
+    fetchMore(
+      FetchMoreOptions(
+        variables: {
+          "first": 15,
+          "skip": organizations.length,
+        },
+        updateQuery: (existingOrganizations, newOrganizations) => {
+          'organizationsConnection': [
+            ...existingOrganizations["organizationsConnection"],
+            ...newOrganizations['organizationsConnection'],
+          ],
+        },
+      ),
+    );
+  }
+
+  ///Widget to ask user if they want to paginate
+  Widget _paginationWidget({
+    @required QueryResult result,
+    @required FetchMore fetchMore,
+    @required List organizations,
+  }) {
+    final bool isNextPageExist =
+        organizations.length != organizationInfo.length;
+
+    if (isNextPageExist) {
+      if (result.loading) {
+        return const Center(
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        );
+      } else {
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Center(
+            child: GestureDetector(
+              onTap: () => fetchMoreHelper(fetchMore, organizations),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.arrow_downward,
+                      size: 26,
+                      color: Colors.indigo[800],
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'Load More',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 64),
+                ],
+              ),
+            ),
+          ),
+        );
+      }
+    } else {
+      return const SizedBox(height: 64);
+    }
   }
 }

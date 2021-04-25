@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 //pages are imported here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/services/post_provider.dart';
+import 'package:talawa/controllers/newsfeed_controller.dart';
 import 'package:talawa/views/pages/newsfeed/add_post.dart';
 import 'package:talawa/views/pages/newsfeed/news_article.dart';
 import 'package:talawa/utils/uidata.dart';
