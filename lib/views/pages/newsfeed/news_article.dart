@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/controllers/post_controller.dart';
 
 //the pages are called here
 import 'package:talawa/services/queries_.dart';
@@ -20,8 +21,10 @@ const String newLineKey = "@123TALAWA321@";
 
 // ignore: must_be_immutable
 class NewsArticle extends StatefulWidget {
-  NewsArticle({Key key, @required this.post}) : super(key: key);
-  Map post;
+  const NewsArticle({Key key, @required this.index, @required this.post})
+      : super(key: key);
+  final Map post;
+  final int index;
 
   @override
   _NewsArticleState createState() => _NewsArticleState();
@@ -43,12 +46,15 @@ class _NewsArticleState extends State<NewsArticle> {
   List comments = [];
   bool moreComments = false;
   bool isCommentAdded = false;
+  int index;
+  Map post;
 
   final Queries _query = Queries();
   List userDetails = [];
   String userID;
   String orgName;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+  PostController postController;
 
   @override
   void initState() {
@@ -57,6 +63,8 @@ class _NewsArticleState extends State<NewsArticle> {
         text: Provider.of<CommentHandler>(context, listen: false)
             .comment(widget.post["_id"].toString()));
     fetchUserDetails();
+    index = widget.index;
+    post = widget.post;
     commentController.addListener(_notifyData);
   }
 
@@ -149,8 +157,7 @@ class _NewsArticleState extends State<NewsArticle> {
         await Fluttertoast.showToast(
           msg: "Comment added.",
         );
-        await getPostComments();
-        setState(() {});
+        postController.addComment(index, result["createComment"] as Map);
       }
     } else {
       Fluttertoast.showToast(msg: "Please write comment");

@@ -820,19 +820,20 @@ query{
     print(organizationId);
     print(title);
     const String addPostMutation = """
-     mutation createPost(\$text: String!, \$organizationId: ID!, \$title: String!) { 
-      createPost( 
-        data:{
-          text: \$text,
-          title: \$title,
-          organizationId: \$organizationId,
+      mutation createPost(\$text: String!, \$organizationId: ID!, \$title: String!) { 
+        createPost( 
+          data: {
+            text: \$text,
+            title: \$title,
+            organizationId: \$organizationId,
+          }
+        ){
+          _id
+          text
         }
-      ){
-        _id
-        text
       }
-    }
-  """;
+    """;
+
     final GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
     final GraphQLClient _client = graphQLConfiguration.authClient();
     final AuthController _authController = AuthController();
@@ -846,6 +847,7 @@ query{
         'organizationId': organizationId
       },
     ));
+
     if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);

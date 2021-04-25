@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_logs/flutter_logs.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/loghelper.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:http/http.dart' as http;
@@ -59,11 +61,14 @@ class _UrlPageState extends State<UrlPage>
 
     try {
       await http.get('${dropdownValue.toLowerCase()}://${urlController.text}/');
-
       setApiUrl();
       _setURL();
     } catch (e) {
+      LogHelper().log(LogLevel.ERROR, widget.toStringShort(), "checkAndSetUrl",
+          "Incorrect Oraganization",
+          exception: e as Exception);
       _exceptionToast('Incorrect Organization Entered');
+      LogHelper().exportLogs();
     }
 
     setState(() {
