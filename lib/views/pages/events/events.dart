@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/timer.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/events/event_detail_page.dart';
 import 'package:talawa/views/pages/events/add_event_page.dart';
@@ -243,7 +244,7 @@ class _EventsState extends State<Events> {
                         SliverAppBar(
                             backgroundColor: Colors.white,
                             automaticallyImplyLeading: false,
-                            expandedHeight: 380,
+                            expandedHeight: SizeConfig.safeBlockVertical * 47.5,
                             flexibleSpace: FlexibleSpaceBar(
                               background: calendar(),
                             )),
@@ -306,8 +307,10 @@ class _EventsState extends State<Events> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(vertical: 5),
+                                                    padding: EdgeInsets.symmetric(
+                                                        vertical: SizeConfig
+                                                                .safeBlockVertical *
+                                                            0.625),
                                                     child: Text(
                                                       '${displayedEvents.length} Events',
                                                       style: const TextStyle(
@@ -390,12 +393,13 @@ class _EventsState extends State<Events> {
 
   Widget carouselSliderBar() {
     return Container(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 2.5),
         alignment: Alignment.centerLeft,
         color: UIData.secondaryColor,
-        height: 40,
+        height: SizeConfig.safeBlockVertical * 6,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IconButton(
                 padding: const EdgeInsets.all(0),
@@ -407,7 +411,7 @@ class _EventsState extends State<Events> {
                   color: Colors.white,
                 )),
             SizedBox(
-              width: 230,
+              width: SizeConfig.safeBlockHorizontal * 57.5,
               child: CarouselSlider(
                 carouselController: carouselController,
                 items: [
@@ -434,7 +438,7 @@ class _EventsState extends State<Events> {
                       });
                     }
                   },
-                  height: 40,
+                  height: SizeConfig.safeBlockVertical * 5,
                 ),
               ),
             ),

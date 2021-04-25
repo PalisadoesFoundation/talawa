@@ -11,6 +11,7 @@ import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/member_details.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
@@ -125,8 +126,8 @@ class _OrganizationsState extends State<Organizations> {
                     },
                     child: Center(
                         child: Column(children: <Widget>[
-                      const SizedBox(
-                        height: 250,
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 31.25,
                       ),
                       const Text(
                         "No member to Show",
@@ -135,8 +136,8 @@ class _OrganizationsState extends State<Organizations> {
                           fontSize: 20,
                         ),
                       ),
-                      const SizedBox(
-                        height: 50,
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 6.25,
                       ),
                       ElevatedButton(
                         onPressed: () async {
@@ -173,8 +174,9 @@ class _OrganizationsState extends State<Organizations> {
     return SliverStickyHeader(
       header: Container(
         color: Colors.white,
-        height: 60.0,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        height: SizeConfig.safeBlockVertical * 7.5,
+        padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.safeBlockHorizontal * 4),
         alignment: Alignment.centerLeft,
         child: CircleAvatar(
             backgroundColor: UIData.secondaryColor,
@@ -221,7 +223,7 @@ class _OrganizationsState extends State<Organizations> {
                 child: Container(
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.all(20),
-                    height: 80,
+                    height: SizeConfig.safeBlockVertical * 10,
                     color: Colors.white,
                     child: Text(
                       '${membersList[index]['firstName']} ${membersList[index]['lastName']}',
@@ -237,8 +239,8 @@ class _OrganizationsState extends State<Organizations> {
   //widget to get the user images
   Widget userImage(Map member) {
     return Container(
-      height: 80,
-      width: 100,
+      height: SizeConfig.safeBlockVertical * 10,
+      width: SizeConfig.safeBlockHorizontal * 25,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
@@ -267,16 +269,16 @@ class _OrganizationsState extends State<Organizations> {
   Widget defaultUserImage(Map member) {
     return Container(
         padding: const EdgeInsets.all(0),
-        width: 100,
-        height: 80,
+        height: SizeConfig.safeBlockVertical * 10,
+        width: SizeConfig.safeBlockHorizontal * 25,
         color: idToColor(member['_id'].toString()),
-        child: const Padding(
-            padding: EdgeInsets.all(10),
+        child: Padding(
+            padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 2.5),
             child: CircleAvatar(
                 backgroundColor: Colors.black12,
                 child: Icon(
                   Icons.person,
-                  size: 30,
+                  size: SizeConfig.safeBlockHorizontal * 7.5,
                   color: Colors.white70,
                 ))));
   }

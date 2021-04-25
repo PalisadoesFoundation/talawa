@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 
 class Loading extends StatefulWidget {
   const Loading({Key key, this.isShowingError}) : super(key: key);
@@ -56,9 +57,9 @@ class _LoadingState extends State<Loading> {
             children: [
               SvgPicture.asset(
                 'assets/images/error.svg',
-                width: MediaQuery.of(context).size.width / 1.3,
+                width: SizeConfig.screenWidth / 1.3,
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: SizeConfig.safeBlockVertical * 3.75),
               Text(
                 widget.isShowingError != null
                     ? widget.isShowingError

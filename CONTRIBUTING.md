@@ -101,6 +101,7 @@ core
 ```
 -- file should be named using lowercase and underscore
 -- const and final keywords should be specified along with the widget
+-- Use SizeConfig class for assigning constant height, width and whitespace (Example: SizedBox(width:SizeConfig.safeBlockHorizontal * 2.5))
 ```
 
 #### Commit guidelines
