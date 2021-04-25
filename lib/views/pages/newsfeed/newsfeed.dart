@@ -67,7 +67,8 @@ class NewsFeed extends StatelessWidget {
                                             onTap: () {
                                               pushNewScreen(
                                                 context,
-                                                screen: NewsArticle(post: post),
+                                                screen: NewsArticle(
+                                                    post: post, index: index),
                                               );
                                             },
                                             child: Card(
@@ -140,8 +141,8 @@ class NewsFeed extends StatelessWidget {
                                                           children: <Widget>[
                                                             likeButton(
                                                                 post, context),
-                                                            commentCounter(
-                                                                post, context),
+                                                            commentCounter(post,
+                                                                index, context),
                                                             Container(width: 80)
                                                           ])),
                                                 ],
@@ -177,7 +178,7 @@ class NewsFeed extends StatelessWidget {
   }
 
   //function which counts the number of comments on a particular post
-  Widget commentCounter(Map post, BuildContext context) {
+  Widget commentCounter(Map post, int index, BuildContext context) {
     return Row(
       children: [
         Text(
@@ -194,6 +195,7 @@ class NewsFeed extends StatelessWidget {
               pushNewScreenWithRouteSettings(context,
                       screen: NewsArticle(
                         post: post,
+                        index: index,
                       ),
                       settings: const RouteSettings(),
                       withNavBar: false)
