@@ -48,6 +48,7 @@ The process of proposing a change to Talawa can be summarized as:
         ```
         flutter format --set-exit-if-changed .
         ```
+1. Ensure that **your code should not increase 400 lines**. Its is there to make the code more modular and components.Submissions which are not properly maintained will be rejected if they are not fixed by the contributor.  
 1. After making changes you can add them to git locally using `git add <file_name>`(to add changes only in a particular file) or `git add .` (to add all changes).
 1. After adding the changes you need to commit them using `git commit -m '<commit message>'`(look at the commit guidelines below for commit messages).
     1. You can link and automatically close the issue tied to your pull request by [using a supported keyword in either the pull request's description or in a commit message.](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue) This is a very useful feature that helps to prevent zombie issues that never die.
