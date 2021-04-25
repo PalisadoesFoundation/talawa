@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-//pages are imported here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/timer.dart';
 import 'package:talawa/utils/uidata.dart';
