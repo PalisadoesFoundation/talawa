@@ -11,4 +11,4 @@ jobs:
 
       - run: chmod +x ./.github/workflows/countline.sh
 
-      - run: cd ./.github/workflows/ && ./countline.sh 
+      - run: ./.github/workflows/countline.sh 

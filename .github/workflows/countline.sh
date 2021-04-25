@@ -1,7 +1,7 @@
-#/bin/bash
+#!/bin/bash
 
 files=$(git ls-files '*.dart' | xargs wc -l | awk '$1 > 300'| sed '$d')
-
+echo "$files"
 if [[ "$files" == "" ]]
 	then
 		exit 0
@@ -9,5 +9,3 @@ if [[ "$files" == "" ]]
 		echo "$files"
 		exit 1
 fi
-
-echo "$files"
