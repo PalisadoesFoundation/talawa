@@ -9,6 +9,7 @@ import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
+import 'package:talawa/views/widgets/custom_appbar.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 Widget newsfeedPage() => MultiProvider(
@@ -55,11 +56,8 @@ void main() {
           findsOneWidget,
         );
 
-        // await tester.pumpAndSettle();
-        await tester.pump(const Duration(milliseconds: 400));
-
         expect(
-          find.byType(Loading),
+          find.byType(CustomAppBar),
           findsOneWidget,
         );
       });
@@ -84,11 +82,8 @@ void main() {
           findsOneWidget,
         );
 
-        // await tester.pumpAndSettle();
-        await tester.pump(const Duration(milliseconds: 400));
-
         expect(
-          find.byType(Loading),
+          find.byType(CustomAppBar),
           findsOneWidget,
         );
       });
@@ -113,11 +108,8 @@ void main() {
           findsOneWidget,
         );
 
-        // await tester.pumpAndSettle();
-        await tester.pump(const Duration(milliseconds: 400));
-
         expect(
-          find.byType(Loading),
+          find.byType(CustomAppBar),
           findsOneWidget,
         );
       });
