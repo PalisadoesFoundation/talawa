@@ -76,9 +76,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     if (userOrg[isSelected]['_id'] == orgId) {
       _successToast("Switched to ${userOrg[isSelected]['name']}");
 
-      //Kill all previous stacked screen
-      // Navigator.of(context).popUntil(ModalRoute.withName("/"));
-
       //New Screen with updated data set
       pushNewScreen(context,
           screen: const HomePage(
@@ -106,9 +103,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         final String currentOrgName =
             result.data['organizations'][0]['name'].toString();
         await _pref.saveCurrentOrgName(currentOrgName);
-
-        //Kill all previous stacked screen
-        // Navigator.of(context).popUntil(ModalRoute.withName("/"));
 
         //New Screen with Updated data set
         pushNewScreen(context,
