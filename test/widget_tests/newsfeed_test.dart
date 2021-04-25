@@ -54,7 +54,10 @@ void main() {
           find.byType(Scaffold),
           findsOneWidget,
         );
-        await tester.pumpAndSettle();
+
+        // await tester.pumpAndSettle();
+        await tester.pump();
+
         expect(
           find.byType(Loading),
           findsOneWidget,
@@ -80,7 +83,10 @@ void main() {
           find.byType(Scaffold),
           findsOneWidget,
         );
-        await tester.pumpAndSettle();
+
+        // await tester.pumpAndSettle();
+        await tester.pump();
+
         expect(
           find.byType(Loading),
           findsOneWidget,
@@ -106,7 +112,10 @@ void main() {
           find.byType(Scaffold),
           findsOneWidget,
         );
-        await tester.pumpAndSettle();
+
+        // await tester.pumpAndSettle();
+        await tester.pump();
+
         expect(
           find.byType(Loading),
           findsOneWidget,
