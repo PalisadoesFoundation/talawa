@@ -56,7 +56,7 @@ void main() {
         );
 
         // await tester.pumpAndSettle();
-        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 400));
 
         expect(
           find.byType(Loading),
@@ -85,7 +85,7 @@ void main() {
         );
 
         // await tester.pumpAndSettle();
-        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 400));
 
         expect(
           find.byType(Loading),
@@ -114,7 +114,7 @@ void main() {
         );
 
         // await tester.pumpAndSettle();
-        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 400));
 
         expect(
           find.byType(Loading),
