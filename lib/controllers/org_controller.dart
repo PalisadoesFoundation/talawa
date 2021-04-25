@@ -1,4 +1,3 @@
-
 //flutter packages are called here
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:talawa/services/preferences.dart';
 
 class OrgController with ChangeNotifier {
-  Preferences _pref = Preferences();
+  final Preferences _pref = Preferences();
 
-  void setNewOrg(
+  Future<void> setNewOrg(
       BuildContext context, String newOrgId, String newOrgName) async {
     await Preferences.removeOrg();
     await _pref.saveCurrentOrgId(newOrgId);
