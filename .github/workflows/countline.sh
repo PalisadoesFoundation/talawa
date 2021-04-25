@@ -1,6 +1,6 @@
 #!/bin/bash
 
-files=$(git ls-files '*.dart' | xargs wc -l | awk '$1 > 300'| sed '$d')
+files=$(find . -type f -name="*.dart" -type d -name "../../lib/services/" -prune   | xargs wc -l | awk '$1 > 300'| sed '$d')
 echo "$files"
 if [[ "$files" == "" ]]
 	then
