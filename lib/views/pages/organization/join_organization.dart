@@ -217,11 +217,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       if (widget.fromProfile) {
         Navigator.pop(context);
       } else {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const HomePage(
-            openPageIndex: 4,
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const HomePage(
+              openPageIndex: 4,
+            ),
           ),
-        ));
+        );
       }
     }
   }
