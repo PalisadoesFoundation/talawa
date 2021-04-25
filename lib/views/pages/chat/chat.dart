@@ -1,5 +1,6 @@
 //flutter packages
 import 'package:flutter/material.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 
 //pages are called here
 import 'package:talawa/utils/uidata.dart';
@@ -24,7 +25,8 @@ class _ChatState extends State<Chat> {
               child: Image.asset(UIData.talawaLogo),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding:
+                  EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 2.5),
               child: Text(
                 widget.groupName,
                 style: const TextStyle(color: Colors.white),
@@ -40,11 +42,12 @@ class _ChatState extends State<Chat> {
 
   Widget _textComposerWidget() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 1.25),
       child: IconTheme(
         data: const IconThemeData(color: Colors.blue),
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 8.0),
+          margin: EdgeInsets.symmetric(
+              horizontal: SizeConfig.safeBlockHorizontal * 2),
           child: Row(
             children: <Widget>[
               Flexible(
@@ -59,7 +62,8 @@ class _ChatState extends State<Chat> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                margin: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.safeBlockHorizontal * 2),
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.send),

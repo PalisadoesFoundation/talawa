@@ -46,9 +46,9 @@ dependencies:
   grouped_buttons: ^1.0.4
   http: ^0.12.0+1
   image_picker: any
-  path_provider: ^1.6.28
   intl: ^0.17.0
   package_info: ^2.0.0
+  path_provider: ^1.6.28
   persistent_bottom_nav_bar: ^3.2.0
   progress_dialog: ^1.2.4
   provider: ^4.0.1

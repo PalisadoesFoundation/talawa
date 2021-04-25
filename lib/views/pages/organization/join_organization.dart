@@ -1,3 +1,4 @@
+import 'dart:io';
 //flutter packages are imported here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/home_page.dart';
@@ -258,7 +260,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
             ))
           : Container(
               color: const Color(0xffF3F6FF),
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+              padding: EdgeInsets.symmetric(
+                  vertical: SizeConfig.safeBlockVertical * 0.75,
+                  horizontal: SizeConfig.safeBlockHorizontal * 4),
               child: Column(
                 children: <Widget>[
                   const Text(
@@ -268,8 +272,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                         fontSize: 18,
                         fontStyle: FontStyle.normal),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: SizeConfig.safeBlockVertical * 2,
                   ),
                   TextFormField(
                     onChanged: (value) {
@@ -298,7 +302,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                         ),
                         hintText: "Search Organization Name"),
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: SizeConfig.safeBlockVertical * 2),
                   Expanded(
                       child: Container(
                           color: const Color(0xffF3F6FF),
@@ -311,16 +315,20 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                       child: ListTile(
                                         leading: organization['image'] != null
                                             ? CircleAvatar(
-                                                radius: 30,
+                                                radius: SizeConfig
+                                                        .safeBlockVertical *
+                                                    3.75,
                                                 backgroundImage: NetworkImage(
                                                     Provider.of<GraphQLConfiguration>(
                                                                 context)
                                                             .displayImgRoute +
                                                         organization['image']
                                                             .toString()))
-                                            : const CircleAvatar(
-                                                radius: 30,
-                                                backgroundImage: AssetImage(
+                                            : CircleAvatar(
+                                                radius: SizeConfig
+                                                        .safeBlockVertical *
+                                                    3.75,
+                                                backgroundImage: const AssetImage(
                                                     "assets/images/team.png")),
                                         title: organization['isPublic']
                                                     .toString() !=
@@ -406,11 +414,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                           },
                                           child: _isLoaderActive == true &&
                                                   loadingIndex == index
-                                              ? const SizedBox(
-                                                  width: 20,
-                                                  height: 20,
+                                              ? SizedBox(
+                                                  width: SizeConfig
+                                                          .safeBlockHorizontal *
+                                                      5,
+                                                  height: SizeConfig
+                                                          .safeBlockVertical *
+                                                      2.5,
                                                   child:
-                                                      CircularProgressIndicator(
+                                                      const CircularProgressIndicator(
                                                     valueColor:
                                                         AlwaysStoppedAnimation<
                                                                 Color>(
@@ -434,16 +446,20 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                       child: ListTile(
                                         leading: organization['image'] != null
                                             ? CircleAvatar(
-                                                radius: 30,
+                                                radius: SizeConfig
+                                                        .safeBlockVertical *
+                                                    3.75,
                                                 backgroundImage: NetworkImage(
                                                     Provider.of<GraphQLConfiguration>(
                                                                 context)
                                                             .displayImgRoute +
                                                         organization['image']
                                                             .toString()))
-                                            : const CircleAvatar(
-                                                radius: 30,
-                                                backgroundImage: AssetImage(
+                                            : CircleAvatar(
+                                                radius: SizeConfig
+                                                        .safeBlockVertical *
+                                                    3.75,
+                                                backgroundImage: const AssetImage(
                                                     "assets/images/team.png")),
                                         title: organization['isPublic']
                                                     .toString() !=
@@ -459,9 +475,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                   ),
-                                                  const Icon(Icons.lock_open,
+                                                  Icon(Icons.lock_open,
                                                       color: Colors.green,
-                                                      size: 16)
+                                                      size: SizeConfig
+                                                              .safeBlockVertical *
+                                                          2)
                                                 ],
                                               )
                                             : Row(
@@ -475,9 +493,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                                           TextOverflow.ellipsis,
                                                     ),
                                                   ),
-                                                  const Icon(Icons.lock,
+                                                  Icon(Icons.lock,
                                                       color: Colors.red,
-                                                      size: 16)
+                                                      size: SizeConfig
+                                                              .safeBlockVertical *
+                                                          2)
                                                 ],
                                               ),
                                         subtitle: Column(
@@ -529,11 +549,15 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                                           },
                                           child: _isLoaderActive == true &&
                                                   loadingIndex == index
-                                              ? const SizedBox(
-                                                  width: 20,
-                                                  height: 20,
+                                              ? SizedBox(
+                                                  width: SizeConfig
+                                                          .safeBlockHorizontal *
+                                                      5,
+                                                  height: SizeConfig
+                                                          .safeBlockVertical *
+                                                      2.5,
                                                   child:
-                                                      CircularProgressIndicator(
+                                                      const CircularProgressIndicator(
                                                     valueColor:
                                                         AlwaysStoppedAnimation<
                                                                 Color>(
@@ -568,45 +592,86 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
   void confirmOrgDialog(String orgName, int index) {
     //this is the pop up shown when the confirmation is required
-    showDialog(
+    if (Platform.isIOS) {
+      showCupertinoDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Confirmation"),
-            content:
-                const Text("Are you sure you want to join this organization?"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("Close"),
-              ),
-              TextButton(
-                onPressed: () async {
-                  setState(() {
-                    loadingIndex = index;
-                    _isLoaderActive = true;
-                  });
-                  Navigator.of(context).pop();
-                  if (isPublic == 'true') {
-                    await joinPublicOrg(orgName)
-                        .whenComplete(() => setState(() {
-                              loadingIndex = -1;
-                              _isLoaderActive = false;
-                            }));
-                  } else if (isPublic == 'false') {
-                    await joinPrivateOrg().whenComplete(() => setState(() {
-                          loadingIndex = -1;
-                          _isLoaderActive = false;
-                        }));
-                  }
-                },
-                child: const Text("Yes"),
-              )
-            ],
-          );
-        });
+        useRootNavigator: false,
+        builder: (_) => CupertinoAlertDialog(
+          title: const Text("Confirmation"),
+          content:
+              const Text("Are you sure you want to join this organization?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Close"),
+            ),
+            TextButton(
+              onPressed: () async {
+                setState(() {
+                  loadingIndex = index;
+                  _isLoaderActive = true;
+                });
+                Navigator.of(context).pop();
+                if (isPublic == 'true') {
+                  await joinPublicOrg(orgName).whenComplete(() => setState(() {
+                        loadingIndex = -1;
+                        _isLoaderActive = false;
+                      }));
+                } else if (isPublic == 'false') {
+                  await joinPrivateOrg().whenComplete(() => setState(() {
+                        loadingIndex = -1;
+                        _isLoaderActive = false;
+                      }));
+                }
+              },
+              child: const Text("Yes"),
+            )
+          ],
+        ),
+      );
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Confirmation"),
+              content: const Text(
+                  "Are you sure you want to join this organization?"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Close"),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    setState(() {
+                      loadingIndex = index;
+                      _isLoaderActive = true;
+                    });
+                    Navigator.of(context).pop();
+                    if (isPublic == 'true') {
+                      await joinPublicOrg(orgName)
+                          .whenComplete(() => setState(() {
+                                loadingIndex = -1;
+                                _isLoaderActive = false;
+                              }));
+                    } else if (isPublic == 'false') {
+                      await joinPrivateOrg().whenComplete(() => setState(() {
+                            loadingIndex = -1;
+                            _isLoaderActive = false;
+                          }));
+                    }
+                  },
+                  child: const Text("Yes"),
+                )
+              ],
+            );
+          });
+    }
   }
 
   Widget showError(String msg) {
@@ -621,7 +686,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
   _successToast(String msg) {
     final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 5,
+          vertical: SizeConfig.safeBlockVertical * 1.5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.green,
@@ -643,7 +710,9 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
   _exceptionToast(String msg) {
     final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 6,
+          vertical: SizeConfig.safeBlockVertical * 1.75),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,

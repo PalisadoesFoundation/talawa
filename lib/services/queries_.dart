@@ -441,6 +441,10 @@ class Queries {
       query {
         events(id: "$orgId"){ 
           _id
+          organization {
+            _id
+            image
+          }
           title
           description
           isPublic

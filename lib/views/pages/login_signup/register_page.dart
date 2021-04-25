@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/login_signup/register_form.dart';
@@ -16,8 +17,10 @@ class _RegisterePageState extends State<RegisterPage>
         child: Container(
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
-              constraints: const BoxConstraints(
-                  maxWidth: 300.0, minWidth: 250.0, minHeight: 350.0),
+              constraints: BoxConstraints(
+                  maxWidth: SizeConfig.safeBlockHorizontal * 75,
+                  minWidth: SizeConfig.safeBlockHorizontal * 62.5,
+                  minHeight: SizeConfig.safeBlockVertical * 43.75),
               child: SingleChildScrollView(
                 padding: const EdgeInsets.only(bottom: 30.0),
                 scrollDirection: Axis.vertical,

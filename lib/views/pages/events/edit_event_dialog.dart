@@ -6,6 +6,7 @@ import 'package:talawa/services/queries_.dart';
 //pages are called here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
@@ -171,7 +172,7 @@ class _EditEventState extends State<EditEvent> {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.only(bottom: 100),
+        padding: EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 12.5),
         children: <Widget>[
           inputField('Title', titleController),
           inputField('Description', descriptionController),
@@ -262,7 +263,8 @@ class _EditEventState extends State<EditEvent> {
     return SwitchListTile(
         activeColor: UIData.secondaryColor,
         value: switchVals[name],
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+        contentPadding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.safeBlockHorizontal * 5),
         title: Text(
           name,
           style: TextStyle(color: Colors.grey[600]),
@@ -276,7 +278,8 @@ class _EditEventState extends State<EditEvent> {
 
   Widget recurrencedropdown() {
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+      contentPadding:
+          EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5),
       leading: Text(
         'Recurrence',
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),

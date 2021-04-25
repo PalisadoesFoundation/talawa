@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/timer.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/events/event_detail_page.dart';
 import 'package:talawa/views/pages/events/add_event_page.dart';
@@ -47,6 +48,11 @@ class _EventsState extends State<Events> {
   Future<void> events;
   Timer timer = Timer();
   String userId;
+
+  FToast fToast;
+
+  //variable for organization Id
+  String _currOrgId;
 
   @override
   void initState() {
@@ -166,6 +172,7 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
+    _currOrgId = currentOrgID;
     final Map result =
         await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     eventList =
@@ -175,15 +182,17 @@ class _EventsState extends State<Events> {
         element['title'] == 'test' ||
         element['title'] == 'Talawa Conference Test' ||
         element['title'] == 'mayhem' ||
-        element['title'] == 'mayhem1'); //dont know who keeps adding these
+        element['title'] == 'mayhem1' ||
+        element['organization']['_id'] !=
+            currentOrgID); //dont know who keeps adding these
     // This removes all invalid date formats other than Unix time
     eventList.removeWhere(
-        (element) => int.tryParse(element['startTime'].toString()) == null);
+        (element) => int.tryParse(element['startTime'] as String) == null);
     eventList.sort((a, b) {
       return DateTime.fromMicrosecondsSinceEpoch(
-              int.parse(a['startTime'].toString()))
+              int.parse(a['startTime'] as String))
           .compareTo(DateTime.fromMicrosecondsSinceEpoch(
-              int.parse(b['startTime'].toString())));
+              int.parse(b['startTime'] as String)));
     });
     eventsToDates(eventList, DateTime.now());
     setState(() {
@@ -236,14 +245,18 @@ class _EventsState extends State<Events> {
               if (eventList.isEmpty) {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      getEvents();
+                      try {
+                        await getEvents();
+                      } catch (e) {
+                        _exceptionToast(e.toString());
+                      }
                     },
                     child: CustomScrollView(
                       slivers: [
                         SliverAppBar(
                             backgroundColor: Colors.white,
                             automaticallyImplyLeading: false,
-                            expandedHeight: 380,
+                            expandedHeight: SizeConfig.safeBlockVertical * 47.5,
                             flexibleSpace: FlexibleSpaceBar(
                               background: calendar(),
                             )),
@@ -264,7 +277,11 @@ class _EventsState extends State<Events> {
               } else {
                 return RefreshIndicator(
                     onRefresh: () async {
-                      getEvents();
+                      try {
+                        await getEvents();
+                      } catch (e) {
+                        _exceptionToast(e.toString());
+                      }
                     },
                     child: Container(
                       color: Colors.white,
@@ -306,8 +323,10 @@ class _EventsState extends State<Events> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(vertical: 5),
+                                                    padding: EdgeInsets.symmetric(
+                                                        vertical: SizeConfig
+                                                                .safeBlockVertical *
+                                                            0.625),
                                                     child: Text(
                                                       '${displayedEvents.length} Events',
                                                       style: const TextStyle(
@@ -390,12 +409,13 @@ class _EventsState extends State<Events> {
 
   Widget carouselSliderBar() {
     return Container(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 2.5),
         alignment: Alignment.centerLeft,
         color: UIData.secondaryColor,
-        height: 40,
+        height: SizeConfig.safeBlockVertical * 6,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             IconButton(
                 padding: const EdgeInsets.all(0),
@@ -407,7 +427,7 @@ class _EventsState extends State<Events> {
                   color: Colors.white,
                 )),
             SizedBox(
-              width: 230,
+              width: SizeConfig.safeBlockHorizontal * 57.5,
               child: CarouselSlider(
                 carouselController: carouselController,
                 items: [
@@ -434,7 +454,7 @@ class _EventsState extends State<Events> {
                       });
                     }
                   },
-                  height: 40,
+                  height: SizeConfig.safeBlockVertical * 5,
                 ),
               ),
             ),
@@ -589,6 +609,29 @@ class _EventsState extends State<Events> {
         Icons.add,
         color: Colors.white,
       ),
+    );
+  }
+
+  //function to show exceptions
+  _exceptionToast(String msg) {
+    final Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 1),
     );
   }
 }
