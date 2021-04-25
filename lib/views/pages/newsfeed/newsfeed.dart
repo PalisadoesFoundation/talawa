@@ -143,10 +143,8 @@ class NewsFeed extends StatelessWidget {
                                                           children: <Widget>[
                                                             likeButton(
                                                                 post, context),
-                                                            commentCounter(
-                                                                index,
-                                                                post,
-                                                                context),
+                                                            commentCounter(post,
+                                                                index, context),
                                                             Container(width: 80)
                                                           ])),
                                                 ],
@@ -182,7 +180,7 @@ class NewsFeed extends StatelessWidget {
   }
 
   //function which counts the number of comments on a particular post
-  Widget commentCounter(int index, Map post, BuildContext context) {
+  Widget commentCounter(Map post, int index, BuildContext context) {
     return Row(
       children: [
         Text(
