@@ -152,20 +152,12 @@ class NewsFeed extends StatelessWidget {
                                                           children: <Widget>[
                                                             likeButton(
                                                                 post, context),
-<<<<<<< HEAD
-                                                            commentCounter(
-                                                                index,
-                                                                post,
-                                                                context),
-                                                            Container(width: 80)
-=======
                                                             commentCounter(post,
                                                                 index, context),
                                                             Container(
                                                                 width: SizeConfig
                                                                         .safeBlockHorizontal *
                                                                     20)
->>>>>>> 784f178783267a6548d47e195bcc4fd13c75cadd
                                                           ])),
                                                 ],
                                               ),
