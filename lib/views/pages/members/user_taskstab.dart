@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 // ignore: must_be_immutable
@@ -88,8 +89,11 @@ class _UserTasksState extends State<UserTasks> {
                             subtitle: Text(
                               'Description: $description',
                             ),
-                            contentPadding:
-                                const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                            contentPadding: EdgeInsets.fromLTRB(
+                                SizeConfig.safeBlockHorizontal * 2,
+                                SizeConfig.safeBlockVertical,
+                                SizeConfig.safeBlockHorizontal * 2,
+                                SizeConfig.safeBlockVertical),
                           ),
                         ],
                       ));

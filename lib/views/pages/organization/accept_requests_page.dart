@@ -10,6 +10,7 @@ import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 
 class AcceptRequestsPage extends StatefulWidget {
   @override
@@ -138,11 +139,11 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
             : membershipRequestsList.isEmpty
                 ? Center(
                     child: Column(
-                      children: const <Widget>[
+                      children: <Widget>[
                         SizedBox(
-                          height: 250,
+                          height: SizeConfig.safeBlockVertical * 31.25,
                         ),
-                        Text(
+                        const Text(
                           "No request",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -150,7 +151,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                           ),
                         ),
                         SizedBox(
-                          height: 50,
+                          height: SizeConfig.safeBlockVertical * 6.25,
                         ),
                       ],
                     ),
@@ -165,16 +166,18 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                               leading: membershipRequests['user']['image'] !=
                                       null
                                   ? CircleAvatar(
-                                      radius: 30,
+                                      radius:
+                                          SizeConfig.safeBlockVertical * 3.75,
                                       backgroundImage: NetworkImage(Provider.of<
                                                   GraphQLConfiguration>(context)
                                               .displayImgRoute +
                                           membershipRequests['user']['image']
                                               .toString()))
-                                  : const CircleAvatar(
-                                      radius: 30,
-                                      backgroundImage:
-                                          AssetImage("assets/images/team.png")),
+                                  : CircleAvatar(
+                                      radius:
+                                          SizeConfig.safeBlockVertical * 3.75,
+                                      backgroundImage: const AssetImage(
+                                          "assets/images/team.png")),
                               title: Text(
                                   '${membershipRequests['user']['firstName']} ${membershipRequests['user']['lastName']}'),
                               trailing: processing
