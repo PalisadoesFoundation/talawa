@@ -332,6 +332,9 @@ class _EventsState extends State<Events> {
                                         },
                                       ),
                                     ),
+                                    Container(
+                                      height: 10
+                                    ),
                                   ],
                                 ),
                               );
