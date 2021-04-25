@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class LoadAndRefresh extends StatelessWidget {
-  const LoadAndRefresh({Key key, this.loading, this.error, this.refresh})
+  const LoadAndRefresh({Key key, this.loading, this.error = ' ', this.refresh})
       : super(key: key);
   final bool loading;
   final String error;

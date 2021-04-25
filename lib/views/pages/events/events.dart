@@ -46,8 +46,9 @@ class _EventsState extends State<Events> {
   CarouselController carouselController = CarouselController();
   String notFetched = 'No Events Created';
   bool fetched = true;
-  Future<void> events;
+  Future events;
   Timer timer = Timer();
+  String currentOrgID;
   String userId;
 
   @override
@@ -176,10 +177,16 @@ class _EventsState extends State<Events> {
   }
 
   //function to get the events
-  Future<void> getEvents() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
-    final Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+  Future getEvents() async {
+    currentOrgID = await preferences.getCurrentOrgId();
+    Map result;
+    try {
+      result =
+          await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
+    } on Exception catch (e) {
+      print(e.toString());
+      throw 'error';
+    }
     eventList =
         result == null ? [] : (result['events'] as List).reversed.toList();
     eventList.removeWhere((element) =>
@@ -253,7 +260,7 @@ class _EventsState extends State<Events> {
               return Center(
                   child: LoadAndRefresh(
                 loading: false,
-                error: 'No events created',
+                error: null,
                 refresh: () {
                   setState(() {
                     events = getEvents();
@@ -280,14 +287,21 @@ class _EventsState extends State<Events> {
                                 )),
                             SliverStickyHeader(
                               header: carouselSliderBar(),
-                              sliver: const SliverFillRemaining(
+                              sliver: SliverFillRemaining(
                                   child: Center(
-                                child: Text(
-                                  'No Event Created',
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                  ),
-                                ),
+                                child: currentOrgID == null
+                                    ? const Text(
+                                        'Join an organization to see events',
+                                        style: TextStyle(
+                                          fontSize: 15.0,
+                                        ),
+                                      )
+                                    : const Text(
+                                        'No Event Created',
+                                        style: TextStyle(
+                                          fontSize: 15.0,
+                                        ),
+                                      ),
                               )),
                             ),
                           ],

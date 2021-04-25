@@ -69,12 +69,17 @@ class _OrganizationsState extends State<Organizations> {
   //function to get the members of an organization
   // ignore: missing_return
   Future<List> getMembers() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
+    currentOrgID = await preferences.getCurrentOrgId();
     print(currentOrgID);
     if (currentOrgID != null) {
-      final ApiFunctions apiFunctions = ApiFunctions();
-      final result =
-          await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+      Map result;
+      try {
+        final ApiFunctions apiFunctions = ApiFunctions();
+        result =
+            await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
+      } on Exception catch (e) {
+        throw e.toString();
+      }
       print(result);
       List membersList = result == null ? [] : result['organizations'] as List;
       if ((result['organizations'] as List).isNotEmpty) {
@@ -132,6 +137,7 @@ class _OrganizationsState extends State<Organizations> {
               return Center(
                   child: LoadAndRefresh(
                 loading: false,
+                error: null,
                 refresh: () {
                   setState(() {
                     _fetchData = getMembers();
@@ -140,6 +146,14 @@ class _OrganizationsState extends State<Organizations> {
                 key: UniqueKey(),
               ));
             } else {
+              if (currentOrgID == null) {
+                return const Center(
+                  child: Text(
+                    'Join an organization to see members',
+                    style: TextStyle(color: UIData.primaryColor, fontSize: 18),
+                  ),
+                );
+              }
               return alphaMembersMap.isEmpty
                   ? RefreshIndicator(
                       onRefresh: () async {

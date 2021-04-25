@@ -25,7 +25,7 @@ class ApiFunctions {
       _authController.getNewToken();
       gqlquery(query);
     } else if (result.hasException) {
-      print(result.exception);
+      throw Exception(result.exception);
     } else {
       return result.data as Map<String, dynamic>;
     }
@@ -44,6 +44,7 @@ class ApiFunctions {
       return gqlmutation(mutation);
     } else if (result.hasException) {
       print(result.exception);
+      throw Exception(result.exception);
     } else {
       return result.data;
     }

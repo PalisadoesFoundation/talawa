@@ -49,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String creator;
   String userID;
   String orgName;
-  Future<void> _fetchData;
+  Future _fetchData;
   final OrgController _orgController = OrgController();
   String orgId;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -91,6 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
+      throw result.exception;
     } else if (!result.hasException) {
       userDetails = [];
       print(result);
@@ -211,21 +212,22 @@ class _ProfilePageState extends State<ProfilePage> {
         body: FutureBuilder(
           future: _fetchData,
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                  child: LoadAndRefresh(
-                loading: true,
-                key: UniqueKey(),
-              ));
-            } else if (snapshot.hasError) {
+            if (snapshot.hasError) {
               return Center(
                   child: LoadAndRefresh(
                 loading: false,
+                error: null,
                 refresh: () {
                   setState(() {
                     _fetchData = fetchUserDetails();
                   });
                 },
+                key: UniqueKey(),
+              ));
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                  child: LoadAndRefresh(
+                loading: true,
                 key: UniqueKey(),
               ));
             } else {

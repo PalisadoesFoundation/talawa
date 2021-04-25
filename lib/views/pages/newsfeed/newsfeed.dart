@@ -30,7 +30,8 @@ class _NewsFeedState extends State<NewsFeed> {
   ApiFunctions apiFunctions = ApiFunctions();
   List postList = [];
   Timer timer = Timer();
-  Future<void> _fetchData;
+  String currentOrgID;
+  Future _fetchData;
   Map<String, bool> likePostMap = <String, bool>{};
   // key = postId and value will be true if user has liked a post.
 
@@ -77,19 +78,26 @@ class _NewsFeedState extends State<NewsFeed> {
   }
 
   //function to get the current posts
-  Future<void> getPosts() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
+  Future getPosts() async {
+    currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
+    Map result;
     if (currentOrgID != null) {
-      final String query = Queries().getPostsById(currentOrgID);
-      final Map result = await apiFunctions.gqlquery(query);
-      // print(result);
-      setState(() {
-        postList = result == null
-            ? []
-            : (result['postsByOrganization'] as List).reversed.toList();
-        updateLikepostMap(currentUserID);
-      });
+      try {
+        final String query = Queries().getPostsById(currentOrgID);
+        result = await apiFunctions.gqlquery(query);
+        print('success');
+      } catch (e) {
+        print(e.toString());
+        throw 'error';
+      } finally {
+        setState(() {
+          postList = result == null
+              ? []
+              : (result['postsByOrganization'] as List).reversed.toList();
+          updateLikepostMap(currentUserID);
+        });
+      }
     } else {
       setState(() {
         postList = [];
@@ -147,6 +155,7 @@ class _NewsFeedState extends State<NewsFeed> {
               return Center(
                   child: LoadAndRefresh(
                 loading: false,
+                error: null,
                 refresh: () {
                   setState(() {
                     _fetchData = getPosts();
@@ -155,7 +164,14 @@ class _NewsFeedState extends State<NewsFeed> {
                 key: UniqueKey(),
               ));
             } else {
-              if (postList.isNotEmpty) {
+              if (currentOrgID == null) {
+                return const Center(
+                  child: Text(
+                    'Join an organization to see feeds',
+                    style: TextStyle(color: UIData.primaryColor, fontSize: 18),
+                  ),
+                );
+              } else if (postList.isNotEmpty) {
                 return RefreshIndicator(
                     onRefresh: () async {
                       getPosts();

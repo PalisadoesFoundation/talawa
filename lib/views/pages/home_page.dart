@@ -137,27 +137,23 @@ class _HomePageState extends State<HomePage> {
         Provider.of<GraphQLConfiguration>(rootContext, listen: false)
             .getOrgUrl();
         Provider.of<Preferences>(rootContext, listen: false).getCurrentOrgId();
-        return Consumer<OrgController>(
-          builder: (BuildContext context, value, Widget child) {
-            return PersistentTabView(rootContext,
-                backgroundColor: UIData.primaryColor,
-                controller: _controller,
-                items: _navBarsItems(),
-                screens: _buildScreens(),
-                confineInSafeArea: true,
-                handleAndroidBackButtonPress: true,
-                navBarStyle: NavBarStyle.style4,
-                itemAnimationProperties: const ItemAnimationProperties(
-                  duration: Duration(milliseconds: 200),
-                  curve: Curves.ease,
-                ),
-                screenTransitionAnimation: const ScreenTransitionAnimation(
-                  animateTabTransition: true,
-                  curve: Curves.ease,
-                  duration: Duration(milliseconds: 200),
-                ));
-          },
-        );
+        return PersistentTabView(rootContext,
+            backgroundColor: UIData.primaryColor,
+            controller: _controller,
+            items: _navBarsItems(),
+            screens: _buildScreens(),
+            confineInSafeArea: true,
+            handleAndroidBackButtonPress: true,
+            navBarStyle: NavBarStyle.style4,
+            itemAnimationProperties: const ItemAnimationProperties(
+              duration: Duration(milliseconds: 200),
+              curve: Curves.ease,
+            ),
+            screenTransitionAnimation: const ScreenTransitionAnimation(
+              animateTabTransition: true,
+              curve: Curves.ease,
+              duration: Duration(milliseconds: 200),
+            ));
       }),
     );
   }
