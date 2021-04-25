@@ -9,7 +9,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
+import 'package:talawa/views/pages/home_page.dart';
 
 class SwitchOrganization extends StatefulWidget {
   @override
@@ -77,13 +77,14 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       _successToast("Switched to ${userOrg[isSelected]['name']}");
 
       //Kill all previous stacked screen
-      Navigator.of(context).popUntil(ModalRoute.withName("/"));
+      // Navigator.of(context).popUntil(ModalRoute.withName("/"));
 
       //New Screen with updated data set
-      pushNewScreen(
-        context,
-        screen: const ProfilePage(),
-      );
+      pushNewScreen(context,
+          screen: const HomePage(
+            openPageIndex: 4,
+          ),
+          withNavBar: false);
     } else {
       final GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
@@ -107,13 +108,14 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         await _pref.saveCurrentOrgName(currentOrgName);
 
         //Kill all previous stacked screen
-        Navigator.of(context).popUntil(ModalRoute.withName("/"));
+        // Navigator.of(context).popUntil(ModalRoute.withName("/"));
 
         //New Screen with Updated data set
-        pushNewScreen(
-          context,
-          screen: const ProfilePage(),
-        );
+        pushNewScreen(context,
+            screen: const HomePage(
+              openPageIndex: 4,
+            ),
+            withNavBar: false);
       }
     }
   }
