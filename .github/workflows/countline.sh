@@ -2,7 +2,7 @@
 maxLine=$1;
 
 # Listing of Files which have more line of code that maxLine
-# if you need to exclude files or directory please look ':!:<path-to-directory>' 
+# if you need to exclude files or directory please look ':!:<path-to-directory/file>' 
 files=$(git ls-files '*.dart' ':!:lib/services/*.dart' | xargs wc -l | awk -v max=$maxLine '$1 > max' | sed '$d' | sort -rn)
 
 # No. of Files which have more line of code that maxLine 
