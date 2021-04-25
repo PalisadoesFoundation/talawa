@@ -15,6 +15,10 @@ import 'package:talawa/views/widgets/custom_appbar.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 class NewsFeed extends StatelessWidget {
+  const NewsFeed({this.isTest = false});
+
+  final bool isTest;
+
   /// Get the list of posts
   Future<void> getPostsList(BuildContext context) async {
     if (!Provider.of<PostProvider>(context, listen: false).isPostEmpty) {
@@ -26,7 +30,11 @@ class NewsFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar('NewsFeed', key: const Key('NEWSFEED_APP_BAR')),
+        appBar: CustomAppBar(
+          'NewsFeed',
+          key: const Key('NEWSFEED_APP_BAR'),
+          isTest: isTest,
+        ),
         floatingActionButton: addPostFab(context),
         body: FutureBuilder(
           future: getPostsList(context),
@@ -47,6 +55,7 @@ class NewsFeed extends StatelessWidget {
                 child: Provider.of<PostProvider>(context).isPostEmpty
                     ? Center(
                         child: Loading(
+                        isTest: isTest,
                         isShowingError:
                             Provider.of<PostProvider>(context).isErrorOccurred,
                         key: UniqueKey(),

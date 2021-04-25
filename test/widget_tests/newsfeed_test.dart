@@ -30,8 +30,10 @@ Widget newsfeedPage() => MultiProvider(
           create: (_) => PostProvider(),
         ),
       ],
-      child: MaterialApp(
-        home: NewsFeed(),
+      child: const MaterialApp(
+        home: NewsFeed(
+          isTest: true,
+        ),
       ),
     );
 
