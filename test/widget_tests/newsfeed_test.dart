@@ -41,23 +41,25 @@ void main() {
 
   group("News Feed Tests", () {
     testWidgets("Testing if newsfeed Page shows up", (tester) async {
-      await tester.pumpWidget(newsfeedPage());
+      await tester.runAsync(() async {
+        await tester.pumpWidget(newsfeedPage());
 
-      /// Verify if [Newsfeed Page] shows up.
-      expect(
-        find.byKey(const Key('NEWSFEED_APP_BAR')),
-        findsOneWidget,
-      );
+        /// Verify if [Newsfeed Page] shows up.
+        expect(
+          find.byKey(const Key('NEWSFEED_APP_BAR')),
+          findsOneWidget,
+        );
 
-      expect(
-        find.byType(Scaffold),
-        findsOneWidget,
-      );
-      await tester.pumpAndSettle();
-      expect(
-        find.byType(Loading),
-        findsOneWidget,
-      );
+        expect(
+          find.byType(Scaffold),
+          findsOneWidget,
+        );
+        await tester.pumpAndSettle();
+        expect(
+          find.byType(Loading),
+          findsOneWidget,
+        );
+      });
     });
 
     testWidgets("Testing overflow of Newsfeed in a mobile screen",
@@ -65,23 +67,25 @@ void main() {
       binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(newsfeedPage());
+      await tester.runAsync(() async {
+        await tester.pumpWidget(newsfeedPage());
 
-      /// Verify if [News Article Page] shows up.
-      expect(
-        find.byKey(const Key('NEWSFEED_APP_BAR')),
-        findsOneWidget,
-      );
+        /// Verify if [News Article Page] shows up.
+        expect(
+          find.byKey(const Key('NEWSFEED_APP_BAR')),
+          findsOneWidget,
+        );
 
-      expect(
-        find.byType(Scaffold),
-        findsOneWidget,
-      );
-      await tester.pumpAndSettle();
-      expect(
-        find.byType(Loading),
-        findsOneWidget,
-      );
+        expect(
+          find.byType(Scaffold),
+          findsOneWidget,
+        );
+        await tester.pumpAndSettle();
+        expect(
+          find.byType(Loading),
+          findsOneWidget,
+        );
+      });
     });
 
     testWidgets("Testing overflow of Newsfeed in a tablet screen",
@@ -89,23 +93,25 @@ void main() {
       binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(newsfeedPage());
+      await tester.runAsync(() async {
+        await tester.pumpWidget(newsfeedPage());
 
-      /// Verify if [Newsfeed Page] shows up.
-      expect(
-        find.byKey(const Key('NEWSFEED_APP_BAR')),
-        findsOneWidget,
-      );
+        /// Verify if [Newsfeed Page] shows up.
+        expect(
+          find.byKey(const Key('NEWSFEED_APP_BAR')),
+          findsOneWidget,
+        );
 
-      expect(
-        find.byType(Scaffold),
-        findsOneWidget,
-      );
-      await tester.pumpAndSettle();
-      expect(
-        find.byType(Loading),
-        findsOneWidget,
-      );
+        expect(
+          find.byType(Scaffold),
+          findsOneWidget,
+        );
+        await tester.pumpAndSettle();
+        expect(
+          find.byType(Loading),
+          findsOneWidget,
+        );
+      });
     });
 
     testWidgets("finds add post fab", (tester) async {
@@ -119,22 +125,24 @@ void main() {
     });
 
     testWidgets("tapping add post fab opens add post screen", (tester) async {
-      await tester.pumpWidget(newsfeedPage());
+      await tester.runAsync(() async {
+        await tester.pumpWidget(newsfeedPage());
 
-      //get [add post fab]
-      final addPostFab = find.byType(FloatingActionButton);
+        //get [add post fab]
+        final addPostFab = find.byType(FloatingActionButton);
 
-      //finds [add post fab]
-      expect(addPostFab, findsOneWidget);
+        //finds [add post fab]
+        expect(addPostFab, findsOneWidget);
 
-      //tap on the [add post fab]
-      await tester.tap(addPostFab);
-      await tester.pumpAndSettle();
+        //tap on the [add post fab]
+        await tester.tap(addPostFab);
+        await tester.pumpAndSettle();
 
-      //Finds [Add Post] screen
-      expect(find.byKey(const Key('ADD_POST_APP_BAR')), findsOneWidget);
-      //Finds the form on [Add Post] screen
-      expect(find.byType(Form), findsOneWidget);
+        //Finds [Add Post] screen
+        expect(find.byKey(const Key('ADD_POST_APP_BAR')), findsOneWidget);
+        //Finds the form on [Add Post] screen
+        expect(find.byType(Form), findsOneWidget);
+      });
     });
   });
 }
