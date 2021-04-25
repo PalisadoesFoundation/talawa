@@ -1,11 +1,14 @@
 #!/bin/bash
 maxLine=$1;
 
+# Listing of Files which have more line of code that maxLine
 files=$(git ls-files '*.dart' ':!:lib/services/*.dart' | xargs wc -l | awk -v max=$maxLine '$1 > max' | sed '$d' | sort -rn)
 
+# No. of Files which have more line of code that maxLine 
 no_of_files=$(git ls-files '*.dart' ':!:lib/services/*.dart' | xargs wc -l | awk -v max=$maxLine '$1 > max' | sed '$d' | wc -l | sort -rn)
 
-if [[ "$files" == "" ]]
+# Checking if no_of_files is 0
+if [[ "$no_of_files" -eq 0 ]]
 	then
 		exit 0
 	else
