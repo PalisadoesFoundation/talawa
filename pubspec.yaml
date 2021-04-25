@@ -32,6 +32,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_logs: ^2.1.3
   flutter_masked_text: ^0.8.0
   flutter_password_strength: ^0.1.6
   flutter_pw_validator: ^1.2.1
@@ -45,10 +46,9 @@ dependencies:
   grouped_buttons: ^1.0.4
   http: ^0.12.0+1
   image_picker: any
-  flutter_logs: ^2.1.3
-  path_provider: ^1.6.28
   intl: ^0.17.0
   package_info: ^2.0.0
+  path_provider: ^1.6.28
   persistent_bottom_nav_bar: ^3.2.0
   progress_dialog: ^1.2.4
   provider: ^4.0.1

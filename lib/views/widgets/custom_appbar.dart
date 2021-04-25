@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 
 //We are currently adding the app bar here
 
@@ -64,18 +65,18 @@ class _CustomAppBarState extends State<CustomAppBar> {
       ),
       leading: _imgSrc != null
           ? Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
               child: CircleAvatar(
-                radius: 40,
+                radius: SizeConfig.safeBlockVertical * 5,
                 backgroundImage: NetworkImage(
                     Provider.of<GraphQLConfiguration>(context).displayImgRoute +
                         _imgSrc),
               ))
-          : const Padding(
-              padding: EdgeInsets.all(5.0),
+          : Padding(
+              padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
               child: CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage("assets/images/team.png")),
+                  radius: SizeConfig.safeBlockVertical * 5,
+                  backgroundImage: const AssetImage("assets/images/team.png")),
             ),
     );
   }

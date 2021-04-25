@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 
 ProgressDialog progressDialog;
 
@@ -9,9 +10,9 @@ Future<void> showProgress(BuildContext context, String message,
       type: ProgressDialogType.Normal, isDismissible: isDismissible);
   progressDialog.style(
       message: message,
-      borderRadius: 10.0,
+      borderRadius: SizeConfig.safeBlockVertical * 1.25,
       progressWidget: Container(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(SizeConfig.safeBlockVertical),
           child: const CircularProgressIndicator(
             backgroundColor: Colors.white,
           )),

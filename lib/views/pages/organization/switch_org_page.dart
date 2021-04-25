@@ -8,6 +8,7 @@ import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/home_page.dart';
 
@@ -143,7 +144,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       body: _progressBarState
           ? const Center(child: CircularProgressIndicator())
           : ListView.separated(
-              padding: const EdgeInsets.only(top: 10.0),
+              padding:
+                  EdgeInsets.only(top: SizeConfig.safeBlockVertical * 1.25),
               itemCount: userOrg.length,
               itemBuilder: (context, index) {
                 if (userOrg[index]['_id'] == orgId) {
@@ -152,15 +154,15 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                 return RadioListTile(
                   secondary: userOrg[index]['image'] != null
                       ? CircleAvatar(
-                          radius: 30,
+                          radius: SizeConfig.safeBlockVertical * 7.25,
                           backgroundImage: NetworkImage(
                               Provider.of<GraphQLConfiguration>(context)
                                       .displayImgRoute +
                                   userOrg[index]['image'].toString()))
-                      : const CircleAvatar(
-                          radius: 30,
+                      : CircleAvatar(
+                          radius: SizeConfig.safeBlockVertical * 3.75,
                           backgroundImage:
-                              AssetImage("assets/images/team.png")),
+                              const AssetImage("assets/images/team.png")),
                   activeColor: UIData.secondaryColor,
                   groupValue: isSelected,
                   title: Text(
@@ -207,7 +209,9 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   //the method which is called when the result is successful
   _successToast(String msg) {
     final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 5,
+          vertical: SizeConfig.safeBlockVertical * 1.5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.green,
@@ -230,7 +234,9 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   //the method is called when the result is an exception
   _exceptionToast(String msg) {
     final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 6,
+          vertical: SizeConfig.safeBlockVertical * 1.75),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
