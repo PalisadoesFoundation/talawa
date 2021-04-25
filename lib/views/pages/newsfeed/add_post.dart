@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/services/post_provider.dart';
 
 //pages are called here
 import 'package:talawa/services/queries_.dart';
@@ -52,6 +54,7 @@ class _AddPostState extends State<AddPost> {
     result = await Queries().addPost(description, organizationId, title) as Map;
     print(result);
     if (result != null) {
+      Provider.of<PostProvider>(context, listen: false).getPosts();
       Navigator.pop(context, true);
     } else {
       _exceptionToast(result.toString().substring(16));
@@ -73,6 +76,7 @@ class _AddPostState extends State<AddPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        key: const Key('ADD_POST_APP_BAR'),
         title: const Text(
           'New Post',
           style: TextStyle(color: Colors.white),
@@ -162,6 +166,7 @@ class _AddPostState extends State<AddPost> {
   //this method adds the post
   Widget addPostFab() {
     return FloatingActionButton(
+      heroTag: "btn1",
       key: const Key('submit'),
       backgroundColor: UIData.secondaryColor,
       onPressed: () {

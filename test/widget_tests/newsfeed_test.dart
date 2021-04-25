@@ -1,4 +1,3 @@
-// Packages imports.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -6,9 +5,11 @@ import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 Widget newsfeedPage() => MultiProvider(
       providers: [
@@ -24,8 +25,11 @@ Widget newsfeedPage() => MultiProvider(
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
         ),
+        ChangeNotifierProvider<PostProvider>(
+          create: (_) => PostProvider(),
+        ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         home: NewsFeed(),
       ),
     );
@@ -41,7 +45,17 @@ void main() {
 
       /// Verify if [Newsfeed Page] shows up.
       expect(
-        find.byType(Column),
+        find.byKey(const Key('NEWSFEED_APP_BAR')),
+        findsOneWidget,
+      );
+
+      expect(
+        find.byType(Scaffold),
+        findsOneWidget,
+      );
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(Loading),
         findsOneWidget,
       );
     });
@@ -55,7 +69,17 @@ void main() {
 
       /// Verify if [News Article Page] shows up.
       expect(
-        find.byType(Column),
+        find.byKey(const Key('NEWSFEED_APP_BAR')),
+        findsOneWidget,
+      );
+
+      expect(
+        find.byType(Scaffold),
+        findsOneWidget,
+      );
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(Loading),
         findsOneWidget,
       );
     });
@@ -69,24 +93,48 @@ void main() {
 
       /// Verify if [Newsfeed Page] shows up.
       expect(
-        find.byType(Column),
+        find.byKey(const Key('NEWSFEED_APP_BAR')),
+        findsOneWidget,
+      );
+
+      expect(
+        find.byType(Scaffold),
+        findsOneWidget,
+      );
+      await tester.pumpAndSettle();
+      expect(
+        find.byType(Loading),
         findsOneWidget,
       );
     });
 
-    testWidgets("empty newsfeed for user with no org", (tester) async {
+    testWidgets("finds add post fab", (tester) async {
       await tester.pumpWidget(newsfeedPage());
 
-      final emptyTextWidget = find.byKey(const Key('empty_newsfeed_text'));
+      //get [add post fab]
+      final addPostFab = find.byType(FloatingActionButton);
 
-      expect(emptyTextWidget, findsOneWidget);
+      //finds [add post fab]
+      expect(addPostFab, findsOneWidget);
+    });
 
-      // get the fab button
-      final addPostButton = find.byIcon(Icons.add);
-      expect(
-        addPostButton,
-        findsNothing,
-      );
+    testWidgets("tapping add post fab opens add post screen", (tester) async {
+      await tester.pumpWidget(newsfeedPage());
+
+      //get [add post fab]
+      final addPostFab = find.byType(FloatingActionButton);
+
+      //finds [add post fab]
+      expect(addPostFab, findsOneWidget);
+
+      //tap on the [add post fab]
+      await tester.tap(addPostFab);
+      await tester.pumpAndSettle();
+
+      //Finds [Add Post] screen
+      expect(find.byKey(const Key('ADD_POST_APP_BAR')), findsOneWidget);
+      //Finds the form on [Add Post] screen
+      expect(find.byType(Form), findsOneWidget);
     });
   });
 }
