@@ -774,6 +774,31 @@ query{
 """;
   }
 
+  String get getOrganizationsConnection {
+    return """
+    query organizationsConnection(\$first: Int, \$skip: Int){
+      organizationsConnection(
+        first: \$first,
+        skip: \$skip,
+      ){
+        image
+        _id
+        name
+        admins{
+          _id
+        }
+        description
+        isPublic
+        creator{
+          _id
+          firstName
+          lastName
+        }
+      }
+    }
+""";
+  }
+
   createComments(String postId, var text) async {
     print(postId);
     print(text);
@@ -816,19 +841,20 @@ query{
     print(organizationId);
     print(title);
     const String addPostMutation = """
-     mutation createPost(\$text: String!, \$organizationId: ID!, \$title: String!) { 
-      createPost( 
-        data:{
-          text: \$text,
-          title: \$title,
-          organizationId: \$organizationId,
+      mutation createPost(\$text: String!, \$organizationId: ID!, \$title: String!) { 
+        createPost( 
+          data: {
+            text: \$text,
+            title: \$title,
+            organizationId: \$organizationId,
+          }
+        ){
+          _id
+          text
         }
-      ){
-        _id
-        text
       }
-    }
-  """;
+    """;
+
     final GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
     final GraphQLClient _client = graphQLConfiguration.authClient();
     final AuthController _authController = AuthController();
@@ -842,6 +868,7 @@ query{
         'organizationId': organizationId
       },
     ));
+
     if (!_resp.loading) {
       print(_resp.data);
       print(_resp.exception);
