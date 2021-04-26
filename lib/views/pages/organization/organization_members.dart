@@ -61,6 +61,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     if (result.hasException) {
       print(result.exception);
       //showError(result.exception.toString());
+      _exceptionToast(result.exception.toString());
     } else if (!result.hasException) {
       result.data['organizations'][0]['admins']
           .forEach((admin) => adminsList.add(admin['_id']));
@@ -123,6 +124,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       } else if (result.hasException &&
           result.exception.toString().substring(16) != accessTokenException) {
         print(result.exception.toString().substring(16));
+        _exceptionToast("Something went wrong!Try again later");
         setState(() {
           processing = false;
         });
