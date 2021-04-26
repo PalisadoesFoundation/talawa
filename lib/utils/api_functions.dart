@@ -21,11 +21,26 @@ class ApiFunctions {
 
     final QueryResult result = await _client.query(options);
     if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
+        result.exception.toString().contains(accessTokenException)) {
+      _authController.getNewToken();
+      gqlquery(query);
+    }
+    if (result.hasException &&
+        result.exception
+            .toString()
+            .contains(refreshAccessTokenExpiredException)) {
       _authController.getNewToken();
       gqlquery(query);
     } else if (result.hasException) {
       print(result.exception);
+      String message = "";
+      if (result.exception.clientException != null) {
+        message = result.exception.clientException.message;
+      } else {
+        message = result.exception.graphqlErrors.first.message;
+      }
+
+      return {"exception": message};
     } else {
       return result.data as Map<String, dynamic>;
     }
@@ -42,10 +57,32 @@ class ApiFunctions {
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       return gqlmutation(mutation);
+    }
+    if (result.hasException &&
+        result.exception
+            .toString()
+            .contains(refreshAccessTokenExpiredException)) {
+      _authController.getNewToken();
+      return gqlmutation(mutation);
     } else if (result.hasException) {
       print(result.exception);
     } else {
       return result.data;
     }
+  }
+
+  Future<dynamic> sendLogs(String filePath) async {
+    //TODO: Add the Url and uncomment the block
+    // var request = http.MultipartRequest('POST', Uri.parse(''));
+    // request.files.add(
+    //   http.MultipartFile(
+    //     'zip',
+    //     File(filePath).readAsBytes().asStream(),
+    //     File(filePath).lengthSync(),
+    //     filename: filePath.split("/").last,
+    //   ),
+    // );
+    // var res = await request.send();
+    // return res.statusCode;
   }
 }

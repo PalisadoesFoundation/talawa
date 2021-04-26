@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/api_functions.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 
 // ignore: must_be_immutable
@@ -56,7 +57,7 @@ class _AddEventTaskState extends State<AddEventTask> {
       title: const Text("Add A Task To This Event"),
       // ignore: sized_box_for_whitespace
       content: Container(
-          height: 300,
+          height: SizeConfig.safeBlockVertical * 37.5,
           child: Form(
             key: _formkey,
             child: Column(
