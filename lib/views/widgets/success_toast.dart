@@ -52,3 +52,24 @@ class _SuccessToastState extends State<SuccessToast> {
     );
   }
 }
+
+Container toastContainer(String msg, Color color) {
+  return Container(
+    padding: EdgeInsets.symmetric(
+        horizontal: SizeConfig.safeBlockHorizontal * 5,
+        vertical: SizeConfig.safeBlockVertical * 1.5),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(25.0),
+      color: color,
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          msg,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
+    ),
+  );
+}

@@ -1,10 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:talawa/utils/ui_scaling.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/preferences.dart';
@@ -12,44 +9,33 @@ import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/view_models/base_model.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
-
+import 'package:talawa/views/widgets/success_toast.dart';
 import '../../locator.dart';
 
 class JoinOrgnizationViewModel extends BaseModel {
   final Queries _query = Queries();
   final Preferences _pref = Preferences();
-  String token;
-  String _itemIndex;
+  String token, _itemIndex, _isPublic, _currentUserId = "";
   GraphQLConfiguration graphQLConfiguration = locator<GraphQLConfiguration>();
   FToast fToast;
-  List _organizationInfo = [];
+  List _organizationInfo = [],
+      joinedOrg = [],
+      joinedOrganizations = [],
+      joinedOrganizationsIds = [];
   final List _filteredOrgInfo = [];
-  List joinedOrg = [];
   final AuthController _authController = AuthController();
-  String _isPublic;
-  final String _fetchingOrgError = "";
+  final String _fetchingOrgError = "", _sendingRequestToOrgError = "";
   final bool _hasFetchingOrgError = false;
-  final String _sendingRequestToOrgError = "";
-  String _currentUserId = "";
-  List joinedOrganizations = [];
-  List joinedOrganizationsIds = [];
-  bool _isLoaderActive = false;
+  bool _isLoaderActive = false, disposed = false;
   int _loadingIndex = -1;
-
-  bool disposed = false;
-
   String get currentUserId => _currentUserId;
   String get fetchingOrgError => _fetchingOrgError;
   bool get hasFetchingOrgError => _hasFetchingOrgError;
   String get sendingRequestToOrgError => _sendingRequestToOrgError;
-
   bool get isLoaderActive => _isLoaderActive;
   int get loadingIndex => _loadingIndex;
-
   List get organizationInfo => _organizationInfo;
   List get filteredOrgInfo => _filteredOrgInfo;
-
   String get isPublic => _isPublic;
   String get itemIndex => _itemIndex;
 
@@ -71,11 +57,8 @@ class JoinOrgnizationViewModel extends BaseModel {
 
   Widget showError(String msg) {
     return Center(
-      child: Text(
-        msg,
-        style: const TextStyle(fontSize: 16),
-        textAlign: TextAlign.center,
-      ),
+      child: Text(msg,
+          style: const TextStyle(fontSize: 16), textAlign: TextAlign.center),
     );
   }
 
@@ -86,62 +69,22 @@ class JoinOrgnizationViewModel extends BaseModel {
         context: context,
         useRootNavigator: false,
         builder: (_) => CupertinoAlertDialog(
-          title: const Text("Confirmation"),
-          content:
-              const Text("Are you sure you want to join this organization?"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("Close"),
-            ),
-            TextButton(
-              onPressed: () async {
-                _loadingIndex = index;
-                _isLoaderActive = true;
-                notifyListeners();
-                Navigator.of(context).pop();
-                if (isPublic == 'true') {
-                  await joinPublicOrg(context, orgName).whenComplete(() {
-                    _loadingIndex = -1;
-                    _isLoaderActive = false;
-                    notifyListeners();
-                  });
-                } else if (isPublic == 'false') {
-                  await joinPrivateOrg(context).whenComplete(() {
-                    _loadingIndex = -1;
-                    _isLoaderActive = false;
-                    notifyListeners();
-                  });
-                }
-              },
-              child: const Text("Yes"),
-            )
-          ],
-        ),
-      );
-    } else {
-      showDialog(
-          context: context,
-          builder: (BuildContext ctx) {
-            return AlertDialog(
-              title: const Text("Confirmation"),
-              content: const Text(
-                  "Are you sure you want to join this organization?"),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  child: const Text("Close"),
-                ),
-                TextButton(
+            title: const Text("Confirmation"),
+            content:
+                const Text("Are you sure you want to join this organization?"),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Close"),
+              ),
+              TextButton(
                   onPressed: () async {
                     _loadingIndex = index;
                     _isLoaderActive = true;
                     notifyListeners();
-                    Navigator.of(ctx).pop();
+                    Navigator.of(context).pop();
                     if (isPublic == 'true') {
                       await joinPublicOrg(context, orgName).whenComplete(() {
                         _loadingIndex = -1;
@@ -156,52 +99,54 @@ class JoinOrgnizationViewModel extends BaseModel {
                       });
                     }
                   },
-                  child: const Text("Yes"),
-                )
-              ],
-            );
+                  child: const Text("Yes"))
+            ]),
+      );
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext ctx) {
+            return AlertDialog(
+                title: const Text("Confirmation"),
+                content: const Text(
+                    "Are you sure you want to join this organization?"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                    child: const Text("Close"),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      _loadingIndex = index;
+                      _isLoaderActive = true;
+                      notifyListeners();
+                      Navigator.of(ctx).pop();
+                      if (isPublic == 'true') {
+                        await joinPublicOrg(context, orgName).whenComplete(() {
+                          _loadingIndex = -1;
+                          _isLoaderActive = false;
+                          notifyListeners();
+                        });
+                      } else if (isPublic == 'false') {
+                        await joinPrivateOrg(context).whenComplete(() {
+                          _loadingIndex = -1;
+                          _isLoaderActive = false;
+                          notifyListeners();
+                        });
+                      }
+                    },
+                    child: const Text("Yes"),
+                  )
+                ]);
           });
     }
   }
 
-  successToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 5,
-          vertical: SizeConfig.safeBlockVertical * 1.5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
+  showToast(String msg, Color color) {
     fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 6,
-          vertical: SizeConfig.safeBlockVertical * 1.75),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Text(msg),
-    );
-
-    fToast.showToast(
-      child: toast,
+      child: toastContainer(msg, color),
       gravity: ToastGravity.BOTTOM,
       toastDuration: const Duration(seconds: 3),
     );
@@ -251,21 +196,17 @@ class JoinOrgnizationViewModel extends BaseModel {
         !userDetailsResult.hasException) {
       _organizationInfo = result.data['organizations'] as List;
       _organizationInfo = result.data['organizations'] as List;
-
       // Get the details of joined organizations.
       joinedOrganizations =
           userDetailsResult.data['users'][0]['joinedOrganizations'] as List;
-
       // Get the id's of joined organizations.
       joinedOrganizations.forEach((element) {
         joinedOrganizationsIds.add(element['_id']);
       });
-
       // Filtering out organizations that are created by current user.
       _organizationInfo = organizationInfo
           .where((element) => element['admins'][0]['_id'] != _currentUserId)
           .toList();
-
       // Filtering out organizations that are already joined by user.
       joinedOrganizationsIds.forEach((e) {
         print(e);
@@ -290,9 +231,9 @@ class JoinOrgnizationViewModel extends BaseModel {
       return joinPrivateOrg(context);
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      exceptionToast(result.exception.toString().substring(16));
+      showToast(result.exception.toString().substring(16), Colors.red);
     } else if (!result.hasException && !result.loading) {
-      successToast("Request Sent to Organization Admin");
+      showToast("Request Sent to Organization Admin", Colors.green);
       Navigator.pop(context);
     }
   }
@@ -309,17 +250,15 @@ class JoinOrgnizationViewModel extends BaseModel {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      exceptionToast(result.exception.toString().substring(16));
+      showToast(result.exception.toString().substring(16), Colors.red);
       return joinPublicOrg(context, orgName);
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      exceptionToast(result.exception.toString().substring(16));
+      showToast(result.exception.toString().substring(16), Colors.red);
     } else if (!result.hasException && !result.loading) {
       joinedOrg =
           result.data['joinPublicOrganization']['joinedOrganizations'] as List;
-
       //set the default organization to the first one in the list
-
       if (joinedOrg.length == 1) {
         final String currentOrgId = result.data['joinPublicOrganization']
                 ['joinedOrganizations'][0]['_id']
@@ -353,28 +292,8 @@ class JoinOrgnizationViewModel extends BaseModel {
           }
         }
       }
-      successToast("Success!");
+      showToast("Success!", Colors.green);
       Navigator.pop(context);
-
-      // pushNewScreen(
-      //   context,
-      //   screen: const ProfilePage(),
-      // );
-      //Navigate user to newsfeed
-      // if (widget.fromProfile) {
-      //   pushNewScreen(
-      //     context,
-      //     screen: const ProfilePage(),
-      //   );
-      // } else {
-      //   Navigator.of(context).pushReplacement(
-      //     MaterialPageRoute(
-      //       builder: (context) => const HomePage(
-      //         openPageIndex: 4,
-      //       ),
-      //     ),
-      //   );
-      // }
     }
   }
 }
