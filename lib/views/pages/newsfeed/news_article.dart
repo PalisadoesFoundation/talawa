@@ -148,8 +148,8 @@ class _NewsArticleState extends State<NewsArticle> {
           .createComments(widget.post['_id'].toString(), queryText) as Map;
       if (result == null) {
         Fluttertoast.showToast(
-          msg: "Sorry, this comment could not be posted.",
-        );
+            msg: "Sorry, this comment could not be posted.",
+            backgroundColor: Colors.red);
       } else {
         isCommentAdded = true;
         FocusScope.of(context).requestFocus(FocusNode());

@@ -36,15 +36,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   final AuthController _authController = AuthController();
   final OrgController _orgController = OrgController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  FToast fToast;
   bool processing = false;
-
-  @override
-  void initState() {
-    super.initState();
-    fToast = FToast();
-    fToast.init(context);
-  }
 
   Future leaveOrg() async {
     setState(() {
@@ -66,7 +58,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       setState(() {
         processing = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      Fluttertoast.showToast(
+          msg: result.exception.toString().substring(16),
+          backgroundColor: Colors.red);
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
       setState(() {
@@ -92,7 +86,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
           .saveCurrentOrgName(newOrgName);
       Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgId(newOrgId);
-      _successToast('You are no longer apart of this organization');
+      Fluttertoast.showToast(
+          msg: 'You are no longer apart of this organization',
+          backgroundColor: Colors.green);
       pushNewScreen(
         context,
         screen: const ProfilePage(),
@@ -126,7 +122,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
-      _successToast('Successfully Removed Organization');
+      Fluttertoast.showToast(
+          msg: 'Successfully Removed Organization',
+          backgroundColor: Colors.green);
       setState(() {
         remaindingOrg =
             result.data['removeOrganization']['joinedOrganizations'] as List;
@@ -259,8 +257,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         ),
                         onTap: () async {
                           if (!widget.creator) {
-                            _exceptionToast(
-                                'Creator can only remove organization');
+                            Fluttertoast.showToast(
+                                msg: 'Creator can only remove organization',
+                                backgroundColor: Colors.red);
                           }
                           showDialog(
                               context: context,
@@ -297,21 +296,5 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
             ),
           ],
         ));
-  }
-
-  void _successToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: true),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  void _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: false),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
   }
 }

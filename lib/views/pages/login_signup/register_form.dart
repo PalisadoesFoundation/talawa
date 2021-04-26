@@ -44,7 +44,6 @@ class RegisterFormState extends State<RegisterForm> {
   final Queries _signupQuery = Queries();
   var _validate = AutovalidateMode.disabled;
   final Preferences _pref = Preferences();
-  FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
   bool _obscureText = true;
@@ -56,8 +55,6 @@ class RegisterFormState extends State<RegisterForm> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
   }
 
@@ -78,7 +75,9 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.hasException.toString().substring(16, 35));
+      Fluttertoast.showToast(
+          msg: result.hasException.toString().substring(16, 35),
+          backgroundColor: Colors.red);
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -122,7 +121,9 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16, 35));
+      Fluttertoast.showToast(
+          msg: result.exception.toString().substring(16, 35),
+          backgroundColor: Colors.red);
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -506,55 +507,6 @@ class RegisterFormState extends State<RegisterForm> {
             ),
           );
         });
-  }
-
-  /* _successToast(String msg) {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: Text(
-              msg,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
-    );*/
-
-  //this method is called when the result is an exception
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: Text(
-              msg,
-              style: const TextStyle(fontSize: 15.0, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 5),
-    );
   }
 
   //function toggles _obscureText value

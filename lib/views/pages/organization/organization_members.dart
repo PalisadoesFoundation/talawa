@@ -30,7 +30,6 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   List membersList = [];
   List adminsList = [];
   List selectedMembers = [];
-  FToast fToast;
   bool forward = false;
   bool processing = false;
   String userId;
@@ -41,8 +40,6 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -69,7 +66,8 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         membersList = result.data['organizations'][0]['members'] as List;
       });
       if (membersList.length == 1) {
-        _exceptionToast('You are alone here.');
+        Fluttertoast.showToast(
+            msg: 'You are alone here.', backgroundColor: Colors.red);
       }
     }
   }
@@ -91,7 +89,8 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       print(result.exception.toString().substring(16));
-      _exceptionToast(result.exception.toString());
+      Fluttertoast.showToast(
+          msg: result.exception.toString(), backgroundColor: Colors.green);
       setState(() {
         processing = false;
       });
@@ -100,7 +99,8 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       setState(() {
         processing = false;
       });
-      _successToast('Member(s) removed successfully');
+      Fluttertoast.showToast(
+          msg: 'Member(s) removed successfully', backgroundColor: Colors.green);
       viewMembers();
     }
   }
@@ -130,11 +130,13 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         setState(() {
           processing = false;
         });
-        _successToast('Admin created');
+        Fluttertoast.showToast(
+            msg: 'Admin created', backgroundColor: Colors.green);
         viewMembers();
       }
     } else {
-      _exceptionToast('Already an admin');
+      Fluttertoast.showToast(
+          msg: 'Already an admin', backgroundColor: Colors.red);
     }
   }
 
@@ -146,7 +148,8 @@ class _OrganizationMembersState extends State<OrganizationMembers>
           selectedMembers.add('"$memberId"');
         });
       } else {
-        _exceptionToast("Can't select admins");
+        Fluttertoast.showToast(
+            msg: "Can't select admins", backgroundColor: Colors.red);
       }
     } else {
       setState(() {
@@ -251,7 +254,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                           "Are you sure you want to make selected member and admin?",
                           addAdmin);
                     } else {
-                      _exceptionToast('You can make one admin at a time');
+                      Fluttertoast.showToast(
+                          msg: 'You can make one admin at a time',
+                          backgroundColor: Colors.red);
                     }
                   }
                 },
@@ -300,24 +305,5 @@ class _OrganizationMembersState extends State<OrganizationMembers>
             function: function,
           );
         });
-  }
-
-  _successToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: true),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(
-        msg: msg,
-        success: false,
-      ),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
   }
 }
