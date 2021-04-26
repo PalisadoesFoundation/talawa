@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                         const Text(
                           "Dont have an account?",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: UIData.primaryColor,
                           ),
                         ),
                         Container(
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             child: const Text(
                               "SIGN UP!",
                               textAlign: TextAlign.start,
-                              style: TextStyle(color: UIData.primaryColor),
+                              style: TextStyle(color: UIData.secondaryColor),
                             ),
                           ),
                         ),
@@ -79,15 +79,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         //resizeToAvoidBottomInset: false,
         key: _scaffoldkey,
         backgroundColor: Colors.white,
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
-          ),
-          child: Center(
-            child: SingleChildScrollView(
-              child: loginScreenForm(),
-            ),
+        body: Center(
+          child: SingleChildScrollView(
+            child: loginScreenForm(),
           ),
         ));
   }

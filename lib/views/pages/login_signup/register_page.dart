@@ -22,9 +22,12 @@ class _RegisterePageState extends State<RegisterPage>
                   minWidth: SizeConfig.safeBlockHorizontal * 62.5,
                   minHeight: SizeConfig.safeBlockVertical * 43.75),
               child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: 30.0),
+                padding: EdgeInsets.symmetric(
+                    vertical: SizeConfig.safeBlockVertical * 5,
+                    horizontal: SizeConfig.safeBlockHorizontal * 5),
                 scrollDirection: Axis.vertical,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     RegisterForm(),
                     Row(
@@ -32,13 +35,14 @@ class _RegisterePageState extends State<RegisterPage>
                       children: <Widget>[
                         const Text(
                           "Already have an account?",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                              color: UIData.primaryColor,
+                              fontFamily: UIData.ralewayFont),
                         ),
                         Container(
                           margin: const EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
                             onTap: () {
-                              // Navigator.pop(context);
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
@@ -47,7 +51,9 @@ class _RegisterePageState extends State<RegisterPage>
                             child: const Text(
                               "SIGN IN!",
                               textAlign: TextAlign.start,
-                              style: TextStyle(color: UIData.primaryColor),
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: UIData.ralewayFont),
                             ),
                           ),
                         ),
@@ -62,18 +68,11 @@ class _RegisterePageState extends State<RegisterPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //resizeToAvoidBottomInset: false,
       key: _scaffoldkey,
       backgroundColor: Colors.white,
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: registrationScreenForm(),
-          ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: registrationScreenForm(),
         ),
       ),
     );

@@ -133,9 +133,13 @@ class LoginFormState extends State<LoginForm> {
         child: Column(
           children: <Widget>[
             const Text('Login',
-                style: TextStyle(fontSize: 35, color: Colors.white)),
+                style: TextStyle(
+                    fontSize: 35,
+                    color: UIData.primaryColor,
+                    fontFamily: UIData.ralewayFont,
+                    fontWeight: FontWeight.bold)),
             SizedBox(
-              height: SizeConfig.safeBlockVertical * 6.25,
+              height: SizeConfig.safeBlockVertical * 4.25,
             ),
             AutofillGroup(
                 child: Column(
@@ -146,24 +150,24 @@ class LoginFormState extends State<LoginForm> {
                   textAlign: TextAlign.left,
                   controller: _emailController,
                   validator: Validator.validateEmail,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: UIData.primaryColor),
                   //Changed text input action to next
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
+                      borderSide: const BorderSide(color: UIData.primaryColor),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.orange),
+                      borderSide: const BorderSide(color: UIData.primaryColor),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     prefixIcon: const Icon(
                       Icons.email,
-                      color: Colors.white,
+                      color: UIData.primaryColor,
                     ),
                     labelText: "Email",
-                    labelStyle: const TextStyle(color: Colors.white),
+                    labelStyle: const TextStyle(color: UIData.primaryColor),
                     alignLabelWithHint: true,
                     hintText: 'foo@bar.com',
                     hintStyle: const TextStyle(color: Colors.grey),
@@ -181,29 +185,29 @@ class LoginFormState extends State<LoginForm> {
                   textAlign: TextAlign.left,
                   controller: _passwordController,
                   validator: Validator.validatePassword,
-                  style: const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: UIData.primaryColor),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.white),
+                      borderSide: const BorderSide(color: UIData.primaryColor),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Colors.orange),
+                      borderSide: const BorderSide(color: UIData.primaryColor),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     prefixIcon: const Icon(
                       Icons.lock,
-                      color: Colors.white,
+                      color: UIData.primaryColor,
                     ),
                     suffixIcon: TextButton(
                       onPressed: _toggle,
                       child: Icon(
                         _obscureText ? Icons.visibility_off : Icons.visibility,
-                        color: Colors.white,
+                        color: UIData.primaryColor,
                       ),
                     ),
                     labelText: "Password",
-                    labelStyle: const TextStyle(color: Colors.white),
+                    labelStyle: const TextStyle(color: UIData.primaryColor),
                     focusColor: UIData.primaryColor,
                     alignLabelWithHint: true,
                     hintText: '**********',
@@ -230,7 +234,7 @@ class LoginFormState extends State<LoginForm> {
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                       const StadiumBorder()),
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
+                      MaterialStateProperty.all<Color>(UIData.primaryColor),
                 ),
                 onPressed: () async {
                   FocusScope.of(context).unfocus();
@@ -244,9 +248,17 @@ class LoginFormState extends State<LoginForm> {
                   }
                 },
                 child: _progressBarState
-                    ? const CircularProgressIndicator()
+                    ? const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        strokeWidth: 3,
+                        backgroundColor: Colors.black,
+                      )
                     : const Text(
                         "SIGN IN",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: UIData.ralewayFont,
+                            fontWeight: FontWeight.bold),
                       ),
               ),
             ),
