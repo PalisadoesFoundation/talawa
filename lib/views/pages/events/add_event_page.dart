@@ -139,7 +139,7 @@ class _AddEventState extends State<AddEvent> {
       endTime: endTime.microsecondsSinceEpoch.toString(),
     );
     print('Result is : $result');
-    if(result==null){
+    if (result == null) {
       _exceptionToast("Could not create event! Please Try Again later!");
     }
   }
@@ -331,6 +331,7 @@ class _AddEventState extends State<AddEvent> {
       ),
     );
   }
+
   _exceptionToast(String msg) {
     fToast.showToast(
       child: ToastTile(

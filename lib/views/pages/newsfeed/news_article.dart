@@ -459,6 +459,7 @@ class _NewsArticleState extends State<NewsArticle> {
       ],
     );
   }
+
   void _exceptionToast(String msg) {
     fToast.showToast(
       child: ToastTile(msg: msg, success: false),

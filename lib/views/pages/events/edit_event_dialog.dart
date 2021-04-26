@@ -368,6 +368,7 @@ class _EditEventState extends State<EditEvent> {
       ),
     );
   }
+
   _exceptionToast(String msg) {
     fToast.showToast(
       child: ToastTile(

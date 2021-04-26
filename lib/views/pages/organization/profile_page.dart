@@ -528,6 +528,7 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     }
   }
+
   void _exceptionToast(String msg) {
     final Widget toast = Container(
       padding: EdgeInsets.symmetric(

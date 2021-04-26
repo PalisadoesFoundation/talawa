@@ -162,6 +162,7 @@ class _AddEventTaskState extends State<AddEventTask> {
       ),
     );
   }
+
   _exceptionToast(String msg) {
     fToast.showToast(
       child: ToastTile(
