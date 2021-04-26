@@ -26,7 +26,6 @@ class _AddEventTaskState extends State<AddEventTask> {
   ApiFunctions apiFunctions = ApiFunctions();
   DateTime selectedDate = DateTime.now();
   final _formkey = GlobalKey<FormState>();
-  FToast fToast;
 
   //function to add the task
   Future<void> addTask() async {
@@ -38,7 +37,9 @@ class _AddEventTaskState extends State<AddEventTask> {
 
     final Map<dynamic, dynamic> result = await apiFunctions.gqlquery(mutation);
     if (result["exception"] != null) {
-      _exceptionToast("Failed to add task!Try again later");
+      Fluttertoast.showToast(
+          msg: "Failed to add task!Try again later",
+          backgroundColor: UIData.toastErrorColor);
     }
   }
 
@@ -54,13 +55,6 @@ class _AddEventTaskState extends State<AddEventTask> {
         selectedDate = picked;
       });
     }
-  }
-
-  @override
-  void initState() {
-    fToast = FToast();
-    fToast.init(context);
-    super.initState();
   }
 
   //main build starts here
@@ -160,17 +154,6 @@ class _AddEventTaskState extends State<AddEventTask> {
                 borderSide: const BorderSide(color: Colors.teal)),
             hintText: name),
       ),
-    );
-  }
-
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(
-        msg: msg,
-        success: false,
-      ),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }

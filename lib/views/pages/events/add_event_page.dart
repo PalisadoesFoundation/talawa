@@ -28,7 +28,6 @@ class _AddEventState extends State<AddEvent> {
       _validateDescription = false,
       _validateLocation = false;
   ApiFunctions apiFunctions = ApiFunctions();
-  FToast fToast;
 
   Map<String, bool> switchVals = {
     'Make Public': true,
@@ -39,12 +38,6 @@ class _AddEventState extends State<AddEvent> {
   List<String> recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
   Preferences preferences = Preferences();
-  @override
-  void initState() {
-    fToast = FToast();
-    fToast.init(context);
-    super.initState();
-  }
 
   //getting the date for the event
   DateTimeRange dateRange = DateTimeRange(
@@ -140,7 +133,9 @@ class _AddEventState extends State<AddEvent> {
     );
     print('Result is : $result');
     if (result == null) {
-      _exceptionToast("Could not create event! Please Try Again later!");
+      Fluttertoast.showToast(
+          msg: "Could not create event! Please Try Again later!",
+          backgroundColor: UIData.toastErrorColor);
     }
   }
 
@@ -329,17 +324,6 @@ class _AddEventState extends State<AddEvent> {
           }).toList(),
         ),
       ),
-    );
-  }
-
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(
-        msg: msg,
-        success: false,
-      ),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }

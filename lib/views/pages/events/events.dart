@@ -49,8 +49,6 @@ class _EventsState extends State<Events> {
   Timer timer = Timer();
   String userId;
 
-  FToast fToast;
-
   //variable for organization Id
   String _currOrgId;
 
@@ -160,7 +158,9 @@ class _EventsState extends State<Events> {
     final String mutation = Queries().deleteEvent(eventId);
     final Map result = await apiFunctions.gqlquery(mutation);
     if (result["exception"] != null) {
-      _exceptionToast("Could not delete event! Please try again later");
+      Fluttertoast.showToast(
+          msg: "Could not delete event! Please try again later",
+          backgroundColor: UIData.toastErrorColor);
     }
     await getEvents();
     hideProgress();
@@ -251,7 +251,9 @@ class _EventsState extends State<Events> {
                       try {
                         await getEvents();
                       } catch (e) {
-                        _exceptionToast(e.toString());
+                        Fluttertoast.showToast(
+                            msg: e.toString(),
+                            backgroundColor: UIData.toastErrorColor);
                       }
                     },
                     child: CustomScrollView(
@@ -283,7 +285,9 @@ class _EventsState extends State<Events> {
                       try {
                         await getEvents();
                       } catch (e) {
-                        _exceptionToast(e.toString());
+                        Fluttertoast.showToast(
+                            msg: e.toString(),
+                            backgroundColor: UIData.toastErrorColor);
                       }
                     },
                     child: Container(
@@ -612,29 +616,6 @@ class _EventsState extends State<Events> {
         Icons.add,
         color: Colors.white,
       ),
-    );
-  }
-
-  //function to show exceptions
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
     );
   }
 }

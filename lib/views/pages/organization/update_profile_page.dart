@@ -27,7 +27,6 @@ class UpdateProfilePage extends StatefulWidget {
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
   File _image;
-  FToast fToast;
 
   final _formKey = GlobalKey<FormState>();
   var _validate = AutovalidateMode.disabled;
@@ -36,14 +35,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   RegisterViewModel model = RegisterViewModel();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   bool _progressBarState = false;
-
-  //providing initial states to the variables
-  @override
-  void initState() {
-    super.initState();
-    fToast = FToast();
-    fToast.init(context);
-  }
 
   //Function called when the user update without the image
   updateProfileWithoutImg() async {
@@ -90,16 +81,21 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         _progressBarState = false;
       });
       if (result.exception.clientException != null) {
-        _exceptionToast(result.exception.clientException.message);
+        Fluttertoast.showToast(
+            msg: result.exception.clientException.message,
+            backgroundColor: UIData.toastErrorColor);
       } else {
-        _exceptionToast(result.exception.graphqlErrors.first.message);
+        Fluttertoast.showToast(
+            msg: result.exception.graphqlErrors.first.message,
+            backgroundColor: UIData.toastErrorColor);
       }
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = false;
       });
 
-      _successToast('Profile Updated');
+      Fluttertoast.showToast(
+          msg: 'Profile Updated', backgroundColor: UIData.toastSucessColor);
 
       Navigator.of(context).popUntil(ModalRoute.withName("/"));
 
@@ -157,16 +153,21 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         _progressBarState = false;
       });
       if (result.exception.clientException != null) {
-        _exceptionToast(result.exception.clientException.message);
+        Fluttertoast.showToast(
+            msg: result.exception.clientException.message,
+            backgroundColor: UIData.toastErrorColor);
       } else {
-        _exceptionToast(result.exception.graphqlErrors.first.message);
+        Fluttertoast.showToast(
+            msg: result.exception.graphqlErrors.first.message,
+            backgroundColor: UIData.toastErrorColor);
       }
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = false;
       });
 
-      _successToast('Profile Updated');
+      Fluttertoast.showToast(
+          msg: 'Profile Updated', backgroundColor: UIData.toastSucessColor);
 
       //Navigate to home screen
       Navigator.of(context).popUntil(ModalRoute.withName("/"));
@@ -562,60 +563,5 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             ),
           );
         });
-  }
-
-  //This method is called when the result is an exception
-  void _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 6,
-          vertical: SizeConfig.safeBlockVertical * 3.75),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: Text(
-              msg,
-              style: const TextStyle(fontSize: 15.0, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 5),
-    );
-  }
-
-  //This method is called after complete mutation
-  void _successToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 5,
-          vertical: SizeConfig.safeBlockVertical * 1.5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Text(
-        msg,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 2,
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
   }
 }

@@ -35,7 +35,6 @@ class LoginFormState extends State<LoginForm> {
   bool _progressBarState = false;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   final Queries _query = Queries();
-  FToast fToast;
   final Preferences _pref = Preferences();
   static String orgURI;
   bool _obscureText = true;
@@ -49,8 +48,6 @@ class LoginFormState extends State<LoginForm> {
   void initState() {
     super.initState();
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
-    fToast = FToast();
-    fToast.init(context);
   }
 
   //function for login user which gets called when sign in is press
@@ -64,20 +61,24 @@ class LoginFormState extends State<LoginForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(
-          'Connection Error. Make sure your Internet connection is stable');
+      Fluttertoast.showToast(
+          msg: 'Connection Error. Make sure your Internet connection is stable',
+          backgroundColor: UIData.toastErrorColor);
     } else if (result.hasException) {
       print(result.exception);
       setState(() {
         _progressBarState = false;
       });
 
-      _exceptionToast(result.exception.toString().substring(16, 35));
+      Fluttertoast.showToast(
+          msg: result.exception.toString().substring(16, 35),
+          backgroundColor: UIData.toastErrorColor);
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("All Set!");
+      Fluttertoast.showToast(
+          msg: "All Set!", backgroundColor: UIData.toastSucessColor);
       final Token accessToken =
           Token(tokenString: result.data['login']['accessToken'].toString());
       await _pref.saveToken(accessToken);
@@ -252,60 +253,6 @@ class LoginFormState extends State<LoginForm> {
             ),
           ],
         ));
-  }
-
-  //the method called when the result is success
-  _successToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 5,
-          vertical: SizeConfig.safeBlockVertical * 1.5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Center(child: Text(msg)),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  //the method called when the result is an exception
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 6,
-          vertical: SizeConfig.safeBlockVertical * 1.75),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-              child: Text(
-            msg,
-            textAlign: TextAlign.center,
-          )),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 5),
-    );
   }
 
   //function toggles _obscureText value

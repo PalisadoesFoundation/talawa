@@ -49,7 +49,6 @@ class _NewsArticleState extends State<NewsArticle> {
   bool isCommentAdded = false;
   int index;
   Map post;
-  FToast fToast;
   final Queries _query = Queries();
   List userDetails = [];
   String userID;
@@ -60,8 +59,6 @@ class _NewsArticleState extends State<NewsArticle> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     commentController = TextEditingController(
         text: Provider.of<CommentHandler>(context, listen: false)
             .comment(widget.post["_id"].toString()));
@@ -89,7 +86,9 @@ class _NewsArticleState extends State<NewsArticle> {
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
-      _exceptionToast(result.exception.toString());
+      Fluttertoast.showToast(
+          msg: result.exception.toString(),
+          backgroundColor: UIData.toastErrorColor);
     } else if (!result.hasException) {
       //print(result);
       setState(() {
@@ -457,14 +456,6 @@ class _NewsArticleState extends State<NewsArticle> {
                 },
                 child: const Text("View More Comments"))
       ],
-    );
-  }
-
-  void _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: false),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }

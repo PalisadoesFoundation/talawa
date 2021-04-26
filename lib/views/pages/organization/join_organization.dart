@@ -35,7 +35,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   String token;
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  FToast fToast;
   List organizationInfo = [];
   List filteredOrgInfo = [];
   List joinedOrg = [];
@@ -56,8 +55,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   void initState() {
     //creating the initial state for all the variables
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     fetchOrg();
   }
 
@@ -152,10 +149,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       return joinPrivateOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      _exceptionToast(result.exception.toString().substring(16));
+      Fluttertoast.showToast(
+          msg: result.exception.toString().substring(16),
+          backgroundColor: UIData.toastErrorColor);
     } else if (!result.hasException && !result.loading) {
       print(result.data);
-      _successToast("Request Sent to Organization Admin");
+      Fluttertoast.showToast(
+          msg: "Request Sent to Organization Admin",
+          backgroundColor: UIData.toastSucessColor);
 
       if (widget.fromProfile) {
         Navigator.pop(context);
@@ -181,10 +182,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      _exceptionToast(result.exception.toString().substring(16));
+      Fluttertoast.showToast(
+          msg: result.exception.toString().substring(16),
+          backgroundColor: UIData.toastErrorColor);
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      _exceptionToast(result.exception.toString().substring(16));
+      Fluttertoast.showToast(
+          msg: result.exception.toString().substring(16),
+          backgroundColor: UIData.toastErrorColor);
     } else if (!result.hasException && !result.loading) {
       setState(() {
         joinedOrg = result.data['joinPublicOrganization']['joinedOrganizations']
@@ -226,7 +231,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
           }
         }
       }
-      _successToast("Success!");
+      Fluttertoast.showToast(
+          msg: "Success!", backgroundColor: UIData.toastSucessColor);
 
       //Navigate user to newsfeed
       if (widget.fromProfile) {
@@ -681,49 +687,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         style: const TextStyle(fontSize: 16),
         textAlign: TextAlign.center,
       ),
-    );
-  }
-
-  _successToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 5,
-          vertical: SizeConfig.safeBlockVertical * 1.5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 6,
-          vertical: SizeConfig.safeBlockVertical * 1.75),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Text(msg),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }

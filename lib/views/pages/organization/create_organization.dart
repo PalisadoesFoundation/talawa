@@ -40,16 +40,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
   bool isPublic = true;
   bool isVisible = true;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  FToast fToast;
   final AuthController _authController = AuthController();
   File _image;
-
-  @override
-  void initState() {
-    super.initState();
-    fToast = FToast();
-    fToast.init(context);
-  }
 
   void toggleProgressBarState() {
     _progressBarState = !_progressBarState;
@@ -94,12 +86,15 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString());
+      Fluttertoast.showToast(
+          msg: result.exception.toString(),
+          backgroundColor: UIData.toastErrorColor);
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Sucess!");
+      Fluttertoast.showToast(
+          msg: "Sucess!", backgroundColor: UIData.toastSucessColor);
       print(result.data);
 
       if (widget.isFromProfile) {
@@ -143,12 +138,15 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString());
+      Fluttertoast.showToast(
+          msg: result.exception.toString(),
+          backgroundColor: UIData.toastErrorColor);
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Sucess!");
+      Fluttertoast.showToast(
+          msg: "Sucess!", backgroundColor: UIData.toastSucessColor);
       print(result.data);
       if (widget.isFromProfile) {
         Navigator.pop(context);
@@ -410,7 +408,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                 ),
                           onPressed: _progressBarState
                               ? () {
-                                  _exceptionToast('Request in Progress');
+                                  Fluttertoast.showToast(
+                                      msg: 'Request in Progress');
                                 }
                               : () async {
                                   if (_formKey.currentState.validate() &&
@@ -427,8 +426,10 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                     });
                                   } else if (radioValue < 0 ||
                                       radioValue1 < 0) {
-                                    _exceptionToast(
-                                        "A choice must be selected");
+                                    Fluttertoast.showToast(
+                                        msg: "A choice must be selected",
+                                        backgroundColor:
+                                            UIData.toastErrorColor);
                                   }
                                 },
                         ),
@@ -510,53 +511,5 @@ class _CreateOrganizationState extends State<CreateOrganization> {
             ),
           );
         });
-  }
-
-  void _successToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 5,
-          vertical: SizeConfig.safeBlockVertical * 1.5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
-    );
-  }
-
-  void _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 6,
-          vertical: SizeConfig.safeBlockVertical * 1.75),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
-    );
   }
 }

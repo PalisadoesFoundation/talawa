@@ -33,7 +33,6 @@ class _UrlPageState extends State<UrlPage>
   String orgUrl, orgImgUrl;
   String saveMsg = "Set URL";
   String urlInput;
-  FToast fToast;
   bool isUrlCalled = false;
   //animation Controllers
   AnimationController controller;
@@ -68,7 +67,9 @@ class _UrlPageState extends State<UrlPage>
       LogHelper().log(LogLevel.ERROR, widget.toStringShort(), "checkAndSetUrl",
           "Incorrect Oraganization",
           exception: e as Exception);
-      _exceptionToast('Incorrect Organization Entered');
+      Fluttertoast.showToast(
+          msg: 'Incorrect Organization Entered',
+          backgroundColor: UIData.toastErrorColor);
       LogHelper().exportLogs();
     }
 
@@ -91,34 +92,6 @@ class _UrlPageState extends State<UrlPage>
     setState(() {
       saveMsg = "URL SAVED!";
     });
-  }
-
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: Text(
-              msg,
-              style: const TextStyle(fontSize: 15.0, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 5),
-    );
   }
 
   void assignAnimation({@required bool firstTime}) {
@@ -152,8 +125,6 @@ class _UrlPageState extends State<UrlPage>
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     urlController.addListener(listenToUrl);
     // Initializing all the animationControllers
     controller = AnimationController(

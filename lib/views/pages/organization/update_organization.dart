@@ -41,7 +41,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   bool isPublic = true;
   bool isVisible = true;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  FToast fToast;
   final Preferences _preferences = Preferences();
   final AuthController _authController = AuthController();
 
@@ -49,8 +48,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     orgNameController.text = widget.name;
     orgDescController.text = widget.description;
     radioValue = widget.isPublic;
@@ -91,12 +88,15 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      Fluttertoast.showToast(
+          msg: result.exception.toString().substring(16),
+          backgroundColor: UIData.toastErrorColor);
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Success!");
+      Fluttertoast.showToast(
+          msg: "Success!", backgroundColor: UIData.toastSucessColor);
       pushNewScreen(
         context,
         screen: const ProfilePage(),
@@ -244,7 +244,9 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                                     toggleProgressBarState();
                                   });
                                 } else if (radioValue < 0 || radioValue1 < 0) {
-                                  _exceptionToast("A choice must be selected");
+                                  Fluttertoast.showToast(
+                                      msg: "A choice must be selected",
+                                      backgroundColor: UIData.toastErrorColor);
                                 }
                               },
                               child: _progressBarState
@@ -271,23 +273,5 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                   ),
                 ),
         ));
-  }
-
-  //a message if the result is successful
-  _successToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: true),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
-    );
-  }
-
-  //a method which is called when the result is an exception
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: false),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
   }
 }
