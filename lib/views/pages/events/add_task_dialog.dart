@@ -9,7 +9,6 @@ import 'package:talawa/utils/api_functions.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 // ignore: must_be_immutable
 class AddEventTask extends StatefulWidget {

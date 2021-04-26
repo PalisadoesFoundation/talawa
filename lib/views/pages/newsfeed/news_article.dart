@@ -16,7 +16,6 @@ import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/timer.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 const String newLineKey = "@123TALAWA321@";
 

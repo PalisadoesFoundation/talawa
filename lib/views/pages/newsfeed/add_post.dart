@@ -10,7 +10,6 @@ import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 class AddPost extends StatefulWidget {
   const AddPost({Key key}) : super(key: key);
