@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
@@ -11,6 +12,7 @@ import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/view_models/base_model.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 
 import '../../locator.dart';
 
@@ -122,7 +124,7 @@ class JoinOrgnizationViewModel extends BaseModel {
     } else {
       showDialog(
           context: context,
-          builder: (BuildContext context) {
+          builder: (BuildContext ctx) {
             return AlertDialog(
               title: const Text("Confirmation"),
               content: const Text(
@@ -130,7 +132,7 @@ class JoinOrgnizationViewModel extends BaseModel {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(ctx).pop();
                   },
                   child: const Text("Close"),
                 ),
@@ -139,11 +141,12 @@ class JoinOrgnizationViewModel extends BaseModel {
                     _loadingIndex = index;
                     _isLoaderActive = true;
                     notifyListeners();
-                    Navigator.of(context).pop();
+                    Navigator.of(ctx).pop();
                     if (isPublic == 'true') {
                       await joinPublicOrg(context, orgName).whenComplete(() {
                         _loadingIndex = -1;
                         _isLoaderActive = false;
+                        notifyListeners();
                       });
                     } else if (isPublic == 'false') {
                       await joinPrivateOrg(context).whenComplete(() {
@@ -297,25 +300,26 @@ class JoinOrgnizationViewModel extends BaseModel {
   Future joinPublicOrg(BuildContext context, String orgName) async {
     //function which will be called if the person wants to join the organization which is not private
     final GraphQLClient _client = graphQLConfiguration.authClient();
-    print("from function :" + _itemIndex);
-    final QueryResult result = await _client.mutate(
-        MutationOptions(documentNode: gql(_query.getOrgId(_itemIndex))));
+
+    print(orgName);
+
+    final QueryResult result = await _client
+        .mutate(MutationOptions(documentNode: gql(_query.getOrgId(itemIndex))));
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      return joinPublicOrg(context, orgName);
       exceptionToast(result.exception.toString().substring(16));
+      return joinPublicOrg(context, orgName);
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print("lag gye");
       exceptionToast(result.exception.toString().substring(16));
-      notifyListeners();
     } else if (!result.hasException && !result.loading) {
       joinedOrg =
           result.data['joinPublicOrganization']['joinedOrganizations'] as List;
-      notifyListeners();
+
       //set the default organization to the first one in the list
+
       if (joinedOrg.length == 1) {
         final String currentOrgId = result.data['joinPublicOrganization']
                 ['joinedOrganizations'][0]['_id']
@@ -349,10 +353,28 @@ class JoinOrgnizationViewModel extends BaseModel {
           }
         }
       }
-      successToast("Sucess!");
-      print("Success");
+      successToast("Success!");
       Navigator.pop(context);
+
+      // pushNewScreen(
+      //   context,
+      //   screen: const ProfilePage(),
+      // );
+      //Navigate user to newsfeed
+      // if (widget.fromProfile) {
+      //   pushNewScreen(
+      //     context,
+      //     screen: const ProfilePage(),
+      //   );
+      // } else {
+      //   Navigator.of(context).pushReplacement(
+      //     MaterialPageRoute(
+      //       builder: (context) => const HomePage(
+      //         openPageIndex: 4,
+      //       ),
+      //     ),
+      //   );
+      // }
     }
-    return false;
   }
 }

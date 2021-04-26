@@ -2,6 +2,7 @@ import 'dart:io';
 //flutter packages are imported here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 //Pages are imported here
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/page_view_model/join_organization_viewModel.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/widgets/loading.dart';
 import 'package:talawa/views/widgets/shared/search_input_widget.dart';
 
@@ -167,6 +169,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                   }
                   model.confirmOrgDialog(
                       organization['name'].toString(), index, context);
+                  // pushNewScreen(
+                  //   context,
+                  //   screen: const ProfilePage(),
+                  // );
                 },
                 child:
                     model.isLoaderActive == true && model.loadingIndex == index

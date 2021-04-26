@@ -36,7 +36,7 @@ Future<void> main() async {
     runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
-            create: (_) => locator<GraphQLConfiguration>()),
+            create: (_) => GraphQLConfiguration()),
         ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
