@@ -136,7 +136,8 @@ class _EventDetailState extends State<EventDetail>
       height: SizeConfig.safeBlockVertical * 5.5,
       child: Text(
         text,
-        style:  TextStyle(fontSize:SizeConfig.safeBlockVertical*2.5,color: Colors.white),
+        style: TextStyle(
+            fontSize: SizeConfig.safeBlockVertical * 2.5, color: Colors.white),
         overflow: TextOverflow.ellipsis,
       ),
     );
