@@ -1,8 +1,5 @@
 name: Workflow
-on:
-  pull_request:
-  issues:
-      types: ['opened']
+on: [pull_request, issues]
 
 jobs:
   greeting:
