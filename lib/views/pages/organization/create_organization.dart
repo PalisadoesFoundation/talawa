@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
@@ -14,7 +15,6 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
-import 'package:file_picker/file_picker.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -162,28 +162,19 @@ class _CreateOrganizationState extends State<CreateOrganization> {
     }
   }
 
-  _imgFromCamera() async {
-    //this is the function when the user want to capture the image from the camera
-    final PickedFile pickedImage = await ImagePicker()
-        .getImage(source: ImageSource.camera, imageQuality: 50);
-
-    final File image = File(pickedImage.path);
-
-    setState(() {
-      _image = image;
-    });
-  }
-
-  _imgFromGallery() async {
-    //this is the function when the user want to take the picture from the gallery
-    final File image = File(
-        (await FilePicker.platform.pickFiles(type: FileType.image))
-            .files
-            .first
-            .path);
-    setState(() {
-      _image = image;
-    });
+  //get image from camera and gallery based on the enum passed
+  _imgFrom({From pickFrom = From.none}) async {
+    File pickImageFile;
+    if (pickFrom != From.none) {
+      final PickedFile selectedImage = await ImagePicker().getImage(
+          source: pickFrom == From.camera
+              ? ImageSource.camera
+              : ImageSource.gallery);
+      pickImageFile = File(selectedImage.path);
+      setState(() {
+        _image = pickImageFile;
+      });
+    }
   }
 
   @override
@@ -503,7 +494,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                   leading: const Icon(Icons.camera_alt_outlined),
                   title: const Text('Camera'),
                   onTap: () {
-                    _imgFromCamera();
+                    _imgFrom(pickFrom: From.camera);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -512,7 +503,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                     leading: const Icon(Icons.photo_library),
                     title: const Text('Photo Library'),
                     onTap: () {
-                      _imgFromGallery();
+                      _imgFrom(pickFrom: From.gallery);
                       Navigator.of(context).pop();
                     }),
               ],

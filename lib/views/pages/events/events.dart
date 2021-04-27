@@ -158,7 +158,10 @@ class _EventsState extends State<Events> {
   Future<void> _deleteEvent(BuildContext context, String eventId) async {
     showProgress(context, 'Deleting Event . . .', isDismissible: false);
     final String mutation = Queries().deleteEvent(eventId);
-    await apiFunctions.gqlquery(mutation);
+    final Map result = await apiFunctions.gqlquery(mutation);
+    if (result["exception"] != null) {
+      _exceptionToast("Could not delete event! Please try again later");
+    }
     await getEvents();
     hideProgress();
   }
