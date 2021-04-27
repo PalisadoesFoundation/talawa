@@ -167,7 +167,7 @@ class _OrganisationTileState extends State<OrganisationTile> {
                 } else if (isPublic == 'false') {
                   await Provider.of<OrgController>(ctx, listen: false)
                       .joinPrivateOrg(
-                    ctx,
+                    context,
                     widget.fToast,
                     organizationId,
                     fromProfile: widget.fromProfile,
