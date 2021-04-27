@@ -246,7 +246,7 @@ class NewsFeed extends StatelessWidget {
             if (post['likeCount'] != 0) {
               if (isPostLiked == false) {
                 //If user has not liked the post addLike().
-                Provider.of<PostProvider>(context)
+                Provider.of<PostProvider>(context, listen: false)
                     .addLike(post['_id'].toString());
               } else {
                 Provider.of<PostProvider>(context, listen: false)
