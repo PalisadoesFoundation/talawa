@@ -1,7 +1,6 @@
 //Flutter Packages are imported here
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 
 //Pages are imported here
 import 'package:provider/provider.dart';
