@@ -108,7 +108,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const HomePage(
-                  openPageIndex: 2,
+                  openPageIndex: 4,
                 )));
       }
     }
@@ -156,7 +156,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const HomePage(
-                  openPageIndex: 2,
+                  openPageIndex: 4,
                 )));
       }
     }

@@ -21,9 +21,6 @@ class NewsFeed extends StatelessWidget {
 
   /// Get the list of posts
   Future<void> getPostsList(BuildContext context) async {
-    if (!Provider.of<PostProvider>(context, listen: false).isPostEmpty) {
-      return;
-    }
     await Provider.of<PostProvider>(context, listen: false).getPosts();
   }
 
