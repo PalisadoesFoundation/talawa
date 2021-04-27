@@ -49,7 +49,7 @@ class _EventsState extends State<Events> {
   Future<void> events;
   Timer timer = Timer();
   String userId;
-  ScrollController listScrollController  = ScrollController();
+  ScrollController listScrollController = ScrollController();
 
   FToast fToast;
 
@@ -316,33 +316,30 @@ class _EventsState extends State<Events> {
                                           return TimelineModel(
                                             Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Container(
                                                   padding: EdgeInsets.symmetric(
                                                       vertical: SizeConfig
-                                                          .safeBlockVertical *
+                                                              .safeBlockVertical *
                                                           0.625),
                                                   child: Text(
                                                     '${displayedEvents.length} Events',
                                                     style: const TextStyle(
-                                                        color:
-                                                        Colors.black45),
+                                                        color: Colors.black45),
                                                   ),
                                                 ),
                                                 eventCard(index)
                                               ],
                                             ),
                                             iconBackground:
-                                            UIData.secondaryColor,
+                                                UIData.secondaryColor,
                                           );
                                         }
                                         return TimelineModel(
                                           eventCard(index),
-                                          iconBackground:
-                                          UIData.secondaryColor,
-                                          position:
-                                          TimelineItemPosition.right,
+                                          iconBackground: UIData.secondaryColor,
+                                          position: TimelineItemPosition.right,
                                         );
                                       },
                                     ),
@@ -383,22 +380,6 @@ class _EventsState extends State<Events> {
         headerStyle: const HeaderStyle(
           formatButtonShowsNext: false,
         ),
-        /*onDaySelected: (day, events) {
-          String carouselDay = DateFormat.yMMMd('en_US').format(day);
-          if (timer.isSameDay(day, now)) {
-            carouselDay = 'Today';
-          }
-          carouselController.animateToPage(1);
-          setState(() {
-            _calendarController.setSelectedDay(day);
-            dateSelected = carouselDay;
-          });
-          List currentevents = filterEventsByDay(day, events);
-          setState(() {
-            currentFilterEvents = currentevents;
-            displayedEvents = currentevents;
-          });
-        },*/
         events: thisMonthsEvents as Map<DateTime, List<dynamic>>,
         calendarController: _calendarController,
       ),
@@ -501,11 +482,6 @@ class _EventsState extends State<Events> {
               displayedEvents[index]['isRegistered'] as bool
                   ? menueText('You Are Registered')
                   : menueText('You Are Not Registered'),
-              // menueText('Starts: ' +
-              //     DateFormat.jm('en_US')
-              //         .format(DateTime.fromMicrosecondsSinceEpoch(
-              //             int.parse(displayedEvents[index]['startTime'])))
-              //         .toString()),
               ListTile(
                 trailing: ElevatedButton(
                   style: ButtonStyle(
