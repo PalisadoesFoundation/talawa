@@ -26,7 +26,6 @@ dependencies:
   data_connection_checker: ^0.3.4
   datetime_picker_formfield: ^1.0.0
   email_validator: ^1.0.4
-  file_picker: any
   filter_list: ^0.0.4
   flutter:
     sdk: flutter

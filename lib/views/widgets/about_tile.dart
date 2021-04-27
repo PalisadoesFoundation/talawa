@@ -1,6 +1,7 @@
 //flutter package imported
 import 'package:flutter/material.dart';
 import 'package:talawa/utils/package_info.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 
 //pages are imported here
 import 'package:talawa/utils/uidata.dart';
@@ -29,16 +30,16 @@ class _MyAboutTileState extends State<MyAboutTile> {
     return AboutListTile(
       // ignore: sized_box_for_whitespace
       applicationIcon: Container(
-        width: 50,
-        height: 50,
+        width: SizeConfig.safeBlockHorizontal * 12.5,
+        height: SizeConfig.safeBlockVertical * 6.25,
         child: Image.asset('assets/images/talawaLogo-dark.png'),
       ),
       icon: Image.asset('assets/images/talawaLogo-dark.png'),
-      aboutBoxChildren: const <Widget>[
+      aboutBoxChildren: <Widget>[
         SizedBox(
-          height: 10.0,
+          height: SizeConfig.safeBlockVertical * 1.25,
         ),
-        Text(
+        const Text(
           "Collaborative",
         ),
       ],

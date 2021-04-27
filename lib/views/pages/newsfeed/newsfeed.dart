@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/newsfeed_controller.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/newsfeed/add_post.dart';
 import 'package:talawa/views/pages/newsfeed/news_article.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -60,7 +61,9 @@ class NewsFeed extends StatelessWidget {
                                             .getPostList[index] as Map;
 
                                     return Container(
-                                      padding: const EdgeInsets.only(top: 20),
+                                      padding: EdgeInsets.only(
+                                          top: SizeConfig.safeBlockVertical *
+                                              2.5),
                                       child: Column(
                                         children: <Widget>[
                                           InkWell(
@@ -68,7 +71,9 @@ class NewsFeed extends StatelessWidget {
                                               pushNewScreen(
                                                 context,
                                                 screen: NewsArticle(
-                                                    post: post, index: index),
+                                                  post: post,
+                                                  index: index,
+                                                ),
                                               );
                                             },
                                             child: Card(
@@ -88,8 +93,10 @@ class NewsFeed extends StatelessWidget {
                                                                 .shoppingImage),
                                                       )),
                                                   Row(children: <Widget>[
-                                                    const SizedBox(
-                                                      width: 30,
+                                                    SizedBox(
+                                                      width: SizeConfig
+                                                              .safeBlockHorizontal *
+                                                          7.5,
                                                     ),
                                                     // ignore: avoid_unnecessary_containers
                                                     Container(
@@ -102,20 +109,24 @@ class NewsFeed extends StatelessWidget {
                                                       ),
                                                     )),
                                                   ]),
-                                                  const SizedBox(
-                                                    height: 10,
+                                                  SizedBox(
+                                                    height: SizeConfig
+                                                            .safeBlockVertical *
+                                                        1.25,
                                                   ),
                                                   Row(children: <Widget>[
-                                                    const SizedBox(
-                                                      width: 30,
+                                                    SizedBox(
+                                                      width: SizeConfig
+                                                              .safeBlockHorizontal *
+                                                          7.5,
                                                     ),
                                                     // ignore: sized_box_for_whitespace
                                                     Container(
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width -
-                                                            50,
+                                                        width: SizeConfig
+                                                                .screenWidth -
+                                                            SizeConfig
+                                                                    .safeBlockHorizontal *
+                                                                12.5,
                                                         child: Text(
                                                           post["text"]
                                                               .toString(),
@@ -143,7 +154,10 @@ class NewsFeed extends StatelessWidget {
                                                                 post, context),
                                                             commentCounter(post,
                                                                 index, context),
-                                                            Container(width: 80)
+                                                            Container(
+                                                                width: SizeConfig
+                                                                        .safeBlockHorizontal *
+                                                                    20)
                                                           ])),
                                                 ],
                                               ),

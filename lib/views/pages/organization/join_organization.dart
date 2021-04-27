@@ -7,6 +7,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/organization/Join-Organization-Widgets/org_body.dart';
@@ -108,8 +109,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: SizeConfig.safeBlockVertical * 2,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -151,7 +152,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  SizedBox(height: SizeConfig.safeBlockVertical * 2),
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.symmetric(
