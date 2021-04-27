@@ -99,7 +99,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Sucess!");
+      _successToast("Success!");
       print(result.data);
 
       if (widget.isFromProfile) {
