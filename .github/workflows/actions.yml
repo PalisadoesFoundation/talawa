@@ -1,0 +1,10 @@
+name: Experiment
+
+jobs:
+  greeting:
+  package-analysis:
+    needs: greeting
+  count-lines-of-code:
+    needs: [greeting, package-analysis]
+  build:
+    needs: [greeting, package-analysis, count-lines-of-code]
