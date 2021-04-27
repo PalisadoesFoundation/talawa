@@ -2,7 +2,6 @@ name: Workflow
 on: [pull_request, issues]
 
 jobs:
-
   greeting:
     runs-on: ubuntu-latest
     steps:
@@ -31,3 +30,12 @@ jobs:
       - uses: actions/checkout@v2
       - run: chmod +x ./.github/workflows/countline.sh
       - run: ./.github/workflows/countline.sh 300
+
+  opened-issues:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Renato66/auto-label@v2.2.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          ignore-comments: true
+          default-labels: '["unapproved"]'
