@@ -31,7 +31,7 @@ Than the error message will be displayed
 Empty lines are not counted as part of the file size
 """
 if isLineRuleVoilated != 0:
-    msg = "Below " + str(fileCount) + " files have more than 300 lines"
+    msg = "Above " + str(fileCount) + " files have more than 300 lines"
     print(msg)
     sys.exit(1)
 else:
