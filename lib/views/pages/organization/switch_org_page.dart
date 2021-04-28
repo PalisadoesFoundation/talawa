@@ -6,8 +6,8 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/home_page.dart';
@@ -72,9 +72,9 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   //this method allows user to change the organization if he wants to
   Future switchOrg() async {
     if (userOrg[isSelected]['_id'] == orgId) {
-      Fluttertoast.showToast(
-          msg: "Switched to ${userOrg[isSelected]['name']}",
-          backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(
+        msg: "Switched to ${userOrg[isSelected]['name']}",
+      );
 
       //Kill all previous stacked screen
       // Navigator.of(context).popUntil(ModalRoute.withName("/"));
@@ -92,13 +92,13 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
           MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
       if (result.hasException) {
         print(result.exception);
-        Fluttertoast.showToast(
-            msg: result.exception.toString(),
-            backgroundColor: UIData.toastErrorColor);
+        CustomToast.exceptionToast(
+          msg: result.exception.toString(),
+        );
       } else if (!result.hasException) {
-        Fluttertoast.showToast(
-            msg: "Switched to ${result.data['organizations'][0]['name']}",
-            backgroundColor: UIData.toastSucessColor);
+        CustomToast.sucessToast(
+          msg: "Switched to ${result.data['organizations'][0]['name']}",
+        );
 
         //save new current org in preference
         final String currentOrgId =

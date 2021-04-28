@@ -1,6 +1,5 @@
 //flutter packages are imported  here
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -8,10 +7,10 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
-import 'package:talawa/utils/uidata.dart';
 
 class AcceptRequestsPage extends StatefulWidget {
   @override
@@ -58,9 +57,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       });
 
       if (membershipRequestsList.isEmpty) {
-        Fluttertoast.showToast(
-            msg: 'You have no new requests.',
-            backgroundColor: UIData.toastErrorColor);
+        CustomToast.exceptionToast(
+          msg: 'You have no new requests.',
+        );
       }
     }
   }
@@ -83,15 +82,16 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       setState(() {
         processing = false;
       });
-      Fluttertoast.showToast(
-          msg: result.exception.toString().substring(16),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString().substring(16),
+      );
     } else if (!result.hasException) {
       setState(() {
         processing = false;
       });
-      Fluttertoast.showToast(
-          msg: 'Success', backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(
+        msg: 'Success',
+      );
       viewMemberShipRequests();
     }
   }
@@ -114,15 +114,16 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       setState(() {
         processing = false;
       });
-      Fluttertoast.showToast(
-          msg: result.exception.toString().substring(16),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString().substring(16),
+      );
     } else if (!result.hasException) {
       setState(() {
         processing = false;
       });
-      Fluttertoast.showToast(
-          msg: 'Success', backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(
+        msg: 'Success',
+      );
       viewMemberShipRequests();
     }
   }

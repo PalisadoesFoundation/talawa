@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/timer.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -158,9 +159,9 @@ class _EventsState extends State<Events> {
     final String mutation = Queries().deleteEvent(eventId);
     final Map result = await apiFunctions.gqlquery(mutation);
     if (result["exception"] != null) {
-      Fluttertoast.showToast(
-          msg: "Could not delete event! Please try again later",
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: "Could not delete event! Please try again later",
+      );
     }
     await getEvents();
     hideProgress();
@@ -251,9 +252,9 @@ class _EventsState extends State<Events> {
                       try {
                         await getEvents();
                       } catch (e) {
-                        Fluttertoast.showToast(
-                            msg: e.toString(),
-                            backgroundColor: UIData.toastErrorColor);
+                        CustomToast.exceptionToast(
+                          msg: e.toString(),
+                        );
                       }
                     },
                     child: CustomScrollView(
@@ -285,9 +286,9 @@ class _EventsState extends State<Events> {
                       try {
                         await getEvents();
                       } catch (e) {
-                        Fluttertoast.showToast(
-                            msg: e.toString(),
-                            backgroundColor: UIData.toastErrorColor);
+                        CustomToast.exceptionToast(
+                          msg: e.toString(),
+                        );
                       }
                     },
                     child: Container(

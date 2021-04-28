@@ -1,12 +1,12 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/api_functions.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 
@@ -36,9 +36,9 @@ class _AddEventTaskState extends State<AddEventTask> {
 
     final Map<dynamic, dynamic> result = await apiFunctions.gqlquery(mutation);
     if (result["exception"] != null) {
-      Fluttertoast.showToast(
-          msg: "Failed to add task!Try again later",
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: "Failed to add task!Try again later",
+      );
     }
   }
 

@@ -1,6 +1,5 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -10,6 +9,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -57,9 +57,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       setState(() {
         processing = false;
       });
-      Fluttertoast.showToast(
-          msg: result.exception.toString().substring(16),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString().substring(16),
+      );
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
       setState(() {
@@ -85,9 +85,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
           .saveCurrentOrgName(newOrgName);
       Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgId(newOrgId);
-      Fluttertoast.showToast(
-          msg: 'You are no longer apart of this organization',
-          backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(
+        msg: 'You are no longer apart of this organization',
+      );
       pushNewScreen(
         context,
         screen: const ProfilePage(),
@@ -121,9 +121,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
-      Fluttertoast.showToast(
-          msg: 'Successfully Removed Organization',
-          backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(
+        msg: 'Successfully Removed Organization',
+      );
       setState(() {
         remaindingOrg =
             result.data['removeOrganization']['joinedOrganizations'] as List;
@@ -256,9 +256,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         ),
                         onTap: () async {
                           if (!widget.creator) {
-                            Fluttertoast.showToast(
-                                msg: 'Creator can only remove organization',
-                                backgroundColor: UIData.toastErrorColor);
+                            CustomToast.exceptionToast(
+                              msg: 'Creator can only remove organization',
+                            );
                           }
                           showDialog(
                               context: context,

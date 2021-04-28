@@ -7,6 +7,7 @@ import 'package:talawa/services/queries_.dart';
 //pages are called here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
@@ -132,9 +133,9 @@ class _AddEventState extends State<AddEvent> {
     );
     print('Result is : $result');
     if (result == null) {
-      Fluttertoast.showToast(
-          msg: "Could not create event! Please Try Again later!",
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: "Could not create event! Please Try Again later!",
+      );
     }
   }
 

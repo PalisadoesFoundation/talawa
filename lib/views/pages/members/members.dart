@@ -2,13 +2,13 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -119,9 +119,9 @@ class _OrganizationsState extends State<Organizations> {
                       try {
                         await getMembers();
                       } catch (e) {
-                        Fluttertoast.showToast(
-                            msg: e.toString(),
-                            backgroundColor: UIData.toastErrorColor);
+                        CustomToast.exceptionToast(
+                          msg: e.toString(),
+                        );
                       }
                     },
                     child: Center(
@@ -144,9 +144,9 @@ class _OrganizationsState extends State<Organizations> {
                           try {
                             await getMembers();
                           } catch (e) {
-                            Fluttertoast.showToast(
-                                msg: e.toString(),
-                                backgroundColor: UIData.toastErrorColor);
+                            CustomToast.exceptionToast(
+                              msg: e.toString(),
+                            );
                           }
                         },
                         child: const Text("Refresh"),
@@ -157,9 +157,9 @@ class _OrganizationsState extends State<Organizations> {
                       try {
                         await getMembers();
                       } catch (e) {
-                        Fluttertoast.showToast(
-                            msg: e.toString(),
-                            backgroundColor: UIData.toastErrorColor);
+                        CustomToast.exceptionToast(
+                          msg: e.toString(),
+                        );
                       }
                     },
                     child: CustomScrollView(

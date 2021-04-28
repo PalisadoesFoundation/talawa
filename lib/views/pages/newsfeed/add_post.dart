@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/post_provider.dart';
 
 //pages are called here
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class AddPost extends StatefulWidget {
@@ -53,9 +53,9 @@ class _AddPostState extends State<AddPost> {
       Provider.of<PostProvider>(context, listen: false).getPosts();
       Navigator.pop(context, true);
     } else {
-      Fluttertoast.showToast(
-          msg: result.toString().substring(16),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.toString().substring(16),
+      );
     }
     return result;
   }

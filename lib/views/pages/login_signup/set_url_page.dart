@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_logs/flutter_logs.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/loghelper.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -67,9 +67,9 @@ class _UrlPageState extends State<UrlPage>
       LogHelper().log(LogLevel.ERROR, widget.toStringShort(), "checkAndSetUrl",
           "Incorrect Oraganization",
           exception: e as Exception);
-      Fluttertoast.showToast(
-          msg: 'Incorrect Organization Entered',
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: 'Incorrect Organization Entered',
+      );
       LogHelper().exportLogs();
     }
 

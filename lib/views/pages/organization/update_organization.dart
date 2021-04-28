@@ -7,11 +7,11 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/widgets/text_field_decoration.dart';
 
@@ -87,15 +87,14 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       setState(() {
         _progressBarState = false;
       });
-      Fluttertoast.showToast(
-          msg: result.exception.toString().substring(16),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString().substring(16),
+      );
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      Fluttertoast.showToast(
-          msg: "Success!", backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(msg: "Success!");
       pushNewScreen(
         context,
         screen: const ProfilePage(),
@@ -243,9 +242,9 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                                     toggleProgressBarState();
                                   });
                                 } else if (radioValue < 0 || radioValue1 < 0) {
-                                  Fluttertoast.showToast(
-                                      msg: "A choice must be selected",
-                                      backgroundColor: UIData.toastErrorColor);
+                                  CustomToast.exceptionToast(
+                                    msg: "A choice must be selected",
+                                  );
                                 }
                               },
                               child: _progressBarState

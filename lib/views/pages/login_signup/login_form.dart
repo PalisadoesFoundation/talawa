@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -15,7 +16,6 @@ import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/home_page.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../_pages.dart';
 
@@ -61,24 +61,23 @@ class LoginFormState extends State<LoginForm> {
       setState(() {
         _progressBarState = false;
       });
-      Fluttertoast.showToast(
-          msg: 'Connection Error. Make sure your Internet connection is stable',
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: 'Connection Error. Make sure your Internet connection is stable',
+      );
     } else if (result.hasException) {
       print(result.exception);
       setState(() {
         _progressBarState = false;
       });
 
-      Fluttertoast.showToast(
-          msg: result.exception.toString().substring(16, 35),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString().substring(16, 35),
+      );
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      Fluttertoast.showToast(
-          msg: "All Set!", backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(msg: "All Set!");
       final Token accessToken =
           Token(tokenString: result.data['login']['accessToken'].toString());
       await _pref.saveToken(accessToken);

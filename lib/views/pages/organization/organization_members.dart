@@ -1,7 +1,6 @@
 //flutter imported packages
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -9,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -57,9 +57,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     if (result.hasException) {
       print(result.exception);
       //showError(result.exception.toString());
-      Fluttertoast.showToast(
-          msg: result.exception.toString(),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString(),
+      );
     } else if (!result.hasException) {
       result.data['organizations'][0]['admins']
           .forEach((admin) => adminsList.add(admin['_id']));
@@ -69,9 +69,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         membersList = result.data['organizations'][0]['members'] as List;
       });
       if (membersList.length == 1) {
-        Fluttertoast.showToast(
-            msg: 'You are alone here.',
-            backgroundColor: UIData.toastErrorColor);
+        CustomToast.exceptionToast(
+          msg: 'You are alone here.',
+        );
       }
     }
   }
@@ -93,9 +93,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       print(result.exception.toString().substring(16));
-      Fluttertoast.showToast(
-          msg: result.exception.toString(),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString(),
+      );
       setState(() {
         processing = false;
       });
@@ -104,9 +104,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       setState(() {
         processing = false;
       });
-      Fluttertoast.showToast(
-          msg: 'Member(s) removed successfully',
-          backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(msg: 'Member(s) removed successfully');
       viewMembers();
     }
   }
@@ -128,9 +126,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       } else if (result.hasException &&
           result.exception.toString().substring(16) != accessTokenException) {
         print(result.exception.toString().substring(16));
-        Fluttertoast.showToast(
-            msg: "Something went wrong!Try again later",
-            backgroundColor: UIData.toastErrorColor);
+        CustomToast.exceptionToast(
+          msg: "Something went wrong!Try again later",
+        );
         setState(() {
           processing = false;
         });
@@ -139,13 +137,13 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         setState(() {
           processing = false;
         });
-        Fluttertoast.showToast(
-            msg: 'Admin created', backgroundColor: UIData.toastSucessColor);
+        CustomToast.sucessToast(
+          msg: 'Admin created',
+        );
         viewMembers();
       }
     } else {
-      Fluttertoast.showToast(
-          msg: 'Already an admin', backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(msg: 'Already an admin');
     }
   }
 
@@ -157,9 +155,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
           selectedMembers.add('"$memberId"');
         });
       } else {
-        Fluttertoast.showToast(
-            msg: "Can't select admins",
-            backgroundColor: UIData.toastErrorColor);
+        CustomToast.exceptionToast(
+          msg: "Can't select admins",
+        );
       }
     } else {
       setState(() {
@@ -264,9 +262,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                           "Are you sure you want to make selected member and admin?",
                           addAdmin);
                     } else {
-                      Fluttertoast.showToast(
-                          msg: 'You can make one admin at a time',
-                          backgroundColor: UIData.toastErrorColor);
+                      CustomToast.exceptionToast(
+                        msg: 'You can make one admin at a time',
+                      );
                     }
                   }
                 },

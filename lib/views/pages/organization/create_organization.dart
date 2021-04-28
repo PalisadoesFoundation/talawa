@@ -8,6 +8,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -86,15 +87,16 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       setState(() {
         _progressBarState = false;
       });
-      Fluttertoast.showToast(
-          msg: result.exception.toString(),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString(),
+      );
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      Fluttertoast.showToast(
-          msg: "Sucess!", backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(
+        msg: "Sucess!",
+      );
       print(result.data);
 
       if (widget.isFromProfile) {
@@ -138,15 +140,14 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       setState(() {
         _progressBarState = false;
       });
-      Fluttertoast.showToast(
-          msg: result.exception.toString(),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString(),
+      );
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      Fluttertoast.showToast(
-          msg: "Sucess!", backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(msg: "Sucess!");
       print(result.data);
       if (widget.isFromProfile) {
         Navigator.pop(context);
@@ -426,10 +427,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                     });
                                   } else if (radioValue < 0 ||
                                       radioValue1 < 0) {
-                                    Fluttertoast.showToast(
-                                        msg: "A choice must be selected",
-                                        backgroundColor:
-                                            UIData.toastErrorColor);
+                                    CustomToast.exceptionToast(
+                                      msg: "A choice must be selected",
+                                    );
                                   }
                                 },
                         ),

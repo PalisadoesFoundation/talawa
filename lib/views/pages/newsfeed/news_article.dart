@@ -12,6 +12,7 @@ import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -85,9 +86,9 @@ class _NewsArticleState extends State<NewsArticle> {
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
-      Fluttertoast.showToast(
-          msg: result.exception.toString(),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString(),
+      );
     } else if (!result.hasException) {
       //print(result);
       setState(() {

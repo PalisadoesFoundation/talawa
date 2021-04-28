@@ -10,11 +10,11 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/widgets/loading.dart';
@@ -149,14 +149,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       return joinPrivateOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      Fluttertoast.showToast(
-          msg: result.exception.toString().substring(16),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString().substring(16),
+      );
     } else if (!result.hasException && !result.loading) {
       print(result.data);
-      Fluttertoast.showToast(
-          msg: "Request Sent to Organization Admin",
-          backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(
+        msg: "Request Sent to Organization Admin",
+      );
 
       if (widget.fromProfile) {
         Navigator.pop(context);
@@ -182,14 +182,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      Fluttertoast.showToast(
-          msg: result.exception.toString().substring(16),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString().substring(16),
+      );
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      Fluttertoast.showToast(
-          msg: result.exception.toString().substring(16),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString().substring(16),
+      );
     } else if (!result.hasException && !result.loading) {
       setState(() {
         joinedOrg = result.data['joinPublicOrganization']['joinedOrganizations']
@@ -231,8 +231,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
           }
         }
       }
-      Fluttertoast.showToast(
-          msg: "Success!", backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(msg: "Success!");
 
       //Navigate user to newsfeed
       if (widget.fromProfile) {

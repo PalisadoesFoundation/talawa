@@ -1,11 +1,11 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:provider/provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/services/preferences.dart';
@@ -130,9 +130,9 @@ class _GroupsState extends State<Groups> {
                               try {
                                 getEvents();
                               } catch (e) {
-                                Fluttertoast.showToast(
-                                    msg: e.toString(),
-                                    backgroundColor: UIData.toastErrorColor);
+                                CustomToast.exceptionToast(
+                                  msg: e.toString(),
+                                );
                               }
                             });
                           },
@@ -146,9 +146,9 @@ class _GroupsState extends State<Groups> {
                 try {
                   await getEvents();
                 } catch (e) {
-                  Fluttertoast.showToast(
-                      msg: e.toString(),
-                      backgroundColor: UIData.toastErrorColor);
+                  CustomToast.exceptionToast(
+                    msg: e.toString(),
+                  );
                 }
               },
               //List of chat groups

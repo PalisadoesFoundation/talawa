@@ -9,6 +9,7 @@ import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -19,7 +20,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 
 //pubspec packages are called here
@@ -78,9 +78,9 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      Fluttertoast.showToast(
-          msg: result.hasException.toString().substring(16, 35),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.hasException.toString().substring(16, 35),
+      );
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -124,9 +124,9 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      Fluttertoast.showToast(
-          msg: result.exception.toString().substring(16, 35),
-          backgroundColor: UIData.toastErrorColor);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString().substring(16, 35),
+      );
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;

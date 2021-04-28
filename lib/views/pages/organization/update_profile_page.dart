@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +7,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -81,21 +81,20 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         _progressBarState = false;
       });
       if (result.exception.clientException != null) {
-        Fluttertoast.showToast(
-            msg: result.exception.clientException.message,
-            backgroundColor: UIData.toastErrorColor);
+        CustomToast.exceptionToast(
+          msg: result.exception.clientException.message,
+        );
       } else {
-        Fluttertoast.showToast(
-            msg: result.exception.graphqlErrors.first.message,
-            backgroundColor: UIData.toastErrorColor);
+        CustomToast.exceptionToast(
+          msg: result.exception.graphqlErrors.first.message,
+        );
       }
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = false;
       });
 
-      Fluttertoast.showToast(
-          msg: 'Profile Updated', backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(msg: 'Profile Updated');
 
       Navigator.of(context).popUntil(ModalRoute.withName("/"));
 
@@ -153,21 +152,20 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         _progressBarState = false;
       });
       if (result.exception.clientException != null) {
-        Fluttertoast.showToast(
-            msg: result.exception.clientException.message,
-            backgroundColor: UIData.toastErrorColor);
+        CustomToast.exceptionToast(
+          msg: result.exception.clientException.message,
+        );
       } else {
-        Fluttertoast.showToast(
-            msg: result.exception.graphqlErrors.first.message,
-            backgroundColor: UIData.toastErrorColor);
+        CustomToast.exceptionToast(
+          msg: result.exception.graphqlErrors.first.message,
+        );
       }
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = false;
       });
 
-      Fluttertoast.showToast(
-          msg: 'Profile Updated', backgroundColor: UIData.toastSucessColor);
+      CustomToast.sucessToast(msg: 'Profile Updated');
 
       //Navigate to home screen
       Navigator.of(context).popUntil(ModalRoute.withName("/"));
