@@ -1,7 +1,6 @@
 //flutter imported packages
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -16,7 +15,6 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 class OrganizationMembers extends StatefulWidget {
   @override

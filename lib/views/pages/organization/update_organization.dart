@@ -12,10 +12,8 @@ import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/widgets/text_field_decoration.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 class UpdateOrganization extends StatefulWidget {
   const UpdateOrganization(

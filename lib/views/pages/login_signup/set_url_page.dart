@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_logs/flutter_logs.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';

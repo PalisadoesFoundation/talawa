@@ -1,5 +1,4 @@
 //flutter packages are called here
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +15,6 @@ import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/home_page.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../_pages.dart';
 

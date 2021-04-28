@@ -12,7 +12,6 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
 import 'package:talawa/views/widgets/show_progress.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 // ignore: must_be_immutable
 class EditEvent extends StatefulWidget {

@@ -1,6 +1,5 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -18,7 +17,6 @@ import 'package:talawa/views/pages/organization/accept_requests_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/pages/organization/organization_members.dart';
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 import 'update_organization.dart';
 
 class OrganizationSettings extends StatefulWidget {

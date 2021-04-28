@@ -1,7 +1,6 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:talawa/services/queries_.dart';
@@ -10,7 +9,6 @@ import 'package:intl/intl.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 // ignore: must_be_immutable
 class AddEventTask extends StatefulWidget {
