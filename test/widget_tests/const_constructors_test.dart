@@ -6,14 +6,12 @@ import 'package:talawa/views/widgets/about_tile.dart';
 void main() {
   testWidgets("check const constructor", (tester) async {
     await tester.pumpWidget(MaterialApp(
-      home: Builder(
-        builder: (ctx){
-          SizeConfig().init(ctx);
-          return Scaffold(
-            body: MyAboutTile(),
-          );
-        }
-      ),
+      home: Builder(builder: (ctx) {
+        SizeConfig().init(ctx);
+        return Scaffold(
+          body: MyAboutTile(),
+        );
+      }),
     ));
     expect(find.byType(FlutterLogo), findsNothing);
     expect(find.byType(SizedBox), findsNothing);

@@ -37,16 +37,16 @@ Widget newsArticlePage() => MultiProvider(
       ],
       child: MaterialApp(
         home: Builder(
-          builder: (ctx){
+          builder: (ctx) {
             SizeConfig().init(ctx);
             return const NewsArticle(
-            index: 0,
-            post: {
-              '_id': '605259ecb1257f67811d7ae3',
-              'text': 'ndlnldwnl',
-              'title': 'naanlls'
-            },
-          );
+              index: 0,
+              post: {
+                '_id': '605259ecb1257f67811d7ae3',
+                'text': 'ndlnldwnl',
+                'title': 'naanlls'
+              },
+            );
           },
         ),
       ),
@@ -59,16 +59,15 @@ void main() {
 
   group("News Article Tests", () {
     testWidgets("Testing if newsArticle Page shows up", (tester) async {
-      await tester.runAsync(() async{
+      await tester.runAsync(() async {
+        await tester.pumpWidget(newsArticlePage());
 
-      await tester.pumpWidget(newsArticlePage());
+        /// Verify if [News Article Page] shows up.
 
-      /// Verify if [News Article Page] shows up.
-
-      expect(
-        find.byType(TextField),
-        findsOneWidget,
-      );
+        expect(
+          find.byType(TextField),
+          findsOneWidget,
+        );
       });
     });
 
@@ -77,16 +76,14 @@ void main() {
       binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.runAsync(() async{
+      await tester.runAsync(() async {
+        await tester.pumpWidget(newsArticlePage());
 
-      await tester.pumpWidget(newsArticlePage());
-
-      /// Verify if [News Article Page] shows up.
-
-      expect(
-        find.byType(TextField),
-        findsOneWidget,
-      );
+        /// Verify if [News Article Page] shows up.
+        expect(
+          find.byType(TextField),
+          findsOneWidget,
+        );
       });
     });
 
@@ -95,16 +92,14 @@ void main() {
       binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.runAsync(() async{
+      await tester.runAsync(() async {
+        await tester.pumpWidget(newsArticlePage());
 
-      await tester.pumpWidget(newsArticlePage());
-
-      /// Verify if [News Article Page] shows up.
-
-      expect(
-        find.byType(TextField),
-        findsOneWidget,
-      );
+        /// Verify if [News Article Page] shows up.
+        expect(
+          find.byType(TextField),
+          findsOneWidget,
+        );
       });
     });
 
@@ -117,7 +112,7 @@ void main() {
 
         // Tap on the loadCommentsButton.
         await tester.tap(loadCommentsButton);
-        await tester.pumpAndSettle();
+        await tester.pump();
 
         // Comments Icon Should be displayed.
         const iconKey = ValueKey('commentIcon');

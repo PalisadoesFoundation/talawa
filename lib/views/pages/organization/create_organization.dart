@@ -99,7 +99,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Sucess!");
+      _successToast("Success!");
       print(result.data);
 
       if (widget.isFromProfile) {
@@ -108,7 +108,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const HomePage(
-                  openPageIndex: 2,
+                  openPageIndex: 4,
                 )));
       }
     }
@@ -156,7 +156,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const HomePage(
-                  openPageIndex: 2,
+                  openPageIndex: 4,
                 )));
       }
     }

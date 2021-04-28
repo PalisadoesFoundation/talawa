@@ -232,7 +232,10 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       if (widget.fromProfile) {
         pushNewScreen(
           context,
-          screen: const ProfilePage(),
+          screen: const HomePage(
+            openPageIndex: 4,
+          ),
+          withNavBar: false,
         );
       } else {
         Navigator.of(context).pushReplacement(
