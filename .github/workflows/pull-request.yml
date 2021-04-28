@@ -26,7 +26,7 @@ jobs:
       - run: flutter format --set-exit-if-changed .
 
   Count-lines-of-code:
-    name: Total number of lines should not be more than 300
+    name: Total number of lines in every file should not be more than 300
     needs: Linter
     runs-on: ubuntu-latest
     steps:
