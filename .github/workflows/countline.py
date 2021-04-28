@@ -8,7 +8,8 @@ path = os.getcwd()
 
 #parses through files and saves to a dict
 fileNamesWithSize={}
-path = os.path.join(path, '**/*.dart')
+path = os.path.join(path, '**','*.dart')
+path = os.path.expanduser(path)
 
 for fn in glob.glob(pathname = path, recursive = True):
     with open(fn) as f:
