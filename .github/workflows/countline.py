@@ -19,9 +19,9 @@ for fn in glob.glob(pathname = pathName, recursive = True):
 
 condition = 0
 for k, v in names.items():
-    if v > 300:
+    if v > 1000:
         condition = 1
         print("{}: {}".format(k, v))
 
 if condition != 0:
-    sys.exit("Please keep the file size below 300 lines of code")
+    sys.exit("Please keep the following file size below 300 lines of code")
