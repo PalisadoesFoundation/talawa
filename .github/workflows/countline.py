@@ -7,17 +7,16 @@ import sys
 path = os.getcwd()
 
 #parses through files and saves to a dict
-names={}
-pathName = path + '/**/*.dart'
-for fn in glob.glob(pathname = pathName, recursive = True):
+fileNamesWithSize={}
+for fn in glob.glob(pathname = os.path.join(path, '**/*.dart'), recursive = True):
     with open(fn) as f:
-        names[fn]=sum(1 for line in f if line.strip() and not line.startswith('#'))    
+        fileNamesWithSize[fn]=sum(1 for line in f if line.strip() and not line.startswith('#'))    
 
 #if the line rule is voilated then value is changed to 1 
 isLineRuleVoilated = 0
 fileCount = 0
-for key, value in names.items():
-    if value > 1000:
+for key, value in fileNamesWithSize.items():
+    if value > 300:
         isLineRuleVoilated = 1
         fileCount += 1 
         print("{}: {}".format(key, value))
