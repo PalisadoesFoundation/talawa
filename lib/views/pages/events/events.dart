@@ -6,6 +6,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/timer.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -50,8 +51,6 @@ class _EventsState extends State<Events> {
   Timer timer = Timer();
   String userId;
   ScrollController listScrollController = ScrollController();
-
-  FToast fToast;
 
   //variable for organization Id
   String _currOrgId;
@@ -162,7 +161,8 @@ class _EventsState extends State<Events> {
     final String mutation = Queries().deleteEvent(eventId);
     final Map result = await apiFunctions.gqlquery(mutation);
     if (result["exception"] != null) {
-      _exceptionToast("Could not delete event! Please try again later");
+      CustomToast.exceptionToast(
+          msg: "Could not delete event! Please try again later");
     }
     await getEvents();
     hideProgress();
@@ -253,7 +253,7 @@ class _EventsState extends State<Events> {
                       try {
                         await getEvents();
                       } catch (e) {
-                        _exceptionToast(e.toString());
+                        CustomToast.exceptionToast(msg: e.toString());
                       }
                     },
                     child: CustomScrollView(
@@ -285,7 +285,7 @@ class _EventsState extends State<Events> {
                       try {
                         await getEvents();
                       } catch (e) {
-                        _exceptionToast(e.toString());
+                        CustomToast.exceptionToast(msg: e.toString());
                       }
                     },
                     child: Container(
@@ -586,29 +586,6 @@ class _EventsState extends State<Events> {
         Icons.add,
         color: Colors.white,
       ),
-    );
-  }
-
-  //function to show exceptions
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:talawa/services/queries_.dart';
 //pages are called here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
@@ -30,7 +31,6 @@ class _EditEventState extends State<EditEvent> {
       _validateDescription = false,
       _validateLocation = false;
   ApiFunctions apiFunctions = ApiFunctions();
-  FToast fToast;
 
   DateTimeRange dateRange = DateTimeRange(
       start: DateTime(
@@ -61,8 +61,6 @@ class _EditEventState extends State<EditEvent> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     getCurrentOrgId();
     print(widget.event);
     initevent();
@@ -164,7 +162,8 @@ class _EditEventState extends State<EditEvent> {
     );
     final Map result = await apiFunctions.gqlquery(mutation);
     if (result["exception"] != null) {
-      _exceptionToast("Could not update event! Please try again later");
+      CustomToast.exceptionToast(
+          msg: "Could not update event! Please try again later");
     }
     print('Result is : $result');
   }
@@ -366,17 +365,6 @@ class _EditEventState extends State<EditEvent> {
         Icons.check,
         color: Colors.white,
       ),
-    );
-  }
-
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(
-        msg: msg,
-        success: false,
-      ),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }

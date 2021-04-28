@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/services/preferences.dart';
@@ -30,7 +31,6 @@ class _GroupsState extends State<Groups> {
 
   // ignore: prefer_typing_uninitialized_variables
   var events;
-  FToast fToast;
 
   //variable for organization Id
   String _currOrgId;
@@ -131,7 +131,7 @@ class _GroupsState extends State<Groups> {
                               try {
                                 getEvents();
                               } catch (e) {
-                                _exceptionToast(e.toString());
+                                CustomToast.exceptionToast(msg: e.toString());
                               }
                             });
                           },
@@ -145,7 +145,7 @@ class _GroupsState extends State<Groups> {
                 try {
                   await getEvents();
                 } catch (e) {
-                  _exceptionToast(e.toString());
+                  CustomToast.exceptionToast(msg: e.toString());
                 }
               },
               //List of chat groups
@@ -181,29 +181,6 @@ class _GroupsState extends State<Groups> {
                     );
                   }),
             ),
-    );
-  }
-
-  //function to show exceptions
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
     );
   }
 }

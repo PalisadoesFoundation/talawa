@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/api_functions.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/toast_tile.dart';
@@ -26,7 +27,6 @@ class _AddEventTaskState extends State<AddEventTask> {
   ApiFunctions apiFunctions = ApiFunctions();
   DateTime selectedDate = DateTime.now();
   final _formkey = GlobalKey<FormState>();
-  FToast fToast;
 
   //function to add the task
   Future<void> addTask() async {
@@ -38,7 +38,7 @@ class _AddEventTaskState extends State<AddEventTask> {
 
     final Map<dynamic, dynamic> result = await apiFunctions.gqlquery(mutation);
     if (result["exception"] != null) {
-      _exceptionToast("Failed to add task!Try again later");
+      CustomToast.exceptionToast(msg: "Failed to add task!Try again later");
     }
   }
 
@@ -54,13 +54,6 @@ class _AddEventTaskState extends State<AddEventTask> {
         selectedDate = picked;
       });
     }
-  }
-
-  @override
-  void initState() {
-    fToast = FToast();
-    fToast.init(context);
-    super.initState();
   }
 
   //main build starts here
@@ -160,17 +153,6 @@ class _AddEventTaskState extends State<AddEventTask> {
                 borderSide: const BorderSide(color: Colors.teal)),
             hintText: name),
       ),
-    );
-  }
-
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(
-        msg: msg,
-        success: false,
-      ),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }
