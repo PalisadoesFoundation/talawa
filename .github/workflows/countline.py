@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 import glob
 import sys
@@ -8,7 +8,9 @@ path = os.getcwd()
 
 #parses through files and saves to a dict
 fileNamesWithSize={}
-for fn in glob.glob(pathname = os.path.join(path, '**/*.dart'), recursive = True):
+path = os.path.join(path, '**/*.dart')
+
+for fn in glob.glob(pathname = path, recursive = True):
     with open(fn) as f:
         fileNamesWithSize[fn]=sum(1 for line in f if line.strip() and not line.startswith('#'))    
 
