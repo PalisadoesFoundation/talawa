@@ -87,16 +87,12 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       setState(() {
         _progressBarState = false;
       });
-      CustomToast.exceptionToast(
-        msg: result.exception.toString(),
-      );
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      CustomToast.sucessToast(
-        msg: "Sucess!",
-      );
+      CustomToast.sucessToast(msg: "Success!");
       print(result.data);
 
       if (widget.isFromProfile) {
@@ -105,7 +101,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const HomePage(
-                  openPageIndex: 2,
+                  openPageIndex: 4,
                 )));
       }
     }
@@ -140,9 +136,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       setState(() {
         _progressBarState = false;
       });
-      CustomToast.exceptionToast(
-        msg: result.exception.toString(),
-      );
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -155,7 +149,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       } else {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const HomePage(
-                  openPageIndex: 2,
+                  openPageIndex: 4,
                 )));
       }
     }
@@ -409,7 +403,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                 ),
                           onPressed: _progressBarState
                               ? () {
-                                  Fluttertoast.showToast(
+                                  CustomToast.exceptionToast(
                                       msg: 'Request in Progress');
                                 }
                               : () async {
@@ -428,8 +422,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                   } else if (radioValue < 0 ||
                                       radioValue1 < 0) {
                                     CustomToast.exceptionToast(
-                                      msg: "A choice must be selected",
-                                    );
+                                        msg: "A choice must be selected");
                                   }
                                 },
                         ),

@@ -16,7 +16,6 @@ import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/utils/timer.dart';
 
 const String newLineKey = "@123TALAWA321@";
 
@@ -43,7 +42,6 @@ class _NewsArticleState extends State<NewsArticle> {
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   bool showLoadComments = false;
-  Timer timer = Timer();
   List comments = [];
   bool moreComments = false;
   bool isCommentAdded = false;
@@ -86,9 +84,7 @@ class _NewsArticleState extends State<NewsArticle> {
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
-      CustomToast.exceptionToast(
-        msg: result.exception.toString(),
-      );
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException) {
       //print(result);
       setState(() {
@@ -437,7 +433,6 @@ class _NewsArticleState extends State<NewsArticle> {
                         ),
                       ),
                       Text(commentTime(index)),
-                      // Text(timer.hoursOrDays(comments[index]['createdAt']))
                     ],
                   ),
                 );
