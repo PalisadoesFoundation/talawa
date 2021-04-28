@@ -17,11 +17,13 @@ class ToastTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(25.0),
         color: success ? Colors.green : Colors.red,
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
+      child: FittedBox(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(msg),
+          ],
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -14,18 +15,23 @@ import 'package:talawa/views/widgets/custom_appbar.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 class NewsFeed extends StatelessWidget {
+  const NewsFeed({this.isTest = false});
+
+  final bool isTest;
+
   /// Get the list of posts
   Future<void> getPostsList(BuildContext context) async {
-    if (!Provider.of<PostProvider>(context, listen: false).isPostEmpty) {
-      return;
-    }
     await Provider.of<PostProvider>(context, listen: false).getPosts();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar('NewsFeed', key: const Key('NEWSFEED_APP_BAR')),
+        appBar: CustomAppBar(
+          'NewsFeed',
+          key: const Key('NEWSFEED_APP_BAR'),
+          isTest: isTest,
+        ),
         floatingActionButton: addPostFab(context),
         body: FutureBuilder(
           future: getPostsList(context),
@@ -36,12 +42,17 @@ class NewsFeed extends StatelessWidget {
 
             return RefreshIndicator(
                 onRefresh: () async {
-                  await Provider.of<PostProvider>(context, listen: false)
-                      .getPosts();
+                  try {
+                    await Provider.of<PostProvider>(context, listen: false)
+                        .getPosts();
+                  } catch (e) {
+                    _exceptionToast(e.toString());
+                  }
                 },
                 child: Provider.of<PostProvider>(context).isPostEmpty
                     ? Center(
                         child: Loading(
+                        isTest: isTest,
                         isShowingError:
                             Provider.of<PostProvider>(context).isErrorOccurred,
                         key: UniqueKey(),
@@ -260,6 +271,28 @@ class NewsFeed extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+
+  _exceptionToast(String msg) {
+    final Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(msg),
+        ],
+      ),
+    );
+    FToast fToast;
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 1),
     );
   }
 }
