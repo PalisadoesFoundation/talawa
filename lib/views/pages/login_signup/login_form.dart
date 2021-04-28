@@ -16,6 +16,8 @@ import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/home_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/views/widgets/exception_toast.dart';
+import 'package:talawa/views/widgets/success_toast.dart';
 
 import '../_pages.dart';
 
@@ -64,7 +66,7 @@ class LoginFormState extends State<LoginForm> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(
+      const ExceptionToast(
           'Connection Error. Make sure your Internet connection is stable');
     } else if (result.hasException) {
       print(result.exception);
@@ -72,12 +74,12 @@ class LoginFormState extends State<LoginForm> {
         _progressBarState = false;
       });
 
-      _exceptionToast(result.exception.toString().substring(16, 35));
+      ExceptionToast(result.exception.toString().substring(16, 35));
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("All Set!");
+      const SuccessToast("All Set!");
       final Token accessToken =
           Token(tokenString: result.data['login']['accessToken'].toString());
       await _pref.saveToken(accessToken);
@@ -252,60 +254,6 @@ class LoginFormState extends State<LoginForm> {
             ),
           ],
         ));
-  }
-
-  //the method called when the result is success
-  _successToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 5,
-          vertical: SizeConfig.safeBlockVertical * 1.5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Center(child: Text(msg)),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  //the method called when the result is an exception
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 6,
-          vertical: SizeConfig.safeBlockVertical * 1.75),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-              child: Text(
-            msg,
-            textAlign: TextAlign.center,
-          )),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 5),
-    );
   }
 
   //function toggles _obscureText value

@@ -52,6 +52,7 @@ class _EventsState extends State<Events> {
   FToast fToast;
 
   //variable for organization Id
+  // ignore: unused_field
   String _currOrgId;
 
   @override

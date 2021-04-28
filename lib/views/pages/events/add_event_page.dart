@@ -1,7 +1,6 @@
 //flutter packages
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/queries_.dart';
 
 //pages are called here

@@ -29,7 +29,7 @@ class _AlertBoxState extends State<AlertBox> {
             widget.function();
             Navigator.pop(context);
           },
-          child: const Text("Yes"),
+          child: const Text("Confirm"),
         )
       ],
     );

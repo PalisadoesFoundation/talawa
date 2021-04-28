@@ -9,6 +9,7 @@ import 'package:talawa/utils/validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
+import 'package:talawa/views/widgets/exception_toast.dart';
 
 class UrlPage extends StatefulWidget {
   @override
@@ -68,7 +69,7 @@ class _UrlPageState extends State<UrlPage>
       LogHelper().log(LogLevel.ERROR, widget.toStringShort(), "checkAndSetUrl",
           "Incorrect Oraganization",
           exception: e as Exception);
-      _exceptionToast('Incorrect Organization Entered');
+      const ExceptionToast('Incorrect Organization Entered');
       LogHelper().exportLogs();
     }
 
@@ -93,7 +94,7 @@ class _UrlPageState extends State<UrlPage>
     });
   }
 
-  _exceptionToast(String msg) {
+  /* _exceptionToast(String msg) {
     final Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
       decoration: BoxDecoration(
@@ -120,7 +121,7 @@ class _UrlPageState extends State<UrlPage>
       toastDuration: const Duration(seconds: 5),
     );
   }
-
+ */
   void assignAnimation({@required bool firstTime}) {
     if (!firstTime) {
       animation = Tween(begin: 1.0, end: 1.0).animate(controller);
