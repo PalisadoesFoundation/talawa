@@ -13,4 +13,4 @@ jobs:
       - run: chmod +x ./.github/workflows/countline.py
       
       # Running the Script File with max no. of lines limit
-      - run: ./.github/workflows/countline.sh 300
+      - run: ./.github/workflows/countline.py 300
