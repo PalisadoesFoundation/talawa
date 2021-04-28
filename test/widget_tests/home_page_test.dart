@@ -121,15 +121,17 @@ void main() {
     });
 
     testWidgets('Testing if Profile Page Shows up', (tester) async {
-      await tester.pumpWidget(createHomePageScreen());
-      //checking if newsfeed page is present
-      expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
-      expect(find.byKey(const Key('PROFILE_PAGE_SCAFFOLD')), findsNothing);
-      final folderIcon = find.byIcon(Icons.folder);
-      await tester.tap(folderIcon);
-      await tester.pump();
-      //profile page should show up
-      expect(find.byKey(const Key('PROFILE_PAGE_SCAFFOLD')), findsOneWidget);
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createHomePageScreen());
+        //checking if newsfeed page is present
+        expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
+        expect(find.byKey(const Key('PROFILE_PAGE_SCAFFOLD')), findsNothing);
+        final folderIcon = find.byIcon(Icons.folder);
+        await tester.tap(folderIcon);
+        await tester.pump();
+        //profile page should show up
+        expect(find.byKey(const Key('PROFILE_PAGE_SCAFFOLD')), findsOneWidget);
+      });
     });
   });
 }
