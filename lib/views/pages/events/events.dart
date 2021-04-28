@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
@@ -48,6 +49,7 @@ class _EventsState extends State<Events> {
   Future<void> events;
   Timer timer = Timer();
   String userId;
+  ScrollController listScrollController = ScrollController();
 
   FToast fToast;
 
@@ -296,68 +298,58 @@ class _EventsState extends State<Events> {
                             right: 0,
                             child: calendar(),
                           ),
-                          DraggableScrollableSheet(
-                            initialChildSize: 0.3,
-                            minChildSize: 0.3,
-                            maxChildSize: 1.0,
-                            expand: true,
-                            builder:
-                                (BuildContext context, myscrollController) {
-                              return Container(
-                                color: Colors.white,
-                                child: Column(
-                                  children: [
-                                    ListView(
-                                      controller: myscrollController,
-                                      shrinkWrap: true,
-                                      children: [carouselSliderBar()],
-                                    ),
-                                    Expanded(
-                                      child: Timeline.builder(
-                                        controller: myscrollController,
-                                        lineColor: UIData.primaryColor,
-                                        position: TimelinePosition.Left,
-                                        itemCount: displayedEvents.length,
-                                        itemBuilder: (context, index) {
-                                          if (index == 0) {
-                                            return TimelineModel(
-                                              Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    padding: EdgeInsets.symmetric(
-                                                        vertical: SizeConfig
-                                                                .safeBlockVertical *
-                                                            0.625),
-                                                    child: Text(
-                                                      '${displayedEvents.length} Events',
-                                                      style: const TextStyle(
-                                                          color:
-                                                              Colors.black45),
-                                                    ),
-                                                  ),
-                                                  eventCard(index)
-                                                ],
-                                              ),
-                                              iconBackground:
-                                                  UIData.secondaryColor,
-                                            );
-                                          }
+                          SlidingUpPanel(
+                            backdropEnabled: true,
+                            panel: Container(
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  ListView(
+                                    controller: listScrollController,
+                                    shrinkWrap: true,
+                                    children: [carouselSliderBar()],
+                                  ),
+                                  Expanded(
+                                    child: Timeline.builder(
+                                      lineColor: UIData.primaryColor,
+                                      position: TimelinePosition.Left,
+                                      itemCount: displayedEvents.length,
+                                      itemBuilder: (context, index) {
+                                        if (index == 0) {
                                           return TimelineModel(
-                                            eventCard(index),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: SizeConfig
+                                                              .safeBlockVertical *
+                                                          0.625),
+                                                  child: Text(
+                                                    '${displayedEvents.length} Events',
+                                                    style: const TextStyle(
+                                                        color: Colors.black45),
+                                                  ),
+                                                ),
+                                                eventCard(index)
+                                              ],
+                                            ),
                                             iconBackground:
                                                 UIData.secondaryColor,
-                                            position:
-                                                TimelineItemPosition.right,
                                           );
-                                        },
-                                      ),
+                                        }
+                                        return TimelineModel(
+                                          eventCard(index),
+                                          iconBackground: UIData.secondaryColor,
+                                          position: TimelineItemPosition.right,
+                                        );
+                                      },
                                     ),
-                                  ],
-                                ),
-                              );
-                            },
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -388,22 +380,9 @@ class _EventsState extends State<Events> {
           });
         },
         calendarStyle: const CalendarStyle(markersColor: Colors.black45),
-        /*onDaySelected: (day, events) {
-          String carouselDay = DateFormat.yMMMd('en_US').format(day);
-          if (timer.isSameDay(day, now)) {
-            carouselDay = 'Today';
-          }
-          carouselController.animateToPage(1);
-          setState(() {
-            _calendarController.setSelectedDay(day);
-            dateSelected = carouselDay;
-          });
-          List currentevents = filterEventsByDay(day, events);
-          setState(() {
-            currentFilterEvents = currentevents;
-            displayedEvents = currentevents;
-          });
-        },*/
+        headerStyle: const HeaderStyle(
+          formatButtonShowsNext: false,
+        ),
         events: thisMonthsEvents as Map<DateTime, List<dynamic>>,
         calendarController: _calendarController,
       ),
@@ -506,11 +485,6 @@ class _EventsState extends State<Events> {
               displayedEvents[index]['isRegistered'] as bool
                   ? menueText('You Are Registered')
                   : menueText('You Are Not Registered'),
-              // menueText('Starts: ' +
-              //     DateFormat.jm('en_US')
-              //         .format(DateTime.fromMicrosecondsSinceEpoch(
-              //             int.parse(displayedEvents[index]['startTime'])))
-              //         .toString()),
               ListTile(
                 trailing: ElevatedButton(
                   style: ButtonStyle(
