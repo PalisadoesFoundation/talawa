@@ -2,7 +2,7 @@ name: PR Workflow
 on: [pull_request]
 
 jobs:
-  Greeting:
+  PR-Greeting:
     name: Greeting Message to user
     runs-on: ubuntu-latest
     steps:
@@ -14,7 +14,7 @@ jobs:
   Linter:
     name: Checking if code formatting is done correctly
     runs-on: ubuntu-latest
-    needs: Greeting
+    needs: PR-Greeting
     steps:
       - uses: actions/checkout@v2
       - uses: axel-op/dart-package-analyzer@v3
