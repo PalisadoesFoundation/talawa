@@ -1,22 +1,23 @@
+#!/usr/bin/env python
 
-import pytest
-import pandas as pd
-from io import StringIO
 import os
+import glob
 
-test_output_path = os.path.dirname(os.path.abspath(__file__)) + \
-                '/../../'
+#get current working dir, set count, and select file delimiter
+path = os.getcwd()
+#os.chdir(path)
 
-@pytest.mark.dataQC
-def test_dataQC():
-    assert os.path.exists(os.path.join(test_output_path, 'Q-Y5F6_1M.se.sorted.deduped.tin.xls'))
-    assert countLines(os.path.join(test_output_path, 'Q-Y5F6_1M.se.sorted.deduped.tin.xls'))
 
-def countLines(fileName):
-    data = False
-    file = open(fileName, "r")
-    file.readline()
-    if file.readlines()[6] != "geneID":
-        data = True
+#parses through files and saves to a dict
+names={}
+pathName = path + '/**/*.dart'
+for fn in glob.glob(pathname = pathName, recursive = True):
+    with open(fn) as f:
+        names[fn]=sum(1 for line in f if line.strip() and not line.startswith('#'))    
 
-    return data
+
+condition = 0
+for k, v in names.items():
+    if v > 300:
+        condition = 1
+        print("{}: {}".format(k, v))
