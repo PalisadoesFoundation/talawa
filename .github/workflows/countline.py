@@ -2,6 +2,7 @@
 
 import os
 import glob
+import sys
 
 #get current working dir, set count, and select file delimiter
 path = os.getcwd()
@@ -21,3 +22,6 @@ for k, v in names.items():
     if v > 300:
         condition = 1
         print("{}: {}".format(k, v))
+
+if condition != 0:
+    sys.exit("Please keep the file size below 300 lines of code")
