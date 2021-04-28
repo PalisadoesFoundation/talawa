@@ -7,8 +7,11 @@ import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
 // pages are called here
 import 'package:provider/provider.dart';
+import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_register.dart';
@@ -196,8 +199,8 @@ class RegisterFormState extends State<RegisterForm> {
                           });
                         },
                       ),
-                const SizedBox(
-                  height: 25,
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical * 3.15,
                 ),
                 AutofillGroup(
                   child: Column(
@@ -232,8 +235,8 @@ class RegisterFormState extends State<RegisterForm> {
                           model.firstName = value;
                         },
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 2.5,
                       ),
                       TextFormField(
                         autofillHints: const [AutofillHints.familyName],
@@ -264,8 +267,8 @@ class RegisterFormState extends State<RegisterForm> {
                           model.lastName = value;
                         },
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 2.5,
                       ),
                       TextFormField(
                         autofillHints: const <String>[AutofillHints.email],
@@ -296,8 +299,8 @@ class RegisterFormState extends State<RegisterForm> {
                           model.email = value;
                         },
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 2.5,
                       ),
                       TextFormField(
                         autofillHints: const <String>[AutofillHints.password],
@@ -345,8 +348,8 @@ class RegisterFormState extends State<RegisterForm> {
                           model.password = value;
                         },
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 1.25,
                       ),
                       FlutterPwValidator(
                         width: 400,
@@ -360,8 +363,8 @@ class RegisterFormState extends State<RegisterForm> {
                         },
                         controller: _originalPasswordController,
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 2.5,
                       ),
                       TextFormField(
                         autofillHints: const <String>[AutofillHints.password],
@@ -389,15 +392,16 @@ class RegisterFormState extends State<RegisterForm> {
                           focusColor: UIData.primaryColor,
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
+                      SizedBox(
+                        height: SizeConfig.safeBlockVertical * 2.5,
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 20.0, horizontal: 30.0),
+                  padding: EdgeInsets.symmetric(
+                      vertical: SizeConfig.safeBlockVertical * 2.5,
+                      horizontal: SizeConfig.safeBlockHorizontal * 7.5),
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ButtonStyle(
@@ -422,10 +426,10 @@ class RegisterFormState extends State<RegisterForm> {
                       }
                     },
                     child: _progressBarState
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
+                        ? SizedBox(
+                            width: SizeConfig.safeBlockHorizontal * 5,
+                            height: SizeConfig.safeBlockVertical * 2.5,
+                            child: const CircularProgressIndicator(
                               valueColor:
                                   AlwaysStoppedAnimation<Color>(Colors.orange),
                               strokeWidth: 3,
@@ -531,7 +535,9 @@ class RegisterFormState extends State<RegisterForm> {
   //this method is called when the result is an exception
   _exceptionToast(String msg) {
     final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 6,
+          vertical: SizeConfig.safeBlockVertical * 1.75),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
         color: Colors.red,
@@ -563,10 +569,4 @@ class RegisterFormState extends State<RegisterForm> {
       _obscureText = !_obscureText;
     });
   }
-}
-
-enum From {
-  none,
-  camera,
-  gallery,
 }

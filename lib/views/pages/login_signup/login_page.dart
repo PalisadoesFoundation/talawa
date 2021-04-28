@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/login_signup/login_form.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
@@ -27,10 +28,13 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         child: Container(
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
-              constraints: const BoxConstraints(
-                  maxWidth: 300.0, minWidth: 250.0, minHeight: 300.0),
+              constraints: BoxConstraints(
+                  maxWidth: SizeConfig.safeBlockHorizontal * 75,
+                  minWidth: SizeConfig.safeBlockHorizontal * 62.5,
+                  minHeight: SizeConfig.safeBlockVertical * 37.5),
               child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: 30.0),
+                padding:
+                    EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 7.5),
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: <Widget>[

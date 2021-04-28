@@ -441,6 +441,10 @@ class Queries {
       query {
         events(id: "$orgId"){ 
           _id
+          organization {
+            _id
+            image
+          }
           title
           description
           isPublic
@@ -800,7 +804,14 @@ query{
       },
     ));
     if (_resp.exception != null &&
-        _resp.exception.toString().substring(16) == accessTokenException) {
+        _resp.exception.toString().contains(accessTokenException)) {
+      _authController.getNewToken();
+      createComments(postId, text);
+    }
+    if (_resp.exception != null &&
+        _resp.exception
+            .toString()
+            .contains(refreshAccessTokenExpiredException)) {
       _authController.getNewToken();
       createComments(postId, text);
     }

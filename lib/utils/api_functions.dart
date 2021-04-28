@@ -21,7 +21,13 @@ class ApiFunctions {
 
     final QueryResult result = await _client.query(options);
     if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
+        result.exception.toString().contains(accessTokenException)) {
+      _authController.getNewToken();
+      gqlquery(query);
+    } else if (result.hasException &&
+        result.exception
+            .toString()
+            .contains(refreshAccessTokenExpiredException)) {
       _authController.getNewToken();
       gqlquery(query);
     } else if (result.hasException) {
@@ -48,6 +54,12 @@ class ApiFunctions {
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
+      _authController.getNewToken();
+      return gqlmutation(mutation);
+    } else if (result.hasException &&
+        result.exception
+            .toString()
+            .contains(refreshAccessTokenExpiredException)) {
       _authController.getNewToken();
       return gqlmutation(mutation);
     } else if (result.hasException) {

@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 
 //pages are imported here
 import 'package:talawa/utils/uidata.dart';
@@ -43,12 +44,12 @@ class _EventDetailState extends State<EventDetail>
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
-            expandedHeight: 300,
+            expandedHeight: SizeConfig.safeBlockVertical * 40,
             flexibleSpace: FlexibleSpaceBar(
               background: FittedBox(
-                fit: BoxFit.fill,
+                fit: BoxFit.contain,
                 child: Container(
-                  height: 300,
+                  height: SizeConfig.safeBlockVertical * 40,
                   width: width,
                   color: UIData.primaryColor,
                   child: Column(
@@ -77,7 +78,7 @@ class _EventDetailState extends State<EventDetail>
           ),
           SliverStickyHeader(
             header: Container(
-                height: 60.0,
+                height: SizeConfig.safeBlockVertical * 7.5,
                 decoration:
                     BoxDecoration(color: Theme.of(context).primaryColor),
                 child: Material(
@@ -130,12 +131,13 @@ class _EventDetailState extends State<EventDetail>
       decoration: const BoxDecoration(
           color: Colors.black26,
           borderRadius: BorderRadius.all(Radius.circular(5))),
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      height: 40,
+      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
+      height: SizeConfig.safeBlockVertical * 5.5,
       child: Text(
         text,
-        style: const TextStyle(fontSize: 16, color: Colors.white),
+        style: TextStyle(
+            fontSize: SizeConfig.safeBlockVertical * 2.5, color: Colors.white),
         overflow: TextOverflow.ellipsis,
       ),
     );

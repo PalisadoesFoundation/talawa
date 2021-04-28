@@ -6,6 +6,7 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 //files are imported here
 import 'package:provider/provider.dart';
 import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import '../../../utils/uidata.dart';
 import 'reg_eventstab.dart';
 import 'user_taskstab.dart';
@@ -64,7 +65,7 @@ class _MemberDetailState extends State<MemberDetail>
           SliverAppBar(
               backgroundColor: Colors.white,
               automaticallyImplyLeading: false,
-              expandedHeight: 250,
+              expandedHeight: SizeConfig.safeBlockVertical * 31.25,
               flexibleSpace: FlexibleSpaceBar(
                 background: Column(children: [
                   widget.member['image'] == null
@@ -73,17 +74,19 @@ class _MemberDetailState extends State<MemberDetail>
                   Card(
                       child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.only(left: 20),
+                    padding: EdgeInsets.only(
+                        left: SizeConfig.safeBlockHorizontal * 5),
                     alignment: Alignment.centerLeft,
-                    height: 30,
+                    height: SizeConfig.safeBlockVertical * 3.75,
                     child: Text('User email: ${widget.member['email']}'),
                   )),
                   Card(
                       child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.only(left: 20),
+                    padding: EdgeInsets.only(
+                        left: SizeConfig.safeBlockHorizontal * 5),
                     alignment: Alignment.centerLeft,
-                    height: 30,
+                    height: SizeConfig.safeBlockVertical * 3.75,
                     child: Text(
                       'User Privileges: ' +
                           getPrivilege(widget.member['_id'].toString()),
@@ -94,7 +97,7 @@ class _MemberDetailState extends State<MemberDetail>
               )),
           SliverStickyHeader(
             header: Container(
-                height: 60.0,
+                height: SizeConfig.safeBlockVertical * 7.5,
                 decoration:
                     BoxDecoration(color: Theme.of(context).primaryColor),
                 child: Material(
@@ -141,7 +144,7 @@ class _MemberDetailState extends State<MemberDetail>
   //widget to get the user image
   Widget userImg(String link) {
     return Container(
-      height: 170,
+      height: SizeConfig.safeBlockVertical * 21.25,
       width: double.maxFinite,
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -172,8 +175,8 @@ class _MemberDetailState extends State<MemberDetail>
                   end: Alignment.topCenter,
                   colors: [Colors.black45, Colors.transparent]),
             ),
-            padding: const EdgeInsets.only(left: 20),
-            height: 40,
+            padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 5),
+            height: SizeConfig.safeBlockVertical * 5,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -193,17 +196,17 @@ class _MemberDetailState extends State<MemberDetail>
   //this is widget for default user image
   Widget defaultUserImg() {
     return Container(
-      height: 170,
+      height: SizeConfig.safeBlockVertical * 21.25,
       width: MediaQuery.of(context).size.width,
       color: widget.color,
       child: Column(
         children: [
           // ignore: sized_box_for_whitespace
           Container(
-              height: 130,
-              child: const Icon(
+              height: SizeConfig.safeBlockVertical * 16.25,
+              child: Icon(
                 Icons.person,
-                size: 100,
+                size: SizeConfig.safeBlockVertical * 12.25,
                 color: Colors.white54,
               )),
           Container(
@@ -213,8 +216,9 @@ class _MemberDetailState extends State<MemberDetail>
                     end: Alignment.topCenter,
                     colors: [Colors.black45, Colors.transparent]),
               ),
-              padding: const EdgeInsets.only(left: 20),
-              height: 40,
+              padding:
+                  EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 5),
+              height: SizeConfig.safeBlockVertical * 5,
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(

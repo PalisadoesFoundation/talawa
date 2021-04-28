@@ -11,6 +11,7 @@ import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
@@ -60,6 +61,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     if (result.hasException) {
       print(result.exception);
       //showError(result.exception.toString());
+      _exceptionToast(result.exception.toString());
     } else if (!result.hasException) {
       result.data['organizations'][0]['admins']
           .forEach((admin) => adminsList.add(admin['_id']));
@@ -122,6 +124,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       } else if (result.hasException &&
           result.exception.toString().substring(16) != accessTokenException) {
         print(result.exception.toString().substring(16));
+        _exceptionToast("Something went wrong!Try again later");
         setState(() {
           processing = false;
         });
@@ -184,13 +187,13 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                     return CheckboxListTile(
                       secondary: members['image'] != null
                           ? CircleAvatar(
-                              radius: 30,
+                              radius: SizeConfig.safeBlockVertical * 3.75,
                               backgroundImage: NetworkImage(
                                   Provider.of<GraphQLConfiguration>(context)
                                           .displayImgRoute +
                                       members['image'].toString()))
                           : CircleAvatar(
-                              radius: 30.0,
+                              radius: SizeConfig.safeBlockVertical * 3.75,
                               backgroundColor: Colors.white,
                               child: Text(
                                   members['firstName']
