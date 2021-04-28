@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import os
-import glob
 import sys
 
 #get current working dir
@@ -8,16 +7,29 @@ path = os.getcwd()
 
 #parses through files and saves to a dict
 fileNamesWithSize={}
-path = os.path.join(path, '**','*.dart')
-path = os.path.expanduser(path)
 
-for fn in glob.glob(pathname = path, recursive = True):
-    with open(fn) as f:
-        fileNamesWithSize[fn]=sum(1 for line in f if line.strip() and not line.startswith('#'))    
+#libPath and testPath dir location
+libPath = os.path.expanduser(os.path.join(path, 'lib'))
+testPath = os.path.expanduser(os.path.join(path, 'test'))
+
+#counting lines in lib dir
+for root, dirs, files in os.walk(libPath, topdown=False):
+    for name in files:
+        fileLocation = os.path.join(root, name)
+        with open(fileLocation) as f:
+            fileNamesWithSize[fileLocation]=sum(1 for line in f if line.strip() and not line.startswith('#'))
+
+#counting lines in test dir
+for root, dirs, files in os.walk(testPath, topdown=False):
+    for name in files:
+        fileLocation = os.path.join(root, name)
+        with open(fileLocation) as f:
+            fileNamesWithSize[fileLocation]=sum(1 for line in f if line.strip() and not line.startswith('#'))   
 
 #if the line rule is voilated then value is changed to 1 
 isLineRuleVoilated = 0
 fileCount = 0
+
 for key, value in fileNamesWithSize.items():
     if value > 300:
         isLineRuleVoilated = 1
