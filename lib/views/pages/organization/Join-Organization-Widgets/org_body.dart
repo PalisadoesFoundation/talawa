@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/views/pages/organization/Join-Organization-Widgets/org_tile.dart';
 import 'package:talawa/views/widgets/loading.dart';
+import 'package:talawa/views/widgets/pagination_display.dart';
 
 class OrganizationBody extends StatefulWidget {
   const OrganizationBody({
@@ -12,8 +13,10 @@ class OrganizationBody extends StatefulWidget {
     @required this.fToast,
     @required this.scaffoldKey,
     @required this.filter,
+    this.query,
   }) : super(key: key);
 
+  final String query;
   final bool fromProfile;
   final String filter;
   final FToast fToast;
@@ -35,98 +38,189 @@ class _OrganizationBodyState extends State<OrganizationBody> {
   @override
   Widget build(BuildContext context) {
     final Queries _query = Queries();
-    return Query(
-      options: QueryOptions(
-        documentNode: gql(
-          widget.filter == "Show All"
-              ? _query.getOrganizationsConnection
-              : _query.getFilteredOrganizationsConnection,
-        ),
-        variables: widget.filter == "Show All"
-            ? {
+    return widget.query != null && widget.query.isNotEmpty
+        ? Query(
+            options: QueryOptions(
+              documentNode: gql(_query.getOrganizationsConnectionFilter),
+              variables: {
+                'nameContains': widget.query,
                 'first': 15,
                 'skip': 0,
-              }
-            : {
-                'first': 15,
-                'skip': 0,
-                'isPublic': widget.filter == "Public Org",
+                'isPublic': !(widget.filter == "Private Org"),
               },
-      ),
-      builder: (
-        QueryResult result, {
-        Future<QueryResult> Function() refetch,
-        FetchMore fetchMore,
-      }) {
-        if (result.hasException) {
-          print(result.exception);
-          return const Loading(isShowingError: true);
-        }
+            ),
+            builder: (
+              QueryResult result, {
+              Future<QueryResult> Function() refetch,
+              FetchMore fetchMore,
+            }) {
+              if (result.hasException) {
+                print(result.exception);
+                return const Loading(isShowingError: true);
+              }
 
-        ///WIDGET TO SHOW WHEN [LOADING] DATA
-        if (result.loading && result.data == null) {
-          return Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const <Widget>[
-                SizedBox(
-                  height: 25,
-                  width: 25,
-                  child: CircularProgressIndicator(),
-                ),
-                SizedBox(width: 15),
-                Text(
-                  'Loading...',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'OpenSans',
+              ///WIDGET TO SHOW WHEN [LOADING] DATA
+              if (result.loading && result.data == null) {
+                return Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const <Widget>[
+                      SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(),
+                      ),
+                      SizedBox(width: 15),
+                      Text(
+                        'Loading...',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'OpenSans',
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          );
-        }
+                );
+              }
 
-        final List organizations =
-            result.data['organizationsConnection'] as List;
+              final List organizations =
+                  result.data['organizationsConnection'] as List;
 
-        if (organizations.isEmpty) {
-          return Center(
-            child: Loading(
-              key: UniqueKey(),
-            ),
-          );
-        }
+              if (organizations.isEmpty) {
+                return Center(
+                  child: Loading(
+                    key: UniqueKey(),
+                  ),
+                );
+              }
 
-        return ListView.builder(
-          itemCount: organizations.length + 1,
-          itemBuilder: (context, index) {
-            // Pagination Widget
-            if (index == organizations.length) {
-              return _paginationWidget(
-                fetchMore: fetchMore,
-                organizations: organizations,
-                result: result,
-                context: context,
+              return ListView.builder(
+                itemCount: organizations.length + 1,
+                itemBuilder: (context, index) {
+                  // Pagination Widget
+                  if (index == organizations.length) {
+                    return PaginationIcon(
+                      result: result,
+                      fetchMoreHelper: () => fetchMoreHelper(
+                        fetchMore,
+                        organizations,
+                      ),
+                      isNextPageExist:
+                          // ignore: avoid_bool_literals_in_conditional_expressions
+                          organizations.length % 15 != 0
+                              ? false
+                              : isNextPageExist,
+                    );
+                  }
+
+                  final organization = organizations[index] as Map;
+
+                  return OrganisationTile(
+                    fToast: widget.fToast,
+                    fromProfile: widget.fromProfile,
+                    index: index,
+                    organization: organization,
+                    scaffoldKey: widget.scaffoldKey,
+                  );
+                },
               );
-            }
+            },
+          )
+        : Query(
+            options: QueryOptions(
+              documentNode: gql(
+                widget.filter == "Show All"
+                    ? _query.getOrganizationsConnection
+                    : _query.getFilteredOrganizationsConnection,
+              ),
+              variables: widget.filter == "Show All"
+                  ? {
+                      'first': 15,
+                      'skip': 0,
+                    }
+                  : {
+                      'first': 15,
+                      'skip': 0,
+                      'isPublic': widget.filter == "Public Org",
+                    },
+            ),
+            builder: (
+              QueryResult result, {
+              Future<QueryResult> Function() refetch,
+              FetchMore fetchMore,
+            }) {
+              if (result.hasException) {
+                print(result.exception);
+                return const Loading(isShowingError: true);
+              }
 
-            final organization = organizations[index] as Map;
+              ///WIDGET TO SHOW WHEN [LOADING] DATA
+              if (result.loading && result.data == null) {
+                return Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: const <Widget>[
+                      SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(),
+                      ),
+                      SizedBox(width: 15),
+                      Text(
+                        'Loading...',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'OpenSans',
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
 
-            return OrganisationTile(
-              fToast: widget.fToast,
-              fromProfile: widget.fromProfile,
-              index: index,
-              organization: organization,
-              scaffoldKey: widget.scaffoldKey,
-            );
-          },
-        );
-      },
-    );
+              final List organizations =
+                  result.data['organizationsConnection'] as List;
+
+              if (organizations.isEmpty) {
+                return Center(
+                  child: Loading(
+                    key: UniqueKey(),
+                  ),
+                );
+              }
+
+              return ListView.builder(
+                itemCount: organizations.length + 1,
+                itemBuilder: (context, index) {
+                  // Pagination Widget
+                  if (index == organizations.length) {
+                    return PaginationIcon(
+                      result: result,
+                      fetchMoreHelper: () =>
+                          fetchMoreHelper(fetchMore, organizations),
+                      isNextPageExist: isNextPageExist,
+                    );
+                  }
+
+                  final organization = organizations[index] as Map;
+
+                  return OrganisationTile(
+                    fToast: widget.fToast,
+                    fromProfile: widget.fromProfile,
+                    index: index,
+                    organization: organization,
+                    scaffoldKey: widget.scaffoldKey,
+                  );
+                },
+              );
+            },
+          );
   }
 
   /// FUNCTION TO FETCH DATA BASED ON USER PAGINATION CHOICE
@@ -149,63 +243,5 @@ class _OrganizationBodyState extends State<OrganizationBody> {
         },
       ),
     );
-  }
-
-  /// WIDGET TO BE DISPLAYED BASED ON THE [PAGINATION] TENDENCY
-  Widget _paginationWidget({
-    @required QueryResult result,
-    @required FetchMore fetchMore,
-    @required List organizations,
-    @required BuildContext context,
-  }) {
-    // bool isNextPageExist = organizations.length % 5 == 0;
-    // if (isNextPageExist) {
-    //   isNextPageExist = organizations.length !=
-    //       Provider.of<OrgController>(context).getTotalOrg;
-    // }
-
-    if (isNextPageExist) {
-      if (result.loading) {
-        return const Center(
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 20,
-              width: 20,
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        );
-      } else {
-        return Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Center(
-            child: GestureDetector(
-              onTap: () => fetchMoreHelper(fetchMore, organizations),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: const <Widget>[
-                  Icon(
-                    Icons.add_circle_outline_outlined,
-                    size: 50,
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Load More',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: 25),
-                ],
-              ),
-            ),
-          ),
-        );
-      }
-    } else {
-      return const SizedBox(height: 64);
-    }
   }
 }

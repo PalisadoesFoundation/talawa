@@ -11,7 +11,6 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/organization/Join-Organization-Widgets/org_body.dart';
-import 'package:talawa/views/pages/organization/Join-Organization-Widgets/org_search.dart';
 import 'package:talawa/views/pages/organization/create_organization.dart';
 
 class JoinOrganization extends StatefulWidget {
@@ -57,15 +56,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         child: SafeArea(
           child: Scaffold(
             key: scaffoldKey,
-            // appBar: AppBar(
-            //   title: const Text(
-            //     'Join Organization',
-            //     style: TextStyle(color: Colors.white),
-            //   ),
-            // ),
             body: Container(
               color: Colors.white,
-              //padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
               child: Column(
                 children: <Widget>[
                   Container(
@@ -160,20 +152,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                         horizontal: 16,
                       ),
                       color: Colors.white,
-                      child: searchText != null && searchText.isNotEmpty
-                          ? OrganizationSearch(
-                              fromProfile: widget.fromProfile,
-                              fToast: fToast,
-                              scaffoldKey: scaffoldKey,
-                              query: searchText,
-                              filter: filter,
-                            )
-                          : OrganizationBody(
-                              fromProfile: widget.fromProfile,
-                              fToast: fToast,
-                              scaffoldKey: scaffoldKey,
-                              filter: filter,
-                            ),
+                      child: OrganizationBody(
+                        fromProfile: widget.fromProfile,
+                        fToast: fToast,
+                        scaffoldKey: scaffoldKey,
+                        filter: filter,
+                        query: searchText,
+                      ),
                     ),
                   )
                 ],
