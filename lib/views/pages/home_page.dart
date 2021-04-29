@@ -63,11 +63,11 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _buildScreens() {
     //here we are building the screens that are mention in the app bar
     return [
-      NewsFeed(), //first page of the news feed
-      const Groups(), //second page of the Group chatting event
-      const Events(), //Third page of creating the events and viewing it
-      const Organizations(), //fourth page of seeing the organization
-      const ProfilePage(), //last page of the profile
+      NewsFeed(), //first page - news feed
+      const Groups(), //second page - Group chatting event
+      const Events(), //Third page - creating the events and viewing it
+      const Organizations(), //fourth page - seeing the organization
+      const ProfilePage(), //last page - the profile
     ];
   }
 

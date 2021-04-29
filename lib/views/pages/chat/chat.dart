@@ -18,21 +18,16 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: <Widget>[
-            CircleAvatar(
-              backgroundColor: UIData.secondaryColor,
-              child: Image.asset(UIData.talawaLogo),
-            ),
-            Padding(
-              padding:
-                  EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 2.5),
-              child: Text(
-                widget.groupName,
-                style: const TextStyle(color: Colors.white),
-              ),
-            )
-          ],
+        leading: CircleAvatar(
+          backgroundColor: UIData.secondaryColor,
+          child: Image.asset(UIData.talawaLogo),
+        ),
+        title: Padding(
+          padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 2.5),
+          child: Text(
+            widget.groupName,
+            style: const TextStyle(color: Colors.white),
+          ),
         ),
       ),
       body: Align(

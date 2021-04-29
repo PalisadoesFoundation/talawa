@@ -15,6 +15,7 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/member_details.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:talawa/views/widgets/exception_toast.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 class Organizations extends StatefulWidget {
@@ -121,7 +122,7 @@ class _OrganizationsState extends State<Organizations> {
                       try {
                         await getMembers();
                       } catch (e) {
-                        _exceptionToast(e.toString());
+                        ExceptionToast(e.toString());
                       }
                     },
                     child: Center(
@@ -144,7 +145,7 @@ class _OrganizationsState extends State<Organizations> {
                           try {
                             await getMembers();
                           } catch (e) {
-                            _exceptionToast(e.toString());
+                            ExceptionToast(e.toString());
                           }
                         },
                         child: const Text("Refresh"),
@@ -155,7 +156,7 @@ class _OrganizationsState extends State<Organizations> {
                       try {
                         await getMembers();
                       } catch (e) {
-                        _exceptionToast(e.toString());
+                        ExceptionToast(e.toString());
                       }
                     },
                     child: CustomScrollView(
@@ -300,28 +301,6 @@ class _OrganizationsState extends State<Organizations> {
               title: Text('View Registered Events'),
             )),
       ],
-    );
-  }
-
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
     );
   }
 }
