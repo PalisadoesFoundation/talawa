@@ -15,8 +15,8 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--line', type=int, required=False, default=300,
                     help='an integer for number of lines of code')
-parser.add_argument('--dir', type=str, required=False,
-                    default=os.getcwd(), help='Script Location')
+parser.add_argument('--dir', type=str, required=False, default=os.getcwd(),
+                    help='directory Location where files are present')
 args = parser.parse_args()
 
 
