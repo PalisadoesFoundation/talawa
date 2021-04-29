@@ -14,12 +14,8 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--line', type=int, required=False, default=300, help='an integer for number of lines of code')
-parser.add_argument('--dir', type=str, required=False, help='Script Location')
+parser.add_argument('--dir', type=str, required=False, default=os.getcwd(), help='Script Location')
 args = parser.parse_args()
-
-path = args.dir
-if path == None:
-    path = os.getcwd()
 
 def main():
     """Find, print and exit, for files having code lines above input."""
@@ -27,8 +23,8 @@ def main():
     file_names_with_size = {}
 
     # libPath and testPath dir location
-    lib_path = os.path.expanduser(os.path.join(path, 'lib'))
-    test_path = os.path.expanduser(os.path.join(path, 'test'))
+    lib_path = os.path.expanduser(os.path.join(args.dir, 'lib'))
+    test_path = os.path.expanduser(os.path.join(args.dir, 'test'))
 
     # counting lines in lib dir
     for root, _, files in os.walk(lib_path, topdown=False):
