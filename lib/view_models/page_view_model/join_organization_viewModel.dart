@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/enums/excepttion_type.dart';
+import 'package:talawa/services/exception.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
-import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/view_models/base_model.dart';
 import 'package:talawa/views/widgets/success_toast.dart';
@@ -74,11 +75,10 @@ class JoinOrgnizationViewModel extends BaseModel {
                 const Text("Are you sure you want to join this organization?"),
             actions: <Widget>[
               TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("Close"),
-              ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Close")),
               TextButton(
                   onPressed: () async {
                     _loadingIndex = index;
@@ -146,10 +146,9 @@ class JoinOrgnizationViewModel extends BaseModel {
 
   showToast(String msg, Color color) {
     fToast.showToast(
-      child: toastContainer(msg, color),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
+        child: toastContainer(msg, color),
+        gravity: ToastGravity.BOTTOM,
+        toastDuration: const Duration(seconds: 3));
   }
 
   void searchOrgName(String orgName) {
@@ -179,23 +178,20 @@ class JoinOrgnizationViewModel extends BaseModel {
     getCurrentUserId();
     //function to fetch the org from the server
     final GraphQLClient _client = graphQLConfiguration.authClient();
-
-    final QueryResult result = await _client
+    final QueryResult organizationQueryResult = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
-
     // Get the details of the current user.
     final QueryResult userDetailsResult = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo),
         variables: {'id': _currentUserId}));
 
-    if (result.hasException || userDetailsResult.hasException) {
-      print(result.exception);
-      showError(result.exception.toString());
-    } else if (!result.hasException &&
+    if (organizationQueryResult.hasException ||
+        userDetailsResult.hasException) {
+      showError(organizationQueryResult.exception.toString());
+    } else if (!organizationQueryResult.hasException &&
         !disposed &&
         !userDetailsResult.hasException) {
-      _organizationInfo = result.data['organizations'] as List;
-      _organizationInfo = result.data['organizations'] as List;
+      _organizationInfo = organizationQueryResult.data['organizations'] as List;
       // Get the details of joined organizations.
       joinedOrganizations =
           userDetailsResult.data['users'][0]['joinedOrganizations'] as List;
@@ -220,19 +216,21 @@ class JoinOrgnizationViewModel extends BaseModel {
   Future joinPrivateOrg(BuildContext context) async {
     //function called if the person wants to enter a private organization
     final GraphQLClient _client = graphQLConfiguration.authClient();
-
     final QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.sendMembershipRequest(_itemIndex))));
 
-    if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
-      print("getting new token");
-      _authController.getNewToken();
-      return joinPrivateOrg(context);
-    } else if (result.hasException &&
-        result.exception.toString().substring(16) != accessTokenException) {
-      showToast(result.exception.toString().substring(16), Colors.red);
-    } else if (!result.hasException && !result.loading) {
+    if (result.hasException) {
+      final ExceptionType exceptionType = retrieveExceptionType(result);
+      if (exceptionType == ExceptionType.accesstokenException) {
+        _authController.getNewToken();
+        showToast(result.exception.toString().substring(16), Colors.red);
+        return joinPrivateOrg(context);
+      } else {
+        showToast(result.exception.toString().substring(16), Colors.red);
+      }
+      return;
+    }
+    if (!result.loading) {
       showToast("Request Sent to Organization Admin", Colors.green);
       Navigator.pop(context);
     }
@@ -241,21 +239,22 @@ class JoinOrgnizationViewModel extends BaseModel {
   Future joinPublicOrg(BuildContext context, String orgName) async {
     //function which will be called if the person wants to join the organization which is not private
     final GraphQLClient _client = graphQLConfiguration.authClient();
-
-    print(orgName);
-
     final QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.getOrgId(itemIndex))));
 
-    if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
-      _authController.getNewToken();
-      showToast(result.exception.toString().substring(16), Colors.red);
-      return joinPublicOrg(context, orgName);
-    } else if (result.hasException &&
-        result.exception.toString().substring(16) != accessTokenException) {
-      showToast(result.exception.toString().substring(16), Colors.red);
-    } else if (!result.hasException && !result.loading) {
+    if (result.hasException) {
+      final ExceptionType exceptionType = retrieveExceptionType(result);
+      if (exceptionType == ExceptionType.accesstokenException) {
+        _authController.getNewToken();
+        showToast(result.exception.toString().substring(16), Colors.red);
+        return joinPublicOrg(context, orgName);
+      } else {
+        showToast(result.exception.toString().substring(16), Colors.red);
+      }
+      return;
+    }
+
+    if (!result.loading) {
       joinedOrg =
           result.data['joinPublicOrganization']['joinedOrganizations'] as List;
       //set the default organization to the first one in the list

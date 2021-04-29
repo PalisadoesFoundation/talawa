@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SearchInputWidget extends StatelessWidget {
+class SearchTextInputWidget extends StatelessWidget {
   final Function onChanged;
   final TextEditingController controller;
   final String hintText;
   // ignore: sort_constructors_first
-  const SearchInputWidget(
+  const SearchTextInputWidget(
       {Key key, this.onChanged, this.controller, this.hintText})
       : super(key: key);
 

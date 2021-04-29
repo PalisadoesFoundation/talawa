@@ -55,7 +55,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                     SizedBox(
                       height: SizeConfig.safeBlockVertical * 2,
                     ),
-                    SearchInputWidget(
+                    SearchTextInputWidget(
                       controller: searchController,
                       onChanged: model.searchOrgName,
                       hintText: "Search an organization",
