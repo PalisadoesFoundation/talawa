@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/api_functions.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 
@@ -32,7 +33,11 @@ class _AddEventTaskState extends State<AddEventTask> {
         title: titleController.text,
         description: descriptionController.text,
         deadline: DateTime.now().millisecondsSinceEpoch.toString()) as String;
-    await apiFunctions.gqlquery(mutation);
+
+    final Map<dynamic, dynamic> result = await apiFunctions.gqlquery(mutation);
+    if (result["exception"] != null) {
+      CustomToast.exceptionToast(msg: "Failed to add task!Try again later");
+    }
   }
 
   //function to select the date

@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/post_provider.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/newsfeed/add_post.dart';
 import 'package:talawa/views/pages/newsfeed/news_article.dart';
@@ -14,18 +15,23 @@ import 'package:talawa/views/widgets/custom_appbar.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 class NewsFeed extends StatelessWidget {
+  const NewsFeed({this.isTest = false});
+
+  final bool isTest;
+
   /// Get the list of posts
   Future<void> getPostsList(BuildContext context) async {
-    if (!Provider.of<PostProvider>(context, listen: false).isPostEmpty) {
-      return;
-    }
     await Provider.of<PostProvider>(context, listen: false).getPosts();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar('NewsFeed', key: const Key('NEWSFEED_APP_BAR')),
+        appBar: CustomAppBar(
+          'NewsFeed',
+          key: const Key('NEWSFEED_APP_BAR'),
+          isTest: isTest,
+        ),
         floatingActionButton: addPostFab(context),
         body: FutureBuilder(
           future: getPostsList(context),
@@ -36,12 +42,17 @@ class NewsFeed extends StatelessWidget {
 
             return RefreshIndicator(
                 onRefresh: () async {
-                  await Provider.of<PostProvider>(context, listen: false)
-                      .getPosts();
+                  try {
+                    await Provider.of<PostProvider>(context, listen: false)
+                        .getPosts();
+                  } catch (e) {
+                    CustomToast.exceptionToast(msg: e.toString());
+                  }
                 },
                 child: Provider.of<PostProvider>(context).isPostEmpty
                     ? Center(
                         child: Loading(
+                        isTest: isTest,
                         isShowingError:
                             Provider.of<PostProvider>(context).isErrorOccurred,
                         key: UniqueKey(),
@@ -246,7 +257,7 @@ class NewsFeed extends StatelessWidget {
             if (post['likeCount'] != 0) {
               if (isPostLiked == false) {
                 //If user has not liked the post addLike().
-                Provider.of<PostProvider>(context)
+                Provider.of<PostProvider>(context, listen: false)
                     .addLike(post['_id'].toString());
               } else {
                 Provider.of<PostProvider>(context, listen: false)

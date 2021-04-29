@@ -2,13 +2,13 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -31,8 +31,6 @@ class _OrganizationsState extends State<Organizations> {
   int isSelected = 0;
   List admins = [];
   String creatorId;
-
-  FToast fToast;
 
   Preferences preferences = Preferences();
 
@@ -121,7 +119,7 @@ class _OrganizationsState extends State<Organizations> {
                       try {
                         await getMembers();
                       } catch (e) {
-                        _exceptionToast(e.toString());
+                        CustomToast.exceptionToast(msg: e.toString());
                       }
                     },
                     child: Center(
@@ -144,7 +142,7 @@ class _OrganizationsState extends State<Organizations> {
                           try {
                             await getMembers();
                           } catch (e) {
-                            _exceptionToast(e.toString());
+                            CustomToast.exceptionToast(msg: e.toString());
                           }
                         },
                         child: const Text("Refresh"),
@@ -155,7 +153,7 @@ class _OrganizationsState extends State<Organizations> {
                       try {
                         await getMembers();
                       } catch (e) {
-                        _exceptionToast(e.toString());
+                        CustomToast.exceptionToast(msg: e.toString());
                       }
                     },
                     child: CustomScrollView(
@@ -300,28 +298,6 @@ class _OrganizationsState extends State<Organizations> {
               title: Text('View Registered Events'),
             )),
       ],
-    );
-  }
-
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
     );
   }
 }

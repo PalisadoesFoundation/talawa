@@ -10,6 +10,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -81,6 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
+      CustomToast.exceptionToast(msg: "Something went wrong!");
     } else if (!result.hasException) {
       print(result);
       setState(() {
@@ -119,6 +121,7 @@ class _ProfilePageState extends State<ProfilePage> {
           .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
       if (result.hasException) {
         print(result.exception.toString());
+        CustomToast.exceptionToast(msg: "Please Try Again later!");
       } else if (!result.hasException) {
         print('here');
         curOrganization = result.data['organizations'] as List;
@@ -162,6 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       print('exception: ${result.exception.toString()}');
+      CustomToast.exceptionToast(msg: "Please Try Again later!");
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org

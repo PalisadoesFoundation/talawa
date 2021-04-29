@@ -1,11 +1,13 @@
 //flutter packages
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/queries_.dart';
 
 //pages are called here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
@@ -36,10 +38,6 @@ class _AddEventState extends State<AddEvent> {
   List<String> recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
   String recurrance = 'DAILY';
   Preferences preferences = Preferences();
-  @override
-  void initState() {
-    super.initState();
-  }
 
   //getting the date for the event
   DateTimeRange dateRange = DateTimeRange(
@@ -134,6 +132,10 @@ class _AddEventState extends State<AddEvent> {
       endTime: endTime.microsecondsSinceEpoch.toString(),
     );
     print('Result is : $result');
+    if (result == null) {
+      CustomToast.exceptionToast(
+          msg: "Could not create event! Please Try Again later!");
+    }
   }
 
   //main build starts from here

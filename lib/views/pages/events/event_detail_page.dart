@@ -44,12 +44,12 @@ class _EventDetailState extends State<EventDetail>
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
-            expandedHeight: SizeConfig.safeBlockVertical * 37.5,
+            expandedHeight: SizeConfig.safeBlockVertical * 40,
             flexibleSpace: FlexibleSpaceBar(
               background: FittedBox(
-                fit: BoxFit.fill,
+                fit: BoxFit.contain,
                 child: Container(
-                  height: SizeConfig.safeBlockVertical * 37.5,
+                  height: SizeConfig.safeBlockVertical * 40,
                   width: width,
                   color: UIData.primaryColor,
                   child: Column(
@@ -131,12 +131,13 @@ class _EventDetailState extends State<EventDetail>
       decoration: const BoxDecoration(
           color: Colors.black26,
           borderRadius: BorderRadius.all(Radius.circular(5))),
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      height: SizeConfig.safeBlockVertical * 5,
+      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
+      height: SizeConfig.safeBlockVertical * 5.5,
       child: Text(
         text,
-        style: const TextStyle(fontSize: 16, color: Colors.white),
+        style: TextStyle(
+            fontSize: SizeConfig.safeBlockVertical * 2.5, color: Colors.white),
         overflow: TextOverflow.ellipsis,
       ),
     );
