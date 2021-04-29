@@ -61,8 +61,7 @@ def main():
             file_count += 1
             print("{}: {}".format(key, value))
     if is_line_rule_voilated != 0:
-        msg = "Above " + str(file_count) + " files have more than 300 lines"
-        print(msg)
+        print("Above {} files have more than 300 lines".format(file_count))
         sys.exit(1)
     else:
         sys.exit(0)
