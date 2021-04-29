@@ -9,6 +9,10 @@ import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/services/queries_.dart';
+
+import 'package:talawa/utils/custom_toast.dart';
+import 'package:talawa/utils/globals.dart';
+
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -18,7 +22,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 
 //pubspec packages are called here
@@ -47,7 +50,6 @@ class RegisterFormState extends State<RegisterForm> {
   final Queries _signupQuery = Queries();
   var _validate = AutovalidateMode.disabled;
   final Preferences _pref = Preferences();
-  FToast fToast;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   File _image;
   bool _obscureText = true;
@@ -59,8 +61,6 @@ class RegisterFormState extends State<RegisterForm> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
   }
 
@@ -81,7 +81,9 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      ExceptionToast(result.hasException.toString().substring(16, 35));
+
+      CustomToast.exceptionToast(msg: result.hasException.toString());
+
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -125,7 +127,9 @@ class RegisterFormState extends State<RegisterForm> {
       setState(() {
         _progressBarState = false;
       });
-      ExceptionToast(result.exception.toString().substring(16, 35));
+
+      CustomToast.exceptionToast(msg: result.exception.toString());
+
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;

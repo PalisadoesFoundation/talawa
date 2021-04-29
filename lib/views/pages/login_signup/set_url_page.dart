@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_logs/flutter_logs.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/loghelper.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -34,7 +34,6 @@ class _UrlPageState extends State<UrlPage>
   String orgUrl, orgImgUrl;
   String saveMsg = "Set URL";
   String urlInput;
-  FToast fToast;
   bool isUrlCalled = false;
   //animation Controllers
   AnimationController controller;
@@ -69,7 +68,9 @@ class _UrlPageState extends State<UrlPage>
       LogHelper().log(LogLevel.ERROR, widget.toStringShort(), "checkAndSetUrl",
           "Incorrect Oraganization",
           exception: e as Exception);
-      const ExceptionToast('Incorrect Organization Entered');
+
+      CustomToast.exceptionToast(msg: 'Incorrect Organization Entered');
+
       LogHelper().exportLogs();
     }
 
@@ -125,8 +126,6 @@ class _UrlPageState extends State<UrlPage>
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     urlController.addListener(listenToUrl);
     // Initializing all the animationControllers
     controller = AnimationController(

@@ -1,5 +1,4 @@
 //flutter packages are called here
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -15,9 +15,11 @@ import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/home_page.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/widgets/exception_toast.dart';
 import 'package:talawa/views/widgets/success_toast.dart';
+
 
 import '../_pages.dart';
 
@@ -37,7 +39,6 @@ class LoginFormState extends State<LoginForm> {
   bool _progressBarState = false;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   final Queries _query = Queries();
-  FToast fToast;
   final Preferences _pref = Preferences();
   static String orgURI;
   bool _obscureText = true;
@@ -51,8 +52,6 @@ class LoginFormState extends State<LoginForm> {
   void initState() {
     super.initState();
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
-    fToast = FToast();
-    fToast.init(context);
   }
 
   //function for login user which gets called when sign in is press
@@ -60,6 +59,7 @@ class LoginFormState extends State<LoginForm> {
     final GraphQLClient _client = graphQLConfiguration.clientToQuery();
     final QueryResult result = await _client.mutate(MutationOptions(
         documentNode: gql(_query.loginUser(model.email, model.password))));
+
     final bool connectionCheck = await DataConnectionChecker().hasConnection;
     if (!connectionCheck) {
       print('You are not connected to the internet');
@@ -69,17 +69,23 @@ class LoginFormState extends State<LoginForm> {
       const ExceptionToast(
           'Connection Error. Make sure your Internet connection is stable');
     } else if (result.hasException) {
+
       print(result.exception);
       setState(() {
         _progressBarState = false;
       });
 
-      ExceptionToast(result.exception.toString().substring(16, 35));
+
+      CustomToast.exceptionToast(msg: result.exception.toString());
+
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      const SuccessToast("All Set!");
+
+
+      CustomToast.sucessToast(msg: "All Set!");
+
       final Token accessToken =
           Token(tokenString: result.data['login']['accessToken'].toString());
       await _pref.saveToken(accessToken);

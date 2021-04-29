@@ -1,0 +1,35 @@
+name: PR Workflow
+on: [pull_request]
+
+jobs:
+  PR-Greeting:
+    name: Greeting Message to user
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-message: "Congratulations on making your first PR! :confetti_ball: If you haven't already, check out our [Contributing Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md) and [PR Reporting Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/PR-guidelines.md) to ensure that you are following our guidelines for contributing and creating PR."
+  
+  Linter:
+    name: Checking if code formatting is done correctly
+    runs-on: ubuntu-latest
+    needs: PR-Greeting
+    steps:
+      - uses: actions/checkout@v2
+      - uses: axel-op/dart-package-analyzer@v3
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'beta'
+      - run: flutter format --set-exit-if-changed .
+
+  Count-lines-of-code:
+    name: Total number of lines in every file should not be more than 300
+    needs: Linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: chmod +x ./.github/workflows/countline.py
+      - run: ./.github/workflows/countline.py

@@ -7,14 +7,13 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/widgets/text_field_decoration.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 class UpdateOrganization extends StatefulWidget {
   const UpdateOrganization(
@@ -41,7 +40,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   bool isPublic = true;
   bool isVisible = true;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  FToast fToast;
   final Preferences _preferences = Preferences();
   final AuthController _authController = AuthController();
 
@@ -49,8 +47,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     orgNameController.text = widget.name;
     orgDescController.text = widget.description;
     radioValue = widget.isPublic;
@@ -91,12 +87,12 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Success!");
+      CustomToast.sucessToast(msg: "Success!");
       pushNewScreen(
         context,
         screen: const ProfilePage(),
@@ -244,7 +240,8 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                                     toggleProgressBarState();
                                   });
                                 } else if (radioValue < 0 || radioValue1 < 0) {
-                                  _exceptionToast("A choice must be selected");
+                                  CustomToast.exceptionToast(
+                                      msg: "A choice must be selected");
                                 }
                               },
                               child: _progressBarState
@@ -271,23 +268,5 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                   ),
                 ),
         ));
-  }
-
-  //a message if the result is successful
-  _successToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: true),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
-    );
-  }
-
-  //a method which is called when the result is an exception
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: false),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
   }
 }
