@@ -13,9 +13,12 @@ import sys
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--line', type=int, required=False, default=300, help='an integer for number of lines of code')
-parser.add_argument('--dir', type=str, required=False, default=os.getcwd(), help='Script Location')
+parser.add_argument('--line', type=int, required=False, default=300,
+                    help='an integer for number of lines of code')
+parser.add_argument('--dir', type=str, required=False,
+                    default=os.getcwd(), help='Script Location')
 args = parser.parse_args()
+
 
 def main():
     """Find, print and exit, for files having code lines above input."""
