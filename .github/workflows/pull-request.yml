@@ -31,5 +31,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: chmod +x ./.github/workflows/countline.sh
-      - run: ./.github/workflows/countline.sh 300
+      - run: chmod +x ./.github/workflows/countline.py
+      - run: ./.github/workflows/countline.py
