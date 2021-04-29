@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/enums/excepttion_type.dart';
+import 'package:talawa/enums/exception_type.dart';
 import 'package:talawa/services/exception.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/view_models/base_model.dart';
-import 'package:talawa/views/widgets/success_toast.dart';
+import 'package:talawa/views/widgets/shared/toast_container.dart';
 import '../../locator.dart';
 
 class JoinOrgnizationViewModel extends BaseModel {

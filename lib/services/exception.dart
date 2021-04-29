@@ -1,5 +1,5 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/enums/excepttion_type.dart';
+import 'package:talawa/enums/exception_type.dart';
 import 'package:talawa/utils/globals.dart';
 
 ExceptionType retrieveExceptionType(QueryResult result) {
