@@ -16,7 +16,6 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/home_page.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 import 'create_organization.dart';
@@ -50,6 +49,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   String currentUserId;
   List joinedOrganizations = [];
   List joinedOrganizationsIds = [];
+  String filter = "Show All";
 
   @override
   void initState() {
@@ -95,8 +95,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     //function to fetch the org from the server
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    final QueryResult result = await _client
-        .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
+    final QueryResult result = await _client.query(filter == 'Show All'
+        ? QueryOptions(documentNode: gql(_query.fetchOrganizations))
+        : QueryOptions(
+            documentNode: gql(_query.getOrganizationsConnectionFilter),
+            variables: {'isPublic': filter == 'Public Org'}));
 
     // Get the details of the current user.
     final QueryResult userDetailsResult = await _client.query(QueryOptions(
@@ -110,7 +113,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         !disposed &&
         !userDetailsResult.hasException) {
       setState(() {
-        organizationInfo = result.data['organizations'] as List;
+        if (filter == 'Show All') {
+          organizationInfo = result.data['organizations'] as List;
+        } else {
+          organizationInfo = result.data['organizationsConnection'] as List;
+        }
 
         // Get the details of joined organizations.
         joinedOrganizations =
@@ -250,8 +257,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Join Organization',
-            style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Join Organization',
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [_popUp()],
       ),
       body: organizationInfo.isEmpty
           ? Center(
@@ -681,6 +691,57 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         style: const TextStyle(fontSize: 16),
         textAlign: TextAlign.center,
       ),
+    );
+  }
+
+  Widget _popUp() {
+    return PopupMenuButton<String>(
+      color: const Color(0xffE9EDE5),
+      icon: const Icon(
+        Icons.filter_list,
+        size: 25,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      itemBuilder: (BuildContext context) {
+        return ['Public Org', 'Private Org', 'Show All'].map((String choice) {
+          return PopupMenuItem<String>(
+            value: choice,
+            child: Container(
+              child: ListTile(
+                contentPadding: const EdgeInsets.all(0),
+                isThreeLine: false,
+                leading: Icon(
+                  Icons.circle,
+                  color: choice == filter ? Colors.green : Colors.white,
+                ),
+                title: Text(
+                  choice,
+                  style: const TextStyle(
+                    fontFamily: 'OpenSans',
+                  ),
+                ),
+                onTap: () {
+                  if (choice == 'Show All') {
+                    if (filter != 'Show All') {
+                      setState(() {
+                        filter = 'Show All';
+                      });
+                    }
+                  } else {
+                    setState(() {
+                      filter = choice;
+                    });
+                  }
+                  fetchOrg();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          );
+        }).toList();
+      },
     );
   }
 }
