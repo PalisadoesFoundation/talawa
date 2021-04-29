@@ -4,8 +4,8 @@
 """
 This is an countline script.
 
-It runs on lib and test directory to find files above given lines of code
-and print all files above given lines of code.
+It runs on lib and test directory to find files
+which doesn't satisfy a given count limit.
 """
 
 import os
@@ -21,7 +21,7 @@ args = parser.parse_args()
 
 
 def main():
-    """Find, print and exit, for files having code lines above input."""
+    """Find, and print, for files having code lines above a given value."""
     # parses through files and saves to a dict
     file_names_with_size = {}
 
