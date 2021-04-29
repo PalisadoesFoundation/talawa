@@ -1,6 +1,5 @@
 //flutter packages are imported  here
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -8,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -22,7 +22,6 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   final Preferences _preferences = Preferences();
   static String itemIndex;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  FToast fToast;
   final AuthController _authController = AuthController();
   List membershipRequestsList = [];
   bool loaded = false;
@@ -32,8 +31,6 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   void initState() {
     //setting the initial state for the different variables
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     viewMemberShipRequests(); //this function is called here to get the request that are sent by the users to get the membership
   }
 
@@ -59,7 +56,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       });
 
       if (membershipRequestsList.isEmpty) {
-        _exceptionToast('You have no new requests.');
+        CustomToast.exceptionToast(msg: 'You have no new requests.');
       }
     }
   }
@@ -82,12 +79,12 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       setState(() {
         processing = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException) {
       setState(() {
         processing = false;
       });
-      _successToast('Success');
+      CustomToast.sucessToast(msg: 'Success');
       viewMemberShipRequests();
     }
   }
@@ -110,12 +107,12 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       setState(() {
         processing = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException) {
       setState(() {
         processing = false;
       });
-      _successToast('Success');
+      CustomToast.sucessToast(msg: 'Success');
       viewMemberShipRequests();
     }
   }
@@ -224,52 +221,6 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
         style: const TextStyle(fontSize: 16, color: Colors.black),
         textAlign: TextAlign.center,
       ),
-    );
-  }
-
-  _successToast(String msg) {
-    //function to be called when the request is successful
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  _exceptionToast(String msg) {
-    //this function is used when the exception is called
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }

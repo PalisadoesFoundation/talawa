@@ -1,7 +1,6 @@
 //flutter imported packages
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -9,13 +8,13 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 class OrganizationMembers extends StatefulWidget {
   @override
@@ -31,7 +30,6 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   List membersList = [];
   List adminsList = [];
   List selectedMembers = [];
-  FToast fToast;
   bool forward = false;
   bool processing = false;
   String userId;
@@ -42,8 +40,6 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -61,7 +57,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     if (result.hasException) {
       print(result.exception);
       //showError(result.exception.toString());
-      _exceptionToast(result.exception.toString());
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException) {
       result.data['organizations'][0]['admins']
           .forEach((admin) => adminsList.add(admin['_id']));
@@ -71,7 +67,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         membersList = result.data['organizations'][0]['members'] as List;
       });
       if (membersList.length == 1) {
-        _exceptionToast('You are alone here.');
+        CustomToast.exceptionToast(msg: 'You are alone here.');
       }
     }
   }
@@ -93,7 +89,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       print(result.exception.toString().substring(16));
-      _exceptionToast(result.exception.toString());
+      CustomToast.exceptionToast(msg: result.exception.toString());
       setState(() {
         processing = false;
       });
@@ -102,7 +98,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       setState(() {
         processing = false;
       });
-      _successToast('Member(s) removed successfully');
+      CustomToast.sucessToast(msg: 'Member(s) removed successfully');
       viewMembers();
     }
   }
@@ -124,7 +120,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       } else if (result.hasException &&
           result.exception.toString().substring(16) != accessTokenException) {
         print(result.exception.toString().substring(16));
-        _exceptionToast("Something went wrong!Try again later");
+        CustomToast.exceptionToast(msg: "Something went wrong!Try again later");
         setState(() {
           processing = false;
         });
@@ -133,11 +129,11 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         setState(() {
           processing = false;
         });
-        _successToast('Admin created');
+        CustomToast.sucessToast(msg: 'Admin created');
         viewMembers();
       }
     } else {
-      _exceptionToast('Already an admin');
+      CustomToast.exceptionToast(msg: 'Already an admin');
     }
   }
 
@@ -149,7 +145,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
           selectedMembers.add('"$memberId"');
         });
       } else {
-        _exceptionToast("Can't select admins");
+        CustomToast.exceptionToast(msg: "Can't select admins");
       }
     } else {
       setState(() {
@@ -254,7 +250,8 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                           "Are you sure you want to make selected member and admin?",
                           addAdmin);
                     } else {
-                      _exceptionToast('You can make one admin at a time');
+                      CustomToast.exceptionToast(
+                          msg: 'You can make one admin at a time');
                     }
                   }
                 },
@@ -303,24 +300,5 @@ class _OrganizationMembersState extends State<OrganizationMembers>
             function: function,
           );
         });
-  }
-
-  _successToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: true),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(
-        msg: msg,
-        success: false,
-      ),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
   }
 }

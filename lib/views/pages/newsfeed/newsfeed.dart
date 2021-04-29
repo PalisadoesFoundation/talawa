@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/post_provider.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/newsfeed/add_post.dart';
 import 'package:talawa/views/pages/newsfeed/news_article.dart';
@@ -46,7 +46,7 @@ class NewsFeed extends StatelessWidget {
                     await Provider.of<PostProvider>(context, listen: false)
                         .getPosts();
                   } catch (e) {
-                    _exceptionToast(e.toString());
+                    CustomToast.exceptionToast(msg: e.toString());
                   }
                 },
                 child: Provider.of<PostProvider>(context).isPostEmpty
@@ -271,28 +271,6 @@ class NewsFeed extends StatelessWidget {
           },
         ),
       ],
-    );
-  }
-
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-    FToast fToast;
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
     );
   }
 }

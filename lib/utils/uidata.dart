@@ -65,6 +65,8 @@ class UIData {
   //   900:Color.fromRGBO(126,25,70, 1)});
   static const Color primaryColor = Colors.orange;
   static const Color secondaryColor = Colors.blueAccent;
+  static const Color toastErrorColor = Colors.red;
+  static const Color toastSucessColor = Colors.green;
 
 //colors
   static List<Color> kitGradients = [

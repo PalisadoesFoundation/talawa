@@ -6,8 +6,8 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/home_page.dart';
@@ -20,7 +20,6 @@ class SwitchOrganization extends StatefulWidget {
 class _SwitchOrganizationState extends State<SwitchOrganization> {
   final Queries _query = Queries();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  FToast fToast;
   int visit = 0;
   String orgId;
   int isSelected;
@@ -37,8 +36,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     fetchUserDetails();
   }
 
@@ -75,7 +72,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   //this method allows user to change the organization if he wants to
   Future switchOrg() async {
     if (userOrg[isSelected]['_id'] == orgId) {
-      _successToast("Switched to ${userOrg[isSelected]['name']}");
+      CustomToast.sucessToast(
+          msg: "Switched to ${userOrg[isSelected]['name']}");
 
       //New Screen with updated data set
       pushNewScreen(context,
@@ -90,9 +88,10 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
           MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
       if (result.hasException) {
         print(result.exception);
-        _exceptionToast(result.exception.toString());
+        CustomToast.exceptionToast(msg: result.exception.toString());
       } else if (!result.hasException) {
-        _successToast("Switched to ${result.data['organizations'][0]['name']}");
+        CustomToast.sucessToast(
+            msg: "Switched to ${result.data['organizations'][0]['name']}");
 
         //save new current org in preference
         final String currentOrgId =
@@ -197,56 +196,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         style: const TextStyle(fontSize: 16),
         textAlign: TextAlign.center,
       ),
-    );
-  }
-
-  //the method which is called when the result is successful
-  _successToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 5,
-          vertical: SizeConfig.safeBlockVertical * 1.5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  //the method is called when the result is an exception
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 6,
-          vertical: SizeConfig.safeBlockVertical * 1.75),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }
