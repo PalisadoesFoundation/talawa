@@ -4,22 +4,31 @@
 """
 This is an countline script.
 
-It runs on lib and test directory to find files above 300 lines of code
-and print all files above 300 lines of code.
+It runs on lib and test directory to find files above given lines of code
+and print all files above given lines of code.
 """
 
 import os
 import sys
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--line', type=int, required=False, default=300, help='an integer for number of lines of code')
+parser.add_argument('--dir', type=str, required=False, help='Script Location')
+args = parser.parse_args()
+
+path = args.dir
+if path == None:
+    path = os.getcwd()
 
 def main():
-    """Find, print and exit, for files having code lines above 300."""
+    """Find, print and exit, for files having code lines above input."""
     # parses through files and saves to a dict
     file_names_with_size = {}
 
     # libPath and testPath dir location
-    lib_path = os.path.expanduser(os.path.join(os.getcwd(), 'lib'))
-    test_path = os.path.expanduser(os.path.join(os.getcwd(), 'test'))
+    lib_path = os.path.expanduser(os.path.join(path, 'lib'))
+    test_path = os.path.expanduser(os.path.join(path, 'test'))
 
     # counting lines in lib dir
     for root, _, files in os.walk(lib_path, topdown=False):
@@ -47,7 +56,7 @@ def main():
     file_count = 0
 
     for key, value in file_names_with_size.items():
-        if value > 300:
+        if value > args.line:
             is_line_rule_voilated = 1
             file_count += 1
             print("{}: {}".format(key, value))
