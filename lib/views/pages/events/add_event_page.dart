@@ -1,6 +1,7 @@
 //flutter packages
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/queries_.dart';
 
 //pages are called here
@@ -10,6 +11,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
 import 'package:talawa/views/widgets/show_progress.dart';
+import 'package:talawa/views/widgets/toast_tile.dart';
 
 class AddEvent extends StatefulWidget {
   const AddEvent({Key key}) : super(key: key);
@@ -26,6 +28,7 @@ class _AddEventState extends State<AddEvent> {
       _validateDescription = false,
       _validateLocation = false;
   ApiFunctions apiFunctions = ApiFunctions();
+  FToast fToast;
 
   Map<String, bool> switchVals = {
     'Make Public': true,
@@ -38,6 +41,8 @@ class _AddEventState extends State<AddEvent> {
   Preferences preferences = Preferences();
   @override
   void initState() {
+    fToast = FToast();
+    fToast.init(context);
     super.initState();
   }
 
@@ -134,6 +139,9 @@ class _AddEventState extends State<AddEvent> {
       endTime: endTime.microsecondsSinceEpoch.toString(),
     );
     print('Result is : $result');
+    if (result == null) {
+      _exceptionToast("Could not create event! Please Try Again later!");
+    }
   }
 
   //main build starts from here
@@ -321,6 +329,17 @@ class _AddEventState extends State<AddEvent> {
           }).toList(),
         ),
       ),
+    );
+  }
+
+  _exceptionToast(String msg) {
+    fToast.showToast(
+      child: ToastTile(
+        msg: msg,
+        success: false,
+      ),
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 3),
     );
   }
 }

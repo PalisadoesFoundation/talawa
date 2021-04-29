@@ -51,6 +51,10 @@ class _AddPostState extends State<AddPost> {
   Future createPost() async {
     final String description = textController.text.trim().replaceAll('\n', ' ');
     final String title = titleController.text.trim().replaceAll('\n', ' ');
+    if (organizationId == null) {
+      _exceptionToast("Please join an organization");
+      return;
+    }
     result = await Queries().addPost(description, organizationId, title) as Map;
     print(result);
     if (result != null) {
@@ -76,6 +80,7 @@ class _AddPostState extends State<AddPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        key: const Key('ADD_POST_APP_BAR'),
         title: const Text(
           'New Post',
           style: TextStyle(color: Colors.white),
