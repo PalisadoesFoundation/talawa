@@ -12,16 +12,20 @@ import os
 import sys
 import argparse
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--line', type=int, required=False, default=300,
-                    help='an integer for number of lines of code')
-parser.add_argument('--dir', type=str, required=False, default=os.getcwd(),
-                    help='directory-location where files are present')
-args = parser.parse_args()
+
+def arg_parser_resolver():
+    """Resolve, for arguments provided by user."""
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--line', type=int, required=False, default=300,
+                        help='an integer for number of lines of code')
+    parser.add_argument('--dir', type=str, required=False, default=os.getcwd(),
+                        help='directory-location where files are present')
+    return parser.parse_args()
 
 
 def main():
     """Find, and print, for files having code lines above a given value."""
+    args = arg_parser_resolver()
     # parses through files and saves to a dict
     file_names_with_size = {}
 
