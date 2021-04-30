@@ -138,14 +138,14 @@ class Preferences with ChangeNotifier {
         value: (token.tokenString != null && token.tokenString.isNotEmpty)
             ? token.tokenString
             : "");
-    //print("Saved token");
+    //debugPrint("Saved token");
   }
 
   //gets the current token
   Future<String> getToken() async {
     const storage = FlutterSecureStorage();
     final String userToken = await storage.read(key: tokenKey);
-    //print("getToken");
+    //debugPrint("getToken");
     return userToken;
   }
 
@@ -158,14 +158,14 @@ class Preferences with ChangeNotifier {
         value: (token.tokenString != null && token.tokenString.isNotEmpty)
             ? token.tokenString
             : "");
-    //print("Saved refresh token");
+    //debugPrint("Saved refresh token");
   }
 
   //get the refreshed token
   Future<String> getRefreshToken() async {
     const storage = FlutterSecureStorage();
     final String refreshToken = await storage.read(key: refreshTokenKey);
-    //print("Got refresh token");
+    //debugPrint("Got refresh token");
     return refreshToken;
   }
 
@@ -176,10 +176,10 @@ class Preferences with ChangeNotifier {
       final Token token =
           Token(tokenString: await storage.read(key: tokenKey) ?? "");
       final Map<String, dynamic> tokenMap = token.parseJwt();
-      //print("Got uid");
+      //debugPrint("Got uid");
       return tokenMap['id'] as int;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return -1;
   }
@@ -190,10 +190,10 @@ class Preferences with ChangeNotifier {
     const storage = FlutterSecureStorage();
     try {
       await storage.delete(key: tokenKey);
-      //print("Delete token");
+      //debugPrint("Delete token");
       preferences.remove(currentOrgId);
       await storage.delete(key: refreshTokenKey);
-      //print("Refresh token");
+      //debugPrint("Refresh token");
       preferences.remove(userId);
       preferences.remove(currentOrgName);
       preferences.remove(currentOrgImgSrc);
@@ -201,7 +201,7 @@ class Preferences with ChangeNotifier {
       preferences.remove(userFName);
       preferences.remove(userLName);
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
     return true;
@@ -214,7 +214,7 @@ class Preferences with ChangeNotifier {
       preferences.remove(currentOrgId);
       preferences.remove(currentOrgName);
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
     return true;

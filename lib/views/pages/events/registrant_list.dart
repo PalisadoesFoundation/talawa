@@ -46,36 +46,32 @@ class _RegListState extends State<RegList> {
   @override
   Widget build(BuildContext context) {
     final task = getRegistrants();
-    return Container(
-      child: FutureBuilder<List<dynamic>>(
-          future: task,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.data.isEmpty) {
-              return Container(
-                child: const Center(
-                    child: Text(
-                  "No Registrants found",
-                  style: TextStyle(fontSize: 20),
-                  textAlign: TextAlign.center,
-                )),
-              );
-            } else {
-              return SingleChildScrollView(
-                child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading:
-                            Text(snapshot.data[index]['firstName'].toString()),
-                      );
-                    }),
-              );
-            }
-          }),
-    );
+    return FutureBuilder<List<dynamic>>(
+        future: task,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.data.isEmpty) {
+            return const Center(
+                child: Text(
+              "No Registrants found",
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
+            ));
+          } else {
+            return SingleChildScrollView(
+              child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading:
+                          Text(snapshot.data[index]['firstName'].toString()),
+                    );
+                  }),
+            );
+          }
+        });
   }
 }

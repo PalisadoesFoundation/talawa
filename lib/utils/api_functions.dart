@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -31,7 +32,7 @@ class ApiFunctions {
       _authController.getNewToken();
       gqlquery(query);
     } else if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       String message = "";
       if (result.exception.clientException != null) {
         message = result.exception.clientException.message;
@@ -63,7 +64,7 @@ class ApiFunctions {
       _authController.getNewToken();
       return gqlmutation(mutation);
     } else if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
     } else {
       return result.data;
     }

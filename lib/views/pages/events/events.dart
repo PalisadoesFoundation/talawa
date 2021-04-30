@@ -172,7 +172,7 @@ class _EventsState extends State<Events> {
   //function to called be called for register
   Future<void> _register(BuildContext context, String eventId) async {
     final Map result = await Queries().registerForEvent(eventId) as Map;
-    print(result);
+    debugPrint(result.toString());
   }
 
   //function to get the events
@@ -357,7 +357,7 @@ class _EventsState extends State<Events> {
                     ));
               }
             } else if (state == ConnectionState.waiting) {
-              print(snapshot.data);
+              debugPrint(snapshot.data.toString());
               return Center(
                   child: Loading(
                 key: UniqueKey(),
@@ -463,59 +463,57 @@ class _EventsState extends State<Events> {
   }
 
   Widget eventCard(int index) {
-    return Container(
-      child: Column(
-        children: [
-          ExpansionTile(
-            title: Text(
-              displayedEvents[index]['title'].toString(),
-              style: const TextStyle(
-                color: Colors.black87,
-                fontSize: 16,
-              ),
+    return Column(
+      children: [
+        ExpansionTile(
+          title: Text(
+            displayedEvents[index]['title'].toString(),
+            style: const TextStyle(
+              color: Colors.black87,
+              fontSize: 16,
             ),
-            subtitle: Text(
-              displayedEvents[index]['description'].toString(),
-              style: const TextStyle(color: Colors.black54),
-            ),
-            trailing: popUpMenue(displayedEvents[index]),
-            children: <Widget>[
-              displayedEvents[index]['isPublic'] as bool
-                  ? menueText('This event is Public')
-                  : menueText('This event is Private'),
-              displayedEvents[index]['isRegistered'] as bool
-                  ? menueText('You Are Registered')
-                  : menueText('You Are Not Registered'),
-              ListTile(
-                trailing: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(UIData.secondaryColor),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                        const StadiumBorder()),
-                  ),
-                  onPressed: () {
-                    pushNewScreen(
-                      context,
-                      withNavBar: true,
-                      screen: EventDetail(event: displayedEvents[index] as Map),
-                    );
-                  },
-                  child: const Text(
-                    "More",
-                    style: TextStyle(color: Colors.white),
-                  ),
+          ),
+          subtitle: Text(
+            displayedEvents[index]['description'].toString(),
+            style: const TextStyle(color: Colors.black54),
+          ),
+          trailing: popUpMenue(displayedEvents[index]),
+          children: <Widget>[
+            displayedEvents[index]['isPublic'] as bool
+                ? menueText('This event is Public')
+                : menueText('This event is Private'),
+            displayedEvents[index]['isRegistered'] as bool
+                ? menueText('You Are Registered')
+                : menueText('You Are Not Registered'),
+            ListTile(
+              trailing: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(UIData.secondaryColor),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                      const StadiumBorder()),
+                ),
+                onPressed: () {
+                  pushNewScreen(
+                    context,
+                    withNavBar: true,
+                    screen: EventDetail(event: displayedEvents[index] as Map),
+                  );
+                },
+                child: const Text(
+                  "More",
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
-            ],
-          ),
-          // ),
-          const Divider(
-            height: 0,
-            thickness: 1,
-          )
-        ],
-      ),
+            ),
+          ],
+        ),
+        // ),
+        const Divider(
+          height: 0,
+          thickness: 1,
+        )
+      ],
     );
   }
 

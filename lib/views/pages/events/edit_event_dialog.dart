@@ -61,7 +61,7 @@ class _EditEventState extends State<EditEvent> {
   void initState() {
     super.initState();
     getCurrentOrgId();
-    print(widget.event);
+    debugPrint(widget.event.toString());
     initevent();
   }
 
@@ -86,7 +86,7 @@ class _EditEventState extends State<EditEvent> {
     setState(() {
       currentOrgId = orgId;
     });
-    print(currentOrgId);
+    debugPrint(currentOrgId);
   }
 
   //method called to select the date
@@ -164,7 +164,7 @@ class _EditEventState extends State<EditEvent> {
       CustomToast.exceptionToast(
           msg: "Could not update event! Please try again later");
     }
-    print('Result is : $result');
+    debugPrint('Result is : $result');
   }
 
   @override
@@ -353,7 +353,7 @@ class _EditEventState extends State<EditEvent> {
             }
           }
           hideProgress();
-          print('EDITING DONE');
+          debugPrint('EDITING DONE');
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const Events()),

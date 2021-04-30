@@ -25,7 +25,7 @@ class AuthController with ChangeNotifier {
         documentNode: gql(_queries.refreshToken(refreshToken))));
 
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
     } else if (!result.hasException && !result.loading) {
       final Token accessToken = Token(
           tokenString: result.data['refreshToken']['accessToken'].toString());

@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
 
 class Validator {
   static String validateURL(String value) {
@@ -96,7 +97,7 @@ class Validator {
 
   static String validateOrgName(String value) {
     final String validatingValue = value.replaceAll(RegExp(r"\s+"), "");
-    print(validatingValue.length);
+    debugPrint(validatingValue.length.toString());
     if (validatingValue.isEmpty) {
       return 'Organization Description must not be left blank.';
     }
@@ -108,7 +109,7 @@ class Validator {
 
   static String validateOrgDesc(String value) {
     final String validatingValue = value.replaceAll(RegExp(r"\s+"), "");
-    print(validatingValue.length);
+    debugPrint(validatingValue.length.toString());
     if (validatingValue.isEmpty) {
       return 'Organization Description must not be left blank.';
     }
@@ -120,7 +121,7 @@ class Validator {
 
   static String validateOrgAttendeesDesc(String value) {
     final String validatingValue = value.replaceAll(RegExp(r"\s+"), "");
-    print(validatingValue.length);
+    debugPrint(validatingValue.length.toString());
     if (validatingValue.isEmpty) {
       return 'Attendees Description must not be left blank.';
     }

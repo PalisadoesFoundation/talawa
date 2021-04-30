@@ -25,7 +25,7 @@ class GraphQLConfiguration with ChangeNotifier {
     final imgUrl = await _pref.getOrgImgUrl();
     displayImgRoute = imgUrl;
     notifyListeners();
-    print(orgURI);
+    debugPrint(orgURI);
   }
 
   static HttpLink httpLink = HttpLink(

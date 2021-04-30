@@ -44,10 +44,11 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
         documentNode: gql(_query.viewMembershipRequest(
             orgId)))); //calling the graphql query to see the membership request
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       //showError(result.exception.toString());
     } else if (!result.hasException) {
-      print(result.data['organizations'][0]['membershipRequests']);
+      debugPrint(
+          result.data['organizations'][0]['membershipRequests'].toString());
 
       setState(() {
         membershipRequestsList =

@@ -130,7 +130,7 @@ class _AddEventState extends State<AddEvent> {
       startTime: startTime.microsecondsSinceEpoch.toString(),
       endTime: endTime.microsecondsSinceEpoch.toString(),
     );
-    print('Result is : $result');
+    debugPrint('Result is : $result');
     if (result == null) {
       CustomToast.exceptionToast(
           msg: "Could not create event! Please Try Again later!");

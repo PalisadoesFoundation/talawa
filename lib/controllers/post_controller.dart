@@ -23,22 +23,22 @@ class PostController with ChangeNotifier {
   }
 
   void switchOrg() {
-    print(posts);
     posts.clear();
     getPosts();
   }
 
   // void : function to get all Posts
   Future<void> getPosts() async {
-    final DateTime d1 = DateTime.now();
+    //final DateTime d1 = DateTime.now();
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
     this.currentUserID = currentUserID;
     final String query = Queries().getPostsById(currentOrgID);
     final Map result = await apiFunctions.gqlquery(query);
-    print(DateTime.now().difference(d1));
+
     if (result != null) {
-      print(posts.isEmpty);
+      debugPrint(posts.isEmpty.toString());
+
       updateLikepostMap(currentUserID);
       posts.isEmpty
           ? addAllPost(result['postsByOrganization'].reversed.toList() as List)
@@ -52,11 +52,11 @@ class PostController with ChangeNotifier {
   Future<void> addLike(int index, String postID) async {
     final String mutation = Queries().addLike(postID) as String;
     final Map result = await apiFunctions.gqlmutation(mutation) as Map;
-    print(result);
+    debugPrint(result.toString());
     posts[index]["likeCount"]++;
-    print(index);
+    debugPrint(index.toString());
     posts[index]['likedBy'].add({'_id': currentUserID});
-    print(posts[index]["likeCount"]);
+    debugPrint(posts[index]["likeCount"].toString());
     likePostMap[posts[index]['_id'] as String] = true;
     notifyListeners();
   }
@@ -65,10 +65,10 @@ class PostController with ChangeNotifier {
   Future<void> removeLike(int index, String postID) async {
     final String mutation = Queries().removeLike(postID) as String;
     final Map result = await apiFunctions.gqlmutation(mutation) as Map;
-    print(result);
+    debugPrint(result.toString());
     posts[index]["likeCount"]--;
     posts[index]['likedBy'].remove(posts[index]['likedCount']);
-    print(posts[index]["likeCount"]);
+    debugPrint(posts[index]["likeCount"].toString());
     likePostMap[posts[index]['_id'] as String] = false;
     notifyListeners();
   }

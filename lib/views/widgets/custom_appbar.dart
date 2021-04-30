@@ -48,7 +48,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     final QueryResult result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
     } else if (!result.hasException) {
       final res = result.data['organizations'][0]['image'];
       if (res == null) {
@@ -75,7 +75,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
               padding: EdgeInsets.all(
                   widget.isTest ? 2 : SizeConfig.safeBlockHorizontal),
               child: CircleAvatar(
-
                 radius: widget.isTest ? 10 : SizeConfig.safeBlockVertical * 5,
               ),
             );
@@ -105,7 +104,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
           }
         },
       ),
-
     );
   }
 }

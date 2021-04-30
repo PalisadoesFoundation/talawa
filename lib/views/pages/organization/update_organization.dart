@@ -83,7 +83,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       return updateOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
       });

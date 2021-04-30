@@ -58,13 +58,11 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
                     leading: Text('${userEvents[index]['title']}'),
                   );
                 })
-            : Container(
-                child: const Center(
-                    child: Text(
-                  "No registered events",
-                  style: TextStyle(fontSize: 20),
-                  textAlign: TextAlign.center,
-                )),
-              );
+            : const Center(
+                child: Text(
+                "No registered events",
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ));
   }
 }

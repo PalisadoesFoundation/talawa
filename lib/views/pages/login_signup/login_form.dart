@@ -1,4 +1,5 @@
 //flutter packages are called here
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,10 +17,7 @@ import 'package:talawa/view_models/vm_login.dart';
 import 'package:talawa/model/token.dart';
 import 'package:talawa/views/pages/home_page.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/widgets/exception_toast.dart';
-import 'package:talawa/views/widgets/success_toast.dart';
-
 
 import '../_pages.dart';
 
@@ -62,27 +60,23 @@ class LoginFormState extends State<LoginForm> {
 
     final bool connectionCheck = await DataConnectionChecker().hasConnection;
     if (!connectionCheck) {
-      print('You are not connected to the internet');
+      debugPrint('You are not connected to the internet');
       setState(() {
         _progressBarState = false;
       });
       const ExceptionToast(
           'Connection Error. Make sure your Internet connection is stable');
     } else if (result.hasException) {
-
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
       });
 
-
       CustomToast.exceptionToast(msg: result.exception.toString());
-
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-
 
       CustomToast.sucessToast(msg: "All Set!");
 

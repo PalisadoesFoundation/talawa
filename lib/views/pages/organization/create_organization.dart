@@ -82,7 +82,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       return createOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
       });
@@ -92,7 +92,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
         _progressBarState = true;
       });
       CustomToast.sucessToast(msg: "Success!");
-      print(result.data);
+      debugPrint(result.data.toString());
 
       if (widget.isFromProfile) {
         Navigator.pop(context);
@@ -131,7 +131,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
       return createOrgWithoutImg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
       });
@@ -141,7 +141,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
         _progressBarState = true;
       });
       CustomToast.sucessToast(msg: "Sucess!");
-      print(result.data);
+      debugPrint(result.data.toString());
       if (widget.isFromProfile) {
         Navigator.pop(context);
         Navigator.pop(context);

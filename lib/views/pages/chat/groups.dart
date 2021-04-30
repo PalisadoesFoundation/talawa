@@ -11,7 +11,6 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/chat/chat.dart';
-import 'package:talawa/views/widgets/exception_toast.dart';
 
 class Groups extends StatefulWidget {
   const Groups({Key key}) : super(key: key);
@@ -50,7 +49,7 @@ class _GroupsState extends State<Groups> {
     _currOrgId = currentOrgID;
     final Map result =
         await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-    // print(result);
+    // debugPrint(result);
     eventList = result == null
         ? []
         : result['events'].reversed.toList() as List<dynamic>;
@@ -78,8 +77,7 @@ class _GroupsState extends State<Groups> {
     });
     fetched = true;
 
-    // print('orgID ==== $currentOrgID');
-    print(displayedEvents);
+    debugPrint(displayedEvents.toString());
   }
 
   @override
@@ -93,51 +91,46 @@ class _GroupsState extends State<Groups> {
         ),
       ),
       body: (_currOrgId == null || displayedEvents.isEmpty)
-          ? Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Spacer(),
-                  const Text(
-                    "Register in an event to start chatting",
-                    key: Key('empty_chat_group'),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Spacer(),
+                const Text(
+                  "Register in an event to start chatting",
+                  key: Key('empty_chat_group'),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
                   ),
-                  const Spacer(),
-                  //Shows spinner while fetching is performed
-                  //else shows a refresh text button with icon
-                  !fetched
-                      ? const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: CircularProgressIndicator(),
-                          ),
-                        )
-                      : TextButton.icon(
-                          key: const Key('click_to_refresh_button'),
-                          icon: const Icon(Icons.refresh),
-                          label: const Text('Click to Refresh..'),
-                          onPressed: () {
-                            setState(() {
-                              try {
-                                getEvents();
-                              } catch (e) {
-
-
-                                CustomToast.exceptionToast(msg: e.toString());
-
-                              }
-                            });
-                          },
+                ),
+                const Spacer(),
+                //Shows spinner while fetching is performed
+                //else shows a refresh text button with icon
+                !fetched
+                    ? const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: CircularProgressIndicator(),
                         ),
-                ],
-              ),
+                      )
+                    : TextButton.icon(
+                        key: const Key('click_to_refresh_button'),
+                        icon: const Icon(Icons.refresh),
+                        label: const Text('Click to Refresh..'),
+                        onPressed: () {
+                          setState(() {
+                            try {
+                              getEvents();
+                            } catch (e) {
+                              CustomToast.exceptionToast(msg: e.toString());
+                            }
+                          });
+                        },
+                      ),
+              ],
             )
           //Refresh indicator for calling getEvents
           : RefreshIndicator(
@@ -145,9 +138,7 @@ class _GroupsState extends State<Groups> {
                 try {
                   await getEvents();
                 } catch (e) {
-
                   CustomToast.exceptionToast(msg: e.toString());
-
                 }
               },
               //List of chat groups

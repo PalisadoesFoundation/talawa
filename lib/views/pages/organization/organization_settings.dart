@@ -165,128 +165,124 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     ),
                   )
                 : const SizedBox(),
-            Container(
-              child: Column(children: <Widget>[
-                ListTile(
-                    key: const Key('Update Organization'),
-                    title: const Text(
-                      'Update Organization',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                    leading: const Icon(
-                      Icons.update,
-                      color: UIData.secondaryColor,
-                    ),
-                    onTap: () {
-                      pushNewScreen(
-                        context,
-                        screen: UpdateOrganization(
-                            description: widget.organization[0]['description']
-                                .toString(),
-                            name: widget.organization[0]['name'].toString(),
-                            isPublic:
-                                (widget.organization[0]['isPublic'] as bool)
-                                    ? 0
-                                    : 1,
-                            isVisible: widget.organization[0]
-                                        ['visibleInSearch'] ==
-                                    null
-                                ? -1
-                                : (widget.organization[0][0]['visibleInSearch']
-                                        as bool)
-                                    ? 0
-                                    : 1),
-                      );
-                    }),
-                const Divider(),
-                widget.public
-                    ? const SizedBox()
-                    : ListTile(
-                        key: const Key('Accept MemberShip Requests'),
-                        title: const Text(
-                          'Accept MemberShip Requests',
-                          style: TextStyle(fontSize: 18.0),
-                        ),
-                        subtitle: const Text(
-                          'For Private Organizations',
-                        ),
-                        leading: const Icon(
-                          Icons.group_add,
-                          color: UIData.secondaryColor,
-                        ),
-                        onTap: () {
-                          pushNewScreen(
-                            context,
-                            screen: AcceptRequestsPage(),
-                          );
-                        }),
-                widget.public ? const SizedBox() : const Divider(),
-                ListTile(
-                    key: const Key('Member(s)'),
-                    title: const Text(
-                      'Member(s)',
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                    leading: const Icon(
-                      Icons.person,
-                      color: UIData.secondaryColor,
-                    ),
-                    onTap: () {
-                      pushNewScreen(
-                        context,
-                        screen: OrganizationMembers(),
-                      );
-                    }),
-                const Divider(),
-                widget.creator
-                    ? ListTile(
-                        key: const Key('Remove This Organization'),
-                        title: const Text(
-                          'Remove This Organization',
-                          style: TextStyle(fontSize: 18.0),
-                        ),
-                        leading: const Icon(
-                          Icons.delete,
-                          color: UIData.secondaryColor,
-                        ),
-                        onTap: () async {
-                          if (!widget.creator) {
-                            CustomToast.exceptionToast(
-                                msg: 'Creator can only remove organization');
-                          }
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertBox(
-                                  message:
-                                      "Are you sure you want to remove this organization?",
-                                  function: removeOrg,
-                                );
-                              });
-                        })
-                    : ListTile(
-                        key: const Key('Leave Organization'),
-                        title: const Text(
-                          'Leave Organization',
-                          style: TextStyle(fontSize: 18.0),
-                        ),
-                        leading: const Icon(
-                          Icons.person,
-                          color: UIData.secondaryColor,
-                        ),
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertBox(
-                                  message:
-                                      "Are you sure you want to leave this organization?",
-                                  function: leaveOrg,
-                                );
-                              });
-                        }),
-              ]),
-            ),
+            Column(children: <Widget>[
+              ListTile(
+                  key: const Key('Update Organization'),
+                  title: const Text(
+                    'Update Organization',
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                  leading: const Icon(
+                    Icons.update,
+                    color: UIData.secondaryColor,
+                  ),
+                  onTap: () {
+                    pushNewScreen(
+                      context,
+                      screen: UpdateOrganization(
+                          description:
+                              widget.organization[0]['description'].toString(),
+                          name: widget.organization[0]['name'].toString(),
+                          isPublic: (widget.organization[0]['isPublic'] as bool)
+                              ? 0
+                              : 1,
+                          isVisible:
+                              widget.organization[0]['visibleInSearch'] == null
+                                  ? -1
+                                  : (widget.organization[0][0]
+                                          ['visibleInSearch'] as bool)
+                                      ? 0
+                                      : 1),
+                    );
+                  }),
+              const Divider(),
+              widget.public
+                  ? const SizedBox()
+                  : ListTile(
+                      key: const Key('Accept MemberShip Requests'),
+                      title: const Text(
+                        'Accept MemberShip Requests',
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                      subtitle: const Text(
+                        'For Private Organizations',
+                      ),
+                      leading: const Icon(
+                        Icons.group_add,
+                        color: UIData.secondaryColor,
+                      ),
+                      onTap: () {
+                        pushNewScreen(
+                          context,
+                          screen: AcceptRequestsPage(),
+                        );
+                      }),
+              widget.public ? const SizedBox() : const Divider(),
+              ListTile(
+                  key: const Key('Member(s)'),
+                  title: const Text(
+                    'Member(s)',
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                  leading: const Icon(
+                    Icons.person,
+                    color: UIData.secondaryColor,
+                  ),
+                  onTap: () {
+                    pushNewScreen(
+                      context,
+                      screen: OrganizationMembers(),
+                    );
+                  }),
+              const Divider(),
+              widget.creator
+                  ? ListTile(
+                      key: const Key('Remove This Organization'),
+                      title: const Text(
+                        'Remove This Organization',
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                      leading: const Icon(
+                        Icons.delete,
+                        color: UIData.secondaryColor,
+                      ),
+                      onTap: () async {
+                        if (!widget.creator) {
+                          CustomToast.exceptionToast(
+                              msg: 'Creator can only remove organization');
+                        }
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertBox(
+                                message:
+                                    "Are you sure you want to remove this organization?",
+                                function: removeOrg,
+                              );
+                            });
+                      })
+                  : ListTile(
+                      key: const Key('Leave Organization'),
+                      title: const Text(
+                        'Leave Organization',
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                      leading: const Icon(
+                        Icons.person,
+                        color: UIData.secondaryColor,
+                      ),
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertBox(
+                                message:
+                                    "Are you sure you want to leave this organization?",
+                                function: leaveOrg,
+                              );
+                            });
+                      }),
+            ]),
           ],
         ));
   }

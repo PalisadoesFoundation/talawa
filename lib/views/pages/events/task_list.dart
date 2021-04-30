@@ -33,7 +33,7 @@ class _TaskListState extends State<TaskList> {
   //function to get the task list
   Future<List<dynamic>> getTasks() async {
     final String userID = widget.event['_id'].toString();
-    print("ishan");
+    debugPrint("ishan");
 
     final Map result =
         await apiFunctions.gqlquery(Queries().getTasksByEvent(userID));
@@ -47,37 +47,33 @@ class _TaskListState extends State<TaskList> {
   @override
   Widget build(BuildContext context) {
     final task = getTasks();
-    return Container(
-      child: FutureBuilder<List<dynamic>>(
-          future: task,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.data.isEmpty) {
-              return Container(
-                child: const Center(
-                    child: Text(
-                  "No Tasks found",
-                  style: TextStyle(fontSize: 20),
-                  textAlign: TextAlign.center,
-                )),
-              );
-            } else {
-              return SingleChildScrollView(
-                child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: Text(snapshot.data[index]['title'].toString()),
-                      );
-                    }),
-              );
-            }
-          }),
-    );
+    return FutureBuilder<List<dynamic>>(
+        future: task,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.data.isEmpty) {
+            return const Center(
+                child: Text(
+              "No Tasks found",
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
+            ));
+          } else {
+            return SingleChildScrollView(
+              child: ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Text(snapshot.data[index]['title'].toString()),
+                    );
+                  }),
+            );
+          }
+        });
   }
 }

@@ -83,14 +83,14 @@ class _NewsArticleState extends State<NewsArticle> {
     final QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException) {
-      //print(result);
+      //debugPrintPrintPrint(result);
       setState(() {
         userDetails = result.data['users'] as List;
       });
-      //print(userDetails);
+      //debugPrintPrintPrint(userDetails);
     }
   }
 
@@ -331,7 +331,7 @@ class _NewsArticleState extends State<NewsArticle> {
                                 color: Colors.grey,
                                 icon: const Icon(Icons.send),
                                 onPressed: () {
-                                  print(commentController.text);
+                                  debugPrint(commentController.text);
                                   createComment();
                                 },
                               ),

@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {
-          print(
+          debugPrint(
               'build route for ${settings.name}'); //here we are building the routes for the app
           final routes = <String, WidgetBuilder>{
             UIData.homeRoute: (BuildContext context) => const HomePage(),

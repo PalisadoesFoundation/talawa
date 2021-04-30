@@ -22,7 +22,7 @@ class _MyAboutTileState extends State<MyAboutTile> {
   Future<void> initPackageInfo() async {
     packageInfo = await PackageDetails.getInfo();
     setState(() {});
-    print(packageInfo);
+    debugPrint(packageInfo.toString());
   }
 
   @override

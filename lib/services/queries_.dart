@@ -539,8 +539,8 @@ class Queries {
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
@@ -579,8 +579,8 @@ class Queries {
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
@@ -691,8 +691,8 @@ class Queries {
     ));
 
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data as Map<String, dynamic>;
     }
   }
@@ -779,8 +779,8 @@ query{
   }
 
   createComments(String postId, var text) async {
-    print(postId);
-    print(text);
+    debugPrint(postId);
+    debugPrint(text.toString());
     const String createCommentMutation = """
      mutation createComment(\$postId: ID!, \$text: String!) { 
       createComment(postId: \$postId, 
@@ -816,16 +816,16 @@ query{
       createComments(postId, text);
     }
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
 
   addPost(String text, String organizationId, String title) async {
-    print(text);
-    print(organizationId);
-    print(title);
+    debugPrint(text);
+    debugPrint(organizationId);
+    debugPrint(title);
     const String addPostMutation = """
       mutation createPost(\$text: String!, \$organizationId: ID!, \$title: String!) { 
         createPost( 
@@ -856,14 +856,14 @@ query{
     ));
 
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
 
   addLike(String postID) async {
-    print(postID);
+    debugPrint(postID);
     const String addLikeMutation = """
      mutation likePost(\$postID: ID!) { 
       likePost( id: \$postID,)
@@ -884,14 +884,14 @@ query{
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
 
   removeLike(String postID) async {
-    print(postID);
+    debugPrint(postID);
     const String unLikeMutation = """
      mutation unlikePost(\$postID: ID!) { 
       unlikePost( id: \$postID,)
@@ -915,8 +915,8 @@ query{
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }

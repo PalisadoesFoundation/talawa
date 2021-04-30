@@ -39,7 +39,7 @@ class _UserTasksState extends State<UserTasks> {
     final String userID = widget.member['_id'].toString();
     final Map result =
         await apiFunctions.gqlquery(Queries().tasksByUser(userID));
-    print(result);
+    debugPrint(result.toString());
     setState(() {
       userTasks = result == null ? [] : result['tasksByUser'] as List;
     });

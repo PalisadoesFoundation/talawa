@@ -15,7 +15,7 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/member_details.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:talawa/views/widgets/exception_toast.dart';
+
 import 'package:talawa/views/widgets/loading.dart';
 
 class Organizations extends StatefulWidget {
@@ -61,17 +61,17 @@ class _OrganizationsState extends State<Organizations> {
   // ignore: missing_return
   Future<List> getMembers() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    print(currentOrgID);
+    debugPrint(currentOrgID);
     if (currentOrgID != null) {
       final ApiFunctions apiFunctions = ApiFunctions();
       final result =
           await apiFunctions.gqlquery(Queries().fetchOrgById(currentOrgID));
-      print(result);
+      debugPrint(result.toString());
       List membersList = result == null ? [] : result['organizations'] as List;
       if ((result['organizations'] as List).isNotEmpty) {
         admins = result['organizations'][0]['admins'] as List;
         creatorId = result['organizations'][0]['creator']['_id'].toString();
-        print(admins);
+        debugPrint(admins.toString());
       }
       if (membersList.isNotEmpty) {
         membersList = membersList[0]['members'] as List;
@@ -120,9 +120,7 @@ class _OrganizationsState extends State<Organizations> {
                       try {
                         await getMembers();
                       } catch (e) {
-
                         CustomToast.exceptionToast(msg: e.toString());
-
                       }
                     },
                     child: Center(
@@ -145,9 +143,7 @@ class _OrganizationsState extends State<Organizations> {
                           try {
                             await getMembers();
                           } catch (e) {
-
                             CustomToast.exceptionToast(msg: e.toString());
-
                           }
                         },
                         child: const Text("Refresh"),
@@ -158,9 +154,7 @@ class _OrganizationsState extends State<Organizations> {
                       try {
                         await getMembers();
                       } catch (e) {
-
                         CustomToast.exceptionToast(msg: e.toString());
-
                       }
                     },
                     child: CustomScrollView(

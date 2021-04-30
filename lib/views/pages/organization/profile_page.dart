@@ -81,15 +81,15 @@ class _ProfilePageState extends State<ProfilePage> {
     final QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       CustomToast.exceptionToast(msg: "Something went wrong!");
     } else if (!result.hasException) {
-      print(result);
+      debugPrint(result.toString());
       setState(() {
         userDetails = result.data['users'] as List;
         org = userDetails[0]['joinedOrganizations'] as List;
       });
-      print(userDetails);
+      debugPrint(userDetails.toString());
       int notFound = 0;
       for (int i = 0; i < org.length; i++) {
         if (org[i]['_id'] == orgId) {
@@ -120,17 +120,17 @@ class _ProfilePageState extends State<ProfilePage> {
       final QueryResult result = await _client
           .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
       if (result.hasException) {
-        print(result.exception.toString());
+        debugPrint(result.exception.toString());
         CustomToast.exceptionToast(msg: "Please Try Again later!");
       } else if (!result.hasException) {
-        print('here');
+        debugPrint('here');
         curOrganization = result.data['organizations'] as List;
         creator = result.data['organizations'][0]['creator']['_id'].toString();
         isPublic = result.data['organizations'][0]['isPublic'] as bool;
         result.data['organizations'][0]['admins']
             .forEach((userId) => admins.add(userId));
         for (int i = 0; i < admins.length; i++) {
-          print(admins[i]['_id']);
+          debugPrint(admins[i]['_id'].toString());
           if (admins[i]['_id'] == userID) {
             isCreator = true;
             break;
@@ -160,16 +160,16 @@ class _ProfilePageState extends State<ProfilePage> {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      print('loop');
+      debugPrint('loop');
       return leaveOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print('exception: ${result.exception.toString()}');
+      debugPrint('exception: ${result.exception.toString()}');
       CustomToast.exceptionToast(msg: "Please Try Again later!");
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
-      print('done');
+      debugPrint('done');
       setState(() {
         remaindingOrg =
             result.data['leaveOrganization']['joinedOrganizations'] as List;

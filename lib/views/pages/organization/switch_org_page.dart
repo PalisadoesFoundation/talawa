@@ -52,7 +52,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         _progressBarState = true;
       });
     } else if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
         showError(result.exception.toString());
@@ -61,7 +61,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       setState(() {
         _progressBarState = false;
         userOrg = result.data['users'][0]['joinedOrganizations'] as List;
-        print(userOrg);
+        debugPrint(userOrg.toString());
         if (userOrg.isEmpty) {
           showError("You are not registered to any organization");
         }
@@ -87,7 +87,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       final QueryResult result = await _client.mutate(
           MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
       if (result.hasException) {
-        print(result.exception);
+        debugPrint(result.exception.toString());
         CustomToast.exceptionToast(msg: result.exception.toString());
       } else if (!result.hasException) {
         CustomToast.sucessToast(

@@ -25,7 +25,7 @@ class _AlertBoxState extends State<AlertBox> {
         ),
         ElevatedButton(
           onPressed: () async {
-            print('here');
+            debugPrint('here');
             widget.function();
             Navigator.pop(context);
           },

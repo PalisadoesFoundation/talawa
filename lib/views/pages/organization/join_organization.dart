@@ -16,7 +16,7 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/home_page.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
+
 import 'package:talawa/views/widgets/loading.dart';
 
 import 'create_organization.dart';
@@ -104,7 +104,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         variables: {'id': currentUserId}));
 
     if (result.hasException || userDetailsResult.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       showError(result.exception.toString());
     } else if (!result.hasException &&
         !disposed &&
@@ -128,7 +128,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
 
         // Filtering out organizations that are already joined by user.
         joinedOrganizationsIds.forEach((e) {
-          print(e);
+          debugPrint(e.toString());
           organizationInfo =
               organizationInfo.where((element) => element['_id'] != e).toList();
         });
@@ -151,7 +151,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         result.exception.toString().substring(16) != accessTokenException) {
       CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException && !result.loading) {
-      print(result.data);
+      debugPrint(result.data.toString());
       CustomToast.sucessToast(msg: "Request Sent to Organization Admin");
 
       if (widget.fromProfile) {
@@ -170,7 +170,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     //function which will be called if the person wants to join the organization which is not private
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    print(orgName);
+    debugPrint(orgName);
 
     final QueryResult result = await _client
         .mutate(MutationOptions(documentNode: gql(_query.getOrgId(itemIndex))));

@@ -11,7 +11,6 @@ import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/services/queries_.dart';
 
 import 'package:talawa/utils/custom_toast.dart';
-import 'package:talawa/utils/globals.dart';
 
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -26,7 +25,6 @@ import 'package:graphql/utilities.dart' show multipartFileFrom;
 
 //pubspec packages are called here
 import 'package:image_picker/image_picker.dart';
-import 'package:talawa/views/widgets/exception_toast.dart';
 
 import '../_pages.dart';
 
@@ -68,7 +66,7 @@ class RegisterFormState extends State<RegisterForm> {
   registerUser() async {
     final GraphQLClient _client = graphQLConfiguration.clientToQuery();
     final img = await multipartFileFrom(_image);
-    print(_image);
+    debugPrint(_image.toString());
     final QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(_signupQuery.registerUser(
           model.firstName, model.lastName, model.email, model.password)),
@@ -77,13 +75,12 @@ class RegisterFormState extends State<RegisterForm> {
       },
     ));
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
       });
 
       CustomToast.exceptionToast(msg: result.hasException.toString());
-
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -123,13 +120,12 @@ class RegisterFormState extends State<RegisterForm> {
           model.firstName, model.lastName, model.email, model.password)),
     ));
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
       });
 
       CustomToast.exceptionToast(msg: result.exception.toString());
-
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
@@ -491,26 +487,24 @@ class RegisterFormState extends State<RegisterForm> {
         context: context,
         builder: (BuildContext context) {
           return SafeArea(
-            child: Container(
-              child: Wrap(
-                children: <Widget>[
-                  ListTile(
-                    leading: const Icon(Icons.camera_alt_outlined),
-                    title: const Text('Camera'),
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                  leading: const Icon(Icons.camera_alt_outlined),
+                  title: const Text('Camera'),
+                  onTap: () {
+                    _imgFrom(pickFrom: From.camera);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                    leading: const Icon(Icons.photo_library),
+                    title: const Text('Photo Library'),
                     onTap: () {
-                      _imgFrom(pickFrom: From.camera);
+                      _imgFrom(pickFrom: From.gallery);
                       Navigator.of(context).pop();
-                    },
-                  ),
-                  ListTile(
-                      leading: const Icon(Icons.photo_library),
-                      title: const Text('Photo Library'),
-                      onTap: () {
-                        _imgFrom(pickFrom: From.gallery);
-                        Navigator.of(context).pop();
-                      }),
-                ],
-              ),
+                    }),
+              ],
             ),
           );
         });

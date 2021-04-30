@@ -55,7 +55,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     final QueryResult result = await _client
         .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       //showError(result.exception.toString());
       CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException) {
@@ -88,7 +88,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       return removeMembers();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print(result.exception.toString().substring(16));
+      debugPrint(result.exception.toString().substring(16));
       CustomToast.exceptionToast(msg: result.exception.toString());
       setState(() {
         processing = false;
@@ -119,7 +119,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         return addAdmin();
       } else if (result.hasException &&
           result.exception.toString().substring(16) != accessTokenException) {
-        print(result.exception.toString().substring(16));
+        debugPrint(result.exception.toString().substring(16));
         CustomToast.exceptionToast(msg: "Something went wrong!Try again later");
         setState(() {
           processing = false;

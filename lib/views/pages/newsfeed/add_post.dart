@@ -40,7 +40,7 @@ class _AddPostState extends State<AddPost> {
     setState(() {
       organizationId = orgId;
     });
-    print(organizationId);
+    debugPrint(organizationId);
   }
 
   //creating post
@@ -52,7 +52,7 @@ class _AddPostState extends State<AddPost> {
       return;
     }
     result = await Queries().addPost(description, organizationId, title) as Map;
-    print(result);
+    debugPrint(result.toString());
     if (result != null) {
       Provider.of<PostProvider>(context, listen: false).getPosts();
       Navigator.pop(context, true);
@@ -83,79 +83,71 @@ class _AddPostState extends State<AddPost> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          child: Form(
-            autovalidateMode: validate,
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(9.0),
-                  child: Container(
-                    child: TextFormField(
-                      maxLines: null,
-                      keyboardType: TextInputType.multiline,
-                      inputFormatters: [LengthLimitingTextInputFormatter(30)],
-                      key: const Key('Title'),
-                      textInputAction: TextInputAction.next,
-                      validator: (String value) {
-                        if (value.length > 30) {
-                          return "Post title cannot be longer than 30 letters";
-                        }
+        child: Form(
+          autovalidateMode: validate,
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(9.0),
+                child: TextFormField(
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  inputFormatters: [LengthLimitingTextInputFormatter(30)],
+                  key: const Key('Title'),
+                  textInputAction: TextInputAction.next,
+                  validator: (String value) {
+                    if (value.length > 30) {
+                      return "Post title cannot be longer than 30 letters";
+                    }
 
-                        if (value.isEmpty) {
-                          return "This field is Required";
-                        }
-                        return null;
-                      },
-                      controller: titleController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20.0),
-                          ),
-                        ),
-                        labelText: 'Give your post a title....',
+                    if (value.isEmpty) {
+                      return "This field is Required";
+                    }
+                    return null;
+                  },
+                  controller: titleController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20.0),
                       ),
-                      //  'Give your post a title....',
                     ),
+                    labelText: 'Give your post a title....',
                   ),
+                  //  'Give your post a title....',
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(9.0),
-                  child: Container(
-                    child: TextFormField(
-                      maxLines: null,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(10000)
-                      ],
-                      keyboardType: TextInputType.multiline,
-                      key: const Key('Description'),
-                      controller: textController,
-                      validator: (String value) {
-                        if (value.length > 10000) {
-                          return "Post cannot be longer than 10000 letters";
-                        }
+              ),
+              Padding(
+                padding: const EdgeInsets.all(9.0),
+                child: TextFormField(
+                  maxLines: null,
+                  inputFormatters: [LengthLimitingTextInputFormatter(10000)],
+                  keyboardType: TextInputType.multiline,
+                  key: const Key('Description'),
+                  controller: textController,
+                  validator: (String value) {
+                    if (value.length > 10000) {
+                      return "Post cannot be longer than 10000 letters";
+                    }
 
-                        if (value.isEmpty) {
-                          return "This field is Required";
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20.0),
-                          ),
-                        ),
-                        labelText: 'Write Your post here....',
+                    if (value.isEmpty) {
+                      return "This field is Required";
+                    }
+                    return null;
+                  },
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20.0),
                       ),
-                      //  'Give your post Description here....',
                     ),
+                    labelText: 'Write Your post here....',
                   ),
+                  //  'Give your post Description here....',
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
