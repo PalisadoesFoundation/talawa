@@ -36,7 +36,9 @@ class _ChatState extends State<Chat> {
         ),
       ),
       body: Align(
-          alignment: Alignment.bottomCenter, child: _textComposerWidget()),
+        alignment: Alignment.bottomCenter,
+        child: _textComposerWidget(),
+      ),
     );
   }
 
@@ -52,13 +54,11 @@ class _ChatState extends State<Chat> {
             children: <Widget>[
               Flexible(
                 child: TextField(
-                  textInputAction: TextInputAction.newline,
-                  maxLines: null,
-                  decoration: InputDecoration(
+                  decoration: InputDecoration.collapsed(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                      hintText: "Enter your message...."),
+                      hintText: "    Enter your message...."),
                 ),
               ),
               Container(

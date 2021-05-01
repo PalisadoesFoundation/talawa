@@ -44,6 +44,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     currentIndex = widget.openPageIndex;
     _controller = PersistentTabController(initialIndex: currentIndex);
+    Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
+    Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
   }
 
   @override

@@ -231,11 +231,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         ListTile(
-                            title: const Text("Profile",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20.0,
-                                    color: Colors.white)),
+                            title: const Text(
+                              "Profile",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                                color: Colors.white,
+                              ),
+                            ),
                             trailing: userDetails[0]['image'] != null
                                 ? CircleAvatar(
                                     radius: SizeConfig.safeBlockVertical * 3.75,
@@ -313,7 +316,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   key: const Key('Switch Organization'),
                                   title: const Text(
                                     'Switch Organization',
-                                    style: TextStyle(fontSize: 18.0),
+                                    style: const TextStyle(fontSize: 18.0),
                                   ),
                                   leading: const Icon(
                                     Icons.compare_arrows,
@@ -329,7 +332,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               key: const Key('Join or Create New Organization'),
                               title: const Text(
                                 'Join or Create New Organization',
-                                style: TextStyle(fontSize: 18.0),
+                                style: const TextStyle(fontSize: 18.0),
                               ),
                               leading: const Icon(
                                 Icons.business,
@@ -350,7 +353,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       key: const Key('Organization Settings'),
                                       title: const Text(
                                         'Organization Settings',
-                                        style: TextStyle(fontSize: 18.0),
+                                        style: const TextStyle(fontSize: 18.0),
                                       ),
                                       leading: const Icon(
                                         Icons.settings,
@@ -393,7 +396,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             key: const Key('Logout'),
                             title: const Text(
                               "Logout",
-                              style: TextStyle(fontSize: 18.0),
+                              style: const TextStyle(fontSize: 18.0),
                             ),
                             leading: const Icon(
                               Icons.exit_to_app,
@@ -525,4 +528,10 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     }
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
 }
