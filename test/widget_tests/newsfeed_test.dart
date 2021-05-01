@@ -10,7 +10,6 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
 import 'package:talawa/views/widgets/custom_appbar.dart';
-import 'package:talawa/views/widgets/loading.dart';
 
 Widget newsfeedPage() => MultiProvider(
       providers: [
