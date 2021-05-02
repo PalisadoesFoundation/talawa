@@ -1,6 +1,5 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -10,6 +9,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -17,7 +17,6 @@ import 'package:talawa/views/pages/organization/accept_requests_page.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/pages/organization/organization_members.dart';
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 import 'update_organization.dart';
 
 class OrganizationSettings extends StatefulWidget {
@@ -36,15 +35,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   final AuthController _authController = AuthController();
   final OrgController _orgController = OrgController();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  FToast fToast;
   bool processing = false;
-
-  @override
-  void initState() {
-    super.initState();
-    fToast = FToast();
-    fToast.init(context);
-  }
 
   Future leaveOrg() async {
     setState(() {
@@ -66,7 +57,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       setState(() {
         processing = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
       setState(() {
@@ -92,7 +83,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
           .saveCurrentOrgName(newOrgName);
       Provider.of<Preferences>(context, listen: false)
           .saveCurrentOrgId(newOrgId);
-      _successToast('You are no longer apart of this organization');
+      CustomToast.sucessToast(
+          msg: 'You are no longer apart of this organization');
       pushNewScreen(
         context,
         screen: const ProfilePage(),
@@ -126,7 +118,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
-      _successToast('Successfully Removed Organization');
+      CustomToast.sucessToast(msg: 'Successfully Removed Organization');
       setState(() {
         remaindingOrg =
             result.data['removeOrganization']['joinedOrganizations'] as List;
@@ -259,8 +251,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         ),
                         onTap: () async {
                           if (!widget.creator) {
-                            _exceptionToast(
-                                'Creator can only remove organization');
+                            CustomToast.exceptionToast(
+                                msg: 'Creator can only remove organization');
                           }
                           showDialog(
                               context: context,
@@ -297,21 +289,5 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
             ),
           ],
         ));
-  }
-
-  void _successToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: true),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  void _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: false),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
   }
 }

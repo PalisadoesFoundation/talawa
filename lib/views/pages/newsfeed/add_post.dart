@@ -2,15 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/post_provider.dart';
 
 //pages are called here
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 class AddPost extends StatefulWidget {
   const AddPost({Key key}) : super(key: key);
@@ -26,7 +25,6 @@ class _AddPostState extends State<AddPost> {
   String id;
   String organizationId;
   Map result;
-  FToast fToast;
   Preferences preferences = Preferences();
 
   //giving every variable its initial state
@@ -34,8 +32,6 @@ class _AddPostState extends State<AddPost> {
   initState() {
     super.initState();
     getCurrentOrgId();
-    fToast = FToast();
-    fToast.init(context);
   }
 
   //this method is getting the current org id
@@ -52,7 +48,7 @@ class _AddPostState extends State<AddPost> {
     final String description = textController.text.trim().replaceAll('\n', ' ');
     final String title = titleController.text.trim().replaceAll('\n', ' ');
     if (organizationId == null) {
-      _exceptionToast("Please join an organization");
+      CustomToast.exceptionToast(msg: "Please join an organization");
       return;
     }
     result = await Queries().addPost(description, organizationId, title) as Map;
@@ -61,7 +57,7 @@ class _AddPostState extends State<AddPost> {
       Provider.of<PostProvider>(context, listen: false).getPosts();
       Navigator.pop(context, true);
     } else {
-      _exceptionToast(result.toString().substring(16));
+      CustomToast.exceptionToast(msg: result.toString());
     }
     return result;
   }
@@ -201,16 +197,5 @@ class _AddPostState extends State<AddPost> {
                   borderSide: const BorderSide(color: Colors.teal)),
               hintText: name),
         ));
-  }
-
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(
-        msg: msg,
-        success: false,
-      ),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
   }
 }

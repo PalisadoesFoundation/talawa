@@ -5,11 +5,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 //pages are called here
 import 'package:provider/provider.dart';
 import 'package:talawa/services/groups_provider.dart';
-import 'package:talawa/services/queries_.dart';
-import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/services/preferences.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/chat/chat.dart';
 import 'package:talawa/views/widgets/loading.dart';
@@ -62,7 +60,7 @@ class _GroupsState extends State<Groups> {
                 try {
                   await getEventsList(context);
                 } catch (e) {
-                  _exceptionToast(e.toString());
+                  CustomToast.exceptionToast(msg: e.toString());
                 }
               },
               //List of chat groups
@@ -101,29 +99,6 @@ class _GroupsState extends State<Groups> {
             );
           }
       ),
-    );
-  }
-
-  //function to show exceptions
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
     );
   }
 }

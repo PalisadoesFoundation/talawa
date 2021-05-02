@@ -12,10 +12,10 @@ import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 const String newLineKey = "@123TALAWA321@";
 
@@ -47,7 +47,6 @@ class _NewsArticleState extends State<NewsArticle> {
   bool isCommentAdded = false;
   int index;
   Map post;
-  FToast fToast;
   final Queries _query = Queries();
   List userDetails = [];
   String userID;
@@ -58,8 +57,6 @@ class _NewsArticleState extends State<NewsArticle> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     commentController = TextEditingController(
         text: Provider.of<CommentHandler>(context, listen: false)
             .comment(widget.post["_id"].toString()));
@@ -87,7 +84,7 @@ class _NewsArticleState extends State<NewsArticle> {
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
-      _exceptionToast(result.exception.toString());
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException) {
       //print(result);
       setState(() {
@@ -454,14 +451,6 @@ class _NewsArticleState extends State<NewsArticle> {
                 },
                 child: const Text("View More Comments"))
       ],
-    );
-  }
-
-  void _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: false),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }
