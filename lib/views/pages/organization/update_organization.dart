@@ -138,8 +138,11 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: const Text('Update Organization',
-                style: TextStyle(color: Colors.white))),
+          title: const Text(
+            'Update Organization',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
         body: Container(
           color: Colors.white,
           child: radioValue == null
@@ -269,4 +272,10 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                 ),
         ));
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
 }

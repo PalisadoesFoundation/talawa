@@ -88,7 +88,7 @@ class _GroupsState extends State<Groups> {
         key: const Key('GROUPS_APP_BAR'),
         title: const Text(
           'Chats',
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: (_currOrgId == null || displayedEvents.isEmpty)
