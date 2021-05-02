@@ -6,13 +6,15 @@ import 'dart:convert';
 
 import 'package:talawa/model/joinedorganization.dart';
 
-User userFromJson(String str) =>
-    User.fromJson(json.decode(str) as Map<String, dynamic>);
+List<User> userFromJson(String str) => List<User>.from(json
+    .decode(str)
+    .map((x) => User.fromJson(x as Map<String, dynamic>)) as Iterable);
 
-String userToJson(User data) => json.encode(data.toJson());
+String userToJson(List<User> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class User {
-  User({
+  const User({
     this.id,
     this.firstName,
     this.lastName,
@@ -31,14 +33,14 @@ class User {
         joinedOrganizations: List<JoinedOrganization>.from(
             json["joinedOrganizations"].map((x) =>
                     JoinedOrganization.fromJson(x as Map<String, dynamic>))
-                as List),
+                as Iterable),
         createdOrganizations: List<CreatedOrganization>.from(
             json["createdOrganizations"].map((x) =>
                     CreatedOrganization.fromJson(x as Map<String, dynamic>))
-                as List),
+                as Iterable),
         adminFor: List<AdminFor>.from(json["adminFor"]
                 .map((x) => AdminFor.fromJson(x as Map<String, dynamic>))
-            as List<AdminFor>),
+            as Iterable),
       );
 
   final String id;

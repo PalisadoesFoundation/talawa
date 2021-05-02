@@ -545,7 +545,7 @@ class _EventsState extends State<Events> {
             value: 2,
             child: ListTile(
               leading: Icon(Icons.note_add, color: Colors.grey),
-              title: Text( 
+              title: Text(
                 'Add a Task to this Event',
                 style: TextStyle(color: Colors.black),
               ),

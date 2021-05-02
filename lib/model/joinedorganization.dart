@@ -14,9 +14,8 @@ class JoinedOrganization {
         image: json["image"] == null ? null : json["image"] as String,
         id: json["_id"] as String,
         name: json["name"] as String,
-        admins: List<Admin>.from(
-            json["admins"].map((x) => Admin.fromJson(x as Map<String, dynamic>))
-                as List<Admin>),
+        admins: List<Admin>.from(json["admins"]
+            .map((x) => Admin.fromJson(x as Map<String, dynamic>)) as Iterable),
         description: json["description"] as String,
         isPublic: json["isPublic"] as bool,
         creator: JoinedOrganizationCreator.fromJson(
