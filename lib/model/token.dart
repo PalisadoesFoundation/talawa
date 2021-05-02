@@ -1,11 +1,9 @@
 import 'dart:convert';
 
-
-//class to represent he token of an user
+//class to represent the token of an user
 class Token {
-  String tokenString;
-
   Token({this.tokenString});
+  String tokenString;
 
   String _decodeBase64(String str) {
     String output = str.replaceAll('-', '+').replaceAll('_', '/');
@@ -35,6 +33,7 @@ class Token {
     if (payloadMap is! Map<String, dynamic>) {
       throw Exception('invalid payload');
     }
-    return payloadMap;
+
+    return payloadMap as Map<String, dynamic>;
   }
 }

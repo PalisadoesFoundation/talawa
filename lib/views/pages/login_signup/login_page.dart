@@ -1,14 +1,9 @@
 //flutter packages are called here
-import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart' as http;
-import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/utils/validator.dart';
 import 'package:talawa/views/pages/login_signup/login_form.dart';
-import 'package:talawa/views/pages/login_signup/register_form.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,7 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   //providing the initial states to the variables
   @override
   void initState() {
@@ -29,14 +24,17 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  loginScreenForm() => Center(
+  Widget loginScreenForm() => Center(
         child: Container(
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Container(
-              constraints: const BoxConstraints(
-                  maxWidth: 300.0, minWidth: 250.0, minHeight: 300.0),
+              constraints: BoxConstraints(
+                  maxWidth: SizeConfig.safeBlockHorizontal * 75,
+                  minWidth: SizeConfig.safeBlockHorizontal * 62.5,
+                  minHeight: SizeConfig.safeBlockVertical * 37.5),
               child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: 30.0),
+                padding:
+                    EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 7.5),
                 scrollDirection: Axis.vertical,
                 child: Column(
                   children: <Widget>[
@@ -46,7 +44,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                       children: <Widget>[
                         const Text(
                           "Dont have an account?",
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
@@ -63,8 +61,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
                             child: const Text(
                               "SIGN UP!",
                               textAlign: TextAlign.start,
-                              style:
-                                  const TextStyle(color: UIData.primaryColor),
+                              style: TextStyle(color: UIData.primaryColor),
                             ),
                           ),
                         ),
@@ -83,9 +80,9 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
         key: _scaffoldkey,
         backgroundColor: Colors.white,
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
-                image: const AssetImage(UIData.cloud1), fit: BoxFit.cover),
+                image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
           ),
           child: Center(
             child: SingleChildScrollView(

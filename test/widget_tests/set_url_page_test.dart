@@ -6,34 +6,36 @@ import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/services/comment.dart';
+import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 import '../helper.dart';
 
 Widget createLoginPageScreen() => MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
-          create: (_) => GraphQLConfiguration(),
-        ),
-        ChangeNotifierProvider<OrgController>(
-          create: (_) => OrgController(),
-        ),
-        ChangeNotifierProvider<AuthController>(
-          create: (_) => AuthController(),
-        ),
-        ChangeNotifierProvider<Preferences>(
-          create: (_) => Preferences(),
-        ),
+            create: (_) => GraphQLConfiguration()),
+        ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
+        ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
+        ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
+        ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
+        ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
       ],
       child: MaterialApp(
-        home: UrlPage(),
+        home: Builder(builder: (context) {
+          SizeConfig().init(context);
+          return UrlPage();
+        }),
       ),
     );
 
 void main() {
   final TestWidgetsFlutterBinding binding =
-      TestWidgetsFlutterBinding.ensureInitialized();
+      TestWidgetsFlutterBinding.ensureInitialized()
+          as TestWidgetsFlutterBinding;
 
   group("Login Page Tests", () {
     testWidgets("Testing if LoginPage shows up", (tester) async {
@@ -48,10 +50,11 @@ void main() {
 
     testWidgets("Testing overflow of LoginPage in a mobile screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(440, 800);
-      binding.window.devicePixelRatioTestValue = 1.0;
-
       await tester.pumpWidget(createLoginPageScreen());
+      binding.window.physicalSizeTestValue = Size(
+          SizeConfig.safeBlockHorizontal * 110,
+          SizeConfig.safeBlockVertical * 100);
+      binding.window.devicePixelRatioTestValue = 1.0;
 
       /// Verify if [LoginPage] shows up.
       expect(
@@ -62,7 +65,9 @@ void main() {
 
     testWidgets("Testing overflow of LoginPage in a tablet screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = Size(1024, 768);
+      binding.window.physicalSizeTestValue = Size(
+          SizeConfig.safeBlockHorizontal * 256,
+          SizeConfig.safeBlockVertical * 96);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createLoginPageScreen());
@@ -81,7 +86,7 @@ void main() {
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the create account button.
-      var createAccountButton = find.text("Create an Account");
+      final createAccountButton = find.text("Create an Account");
 
       // Tap on the createAccountButton.
       await tester.tap(createAccountButton);
@@ -100,7 +105,7 @@ void main() {
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the login button.
-      var loginButton = find.text("Login");
+      final loginButton = find.text("Login");
 
       // Tap on the login button
       await tester.tap(loginButton);
@@ -121,7 +126,7 @@ void main() {
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the create account button.
-      var createAccountButton = find.text("Create an Account");
+      final createAccountButton = find.text("Create an Account");
 
       /// Enter [calico.palisadoes.org] in [TextFormField].
       await tester.enterText(
@@ -136,7 +141,7 @@ void main() {
       );
 
       // Get the Set URL Button.
-      var setURLButton = find.text("Set URL");
+      final setURLButton = find.text("Set URL");
 
       // Tap on Set URL Button.
       await tester.tap(setURLButton);
@@ -164,18 +169,16 @@ void main() {
     });
 
     testWidgets("Login Button is working if url is verfied", (tester) async {
-      // Ignore overflow errors.
-      FlutterError.onError = onErrorIgnoreOverflowErrors;
-
+      //FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the create account button.
-      var loginButton = find.text("Login");
+      final loginButton = find.text("Login");
 
       /// Enter [calico.palisadoes.org] in [TextFormField].
       await tester.enterText(
         find.byType(TextFormField),
-        'calico.palisadoes.org',
+        'talawa-graphql-api.herokuapp.com/graphql',
       );
 
       //  Check if saveMsg is "Set URL".
@@ -185,7 +188,7 @@ void main() {
       );
 
       // Get the Set URL Button.
-      var setURLButton = find.text("Set URL");
+      final setURLButton = find.text("Set URL");
 
       // Tap on Set URL Button.
       await tester.tap(setURLButton);
@@ -207,7 +210,7 @@ void main() {
 
       // LoginForm should be displayed.
       expect(
-        find.text("SIGN IN"),
+        find.text("Login"),
         findsOneWidget,
       );
     });
@@ -246,7 +249,7 @@ void main() {
       );
 
       // Get the Set URL Button.
-      var setURLButton = find.text("Set URL");
+      final setURLButton = find.text("Set URL");
 
       // Tap on Set URL Button.
       await tester.tap(setURLButton);
@@ -263,14 +266,14 @@ void main() {
       );
 
       // Get the DropdownButton
-      var dropDownButton = find.text("HTTP").first;
+      final dropDownButton = find.text("HTTP").first;
 
       // Tap on the dropDownButton.
       await tester.tap(dropDownButton);
       await tester.pumpAndSettle();
 
       // Get the httpsOptionButton.
-      var httpsOptionButton = find.text("HTTPS").first;
+      final httpsOptionButton = find.text("HTTPS").first;
 
       // Tap on the httpsOptionButton.
       await tester.tap(httpsOptionButton);

@@ -1,24 +1,25 @@
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/services/Queries.dart';
-import 'package:talawa/utils/GQLClient.dart';
+import 'package:talawa/enums/image_from.dart';
+import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/custom_toast.dart';
+import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_register.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 
 class UpdateProfilePage extends StatefulWidget {
-  final List userDetails;
   const UpdateProfilePage({Key key, @required this.userDetails})
       : super(key: key);
+  final List userDetails;
 
   @override
   _UpdateProfilePageState createState() => _UpdateProfilePageState();
@@ -26,23 +27,14 @@ class UpdateProfilePage extends StatefulWidget {
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
   File _image;
-  FToast fToast;
 
   final _formKey = GlobalKey<FormState>();
   var _validate = AutovalidateMode.disabled;
-  AuthController _authController = AuthController();
-  Queries _updateProfileQuery = Queries();
-  RegisterViewModel model = new RegisterViewModel();
+  final AuthController _authController = AuthController();
+  final Queries _updateProfileQuery = Queries();
+  RegisterViewModel model = RegisterViewModel();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   bool _progressBarState = false;
-
-  //providing initial states to the variables
-  @override
-  void initState() {
-    super.initState();
-    fToast = FToast();
-    fToast.init(context);
-  }
 
   //Function called when the user update without the image
   updateProfileWithoutImg() async {
@@ -50,7 +42,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       _progressBarState = true;
     });
 
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
     QueryResult result;
 
     if (widget.userDetails[0]['email'] == model.email) {
@@ -89,22 +81,24 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         _progressBarState = false;
       });
       if (result.exception.clientException != null) {
-        _exceptionToast(result.exception.clientException.message);
+        CustomToast.exceptionToast(
+            msg: result.exception.clientException.message);
       } else {
-        _exceptionToast(result.exception.graphqlErrors.first.message);
+        CustomToast.exceptionToast(
+            msg: result.exception.graphqlErrors.first.message);
       }
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = false;
       });
 
-      await _successToast('Profile Updated');
+      CustomToast.sucessToast(msg: 'Profile Updated');
 
       Navigator.of(context).popUntil(ModalRoute.withName("/"));
 
       pushNewScreen(
         context,
-        screen: ProfilePage(),
+        screen: const ProfilePage(),
       );
     }
   }
@@ -115,7 +109,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       _progressBarState = true;
     });
 
-    GraphQLClient _client = graphQLConfiguration.authClient();
+    final GraphQLClient _client = graphQLConfiguration.authClient();
     final img = await multipartFileFrom(_image);
     QueryResult result;
     if (widget.userDetails[0]['email'] == model.email) {
@@ -156,16 +150,18 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
         _progressBarState = false;
       });
       if (result.exception.clientException != null) {
-        _exceptionToast(result.exception.clientException.message);
+        CustomToast.exceptionToast(
+            msg: result.exception.clientException.message);
       } else {
-        _exceptionToast(result.exception.graphqlErrors.first.message);
+        CustomToast.exceptionToast(
+            msg: result.exception.graphqlErrors.first.message);
       }
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = false;
       });
 
-      _successToast('Profile Updated');
+      CustomToast.sucessToast(msg: 'Profile Updated');
 
       //Navigate to home screen
       Navigator.of(context).popUntil(ModalRoute.withName("/"));
@@ -173,29 +169,22 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       //Push New Screen
       pushNewScreen(
         context,
-        screen: ProfilePage(),
+        screen: const ProfilePage(),
       );
     }
   }
 
-  //Get image using camera
-  _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50);
-
-    setState(() {
-      _image = image;
-    });
-  }
-
-  //Get image using gallery
-  _imgFromGallery() async {
-    FilePickerResult filePicker =
-        await FilePicker.platform.pickFiles(type: FileType.image);
-    if (filePicker != null) {
-      File image = File(filePicker.files.first.path);
+  //get image from camera and gallery based on the enum passed
+  _imgFrom({From pickFrom = From.none}) async {
+    File pickImageFile;
+    if (pickFrom != From.none) {
+      final PickedFile selectedImage = await ImagePicker().getImage(
+          source: pickFrom == From.camera
+              ? ImageSource.camera
+              : ImageSource.gallery);
+      pickImageFile = File(selectedImage.path);
       setState(() {
-        _image = image;
+        _image = pickImageFile;
       });
     }
   }
@@ -218,15 +207,15 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   child: Row(
                     children: <Widget>[
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_back,
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
-                      SizedBox(width: 10),
-                      Expanded(
+                      SizedBox(width: SizeConfig.safeBlockHorizontal * 2.5),
+                      const Expanded(
                         child: ListTile(
                           contentPadding: EdgeInsets.all(0),
                           title: Text(
@@ -250,7 +239,27 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                 ),
                 addImage(),
                 SizedBox(
-                  height: 30,
+                  height: SizeConfig.safeBlockVertical * 2.5,
+                ),
+                _image != null
+                    ? IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          size: SizeConfig.safeBlockVertical * 3.75,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _image = null;
+                          });
+                        },
+                      )
+                    : Container(),
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical * 2.5,
+                ),
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical * 3.75,
                 ),
                 //First Name
                 Container(
@@ -258,14 +267,22 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                  margin: EdgeInsets.fromLTRB(
+                      SizeConfig.safeBlockHorizontal * 5,
+                      0,
+                      SizeConfig.safeBlockHorizontal * 5,
+                      0),
+                  padding: EdgeInsets.fromLTRB(
+                      SizeConfig.safeBlockHorizontal * 4,
+                      SizeConfig.safeBlockVertical * 2,
+                      SizeConfig.safeBlockHorizontal * 4,
+                      SizeConfig.safeBlockVertical * 2),
                   child: TextFormField(
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                     keyboardType: TextInputType.name,
                     validator: (value) => Validator.validateLastName(value),
                     enableSuggestions: true,
-                    cursorRadius: Radius.circular(10),
+                    cursorRadius: const Radius.circular(10),
                     cursorColor: Colors.blue[800],
                     textCapitalization: TextCapitalization.words,
                     initialValue: widget.userDetails[0]['firstName'].toString(),
@@ -273,7 +290,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       model.firstName = firstName;
                     },
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(0),
+                      contentPadding: const EdgeInsets.all(0),
                       labelText: 'First Name',
                       counterText: '',
                       border: InputBorder.none,
@@ -281,13 +298,13 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       focusedBorder: InputBorder.none,
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.red),
+                        borderSide: const BorderSide(color: Colors.red),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: SizeConfig.safeBlockVertical * 2.5,
                 ),
                 //Last Name
                 Container(
@@ -295,14 +312,22 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                  margin: EdgeInsets.fromLTRB(
+                      SizeConfig.safeBlockHorizontal * 5,
+                      0,
+                      SizeConfig.safeBlockHorizontal * 5,
+                      0),
+                  padding: EdgeInsets.fromLTRB(
+                      SizeConfig.safeBlockHorizontal * 4,
+                      SizeConfig.safeBlockVertical * 2,
+                      SizeConfig.safeBlockHorizontal * 4,
+                      SizeConfig.safeBlockVertical * 2),
                   child: TextFormField(
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                     keyboardType: TextInputType.name,
                     validator: (value) => Validator.validateLastName(value),
                     enableSuggestions: true,
-                    cursorRadius: Radius.circular(10),
+                    cursorRadius: const Radius.circular(10),
                     cursorColor: Colors.blue[800],
                     textCapitalization: TextCapitalization.words,
                     initialValue: widget.userDetails[0]['lastName'].toString(),
@@ -310,7 +335,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       model.lastName = lastName;
                     },
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(0),
+                      contentPadding: const EdgeInsets.all(0),
                       labelText: 'Last Name',
                       counterText: '',
                       border: InputBorder.none,
@@ -318,13 +343,13 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       focusedBorder: InputBorder.none,
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.red),
+                        borderSide: const BorderSide(color: Colors.red),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: SizeConfig.safeBlockVertical * 2.5,
                 ),
                 //Email
                 Container(
@@ -332,14 +357,22 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+                  margin: EdgeInsets.fromLTRB(
+                      SizeConfig.safeBlockHorizontal * 5,
+                      0,
+                      SizeConfig.safeBlockHorizontal * 5,
+                      0),
+                  padding: EdgeInsets.fromLTRB(
+                      SizeConfig.safeBlockHorizontal * 4,
+                      SizeConfig.safeBlockVertical * 2,
+                      SizeConfig.safeBlockHorizontal * 4,
+                      SizeConfig.safeBlockVertical * 2),
                   child: TextFormField(
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) => Validator.validateEmail(value),
                     enableSuggestions: true,
-                    cursorRadius: Radius.circular(10),
+                    cursorRadius: const Radius.circular(10),
                     cursorColor: Colors.blue[800],
                     initialValue: widget.userDetails[0]['email'].toString(),
                     textCapitalization: TextCapitalization.words,
@@ -347,7 +380,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       model.email = email;
                     },
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(0),
+                      contentPadding: const EdgeInsets.all(0),
                       labelText: 'Email',
                       counterText: '',
                       border: InputBorder.none,
@@ -355,17 +388,29 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       focusedBorder: InputBorder.none,
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
-                        borderSide: BorderSide(color: Colors.red),
+                        borderSide: const BorderSide(color: Colors.red),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: SizeConfig.safeBlockVertical * 3.75,
                 ),
                 Container(
-                  margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: RaisedButton.icon(
+                  margin: EdgeInsets.fromLTRB(
+                      SizeConfig.safeBlockHorizontal * 5,
+                      0,
+                      SizeConfig.safeBlockHorizontal * 5,
+                      0),
+                  child: ElevatedButton.icon(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          const EdgeInsets.all(15.0)),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                          const StadiumBorder()),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
                       _validate = AutovalidateMode.always;
@@ -377,24 +422,19 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             : updateProfileWithImg();
                       }
                     },
-                    padding: EdgeInsets.all(15),
-                    color: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
                     icon: _progressBarState
                         ? SizedBox(
-                            height: 14,
-                            width: 14,
-                            child: CircularProgressIndicator(
+                            height: SizeConfig.safeBlockVertical * 1.75,
+                            width: SizeConfig.safeBlockHorizontal * 3.5,
+                            child: const CircularProgressIndicator(
                               backgroundColor: Colors.white,
                             ),
                           )
-                        : Icon(
+                        : const Icon(
                             Icons.update,
                             color: Colors.white,
                           ),
-                    label: Text(
+                    label: const Text(
                       'Update Profile',
                       style: TextStyle(
                         fontSize: 18,
@@ -416,7 +456,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     return Column(
       children: <Widget>[
         SizedBox(
-          height: 10,
+          height: SizeConfig.safeBlockVertical * 1.25,
         ),
         Center(
           child: GestureDetector(
@@ -424,23 +464,23 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
               _showPicker(context);
             },
             child: CircleAvatar(
-              radius: 55,
+              radius: SizeConfig.safeBlockVertical * 6.875,
               backgroundColor:
                   _image != null ? UIData.secondaryColor : Colors.grey[300],
               child: _image != null
                   ? CircleAvatar(
-                      radius: 52,
+                      radius: SizeConfig.safeBlockVertical * 6.5,
                       backgroundImage: FileImage(
                         _image,
                       ),
                     )
                   : CircleAvatar(
-                      radius: 52,
+                      radius: SizeConfig.safeBlockVertical * 6.5,
                       backgroundColor: Colors.grey[300],
                       child: Icon(
                         Icons.add_a_photo,
                         color: Colors.grey[800],
-                        size: 45,
+                        size: SizeConfig.safeBlockVertical * 5.625,
                       ),
                     ),
             ),
@@ -451,12 +491,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   //used to show the method user want to choose their pictures
-  void _showPicker(context) {
+  void _showPicker(BuildContext context) {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         elevation: 5.0,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16), topRight: Radius.circular(16)),
         ),
@@ -470,19 +510,19 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
               borderRadius: BorderRadius.circular(16),
             ),
             constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 0.8,
-              minHeight: MediaQuery.of(context).size.height * 0.1,
+              maxHeight: SizeConfig.screenHeight * 0.8,
+              minHeight: SizeConfig.screenHeight * 0.1,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 10),
-                Icon(
+                SizedBox(height: SizeConfig.safeBlockVertical * 1.25),
+                const Icon(
                   Icons.maximize,
                   size: 30,
                 ),
-                SizedBox(height: 5),
-                Center(
+                SizedBox(height: SizeConfig.safeBlockVertical * 0.75),
+                const Center(
                   child: Text(
                     'Update your profile picture',
                     style: TextStyle(
@@ -492,23 +532,23 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 5),
-                Divider(),
+                SizedBox(height: SizeConfig.safeBlockVertical * 0.75),
+                const Divider(),
                 Wrap(
                   children: <Widget>[
                     ListTile(
-                      leading: Icon(Icons.camera_alt_outlined),
-                      title: Text('Camera'),
+                      leading: const Icon(Icons.camera_alt_outlined),
+                      title: const Text('Camera'),
                       onTap: () {
-                        _imgFromCamera();
+                        _imgFrom(pickFrom: From.camera);
                         Navigator.of(context).pop();
                       },
                     ),
                     ListTile(
-                        leading: Icon(Icons.photo_library),
-                        title: Text('Photo Library'),
+                        leading: const Icon(Icons.photo_library),
+                        title: const Text('Photo Library'),
                         onTap: () {
-                          _imgFromGallery();
+                          _imgFrom(pickFrom: From.gallery);
                           Navigator.of(context).pop();
                         }),
                   ],
@@ -517,56 +557,5 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             ),
           );
         });
-  }
-
-  //This method is called when the result is an exception
-  _exceptionToast(String msg) {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: Text(
-              msg,
-              style: TextStyle(fontSize: 15.0, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 5),
-    );
-  }
-
-  //This method is called after complete mutation
-  _successToast(String msg) {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Text(
-        msg,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 2,
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: Duration(seconds: 3),
-    );
   }
 }
