@@ -59,6 +59,17 @@ The process of proposing a change to Talawa can be summarized as:
 
 ### General Guidelines
 
+#### Folder & File Structure
+- `controllers`: The folder contains all the files responsible for managing the state. 
+    - **What does individual file contains ?** <br /> Contains codes for all the bussiness logic related to a particular screen. The file also contains the client side query & mutation calls and server side side response.
+    - **When to add new file ?** <br /> If there is any new feature addition for which the controller file is not present or voilating the rule of 300 lines. 
+- `enum`: The folder contains all the enumerator used in the entire project. 
+    - **What does individual file contains ?** <br /> enum that is eiher used in bussiness logic, data models or UI.
+    - **When to add new file ?** <br /> If any existing enum can be modified to fulfill the needs then update that enum file else create it.
+- `model`: The folder contains all the data models file.
+    - **What does individual file contains ?** <br /> Data model that are used in controller file that contains the server side response in organised form. These data models are used to render the data on widgets.
+    - **When to add new file ?** <br /> If the data model is not already present. *Note: All the data models for every server side response is alredy created. So if the server side query or mutation is already created in anywhere in the project then teh data models might already exists.*
+
 #### Project structure
 
 ```
