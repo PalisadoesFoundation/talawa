@@ -3,8 +3,13 @@ class Timer {
   String hoursOrDays(String createdAt) {
     String time = 'seconds';
     final DateTime now = DateTime.now();
-    final Duration since = now
-        .difference(DateTime.fromMillisecondsSinceEpoch(int.parse(createdAt)));
+    final Duration since = now.difference(
+      DateTime.fromMillisecondsSinceEpoch(
+        int.parse(
+          createdAt,
+        ),
+      ),
+    );
     int intTime = since.inSeconds;
     if (since.inSeconds > 60) {
       time = 'minutes';
@@ -35,8 +40,18 @@ class Timer {
 
   isToday(DateTime date) {
     final DateTime now = DateTime.now();
-    if (DateTime(date.year, date.month, date.day)
-            .difference(DateTime(now.year, now.month, now.day))
+    if (DateTime(
+          date.year,
+          date.month,
+          date.day,
+        )
+            .difference(
+              DateTime(
+                now.year,
+                now.month,
+                now.day,
+              ),
+            )
             .inDays ==
         0) {
       return true;
@@ -45,9 +60,22 @@ class Timer {
     }
   }
 
-  bool isSameDay(DateTime date1, DateTime date2) {
-    if (DateTime(date1.year, date1.month, date1.day)
-            .difference(DateTime(date2.year, date2.month, date2.day))
+  bool isSameDay(
+    DateTime date1,
+    DateTime date2,
+  ) {
+    if (DateTime(
+          date1.year,
+          date1.month,
+          date1.day,
+        )
+            .difference(
+              DateTime(
+                date2.year,
+                date2.month,
+                date2.day,
+              ),
+            )
             .inDays ==
         0) {
       return true;
@@ -56,7 +84,10 @@ class Timer {
     }
   }
 
-  bool isSameWeekDay(DateTime date1, DateTime date2) {
+  bool isSameWeekDay(
+    DateTime date1,
+    DateTime date2,
+  ) {
     return date1.day % 7 == date2.day % 7;
   }
 }
