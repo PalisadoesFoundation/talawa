@@ -173,7 +173,7 @@ class _EditEventState extends State<EditEvent> {
       appBar: AppBar(
         title: const Text(
           'Edit Event',
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: ListView(

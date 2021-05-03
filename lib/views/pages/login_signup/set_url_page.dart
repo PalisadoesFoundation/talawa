@@ -162,7 +162,8 @@ class _UrlPageState extends State<UrlPage>
               //padding: EdgeInsets.all(100.0),
               padding: const EdgeInsets.symmetric(vertical: 50.0),
               child: const Center(
-                  child: Image(image: AssetImage(UIData.talawaLogo))),
+                  child:
+                      const Image(image: const AssetImage(UIData.talawaLogo))),
             ),
           ),
           Container(
@@ -181,6 +182,7 @@ class _UrlPageState extends State<UrlPage>
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
+
                       FadeTransition(
                         opacity: helloAnimation,
                         child: const Text(
@@ -189,17 +191,22 @@ class _UrlPageState extends State<UrlPage>
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 60,
+
                           ),
                         ),
                       ),
                       FadeTransition(
                         opacity: helloAnimation,
-                        child: const Text(
-                          ".",
-                          style: TextStyle(
-                            color: Colors.orange,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 60,
+
+                        child: Container(
+                          child: const Text(
+                            ".",
+                            style: const TextStyle(
+                              color: Colors.orange,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 60,
+                            ),
+
                           ),
                         ),
                       ),
@@ -335,44 +342,69 @@ class _UrlPageState extends State<UrlPage>
                   //changed opacity animation to match login button animation
                   opacity: loginAnimation,
                   child: Container(
-                    margin: EdgeInsets.only(
-                        left: SizeConfig.safeBlockHorizontal * 12.5,
-                        right: SizeConfig.safeBlockHorizontal * 12.5,
-                        top: SizeConfig.safeBlockVertical * 1.25),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                      ),
-                      onPressed: saveMsg != "URL SAVED!"
-                          ? null
-                          : () async {
-                              if (_formKey.currentState.validate()) {
-                                _formKey.currentState.save();
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RegisterPage()),
-                                );
-                              }
-                            },
-                      child: Container(
-                        width: SizeConfig.blockSizeHorizontal * 70,
-                        padding: EdgeInsets.symmetric(
-                          vertical: SizeConfig.safeBlockVertical * 2.5,
-                          horizontal: SizeConfig.safeBlockHorizontal * 5,
-                        ),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.orange),
-                            borderRadius: BorderRadius.circular(50.0)),
-                        child: const Text(
-                          "Create an Account",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
+
+                    
+                    child: Container(
+                      width: _media != null
+                          ? _media.size.width
+                          : MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.only(
+                          left: SizeConfig.safeBlockHorizontal * 12.5,
+                          right: SizeConfig.safeBlockHorizontal * 12.5,
+                          top: SizeConfig.safeBlockVertical * 1.25),
+                      alignment: Alignment.center,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                              ),
+                              onPressed: saveMsg != "URL SAVED!"
+                                  ? null
+                                  : () async {
+                                      if (_formKey.currentState.validate()) {
+                                        _formKey.currentState.save();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RegisterPage()),
+                                        );
+                                      }
+                                    },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: SizeConfig.safeBlockVertical * 2.5,
+                                  horizontal:
+                                      SizeConfig.safeBlockHorizontal * 5,
+                                ),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.orange),
+                                    borderRadius: BorderRadius.circular(50.0)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Expanded(
+                                      child: const Text(
+                                        "Create an Account",
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          //color: UIData.quitoThemeColor,
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          //fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
                           ),
                         ),
                       ),
@@ -383,43 +415,67 @@ class _UrlPageState extends State<UrlPage>
                 FadeTransition(
                   opacity: loginAnimation,
                   child: Container(
-                    margin: EdgeInsets.only(
-                        left: SizeConfig.safeBlockHorizontal * 12.5,
-                        right: SizeConfig.safeBlockHorizontal * 12.5,
-                        top: SizeConfig.safeBlockVertical * 1.25),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                      ),
-                      onPressed: saveMsg != "URL SAVED!"
-                          ? null
-                          : () async {
-                              if (_formKey.currentState.validate()) {
-                                _formKey.currentState.save();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginPage()));
-                              }
-                            },
-                      child: Container(
-                        width: SizeConfig.blockSizeHorizontal * 70,
-                        padding: EdgeInsets.symmetric(
-                          vertical: SizeConfig.safeBlockVertical * 2.5,
-                          horizontal: SizeConfig.safeBlockHorizontal * 5,
-                        ),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.orange),
-                            borderRadius: BorderRadius.circular(50.0)),
-                        child: const Text(
-                          "Login",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
+
+                    child: Container(
+                      width: _media != null
+                          ? _media.size.width
+                          : MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.only(
+                          left: SizeConfig.safeBlockHorizontal * 12.5,
+                          right: SizeConfig.safeBlockHorizontal * 12.5,
+                          top: SizeConfig.safeBlockVertical * 1.25),
+                      alignment: Alignment.center,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                              ),
+                              onPressed: saveMsg != "URL SAVED!"
+                                  ? null
+                                  : () async {
+                                      if (_formKey.currentState.validate()) {
+                                        _formKey.currentState.save();
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginPage()));
+                                      }
+                                    },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: SizeConfig.safeBlockVertical * 2.5,
+                                  horizontal:
+                                      SizeConfig.safeBlockHorizontal * 5,
+                                ),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.orange),
+                                    borderRadius: BorderRadius.circular(50.0)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const <Widget>[
+                                    Expanded(
+                                      child: Text(
+                                        "Login",
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          //color: UIData.quitoThemeColor,
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          //fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
                           ),
                         ),
                       ),
@@ -439,7 +495,7 @@ class _UrlPageState extends State<UrlPage>
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
+              image: const AssetImage(UIData.cloud1), fit: BoxFit.cover),
         ),
         child: Center(
           child: SingleChildScrollView(
