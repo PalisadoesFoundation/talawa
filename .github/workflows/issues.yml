@@ -3,6 +3,16 @@ on:
   issues:
       types: ['opened']
 jobs:
+  Opened-issue-label:
+    name: Adding Issue Label
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Renato66/auto-label@v2.2.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          ignore-comments: true
+          default-labels: '["unapproved"]'
+  
   Issue-Greeting:
     name: Greeting Message to User
     runs-on: ubuntu-latest
@@ -11,15 +21,3 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           issue-message: "Congratulations on making your first Issue! :confetti_ball: If you haven't already, check out our [Contributing Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md) and [Issue Reporting Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/issue-guidelines.md) to ensure that you are following our guidelines for contributing and making issues."
-
-  Opened-issue-label:
-    name: Adding Issue Label
-    runs-on: ubuntu-latest
-    needs: Issue-Greeting
-    steps:
-      - uses: Renato66/auto-label@v2.2.0
-        if: ${{ github.event.action == 'issues' }}
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          ignore-comments: true
-          default-labels: '["unapproved"]'
