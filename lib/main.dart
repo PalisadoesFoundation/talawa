@@ -27,23 +27,30 @@ Future<void> main() async {
       .ensureInitialized(); //ensuring weather the app is being initialized or not
   userID = await preferences.getUserId(); //getting user id
   await logHelper.init(); // To intialise FlutterLog
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp
-  ]) //setting the orientation according to the screen it is running on
-      .then((_) {
-    runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider<GraphQLConfiguration>(
-            create: (_) => GraphQLConfiguration()),
-        ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
-        ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
-        ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
-        ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
-        ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
-      ],
-      child: MyApp(),
-    ));
-  });
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  ) //setting the orientation according to the screen it is running on
+      .then(
+    (_) {
+      runApp(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<GraphQLConfiguration>(
+                create: (_) => GraphQLConfiguration()),
+            ChangeNotifierProvider<OrgController>(
+                create: (_) => OrgController()),
+            ChangeNotifierProvider<AuthController>(
+                create: (_) => AuthController()),
+            ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
+            ChangeNotifierProvider<CommentHandler>(
+                create: (_) => CommentHandler()),
+            ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
+          ],
+          child: MyApp(),
+        ),
+      );
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -126,13 +126,15 @@ class _GroupsState extends State<Groups> {
                           icon: const Icon(Icons.refresh),
                           label: const Text('Click to Refresh..'),
                           onPressed: () {
-                            setState(() {
-                              try {
-                                getEvents();
-                              } catch (e) {
-                                CustomToast.exceptionToast(msg: e.toString());
-                              }
-                            });
+                            setState(
+                              () {
+                                try {
+                                  getEvents();
+                                } catch (e) {
+                                  CustomToast.exceptionToast(msg: e.toString());
+                                }
+                              },
+                            );
                           },
                         ),
                 ],
@@ -149,36 +151,36 @@ class _GroupsState extends State<Groups> {
               },
               //List of chat groups
               child: ListView.builder(
-                  itemCount: displayedEvents.length,
-                  itemBuilder: (context, index) {
-                    final String groupName =
-                        '${displayedEvents[index]['title']}';
-                    final String _imgSrc = displayedEvents[index]
-                        ['organization']['image'] as String;
-                    return Card(
-                      child: ListTile(
-                        title: Text(groupName),
-                        leading: CircleAvatar(
-                          backgroundColor: UIData.secondaryColor,
-                          child: _imgSrc == null
-                              ? Image.asset(UIData.talawaLogo)
-                              : NetworkImage(
-                                  Provider.of<GraphQLConfiguration>(context)
-                                          .displayImgRoute +
-                                      _imgSrc) as Widget,
-                        ),
-                        trailing: const Icon(Icons.arrow_right),
-                        onTap: () {
-                          pushNewScreen(
-                            context,
-                            screen: Chat(
-                              groupName: groupName,
-                            ),
-                          );
-                        },
+                itemCount: displayedEvents.length,
+                itemBuilder: (context, index) {
+                  final String groupName = '${displayedEvents[index]['title']}';
+                  final String _imgSrc =
+                      displayedEvents[index]['organization']['image'] as String;
+                  return Card(
+                    child: ListTile(
+                      title: Text(groupName),
+                      leading: CircleAvatar(
+                        backgroundColor: UIData.secondaryColor,
+                        child: _imgSrc == null
+                            ? Image.asset(UIData.talawaLogo)
+                            : NetworkImage(
+                                Provider.of<GraphQLConfiguration>(context)
+                                        .displayImgRoute +
+                                    _imgSrc) as Widget,
                       ),
-                    );
-                  }),
+                      trailing: const Icon(Icons.arrow_right),
+                      onTap: () {
+                        pushNewScreen(
+                          context,
+                          screen: Chat(
+                            groupName: groupName,
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
     );
   }
