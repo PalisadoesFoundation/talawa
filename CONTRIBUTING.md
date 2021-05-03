@@ -61,14 +61,33 @@ The process of proposing a change to Talawa can be summarized as:
 
 #### Folder & File Structure
 - `controllers`: The folder contains all the files responsible for managing the state. 
-    - File cntains codes for all the bussiness logic related to a particular screen. The file also contains the client side query & mutation calls and server side side response.
-- `enum`: The folder contains all the enumerator used in the entire project. 
-    - files contain enum that is eiher used in bussiness logic, data models or UI.
+    ```
+    1. Files contain codes for all the business logic related to any screen.
+    2. Files also contain the client-side query & mutation calls and server-side side response.
+    3. Before adding any controller make sure whether it already exists or not.
+    ```
+- `enum`: The folder contains all the enumerator used in the entire project.
+    ``` 
+    1. File contains an enum that is either used with controllers or widgets.
+    2. Before creating any new enum files check if the existing enum can be modified to fulfil your requirement.
+    ```
 - `model`: The folder contains all the data models file.
-    - files contains data model that are used in controller file that contains the server side response in organised form. These data models are used to render the data on widgets.
+    ```
+    1. Files contains data model that is used in controller file that contains the server-side response in an organised form. 
+    2. These data models are used to effectively organise projects and render the data on widgets.
+    3. In the controller file, convert every response to a particular data model type.
+    ```
 - `utils`: The folder contains all the external utility files.
-    - Codes related to external utility like validator, ui-scaling, constant strings etc 
-
+    ```
+    1. Codes related to an external utility like validator, UI-scaling, constant strings etc
+    2. Any utility-related files should be created here if not already present. 
+    ```
+- `views`: The folder contains all the files related to the UI display.
+    ```
+    1. Pages: Folder that contains all the pages related to sub-folder and code.
+    2. Widgets: Folder that contains widget file for pages to avoid code duplication
+    ```
+    
 #### Project structure
 
 ```
