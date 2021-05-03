@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 //flutter packages are  imported here
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 //pages are imported here
@@ -57,11 +58,14 @@ class _ProfilePageState extends State<ProfilePage> {
   final OrgController _orgController = OrgController();
   String orgId;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+  FToast fToast;
 
   //providing initial states to the variables
   @override
   void initState() {
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
     if (widget.isCreator != null && widget.test != null) {
       userDetails = widget.test;
       isCreator = widget.isCreator;
@@ -81,6 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
         documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
     if (result.hasException) {
       print(result.exception);
+      _exceptionToast("Something went wrong!");
     } else if (!result.hasException) {
       print(result);
       setState(() {
@@ -119,6 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
           .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
       if (result.hasException) {
         print(result.exception.toString());
+        _exceptionToast("Please Try Again later!");
       } else if (!result.hasException) {
         print('here');
         curOrganization = result.data['organizations'] as List;
@@ -162,6 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
       print('exception: ${result.exception.toString()}');
+      _exceptionToast("Please Try Again later!");
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
@@ -520,5 +527,35 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       );
     }
+  }
+
+  void _exceptionToast(String msg) {
+    final Widget toast = Container(
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.safeBlockHorizontal * 6,
+          vertical: SizeConfig.safeBlockVertical * 3.75),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.red,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: Text(
+              msg,
+              style: const TextStyle(fontSize: 15.0, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 5),
+    );
   }
 }

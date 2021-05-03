@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/services/post_provider.dart';
+import 'package:talawa/controllers/newsfeed_controller.dart';
 
 //pages are called here
 import 'package:talawa/services/queries_.dart';

@@ -9,7 +9,6 @@ import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/services/queries_.dart';
-import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
