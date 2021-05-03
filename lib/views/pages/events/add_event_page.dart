@@ -1,7 +1,6 @@
 //flutter packages
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/queries_.dart';
 
 //pages are called here
@@ -145,7 +144,7 @@ class _AddEventState extends State<AddEvent> {
       appBar: AppBar(
         title: const Text(
           'New Event',
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: ListView(

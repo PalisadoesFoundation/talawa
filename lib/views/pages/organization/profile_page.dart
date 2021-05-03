@@ -316,7 +316,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   key: const Key('Switch Organization'),
                                   title: const Text(
                                     'Switch Organization',
-                                    style: const TextStyle(fontSize: 18.0),
+                                    style: TextStyle(fontSize: 18.0),
                                   ),
                                   leading: const Icon(
                                     Icons.compare_arrows,
@@ -332,7 +332,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               key: const Key('Join or Create New Organization'),
                               title: const Text(
                                 'Join or Create New Organization',
-                                style: const TextStyle(fontSize: 18.0),
+                                style: TextStyle(fontSize: 18.0),
                               ),
                               leading: const Icon(
                                 Icons.business,
@@ -353,7 +353,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       key: const Key('Organization Settings'),
                                       title: const Text(
                                         'Organization Settings',
-                                        style: const TextStyle(fontSize: 18.0),
+                                        style: TextStyle(fontSize: 18.0),
                                       ),
                                       leading: const Icon(
                                         Icons.settings,
@@ -396,7 +396,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             key: const Key('Logout'),
                             title: const Text(
                               "Logout",
-                              style: const TextStyle(fontSize: 18.0),
+                              style: TextStyle(fontSize: 18.0),
                             ),
                             leading: const Icon(
                               Icons.exit_to_app,

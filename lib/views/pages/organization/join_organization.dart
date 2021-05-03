@@ -16,7 +16,6 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/home_page.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 import 'create_organization.dart';
@@ -251,7 +250,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Join Organization',
-            style: const TextStyle(color: Colors.white)),
+            style: TextStyle(color: Colors.white)),
       ),
       body: organizationInfo.isEmpty
           ? Center(
@@ -267,7 +266,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 children: <Widget>[
                   const Text(
                     "Welcome, \nJoin or Create your organization to get started",
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
                         fontStyle: FontStyle.normal),
@@ -297,8 +296,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                               const BorderSide(color: Colors.white, width: 0.0),
                         ),
                         prefixIcon: const Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: const Icon(Icons.search, color: Colors.black),
+                          padding: EdgeInsets.all(0.0),
+                          child: Icon(Icons.search, color: Colors.black),
                         ),
                         hintText: "Search Organization Name"),
                   ),
@@ -575,7 +574,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                 ],
               )),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
         backgroundColor: UIData.secondaryColor,
         foregroundColor: Colors.white,
         elevation: 5.0,
@@ -585,6 +583,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                     isFromProfile: widget.fromProfile,
                   )));
         },
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

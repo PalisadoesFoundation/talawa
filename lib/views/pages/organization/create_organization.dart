@@ -191,7 +191,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
               addImage(),
               const Text(
                 'Upload Organization Image',
-                style: const TextStyle(fontSize: 16, color: Colors.black),
+                style: TextStyle(fontSize: 16, color: Colors.black),
               ),
               Form(
                 key: _formKey,
@@ -288,10 +288,10 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                 Validator.validateOrgAttendeesDesc(value),
                             textAlign: TextAlign.left,
                             style: const TextStyle(color: Colors.black),
-                            decoration: new InputDecoration(
-                              border: new OutlineInputBorder(
-                                borderRadius: new BorderRadius.circular(20.0),
-                                borderSide: new BorderSide(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
                                     color: UIData.secondaryColor),
                               ),
                               prefixIcon: const Icon(
@@ -313,8 +313,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                       )),
                       const Text(
                         'Do you want your organization to be public?',
-                        style:
-                            const TextStyle(fontSize: 16, color: Colors.black),
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                       RadioListTile(
                         groupValue: radioValue,
@@ -351,8 +350,7 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                       ),
                       const Text(
                         'Do you want others to be able to find your organization from the search page?',
-                        style:
-                            const TextStyle(fontSize: 16, color: Colors.black),
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                       RadioListTile(
                         activeColor: UIData.secondaryColor,
@@ -399,23 +397,6 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
-                          child: _progressBarState
-                              ? const Center(
-                                  child: const SizedBox(
-                                    width: 20,
-                                    height: 20,
-                                    child: const CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Colors.white),
-                                      strokeWidth: 3,
-                                      backgroundColor: Colors.black,
-                                    ),
-                                  ),
-                                )
-                              : const Text(
-                                  "CREATE ORGANIZATION",
-                                  style: const TextStyle(color: Colors.white),
-                                ),
                           onPressed: _progressBarState
                               ? () {
                                   CustomToast.exceptionToast(
@@ -440,6 +421,23 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                         msg: "A choice must be selected");
                                   }
                                 },
+                          child: _progressBarState
+                              ? const Center(
+                                  child: SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.white),
+                                      strokeWidth: 3,
+                                      backgroundColor: Colors.black,
+                                    ),
+                                  ),
+                                )
+                              : const Text(
+                                  "CREATE ORGANIZATION",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                         ),
                       ),
                     ],

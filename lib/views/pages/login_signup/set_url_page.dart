@@ -160,8 +160,7 @@ class _UrlPageState extends State<UrlPage>
               //padding: EdgeInsets.all(100.0),
               padding: const EdgeInsets.symmetric(vertical: 50.0),
               child: const Center(
-                  child:
-                      const Image(image: const AssetImage(UIData.talawaLogo))),
+                  child: Image(image: AssetImage(UIData.talawaLogo))),
             ),
           ),
           Container(
@@ -188,7 +187,7 @@ class _UrlPageState extends State<UrlPage>
                             child: Container(
                               child: const Text(
                                 "TALAWA",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 60,
@@ -203,7 +202,7 @@ class _UrlPageState extends State<UrlPage>
                         child: Container(
                           child: const Text(
                             ".",
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.orange,
                               fontWeight: FontWeight.bold,
                               fontSize: 60,
@@ -397,17 +396,15 @@ class _UrlPageState extends State<UrlPage>
                                     borderRadius: BorderRadius.circular(50.0)),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Expanded(
-                                      child: const Text(
-                                        "Create an Account",
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          //color: UIData.quitoThemeColor,
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          //fontWeight: FontWeight.bold
-                                        ),
+                                  children: [
+                                    const Text(
+                                      "Create an Account",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        //color: UIData.quitoThemeColor,
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        //fontWeight: FontWeight.bold
                                       ),
                                     ),
                                   ],
@@ -471,7 +468,7 @@ class _UrlPageState extends State<UrlPage>
                                       child: Text(
                                         "Login",
                                         textAlign: TextAlign.center,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           //color: UIData.quitoThemeColor,
                                           color: Colors.white,
                                           fontSize: 18,
@@ -503,7 +500,7 @@ class _UrlPageState extends State<UrlPage>
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: const AssetImage(UIData.cloud1), fit: BoxFit.cover),
+              image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
         ),
         child: Center(
           child: SingleChildScrollView(

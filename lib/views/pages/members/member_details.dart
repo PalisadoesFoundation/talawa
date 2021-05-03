@@ -58,7 +58,7 @@ class _MemberDetailState extends State<MemberDetail>
         appBar: AppBar(
           title: const Text(
             'User Info',
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white),
           ),
         ),
         body: CustomScrollView(slivers: [
@@ -88,9 +88,8 @@ class _MemberDetailState extends State<MemberDetail>
                     alignment: Alignment.centerLeft,
                     height: SizeConfig.safeBlockVertical * 3.75,
                     child: Text(
-                      'User Privileges: ' +
-                          getPrivilege(widget.member['_id'].toString()),
-                      key: Key('Privilege'),
+                      'User Privileges: ${getPrivilege(widget.member['_id'].toString())}',
+                      key: const Key('Privilege'),
                     ),
                   )),
                 ]),
@@ -108,17 +107,17 @@ class _MemberDetailState extends State<MemberDetail>
                     controller: _tabController,
                     tabs: [
                       const Tab(
-                        icon: const Text(
+                        icon: Text(
                           'Tasks',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
                       ),
                       const Tab(
-                        icon: const Text(
+                        icon: Text(
                           'Registered Events',
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ],
@@ -180,9 +179,7 @@ class _MemberDetailState extends State<MemberDetail>
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                widget.member['firstName'].toString() +
-                    ' ' +
-                    widget.member['lastName'].toString(),
+                '${widget.member['firstName']} ${widget.member['lastName']}',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -222,9 +219,7 @@ class _MemberDetailState extends State<MemberDetail>
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  widget.member['firstName'].toString() +
-                      ' ' +
-                      widget.member['lastName'].toString(),
+                  '${widget.member['firstName']} ${widget.member['lastName']}',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,

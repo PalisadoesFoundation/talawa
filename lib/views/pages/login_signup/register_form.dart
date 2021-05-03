@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/custom_toast.dart';
-import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -179,10 +178,10 @@ class RegisterFormState extends State<RegisterForm> {
                 addImage(),
                 _image == null
                     ? const Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text('Add Profile Image',
-                            style: const TextStyle(
-                                fontSize: 16, color: Colors.white)),
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.white)),
                       )
                     : IconButton(
                         icon: const Icon(
