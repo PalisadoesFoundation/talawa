@@ -87,7 +87,15 @@ The process of proposing a change to Talawa can be summarized as:
     1. Pages: Folder that contains all the pages related to sub-folder and code.
     2. Widgets: Folder that contains widget file for pages to avoid code duplication
     ```
-    
+#### File Code Rules
+- File should contain at max `300` lines of code.
+- The business logic & UI based file should be separated from each other.
+- If it is UI based file, try to use as much `stateless widget` as possible.
+- Don't use the `print` statement in your code, instead use `debugPrint`.
+- Follow proper code formatting by running `flutter format .` before your PR.
+- Constructor should be present just after the class declaration. 
+- Make sure to add proper `keyword` (final or const) and data types for any variable.
+
 #### Project structure
 
 ```
