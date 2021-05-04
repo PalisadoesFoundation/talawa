@@ -27,7 +27,10 @@ import 'package:talawa/views/widgets/loading.dart';
 import 'switch_org_page.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({this.isCreator, this.test});
+  const ProfilePage({
+    this.isCreator,
+    this.test,
+  });
   final bool isCreator;
   final List test;
   @override
@@ -78,11 +81,19 @@ class _ProfilePageState extends State<ProfilePage> {
     orgId = await _preferences.getCurrentOrgId();
     userID = await _preferences.getUserId();
     final GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    final QueryResult result = await _client.query(QueryOptions(
-        documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(_query.fetchUserInfo),
+        variables: {
+          'id': userID,
+        },
+      ),
+    );
     if (result.hasException) {
       print(result.exception);
-      CustomToast.exceptionToast(msg: "Something went wrong!");
+      CustomToast.exceptionToast(
+        msg: "Something went wrong!",
+      );
     } else if (!result.hasException) {
       print(result);
       setState(() {
@@ -100,12 +111,17 @@ class _ProfilePageState extends State<ProfilePage> {
       }
       if (notFound == org.length && org.isNotEmpty) {
         _orgController.setNewOrg(
-            context, org[0]['_id'].toString(), org[0]['name'].toString());
+          context,
+          org[0]['_id'].toString(),
+          org[0]['name'].toString(),
+        );
         Provider.of<Preferences>(context, listen: false)
             .saveCurrentOrgName(org[0]['name'].toString());
         Provider.of<Preferences>(context, listen: false)
             .saveCurrentOrgId(org[0]['_id'].toString());
-        await _preferences.saveCurrentOrgImgSrc(org[0]['image'].toString());
+        await _preferences.saveCurrentOrgImgSrc(
+          org[0]['image'].toString(),
+        );
       }
       fetchOrgAdmin();
     }
@@ -117,8 +133,15 @@ class _ProfilePageState extends State<ProfilePage> {
     orgId = await _preferences.getCurrentOrgId();
     if (orgId != null) {
       final GraphQLClient _client = graphQLConfiguration.authClient();
-      final QueryResult result = await _client
-          .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
+      final QueryResult result = await _client.query(
+        QueryOptions(
+          documentNode: gql(
+            _query.fetchOrgById(
+              orgId,
+            ),
+          ),
+        ),
+      );
       if (result.hasException) {
         print(result.exception.toString());
         CustomToast.exceptionToast(msg: "Please Try Again later!");
@@ -127,8 +150,11 @@ class _ProfilePageState extends State<ProfilePage> {
         curOrganization = result.data['organizations'] as List;
         creator = result.data['organizations'][0]['creator']['_id'].toString();
         isPublic = result.data['organizations'][0]['isPublic'] as bool;
-        result.data['organizations'][0]['admins']
-            .forEach((userId) => admins.add(userId));
+        result.data['organizations'][0]['admins'].forEach(
+          (userId) => admins.add(
+            userId,
+          ),
+        );
         for (int i = 0; i < admins.length; i++) {
           print(admins[i]['_id']);
           if (admins[i]['_id'] == userID) {
@@ -154,8 +180,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    final QueryResult result = await _client
-        .mutate(MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
+    final QueryResult result = await _client.mutate(
+      MutationOptions(
+        documentNode: gql(
+          _query.leaveOrg(
+            orgId,
+          ),
+        ),
+      ),
+    );
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
@@ -170,22 +203,26 @@ class _ProfilePageState extends State<ProfilePage> {
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
       print('done');
-      setState(() {
-        remaindingOrg =
-            result.data['leaveOrganization']['joinedOrganizations'] as List;
-        if (remaindingOrg.isEmpty) {
-          newOrgId = null;
-        } else if (remaindingOrg.isNotEmpty) {
-          setState(() {
-            newOrgId = result.data['leaveOrganization']['joinedOrganizations']
-                    [0]['_id']
-                .toString();
-            newOrgName = result.data['leaveOrganization']['joinedOrganizations']
-                    [0]['name']
-                .toString();
-          });
-        }
-      });
+      setState(
+        () {
+          remaindingOrg =
+              result.data['leaveOrganization']['joinedOrganizations'] as List;
+          if (remaindingOrg.isEmpty) {
+            newOrgId = null;
+          } else if (remaindingOrg.isNotEmpty) {
+            setState(
+              () {
+                newOrgId = result.data['leaveOrganization']
+                        ['joinedOrganizations'][0]['_id']
+                    .toString();
+                newOrgName = result.data['leaveOrganization']
+                        ['joinedOrganizations'][0]['name']
+                    .toString();
+              },
+            );
+          }
+        },
+      );
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
       Provider.of<Preferences>(context, listen: false)
@@ -222,8 +259,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizeConfig.safeBlockVertical * 4),
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20.0),
-                        bottomRight: Radius.circular(20.0),
+                        bottomLeft: Radius.circular(
+                          20.0,
+                        ),
+                        bottomRight: Radius.circular(
+                          20.0,
+                        ),
                       ),
                       color: UIData.primaryColor,
                     ),
@@ -231,71 +272,91 @@ class _ProfilePageState extends State<ProfilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         ListTile(
-                            title: const Text(
-                              "Profile",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                                color: Colors.white,
-                              ),
+                          title: const Text(
+                            "Profile",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0,
+                              color: Colors.white,
                             ),
-                            trailing: userDetails[0]['image'] != null
-                                ? CircleAvatar(
-                                    radius: SizeConfig.safeBlockVertical * 3.75,
-                                    backgroundImage: NetworkImage(
-                                        Provider.of<GraphQLConfiguration>(
-                                                    context)
-                                                .displayImgRoute +
-                                            userDetails[0]['image'].toString()))
-                                : CircleAvatar(
-                                    radius:
-                                        SizeConfig.safeBlockVertical * 5.625,
-                                    backgroundColor: Colors.white,
-                                    child: Text(
-                                        userDetails[0]['firstName']
-                                                .toString()
-                                                .substring(0, 1)
-                                                .toUpperCase() +
-                                            userDetails[0]['lastName']
-                                                .toString()
-                                                .substring(0, 1)
-                                                .toUpperCase(),
-                                        style: const TextStyle(
-                                          color: UIData.primaryColor,
-                                        )),
-                                  )),
-                        SizedBox(height: SizeConfig.safeBlockVertical * 1.25),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: SizeConfig.safeBlockHorizontal * 4),
-                          child: Text(
-                              "${userDetails[0]['firstName']} ${userDetails[0]['lastName']}",
-                              style: const TextStyle(
-                                  fontSize: 20.0, color: Colors.white)),
+                          ),
+                          trailing: userDetails[0]['image'] != null
+                              ? CircleAvatar(
+                                  radius: SizeConfig.safeBlockVertical * 3.75,
+                                  backgroundImage: NetworkImage(
+                                    Provider.of<GraphQLConfiguration>(context)
+                                            .displayImgRoute +
+                                        userDetails[0]['image'].toString(),
+                                  ),
+                                )
+                              : CircleAvatar(
+                                  radius: SizeConfig.safeBlockVertical * 5.625,
+                                  backgroundColor: Colors.white,
+                                  child: Text(
+                                    userDetails[0]['firstName']
+                                            .toString()
+                                            .substring(0, 1)
+                                            .toUpperCase() +
+                                        userDetails[0]['lastName']
+                                            .toString()
+                                            .substring(0, 1)
+                                            .toUpperCase(),
+                                    style: const TextStyle(
+                                      color: UIData.primaryColor,
+                                    ),
+                                  ),
+                                ),
                         ),
-                        SizedBox(height: SizeConfig.safeBlockVertical * 0.625),
+                        SizedBox(
+                          height: SizeConfig.safeBlockVertical * 1.25,
+                        ),
                         Padding(
                           padding: EdgeInsets.only(
-                              left: SizeConfig.safeBlockHorizontal * 4),
+                            left: SizeConfig.safeBlockHorizontal * 4,
+                          ),
                           child: Text(
-                              "Current Organization: ${orgName ?? 'No Organization Joined'}",
-                              style: const TextStyle(
-                                  fontSize: 16.0, color: Colors.white)),
+                            "${userDetails[0]['firstName']} ${userDetails[0]['lastName']}",
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.safeBlockVertical * 0.625,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: SizeConfig.safeBlockHorizontal * 4,
+                          ),
+                          child: Text(
+                            "Current Organization: ${orgName ?? 'No Organization Joined'}",
+                            style: const TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: SizeConfig.safeBlockVertical * 2.5),
+                  SizedBox(
+                    height: SizeConfig.safeBlockVertical * 2.5,
+                  ),
                   Expanded(
                     child: ListView(
                       children: ListTile.divideTiles(
                         context: context,
                         tiles: [
                           ListTile(
-                            key: const Key('Update Profile'),
+                            key: const Key(
+                              'Update Profile',
+                            ),
                             title: const Text(
                               'Update Profile',
-                              style: TextStyle(fontSize: 18.0),
+                              style: TextStyle(
+                                fontSize: 18.0,
+                              ),
                             ),
                             leading: const Icon(
                               Icons.edit,
@@ -313,10 +374,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           org.isEmpty
                               ? const SizedBox()
                               : ListTile(
-                                  key: const Key('Switch Organization'),
+                                  key: const Key(
+                                    'Switch Organization',
+                                  ),
                                   title: const Text(
                                     'Switch Organization',
-                                    style: TextStyle(fontSize: 18.0),
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                    ),
                                   ),
                                   leading: const Icon(
                                     Icons.compare_arrows,
@@ -327,25 +392,29 @@ class _ProfilePageState extends State<ProfilePage> {
                                       context,
                                       screen: SwitchOrganization(),
                                     );
-                                  }),
+                                  },
+                                ),
                           ListTile(
-                              key: const Key('Join or Create New Organization'),
-                              title: const Text(
-                                'Join or Create New Organization',
-                                style: TextStyle(fontSize: 18.0),
-                              ),
-                              leading: const Icon(
-                                Icons.business,
-                                color: UIData.secondaryColor,
-                              ),
-                              onTap: () {
-                                pushNewScreen(
-                                  context,
-                                  screen: const JoinOrganization(
-                                    fromProfile: true,
-                                  ),
-                                );
-                              }),
+                            key: const Key(
+                              'Join or Create New Organization',
+                            ),
+                            title: const Text(
+                              'Join or Create New Organization',
+                              style: TextStyle(fontSize: 18.0),
+                            ),
+                            leading: const Icon(
+                              Icons.business,
+                              color: UIData.secondaryColor,
+                            ),
+                            onTap: () {
+                              pushNewScreen(
+                                context,
+                                screen: const JoinOrganization(
+                                  fromProfile: true,
+                                ),
+                              );
+                            },
+                          ),
                           isCreator == null
                               ? const SizedBox()
                               : isCreator == true
@@ -367,15 +436,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                               public: isPublic,
                                               organization: curOrganization),
                                         );
-                                      })
+                                      },
+                                    )
                                   : org.isEmpty
                                       ? const SizedBox()
                                       : ListTile(
                                           key: const Key(
-                                              'Leave This Organization'),
+                                            'Leave This Organization',
+                                          ),
                                           title: const Text(
                                             'Leave This Organization',
-                                            style: TextStyle(fontSize: 18.0),
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                            ),
                                           ),
                                           leading: const Icon(
                                             Icons.exit_to_app,
@@ -383,20 +456,26 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ),
                                           onTap: () async {
                                             showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertBox(
-                                                      message:
-                                                          "Are you sure you want to leave this organization?",
-                                                      function: leaveOrg);
-                                                });
-                                          }),
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertBox(
+                                                  message:
+                                                      "Are you sure you want to leave this organization?",
+                                                  function: leaveOrg,
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
                           ListTile(
-                            key: const Key('Logout'),
+                            key: const Key(
+                              'Logout',
+                            ),
                             title: const Text(
                               "Logout",
-                              style: TextStyle(fontSize: 18.0),
+                              style: TextStyle(
+                                fontSize: 18.0,
+                              ),
                             ),
                             leading: const Icon(
                               Icons.exit_to_app,
@@ -405,28 +484,32 @@ class _ProfilePageState extends State<ProfilePage> {
                             onTap: () {
                               if (Platform.isAndroid) {
                                 showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text("Confirmation"),
-                                        content: const Text(
-                                            "Are you sure you want to logout?"),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text("No"),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              _authController.logout(context);
-                                            },
-                                            child: const Text("Yes"),
-                                          )
-                                        ],
-                                      );
-                                    });
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                        "Confirmation",
+                                      ),
+                                      content: const Text(
+                                        "Are you sure you want to logout?",
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text("No"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            _authController.logout(context);
+                                          },
+                                          child: const Text("Yes"),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
                               } else {
                                 // iOS-specific
                                 showCupertinoDialog(
@@ -451,13 +534,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                         onPressed: () {
                                           Navigator.of(context).pop();
                                         },
-                                        child: const Text("No"),
+                                        child: const Text(
+                                          "No",
+                                        ),
                                       ),
                                       TextButton(
                                         onPressed: () {
                                           _authController.logout(context);
                                         },
-                                        child: const Text("Yes"),
+                                        child: const Text(
+                                          "Yes",
+                                        ),
                                       )
                                     ],
                                   ),
@@ -480,22 +567,29 @@ class _ProfilePageState extends State<ProfilePage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text("Confirmation"),
+              title: const Text(
+                "Confirmation",
+              ),
               content: const Text(
-                  "Are you sure you want to leave this organization?"),
+                "Are you sure you want to leave this organization?",
+              ),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text("Close"),
+                  child: const Text(
+                    "Close",
+                  ),
                 ),
                 TextButton(
                   onPressed: () async {
                     leaveOrg();
                     Navigator.of(context).pop();
                   },
-                  child: const Text("Yes"),
+                  child: const Text(
+                    "Yes",
+                  ),
                 )
               ],
             );
@@ -506,22 +600,29 @@ class _ProfilePageState extends State<ProfilePage> {
         context: context,
         useRootNavigator: false,
         builder: (_) => CupertinoAlertDialog(
-          title: const Text("Confirmation"),
-          content:
-              const Text("Are you sure you want to leave this organization?"),
+          title: const Text(
+            "Confirmation",
+          ),
+          content: const Text(
+            "Are you sure you want to leave this organization?",
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text("Close"),
+              child: const Text(
+                "Close",
+              ),
             ),
             TextButton(
               onPressed: () async {
                 leaveOrg();
                 Navigator.of(context).pop();
               },
-              child: const Text("Yes"),
+              child: const Text(
+                "Yes",
+              ),
             )
           ],
         ),

@@ -12,19 +12,20 @@ class _NoInternetConnectionState extends State<NoInternetConnection> {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-          child: Column(
-        children: const [
-          Text(
-            'No Internet Connection.',
-            style: TextStyle(fontSize: 20),
-            textAlign: TextAlign.center,
-          ),
-          Icon(
-            Icons.signal_cellular_connected_no_internet_4_bar,
-            color: Colors.red,
-          )
-        ],
-      )),
+        child: Column(
+          children: const [
+            Text(
+              'No Internet Connection.',
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            Icon(
+              Icons.signal_cellular_connected_no_internet_4_bar,
+              color: Colors.red,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

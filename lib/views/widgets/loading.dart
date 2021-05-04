@@ -22,13 +22,20 @@ class _LoadingState extends State<Loading> {
         loading = true;
       });
     }
-    _timer = Timer(const Duration(seconds: 10), () {
-      if (mounted) {
-        setState(() {
-          loading = false;
-        });
-      }
-    });
+    _timer = Timer(
+      const Duration(
+        seconds: 10,
+      ),
+      () {
+        if (mounted) {
+          setState(
+            () {
+              loading = false;
+            },
+          );
+        }
+      },
+    );
   }
 
   @override
@@ -39,8 +46,12 @@ class _LoadingState extends State<Loading> {
   }
 
   @override
-  void didUpdateWidget(Loading oldWidget) {
-    super.didUpdateWidget(oldWidget);
+  void didUpdateWidget(
+    Loading oldWidget,
+  ) {
+    super.didUpdateWidget(
+      oldWidget,
+    );
     loadingFunc();
   }
 
@@ -51,7 +62,9 @@ class _LoadingState extends State<Loading> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return loading && widget.isShowingError == null
         ? const CircularProgressIndicator()
         : Column(
@@ -62,15 +75,17 @@ class _LoadingState extends State<Loading> {
                 width: widget.isTest ? 30 : SizeConfig.screenWidth / 1.3,
               ),
               SizedBox(
-                  height:
-                      widget.isTest ? 2 : SizeConfig.safeBlockVertical * 3.75),
+                height: widget.isTest ? 2 : SizeConfig.safeBlockVertical * 3.75,
+              ),
               Text(
                 widget.isShowingError != null
                     ? widget.isShowingError
                         ? "Something went wrong"
                         : "No News Feed to show"
                     : 'No data or something went wrong',
-                style: const TextStyle(color: Colors.red),
+                style: const TextStyle(
+                  color: Colors.red,
+                ),
               ),
             ],
           );
