@@ -71,13 +71,17 @@ class _EventsState extends State<Events> {
     for (final event in events) {
       final DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(
           int.parse(event['startTime'].toString()));
+      final DateTime endTime = DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(event['endTime'].toString()));
+      print('Start Time is $startTime');
+      print('End Time is $endTime');
       if (!(event['recurring'] as bool) &&
           timer.isSameDay(currentDate, startTime)) {
         currentevents.add(event);
       }
-      if (event['recurrance'] == 'DAILY') {
+      if ((event['recurrance'] == 'DAILY') && timer.liesBetween(currentDate, startTime, endTime)) {
         currentevents.add(event);
-      } else if (event['recurrance'] == 'WEEKLY' &&
+      } /*else if (event['recurrance'] == 'WEEKLY' &&
           timer.isSameWeekDay(currentDate, startTime)) {
         currentevents.add(event);
       } else if (event['recurrance'] == 'MONTHLY' &&
@@ -87,7 +91,7 @@ class _EventsState extends State<Events> {
           currentDate.month == startTime.month &&
           currentDate.day == startTime.day) {
         currentevents.add(event);
-      }
+      }*/
     }
     return currentevents;
   }
@@ -426,6 +430,7 @@ class _EventsState extends State<Events> {
                   onPageChanged: (item, reason) {
                     currentFilterEvents = filterEventsByDay(
                         _calendarController.selectedDay, eventList);
+                    print('SELECTED : ${_calendarController.selectedDay}');
                     if (item == 0) {
                       setState(() {
                         displayedEvents = eventList;
