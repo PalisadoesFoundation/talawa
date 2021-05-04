@@ -21,8 +21,11 @@ const String newLineKey = "@123TALAWA321@";
 
 // ignore: must_be_immutable
 class NewsArticle extends StatefulWidget {
-  const NewsArticle({Key key, @required this.index, @required this.post})
-      : super(key: key);
+  const NewsArticle({
+    Key key,
+    @required this.index,
+    @required this.post,
+  }) : super(key: key);
   final Map post;
   final int index;
 
@@ -58,8 +61,13 @@ class _NewsArticleState extends State<NewsArticle> {
   void initState() {
     super.initState();
     commentController = TextEditingController(
-        text: Provider.of<CommentHandler>(context, listen: false)
-            .comment(widget.post["_id"].toString()));
+      text: Provider.of<CommentHandler>(
+        context,
+        listen: false,
+      ).comment(
+        widget.post["_id"].toString(),
+      ),
+    );
     fetchUserDetails();
     index = widget.index;
     post = widget.post;
@@ -67,8 +75,13 @@ class _NewsArticleState extends State<NewsArticle> {
   }
 
   void _notifyData() {
-    Provider.of<CommentHandler>(context, listen: false)
-        .commentEntry(widget.post["_id"].toString(), commentController.text);
+    Provider.of<CommentHandler>(
+      context,
+      listen: false,
+    ).commentEntry(
+      widget.post["_id"].toString(),
+      commentController.text,
+    );
   }
 
   @override
@@ -80,16 +93,28 @@ class _NewsArticleState extends State<NewsArticle> {
   Future fetchUserDetails() async {
     userID = await preferences.getUserId();
     final GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    final QueryResult result = await _client.query(QueryOptions(
-        documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(
+          _query.fetchUserInfo,
+        ),
+        variables: {
+          'id': userID,
+        },
+      ),
+    );
     if (result.hasException) {
       print(result.exception);
-      CustomToast.exceptionToast(msg: result.exception.toString());
+      CustomToast.exceptionToast(
+        msg: result.exception.toString(),
+      );
     } else if (!result.hasException) {
       //print(result);
-      setState(() {
-        userDetails = result.data['users'] as List;
-      });
+      setState(
+        () {
+          userDetails = result.data['users'] as List;
+        },
+      );
       //print(userDetails);
     }
   }
@@ -106,30 +131,34 @@ class _NewsArticleState extends State<NewsArticle> {
         ? CircleAvatar(
             radius: 30,
             backgroundImage: NetworkImage(
-                Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                    userDetails[0]['image'].toString()))
+              Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                  userDetails[0]['image'].toString(),
+            ),
+          )
         : CircleAvatar(
             radius: 45.0,
             backgroundColor: Colors.white,
             child: Text(
-                userDetails[0]['firstName']
-                        .toString()
-                        .substring(0, 1)
-                        .toUpperCase() +
-                    userDetails[0]['lastName']
-                        .toString()
-                        .substring(0, 1)
-                        .toUpperCase(),
-                style: const TextStyle(
-                  color: UIData.primaryColor,
-                )),
+              userDetails[0]['firstName']
+                      .toString()
+                      .substring(0, 1)
+                      .toUpperCase() +
+                  userDetails[0]['lastName']
+                      .toString()
+                      .substring(0, 1)
+                      .toUpperCase(),
+              style: const TextStyle(
+                color: UIData.primaryColor,
+              ),
+            ),
           );
   }
 
   //this method helps us to get the comments of the post
   Future getPostComments() async {
-    final String mutation =
-        Queries().getPostsComments(widget.post['_id'].toString());
+    final String mutation = Queries().getPostsComments(
+      widget.post['_id'].toString(),
+    );
     final Map result = await apiFunctions.gqlmutation(mutation) as Map;
     comments = result == null
         ? []
@@ -151,7 +180,9 @@ class _NewsArticleState extends State<NewsArticle> {
         );
       } else {
         isCommentAdded = true;
-        FocusScope.of(context).requestFocus(FocusNode());
+        FocusScope.of(context).requestFocus(
+          FocusNode(),
+        );
         commentController.text = '';
         await Fluttertoast.showToast(
           msg: "Comment added.",
@@ -159,7 +190,9 @@ class _NewsArticleState extends State<NewsArticle> {
         postController.addComment(index, result["createComment"] as Map);
       }
     } else {
-      Fluttertoast.showToast(msg: "Please write comment");
+      Fluttertoast.showToast(
+        msg: "Please write comment",
+      );
     }
   }
 
@@ -167,7 +200,10 @@ class _NewsArticleState extends State<NewsArticle> {
   String commentTime(int index) {
     final Duration commentTimeDuration = DateTime.now().difference(
       DateTime.fromMillisecondsSinceEpoch(
-          int.parse(comments[index]['createdAt'].toString())),
+        int.parse(
+          comments[index]['createdAt'].toString(),
+        ),
+      ),
     );
 
     String timeText = '';
@@ -229,157 +265,174 @@ class _NewsArticleState extends State<NewsArticle> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async {
-          Navigator.of(context).pop(isCommentAdded);
-          return true;
-        },
-        child: Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-            leading: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop(isCommentAdded);
-              },
-              child: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
+      onWillPop: () async {
+        Navigator.of(context).pop(isCommentAdded);
+        return true;
+      },
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop(isCommentAdded);
+            },
+            child: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
             ),
           ),
-          resizeToAvoidBottomInset: false,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 4,
-                child: Stack(
-                  children: [
-                    SizedBox.expand(
-                      child: FittedBox(
-                        fit: BoxFit.fill,
-                        child: Image.asset(
-                          UIData.shoppingImage,
-                        ),
+        ),
+        resizeToAvoidBottomInset: false,
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 4,
+              child: Stack(
+                children: [
+                  SizedBox.expand(
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Image.asset(
+                        UIData.shoppingImage,
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Text(
-                          widget.post['title'].toString(),
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 30.0),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(
+                        15.0,
+                      ),
+                      child: Text(
+                        widget.post['title'].toString(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 30.0,
                         ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Expanded(
-                flex: 10,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20.0, 10, 10, 10),
-                        child: Text(
-                          widget.post['text'].toString(),
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.justify,
-                          maxLines: 10,
-                        ),
+            ),
+            Expanded(
+              flex: 10,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    flex: 3,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                        20.0,
+                        10,
+                        10,
+                        10,
+                      ),
+                      child: Text(
+                        widget.post['text'].toString(),
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.justify,
+                        maxLines: 10,
                       ),
                     ),
-                    Flexible(
-                      flex: 3,
-                      child: ListTile(
-                        leading: userDetails.isEmpty ? null : _profileImage(),
-                        title: Container(
-                          constraints: const BoxConstraints(
-                            maxHeight: double.infinity,
-                            // minHeight: 20,
-                          ),
-                          child: TextFormField(
-                            key: const Key("leaveCommentField"),
-                            textInputAction: TextInputAction.newline,
-                            keyboardType: TextInputType.multiline,
-                            validator: (String value) {
-                              if (value.length > 500) {
-                                return "Comment cannot be longer than 500 letters";
-                              }
-                              if (value.isEmpty) {
-                                return "Comment cannot be empty";
-                              }
-                              return null;
-                            },
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(500)
-                            ],
-                            //minLines: 1,//Normal textInputField will be displayed
-                            //maxLines: 10,// when user presses enter it will adapt to it
-                            maxLines: null,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                key: const Key("leaveCommentButton"),
-                                color: Colors.grey,
-                                icon: const Icon(Icons.send),
-                                onPressed: () {
-                                  print(commentController.text);
-                                  createComment();
-                                },
+                  ),
+                  Flexible(
+                    flex: 3,
+                    child: ListTile(
+                      leading: userDetails.isEmpty ? null : _profileImage(),
+                      title: Container(
+                        constraints: const BoxConstraints(
+                          maxHeight: double.infinity,
+                          // minHeight: 20,
+                        ),
+                        child: TextFormField(
+                          key: const Key("leaveCommentField"),
+                          textInputAction: TextInputAction.newline,
+                          keyboardType: TextInputType.multiline,
+                          validator: (String value) {
+                            if (value.length > 500) {
+                              return "Comment cannot be longer than 500 letters";
+                            }
+                            if (value.isEmpty) {
+                              return "Comment cannot be empty";
+                            }
+                            return null;
+                          },
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(500)
+                          ],
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              key: const Key(
+                                "leaveCommentButton",
                               ),
-                              hintText: 'Leave a Comment...',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
-                                  color: Colors.teal,
-                                ),
+                              color: Colors.grey,
+                              icon: const Icon(
+                                Icons.send,
+                              ),
+                              onPressed: () {
+                                print(commentController.text);
+                                createComment();
+                              },
+                            ),
+                            hintText: 'Leave a Comment...',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                              borderSide: const BorderSide(
+                                color: Colors.teal,
                               ),
                             ),
-                            controller: commentController,
                           ),
+                          controller: commentController,
                         ),
                       ),
                     ),
-                    Flexible(
-                      flex: 10,
-                      child: Container(
-                          child: showLoadComments == false
-                              ? Align(
-                                  alignment: Alignment.topCenter,
-                                  child: loadCommentsButton())
-                              : commentList()),
-                    ),
-                  ],
-                ),
+                  ),
+                  Flexible(
+                    flex: 10,
+                    child: Container(
+                        child: showLoadComments == false
+                            ? Align(
+                                alignment: Alignment.topCenter,
+                                child: loadCommentsButton())
+                            : commentList()),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   //this loads the comments button
   Widget loadCommentsButton() {
     return TextButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[200]),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(
+          Colors.grey[200],
         ),
-        onPressed: () {
-          setState(() {
+      ),
+      onPressed: () {
+        setState(
+          () {
             showLoadComments = true;
-          });
-        },
-        child: const Text(
-          'Load Comments',
-          style: TextStyle(color: Colors.black54),
-        ));
+          },
+        );
+      },
+      child: const Text(
+        'Load Comments',
+        style: TextStyle(color: Colors.black54),
+      ),
+    );
   }
 
   // For getting length of Comments to be displayed
@@ -401,42 +454,52 @@ class _NewsArticleState extends State<NewsArticle> {
     return Column(
       children: [
         ListTile(
-          key: const ValueKey('commentIcon'),
-          leading: const Icon(Icons.chat),
-          title: Text('${comments.length}  Comments'),
+          key: const ValueKey(
+            'commentIcon',
+          ),
+          leading: const Icon(
+            Icons.chat,
+          ),
+          title: Text(
+            '${comments.length}  Comments',
+          ),
         ),
         Flexible(
           child: ListView.builder(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              itemCount: lenthOfCommentList,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: const CircleAvatar(
-                    backgroundColor: UIData.secondaryColor,
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white10,
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            itemCount: lenthOfCommentList,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: const CircleAvatar(
+                  backgroundColor: UIData.secondaryColor,
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.white10,
+                  ),
+                ),
+                title: Text(
+                  comments[index]['text'].toString(),
+                ),
+                subtitle: Row(
+                  children: [
+                    Text(
+                      '${comments[index]['creator']['firstName']} ${comments[index]['creator']['lastName']}',
                     ),
-                  ),
-                  title: Text(
-                    comments[index]['text'].toString(),
-                  ),
-                  subtitle: Row(
-                    children: [
-                      Text(
-                          '${comments[index]['creator']['firstName']} ${comments[index]['creator']['lastName']}'),
-                      const Text(
-                        " - ",
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
+                    const Text(
+                      " - ",
+                      style: TextStyle(
+                        fontSize: 20,
                       ),
-                      Text(commentTime(index)),
-                    ],
-                  ),
-                );
-              }),
+                    ),
+                    Text(
+                      commentTime(index),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
         (moreComments || comments.length <= 3)
             ? const SizedBox(
@@ -445,11 +508,16 @@ class _NewsArticleState extends State<NewsArticle> {
               )
             : TextButton(
                 onPressed: () {
-                  setState(() {
-                    moreComments = true;
-                  });
+                  setState(
+                    () {
+                      moreComments = true;
+                    },
+                  );
                 },
-                child: const Text("View More Comments"))
+                child: const Text(
+                  "View More Comments",
+                ),
+              )
       ],
     );
   }

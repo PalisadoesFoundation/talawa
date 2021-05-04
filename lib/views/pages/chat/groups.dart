@@ -47,37 +47,50 @@ class _GroupsState extends State<Groups> {
     fetched = false;
     final String currentOrgID = await preferences.getCurrentOrgId();
     _currOrgId = currentOrgID;
-    final Map result =
-        await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-    // print(result);
+    final Map result = await apiFunctions.gqlquery(
+      Queries().fetchOrgEvents(
+        currentOrgID,
+      ),
+    );
+
     eventList = result == null
         ? []
         : result['events'].reversed.toList() as List<dynamic>;
-    eventList.removeWhere((element) =>
-        element['title'] == 'Talawa Congress' ||
-        element['title'] == 'test' ||
-        element['title'] == 'Talawa Conference Test' ||
-        element['title'] == 'mayhem' ||
-        element['title'] == 'mayhem1' ||
-        element['isRegistered'] == false ||
-        element['organization']['_id'] !=
-            currentOrgID); //dont know who keeps adding these
+    eventList.removeWhere(
+      (element) =>
+          element['title'] == 'Talawa Congress' ||
+          element['title'] == 'test' ||
+          element['title'] == 'Talawa Conference Test' ||
+          element['title'] == 'mayhem' ||
+          element['title'] == 'mayhem1' ||
+          element['isRegistered'] == false ||
+          element['organization']['_id'] != currentOrgID,
+    ); //dont know who keeps adding these
     // This removes all invalid date formats other than Unix time
     eventList.removeWhere(
-        (element) => int.tryParse(element['startTime'] as String) == null);
-    eventList.sort((a, b) {
+      (element) => int.tryParse(element['startTime'] as String) == null,
+    );
+    eventList.sort((
+      a,
+      b,
+    ) {
       return DateTime.fromMicrosecondsSinceEpoch(
-              int.parse(a['startTime'] as String))
-          .compareTo(DateTime.fromMicrosecondsSinceEpoch(
-              int.parse(b['startTime'] as String)));
+        int.parse(
+          a['startTime'] as String,
+        ),
+      ).compareTo(
+        DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(
+            b['startTime'] as String,
+          ),
+        ),
+      );
     });
     // eventsToDates(eventList, DateTime.now());
     setState(() {
       displayedEvents = eventList;
     });
     fetched = true;
-
-    // print('orgID ==== $currentOrgID');
     print(displayedEvents);
   }
 
@@ -85,10 +98,14 @@ class _GroupsState extends State<Groups> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        key: const Key('GROUPS_APP_BAR'),
+        key: const Key(
+          'GROUPS_APP_BAR',
+        ),
         title: const Text(
           'Chats',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
       body: (_currOrgId == null || displayedEvents.isEmpty)
@@ -99,10 +116,11 @@ class _GroupsState extends State<Groups> {
                   const Spacer(),
                   Container(
                     alignment: Alignment.center,
-                    //Text for empty chat groups
                     child: const Text(
                       "Register in an event to start chatting",
-                      key: Key('empty_chat_group'),
+                      key: Key(
+                        'empty_chat_group',
+                      ),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -122,16 +140,24 @@ class _GroupsState extends State<Groups> {
                           ),
                         )
                       : TextButton.icon(
-                          key: const Key('click_to_refresh_button'),
-                          icon: const Icon(Icons.refresh),
-                          label: const Text('Click to Refresh..'),
+                          key: const Key(
+                            'click_to_refresh_button',
+                          ),
+                          icon: const Icon(
+                            Icons.refresh,
+                          ),
+                          label: const Text(
+                            'Click to Refresh..',
+                          ),
                           onPressed: () {
                             setState(
                               () {
                                 try {
                                   getEvents();
                                 } catch (e) {
-                                  CustomToast.exceptionToast(msg: e.toString());
+                                  CustomToast.exceptionToast(
+                                    msg: e.toString(),
+                                  );
                                 }
                               },
                             );
@@ -146,7 +172,9 @@ class _GroupsState extends State<Groups> {
                 try {
                   await getEvents();
                 } catch (e) {
-                  CustomToast.exceptionToast(msg: e.toString());
+                  CustomToast.exceptionToast(
+                    msg: e.toString(),
+                  );
                 }
               },
               //List of chat groups
@@ -158,17 +186,24 @@ class _GroupsState extends State<Groups> {
                       displayedEvents[index]['organization']['image'] as String;
                   return Card(
                     child: ListTile(
-                      title: Text(groupName),
+                      title: Text(
+                        groupName,
+                      ),
                       leading: CircleAvatar(
                         backgroundColor: UIData.secondaryColor,
                         child: _imgSrc == null
-                            ? Image.asset(UIData.talawaLogo)
+                            ? Image.asset(
+                                UIData.talawaLogo,
+                              )
                             : NetworkImage(
                                 Provider.of<GraphQLConfiguration>(context)
                                         .displayImgRoute +
-                                    _imgSrc) as Widget,
+                                    _imgSrc,
+                              ) as Widget,
                       ),
-                      trailing: const Icon(Icons.arrow_right),
+                      trailing: const Icon(
+                        Icons.arrow_right,
+                      ),
                       onTap: () {
                         pushNewScreen(
                           context,
