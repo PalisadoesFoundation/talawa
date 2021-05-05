@@ -73,15 +73,14 @@ class _EventsState extends State<Events> {
           int.parse(event['startTime'].toString()));
       final DateTime endTime = DateTime.fromMicrosecondsSinceEpoch(
           int.parse(event['endTime'].toString()));
-      print('Start Time is $startTime');
-      print('End Time is $endTime');
       if (!(event['recurring'] as bool) &&
           timer.isSameDay(currentDate, startTime)) {
         currentevents.add(event);
       }
-      if ((event['recurrance'] == 'DAILY') && timer.liesBetween(currentDate, startTime, endTime)) {
+      if ((event['recurrance'] == 'DAILY') &&
+          timer.liesBetween(currentDate, startTime, endTime)) {
         currentevents.add(event);
-      } /*else if (event['recurrance'] == 'WEEKLY' &&
+      } else if (event['recurrance'] == 'WEEKLY' &&
           timer.isSameWeekDay(currentDate, startTime)) {
         currentevents.add(event);
       } else if (event['recurrance'] == 'MONTHLY' &&
@@ -91,7 +90,7 @@ class _EventsState extends State<Events> {
           currentDate.month == startTime.month &&
           currentDate.day == startTime.day) {
         currentevents.add(event);
-      }*/
+      }
     }
     return currentevents;
   }
@@ -314,42 +313,50 @@ class _EventsState extends State<Events> {
                                     children: [carouselSliderBar()],
                                   ),
                                   Expanded(
-                                    child: Timeline.builder(
-                                      lineColor: UIData.primaryColor,
-                                      position: TimelinePosition.Left,
-                                      itemCount: displayedEvents.length,
-                                      itemBuilder: (context, index) {
-                                        if (index == 0) {
-                                          return TimelineModel(
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: SizeConfig
-                                                              .safeBlockVertical *
-                                                          0.625),
-                                                  child: Text(
-                                                    '${displayedEvents.length} Events',
-                                                    style: const TextStyle(
-                                                        color: Colors.black45),
+                                    child: displayedEvents.isEmpty
+                                        ? const Center(
+                                            child: Text('No Events Today.'))
+                                        : Timeline.builder(
+                                            lineColor: UIData.primaryColor,
+                                            position: TimelinePosition.Left,
+                                            itemCount: displayedEvents.length,
+                                            itemBuilder: (context, index) {
+                                              if (index == 0) {
+                                                return TimelineModel(
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        padding: EdgeInsets.symmetric(
+                                                            vertical: SizeConfig
+                                                                    .safeBlockVertical *
+                                                                0.625),
+                                                        child: Text(
+                                                          '${displayedEvents.length} Events',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .black45),
+                                                        ),
+                                                      ),
+                                                      eventCard(index)
+                                                    ],
                                                   ),
-                                                ),
-                                                eventCard(index)
-                                              ],
-                                            ),
-                                            iconBackground:
-                                                UIData.secondaryColor,
-                                          );
-                                        }
-                                        return TimelineModel(
-                                          eventCard(index),
-                                          iconBackground: UIData.secondaryColor,
-                                          position: TimelineItemPosition.right,
-                                        );
-                                      },
-                                    ),
+                                                  iconBackground:
+                                                      UIData.secondaryColor,
+                                                );
+                                              }
+                                              return TimelineModel(
+                                                eventCard(index),
+                                                iconBackground:
+                                                    UIData.secondaryColor,
+                                                position:
+                                                    TimelineItemPosition.right,
+                                              );
+                                            },
+                                          ),
                                   ),
                                 ],
                               ),
@@ -430,7 +437,6 @@ class _EventsState extends State<Events> {
                   onPageChanged: (item, reason) {
                     currentFilterEvents = filterEventsByDay(
                         _calendarController.selectedDay, eventList);
-                    print('SELECTED : ${_calendarController.selectedDay}');
                     if (item == 0) {
                       setState(() {
                         displayedEvents = eventList;
