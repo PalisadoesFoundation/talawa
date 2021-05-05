@@ -77,7 +77,7 @@ void main() {
 
     testWidgets("empty groups for user with no org", (tester) async {
       await tester.pumpWidget(groupsPage());
-      
+
       // get the [ListView] widget
       final listView = find.byType(ListView);
       expect(

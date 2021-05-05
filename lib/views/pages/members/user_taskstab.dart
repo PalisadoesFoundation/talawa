@@ -28,8 +28,6 @@ class _UserTasksState extends State<UserTasks> {
   ApiFunctions apiFunctions = ApiFunctions();
   List userTasks;
 
-  bool isErrorOccured;
-
   @override
   void initState() {
     super.initState();

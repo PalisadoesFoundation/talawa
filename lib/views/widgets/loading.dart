@@ -79,10 +79,10 @@ class _LoadingState extends State<Loading> {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'No organization found!',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: SizeConfig.safeBlockVertical * 2.5,
                       color: Colors.grey,
                     ),
                   ),
@@ -128,18 +128,19 @@ class _LoadingState extends State<Loading> {
                     height: SizeConfig.safeBlockVertical * 10,
                   ),
                   Container(
-                    height: 50,
-                    width: 100,
-                    decoration: const BoxDecoration(
-                        gradient: LinearGradient(
+                    height: SizeConfig.safeBlockVertical * 7,
+                    width: SizeConfig.safeBlockVertical * 14,
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
                             begin: Alignment(-1.0, -4.0),
                             end: Alignment(1.0, 4.0),
                             colors: [
                               Color(0xFFd9d9d9),
                               Color(0xFFffffff),
                             ]),
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        boxShadow: [
+                        borderRadius: BorderRadius.all(Radius.circular(
+                            SizeConfig.safeBlockVertical * 3.2)),
+                        boxShadow: const [
                           BoxShadow(
                               color: Color(0xFFd9d9d9),
                               offset: Offset(5.0, 5.0),
@@ -155,8 +156,8 @@ class _LoadingState extends State<Loading> {
                       color: Colors.transparent,
                       child: InkWell(
                         onTap: refreshLoading,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(
+                            SizeConfig.safeBlockVertical * 3.2)),
                         child: Center(
                           child: Text(
                             loading ? 'Refreshing...' : 'Refresh',
@@ -184,7 +185,9 @@ Widget showErrorText(String msg) {
 Widget showEmptyContentText(String msg) {
   return Text(
     msg,
-    style: const TextStyle(
-        fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),
+    style: TextStyle(
+        fontSize: SizeConfig.safeBlockVertical * 2.5,
+        fontWeight: FontWeight.bold,
+        color: Colors.grey),
   );
 }
