@@ -110,8 +110,12 @@ class _OrganizationsState extends State<Organizations> {
           ),
         ),
         body: alphaMembersMap == null
-            ? const Center(
-                child: Loading(),
+            ? Center(
+                child: Loading(
+                  key: UniqueKey(),
+                  emptyContentMsg: 'No memberes to show, Join an organization!',
+                  refreshFunction: getMembers,
+                ),
               )
             : alphaMembersMap.isEmpty
                 ? RefreshIndicator(
