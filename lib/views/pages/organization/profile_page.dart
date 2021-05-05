@@ -210,6 +210,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ? Center(
                 child: Loading(
                 key: UniqueKey(),
+                emptyContentMsg: 'No data to show, Join Organization!',
+                refreshFunction: fetchUserDetails,
               ))
             : Column(
                 key: const Key('body'),

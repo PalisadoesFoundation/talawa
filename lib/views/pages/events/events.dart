@@ -237,7 +237,7 @@ class _EventsState extends State<Events> {
           key: const Key('EVENTS_APP_BAR'),
           title: const Text(
             'Events',
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white),
           ),
         ),
         floatingActionButton: eventFab(),
