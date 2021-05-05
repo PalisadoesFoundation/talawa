@@ -109,7 +109,7 @@ class _OrganizationsState extends State<Organizations> {
             style: const TextStyle(color: Colors.white),
           ),
         ),
-        body: alphaMembersMap == null
+        body: alphaMembersMap == null || currentOrgID == null
             ? Center(
                 child: Loading(
                   key: UniqueKey(),
@@ -119,7 +119,7 @@ class _OrganizationsState extends State<Organizations> {
                   refreshFunction: getMembers,
                 ),
               )
-            : alphaMembersMap.isEmpty
+            : alphaMembersMap.isEmpty && currentOrgID != null
                 ? RefreshIndicator(
                     onRefresh: () async {
                       try {

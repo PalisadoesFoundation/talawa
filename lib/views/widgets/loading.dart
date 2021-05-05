@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/utils/ui_scaling.dart';
+import 'package:talawa/views/pages/organization/join_organization.dart';
 
 class Loading extends StatefulWidget {
   const Loading({Key key,@required this.isCurrentOrgNull ,this.isNetworkError,this.emptyContentIcon,this.emptyContentMsg ,this.refreshFunction})
@@ -68,7 +69,40 @@ class _LoadingState extends State<Loading> {
   Widget build(BuildContext context) {
     return loading && widget.isNetworkError == null
         ? const CircularProgressIndicator()
-        : Column(
+        : widget.isCurrentOrgNull
+          ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'No organization found!',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey,
+                ),
+              ),              
+              SizedBox(
+                height: SizeConfig.safeBlockVertical * 3.75
+              ),
+              ElevatedButton(
+                onPressed: (){
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const JoinOrganization(
+                        fromProfile: false,
+                      )
+                    ),
+                    (route) => false);
+                }, 
+                child: const Text(
+                  'Join Organization!',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          )
+          : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               widget.isNetworkError == false 
