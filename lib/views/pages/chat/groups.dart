@@ -38,69 +38,76 @@ class _GroupsState extends State<Groups> {
         ),
       ),
       body: FutureBuilder(
-        future: getEventsList(context),
-        builder: (BuildContext context, AsyncSnapshot<void> snap) {
+          future: getEventsList(context),
+          builder: (BuildContext context, AsyncSnapshot<void> snap) {
             if (snap.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             }
 
-            return (Provider.of<GroupsProvider>(context).isCurrOrgIdNull || 
-            Provider.of<GroupsProvider>(context).isEventsEmpty)
-          ? Center(
-            child: Loading(
-              key: UniqueKey(),
-              isCurrentOrgNull: Provider.of<GroupsProvider>(context).isCurrOrgIdNull,
-              isNetworkError: Provider.of<GroupsProvider>(context).isErrorOccurred,
-              emptyContentIcon: Icons.announcement_outlined,
-              emptyContentMsg: 'Register in an Event to start chatting!',
-              refreshFunction: () => getEventsList(context),
-            ),
-          )
-          //Refresh indicator for calling getEvents
-          : RefreshIndicator(
-              onRefresh: () async {
-                try {
-                  await getEventsList(context);
-                } catch (e) {
-                  CustomToast.exceptionToast(msg: e.toString());
-                }
-              },
-              //List of chat groups
-              child: ListView.builder(
-                  itemCount: Provider.of<GroupsProvider>(context).displayedEvents.length,
-                  itemBuilder: (context, index) {
-                    final displayedEvents = Provider.of<GroupsProvider>(context).displayedEvents;
-                    final String groupName =
-                        '${displayedEvents[index]['title']}';
-                    final String _imgSrc = displayedEvents[index]
-                        ['organization']['image'] as String;
-                    return Card(
-                      child: ListTile(
-                        title: Text(groupName),
-                        leading: CircleAvatar(
-                          backgroundColor: UIData.secondaryColor,
-                          child: _imgSrc == null
-                              ? Image.asset(UIData.talawaLogo)
-                              : NetworkImage(
-                                  Provider.of<GraphQLConfiguration>(context)
-                                          .displayImgRoute +
-                                      _imgSrc) as Widget,
-                        ),
-                        trailing: const Icon(Icons.arrow_right),
-                        onTap: () {
-                          pushNewScreen(
-                            context,
-                            screen: Chat(
-                              groupName: groupName,
+            return (Provider.of<GroupsProvider>(context).isCurrOrgIdNull ||
+                    Provider.of<GroupsProvider>(context).isEventsEmpty)
+                ? Center(
+                    child: Loading(
+                      key: UniqueKey(),
+                      isCurrentOrgNull:
+                          Provider.of<GroupsProvider>(context).isCurrOrgIdNull,
+                      isNetworkError:
+                          Provider.of<GroupsProvider>(context).isErrorOccurred,
+                      emptyContentIcon: Icons.announcement_outlined,
+                      emptyContentMsg:
+                          'Register in an Event to start chatting!',
+                      refreshFunction: () => getEventsList(context),
+                    ),
+                  )
+                //Refresh indicator for calling getEvents
+                : RefreshIndicator(
+                    onRefresh: () async {
+                      try {
+                        await getEventsList(context);
+                      } catch (e) {
+                        CustomToast.exceptionToast(msg: e.toString());
+                      }
+                    },
+                    //List of chat groups
+                    child: ListView.builder(
+                        itemCount: Provider.of<GroupsProvider>(context)
+                            .displayedEvents
+                            .length,
+                        itemBuilder: (context, index) {
+                          final displayedEvents =
+                              Provider.of<GroupsProvider>(context)
+                                  .displayedEvents;
+                          final String groupName =
+                              '${displayedEvents[index]['title']}';
+                          final String _imgSrc = displayedEvents[index]
+                              ['organization']['image'] as String;
+                          return Card(
+                            child: ListTile(
+                              title: Text(groupName),
+                              leading: CircleAvatar(
+                                backgroundColor: UIData.secondaryColor,
+                                child: _imgSrc == null
+                                    ? Image.asset(UIData.talawaLogo)
+                                    : NetworkImage(
+                                        Provider.of<GraphQLConfiguration>(
+                                                    context)
+                                                .displayImgRoute +
+                                            _imgSrc) as Widget,
+                              ),
+                              trailing: const Icon(Icons.arrow_right),
+                              onTap: () {
+                                pushNewScreen(
+                                  context,
+                                  screen: Chat(
+                                    groupName: groupName,
+                                  ),
+                                );
+                              },
                             ),
                           );
-                        },
-                      ),
-                    );
-                  }),
-            );
-          }
-      ),
+                        }),
+                  );
+          }),
     );
   }
 }

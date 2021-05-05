@@ -80,7 +80,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 ? Padding(
                     padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
                     child: CircleAvatar(
-                      radius:SizeConfig.safeBlockVertical * 5,
+                      radius: SizeConfig.safeBlockVertical * 5,
                       backgroundImage: NetworkImage(
                           Provider.of<GraphQLConfiguration>(context)
                                   .displayImgRoute +

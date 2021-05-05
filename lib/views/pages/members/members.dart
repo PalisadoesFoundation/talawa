@@ -119,23 +119,23 @@ class _OrganizationsState extends State<Organizations> {
                   refreshFunction: getMembers,
                 ),
               )
-            :  RefreshIndicator(
-                    onRefresh: () async {
-                      try {
-                        await getMembers();
-                      } catch (e) {
-                        CustomToast.exceptionToast(msg: e.toString());
-                      }
+            : RefreshIndicator(
+                onRefresh: () async {
+                  try {
+                    await getMembers();
+                  } catch (e) {
+                    CustomToast.exceptionToast(msg: e.toString());
+                  }
+                },
+                child: CustomScrollView(
+                  slivers: List.generate(
+                    alphaMembersMap.length,
+                    (index) {
+                      return alphabetDividerList(context,
+                          alphaMembersMap.keys.toList()[index].toString());
                     },
-                    child: CustomScrollView(
-                      slivers: List.generate(
-                        alphaMembersMap.length,
-                        (index) {
-                          return alphabetDividerList(context,
-                              alphaMembersMap.keys.toList()[index].toString());
-                        },
-                      ),
-                    )));
+                  ),
+                )));
   }
 
   //widget which divides the list according to letters

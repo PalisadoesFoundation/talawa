@@ -256,11 +256,11 @@ class _JoinOrganizationState extends State<JoinOrganization> {
       body: organizationInfo.isEmpty
           ? Center(
               child: Loading(
-              key: UniqueKey(),
-              isCurrentOrgNull: false,  
-              emptyContentIcon: Icons.home_work_outlined,
-              emptyContentMsg: 'No organization to show!',
-              refreshFunction: fetchOrg,
+                key: UniqueKey(),
+                isCurrentOrgNull: false,
+                emptyContentIcon: Icons.home_work_outlined,
+                emptyContentMsg: 'No organization to show!',
+                refreshFunction: fetchOrg,
               ),
             )
           : Container(

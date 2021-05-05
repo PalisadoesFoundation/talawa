@@ -23,7 +23,7 @@ class PostProvider with ChangeNotifier {
   }
 
   //Getter to return null org
-  bool get isCurrOrgIdNull{
+  bool get isCurrOrgIdNull {
     return _currOrgId == null;
   }
 

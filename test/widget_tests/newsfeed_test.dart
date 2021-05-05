@@ -32,7 +32,7 @@ Widget newsfeedPage() => MultiProvider(
       ],
       child: MaterialApp(
         home: Builder(
-          builder: (ctx){
+          builder: (ctx) {
             SizeConfig().init(ctx);
             return const NewsFeed();
           },

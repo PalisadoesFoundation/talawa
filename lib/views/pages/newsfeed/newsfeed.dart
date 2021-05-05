@@ -51,7 +51,8 @@ class NewsFeed extends StatelessWidget {
                         child: Loading(
                         isNetworkError:
                             Provider.of<PostProvider>(context).isErrorOccurred,
-                        isCurrentOrgNull: Provider.of<PostProvider>(context).isCurrOrgIdNull,
+                        isCurrentOrgNull:
+                            Provider.of<PostProvider>(context).isCurrOrgIdNull,
                         emptyContentIcon: Icons.photo_album_outlined,
                         emptyContentMsg: 'No post to show, Create One!',
                         refreshFunction: () => getPostsList(context),
