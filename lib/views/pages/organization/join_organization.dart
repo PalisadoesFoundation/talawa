@@ -257,6 +257,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
           ? Center(
               child: Loading(
               key: UniqueKey(),
+              isCurrentOrgNull: false,  
               emptyContentIcon: Icons.home_work_outlined,
               emptyContentMsg: 'No organization to show!',
               refreshFunction: fetchOrg,

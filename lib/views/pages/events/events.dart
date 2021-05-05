@@ -53,7 +53,7 @@ class _EventsState extends State<Events> {
   ScrollController listScrollController = ScrollController();
 
   //variable for organization Id
-  String _currOrgId;
+  bool _isCurrOrgIdNull;
 
   @override
   void initState() {
@@ -177,7 +177,7 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
-    _currOrgId = currentOrgID;
+    _isCurrOrgIdNull = currentOrgID == null;
     final Map result =
         await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
     eventList =
@@ -360,6 +360,7 @@ class _EventsState extends State<Events> {
               return Center(
                   child: Loading(
                 key: UniqueKey(),
+                isCurrentOrgNull: _isCurrOrgIdNull,
               ));
             } else if (state == ConnectionState.none) {
               return const Text('Could Not Fetch Data.');
@@ -458,6 +459,7 @@ class _EventsState extends State<Events> {
         ? Center(
             child: Loading(
             key: UniqueKey(),
+            isCurrentOrgNull: _isCurrOrgIdNull,
             emptyContentIcon: Icons.event,
             emptyContentMsg: 'No events to show, Create One!',
             refreshFunction: getEvents,

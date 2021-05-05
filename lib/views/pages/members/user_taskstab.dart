@@ -28,6 +28,8 @@ class _UserTasksState extends State<UserTasks> {
   ApiFunctions apiFunctions = ApiFunctions();
   List userTasks;
 
+  bool isErrorOccured;
+
   @override
   void initState() {
     super.initState();
@@ -63,7 +65,8 @@ class _UserTasksState extends State<UserTasks> {
             child: Center(
               child: Loading(
                 key: UniqueKey(),
-                emptyContentIcon: Icons.work,
+                isCurrentOrgNull: false,
+                emptyContentIcon: Icons.work_outline_rounded,
                 emptyContentMsg: 'No Tasks found, Create One!',
                 refreshFunction: getUserDetails,
               ),

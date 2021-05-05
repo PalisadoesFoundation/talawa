@@ -49,6 +49,7 @@ class _GroupsState extends State<Groups> {
           ? Center(
             child: Loading(
               key: UniqueKey(),
+              isCurrentOrgNull: Provider.of<GroupsProvider>(context).isCurrOrgIdNull,
               isNetworkError: Provider.of<GroupsProvider>(context).isErrorOccurred,
               emptyContentIcon: Icons.announcement_outlined,
               emptyContentMsg: 'Register in an Event to start chatting!',

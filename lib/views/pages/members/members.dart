@@ -59,7 +59,7 @@ class _OrganizationsState extends State<Organizations> {
   //function to get the members of an organization
   // ignore: missing_return
   Future<List> getMembers() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
+    currentOrgID = await preferences.getCurrentOrgId();
     print(currentOrgID);
     if (currentOrgID != null) {
       final ApiFunctions apiFunctions = ApiFunctions();
@@ -113,6 +113,7 @@ class _OrganizationsState extends State<Organizations> {
             ? Center(
                 child: Loading(
                   key: UniqueKey(),
+                  isCurrentOrgNull: currentOrgID == null,
                   emptyContentIcon: Icons.group,
                   emptyContentMsg: 'No memberes to show, Join an organization!',
                   refreshFunction: getMembers,
