@@ -59,7 +59,7 @@ The process of proposing a change to Talawa can be summarized as:
 
 ### General Guidelines
 
-#### Folder & File Structure
+#### Folder Description
 - `controllers`: The folder contains all the files responsible for managing the state. 
     ```
     1. Files contain codes for all the business logic related to any screen.
@@ -88,13 +88,41 @@ The process of proposing a change to Talawa can be summarized as:
     2. Widgets: Folder that contains widget file for pages to avoid code duplication
     ```
 #### File Code Rules
-- File should contain at max `300` lines of code.
+- Filename should be created with lowercase and underscore letters
 - The business logic & UI based file should be separated from each other.
+    - `controllers`: Folder that contains all business logic files
+    - `views`: Folder that contains UI specific files 
 - If it is UI based file, try to use as much `stateless widget` as possible.
 - Don't use the `print` statement in your code, instead use `debugPrint`.
-- Follow proper code formatting by running `flutter format .` before your PR.
 - Constructor should be present just after the class declaration. 
 - Make sure to add proper `keyword` (final or const) and data types for any variable.
+- In your files, structure code this way inside your widget class:
+  ```
+  -- constructor
+  -- explicitly defined variables using its type (private if possible)
+  -- build method (Inside build(), use sub methods like _buildAppBar()
+  -- sub-build methods
+  -- other methods
+  -- utility methods
+  ```
+
+***Note: Don't use constant numerical value anywhere in your UI related code. Use SizeConfig class to assign the constant value. SizeConfig class does the job of scaling the UI based on the device size.***
+
+Example:
+```
+Incorrect Way:
+SizedBox(height: 8, width: 4)
+
+Correct Way:
+SizedBox(height: SizeConfig.safeBlockVertical, width: SizeConfig.safeBlockHorizontal)
+```
+
+The value of `safeBlockVertical` and `safeBlockHorizontal` will be displayed in your `console` and varies based on the device being used.
+
+#### Before making PR, ensure these:
+- All your file should contain at max `300` lines of code.
+- Follow proper code formatting and run `flutter format .` before your PR.
+- Run `flutter analyze` before your PR and make sure to resolve all the found issues.
 
 #### Project structure
 
@@ -120,26 +148,6 @@ core
 - models: business data models, entities
 - theme: application theme, colors, dimens
 - utils: utility classes
-```
-
-#### Structure code this way
-
-```
-// Inside widget class
--- constructor
--- explicitly defined variables using its type (private if possible)
--- build method (Inside build(), use sub methods like _buildAppBar()
--- sub-build methods
--- other methods
--- utility methods
-```
-
-#### Other Information
-
-```
--- file should be named using lowercase and underscore
--- const and final keywords should be specified along with the widget
--- Use SizeConfig class for assigning constant height, width and whitespace (Example: SizedBox(width:SizeConfig.safeBlockHorizontal * 2.5))
 ```
 
 #### Commit guidelines
