@@ -213,6 +213,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ? Center(
                 child: Loading(
                 key: UniqueKey(),
+                emptyContentIcon: Icons.person_outline_rounded,
                 emptyContentMsg: 'No data to show, Join Organization!',
                 refreshFunction: fetchUserDetails,
               ))

@@ -50,6 +50,7 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
         ? Center(
             child: Loading(
               key: UniqueKey(),
+              emptyContentIcon: Icons.event_note_sharp,
               emptyContentMsg: 'No registered events, Join an event!',
               refreshFunction: getUserDetails,
             ),

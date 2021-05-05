@@ -5,9 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 
 class Loading extends StatefulWidget {
-  const Loading({Key key, this.isNetworkError,this.emptyContentMsg ,this.refreshFunction})
+  const Loading({Key key, this.isNetworkError,this.emptyContentIcon,this.emptyContentMsg ,this.refreshFunction})
       : super(key: key);
   final bool isNetworkError;
+  final IconData emptyContentIcon;
   final String emptyContentMsg;
   final Future Function() refreshFunction;
   @override
@@ -68,7 +69,13 @@ class _LoadingState extends State<Loading> {
         : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
+              widget.isNetworkError == false 
+              ? Icon(
+                widget.emptyContentIcon,
+                size: SizeConfig.screenWidth / 5,
+                color: Colors.orange,
+              )
+              : SvgPicture.asset(
                 'assets/images/error.svg',
                 width: SizeConfig.screenWidth / 1.3,
               ),

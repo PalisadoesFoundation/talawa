@@ -63,6 +63,7 @@ class _UserTasksState extends State<UserTasks> {
             child: Center(
               child: Loading(
                 key: UniqueKey(),
+                emptyContentIcon: Icons.work,
                 emptyContentMsg: 'No Tasks found, Create One!',
                 refreshFunction: getUserDetails,
               ),

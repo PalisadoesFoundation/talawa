@@ -458,6 +458,7 @@ class _EventsState extends State<Events> {
         ? Center(
             child: Loading(
             key: UniqueKey(),
+            emptyContentIcon: Icons.event,
             emptyContentMsg: 'No events to show, Create One!',
             refreshFunction: getEvents,
           ))

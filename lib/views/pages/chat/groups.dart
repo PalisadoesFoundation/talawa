@@ -50,6 +50,7 @@ class _GroupsState extends State<Groups> {
             child: Loading(
               key: UniqueKey(),
               isNetworkError: Provider.of<GroupsProvider>(context).isErrorOccurred,
+              emptyContentIcon: Icons.announcement_outlined,
               emptyContentMsg: 'Register in an Event to start chatting!',
               refreshFunction: () => getEventsList(context),
             ),

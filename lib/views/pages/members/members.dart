@@ -113,6 +113,7 @@ class _OrganizationsState extends State<Organizations> {
             ? Center(
                 child: Loading(
                   key: UniqueKey(),
+                  emptyContentIcon: Icons.group,
                   emptyContentMsg: 'No memberes to show, Join an organization!',
                   refreshFunction: getMembers,
                 ),
