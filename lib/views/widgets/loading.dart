@@ -106,13 +106,23 @@ class _LoadingState extends State<Loading> {
                         blurRadius: 10.0,
                         spreadRadius: 1.0),
                 ]),
-                child: TextButton(
-                  onPressed: refreshLoading, 
-                  child: Text(
-                    loading 
-                    ?'Refreshing...'
-                    :'Refresh'
-                  ),
+                child:Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                      onTap: refreshLoading, 
+                       borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      child: Center(
+                        child: Text(
+                          loading 
+                          ?'Refreshing...'
+                          :'Refresh',
+                          style: const TextStyle(
+                            color: Colors.orange,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
                 ),
               )
             ],
