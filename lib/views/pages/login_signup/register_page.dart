@@ -32,7 +32,7 @@ class _RegisterePageState extends State<RegisterPage>
                       children: <Widget>[
                         const Text(
                           "Already have an account?",
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                         Container(
                           margin: const EdgeInsets.only(left: 8.0),
@@ -47,7 +47,8 @@ class _RegisterePageState extends State<RegisterPage>
                             child: const Text(
                               "SIGN IN!",
                               textAlign: TextAlign.start,
-                              style: TextStyle(color: UIData.primaryColor),
+                              style:
+                                  const TextStyle(color: UIData.primaryColor),
                             ),
                           ),
                         ),
@@ -68,7 +69,7 @@ class _RegisterePageState extends State<RegisterPage>
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
+              image: const AssetImage(UIData.cloud1), fit: BoxFit.cover),
         ),
         child: Center(
           child: SingleChildScrollView(
