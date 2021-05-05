@@ -120,10 +120,9 @@ SizedBox(height: SizeConfig.safeBlockVertical, width: SizeConfig.safeBlockHorizo
 The value of `safeBlockVertical` and `safeBlockHorizontal` will be displayed in your `console` and varies based on the device being used.
 
 #### Before making PR, ensure these:
-- All your file should contain at max `300` lines of code.
-- Follow proper code formatting and run `flutter format .` before your PR.
-- Run `flutter analyze` before your PR and make sure to resolve all the found issues.
-
+    - All your file should contain at max `300` lines of code.
+    - Follow proper code formatting and run `flutter format .` before your PR.
+    - Run `flutter analyze` before your PR and make sure to resolve all the found issues.
 #### Project structure
 
 ```
