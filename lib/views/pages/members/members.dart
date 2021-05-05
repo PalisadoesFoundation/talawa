@@ -109,7 +109,7 @@ class _OrganizationsState extends State<Organizations> {
             style: const TextStyle(color: Colors.white),
           ),
         ),
-        body: alphaMembersMap == null || currentOrgID == null
+        body: alphaMembersMap == null || alphaMembersMap.isEmpty
             ? Center(
                 child: Loading(
                   key: UniqueKey(),
@@ -119,42 +119,7 @@ class _OrganizationsState extends State<Organizations> {
                   refreshFunction: getMembers,
                 ),
               )
-            : alphaMembersMap.isEmpty && currentOrgID != null
-                ? RefreshIndicator(
-                    onRefresh: () async {
-                      try {
-                        await getMembers();
-                      } catch (e) {
-                        CustomToast.exceptionToast(msg: e.toString());
-                      }
-                    },
-                    child: Center(
-                        child: Column(children: <Widget>[
-                      SizedBox(
-                        height: SizeConfig.safeBlockVertical * 31.25,
-                      ),
-                      const Text(
-                        "No member to Show",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      SizedBox(
-                        height: SizeConfig.safeBlockVertical * 6.25,
-                      ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          try {
-                            await getMembers();
-                          } catch (e) {
-                            CustomToast.exceptionToast(msg: e.toString());
-                          }
-                        },
-                        child: const Text("Refresh"),
-                      )
-                    ])))
-                : RefreshIndicator(
+            :  RefreshIndicator(
                     onRefresh: () async {
                       try {
                         await getMembers();
