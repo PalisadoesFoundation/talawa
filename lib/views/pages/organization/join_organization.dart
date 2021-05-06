@@ -34,14 +34,14 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         ),
         body: model.organizationInfo.isEmpty
             ? Center(
-              child: Loading(
-                key: UniqueKey(),
-                isCurrentOrgNull: false,
-                emptyContentIcon: Icons.home_work_outlined,
-                emptyContentMsg: 'No organization to show!',
-                refreshFunction: model.fetchOrg,
-              ),
-            )
+                child: Loading(
+                  key: UniqueKey(),
+                  isCurrentOrgNull: false,
+                  emptyContentIcon: Icons.home_work_outlined,
+                  emptyContentMsg: 'No organization to show!',
+                  refreshFunction: model.fetchOrg,
+                ),
+              )
             : Container(
                 color: const Color(0xffF3F6FF),
                 padding: EdgeInsets.symmetric(
