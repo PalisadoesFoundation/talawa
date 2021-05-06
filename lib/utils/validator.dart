@@ -9,7 +9,7 @@ class Validator {
   }
 
   static String validateFirstName(String value) {
-    const String pattern = r'^[a-zA-Z]+$';
+    const String pattern = r'(?=.*?[A-Za-z]).+';
     final RegExp regex = RegExp(pattern);
     if (value.isEmpty) {
       return 'Firstname must not be left blank.';
@@ -21,7 +21,7 @@ class Validator {
   }
 
   static String validateLastName(String value) {
-    const String pattern = r'^[a-zA-Z]+$';
+    const String pattern = r'(?=.*?[A-Za-z]).+';
     final RegExp regex = RegExp(pattern);
     if (value.isEmpty) {
       return 'Lastname must not be left blank.';
