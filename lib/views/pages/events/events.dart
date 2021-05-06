@@ -74,10 +74,11 @@ class _EventsState extends State<Events> {
 
     for (final event in events) {
       final DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(
-        int.parse(
-          event['startTime'].toString(),
-        ),
-      );
+
+          int.parse(event['startTime'].toString(),),);
+      final DateTime endTime = DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(event['endTime'].toString(),),);
+
       if (!(event['recurring'] as bool) &&
           timer.isSameDay(
             currentDate,
@@ -87,10 +88,11 @@ class _EventsState extends State<Events> {
           event,
         );
       }
-      if (event['recurrance'] == 'DAILY') {
-        currentevents.add(
-          event,
-        );
+
+      if ((event['recurrance'] == 'DAILY') &&
+          timer.liesBetween(currentDate, startTime, endTime,)) {
+        currentevents.add(event,);
+
       } else if (event['recurrance'] == 'WEEKLY' &&
           timer.isSameWeekDay(
             currentDate,
@@ -374,85 +376,66 @@ class _EventsState extends State<Events> {
                               fontSize: 15.0,
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            } else {
-              return RefreshIndicator(
-                onRefresh: () async {
-                  try {
-                    await getEvents();
-                  } catch (e) {
-                    CustomToast.exceptionToast(
-                      msg: e.toString(),
-                    );
-                  }
-                },
-                child: Container(
-                  color: Colors.white,
-                  child: Stack(
-                    children: [
-                      Positioned.fill(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        child: calendar(),
-                      ),
-                      SlidingUpPanel(
-                        backdropEnabled: true,
-                        panel: Container(
-                          color: Colors.white,
-                          child: Column(
-                            children: [
-                              ListView(
-                                controller: listScrollController,
-                                shrinkWrap: true,
-                                children: [carouselSliderBar()],
-                              ),
-                              Expanded(
-                                child: Timeline.builder(
-                                  lineColor: UIData.primaryColor,
-                                  position: TimelinePosition.Left,
-                                  itemCount: displayedEvents.length,
-                                  itemBuilder: (
-                                    context,
-                                    index,
-                                  ) {
-                                    if (index == 0) {
-                                      return TimelineModel(
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                vertical: SizeConfig
-                                                        .safeBlockVertical *
-                                                    0.625,
-                                              ),
-                                              child: Text(
-                                                '${displayedEvents.length} Events',
-                                                style: const TextStyle(
-                                                  color: Colors.black45,
-                                                ),
-                                              ),
-                                            ),
-                                            eventCard(index)
-                                          ],
-                                        ),
-                                        iconBackground: UIData.secondaryColor,
-                                      );
-                                    }
-                                    return TimelineModel(
-                                      eventCard(index),
-                                      iconBackground: UIData.secondaryColor,
-                                      position: TimelineItemPosition.right,
-                                    );
-                                  },
-                                ),
+
+                          SlidingUpPanel(
+                            backdropEnabled: true,
+                            panel: Container(
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  ListView(
+                                    controller: listScrollController,
+                                    shrinkWrap: true,
+                                    children: [carouselSliderBar()],
+                                  ),
+                                  Expanded(
+                                    child: displayedEvents.isEmpty
+                                        ? const Center(
+                                            child: Text('No Events Today.'))
+                                        : Timeline.builder(
+                                            lineColor: UIData.primaryColor,
+                                            position: TimelinePosition.Left,
+                                            itemCount: displayedEvents.length,
+                                            itemBuilder: (context, index) {
+                                              if (index == 0) {
+                                                return TimelineModel(
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        padding: EdgeInsets.symmetric(
+                                                            vertical: SizeConfig
+                                                                    .safeBlockVertical *
+                                                                0.625),
+                                                        child: Text(
+                                                          '${displayedEvents.length} Events',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .black45),
+                                                        ),
+                                                      ),
+                                                      eventCard(index)
+                                                    ],
+                                                  ),
+                                                  iconBackground:
+                                                      UIData.secondaryColor,
+                                                );
+                                              }
+                                              return TimelineModel(
+                                                eventCard(index),
+                                                iconBackground:
+                                                    UIData.secondaryColor,
+                                                position:
+                                                    TimelineItemPosition.right,
+                                              );
+                                            },
+                                          ),
+                                  ),
+                                ],
+
                               ),
                             ],
                           ),
