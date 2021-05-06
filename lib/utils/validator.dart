@@ -11,11 +11,11 @@ class Validator {
   static String validateFirstName(String value) {
     const String pattern = r'^[a-zA-Z]+$';
     final RegExp regex = RegExp(pattern);
-    if(!regex.hasMatch(value)){
-      return "Invalid Firstname";
-    }
     if (value.isEmpty) {
       return 'Firstname must not be left blank.';
+    }
+    if(!regex.hasMatch(value)){
+      return "Invalid Firstname";
     }
     return null;
   }
@@ -23,11 +23,11 @@ class Validator {
   static String validateLastName(String value) {
     const String pattern = r'^[a-zA-Z]+$';
     final RegExp regex = RegExp(pattern);
-    if(!regex.hasMatch(value)){
-      return "Invalid Lastname";
-    }
     if (value.isEmpty) {
       return 'Lastname must not be left blank.';
+    }
+    if(!regex.hasMatch(value)){
+      return "Invalid Lastname";
     }
     return null;
   }
