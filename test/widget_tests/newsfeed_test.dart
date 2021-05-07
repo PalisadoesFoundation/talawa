@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
-import 'package:talawa/services/post_provider.dart';
+import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
@@ -26,8 +26,8 @@ Widget newsfeedPage() => MultiProvider(
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
         ),
-        ChangeNotifierProvider<PostProvider>(
-          create: (_) => PostProvider(),
+        ChangeNotifierProvider<NewsFeedProvider>(
+          create: (_) => NewsFeedProvider(),
         ),
       ],
       child: const MaterialApp(

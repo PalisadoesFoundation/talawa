@@ -1,14 +1,14 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/api_functions.dart';
+import 'package:talawa/utils/custom_toast.dart';
 
 class PostController with ChangeNotifier {
-  PostController() {
-    getPosts();
-  }
+  String organizationId;
   List posts = [];
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
@@ -16,36 +16,43 @@ class PostController with ChangeNotifier {
   Map<String, bool> likePostMap = {};
   Timer timer;
 
+  //This method is getting the current organisation Id
+  Future<void> getCurrentOrgId() async {
+    organizationId = await preferences.getCurrentOrgId();
+    notifyListeners();
+  }
+
+  //Methode used for craeting the post
+  Future createPost(
+    String description,
+    String title,
+    BuildContext context,
+  ) async {
+    if (organizationId == null) {
+      CustomToast.exceptionToast(msg: "Please join an organization");
+      return;
+    }
+
+    final Map result =
+        await Queries().addPost(description, organizationId, title);
+    if (result['error'] == null) {
+      Provider.of<NewsFeedProvider>(context, listen: false).getPosts();
+      Navigator.pop(context, true);
+    } else {
+      CustomToast.exceptionToast(msg: result['error'] as String);
+    }
+  }
+
   // void : function function to all posts
   void addAllPost(List posts) {
     this.posts = posts;
     notifyListeners();
   }
 
-  void switchOrg() {
+  void switchOrg(BuildContext context) {
     print(posts);
     posts.clear();
-    getPosts();
-  }
-
-  // void : function to get all Posts
-  Future<void> getPosts() async {
-    final DateTime d1 = DateTime.now();
-    final String currentOrgID = await preferences.getCurrentOrgId();
-    final String currentUserID = await preferences.getUserId();
-    this.currentUserID = currentUserID;
-    final String query = Queries().getPostsById(currentOrgID);
-    final Map result = await apiFunctions.gqlquery(query);
-    print(DateTime.now().difference(d1));
-    if (result != null) {
-      print(posts.isEmpty);
-      updateLikepostMap(currentUserID);
-      posts.isEmpty
-          ? addAllPost(result['postsByOrganization'].reversed.toList() as List)
-          : updatePosts(
-              result['postsByOrganization'].reversed.toList() as List);
-      updateLikepostMap(currentUserID);
-    }
+    Provider.of<NewsFeedProvider>(context).getPosts();
   }
 
   // void : function to addlike

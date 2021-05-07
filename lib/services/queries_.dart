@@ -822,7 +822,7 @@ query{
     }
   }
 
-  addPost(String text, String organizationId, String title) async {
+  Future<Map> addPost(String text, String organizationId, String title) async {
     print(text);
     print(organizationId);
     print(title);
@@ -855,11 +855,20 @@ query{
       },
     ));
 
-    if (!_resp.loading) {
+    if (!_resp.loading && !_resp.hasException) {
       print(_resp.data);
       print(_resp.exception);
-      return _resp.data;
+      return _resp.data as Map;
     }
+
+    String errorMsg;
+    if (_resp.exception.clientException != null) {
+      errorMsg = _resp.exception.clientException.message;
+    } else {
+      errorMsg = _resp.exception.graphqlErrors.first.message;
+    }
+
+    return {'error': errorMsg};
   }
 
   addLike(String postID) async {
