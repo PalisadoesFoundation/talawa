@@ -40,10 +40,10 @@ class JoinOrgnizationViewModel extends BaseModel {
   String get isPublic => _isPublic;
   String get itemIndex => _itemIndex;
 
-  void initialise(BuildContext context) {
+  void initialise(BuildContext context, String filter) {
     fToast = FToast();
     fToast.init(context);
-    fetchOrg();
+    fetchOrg(filter);
   }
 
   void setItemIndex(String itemIdx) {
@@ -174,16 +174,25 @@ class JoinOrgnizationViewModel extends BaseModel {
     notifyListeners();
   }
 
-  Future fetchOrg() async {
+  Future fetchOrg(String filter) async {
     getCurrentUserId();
     //function to fetch the org from the server
     final GraphQLClient _client = graphQLConfiguration.authClient();
-    final QueryResult organizationQueryResult = await _client
-        .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
+    final QueryResult organizationQueryResult = await _client.query(
+      filter == 'Show All'
+          ? QueryOptions(documentNode: gql(_query.fetchOrganizations))
+          : QueryOptions(
+              documentNode: gql(_query.getOrganizationsConnectionFilter),
+              variables: {'isPublic': filter == 'Public Org'},
+            ),
+    );
     // Get the details of the current user.
-    final QueryResult userDetailsResult = await _client.query(QueryOptions(
+    final QueryResult userDetailsResult = await _client.query(
+      QueryOptions(
         documentNode: gql(_query.fetchUserInfo),
-        variables: {'id': _currentUserId}));
+        variables: {'id': _currentUserId},
+      ),
+    );
 
     if (organizationQueryResult.hasException ||
         userDetailsResult.hasException) {
@@ -191,7 +200,13 @@ class JoinOrgnizationViewModel extends BaseModel {
     } else if (!organizationQueryResult.hasException &&
         !disposed &&
         !userDetailsResult.hasException) {
-      _organizationInfo = organizationQueryResult.data['organizations'] as List;
+      if (filter == 'Show All') {
+        _organizationInfo =
+            organizationQueryResult.data['organizations'] as List;
+      } else {
+        _organizationInfo =
+            organizationQueryResult.data['organizationsConnection'] as List;
+      }
       // Get the details of joined organizations.
       joinedOrganizations =
           userDetailsResult.data['users'][0]['joinedOrganizations'] as List;
