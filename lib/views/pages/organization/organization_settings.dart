@@ -153,7 +153,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Organization Settings',
-              style: TextStyle(color: Colors.white)),
+              style: const TextStyle(color: Colors.white)),
         ),
         body: Stack(
           children: [
@@ -161,7 +161,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 ? Container(
                     color: Colors.transparent.withOpacity(0.3),
                     child: const Center(
-                      child: CircularProgressIndicator(),
+                      child: const CircularProgressIndicator(),
                     ),
                   )
                 : const SizedBox(),
@@ -171,7 +171,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     key: const Key('Update Organization'),
                     title: const Text(
                       'Update Organization',
-                      style: TextStyle(fontSize: 18.0),
+                      style: const TextStyle(fontSize: 18.0),
                     ),
                     leading: const Icon(
                       Icons.update,

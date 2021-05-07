@@ -71,11 +71,14 @@ class _EventsState extends State<Events> {
     for (final event in events) {
       final DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(
           int.parse(event['startTime'].toString()));
+      final DateTime endTime = DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(event['endTime'].toString()));
       if (!(event['recurring'] as bool) &&
           timer.isSameDay(currentDate, startTime)) {
         currentevents.add(event);
       }
-      if (event['recurrance'] == 'DAILY') {
+      if ((event['recurrance'] == 'DAILY') &&
+          timer.liesBetween(currentDate, startTime, endTime)) {
         currentevents.add(event);
       } else if (event['recurrance'] == 'WEEKLY' &&
           timer.isSameWeekDay(currentDate, startTime)) {
@@ -237,7 +240,7 @@ class _EventsState extends State<Events> {
           key: const Key('EVENTS_APP_BAR'),
           title: const Text(
             'Events',
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         floatingActionButton: eventFab(),
@@ -310,42 +313,50 @@ class _EventsState extends State<Events> {
                                     children: [carouselSliderBar()],
                                   ),
                                   Expanded(
-                                    child: Timeline.builder(
-                                      lineColor: UIData.primaryColor,
-                                      position: TimelinePosition.Left,
-                                      itemCount: displayedEvents.length,
-                                      itemBuilder: (context, index) {
-                                        if (index == 0) {
-                                          return TimelineModel(
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: SizeConfig
-                                                              .safeBlockVertical *
-                                                          0.625),
-                                                  child: Text(
-                                                    '${displayedEvents.length} Events',
-                                                    style: const TextStyle(
-                                                        color: Colors.black45),
+                                    child: displayedEvents.isEmpty
+                                        ? const Center(
+                                            child: Text('No Events Today.'))
+                                        : Timeline.builder(
+                                            lineColor: UIData.primaryColor,
+                                            position: TimelinePosition.Left,
+                                            itemCount: displayedEvents.length,
+                                            itemBuilder: (context, index) {
+                                              if (index == 0) {
+                                                return TimelineModel(
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        padding: EdgeInsets.symmetric(
+                                                            vertical: SizeConfig
+                                                                    .safeBlockVertical *
+                                                                0.625),
+                                                        child: Text(
+                                                          '${displayedEvents.length} Events',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .black45),
+                                                        ),
+                                                      ),
+                                                      eventCard(index)
+                                                    ],
                                                   ),
-                                                ),
-                                                eventCard(index)
-                                              ],
-                                            ),
-                                            iconBackground:
-                                                UIData.secondaryColor,
-                                          );
-                                        }
-                                        return TimelineModel(
-                                          eventCard(index),
-                                          iconBackground: UIData.secondaryColor,
-                                          position: TimelineItemPosition.right,
-                                        );
-                                      },
-                                    ),
+                                                  iconBackground:
+                                                      UIData.secondaryColor,
+                                                );
+                                              }
+                                              return TimelineModel(
+                                                eventCard(index),
+                                                iconBackground:
+                                                    UIData.secondaryColor,
+                                                position:
+                                                    TimelineItemPosition.right,
+                                              );
+                                            },
+                                          ),
                                   ),
                                 ],
                               ),
@@ -415,7 +426,7 @@ class _EventsState extends State<Events> {
                 items: [
                   const Text(
                     'All',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   Text(
                     dateSelected,
@@ -451,6 +462,44 @@ class _EventsState extends State<Events> {
                 )),
           ],
         ));
+  }
+
+  Widget eventListView() {
+    return displayedEvents.isEmpty
+        ? Center(
+            child: Loading(
+            key: UniqueKey(),
+          ))
+        : RefreshIndicator(
+            onRefresh: () async {
+              getEvents();
+            },
+            child: Timeline.builder(
+              lineColor: UIData.primaryColor,
+              position: TimelinePosition.Left,
+              itemCount: displayedEvents.length,
+              itemBuilder: (context, index) {
+                return index == 0
+                    ? TimelineModel(
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                '${displayedEvents.length} Events',
+                                style: const TextStyle(color: Colors.black45),
+                              ),
+                            ),
+                            eventCard(index)
+                          ],
+                        ),
+                        iconBackground: UIData.secondaryColor)
+                    : TimelineModel(eventCard(index),
+                        iconBackground: UIData.secondaryColor,
+                        position: TimelineItemPosition.right);
+              },
+            ));
   }
 
   Widget menueText(String text) {
@@ -502,7 +551,7 @@ class _EventsState extends State<Events> {
                   },
                   child: const Text(
                     "More",
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
               ),
@@ -534,38 +583,38 @@ class _EventsState extends State<Events> {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
         const PopupMenuItem<int>(
             value: 1,
-            child: ListTile(
-              leading: Icon(Icons.playlist_add_check, color: Colors.grey),
-              title: Text(
+            child: const ListTile(
+              leading: const Icon(Icons.playlist_add_check, color: Colors.grey),
+              title: const Text(
                 'Register For Event',
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             )),
         const PopupMenuItem<int>(
             value: 2,
-            child: ListTile(
-              leading: Icon(Icons.note_add, color: Colors.grey),
-              title: Text(
+            child: const ListTile(
+              leading: const Icon(Icons.note_add, color: Colors.grey),
+              title: const Text(
                 'Add a Task to this Event',
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             )),
         const PopupMenuItem<int>(
             value: 3,
-            child: ListTile(
-              leading: Icon(Icons.edit, color: Colors.grey),
-              title: Text(
+            child: const ListTile(
+              leading: const Icon(Icons.edit, color: Colors.grey),
+              title: const Text(
                 'Edit this event',
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             )),
         const PopupMenuItem<int>(
             value: 4,
-            child: ListTile(
-              leading: Icon(Icons.delete, color: Colors.grey),
-              title: Text(
+            child: const ListTile(
+              leading: const Icon(Icons.delete, color: Colors.grey),
+              title: const Text(
                 'Delete This Event',
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             ))
       ],
@@ -574,18 +623,17 @@ class _EventsState extends State<Events> {
 
   Widget eventFab() {
     return FloatingActionButton(
-      backgroundColor: UIData.secondaryColor,
-      onPressed: () {
-        pushNewScreen(
-          context,
-          withNavBar: true,
-          screen: const AddEvent(),
-        );
-      },
-      child: const Icon(
-        Icons.add,
-        color: Colors.white,
-      ),
-    );
+        backgroundColor: UIData.secondaryColor,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          pushNewScreen(
+            context,
+            withNavBar: true,
+            screen: AddEvent(),
+          );
+        });
   }
 }

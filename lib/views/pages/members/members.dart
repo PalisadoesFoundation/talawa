@@ -89,9 +89,9 @@ class _OrganizationsState extends State<Organizations> {
 
   //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
-    final String userId = id.replaceAll(RegExp('[a-z]'), '');
+    String userId = id.replaceAll(RegExp('[a-z]'), '');
     int colorInt = int.parse(userId.substring(userId.length - 10));
-    colorInt = colorInt % 18;
+    colorInt = (colorInt % 18);
     return Color.alphaBlend(
       Colors.black45,
       Colors.primaries[colorInt],
@@ -106,7 +106,7 @@ class _OrganizationsState extends State<Organizations> {
           key: const Key('ORGANIZATION_APP_BAR'),
           title: const Text(
             'Members',
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         body: alphaMembersMap == null
@@ -287,15 +287,15 @@ class _OrganizationsState extends State<Organizations> {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
         const PopupMenuItem<int>(
             value: 1,
-            child: ListTile(
-              leading: Icon(Icons.playlist_add_check),
-              title: Text('View Assigned Tasks'),
+            child: const ListTile(
+              leading: const Icon(Icons.playlist_add_check),
+              title: const Text('View Assigned Tasks'),
             )),
         const PopupMenuItem<int>(
             value: 2,
-            child: ListTile(
-              leading: Icon(Icons.playlist_add_check),
-              title: Text('View Registered Events'),
+            child: const ListTile(
+              leading: const Icon(Icons.playlist_add_check),
+              title: const Text('View Registered Events'),
             )),
       ],
     );
