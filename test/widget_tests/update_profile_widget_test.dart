@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
@@ -36,7 +37,8 @@ Widget createProfileUpdateScreen() => MultiProvider(
       ),
     );
 
-void main() {
+void main() async {
+  await setupLocator();
   group('Member Info Page Widget Tests', () {
     testWidgets("3 TestFormField Exist in Profile Page Update",
         (WidgetTester tester) async {
