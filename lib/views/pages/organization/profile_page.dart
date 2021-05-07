@@ -16,8 +16,9 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/views/pages/organization/join_organization.dart';
-import 'package:talawa/views/pages/organization/update_profile_page.dart';
+import 'package:talawa/view_models/page_view_model/update_profile_page_viewModel.dart';
+import 'package:talawa/views/pages/organization/join_organization_view.dart';
+import 'package:talawa/views/pages/organization/update_profile_page_view.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
@@ -304,7 +305,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             onTap: () {
                               pushNewScreen(
                                 context,
-                                screen: UpdateProfilePage(
+                                screen: UpdateProfileView(
                                   userDetails: userDetails,
                                 ),
                               );
@@ -396,7 +397,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             key: const Key('Logout'),
                             title: const Text(
                               "Logout",
-                              style: const TextStyle(fontSize: 18.0),
+                              style: TextStyle(fontSize: 18.0),
                             ),
                             leading: const Icon(
                               Icons.exit_to_app,
