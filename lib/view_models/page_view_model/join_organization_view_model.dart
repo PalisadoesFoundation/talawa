@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/enums/exception_type.dart';
+import 'package:talawa/enums/org_filter.dart';
 import 'package:talawa/services/exception.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
@@ -40,7 +41,7 @@ class JoinOrgnizationViewModel extends BaseModel {
   String get isPublic => _isPublic;
   String get itemIndex => _itemIndex;
 
-  void initialise(BuildContext context, String filter) {
+  void initialise(BuildContext context, OrganisationFilter filter) {
     fToast = FToast();
     fToast.init(context);
     fetchOrg(filter);
@@ -174,16 +175,16 @@ class JoinOrgnizationViewModel extends BaseModel {
     notifyListeners();
   }
 
-  Future fetchOrg(String filter) async {
+  Future fetchOrg(OrganisationFilter filter) async {
     getCurrentUserId();
     //function to fetch the org from the server
     final GraphQLClient _client = graphQLConfiguration.authClient();
     final QueryResult organizationQueryResult = await _client.query(
-      filter == 'Show All'
+      filter == OrganisationFilter.showAll
           ? QueryOptions(documentNode: gql(_query.fetchOrganizations))
           : QueryOptions(
               documentNode: gql(_query.getOrganizationsConnectionFilter),
-              variables: {'isPublic': filter == 'Public Org'},
+              variables: {'isPublic': filter == OrganisationFilter.public},
             ),
     );
     // Get the details of the current user.
@@ -200,7 +201,7 @@ class JoinOrgnizationViewModel extends BaseModel {
     } else if (!organizationQueryResult.hasException &&
         !disposed &&
         !userDetailsResult.hasException) {
-      if (filter == 'Show All') {
+      if (filter == OrganisationFilter.showAll) {
         _organizationInfo =
             organizationQueryResult.data['organizations'] as List;
       } else {
