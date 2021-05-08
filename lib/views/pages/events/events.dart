@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -30,151 +31,136 @@ class _EventsState extends State<Events> {
     return BaseView<EventPageViewModel>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) => Scaffold(
-          appBar: AppBar(
-            key: const Key('EVENTS_APP_BAR'),
-            title: const Text(
-              'Events',
-              style: const TextStyle(color: Colors.white),
-            ),
+        appBar: AppBar(
+          key: const Key('EVENTS_APP_BAR'),
+          title: const Text(
+            'Events',
+            style: const TextStyle(color: Colors.white),
           ),
-          floatingActionButton: eventFab(context),
-          body: FutureBuilder(
-            future: model.getEvents(),
-            // ignore: missing_return
-            builder: (context, snapshot) {
-              final state = snapshot.connectionState;
-              if (state == ConnectionState.done) {
-                if (model.eventList.isEmpty) {
-                  return RefreshIndicator(
-                      onRefresh: () async {
-                        try {
-                          await model.getEvents();
-                        } catch (e) {
-                          CustomToast.exceptionToast(msg: e.toString());
-                        }
-                      },
-                      child: CustomScrollView(
-                        slivers: [
-                          SliverAppBar(
-                              backgroundColor: Colors.white,
-                              automaticallyImplyLeading: false,
-                              expandedHeight:
-                                  SizeConfig.safeBlockVertical * 47.5,
-                              flexibleSpace: FlexibleSpaceBar(
-                                background: calendar(model),
-                              )),
-                          SliverStickyHeader(
-                            header: carouselSliderBar(model),
-                            sliver: const SliverFillRemaining(
-                                child: Center(
-                              child: Text(
-                                'No Event Created',
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                ),
-                              ),
+        ),
+        floatingActionButton: eventFab(context),
+        body: model.state == ViewState.busy
+            ? Center(
+                child: Loading(
+                key: UniqueKey(),
+              ))
+            : model.displayEvents.isEmpty
+                ? RefreshIndicator(
+                    onRefresh: () async {
+                      try {
+                        await model.getEvents();
+                      } catch (e) {
+                        CustomToast.exceptionToast(msg: e.toString());
+                      }
+                    },
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverAppBar(
+                            backgroundColor: Colors.white,
+                            automaticallyImplyLeading: false,
+                            expandedHeight: SizeConfig.safeBlockVertical * 47.5,
+                            flexibleSpace: FlexibleSpaceBar(
+                              background: calendar(model),
                             )),
+                        SliverStickyHeader(
+                          header: carouselSliderBar(model),
+                          sliver: const SliverFillRemaining(
+                              child: Center(
+                            child: Text(
+                              'No Event Created',
+                              style: TextStyle(
+                                fontSize: 15.0,
+                              ),
+                            ),
+                          )),
+                        ),
+                      ],
+                    ))
+                : RefreshIndicator(
+                    onRefresh: () async {
+                      try {
+                        await model.getEvents();
+                      } catch (e) {
+                        CustomToast.exceptionToast(msg: e.toString());
+                      }
+                    },
+                    child: Container(
+                      color: Colors.white,
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            child: calendar(model),
+                          ),
+                          SlidingUpPanel(
+                            backdropEnabled: true,
+                            panel: Container(
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  ListView(
+                                    controller: listScrollController,
+                                    shrinkWrap: true,
+                                    children: [carouselSliderBar(model)],
+                                  ),
+                                  Expanded(
+                                      child: model.eventList.isEmpty
+                                          ? const Center(
+                                              child: Text('No Events Today.'))
+                                          : Timeline.builder(
+                                              lineColor: UIData.primaryColor,
+                                              position: TimelinePosition.Left,
+                                              itemCount: model.eventList.length,
+                                              itemBuilder: (context, index) {
+                                                if (index == 0) {
+                                                  return TimelineModel(
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Container(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  vertical:
+                                                                      SizeConfig
+                                                                              .safeBlockVertical *
+                                                                          0.625),
+                                                          child: Text(
+                                                            '${model.eventList.length} Events',
+                                                            style: const TextStyle(
+                                                                color: Colors
+                                                                    .black45),
+                                                          ),
+                                                        ),
+                                                        eventCard(index, model,
+                                                            context)
+                                                      ],
+                                                    ),
+                                                    iconBackground:
+                                                        UIData.secondaryColor,
+                                                  );
+                                                }
+                                                return TimelineModel(
+                                                  eventCard(
+                                                      index, model, context),
+                                                  iconBackground:
+                                                      UIData.secondaryColor,
+                                                  position: TimelineItemPosition
+                                                      .right,
+                                                );
+                                              }))
+                                ],
+                              ),
+                            ),
                           ),
                         ],
-                      ));
-                } else {
-                  return RefreshIndicator(
-                      onRefresh: () async {
-                        try {
-                          await model.getEvents();
-                        } catch (e) {
-                          CustomToast.exceptionToast(msg: e.toString());
-                        }
-                      },
-                      child: Container(
-                          color: Colors.white,
-                          child: Stack(children: [
-                            Positioned.fill(
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              child: calendar(model),
-                            ),
-                            SlidingUpPanel(
-                                backdropEnabled: true,
-                                panel: Container(
-                                    color: Colors.white,
-                                    child: Column(
-                                      children: [
-                                        ListView(
-                                          controller: listScrollController,
-                                          shrinkWrap: true,
-                                          children: [carouselSliderBar(model)],
-                                        ),
-                                        Expanded(
-                                            child: model.eventList.isEmpty
-                                                ? const Center(
-                                                    child: Text(
-                                                        'No Events Today.'))
-                                                : Timeline.builder(
-                                                    lineColor:
-                                                        UIData.primaryColor,
-                                                    position:
-                                                        TimelinePosition.Left,
-                                                    itemCount:
-                                                        model.eventList.length,
-                                                    itemBuilder:
-                                                        (context, index) {
-                                                      if (index == 0) {
-                                                        return TimelineModel(
-                                                          Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Container(
-                                                                padding: EdgeInsets
-                                                                    .symmetric(
-                                                                        vertical:
-                                                                            SizeConfig.safeBlockVertical *
-                                                                                0.625),
-                                                                child: Text(
-                                                                  '${model.eventList.length} Events',
-                                                                  style: const TextStyle(
-                                                                      color: Colors
-                                                                          .black45),
-                                                                ),
-                                                              ),
-                                                              eventCard(
-                                                                  index,
-                                                                  model,
-                                                                  context)
-                                                            ],
-                                                          ),
-                                                          iconBackground: UIData
-                                                              .secondaryColor,
-                                                        );
-                                                      }
-                                                      return TimelineModel(
-                                                        eventCard(index, model,
-                                                            context),
-                                                        iconBackground: UIData
-                                                            .secondaryColor,
-                                                        position:
-                                                            TimelineItemPosition
-                                                                .right,
-                                                      );
-                                                    }))
-                                      ],
-                                    )))
-                          ])));
-                }
-              } else if (state == ConnectionState.waiting) {
-                print(snapshot.data);
-                return Center(
-                    child: Loading(
-                  key: UniqueKey(),
-                ));
-              } else if (state == ConnectionState.none) {
-                return const Text('Could Not Fetch Data.');
-              }
-            },
-          )),
+                      ),
+                    ),
+                  ),
+      ),
     );
   }
 

@@ -30,17 +30,23 @@ class EventPageViewModel extends BaseModel {
     notifyListeners();
   }
 
+  setEventList(List events) {
+    _eventList = events;
+    notifyListeners();
+  }
+
   setDateSelect(String date) {
     _dateSelected = date;
     notifyListeners();
   }
 
   initialize() {
-    setState(ViewState.busy);
-    setState(ViewState.idle);
+    getEvents();
   }
 
   Future<void> getEvents() async {
+    setState(ViewState.busy);
+
     final String _currentOrgID = await _preferences.getCurrentOrgId();
     final Map result =
         await _apiFunctions.gqlquery(Queries().fetchOrgEvents(_currentOrgID));
@@ -66,6 +72,8 @@ class EventPageViewModel extends BaseModel {
     eventsToDates(_eventList, DateTime.now());
     setDisplayEvents(_eventList);
     _userID = await _preferences.getUserId();
+    // notifyListeners();
+    setState(ViewState.idle);
   }
 
   Map eventsToDates(List events, DateTime now) {
