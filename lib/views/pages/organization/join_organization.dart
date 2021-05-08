@@ -45,7 +45,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                   isCurrentOrgNull: false,
                   emptyContentIcon: Icons.home_work_outlined,
                   emptyContentMsg: 'No organization to show!',
-                  refreshFunction: model.fetchOrg,
+                  refreshFunction: ()=>model.fetchOrg(filter),
                 ),
               )
             : Container(
