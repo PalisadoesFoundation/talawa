@@ -25,7 +25,7 @@ Widget groupsPage() => MultiProvider(
           create: (_) => Preferences(),
         ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         home: Groups(),
       ),
     );

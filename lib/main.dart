@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 //Pages are imported here
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/events_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
@@ -41,6 +42,8 @@ Future<void> main() async {
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
+        ChangeNotifierProvider<EventController>(
+            create: (_) => EventController()),
         ChangeNotifierProvider<NewsFeedProvider>(
             create: (_) => NewsFeedProvider()),
       ],
@@ -65,13 +68,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: UIData.appName,
         theme: ThemeData(
-            primaryColor: UIData.primaryColor,
-            fontFamily: UIData.quickFont,
-            primarySwatch: UIData.primaryColor as MaterialColor),
+          primaryColor: UIData.primaryColor,
+          fontFamily: UIData.quickFont,
+          primarySwatch: UIData.primaryColor as MaterialColor,
+        ),
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {
-          print(
+          debugPrint(
               'build route for ${settings.name}'); //here we are building the routes for the app
           final routes = <String, WidgetBuilder>{
             UIData.homeRoute: (BuildContext context) => const HomePage(),
