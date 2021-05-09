@@ -86,7 +86,11 @@ class Timer {
 
   bool liesBetween(DateTime currentDate, DateTime date1, DateTime date2) {
     if (DateTime(date1.year, date1.month, date1.day)
-            .difference(DateTime(date2.year, date2.month, date2.day))
+            .difference(DateTime(
+              date2.year,
+              date2.month,
+              date2.day,
+            ))
             .inDays !=
         0) {
       if (currentDate.isAfter(date1) && currentDate.isBefore(date2)) {
@@ -96,7 +100,10 @@ class Timer {
     return false;
   }
 
-  bool isSameWeekDay(DateTime date1, DateTime date2) {
+  bool isSameWeekDay(
+    DateTime date1,
+    DateTime date2,
+  ) {
     return date1.day % 7 == date2.day % 7;
   }
 }
