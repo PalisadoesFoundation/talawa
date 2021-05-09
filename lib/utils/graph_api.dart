@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/routing_constants.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
 
@@ -7,6 +8,6 @@ class GraphAPI with ChangeNotifier {
   Future<void> logout(BuildContext context) async {
     await Preferences.clearUser();
     Navigator.pushNamedAndRemoveUntil(
-        context, UIData.loginPageRoute, (r) => false);
+        context, routes.LoginPageRoute, (r) => false);
   }
 }

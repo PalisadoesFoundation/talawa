@@ -4,20 +4,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class UIData {
-  //routes
-  static const String homeRoute = "/home";
-  static const String addActivityPage = "/addActivityPage";
-  static const String addResponsibilityPage = "/addResponsibilityPage";
-  static const String notFoundRoute = "/No Search Result";
-  static const String activityDetails = "/activityDetails";
-  static const String responsibilityPage = "/responsibilityPage";
-  static const String contactPage = "/contactPage";
-  static const String joinOrganizationPage = "/joinOrganization";
-  static const String loginPageRoute = "/login";
-  static const String createOrgPage = "/createOrgPage";
-  static const String switchOrgPage = "/switchOrgPage";
-  static const String profilePage = "/profilePage";
-
   //strings
   static const String appName = "Talawa";
 

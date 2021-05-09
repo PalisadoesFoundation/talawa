@@ -8,6 +8,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/loghelper.dart';
@@ -19,6 +20,7 @@ import 'package:talawa/views/pages/organization/create_organization.dart';
 import 'package:talawa/views/pages/organization/switch_org_page.dart';
 import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
+import 'router.dart' as router;
 
 Preferences preferences = Preferences();
 String userID;
@@ -69,23 +71,25 @@ class MyApp extends StatelessWidget {
             primarySwatch: UIData.primaryColor as MaterialColor),
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
-        onGenerateRoute: (RouteSettings settings) {
-          print(
-              'build route for ${settings.name}'); //here we are building the routes for the app
-          final routes = <String, WidgetBuilder>{
-            UIData.homeRoute: (BuildContext context) => const HomePage(),
-            UIData.loginPageRoute: (BuildContext context) => UrlPage(),
-            UIData.createOrgPage: (BuildContext context) =>
-                const CreateOrganization(),
-            UIData.joinOrganizationPage: (BuildContext context) =>
-                const JoinOrganization(),
-            UIData.switchOrgPage: (BuildContext context) =>
-                SwitchOrganization(),
-            UIData.profilePage: (BuildContext context) => const ProfilePage(),
-          };
-          final WidgetBuilder builder = routes[settings.name];
-          return MaterialPageRoute(builder: (ctx) => builder(ctx));
-        },
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        // onGenerateRoute: (RouteSettings settings) {
+        //   print(
+        //       'build route for ${settings.name}'); //here we are building the routes for the app
+        //   final routes = <String, WidgetBuilder>{
+        //     UIData.homeRoute: (BuildContext context) => const HomePage(),
+        //     UIData.loginPageRoute: (BuildContext context) => UrlPage(),
+        //     UIData.createOrgPage: (BuildContext context) =>
+        //         const CreateOrganization(),
+        //     UIData.joinOrganizationPage: (BuildContext context) =>
+        //         const JoinOrganization(),
+        //     UIData.switchOrgPage: (BuildContext context) =>
+        //         SwitchOrganization(),
+        //     UIData.profilePage: (BuildContext context) => const ProfilePage(),
+        //   };
+        //   final WidgetBuilder builder = routes[settings.name];
+        //   return MaterialPageRoute(builder: (ctx) => builder(ctx));
+        // },
+        onGenerateRoute: router.generateRoute,
         home: userID == null
             ? UrlPage()
             : const HomePage(), //checking weather the user is logged in or not
