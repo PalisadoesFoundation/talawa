@@ -7,7 +7,6 @@ import 'package:talawa/enums/org_filter.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/home_page.dart';
 import 'package:talawa/view_models/page_view_model/join_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/views/pages/organization/create_organization.dart';
