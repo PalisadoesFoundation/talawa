@@ -11,20 +11,28 @@ class Validator {
     return null;
   }
 
-  static String validateFirstName(
-    String value,
-  ) {
+  static String validateFirstName(String value) {
+    // ignore: unnecessary_raw_strings
+    const String pattern = r'(?=.*?[A-Za-z]).+';
+    final RegExp regex = RegExp(pattern);
     if (value.isEmpty) {
       return 'Firstname must not be left blank.';
+    }
+    if (!regex.hasMatch(value)) {
+      return "Invalid Firstname";
     }
     return null;
   }
 
-  static String validateLastName(
-    String value,
-  ) {
+  static String validateLastName(String value) {
+    // ignore: unnecessary_raw_strings
+    const String pattern = r'(?=.*?[A-Za-z]).+';
+    final RegExp regex = RegExp(pattern);
     if (value.isEmpty) {
       return 'Lastname must not be left blank.';
+    }
+    if (!regex.hasMatch(value)) {
+      return "Invalid Lastname";
     }
     return null;
   }
@@ -56,11 +64,18 @@ class Validator {
     const String pattern =
         r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~.]).{8,}$';
     final RegExp regExp = RegExp(pattern);
-    if (!regExp.hasMatch(
-      password,
-    )) {
+
+    //Regex for no spaces allowed
+    const String noSpaces = r'^\S+$';
+    final RegExp noSpaceRegex = RegExp(noSpaces);
+
+    if (!regExp.hasMatch(password)) {
       return "Invalid Password";
     }
+    if (!noSpaceRegex.hasMatch(password)) {
+      return "Password must not contain spaces";
+    }
+
     return null;
   }
 

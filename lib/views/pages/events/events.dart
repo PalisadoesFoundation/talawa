@@ -74,10 +74,9 @@ class _EventsState extends State<Events> {
 
     for (final event in events) {
       final DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(
-        int.parse(
-          event['startTime'].toString(),
-        ),
-      );
+          int.parse(event['startTime'].toString()));
+      final DateTime endTime = DateTime.fromMicrosecondsSinceEpoch(
+          int.parse(event['endTime'].toString()));
       if (!(event['recurring'] as bool) &&
           timer.isSameDay(
             currentDate,
@@ -87,10 +86,9 @@ class _EventsState extends State<Events> {
           event,
         );
       }
-      if (event['recurrance'] == 'DAILY') {
-        currentevents.add(
-          event,
-        );
+      if ((event['recurrance'] == 'DAILY') &&
+          timer.liesBetween(currentDate, startTime, endTime)) {
+        currentevents.add(event);
       } else if (event['recurrance'] == 'WEEKLY' &&
           timer.isSameWeekDay(
             currentDate,
