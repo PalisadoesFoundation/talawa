@@ -53,6 +53,7 @@ class _EventsState extends State<Events> {
   ScrollController listScrollController = ScrollController();
 
   //variable for organization Id
+  // ignore: unused_field
   String _currOrgId;
 
   @override
@@ -240,7 +241,7 @@ class _EventsState extends State<Events> {
           key: const Key('EVENTS_APP_BAR'),
           title: const Text(
             'Events',
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white),
           ),
         ),
         floatingActionButton: eventFab(),
@@ -426,7 +427,7 @@ class _EventsState extends State<Events> {
                 items: [
                   const Text(
                     'All',
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   Text(
                     dateSelected,
@@ -551,7 +552,7 @@ class _EventsState extends State<Events> {
                   },
                   child: const Text(
                     "More",
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
@@ -583,38 +584,38 @@ class _EventsState extends State<Events> {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
         const PopupMenuItem<int>(
             value: 1,
-            child: const ListTile(
-              leading: const Icon(Icons.playlist_add_check, color: Colors.grey),
-              title: const Text(
+            child: ListTile(
+              leading: Icon(Icons.playlist_add_check, color: Colors.grey),
+              title: Text(
                 'Register For Event',
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black),
               ),
             )),
         const PopupMenuItem<int>(
             value: 2,
-            child: const ListTile(
-              leading: const Icon(Icons.note_add, color: Colors.grey),
-              title: const Text(
+            child: ListTile(
+              leading: Icon(Icons.note_add, color: Colors.grey),
+              title: Text(
                 'Add a Task to this Event',
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black),
               ),
             )),
         const PopupMenuItem<int>(
             value: 3,
-            child: const ListTile(
-              leading: const Icon(Icons.edit, color: Colors.grey),
-              title: const Text(
+            child: ListTile(
+              leading: Icon(Icons.edit, color: Colors.grey),
+              title: Text(
                 'Edit this event',
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black),
               ),
             )),
         const PopupMenuItem<int>(
             value: 4,
-            child: const ListTile(
-              leading: const Icon(Icons.delete, color: Colors.grey),
-              title: const Text(
+            child: ListTile(
+              leading: Icon(Icons.delete, color: Colors.grey),
+              title: Text(
                 'Delete This Event',
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black),
               ),
             ))
       ],
@@ -623,17 +624,18 @@ class _EventsState extends State<Events> {
 
   Widget eventFab() {
     return FloatingActionButton(
-        backgroundColor: UIData.secondaryColor,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          pushNewScreen(
-            context,
-            withNavBar: true,
-            screen: AddEvent(),
-          );
-        });
+      backgroundColor: UIData.secondaryColor,
+      onPressed: () {
+        pushNewScreen(
+          context,
+          withNavBar: true,
+          screen: const AddEvent(),
+        );
+      },
+      child: const Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
+    );
   }
 }
