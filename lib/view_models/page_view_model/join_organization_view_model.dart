@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/enums/exception_type.dart';
+import 'package:talawa/enums/org_filter.dart';
 import 'package:talawa/services/exception.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
@@ -40,10 +41,10 @@ class JoinOrgnizationViewModel extends BaseModel {
   String get isPublic => _isPublic;
   String get itemIndex => _itemIndex;
 
-  void initialise(BuildContext context) {
+  void initialise(BuildContext context, OrganisationFilter filter) {
     fToast = FToast();
     fToast.init(context);
-    fetchOrg();
+    fetchOrg(filter);
   }
 
   void setItemIndex(String itemIdx) {
@@ -174,16 +175,25 @@ class JoinOrgnizationViewModel extends BaseModel {
     notifyListeners();
   }
 
-  Future fetchOrg() async {
+  Future fetchOrg(OrganisationFilter filter) async {
     getCurrentUserId();
     //function to fetch the org from the server
     final GraphQLClient _client = graphQLConfiguration.authClient();
-    final QueryResult organizationQueryResult = await _client
-        .query(QueryOptions(documentNode: gql(_query.fetchOrganizations)));
+    final QueryResult organizationQueryResult = await _client.query(
+      filter == OrganisationFilter.showAll
+          ? QueryOptions(documentNode: gql(_query.fetchOrganizations))
+          : QueryOptions(
+              documentNode: gql(_query.getOrganizationsConnectionFilter),
+              variables: {'isPublic': filter == OrganisationFilter.public},
+            ),
+    );
     // Get the details of the current user.
-    final QueryResult userDetailsResult = await _client.query(QueryOptions(
+    final QueryResult userDetailsResult = await _client.query(
+      QueryOptions(
         documentNode: gql(_query.fetchUserInfo),
-        variables: {'id': _currentUserId}));
+        variables: {'id': _currentUserId},
+      ),
+    );
 
     if (organizationQueryResult.hasException ||
         userDetailsResult.hasException) {
@@ -191,7 +201,13 @@ class JoinOrgnizationViewModel extends BaseModel {
     } else if (!organizationQueryResult.hasException &&
         !disposed &&
         !userDetailsResult.hasException) {
-      _organizationInfo = organizationQueryResult.data['organizations'] as List;
+      if (filter == OrganisationFilter.showAll) {
+        _organizationInfo =
+            organizationQueryResult.data['organizations'] as List;
+      } else {
+        _organizationInfo =
+            organizationQueryResult.data['organizationsConnection'] as List;
+      }
       // Get the details of joined organizations.
       joinedOrganizations =
           userDetailsResult.data['users'][0]['joinedOrganizations'] as List;
