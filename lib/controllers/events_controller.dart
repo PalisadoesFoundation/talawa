@@ -28,7 +28,9 @@ class EventController with ChangeNotifier {
 
   // Function to get the events
   Future<void> getEventsOnInitialise() async {
-    if (eventList.isNotEmpty) {
+    final bool isOrgIdChanged =
+        (await preferences.getCurrentOrgId()) == _currOrgId;
+    if (eventList.isNotEmpty && isOrgIdChanged) {
       return;
     }
 
