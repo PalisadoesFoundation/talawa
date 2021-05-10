@@ -39,8 +39,7 @@ class RegisterFormState extends State<RegisterForm> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _originalPasswordController =
-      TextEditingController();
+  final TextEditingController _originalPasswordController = TextEditingController();
   FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = RegisterViewModel();
   bool _progressBarState = false;
