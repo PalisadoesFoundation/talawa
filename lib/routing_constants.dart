@@ -13,4 +13,6 @@ class routes {
   static const String SwitchOrgPageRoute = "/switchOrgPage";
   static const String ProfilePageRoute = "/profilePage";
   static const String RegisterPageRoute = "/registerPage";
+  static const String NewsArticlePageRoute = "/newsArticlePage";
+  static const String AddPostPageRoute = "/addPostPage";
 }

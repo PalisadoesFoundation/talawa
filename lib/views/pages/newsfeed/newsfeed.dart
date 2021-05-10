@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
-//pages are imported here
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/routing_constants.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
-import 'package:talawa/views/pages/newsfeed/add_post.dart';
-import 'package:talawa/views/pages/newsfeed/news_article.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/custom_appbar.dart';
 import 'package:talawa/views/widgets/loading.dart';
+
+import '../../../locator.dart';
 
 class NewsFeed extends StatelessWidget {
   const NewsFeed({this.isTest = false});
@@ -26,13 +25,15 @@ class NewsFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NavigationService _navigationService = locator<NavigationService>();
+
     return Scaffold(
         appBar: CustomAppBar(
           'NewsFeed',
           key: const Key('NEWSFEED_APP_BAR'),
           isTest: isTest,
         ),
-        floatingActionButton: addPostFab(context),
+        floatingActionButton: addPostFab(context, _navigationService),
         body: FutureBuilder(
           future: getPostsList(context),
           builder: (BuildContext context, AsyncSnapshot<void> snap) {
@@ -79,13 +80,20 @@ class NewsFeed extends StatelessWidget {
                                         children: <Widget>[
                                           InkWell(
                                             onTap: () {
-                                              pushNewScreen(
-                                                context,
-                                                screen: NewsArticle(
-                                                  post: post,
-                                                  index: index,
-                                                ),
-                                              );
+                                              var params = {
+                                                "post": post,
+                                                "index": index
+                                              };
+                                              _navigationService.navigateTo(
+                                                  routes.NewsArticlePageRoute,
+                                                  arguments: params);
+                                              // pushNewScreen(
+                                              //   context,
+                                              //   screen: NewsArticle(
+                                              //     post: post,
+                                              //     index: index,
+                                              //   ),
+                                              // );
                                             },
                                             child: Card(
                                               color: Colors.white,
@@ -163,8 +171,11 @@ class NewsFeed extends StatelessWidget {
                                                           children: <Widget>[
                                                             likeButton(
                                                                 post, context),
-                                                            commentCounter(post,
-                                                                index, context),
+                                                            commentCounter(
+                                                                post,
+                                                                index,
+                                                                context,
+                                                                _navigationService),
                                                             Container(
                                                                 width: SizeConfig
                                                                         .safeBlockHorizontal *
@@ -187,13 +198,16 @@ class NewsFeed extends StatelessWidget {
   }
 
   //function to add the post on the news feed
-  Widget addPostFab(BuildContext context) {
+  Widget addPostFab(BuildContext context, NavigationService navigationService) {
     return FloatingActionButton(
       heroTag: "btn2",
       backgroundColor: UIData.secondaryColor,
       onPressed: () {
-        pushNewScreenWithRouteSettings(context,
-            screen: const AddPost(), settings: const RouteSettings());
+        navigationService.navigateTo(
+          routes.AddPostPageRoute,
+        );
+        // pushNewScreenWithRouteSettings(context,
+        //     screen: const AddPost(), settings: const RouteSettings());
       },
       child: const Icon(
         Icons.add,
@@ -203,7 +217,8 @@ class NewsFeed extends StatelessWidget {
   }
 
   //function which counts the number of comments on a particular post
-  Widget commentCounter(Map post, int index, BuildContext context) {
+  Widget commentCounter(Map post, int index, BuildContext context,
+      NavigationService navigationService) {
     return Row(
       children: [
         Text(
@@ -217,19 +232,28 @@ class NewsFeed extends StatelessWidget {
             icon: const Icon(Icons.comment),
             color: Colors.grey,
             onPressed: () async {
-              pushNewScreenWithRouteSettings(context,
-                      screen: NewsArticle(
-                        post: post,
-                        index: index,
-                      ),
-                      settings: const RouteSettings(),
-                      withNavBar: false)
+              var params = {"post": post, "index": index};
+              navigationService
+                  .navigateTo(routes.NewsArticlePageRoute, arguments: params)
                   .then((value) {
                 //if (value != null && value)
                 if (value != null) {
                   Provider.of<PostProvider>(context).getPosts();
                 }
               });
+              // pushNewScreenWithRouteSettings(context,
+              //         screen: NewsArticle(
+              //           post: post,
+              //           index: index,
+              //         ),
+              //         settings: const RouteSettings(),
+              //         withNavBar: false)
+              //     .then((value) {
+              //   //if (value != null && value)
+              //   if (value != null) {
+              //     Provider.of<PostProvider>(context).getPosts();
+              //   }
+              // });
             })
       ],
     );

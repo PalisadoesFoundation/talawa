@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_logs/flutter_logs.dart';
+import 'package:talawa/routing_constants.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -9,6 +11,8 @@ import 'package:talawa/utils/validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
+
+import '../../../locator.dart';
 
 class UrlPage extends StatefulWidget {
   @override
@@ -24,7 +28,7 @@ void changeFirst() {
 class _UrlPageState extends State<UrlPage>
     with TickerProviderStateMixin<UrlPage> {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
-
+  final NavigationService _navigationService = locator<NavigationService>();
   MediaQueryData _media;
   final _formKey = GlobalKey<FormState>();
   final urlController = TextEditingController();
@@ -378,12 +382,14 @@ class _UrlPageState extends State<UrlPage>
                                   : () async {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  RegisterPage()),
-                                        );
+                                        _navigationService.navigateTo(
+                                            routes.RegisterPageRoute);
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //       builder: (context) =>
+                                        //           RegisterPage()),
+                                        // );
                                       }
                                     },
                               child: Container(
@@ -448,11 +454,13 @@ class _UrlPageState extends State<UrlPage>
                                   : () async {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginPage()));
+                                        _navigationService
+                                            .navigateTo(routes.LoginPageRoute);
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             LoginPage()));
                                       }
                                     },
                               child: Container(
