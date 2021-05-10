@@ -3,7 +3,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/api_functions.dart';
 
-class EventController with ChangeNotifier {
+class GroupController with ChangeNotifier {
   bool fetched = true;
   List eventList = [];
   String _currOrgId;

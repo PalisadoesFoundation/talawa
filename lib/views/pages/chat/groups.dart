@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 //pages are called here
 import 'package:provider/provider.dart';
-import 'package:talawa/controllers/events_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -22,7 +22,7 @@ class Groups extends StatelessWidget {
         ),
       ),
       body: FutureBuilder(
-        future: Provider.of<EventController>(
+        future: Provider.of<GroupController>(
           context,
           listen: false,
         ).getEventsOnInitialise(),
@@ -31,7 +31,7 @@ class Groups extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (Provider.of<EventController>(context).isScreenEmpty) {
+          if (Provider.of<GroupController>(context).isScreenEmpty) {
             return Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,7 +53,7 @@ class Groups extends StatelessWidget {
                   const Spacer(),
                   //Shows spinner while fetching is performed
                   //else shows a refresh text button with icon
-                  !Provider.of<EventController>(context).isDataFetched
+                  !Provider.of<GroupController>(context).isDataFetched
                       ? const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: FittedBox(
@@ -67,7 +67,7 @@ class Groups extends StatelessWidget {
                           label: const Text('Click to Refresh..'),
                           onPressed: () async {
                             try {
-                              await Provider.of<EventController>(context,
+                              await Provider.of<GroupController>(context,
                                       listen: false)
                                   .getEvents();
                             } catch (e) {
@@ -81,12 +81,12 @@ class Groups extends StatelessWidget {
           }
 
           final List displayedEvents =
-              Provider.of<EventController>(context).getDisplayedEvents;
+              Provider.of<GroupController>(context).getDisplayedEvents;
 
           return RefreshIndicator(
             onRefresh: () async {
               try {
-                await Provider.of<EventController>(
+                await Provider.of<GroupController>(
                   context,
                   listen: false,
                 ).getEvents();
