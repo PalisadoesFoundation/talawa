@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 //pages are imported here
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/model/user.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/custom_toast.dart';
@@ -45,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final Queries _query = Queries();
   final Preferences _preferences = Preferences();
   final AuthController _authController = AuthController();
-  List userDetails = [];
+  List<User> userDetails = [];
   List orgAdmin = [];
   List org = [];
   List admins = [];
@@ -63,11 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     super.initState();
-    if (widget.isCreator != null && widget.test != null) {
-      userDetails = widget.test;
-      isCreator = widget.isCreator;
-      org = userDetails[0]['joinedOrganizations'] as List;
-    }
+
     //Provider.of<Preferences>(context, listen: false).getCurrentOrgName();
     fetchUserDetails();
   }
@@ -85,14 +83,15 @@ class _ProfilePageState extends State<ProfilePage> {
       CustomToast.exceptionToast(msg: "Something went wrong!");
     } else if (!result.hasException) {
       print(result);
+
       setState(() {
-        userDetails = result.data['users'] as List;
-        org = userDetails[0]['joinedOrganizations'] as List;
+        userDetails = userFromJson(json.encode(result.data['users']));
+        org = userDetails[0].joinedOrganizations;
       });
       print(userDetails);
       int notFound = 0;
       for (int i = 0; i < org.length; i++) {
-        if (org[i]['_id'] == orgId) {
+        if (org[i].id == orgId) {
           break;
         } else {
           notFound++;
@@ -100,12 +99,12 @@ class _ProfilePageState extends State<ProfilePage> {
       }
       if (notFound == org.length && org.isNotEmpty) {
         _orgController.setNewOrg(
-            context, org[0]['_id'].toString(), org[0]['name'].toString());
+            context, org[0]._id.toString(), org[0].name.toString());
         Provider.of<Preferences>(context, listen: false)
-            .saveCurrentOrgName(org[0]['name'].toString());
+            .saveCurrentOrgName(org[0].name.toString());
         Provider.of<Preferences>(context, listen: false)
-            .saveCurrentOrgId(org[0]['_id'].toString());
-        await _preferences.saveCurrentOrgImgSrc(org[0]['image'].toString());
+            .saveCurrentOrgId(org[0]._id.toString());
+        await _preferences.saveCurrentOrgImgSrc(org[0].image.toString());
       }
       fetchOrgAdmin();
     }
@@ -239,24 +238,26 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: Colors.white,
                               ),
                             ),
-                            trailing: userDetails[0]['image'] != null
+                            trailing: userDetails[0].image != null
                                 ? CircleAvatar(
                                     radius: SizeConfig.safeBlockVertical * 3.75,
                                     backgroundImage: NetworkImage(
                                         Provider.of<GraphQLConfiguration>(
                                                     context)
                                                 .displayImgRoute +
-                                            userDetails[0]['image'].toString()))
+                                            userDetails[0].image.toString()))
                                 : CircleAvatar(
                                     radius:
                                         SizeConfig.safeBlockVertical * 5.625,
                                     backgroundColor: Colors.white,
                                     child: Text(
-                                        userDetails[0]['firstName']
+                                        userDetails[0]
+                                                .firstName
                                                 .toString()
                                                 .substring(0, 1)
                                                 .toUpperCase() +
-                                            userDetails[0]['lastName']
+                                            userDetails[0]
+                                                .lastName
                                                 .toString()
                                                 .substring(0, 1)
                                                 .toUpperCase(),
@@ -269,7 +270,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           padding: EdgeInsets.only(
                               left: SizeConfig.safeBlockHorizontal * 4),
                           child: Text(
-                              "${userDetails[0]['firstName']} ${userDetails[0]['lastName']}",
+                              "${userDetails[0].firstName} ${userDetails[0].lastName}",
                               style: const TextStyle(
                                   fontSize: 20.0, color: Colors.white)),
                         ),

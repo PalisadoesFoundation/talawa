@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/enums/image_from.dart';
+import 'package:talawa/model/user.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -19,7 +20,7 @@ import 'package:talawa/views/pages/organization/profile_page.dart';
 class UpdateProfilePage extends StatefulWidget {
   const UpdateProfilePage({Key key, @required this.userDetails})
       : super(key: key);
-  final List userDetails;
+  final List<User> userDetails;
 
   @override
   _UpdateProfilePageState createState() => _UpdateProfilePageState();
@@ -45,7 +46,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     final GraphQLClient _client = graphQLConfiguration.authClient();
     QueryResult result;
 
-    if (widget.userDetails[0]['email'] == model.email) {
+    if (widget.userDetails[0].email == model.email) {
       result = await _client.mutate(
         MutationOptions(
           documentNode: gql(_updateProfileQuery.updateUserProfile()),
@@ -62,9 +63,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
           variables: {
             "firstName": model.firstName,
             "lastName": model.lastName,
-            "email": widget.userDetails[0]['email'] == model.email
-                ? null
-                : model.email,
+            "email":
+                widget.userDetails[0].email == model.email ? null : model.email,
           },
         ),
       );
@@ -112,7 +112,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     final GraphQLClient _client = graphQLConfiguration.authClient();
     final img = await multipartFileFrom(_image);
     QueryResult result;
-    if (widget.userDetails[0]['email'] == model.email) {
+    if (widget.userDetails[0].email == model.email) {
       result = await _client.mutate(
         MutationOptions(
           documentNode: gql(_updateProfileQuery.updateUserProfile()),
@@ -131,9 +131,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             'file': img,
             "firstName": model.firstName,
             "lastName": model.lastName,
-            "email": widget.userDetails[0]['email'] == model.email
-                ? null
-                : model.email,
+            "email":
+                widget.userDetails[0].email == model.email ? null : model.email,
           },
         ),
       );
@@ -285,7 +284,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     cursorRadius: const Radius.circular(10),
                     cursorColor: Colors.blue[800],
                     textCapitalization: TextCapitalization.words,
-                    initialValue: widget.userDetails[0]['firstName'].toString(),
+                    initialValue: widget.userDetails[0].firstName.toString(),
                     onSaved: (firstName) {
                       model.firstName = firstName;
                     },
@@ -330,7 +329,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     cursorRadius: const Radius.circular(10),
                     cursorColor: Colors.blue[800],
                     textCapitalization: TextCapitalization.words,
-                    initialValue: widget.userDetails[0]['lastName'].toString(),
+                    initialValue: widget.userDetails[0].lastName.toString(),
                     onSaved: (lastName) {
                       model.lastName = lastName;
                     },
@@ -374,7 +373,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     enableSuggestions: true,
                     cursorRadius: const Radius.circular(10),
                     cursorColor: Colors.blue[800],
-                    initialValue: widget.userDetails[0]['email'].toString(),
+                    initialValue: widget.userDetails[0].email.toString(),
                     textCapitalization: TextCapitalization.words,
                     onSaved: (email) {
                       model.email = email;
