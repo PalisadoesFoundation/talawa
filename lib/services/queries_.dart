@@ -818,6 +818,12 @@ query{
         }
       ){
         _id
+        text
+        createdAt
+        creator{
+          firstName
+          lastName
+        }
       }
     }
   """;

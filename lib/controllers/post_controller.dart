@@ -34,6 +34,7 @@ class PostController with ChangeNotifier {
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
     this.currentUserID = currentUserID;
+    debugPrint(currentOrgID);
     final String query = Queries().getPostsById(currentOrgID);
     final Map result = await apiFunctions.gqlquery(query);
     print(DateTime.now().difference(d1));
