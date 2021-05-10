@@ -14,7 +14,7 @@ String postsToJson(List<Posts> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Posts {
-  Posts({
+   Posts({
     @required this.id,
     this.text,
     this.createdAt,
@@ -50,10 +50,10 @@ class Posts {
   final String imageUrl;
   final String videoUrl;
   final String title;
-  final int commentCount;
-  final int likeCount;
-  final List<LikedBy> likedBy;
-  final List<Comments> comments;
+  int commentCount;
+  int likeCount;
+  List<LikedBy> likedBy;
+  List<Comments> comments;
 
   Map<String, dynamic> toJson() => {
         "_id": id,

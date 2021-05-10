@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/post_controller.dart';
+import 'package:talawa/model/posts.dart';
 
 //the pages are called here
 import 'package:talawa/services/queries_.dart';
@@ -23,7 +24,7 @@ const String newLineKey = "@123TALAWA321@";
 class NewsArticle extends StatefulWidget {
   const NewsArticle({Key key, @required this.index, @required this.post})
       : super(key: key);
-  final Map post;
+  final Posts post;
   final int index;
 
   @override
@@ -46,7 +47,7 @@ class _NewsArticleState extends State<NewsArticle> {
   bool moreComments = false;
   bool isCommentAdded = false;
   int index;
-  Map post;
+  Posts post;
   final Queries _query = Queries();
   List userDetails = [];
   String userID;
@@ -59,7 +60,7 @@ class _NewsArticleState extends State<NewsArticle> {
     super.initState();
     commentController = TextEditingController(
         text: Provider.of<CommentHandler>(context, listen: false)
-            .comment(widget.post["_id"].toString()));
+            .comment(widget.post.id.toString()));
     fetchUserDetails();
     index = widget.index;
     post = widget.post;
@@ -68,7 +69,7 @@ class _NewsArticleState extends State<NewsArticle> {
 
   void _notifyData() {
     Provider.of<CommentHandler>(context, listen: false)
-        .commentEntry(widget.post["_id"].toString(), commentController.text);
+        .commentEntry(widget.post.id.toString(), commentController.text);
   }
 
   @override
@@ -128,8 +129,7 @@ class _NewsArticleState extends State<NewsArticle> {
 
   //this method helps us to get the comments of the post
   Future getPostComments() async {
-    final String mutation =
-        Queries().getPostsComments(widget.post['_id'].toString());
+    final String mutation = Queries().getPostsComments(widget.post.id);
     final Map result = await apiFunctions.gqlmutation(mutation) as Map;
     comments = result == null
         ? []
@@ -144,7 +144,7 @@ class _NewsArticleState extends State<NewsArticle> {
       Fluttertoast.showToast(msg: "Adding Comment...");
       queryText = commentController.text.replaceAll("\n", newLineKey).trim();
       final Map result = await Queries()
-          .createComments(widget.post['_id'].toString(), queryText) as Map;
+          .createComments(widget.post.id, queryText) as Map;
       if (result == null) {
         Fluttertoast.showToast(
           msg: "Sorry, this comment could not be posted.",
@@ -268,7 +268,7 @@ class _NewsArticleState extends State<NewsArticle> {
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Text(
-                          widget.post['title'].toString(),
+                          widget.post.title,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 30.0),
                           maxLines: 2,
@@ -290,7 +290,7 @@ class _NewsArticleState extends State<NewsArticle> {
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(20.0, 10, 10, 10),
                         child: Text(
-                          widget.post['text'].toString(),
+                          widget.post.text,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.justify,
                           maxLines: 10,
