@@ -88,9 +88,8 @@ class _MemberDetailState extends State<MemberDetail>
                     alignment: Alignment.centerLeft,
                     height: SizeConfig.safeBlockVertical * 3.75,
                     child: Text(
-                      'User Privileges: ' +
-                          getPrivilege(widget.member['_id'].toString()),
-                      key: Key('Privilege'),
+                      "User Privileges: ${getPrivilege("${widget.member['_id']}")}",
+                      key: const Key('Privilege'),
                     ),
                   )),
                 ]),
@@ -180,9 +179,7 @@ class _MemberDetailState extends State<MemberDetail>
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                widget.member['firstName'].toString() +
-                    ' ' +
-                    widget.member['lastName'].toString(),
+                "${widget.member['firstName']} ${widget.member['lastName']}",
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -222,9 +219,7 @@ class _MemberDetailState extends State<MemberDetail>
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  widget.member['firstName'].toString() +
-                      ' ' +
-                      widget.member['lastName'].toString(),
+                  "${widget.member['firstName']} ${widget.member['lastName']}",
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,

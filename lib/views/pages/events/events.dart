@@ -53,6 +53,9 @@ class _EventsState extends State<Events> {
   ScrollController listScrollController = ScrollController();
 
   //variable for organization Id
+  //This variable can removed, because its value is not used.
+  //In line number 188, value is being assigned to this variable which is not
+  // not possible to asssign because it's out of scope.
   String _currOrgId;
 
   @override
@@ -180,6 +183,7 @@ class _EventsState extends State<Events> {
   //function to get the events
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
+    // value is assigned but this varialble is not used  anywhere.
     _currOrgId = currentOrgID;
     final Map result =
         await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
@@ -623,17 +627,18 @@ class _EventsState extends State<Events> {
 
   Widget eventFab() {
     return FloatingActionButton(
-        backgroundColor: UIData.secondaryColor,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          pushNewScreen(
-            context,
-            withNavBar: true,
-            screen: AddEvent(),
-          );
-        });
+      backgroundColor: UIData.secondaryColor,
+      onPressed: () {
+        pushNewScreen(
+          context,
+          withNavBar: true,
+          screen: const AddEvent(),
+        );
+      },
+      child: const Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
+    );
   }
 }
