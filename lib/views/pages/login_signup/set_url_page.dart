@@ -311,32 +311,34 @@ class _UrlPageState extends State<UrlPage>
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
                                   ),
-                                ),
-                                onPressed: () async {
-                                  FocusScope.of(context).unfocus();
-                                  if (_formKey.currentState.validate()) {
-                                    _formKey.currentState.save();
+                                  onPressed: () async {
+                                    FocusScope.of(context).unfocus();
+                                    if (_formKey.currentState.validate()) {
+                                      _formKey.currentState.save();
 
-                                    await checkAndSetUrl();
-                                  }
-                                },
-                                child: isUrlCalled
-                                    ? SizedBox(
-                                        height:
-                                            SizeConfig.safeBlockVertical * 1.75,
-                                        width: SizeConfig.safeBlockHorizontal *
-                                            3.5,
-                                        child: const CircularProgressIndicator(
-                                            backgroundColor: Colors.white),
-                                      )
-                                    : Text(
-                                        saveMsg,
-                                      ),
-                              ),
+                                      await checkAndSetUrl();
+                                    }
+                                  },
+                                  child: isUrlCalled
+                                      ? SizedBox(
+                                          height: SizeConfig.safeBlockVertical *
+                                              1.75,
+                                          width:
+                                              SizeConfig.safeBlockHorizontal *
+                                                  3.5,
+                                          child:
+                                              const CircularProgressIndicator(
+                                                  backgroundColor:
+                                                      Colors.white),
+                                        )
+                                      : Text(
+                                          saveMsg,
+                                        )),
                             ],
                           ),
                         ],
@@ -395,12 +397,12 @@ class _UrlPageState extends State<UrlPage>
                                     borderRadius: BorderRadius.circular(50.0)),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const <Widget>[
-                                    Expanded(
-                                      child: Text(
+                                  children: <Widget>[
+                                    new Expanded(
+                                      child: const Text(
                                         "Create an Account",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           //color: UIData.quitoThemeColor,
                                           color: Colors.white,
                                           fontSize: 18,

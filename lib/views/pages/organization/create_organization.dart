@@ -288,10 +288,10 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                 Validator.validateOrgAttendeesDesc(value),
                             textAlign: TextAlign.left,
                             style: const TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: const BorderSide(
+                            decoration: new InputDecoration(
+                              border: new OutlineInputBorder(
+                                borderRadius: new BorderRadius.circular(20.0),
+                                borderSide: new BorderSide(
                                     color: UIData.secondaryColor),
                               ),
                               prefixIcon: const Icon(
@@ -399,6 +399,23 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                               borderRadius: BorderRadius.circular(30.0),
                             ),
                           ),
+                          child: _progressBarState
+                              ? const Center(
+                                  child: const SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: const CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.white),
+                                      strokeWidth: 3,
+                                      backgroundColor: Colors.black,
+                                    ),
+                                  ),
+                                )
+                              : const Text(
+                                  "CREATE ORGANIZATION",
+                                  style: const TextStyle(color: Colors.white),
+                                ),
                           onPressed: _progressBarState
                               ? () {
                                   CustomToast.exceptionToast(
@@ -423,23 +440,6 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                         msg: "A choice must be selected");
                                   }
                                 },
-                          child: _progressBarState
-                              ? const Center(
-                                  child: const SizedBox(
-                                    width: 20,
-                                    height: 20,
-                                    child: const CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Colors.white),
-                                      strokeWidth: 3,
-                                      backgroundColor: Colors.black,
-                                    ),
-                                  ),
-                                )
-                              : const Text(
-                                  "CREATE ORGANIZATION",
-                                  style: const TextStyle(color: Colors.white),
-                                ),
                         ),
                       ),
                     ],
