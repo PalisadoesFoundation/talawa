@@ -14,7 +14,7 @@ String postsToJson(List<Posts> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Posts {
-   Posts({
+  Posts({
     @required this.id,
     this.text,
     this.createdAt,

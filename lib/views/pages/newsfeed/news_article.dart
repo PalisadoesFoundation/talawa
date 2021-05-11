@@ -143,8 +143,8 @@ class _NewsArticleState extends State<NewsArticle> {
     if (commentController.text.isNotEmpty) {
       Fluttertoast.showToast(msg: "Adding Comment...");
       queryText = commentController.text.replaceAll("\n", newLineKey).trim();
-      final Map result = await Queries()
-          .createComments(widget.post.id, queryText) as Map;
+      final Map result =
+          await Queries().createComments(widget.post.id, queryText) as Map;
       if (result == null) {
         Fluttertoast.showToast(
           msg: "Sorry, this comment could not be posted.",
