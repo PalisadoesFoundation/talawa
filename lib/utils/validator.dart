@@ -75,6 +75,7 @@ class Validator {
     if (!regExp.hasMatch(password)) {
       return "Invalid Password";
     }
+
     if (!noSpaceRegex.hasMatch(password)) {
       return "Password must not contain spaces";
     }

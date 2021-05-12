@@ -11,14 +11,10 @@ Container toastContainer(String msg, Color color) {
       borderRadius: BorderRadius.circular(25.0),
       color: color,
     ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          msg,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
+    child: Text(
+      msg,
+      maxLines: 3,
+      overflow: TextOverflow.ellipsis,
     ),
   );
 }
