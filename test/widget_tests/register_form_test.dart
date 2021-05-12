@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/controllers/news_feed_controller.dart';
@@ -26,6 +27,8 @@ Widget createRegisterPageScreen() => MultiProvider(
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
         ChangeNotifierProvider<NewsFeedProvider>(
             create: (_) => NewsFeedProvider()),
+        ChangeNotifierProvider<GroupController>(
+            create: (_) => GroupController()),
       ],
       child: MaterialApp(
         home: Builder(

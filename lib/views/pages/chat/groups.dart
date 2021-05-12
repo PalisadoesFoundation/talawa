@@ -32,51 +32,9 @@ class Groups extends StatelessWidget {
           }
 
           if (Provider.of<GroupController>(context).isScreenEmpty) {
-            return Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Spacer(),
-                  Container(
-                    alignment: Alignment.center,
-                    //Text for empty chat groups
-                    child: const Text(
-                      "Register in an event to start chatting",
-                      key: Key('empty_chat_group'),
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  //Shows spinner while fetching is performed
-                  //else shows a refresh text button with icon
-                  !Provider.of<GroupController>(context).isDataFetched
-                      ? const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: CircularProgressIndicator(),
-                          ),
-                        )
-                      : TextButton.icon(
-                          key: const Key('click_to_refresh_button'),
-                          icon: const Icon(Icons.refresh),
-                          label: const Text('Click to Refresh..'),
-                          onPressed: () async {
-                            try {
-                              await Provider.of<GroupController>(context,
-                                      listen: false)
-                                  .getEvents();
-                            } catch (e) {
-                              CustomToast.exceptionToast(msg: e.toString());
-                            }
-                          },
-                        ),
-                ],
-              ),
+            return _emptyWidget(
+              context,
+              Provider.of<GroupController>(context).isDataFetched,
             );
           }
 
@@ -125,6 +83,54 @@ class Groups extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget _emptyWidget(BuildContext context, bool isDataFetched) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Spacer(),
+          Container(
+            alignment: Alignment.center,
+            //Text for empty chat groups
+            child: const Text(
+              "Register in an event to start chatting",
+              key: Key('EMPTY_CHAT_GROUP'),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+          const Spacer(),
+          //Shows spinner while fetching is performed
+          //else shows a refresh text button with icon
+          !isDataFetched
+              ? const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : TextButton.icon(
+                  key: const Key('click_to_refresh_button'),
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Click to Refresh..'),
+                  onPressed: () async {
+                    try {
+                      await Provider.of<GroupController>(context, listen: false)
+                          .getEvents();
+                    } catch (e) {
+                      CustomToast.exceptionToast(msg: e.toString());
+                    }
+                  },
+                ),
+        ],
       ),
     );
   }

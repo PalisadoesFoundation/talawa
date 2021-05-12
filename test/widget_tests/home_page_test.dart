@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/services/preferences.dart';
@@ -25,6 +26,8 @@ Widget createHomePageScreen() => MultiProvider(
         ),
         ChangeNotifierProvider<NewsFeedProvider>(
             create: (_) => NewsFeedProvider()),
+        ChangeNotifierProvider<GroupController>(
+            create: (_) => GroupController()),
       ],
       child: const MaterialApp(
         home: HomePage(),

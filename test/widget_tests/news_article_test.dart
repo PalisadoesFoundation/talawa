@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/services/comment.dart';
@@ -34,6 +35,8 @@ Widget newsArticlePage() => MultiProvider(
         ChangeNotifierProvider<CommentHandler>(
           create: (_) => CommentHandler(),
         ),
+        ChangeNotifierProvider<GroupController>(
+            create: (_) => GroupController()),
       ],
       child: MaterialApp(
         home: Builder(
