@@ -16,8 +16,10 @@ def arg_parser_resolver():
     return parser.parse_args()
 
 #patterm matching and adding trailing commas at the required syntax places
-def syntax_matcher(root :str, files: list[str]):
+def syntax_matcher(root :str, files: list):
+    
     for name in files:
+            
             file_location = os.path.join(root, name)
             file_count = 0
             data = []
@@ -25,26 +27,29 @@ def syntax_matcher(root :str, files: list[str]):
             data = g.readlines()
             f = open(file_location, 'w')
             for index in range(0,len(data)):
-                if '))' and not ')) {' in data[index]:
+                if '))'  and not 'toString())'  in data[index]:
                     data[index] = data[index].replace('))', '),)')
                     file_count = file_count + 1
+                               
+                # elif  '))' and not ')) {'  in data[index]:
+                #     data[index] = data[index].replace('))', '),)')
+                #     file_count = file_count + 1
 
-                if ') {' and not ')) {' in data[index] :
+                elif ') {' and not '() {'  in data[index] :                    
                     data[index] = data[index].replace(') {', ',) {') 
                     file_count = file_count + 1
 
-                if ')) {' in data[index] :
-                    data[index] = data[index].replace(')) {', ',)) {')
-                    file_count = file_count + 1   
-
-                if '),).' in data[index]:
-                    data[index] = data[index].replace('),).', ')).')
-                    file_count = file_count + 1
-                    
+                elif ') {' and not ')) {'  in data[index] :                    
+                    data[index] = data[index].replace(') {', ',) {') 
+                    file_count = file_count + 1      
+                else :
+                    file_count = file_count + 0
+                                          
                 f.write(data[index])
+               
             g.close()
             f.close()
-            return file_count
+    return file_count
     
 # Find, and update, for files having comma in sequence.
 def main():
