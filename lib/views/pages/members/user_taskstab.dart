@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/model/orgmemeber.dart';
 
 //pages are called here
 import 'package:talawa/services/queries_.dart';
@@ -16,7 +17,7 @@ class UserTasks extends StatefulWidget {
     @required this.member,
   }) : super(key: key);
 
-  Map member;
+  Member member;
 
   @override
   _UserTasksState createState() => _UserTasksState();
@@ -36,7 +37,7 @@ class _UserTasksState extends State<UserTasks> {
 
   //getting user details
   getUserDetails() async {
-    final String userID = widget.member['_id'].toString();
+    final String userID = widget.member.id.toString();
     final Map result =
         await apiFunctions.gqlquery(Queries().tasksByUser(userID));
     print(result);

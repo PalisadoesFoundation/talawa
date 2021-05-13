@@ -1,5 +1,6 @@
 //flutter packages imported here
 import 'package:flutter/material.dart';
+import 'package:talawa/model/orgmemeber.dart';
 
 //packages for pages are imported here
 import 'package:talawa/services/queries_.dart';
@@ -13,7 +14,7 @@ class RegisteredEvents extends StatefulWidget {
     Key key,
     @required this.member,
   }) : super(key: key);
-  Map member;
+  Member member;
 
   @override
   _RegisteredEventsState createState() => _RegisteredEventsState();
@@ -34,7 +35,7 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
 
   //method to get the user details
   getUserDetails() async {
-    final String userID = widget.member['_id'].toString();
+    final String userID = widget.member.id.toString();
     final Map result =
         await apiFunctions.gqlquery(Queries().registeredEventsByUser(userID));
     setState(() {

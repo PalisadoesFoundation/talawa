@@ -5,6 +5,7 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
 //files are imported here
 import 'package:provider/provider.dart';
+import 'package:talawa/model/orgmemeber.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import '../../../utils/uidata.dart';
@@ -21,9 +22,9 @@ class MemberDetail extends StatefulWidget {
       this.creatorId})
       : super(key: key);
 
-  final List admins;
+  final List<Admin> admins;
   final String creatorId;
-  Map member;
+  Member member;
   Color color;
 
   @override
@@ -44,7 +45,7 @@ class _MemberDetailState extends State<MemberDetail>
       return 'Creator';
     }
     for (int i = 0; i < widget.admins.length; i++) {
-      if (widget.admins[i]['_id'] == id) {
+      if (widget.admins[i].id == id) {
         return 'Admin';
       }
     }
@@ -68,9 +69,9 @@ class _MemberDetailState extends State<MemberDetail>
               expandedHeight: SizeConfig.safeBlockVertical * 31.25,
               flexibleSpace: FlexibleSpaceBar(
                 background: Column(children: [
-                  widget.member['image'] == null
+                  widget.member.image == null
                       ? defaultUserImg()
-                      : userImg(widget.member['image'].toString()),
+                      : userImg(widget.member.image),
                   Card(
                       child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -78,7 +79,7 @@ class _MemberDetailState extends State<MemberDetail>
                         left: SizeConfig.safeBlockHorizontal * 5),
                     alignment: Alignment.centerLeft,
                     height: SizeConfig.safeBlockVertical * 3.75,
-                    child: Text('User email: ${widget.member['email']}'),
+                    child: Text('User email: ${widget.member.email}'),
                   )),
                   Card(
                       child: Container(
@@ -88,9 +89,8 @@ class _MemberDetailState extends State<MemberDetail>
                     alignment: Alignment.centerLeft,
                     height: SizeConfig.safeBlockVertical * 3.75,
                     child: Text(
-                      'User Privileges: ' +
-                          getPrivilege(widget.member['_id'].toString()),
-                      key: Key('Privilege'),
+                      'User Privileges: ${getPrivilege(widget.member.id)}',
+                      key: const Key('Privilege'),
                     ),
                   )),
                 ]),
@@ -180,9 +180,9 @@ class _MemberDetailState extends State<MemberDetail>
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                widget.member['firstName'].toString() +
+                widget.member.firstName.toString() +
                     ' ' +
-                    widget.member['lastName'].toString(),
+                    widget.member.lastName.toString(),
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -222,9 +222,9 @@ class _MemberDetailState extends State<MemberDetail>
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  widget.member['firstName'].toString() +
+                  widget.member.firstName.toString() +
                       ' ' +
-                      widget.member['lastName'].toString(),
+                      widget.member.lastName.toString(),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
