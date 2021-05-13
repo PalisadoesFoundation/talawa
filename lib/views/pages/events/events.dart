@@ -1,8 +1,12 @@
 //flutter packages are called here
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:talawa/enums/event_recurrance.dart';
+import 'package:talawa/model/events.dart';
 
 //pages are imported here
 import 'package:talawa/services/preferences.dart';
@@ -34,11 +38,10 @@ class Events extends StatefulWidget {
 }
 
 class _EventsState extends State<Events> {
-  List eventList = [];
-  List displayedEvents = [];
-  List currentFilterEvents = [];
+  List<EventsModel> eventList = [];
+  List<EventsModel> displayedEvents = [];
+  List<EventsModel> currentFilterEvents = [];
   List eventsToDate = [];
-  List myEvents = [];
   String dateSelected = 'Today';
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
@@ -65,28 +68,28 @@ class _EventsState extends State<Events> {
 
   //get all events for a given day
   //account for recurring events
-  List filterEventsByDay(DateTime currentDate, List events) {
-    final List currentevents = [];
+  List<EventsModel> filterEventsByDay(
+      DateTime currentDate, List<EventsModel> events) {
+    final List<EventsModel> currentevents = [];
 
     for (final event in events) {
-      final DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(
-          int.parse(event['startTime'].toString()));
-      final DateTime endTime = DateTime.fromMicrosecondsSinceEpoch(
-          int.parse(event['endTime'].toString()));
-      if (!(event['recurring'] as bool) &&
-          timer.isSameDay(currentDate, startTime)) {
+      final DateTime startTime =
+          DateTime.fromMicrosecondsSinceEpoch(int.parse(event.startTime));
+      final DateTime endTime =
+          DateTime.fromMicrosecondsSinceEpoch(int.parse(event.endTime));
+      if (!event.recurring && timer.isSameDay(currentDate, startTime)) {
         currentevents.add(event);
       }
-      if ((event['recurrance'] == 'DAILY') &&
+      if ((event.recurrance == Recurrance.daily) &&
           timer.liesBetween(currentDate, startTime, endTime)) {
         currentevents.add(event);
-      } else if (event['recurrance'] == 'WEEKLY' &&
+      } else if (event.recurrance == Recurrance.weekly &&
           timer.isSameWeekDay(currentDate, startTime)) {
         currentevents.add(event);
-      } else if (event['recurrance'] == 'MONTHLY' &&
+      } else if (event.recurrance == Recurrance.monthly &&
           currentDate.day == startTime.day) {
         currentevents.add(event);
-      } else if (event['recurrance'] == 'YEARLY' &&
+      } else if (event.recurrance == Recurrance.yearly &&
           currentDate.month == startTime.month &&
           currentDate.day == startTime.day) {
         currentevents.add(event);
@@ -97,60 +100,56 @@ class _EventsState extends State<Events> {
 
   //return events in calendar display format ''Map<DateTime, List<dynamic>>''
   //account for recurring events
-  Map eventsToDates(List events, DateTime now) {
-    final Map<DateTime, List<dynamic>> eventDates = {};
-    addDateToMap(DateTime date, Map event) {
+  Map eventsToDates(List<EventsModel> events, DateTime now) {
+    final Map<DateTime, List<EventsModel>> eventDates = {};
+    addDateToMap(DateTime date, EventsModel event) {
       if (eventDates[date] == null) {
-        eventDates[date] = [event];
+        eventDates[date] = [];
+        eventDates[date].add(event);
       } else {
         eventDates[date].add(event);
       }
     }
 
     for (final event in events) {
-      if (!(event['recurring'] as bool)) {
+      if (!event.recurring) {
         addDateToMap(
-            DateTime.fromMicrosecondsSinceEpoch(
-                int.parse(event['startTime'].toString())),
-            event as Map);
+            DateTime.fromMicrosecondsSinceEpoch(int.parse(event.startTime)),
+            event);
       } else {
-        if (event['recurrance'] == 'DAILY') {
-          int day = DateTime.fromMicrosecondsSinceEpoch(
-                  int.parse(event['startTime'].toString()))
-              .day;
-          final int lastday = DateTime.fromMicrosecondsSinceEpoch(
-                  int.parse(event['endTime'].toString()))
-              .day;
+        if (event.recurrance == Recurrance.daily) {
+          int day =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event.startTime))
+                  .day;
+          final int lastday =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event.endTime)).day;
           while (day <= lastday) {
-            addDateToMap(DateTime(now.year, now.month, day), event as Map);
+            addDateToMap(DateTime(now.year, now.month, day), event);
             day += 1;
           }
         }
-        if (event['recurrance'] == 'WEEKLY') {
-          int day = DateTime.fromMicrosecondsSinceEpoch(
-                  int.parse(event['startTime'].toString()))
-              .day;
-          final int lastday = DateTime.fromMicrosecondsSinceEpoch(
-                  int.parse(event['endTime'].toString()))
-              .day;
+        if (event.recurrance == Recurrance.weekly) {
+          int day =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event.startTime))
+                  .day;
+          final int lastday =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event.endTime)).day;
           while (day <= lastday) {
-            addDateToMap(DateTime(now.year, now.month, day), event as Map);
+            addDateToMap(DateTime(now.year, now.month, day), event);
 
             day += 7;
           }
         }
-        if (event['recurrance'] == 'MONTHLY') {
-          final DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
-              int.parse(event['startTime'].toString()));
-          addDateToMap(
-              DateTime(now.year, now.month, firstDate.day), event as Map);
+        if (event.recurrance == Recurrance.monthly) {
+          final DateTime firstDate =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event.startTime));
+          addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
         }
-        if (event['recurrance'] == 'YEARLY') {
-          final DateTime firstDate = DateTime.fromMicrosecondsSinceEpoch(
-              int.parse(event['startTime'].toString()));
+        if (event.recurrance == Recurrance.yearly) {
+          final DateTime firstDate =
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(event.startTime));
           if (now.month == firstDate.month) {
-            addDateToMap(
-                DateTime(now.year, now.month, firstDate.day), event as Map);
+            addDateToMap(DateTime(now.year, now.month, firstDate.day), event);
           }
         }
       }
@@ -181,26 +180,27 @@ class _EventsState extends State<Events> {
   Future<void> getEvents() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     _currOrgId = currentOrgID;
+    debugPrint(currentOrgID);
     final Map result =
         await apiFunctions.gqlquery(Queries().fetchOrgEvents(currentOrgID));
-    eventList =
-        result == null ? [] : (result['events'] as List).reversed.toList();
+    eventList = result == null
+        ? []
+        : eventsModelFromJson(
+            jsonEncode((result["events"] as List).reversed.toList()));
     eventList.removeWhere((element) =>
-        element['title'] == 'Talawa Congress' ||
-        element['title'] == 'test' ||
-        element['title'] == 'Talawa Conference Test' ||
-        element['title'] == 'mayhem' ||
-        element['title'] == 'mayhem1' ||
-        element['organization']['_id'] !=
+        element.title == 'Talawa Congress' ||
+        element.title == 'test' ||
+        element.title == 'Talawa Conference Test' ||
+        element.title == 'mayhem' ||
+        element.title == 'mayhem1' ||
+        element.organization.id !=
             currentOrgID); //dont know who keeps adding these
     // This removes all invalid date formats other than Unix time
-    eventList.removeWhere(
-        (element) => int.tryParse(element['startTime'] as String) == null);
+    eventList.removeWhere((element) => int.tryParse(element.startTime) == null);
     eventList.sort((a, b) {
-      return DateTime.fromMicrosecondsSinceEpoch(
-              int.parse(a['startTime'] as String))
-          .compareTo(DateTime.fromMicrosecondsSinceEpoch(
-              int.parse(b['startTime'] as String)));
+      return DateTime.fromMicrosecondsSinceEpoch(int.parse(a.startTime))
+          .compareTo(
+              DateTime.fromMicrosecondsSinceEpoch(int.parse(b.startTime)));
     });
     eventsToDates(eventList, DateTime.now());
     setState(() {
@@ -210,8 +210,8 @@ class _EventsState extends State<Events> {
   }
 
   //functions to edit the event
-  Future<void> _editEvent(BuildContext context, Map event) async {
-    if (event['creator']['_id'] != userId) {
+  Future<void> _editEvent(BuildContext context, EventsModel event) async {
+    if (event.creator.id != userId) {
       Fluttertoast.showToast(msg: "You cannot edit events you didn't create");
     } else {
       pushNewScreen(context,
@@ -516,22 +516,22 @@ class _EventsState extends State<Events> {
         children: [
           ExpansionTile(
             title: Text(
-              displayedEvents[index]['title'].toString(),
+              displayedEvents[index].title,
               style: const TextStyle(
                 color: Colors.black87,
                 fontSize: 16,
               ),
             ),
             subtitle: Text(
-              displayedEvents[index]['description'].toString(),
+              displayedEvents[index].description,
               style: const TextStyle(color: Colors.black54),
             ),
             trailing: popUpMenue(displayedEvents[index]),
             children: <Widget>[
-              displayedEvents[index]['isPublic'] as bool
+              displayedEvents[index].isPublic
                   ? menueText('This event is Public')
                   : menueText('This event is Private'),
-              displayedEvents[index]['isRegistered'] as bool
+              displayedEvents[index].isRegistered
                   ? menueText('You Are Registered')
                   : menueText('You Are Not Registered'),
               ListTile(
@@ -546,7 +546,7 @@ class _EventsState extends State<Events> {
                     pushNewScreen(
                       context,
                       withNavBar: true,
-                      screen: EventDetail(event: displayedEvents[index] as Map),
+                      screen: EventDetail(event: displayedEvents[index]),
                     );
                   },
                   child: const Text(
@@ -567,17 +567,17 @@ class _EventsState extends State<Events> {
     );
   }
 
-  Widget popUpMenue(event) {
+  Widget popUpMenue(EventsModel event) {
     return PopupMenuButton<int>(
       onSelected: (val) async {
         if (val == 1) {
-          return _register(context, event['_id'].toString());
+          return _register(context, event.id);
         } else if (val == 2) {
-          return addEventTask(context, event['_id'].toString());
+          return addEventTask(context, event.id);
         } else if (val == 3) {
-          return _editEvent(context, event as Map);
+          return _editEvent(context, event);
         } else if (val == 4) {
-          return _deleteEvent(context, event['_id'].toString());
+          return _deleteEvent(context, event.id);
         }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
