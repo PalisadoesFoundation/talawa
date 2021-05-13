@@ -87,19 +87,19 @@ class _EventDetailState extends State<EventDetail>
                     labelPadding: const EdgeInsets.all(0),
                     indicatorColor: Colors.white,
                     controller: _tabController,
-                    tabs: [
-                      const Tab(
-                        icon: const Text(
+                    tabs: const [
+                      Tab(
+                        icon: Text(
                           'Tasks',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
                       ),
-                      const Tab(
-                        icon: const Text(
+                      Tab(
+                        icon: Text(
                           'Registrants',
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ],
