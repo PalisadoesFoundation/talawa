@@ -17,7 +17,7 @@ import '../base_model.dart';
 class EventPageViewModel extends BaseModel {
   final Preferences _preferences = Preferences();
   final ApiFunctions _apiFunctions = ApiFunctions();
-  String _userID = "", _dateSelected = 'Today';
+  String _userID = "", orgID = "", _dateSelected = 'Today';
   List _eventList = [], _displayEvents = [];
   Timer timer = Timer();
 
@@ -44,10 +44,15 @@ class EventPageViewModel extends BaseModel {
     getEvents();
   }
 
+  bool get isCurrOrgNull {
+    return orgID.isEmpty;
+  }
+
   Future<void> getEvents() async {
     setState(ViewState.busy);
 
     final String _currentOrgID = await _preferences.getCurrentOrgId();
+    orgID = _currentOrgID;
     final Map result =
         await _apiFunctions.gqlquery(Queries().fetchOrgEvents(_currentOrgID));
     _eventList =

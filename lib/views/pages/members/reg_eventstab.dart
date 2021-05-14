@@ -33,7 +33,7 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
   }
 
   //method to get the user details
-  getUserDetails() async {
+  Future getUserDetails() async {
     final String userID = widget.member['_id'].toString();
     final Map result =
         await apiFunctions.gqlquery(Queries().registeredEventsByUser(userID));
@@ -47,8 +47,14 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
   @override
   Widget build(BuildContext context) {
     return userEvents == null
-        ? const Center(
-            child: Loading(),
+        ? Center(
+            child: Loading(
+              key: UniqueKey(),
+              isCurrentOrgNull: false,
+              emptyContentIcon: Icons.event_note_outlined,
+              emptyContentMsg: 'No registered events, Join an event!',
+              refreshFunction: getUserDetails,
+            ),
           )
         : userEvents.isNotEmpty
             ? ListView.builder(

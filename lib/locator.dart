@@ -5,6 +5,7 @@ import 'package:talawa/view_models/page_view_model/add_event_page_view_model.dar
 import 'package:talawa/view_models/page_view_model/create_organization_page_viewModel.dart';
 import 'package:talawa/view_models/page_view_model/events_page_view_model.dart';
 import 'package:talawa/view_models/page_view_model/join_organization_view_model.dart';
+import 'package:talawa/view_models/page_view_model/profile_page_viewModel.dart';
 import 'package:talawa/view_models/swtich_org_vm.dart';
 import 'services/api_.dart';
 
@@ -17,6 +18,7 @@ void setupLocator() {
   locator.registerFactory(() => EventPageViewModel());
   locator.registerFactory(() => AddEventPageViewModel());
   locator.registerFactory(() => CreateOrganizationViewModel());
+  locator.registerFactory(() => ProfilePageViewModel());
 
   locator.registerFactory(() => SwitchOrgModel());
 }
