@@ -8,7 +8,7 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/page_view_model/create_organization_page_viewModel.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/views/pages/organization/Create%20Organization/create_organization_UI_helper.dart';
+import 'package:talawa/views/pages/organization/Create%20Organization/create_organization_UI_Helper.dart';
 
 class CreateOrganization extends StatefulWidget {
   const CreateOrganization({this.isFromProfile = false});
