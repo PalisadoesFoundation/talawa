@@ -39,11 +39,12 @@ class NewsArticleViewModel extends BaseModel {
   bool get moreComments => _moreComments;
   bool get showLoadComments => _showLoadComments;
 
-  initialize(Map post, int index,PostController postController, BuildContext context) {
+  initialize(Map post, int index, PostController postController,
+      BuildContext context) {
     this.post = post;
     this.context = context;
     this.index = index;
-    this._postController =  postController;
+    this._postController = postController;
     _commentController = TextEditingController(
         text: Provider.of<CommentHandler>(context, listen: false)
             .comment(post["_id"].toString()));
