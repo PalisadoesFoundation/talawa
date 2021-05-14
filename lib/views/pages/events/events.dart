@@ -35,7 +35,7 @@ class _EventsState extends State<Events> {
           key: const Key('EVENTS_APP_BAR'),
           title: const Text(
             'Events',
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white),
           ),
         ),
         floatingActionButton: eventFab(context),
@@ -250,6 +250,10 @@ class _EventsState extends State<Events> {
         ? Center(
             child: Loading(
             key: UniqueKey(),
+            isCurrentOrgNull: model.isCurrOrgNull,
+            emptyContentIcon: Icons.event,
+            emptyContentMsg: 'No events to show, Create One!',
+            refreshFunction: model.getEvents,
           ))
         : RefreshIndicator(
             onRefresh: () async {

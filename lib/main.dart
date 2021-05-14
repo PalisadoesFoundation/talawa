@@ -8,6 +8,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
+import 'package:talawa/services/groups_provider.dart';
 import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/loghelper.dart';
@@ -21,13 +22,11 @@ import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
 
 Preferences preferences = Preferences();
-String userID;
 LogHelper logHelper = LogHelper();
 Future<void> main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); //ensuring weather the app is being initialized or not
   setupLocator();
-  userID = await preferences.getUserId(); //getting user id
   await logHelper.init(); // To intialise FlutterLog
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp
@@ -42,6 +41,7 @@ Future<void> main() async {
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
         ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
+        ChangeNotifierProvider<GroupsProvider>(create: (_) => GroupsProvider()),
       ],
       child: MyApp(),
     ));
@@ -86,9 +86,30 @@ class MyApp extends StatelessWidget {
           final WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));
         },
-        home: userID == null
-            ? UrlPage()
-            : const HomePage(), //checking weather the user is logged in or not
+        home: FutureBuilder(
+          future: preferences.getUserId(),
+          initialData: "Initial Data",
+          builder: (BuildContext context, AsyncSnapshot snapshot){
+            if(snapshot.data.toString() == "Initial Data"){
+              return Scaffold(
+                body: Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              );
+            }
+            else if (snapshot.hasError) {
+              throw FlutterError(
+                  'There is some error with "${snapshot.data}"\n'
+              );
+            }
+            else if(snapshot.data != null){
+              return const HomePage();
+            }
+            return UrlPage();
+          },
+        ),
       ),
     );
   }
