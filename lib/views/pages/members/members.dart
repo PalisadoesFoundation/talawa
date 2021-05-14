@@ -59,7 +59,7 @@ class _OrganizationsState extends State<Organizations> {
   //function to get the members of an organization
   // ignore: missing_return
   Future<List> getMembers() async {
-    final String currentOrgID = await preferences.getCurrentOrgId();
+    currentOrgID = await preferences.getCurrentOrgId();
     print(currentOrgID);
     if (currentOrgID != null) {
       final ApiFunctions apiFunctions = ApiFunctions();
@@ -109,62 +109,33 @@ class _OrganizationsState extends State<Organizations> {
             style: const TextStyle(color: Colors.white),
           ),
         ),
-        body: alphaMembersMap == null
-            ? const Center(
-                child: Loading(),
+        body: alphaMembersMap == null || alphaMembersMap.isEmpty
+            ? Center(
+                child: Loading(
+                  key: UniqueKey(),
+                  isCurrentOrgNull: currentOrgID == null,
+                  emptyContentIcon: Icons.group,
+                  emptyContentMsg: 'No memberes to show, Join an organization!',
+                  refreshFunction: getMembers,
+                ),
               )
-            : alphaMembersMap.isEmpty
-                ? RefreshIndicator(
-                    onRefresh: () async {
-                      try {
-                        await getMembers();
-                      } catch (e) {
-                        CustomToast.exceptionToast(msg: e.toString());
-                      }
+            : RefreshIndicator(
+                onRefresh: () async {
+                  try {
+                    await getMembers();
+                  } catch (e) {
+                    CustomToast.exceptionToast(msg: e.toString());
+                  }
+                },
+                child: CustomScrollView(
+                  slivers: List.generate(
+                    alphaMembersMap.length,
+                    (index) {
+                      return alphabetDividerList(context,
+                          alphaMembersMap.keys.toList()[index].toString());
                     },
-                    child: Center(
-                        child: Column(children: <Widget>[
-                      SizedBox(
-                        height: SizeConfig.safeBlockVertical * 31.25,
-                      ),
-                      const Text(
-                        "No member to Show",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      SizedBox(
-                        height: SizeConfig.safeBlockVertical * 6.25,
-                      ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          try {
-                            await getMembers();
-                          } catch (e) {
-                            CustomToast.exceptionToast(msg: e.toString());
-                          }
-                        },
-                        child: const Text("Refresh"),
-                      )
-                    ])))
-                : RefreshIndicator(
-                    onRefresh: () async {
-                      try {
-                        await getMembers();
-                      } catch (e) {
-                        CustomToast.exceptionToast(msg: e.toString());
-                      }
-                    },
-                    child: CustomScrollView(
-                      slivers: List.generate(
-                        alphaMembersMap.length,
-                        (index) {
-                          return alphabetDividerList(context,
-                              alphaMembersMap.keys.toList()[index].toString());
-                        },
-                      ),
-                    )));
+                  ),
+                )));
   }
 
   //widget which divides the list according to letters
