@@ -26,7 +26,6 @@ class _EventsState extends State<Events> {
   CarouselController carouselController = CarouselController();
   ScrollController listScrollController = ScrollController();
 
-
   @override
   Widget build(BuildContext context) {
     return BaseView<EventPageViewModel>(
@@ -44,6 +43,7 @@ class _EventsState extends State<Events> {
             ? Center(
                 child: Loading(
                 key: UniqueKey(),
+                isCurrentOrgNull: null,
               ))
             : model.displayEvents.isEmpty
                 ? RefreshIndicator(
@@ -159,12 +159,10 @@ class _EventsState extends State<Events> {
                           ),
                         ],
                       ),
-
                     ),
                   ),
       ),
     );
-
   }
 
   Widget calendar(EventPageViewModel model) {
@@ -289,5 +287,4 @@ class _EventsState extends State<Events> {
               },
             ));
   }
-
 }
