@@ -109,8 +109,8 @@ class CreateOrganizationViewModel extends BaseModel {
         )),
       ));
     }
-
     if (result.hasException) {
+      print(result.exception);
       final ExceptionType exceptionType = retrieveExceptionType(result);
       if (exceptionType == ExceptionType.accesstokenException) {
         _authController.getNewToken();
