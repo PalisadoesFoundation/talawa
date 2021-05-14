@@ -32,6 +32,7 @@ Widget createHomePageScreen() => MultiProvider(
     );
 
 void main() {
+  setupLocator();
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;

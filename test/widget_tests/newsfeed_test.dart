@@ -32,9 +32,7 @@ Widget newsfeedPage() => MultiProvider(
         ),
       ],
       child: MaterialApp(
-        home: NewsFeed(
-          isTest: true,
-        ),
+        home: NewsFeed(),
         navigatorKey: locator<NavigationService>().navigatorKey,
         onGenerateRoute: router.generateRoute,
       ),
