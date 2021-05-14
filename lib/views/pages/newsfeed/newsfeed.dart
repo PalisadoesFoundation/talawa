@@ -15,8 +15,7 @@ import 'package:talawa/views/widgets/custom_appbar.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 class NewsFeed extends StatelessWidget {
-  const NewsFeed({this.isTest = false});
-  final bool isTest;
+  const NewsFeed();
 
   /// Get the list of posts
   Future<void> getPostsList(BuildContext context) async {
@@ -29,7 +28,6 @@ class NewsFeed extends StatelessWidget {
       appBar: CustomAppBar(
         'NewsFeed',
         key: const Key('NEWSFEED_APP_BAR'),
-        isTest: isTest,
       ),
       floatingActionButton: addPostFab(context),
       body: FutureBuilder(
@@ -51,9 +49,13 @@ class NewsFeed extends StatelessWidget {
             child: Provider.of<NewsFeedProvider>(context).isPostEmpty
                 ? Center(
                     child: Loading(
-                    isTest: isTest,
-                    isShowingError:
+                    isNetworkError:
                         Provider.of<NewsFeedProvider>(context).isErrorOccurred,
+                    isCurrentOrgNull:
+                        Provider.of<NewsFeedProvider>(context).isCurrOrgIdNull,
+                    emptyContentIcon: Icons.photo_album_outlined,
+                    emptyContentMsg: 'No post to show, Create One!',
+                    refreshFunction: () => getPostsList(context),
                     key: UniqueKey(),
                   ))
                 : Container(

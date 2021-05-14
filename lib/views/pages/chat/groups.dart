@@ -1,5 +1,6 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:provider/provider.dart';

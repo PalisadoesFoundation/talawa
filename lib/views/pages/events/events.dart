@@ -250,6 +250,10 @@ class _EventsState extends State<Events> {
         ? Center(
             child: Loading(
             key: UniqueKey(),
+            isCurrentOrgNull: model.isCurrOrgNull,
+            emptyContentIcon: Icons.event,
+            emptyContentMsg: 'No events to show, Create One!',
+            refreshFunction: model.getEvents,
           ))
         : RefreshIndicator(
             onRefresh: () async {
