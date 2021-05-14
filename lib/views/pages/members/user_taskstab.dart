@@ -35,7 +35,7 @@ class _UserTasksState extends State<UserTasks> {
   }
 
   //getting user details
-  getUserDetails() async {
+  Future getUserDetails() async {
     final String userID = widget.member['_id'].toString();
     final Map result = await apiFunctions.gqlquery(
       Queries().tasksByUser(
@@ -64,11 +64,17 @@ class _UserTasksState extends State<UserTasks> {
   Widget build(BuildContext context) {
     return userTasks == null
         ? Container(
-            key: const Key(
-              "User Task Loading",
-            ),
-            child: const Center(
-              child: Loading(),
+
+            key: const Key("User Task Loading"),
+            child: Center(
+              child: Loading(
+                key: UniqueKey(),
+                isCurrentOrgNull: false,
+                emptyContentIcon: Icons.work_outline_rounded,
+                emptyContentMsg: 'No Tasks found, Create One!',
+                refreshFunction: getUserDetails,
+              ),
+
             ),
           )
         : userTasks.isNotEmpty

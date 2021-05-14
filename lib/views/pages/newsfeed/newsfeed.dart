@@ -15,9 +15,7 @@ import 'package:talawa/views/widgets/custom_appbar.dart';
 import 'package:talawa/views/widgets/loading.dart';
 
 class NewsFeed extends StatelessWidget {
-  const NewsFeed({this.isTest = false});
-
-  final bool isTest;
+  const NewsFeed();
 
   /// Get the list of posts
   Future<void> getPostsList(BuildContext context) async {
@@ -30,10 +28,11 @@ class NewsFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        'NewsFeed',
-        key: const Key(
-          'NEWSFEED_APP_BAR',
+
+        appBar: CustomAppBar(
+          'NewsFeed',
+          key: const Key('NEWSFEED_APP_BAR'),
+
         ),
         isTest: isTest,
       ),
@@ -47,39 +46,42 @@ class NewsFeed extends StatelessWidget {
             );
           }
 
-          return RefreshIndicator(
-            onRefresh: () async {
-              try {
-                await Provider.of<PostProvider>(context, listen: false)
-                    .getPosts();
-              } catch (e) {
-                CustomToast.exceptionToast(
-                  msg: e.toString(),
-                );
-              }
-            },
-            child: Provider.of<PostProvider>(context).isPostEmpty
-                ? Center(
-                    child: Loading(
-                      isTest: isTest,
-                      isShowingError:
-                          Provider.of<PostProvider>(context).isErrorOccurred,
-                      key: UniqueKey(),
-                    ),
-                  )
-                : Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount: Provider.of<PostProvider>(context)
-                                .getPostList
-                                .length,
-                            itemBuilder: (context, index) {
-                              final Map post =
-                                  Provider.of<PostProvider>(context)
-                                      .getPostList[index] as Map;
+
+            return RefreshIndicator(
+                onRefresh: () async {
+                  try {
+                    await Provider.of<PostProvider>(context, listen: false)
+                        .getPosts();
+                  } catch (e) {
+                    CustomToast.exceptionToast(msg: e.toString());
+                  }
+                },
+                child: Provider.of<PostProvider>(context).isPostEmpty
+                    ? Center(
+                        child: Loading(
+                        isNetworkError:
+                            Provider.of<PostProvider>(context).isErrorOccurred,
+                        isCurrentOrgNull:
+                            Provider.of<PostProvider>(context).isCurrOrgIdNull,
+                        emptyContentIcon: Icons.photo_album_outlined,
+                        emptyContentMsg: 'No post to show, Create One!',
+                        refreshFunction: () => getPostsList(context),
+                        key: UniqueKey(),
+                      ))
+                    : Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                  itemCount: Provider.of<PostProvider>(context)
+                                      .getPostList
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    final Map post =
+                                        Provider.of<PostProvider>(context)
+                                            .getPostList[index] as Map;
+
 
                               return Container(
                                 padding: EdgeInsets.only(

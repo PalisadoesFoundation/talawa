@@ -8,6 +8,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
+import 'package:talawa/services/groups_provider.dart';
 import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/loghelper.dart';
@@ -29,30 +30,26 @@ Future<void> main() async {
   setupLocator();
   userID = await preferences.getUserId(); //getting user id
   await logHelper.init(); // To intialise FlutterLog
-  SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitUp],
-  ) //setting the orientation according to the screen it is running on
-      .then(
-    (_) {
-      runApp(
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<GraphQLConfiguration>(
-                create: (_) => GraphQLConfiguration()),
-            ChangeNotifierProvider<OrgController>(
-                create: (_) => OrgController()),
-            ChangeNotifierProvider<AuthController>(
-                create: (_) => AuthController()),
-            ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
-            ChangeNotifierProvider<CommentHandler>(
-                create: (_) => CommentHandler()),
-            ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
-          ],
-          child: MyApp(),
-        ),
-      );
-    },
-  );
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]) //setting the orientation according to the screen it is running on
+      .then((_) {
+    runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<GraphQLConfiguration>(
+            create: (_) => GraphQLConfiguration()),
+        ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
+        ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
+        ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
+        ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
+        ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
+        ChangeNotifierProvider<GroupsProvider>(create: (_) => GroupsProvider()),
+      ],
+      child: MyApp(),
+    ));
+  });
+
 }
 
 class MyApp extends StatelessWidget {

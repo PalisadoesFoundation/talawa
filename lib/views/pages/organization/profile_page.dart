@@ -38,6 +38,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  bool isErrorOccured;
+
   @override
   void setState(fn) {
     if (mounted) {
@@ -71,7 +73,6 @@ class _ProfilePageState extends State<ProfilePage> {
       isCreator = widget.isCreator;
       org = userDetails[0]['joinedOrganizations'] as List;
     }
-    //Provider.of<Preferences>(context, listen: false).getCurrentOrgName();
     fetchUserDetails();
   }
 
@@ -125,6 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
       }
       fetchOrgAdmin();
     }
+    isErrorOccured = result.exception != null;
   }
 
   //used to fetch Organization Admin details
@@ -247,6 +249,10 @@ class _ProfilePageState extends State<ProfilePage> {
             ? Center(
                 child: Loading(
                 key: UniqueKey(),
+                isCurrentOrgNull: orgId == null,
+                emptyContentIcon: Icons.person_outline_rounded,
+                emptyContentMsg: 'No data to show, Join Organization!',
+                refreshFunction: fetchUserDetails,
               ))
             : Column(
                 key: const Key('body'),
