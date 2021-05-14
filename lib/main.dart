@@ -89,8 +89,8 @@ class MyApp extends StatelessWidget {
         home: FutureBuilder(
           future: preferences.getUserId(),
           initialData: "Initial Data",
-          builder: (BuildContext context, AsyncSnapshot snapshot){
-            if(snapshot.data.toString() == "Initial Data"){
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.data.toString() == "Initial Data") {
               return Scaffold(
                 body: Container(
                   child: Center(
@@ -98,13 +98,10 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
               );
-            }
-            else if (snapshot.hasError) {
+            } else if (snapshot.hasError) {
               throw FlutterError(
-                  'There is some error with "${snapshot.data}"\n'
-              );
-            }
-            else if(snapshot.data != null){
+                  'There is some error with "${snapshot.data}"\n');
+            } else if (snapshot.data != null) {
               return const HomePage();
             }
             return UrlPage();
