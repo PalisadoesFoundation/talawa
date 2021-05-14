@@ -1,8 +1,5 @@
-//flutter packages
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/view_models/page_view_model/add_event_page_view_model.dart';
@@ -18,8 +15,6 @@ class AddEvent extends StatefulWidget {
 }
 
 class _AddEventState extends State<AddEvent> {
-
-
   //main build starts from here
   @override
   Widget build(BuildContext context) {
@@ -29,7 +24,6 @@ class _AddEventState extends State<AddEvent> {
           title: const Text(
             'New Event',
             style: const TextStyle(color: Colors.white),
-
           ),
         ),
         body: ListView(
@@ -50,8 +44,6 @@ class _AddEventState extends State<AddEvent> {
         ),
         floatingActionButton: addEventFab(model),
       ),
-
-
     );
   }
 
@@ -63,21 +55,16 @@ class _AddEventState extends State<AddEvent> {
       },
       leading: Text(
         'Date',
-        style: TextStyle(
-          fontSize: 16,
-          color: Colors.grey[600],
-        ),
+        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
       ),
       trailing: Text(
-
         '${DateFormat.yMMMd().format(model.dateRange.start)} | ${DateFormat.yMMMd().format(model.dateRange.end)} ',
         style: const TextStyle(fontSize: 16, color: UIData.secondaryColor),
-
       ),
     );
   }
 
-
+  //widget to get the time button
   Widget timeButton(String name, DateTime time, AddEventPageViewModel model) {
     return AbsorbPointer(
         absorbing: model.switchVals['All Day'],
@@ -86,29 +73,17 @@ class _AddEventState extends State<AddEvent> {
             model.selectTime(context, name, TimeOfDay.fromDateTime(time));
           },
           leading: Text(
-
             name,
-            TimeOfDay.fromDateTime(time),
-          );
-        },
-        leading: Text(
-          name,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[600],
+            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
-
           trailing: Text(
             TimeOfDay.fromDateTime(time).format(context),
             style: TextStyle(
                 color: !model.switchVals['All Day']
                     ? UIData.secondaryColor
                     : Colors.grey),
-
           ),
-        ),
-      ),
-    );
+        ));
   }
 
   //widget to add the event
@@ -129,23 +104,17 @@ class _AddEventState extends State<AddEvent> {
             model.setValidateLocation(true);
           }
           Fluttertoast.showToast(
-            msg: 'Fill in the empty fields',
-            backgroundColor: Colors.grey[500],
-          );
+              msg: 'Fill in the empty fields',
+              backgroundColor: Colors.grey[500]);
         } else {
-
           showProgress(context, 'Creating New Event . . .',
               isDismissible: false);
           await model.createEvent();
-
           hideProgress();
           Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Events(),
-            ),
-            (route) => false,
-          );
+              context,
+              MaterialPageRoute(builder: (context) => const Events()),
+              (route) => false);
         }
       },
       child: const Icon(
@@ -158,7 +127,6 @@ class _AddEventState extends State<AddEvent> {
   Widget inputField(String name, TextEditingController controller,
       AddEventPageViewModel model) {
     return Padding(
-
         padding: const EdgeInsets.all(10),
         child: TextField(
           maxLines: name == 'Description' ? null : 1,
@@ -182,21 +150,16 @@ class _AddEventState extends State<AddEvent> {
                   borderSide: const BorderSide(color: Colors.teal)),
               hintText: name),
         ));
-
   }
 
   Widget switchTile(String name, AddEventPageViewModel model) {
     return SwitchListTile(
         activeColor: UIData.secondaryColor,
-
         value: model.switchVals[name],
         contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-
         title: Text(
           name,
-          style: TextStyle(
-            color: Colors.grey[600],
-          ),
+          style: TextStyle(color: Colors.grey[600]),
         ),
         onChanged: (val) {
           model.setSwitchVals(name, val);
@@ -205,15 +168,10 @@ class _AddEventState extends State<AddEvent> {
 
   Widget recurrencedropdown(AddEventPageViewModel model) {
     return ListTile(
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 20,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
       leading: Text(
         'Recurrence',
-        style: TextStyle(
-          fontSize: 16,
-          color: Colors.grey[600],
-        ),
+        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
       ),
       trailing: AbsorbPointer(
         absorbing: !model.switchVals['Recurring'],
@@ -222,10 +180,8 @@ class _AddEventState extends State<AddEvent> {
               color: model.switchVals['Recurring']
                   ? UIData.secondaryColor
                   : Colors.grey),
-
           value: model.recurrance,
           icon: const Icon(Icons.arrow_drop_down),
-
           onChanged: (String newValue) {
             model.setRecurrance(newValue);
           },
@@ -233,9 +189,7 @@ class _AddEventState extends State<AddEvent> {
               .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(
-                value,
-              ),
+              child: Text(value),
             );
           }).toList(),
         ),
