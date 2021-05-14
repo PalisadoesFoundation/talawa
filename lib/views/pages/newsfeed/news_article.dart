@@ -252,8 +252,8 @@ class _NewsArticleState extends State<NewsArticle> {
               physics: const ClampingScrollPhysics(),
               itemCount: lenthOfCommentList,
               itemBuilder: (context, index) {
-                final Map<String, String> creator =
-                    model.comments[index]['creator'] as Map<String, String>;
+                final Map<String, dynamic> creator =
+                    model.comments[index]['creator'] as Map<String, dynamic>;
                 return ListTile(
                   leading: const CircleAvatar(
                     backgroundColor: UIData.secondaryColor,

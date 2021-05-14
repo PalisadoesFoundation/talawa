@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/post_controller.dart';
+import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
@@ -56,6 +57,7 @@ class NewsArticleViewModel extends BaseModel {
     _comments = result == null
         ? []
         : (result['commentsByPost'] as List).reversed.toList();
+    return;
   }
 
   void _notifyData() {
@@ -159,6 +161,8 @@ class NewsArticleViewModel extends BaseModel {
   }
 
   Future fetchUserDetails() async {
+    setState(ViewState.busy);
+
     userID = await _preferences.getUserId();
     final GraphQLClient _client = graphQLConfiguration.clientToQuery();
     final QueryResult result = await _client.query(QueryOptions(
@@ -168,14 +172,14 @@ class NewsArticleViewModel extends BaseModel {
       CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException) {
       _userDetails = result.data['users'] as List;
-      notifyListeners();
     }
+    setState(ViewState.idle);
   }
 
   //
-  void changeLoading({bool value}) {
+  Future<void> changeLoading({bool value}) async {
     _showLoadComments = value;
-    getPostComments();
+    await getPostComments();
     notifyListeners();
   }
 
