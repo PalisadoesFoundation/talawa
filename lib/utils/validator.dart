@@ -15,7 +15,7 @@ class Validator {
     if (value.isEmpty) {
       return 'Firstname must not be left blank.';
     }
-    if(!regex.hasMatch(value)){
+    if (!regex.hasMatch(value)) {
       return "Invalid Firstname";
     }
     return null;
@@ -27,7 +27,7 @@ class Validator {
     if (value.isEmpty) {
       return 'Lastname must not be left blank.';
     }
-    if(!regex.hasMatch(value)){
+    if (!regex.hasMatch(value)) {
       return "Invalid Lastname";
     }
     return null;
@@ -76,7 +76,7 @@ class Validator {
     if (!regExp.hasMatch(password)) {
       return "Invalid Password";
     }
-    if(!noSpaceRegex.hasMatch(password)){
+    if (!noSpaceRegex.hasMatch(password)) {
       return "Password must not contain spaces";
     }
 

@@ -10,6 +10,7 @@ class PostProvider with ChangeNotifier {
   List _postList = [];
   String exception;
   final Map<String, bool> _likePostMap = <String, bool>{};
+  String _currOrgId;
 
   /// Get the list of post by the organization
   List get getPostList {
@@ -19,6 +20,11 @@ class PostProvider with ChangeNotifier {
   /// Getter checks if the server response list fetched by getPosts is Empty
   bool get isPostEmpty {
     return _postList.isEmpty;
+  }
+
+  //Getter to return null org
+  bool get isCurrOrgIdNull {
+    return _currOrgId == null;
   }
 
   /// Getter for the Liked posts
@@ -65,6 +71,7 @@ class PostProvider with ChangeNotifier {
   Future<void> getPosts() async {
     final String currentOrgID = await preferences.getCurrentOrgId();
     final String currentUserID = await preferences.getUserId();
+    _currOrgId = currentOrgID;
     if (currentOrgID != null) {
       final String query = Queries().getPostsById(currentOrgID);
       final Map result = await apiFunctions.gqlquery(query);
