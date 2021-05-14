@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 //flutter packages are  imported here
 import 'package:flutter/material.dart';
@@ -40,11 +38,9 @@ class ProfilePage extends StatelessWidget {
                   key: const Key('body'),
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.fromLTRB(
-                          0,
-                          SizeConfig.safeBlockVertical * 6.25,
-                          0,
-                          SizeConfig.safeBlockVertical * 4),
+                      padding: EdgeInsets.symmetric(
+                        vertical: SizeConfig.safeBlockVertical * 4,
+                      ),
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(20.0),
@@ -226,80 +222,26 @@ class ProfilePage extends StatelessWidget {
                                                   });
                                             }),
                             ListTile(
-                              key: const Key('Logout'),
-                              title: const Text(
-                                "Logout",
-                                style: const TextStyle(fontSize: 18.0),
-                              ),
-                              leading: const Icon(
-                                Icons.exit_to_app,
-                                color: UIData.secondaryColor,
-                              ),
-                              onTap: () {
-                                if (Platform.isAndroid) {
+                                key: const Key('Logout'),
+                                title: const Text(
+                                  "Logout",
+                                  style: const TextStyle(fontSize: 18.0),
+                                ),
+                                leading: const Icon(
+                                  Icons.exit_to_app,
+                                  color: UIData.secondaryColor,
+                                ),
+                                onTap: () async {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text("Confirmation"),
-                                          content: const Text(
-                                              "Are you sure you want to logout?"),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text("No"),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                model.authController
-                                                    .logout(context);
-                                              },
-                                              child: const Text("Yes"),
-                                            )
-                                          ],
-                                        );
+                                        return AlertBox(
+                                            message:
+                                                "Are you sure you want to logout?",
+                                            function: () => model.authController
+                                                .logout(context));
                                       });
-                                } else {
-                                  // iOS-specific
-                                  showCupertinoDialog(
-                                    context: context,
-                                    useRootNavigator: false,
-                                    builder: (_) => CupertinoAlertDialog(
-                                      title: const Text(
-                                        "Confirmation",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      content: const Text(
-                                        "Are you sure you want to log out?",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                      ),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text("No"),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            model.authController
-                                                .logout(context);
-                                          },
-                                          child: const Text("Yes"),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }
-                              },
-                            ),
+                                }),
                             MyAboutTile(),
                           ],
                         ).toList(),
@@ -308,60 +250,5 @@ class ProfilePage extends StatelessWidget {
                   ],
                 )),
     );
-  }
-
-  void confirmLeave(BuildContext context, ProfilePageViewModel model) {
-    if (Platform.isAndroid) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text("Confirmation"),
-              content: const Text(
-                  "Are you sure you want to leave this organization?"),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("Close"),
-                ),
-                TextButton(
-                  onPressed: () async {
-                    model.leaveOrg();
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("Yes"),
-                )
-              ],
-            );
-          });
-    } else {
-      // iOS-specific
-      showCupertinoDialog(
-        context: context,
-        useRootNavigator: false,
-        builder: (_) => CupertinoAlertDialog(
-          title: const Text("Confirmation"),
-          content:
-              const Text("Are you sure you want to leave this organization?"),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("Close"),
-            ),
-            TextButton(
-              onPressed: () async {
-                model.leaveOrg();
-                Navigator.of(context).pop();
-              },
-              child: const Text("Yes"),
-            )
-          ],
-        ),
-      );
-    }
   }
 }
