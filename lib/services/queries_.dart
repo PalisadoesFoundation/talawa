@@ -184,6 +184,35 @@ class Queries {
     ''';
   }
 
+  String get getOrganizationsConnectionFilter {
+    return """
+     query organizationsConnection(
+       \$isPublic: Boolean
+     ){
+       organizationsConnection(
+         where:{
+           visibleInSearch: true, 
+           isPublic: \$isPublic
+         },
+       ){
+         image
+         _id
+         name
+         admins{
+           _id
+         }
+         description
+         isPublic
+         creator{
+           _id
+           firstName
+           lastName
+         }
+       }
+     }
+ """;
+  }
+
   //fetch organization
   final String fetchOrganizations = '''
     query{
