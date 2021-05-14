@@ -15,6 +15,8 @@ void setupLocator() {
   locator.registerFactory(() => JoinOrgnizationViewModel());
   locator.registerFactory(() => EventPageViewModel());
   locator.registerFactory(() => AddEventPageViewModel());
+  
+  locator.registerFactory(() => EventPageViewModel());
 
   locator.registerFactory(() => SwitchOrgModel());
 }
