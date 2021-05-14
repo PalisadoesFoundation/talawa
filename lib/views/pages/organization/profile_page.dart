@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 //flutter packages are  imported here
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/enums/viewstate.dart';
 //pages are imported here
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -29,7 +30,8 @@ class ProfilePage extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
           key: const Key('PROFILE_PAGE_SCAFFOLD'),
           backgroundColor: Colors.white,
-          body: model.userDetails.isEmpty || isCreator == null
+          // body: model.userDetails.isEmpty || isCreator == null
+          body: model.userDetails.isEmpty || model.isCreator == null
               ? Center(
                   child: Loading(
                   key: UniqueKey(),
@@ -171,7 +173,7 @@ class ProfilePage extends StatelessWidget {
                                     ),
                                   );
                                 }),
-                            isCreator == null
+                            model.isCreator == null
                                 ? const SizedBox()
                                 : isCreator == true
                                     ? ListTile(

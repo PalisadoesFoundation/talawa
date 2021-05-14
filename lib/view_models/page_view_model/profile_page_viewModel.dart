@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/enums/exception_type.dart';
+import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/services/exception.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
@@ -39,6 +40,7 @@ class ProfilePageViewModel extends BaseModel {
   String get userID => _userID;
   String get creator => _creator;
   bool get isPublic => _isPublic;
+  bool get isCreator => _isCreator;
   AuthController get authController => _authController;
 
   initialize(BuildContext context, bool isCreator, List test) {
@@ -53,6 +55,7 @@ class ProfilePageViewModel extends BaseModel {
 
   //used to fetch the users details from the server
   Future fetchUserDetails() async {
+    setState(ViewState.busy);
     _orgName = await _preferences.getCurrentOrgName();
     _orgId = await _preferences.getCurrentOrgId();
     _userID = await _preferences.getUserId();
@@ -65,6 +68,8 @@ class ProfilePageViewModel extends BaseModel {
     } else if (!result.hasException) {
       print(result);
       _userDetails = result.data['users'] as List;
+      print("user details");
+      print(_userDetails);
       _org = _userDetails[0]['joinedOrganizations'] as List;
       notifyListeners();
       int notFound = 0;
@@ -86,6 +91,7 @@ class ProfilePageViewModel extends BaseModel {
       }
       fetchOrgAdmin();
     }
+    setState(ViewState.idle);
   }
 
   //used to fetch Organization Admin details
