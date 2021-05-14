@@ -16,6 +16,8 @@ import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/view_models/page_view_model/profile_page_viewModel.dart';
+import 'package:talawa/views/base_view.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:talawa/views/pages/organization/update_profile_page.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
@@ -203,275 +205,281 @@ class _ProfilePageState extends State<ProfilePage> {
   //main build starts from here
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: const Key('PROFILE_PAGE_SCAFFOLD'),
-        backgroundColor: Colors.white,
-        body: userDetails.isEmpty || isCreator == null
-            ? Center(
-                child: Loading(
-                key: UniqueKey(),
-              ))
-            : Column(
-                key: const Key('body'),
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.fromLTRB(
-                        0,
-                        SizeConfig.safeBlockVertical * 6.25,
-                        0,
-                        SizeConfig.safeBlockVertical * 4),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20.0),
-                        bottomRight: Radius.circular(20.0),
+    return BaseView<ProfilePageViewModel>(
+      onModelReady: (model) => model.initialize(context),
+      builder: (context, model, child) => Scaffold(
+          key: const Key('PROFILE_PAGE_SCAFFOLD'),
+          backgroundColor: Colors.white,
+          body: userDetails.isEmpty || isCreator == null
+              ? Center(
+                  child: Loading(
+                  key: UniqueKey(),
+                ))
+              : Column(
+                  key: const Key('body'),
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.fromLTRB(
+                          0,
+                          SizeConfig.safeBlockVertical * 6.25,
+                          0,
+                          SizeConfig.safeBlockVertical * 4),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20.0),
+                          bottomRight: Radius.circular(20.0),
+                        ),
+                        color: UIData.primaryColor,
                       ),
-                      color: UIData.primaryColor,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        ListTile(
-                            title: const Text(
-                              "Profile",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                            trailing: userDetails[0]['image'] != null
-                                ? CircleAvatar(
-                                    radius: SizeConfig.safeBlockVertical * 3.75,
-                                    backgroundImage: NetworkImage(
-                                        Provider.of<GraphQLConfiguration>(
-                                                    context)
-                                                .displayImgRoute +
-                                            userDetails[0]['image'].toString()))
-                                : CircleAvatar(
-                                    radius:
-                                        SizeConfig.safeBlockVertical * 5.625,
-                                    backgroundColor: Colors.white,
-                                    child: Text(
-                                        userDetails[0]['firstName']
-                                                .toString()
-                                                .substring(0, 1)
-                                                .toUpperCase() +
-                                            userDetails[0]['lastName']
-                                                .toString()
-                                                .substring(0, 1)
-                                                .toUpperCase(),
-                                        style: const TextStyle(
-                                          color: UIData.primaryColor,
-                                        )),
-                                  )),
-                        SizedBox(height: SizeConfig.safeBlockVertical * 1.25),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: SizeConfig.safeBlockHorizontal * 4),
-                          child: Text(
-                              "${userDetails[0]['firstName']} ${userDetails[0]['lastName']}",
-                              style: const TextStyle(
-                                  fontSize: 20.0, color: Colors.white)),
-                        ),
-                        SizedBox(height: SizeConfig.safeBlockVertical * 0.625),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: SizeConfig.safeBlockHorizontal * 4),
-                          child: Text(
-                              "Current Organization: ${orgName ?? 'No Organization Joined'}",
-                              style: const TextStyle(
-                                  fontSize: 16.0, color: Colors.white)),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: SizeConfig.safeBlockVertical * 2.5),
-                  Expanded(
-                    child: ListView(
-                      children: ListTile.divideTiles(
-                        context: context,
-                        tiles: [
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
                           ListTile(
-                            key: const Key('Update Profile'),
-                            title: const Text(
-                              'Update Profile',
-                              style: TextStyle(fontSize: 18.0),
-                            ),
-                            leading: const Icon(
-                              Icons.edit,
-                              color: UIData.secondaryColor,
-                            ),
-                            onTap: () {
-                              pushNewScreen(
-                                context,
-                                screen: UpdateProfilePage(
-                                  userDetails: userDetails,
-                                ),
-                              );
-                            },
-                          ),
-                          org.isEmpty
-                              ? const SizedBox()
-                              : ListTile(
-                                  key: const Key('Switch Organization'),
-                                  title: const Text(
-                                    'Switch Organization',
-                                    style: const TextStyle(fontSize: 18.0),
-                                  ),
-                                  leading: const Icon(
-                                    Icons.compare_arrows,
-                                    color: UIData.secondaryColor,
-                                  ),
-                                  onTap: () {
-                                    pushNewScreen(
-                                      context,
-                                      screen: SwitchOrganization(),
-                                    );
-                                  }),
-                          ListTile(
-                              key: const Key('Join or Create New Organization'),
                               title: const Text(
-                                'Join or Create New Organization',
-                                style: const TextStyle(fontSize: 18.0),
+                                "Profile",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              trailing: userDetails[0]['image'] != null
+                                  ? CircleAvatar(
+                                      radius:
+                                          SizeConfig.safeBlockVertical * 3.75,
+                                      backgroundImage: NetworkImage(Provider.of<
+                                                  GraphQLConfiguration>(context)
+                                              .displayImgRoute +
+                                          userDetails[0]['image'].toString()))
+                                  : CircleAvatar(
+                                      radius:
+                                          SizeConfig.safeBlockVertical * 5.625,
+                                      backgroundColor: Colors.white,
+                                      child: Text(
+                                          userDetails[0]['firstName']
+                                                  .toString()
+                                                  .substring(0, 1)
+                                                  .toUpperCase() +
+                                              userDetails[0]['lastName']
+                                                  .toString()
+                                                  .substring(0, 1)
+                                                  .toUpperCase(),
+                                          style: const TextStyle(
+                                            color: UIData.primaryColor,
+                                          )),
+                                    )),
+                          SizedBox(height: SizeConfig.safeBlockVertical * 1.25),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: SizeConfig.safeBlockHorizontal * 4),
+                            child: Text(
+                                "${userDetails[0]['firstName']} ${userDetails[0]['lastName']}",
+                                style: const TextStyle(
+                                    fontSize: 20.0, color: Colors.white)),
+                          ),
+                          SizedBox(
+                              height: SizeConfig.safeBlockVertical * 0.625),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: SizeConfig.safeBlockHorizontal * 4),
+                            child: Text(
+                                "Current Organization: ${orgName ?? 'No Organization Joined'}",
+                                style: const TextStyle(
+                                    fontSize: 16.0, color: Colors.white)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: SizeConfig.safeBlockVertical * 2.5),
+                    Expanded(
+                      child: ListView(
+                        children: ListTile.divideTiles(
+                          context: context,
+                          tiles: [
+                            ListTile(
+                              key: const Key('Update Profile'),
+                              title: const Text(
+                                'Update Profile',
+                                style: TextStyle(fontSize: 18.0),
                               ),
                               leading: const Icon(
-                                Icons.business,
+                                Icons.edit,
                                 color: UIData.secondaryColor,
                               ),
                               onTap: () {
                                 pushNewScreen(
                                   context,
-                                  screen: const JoinOrganization(
-                                    fromProfile: true,
+                                  screen: UpdateProfilePage(
+                                    userDetails: userDetails,
                                   ),
                                 );
-                              }),
-                          isCreator == null
-                              ? const SizedBox()
-                              : isCreator == true
-                                  ? ListTile(
-                                      key: const Key('Organization Settings'),
-                                      title: const Text(
-                                        'Organization Settings',
-                                        style: const TextStyle(fontSize: 18.0),
-                                      ),
-                                      leading: const Icon(
-                                        Icons.settings,
-                                        color: UIData.secondaryColor,
-                                      ),
-                                      onTap: () {
-                                        pushNewScreen(
-                                          context,
-                                          screen: OrganizationSettings(
-                                              creator: creator == userID,
-                                              public: isPublic,
-                                              organization: curOrganization),
-                                        );
-                                      })
-                                  : org.isEmpty
-                                      ? const SizedBox()
-                                      : ListTile(
-                                          key: const Key(
-                                              'Leave This Organization'),
-                                          title: const Text(
-                                            'Leave This Organization',
-                                            style: TextStyle(fontSize: 18.0),
-                                          ),
-                                          leading: const Icon(
-                                            Icons.exit_to_app,
-                                            color: UIData.secondaryColor,
-                                          ),
-                                          onTap: () async {
-                                            showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return AlertBox(
-                                                      message:
-                                                          "Are you sure you want to leave this organization?",
-                                                      function: leaveOrg);
-                                                });
-                                          }),
-                          ListTile(
-                            key: const Key('Logout'),
-                            title: const Text(
-                              "Logout",
-                              style: const TextStyle(fontSize: 18.0),
+                              },
                             ),
-                            leading: const Icon(
-                              Icons.exit_to_app,
-                              color: UIData.secondaryColor,
-                            ),
-                            onTap: () {
-                              if (Platform.isAndroid) {
-                                showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text("Confirmation"),
-                                        content: const Text(
-                                            "Are you sure you want to logout?"),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text("No"),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              _authController.logout(context);
-                                            },
-                                            child: const Text("Yes"),
-                                          )
-                                        ],
-                                      );
-                                    });
-                              } else {
-                                // iOS-specific
-                                showCupertinoDialog(
-                                  context: context,
-                                  useRootNavigator: false,
-                                  builder: (_) => CupertinoAlertDialog(
+                            org.isEmpty
+                                ? const SizedBox()
+                                : ListTile(
+                                    key: const Key('Switch Organization'),
                                     title: const Text(
-                                      "Confirmation",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                      'Switch Organization',
+                                      style: const TextStyle(fontSize: 18.0),
                                     ),
-                                    content: const Text(
-                                      "Are you sure you want to log out?",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                      ),
+                                    leading: const Icon(
+                                      Icons.compare_arrows,
+                                      color: UIData.secondaryColor,
                                     ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: const Text("No"),
+                                    onTap: () {
+                                      pushNewScreen(
+                                        context,
+                                        screen: SwitchOrganization(),
+                                      );
+                                    }),
+                            ListTile(
+                                key: const Key(
+                                    'Join or Create New Organization'),
+                                title: const Text(
+                                  'Join or Create New Organization',
+                                  style: const TextStyle(fontSize: 18.0),
+                                ),
+                                leading: const Icon(
+                                  Icons.business,
+                                  color: UIData.secondaryColor,
+                                ),
+                                onTap: () {
+                                  pushNewScreen(
+                                    context,
+                                    screen: const JoinOrganization(
+                                      fromProfile: true,
+                                    ),
+                                  );
+                                }),
+                            isCreator == null
+                                ? const SizedBox()
+                                : isCreator == true
+                                    ? ListTile(
+                                        key: const Key('Organization Settings'),
+                                        title: const Text(
+                                          'Organization Settings',
+                                          style:
+                                              const TextStyle(fontSize: 18.0),
+                                        ),
+                                        leading: const Icon(
+                                          Icons.settings,
+                                          color: UIData.secondaryColor,
+                                        ),
+                                        onTap: () {
+                                          pushNewScreen(
+                                            context,
+                                            screen: OrganizationSettings(
+                                                creator: creator == userID,
+                                                public: isPublic,
+                                                organization: curOrganization),
+                                          );
+                                        })
+                                    : org.isEmpty
+                                        ? const SizedBox()
+                                        : ListTile(
+                                            key: const Key(
+                                                'Leave This Organization'),
+                                            title: const Text(
+                                              'Leave This Organization',
+                                              style: TextStyle(fontSize: 18.0),
+                                            ),
+                                            leading: const Icon(
+                                              Icons.exit_to_app,
+                                              color: UIData.secondaryColor,
+                                            ),
+                                            onTap: () async {
+                                              showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertBox(
+                                                        message:
+                                                            "Are you sure you want to leave this organization?",
+                                                        function: leaveOrg);
+                                                  });
+                                            }),
+                            ListTile(
+                              key: const Key('Logout'),
+                              title: const Text(
+                                "Logout",
+                                style: const TextStyle(fontSize: 18.0),
+                              ),
+                              leading: const Icon(
+                                Icons.exit_to_app,
+                                color: UIData.secondaryColor,
+                              ),
+                              onTap: () {
+                                if (Platform.isAndroid) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text("Confirmation"),
+                                          content: const Text(
+                                              "Are you sure you want to logout?"),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text("No"),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                _authController.logout(context);
+                                              },
+                                              child: const Text("Yes"),
+                                            )
+                                          ],
+                                        );
+                                      });
+                                } else {
+                                  // iOS-specific
+                                  showCupertinoDialog(
+                                    context: context,
+                                    useRootNavigator: false,
+                                    builder: (_) => CupertinoAlertDialog(
+                                      title: const Text(
+                                        "Confirmation",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
-                                      TextButton(
-                                        onPressed: () {
-                                          _authController.logout(context);
-                                        },
-                                        child: const Text("Yes"),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                          MyAboutTile(),
-                        ],
-                      ).toList(),
-                    ),
-                  )
-                ],
-              ));
+                                      content: const Text(
+                                        "Are you sure you want to log out?",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text("No"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            _authController.logout(context);
+                                          },
+                                          child: const Text("Yes"),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            MyAboutTile(),
+                          ],
+                        ).toList(),
+                      ),
+                    )
+                  ],
+                )),
+    );
   }
 
   void confirmLeave() {
