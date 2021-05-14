@@ -113,6 +113,7 @@ void main() {
         // Get the Load Comment button.
         final loadCommentsButton = find.text("Load Comments");
 
+        await tester.pump();
         // Tap on the loadCommentsButton.
         await tester.tap(loadCommentsButton);
         await tester.pump();

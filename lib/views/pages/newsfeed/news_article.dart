@@ -69,10 +69,9 @@ class _NewsArticleState extends State<NewsArticle> {
   //main build starts here
   @override
   Widget build(BuildContext context) {
-    final PostController postController = Provider.of<PostController>(context);
     return BaseView<NewsArticleViewModel>(
       onModelReady: (model) =>
-          model.initialize(widget.post, widget.index, postController, context),
+          model.initialize(widget.post, widget.index, context),
       builder: (context, model, child) => WillPopScope(
         onWillPop: () async {
           Navigator.of(context).pop(model.isCommentAdded);
