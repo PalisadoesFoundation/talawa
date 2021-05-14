@@ -9,6 +9,7 @@ import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/chat/groups.dart';
+import 'package:talawa/views/widgets/loading.dart';
 
 Widget groupsPage() => MultiProvider(
       providers: [
@@ -76,10 +77,6 @@ void main() {
 
     testWidgets("empty groups for user with no org", (tester) async {
       await tester.pumpWidget(groupsPage());
-
-      final emptyTextWidget = find.byKey(const Key('empty_chat_group'));
-
-      expect(emptyTextWidget, findsOneWidget);
 
       // get the [ListView] widget
       final listView = find.byType(ListView);
