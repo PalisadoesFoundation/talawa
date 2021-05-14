@@ -44,16 +44,14 @@ class _OrganizationsState extends State<Organizations> {
   Map alphaSplitList(List list) {
     final Map<String, List> alphaMap = {};
 
-    list.forEach(
-      (element) {
-        if (alphaMap[element['firstName'][0].toUpperCase()] == null) {
-          alphaMap[element['firstName'][0].toString().toUpperCase()] = [];
-          alphaMap[element['firstName'][0].toUpperCase()].add(element);
-        } else {
-          alphaMap[element['firstName'][0].toUpperCase()].add(element);
-        }
-      },
-    );
+    list.forEach((element) {
+      if (alphaMap[element['firstName'][0].toUpperCase()] == null) {
+        alphaMap[element['firstName'][0].toString().toUpperCase()] = [];
+        alphaMap[element['firstName'][0].toUpperCase()].add(element);
+      } else {
+        alphaMap[element['firstName'][0].toUpperCase()].add(element);
+      }
+    });
 
     return alphaMap;
   }
@@ -78,26 +76,22 @@ class _OrganizationsState extends State<Organizations> {
         membersList = membersList[0]['members'] as List;
         membersList.sort((a, b) =>
             (a['firstName'].toString()).compareTo(b['firstName'].toString()));
-        setState(
-          () {
-            alphaMembersMap = alphaSplitList(membersList);
-          },
-        );
+        setState(() {
+          alphaMembersMap = alphaSplitList(membersList);
+        });
       }
     } else {
-      setState(
-        () {
-          alphaMembersMap = {};
-        },
-      );
+      setState(() {
+        alphaMembersMap = {};
+      });
     }
   }
 
   //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
-    final String userId = id.replaceAll(RegExp('[a-z]'), '');
+    String userId = id.replaceAll(RegExp('[a-z]'), '');
     int colorInt = int.parse(userId.substring(userId.length - 10));
-    colorInt = colorInt % 18;
+    colorInt = (colorInt % 18);
     return Color.alphaBlend(
       Colors.black45,
       Colors.primaries[colorInt],
@@ -108,17 +102,13 @@ class _OrganizationsState extends State<Organizations> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        key: const Key(
-          'ORGANIZATION_APP_BAR',
-        ),
-        title: const Text(
-          'Members',
-          style: TextStyle(
-            color: Colors.white,
+        appBar: AppBar(
+          key: const Key('ORGANIZATION_APP_BAR'),
+          title: const Text(
+            'Members',
+            style: const TextStyle(color: Colors.white),
           ),
         ),
-
         body: alphaMembersMap == null || alphaMembersMap.isEmpty
             ? Center(
                 child: Loading(
@@ -146,7 +136,6 @@ class _OrganizationsState extends State<Organizations> {
                     },
                   ),
                 )));
-
   }
 
   //widget which divides the list according to letters
@@ -156,27 +145,22 @@ class _OrganizationsState extends State<Organizations> {
         color: Colors.white,
         height: SizeConfig.safeBlockVertical * 7.5,
         padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.safeBlockHorizontal * 4,
-        ),
+            horizontal: SizeConfig.safeBlockHorizontal * 4),
         alignment: Alignment.centerLeft,
         child: CircleAvatar(
-          backgroundColor: UIData.secondaryColor,
-          child: Text(
-            alphabet,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ),
-          ),
-        ),
+            backgroundColor: UIData.secondaryColor,
+            child: Text(
+              alphabet,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            )),
       ),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
-            return memberCard(
-              index,
-              alphaMembersMap[alphabet] as List,
-            );
+            return memberCard(index, alphaMembersMap[alphabet] as List);
           },
           childCount: (alphaMembersMap[alphabet] as List).length,
         ),
@@ -186,45 +170,39 @@ class _OrganizationsState extends State<Organizations> {
 
   //a custom card made for showing member details
   Widget memberCard(int index, List membersList) {
-    final Color color = idToColor(
-      membersList[index]['_id'].toString(),
-    );
+    final Color color = idToColor(membersList[index]['_id'].toString());
     return GestureDetector(
-      onTap: () {
-        pushNewScreen(
-          context,
-          screen: MemberDetail(
-            member: membersList[index] as Map,
-            color: color,
-            admins: admins,
-            creatorId: creatorId,
+        onTap: () {
+          pushNewScreen(context,
+              screen: MemberDetail(
+                member: membersList[index] as Map,
+                color: color,
+                admins: admins,
+                creatorId: creatorId,
+              ));
+        },
+        child: Card(
+          clipBehavior: Clip.hardEdge,
+          child: Row(
+            children: [
+              membersList[index]['image'] == null
+                  ? defaultUserImage(membersList[index] as Map)
+                  : userImage(membersList[index] as Map),
+              Flexible(
+                child: Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.all(20),
+                    height: SizeConfig.safeBlockVertical * 10,
+                    color: Colors.white,
+                    child: Text(
+                      '${membersList[index]['firstName']} ${membersList[index]['lastName']}',
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                    )),
+              )
+            ],
           ),
-        );
-      },
-      child: Card(
-        clipBehavior: Clip.hardEdge,
-        child: Row(
-          children: [
-            membersList[index]['image'] == null
-                ? defaultUserImage(membersList[index] as Map)
-                : userImage(membersList[index] as Map),
-            Flexible(
-              child: Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.all(20),
-                height: SizeConfig.safeBlockVertical * 10,
-                color: Colors.white,
-                child: Text(
-                  '${membersList[index]['firstName']} ${membersList[index]['lastName']}',
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+        ));
   }
 
   //widget to get the user images
@@ -235,18 +213,14 @@ class _OrganizationsState extends State<Organizations> {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: NetworkImage(
-            Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                member['image'].toString(),
-          ),
+              Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                  member['image'].toString()),
           fit: BoxFit.cover,
         ),
       ),
       child: ClipRRect(
         child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 5,
-            sigmaY: 5,
-          ),
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
           child: Container(
             alignment: Alignment.center,
             color: Colors.grey.withOpacity(0.1),
@@ -263,26 +237,19 @@ class _OrganizationsState extends State<Organizations> {
   //widget to get the default user image
   Widget defaultUserImage(Map member) {
     return Container(
-      padding: const EdgeInsets.all(0),
-      height: SizeConfig.safeBlockVertical * 10,
-      width: SizeConfig.safeBlockHorizontal * 25,
-      color: idToColor(
-        member['_id'].toString(),
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(
-          SizeConfig.safeBlockHorizontal * 2.5,
-        ),
-        child: CircleAvatar(
-          backgroundColor: Colors.black12,
-          child: Icon(
-            Icons.person,
-            size: SizeConfig.safeBlockHorizontal * 7.5,
-            color: Colors.white70,
-          ),
-        ),
-      ),
-    );
+        padding: const EdgeInsets.all(0),
+        height: SizeConfig.safeBlockVertical * 10,
+        width: SizeConfig.safeBlockHorizontal * 25,
+        color: idToColor(member['_id'].toString()),
+        child: Padding(
+            padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 2.5),
+            child: CircleAvatar(
+                backgroundColor: Colors.black12,
+                child: Icon(
+                  Icons.person,
+                  size: SizeConfig.safeBlockHorizontal * 7.5,
+                  color: Colors.white70,
+                ))));
   }
 
   //the widget is user for pop up menu
@@ -290,19 +257,17 @@ class _OrganizationsState extends State<Organizations> {
     return PopupMenuButton<int>(
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
         const PopupMenuItem<int>(
-          value: 1,
-          child: ListTile(
-            leading: Icon(Icons.playlist_add_check),
-            title: Text('View Assigned Tasks'),
-          ),
-        ),
+            value: 1,
+            child: const ListTile(
+              leading: const Icon(Icons.playlist_add_check),
+              title: const Text('View Assigned Tasks'),
+            )),
         const PopupMenuItem<int>(
-          value: 2,
-          child: ListTile(
-            leading: Icon(Icons.playlist_add_check),
-            title: Text('View Registered Events'),
-          ),
-        ),
+            value: 2,
+            child: const ListTile(
+              leading: const Icon(Icons.playlist_add_check),
+              title: const Text('View Registered Events'),
+            )),
       ],
     );
   }

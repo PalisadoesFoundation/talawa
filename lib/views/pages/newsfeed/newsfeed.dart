@@ -19,33 +19,23 @@ class NewsFeed extends StatelessWidget {
 
   /// Get the list of posts
   Future<void> getPostsList(BuildContext context) async {
-    await Provider.of<PostProvider>(
-      context,
-      listen: false,
-    ).getPosts();
+    await Provider.of<PostProvider>(context, listen: false).getPosts();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
         appBar: CustomAppBar(
           'NewsFeed',
           key: const Key('NEWSFEED_APP_BAR'),
-
         ),
-        isTest: isTest,
-      ),
-      floatingActionButton: addPostFab(context),
-      body: FutureBuilder(
-        future: getPostsList(context),
-        builder: (BuildContext context, AsyncSnapshot<void> snap) {
-          if (snap.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
+        floatingActionButton: addPostFab(context),
+        body: FutureBuilder(
+          future: getPostsList(context),
+          builder: (BuildContext context, AsyncSnapshot<void> snap) {
+            if (snap.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
             return RefreshIndicator(
                 onRefresh: () async {
@@ -82,123 +72,119 @@ class NewsFeed extends StatelessWidget {
                                         Provider.of<PostProvider>(context)
                                             .getPostList[index] as Map;
 
-
-                              return Container(
-                                padding: EdgeInsets.only(
-                                    top: SizeConfig.safeBlockVertical * 2.5),
-                                child: Column(
-                                  children: <Widget>[
-                                    InkWell(
-                                      onTap: () {
-                                        pushNewScreen(
-                                          context,
-                                          screen: NewsArticle(
-                                            post: post,
-                                            index: index,
-                                          ),
-                                        );
-                                      },
-                                      child: Card(
-                                        color: Colors.white,
-                                        child: Column(
-                                          children: <Widget>[
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.all(5.0),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
-                                                child: Image.asset(
-                                                    UIData.shoppingImage),
-                                              ),
-                                            ),
-                                            Row(
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  width: SizeConfig
-                                                          .safeBlockHorizontal *
-                                                      7.5,
+                                    return Container(
+                                      padding: EdgeInsets.only(
+                                          top: SizeConfig.safeBlockVertical *
+                                              2.5),
+                                      child: Column(
+                                        children: <Widget>[
+                                          InkWell(
+                                            onTap: () {
+                                              pushNewScreen(
+                                                context,
+                                                screen: NewsArticle(
+                                                  post: post,
+                                                  index: index,
                                                 ),
-                                                // ignore: avoid_unnecessary_containers
-                                                Container(
-                                                  child: Text(
-                                                    post['title'].toString(),
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height:
-                                                  SizeConfig.safeBlockVertical *
-                                                      1.25,
-                                            ),
-                                            Row(
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  width: SizeConfig
-                                                          .safeBlockHorizontal *
-                                                      7.5,
-                                                ),
-                                                // ignore: sized_box_for_whitespace
-                                                Container(
-                                                  width: SizeConfig
-                                                          .screenWidth -
-                                                      SizeConfig
-                                                              .safeBlockHorizontal *
-                                                          12.5,
-                                                  child: Text(
-                                                    post["text"].toString(),
-                                                    textAlign:
-                                                        TextAlign.justify,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 10,
-                                                    style: const TextStyle(
-                                                      fontSize: 16.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(10),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
+                                              );
+                                            },
+                                            child: Card(
+                                              color: Colors.white,
+                                              child: Column(
                                                 children: <Widget>[
-                                                  likeButton(post, context),
-                                                  commentCounter(
-                                                      post, index, context),
                                                   Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5.0),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                        child: Image.asset(
+                                                            UIData
+                                                                .shoppingImage),
+                                                      )),
+                                                  Row(children: <Widget>[
+                                                    SizedBox(
                                                       width: SizeConfig
                                                               .safeBlockHorizontal *
-                                                          20)
+                                                          7.5,
+                                                    ),
+                                                    // ignore: avoid_unnecessary_containers
+                                                    Container(
+                                                        child: Text(
+                                                      post['title'].toString(),
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20.0,
+                                                      ),
+                                                    )),
+                                                  ]),
+                                                  SizedBox(
+                                                    height: SizeConfig
+                                                            .safeBlockVertical *
+                                                        1.25,
+                                                  ),
+                                                  Row(children: <Widget>[
+                                                    SizedBox(
+                                                      width: SizeConfig
+                                                              .safeBlockHorizontal *
+                                                          7.5,
+                                                    ),
+                                                    // ignore: sized_box_for_whitespace
+                                                    Container(
+                                                        width: SizeConfig
+                                                                .screenWidth -
+                                                            SizeConfig
+                                                                    .safeBlockHorizontal *
+                                                                12.5,
+                                                        child: Text(
+                                                          post["text"]
+                                                              .toString(),
+                                                          textAlign:
+                                                              TextAlign.justify,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 10,
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 16.0,
+                                                          ),
+                                                        )),
+                                                  ]),
+                                                  Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: <Widget>[
+                                                            likeButton(
+                                                                post, context),
+                                                            commentCounter(post,
+                                                                index, context),
+                                                            Container(
+                                                                width: SizeConfig
+                                                                        .safeBlockHorizontal *
+                                                                    20)
+                                                          ])),
                                                 ],
                                               ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                                    );
+                                  }),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-          );
-        },
-      ),
-    );
+                      ));
+          },
+        ));
   }
 
   //function to add the post on the news feed
@@ -207,11 +193,8 @@ class NewsFeed extends StatelessWidget {
       heroTag: "btn2",
       backgroundColor: UIData.secondaryColor,
       onPressed: () {
-        pushNewScreenWithRouteSettings(
-          context,
-          screen: const AddPost(),
-          settings: const RouteSettings(),
-        );
+        pushNewScreenWithRouteSettings(context,
+            screen: const AddPost(), settings: const RouteSettings());
       },
       child: const Icon(
         Icons.add,
@@ -232,26 +215,23 @@ class NewsFeed extends StatelessWidget {
           ),
         ),
         IconButton(
-          icon: const Icon(Icons.comment),
-          color: Colors.grey,
-          onPressed: () async {
-            pushNewScreenWithRouteSettings(context,
-                    screen: NewsArticle(
-                      post: post,
-                      index: index,
-                    ),
-                    settings: const RouteSettings(),
-                    withNavBar: false)
-                .then(
-              (value) {
+            icon: const Icon(Icons.comment),
+            color: Colors.grey,
+            onPressed: () async {
+              pushNewScreenWithRouteSettings(context,
+                      screen: NewsArticle(
+                        post: post,
+                        index: index,
+                      ),
+                      settings: const RouteSettings(),
+                      withNavBar: false)
+                  .then((value) {
                 //if (value != null && value)
                 if (value != null) {
                   Provider.of<PostProvider>(context).getPosts();
                 }
-              },
-            );
-          },
-        )
+              });
+            })
       ],
     );
   }
