@@ -41,8 +41,13 @@ class _JoinOrganizationState extends State<JoinOrganization> {
         body: model.organizationInfo.isEmpty
             ? Center(
                 child: Loading(
-                key: UniqueKey(),
-              ))
+                  key: UniqueKey(),
+                  isCurrentOrgNull: false,
+                  emptyContentIcon: Icons.home_work_outlined,
+                  emptyContentMsg: 'No organization to show!',
+                  refreshFunction: () => model.fetchOrg(filter),
+                ),
+              )
             : Container(
                 color: const Color(0xffF3F6FF),
                 padding: EdgeInsets.symmetric(
