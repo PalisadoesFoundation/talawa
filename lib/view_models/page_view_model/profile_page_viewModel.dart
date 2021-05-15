@@ -33,7 +33,7 @@ class ProfilePageViewModel extends BaseModel {
   String _orgId;
   GraphQLConfiguration _graphQLConfiguration = GraphQLConfiguration();
 
-  List get userDetails => _userDetails;
+  List<User> get userDetails => _userDetails;
   List get curOrganization => _curOrganization;
   String get orgName => _orgName;
   List get org => _org;

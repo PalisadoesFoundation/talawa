@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/model/user.dart';
+import 'package:talawa/services/groups_provider.dart';
 //pages are imported here
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -35,6 +36,8 @@ class ProfilePage extends StatelessWidget {
               ? Center(
                   child: Loading(
                   key: UniqueKey(),
+                  isCurrentOrgNull:
+                      Provider.of<GroupsProvider>(context).isCurrOrgIdNull,
                 ))
               : Column(
                   key: const Key('body'),
@@ -62,7 +65,7 @@ class ProfilePage extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                               ),
-                              trailing: model.userDetails[0]['image'] != null
+                              trailing: model.userDetails[0].image != null
                                   ? CircleAvatar(
                                       radius:
                                           SizeConfig.safeBlockVertical * 3.75,
@@ -70,18 +73,18 @@ class ProfilePage extends StatelessWidget {
                                           Provider.of<GraphQLConfiguration>(
                                                       context)
                                                   .displayImgRoute +
-                                              model.userDetails[0]['image']
+                                              model.userDetails[0].image
                                                   .toString()))
                                   : CircleAvatar(
                                       radius:
                                           SizeConfig.safeBlockVertical * 5.625,
                                       backgroundColor: Colors.white,
                                       child: Text(
-                                          model.userDetails[0]['firstName']
+                                          model.userDetails[0].firstName
                                                   .toString()
                                                   .substring(0, 1)
                                                   .toUpperCase() +
-                                              model.userDetails[0]['lastName']
+                                              model.userDetails[0].lastName
                                                   .toString()
                                                   .substring(0, 1)
                                                   .toUpperCase(),
@@ -94,7 +97,7 @@ class ProfilePage extends StatelessWidget {
                             padding: EdgeInsets.only(
                                 left: SizeConfig.safeBlockHorizontal * 4),
                             child: Text(
-                                "${model.userDetails[0]['firstName']} ${model.userDetails[0]['lastName']}",
+                                "${model.userDetails[0].firstName} ${model.userDetails[0].lastName}",
                                 style: const TextStyle(
                                     fontSize: 20.0, color: Colors.white)),
                           ),

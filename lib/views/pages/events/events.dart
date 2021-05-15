@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/model/events.dart';
+import 'package:talawa/services/groups_provider.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -45,6 +47,8 @@ class _EventsState extends State<Events> {
             ? Center(
                 child: Loading(
                 key: UniqueKey(),
+                isCurrentOrgNull:
+                    Provider.of<GroupsProvider>(context).isCurrOrgIdNull,
               ))
             : model.displayEvents.isEmpty
                 ? RefreshIndicator(
