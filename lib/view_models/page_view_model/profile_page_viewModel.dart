@@ -74,7 +74,7 @@ class ProfilePageViewModel extends BaseModel {
       notifyListeners();
       int notFound = 0;
       for (int i = 0; i < _org.length; i++) {
-        if (_org[i]['_id'] == _orgId) {
+        if (_org[i].id == _orgId) {
           break;
         } else {
           notFound++;

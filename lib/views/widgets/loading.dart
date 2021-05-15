@@ -8,7 +8,7 @@ import 'package:talawa/views/pages/organization/join_organization.dart';
 class Loading extends StatefulWidget {
   const Loading(
       {Key key,
-      this.isCurrentOrgNull,
+      this.isCurrentOrgNull = false,
       this.isNetworkError,
       this.emptyContentIcon,
       this.emptyContentMsg,
@@ -75,7 +75,7 @@ class _LoadingState extends State<Loading> {
   Widget build(BuildContext context) {
     return loading && widget.isNetworkError == null
         ? const CircularProgressIndicator()
-        : widget.isCurrentOrgNull || widget.isCurrentOrgNull != null
+        : widget.isCurrentOrgNull
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
