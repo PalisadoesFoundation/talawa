@@ -36,8 +36,6 @@ class ProfilePage extends StatelessWidget {
               ? Center(
                   child: Loading(
                   key: UniqueKey(),
-                  isCurrentOrgNull:
-                      Provider.of<GroupsProvider>(context).isCurrOrgIdNull,
                 ))
               : Column(
                   key: const Key('body'),
