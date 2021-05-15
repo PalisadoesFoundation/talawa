@@ -86,7 +86,12 @@ class NewsFeed extends StatelessWidget {
                                                   post: post,
                                                   index: index,
                                                 ),
-                                              );
+                                              ).then((value){                                                
+                                                //if (value != null && value)
+                                                if (value != null) {
+                                                  Provider.of<PostProvider>(context,listen: false).getPosts();
+                                                }
+                                              });
                                             },
                                             child: Card(
                                               color: Colors.white,
@@ -228,7 +233,7 @@ class NewsFeed extends StatelessWidget {
                   .then((value) {
                 //if (value != null && value)
                 if (value != null) {
-                  Provider.of<PostProvider>(context).getPosts();
+                  Provider.of<PostProvider>(context,listen: false).getPosts();
                 }
               });
             })
