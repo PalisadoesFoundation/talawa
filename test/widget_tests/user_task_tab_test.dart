@@ -46,7 +46,7 @@ void main() {
 
       await tester.pumpAndSettle();
       //verify if [users task tab ] page appears
-      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(Container), findsWidgets);
     });
 
     testWidgets("Testing overflow of users task tab  page in a mobile screen",
@@ -60,7 +60,7 @@ void main() {
       await tester.pumpAndSettle();
 
       //verify if [users task tab] page appears
-      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(Container), findsWidgets);
     });
     testWidgets("Testing overflow of users task tab in a tablet screen",
         (tester) async {
@@ -73,7 +73,7 @@ void main() {
 
       //verify if [ users task tab ] page appears
 
-      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(Container), findsWidgets);
     });
   });
 }
