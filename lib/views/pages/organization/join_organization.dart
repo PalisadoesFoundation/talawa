@@ -35,6 +35,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   void initState() {
     //creating the initial state for all the variables
     super.initState();
+
     hideFloatingActionButton();
   }
 
@@ -42,18 +43,19 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   void hideFloatingActionButton() {
     _scrollController.addListener(() {
       if (_scrollController.position.atEdge) // if the list is at one end
-          {
-        if (_scrollController.position.pixels > 0) // if the list is at the bottom end
-            {
+      {
+        if (_scrollController.position.pixels >
+            0) // if the list is at the bottom end
+        {
           if (_isVisible == true) {
             setState(() {
               _isVisible = false;
             });
           }
         }
-      }
-      else{ // make the floating action button visible when user scrolls back up
-        if(_isVisible == false){
+      } else {
+        // make the floating action button visible when user scrolls back up
+        if (_isVisible == false) {
           setState(() {
             _isVisible = true;
           });
