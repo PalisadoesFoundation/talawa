@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/view_models/page_view_model/add_event_page_view_model.dart';
@@ -17,7 +16,6 @@ class AddEvent extends StatefulWidget {
 }
 
 class _AddEventState extends State<AddEvent> {
-
   //main build starts from here
   @override
   Widget build(BuildContext context) {
