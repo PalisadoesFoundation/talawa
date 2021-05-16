@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 //pages are called here
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/routing_constants.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -50,6 +51,6 @@ class AuthController with ChangeNotifier {
     await Preferences.clearUser();
     super.dispose();
     Navigator.pushNamedAndRemoveUntil(
-        context, UIData.loginPageRoute, (r) => false);
+        context, routes.LoginPageRoute, (r) => false);
   }
 }
