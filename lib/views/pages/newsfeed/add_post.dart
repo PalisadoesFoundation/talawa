@@ -40,7 +40,7 @@ class _AddPostState extends State<AddPost> {
     setState(() {
       organizationId = orgId;
     });
-    debugPrint(organizationId);
+    print(organizationId);
   }
 
   //creating post
@@ -48,16 +48,24 @@ class _AddPostState extends State<AddPost> {
     final String description = textController.text.trim().replaceAll('\n', ' ');
     final String title = titleController.text.trim().replaceAll('\n', ' ');
     if (organizationId == null) {
-      CustomToast.exceptionToast(msg: "Please join an organization");
+      CustomToast.exceptionToast(
+        msg: "Please join an organization",
+      );
       return;
     }
-    result = await Queries().addPost(description, organizationId, title) as Map;
-    debugPrint(result.toString());
+    result = await Queries().addPost(
+      description,
+      organizationId,
+      title,
+    ) as Map;
+    print(result);
     if (result != null) {
       Provider.of<PostProvider>(context, listen: false).getPosts();
       Navigator.pop(context, true);
     } else {
-      CustomToast.exceptionToast(msg: result.toString());
+      CustomToast.exceptionToast(
+        msg: result.toString(),
+      );
     }
     return result;
   }
@@ -76,78 +84,92 @@ class _AddPostState extends State<AddPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        key: const Key('ADD_POST_APP_BAR'),
+        key: const Key(
+          'ADD_POST_APP_BAR',
+        ),
         title: const Text(
           'New Post',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
       body: SingleChildScrollView(
-        child: Form(
-          autovalidateMode: validate,
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(9.0),
-                child: TextFormField(
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  inputFormatters: [LengthLimitingTextInputFormatter(30)],
-                  key: const Key('Title'),
-                  textInputAction: TextInputAction.next,
-                  validator: (String value) {
-                    if (value.length > 30) {
-                      return "Post title cannot be longer than 30 letters";
-                    }
+        child: Container(
+          child: Form(
+            autovalidateMode: validate,
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: Container(
+                    child: TextFormField(
+                      maxLines: null,
+                      keyboardType: TextInputType.multiline,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(30),
+                      ],
+                      key: const Key('Title'),
+                      textInputAction: TextInputAction.next,
+                      validator: (String value) {
+                        if (value.length > 30) {
+                          return "Post title cannot be longer than 30 letters";
+                        }
 
-                    if (value.isEmpty) {
-                      return "This field is Required";
-                    }
-                    return null;
-                  },
-                  controller: titleController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.0),
+                        if (value.isEmpty) {
+                          return "This field is Required";
+                        }
+                        return null;
+                      },
+                      controller: titleController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20.0),
+                          ),
+                        ),
+                        labelText: 'Give your post a title....',
                       ),
                     ),
-                    labelText: 'Give your post a title....',
                   ),
-                  //  'Give your post a title....',
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(9.0),
-                child: TextFormField(
-                  maxLines: null,
-                  inputFormatters: [LengthLimitingTextInputFormatter(10000)],
-                  keyboardType: TextInputType.multiline,
-                  key: const Key('Description'),
-                  controller: textController,
-                  validator: (String value) {
-                    if (value.length > 10000) {
-                      return "Post cannot be longer than 10000 letters";
-                    }
-
-                    if (value.isEmpty) {
-                      return "This field is Required";
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20.0),
+                Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: Container(
+                    child: TextFormField(
+                      maxLines: null,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(10000),
+                      ],
+                      keyboardType: TextInputType.multiline,
+                      key: const Key(
+                        'Description',
                       ),
+                      controller: textController,
+                      validator: (String value) {
+                        if (value.length > 10000) {
+                          return "Post cannot be longer than 10000 letters";
+                        }
+
+                        if (value.isEmpty) {
+                          return "This field is Required";
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20.0),
+                          ),
+                        ),
+                        labelText: 'Write Your post here....',
+                      ), //  'Give your post Description here....',
                     ),
-                    labelText: 'Write Your post here....',
                   ),
-                  //  'Give your post Description here....',
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -176,18 +198,28 @@ class _AddPostState extends State<AddPost> {
 
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
-        padding: const EdgeInsets.all(10),
-        child: TextField(
-          inputFormatters: [
-            LengthLimitingTextInputFormatter(10),
-          ],
-          keyboardType: TextInputType.multiline,
-          controller: controller,
-          decoration: InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: const BorderSide(color: Colors.teal)),
-              hintText: name),
-        ));
+      padding: const EdgeInsets.all(
+        10,
+      ),
+      child: TextField(
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(
+            10,
+          ),
+        ],
+        keyboardType: TextInputType.multiline,
+        controller: controller,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                20.0,
+              ),
+              borderSide: const BorderSide(
+                color: Colors.teal,
+              ),
+            ),
+            hintText: name),
+      ),
+    );
   }
 }

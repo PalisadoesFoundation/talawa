@@ -36,7 +36,9 @@ class GraphQLConfiguration with ChangeNotifier {
     getToken: () async => 'Bearer $token',
   );
 
-  static final Link finalAuthLink = authLink.concat(httpLink);
+  static final Link finalAuthLink = authLink.concat(
+    httpLink,
+  );
 
   GraphQLClient clientToQuery() {
     return GraphQLClient(

@@ -40,11 +40,17 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
 
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    final QueryResult result = await _client.query(QueryOptions(
-        documentNode: gql(_query.viewMembershipRequest(
-            orgId)))); //calling the graphql query to see the membership request
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(
+          _query.viewMembershipRequest(orgId),
+        ),
+      ),
+    ); //calling the graphql query to see the membership request
     if (result.hasException) {
-      debugPrint(result.exception.toString());
+      debugPrint(
+        result.exception.toString(),
+      );
       //showError(result.exception.toString());
     } else if (!result.hasException) {
       debugPrint(
@@ -57,7 +63,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       });
 
       if (membershipRequestsList.isEmpty) {
-        CustomToast.exceptionToast(msg: 'You have no new requests.');
+        CustomToast.exceptionToast(
+          msg: 'You have no new requests.',
+        );
       }
     }
   }
@@ -69,8 +77,13 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     //this function give the functionality of accepting the request of the user by the administrator
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    final QueryResult result = await _client.query(QueryOptions(
-        documentNode: gql(_query.acceptMembershipRequest(itemIndex))));
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(
+          _query.acceptMembershipRequest(itemIndex),
+        ),
+      ),
+    );
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
@@ -80,12 +93,16 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       setState(() {
         processing = false;
       });
-      CustomToast.exceptionToast(msg: result.exception.toString());
+      CustomToast.exceptionToast(
+        msg: result.exception.toString(),
+      );
     } else if (!result.hasException) {
       setState(() {
         processing = false;
       });
-      CustomToast.sucessToast(msg: 'Success');
+      CustomToast.sucessToast(
+        msg: 'Success',
+      );
       viewMemberShipRequests();
     }
   }
@@ -97,8 +114,13 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
     //this function give the functionality of rejecting the request of the user by the administrator
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    final QueryResult result = await _client.query(QueryOptions(
-        documentNode: gql(_query.rejectMembershipRequest(itemIndex))));
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(
+          _query.rejectMembershipRequest(itemIndex),
+        ),
+      ),
+    );
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
@@ -108,7 +130,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       setState(() {
         processing = false;
       });
-      CustomToast.exceptionToast(msg: result.exception.toString());
+      CustomToast.exceptionToast(
+        msg: result.exception.toString(),
+      );
     } else if (!result.hasException) {
       setState(() {
         processing = false;
@@ -120,11 +144,14 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
 
   @override
   Widget build(BuildContext context) {
-    //building the UI page
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Membership Requests',
-            style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Membership Requests',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -160,56 +187,58 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                     itemBuilder: (context, index) {
                       final membershipRequests = membershipRequestsList[index];
                       return Card(
-                          child: ListTile(
-                              leading: membershipRequests['user']['image'] !=
-                                      null
-                                  ? CircleAvatar(
-                                      radius:
-                                          SizeConfig.safeBlockVertical * 3.75,
-                                      backgroundImage: NetworkImage(Provider.of<
-                                                  GraphQLConfiguration>(context)
-                                              .displayImgRoute +
-                                          membershipRequests['user']['image']
-                                              .toString()))
-                                  : CircleAvatar(
-                                      radius:
-                                          SizeConfig.safeBlockVertical * 3.75,
-                                      backgroundImage: const AssetImage(
-                                          "assets/images/team.png")),
-                              title: Text(
-                                  '${membershipRequests['user']['firstName']} ${membershipRequests['user']['lastName']}'),
-                              trailing: processing
-                                  ? const FittedBox(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                  : Wrap(
-                                      spacing: 4,
-                                      children: <Widget>[
-                                        IconButton(
-                                          iconSize: 26.0,
-                                          icon: const Icon(Icons.delete),
-                                          color: Colors.red,
-                                          onPressed: () {
-                                            itemIndex =
-                                                membershipRequests['_id']
-                                                    .toString();
-                                            rejectMemberShipRequests();
-                                          },
-                                        ),
-                                        IconButton(
-                                          iconSize: 26.0,
-                                          icon: const Icon(Icons.check),
-                                          color: Colors.green,
-                                          onPressed: () {
-                                            itemIndex =
-                                                membershipRequests['_id']
-                                                    .toString();
-                                            acceptMemberShipRequests();
-                                          },
-                                        ),
-                                      ],
-                                    )));
-                    }),
+                        child: ListTile(
+                          leading: membershipRequests['user']['image'] != null
+                              ? CircleAvatar(
+                                  radius: SizeConfig.safeBlockVertical * 3.75,
+                                  backgroundImage: NetworkImage(
+                                    Provider.of<GraphQLConfiguration>(context)
+                                            .displayImgRoute +
+                                        membershipRequests['user']['image']
+                                            .toString(),
+                                  ),
+                                )
+                              : CircleAvatar(
+                                  radius: SizeConfig.safeBlockVertical * 3.75,
+                                  backgroundImage: const AssetImage(
+                                    "assets/images/team.png",
+                                  ),
+                                ),
+                          title: Text(
+                              '${membershipRequests['user']['firstName']} ${membershipRequests['user']['lastName']}'),
+                          trailing: processing
+                              ? const FittedBox(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : Wrap(
+                                  spacing: 4,
+                                  children: <Widget>[
+                                    IconButton(
+                                      iconSize: 26.0,
+                                      icon: const Icon(Icons.delete),
+                                      color: Colors.red,
+                                      onPressed: () {
+                                        itemIndex = membershipRequests['_id']
+                                            .toString();
+                                        rejectMemberShipRequests();
+                                      },
+                                    ),
+                                    IconButton(
+                                      iconSize: 26.0,
+                                      icon: const Icon(Icons.check),
+                                      color: Colors.green,
+                                      onPressed: () {
+                                        itemIndex = membershipRequests['_id']
+                                            .toString();
+                                        acceptMemberShipRequests();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                        ),
+                      );
+                    },
+                  ),
       ),
     );
   }

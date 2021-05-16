@@ -11,7 +11,7 @@ class LogHelper {
         LogLevel.INFO,
         LogLevel.WARNING,
         LogLevel.ERROR,
-        LogLevel.SEVERE
+        LogLevel.SEVERE,
       ],
       timeStampFormat: TimeStampFormat.TIME_FORMAT_READABLE,
       directoryStructure: DirectoryStructure.FOR_DATE,
@@ -44,7 +44,6 @@ class LogHelper {
           // TODO: Make a api call to sever
           // var responseCode = await ApiFunctions().sendLogs(file.path);
           // if(responseCode == 200){
-
           // }
           Fluttertoast.showToast(
             msg: "The Logs are saved in ${file.path}",
@@ -52,75 +51,121 @@ class LogHelper {
           );
         } else {
           FlutterLogs.logError(
-              "LogHelper", "init(logsExported)", "File not found in storage.");
+            "LogHelper",
+            "init(logsExported)",
+            "File not found in storage.",
+          );
         }
       }
     });
   }
 
-  log(LogLevel logLevel, String tag, String subTag, String logMessage,
-      {Error error, Exception exception}) {
+  log(
+    LogLevel logLevel,
+    String tag,
+    String subTag,
+    String logMessage, {
+    Error error,
+    Exception exception,
+  }) {
     switch (logLevel) {
       case LogLevel.INFO:
         if (error != null) {
           FlutterLogs.logErrorTrace(tag, subTag, logMessage, error);
         } else if (exception != null) {
           FlutterLogs.logThis(
-              tag: tag,
-              subTag: subTag,
-              logMessage: logMessage,
-              exception: exception,
-              level: LogLevel.ERROR);
+            tag: tag,
+            subTag: subTag,
+            logMessage: logMessage,
+            exception: exception,
+            level: LogLevel.ERROR,
+          );
         } else {
-          FlutterLogs.logInfo(tag, subTag, logMessage);
+          FlutterLogs.logInfo(
+            tag,
+            subTag,
+            logMessage,
+          );
         }
         break;
       case LogLevel.WARNING:
         if (error != null) {
-          FlutterLogs.logErrorTrace(tag, subTag, logMessage, error);
+          FlutterLogs.logErrorTrace(
+            tag,
+            subTag,
+            logMessage,
+            error,
+          );
         } else if (exception != null) {
           FlutterLogs.logThis(
-              tag: tag,
-              subTag: subTag,
-              logMessage: logMessage,
-              exception: exception,
-              level: LogLevel.ERROR);
+            tag: tag,
+            subTag: subTag,
+            logMessage: logMessage,
+            exception: exception,
+            level: LogLevel.ERROR,
+          );
         } else {
-          FlutterLogs.logWarn(tag, subTag, logMessage);
+          FlutterLogs.logWarn(
+            tag,
+            subTag,
+            logMessage,
+          );
         }
         break;
       case LogLevel.ERROR:
         if (error?.stackTrace != null) {
-          FlutterLogs.logErrorTrace(tag, subTag, logMessage, error);
+          FlutterLogs.logErrorTrace(
+            tag,
+            subTag,
+            logMessage,
+            error,
+          );
         } else if (exception != null) {
           FlutterLogs.logThis(
-              tag: tag,
-              subTag: subTag,
-              logMessage: logMessage,
-              exception: exception,
-              level: LogLevel.ERROR);
+            tag: tag,
+            subTag: subTag,
+            logMessage: logMessage,
+            exception: exception,
+            level: LogLevel.ERROR,
+          );
         } else {
-          FlutterLogs.logError(tag, subTag, logMessage);
+          FlutterLogs.logError(
+            tag,
+            subTag,
+            logMessage,
+          );
         }
         break;
       case LogLevel.SEVERE:
         if (error?.stackTrace != null) {
-          FlutterLogs.logErrorTrace(tag, subTag, logMessage, error);
+          FlutterLogs.logErrorTrace(
+            tag,
+            subTag,
+            logMessage,
+            error,
+          );
         } else if (exception != null) {
           FlutterLogs.logThis(
-              tag: tag,
-              subTag: subTag,
-              logMessage: logMessage,
-              exception: exception,
-              level: LogLevel.ERROR);
+            tag: tag,
+            subTag: subTag,
+            logMessage: logMessage,
+            exception: exception,
+            level: LogLevel.ERROR,
+          );
         } else {
-          FlutterLogs.logError(tag, subTag, logMessage);
+          FlutterLogs.logError(
+            tag,
+            subTag,
+            logMessage,
+          );
         }
         break;
     }
   }
 
   exportLogs() {
-    FlutterLogs.exportLogs(exportType: ExportType.WEEKS);
+    FlutterLogs.exportLogs(
+      exportType: ExportType.WEEKS,
+    );
   }
 }

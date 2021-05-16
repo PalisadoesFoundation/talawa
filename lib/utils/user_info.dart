@@ -7,11 +7,15 @@ class UserInfo {
   int get currentOrg => userOrg;
   List get currentOrgList => orgList;
 
-  set currentOrg(int val) {
+  set currentOrg(
+    int val,
+  ) {
     userOrg = val;
   }
 
-  set currentOrgList(List val) {
+  set currentOrgList(
+    List val,
+  ) {
     orgList = val;
     debugPrint(orgList.toString());
   }

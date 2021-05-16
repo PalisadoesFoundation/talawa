@@ -35,11 +35,12 @@ class _TaskListState extends State<TaskList> {
     final String userID = widget.event['_id'].toString();
     debugPrint("ishan");
 
-    final Map result =
-        await apiFunctions.gqlquery(Queries().getTasksByEvent(userID));
-    //setState(() {
+    final Map result = await apiFunctions.gqlquery(
+      Queries().getTasksByEvent(
+        userID,
+      ),
+    );
 
-    //});
     eventTasks = result == null ? [] : result['tasksByEvent'] as List;
     return eventTasks;
   }
@@ -47,7 +48,8 @@ class _TaskListState extends State<TaskList> {
   @override
   Widget build(BuildContext context) {
     final task = getTasks();
-    return FutureBuilder<List<dynamic>>(
+    return Container(
+      child: FutureBuilder<List<dynamic>>(
         future: task,
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
@@ -55,25 +57,35 @@ class _TaskListState extends State<TaskList> {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.data.isEmpty) {
-            return const Center(
+            return Container(
+              child: const Center(
                 child: Text(
-              "No Tasks found",
-              style: TextStyle(fontSize: 20),
-              textAlign: TextAlign.center,
-            ));
+                  "No Tasks found",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
           } else {
             return SingleChildScrollView(
               child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: Text(snapshot.data[index]['title'].toString()),
-                    );
-                  }),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Text(
+                      snapshot.data[index]['title'].toString(),
+                    ),
+                  );
+                },
+              ),
             );
           }
-        });
+        },
+      ),
+    );
   }
 }

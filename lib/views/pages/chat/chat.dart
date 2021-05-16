@@ -18,16 +18,26 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: CircleAvatar(
-          backgroundColor: UIData.secondaryColor,
-          child: Image.asset(UIData.talawaLogo),
-        ),
-        title: Padding(
-          padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 2.5),
-          child: Text(
-            widget.groupName,
-            style: const TextStyle(color: Colors.white),
-          ),
+        title: Row(
+          children: <Widget>[
+            CircleAvatar(
+              backgroundColor: UIData.secondaryColor,
+              child: Image.asset(
+                UIData.talawaLogo,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                left: SizeConfig.safeBlockHorizontal * 2.5,
+              ),
+              child: Text(
+                widget.groupName,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
         ),
       ),
       body: Align(
@@ -39,29 +49,40 @@ class _ChatState extends State<Chat> {
 
   Widget _textComposerWidget() {
     return Padding(
-      padding: EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 1.25),
+      padding: EdgeInsets.only(
+        bottom: SizeConfig.safeBlockVertical * 1.25,
+      ),
       child: IconTheme(
-        data: const IconThemeData(color: Colors.blue),
+        data: const IconThemeData(
+          color: Colors.blue,
+        ),
         child: Container(
           margin: EdgeInsets.symmetric(
-              horizontal: SizeConfig.safeBlockHorizontal * 2),
+            horizontal: SizeConfig.safeBlockHorizontal * 2,
+          ),
           child: Row(
             children: <Widget>[
               Flexible(
                 child: TextField(
                   decoration: InputDecoration.collapsed(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        20.0,
                       ),
-                      hintText: "    Enter your message...."),
+                    ),
+                    hintText: "    Enter your message....",
+                  ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.safeBlockHorizontal * 2),
+                  horizontal: SizeConfig.safeBlockHorizontal * 2,
+                ),
                 child: IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.send),
+                  icon: const Icon(
+                    Icons.send,
+                  ),
                 ),
               )
             ],
