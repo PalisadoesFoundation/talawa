@@ -7,6 +7,9 @@ class GraphAPI with ChangeNotifier {
   Future<void> logout(BuildContext context) async {
     await Preferences.clearUser();
     Navigator.pushNamedAndRemoveUntil(
-        context, UIData.loginPageRoute, (r) => false);
+      context,
+      UIData.loginPageRoute,
+      (r) => false,
+    );
   }
 }

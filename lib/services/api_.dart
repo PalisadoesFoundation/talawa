@@ -15,18 +15,24 @@ class API {
     final String userID = await _pref.getUserId();
     final GraphQLClient _client = _graphQLConfiguration.clientToQuery();
 
-    final QueryResult result = await _client.query(QueryOptions(
-        documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(_query.fetchUserInfo),
+        variables: {'id': userID},
+      ),
+    );
 
     if (result.hasException) {
       print(result.exception);
     } else if (!result.hasException && !result.loading) {
       print(result.data);
       joinedOrgs = (json.decode(
-                  result.data['users'][0]['joinedOrganizations'].toString())
-              as List)
-          .map((joinedOrgs) =>
-              SwitchOrg.fromJson(joinedOrgs as Map<String, dynamic>))
+        result.data['users'][0]['joinedOrganizations'].toString(),
+      ) as List)
+          .map(
+            (joinedOrgs) =>
+                SwitchOrg.fromJson(joinedOrgs as Map<String, dynamic>),
+          )
           .toList();
       print(joinedOrgs);
     }

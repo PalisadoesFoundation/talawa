@@ -25,9 +25,9 @@ class ApiFunctions {
       _authController.getNewToken();
       gqlquery(query);
     } else if (result.hasException &&
-        result.exception
-            .toString()
-            .contains(refreshAccessTokenExpiredException)) {
+        result.exception.toString().contains(
+              refreshAccessTokenExpiredException,
+            )) {
       _authController.getNewToken();
       gqlquery(query);
     } else if (result.hasException) {
@@ -46,22 +46,30 @@ class ApiFunctions {
   }
 
   //function to mutate the query
-  Future<dynamic> gqlmutation(String mutation) async {
+  Future<dynamic> gqlmutation(
+    String mutation,
+  ) async {
     final GraphQLClient _client = graphQLConfiguration.authClient();
     final QueryResult result = await _client.mutate(MutationOptions(
-      documentNode: gql(mutation),
+      documentNode: gql(
+        mutation,
+      ),
     ));
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      return gqlmutation(mutation);
+      return gqlmutation(
+        mutation,
+      );
     } else if (result.hasException &&
-        result.exception
-            .toString()
-            .contains(refreshAccessTokenExpiredException)) {
+        result.exception.toString().contains(
+              refreshAccessTokenExpiredException,
+            )) {
       _authController.getNewToken();
-      return gqlmutation(mutation);
+      return gqlmutation(
+        mutation,
+      );
     } else if (result.hasException) {
       print(result.exception);
     } else {
@@ -69,7 +77,9 @@ class ApiFunctions {
     }
   }
 
-  Future<dynamic> sendLogs(String filePath) async {
+  Future<dynamic> sendLogs(
+    String filePath,
+  ) async {
     //TODO: Add the Url and uncomment the block
     // var request = http.MultipartRequest('POST', Uri.parse(''));
     // request.files.add(
