@@ -80,9 +80,7 @@ class _UrlPageState extends State<UrlPage>
     urlInput = urlController.text;
   }
 
-  Future setApiUrl() async {
-    final String dropdownValue =
-        Provider.of<UrlController>(context).getDropDownValue;
+  Future setApiUrl(String dropdownValue) async {
     setState(() {
       orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/";
       orgImgUrl =
@@ -293,65 +291,69 @@ class _UrlPageState extends State<UrlPage>
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                  ),
-                                  onPressed: () async {
-                                    FocusScope.of(context).unfocus();
-                                    if (_formKey.currentState.validate()) {
-                                      _formKey.currentState.save();
+                              Consumer<UrlController>(
+                                builder: (context, urlControl, _) =>
+                                    ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          FocusScope.of(context).unfocus();
+                                          if (_formKey.currentState
+                                              .validate()) {
+                                            _formKey.currentState.save();
 
-                                      setState(() {
-                                        isUrlCalled = true;
-                                      });
+                                            setState(() {
+                                              isUrlCalled = true;
+                                            });
 
-                                      try {
-                                        await Provider.of<UrlController>(
-                                          context,
-                                          listen: false,
-                                        ).checkAndSetUrl(
-                                          text: urlController.text,
-                                        );
-                                        setApiUrl();
-                                        _setURL();
-                                      } catch (e) {
-                                        LogHelper().log(
-                                          LogLevel.ERROR,
-                                          widget.toStringShort(),
-                                          "checkAndSetUrl",
-                                          "Incorrect Oraganization",
-                                          exception: e as Exception,
-                                        );
+                                            try {
+                                              await urlControl.checkAndSetUrl(
+                                                text: urlController.text,
+                                              );
+                                              setApiUrl(
+                                                  urlControl.getDropDownValue);
+                                              _setURL();
+                                            } catch (e) {
+                                              LogHelper().log(
+                                                LogLevel.ERROR,
+                                                widget.toStringShort(),
+                                                "checkAndSetUrl",
+                                                "Incorrect Oraganization",
+                                                exception: e as Exception,
+                                              );
 
-                                        CustomToast.exceptionToast(
-                                            msg:
-                                                'Incorrect Organization Entered');
-                                        LogHelper().exportLogs();
-                                      }
+                                              CustomToast.exceptionToast(
+                                                  msg:
+                                                      'Incorrect Organization Entered');
+                                              LogHelper().exportLogs();
+                                            }
 
-                                      setState(() {
-                                        isUrlCalled = false;
-                                      });
-                                    }
-                                  },
-                                  child: isUrlCalled
-                                      ? SizedBox(
-                                          height: SizeConfig.safeBlockVertical *
-                                              1.75,
-                                          width:
-                                              SizeConfig.safeBlockHorizontal *
-                                                  3.5,
-                                          child:
-                                              const CircularProgressIndicator(
-                                                  backgroundColor:
-                                                      Colors.white),
-                                        )
-                                      : Text(
-                                          saveMsg,
-                                        )),
+                                            setState(() {
+                                              isUrlCalled = false;
+                                            });
+                                          }
+                                        },
+                                        child: isUrlCalled
+                                            ? SizedBox(
+                                                height: SizeConfig
+                                                        .safeBlockVertical *
+                                                    1.75,
+                                                width: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    3.5,
+                                                child:
+                                                    const CircularProgressIndicator(
+                                                        backgroundColor:
+                                                            Colors.white),
+                                              )
+                                            : Text(
+                                                saveMsg,
+                                              )),
+                              ),
                             ],
                           ),
                         ],
