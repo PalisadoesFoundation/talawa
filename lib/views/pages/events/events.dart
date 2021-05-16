@@ -8,6 +8,7 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/page_view_model/events_page_view_model.dart';
 import 'package:talawa/views/pages/events/event_card_widget.dart';
+import 'package:talawa/views/widgets/loader_gen.dart';
 import 'package:talawa/views/widgets/loading.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
@@ -41,7 +42,7 @@ class _EventsState extends State<Events> {
         floatingActionButton: eventFab(context),
         body: model.state == ViewState.busy
             ? Center(
-                child: Loading(
+                child: LoaderWidget(
                 key: UniqueKey(),
               ))
             : model.displayEvents.isEmpty
@@ -211,7 +212,7 @@ class _EventsState extends State<Events> {
                 items: [
                   const Text(
                     'All',
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   Text(
                     model.dateSelected,

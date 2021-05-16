@@ -40,7 +40,6 @@ class JoinOrgnizationViewModel extends BaseModel {
   List get filteredOrgInfo => _filteredOrgInfo;
   String get isPublic => _isPublic;
   String get itemIndex => _itemIndex;
-
   void initialise(BuildContext context, OrganisationFilter filter) {
     fToast = FToast();
     fToast.init(context);
