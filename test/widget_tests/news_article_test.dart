@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/locator.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
@@ -56,6 +57,8 @@ Widget newsArticlePage() => MultiProvider(
     );
 
 void main() {
+  setupLocator();
+
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
@@ -113,16 +116,17 @@ void main() {
         // Get the Load Comment button.
         final loadCommentsButton = find.text("Load Comments");
 
+        await tester.pumpAndSettle();
         // Tap on the loadCommentsButton.
         await tester.tap(loadCommentsButton);
-        await tester.pump();
+        await tester.pumpAndSettle();
 
         // Comments Icon Should be displayed.
         const iconKey = ValueKey('commentIcon');
 
         expect(
           find.byKey(iconKey),
-          findsWidgets,
+          findsOneWidget,
         );
       });
     });

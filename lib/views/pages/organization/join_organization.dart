@@ -9,7 +9,7 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/page_view_model/join_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/views/pages/organization/create_organization.dart';
+import 'package:talawa/views/pages/organization/Create%20Organization/create_organization_view.dart';
 import 'package:talawa/views/widgets/loading.dart';
 import 'package:talawa/views/widgets/shared/search_input_widget.dart';
 
@@ -25,6 +25,44 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   TextEditingController searchController = TextEditingController();
   OrganisationFilter filter = OrganisationFilter.showAll;
   bool isFilterLoading = false;
+
+  //variable to store whether floatingActionButton is visible or not
+  bool _isVisible = true;
+  //scroll controller for the list view
+  var _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    //creating the initial state for all the variables
+    super.initState();
+
+    hideFloatingActionButton();
+  }
+
+  //Function for making the floating action button hide when someone scrolls to end of the list
+  void hideFloatingActionButton() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.atEdge) // if the list is at one end
+      {
+        if (_scrollController.position.pixels >
+            0) // if the list is at the bottom end
+        {
+          if (_isVisible == true) {
+            setState(() {
+              _isVisible = false;
+            });
+          }
+        }
+      } else {
+        // make the floating action button visible when user scrolls back up
+        if (_isVisible == false) {
+          setState(() {
+            _isVisible = true;
+          });
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,20 +125,23 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                   ],
                 ),
               ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: UIData.secondaryColor,
-          foregroundColor: Colors.white,
-          elevation: 5.0,
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => CreateOrganization(
-                  isFromProfile: widget.fromProfile,
+        floatingActionButton: Visibility(
+          visible: _isVisible,
+          child: FloatingActionButton(
+            backgroundColor: UIData.secondaryColor,
+            foregroundColor: Colors.white,
+            elevation: 5.0,
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => CreateOrganization(
+                    isFromProfile: widget.fromProfile,
+                  ),
                 ),
-              ),
-            );
-          },
-          child: const Icon(Icons.add),
+              );
+            },
+            child: const Icon(Icons.add),
+          ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
@@ -110,6 +151,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   ListView buildJoinOrgListView(
       List<dynamic> orgList, JoinOrgnizationViewModel model) {
     return ListView.builder(
+      controller: _scrollController,
       itemCount: orgList.length,
       itemBuilder: (context, index) {
         final organization = orgList[index];

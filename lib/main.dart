@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/url_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/controllers/news_feed_controller.dart';
@@ -16,23 +17,19 @@ import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
-import 'package:talawa/views/pages/organization/create_organization.dart';
+import 'package:talawa/views/pages/organization/Create%20Organization/create_organization_view.dart';
 import 'package:talawa/views/pages/organization/switch_org_page.dart';
 import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
 
 Preferences preferences = Preferences();
-String userID;
 LogHelper logHelper = LogHelper();
 Future<void> main() async {
-  WidgetsFlutterBinding
-      .ensureInitialized(); //ensuring weather the app is being initialized or not
+  //ensuring weather the app is being initialized or not
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-  userID = await preferences.getUserId(); //getting user id
   await logHelper.init(); // To intialise FlutterLog
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp
-  ]) //setting the orientation according to the screen it is running on
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(MultiProvider(
       providers: [
@@ -46,6 +43,7 @@ Future<void> main() async {
             create: (_) => GroupController()),
         ChangeNotifierProvider<NewsFeedProvider>(
             create: (_) => NewsFeedProvider()),
+        ChangeNotifierProvider<UrlController>(create: (_) => UrlController()),
       ],
       child: MyApp(),
     ));
@@ -53,8 +51,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -75,8 +71,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {
-          debugPrint(
-              'build route for ${settings.name}'); //here we are building the routes for the app
           final routes = <String, WidgetBuilder>{
             UIData.homeRoute: (BuildContext context) => const HomePage(),
             UIData.loginPageRoute: (BuildContext context) => UrlPage(),
@@ -91,9 +85,27 @@ class MyApp extends StatelessWidget {
           final WidgetBuilder builder = routes[settings.name];
           return MaterialPageRoute(builder: (ctx) => builder(ctx));
         },
-        home: userID == null
-            ? UrlPage()
-            : const HomePage(), //checking weather the user is logged in or not
+        home: FutureBuilder(
+          future: preferences.getUserId(),
+          initialData: "Initial Data",
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.data.toString() == "Initial Data") {
+              return Scaffold(
+                body: Container(
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              );
+            } else if (snapshot.hasError) {
+              throw FlutterError(
+                  'There is some error with "${snapshot.data}"\n');
+            } else if (snapshot.data != null) {
+              return const HomePage();
+            }
+            return UrlPage();
+          },
+        ),
       ),
     );
   }
