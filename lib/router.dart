@@ -6,7 +6,7 @@ import 'package:talawa/views/pages/login_signup/register_page.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 import 'package:talawa/views/pages/newsfeed/add_post.dart';
 import 'package:talawa/views/pages/newsfeed/news_article.dart';
-import 'package:talawa/views/pages/organization/create_organization.dart';
+import 'package:talawa/views/pages/organization/Create%20Organization/create_organization_view.dart';
 import 'package:talawa/views/pages/organization/join_organization.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/pages/organization/switch_org_page.dart';
