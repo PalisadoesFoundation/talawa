@@ -24,14 +24,14 @@ import 'controllers/org_controller.dart';
 Preferences preferences = Preferences();
 LogHelper logHelper = LogHelper();
 Future<void> main() async {
-  WidgetsFlutterBinding
-      .ensureInitialized(); //ensuring weather the app is being initialized or not
+  //ensuring weather the app is being initialized or not
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   await logHelper.init(); // To intialise FlutterLog
+  //setting the orientation according to the screen it is running on
   SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp
-  ]) //setting the orientation according to the screen it is running on
-      .then((_) {
+    DeviceOrientation.portraitUp,
+  ]).then((_) {
     runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
@@ -70,8 +70,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         onGenerateRoute: (RouteSettings settings) {
-          print(
-              'build route for ${settings.name}'); //here we are building the routes for the app
           final routes = <String, WidgetBuilder>{
             UIData.homeRoute: (BuildContext context) => const HomePage(),
             UIData.loginPageRoute: (BuildContext context) => UrlPage(),
@@ -93,7 +91,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.data.toString() == "Initial Data") {
               return Scaffold(
                 body: Container(
-                  child: Center(
+                  child: const Center(
                     child: CircularProgressIndicator(),
                   ),
                 ),
