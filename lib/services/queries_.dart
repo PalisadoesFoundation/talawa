@@ -15,7 +15,6 @@ class Queries {
             refreshToken
           }
         }
-
     ''';
   }
 
@@ -39,7 +38,6 @@ class Queries {
               refreshToken
             }
         }
-
     """;
   }
 
@@ -88,7 +86,6 @@ class Queries {
               refreshToken
             }
         }
-
     """;
   }
 
@@ -111,7 +108,6 @@ class Queries {
               refreshToken
             }
         }
-
     """;
   }
 
@@ -182,35 +178,6 @@ class Queries {
         }
       }
     ''';
-  }
-
-  String get getOrganizationsConnectionFilter {
-    return """
-     query organizationsConnection(
-       \$isPublic: Boolean
-     ){
-       organizationsConnection(
-         where:{
-           visibleInSearch: true, 
-           isPublic: \$isPublic
-         },
-       ){
-         image
-         _id
-         name
-         admins{
-           _id
-         }
-         description
-         isPublic
-         creator{
-           _id
-           firstName
-           lastName
-         }
-       }
-     }
- """;
   }
 
   //fetch organization
@@ -735,7 +702,6 @@ class Queries {
   }
 
 /////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
-
   //task by users
   String tasksByUser(
     String id,
@@ -823,12 +789,101 @@ query{
 """;
   }
 
-  createComments(
-    String postId,
-    var text,
-  ) async {
-    debugPrint(postId);
-    debugPrint(text.toString());
+  String get getOrganizationsConnectionFilter {
+    return """
+    query organizationsConnection(
+      \$first: Int, 
+      \$skip: Int, 
+      \$nameContains: String,
+      \$isPublic: Boolean
+    ){
+      organizationsConnection(
+        where:{
+          name_contains: \$nameContains,
+          visibleInSearch: true, 
+          isPublic: \$isPublic
+        },
+        first: \$first,
+        skip: \$skip,
+        orderBy: name_ASC
+      ){
+        image
+        _id
+        name
+        admins{
+          _id
+        }
+        description
+        isPublic
+        creator{
+          _id
+          firstName
+          lastName
+        }
+      }
+    }
+""";
+  }
+
+  String get getFilteredOrganizationsConnection {
+    return """
+    query organizationsConnection(\$first: Int, \$skip: Int, \$isPublic: Boolean){
+      organizationsConnection(
+        where:{
+          visibleInSearch: true, 
+          isPublic: \$isPublic
+        }
+        first: \$first,
+        skip: \$skip,
+        orderBy: name_ASC
+      ){
+        image
+        _id
+        name
+        admins{
+          _id
+        }
+        description
+        isPublic
+        creator{
+          _id
+          firstName
+          lastName
+        }
+      }
+    }
+""";
+  }
+
+  String get getOrganizationsConnection {
+    return """
+    query organizationsConnection(\$first: Int, \$skip: Int){
+      organizationsConnection(
+        first: \$first,
+        skip: \$skip,
+        orderBy: name_ASC
+      ){
+        image
+        _id
+        name
+        admins{
+          _id
+        }
+        description
+        isPublic
+        creator{
+          _id
+          firstName
+          lastName
+        }
+      }
+    }
+""";
+  }
+
+  createComments(String postId, var text) async {
+    print(postId);
+    print(text);
     const String createCommentMutation = """
      mutation createComment(\$postId: ID!, \$text: String!) { 
       createComment(postId: \$postId, 
