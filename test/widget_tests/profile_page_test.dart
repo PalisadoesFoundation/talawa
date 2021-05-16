@@ -10,10 +10,12 @@ import 'package:talawa/controllers/url_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/controllers/news_feed_controller.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
+import 'package:talawa/router.dart' as router;
 
 Widget createLoginPageScreen() => MultiProvider(
       providers: [
@@ -29,6 +31,8 @@ Widget createLoginPageScreen() => MultiProvider(
       ],
       child: MaterialApp(
         home: UrlPage(),
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
       ),
     );
 
