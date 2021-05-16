@@ -32,16 +32,37 @@ class _EditEventState extends State<EditEvent> {
   ApiFunctions apiFunctions = ApiFunctions();
 
   DateTimeRange dateRange = DateTimeRange(
-      start: DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day, 1, 0),
-      end: DateTime(DateTime.now().year, DateTime.now().month,
-          DateTime.now().day + 1, 1, 0));
+    start: DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+      1,
+      0,
+    ),
+    end: DateTime(
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day + 1,
+      1,
+      0,
+    ),
+  );
 
   Map<String, DateTime> startEndTimes = {
     'Start Time': DateTime(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day, 12, 0),
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+      12,
+      0,
+    ),
     'End Time': DateTime(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
+      DateTime.now().year,
+      DateTime.now().month,
+      DateTime.now().day,
+      23,
+      59,
+    ),
   };
 
   Map event;
@@ -52,7 +73,12 @@ class _EditEventState extends State<EditEvent> {
     'All Day': false
   };
 
-  var recurranceList = ['DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'];
+  var recurranceList = [
+    'DAILY',
+    'WEEKLY',
+    'MONTHLY',
+    'YEARLY',
+  ];
   String recurrance = 'DAILY';
   Preferences preferences = Preferences();
   String currentOrgId;
@@ -61,7 +87,7 @@ class _EditEventState extends State<EditEvent> {
   void initState() {
     super.initState();
     getCurrentOrgId();
-    print(widget.event);
+    debugPrint(widget.event.toString());
     initevent();
   }
 
@@ -86,17 +112,24 @@ class _EditEventState extends State<EditEvent> {
     setState(() {
       currentOrgId = orgId;
     });
-    print(currentOrgId);
+    debugPrint(currentOrgId);
   }
 
   //method called to select the date
   Future<void> _selectDate(BuildContext context) async {
     final DateTime now = DateTime.now();
     final DateTimeRange picked = await showDateRangePicker(
-        context: context,
-        // initialDate: selectedDate,
-        firstDate: DateTime(now.year, now.month, now.day),
-        lastDate: DateTime(2101));
+      context: context,
+      // initialDate: selectedDate,
+      firstDate: DateTime(
+        now.year,
+        now.month,
+        now.day,
+      ),
+      lastDate: DateTime(
+        2101,
+      ),
+    );
     if (picked != null && picked != dateRange) {
       setState(() {
         dateRange = picked;
@@ -106,44 +139,62 @@ class _EditEventState extends State<EditEvent> {
 
   //method to select the time
   Future<void> _selectTime(
-      BuildContext context, String name, TimeOfDay time) async {
+    BuildContext context,
+    String name,
+    TimeOfDay time,
+  ) async {
     final TimeOfDay picked = await showTimePicker(
       context: context,
       initialTime: time,
     );
     if (picked != null && picked != time) {
-      setState(() {
-        startEndTimes[name] = DateTime(
+      setState(
+        () {
+          startEndTimes[name] = DateTime(
             DateTime.now().year,
             DateTime.now().month,
             DateTime.now().day,
             picked.hour,
-            picked.minute);
-      });
+            picked.minute,
+          );
+        },
+      );
     }
   }
 
   //method used to create and event
   Future<void> updateEvent() async {
     final DateTime startTime = DateTime(
-        dateRange.start.year,
-        dateRange.start.month,
-        dateRange.start.day,
-        startEndTimes['Start Time'].hour,
-        startEndTimes['Start Time'].minute);
+      dateRange.start.year,
+      dateRange.start.month,
+      dateRange.start.day,
+      startEndTimes['Start Time'].hour,
+      startEndTimes['Start Time'].minute,
+    );
     final DateTime endTime = DateTime(
-        dateRange.end.year,
-        dateRange.end.month,
-        dateRange.end.day,
-        startEndTimes['End Time'].hour,
-        startEndTimes['End Time'].minute);
+      dateRange.end.year,
+      dateRange.end.month,
+      dateRange.end.day,
+      startEndTimes['End Time'].hour,
+      startEndTimes['End Time'].minute,
+    );
 
     if (switchVals['All Day']) {
       startEndTimes = {
-        'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
-            DateTime.now().day, 12, 0),
-        'End Time': DateTime(DateTime.now().year, DateTime.now().month,
-            DateTime.now().day, 23, 59),
+        'Start Time': DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+          DateTime.now().day,
+          12,
+          0,
+        ),
+        'End Time': DateTime(
+          DateTime.now().year,
+          DateTime.now().month,
+          DateTime.now().day,
+          23,
+          59,
+        ),
       };
     }
     final String mutation = Queries().updateEvent(
@@ -162,9 +213,10 @@ class _EditEventState extends State<EditEvent> {
     final Map result = await apiFunctions.gqlquery(mutation);
     if (result["exception"] != null) {
       CustomToast.exceptionToast(
-          msg: "Could not update event! Please try again later");
+        msg: "Could not update event! Please try again later",
+      );
     }
-    print('Result is : $result');
+    debugPrint('Result is : $result');
   }
 
   @override
@@ -173,23 +225,48 @@ class _EditEventState extends State<EditEvent> {
       appBar: AppBar(
         title: const Text(
           'Edit Event',
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
       body: ListView(
         padding: EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 12.5),
         children: <Widget>[
-          inputField('Title', titleController),
-          inputField('Description', descriptionController),
-          inputField('Location', locationController),
-          switchTile('Make Public'),
-          switchTile('Make Registerable'),
-          switchTile('Recurring'),
-          switchTile('All Day'),
+          inputField(
+            'Title',
+            titleController,
+          ),
+          inputField(
+            'Description',
+            descriptionController,
+          ),
+          inputField(
+            'Location',
+            locationController,
+          ),
+          switchTile(
+            'Make Public',
+          ),
+          switchTile(
+            'Make Registerable',
+          ),
+          switchTile(
+            'Recurring',
+          ),
+          switchTile(
+            'All Day',
+          ),
           recurrencedropdown(),
           dateButton(),
-          timeButton('Start Time', startEndTimes['Start Time']),
-          timeButton('End Time', startEndTimes['End Time']),
+          timeButton(
+            'Start Time',
+            startEndTimes['Start Time'],
+          ),
+          timeButton(
+            'End Time',
+            startEndTimes['End Time'],
+          ),
         ],
       ),
       floatingActionButton: addEventFab(),
@@ -204,111 +281,155 @@ class _EditEventState extends State<EditEvent> {
       },
       leading: Text(
         'Date',
-        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+        style: TextStyle(
+          fontSize: 16,
+          color: Colors.grey[600],
+        ),
       ),
       trailing: Text(
         '${DateFormat.yMMMd().format(dateRange.start)} | ${DateFormat.yMMMd().format(dateRange.end)} ',
-        style: const TextStyle(fontSize: 16, color: UIData.secondaryColor),
+        style: const TextStyle(
+          fontSize: 16,
+          color: UIData.secondaryColor,
+        ),
       ),
     );
   }
 
   //widget for time buttons
-  Widget timeButton(String name, DateTime time) {
+  Widget timeButton(
+    String name,
+    DateTime time,
+  ) {
     return AbsorbPointer(
-        absorbing: switchVals['All Day'],
-        child: ListTile(
-          onTap: () {
-            _selectTime(context, name, TimeOfDay.fromDateTime(time));
-          },
-          leading: Text(
+      absorbing: switchVals['All Day'],
+      child: ListTile(
+        onTap: () {
+          _selectTime(
+            context,
             name,
-            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+            TimeOfDay.fromDateTime(
+              time,
+            ),
+          );
+        },
+        leading: Text(
+          name,
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey[600],
           ),
-          trailing: Text(
-            TimeOfDay.fromDateTime(time).format(context),
-            style: TextStyle(
-                color: !switchVals['All Day']
-                    ? UIData.secondaryColor
-                    : Colors.grey),
+        ),
+        trailing: Text(
+          TimeOfDay.fromDateTime(time).format(context),
+          style: TextStyle(
+            color: !switchVals['All Day'] ? UIData.secondaryColor : Colors.grey,
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   //widget for the input field
-  Widget inputField(String name, TextEditingController controller) {
+  Widget inputField(
+    String name,
+    TextEditingController controller,
+  ) {
     return Padding(
-        padding: const EdgeInsets.all(10),
-        child: TextField(
-          maxLines: name == 'Description' ? null : 1,
-          controller: controller,
-          keyboardType: TextInputType.text,
-          decoration: InputDecoration(
-              errorText: name == 'Title'
-                  ? _validateTitle
+      padding: const EdgeInsets.all(
+        10,
+      ),
+      child: TextField(
+        maxLines: name == 'Description' ? null : 1,
+        controller: controller,
+        keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+          errorText: name == 'Title'
+              ? _validateTitle
+                  ? "Field Can't Be Empty"
+                  : null
+              : name == 'Description'
+                  ? _validateDescription
                       ? "Field Can't Be Empty"
                       : null
-                  : name == 'Description'
-                      ? _validateDescription
+                  : name == 'Location'
+                      ? _validateLocation
                           ? "Field Can't Be Empty"
                           : null
-                      : name == 'Location'
-                          ? _validateLocation
-                              ? "Field Can't Be Empty"
-                              : null
-                          : null,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: const BorderSide(color: Colors.teal)),
-              hintText: name),
-        ));
+                      : null,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+              20.0,
+            ),
+            borderSide: const BorderSide(
+              color: Colors.teal,
+            ),
+          ),
+          hintText: name,
+        ),
+      ),
+    );
   }
 
-  Widget switchTile(String name) {
+  Widget switchTile(
+    String name,
+  ) {
     return SwitchListTile(
-        activeColor: UIData.secondaryColor,
-        value: switchVals[name],
-        contentPadding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.safeBlockHorizontal * 5),
-        title: Text(
-          name,
-          style: TextStyle(color: Colors.grey[600]),
+      activeColor: UIData.secondaryColor,
+      value: switchVals[name],
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: SizeConfig.safeBlockHorizontal * 5,
+      ),
+      title: Text(
+        name,
+        style: TextStyle(
+          color: Colors.grey[600],
         ),
-        onChanged: (val) {
-          setState(() {
-            switchVals[name] = val;
-          });
+      ),
+      onChanged: (val) {
+        setState(() {
+          switchVals[name] = val;
         });
+      },
+    );
   }
 
   Widget recurrencedropdown() {
     return ListTile(
-      contentPadding:
-          EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: SizeConfig.safeBlockHorizontal * 5,
+      ),
       leading: Text(
         'Recurrence',
-        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+        style: TextStyle(
+          fontSize: 16,
+          color: Colors.grey[600],
+        ),
       ),
       trailing: AbsorbPointer(
         absorbing: !switchVals['Recurring'],
         child: DropdownButton<String>(
           style: TextStyle(
-              color: switchVals['Recurring']
-                  ? UIData.secondaryColor
-                  : Colors.grey),
+            color:
+                switchVals['Recurring'] ? UIData.secondaryColor : Colors.grey,
+          ),
           value: recurrance,
-          icon: const Icon(Icons.arrow_drop_down),
+          icon: const Icon(
+            Icons.arrow_drop_down,
+          ),
           onChanged: (String newValue) {
             setState(() {
               recurrance = newValue;
             });
           },
-          items: recurranceList.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
+          items: recurranceList.map<DropdownMenuItem<String>>(
+            (String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            },
+          ).toList(),
         ),
       ),
     );
@@ -338,8 +459,9 @@ class _EditEventState extends State<EditEvent> {
             });
           }
           Fluttertoast.showToast(
-              msg: 'Fill in the empty fields',
-              backgroundColor: Colors.grey[500]);
+            msg: 'Fill in the empty fields',
+            backgroundColor: Colors.grey[500],
+          );
         } else {
           try {
             showProgress(context, 'Updating Event Details . . .',
@@ -348,15 +470,18 @@ class _EditEventState extends State<EditEvent> {
           } catch (e) {
             if (e == "User cannot delete event they didn't create") {
               Fluttertoast.showToast(
-                  msg: "You can't edit events you didn't create",
-                  backgroundColor: Colors.grey[500]);
+                msg: "You can't edit events you didn't create",
+                backgroundColor: Colors.grey[500],
+              );
             }
           }
           hideProgress();
-          print('EDITING DONE');
+          debugPrint('EDITING DONE');
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const Events()),
+              MaterialPageRoute(
+                builder: (context) => const Events(),
+              ),
               (route) => false);
         }
       },

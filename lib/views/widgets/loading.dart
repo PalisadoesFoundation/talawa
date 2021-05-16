@@ -33,6 +33,7 @@ class _LoadingState extends State<Loading> {
         loading = true;
       });
     }
+
     _timer = Timer(const Duration(seconds: 5), () {
       if (mounted) {
         setState(() {
@@ -40,18 +41,23 @@ class _LoadingState extends State<Loading> {
         });
       }
     });
+
   }
 
   @override
   void initState() {
     super.initState();
     loadingFunc();
-    print(1);
+    debugPrint("1");
   }
 
   @override
-  void didUpdateWidget(Loading oldWidget) {
-    super.didUpdateWidget(oldWidget);
+  void didUpdateWidget(
+    Loading oldWidget,
+  ) {
+    super.didUpdateWidget(
+      oldWidget,
+    );
     loadingFunc();
   }
 
@@ -72,6 +78,7 @@ class _LoadingState extends State<Loading> {
   }
 
   @override
+
   Widget build(BuildContext context) {
     return loading && widget.isNetworkError == null
         ? const CircularProgressIndicator()
@@ -172,6 +179,7 @@ class _LoadingState extends State<Loading> {
                   )
                 ],
               );
+
   }
 }
 

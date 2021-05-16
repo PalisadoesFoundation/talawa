@@ -103,27 +103,37 @@ class _UrlPageState extends State<UrlPage>
     // Initializing all the animationControllers
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(
+        milliseconds: 2000,
+      ),
     );
     loginController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(
+        milliseconds: 500,
+      ),
     );
 
     helloController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(
+        milliseconds: 500,
+      ),
     );
 
     createController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(
+        milliseconds: 500,
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    assignAnimation(firstTime: first);
+    assignAnimation(
+      firstTime: first,
+    );
     load();
     SizeConfig().init(context);
 
@@ -143,13 +153,21 @@ class _UrlPageState extends State<UrlPage>
           Container(
             //container with login and sign up button
             padding: EdgeInsets.fromLTRB(
-                0, 0, 0, SizeConfig.safeBlockVertical * 6.25),
+              0,
+              0,
+              0,
+              SizeConfig.safeBlockVertical * 6.25,
+            ),
 
             child: Column(
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.fromLTRB(
-                      SizeConfig.safeBlockHorizontal * 5, 0, 0, 0),
+                    SizeConfig.safeBlockHorizontal * 5,
+                    0,
+                    0,
+                    0,
+                  ),
                   width: _media != null
                       ? _media.size.width
                       : MediaQuery.of(context).size.width,
@@ -201,9 +219,10 @@ class _UrlPageState extends State<UrlPage>
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(
-                          left: SizeConfig.safeBlockHorizontal * 5,
-                          right: SizeConfig.safeBlockHorizontal * 7.5,
-                          top: SizeConfig.safeBlockVertical * 1.25),
+                        left: SizeConfig.safeBlockHorizontal * 5,
+                        right: SizeConfig.safeBlockHorizontal * 7.5,
+                        top: SizeConfig.safeBlockVertical * 1.25,
+                      ),
                       alignment: Alignment.center,
                       child: Column(
                         children: [
@@ -247,41 +266,51 @@ class _UrlPageState extends State<UrlPage>
                               ),
                               Expanded(
                                 child: Form(
-                                    key: _formKey,
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.url,
-                                      validator: (value) =>
-                                          Validator.validateURL(
-                                              urlController.text),
-                                      textAlign: TextAlign.left,
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              color: Colors.white),
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
+                                  key: _formKey,
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.url,
+                                    validator: (value) => Validator.validateURL(
+                                      urlController.text,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Colors.white,
                                         ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              color: Colors.orange),
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
+                                        borderRadius: BorderRadius.circular(
+                                          50.0,
                                         ),
-                                        prefixIcon: const Icon(Icons.web,
-                                            color: Colors.white),
-                                        labelText: "Type Org URL Here",
-                                        labelStyle: const TextStyle(
-                                            color: Colors.white),
-                                        alignLabelWithHint: true,
-                                        hintText:
-                                            'talawa-graphql-api.herokuapp.com/graphql',
-                                        hintStyle:
-                                            const TextStyle(color: Colors.grey),
                                       ),
-                                      controller: urlController,
-                                    )),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Colors.orange,
+                                        ),
+                                        borderRadius: BorderRadius.circular(
+                                          50.0,
+                                        ),
+                                      ),
+                                      prefixIcon: const Icon(
+                                        Icons.web,
+                                        color: Colors.white,
+                                      ),
+                                      labelText: "Type Org URL Here",
+                                      labelStyle: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                      alignLabelWithHint: true,
+                                      hintText:
+                                          'talawa-graphql-api.herokuapp.com/graphql',
+                                      hintStyle: const TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    controller: urlController,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
@@ -374,9 +403,10 @@ class _UrlPageState extends State<UrlPage>
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(
-                          left: SizeConfig.safeBlockHorizontal * 12.5,
-                          right: SizeConfig.safeBlockHorizontal * 12.5,
-                          top: SizeConfig.safeBlockVertical * 1.25),
+                        left: SizeConfig.safeBlockHorizontal * 12.5,
+                        right: SizeConfig.safeBlockHorizontal * 12.5,
+                        top: SizeConfig.safeBlockVertical * 1.25,
+                      ),
                       alignment: Alignment.center,
                       child: Row(
                         children: <Widget>[
@@ -385,7 +415,9 @@ class _UrlPageState extends State<UrlPage>
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderRadius: BorderRadius.circular(
+                                    30.0,
+                                  ),
                                 ),
                               ),
                               onPressed: saveMsg != "URL SAVED!"
@@ -396,8 +428,9 @@ class _UrlPageState extends State<UrlPage>
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  RegisterPage()),
+                                            builder: (context) =>
+                                                RegisterPage(),
+                                          ),
                                         );
                                       }
                                     },
@@ -408,8 +441,13 @@ class _UrlPageState extends State<UrlPage>
                                       SizeConfig.safeBlockHorizontal * 5,
                                 ),
                                 decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.orange),
-                                    borderRadius: BorderRadius.circular(50.0)),
+                                  border: Border.all(
+                                    color: Colors.orange,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    50.0,
+                                  ),
+                                ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const <Widget>[
@@ -435,7 +473,9 @@ class _UrlPageState extends State<UrlPage>
                     ),
                   ),
                 ),
-                SizedBox(height: SizeConfig.safeBlockVertical * 0.75),
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical * 0.75,
+                ),
                 FadeTransition(
                   opacity: loginAnimation,
                   child: Container(
@@ -444,9 +484,10 @@ class _UrlPageState extends State<UrlPage>
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(
-                          left: SizeConfig.safeBlockHorizontal * 12.5,
-                          right: SizeConfig.safeBlockHorizontal * 12.5,
-                          top: SizeConfig.safeBlockVertical * 1.25),
+                        left: SizeConfig.safeBlockHorizontal * 12.5,
+                        right: SizeConfig.safeBlockHorizontal * 12.5,
+                        top: SizeConfig.safeBlockVertical * 1.25,
+                      ),
                       alignment: Alignment.center,
                       child: Row(
                         children: <Widget>[
@@ -455,7 +496,9 @@ class _UrlPageState extends State<UrlPage>
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderRadius: BorderRadius.circular(
+                                    30.0,
+                                  ),
                                 ),
                               ),
                               onPressed: saveMsg != "URL SAVED!"
@@ -464,10 +507,11 @@ class _UrlPageState extends State<UrlPage>
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
                                         Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginPage()));
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => LoginPage(),
+                                          ),
+                                        );
                                       }
                                     },
                               child: Container(
@@ -477,8 +521,11 @@ class _UrlPageState extends State<UrlPage>
                                       SizeConfig.safeBlockHorizontal * 5,
                                 ),
                                 decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.orange),
-                                    borderRadius: BorderRadius.circular(50.0)),
+                                  border: Border.all(color: Colors.orange),
+                                  borderRadius: BorderRadius.circular(
+                                    50.0,
+                                  ),
+                                ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const <Widget>[

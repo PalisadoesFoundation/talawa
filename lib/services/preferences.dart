@@ -21,13 +21,18 @@ class Preferences with ChangeNotifier {
   //it saves the user first name
   Future saveUserFName(String fName) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString(userFName, fName);
+    await preferences.setString(
+      userFName,
+      fName,
+    );
   }
 
   //it gets the user first name
   Future<String> getUserFName() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final String fname = preferences.getString(userFName);
+    final String fname = preferences.getString(
+      userFName,
+    );
     notifyListeners();
     return fname;
   }
@@ -35,13 +40,18 @@ class Preferences with ChangeNotifier {
   //saves the user last name
   Future saveUserLName(String lName) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString(userLName, lName);
+    await preferences.setString(
+      userLName,
+      lName,
+    );
   }
 
   //gets the user last name
   Future<String> getUserLName() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final String lname = preferences.getString(userLName);
+    final String lname = preferences.getString(
+      userLName,
+    );
     notifyListeners();
     return lname;
   }
@@ -49,13 +59,18 @@ class Preferences with ChangeNotifier {
   //saves the organization url
   Future saveOrgImgUrl(String url) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString(orgImgUrl, url);
+    await preferences.setString(
+      orgImgUrl,
+      url,
+    );
   }
 
   //get the organization url
   Future<String> getOrgImgUrl() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final String url = preferences.getString(orgImgUrl);
+    final String url = preferences.getString(
+      orgImgUrl,
+    );
     notifyListeners();
     return url;
   }
@@ -63,13 +78,18 @@ class Preferences with ChangeNotifier {
   //saves the organization url
   Future saveOrgUrl(String url) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString(orgUrl, url);
+    await preferences.setString(
+      orgUrl,
+      url,
+    );
   }
 
   //get the organization url
   Future<String> getOrgUrl() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final String url = preferences.getString(orgUrl);
+    final String url = preferences.getString(
+      orgUrl,
+    );
     notifyListeners();
     return url;
   }
@@ -77,13 +97,18 @@ class Preferences with ChangeNotifier {
   //saves the current organization name
   Future saveCurrentOrgName(String currName) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString(currentOrgName, currName);
+    await preferences.setString(
+      currentOrgName,
+      currName,
+    );
   }
 
   //get the current organization name
   Future<String> getCurrentOrgName() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    orgName = preferences.getString(currentOrgName);
+    orgName = preferences.getString(
+      currentOrgName,
+    );
     notifyListeners();
     return orgName;
   }
@@ -91,13 +116,18 @@ class Preferences with ChangeNotifier {
   //saves the current organization image source
   Future saveCurrentOrgImgSrc(String currImgSrc) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString(currentOrgImgSrc, currImgSrc);
+    await preferences.setString(
+      currentOrgImgSrc,
+      currImgSrc,
+    );
   }
 
   //gets the current organization image source
   Future<String> getCurrentOrgImgSrc() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    orgImgSrc = preferences.getString(currentOrgImgSrc);
+    orgImgSrc = preferences.getString(
+      currentOrgImgSrc,
+    );
     notifyListeners();
     return orgImgSrc;
   }
@@ -105,13 +135,18 @@ class Preferences with ChangeNotifier {
   //saves the current organization id
   Future saveCurrentOrgId(String currOrgId) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString(currentOrgId, currOrgId);
+    await preferences.setString(
+      currentOrgId,
+      currOrgId,
+    );
   }
 
   //get the current organization id
   Future<String> getCurrentOrgId() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final String currentId = preferences.getString(currentOrgId);
+    final String currentId = preferences.getString(
+      currentOrgId,
+    );
     notifyListeners();
     return currentId;
   }
@@ -119,13 +154,18 @@ class Preferences with ChangeNotifier {
   //saves the user id
   Future saveUserId(String userID) async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setString(userId, userID);
+    await preferences.setString(
+      userId,
+      userID,
+    );
   }
 
   //gets the user id
   Future<String> getUserId() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final String uid = preferences.getString(userId);
+    final String uid = preferences.getString(
+      userId,
+    );
     return uid;
   }
 
@@ -138,13 +178,15 @@ class Preferences with ChangeNotifier {
         value: (token.tokenString != null && token.tokenString.isNotEmpty)
             ? token.tokenString
             : "");
-    //print("Saved token");
+    //debugPrint("Saved token");
   }
 
   //gets the current token
   Future<String> getToken() async {
     const storage = FlutterSecureStorage();
-    final String userToken = await storage.read(key: tokenKey);
+    final String userToken = await storage.read(
+      key: tokenKey,
+    );
     //print("getToken");
     return userToken;
   }
@@ -158,13 +200,15 @@ class Preferences with ChangeNotifier {
         value: (token.tokenString != null && token.tokenString.isNotEmpty)
             ? token.tokenString
             : "");
-    //print("Saved refresh token");
+    //debugPrint("Saved refresh token");
   }
 
   //get the refreshed token
   Future<String> getRefreshToken() async {
     const storage = FlutterSecureStorage();
-    final String refreshToken = await storage.read(key: refreshTokenKey);
+    final String refreshToken = await storage.read(
+      key: refreshTokenKey,
+    );
     //print("Got refresh token");
     return refreshToken;
   }
@@ -176,10 +220,10 @@ class Preferences with ChangeNotifier {
       final Token token =
           Token(tokenString: await storage.read(key: tokenKey) ?? "");
       final Map<String, dynamic> tokenMap = token.parseJwt();
-      //print("Got uid");
+      //debugPrint("Got uid");
       return tokenMap['id'] as int;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return -1;
   }
@@ -189,19 +233,37 @@ class Preferences with ChangeNotifier {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     const storage = FlutterSecureStorage();
     try {
-      await storage.delete(key: tokenKey);
-      //print("Delete token");
-      preferences.remove(currentOrgId);
-      await storage.delete(key: refreshTokenKey);
-      //print("Refresh token");
-      preferences.remove(userId);
-      preferences.remove(currentOrgName);
-      preferences.remove(currentOrgImgSrc);
-      preferences.remove(orgUrl);
-      preferences.remove(userFName);
-      preferences.remove(userLName);
+      await storage.delete(
+        key: tokenKey,
+      );
+
+      preferences.remove(
+        currentOrgId,
+      );
+      await storage.delete(
+        key: refreshTokenKey,
+      );
+
+      preferences.remove(
+        userId,
+      );
+      preferences.remove(
+        currentOrgName,
+      );
+      preferences.remove(
+        currentOrgImgSrc,
+      );
+      preferences.remove(
+        orgUrl,
+      );
+      preferences.remove(
+        userFName,
+      );
+      preferences.remove(
+        userLName,
+      );
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
     return true;
@@ -211,10 +273,14 @@ class Preferences with ChangeNotifier {
   static Future<bool> removeOrg() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     try {
-      preferences.remove(currentOrgId);
-      preferences.remove(currentOrgName);
+      preferences.remove(
+        currentOrgId,
+      );
+      preferences.remove(
+        currentOrgName,
+      );
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
     return true;

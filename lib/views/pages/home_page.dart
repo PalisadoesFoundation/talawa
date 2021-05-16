@@ -1,5 +1,4 @@
 //imported flutter packages
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //importing the pages here
@@ -20,7 +19,9 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'organization/profile_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({this.openPageIndex = 0});
+  const HomePage({
+    this.openPageIndex = 0,
+  });
   final int openPageIndex;
   @override
   _HomePageState createState() => _HomePageState();
@@ -43,7 +44,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     currentIndex = widget.openPageIndex;
-    _controller = PersistentTabController(initialIndex: currentIndex);
+    _controller = PersistentTabController(
+      initialIndex: currentIndex,
+    );
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
     Provider.of<Preferences>(context, listen: false).getCurrentOrgId();
   }
@@ -58,19 +61,22 @@ class _HomePageState extends State<HomePage> {
     final String userID = await preferences
         .getUserId(); //getting the current user id from the server
     final String mutation = Queries().fetchUserInfo2(
-        userID); //getting some more user information with the ID
+      userID,
+    ); //getting some more user information with the ID
     final ApiFunctions apiFunctions = ApiFunctions();
-    await apiFunctions.gqlmutation(mutation);
+    await apiFunctions.gqlmutation(
+      mutation,
+    );
   }
 
   List<Widget> _buildScreens() {
     //here we are building the screens that are mention in the app bar
     return [
-      const NewsFeed(), //first page of the news feed
-      const Groups(), //second page of the Group chatting event
-      const Events(), //Third page of creating the events and viewing it
-      const Organizations(), //fourth page of seeing the organization
-      const ProfilePage(), //last page of the profile
+      const NewsFeed(), //first page - news feed
+      const Groups(), //second page - Group chatting event
+      const Events(), //Third page - creating the events and viewing it
+      const Organizations(), //fourth page - seeing the organization
+      const ProfilePage(), //last page - the profile
     ];
   }
 
@@ -78,35 +84,45 @@ class _HomePageState extends State<HomePage> {
     return [
       PersistentBottomNavBarItem(
         //mentioning the screen home in the bottom bar
-        icon: const Icon(Icons.home),
+        icon: const Icon(
+          Icons.home,
+        ),
         title: "Home",
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         //mentioning the screen chats in the bottom bar
-        icon: const Icon(Icons.chat),
+        icon: const Icon(
+          Icons.chat,
+        ),
         title: "Chats",
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         //mentioning the Events home in the bottom bar
-        icon: const Icon(Icons.calendar_today),
+        icon: const Icon(
+          Icons.calendar_today,
+        ),
         title: "Events",
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         //mentioning the screen home in the bottom bar
-        icon: const Icon(Icons.group),
+        icon: const Icon(
+          Icons.group,
+        ),
         title: "Members",
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
       PersistentBottomNavBarItem(
         //mentioning the screen Profile in the bottom bar
-        icon: const Icon(Icons.folder),
+        icon: const Icon(
+          Icons.folder,
+        ),
         title: "Profile",
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
@@ -114,7 +130,9 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
-  void onTabTapped(int index) {
+  void onTabTapped(
+    int index,
+  ) {
     //this function tells us what should be done if the particular tab is clicked
     setState(() {
       currentIndex = index;
@@ -122,7 +140,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     SizeConfig().init(context);
     return MultiProvider(
       providers: [
@@ -136,12 +156,19 @@ class _HomePageState extends State<HomePage> {
           create: (_) => PostController(),
         ),
       ],
-      child: Builder(builder: (BuildContext context) {
-        final BuildContext rootContext = context;
-        Provider.of<GraphQLConfiguration>(rootContext, listen: false)
-            .getOrgUrl();
-        Provider.of<Preferences>(rootContext, listen: false).getCurrentOrgId();
-        return PersistentTabView(rootContext,
+      child: Builder(
+        builder: (
+          BuildContext context,
+        ) {
+          final BuildContext rootContext = context;
+          Provider.of<GraphQLConfiguration>(rootContext, listen: false)
+              .getOrgUrl();
+          Provider.of<Preferences>(
+            rootContext,
+            listen: false,
+          ).getCurrentOrgId();
+          return PersistentTabView(
+            rootContext,
             backgroundColor: UIData.primaryColor,
             controller: _controller,
             items: _navBarsItems(),
@@ -157,8 +184,10 @@ class _HomePageState extends State<HomePage> {
               animateTabTransition: true,
               curve: Curves.ease,
               duration: Duration(milliseconds: 200),
-            ));
-      }),
+            ),
+          );
+        },
+      ),
     );
   }
 }
