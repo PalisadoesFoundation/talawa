@@ -172,6 +172,11 @@ class NewsFeed extends StatelessWidget {
                                                 ],
                                               ),
                                             ),
+                                            SizedBox(
+                                              height:
+                                                  SizeConfig.safeBlockVertical *
+                                                      1.25,
+                                            ),
                                           ],
                                         ),
                                       ),

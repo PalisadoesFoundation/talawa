@@ -8,6 +8,7 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/page_view_model/events_page_view_model.dart';
 import 'package:talawa/views/pages/events/event_card_widget.dart';
+import 'package:talawa/views/widgets/loader_gen.dart';
 import 'package:talawa/views/widgets/loading.dart';
 import 'package:talawa/views/widgets/loading_gen.dart';
 import 'package:timeline_list/timeline.dart';

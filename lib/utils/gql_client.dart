@@ -25,7 +25,7 @@ class GraphQLConfiguration with ChangeNotifier {
     final imgUrl = await _pref.getOrgImgUrl();
     displayImgRoute = imgUrl;
     notifyListeners();
-    print(orgURI);
+    debugPrint(orgURI);
   }
 
   static HttpLink httpLink = HttpLink(
@@ -36,7 +36,9 @@ class GraphQLConfiguration with ChangeNotifier {
     getToken: () async => 'Bearer $token',
   );
 
-  static final Link finalAuthLink = authLink.concat(httpLink);
+  static final Link finalAuthLink = authLink.concat(
+    httpLink,
+  );
 
   GraphQLClient clientToQuery() {
     return GraphQLClient(

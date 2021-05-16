@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talawa/utils/ui_scaling.dart';
-import 'package:talawa/views/pages/organization/join_organization.dart';
+import 'package:talawa/views/pages/organization/join_organization_view.dart';
 
 class Loading extends StatefulWidget {
   const Loading(
@@ -33,6 +33,7 @@ class _LoadingState extends State<Loading> {
         loading = true;
       });
     }
+
     _timer = Timer(const Duration(seconds: 5), () {
       if (mounted) {
         setState(() {
@@ -46,12 +47,16 @@ class _LoadingState extends State<Loading> {
   void initState() {
     super.initState();
     loadingFunc();
-    print(1);
+    debugPrint("1");
   }
 
   @override
-  void didUpdateWidget(Loading oldWidget) {
-    super.didUpdateWidget(oldWidget);
+  void didUpdateWidget(
+    Loading oldWidget,
+  ) {
+    super.didUpdateWidget(
+      oldWidget,
+    );
     loadingFunc();
   }
 
