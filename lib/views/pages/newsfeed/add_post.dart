@@ -43,10 +43,14 @@ class _AddPostState extends State<AddPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        key: const Key('ADD_POST_APP_BAR'),
+        key: const Key(
+          'ADD_POST_APP_BAR',
+        ),
         title: const Text(
           'New Post',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -62,7 +66,9 @@ class _AddPostState extends State<AddPost> {
                     child: TextFormField(
                       maxLines: null,
                       keyboardType: TextInputType.multiline,
-                      inputFormatters: [LengthLimitingTextInputFormatter(30)],
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(30),
+                      ],
                       key: const Key('Title'),
                       textInputAction: TextInputAction.next,
                       validator: (String value) {
@@ -84,7 +90,6 @@ class _AddPostState extends State<AddPost> {
                         ),
                         labelText: 'Give your post a title....',
                       ),
-                      //  'Give your post a title....',
                     ),
                   ),
                 ),
@@ -94,10 +99,12 @@ class _AddPostState extends State<AddPost> {
                     child: TextFormField(
                       maxLines: null,
                       inputFormatters: [
-                        LengthLimitingTextInputFormatter(10000)
+                        LengthLimitingTextInputFormatter(10000),
                       ],
                       keyboardType: TextInputType.multiline,
-                      key: const Key('Description'),
+                      key: const Key(
+                        'Description',
+                      ),
                       controller: textController,
                       validator: (String value) {
                         if (value.length > 10000) {
@@ -116,8 +123,7 @@ class _AddPostState extends State<AddPost> {
                           ),
                         ),
                         labelText: 'Write Your post here....',
-                      ),
-                      //  'Give your post Description here....',
+                      ), //  'Give your post Description here....',
                     ),
                   ),
                 ),
@@ -155,20 +161,27 @@ class _AddPostState extends State<AddPost> {
 
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(
+        10,
+      ),
       child: TextField(
         inputFormatters: [
-          LengthLimitingTextInputFormatter(10),
+          LengthLimitingTextInputFormatter(
+            10,
+          ),
         ],
         keyboardType: TextInputType.multiline,
         controller: controller,
         decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),
-            borderSide: const BorderSide(color: Colors.teal),
-          ),
-          hintText: name,
-        ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                20.0,
+              ),
+              borderSide: const BorderSide(
+                color: Colors.teal,
+              ),
+            ),
+            hintText: name),
       ),
     );
   }

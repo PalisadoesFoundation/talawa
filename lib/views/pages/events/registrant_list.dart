@@ -33,11 +33,12 @@ class _RegListState extends State<RegList> {
   //method to get the list of registrants
   Future<List<dynamic>> getRegistrants() async {
     final String userID = widget.event['_id'].toString();
-    final Map result =
-        await apiFunctions.gqlquery(Queries().getRegistrantsByEvent(userID));
-    //setState(() {
+    final Map result = await apiFunctions.gqlquery(
+      Queries().getRegistrantsByEvent(
+        userID,
+      ),
+    );
 
-    // });
     // ignore: join_return_with_assignment
     eventTasks = result == null ? [] : result['registrantsByEvent'] as List;
     return eventTasks;
@@ -48,34 +49,42 @@ class _RegListState extends State<RegList> {
     final task = getRegistrants();
     return Container(
       child: FutureBuilder<List<dynamic>>(
-          future: task,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.data.isEmpty) {
-              return Container(
-                child: const Center(
-                    child: Text(
+        future: task,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.data.isEmpty) {
+            return Container(
+              child: const Center(
+                child: Text(
                   "No Registrants found",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                   textAlign: TextAlign.center,
-                )),
-              );
-            } else {
-              return SingleChildScrollView(
-                child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        leading:
-                            Text(snapshot.data[index]['firstName'].toString()),
-                      );
-                    }),
-              );
-            }
-          }),
+                ),
+              ),
+            );
+          } else {
+            return SingleChildScrollView(
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Text(
+                      snapshot.data[index]['firstName'].toString(),
+                    ),
+                  );
+                },
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }

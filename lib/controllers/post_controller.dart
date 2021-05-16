@@ -62,7 +62,9 @@ class PostController with ChangeNotifier {
     print(result);
     posts[index]["likeCount"]++;
     print(index);
-    posts[index]['likedBy'].add({'_id': currentUserID});
+    posts[index]['likedBy'].add(
+      {'_id': currentUserID},
+    );
     print(posts[index]["likeCount"]);
     likePostMap[posts[index]['_id'] as String] = true;
     notifyListeners();
@@ -74,7 +76,9 @@ class PostController with ChangeNotifier {
     final Map result = await apiFunctions.gqlmutation(mutation) as Map;
     print(result);
     posts[index]["likeCount"]--;
-    posts[index]['likedBy'].remove(posts[index]['likedCount']);
+    posts[index]['likedBy'].remove(
+      posts[index]['likedCount'],
+    );
     print(posts[index]["likeCount"]);
     likePostMap[posts[index]['_id'] as String] = false;
     notifyListeners();
