@@ -25,10 +25,12 @@ Widget userTasksPage() => MultiProvider(
       child: MaterialApp(
         home: Builder(builder: (context) {
           SizeConfig().init(context);
-          return UserTasks(
-            member: const {
-              '_id': "6076f6d2cd2288002704654b",
-            },
+          return Scaffold(
+            body: UserTasks(
+              member: const {
+                '_id': "6076f6d2cd2288002704654b",
+              },
+            ),
           );
         }),
       ),
@@ -45,7 +47,7 @@ void main() {
 
       await tester.pumpAndSettle();
       //verify if [users task tab ] page appears
-      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(Container), findsWidgets);
     });
 
     testWidgets("Testing overflow of users task tab  page in a mobile screen",
@@ -59,7 +61,7 @@ void main() {
       await tester.pumpAndSettle();
 
       //verify if [users task tab] page appears
-      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(Container), findsWidgets);
     });
     testWidgets("Testing overflow of users task tab in a tablet screen",
         (tester) async {
@@ -72,7 +74,7 @@ void main() {
 
       //verify if [ users task tab ] page appears
 
-      expect(find.byType(Container), findsOneWidget);
+      expect(find.byType(Container), findsWidgets);
     });
   });
 }
