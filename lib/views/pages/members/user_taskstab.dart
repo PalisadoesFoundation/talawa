@@ -64,6 +64,7 @@ class _UserTasksState extends State<UserTasks> {
   Widget build(BuildContext context) {
     return userTasks == null
         ? Container(
+
             key: const Key("User Task Loading"),
             child: Center(
               child: Loading(
@@ -73,6 +74,7 @@ class _UserTasksState extends State<UserTasks> {
                 emptyContentMsg: 'No Tasks found, Create One!',
                 refreshFunction: getUserDetails,
               ),
+
             ),
           )
         : userTasks.isNotEmpty

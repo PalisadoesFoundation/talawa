@@ -79,7 +79,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
         builder: (_, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return Padding(
+
               padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
+
               child: CircleAvatar(
                 radius: SizeConfig.safeBlockVertical * 5,
               ),
@@ -87,7 +89,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
           } else {
             return _imgSrc != null
                 ? Padding(
+
                     padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
+
                     child: CircleAvatar(
                       radius: SizeConfig.safeBlockVertical * 5,
                       backgroundImage: NetworkImage(
@@ -99,9 +103,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 : Padding(
                     padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
                     child: CircleAvatar(
+
                         radius: SizeConfig.safeBlockVertical * 5,
                         backgroundImage:
                             const AssetImage("assets/images/team.png")),
+
                   );
           }
         },
