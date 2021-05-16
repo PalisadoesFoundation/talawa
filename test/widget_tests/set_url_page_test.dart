@@ -6,13 +6,17 @@ import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/controllers/url_controller.dart';
 import 'package:talawa/services/comment.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
 import '../helper.dart';
+import 'package:talawa/router.dart' as router;
 
 Widget createLoginPageScreen() => MultiProvider(
       providers: [
@@ -23,12 +27,15 @@ Widget createLoginPageScreen() => MultiProvider(
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
         ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
+        ChangeNotifierProvider<UrlController>(create: (_) => UrlController()),
       ],
       child: MaterialApp(
         home: Builder(builder: (context) {
           SizeConfig().init(context);
           return UrlPage();
         }),
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
       ),
     );
 
@@ -36,9 +43,10 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
-
+  setupLocator();
   group("Login Page Tests", () {
     testWidgets("Testing if LoginPage shows up", (tester) async {
+      // locator.registerLazySingleton(() => NavigationService());
       await tester.pumpWidget(createLoginPageScreen());
 
       /// Verify if [LoginPage] shows up.
@@ -122,7 +130,6 @@ void main() {
         (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
-
       await tester.pumpWidget(createLoginPageScreen());
 
       // Get the create account button.

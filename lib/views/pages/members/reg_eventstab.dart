@@ -62,16 +62,22 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
                 itemCount: userEvents.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    leading: Text('${userEvents[index]['title']}'),
+                    leading: Text(
+                      '${userEvents[index]['title']}',
+                    ),
                   );
-                })
+                },
+              )
             : Container(
                 child: const Center(
-                    child: Text(
-                  "No registered events",
-                  style: TextStyle(fontSize: 20),
-                  textAlign: TextAlign.center,
-                )),
+                  child: Text(
+                    "No registered events",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               );
   }
 }

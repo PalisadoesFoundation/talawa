@@ -39,7 +39,9 @@ class PostController with ChangeNotifier {
     debugPrint(currentOrgID);
     final String query = Queries().getPostsById(currentOrgID);
     final Map result = await apiFunctions.gqlquery(query);
-    print(DateTime.now().difference(d1));
+    print(
+      DateTime.now().difference(d1),
+    );
     if (result != null) {
       print(posts.isEmpty);
       updateLikepostMap(currentUserID);

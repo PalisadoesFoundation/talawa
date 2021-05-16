@@ -17,6 +17,7 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/members/member_details.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+
 import 'package:talawa/views/widgets/loading.dart';
 
 class Organizations extends StatefulWidget {
@@ -63,6 +64,7 @@ class _OrganizationsState extends State<Organizations> {
   Future<List> getMembers() async {
     currentOrgID = await preferences.getCurrentOrgId();
     print(currentOrgID);
+
     if (currentOrgID != null) {
       final ApiFunctions apiFunctions = ApiFunctions();
       final result =

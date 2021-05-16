@@ -31,7 +31,9 @@ class _GroupsState extends State<Groups> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        key: const Key('GROUPS_APP_BAR'),
+        key: const Key(
+          'GROUPS_APP_BAR',
+        ),
         title: const Text(
           'Chats',
           style: TextStyle(color: Colors.white),

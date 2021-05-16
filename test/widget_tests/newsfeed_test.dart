@@ -5,12 +5,15 @@ import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/newsfeed/newsfeed.dart';
 import 'package:talawa/views/widgets/custom_appbar.dart';
+import 'package:talawa/router.dart' as router;
 
 Widget newsfeedPage() => MultiProvider(
       providers: [
@@ -37,6 +40,8 @@ Widget newsfeedPage() => MultiProvider(
             return const NewsFeed();
           },
         ),
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
       ),
     );
 
@@ -44,6 +49,7 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
+  setupLocator();
 
   group("News Feed Tests", () {
     testWidgets("Testing if newsfeed Page shows up", (tester) async {

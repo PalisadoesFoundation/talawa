@@ -43,10 +43,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
     final GraphQLClient _client = graphQLConfiguration.clientToQuery();
     final String orgId = await preferences.getCurrentOrgId();
 
-    final QueryResult result = await _client
-        .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(
+          _query.fetchOrgById(orgId),
+        ),
+      ),
+    );
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
     } else if (!result.hasException) {
       final res = result.data['organizations'][0]['image'];
       if (res == null) {
@@ -59,11 +64,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return AppBar(
       title: Text(
         widget.title,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(
+          color: Colors.white,
+        ),
       ),
       leading: FutureBuilder(
         future: getImg(),
@@ -85,7 +94,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           Provider.of<GraphQLConfiguration>(context)
                                   .displayImgRoute +
                               _imgSrc),
-                    ))
+                    ),
+                  )
                 : Padding(
                     padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
                     child: CircleAvatar(

@@ -41,9 +41,11 @@ class _UserTasksState extends State<UserTasks> {
     final Map result =
         await apiFunctions.gqlquery(Queries().tasksByUser(userID));
     print(result);
-    setState(() {
-      userTasks = result == null ? [] : result['tasksByUser'] as List;
-    });
+    setState(
+      () {
+        userTasks = result == null ? [] : result['tasksByUser'] as List;
+      },
+    );
   }
 
   @override
@@ -73,7 +75,9 @@ class _UserTasksState extends State<UserTasks> {
           )
         : userTasks.isNotEmpty
             ? Container(
-                key: const Key("User Task Exists"),
+                key: const Key(
+                  "User Task Exists",
+                ),
                 child: ListView.builder(
                     itemCount: userTasks.length,
                     itemBuilder: (context, index) {
@@ -97,20 +101,25 @@ class _UserTasksState extends State<UserTasks> {
                               'Description: $description',
                             ),
                             contentPadding: EdgeInsets.fromLTRB(
-                                SizeConfig.safeBlockHorizontal * 2,
-                                SizeConfig.safeBlockVertical,
-                                SizeConfig.safeBlockHorizontal * 2,
-                                SizeConfig.safeBlockVertical),
+                              SizeConfig.safeBlockHorizontal * 2,
+                              SizeConfig.safeBlockVertical,
+                              SizeConfig.safeBlockHorizontal * 2,
+                              SizeConfig.safeBlockVertical,
+                            ),
                           ),
                         ],
                       ));
                     }))
             : Container(
-                key: const Key("User Task Not Exists"),
+                key: const Key(
+                  "User Task Not Exists",
+                ),
                 child: const Center(
                   child: Text(
                     "No Tasks found",
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),

@@ -83,7 +83,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       return updateOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
       });
@@ -137,140 +137,175 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Update Organization',
-            style: TextStyle(color: Colors.white),
+      appBar: AppBar(
+        title: const Text(
+          'Update Organization',
+          style: TextStyle(
+            color: Colors.white,
           ),
         ),
-        body: Container(
-          color: Colors.white,
-          child: radioValue == null
-              ? const Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  scrollDirection: Axis.vertical,
-                  child: Form(
-                    key: _formKey,
-                    autovalidateMode: _validate,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-                      child: Column(
-                        children: <Widget>[
-                          const Image(
-                              image: AssetImage('assets/images/team.png')),
-                          const SizedBox(
-                            height: 20,
+      ),
+      body: Container(
+        color: Colors.white,
+        child: radioValue == null
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                padding: const EdgeInsets.only(
+                  bottom: 10.0,
+                ),
+                scrollDirection: Axis.vertical,
+                child: Form(
+                  key: _formKey,
+                  autovalidateMode: _validate,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 30.0,
+                      right: 30.0,
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        const Image(
+                          image: AssetImage(
+                            'assets/images/team.png',
                           ),
-                          TextFormField(
-                            validator: (value) =>
-                                Validator.validateOrgName(value),
-                            textAlign: TextAlign.left,
-                            textCapitalization: TextCapitalization.words,
-                            style: const TextStyle(color: Colors.black),
-                            decoration: FormFieldFormatting.formFieldFormatting(
-                              hintText: "Organization Name",
-                              labelText: 'My Organization',
-                              prefixIcon: Icons.group,
-                            ),
-                            controller: orgNameController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          validator: (value) =>
+                              Validator.validateOrgName(value),
+                          textAlign: TextAlign.left,
+                          textCapitalization: TextCapitalization.words,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: FormFieldFormatting.formFieldFormatting(
+                            hintText: "Organization Name",
+                            labelText: 'My Organization',
+                            prefixIcon: Icons.group,
                           ),
-                          const SizedBox(
-                            height: 20,
+                          controller: orgNameController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          textCapitalization: TextCapitalization.words,
+                          validator: (value) =>
+                              Validator.validateOrgDesc(value),
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: FormFieldFormatting.formFieldFormatting(
+                              hintText: "My Description",
+                              labelText: "Organization Description",
+                              prefixIcon: Icons.note_sharp),
+                          controller: orgDescController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          autofillHints: const <String>[
+                            AutofillHints.impp,
+                          ],
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          textCapitalization: TextCapitalization.words,
+                          validator: (value) =>
+                              Validator.validateOrgAttendeesDesc(value),
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: FormFieldFormatting.formFieldFormatting(
+                              hintText: "Member Description",
+                              labelText: "Member Description",
+                              prefixIcon: Icons.note_sharp),
+                          controller: orgMemberDescController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text(
+                          'Do you want your organization to be public?',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
                           ),
-                          TextFormField(
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            textCapitalization: TextCapitalization.words,
-                            validator: (value) =>
-                                Validator.validateOrgDesc(value),
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(color: Colors.black),
-                            decoration: FormFieldFormatting.formFieldFormatting(
-                                hintText: "My Description",
-                                labelText: "Organization Description",
-                                prefixIcon: Icons.note_sharp),
-                            controller: orgDescController,
+                        ),
+                        getRadioButton(
+                          radioValue,
+                          2,
+                          public: true,
+                        ),
+                        const Text(
+                          'Do you want others to be able to find your organization from the search page?',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
                           ),
-                          const SizedBox(
-                            height: 20,
+                        ),
+                        getRadioButton(
+                          radioValue1,
+                          2,
+                          public: false,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 20.0,
+                            horizontal: 30.0,
                           ),
-                          TextFormField(
-                            autofillHints: const <String>[AutofillHints.impp],
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            textCapitalization: TextCapitalization.words,
-                            validator: (value) =>
-                                Validator.validateOrgAttendeesDesc(value),
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(color: Colors.black),
-                            decoration: FormFieldFormatting.formFieldFormatting(
-                                hintText: "Member Description",
-                                labelText: "Member Description",
-                                prefixIcon: Icons.note_sharp),
-                            controller: orgMemberDescController,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const Text(
-                              'Do you want your organization to be public?',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.black)),
-                          getRadioButton(radioValue, 2, public: true),
-                          const Text(
-                              'Do you want others to be able to find your organization from the search page?',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.black)),
-                          getRadioButton(radioValue1, 2, public: false),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 20.0, horizontal: 30.0),
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  30.0,
                                 ),
                               ),
-                              onPressed: () async {
-                                if (_formKey.currentState.validate() &&
-                                    radioValue >= 0 &&
-                                    radioValue1 >= 0) {
-                                  _formKey.currentState.save();
-                                  updateOrg();
-                                  setState(() {
-                                    toggleProgressBarState();
-                                  });
-                                } else if (radioValue < 0 || radioValue1 < 0) {
-                                  CustomToast.exceptionToast(
-                                      msg: "A choice must be selected");
-                                }
-                              },
-                              child: _progressBarState
-                                  ? const Center(
-                                      child: SizedBox(
-                                          width: 20,
-                                          height: 20,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                                    Colors.white),
-                                            strokeWidth: 3,
-                                            backgroundColor: Colors.black,
-                                          )))
-                                  : const Text(
-                                      "UPDATE ORGANIZATION",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
                             ),
+                            onPressed: () async {
+                              if (_formKey.currentState.validate() &&
+                                  radioValue >= 0 &&
+                                  radioValue1 >= 0) {
+                                _formKey.currentState.save();
+                                updateOrg();
+                                setState(() {
+                                  toggleProgressBarState();
+                                });
+                              } else if (radioValue < 0 || radioValue1 < 0) {
+                                CustomToast.exceptionToast(
+                                  msg: "A choice must be selected",
+                                );
+                              }
+                            },
+                            child: _progressBarState
+                                ? const Center(
+                                    child: SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            Colors.white,
+                                          ),
+                                          strokeWidth: 3,
+                                          backgroundColor: Colors.black,
+                                        )))
+                                : const Text(
+                                    "UPDATE ORGANIZATION",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-        ));
+              ),
+      ),
+    );
   }
 }
 
