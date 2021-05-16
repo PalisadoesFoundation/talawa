@@ -1,6 +1,11 @@
 //register model
-class RegisterUserModel {
-  RegisterUserModel({this.firstName, this.lastName, this.email, this.password});
+class RegisterViewModel {
+  RegisterViewModel({
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.password,
+  });
 
   String firstName;
   String lastName;

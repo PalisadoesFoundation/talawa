@@ -25,7 +25,10 @@ class _EventDetailState extends State<EventDetail>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 2);
+    _tabController = TabController(
+      vsync: this,
+      length: 2,
+    );
   }
 
   @override
@@ -36,7 +39,9 @@ class _EventDetailState extends State<EventDetail>
       appBar: AppBar(
         title: Text(
           widget.event['title'].toString(),
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(
+            color: Colors.white,
+          ),
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -78,33 +83,35 @@ class _EventDetailState extends State<EventDetail>
           ),
           SliverStickyHeader(
             header: Container(
-                height: SizeConfig.safeBlockVertical * 7.5,
-                decoration:
-                    BoxDecoration(color: Theme.of(context).primaryColor),
-                child: Material(
-                  color: UIData.secondaryColor,
-                  child: TabBar(
-                    labelPadding: const EdgeInsets.all(0),
-                    indicatorColor: Colors.white,
-                    controller: _tabController,
-                    tabs: [
-                      const Tab(
-                        icon: const Text(
-                          'Tasks',
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
+              height: SizeConfig.safeBlockVertical * 7.5,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+              child: Material(
+                color: UIData.secondaryColor,
+                child: TabBar(
+                  labelPadding: const EdgeInsets.all(0),
+                  indicatorColor: Colors.white,
+                  controller: _tabController,
+                  tabs: [
+                    const Tab(
+                      icon: Text(
+                        'Tasks',
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
-                      const Tab(
-                        icon: const Text(
-                          'Registrants',
-                          style: const TextStyle(color: Colors.white),
-                        ),
+                    ),
+                    const Tab(
+                      icon: Text(
+                        'Registrants',
+                        style: TextStyle(color: Colors.white),
                       ),
-                    ],
-                  ),
-                )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             sliver: SliverFillRemaining(
               child: Container(
                 child: TabBarView(
@@ -129,15 +136,20 @@ class _EventDetailState extends State<EventDetail>
   Widget displayText(String text) {
     return Container(
       decoration: const BoxDecoration(
-          color: Colors.black26,
-          borderRadius: BorderRadius.all(Radius.circular(5))),
+        color: Colors.black26,
+        borderRadius: BorderRadius.all(
+          Radius.circular(5),
+        ),
+      ),
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(8),
       height: SizeConfig.safeBlockVertical * 5.5,
       child: Text(
         text,
         style: TextStyle(
-            fontSize: SizeConfig.safeBlockVertical * 2.5, color: Colors.white),
+          fontSize: SizeConfig.safeBlockVertical * 2.5,
+          color: Colors.white,
+        ),
         overflow: TextOverflow.ellipsis,
       ),
     );
