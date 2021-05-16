@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/views/pages/organization/Join-Organization-Widgets/org_tile.dart';
-import 'package:talawa/views/widgets/loading.dart';
+import 'package:talawa/views/widgets/loader_gen.dart';
 import 'package:talawa/views/widgets/pagination_display.dart';
 
 class OrganizationBody extends StatefulWidget {
@@ -63,7 +63,7 @@ class _OrganizationBodyState extends State<OrganizationBody> {
             }) {
               if (result.hasException) {
                 print(result.exception);
-                return const Loading(isShowingError: true);
+                return const LoaderWidget(isShowingError: true);
               }
 
               ///WIDGET TO SHOW WHEN [LOADING] DATA
@@ -98,7 +98,7 @@ class _OrganizationBodyState extends State<OrganizationBody> {
 
               if (organizations.isEmpty) {
                 return Center(
-                  child: Loading(
+                  child: LoaderWidget(
                     key: UniqueKey(),
                   ),
                 );
@@ -161,7 +161,7 @@ class _OrganizationBodyState extends State<OrganizationBody> {
             }) {
               if (result.hasException) {
                 print(result.exception);
-                return const Loading(isShowingError: true);
+                return const LoaderWidget(isShowingError: true);
               }
 
               ///WIDGET TO SHOW WHEN [LOADING] DATA
@@ -197,7 +197,7 @@ class _OrganizationBodyState extends State<OrganizationBody> {
 
               if (organizations.isEmpty) {
                 return Center(
-                  child: Loading(
+                  child: LoaderWidget(
                     key: UniqueKey(),
                   ),
                 );
