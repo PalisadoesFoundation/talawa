@@ -1,74 +1,120 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
+"""Script to encourage more efficient coding practices.
+
+Methodology:
+
+    Analyses the `lib` and `test` directories to find files that exceed a
+    pre-defined number of lines of code.
+
+    This script was created to help improve code quality by encouraging
+    contributors to create reusable code.
+
+NOTE:
+
+    This script complies with our python3 coding and documentation standards
+    and should be used as a reference guide. It complies with:
+
+        1) Pylint
+        2) Pydocstyle
+        3) Pycodestyle
+        4) Flake8
+
+    Run these commands from the CLI to ensure the code is compliant for all
+    your pull requests.
 
 """
-This is an countline script.
 
-It runs on lib and test directory to find files
-which doesn't satisfy a given count limit.
-"""
-
+# Standard imports
 import os
 import sys
 import argparse
 
 
 def arg_parser_resolver():
-    """Resolve, for arguments provided by user."""
+    """Resolve the CLI arguments provided by the user.
+
+    Args:
+        None
+
+    Returns:
+        result: Parsed argument object
+
+    """
+    # Initialize parser and add the CLI options we should expect
     parser = argparse.ArgumentParser()
     parser.add_argument('--line', type=int, required=False, default=300,
                         help='an integer for number of lines of code')
     parser.add_argument('--dir', type=str, required=False, default=os.getcwd(),
                         help='directory-location where files are present')
-    return parser.parse_args()
+
+    # Return parser
+    result = parser.parse_args()
+    return result
 
 
 def main():
-    """Find, and print, for files having code lines above a given value."""
-    args = arg_parser_resolver()
-    # parses through files and saves to a dict
-    file_names_with_size = {}
+    """Analyze dart files.
 
-    # libPath and testPath dir location
-    lib_path = os.path.expanduser(os.path.join(args.dir, 'lib'))
-    test_path = os.path.expanduser(os.path.join(args.dir, 'test'))
+    This function finds, and prints the files that exceed the CLI
+    defined defaults.
 
-    # counting lines in lib dir
-    for root, _, files in os.walk(lib_path, topdown=False):
-        for name in files:
-            file_location = os.path.join(root, name)
-            with open(file_location) as code:
-                total_lines = sum(
-                    1 for line in code
-                    if line.strip() and not line.startswith('#')
-                )
-                file_names_with_size[file_location] = total_lines
-    # counting lines in test dir
-    for root, _, files in os.walk(test_path, topdown=False):
-        for name in files:
-            file_location = os.path.join(root, name)
-            with open(file_location) as code:
-                total_lines = sum(
-                    1 for line in code
-                    if line.strip() and not line.startswith('#')
-                )
-                file_names_with_size[file_location] = total_lines
-    # if the line rule is voilated then value is changed to 1
+    Args:
+        None
 
-    is_line_rule_voilated = 0
+    Returns:
+        None
+
+    """
+    # Initialize key variables
+    lookup = {}
+    errors_found = False
     file_count = 0
 
-    for key, value in file_names_with_size.items():
-        if value > args.line:
-            is_line_rule_voilated = 1
+    # Get the CLI arguments
+    args = arg_parser_resolver()
+
+    # Define the directories of interest
+    directories = [
+        os.path.expanduser(os.path.join(args.dir, 'lib')),
+        os.path.expanduser(os.path.join(args.dir, 'test'))
+    ]
+
+    # Iterate and analyze each directory
+    for directory in directories:
+        for root, _, files in os.walk(directory, topdown=False):
+            for name in files:
+                # Read each file and count the lines found
+                file_path = os.path.join(root, name)
+                with open(file_path) as code:
+                    line_count = sum(
+                        1 for line in code
+                        if line.strip() and not line.startswith('#')
+                    )
+                    lookup[file_path] = line_count
+
+    # if the line rule is voilated then value is changed to 1
+    for file_path, line_count in lookup.items():
+        if line_count > args.line:
+            errors_found = True
             file_count += 1
-            print("{}: {}".format(key, value))
-    if is_line_rule_voilated != 0:
-        print("Above {} files have more than 300 lines".format(file_count))
+            if file_count == 1:
+                print('''
+LINE COUNT ERROR: Files with excessive lines of code have been found\n''')
+
+            print('  Line count: {:>5} File: {}'.format(line_count, file_path))
+
+    # Evaluate and exit
+    if bool(errors_found) is True:
+        print('''
+The {} files listed above have more than {} lines of code.
+
+Please fix this. It is a pre-requisite for pull request approval.
+'''.format(file_count, args.line))
         sys.exit(1)
     else:
         sys.exit(0)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
