@@ -19,7 +19,7 @@ import 'package:talawa/view_models/vm_register.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/views/pages/organization/join_organization.dart';
+import 'package:talawa/views/pages/organization/join_organization_view.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 
 //pubspec packages are called here

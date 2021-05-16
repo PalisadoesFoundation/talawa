@@ -113,7 +113,7 @@ void main() {
       await tester.runAsync(() async {
         await tester.pumpWidget(newsArticlePage());
 
-        // Get the Load Comment button.
+        //     // Get the Load Comment button.
         final loadCommentsButton = find.text("Load Comments");
 
         await tester.pumpAndSettle();
@@ -121,7 +121,7 @@ void main() {
         await tester.tap(loadCommentsButton);
         await tester.pumpAndSettle();
 
-        // Comments Icon Should be displayed.
+        //     // Comments Icon Should be displayed.
         const iconKey = ValueKey('commentIcon');
 
         expect(
