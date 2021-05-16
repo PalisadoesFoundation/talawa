@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_logs/flutter_logs.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/url_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/custom_toast.dart';
-import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/loghelper.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:http/http.dart' as http;
 import 'package:talawa/views/pages/login_signup/login_page.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
 
@@ -28,24 +29,49 @@ class _UrlPageState extends State<UrlPage>
   MediaQueryData _media;
   final _formKey = GlobalKey<FormState>();
   final urlController = TextEditingController();
-  String dropdownValue = 'HTTP';
+  bool isUrlCalled = false;
+
   final Preferences _pref = Preferences();
   String orgUrl, orgImgUrl;
   String saveMsg = "Set URL";
   String urlInput;
-  bool isUrlCalled = false;
+
   //animation Controllers
   AnimationController controller;
   AnimationController loginController;
   AnimationController helloController;
   AnimationController createController;
+
   // animation
   Animation<double> loginAnimation;
   Animation<double> createAnimation;
   Animation<double> animation;
   Animation<double> helloAnimation;
 
-  listenToUrl() {
+  void assignAnimation({@required bool firstTime}) {
+    if (!firstTime) {
+      animation = Tween(begin: 1.0, end: 1.0).animate(controller);
+      helloAnimation = Tween(begin: 1.0, end: 1.0).animate(helloController);
+      createAnimation = Tween(begin: 1.0, end: 1.0).animate(createController);
+      loginAnimation = Tween(begin: 1.0, end: 1.0).animate(loginController);
+    } else {
+      loginAnimation = Tween(begin: 0.0, end: 1.0).animate(loginController);
+      createAnimation = Tween(begin: 0.0, end: 1.0).animate(createController);
+      animation = Tween(begin: 0.0, end: 1.0).animate(controller);
+      helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
+    }
+  }
+
+  Future<void> load() async {
+    await controller?.forward();
+    await helloController?.forward();
+    await createController?.forward();
+    await loginController?.forward();
+    changeFirst();
+  }
+
+  /// Listen to the url entry by user
+  void listenToUrl() {
     if (saveMsg == "URL SAVED!" && urlController.text != urlInput) {
       setState(() {
         saveMsg = "Set URL";
@@ -54,29 +80,7 @@ class _UrlPageState extends State<UrlPage>
     urlInput = urlController.text;
   }
 
-  Future<void> checkAndSetUrl() async {
-    setState(() {
-      isUrlCalled = true;
-    });
-
-    try {
-      await http.get('${dropdownValue.toLowerCase()}://${urlController.text}/');
-      setApiUrl();
-      _setURL();
-    } catch (e) {
-      LogHelper().log(LogLevel.ERROR, widget.toStringShort(), "checkAndSetUrl",
-          "Incorrect Oraganization",
-          exception: e as Exception);
-      CustomToast.exceptionToast(msg: 'Incorrect Organization Entered');
-      LogHelper().exportLogs();
-    }
-
-    setState(() {
-      isUrlCalled = false;
-    });
-  }
-
-  Future setApiUrl() async {
+  Future setApiUrl(String dropdownValue) async {
     setState(() {
       orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/";
       orgImgUrl =
@@ -90,34 +94,6 @@ class _UrlPageState extends State<UrlPage>
     setState(() {
       saveMsg = "URL SAVED!";
     });
-  }
-
-  void assignAnimation({@required bool firstTime}) {
-    if (!firstTime) {
-      animation = Tween(begin: 1.0, end: 1.0).animate(controller);
-
-      helloAnimation = Tween(begin: 1.0, end: 1.0).animate(helloController);
-
-      createAnimation = Tween(begin: 1.0, end: 1.0).animate(createController);
-
-      loginAnimation = Tween(begin: 1.0, end: 1.0).animate(loginController);
-    } else {
-      loginAnimation = Tween(begin: 0.0, end: 1.0).animate(loginController);
-
-      createAnimation = Tween(begin: 0.0, end: 1.0).animate(createController);
-
-      animation = Tween(begin: 0.0, end: 1.0).animate(controller);
-
-      helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
-    }
-  }
-
-  Future<void> load() async {
-    await controller?.forward();
-    await helloController?.forward();
-    await createController?.forward();
-    await loginController?.forward();
-    changeFirst();
   }
 
   @override
@@ -150,6 +126,7 @@ class _UrlPageState extends State<UrlPage>
     assignAnimation(firstTime: first);
     load();
     SizeConfig().init(context);
+
     Widget mainScreen() {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -160,8 +137,7 @@ class _UrlPageState extends State<UrlPage>
               //padding: EdgeInsets.all(100.0),
               padding: const EdgeInsets.symmetric(vertical: 50.0),
               child: const Center(
-                  child:
-                      const Image(image: const AssetImage(UIData.talawaLogo))),
+                  child: Image(image: AssetImage(UIData.talawaLogo))),
             ),
           ),
           Container(
@@ -188,7 +164,7 @@ class _UrlPageState extends State<UrlPage>
                             child: Container(
                               child: const Text(
                                 "TALAWA",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 60,
@@ -203,7 +179,7 @@ class _UrlPageState extends State<UrlPage>
                         child: Container(
                           child: const Text(
                             ".",
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.orange,
                               fontWeight: FontWeight.bold,
                               fontSize: 60,
@@ -233,33 +209,38 @@ class _UrlPageState extends State<UrlPage>
                         children: [
                           Row(
                             children: <Widget>[
-                              DropdownButton<String>(
-                                value: dropdownValue,
-                                icon: const Icon(Icons.arrow_downward,
-                                    color: Colors.orange),
-                                iconSize: 24,
-                                elevation: 16,
-                                style:
-                                    const TextStyle(color: UIData.primaryColor),
-                                underline: Container(
-                                  height: 2,
-                                  color: UIData.primaryColor,
+                              Consumer<UrlController>(
+                                builder: (context, urlController, _) =>
+                                    DropdownButton<String>(
+                                  value: urlController.getDropDownValue,
+                                  icon: const Icon(
+                                    Icons.arrow_downward,
+                                    color: Colors.orange,
+                                  ),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(
+                                    color: UIData.primaryColor,
+                                  ),
+                                  underline: Container(
+                                    height: 2,
+                                    color: UIData.primaryColor,
+                                  ),
+                                  onChanged: (String newValue) {
+                                    urlController.setDropDownValue(newValue);
+                                    setState(() {
+                                      saveMsg = 'Set URL';
+                                    });
+                                  },
+                                  items: <String>['HTTP', 'HTTPS']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
                                 ),
-                                onChanged: (String newValue) {
-                                  setState(() {
-                                    dropdownValue = newValue;
-                                    saveMsg = 'Set URL';
-                                  });
-                                },
-                                items: <String>[
-                                  'HTTP',
-                                  'HTTPS'
-                                ].map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
                               ),
                               SizedBox(
                                 width: SizeConfig.safeBlockHorizontal * 2.5,
@@ -310,35 +291,69 @@ class _UrlPageState extends State<UrlPage>
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                  ),
-                                  onPressed: () async {
-                                    FocusScope.of(context).unfocus();
-                                    if (_formKey.currentState.validate()) {
-                                      _formKey.currentState.save();
+                              Consumer<UrlController>(
+                                builder: (context, urlControl, _) =>
+                                    ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          FocusScope.of(context).unfocus();
+                                          if (_formKey.currentState
+                                              .validate()) {
+                                            _formKey.currentState.save();
 
-                                      await checkAndSetUrl();
-                                    }
-                                  },
-                                  child: isUrlCalled
-                                      ? SizedBox(
-                                          height: SizeConfig.safeBlockVertical *
-                                              1.75,
-                                          width:
-                                              SizeConfig.safeBlockHorizontal *
-                                                  3.5,
-                                          child:
-                                              const CircularProgressIndicator(
-                                                  backgroundColor:
-                                                      Colors.white),
-                                        )
-                                      : Text(
-                                          saveMsg,
-                                        )),
+                                            setState(() {
+                                              isUrlCalled = true;
+                                            });
+
+                                            try {
+                                              await urlControl.checkAndSetUrl(
+                                                text: urlController.text,
+                                              );
+                                              setApiUrl(
+                                                  urlControl.getDropDownValue);
+                                              _setURL();
+                                            } catch (e) {
+                                              LogHelper().log(
+                                                LogLevel.ERROR,
+                                                widget.toStringShort(),
+                                                "checkAndSetUrl",
+                                                "Incorrect Oraganization",
+                                                exception: e as Exception,
+                                              );
+
+                                              CustomToast.exceptionToast(
+                                                  msg:
+                                                      'Incorrect Organization Entered');
+                                              LogHelper().exportLogs();
+                                            }
+
+                                            setState(() {
+                                              isUrlCalled = false;
+                                            });
+                                          }
+                                        },
+                                        child: isUrlCalled
+                                            ? SizedBox(
+                                                height: SizeConfig
+                                                        .safeBlockVertical *
+                                                    1.75,
+                                                width: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    3.5,
+                                                child:
+                                                    const CircularProgressIndicator(
+                                                        backgroundColor:
+                                                            Colors.white),
+                                              )
+                                            : Text(
+                                                saveMsg,
+                                              )),
+                              ),
                             ],
                           ),
                         ],
@@ -397,12 +412,12 @@ class _UrlPageState extends State<UrlPage>
                                     borderRadius: BorderRadius.circular(50.0)),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new Expanded(
-                                      child: const Text(
+                                  children: const <Widget>[
+                                    Expanded(
+                                      child: Text(
                                         "Create an Account",
                                         textAlign: TextAlign.center,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           //color: UIData.quitoThemeColor,
                                           color: Colors.white,
                                           fontSize: 18,
@@ -471,7 +486,7 @@ class _UrlPageState extends State<UrlPage>
                                       child: Text(
                                         "Login",
                                         textAlign: TextAlign.center,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           //color: UIData.quitoThemeColor,
                                           color: Colors.white,
                                           fontSize: 18,
@@ -503,7 +518,7 @@ class _UrlPageState extends State<UrlPage>
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: const AssetImage(UIData.cloud1), fit: BoxFit.cover),
+              image: AssetImage(UIData.cloud1), fit: BoxFit.cover),
         ),
         child: Center(
           child: SingleChildScrollView(

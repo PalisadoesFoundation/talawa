@@ -11,7 +11,7 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/organization/Join-Organization-Widgets/org_body.dart';
-import 'package:talawa/views/pages/organization/create_organization.dart';
+import 'package:talawa/views/pages/organization/Create%20Organization/create_organization_view.dart';
 
 class JoinOrganization extends StatefulWidget {
   const JoinOrganization({this.msg, this.fromProfile = false});

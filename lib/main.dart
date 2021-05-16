@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/url_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/groups_provider.dart';
@@ -16,7 +17,7 @@ import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
-import 'package:talawa/views/pages/organization/create_organization.dart';
+import 'package:talawa/views/pages/organization/Create%20Organization/create_organization_view.dart';
 import 'package:talawa/views/pages/organization/switch_org_page.dart';
 import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
@@ -28,10 +29,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   await logHelper.init(); // To intialise FlutterLog
-  //setting the orientation according to the screen it is running on
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]).then((_) {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
     runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
@@ -42,6 +41,7 @@ Future<void> main() async {
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
         ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
         ChangeNotifierProvider<GroupsProvider>(create: (_) => GroupsProvider()),
+        ChangeNotifierProvider<UrlController>(create: (_) => UrlController()),
       ],
       child: MyApp(),
     ));
@@ -49,8 +49,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
