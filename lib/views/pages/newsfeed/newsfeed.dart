@@ -61,17 +61,17 @@ class NewsFeed extends StatelessWidget {
                       ))
                     : Container(
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                  itemCount: Provider.of<PostProvider>(context)
-                                      .getPostList
-                                      .length,
-                                  itemBuilder: (context, index) {
-                                    final Posts post =
-                                        Provider.of<PostProvider>(context)
-                                            .getPostList[index] as Posts;
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                                itemCount: Provider.of<PostProvider>(context)
+                                    .getPostList
+                                    .length,
+                                itemBuilder: (context, index) {
+                                  final Posts post =
+                                      Provider.of<PostProvider>(context)
+                                          .getPostList[index] as Posts;
 
                                   return Container(
                                     padding: EdgeInsets.only(
