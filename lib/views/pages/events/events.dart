@@ -43,9 +43,8 @@ class _EventsState extends State<Events> {
         floatingActionButton: eventFab(context),
         body: model.state == ViewState.busy
             ? Center(
-                child: Loading(
+                child: LoaderWidget(
                 key: UniqueKey(),
-                isCurrentOrgNull: false,
               ))
             : model.displayEvents.isEmpty
                 ? RefreshIndicator(
