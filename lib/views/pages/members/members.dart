@@ -60,7 +60,6 @@ class _OrganizationsState extends State<Organizations> {
   //function to get the members of an organization
   // ignore: missing_return
   Future<List> getMembers() async {
-
     currentOrgID = await preferences.getCurrentOrgId();
     print(currentOrgID);
 

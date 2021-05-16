@@ -41,7 +41,6 @@ class _LoadingState extends State<Loading> {
         });
       }
     });
-
   }
 
   @override
@@ -78,7 +77,6 @@ class _LoadingState extends State<Loading> {
   }
 
   @override
-
   Widget build(BuildContext context) {
     return loading && widget.isNetworkError == null
         ? const CircularProgressIndicator()
@@ -179,7 +177,6 @@ class _LoadingState extends State<Loading> {
                   )
                 ],
               );
-
   }
 }
 
