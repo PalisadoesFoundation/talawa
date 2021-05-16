@@ -23,7 +23,7 @@ void Function(FlutterErrorDetails) onErrorIgnoreOverflowErrors = (
 
   // Ignore if is overflow error.
   if (ifIsOverflowError) {
-    print("Over flow error");
+    debugPrint("Over flow error");
   }
 
   // Throw other errors.

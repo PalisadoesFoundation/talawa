@@ -60,8 +60,8 @@ void main() {
 
     // Ignore if is overflow error.
     if (ifIsOverflowError) {
-      // ignore: avoid_print
-      print("Over flow error");
+      // ignore: avoid_debugPrint
+      debugPrint("Over flow error");
     }
 
     // Throw other errors.

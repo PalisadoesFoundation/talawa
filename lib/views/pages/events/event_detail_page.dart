@@ -34,7 +34,7 @@ class _EventDetailState extends State<EventDetail>
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    print(widget.event);
+    debugPrint(widget.event.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -113,18 +113,16 @@ class _EventDetailState extends State<EventDetail>
               ),
             ),
             sliver: SliverFillRemaining(
-              child: Container(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: <Widget>[
-                    TaskList(
-                      event: widget.event,
-                    ),
-                    RegList(
-                      event: widget.event,
-                    ),
-                  ],
-                ),
+              child: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                  TaskList(
+                    event: widget.event,
+                  ),
+                  RegList(
+                    event: widget.event,
+                  ),
+                ],
               ),
             ),
           ),

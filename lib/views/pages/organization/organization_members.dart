@@ -109,7 +109,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       return removeMembers();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print(result.exception.toString().substring(16));
+      debugPrint(result.exception.toString().substring(16));
       CustomToast.exceptionToast(msg: result.exception.toString());
       setState(() {
         processing = false;
