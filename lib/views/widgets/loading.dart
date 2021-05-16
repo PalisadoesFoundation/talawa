@@ -110,8 +110,8 @@ class _LoadingState extends State<Loading> {
                   ),
                 ],
               )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+            : ListView(
+                shrinkWrap: true,
                 children: [
                   widget.isNetworkError == false
                       ? Icon(
