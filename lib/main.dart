@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/url_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/groups_provider.dart';
@@ -24,13 +25,11 @@ import 'router.dart' as router;
 Preferences preferences = Preferences();
 LogHelper logHelper = LogHelper();
 Future<void> main() async {
-  WidgetsFlutterBinding
-      .ensureInitialized(); //ensuring weather the app is being initialized or not
+  //ensuring weather the app is being initialized or not
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   await logHelper.init(); // To intialise FlutterLog
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp
-  ]) //setting the orientation according to the screen it is running on
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(MultiProvider(
       providers: [
@@ -42,6 +41,7 @@ Future<void> main() async {
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
         ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
         ChangeNotifierProvider<GroupsProvider>(create: (_) => GroupsProvider()),
+        ChangeNotifierProvider<UrlController>(create: (_) => UrlController()),
       ],
       child: MyApp(),
     ));
@@ -49,8 +49,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -78,7 +76,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.data.toString() == "Initial Data") {
               return Scaffold(
                 body: Container(
-                  child: Center(
+                  child: const Center(
                     child: CircularProgressIndicator(),
                   ),
                 ),

@@ -43,6 +43,7 @@ class _EventsState extends State<Events> {
             ? Center(
                 child: Loading(
                 key: UniqueKey(),
+                isCurrentOrgNull: false,
               ))
             : model.displayEvents.isEmpty
                 ? RefreshIndicator(
@@ -211,7 +212,7 @@ class _EventsState extends State<Events> {
                 items: [
                   const Text(
                     'All',
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   Text(
                     model.dateSelected,

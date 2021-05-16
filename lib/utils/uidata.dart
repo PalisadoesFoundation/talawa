@@ -39,16 +39,6 @@ class UIData {
   static const MaterialColor ui_kit_color = Colors.grey;
   static const lightGrey = Color.fromRGBO(242, 242, 242, 1);
 
-  // static const Color quitoThemeColor = MaterialColor(0xFF7e1946, {50:Color.fromRGBO(126,25,70, .1),
-  //   100:Color.fromRGBO(126,25,70, .2),
-  //   200:Color.fromRGBO(126,25,70, .3),
-  //   300:Color.fromRGBO(126,25,70, .4),
-  //   400:Color.fromRGBO(126,25,70, .5),
-  //   500:Color.fromRGBO(126,25,70, .6),
-  //   600:Color.fromRGBO(126,25,70, .7),
-  //   700:Color.fromRGBO(126,25,70, .8),
-  //   800:Color.fromRGBO(126,25,70, .9),
-  //   900:Color.fromRGBO(126,25,70, 1)});
   static const Color primaryColor = Colors.orange;
   static const Color secondaryColor = Colors.blueAccent;
   static const Color toastErrorColor = Colors.red;
@@ -64,7 +54,7 @@ class UIData {
   ];
   static List<Color> kitGradients2 = [
     Colors.cyan.shade600,
-    Colors.blue.shade900
+    Colors.blue.shade900,
   ];
 
   //randomcolor
@@ -72,6 +62,8 @@ class UIData {
 
   /// Returns a random color.
   static Color next() {
-    return Color(0xFF000000 + _random.nextInt(0x00FFFFFF));
+    return Color(
+      0xFF000000 + _random.nextInt(0x00FFFFFF),
+    );
   }
 }

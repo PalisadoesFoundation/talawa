@@ -36,7 +36,10 @@ class _MemberDetailState extends State<MemberDetail>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 2);
+    _tabController = TabController(
+      vsync: this,
+      length: 2,
+    );
   }
 
   String getPrivilege(String id) {
@@ -55,75 +58,91 @@ class _MemberDetailState extends State<MemberDetail>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'User Info',
-            style: const TextStyle(color: Colors.white),
+      appBar: AppBar(
+        title: const Text(
+          'User Info',
+          style: TextStyle(
+            color: Colors.white,
           ),
         ),
-        body: CustomScrollView(slivers: [
+      ),
+      body: CustomScrollView(
+        slivers: [
           SliverAppBar(
-              backgroundColor: Colors.white,
-              automaticallyImplyLeading: false,
-              expandedHeight: SizeConfig.safeBlockVertical * 31.25,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Column(children: [
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            expandedHeight: SizeConfig.safeBlockVertical * 31.25,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Column(
+                children: [
                   widget.member['image'] == null
                       ? defaultUserImg()
-                      : userImg(widget.member['image'].toString()),
+                      : userImg(
+                          widget.member['image'].toString(),
+                        ),
                   Card(
-                      child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(
-                        left: SizeConfig.safeBlockHorizontal * 5),
-                    alignment: Alignment.centerLeft,
-                    height: SizeConfig.safeBlockVertical * 3.75,
-                    child: Text('User email: ${widget.member['email']}'),
-                  )),
-                  Card(
-                      child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(
-                        left: SizeConfig.safeBlockHorizontal * 5),
-                    alignment: Alignment.centerLeft,
-                    height: SizeConfig.safeBlockVertical * 3.75,
-                    child: Text(
-                      'User Privileges: ' +
-                          getPrivilege(widget.member['_id'].toString()),
-                      key: Key('Privilege'),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.only(
+                          left: SizeConfig.safeBlockHorizontal * 5),
+                      alignment: Alignment.centerLeft,
+                      height: SizeConfig.safeBlockVertical * 3.75,
+                      child: Text(
+                        'User email: ${widget.member['email']}',
+                      ),
                     ),
-                  )),
-                ]),
-              )),
+                  ),
+                  Card(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.only(
+                        left: SizeConfig.safeBlockHorizontal * 5,
+                      ),
+                      alignment: Alignment.centerLeft,
+                      height: SizeConfig.safeBlockVertical * 3.75,
+                      child: Text(
+                        'User Privileges: ${getPrivilege(widget.member['_id'].toString())}',
+                        key: const Key(
+                          'Privilege',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           SliverStickyHeader(
             header: Container(
-                height: SizeConfig.safeBlockVertical * 7.5,
-                decoration:
-                    BoxDecoration(color: Theme.of(context).primaryColor),
-                child: Material(
-                  color: UIData.secondaryColor,
-                  child: TabBar(
-                    labelPadding: const EdgeInsets.all(0),
-                    indicatorColor: Colors.white,
-                    controller: _tabController,
-                    tabs: [
-                      const Tab(
-                        icon: const Text(
-                          'Tasks',
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
+              height: SizeConfig.safeBlockVertical * 7.5,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+              child: Material(
+                color: UIData.secondaryColor,
+                child: TabBar(
+                  labelPadding: const EdgeInsets.all(0),
+                  indicatorColor: Colors.white,
+                  controller: _tabController,
+                  tabs: [
+                    const Tab(
+                      icon: Text(
+                        'Tasks',
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
-                      const Tab(
-                        icon: const Text(
-                          'Registered Events',
-                          style: const TextStyle(color: Colors.white),
-                        ),
+                    ),
+                    const Tab(
+                      icon: Text(
+                        'Registered Events',
+                        style: TextStyle(color: Colors.white),
                       ),
-                    ],
-                  ),
-                )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             sliver: SliverFillRemaining(
               child: TabBarView(
                 controller: _tabController,
@@ -138,7 +157,9 @@ class _MemberDetailState extends State<MemberDetail>
               ),
             ),
           ),
-        ]));
+        ],
+      ),
+    );
   }
 
   //widget to get the user image
@@ -154,21 +175,23 @@ class _MemberDetailState extends State<MemberDetail>
           fit: BoxFit.cover,
         ),
       ),
-      child: Stack(alignment: AlignmentDirectional.bottomStart, children: [
-        ClipRRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-            child: Container(
-              alignment: Alignment.center,
-              color: Colors.grey.withOpacity(0.1),
-              child: Image.network(
-                Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                    link,
+      child: Stack(
+        alignment: AlignmentDirectional.bottomStart,
+        children: [
+          ClipRRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: Container(
+                alignment: Alignment.center,
+                color: Colors.grey.withOpacity(0.1),
+                child: Image.network(
+                  Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                      link,
+                ),
               ),
             ),
           ),
-        ),
-        Container(
+          Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
@@ -180,16 +203,16 @@ class _MemberDetailState extends State<MemberDetail>
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                widget.member['firstName'].toString() +
-                    ' ' +
-                    widget.member['lastName'].toString(),
+                '${widget.member['firstName']} ${widget.member['lastName']}',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                 ),
               ),
-            ))
-      ]),
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -203,34 +226,33 @@ class _MemberDetailState extends State<MemberDetail>
         children: [
           // ignore: sized_box_for_whitespace
           Container(
-              height: SizeConfig.safeBlockVertical * 16.25,
-              child: Icon(
-                Icons.person,
-                size: SizeConfig.safeBlockVertical * 12.25,
-                color: Colors.white54,
-              )),
+            height: SizeConfig.safeBlockVertical * 16.25,
+            child: Icon(
+              Icons.person,
+              size: SizeConfig.safeBlockVertical * 12.25,
+              color: Colors.white54,
+            ),
+          ),
           Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [Colors.black45, Colors.transparent]),
-              ),
-              padding:
-                  EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 5),
-              height: SizeConfig.safeBlockVertical * 5,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  widget.member['firstName'].toString() +
-                      ' ' +
-                      widget.member['lastName'].toString(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [Colors.black45, Colors.transparent]),
+            ),
+            padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 5),
+            height: SizeConfig.safeBlockVertical * 5,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${widget.member['firstName']} ${widget.member['lastName']}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
                 ),
-              ))
+              ),
+            ),
+          )
         ],
       ),
     );
