@@ -17,7 +17,7 @@ import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
-import 'package:talawa/views/pages/organization/create_organization.dart';
+import 'package:talawa/views/pages/organization/Create%20Organization/create_organization_view.dart';
 import 'package:talawa/views/pages/organization/switch_org_page.dart';
 import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
