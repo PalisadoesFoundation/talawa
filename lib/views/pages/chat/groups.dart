@@ -22,11 +22,9 @@ class Groups extends StatefulWidget {
 class _GroupsState extends State<Groups> {
   FToast fToast;
 
-
   /// Get the list of posts
   Future<void> getEventsList(BuildContext context) async {
     await Provider.of<GroupsProvider>(context, listen: false).getEvents();
-
   }
 
   @override
@@ -38,7 +36,6 @@ class _GroupsState extends State<Groups> {
         ),
         title: const Text(
           'Chats',
-
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -113,7 +110,6 @@ class _GroupsState extends State<Groups> {
                         }),
                   );
           }),
-
     );
   }
 }
