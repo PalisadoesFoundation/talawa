@@ -35,6 +35,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
     super.initState();
     fToast = FToast();
     fToast.init(context);
+    hideFloatingActionButton();
     Provider.of<OrgController>(
       context,
       listen: false,
@@ -45,6 +46,36 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   void dispose() {
     disposed = true;
     super.dispose();
+  }
+
+  //variable to store whether floatingActionButton is visible or not
+  bool _isVisible = true;
+  //scroll controller for the list view
+  var _scrollController = ScrollController();
+
+  //Function for making the floating action button hide when someone scrolls to end of the list
+  void hideFloatingActionButton() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.atEdge) // if the list is at one end
+      {
+        if (_scrollController.position.pixels >
+            0) // if the list is at the bottom end
+        {
+          if (_isVisible == true) {
+            setState(() {
+              _isVisible = false;
+            });
+          }
+        }
+      } else {
+        // make the floating action button visible when user scrolls back up
+        if (_isVisible == false) {
+          setState(() {
+            _isVisible = true;
+          });
+        }
+      }
+    });
   }
 
   @override

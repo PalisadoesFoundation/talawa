@@ -1,2 +1,5 @@
 /// Represents the state of the view
-enum ViewState { idle, busy }
+enum ViewState {
+  idle,
+  busy,
+}

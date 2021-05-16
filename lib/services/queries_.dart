@@ -463,19 +463,20 @@ class Queries {
   }
 
   //to update an event
-  String updateEvent(
-      {eventId,
-      title,
-      description,
-      location,
-      isPublic,
-      isRegisterable,
-      recurring,
-      recurrance,
-      allDay,
-      date,
-      startTime,
-      endTime}) {
+  String updateEvent({
+    eventId,
+    title,
+    description,
+    location,
+    isPublic,
+    isRegisterable,
+    recurring,
+    recurrance,
+    allDay,
+    date,
+    startTime,
+    endTime,
+  }) {
     return """mutation {
       updateEvent(
          id: "$eventId"
@@ -541,11 +542,12 @@ class Queries {
     }
   }
 
-  addEventTask(
-      {String eventId,
-      String title,
-      String description,
-      String deadline}) async {
+  addEventTask({
+    String eventId,
+    String title,
+    String description,
+    String deadline,
+  }) async {
     const String createTaskMutation = """
      mutation createTask(\$eventId: ID!, \$title: String!, \$description: String, \$deadline: String) { 
       createTask(eventId: \$eventId, 
@@ -582,7 +584,9 @@ class Queries {
   }
 
   //to get the task by any event
-  String getTasksByEvent(String id) {
+  String getTasksByEvent(
+    String id,
+  ) {
     return """
   query{
     tasksByEvent(id:"$id"){
@@ -596,7 +600,9 @@ class Queries {
   }
 
   //to get registrants for an event
-  String getRegistrantsByEvent(String id) {
+  String getRegistrantsByEvent(
+    String id,
+  ) {
     return """
   query{
     registrantsByEvent(id:"$id"){
@@ -668,7 +674,9 @@ class Queries {
     _authController.getNewToken();
 
     final QueryResult _resp = await _client.mutate(MutationOptions(
-      documentNode: gql(createEventMutation),
+      documentNode: gql(
+        createEventMutation,
+      ),
       variables: {
         'startDate': startDate,
         'endDate': endDate,
@@ -695,7 +703,9 @@ class Queries {
 
 /////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
   //task by users
-  String tasksByUser(String id) {
+  String tasksByUser(
+    String id,
+  ) {
     return """
   query{
     tasksByUser(id:"$id"){
@@ -712,7 +722,9 @@ class Queries {
   """;
   }
 
-  String registeredEventsByUser(String id) {
+  String registeredEventsByUser(
+    String id,
+  ) {
     return """
   query{
     registeredEventsByUser(id:"$id"){
@@ -726,7 +738,9 @@ class Queries {
   }
 
 ///////////////////NEWSFEED///////////////////////////////////////////////////////////////////////
-  String getPostsById(String orgId) {
+  String getPostsById(
+    String orgId,
+  ) {
     return """
       query {
         postsByOrganization(id: "$orgId")
@@ -757,7 +771,9 @@ class Queries {
 """;
   }
 
-  String getPostsComments(String postId) {
+  String getPostsComments(
+    String postId,
+  ) {
     return """
 query{
   commentsByPost(id: "$postId"){
@@ -884,7 +900,9 @@ query{
     final AuthController _authController = AuthController();
 
     final QueryResult _resp = await _client.mutate(MutationOptions(
-      documentNode: gql(createCommentMutation),
+      documentNode: gql(
+        createCommentMutation,
+      ),
       variables: {
         'postId': postId, //Add your variables here
         'text': text
@@ -909,7 +927,11 @@ query{
     }
   }
 
-  addPost(String text, String organizationId, String title) async {
+  addPost(
+    String text,
+    String organizationId,
+    String title,
+  ) async {
     print(text);
     print(organizationId);
     print(title);
@@ -934,7 +956,9 @@ query{
     _authController.getNewToken();
 
     final QueryResult _resp = await _client.mutate(MutationOptions(
-      documentNode: gql(addPostMutation),
+      documentNode: gql(
+        addPostMutation,
+      ),
       variables: {
         'title': title, //Add your variables here
         'text': text,
@@ -949,7 +973,9 @@ query{
     }
   }
 
-  addLike(String postID) async {
+  addLike(
+    String postID,
+  ) async {
     print(postID);
     const String addLikeMutation = """
      mutation likePost(\$postID: ID!) { 
@@ -977,7 +1003,9 @@ query{
     }
   }
 
-  removeLike(String postID) async {
+  removeLike(
+    String postID,
+  ) async {
     print(postID);
     const String unLikeMutation = """
      mutation unlikePost(\$postID: ID!) { 

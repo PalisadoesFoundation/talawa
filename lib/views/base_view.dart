@@ -6,8 +6,15 @@ import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';
 
 class BaseView<T extends ChangeNotifier> extends StatefulWidget {
-  const BaseView({@required this.builder, this.onModelReady});
-  final Widget Function(BuildContext context, T value, Widget child) builder;
+  const BaseView({
+    @required this.builder,
+    this.onModelReady,
+  });
+  final Widget Function(
+    BuildContext context,
+    T value,
+    Widget child,
+  ) builder;
   final Function(T) onModelReady;
 
   @override
@@ -20,16 +27,22 @@ class _BaseViewState<T extends ChangeNotifier> extends State<BaseView<T>> {
   @override
   void initState() {
     if (widget.onModelReady != null) {
-      widget.onModelReady(model);
+      widget.onModelReady(
+        model,
+      );
     }
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return ChangeNotifierProvider<T>(
       create: (context) => model,
-      child: Consumer<T>(builder: widget.builder),
+      child: Consumer<T>(
+        builder: widget.builder,
+      ),
     );
   }
 }

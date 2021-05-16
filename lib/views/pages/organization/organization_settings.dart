@@ -45,9 +45,15 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     String newOrgId;
     String newOrgName;
     final GraphQLClient _client = graphQLConfiguration.authClient();
-    final QueryResult result = await _client.mutate(MutationOptions(
-        documentNode:
-            gql(_query.leaveOrg(widget.organization[0]['_id'].toString()))));
+    final QueryResult result = await _client.mutate(
+      MutationOptions(
+        documentNode: gql(
+          _query.leaveOrg(
+            widget.organization[0]['_id'].toString(),
+          ),
+        ),
+      ),
+    );
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
@@ -57,7 +63,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       setState(() {
         processing = false;
       });
-      CustomToast.exceptionToast(msg: result.exception.toString());
+      CustomToast.exceptionToast(
+        msg: result.exception.toString(),
+      );
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
       setState(() {
@@ -66,25 +74,32 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         if (remaindingOrg.isEmpty) {
           newOrgId = null;
         } else if (remaindingOrg.isNotEmpty) {
-          setState(() {
-            newOrgId = result.data['leaveOrganization']['joinedOrganizations']
-                    [0]['_id']
-                .toString();
-            newOrgName = result.data['leaveOrganization']['joinedOrganizations']
-                    [0]['name']
-                .toString();
-          });
+          setState(
+            () {
+              newOrgId = result.data['leaveOrganization']['joinedOrganizations']
+                      [0]['_id']
+                  .toString();
+              newOrgName = result.data['leaveOrganization']
+                      ['joinedOrganizations'][0]['name']
+                  .toString();
+            },
+          );
         }
         processing = false;
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context, listen: false)
-          .saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context, listen: false)
-          .saveCurrentOrgId(newOrgId);
+      Provider.of<Preferences>(
+        context,
+        listen: false,
+      ).saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(
+        context,
+        listen: false,
+      ).saveCurrentOrgId(newOrgId);
       CustomToast.sucessToast(
-          msg: 'You are no longer apart of this organization');
+        msg: 'You are no longer apart of this organization',
+      );
       pushNewScreen(
         context,
         screen: const ProfilePage(),
@@ -103,8 +118,15 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     String newOrgName;
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    final QueryResult result = await _client
-        .mutate(MutationOptions(documentNode: gql(_query.removeOrg(orgId))));
+    final QueryResult result = await _client.mutate(
+      MutationOptions(
+        documentNode: gql(
+          _query.removeOrg(
+            orgId,
+          ),
+        ),
+      ),
+    );
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
@@ -118,7 +140,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
-      CustomToast.sucessToast(msg: 'Successfully Removed Organization');
+      CustomToast.sucessToast(
+        msg: 'Successfully Removed Organization',
+      );
       setState(() {
         remaindingOrg =
             result.data['removeOrganization']['joinedOrganizations'] as List;
@@ -135,11 +159,23 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         processing = false;
       });
 
-      _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context, listen: false)
-          .saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context, listen: false)
-          .saveCurrentOrgId(newOrgId);
+      _orgController.setNewOrg(
+        context,
+        newOrgId,
+        newOrgName,
+      );
+      Provider.of<Preferences>(
+        context,
+        listen: false,
+      ).saveCurrentOrgName(
+        newOrgName,
+      );
+      Provider.of<Preferences>(
+        context,
+        listen: false,
+      ).saveCurrentOrgId(
+        newOrgId,
+      );
       Navigator.of(context).pop();
       pushNewScreen(
         context,
@@ -151,27 +187,36 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Organization Settings',
-              style: const TextStyle(color: Colors.white)),
+      appBar: AppBar(
+        title: const Text(
+          'Organization Settings',
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
-        body: Stack(
-          children: [
-            processing
-                ? Container(
-                    color: Colors.transparent.withOpacity(0.3),
-                    child: const Center(
-                      child: const CircularProgressIndicator(),
-                    ),
-                  )
-                : const SizedBox(),
-            Container(
-              child: Column(children: <Widget>[
+      ),
+      body: Stack(
+        children: [
+          processing
+              ? Container(
+                  color: Colors.transparent.withOpacity(
+                    0.3,
+                  ),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : const SizedBox(),
+          Container(
+            child: Column(
+              children: <Widget>[
                 ListTile(
-                    key: const Key('Update Organization'),
+                    key: const Key(
+                      'Update Organization',
+                    ),
                     title: const Text(
                       'Update Organization',
-                      style: const TextStyle(fontSize: 18.0),
+                      style: TextStyle(fontSize: 18.0),
                     ),
                     leading: const Icon(
                       Icons.update,
@@ -202,10 +247,14 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 widget.public
                     ? const SizedBox()
                     : ListTile(
-                        key: const Key('Accept MemberShip Requests'),
+                        key: const Key(
+                          'Accept MemberShip Requests',
+                        ),
                         title: const Text(
                           'Accept MemberShip Requests',
-                          style: TextStyle(fontSize: 18.0),
+                          style: TextStyle(
+                            fontSize: 18.0,
+                          ),
                         ),
                         subtitle: const Text(
                           'For Private Organizations',
@@ -222,10 +271,14 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         }),
                 widget.public ? const SizedBox() : const Divider(),
                 ListTile(
-                    key: const Key('Member(s)'),
+                    key: const Key(
+                      'Member(s)',
+                    ),
                     title: const Text(
                       'Member(s)',
-                      style: TextStyle(fontSize: 18.0),
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
                     ),
                     leading: const Icon(
                       Icons.person,
@@ -240,10 +293,14 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 const Divider(),
                 widget.creator
                     ? ListTile(
-                        key: const Key('Remove This Organization'),
+                        key: const Key(
+                          'Remove This Organization',
+                        ),
                         title: const Text(
                           'Remove This Organization',
-                          style: TextStyle(fontSize: 18.0),
+                          style: TextStyle(
+                            fontSize: 18.0,
+                          ),
                         ),
                         leading: const Icon(
                           Icons.delete,
@@ -252,7 +309,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         onTap: () async {
                           if (!widget.creator) {
                             CustomToast.exceptionToast(
-                                msg: 'Creator can only remove organization');
+                              msg: 'Creator can only remove organization',
+                            );
                           }
                           showDialog(
                               context: context,
@@ -265,7 +323,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                               });
                         })
                     : ListTile(
-                        key: const Key('Leave Organization'),
+                        key: const Key(
+                          'Leave Organization',
+                        ),
                         title: const Text(
                           'Leave Organization',
                           style: TextStyle(fontSize: 18.0),
@@ -276,18 +336,22 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         ),
                         onTap: () {
                           showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertBox(
-                                  message:
-                                      "Are you sure you want to leave this organization?",
-                                  function: leaveOrg,
-                                );
-                              });
-                        }),
-              ]),
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertBox(
+                                message:
+                                    "Are you sure you want to leave this organization?",
+                                function: leaveOrg,
+                              );
+                            },
+                          );
+                        },
+                      ),
+              ],
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
