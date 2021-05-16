@@ -42,6 +42,7 @@ class _GroupsState extends State<Groups> {
           style: TextStyle(color: Colors.white),
         ),
       ),
+
       body: FutureBuilder(
           future: getEventsList(context),
           builder: (BuildContext context, AsyncSnapshot<void> snap) {
@@ -108,6 +109,7 @@ class _GroupsState extends State<Groups> {
                                   ),
                                 );
                               },
+
                             ),
                           );
                         }),

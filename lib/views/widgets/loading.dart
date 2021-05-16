@@ -48,7 +48,7 @@ class _LoadingState extends State<Loading> {
   void initState() {
     super.initState();
     loadingFunc();
-    print(1);
+    debugPrint("1");
   }
 
   @override

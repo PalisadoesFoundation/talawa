@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/model/switch_org.dart';
 import 'package:talawa/services/queries_.dart';
@@ -23,9 +24,9 @@ class API {
     );
 
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
     } else if (!result.hasException && !result.loading) {
-      print(result.data);
+      debugPrint(result.data.toString());
       joinedOrgs = (json.decode(
         result.data['users'][0]['joinedOrganizations'].toString(),
       ) as List)
@@ -34,7 +35,7 @@ class API {
                 SwitchOrg.fromJson(joinedOrgs as Map<String, dynamic>),
           )
           .toList();
-      print(joinedOrgs);
+      debugPrint(joinedOrgs.toString());
     }
 
     return joinedOrgs;

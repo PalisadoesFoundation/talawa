@@ -80,7 +80,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       return updateProfileWithoutImg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
       });
@@ -151,7 +151,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
       return updateProfileWithImg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
       });

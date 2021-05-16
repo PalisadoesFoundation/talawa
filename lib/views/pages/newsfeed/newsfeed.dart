@@ -58,130 +58,116 @@ class NewsFeed extends StatelessWidget {
                         refreshFunction: () => getPostsList(context),
                         key: UniqueKey(),
                       ))
-                    : Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                  itemCount: Provider.of<PostProvider>(context)
-                                      .getPostList
-                                      .length,
-                                  itemBuilder: (context, index) {
-                                    final Map post =
-                                        Provider.of<PostProvider>(context)
-                                            .getPostList[index] as Map;
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                                itemCount: Provider.of<PostProvider>(context)
+                                    .getPostList
+                                    .length,
+                                itemBuilder: (context, index) {
+                                  final Map post =
+                                      Provider.of<PostProvider>(context)
+                                          .getPostList[index] as Map;
 
-                                    return Container(
-                                      padding: EdgeInsets.only(
-                                          top: SizeConfig.safeBlockVertical *
-                                              2.5),
-                                      child: Column(
-                                        children: <Widget>[
-                                          InkWell(
-                                            onTap: () {
-                                              pushNewScreen(
-                                                context,
-                                                screen: NewsArticle(
-                                                  post: post,
-                                                  index: index,
-                                                ),
-                                              );
-                                            },
-                                            child: Card(
-                                              color: Colors.white,
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Container(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              5.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20.0),
-                                                        child: Image.asset(
-                                                            UIData
-                                                                .shoppingImage),
-                                                      )),
-                                                  Row(children: <Widget>[
-                                                    SizedBox(
-                                                      width: SizeConfig
-                                                              .safeBlockHorizontal *
-                                                          7.5,
-                                                    ),
-                                                    // ignore: avoid_unnecessary_containers
-                                                    Container(
-                                                        child: Text(
-                                                      post['title'].toString(),
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 20.0,
-                                                      ),
-                                                    )),
-                                                  ]),
-                                                  SizedBox(
-                                                    height: SizeConfig
-                                                            .safeBlockVertical *
-                                                        1.25,
-                                                  ),
-                                                  Row(children: <Widget>[
-                                                    SizedBox(
-                                                      width: SizeConfig
-                                                              .safeBlockHorizontal *
-                                                          7.5,
-                                                    ),
-                                                    // ignore: sized_box_for_whitespace
-                                                    Container(
-                                                        width: SizeConfig
-                                                                .screenWidth -
-                                                            SizeConfig
-                                                                    .safeBlockHorizontal *
-                                                                12.5,
-                                                        child: Text(
-                                                          post["text"]
-                                                              .toString(),
-                                                          textAlign:
-                                                              TextAlign.justify,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 16.0,
-                                                          ),
-                                                        )),
-                                                  ]),
-                                                  Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10),
-                                                      child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: <Widget>[
-                                                            likeButton(
-                                                                post, context),
-                                                            commentCounter(post,
-                                                                index, context),
-                                                            Container(
-                                                                width: SizeConfig
-                                                                        .safeBlockHorizontal *
-                                                                    20)
-                                                          ])),
-                                                ],
-                                              ),
-                                            ),
+                                  return Container(
+                                    padding: EdgeInsets.only(
+                                        top:
+                                            SizeConfig.safeBlockVertical * 2.5),
+                                    child: InkWell(
+                                      onTap: () {
+                                        pushNewScreen(
+                                          context,
+                                          screen: NewsArticle(
+                                            post: post,
+                                            index: index,
                                           ),
-                                        ],
+                                        );
+                                      },
+                                      child: Card(
+                                        color: Colors.white,
+                                        child: Column(
+                                          children: <Widget>[
+                                            Container(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  child: Image.asset(
+                                                      UIData.shoppingImage),
+                                                )),
+                                            Row(children: <Widget>[
+                                              SizedBox(
+                                                width: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    7.5,
+                                              ),
+                                              Text(
+                                                post['title'].toString(),
+                                                softWrap: true,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20.0,
+                                                ),
+                                              ),
+                                            ]),
+                                            SizedBox(
+                                              height:
+                                                  SizeConfig.safeBlockVertical *
+                                                      1.25,
+                                            ),
+                                            Row(children: <Widget>[
+                                              SizedBox(
+                                                width: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    7.5,
+                                              ),
+                                              // ignore: sized_box_for_whitespace
+                                              Container(
+                                                  width: SizeConfig
+                                                          .screenWidth -
+                                                      SizeConfig
+                                                              .safeBlockHorizontal *
+                                                          12.5,
+                                                  child: Text(
+                                                    post["text"].toString(),
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 10,
+                                                    style: const TextStyle(
+                                                      fontSize: 16.0,
+                                                    ),
+                                                  )),
+                                            ]),
+                                            Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: <Widget>[
+                                                      likeButton(post, context),
+                                                      commentCounter(
+                                                          post, index, context),
+                                                      Container(
+                                                          width: SizeConfig
+                                                                  .safeBlockHorizontal *
+                                                              20)
+                                                    ])),
+                                          ],
+                                        ),
                                       ),
-                                    );
-                                  }),
-                            ),
-                          ],
-                        ),
+                                    ),
+                                  );
+                                }),
+                          ),
+                        ],
                       ));
           },
         ));
