@@ -22,14 +22,14 @@ class UpdateProfilePageViewModel extends BaseModel {
   List _userDetails = [];
   File _profileImage;
   final Queries _updateProfileQuery = Queries();
-  RegisterUserModel _userModel = RegisterUserModel();
+  RegisterViewModel _userModel = RegisterViewModel();
   final AuthController _authController = AuthController();
   GraphQLConfiguration graphQLConfiguration = locator<GraphQLConfiguration>();
   BuildContext _viewContext;
 
   List get userDetails => _userDetails;
   File get userProfileImage => _profileImage;
-  RegisterUserModel get userModel => _userModel;
+  RegisterViewModel get userModel => _userModel;
 
   initialise(List userDetailsFromWidget, BuildContext context) {
     _viewContext = context;

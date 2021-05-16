@@ -42,7 +42,7 @@ class RegisterFormState extends State<RegisterForm> {
   final TextEditingController _originalPasswordController =
       TextEditingController();
   FocusNode confirmPassField = FocusNode();
-  RegisterUserModel model = RegisterUserModel();
+  RegisterViewModel model = RegisterViewModel();
   bool _progressBarState = false;
   final Queries _signupQuery = Queries();
   var _validate = AutovalidateMode.disabled;
