@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/url_controller.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
@@ -22,6 +24,7 @@ Widget createLoginPageScreen() => MultiProvider(
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
         ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
+        ChangeNotifierProvider<UrlController>(create: (_) => UrlController()),
       ],
       child: MaterialApp(
         home: UrlPage(),
@@ -32,7 +35,7 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
-
+  setupLocator();
   // Function for ignoring overflow errors.
   // ignore: prefer_function_declarations_over_variables
   final void Function(FlutterErrorDetails) onErrorIgnoreOverflowErrors = (

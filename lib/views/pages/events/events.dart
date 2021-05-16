@@ -43,7 +43,7 @@ class _EventsState extends State<Events> {
             ? Center(
                 child: Loading(
                 key: UniqueKey(),
-                isCurrentOrgNull: null,
+                isCurrentOrgNull: false,
               ))
             : model.displayEvents.isEmpty
                 ? RefreshIndicator(
