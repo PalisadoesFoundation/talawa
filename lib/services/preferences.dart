@@ -178,7 +178,7 @@ class Preferences with ChangeNotifier {
         value: (token.tokenString != null && token.tokenString.isNotEmpty)
             ? token.tokenString
             : "");
-    //print("Saved token");
+    //debugPrint("Saved token");
   }
 
   //gets the current token
@@ -200,7 +200,7 @@ class Preferences with ChangeNotifier {
         value: (token.tokenString != null && token.tokenString.isNotEmpty)
             ? token.tokenString
             : "");
-    //print("Saved refresh token");
+    //debugPrint("Saved refresh token");
   }
 
   //get the refreshed token
@@ -220,10 +220,10 @@ class Preferences with ChangeNotifier {
       final Token token =
           Token(tokenString: await storage.read(key: tokenKey) ?? "");
       final Map<String, dynamic> tokenMap = token.parseJwt();
-      //print("Got uid");
+      //debugPrint("Got uid");
       return tokenMap['id'] as int;
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
     return -1;
   }
@@ -263,7 +263,7 @@ class Preferences with ChangeNotifier {
         userLName,
       );
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
     return true;
@@ -280,7 +280,7 @@ class Preferences with ChangeNotifier {
         currentOrgName,
       );
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       return false;
     }
     return true;

@@ -53,7 +53,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       );
       //showError(result.exception.toString());
     } else if (!result.hasException) {
-      print(result.data['organizations'][0]['membershipRequests']);
+      debugPrint(
+          result.data['organizations'][0]['membershipRequests'].toString());
 
       setState(() {
         membershipRequestsList =

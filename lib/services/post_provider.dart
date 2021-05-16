@@ -40,14 +40,14 @@ class PostProvider with ChangeNotifier {
   /// Function to addlike
   Future<void> addLike(String postID) async {
     final Map result = await Queries().addLike(postID) as Map;
-    print(result);
+    debugPrint(result.toString());
     getPosts();
   }
 
   /// Function to remove the likes
   Future<void> removeLike(String postID) async {
     final Map result = await Queries().removeLike(postID) as Map;
-    print(result);
+    debugPrint(result.toString());
     getPosts();
   }
 
