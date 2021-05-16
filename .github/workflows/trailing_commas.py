@@ -33,11 +33,15 @@ def syntax_matcher(root: str, files: list):
         f = open(file_location, 'w')
         for index in range(0, len(data)):
             if ') {' and not '() {' in data[index]:
-                if 'if' in data[index]:
+                if '}) {' in data[index]:
+                    if '=' and ',' in data[index-1]:
+                        file_count = file_count + 0
+
+                    else:
+                        data[index] = data[index].replace('}) {', ',}) {')
+                        file_count = file_count + 1
+                elif 'if' in data[index]:
                     file_count = file_count + 0
-                elif '}) {' in data[index]:
-                    data[index] = data[index].replace('}) {', ',}) {')
-                    file_count = file_count + 1
                 elif 'for' in data[index]:
                     file_count = file_count + 0
                 elif 'switch' in data[index]:
@@ -48,18 +52,27 @@ def syntax_matcher(root: str, files: list):
                     file_count = file_count + 0
                 elif '!' in data[index]:
                     file_count = file_count + 0
+                elif '=' in data[index]:
+                    file_count = file_count + 0
+                elif '<' in data[index]:
+                    file_count = file_count + 0
+                elif '>' in data[index]:
+                    file_count = file_count + 0
+                elif '.is' in data[index]:
+                    file_count = file_count + 0
+                elif '.liesBetween' in data[index]:
+                    file_count = file_count + 0
+                elif '.contains' in data[index]:
+                    file_count = file_count + 0
+                elif '.parse' in data[index]:
+                    file_count = file_count + 0
+                elif 'Exception' in data[index]:
+                    file_count = file_count + 0
+                elif '.inDays' in data[index-1]:
+                    file_count = file_count + 0
                 else:
                     data[index] = data[index].replace(') {', ',) {')
                     file_count = file_count + 1
-
-            """ if ');' and not '();' in data[index]:
-                if '});' in data[index]:
-                    file_count = file_count + 0
-                elif '\n);' in data[index]:
-                    file_count = file_count + 0
-                else:
-                    data[index] = data[index].replace(');', ',);')
-                    file_count = file_count + 1 """
 
             if '))' in data[index]:
                 if '),\n)' in data[index]:
@@ -68,7 +81,11 @@ def syntax_matcher(root: str, files: list):
                     file_count = file_count + 0
                 elif ')) {' in data[index]:
                     file_count = file_count + 0
+                elif '.is' in data[index]:
+                    file_count = file_count + 0
                 elif ')).' in data[index]:
+                    file_count = file_count + 0
+                elif '.liesBetween' in data[index]:
                     file_count = file_count + 0
                 elif 'as' in data[index]:
                     file_count = file_count + 0
