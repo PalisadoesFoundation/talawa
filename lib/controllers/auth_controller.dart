@@ -31,7 +31,7 @@ class AuthController with ChangeNotifier {
     );
 
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
     } else if (!result.hasException && !result.loading) {
       final Token accessToken = Token(
         tokenString: result.data['refreshToken']['accessToken'].toString(),

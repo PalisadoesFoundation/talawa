@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+//pages are imported here
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/routing_constants.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
+import 'package:talawa/views/pages/newsfeed/add_post.dart';
+import 'package:talawa/views/pages/newsfeed/news_article.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/widgets/custom_appbar.dart';
 import 'package:talawa/views/widgets/loading.dart';
-
-import '../../../locator.dart';
 
 class NewsFeed extends StatelessWidget {
   const NewsFeed();
@@ -23,14 +24,12 @@ class NewsFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NavigationService _navigationService = locator<NavigationService>();
-
     return Scaffold(
         appBar: CustomAppBar(
           'NewsFeed',
           key: const Key('NEWSFEED_APP_BAR'),
         ),
-        floatingActionButton: addPostFab(context, _navigationService),
+        floatingActionButton: addPostFab(context),
         body: FutureBuilder(
           future: getPostsList(context),
           builder: (BuildContext context, AsyncSnapshot<void> snap) {
@@ -59,156 +58,129 @@ class NewsFeed extends StatelessWidget {
                         refreshFunction: () => getPostsList(context),
                         key: UniqueKey(),
                       ))
-                    : Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                  itemCount: Provider.of<PostProvider>(context)
-                                      .getPostList
-                                      .length,
-                                  itemBuilder: (context, index) {
-                                    final Map post =
-                                        Provider.of<PostProvider>(context)
-                                            .getPostList[index] as Map;
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                                itemCount: Provider.of<PostProvider>(context)
+                                    .getPostList
+                                    .length,
+                                itemBuilder: (context, index) {
+                                  final Map post =
+                                      Provider.of<PostProvider>(context)
+                                          .getPostList[index] as Map;
 
-                                    return Container(
-                                      padding: EdgeInsets.only(
-                                          top: SizeConfig.safeBlockVertical *
-                                              2.5),
-                                      child: Column(
-                                        children: <Widget>[
-                                          InkWell(
-                                            onTap: () {
-                                              var params = {
-                                                "post": post,
-                                                "index": index
-                                              };
-                                              _navigationService.navigateTo(
-                                                  routes.NewsArticlePageRoute,
-                                                  arguments: params);
-                                              // pushNewScreen(
-                                              //   context,
-                                              //   screen: NewsArticle(
-                                              //     post: post,
-                                              //     index: index,
-                                              //   ),
-                                              // );
-                                            },
-                                            child: Card(
-                                              color: Colors.white,
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Container(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              5.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20.0),
-                                                        child: Image.asset(
-                                                            UIData
-                                                                .shoppingImage),
-                                                      )),
-                                                  Row(children: <Widget>[
-                                                    SizedBox(
-                                                      width: SizeConfig
-                                                              .safeBlockHorizontal *
-                                                          7.5,
-                                                    ),
-                                                    // ignore: avoid_unnecessary_containers
-                                                    Container(
-                                                        child: Text(
-                                                      post['title'].toString(),
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 20.0,
-                                                      ),
-                                                    )),
-                                                  ]),
-                                                  SizedBox(
-                                                    height: SizeConfig
-                                                            .safeBlockVertical *
-                                                        1.25,
-                                                  ),
-                                                  Row(children: <Widget>[
-                                                    SizedBox(
-                                                      width: SizeConfig
-                                                              .safeBlockHorizontal *
-                                                          7.5,
-                                                    ),
-                                                    // ignore: sized_box_for_whitespace
-                                                    Container(
-                                                        width: SizeConfig
-                                                                .screenWidth -
-                                                            SizeConfig
-                                                                    .safeBlockHorizontal *
-                                                                12.5,
-                                                        child: Text(
-                                                          post["text"]
-                                                              .toString(),
-                                                          textAlign:
-                                                              TextAlign.justify,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 10,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 16.0,
-                                                          ),
-                                                        )),
-                                                  ]),
-                                                  Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10),
-                                                      child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: <Widget>[
-                                                            likeButton(
-                                                                post, context),
-                                                            commentCounter(
-                                                                post,
-                                                                index,
-                                                                context,
-                                                                _navigationService),
-                                                            Container(
-                                                                width: SizeConfig
-                                                                        .safeBlockHorizontal *
-                                                                    20)
-                                                          ])),
-                                                ],
-                                              ),
-                                            ),
+                                  return Container(
+                                    padding: EdgeInsets.only(
+                                        top:
+                                            SizeConfig.safeBlockVertical * 2.5),
+                                    child: InkWell(
+                                      onTap: () {
+                                        pushNewScreen(
+                                          context,
+                                          screen: NewsArticle(
+                                            post: post,
+                                            index: index,
                                           ),
-                                        ],
+                                        );
+                                      },
+                                      child: Card(
+                                        color: Colors.white,
+                                        child: Column(
+                                          children: <Widget>[
+                                            Container(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                  child: Image.asset(
+                                                      UIData.shoppingImage),
+                                                )),
+                                            Row(children: <Widget>[
+                                              SizedBox(
+                                                width: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    7.5,
+                                              ),
+                                              Text(
+                                                post['title'].toString(),
+                                                softWrap: true,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20.0,
+                                                ),
+                                              ),
+                                            ]),
+                                            SizedBox(
+                                              height:
+                                                  SizeConfig.safeBlockVertical *
+                                                      1.25,
+                                            ),
+                                            Row(children: <Widget>[
+                                              SizedBox(
+                                                width: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    7.5,
+                                              ),
+                                              // ignore: sized_box_for_whitespace
+                                              Container(
+                                                  width: SizeConfig
+                                                          .screenWidth -
+                                                      SizeConfig
+                                                              .safeBlockHorizontal *
+                                                          12.5,
+                                                  child: Text(
+                                                    post["text"].toString(),
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 10,
+                                                    style: const TextStyle(
+                                                      fontSize: 16.0,
+                                                    ),
+                                                  )),
+                                            ]),
+                                            Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: <Widget>[
+                                                      likeButton(post, context),
+                                                      commentCounter(
+                                                          post, index, context),
+                                                      Container(
+                                                          width: SizeConfig
+                                                                  .safeBlockHorizontal *
+                                                              20)
+                                                    ])),
+                                          ],
+                                        ),
                                       ),
-                                    );
-                                  }),
-                            ),
-                          ],
-                        ),
+                                    ),
+                                  );
+                                }),
+                          ),
+                        ],
                       ));
           },
         ));
   }
 
   //function to add the post on the news feed
-  Widget addPostFab(BuildContext context, NavigationService navigationService) {
+  Widget addPostFab(BuildContext context) {
     return FloatingActionButton(
       heroTag: "btn2",
       backgroundColor: UIData.secondaryColor,
       onPressed: () {
-        navigationService.navigateTo(
-          routes.AddPostPageRoute,
-        );
-        // pushNewScreenWithRouteSettings(context,
-        //     screen: const AddPost(), settings: const RouteSettings());
+        pushNewScreenWithRouteSettings(context,
+            screen: const AddPost(), settings: const RouteSettings());
       },
       child: const Icon(
         Icons.add,
@@ -218,8 +190,7 @@ class NewsFeed extends StatelessWidget {
   }
 
   //function which counts the number of comments on a particular post
-  Widget commentCounter(Map post, int index, BuildContext context,
-      NavigationService navigationService) {
+  Widget commentCounter(Map post, int index, BuildContext context) {
     return Row(
       children: [
         Text(
@@ -233,28 +204,19 @@ class NewsFeed extends StatelessWidget {
             icon: const Icon(Icons.comment),
             color: Colors.grey,
             onPressed: () async {
-              var params = {"post": post, "index": index};
-              navigationService
-                  .navigateTo(routes.NewsArticlePageRoute, arguments: params)
+              pushNewScreenWithRouteSettings(context,
+                      screen: NewsArticle(
+                        post: post,
+                        index: index,
+                      ),
+                      settings: const RouteSettings(),
+                      withNavBar: false)
                   .then((value) {
                 //if (value != null && value)
                 if (value != null) {
                   Provider.of<PostProvider>(context).getPosts();
                 }
               });
-              // pushNewScreenWithRouteSettings(context,
-              //         screen: NewsArticle(
-              //           post: post,
-              //           index: index,
-              //         ),
-              //         settings: const RouteSettings(),
-              //         withNavBar: false)
-              //     .then((value) {
-              //   //if (value != null && value)
-              //   if (value != null) {
-              //     Provider.of<PostProvider>(context).getPosts();
-              //   }
-              // });
             })
       ],
     );

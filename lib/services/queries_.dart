@@ -569,8 +569,8 @@ class Queries {
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
@@ -610,8 +610,8 @@ class Queries {
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
@@ -728,8 +728,8 @@ class Queries {
     ));
 
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data as Map<String, dynamic>;
     }
   }
@@ -866,8 +866,8 @@ query{
       createComments(postId, text);
     }
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
@@ -912,8 +912,8 @@ query{
     ));
 
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
@@ -942,8 +942,8 @@ query{
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
@@ -975,8 +975,8 @@ query{
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
