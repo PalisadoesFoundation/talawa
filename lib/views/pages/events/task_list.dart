@@ -33,7 +33,7 @@ class _TaskListState extends State<TaskList> {
   //function to get the task list
   Future<List<dynamic>> getTasks() async {
     final String userID = widget.event['_id'].toString();
-    print("ishan");
+    debugPrint("ishan");
 
     final Map result = await apiFunctions.gqlquery(
       Queries().getTasksByEvent(

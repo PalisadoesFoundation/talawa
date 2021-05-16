@@ -9,6 +9,7 @@ import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/services/queries_.dart';
+
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -84,10 +85,11 @@ class RegisterFormState extends State<RegisterForm> {
       ),
     );
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
       });
+
       CustomToast.exceptionToast(msg: result.hasException.toString());
     } else if (!result.hasException && !result.loading) {
       setState(

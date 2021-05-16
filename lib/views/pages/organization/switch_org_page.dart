@@ -58,7 +58,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         _progressBarState = true;
       });
     } else if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
         showError(
