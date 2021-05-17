@@ -63,8 +63,10 @@ class RegisterFormState extends State<RegisterForm> {
                     ))
                 : IconButton(
                     icon: const Icon(Icons.delete, size: 30, color: Colors.red),
-                    onPressed: () => Provider.of<SignupLoginController>(context)
-                        .deleteImage(),
+                    onPressed: () => Provider.of<SignupLoginController>(
+                      context,
+                      listen: false,
+                    ).deleteImage(),
                   ),
             SizedBox(height: SizeConfig.safeBlockVertical * 3.15),
             AutofillGroup(
