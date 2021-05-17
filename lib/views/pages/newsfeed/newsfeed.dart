@@ -72,7 +72,7 @@ class NewsFeed extends StatelessWidget {
                             itemBuilder: (context, index) {
                               final Posts post =
                                   Provider.of<NewsFeedProvider>(context)
-                                      .getPostList[index] as Posts;
+                                      .getPostList[index];
 
                               return Container(
                                 padding: EdgeInsets.only(

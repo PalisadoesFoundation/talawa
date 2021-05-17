@@ -117,18 +117,18 @@ void main() {
         //     // Get the Load Comment button.
         final loadCommentsButton = find.text("Load Comments");
 
-        await tester.pump();
-        //     // Tap on the loadCommentsButton.
+        await tester.pumpAndSettle();
+        // Tap on the loadCommentsButton.
         await tester.tap(loadCommentsButton);
-        await tester.pump();
+        await tester.pumpAndSettle();
 
         //     // Comments Icon Should be displayed.
         const iconKey = ValueKey('commentIcon');
 
-        // expect(
-        //   find.byKey(iconKey),
-        //   findsWidgets,
-        // );
+        expect(
+          find.byKey(iconKey),
+          findsOneWidget,
+        );
       });
     });
   });

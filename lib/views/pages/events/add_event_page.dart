@@ -24,7 +24,7 @@ class _AddEventState extends State<AddEvent> {
         appBar: AppBar(
           title: const Text(
             'New Event',
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white),
           ),
         ),
         body: ListView(
