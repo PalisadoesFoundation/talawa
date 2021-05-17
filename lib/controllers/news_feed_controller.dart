@@ -16,7 +16,7 @@ class NewsFeedProvider with ChangeNotifier {
   String _currOrgId;
 
   /// Get the list of post by the organization
-  List get getPostList {
+  List<Posts> get getPostList {
     return _postList;
   }
 
