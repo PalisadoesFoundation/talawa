@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/model/posts.dart';
 import 'package:talawa/routing_constants.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/views/pages/home_page.dart';
@@ -31,7 +32,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => AddPost());
     case routes.NewsArticlePageRoute:
       final params = settings.arguments as Map<String, dynamic>;
-      final post = params["post"] as Map<dynamic, dynamic>;
+      final post = params["post"] as Posts;
       final index = params["index"] as int;
       return MaterialPageRoute(
           builder: (context) => NewsArticle(

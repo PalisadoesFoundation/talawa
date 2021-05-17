@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:talawa/model/events.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 
 //pages are imported here
@@ -12,7 +13,7 @@ import 'package:intl/intl.dart';
 // ignore: must_be_immutable
 class EventDetail extends StatefulWidget {
   EventDetail({Key key, @required this.event}) : super(key: key);
-  Map event;
+  EventsModel event;
 
   @override
   _EventDetailState createState() => _EventDetailState();
@@ -38,10 +39,8 @@ class _EventDetailState extends State<EventDetail>
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.event['title'].toString(),
-          style: const TextStyle(
-            color: Colors.white,
-          ),
+          widget.event.title,
+          style: const TextStyle(color: Colors.white),
           overflow: TextOverflow.ellipsis,
         ),
       ),
@@ -61,19 +60,19 @@ class _EventDetailState extends State<EventDetail>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       displayText(
-                        "To Do: ${widget.event['description'].toString()}",
+                        "To Do: ${widget.event.description}",
                       ),
                       displayText(
-                        "Held: ${widget.event['recurrance'][0]}${widget.event['recurrance'].substring(1).toLowerCase()}",
+                        "Held: ${widget.event.recurrance.toString()[0]}${widget.event.recurrance.toString().substring(1).toLowerCase()}",
                       ),
                       displayText(
-                        "Next: ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime'].toString()))).toString()}",
+                        "Next: ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.startTime))).toString()}",
                       ),
                       displayText(
-                        "Where: ${widget.event['location'].toString()}",
+                        "Where: ${widget.event.location.toString()}",
                       ),
                       displayText(
-                        "From: ${'${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime'].toString())))} to ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['endTime'].toString())))}'}",
+                        "From: ${'${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.startTime)))} to ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.endTime)))}'}",
                       ),
                     ],
                   ),

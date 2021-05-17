@@ -8,7 +8,7 @@ import 'package:talawa/views/pages/organization/join_organization_view.dart';
 class Loading extends StatefulWidget {
   const Loading(
       {Key key,
-      @required this.isCurrentOrgNull,
+      this.isCurrentOrgNull = false,
       this.isNetworkError,
       this.emptyContentIcon,
       this.emptyContentMsg,
@@ -110,8 +110,8 @@ class _LoadingState extends State<Loading> {
                   ),
                 ],
               )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+            : ListView(
+                shrinkWrap: true,
                 children: [
                   widget.isNetworkError == false
                       ? Icon(

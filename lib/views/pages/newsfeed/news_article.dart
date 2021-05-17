@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/post_controller.dart';
+import 'package:talawa/model/posts.dart';
 
 //the pages are called here
 import 'package:talawa/services/queries_.dart';
@@ -25,7 +26,7 @@ const String newLineKey = "@123TALAWA321@";
 class NewsArticle extends StatefulWidget {
   const NewsArticle({Key key, @required this.index, @required this.post})
       : super(key: key);
-  final Map post;
+  final Posts post;
   final int index;
 
   @override
@@ -112,7 +113,7 @@ class _NewsArticleState extends State<NewsArticle> {
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Text(
-                          widget.post['title'].toString(),
+                          widget.post.title,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 30.0),
                           maxLines: 2,
@@ -134,7 +135,7 @@ class _NewsArticleState extends State<NewsArticle> {
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(20.0, 10, 10, 10),
                         child: Text(
-                          widget.post['text'].toString(),
+                          widget.post.text,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.justify,
                           maxLines: 10,
