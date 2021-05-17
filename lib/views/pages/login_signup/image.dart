@@ -12,14 +12,10 @@ class AddImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        const SizedBox(
-          height: 32,
-        ),
+        const SizedBox(height: 32),
         Center(
           child: GestureDetector(
-            onTap: () {
-              _showPicker(context);
-            },
+            onTap: () => _showPicker(context),
             child: CircleAvatar(
               radius: 55,
               backgroundColor: UIData.secondaryColor,
@@ -51,7 +47,7 @@ class AddImage extends StatelessWidget {
   void _showPicker(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext ctx) {
         return SafeArea(
           child: Container(
             child: Wrap(
@@ -98,8 +94,10 @@ class AddImage extends StatelessWidget {
             pickFrom == From.camera ? ImageSource.camera : ImageSource.gallery,
       );
       pickImageFile = File(selectedImage.path);
-      await Provider.of<SignupLoginController>(context, listen: false)
-          .setProfileImage(pickImageFile);
+      await Provider.of<SignupLoginController>(
+        context,
+        listen: false,
+      ).setProfileImage(pickImageFile);
     }
   }
 }
