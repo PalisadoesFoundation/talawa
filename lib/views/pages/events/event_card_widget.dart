@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:talawa/model/events.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/page_view_model/events_page_view_model.dart';
 import 'package:talawa/views/pages/events/add_event_page.dart';
@@ -12,22 +13,22 @@ Widget eventCard(int index, EventPageViewModel model, BuildContext context) {
       children: [
         ExpansionTile(
           title: Text(
-            model.displayEvents[index]['title'].toString(),
+            model.displayEvents[index].title,
             style: const TextStyle(
               color: Colors.black87,
               fontSize: 16,
             ),
           ),
           subtitle: Text(
-            model.displayEvents[index]['description'].toString(),
+            model.displayEvents[index].description,
             style: const TextStyle(color: Colors.black54),
           ),
           trailing: popUpMenue(model.displayEvents[index], model, context),
           children: <Widget>[
-            model.displayEvents[index]['isPublic'] as bool
+            model.displayEvents[index].isPublic
                 ? menueText('This event is Public')
                 : menueText('This event is Private'),
-            model.displayEvents[index]['isRegistered'] as bool
+            model.displayEvents[index].isRegistered
                 ? menueText('You Are Registered')
                 : menueText('You Are Not Registered'),
             ListTile(
@@ -42,8 +43,7 @@ Widget eventCard(int index, EventPageViewModel model, BuildContext context) {
                   pushNewScreen(
                     context,
                     withNavBar: true,
-                    screen:
-                        EventDetail(event: model.displayEvents[index] as Map),
+                    screen: EventDetail(event: model.displayEvents[index]),
                   );
                 },
                 child: const Text(
@@ -72,17 +72,18 @@ Widget menueText(String text) {
   ));
 }
 
-Widget popUpMenue(event, EventPageViewModel model, BuildContext context) {
+Widget popUpMenue(
+    EventsModel event, EventPageViewModel model, BuildContext context) {
   return PopupMenuButton<int>(
     onSelected: (val) async {
       if (val == 1) {
-        return model.register(context, event['_id'].toString());
+        return model.register(context, event.id);
       } else if (val == 2) {
-        return model.addEventTask(context, event['_id'].toString());
+        return model.addEventTask(context, event.id);
       } else if (val == 3) {
-        return model.editEvent(context, event as Map);
+        return model.editEvent(context, event);
       } else if (val == 4) {
-        return model.deleteEvent(context, event['_id'].toString());
+        return model.deleteEvent(context, event.id);
       }
     },
     itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
