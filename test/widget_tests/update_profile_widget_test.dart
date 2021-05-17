@@ -6,7 +6,7 @@ import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/model/user.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
-import 'package:talawa/services/post_provider.dart';
+import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -21,7 +21,8 @@ Widget createProfileUpdateScreen() => MultiProvider(
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
-        ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
+        ChangeNotifierProvider<NewsFeedProvider>(
+            create: (_) => NewsFeedProvider()),
       ],
       child: MaterialApp(
         home: Builder(builder: (BuildContext context) {

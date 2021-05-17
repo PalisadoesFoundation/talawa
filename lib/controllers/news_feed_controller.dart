@@ -6,7 +6,7 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/api_functions.dart';
 
-class PostProvider with ChangeNotifier {
+class NewsFeedProvider with ChangeNotifier {
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
 
@@ -16,7 +16,7 @@ class PostProvider with ChangeNotifier {
   String _currOrgId;
 
   /// Get the list of post by the organization
-  List get getPostList {
+  List<Posts> get getPostList {
     return _postList;
   }
 

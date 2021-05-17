@@ -7,6 +7,7 @@ import 'package:talawa/locator.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/model/posts.dart';
@@ -36,6 +37,8 @@ Widget newsArticlePage() => MultiProvider(
         ChangeNotifierProvider<CommentHandler>(
           create: (_) => CommentHandler(),
         ),
+        ChangeNotifierProvider<GroupController>(
+            create: (_) => GroupController()),
       ],
       child: MaterialApp(
         home: Builder(
@@ -114,18 +117,18 @@ void main() {
         //     // Get the Load Comment button.
         final loadCommentsButton = find.text("Load Comments");
 
-        await tester.pump();
-        //     // Tap on the loadCommentsButton.
+        await tester.pumpAndSettle();
+        // Tap on the loadCommentsButton.
         await tester.tap(loadCommentsButton);
-        await tester.pump();
+        await tester.pumpAndSettle();
 
         //     // Comments Icon Should be displayed.
         const iconKey = ValueKey('commentIcon');
 
-        // expect(
-        //   find.byKey(iconKey),
-        //   findsWidgets,
-        // );
+        expect(
+          find.byKey(iconKey),
+          findsOneWidget,
+        );
       });
     });
   });

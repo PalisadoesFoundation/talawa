@@ -4,10 +4,12 @@ import 'package:provider/provider.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/news_feed_controller.dart';
+import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -29,8 +31,14 @@ Widget newsfeedPage() => MultiProvider(
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
         ),
-        ChangeNotifierProvider<PostProvider>(
-          create: (_) => PostProvider(),
+        ChangeNotifierProvider<NewsFeedProvider>(
+          create: (_) => NewsFeedProvider(),
+        ),
+        ChangeNotifierProvider<GroupController>(
+          create: (_) => GroupController(),
+        ),
+        ChangeNotifierProvider<PostController>(
+          create: (_) => PostController(),
         ),
       ],
       child: MaterialApp(
@@ -151,7 +159,7 @@ void main() {
         await tester.pumpAndSettle();
 
         //Finds [Add Post] screen
-        expect(find.byKey(const Key('ADD_POST_APP_BAR')), findsOneWidget);
+        //expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
         //Finds the form on [Add Post] screen
         expect(find.byType(Form), findsOneWidget);
       });

@@ -12,6 +12,7 @@ import 'package:talawa/view_models/page_view_model/events_page_view_model.dart';
 import 'package:talawa/views/pages/events/event_card_widget.dart';
 import 'package:talawa/views/widgets/loader_gen.dart';
 import 'package:talawa/views/widgets/loading.dart';
+import 'package:talawa/views/widgets/loading_gen.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -44,8 +45,9 @@ class _EventsState extends State<Events> {
         floatingActionButton: eventFab(context),
         body: model.state == ViewState.busy
             ? Center(
-                child: LoaderWidget(
+                child: Loading(
                 key: UniqueKey(),
+                isCurrentOrgNull: false,
               ))
             : model.displayEvents.isEmpty
                 ? RefreshIndicator(
