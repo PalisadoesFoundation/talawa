@@ -3,11 +3,12 @@ import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/api_functions.dart';
 
-class GroupsProvider with ChangeNotifier {
+class GroupController with ChangeNotifier {
   Preferences preferences = Preferences();
   ApiFunctions apiFunctions = ApiFunctions();
   List _eventList = [];
   List _displayedEvents = [];
+  bool fetched = true;
 
   //variable for organization Id
   String _currOrgId;
@@ -33,6 +34,29 @@ class GroupsProvider with ChangeNotifier {
   //Getter for error which might occured during fetching posts
   bool get isErrorOccurred {
     return exception != null;
+  }
+
+  bool get isScreenEmpty {
+    return _currOrgId == null || _eventList.isEmpty;
+  }
+
+  List get getDisplayedEvents {
+    return _eventList;
+  }
+
+  bool get isDataFetched {
+    return fetched;
+  }
+
+  // Function to get the events
+  Future<void> getEventsOnInitialise() async {
+    final bool isOrgIdChanged =
+        (await preferences.getCurrentOrgId()) == _currOrgId;
+    if (_eventList.isNotEmpty && isOrgIdChanged) {
+      return;
+    }
+
+    await getEvents();
   }
 
   //function to get the events

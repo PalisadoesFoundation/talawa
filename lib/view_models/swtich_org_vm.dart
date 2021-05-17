@@ -12,8 +12,12 @@ class SwitchOrgModel extends BaseModel {
   List<SwitchOrg> joinedOrgs;
 
   Future getJoinedOrgs() async {
-    setState(ViewState.busy);
+    setState(
+      ViewState.busy,
+    );
     joinedOrgs = await _api.fetchUserDetails();
-    setState(ViewState.idle);
+    setState(
+      ViewState.idle,
+    );
   }
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AlertBox extends StatefulWidget {
-  const AlertBox({this.message, this.function});
+  const AlertBox({
+    this.message,
+    this.function,
+  });
 
   final String message;
   final Function function;
@@ -12,24 +15,34 @@ class AlertBox extends StatefulWidget {
 
 class _AlertBoxState extends State<AlertBox> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return AlertDialog(
-      title: const Text("Confirmation"),
-      content: Text(widget.message),
+      title: const Text(
+        "Confirmation",
+      ),
+      content: Text(
+        widget.message,
+      ),
       actions: [
         ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text("Close"),
+          child: const Text(
+            "Close",
+          ),
         ),
         ElevatedButton(
           onPressed: () async {
-            print('here');
+            debugPrint('here');
             widget.function();
             Navigator.pop(context);
           },
-          child: const Text("Yes"),
+          child: const Text(
+            "Yes",
+          ),
         )
       ],
     );

@@ -5,32 +5,31 @@ import 'package:flutter/services.dart';
 //Pages are imported here
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/url_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
-import 'package:talawa/services/groups_provider.dart';
-import 'package:talawa/services/post_provider.dart';
+import 'package:talawa/controllers/news_feed_controller.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/loghelper.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/_pages.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
-import 'package:talawa/views/pages/organization/create_organization.dart';
-import 'package:talawa/views/pages/organization/switch_org_page.dart';
 import 'controllers/auth_controller.dart';
 import 'controllers/org_controller.dart';
+import 'router.dart' as router;
 
 Preferences preferences = Preferences();
 LogHelper logHelper = LogHelper();
 Future<void> main() async {
-  WidgetsFlutterBinding
-      .ensureInitialized(); //ensuring weather the app is being initialized or not
+  //ensuring weather the app is being initialized or not
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   await logHelper.init(); // To intialise FlutterLog
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp
-  ]) //setting the orientation according to the screen it is running on
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(MultiProvider(
       providers: [
@@ -40,8 +39,11 @@ Future<void> main() async {
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
-        ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
-        ChangeNotifierProvider<GroupsProvider>(create: (_) => GroupsProvider()),
+        ChangeNotifierProvider<GroupController>(
+            create: (_) => GroupController()),
+        ChangeNotifierProvider<NewsFeedProvider>(
+            create: (_) => NewsFeedProvider()),
+        ChangeNotifierProvider<UrlController>(create: (_) => UrlController()),
       ],
       child: MyApp(),
     ));
@@ -49,8 +51,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -64,28 +64,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: UIData.appName,
         theme: ThemeData(
-            primaryColor: UIData.primaryColor,
-            fontFamily: UIData.quickFont,
-            primarySwatch: UIData.primaryColor as MaterialColor),
+          primaryColor: UIData.primaryColor,
+          fontFamily: UIData.quickFont,
+          primarySwatch: UIData.primaryColor as MaterialColor,
+        ),
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
-        onGenerateRoute: (RouteSettings settings) {
-          print(
-              'build route for ${settings.name}'); //here we are building the routes for the app
-          final routes = <String, WidgetBuilder>{
-            UIData.homeRoute: (BuildContext context) => const HomePage(),
-            UIData.loginPageRoute: (BuildContext context) => UrlPage(),
-            UIData.createOrgPage: (BuildContext context) =>
-                const CreateOrganization(),
-            UIData.joinOrganizationPage: (BuildContext context) =>
-                const JoinOrganization(),
-            UIData.switchOrgPage: (BuildContext context) =>
-                SwitchOrganization(),
-            UIData.profilePage: (BuildContext context) => const ProfilePage(),
-          };
-          final WidgetBuilder builder = routes[settings.name];
-          return MaterialPageRoute(builder: (ctx) => builder(ctx));
-        },
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
         home: FutureBuilder(
           future: preferences.getUserId(),
           initialData: "Initial Data",
@@ -93,7 +79,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.data.toString() == "Initial Data") {
               return Scaffold(
                 body: Container(
-                  child: Center(
+                  child: const Center(
                     child: CircularProgressIndicator(),
                   ),
                 ),

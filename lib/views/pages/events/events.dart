@@ -1,14 +1,18 @@
 //flutter packages are called here
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:talawa/enums/viewstate.dart';
+import 'package:talawa/model/events.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/page_view_model/events_page_view_model.dart';
 import 'package:talawa/views/pages/events/event_card_widget.dart';
+import 'package:talawa/views/widgets/loader_gen.dart';
 import 'package:talawa/views/widgets/loading.dart';
+import 'package:talawa/views/widgets/loading_gen.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -43,7 +47,7 @@ class _EventsState extends State<Events> {
             ? Center(
                 child: Loading(
                 key: UniqueKey(),
-                isCurrentOrgNull: null,
+                isCurrentOrgNull: false,
               ))
             : model.displayEvents.isEmpty
                 ? RefreshIndicator(
@@ -212,7 +216,7 @@ class _EventsState extends State<Events> {
                 items: [
                   const Text(
                     'All',
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   Text(
                     model.dateSelected,
@@ -221,8 +225,9 @@ class _EventsState extends State<Events> {
                 ],
                 options: CarouselOptions(
                   onPageChanged: (item, reason) {
-                    List _currentFilterEvents = model.filterEventsByDay(
-                        _calendarController.selectedDay, model.eventList);
+                    final List<EventsModel> _currentFilterEvents =
+                        model.filterEventsByDay(
+                            _calendarController.selectedDay, model.eventList);
                     if (item == 0) {
                       model.setDisplayEvents(model.eventList);
                     } else if (item == 1) {
