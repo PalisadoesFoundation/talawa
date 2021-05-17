@@ -8,7 +8,6 @@ import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/model/token.dart';
-import 'package:talawa/utils/uidata.dart';
 
 class AuthController with ChangeNotifier {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();

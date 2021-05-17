@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -25,8 +26,11 @@ Widget groupsPage() => MultiProvider(
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
         ),
+        ChangeNotifierProvider<GroupController>(
+          create: (_) => GroupController(),
+        ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         home: Groups(),
       ),
     );
@@ -77,6 +81,10 @@ void main() {
 
     testWidgets("empty groups for user with no org", (tester) async {
       await tester.pumpWidget(groupsPage());
+
+      final emptyTextWidget = find.byType(Text);
+
+      expect(emptyTextWidget, findsOneWidget);
 
       // get the [ListView] widget
       final listView = find.byType(ListView);

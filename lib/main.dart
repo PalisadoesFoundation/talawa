@@ -5,13 +5,13 @@ import 'package:flutter/services.dart';
 //Pages are imported here
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/controllers/url_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
-import 'package:talawa/services/groups_provider.dart';
+import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/services/post_provider.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/loghelper.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -39,8 +39,10 @@ Future<void> main() async {
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
-        ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
-        ChangeNotifierProvider<GroupsProvider>(create: (_) => GroupsProvider()),
+        ChangeNotifierProvider<GroupController>(
+            create: (_) => GroupController()),
+        ChangeNotifierProvider<NewsFeedProvider>(
+            create: (_) => NewsFeedProvider()),
         ChangeNotifierProvider<UrlController>(create: (_) => UrlController()),
       ],
       child: MyApp(),
@@ -62,9 +64,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: UIData.appName,
         theme: ThemeData(
-            primaryColor: UIData.primaryColor,
-            fontFamily: UIData.quickFont,
-            primarySwatch: UIData.primaryColor as MaterialColor),
+          primaryColor: UIData.primaryColor,
+          fontFamily: UIData.quickFont,
+          primarySwatch: UIData.primaryColor as MaterialColor,
+        ),
         debugShowCheckedModeBanner: false,
         showPerformanceOverlay: false,
         navigatorKey: locator<NavigationService>().navigatorKey,

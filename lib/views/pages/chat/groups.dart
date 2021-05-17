@@ -1,32 +1,16 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are called here
 import 'package:provider/provider.dart';
-import 'package:talawa/services/groups_provider.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/views/pages/chat/chat.dart';
-import 'package:talawa/views/widgets/loading.dart';
 
-class Groups extends StatefulWidget {
-  const Groups({Key key}) : super(key: key);
-
-  @override
-  _GroupsState createState() => _GroupsState();
-}
-
-class _GroupsState extends State<Groups> {
-  FToast fToast;
-
-  /// Get the list of posts
-  Future<void> getEventsList(BuildContext context) async {
-    await Provider.of<GroupsProvider>(context, listen: false).getEvents();
-  }
-
+class Groups extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,76 +24,116 @@ class _GroupsState extends State<Groups> {
         ),
       ),
       body: FutureBuilder(
-          future: getEventsList(context),
-          builder: (BuildContext context, AsyncSnapshot<void> snap) {
-            if (snap.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
+        future: Provider.of<GroupController>(
+          context,
+          listen: false,
+        ).getEventsOnInitialise(),
+        builder: (BuildContext context, AsyncSnapshot<void> snap) {
+          if (snap.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-            return (Provider.of<GroupsProvider>(context).isCurrOrgIdNull ||
-                    Provider.of<GroupsProvider>(context).isEventsEmpty)
-                ? Center(
-                    child: Loading(
-                      key: UniqueKey(),
-                      isCurrentOrgNull:
-                          Provider.of<GroupsProvider>(context).isCurrOrgIdNull,
-                      isNetworkError:
-                          Provider.of<GroupsProvider>(context).isErrorOccurred,
-                      emptyContentIcon: Icons.announcement_outlined,
-                      emptyContentMsg:
-                          'Register in an Event to start chatting!',
-                      refreshFunction: () => getEventsList(context),
+          if (Provider.of<GroupController>(context).isScreenEmpty) {
+            return _emptyWidget(
+              context,
+              Provider.of<GroupController>(context).isDataFetched,
+            );
+          }
+
+          final List displayedEvents =
+              Provider.of<GroupController>(context).getDisplayedEvents;
+
+          return RefreshIndicator(
+            onRefresh: () async {
+              try {
+                await Provider.of<GroupController>(
+                  context,
+                  listen: false,
+                ).getEvents();
+              } catch (e) {
+                CustomToast.exceptionToast(msg: e.toString());
+              }
+            },
+            child: ListView.builder(
+              itemCount: displayedEvents.length,
+              itemBuilder: (context, index) {
+                final String _groupName = '${displayedEvents[index]['title']}';
+                final String _imgSrc =
+                    displayedEvents[index]['organization']['image'] as String;
+                final String _imgRoute =
+                    Provider.of<GraphQLConfiguration>(context).displayImgRoute;
+
+                return Card(
+                  child: ListTile(
+                    title: Text(_groupName),
+                    leading: CircleAvatar(
+                      backgroundColor: UIData.secondaryColor,
+                      child: _imgSrc == null
+                          ? Image.asset(UIData.talawaLogo)
+                          : NetworkImage(_imgRoute + _imgSrc) as Widget,
                     ),
-                  )
-                //Refresh indicator for calling getEvents
-                : RefreshIndicator(
-                    onRefresh: () async {
-                      try {
-                        await getEventsList(context);
-                      } catch (e) {
-                        CustomToast.exceptionToast(msg: e.toString());
-                      }
+                    trailing: const Icon(Icons.arrow_right),
+                    onTap: () {
+                      pushNewScreen(
+                        context,
+                        screen: Chat(groupName: _groupName),
+                      );
                     },
-                    //List of chat groups
-                    child: ListView.builder(
-                        itemCount: Provider.of<GroupsProvider>(context)
-                            .displayedEvents
-                            .length,
-                        itemBuilder: (context, index) {
-                          final displayedEvents =
-                              Provider.of<GroupsProvider>(context)
-                                  .displayedEvents;
-                          final String groupName =
-                              '${displayedEvents[index]['title']}';
-                          final String _imgSrc = displayedEvents[index]
-                              ['organization']['image'] as String;
-                          return Card(
-                            child: ListTile(
-                              title: Text(groupName),
-                              leading: CircleAvatar(
-                                backgroundColor: UIData.secondaryColor,
-                                child: _imgSrc == null
-                                    ? Image.asset(UIData.talawaLogo)
-                                    : NetworkImage(
-                                        Provider.of<GraphQLConfiguration>(
-                                                    context)
-                                                .displayImgRoute +
-                                            _imgSrc) as Widget,
-                              ),
-                              trailing: const Icon(Icons.arrow_right),
-                              onTap: () {
-                                pushNewScreen(
-                                  context,
-                                  screen: Chat(
-                                    groupName: groupName,
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        }),
-                  );
-          }),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _emptyWidget(BuildContext context, bool isDataFetched) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Spacer(),
+          Container(
+            alignment: Alignment.center,
+            //Text for empty chat groups
+            child: const Text(
+              "Register in an event to start chatting",
+              key: Key('EMPTY_CHAT_GROUP'),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+          const Spacer(),
+          //Shows spinner while fetching is performed
+          //else shows a refresh text button with icon
+          !isDataFetched
+              ? const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : TextButton.icon(
+                  key: const Key('click_to_refresh_button'),
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Click to Refresh..'),
+                  onPressed: () async {
+                    try {
+                      await Provider.of<GroupController>(context, listen: false)
+                          .getEvents();
+                    } catch (e) {
+                      CustomToast.exceptionToast(msg: e.toString());
+                    }
+                  },
+                ),
+        ],
+      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/enums/viewstate.dart';
+import 'package:talawa/model/posts.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
@@ -20,7 +21,7 @@ class NewsArticleViewModel extends BaseModel {
   bool _isCommentAdded = false;
   bool _showLoadComments = false;
   int index;
-  Map post;
+  Posts post;
   final Queries _query = Queries();
   List _userDetails = [];
   String userID;
@@ -39,20 +40,20 @@ class NewsArticleViewModel extends BaseModel {
   bool get moreComments => _moreComments;
   bool get showLoadComments => _showLoadComments;
 
-  initialize(Map post, int index, BuildContext context) {
+  initialize(Posts post, int index, BuildContext context) {
     this.post = post;
     this.context = context;
     this.index = index;
     _commentController = TextEditingController(
         text: Provider.of<CommentHandler>(context, listen: false)
-            .comment(post["_id"].toString()));
+            .comment(post.id.toString()));
     _commentController.addListener(_notifyData);
     fetchUserDetails();
   }
 
   //this method helps us to get the comments of the post
   Future getPostComments() async {
-    final String mutation = Queries().getPostsComments(post['_id'].toString());
+    final String mutation = Queries().getPostsComments(post.id.toString());
     final Map result = await _apiFunctions.gqlmutation(mutation) as Map;
     _comments = result == null
         ? []
@@ -62,7 +63,7 @@ class NewsArticleViewModel extends BaseModel {
 
   void _notifyData() {
     Provider.of<CommentHandler>(context, listen: false)
-        .commentEntry(post["_id"].toString(), commentController.text);
+        .commentEntry(post.id.toString(), commentController.text);
   }
 
   // For getting length of Comments to be displayed
@@ -134,8 +135,8 @@ class NewsArticleViewModel extends BaseModel {
     if (commentController.text.isNotEmpty) {
       Fluttertoast.showToast(msg: "Adding Comment...");
       queryText = commentController.text.replaceAll("\n", newLineKey).trim();
-      final Map result = await Queries()
-          .createComments(post['_id'].toString(), queryText) as Map;
+      final Map result =
+          await Queries().createComments(post.id.toString(), queryText) as Map;
       if (result == null) {
         Fluttertoast.showToast(
           msg: "Sorry, this comment could not be posted.",

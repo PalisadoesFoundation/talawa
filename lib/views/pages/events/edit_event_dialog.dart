@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/model/events.dart';
 import 'package:talawa/services/queries_.dart';
 
 //pages are called here
@@ -16,7 +17,7 @@ import 'package:talawa/views/widgets/show_progress.dart';
 // ignore: must_be_immutable
 class EditEvent extends StatefulWidget {
   EditEvent({Key key, @required this.event}) : super(key: key);
-  Map event;
+  EventsModel event;
 
   @override
   _EditEventState createState() => _EditEventState();
@@ -93,16 +94,16 @@ class _EditEventState extends State<EditEvent> {
 
   initevent() {
     setState(() {
-      titleController.text = widget.event['title'].toString();
-      descriptionController.text = widget.event['description'].toString();
-      locationController.text = widget.event['location'].toString();
+      titleController.text = widget.event.title;
+      descriptionController.text = widget.event.description;
+      locationController.text = widget.event.location;
       switchVals = {
-        'Make Public': widget.event['isPublic'] as bool,
-        'Make Registerable': widget.event['isRegisterable'] as bool,
-        'Recurring': widget.event['recurring'] as bool,
-        'All Day': widget.event['allDay'] as bool,
+        'Make Public': widget.event.isPublic,
+        'Make Registerable': widget.event.isRegisterable,
+        'Recurring': widget.event.recurring,
+        'All Day': widget.event.allDay,
       };
-      recurrance = widget.event['recurrance'].toString();
+      recurrance = widget.event.recurrance.toString();
     });
   }
 
@@ -198,7 +199,7 @@ class _EditEventState extends State<EditEvent> {
       };
     }
     final String mutation = Queries().updateEvent(
-      eventId: widget.event['_id'],
+      eventId: widget.event.id,
       title: titleController.text,
       description: descriptionController.text,
       location: locationController.text,
