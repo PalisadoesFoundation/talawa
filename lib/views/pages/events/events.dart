@@ -1,8 +1,10 @@
 //flutter packages are called here
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:talawa/enums/viewstate.dart';
+import 'package:talawa/model/events.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -223,8 +225,9 @@ class _EventsState extends State<Events> {
                 ],
                 options: CarouselOptions(
                   onPageChanged: (item, reason) {
-                    List _currentFilterEvents = model.filterEventsByDay(
-                        _calendarController.selectedDay, model.eventList);
+                    final List<EventsModel> _currentFilterEvents =
+                        model.filterEventsByDay(
+                            _calendarController.selectedDay, model.eventList);
                     if (item == 0) {
                       model.setDisplayEvents(model.eventList);
                     } else if (item == 1) {

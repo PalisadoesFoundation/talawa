@@ -1,5 +1,6 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
+import 'package:talawa/model/events.dart';
 
 //imported the pages here
 import 'package:talawa/services/queries_.dart';
@@ -12,7 +13,7 @@ class RegList extends StatefulWidget {
     @required this.event,
   }) : super(key: key);
 
-  final Map event;
+  final EventsModel event;
 
   @override
   _RegListState createState() => _RegListState();
@@ -32,12 +33,10 @@ class _RegListState extends State<RegList> {
 
   //method to get the list of registrants
   Future<List<dynamic>> getRegistrants() async {
-    final String userID = widget.event['_id'].toString();
-    final Map result = await apiFunctions.gqlquery(
-      Queries().getRegistrantsByEvent(
-        userID,
-      ),
-    );
+    final String userID = widget.event.id.toString();
+    final Map result =
+        await apiFunctions.gqlquery(Queries().getRegistrantsByEvent(userID));
+    //setState(() {
 
     // ignore: join_return_with_assignment
     eventTasks = result == null ? [] : result['registrantsByEvent'] as List;

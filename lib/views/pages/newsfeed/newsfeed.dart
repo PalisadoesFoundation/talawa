@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/news_feed_controller.dart';
+import 'package:talawa/model/posts.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/newsfeed/add_post.dart';
@@ -63,14 +64,15 @@ class NewsFeed extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
+                          // ignore: sort_child_properties_last
                           child: ListView.builder(
                             itemCount: Provider.of<NewsFeedProvider>(context)
                                 .getPostList
                                 .length,
                             itemBuilder: (context, index) {
-                              final Map post =
+                              final Posts post =
                                   Provider.of<NewsFeedProvider>(context)
-                                      .getPostList[index] as Map;
+                                      .getPostList[index] as Posts;
 
                               return Container(
                                 padding: EdgeInsets.only(
@@ -108,15 +110,12 @@ class NewsFeed extends StatelessWidget {
                                                           .safeBlockHorizontal *
                                                       7.5,
                                                 ),
-                                                // ignore: avoid_unnecessary_containers
-                                                Container(
-                                                  child: Text(
-                                                    post['title'].toString(),
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20.0,
-                                                    ),
+                                                Text(
+                                                  post.title.toString(),
+                                                  softWrap: true,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20.0,
                                                   ),
                                                 ),
                                               ],
@@ -141,7 +140,7 @@ class NewsFeed extends StatelessWidget {
                                                               .safeBlockHorizontal *
                                                           12.5,
                                                   child: Text(
-                                                    post["text"].toString(),
+                                                    post.text.toString(),
                                                     textAlign:
                                                         TextAlign.justify,
                                                     overflow:
@@ -216,11 +215,11 @@ class NewsFeed extends StatelessWidget {
   }
 
   //function which counts the number of comments on a particular post
-  Widget commentCounter(Map post, int index, BuildContext context) {
+  Widget commentCounter(Posts post, int index, BuildContext context) {
     return Row(
       children: [
         Text(
-          post['commentCount'].toString(),
+          post.commentCount.toString(),
           style: const TextStyle(
             color: Colors.grey,
             fontSize: 16,
@@ -249,14 +248,14 @@ class NewsFeed extends StatelessWidget {
   }
 
   //function to like
-  Widget likeButton(Map post, BuildContext context) {
+  Widget likeButton(Posts post, BuildContext context) {
     final bool isPostLiked =
-        Provider.of<NewsFeedProvider>(context).getLikePostMap[post['_id']];
+        Provider.of<NewsFeedProvider>(context).getLikePostMap[post.id];
 
     return Row(
       children: [
         Text(
-          post['likeCount'].toString(),
+          post.likeCount.toString(),
           style: const TextStyle(
             color: Colors.grey,
             fontSize: 16,
@@ -267,19 +266,19 @@ class NewsFeed extends StatelessWidget {
           color:
               isPostLiked ? const Color(0xff007397) : const Color(0xff9A9A9A),
           onPressed: () {
-            if (post['likeCount'] != 0) {
+            if (post.likeCount != 0) {
               if (isPostLiked == false) {
                 //If user has not liked the post addLike().
                 Provider.of<NewsFeedProvider>(context, listen: false)
-                    .addLike(post['_id'].toString());
+                    .addLike(post.id);
               } else {
                 Provider.of<NewsFeedProvider>(context, listen: false)
-                    .removeLike(post['_id'].toString());
+                    .removeLike(post.id);
               }
             } else {
               //if the likeCount is 0 addLike().
               Provider.of<NewsFeedProvider>(context, listen: false)
-                  .addLike(post['_id'].toString());
+                  .addLike(post.id);
             }
           },
         ),

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:talawa/model/joinedorganization.dart';
+
 SwitchOrg switchOrgFromJson(String str) =>
     SwitchOrg.fromJson(json.decode(str) as Map<String, dynamic>);
 
@@ -68,58 +70,5 @@ class User {
             (x) => x.toJson(),
           ),
         ),
-      };
-}
-
-class JoinedOrganization {
-  JoinedOrganization({
-    this.image,
-    this.id,
-    this.name,
-    this.description,
-    this.creator,
-  });
-
-  factory JoinedOrganization.fromJson(Map<String, dynamic> json) =>
-      JoinedOrganization(
-        image: json["image"].toString(),
-        id: json["_id"].toString(),
-        name: json["name"].toString(),
-        description: json["description"].toString(),
-        creator: Creator.fromJson(json["creator"] as Map<String, dynamic>),
-      );
-
-  String image;
-  String id;
-  String name;
-  String description;
-  Creator creator;
-
-  Map<String, dynamic> toJson() => {
-        "image": image,
-        "_id": id,
-        "name": name,
-        "description": description,
-        "creator": creator.toJson(),
-      };
-}
-
-class Creator {
-  Creator({
-    this.firstName,
-    this.lastName,
-  });
-
-  factory Creator.fromJson(Map<String, dynamic> json) => Creator(
-        firstName: json["firstName"].toString(),
-        lastName: json["lastName"].toString(),
-      );
-
-  String firstName;
-  String lastName;
-
-  Map<String, dynamic> toJson() => {
-        "firstName": firstName,
-        "lastName": lastName,
       };
 }

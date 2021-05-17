@@ -1,5 +1,6 @@
 //flutter packages are imported here
 import 'package:flutter/material.dart';
+import 'package:talawa/model/events.dart';
 
 //pages are imported here
 import 'package:talawa/services/queries_.dart';
@@ -12,7 +13,7 @@ class TaskList extends StatefulWidget {
     @required this.event,
   }) : super(key: key);
 
-  final Map event;
+  final EventsModel event;
 
   @override
   _TaskListState createState() => _TaskListState();
@@ -32,8 +33,7 @@ class _TaskListState extends State<TaskList> {
 
   //function to get the task list
   Future<List<dynamic>> getTasks() async {
-    final String userID = widget.event['_id'].toString();
-    debugPrint("ishan");
+    final String userID = widget.event.id.toString();
 
     final Map result = await apiFunctions.gqlquery(
       Queries().getTasksByEvent(
