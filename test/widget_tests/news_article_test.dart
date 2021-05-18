@@ -3,11 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/locator.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/controllers/post_controller.dart';
+import 'package:talawa/model/posts.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -34,18 +37,20 @@ Widget newsArticlePage() => MultiProvider(
         ChangeNotifierProvider<CommentHandler>(
           create: (_) => CommentHandler(),
         ),
+        ChangeNotifierProvider<GroupController>(
+            create: (_) => GroupController()),
       ],
       child: MaterialApp(
         home: Builder(
           builder: (ctx) {
             SizeConfig().init(ctx);
-            return const NewsArticle(
+            return NewsArticle(
               index: 0,
-              post: {
-                '_id': '605259ecb1257f67811d7ae3',
-                'text': 'ndlnldwnl',
-                'title': 'naanlls'
-              },
+              post: Posts(
+                id: '605259ecb1257f67811d7ae3',
+                text: 'ndlnldwnl',
+                title: 'naanlls',
+              ),
             );
           },
         ),
@@ -53,6 +58,8 @@ Widget newsArticlePage() => MultiProvider(
     );
 
 void main() {
+  setupLocator();
+
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
@@ -107,19 +114,20 @@ void main() {
       await tester.runAsync(() async {
         await tester.pumpWidget(newsArticlePage());
 
-        // Get the Load Comment button.
+        //     // Get the Load Comment button.
         final loadCommentsButton = find.text("Load Comments");
 
+        await tester.pumpAndSettle();
         // Tap on the loadCommentsButton.
         await tester.tap(loadCommentsButton);
-        await tester.pump();
+        await tester.pumpAndSettle();
 
-        // Comments Icon Should be displayed.
+        //     // Comments Icon Should be displayed.
         const iconKey = ValueKey('commentIcon');
 
         expect(
           find.byKey(iconKey),
-          findsWidgets,
+          findsOneWidget,
         );
       });
     });

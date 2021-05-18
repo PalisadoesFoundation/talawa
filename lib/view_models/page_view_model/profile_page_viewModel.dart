@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -6,6 +8,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/enums/exception_type.dart';
 import 'package:talawa/enums/viewstate.dart';
+import 'package:talawa/model/user.dart';
 import 'package:talawa/services/exception.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
@@ -19,11 +22,8 @@ class ProfilePageViewModel extends BaseModel {
   final Queries _query = Queries();
   final Preferences _preferences = Preferences();
   final AuthController _authController = AuthController();
-  List _userDetails = [],
-      _orgAdmin = [],
-      _org = [],
-      _admins = [],
-      _curOrganization = [];
+  List<User> _userDetails = [];
+  List _orgAdmin = [], _org = [], _admins = [], _curOrganization = [];
   bool _isCreator;
   bool _isPublic;
   String _creator;
@@ -33,7 +33,7 @@ class ProfilePageViewModel extends BaseModel {
   String _orgId;
   GraphQLConfiguration _graphQLConfiguration = GraphQLConfiguration();
 
-  List get userDetails => _userDetails;
+  List<User> get userDetails => _userDetails;
   List get curOrganization => _curOrganization;
   String get orgName => _orgName;
   List get org => _org;
@@ -43,11 +43,11 @@ class ProfilePageViewModel extends BaseModel {
   bool get isCreator => _isCreator;
   AuthController get authController => _authController;
 
-  initialize(BuildContext context, bool isCreator, List test) {
+  initialize(BuildContext context, bool isCreator, List<User> test) {
     if (isCreator != null && test != null) {
       _userDetails = test;
       _isCreator = isCreator;
-      _org = _userDetails[0]['joinedOrganizations'] as List;
+      _org = _userDetails[0].joinedOrganizations;
     }
     _context = context;
     fetchUserDetails();
@@ -67,14 +67,14 @@ class ProfilePageViewModel extends BaseModel {
       CustomToast.exceptionToast(msg: "Something went wrong!");
     } else if (!result.hasException) {
       print(result);
-      _userDetails = result.data['users'] as List;
+      _userDetails = userFromJson(json.encode(result.data['users']));
       print("user details");
       print(_userDetails);
-      _org = _userDetails[0]['joinedOrganizations'] as List;
+      _org = _userDetails[0].joinedOrganizations;
       notifyListeners();
       int notFound = 0;
       for (int i = 0; i < _org.length; i++) {
-        if (_org[i]['_id'] == _orgId) {
+        if (_org[i].id == _orgId) {
           break;
         } else {
           notFound++;

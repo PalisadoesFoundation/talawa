@@ -1,6 +1,6 @@
-//flutter packages
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/view_models/page_view_model/add_event_page_view_model.dart';
@@ -24,7 +24,7 @@ class _AddEventState extends State<AddEvent> {
         appBar: AppBar(
           title: const Text(
             'New Event',
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white),
           ),
         ),
         body: ListView(

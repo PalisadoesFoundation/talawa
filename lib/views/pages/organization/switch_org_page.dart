@@ -45,27 +45,39 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
 
     final GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
-    final QueryResult result = await _client.query(QueryOptions(
-        documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(_query.fetchUserInfo),
+        variables: {
+          'id': userID,
+        },
+      ),
+    );
     if (result.loading) {
       setState(() {
         _progressBarState = true;
       });
     } else if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
-        showError(result.exception.toString());
+        showError(
+          result.exception.toString(),
+        );
       });
     } else if (!result.hasException && !result.loading) {
-      setState(() {
-        _progressBarState = false;
-        userOrg = result.data['users'][0]['joinedOrganizations'] as List;
-        print(userOrg);
-        if (userOrg.isEmpty) {
-          showError("You are not registered to any organization");
-        }
-      });
+      setState(
+        () {
+          _progressBarState = false;
+          userOrg = result.data['users'][0]['joinedOrganizations'] as List;
+          print(userOrg);
+          if (userOrg.isEmpty) {
+            showError(
+              "You are not registered to any organization",
+            );
+          }
+        },
+      );
     }
   }
 
@@ -73,7 +85,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Future switchOrg() async {
     if (userOrg[isSelected]['_id'] == orgId) {
       CustomToast.sucessToast(
-          msg: "Switched to ${userOrg[isSelected]['name']}");
+        msg: "Switched to ${userOrg[isSelected]['name']}",
+      );
 
       //New Screen with updated data set
       pushNewScreen(context,
@@ -85,13 +98,23 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       final GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
       final QueryResult result = await _client.mutate(
-          MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
+        MutationOptions(
+          documentNode: gql(
+            _query.fetchOrgById(
+              itemIndex,
+            ),
+          ),
+        ),
+      );
       if (result.hasException) {
         print(result.exception);
-        CustomToast.exceptionToast(msg: result.exception.toString());
+        CustomToast.exceptionToast(
+          msg: result.exception.toString(),
+        );
       } else if (!result.hasException) {
         CustomToast.sucessToast(
-            msg: "Switched to ${result.data['organizations'][0]['name']}");
+          msg: "Switched to ${result.data['organizations'][0]['name']}",
+        );
 
         //save new current org in preference
         final String currentOrgId =
@@ -131,14 +154,19 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       appBar: AppBar(
         title: const Text(
           'Switch Organization',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
       body: _progressBarState
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
           : ListView.separated(
-              padding:
-                  EdgeInsets.only(top: SizeConfig.safeBlockVertical * 1.25),
+              padding: EdgeInsets.only(
+                top: SizeConfig.safeBlockVertical * 1.25,
+              ),
               itemCount: userOrg.length,
               itemBuilder: (context, index) {
                 if (userOrg[index]['_id'] == orgId) {
@@ -149,24 +177,30 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                       ? CircleAvatar(
                           radius: SizeConfig.safeBlockVertical * 7.25,
                           backgroundImage: NetworkImage(
-                              Provider.of<GraphQLConfiguration>(context)
-                                      .displayImgRoute +
-                                  userOrg[index]['image'].toString()))
+                            Provider.of<GraphQLConfiguration>(context)
+                                    .displayImgRoute +
+                                userOrg[index]['image'].toString(),
+                          ),
+                        )
                       : CircleAvatar(
                           radius: SizeConfig.safeBlockVertical * 3.75,
-                          backgroundImage:
-                              const AssetImage("assets/images/team.png")),
+                          backgroundImage: const AssetImage(
+                            "assets/images/team.png",
+                          ),
+                        ),
                   activeColor: UIData.secondaryColor,
                   groupValue: isSelected,
                   title: Text(
                       '${userOrg[index]['name']}\n${userOrg[index]['description']}'),
                   value: index,
                   onChanged: (int val) {
-                    setState(() {
-                      orgId = null;
-                      isSelected = val;
-                      itemIndex = userOrg[index]['_id'].toString();
-                    });
+                    setState(
+                      () {
+                        orgId = null;
+                        isSelected = val;
+                        itemIndex = userOrg[index]['_id'].toString();
+                      },
+                    );
                   },
                 );
               },

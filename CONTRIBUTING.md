@@ -1,5 +1,5 @@
 # Contributing to Talawa
-Thank you for your interest in contributing to Talawa. Regardless of the size of the contribution you make, all contributions are welcome and are appreciated. 
+Thank you for your interest in contributing to Talawa. Regardless of the size of the contribution you make, all contributions are welcome and are appreciated.
 
 If you are new to contributing to open source, please read the Open Source Guides on [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
 
@@ -9,19 +9,19 @@ A safe environment is required for everyone to contribute. Read our [Code of Con
 No one should fear voicing their opinion. Respones must be respectful.
 
 ## Ways to Contribute
-If you are ready to start contributing code right away, we have a list of [good first issues](https://github.com/PalisadoesFoundation/talawa/labels/good%20first%20issue) that contain issues with a limited scope. 
+If you are ready to start contributing code right away, we have a list of [good first issues](https://github.com/PalisadoesFoundation/talawa/labels/good%20first%20issue) that contain issues with a limited scope.
 
 ### Our Development Process
-We utilize GitHub issues and pull requests to keep track of issues and contributions from the community. 
+We utilize GitHub issues and pull requests to keep track of issues and contributions from the community.
 
-#### Issues 
+#### Issues
 Make sure you are following [issue report guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/issue-guidelines.md) available here before creating any new issues on Talawa project.
 
 #### Pull Requests
 [Pull Request guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/PR-guidelines.md) is best resource to follow to start working on open issues.
 
 #### Git Flow
-For Talawa, we utilize the GitFlow branching model. GitFlow is geared towards efficiently tracking development and managing releases. The model makes parallel development efforts easy and safe by isolating new development efforts from completed work. 
+For Talawa, we utilize the GitFlow branching model. GitFlow is geared towards efficiently tracking development and managing releases. The model makes parallel development efforts easy and safe by isolating new development efforts from completed work.
 
 The different types of branches we may use are:
 * Feature branches (feature/branch-name)
@@ -32,7 +32,7 @@ The different types of branches we may use are:
 Detailed document containing how GitFlow works: https://nvie.com/posts/a-successful-git-branching-model/
 
 ### Contributing Code
-Code contributions to Talawa come in the form of pull requests. These are done by forking the repo and making changes locally. 
+Code contributions to Talawa come in the form of pull requests. These are done by forking the repo and making changes locally.
 
 The process of proposing a change to Talawa can be summarized as:
 1. Fork the Talawa repository and branch off `master`.
@@ -54,33 +54,33 @@ The process of proposing a change to Talawa can be summarized as:
     1. You can link and automatically close the issue tied to your pull request by [using a supported keyword in either the pull request's description or in a commit message.](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue) This is a very useful feature that helps to prevent zombie issues that never die.
 1. Once you have successfully commited your changes, you need to push the changes to the forked repo on github using: `git push origin <branch_name>`.(Here branch name must be name of the branch you want to push the changes to.)
 1. Now create a pull request to the Talawa repository from your forked repo. Open an issue regarding the same and link your PR to it.
-1. Ensure the test suite passes, either locally or on CI once a PR has been created. 
+1. Ensure the test suite passes, either locally or on CI once a PR has been created.
 1. Review and address comments on your pull request if requested.
 
 ### General Guidelines
 
 #### Folder Description
-- `controllers`: The folder contains all the files responsible for managing the state. 
+- `controllers`: The folder contains all the files responsible for managing the state.
     ```
     1. Files contain codes for all the business logic related to any screen.
     2. Files also contain the client-side query & mutation calls and server-side side response.
     3. Before adding any controller make sure whether it already exists or not.
     ```
 - `enum`: The folder contains all the enumerator used in the entire project.
-    ``` 
+    ```
     1. File contains an enum that is either used with controllers or widgets.
     2. Before creating any new enum files check if the existing enum can be modified to fulfil your requirement.
     ```
 - `model`: The folder contains all the data models file.
     ```
-    1. Files contains data model that is used in controller file that contains the server-side response in an organised form. 
+    1. Files contains data model that is used in controller file that contains the server-side response in an organised form.
     2. These data models are used to effectively organise projects and render the data on widgets.
     3. In the controller file, convert every response to a particular data model type.
     ```
 - `utils`: The folder contains all the external utility files.
     ```
     1. Codes related to an external utility like validator, UI-scaling, constant strings etc
-    2. Any utility-related files should be created here if not already present. 
+    2. Any utility-related files should be created here if not already present.
     ```
 - `views`: The folder contains all the files related to the UI display.
     ```
@@ -91,10 +91,10 @@ The process of proposing a change to Talawa can be summarized as:
 - Filename should be created with lowercase and underscore letters
 - The business logic & UI based file should be separated from each other.
     - `controllers`: Folder that contains all business logic files
-    - `views`: Folder that contains UI specific files 
+    - `views`: Folder that contains UI specific files
 - If it is UI based file, try to use as much `stateless widget` as possible.
 - Don't use the `print` statement in your code, instead use `debugPrint`.
-- Constructor should be present just after the class declaration. 
+- Constructor should be present just after the class declaration.
 - Make sure to add proper `keyword` (final or const) and data types for any variable.
 - In your files, structure code this way inside your widget class:
   ```

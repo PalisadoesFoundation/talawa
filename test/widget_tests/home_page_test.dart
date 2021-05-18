@@ -3,12 +3,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/post_provider.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/home_page.dart';
+import 'package:talawa/router.dart' as router;
 
 Widget createHomePageScreen() => MultiProvider(
       providers: [
@@ -24,18 +27,24 @@ Widget createHomePageScreen() => MultiProvider(
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
         ),
-        ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
+        ChangeNotifierProvider<NewsFeedProvider>(
+            create: (_) => NewsFeedProvider()),
+        ChangeNotifierProvider<GroupController>(
+            create: (_) => GroupController()),
       ],
-      child: const MaterialApp(
-        home: HomePage(),
+      child: MaterialApp(
+        home: const HomePage(),
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
       ),
     );
 
 void main() {
-  setupLocator();
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
+  setupLocator();
+
   group('HomePage Widget Test', () {
     testWidgets("Testing if HomePage shows up", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
