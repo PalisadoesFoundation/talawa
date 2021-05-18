@@ -26,7 +26,7 @@ class NewsFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(AppLocalizations.of(context).translate('hello-world'));
+    //print(AppLocalizations.of(context).translate('hello-world'));
     return Scaffold(
       appBar: CustomAppBar(
         'NewsFeed',
