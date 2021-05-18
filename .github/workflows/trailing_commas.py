@@ -68,10 +68,13 @@ def syntax_matcher(root: str, files: list):
                     if ',));' in data[index]:
                         data[index] = data[index].replace(',));', '));')
 
-                    # for the unique eception that occured in grops_controller.dart
-                    if name == 'groups_controller.dart':
+                    # for the unique exception occuring in grops_controller.dart
+                    # since a conditional operator means it is an IF line
+                    # and adding an trailing comma will cause an error
+                    if '==' or '!=' in data[index]:
                         data[index] = data[index].replace('(),)', '())')
 
+                    # for removal of comma at the start of function call
                     if '),).' in data[index]:
                         data[index] = data[index].replace('),).', ')).')
                     write_loc.write(data[index])
