@@ -32,14 +32,15 @@ def syntax_matcher(root: str, files: list):
         data = g.readlines()
         f = open(file_location, 'w')
         for index in range(0, len(data)):
-            if ') {' and not '() {' in data[index]:
+            if ') {' and not ',) {' in data[index]:
                 if '}) {' in data[index]:
                     if '=' and ',' in data[index-1]:
                         file_count = file_count + 0
-
                     else:
                         data[index] = data[index].replace('}) {', ',}) {')
                         file_count = file_count + 1
+                elif '() {' in data[index]:
+                    file_count = file_count + 0
                 elif 'if' in data[index]:
                     file_count = file_count + 0
                 elif 'for' in data[index]:
@@ -83,6 +84,8 @@ def syntax_matcher(root: str, files: list):
                     file_count = file_count + 0
                 elif '.is' in data[index]:
                     file_count = file_count + 0
+                elif ('=' or '!' or '&&' or '||' or '>' or '<') in data[index]:
+                    file_count = file_count + 0
                 elif ')).' in data[index]:
                     file_count = file_count + 0
                 elif '.liesBetween' in data[index]:
@@ -95,8 +98,10 @@ def syntax_matcher(root: str, files: list):
                     data[index] = data[index].replace('))', '),)')
                     file_count = file_count + 1
 
-            if ') async {' and not '() async {' in data[index]:
+            if ') async {' and not ',) async {' in data[index]:
                 if '}) async {' in data[index]:
+                    file_count = file_count + 0
+                elif '() async {' in data[index]:
                     file_count = file_count + 0
                 else:
                     data[index] = data[index].replace(
@@ -113,10 +118,6 @@ def syntax_matcher(root: str, files: list):
 
 def main():
     args = arg_parser_resolver()
-    file_count_lib = 0
-    file_count_test = 0
-    # parses through files and saves to a dict
-    file_names_with_size = {}
     # libPath and testPath dir location
     lib_path = os.path.expanduser(os.path.join(args.dir, 'lib'))
     test_path = os.path.expanduser(os.path.join(args.dir, 'test'))
@@ -125,9 +126,6 @@ def main():
         file_count_lib = syntax_matcher(root, files)
     for root, _, files in os.walk(test_path, topdown=False):
         file_count_test = syntax_matcher(root, files)
-
-    print("Number of Files changed in Lib Directory :", file_count_lib)
-    print("Number of Files changed in Test Directory :", file_count_test)
     sys.exit(0)
 
 
