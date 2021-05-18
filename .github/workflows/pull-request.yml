@@ -40,5 +40,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: chmod +x ./.github/workflows/trailing_comma.py
-      - run: ./.github/workflows/trailing_comma.py      
+      - run: chmod +x ./.github/workflows/trailing-commas.py
+      - run: ./.github/workflows/trailing-commas.py    
