@@ -28,10 +28,7 @@ class PostController with ChangeNotifier {
 
   //Methode used for craeting the post
   Future createPost(
-    String description,
-    String title,
-    BuildContext context,
-  ) async {
+      String description, String title, BuildContext context) async {
     if (organizationId == null) {
       CustomToast.exceptionToast(msg: "Please join an organization");
       return;
