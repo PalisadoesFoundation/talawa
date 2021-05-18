@@ -26,7 +26,7 @@ def syntax_matcher(root: str, files: list):
         for index in range(0, len(data)):
             # genral case of addition of commas
             if '))' and not ')) {' in data[index]:
-                data[index] = data[index].replace('))', ',))')
+                data[index] = data[index].replace('))', '),)')
 
             # for cases of function declaration without any parameters
             if '(,)' in data[index]:
@@ -35,6 +35,10 @@ def syntax_matcher(root: str, files: list):
             # for commas already exist and formatting is already done
             if ',));' in data[index]:
                 data[index] = data[index].replace(',));', '));')
+
+            # for the unique eception that occured in grops_controller.dart
+            if name == 'groups_controller.dart':
+                data[index] = data[index].replace('(),)', '())')
 
             if '),).' in data[index]:
                 data[index] = data[index].replace('),).', ')).')
