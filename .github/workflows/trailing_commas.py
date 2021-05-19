@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: UTF-8 -*-
+# -*- coding=UTF-8 -*-
 """This is a prettify script so that flutter formatting can work efficiently.
 
 Methodology:
@@ -28,8 +28,11 @@ import argparse
 def arg_parser_resolver():
     """Resolve the CLI arguments provided by the user.
 
-    Args: None
-    Returns: result: Parsed argument object
+    Args:
+        None
+
+    Returns: 
+        result: Parsed argument object
 
     """
     parser = argparse.ArgumentParser(
@@ -43,9 +46,11 @@ def syntax_matcher(root: str, files: list):
     """Pattern matching and adding trailing commas at the required places.
 
     Args: 
-     - root -> Name of the root directory
-     - files -> List of all the files'(including sub-folders) paths
-    Returns: None
+        root : Name of the root directory
+        files : List of all the files'(including sub-folders) paths
+
+    Returns: 
+        None
     """
     for name in files:
 
@@ -81,13 +86,13 @@ def syntax_matcher(root: str, files: list):
 
 
 def main():
-    """Find, and update, for files having comma in sequence.
+    """Find, and update, for files having comma in trailing sequence.
 
-    This function finds, and prints the files that exceed the CLI
-    defined defaults.
+    Args:
+        None
 
-    Args: None
-    Returns: None
+    Returns: 
+        None
 
     """
     args = arg_parser_resolver()
