@@ -1,6 +1,5 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/model/events.dart';
 import 'package:talawa/services/queries_.dart';
 
@@ -459,10 +458,7 @@ class _EditEventState extends State<EditEvent> {
               _validateLocation = true;
             });
           }
-          Fluttertoast.showToast(
-            msg: 'Fill in the empty fields',
-            backgroundColor: Colors.grey[500],
-          );
+          CustomToast.exceptionToast(msg: 'Fill in the empty fields');
         } else {
           try {
             showProgress(context, 'Updating Event Details . . .',
@@ -470,10 +466,8 @@ class _EditEventState extends State<EditEvent> {
             await updateEvent();
           } catch (e) {
             if (e == "User cannot delete event they didn't create") {
-              Fluttertoast.showToast(
-                msg: "You can't edit events you didn't create",
-                backgroundColor: Colors.grey[500],
-              );
+              CustomToast.exceptionToast(
+                  msg: "You can't edit events you didn't create");
             }
           }
           hideProgress();

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/enums/event_recurrance.dart';
 import 'package:talawa/enums/viewstate.dart';
@@ -198,7 +198,9 @@ class EventPageViewModel extends BaseModel {
   //functions to edit the event
   Future<void> editEvent(BuildContext context, EventsModel event) async {
     if (event.creator.id != _userID) {
-      Fluttertoast.showToast(msg: "You cannot edit events you didn't create");
+      CustomToast.exceptionToast(
+        msg: "You cannot edit events you didn't create",
+      );
     } else {
       pushNewScreen(context,
           withNavBar: true,

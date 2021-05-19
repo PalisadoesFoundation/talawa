@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -12,14 +11,13 @@ class OrganisationTile extends StatefulWidget {
     @required this.organization,
     @required this.index,
     @required this.fromProfile,
-    @required this.fToast,
     @required this.scaffoldKey,
   }) : super(key: key);
 
   final Map organization;
   final int index;
   final bool fromProfile;
-  final FToast fToast;
+
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
@@ -156,7 +154,6 @@ class _OrganisationTileState extends State<OrganisationTile> {
                   ).joinPublicOrg(
                     orgName,
                     organizationId,
-                    widget.fToast,
                     context,
                     fromProfile: widget.fromProfile,
                   );
@@ -168,7 +165,6 @@ class _OrganisationTileState extends State<OrganisationTile> {
                   await Provider.of<OrgController>(ctx, listen: false)
                       .joinPrivateOrg(
                     context,
-                    widget.fToast,
                     organizationId,
                     fromProfile: widget.fromProfile,
                   );

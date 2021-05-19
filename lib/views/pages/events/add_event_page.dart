@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/utils/custom_toast.dart';
 
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
@@ -104,9 +104,9 @@ class _AddEventState extends State<AddEvent> {
           if (model.locationController.text.isEmpty) {
             model.setValidateLocation(true);
           }
-          Fluttertoast.showToast(
-              msg: 'Fill in the empty fields',
-              backgroundColor: Colors.grey[500]);
+          CustomToast.exceptionToast(
+            msg: 'Fill in the empty fields',
+          );
         } else {
           showProgress(context, 'Creating New Event . . .',
               isDismissible: false);

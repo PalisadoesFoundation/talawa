@@ -1,21 +1,17 @@
 //the flutter packages are imported here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:flutter/services.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+
 import 'package:provider/provider.dart';
-import 'package:talawa/controllers/post_controller.dart';
+
 import 'package:talawa/model/posts.dart';
 
 //the pages are called here
-import 'package:talawa/services/queries_.dart';
-import 'package:talawa/services/comment.dart';
-import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/custom_toast.dart';
+
 import 'package:talawa/utils/gql_client.dart';
-import 'package:talawa/utils/api_functions.dart';
+
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/newwfeed_view_model/new_article_page_view_model.dart';
 import 'package:talawa/views/base_view.dart';

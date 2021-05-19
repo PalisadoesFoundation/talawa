@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/post_controller.dart';
@@ -45,8 +44,10 @@ class NewsArticleViewModel extends BaseModel {
     this.context = context;
     this.index = index;
     _commentController = TextEditingController(
-        text: Provider.of<CommentHandler>(context, listen: false)
-            .comment(post.id.toString()));
+      text: Provider.of<CommentHandler>(context, listen: false).comment(
+        post.id.toString(),
+      ),
+    );
     _commentController.addListener(_notifyData);
     fetchUserDetails();
   }
@@ -133,24 +134,22 @@ class NewsArticleViewModel extends BaseModel {
     FocusScope.of(context).unfocus();
     String queryText = '';
     if (commentController.text.isNotEmpty) {
-      Fluttertoast.showToast(msg: "Adding Comment...");
+      CustomToast.sucessToast(msg: "Adding Comment...");
+
       queryText = commentController.text.replaceAll("\n", newLineKey).trim();
       final Map result =
           await Queries().createComments(post.id.toString(), queryText) as Map;
       if (result == null) {
-        Fluttertoast.showToast(
-          msg: "Sorry, this comment could not be posted.",
-        );
+        CustomToast.exceptionToast(
+            msg: "Sorry, this comment could not be posted.");
       } else {
         _isCommentAdded = true;
         FocusScope.of(context).requestFocus(FocusNode());
         commentController.text = '';
-        await Fluttertoast.showToast(
-          msg: "Comment added.",
-        );
+        CustomToast.exceptionToast(msg: "Comment added.");
       }
     } else {
-      Fluttertoast.showToast(msg: "Please write comment");
+      CustomToast.exceptionToast(msg: "Please write comment");
     }
   }
 
