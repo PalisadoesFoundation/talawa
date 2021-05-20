@@ -41,9 +41,9 @@ dependencies:
   fluttertoast: ^7.1.8
   font_awesome_flutter:
   get_it: ^4.0.4
-  graphql_flutter: ^3.1.0
+  graphql_flutter:
   grouped_buttons: ^1.0.4
-  http: ^0.12.0+4
+  http: ^0.12.0+1
   image_picker: any
   intl: ^0.17.0
   package_info: ^2.0.0
