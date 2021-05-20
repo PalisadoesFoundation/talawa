@@ -9,6 +9,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/lang_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/signup_login_controller.dart';
 import 'package:talawa/controllers/url_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/app_localization.dart';
@@ -50,6 +51,8 @@ Future<void> main() async {
         ChangeNotifierProvider<NewsFeedProvider>(
             create: (_) => NewsFeedProvider()),
         ChangeNotifierProvider<UrlController>(create: (_) => UrlController()),
+        ChangeNotifierProvider<SignupLoginController>(
+            create: (_) => SignupLoginController()),
       ],
       child: MyApp(),
     ));
