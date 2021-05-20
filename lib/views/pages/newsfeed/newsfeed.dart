@@ -66,6 +66,7 @@ class NewsFeed extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
+                          // ignore: sort_child_properties_last
                           child: ListView.builder(
                             itemCount: Provider.of<NewsFeedProvider>(context)
                                 .getPostList
@@ -88,7 +89,15 @@ class NewsFeed extends StatelessWidget {
                                             post: post,
                                             index: index,
                                           ),
-                                        );
+                                        ).then((value) {
+                                          //if (value != null && value)
+                                          if (value != null) {
+                                            Provider.of<NewsFeedProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getPosts();
+                                          }
+                                        });
                                       },
                                       child: Card(
                                         color: Colors.white,
@@ -180,11 +189,6 @@ class NewsFeed extends StatelessWidget {
                                                   SizeConfig.safeBlockVertical *
                                                       1.25,
                                             ),
-                                            SizedBox(
-                                              height:
-                                                  SizeConfig.safeBlockVertical *
-                                                      1.25,
-                                            ),
                                           ],
                                         ),
                                       ),
@@ -248,7 +252,8 @@ class NewsFeed extends StatelessWidget {
                   .then((value) {
                 //if (value != null && value)
                 if (value != null) {
-                  Provider.of<NewsFeedProvider>(context).getPosts();
+                  Provider.of<NewsFeedProvider>(context, listen: false)
+                      .getPosts();
                 }
               });
             })
