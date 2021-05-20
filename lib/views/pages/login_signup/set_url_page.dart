@@ -10,8 +10,6 @@ import 'package:talawa/utils/loghelper.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:talawa/views/pages/login_signup/login_page.dart';
-import 'package:talawa/views/pages/login_signup/register_page.dart';
 
 import '../../../locator.dart';
 
@@ -135,9 +133,7 @@ class _UrlPageState extends State<UrlPage>
 
   @override
   Widget build(BuildContext context) {
-    assignAnimation(
-      firstTime: first,
-    );
+    assignAnimation(firstTime: first);
     load();
     SizeConfig().init(context);
 
@@ -157,21 +153,13 @@ class _UrlPageState extends State<UrlPage>
           Container(
             //container with login and sign up button
             padding: EdgeInsets.fromLTRB(
-              0,
-              0,
-              0,
-              SizeConfig.safeBlockVertical * 6.25,
-            ),
+                0, 0, 0, SizeConfig.safeBlockVertical * 6.25),
 
             child: Column(
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.fromLTRB(
-                    SizeConfig.safeBlockHorizontal * 5,
-                    0,
-                    0,
-                    0,
-                  ),
+                      SizeConfig.safeBlockHorizontal * 5, 0, 0, 0),
                   width: _media != null
                       ? _media.size.width
                       : MediaQuery.of(context).size.width,
@@ -187,10 +175,9 @@ class _UrlPageState extends State<UrlPage>
                               child: const Text(
                                 "TALAWA",
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 60,
-                                ),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 60),
                               ),
                             ),
                           ),
@@ -202,19 +189,16 @@ class _UrlPageState extends State<UrlPage>
                           child: const Text(
                             ".",
                             style: TextStyle(
-                              color: Colors.orange,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 60,
-                            ),
+                                color: Colors.orange,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 60),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: SizeConfig.safeBlockVertical * 2,
-                ),
+                SizedBox(height: SizeConfig.safeBlockVertical * 2),
                 FadeTransition(
                   opacity: createAnimation,
                   child: Container(
@@ -223,10 +207,9 @@ class _UrlPageState extends State<UrlPage>
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
                       margin: EdgeInsets.only(
-                        left: SizeConfig.safeBlockHorizontal * 5,
-                        right: SizeConfig.safeBlockHorizontal * 7.5,
-                        top: SizeConfig.safeBlockVertical * 1.25,
-                      ),
+                          left: SizeConfig.safeBlockHorizontal * 5,
+                          right: SizeConfig.safeBlockHorizontal * 7.5,
+                          top: SizeConfig.safeBlockVertical * 1.25),
                       alignment: Alignment.center,
                       child: Column(
                         children: [
@@ -266,8 +249,7 @@ class _UrlPageState extends State<UrlPage>
                                 ),
                               ),
                               SizedBox(
-                                width: SizeConfig.safeBlockHorizontal * 2.5,
-                              ),
+                                  width: SizeConfig.safeBlockHorizontal * 2.5),
                               Expanded(
                                 child: Form(
                                   key: _formKey,
@@ -277,40 +259,30 @@ class _UrlPageState extends State<UrlPage>
                                       urlController.text,
                                     ),
                                     textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                    ),
+                                    style: const TextStyle(color: Colors.white),
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
-                                          color: Colors.white,
-                                        ),
-                                        borderRadius: BorderRadius.circular(
-                                          50.0,
-                                        ),
+                                            color: Colors.white),
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
-                                          color: Colors.orange,
-                                        ),
-                                        borderRadius: BorderRadius.circular(
-                                          50.0,
-                                        ),
+                                            color: Colors.orange),
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
                                       ),
-                                      prefixIcon: const Icon(
-                                        Icons.web,
-                                        color: Colors.white,
-                                      ),
+                                      prefixIcon: const Icon(Icons.web,
+                                          color: Colors.white),
                                       labelText: "Type Org URL Here",
-                                      labelStyle: const TextStyle(
-                                        color: Colors.white,
-                                      ),
+                                      labelStyle:
+                                          const TextStyle(color: Colors.white),
                                       alignLabelWithHint: true,
                                       hintText:
                                           'talawa-graphql-api.herokuapp.com/graphql',
-                                      hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                      ),
+                                      hintStyle:
+                                          const TextStyle(color: Colors.grey),
                                     ),
                                     controller: urlController,
                                   ),
