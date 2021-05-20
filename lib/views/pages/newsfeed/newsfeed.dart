@@ -7,6 +7,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/model/posts.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/newsfeed/add_post.dart';
@@ -25,6 +26,7 @@ class NewsFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //print(AppLocalizations.of(context).translate('hello-world'));
     return Scaffold(
       appBar: CustomAppBar(
         'NewsFeed',
@@ -118,12 +120,15 @@ class NewsFeed extends StatelessWidget {
                                                           .safeBlockHorizontal *
                                                       7.5,
                                                 ),
-                                                Text(
-                                                  post.title.toString(),
-                                                  softWrap: true,
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20.0,
+                                                // ignore: avoid_unnecessary_containers
+                                                Container(
+                                                  child: Text(
+                                                    post.title ?? '',
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20.0,
+                                                    ),
                                                   ),
                                                 ),
                                               ],
