@@ -2,9 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/news_feed_controller.dart';
-import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:talawa/model/posts.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
