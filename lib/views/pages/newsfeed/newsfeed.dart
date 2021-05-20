@@ -64,6 +64,7 @@ class NewsFeed extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
+                          // ignore: sort_child_properties_last
                           child: ListView.builder(
                             itemCount: Provider.of<NewsFeedProvider>(context)
                                 .getPostList
@@ -86,7 +87,15 @@ class NewsFeed extends StatelessWidget {
                                             post: post,
                                             index: index,
                                           ),
-                                        );
+                                        ).then((value) {
+                                          //if (value != null && value)
+                                          if (value != null) {
+                                            Provider.of<NewsFeedProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getPosts();
+                                          }
+                                        });
                                       },
                                       child: Card(
                                         color: Colors.white,
@@ -109,15 +118,12 @@ class NewsFeed extends StatelessWidget {
                                                           .safeBlockHorizontal *
                                                       7.5,
                                                 ),
-                                                // ignore: avoid_unnecessary_containers
-                                                Container(
-                                                  child: Text(
-                                                    post.title,
-                                                    style: const TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20.0,
-                                                    ),
+                                                Text(
+                                                  post.title.toString(),
+                                                  softWrap: true,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20.0,
                                                   ),
                                                 ),
                                               ],
@@ -172,11 +178,6 @@ class NewsFeed extends StatelessWidget {
                                                   )
                                                 ],
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height:
-                                                  SizeConfig.safeBlockVertical *
-                                                      1.25,
                                             ),
                                             SizedBox(
                                               height:
@@ -246,7 +247,8 @@ class NewsFeed extends StatelessWidget {
                   .then((value) {
                 //if (value != null && value)
                 if (value != null) {
-                  Provider.of<NewsFeedProvider>(context).getPosts();
+                  Provider.of<NewsFeedProvider>(context, listen: false)
+                      .getPosts();
                 }
               });
             })
