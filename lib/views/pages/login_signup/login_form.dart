@@ -12,8 +12,6 @@ import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_login.dart';
 
-
-
 class LoginForm extends StatefulWidget {
   @override
   LoginFormState createState() {
