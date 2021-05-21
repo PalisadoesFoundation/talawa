@@ -192,10 +192,34 @@
     "Refreshing": "ताज़ा करना",
     "Load More": "अधिक लोड करें",
     "There is some error with": "इसमें कुछ त्रुटि है",
-
+    
     "User Info": "उपयोगकर्ता जानकारी",
     "Registered Events": "पंजीकृत कार्यक्रम",
     "Upload Organization Image": "संगठन छवि अपलोड करें",
     "No": "नहीं",
-    "CREATE ORGANIZATION": "संगठन बनाएं"
+    "CREATE ORGANIZATION": "संगठन बनाएं",
+
+    "Please verify URL first": "कृपया पहले URL सत्यापित करें",
+    "Firstname must not be left blank.": "प्रथम नाम खाली नहीं छोड़ा जाना चाहिए।",
+    "Invalid Firstname": "अमान्य प्रथम नाम",
+    "Lastname must not be left blank.": "अंतिम नाम खाली नहीं छोड़ा जाना चाहिए।",
+    "Invalid Lastname": "अमान्य अंतिम नाम",
+    "Email must not be left blank": "ईमेल खाली नहीं छोड़ा जाना चाहिए",
+    "Please enter a valid Email Address": "कृपया एक वैध ईमेल पता दर्ज करें",
+    "Invalid Password": "अमान्य पासवर्ड",
+    "Password must not contain spaces": "पासवर्ड में रिक्त स्थान नहीं होना चाहिए",
+    "Password does not match original": "पासवर्ड मूल से मेल नहीं खाता",
+    "Title must be at least 4 characters.": "शीर्षक कम से कम 4 वर्णों का होना चाहिए।",
+    "Date field must not be left blank.": "दिनांक फ़ील्ड को खाली नहीं छोड़ा जाना चाहिए।",
+    "Description field must range between 5 and 30 characters": "विवरण फ़ील्ड 5 और 30 वर्णों के बीच होना चाहिए",
+    "Organization Description must not be left blank.": "संगठन विवरण खाली नहीं छोड़ा जाना चाहिए।",
+    "Organization Name must not exceed 40 letters": "संगठन का नाम 40 अक्षरों से अधिक नहीं होना चाहिए",
+    "Organization Description must not exceed 5000 letters": "संगठन विवरण 5000 अक्षरों से अधिक नहीं होना चाहिए",
+    "Attendees Description must not be left blank.": "उपस्थिति विवरण खाली नहीं छोड़ा जाना चाहिए।",
+    "Attendees Description must not exceed 5000 letters": "उपस्थित विवरण 5000 अक्षरों से अधिक नहीं होना चाहिए",
+    "Creator": "निर्माता",
+    "Member": "सदस्य",
+    "User email": "उपयोगकर्ता ईमेल",
+    "User Privileges": "उपयोगकर्ता विशेषाधिकार",
+    "Event": "घटना"
 }

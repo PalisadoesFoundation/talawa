@@ -197,7 +197,7 @@ class RegisterFormState extends State<RegisterForm> {
                       focusColor: UIData.primaryColor,
                       alignLabelWithHint: true,
                       hintText: AppLocalizations.of(context)
-                          .translate('Password Example'),
+                          .translate('Password Hint'),
                       hintStyle: const TextStyle(color: Colors.grey),
                     ),
                     onFieldSubmitted: (_) {

@@ -53,7 +53,7 @@
     "Enter your message": "Enter your message",
 
     "No Event Created": "No Event Created",
-    "No Events Today": "No Events Today",
+    "No Events Today.": "No Events Today.",
     "All": "All",
     "No events to show, Create One!": "No events to show, Create One!",
 
@@ -197,5 +197,29 @@
     "Registered Events": "Registered Events",
     "Upload Organization Image": "Upload Organization Image",
     "No": "No",
-    "CREATE ORGANIZATION": "CREATE ORGANIZATION"
+    "CREATE ORGANIZATION": "CREATE ORGANIZATION",
+
+    "Please verify URL first": "Please verify URL first",
+    "Firstname must not be left blank.": "Firstname must not be left blank.",
+    "Invalid Firstname": "Invalid Firstname",
+    "Lastname must not be left blank.": "Lastname must not be left blank.",
+    "Invalid Lastname": "Invalid Lastname",
+    "Email must not be left blank": "Email must not be left blank",
+    "Please enter a valid Email Address": "Please enter a valid Email Address",
+    "Invalid Password": "Invalid Password",
+    "Password must not contain spaces": "Password must not contain spaces",
+    "Password does not match original": "Password does not match original",
+    "Title must be at least 4 characters.": "Title must be at least 4 characters.",
+    "Date field must not be left blank.": "Date field must not be left blank.",
+    "Description field must range between 5 and 30 characters": "Description field must range between 5 and 30 characters",
+    "Organization Description must not be left blank.": "Organization Description must not be left blank.",
+    "Organization Name must not exceed 40 letters": "Organization Name must not exceed 40 letters",
+    "Organization Description must not exceed 5000 letters": "Organization Description must not exceed 5000 letters",
+    "Attendees Description must not be left blank.": "Attendees Description must not be left blank.",
+    "Attendees Description must not exceed 5000 letters": "Attendees Description must not exceed 5000 letters",
+    "Creator": "Creator",
+    "Member": "Member",
+    "User email": "User email",
+    "User Privileges": "User Privileges",
+    "Event": "Event"
 }

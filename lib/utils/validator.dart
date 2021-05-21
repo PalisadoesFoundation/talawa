@@ -138,7 +138,7 @@ class Validator {
   static String validateDescription(String value, BuildContext context) {
     if (value.length < 5 || value.length > 50) {
       return AppLocalizations.of(context).translate(
-          'Description field must range between\n 5 and 30 characters');
+          'Description field must range between 5 and 30 characters');
     }
 
     return null;
