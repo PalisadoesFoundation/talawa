@@ -956,7 +956,7 @@ query{
       },
     ));
 
-    if (!_resp.loading) {
+    if (!_resp.loading && !_resp.hasException) {
       debugPrint(_resp.data.toString());
       debugPrint(_resp.exception.toString());
       return _resp.data as Map;
