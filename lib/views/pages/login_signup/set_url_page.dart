@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_logs/flutter_logs.dart';
 import 'package:talawa/routing_constants.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/url_controller.dart';
@@ -256,8 +257,7 @@ class _UrlPageState extends State<UrlPage>
                                   child: TextFormField(
                                     keyboardType: TextInputType.url,
                                     validator: (value) => Validator.validateURL(
-                                      urlController.text,
-                                    ),
+                                        urlController.text, context),
                                     textAlign: TextAlign.left,
                                     style: const TextStyle(color: Colors.white),
                                     decoration: InputDecoration(
@@ -275,7 +275,8 @@ class _UrlPageState extends State<UrlPage>
                                       ),
                                       prefixIcon: const Icon(Icons.web,
                                           color: Colors.white),
-                                      labelText: "Type Org URL Here",
+                                      labelText: AppLocalizations.of(context)
+                                          .translate("Type Org URL Here"),
                                       labelStyle:
                                           const TextStyle(color: Colors.white),
                                       alignLabelWithHint: true,
@@ -332,8 +333,12 @@ class _UrlPageState extends State<UrlPage>
                                               );
 
                                               CustomToast.exceptionToast(
-                                                  msg:
-                                                      'Incorrect Organization Entered');
+                                                msg:
+                                                    AppLocalizations.of(context)
+                                                        .translate(
+                                                  'Incorrect Organization Entered',
+                                                ),
+                                              );
                                               LogHelper().exportLogs();
                                             }
 
@@ -356,7 +361,8 @@ class _UrlPageState extends State<UrlPage>
                                                             Colors.white),
                                               )
                                             : Text(
-                                                saveMsg,
+                                                AppLocalizations.of(context)
+                                                    .translate(saveMsg),
                                               )),
                               ),
                             ],
@@ -403,12 +409,6 @@ class _UrlPageState extends State<UrlPage>
                                         _formKey.currentState.save();
                                         _navigationService.navigateTo(
                                             routes.RegisterPageRoute);
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //       builder: (context) =>
-                                        //           RegisterPage()),
-                                        // );
                                       }
                                     },
                               child: Container(
@@ -427,12 +427,13 @@ class _UrlPageState extends State<UrlPage>
                                 ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const <Widget>[
+                                  children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "Create an Account",
+                                        AppLocalizations.of(context)
+                                            .translate("Create an Account"),
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           //color: UIData.quitoThemeColor,
                                           color: Colors.white,
                                           fontSize: 18,
@@ -506,12 +507,13 @@ class _UrlPageState extends State<UrlPage>
                                 ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const <Widget>[
+                                  children: <Widget>[
                                     Expanded(
                                       child: Text(
-                                        "Login",
+                                        AppLocalizations.of(context)
+                                            .translate("Login"),
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           //color: UIData.quitoThemeColor,
                                           color: Colors.white,
                                           fontSize: 18,

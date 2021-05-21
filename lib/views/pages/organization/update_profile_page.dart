@@ -7,6 +7,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/model/user.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -214,19 +215,21 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                         },
                       ),
                       SizedBox(width: SizeConfig.safeBlockHorizontal * 2.5),
-                      const Expanded(
+                      Expanded(
                         child: ListTile(
-                          contentPadding: EdgeInsets.all(0),
+                          contentPadding: const EdgeInsets.all(0),
                           title: Text(
-                            'Update Profile',
-                            style: TextStyle(
+                            AppLocalizations.of(context)
+                                .translate('Update Profile'),
+                            style: const TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
                           subtitle: Text(
-                            'Keep your profile upto date',
-                            style: TextStyle(
+                            AppLocalizations.of(context)
+                                .translate('Keep your profile upto date'),
+                            style: const TextStyle(
                               fontSize: 14,
                               fontFamily: 'OpenSans',
                             ),
@@ -279,7 +282,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   child: TextFormField(
                     style: const TextStyle(fontSize: 20),
                     keyboardType: TextInputType.name,
-                    validator: (value) => Validator.validateLastName(value),
+                    validator: (value) =>
+                        Validator.validateLastName(value, context),
                     enableSuggestions: true,
                     cursorRadius: const Radius.circular(10),
                     cursorColor: Colors.blue[800],
@@ -290,7 +294,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     },
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(0),
-                      labelText: 'First Name',
+                      labelText:
+                          AppLocalizations.of(context).translate('First Name'),
                       counterText: '',
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
@@ -324,7 +329,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   child: TextFormField(
                     style: const TextStyle(fontSize: 20),
                     keyboardType: TextInputType.name,
-                    validator: (value) => Validator.validateLastName(value),
+                    validator: (value) =>
+                        Validator.validateLastName(value, context),
                     enableSuggestions: true,
                     cursorRadius: const Radius.circular(10),
                     cursorColor: Colors.blue[800],
@@ -335,7 +341,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     },
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(0),
-                      labelText: 'Last Name',
+                      labelText:
+                          AppLocalizations.of(context).translate('Last Name'),
                       counterText: '',
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
@@ -369,7 +376,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                   child: TextFormField(
                     style: const TextStyle(fontSize: 20),
                     keyboardType: TextInputType.emailAddress,
-                    validator: (value) => Validator.validateEmail(value),
+                    validator: (value) =>
+                        Validator.validateEmail(value, context),
                     enableSuggestions: true,
                     cursorRadius: const Radius.circular(10),
                     cursorColor: Colors.blue[800],
@@ -380,7 +388,8 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                     },
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(0),
-                      labelText: 'Email',
+                      labelText:
+                          AppLocalizations.of(context).translate('Email'),
                       counterText: '',
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
@@ -433,9 +442,9 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                             Icons.update,
                             color: Colors.white,
                           ),
-                    label: const Text(
-                      'Update Profile',
-                      style: TextStyle(
+                    label: Text(
+                      AppLocalizations.of(context).translate('Update Profile'),
+                      style: const TextStyle(
                         fontSize: 18,
                         color: Colors.white,
                       ),

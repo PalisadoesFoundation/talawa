@@ -191,5 +191,11 @@
     "Refresh": "Refresh",
     "Refreshing": "Refreshing",
     "Load More": "Load More",
-    "There is some error with": "There is some error with"
+    "There is some error with": "There is some error with",
+
+    "User Info": "User Info",
+    "Registered Events": "Registered Events",
+    "Upload Organization Image": "Upload Organization Image",
+    "No": "No",
+    "CREATE ORGANIZATION": "CREATE ORGANIZATION"
 }

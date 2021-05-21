@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/services/app_localization.dart';
 
 import 'package:talawa/utils/uidata.dart';
 import 'package:intl/intl.dart';
@@ -22,9 +23,9 @@ class _AddEventState extends State<AddEvent> {
     return BaseView<AddEventPageViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'New Event',
-            style: TextStyle(color: Colors.white),
+          title: Text(
+            AppLocalizations.of(context).translate('New Event'),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         body: ListView(
@@ -55,7 +56,7 @@ class _AddEventState extends State<AddEvent> {
         model.selectDate(context);
       },
       leading: Text(
-        'Date',
+        AppLocalizations.of(context).translate('Date'),
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
       ),
       trailing: Text(
@@ -74,7 +75,7 @@ class _AddEventState extends State<AddEvent> {
             model.selectTime(context, name, TimeOfDay.fromDateTime(time));
           },
           leading: Text(
-            name,
+            AppLocalizations.of(context).translate(name),
             style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
           trailing: Text(
@@ -128,50 +129,57 @@ class _AddEventState extends State<AddEvent> {
   Widget inputField(String name, TextEditingController controller,
       AddEventPageViewModel model) {
     return Padding(
-        padding: const EdgeInsets.all(10),
-        child: TextField(
-          maxLines: name == 'Description' ? null : 1,
-          controller: controller,
-          decoration: InputDecoration(
-              errorText: name == 'Title'
-                  ? model.validateTitle
-                      ? "Field Can't Be Empty"
+      padding: const EdgeInsets.all(10),
+      child: TextField(
+        maxLines: name == 'Description' ? null : 1,
+        controller: controller,
+        decoration: InputDecoration(
+          errorText: name == 'Title'
+              ? model.validateTitle
+                  ? AppLocalizations.of(context)
+                      .translate("Field Can't Be Empty")
+                  : null
+              : name == 'Description'
+                  ? model.validateDescription
+                      ? AppLocalizations.of(context)
+                          .translate("Field Can't Be Empty")
                       : null
-                  : name == 'Description'
-                      ? model.validateDescription
-                          ? "Field Can't Be Empty"
+                  : name == 'Location'
+                      ? model.validateLocation
+                          ? AppLocalizations.of(context)
+                              .translate("Field Can't Be Empty")
                           : null
-                      : name == 'Location'
-                          ? model.validateLocation
-                              ? "Field Can't Be Empty"
-                              : null
-                          : null,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: const BorderSide(color: Colors.teal)),
-              hintText: name),
-        ));
+                      : null,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide: const BorderSide(color: Colors.teal),
+          ),
+          hintText: AppLocalizations.of(context).translate(name),
+        ),
+      ),
+    );
   }
 
   Widget switchTile(String name, AddEventPageViewModel model) {
     return SwitchListTile(
-        activeColor: UIData.secondaryColor,
-        value: model.switchVals[name],
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-        title: Text(
-          name,
-          style: TextStyle(color: Colors.grey[600]),
-        ),
-        onChanged: (val) {
-          model.setSwitchVals(name, val);
-        });
+      activeColor: UIData.secondaryColor,
+      value: model.switchVals[name],
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+      title: Text(
+        AppLocalizations.of(context).translate(name),
+        style: TextStyle(color: Colors.grey[600]),
+      ),
+      onChanged: (val) {
+        model.setSwitchVals(name, val);
+      },
+    );
   }
 
   Widget recurrencedropdown(AddEventPageViewModel model) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 20),
       leading: Text(
-        'Recurrence',
+        AppLocalizations.of(context).translate('Recurrence'),
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
       ),
       trailing: AbsorbPointer(
@@ -190,7 +198,7 @@ class _AddEventState extends State<AddEvent> {
               .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value),
+              child: Text(AppLocalizations.of(context).translate(value)),
             );
           }).toList(),
         ),

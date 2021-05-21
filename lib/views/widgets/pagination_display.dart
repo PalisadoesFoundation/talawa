@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/services/app_localization.dart';
 
 class PaginationIcon extends StatelessWidget {
   const PaginationIcon({
@@ -15,11 +16,11 @@ class PaginationIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _paginationWidget();
+    return _paginationWidget(context);
   }
 
   /// WIDGET TO BE DISPLAYED BASED ON THE [PAGINATION] TENDENCY
-  Widget _paginationWidget() {
+  Widget _paginationWidget(BuildContext context) {
     if (isNextPageExist) {
       //fetchMoreHelper();
       if (result.loading) {
@@ -42,20 +43,20 @@ class PaginationIcon extends StatelessWidget {
               onTap: () => fetchMoreHelper(),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const <Widget>[
-                  Icon(
+                children: <Widget>[
+                  const Icon(
                     Icons.add_circle_outline_outlined,
                     size: 50,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
-                    'Load More',
-                    style: TextStyle(
+                    AppLocalizations.of(context).translate('Load More'),
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                 ],
               ),
             ),

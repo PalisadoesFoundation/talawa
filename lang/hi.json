@@ -1,6 +1,6 @@
 {
     "Set URL": "यूआरएल सेट करें",
-    "URL SAVED!": "यूआरएल सहेजा गया!",
+    "URL SAVED!": "यूआरएल जोड़ा गया!",
     "Type Org URL Here": "यहां संगठन यूआरएल टाइप करें",
     "Incorrect Organization Entered": "गलत संगठन दर्ज किया गया",
     "Create an Account": "खाता बनाएं",
@@ -160,7 +160,7 @@
     "Are you sure you want to logout?": "क्या आप वाकई लॉगआउट करना चाहते हैं?",
     "You are not registered to any organization": "आप किसी भी संगठन में पंजीकृत नहीं हैं",
     "Switched to": "इस पर स्विच किया गया",
-    "SAVE": "बचाओ",
+    "SAVE": "संगठन बदलें",
     "Organization Name": "संगठन का नाम",
     "My Organization": "मेरा संगठन",
     "My Description": "मेरा विवरण",
@@ -191,5 +191,11 @@
     "Refresh": "ताज़ा करें",
     "Refreshing": "ताज़ा करना",
     "Load More": "अधिक लोड करें",
-    "There is some error with": "इसमें कुछ त्रुटि है"
+    "There is some error with": "इसमें कुछ त्रुटि है",
+
+    "User Info": "उपयोगकर्ता जानकारी",
+    "Registered Events": "पंजीकृत कार्यक्रम",
+    "Upload Organization Image": "संगठन छवि अपलोड करें",
+    "No": "नहीं",
+    "CREATE ORGANIZATION": "संगठन बनाएं"
 }

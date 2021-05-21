@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/login_signup/login_form.dart';
@@ -34,9 +35,10 @@ class _LoginScreenState extends State<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      const Text(
-                        "Dont have an account?",
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context)
+                            .translate("Dont have an account?"),
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
@@ -54,10 +56,10 @@ class _LoginScreenState extends State<LoginPage> {
                               ),
                             );
                           },
-                          child: const Text(
-                            "SIGN UP!",
+                          child: Text(
+                            AppLocalizations.of(context).translate("SIGN UP!"),
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: UIData.primaryColor,
                             ),
                           ),

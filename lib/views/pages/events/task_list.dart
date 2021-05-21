@@ -1,6 +1,7 @@
 //flutter packages are imported here
 import 'package:flutter/material.dart';
 import 'package:talawa/model/events.dart';
+import 'package:talawa/services/app_localization.dart';
 
 //pages are imported here
 import 'package:talawa/services/queries_.dart';
@@ -58,10 +59,10 @@ class _TaskListState extends State<TaskList> {
             );
           } else if (snapshot.data.isEmpty) {
             return Container(
-              child: const Center(
+              child: Center(
                 child: Text(
-                  "No Tasks found",
-                  style: TextStyle(
+                  AppLocalizations.of(context).translate("No Tasks found"),
+                  style: const TextStyle(
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,

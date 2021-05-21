@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:talawa/model/events.dart';
+import 'package:talawa/services/app_localization.dart';
 
 //imported the pages here
 import 'package:talawa/services/queries_.dart';
@@ -56,10 +57,11 @@ class _RegListState extends State<RegList> {
             );
           } else if (snapshot.data.isEmpty) {
             return Container(
-              child: const Center(
+              child: Center(
                 child: Text(
-                  "No Registrants found",
-                  style: TextStyle(
+                  AppLocalizations.of(context)
+                      .translate("No Registrants found"),
+                  style: const TextStyle(
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center,

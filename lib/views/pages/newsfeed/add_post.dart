@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/post_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -46,9 +47,9 @@ class _AddPostState extends State<AddPost> {
         key: const Key(
           'ADD_POST_APP_BAR',
         ),
-        title: const Text(
-          'New Post',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).translate('New Post'),
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -73,22 +74,25 @@ class _AddPostState extends State<AddPost> {
                       textInputAction: TextInputAction.next,
                       validator: (String value) {
                         if (value.length > 30) {
-                          return "Post title cannot be longer than 30 letters";
+                          return AppLocalizations.of(context).translate(
+                              "Post title cannot be longer than 30 letters");
                         }
 
                         if (value.isEmpty) {
-                          return "This field is Required";
+                          return AppLocalizations.of(context)
+                              .translate("This field is Required");
                         }
                         return null;
                       },
                       controller: titleController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(20.0),
                           ),
                         ),
-                        labelText: 'Give your post a title....',
+                        labelText:
+                            '${AppLocalizations.of(context).translate("Give your post a title")}....',
                       ),
                     ),
                   ),
@@ -108,7 +112,8 @@ class _AddPostState extends State<AddPost> {
                       controller: textController,
                       validator: (String value) {
                         if (value.length > 10000) {
-                          return "Post cannot be longer than 10000 letters";
+                          return AppLocalizations.of(context).translate(
+                              "Post cannot be longer than 10000 letters");
                         }
 
                         if (value.isEmpty) {
@@ -116,13 +121,14 @@ class _AddPostState extends State<AddPost> {
                         }
                         return null;
                       },
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(20.0),
                           ),
                         ),
-                        labelText: 'Write Your post here....',
+                        labelText:
+                            '${AppLocalizations.of(context).translate("Write Your post here")}....',
                       ), //  'Give your post Description here....',
                     ),
                   ),

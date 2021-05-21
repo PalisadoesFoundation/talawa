@@ -7,6 +7,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/custom_toast.dart';
@@ -98,7 +99,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         listen: false,
       ).saveCurrentOrgId(newOrgId);
       CustomToast.sucessToast(
-        msg: 'You are no longer apart of this organization',
+        msg: AppLocalizations.of(context)
+            .translate('You are no longer apart of this organization'),
       );
       pushNewScreen(
         context,
@@ -141,7 +143,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       CustomToast.sucessToast(
-        msg: 'Successfully Removed Organization',
+        msg: AppLocalizations.of(context)
+            .translate('Successfully Removed Organization'),
       );
       setState(() {
         remaindingOrg =
@@ -188,9 +191,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Organization Settings',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).translate('Organization Settings'),
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -214,9 +217,10 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     key: const Key(
                       'Update Organization',
                     ),
-                    title: const Text(
-                      'Update Organization',
-                      style: TextStyle(fontSize: 18.0),
+                    title: Text(
+                      AppLocalizations.of(context)
+                          .translate('Update Organization'),
+                      style: const TextStyle(fontSize: 18.0),
                     ),
                     leading: const Icon(
                       Icons.update,
@@ -250,14 +254,16 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         key: const Key(
                           'Accept MemberShip Requests',
                         ),
-                        title: const Text(
-                          'Accept MemberShip Requests',
-                          style: TextStyle(
+                        title: Text(
+                          AppLocalizations.of(context)
+                              .translate('Accept MemberShip Requests'),
+                          style: const TextStyle(
                             fontSize: 18.0,
                           ),
                         ),
-                        subtitle: const Text(
-                          'For Private Organizations',
+                        subtitle: Text(
+                          AppLocalizations.of(context)
+                              .translate('For Private Organizations'),
                         ),
                         leading: const Icon(
                           Icons.group_add,
@@ -274,9 +280,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                     key: const Key(
                       'Member(s)',
                     ),
-                    title: const Text(
-                      'Member(s)',
-                      style: TextStyle(
+                    title: Text(
+                      AppLocalizations.of(context).translate('Member(s)'),
+                      style: const TextStyle(
                         fontSize: 18.0,
                       ),
                     ),
@@ -296,9 +302,10 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         key: const Key(
                           'Remove This Organization',
                         ),
-                        title: const Text(
-                          'Remove This Organization',
-                          style: TextStyle(
+                        title: Text(
+                          AppLocalizations.of(context)
+                              .translate('Remove This Organization'),
+                          style: const TextStyle(
                             fontSize: 18.0,
                           ),
                         ),
@@ -309,15 +316,16 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         onTap: () async {
                           if (!widget.creator) {
                             CustomToast.exceptionToast(
-                              msg: 'Creator can only remove organization',
+                              msg: AppLocalizations.of(context).translate(
+                                  'Creator can only remove organization'),
                             );
                           }
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertBox(
-                                  message:
-                                      "Are you sure you want to remove this organization?",
+                                  message: AppLocalizations.of(context).translate(
+                                      "Are you sure you want to remove this organization?"),
                                   function: removeOrg,
                                 );
                               });
@@ -326,9 +334,10 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         key: const Key(
                           'Leave Organization',
                         ),
-                        title: const Text(
-                          'Leave Organization',
-                          style: TextStyle(fontSize: 18.0),
+                        title: Text(
+                          AppLocalizations.of(context)
+                              .translate('Leave Organization'),
+                          style: const TextStyle(fontSize: 18.0),
                         ),
                         leading: const Icon(
                           Icons.person,
@@ -339,8 +348,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertBox(
-                                message:
-                                    "Are you sure you want to leave this organization?",
+                                message: AppLocalizations.of(context).translate(
+                                    "Are you sure you want to leave this organization?"),
                                 function: leaveOrg,
                               );
                             },

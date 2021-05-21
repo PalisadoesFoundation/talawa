@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 //pages are called here
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/signup_login_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -45,9 +46,9 @@ class LoginFormState extends State<LoginForm> {
       key: _formKey,
       child: Column(
         children: <Widget>[
-          const Text(
-            'Login',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context).translate('Login'),
+            style: const TextStyle(
               fontSize: 35,
               color: Colors.white,
             ),
@@ -65,7 +66,7 @@ class LoginFormState extends State<LoginForm> {
                   keyboardType: TextInputType.emailAddress,
                   textAlign: TextAlign.left,
                   controller: _emailController,
-                  validator: Validator.validateEmail,
+                  validator: (val) => Validator.validateEmail(val, context),
                   style: const TextStyle(
                     color: Colors.white,
                   ),
@@ -92,12 +93,13 @@ class LoginFormState extends State<LoginForm> {
                       Icons.email,
                       color: Colors.white,
                     ),
-                    labelText: "Email",
+                    labelText: AppLocalizations.of(context).translate("Email"),
                     labelStyle: const TextStyle(
                       color: Colors.white,
                     ),
                     alignLabelWithHint: true,
-                    hintText: 'foo@bar.com',
+                    hintText:
+                        AppLocalizations.of(context).translate('Email Example'),
                     hintStyle: const TextStyle(
                       color: Colors.grey,
                     ),
@@ -116,7 +118,7 @@ class LoginFormState extends State<LoginForm> {
                   obscureText: _obscureText,
                   textAlign: TextAlign.left,
                   controller: _passwordController,
-                  validator: Validator.validatePassword,
+                  validator: (val) => Validator.validatePassword(val, context),
                   style: const TextStyle(
                     color: Colors.white,
                   ),
@@ -148,7 +150,8 @@ class LoginFormState extends State<LoginForm> {
                         color: Colors.white,
                       ),
                     ),
-                    labelText: "Password",
+                    labelText:
+                        AppLocalizations.of(context).translate("Password"),
                     labelStyle: const TextStyle(
                       color: Colors.white,
                     ),
@@ -213,8 +216,8 @@ class LoginFormState extends State<LoginForm> {
               },
               child: _progressBarState
                   ? const CircularProgressIndicator()
-                  : const Text(
-                      "SIGN IN",
+                  : Text(
+                      AppLocalizations.of(context).translate("SIGN IN"),
                     ),
             ),
           ),

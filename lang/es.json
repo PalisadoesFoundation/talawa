@@ -191,5 +191,11 @@
     "Refresh": "Actualizar",
     "Refreshing": "Refrescante",
     "Load More": "Carga más",
-    "There is some error with": "Hay algún error con"
+    "There is some error with": "Hay algún error con",
+
+    "User Info": "Información de usuario",
+    "Registered Events": "Eventos registrados",
+    "Upload Organization Image": "Cargar imagen de la organización",
+    "No": "No",
+    "CREATE ORGANIZATION": "CREAR ORGANIZACIÓN"
 }

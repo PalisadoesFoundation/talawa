@@ -191,5 +191,11 @@
     "Refresh": "刷新",
     "Refreshing": "提神醒脑",
     "Load More": "装载更多",
-    "There is some error with": "有一些错误"
+    "There is some error with": "有一些错误",
+
+    "User Info": "用户信息",
+    "Registered Events": "注册活动",
+    "Upload Organization Image": "上传组织图片",
+    "No": "不",
+    "CREATE ORGANIZATION": "建立组织"
 }

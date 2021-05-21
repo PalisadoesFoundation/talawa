@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/model/events.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/queries_.dart';
 
 //pages are called here
@@ -214,7 +215,8 @@ class _EditEventState extends State<EditEvent> {
     final Map result = await apiFunctions.gqlquery(mutation);
     if (result["exception"] != null) {
       CustomToast.exceptionToast(
-        msg: "Could not update event! Please try again later",
+        msg: AppLocalizations.of(context)
+            .translate("Could not update event! Please try again later"),
       );
     }
     debugPrint('Result is : $result');
@@ -224,9 +226,9 @@ class _EditEventState extends State<EditEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Edit Event',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).translate('Edit Event'),
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -281,7 +283,7 @@ class _EditEventState extends State<EditEvent> {
         _selectDate(context);
       },
       leading: Text(
-        'Date',
+        AppLocalizations.of(context).translate('Date'),
         style: TextStyle(
           fontSize: 16,
           color: Colors.grey[600],
@@ -315,7 +317,7 @@ class _EditEventState extends State<EditEvent> {
           );
         },
         leading: Text(
-          name,
+          AppLocalizations.of(context).translate(name),
           style: TextStyle(
             fontSize: 16,
             color: Colors.grey[600],
@@ -347,15 +349,18 @@ class _EditEventState extends State<EditEvent> {
         decoration: InputDecoration(
           errorText: name == 'Title'
               ? _validateTitle
-                  ? "Field Can't Be Empty"
+                  ? AppLocalizations.of(context)
+                      .translate("Field Can't Be Empty")
                   : null
               : name == 'Description'
                   ? _validateDescription
-                      ? "Field Can't Be Empty"
+                      ? AppLocalizations.of(context)
+                          .translate("Field Can't Be Empty")
                       : null
                   : name == 'Location'
                       ? _validateLocation
-                          ? "Field Can't Be Empty"
+                          ? AppLocalizations.of(context)
+                              .translate("Field Can't Be Empty")
                           : null
                       : null,
           border: OutlineInputBorder(
@@ -366,7 +371,7 @@ class _EditEventState extends State<EditEvent> {
               color: Colors.teal,
             ),
           ),
-          hintText: name,
+          hintText: AppLocalizations.of(context).translate(name),
         ),
       ),
     );
@@ -382,7 +387,7 @@ class _EditEventState extends State<EditEvent> {
         horizontal: SizeConfig.safeBlockHorizontal * 5,
       ),
       title: Text(
-        name,
+        AppLocalizations.of(context).translate(name),
         style: TextStyle(
           color: Colors.grey[600],
         ),
@@ -401,7 +406,7 @@ class _EditEventState extends State<EditEvent> {
         horizontal: SizeConfig.safeBlockHorizontal * 5,
       ),
       leading: Text(
-        'Recurrence',
+        AppLocalizations.of(context).translate('Recurrence'),
         style: TextStyle(
           fontSize: 16,
           color: Colors.grey[600],
@@ -427,7 +432,7 @@ class _EditEventState extends State<EditEvent> {
             (String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value),
+                child: Text(AppLocalizations.of(context).translate(value)),
               );
             },
           ).toList(),
@@ -460,18 +465,21 @@ class _EditEventState extends State<EditEvent> {
             });
           }
           Fluttertoast.showToast(
-            msg: 'Fill in the empty fields',
+            msg: AppLocalizations.of(context)
+                .translate('Fill in the empty fields'),
             backgroundColor: Colors.grey[500],
           );
         } else {
           try {
-            showProgress(context, 'Updating Event Details . . .',
+            showProgress(context,
+                '${AppLocalizations.of(context).translate("Updating Event Details")} . . .',
                 isDismissible: false);
             await updateEvent();
           } catch (e) {
             if (e == "User cannot delete event they didn't create") {
               Fluttertoast.showToast(
-                msg: "You can't edit events you didn't create",
+                msg: AppLocalizations.of(context)
+                    .translate("You can't edit events you didn't create"),
                 backgroundColor: Colors.grey[500],
               );
             }
@@ -479,11 +487,12 @@ class _EditEventState extends State<EditEvent> {
           hideProgress();
           debugPrint('EDITING DONE');
           Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Events(),
-              ),
-              (route) => false);
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Events(),
+            ),
+            (route) => false,
+          );
         }
       },
       child: const Icon(
