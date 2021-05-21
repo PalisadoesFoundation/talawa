@@ -1,25 +1,15 @@
 //flutter packages are called here
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //pages are called here
 import 'package:provider/provider.dart';
-import 'package:talawa/services/queries_.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/custom_toast.dart';
+import 'package:talawa/controllers/signup_login_controller.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_login.dart';
-import 'package:talawa/model/token.dart';
-import 'package:talawa/views/pages/home_page.dart';
-
-import 'package:talawa/views/widgets/exception_toast.dart';
-
-import '../_pages.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -35,10 +25,6 @@ class LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   LoginViewModel model = LoginViewModel();
   bool _progressBarState = false;
-  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  final Queries _query = Queries();
-  final Preferences _pref = Preferences();
-  static String orgURI;
   bool _obscureText = true;
 
   void toggleProgressBarState() {
@@ -52,90 +38,7 @@ class LoginFormState extends State<LoginForm> {
     Provider.of<GraphQLConfiguration>(context, listen: false).getOrgUrl();
   }
 
-  //function for login user which gets called when sign in is press
-  Future loginUser() async {
-    final GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    final QueryResult result = await _client.mutate(
-      MutationOptions(
-        documentNode: gql(
-          _query.loginUser(
-            model.email,
-            model.password,
-          ),
-        ),
-      ),
-    );
-    if (result.hasException) {
-      print(result.exception);
-      setState(() {
-        _progressBarState = false;
-      });
-
-      CustomToast.exceptionToast(
-        msg: result.exception.toString(),
-      );
-    } else if (!result.hasException && !result.loading) {
-      setState(() {
-        _progressBarState = true;
-      });
-
-      CustomToast.sucessToast(msg: "All Set!");
-      final Token accessToken = Token(
-        tokenString: result.data['login']['accessToken'].toString(),
-      );
-      await _pref.saveToken(accessToken);
-      final Token refreshToken = Token(
-        tokenString: result.data['login']['refreshToken'].toString(),
-      );
-      await _pref.saveRefreshToken(refreshToken);
-      final String currentUserId =
-          result.data['login']['user']['_id'].toString();
-      await _pref.saveUserId(currentUserId);
-      final String userFName =
-          result.data['login']['user']['firstName'].toString();
-      await _pref.saveUserFName(userFName);
-      final String userLName =
-          result.data['login']['user']['lastName'].toString();
-      await _pref.saveUserLName(userLName);
-
-      final List organisations =
-          result.data['login']['user']['joinedOrganizations'] as List;
-      if (organisations.isEmpty) {
-        //skip the steps below
-      } else {
-        //execute the steps below
-        final String currentOrgId = result.data['login']['user']
-                ['joinedOrganizations'][0]['_id']
-            .toString();
-        await _pref.saveCurrentOrgId(
-          currentOrgId,
-        );
-
-        final String currentOrgImgSrc = result.data['login']['user']
-                ['joinedOrganizations'][0]['image']
-            .toString();
-        await _pref.saveCurrentOrgImgSrc(
-          currentOrgImgSrc,
-        );
-
-        final String currentOrgName = result.data['login']['user']
-                ['joinedOrganizations'][0]['name']
-            .toString();
-        await _pref.saveCurrentOrgName(
-          currentOrgName,
-        );
-      }
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const HomePage(
-                    openPageIndex: 0,
-                  )),
-          (route) => false);
-    }
-  }
-
-  //main build starts here
+  //Main build starts here
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -287,7 +190,22 @@ class LoginFormState extends State<LoginForm> {
                 //checks to see if all the fields have been validated then authenticate a user
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
-                  loginUser();
+                  Provider.of<SignupLoginController>(context, listen: false)
+                      .loginUser(
+                    context: context,
+                    email: model.email,
+                    password: model.password,
+                    exceptionState: () {
+                      setState(() {
+                        _progressBarState = false;
+                      });
+                    },
+                    successState: () {
+                      setState(() {
+                        _progressBarState = true;
+                      });
+                    },
+                  );
                   setState(() {
                     toggleProgressBarState();
                   });
@@ -307,10 +225,8 @@ class LoginFormState extends State<LoginForm> {
 
   //function toggles _obscureText value
   void _toggle() {
-    setState(
-      () {
-        _obscureText = !_obscureText;
-      },
-    );
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 }
