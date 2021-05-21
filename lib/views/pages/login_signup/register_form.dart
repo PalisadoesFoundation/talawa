@@ -1,31 +1,16 @@
 //flutter packages are called here
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
-
 // pages are called here
 import 'package:provider/provider.dart';
-import 'package:talawa/enums/image_from.dart';
-import 'package:talawa/services/queries_.dart';
-
-import 'package:talawa/utils/custom_toast.dart';
+import 'package:talawa/controllers/signup_login_controller.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_register.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:talawa/services/preferences.dart';
-import 'package:talawa/model/token.dart';
-import 'package:talawa/views/pages/organization/join_organization_view.dart';
-import 'package:graphql/utilities.dart' show multipartFileFrom;
-
-//pubspec packages are called here
-import 'package:image_picker/image_picker.dart';
-
-import '../_pages.dart';
+import 'package:talawa/views/pages/login_signup/image.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -44,11 +29,7 @@ class RegisterFormState extends State<RegisterForm> {
   FocusNode confirmPassField = FocusNode();
   RegisterViewModel model = RegisterViewModel();
   bool _progressBarState = false;
-  final Queries _signupQuery = Queries();
   var _validate = AutovalidateMode.disabled;
-  final Preferences _pref = Preferences();
-  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  File _image;
   bool _obscureText = true;
 
   void toggleProgressBarState() {
@@ -64,163 +45,6 @@ class RegisterFormState extends State<RegisterForm> {
     ).getOrgUrl();
   }
 
-  //function for registering user which gets called when sign up is press
-  registerUser() async {
-    final GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    final img = await multipartFileFrom(_image);
-    print(_image);
-    final QueryResult result = await _client.mutate(
-      MutationOptions(
-        documentNode: gql(
-          _signupQuery.registerUser(
-            model.firstName,
-            model.lastName,
-            model.email,
-            model.password,
-          ),
-        ),
-        variables: {
-          'file': img,
-        },
-      ),
-    );
-    if (result.hasException) {
-      debugPrint(result.exception.toString());
-      setState(() {
-        _progressBarState = false;
-      });
-
-      CustomToast.exceptionToast(msg: result.hasException.toString());
-    } else if (!result.hasException && !result.loading) {
-      setState(
-        () {
-          _progressBarState = true;
-        },
-      );
-
-      final String userFName =
-          result.data['signUp']['user']['firstName'].toString();
-      await _pref.saveUserFName(
-        userFName,
-      );
-      final String userLName =
-          result.data['signUp']['user']['lastName'].toString();
-      await _pref.saveUserLName(
-        userLName,
-      );
-
-      final Token accessToken = Token(
-        tokenString: result.data['signUp']['accessToken'].toString(),
-      );
-      await _pref.saveToken(
-        accessToken,
-      );
-      final Token refreshToken = Token(
-        tokenString: result.data['signUp']['refreshToken'].toString(),
-      );
-      await _pref.saveRefreshToken(
-        refreshToken,
-      );
-      final String currentUserId =
-          result.data['signUp']['user']['_id'].toString();
-      await _pref.saveUserId(
-        currentUserId,
-      );
-      //Navigate user to join organization screen
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const JoinOrganization(
-                    fromProfile: false,
-                  )),
-          (route) => false);
-    }
-  }
-
-  //function called when the user is called without the image
-  registerUserWithoutImg() async {
-    final GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    final QueryResult result = await _client.mutate(
-      MutationOptions(
-        documentNode: gql(
-          _signupQuery.registerUserWithoutImg(
-            model.firstName,
-            model.lastName,
-            model.email,
-            model.password,
-          ),
-        ),
-      ),
-    );
-    if (result.hasException) {
-      print(result.exception);
-      setState(
-        () {
-          _progressBarState = false;
-        },
-      );
-      CustomToast.exceptionToast(
-        msg: result.exception.toString(),
-      );
-    } else if (!result.hasException && !result.loading) {
-      setState(
-        () {
-          _progressBarState = true;
-        },
-      );
-
-      final String userFName =
-          result.data['signUp']['user']['firstName'].toString();
-      await _pref.saveUserFName(
-        userFName,
-      );
-      final String userLName =
-          result.data['signUp']['user']['lastName'].toString();
-      await _pref.saveUserLName(
-        userLName,
-      );
-      final Token accessToken =
-          Token(tokenString: result.data['signUp']['accessToken'].toString());
-      await _pref.saveToken(
-        accessToken,
-      );
-      final Token refreshToken =
-          Token(tokenString: result.data['signUp']['refreshToken'].toString());
-      await _pref.saveRefreshToken(
-        refreshToken,
-      );
-      final String currentUserId =
-          result.data['signUp']['user']['_id'].toString();
-      await _pref.saveUserId(
-        currentUserId,
-      );
-
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => const JoinOrganization(
-              fromProfile: false,
-            ),
-          ),
-          (route) => false);
-    }
-  }
-
-  //get image from camera and gallery based on the enum passed
-  _imgFrom({From pickFrom = From.none}) async {
-    File pickImageFile;
-    if (pickFrom != From.none) {
-      final PickedFile selectedImage = await ImagePicker().getImage(
-          source: pickFrom == From.camera
-              ? ImageSource.camera
-              : ImageSource.gallery);
-      pickImageFile = File(selectedImage.path);
-      setState(
-        () {
-          _image = pickImageFile;
-        },
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -229,221 +53,124 @@ class RegisterFormState extends State<RegisterForm> {
         autovalidateMode: _validate,
         child: Column(
           children: <Widget>[
-            addImage(),
-            _image == null
+            AddImage(),
+            Provider.of<SignupLoginController>(context).getImage == null
                 ? const Padding(
-                    padding: EdgeInsets.all(
-                      8.0,
-                    ),
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       'Add Profile Image',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ))
                 : IconButton(
-                    icon: const Icon(
-                      Icons.delete,
-                      size: 30,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {
-                      setState(
-                        () {
-                          _image = null;
-                        },
-                      );
-                    },
+                    icon: const Icon(Icons.delete, size: 30, color: Colors.red),
+                    onPressed: () => Provider.of<SignupLoginController>(
+                      context,
+                      listen: false,
+                    ).deleteImage(),
                   ),
-            SizedBox(
-              height: SizeConfig.safeBlockVertical * 3.15,
-            ),
+            SizedBox(height: SizeConfig.safeBlockVertical * 3.15),
             AutofillGroup(
               child: Column(
                 children: <Widget>[
                   TextFormField(
-                    autofillHints: const <String>[
-                      AutofillHints.givenName,
-                    ],
+                    autofillHints: const <String>[AutofillHints.givenName],
                     textInputAction: TextInputAction.next,
                     textCapitalization: TextCapitalization.words,
                     controller: _firstNameController,
                     validator: (value) => Validator.validateFirstName(value),
                     textAlign: TextAlign.left,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          20.0,
-                        ),
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.orange,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          20.0,
-                        ),
+                        borderSide: const BorderSide(color: Colors.orange),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
+                      prefixIcon: const Icon(Icons.person, color: Colors.white),
                       labelText: "First Name",
-                      labelStyle: const TextStyle(
-                        color: Colors.white,
-                      ),
+                      labelStyle: const TextStyle(color: Colors.white),
                       alignLabelWithHint: true,
                       hintText: 'Earl',
-                      hintStyle: const TextStyle(
-                        color: Colors.grey,
-                      ),
+                      hintStyle: const TextStyle(color: Colors.grey),
                     ),
-                    onSaved: (value) {
-                      model.firstName = value;
-                    },
+                    onSaved: (value) => model.firstName = value,
                   ),
-                  SizedBox(
-                    height: SizeConfig.safeBlockVertical * 2.5,
-                  ),
+                  SizedBox(height: SizeConfig.safeBlockVertical * 2.5),
                   TextFormField(
-                    autofillHints: const [
-                      AutofillHints.familyName,
-                    ],
+                    autofillHints: const [AutofillHints.familyName],
                     textInputAction: TextInputAction.next,
                     textCapitalization: TextCapitalization.words,
                     controller: _lastNameController,
                     validator: Validator.validateLastName,
                     textAlign: TextAlign.left,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          20.0,
-                        ),
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.orange,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          20.0,
-                        ),
+                        borderSide: const BorderSide(color: Colors.orange),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
+                      prefixIcon: const Icon(Icons.person, color: Colors.white),
                       labelText: "Last Name",
-                      labelStyle: const TextStyle(
-                        color: Colors.white,
-                      ),
+                      labelStyle: const TextStyle(color: Colors.white),
                       alignLabelWithHint: true,
                       hintText: 'John',
-                      hintStyle: const TextStyle(
-                        color: Colors.grey,
-                      ),
+                      hintStyle: const TextStyle(color: Colors.grey),
                     ),
-                    onSaved: (value) {
-                      model.lastName = value;
-                    },
+                    onSaved: (value) => model.lastName = value,
                   ),
-                  SizedBox(
-                    height: SizeConfig.safeBlockVertical * 2.5,
-                  ),
+                  SizedBox(height: SizeConfig.safeBlockVertical * 2.5),
                   TextFormField(
-                    autofillHints: const <String>[
-                      AutofillHints.email,
-                    ],
+                    autofillHints: const <String>[AutofillHints.email],
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
                     validator: Validator.validateEmail,
                     controller: _emailController,
                     textAlign: TextAlign.left,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          20.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.orange,
-                        ),
+                        borderSide: const BorderSide(color: Colors.white),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                      prefixIcon: const Icon(
-                        Icons.email,
-                        color: Colors.white,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.orange),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
+                      prefixIcon: const Icon(Icons.email, color: Colors.white),
                       labelText: "Email",
-                      labelStyle: const TextStyle(
-                        color: Colors.white,
-                      ),
+                      labelStyle: const TextStyle(color: Colors.white),
                       alignLabelWithHint: true,
                       hintText: 'foo@bar.com',
-                      hintStyle: const TextStyle(
-                        color: Colors.grey,
-                      ),
+                      hintStyle: const TextStyle(color: Colors.grey),
                     ),
-                    onSaved: (value) {
-                      model.email = value;
-                    },
+                    onSaved: (value) => model.email = value,
                   ),
-                  SizedBox(
-                    height: SizeConfig.safeBlockVertical * 2.5,
-                  ),
+                  SizedBox(height: SizeConfig.safeBlockVertical * 2.5),
                   TextFormField(
-                    autofillHints: const <String>[
-                      AutofillHints.password,
-                    ],
+                    autofillHints: const <String>[AutofillHints.password],
                     textInputAction: TextInputAction.next,
                     obscureText: _obscureText,
                     controller: _originalPasswordController,
                     validator: Validator.validatePassword,
                     textAlign: TextAlign.left,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          20.0,
-                        ),
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.orange,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          20.0,
-                        ),
+                        borderSide: const BorderSide(color: Colors.orange),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                      prefixIcon: const Icon(
-                        Icons.lock,
-                        color: Colors.white,
-                      ),
+                      prefixIcon: const Icon(Icons.lock, color: Colors.white),
                       suffixIcon: TextButton(
                         onPressed: _toggle,
                         child: Icon(
@@ -454,30 +181,20 @@ class RegisterFormState extends State<RegisterForm> {
                         ),
                       ),
                       labelText: "Password",
-                      labelStyle: const TextStyle(
-                        color: Colors.white,
-                      ),
+                      labelStyle: const TextStyle(color: Colors.white),
                       focusColor: UIData.primaryColor,
                       alignLabelWithHint: true,
                       hintText: 'Password',
-                      hintStyle: const TextStyle(
-                        color: Colors.grey,
-                      ),
+                      hintStyle: const TextStyle(color: Colors.grey),
                     ),
                     onFieldSubmitted: (_) {
                       FocusScope.of(context).unfocus();
                       FocusScope.of(context).requestFocus(confirmPassField);
                     },
-                    onChanged: (_) {
-                      setState(() {});
-                    },
-                    onSaved: (value) {
-                      model.password = value;
-                    },
+                    onChanged: (_) => setState(() {}),
+                    onSaved: (value) => model.password = value,
                   ),
-                  SizedBox(
-                    height: SizeConfig.safeBlockVertical * 1.25,
-                  ),
+                  SizedBox(height: SizeConfig.safeBlockVertical * 1.25),
                   FlutterPwValidator(
                     width: 400,
                     height: 150,
@@ -485,59 +202,34 @@ class RegisterFormState extends State<RegisterForm> {
                     uppercaseCharCount: 1,
                     specialCharCount: 1,
                     numericCharCount: 1,
-                    onSuccess: (_) {
-                      setState(() {});
-                    },
+                    onSuccess: (_) => setState(() {}),
                     controller: _originalPasswordController,
                   ),
-                  SizedBox(
-                    height: SizeConfig.safeBlockVertical * 2.5,
-                  ),
+                  SizedBox(height: SizeConfig.safeBlockVertical * 2.5),
                   TextFormField(
-                    autofillHints: const <String>[
-                      AutofillHints.password,
-                    ],
+                    autofillHints: const <String>[AutofillHints.password],
                     obscureText: true,
                     focusNode: confirmPassField,
                     validator: (value) => Validator.validatePasswordConfirm(
-                      _originalPasswordController.text,
-                      value,
-                    ),
+                        _originalPasswordController.text, value),
                     textAlign: TextAlign.left,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.white,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          20.0,
-                        ),
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.orange,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          20.0,
-                        ),
+                        borderSide: const BorderSide(color: Colors.orange),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
-                      prefixIcon: const Icon(
-                        Icons.lock,
-                        color: Colors.white,
-                      ),
+                      prefixIcon: const Icon(Icons.lock, color: Colors.white),
                       labelText: "Confirm Password",
-                      labelStyle: const TextStyle(
-                        color: Colors.white,
-                      ),
+                      labelStyle: const TextStyle(color: Colors.white),
                       focusColor: UIData.primaryColor,
                     ),
                   ),
-                  SizedBox(
-                    height: SizeConfig.safeBlockVertical * 2.5,
-                  ),
+                  SizedBox(height: SizeConfig.safeBlockVertical * 2.5),
                 ],
               ),
             ),
@@ -553,16 +245,28 @@ class RegisterFormState extends State<RegisterForm> {
                       const EdgeInsets.all(12.0)),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                       const StadiumBorder()),
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Colors.white,
-                  ),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
                 ),
                 onPressed: () async {
                   FocusScope.of(context).unfocus();
                   _validate = AutovalidateMode.always;
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    _image != null ? registerUser() : registerUserWithoutImg();
+                    Provider.of<SignupLoginController>(context, listen: false)
+                        .registerNewUser(
+                      context: context,
+                      email: model.email,
+                      firstName: model.firstName,
+                      lastName: model.lastName,
+                      password: model.password,
+                      exceptionState: () => setState(() {
+                        _progressBarState = false;
+                      }),
+                      successState: () => setState(() {
+                        _progressBarState = true;
+                      }),
+                    );
                     setState(() {
                       toggleProgressBarState();
                     });
@@ -573,15 +277,12 @@ class RegisterFormState extends State<RegisterForm> {
                         width: SizeConfig.safeBlockHorizontal * 5,
                         height: SizeConfig.safeBlockVertical * 2.5,
                         child: const CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.orange,
-                          ),
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.orange),
                           strokeWidth: 3,
                           backgroundColor: Colors.black,
                         ))
-                    : const Text(
-                        "SIGN UP",
-                      ),
+                    : const Text("SIGN UP"),
               ),
             ),
           ],
@@ -590,89 +291,10 @@ class RegisterFormState extends State<RegisterForm> {
     );
   }
 
-  //widget used to add the image
-  Widget addImage() {
-    return Column(
-      children: <Widget>[
-        const SizedBox(
-          height: 32,
-        ),
-        Center(
-          child: GestureDetector(
-            onTap: () {
-              _showPicker(context);
-            },
-            child: CircleAvatar(
-              radius: 55,
-              backgroundColor: UIData.secondaryColor,
-              child: _image != null
-                  ? CircleAvatar(
-                      radius: 52,
-                      backgroundImage: FileImage(
-                        _image,
-                      ),
-                    )
-                  : CircleAvatar(
-                      radius: 52,
-                      backgroundColor: Colors.lightBlue[50],
-                      child: Icon(
-                        Icons.camera_alt,
-                        color: Colors.grey[800],
-                      ),
-                    ),
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  //used to show the method user want to choose their pictures
-  void _showPicker(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return SafeArea(
-          child: Container(
-            child: Wrap(
-              children: <Widget>[
-                ListTile(
-                  leading: const Icon(
-                    Icons.camera_alt_outlined,
-                  ),
-                  title: const Text(
-                    'Camera',
-                  ),
-                  onTap: () {
-                    _imgFrom(pickFrom: From.camera);
-                    Navigator.of(context).pop();
-                  },
-                ),
-                ListTile(
-                    leading: const Icon(
-                      Icons.photo_library,
-                    ),
-                    title: const Text(
-                      'Photo Library',
-                    ),
-                    onTap: () {
-                      _imgFrom(pickFrom: From.gallery);
-                      Navigator.of(context).pop();
-                    }),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   //function toggles _obscureText value
   void _toggle() {
-    setState(
-      () {
-        _obscureText = !_obscureText;
-      },
-    );
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 }

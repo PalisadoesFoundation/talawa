@@ -11,18 +11,8 @@ class LoginPage extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
+class _LoginScreenState extends State<LoginPage> {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
-  //providing the initial states to the variables
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  dispose() {
-    super.dispose();
-  }
 
   Widget loginScreenForm() => Center(
         child: Container(
@@ -81,6 +71,7 @@ class _LoginScreenState extends State<LoginPage> with TickerProviderStateMixin {
           ),
         ),
       );
+
   //main build starts here
   @override
   build(BuildContext context) {
