@@ -69,13 +69,13 @@ class UpdateProfileView extends StatelessWidget {
                   : Container(),
               _buildTextField(
                   "First Name",
-                  model.userDetails[0]["firstName"].toString(),
+                  model.userDetails[0].firstName.toString(),
                   model.setUserFirstName),
               _buildTextField(
                   "Last Name",
-                  model.userDetails[0]["lastName"].toString(),
+                  model.userDetails[0].lastName.toString(),
                   model.setUserLastname),
-              _buildTextField("Email", model.userDetails[0]["email"].toString(),
+              _buildTextField("Email", model.userDetails[0].email.toString(),
                   model.setUserEmail),
               Container(
                 margin: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 5),
