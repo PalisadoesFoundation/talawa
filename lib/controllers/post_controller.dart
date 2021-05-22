@@ -2,9 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/news_feed_controller.dart';
-import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:talawa/model/posts.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
@@ -28,10 +26,7 @@ class PostController with ChangeNotifier {
 
   //Methode used for craeting the post
   Future createPost(
-    String description,
-    String title,
-    BuildContext context,
-  ) async {
+      String description, String title, BuildContext context) async {
     if (organizationId == null) {
       CustomToast.exceptionToast(msg: "Please join an organization");
       return;

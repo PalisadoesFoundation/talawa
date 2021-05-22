@@ -584,9 +584,7 @@ class Queries {
   }
 
   //to get the task by any event
-  String getTasksByEvent(
-    String id,
-  ) {
+  String getTasksByEvent(String id) {
     return """
   query{
     tasksByEvent(id:"$id"){
@@ -600,9 +598,7 @@ class Queries {
   }
 
   //to get registrants for an event
-  String getRegistrantsByEvent(
-    String id,
-  ) {
+  String getRegistrantsByEvent(String id) {
     return """
   query{
     registrantsByEvent(id:"$id"){
@@ -703,9 +699,7 @@ class Queries {
 
 /////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
   //task by users
-  String tasksByUser(
-    String id,
-  ) {
+  String tasksByUser(String id) {
     return """
   query{
     tasksByUser(id:"$id"){
@@ -722,9 +716,7 @@ class Queries {
   """;
   }
 
-  String registeredEventsByUser(
-    String id,
-  ) {
+  String registeredEventsByUser(String id) {
     return """
   query{
     registeredEventsByUser(id:"$id"){
@@ -738,9 +730,7 @@ class Queries {
   }
 
 ///////////////////NEWSFEED///////////////////////////////////////////////////////////////////////
-  String getPostsById(
-    String orgId,
-  ) {
+  String getPostsById(String orgId) {
     return """
       query {
         postsByOrganization(id: "$orgId")
@@ -771,9 +761,7 @@ class Queries {
 """;
   }
 
-  String getPostsComments(
-    String postId,
-  ) {
+  String getPostsComments(String postId) {
     return """
 query{
   commentsByPost(id: "$postId"){
@@ -968,7 +956,7 @@ query{
       },
     ));
 
-    if (!_resp.loading) {
+    if (!_resp.loading && !_resp.hasException) {
       debugPrint(_resp.data.toString());
       debugPrint(_resp.exception.toString());
       return _resp.data as Map;
@@ -984,9 +972,7 @@ query{
     return {'error': errorMsg};
   }
 
-  addLike(
-    String postID,
-  ) async {
+  addLike(String postID) async {
     print(postID);
     const String addLikeMutation = """
      mutation likePost(\$postID: ID!) { 
@@ -1014,9 +1000,7 @@ query{
     }
   }
 
-  removeLike(
-    String postID,
-  ) async {
+  removeLike(String postID) async {
     print(postID);
     const String unLikeMutation = """
      mutation unlikePost(\$postID: ID!) { 
