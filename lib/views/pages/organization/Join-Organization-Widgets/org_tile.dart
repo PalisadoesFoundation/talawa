@@ -131,7 +131,7 @@ class _OrganisationTileState extends State<OrganisationTile> {
   ) {
     showDialog(
       context: widget.scaffoldKey.currentContext,
-      builder: (BuildContext ctx) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: const Text("Confirmation"),
           content:
@@ -139,7 +139,7 @@ class _OrganisationTileState extends State<OrganisationTile> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(dialogContext).pop();
               },
               child: const Text("Close"),
             ),
@@ -148,7 +148,7 @@ class _OrganisationTileState extends State<OrganisationTile> {
                 setState(() {
                   _isLoaderActive = true;
                 });
-                Navigator.of(ctx).pop();
+                Navigator.of(dialogContext).pop();
                 if (isPublic == 'true') {
                   await Provider.of<OrgController>(
                     context,
@@ -165,7 +165,7 @@ class _OrganisationTileState extends State<OrganisationTile> {
                     _isLoaderActive = false;
                   });
                 } else if (isPublic == 'false') {
-                  await Provider.of<OrgController>(ctx, listen: false)
+                  await Provider.of<OrgController>(dialogContext, listen: false)
                       .joinPrivateOrg(
                     context,
                     widget.fToast,
