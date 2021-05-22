@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/page_view_model/create_organization_page_viewModel.dart';
@@ -55,7 +54,7 @@ void _showPicker(BuildContext context, CreateOrganizationViewModel model) {
                 leading: const Icon(Icons.camera_alt_outlined),
                 title: const Text('Camera'),
                 onTap: () {
-                  model.imgFrom(pickFrom: From.camera);
+                  model.getImageFromCamera();
                   Navigator.of(context).pop();
                 },
               ),
@@ -64,7 +63,7 @@ void _showPicker(BuildContext context, CreateOrganizationViewModel model) {
                   leading: const Icon(Icons.photo_library),
                   title: const Text('Photo Library'),
                   onTap: () {
-                    model.imgFrom(pickFrom: From.gallery);
+                    model.getImageFromGallery();
                     Navigator.of(context).pop();
                   }),
             ],

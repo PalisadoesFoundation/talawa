@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/signup_login_controller.dart';
 import 'package:talawa/controllers/url_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
@@ -28,6 +29,8 @@ Widget createLoginPageScreen() => MultiProvider(
         ChangeNotifierProvider<NewsFeedProvider>(
             create: (_) => NewsFeedProvider()),
         ChangeNotifierProvider<UrlController>(create: (_) => UrlController()),
+        ChangeNotifierProvider<SignupLoginController>(
+            create: (_) => SignupLoginController()),
       ],
       child: MaterialApp(
         home: UrlPage(),

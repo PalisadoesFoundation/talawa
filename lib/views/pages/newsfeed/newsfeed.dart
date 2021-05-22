@@ -7,6 +7,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/model/posts.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/newsfeed/add_post.dart';
@@ -25,6 +26,7 @@ class NewsFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //print(AppLocalizations.of(context).translate('hello-world'));
     return Scaffold(
       appBar: CustomAppBar(
         'NewsFeed',
@@ -64,6 +66,7 @@ class NewsFeed extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
+                          // ignore: sort_child_properties_last
                           child: ListView.builder(
                             itemCount: Provider.of<NewsFeedProvider>(context)
                                 .getPostList
@@ -86,7 +89,15 @@ class NewsFeed extends StatelessWidget {
                                             post: post,
                                             index: index,
                                           ),
-                                        );
+                                        ).then((value) {
+                                          //if (value != null && value)
+                                          if (value != null) {
+                                            Provider.of<NewsFeedProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .getPosts();
+                                          }
+                                        });
                                       },
                                       child: Card(
                                         color: Colors.white,
@@ -112,7 +123,7 @@ class NewsFeed extends StatelessWidget {
                                                 // ignore: avoid_unnecessary_containers
                                                 Container(
                                                   child: Text(
-                                                    post.title,
+                                                    post.title ?? '',
                                                     style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -172,11 +183,6 @@ class NewsFeed extends StatelessWidget {
                                                   )
                                                 ],
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height:
-                                                  SizeConfig.safeBlockVertical *
-                                                      1.25,
                                             ),
                                             SizedBox(
                                               height:
@@ -246,7 +252,8 @@ class NewsFeed extends StatelessWidget {
                   .then((value) {
                 //if (value != null && value)
                 if (value != null) {
-                  Provider.of<NewsFeedProvider>(context).getPosts();
+                  Provider.of<NewsFeedProvider>(context, listen: false)
+                      .getPosts();
                 }
               });
             })
