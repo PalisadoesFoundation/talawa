@@ -9,29 +9,45 @@ class ImageService {
     try {
       final PickedFile selectedImage =
           await ImagePicker().getImage(source: ImageSource.camera);
-      return File(selectedImage.path);
+      if (selectedImage != null) {
+        return File(selectedImage.path);
+      }
+      return null;
     } catch (exception) {
-      print('Error getting Camera Image $exception');
+      print('Error getting Camera Image, exception: $exception');
       return null;
     }
   }
 
   static Future<File> fetchImageFromGallery() async {
-    final PickedFile selectedImage =
-        await ImagePicker().getImage(source: ImageSource.gallery);
-    return File(selectedImage.path);
+    try {
+      final PickedFile selectedImage =
+          await ImagePicker().getImage(source: ImageSource.gallery);
+      if (selectedImage != null) {
+        return File(selectedImage.path);
+      }
+      return null;
+    } catch (exception) {
+      print('Error getting Image from gallery, exception: $exception');
+      return null;
+    }
   }
 
   static Future<File> cropImage(File image) async {
-    final File croppedImage = await ImageCropper.cropImage(
-      sourcePath: image.path,
-      androidUiSettings: const AndroidUiSettings(
-        toolbarColor: UIData.primaryColor,
-      ),
-    );
-    if (croppedImage != null){
-      return File(croppedImage.path);
+    try {
+      final File croppedImage = await ImageCropper.cropImage(
+        sourcePath: image.path,
+        androidUiSettings: const AndroidUiSettings(
+          toolbarColor: UIData.primaryColor,
+        ),
+      );
+      if (croppedImage != null) {
+        return File(croppedImage.path);
+      }
+      return null;
+    } catch (exception) {
+      print('Error cropping Image, exception: $exception');
+      return null;
     }
-    return null;
   }
 }
