@@ -7,7 +7,7 @@ import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:talawa/enums/exception_type.dart';
 import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/services/exception.dart';
-import 'package:talawa/services/image.dart';
+import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';

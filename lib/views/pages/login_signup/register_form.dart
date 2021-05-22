@@ -10,7 +10,7 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/vm_register.dart';
-import 'package:talawa/views/pages/login_signup/profile_image.dart';
+import 'package:talawa/views/pages/login_signup/image.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
