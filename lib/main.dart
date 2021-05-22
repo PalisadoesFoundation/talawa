@@ -44,7 +44,7 @@ Future<void> main() async {
         ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
-        ChangeNotifierProvider.value(value: AppLanguage()),
+        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
         ChangeNotifierProvider<GroupController>(
             create: (_) => GroupController()),
