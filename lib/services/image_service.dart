@@ -29,6 +29,9 @@ class ImageService {
         toolbarColor: UIData.primaryColor,
       ),
     );
-    return File(croppedImage.path);
+    if (croppedImage != null){
+      return File(croppedImage.path);
+    }
+    return null;
   }
 }
