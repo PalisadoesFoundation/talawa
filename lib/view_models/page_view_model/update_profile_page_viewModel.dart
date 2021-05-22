@@ -1,14 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:graphql/utilities.dart' show multipartFileFrom;
 import 'package:talawa/enums/exception_type.dart';
-import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/services/exception.dart';
+import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -22,7 +21,7 @@ class UpdateProfilePageViewModel extends BaseModel {
   List _userDetails = [];
   File _profileImage;
   final Queries _updateProfileQuery = Queries();
-  RegisterViewModel _userModel = RegisterViewModel();
+  final RegisterViewModel _userModel = RegisterViewModel();
   final AuthController _authController = AuthController();
   GraphQLConfiguration graphQLConfiguration = locator<GraphQLConfiguration>();
   BuildContext _viewContext;
@@ -45,7 +44,7 @@ class UpdateProfilePageViewModel extends BaseModel {
   }
 
   setUserLastname(String lastname) {
-    _userModel.firstName = lastname;
+    _userModel.lastName = lastname;
   }
 
   setProfileImage(File file) {
@@ -53,24 +52,29 @@ class UpdateProfilePageViewModel extends BaseModel {
     notifyListeners();
   }
 
-  //get image from camera and gallery based on the enum passed
-  imgFrom({From pickFrom = From.none}) async {
-    File pickImageFile;
-    if (pickFrom != From.none) {
-      final PickedFile selectedImage = await ImagePicker().getImage(
-          source: pickFrom == From.camera
-              ? ImageSource.camera
-              : ImageSource.gallery);
-      pickImageFile = File(selectedImage.path);
-      _profileImage = pickImageFile;
-      notifyListeners();
+  getImageFromCamera() async {
+    final File capturedImage = await ImageService.fetchImageFromCamera();
+    if (capturedImage != null) {
+      final File croppedImage = await ImageService.cropImage(capturedImage);
+      if (croppedImage != null) {
+        setProfileImage(croppedImage);
+      }
     }
   }
 
-  //Function called when the user update without the image
+  getImageFromGallery() async {
+    final File capturedImage = await ImageService.fetchImageFromGallery();
+    if (capturedImage != null) {
+      final File croppedImage = await ImageService.cropImage(capturedImage);
+      if (croppedImage != null) {
+        setProfileImage(croppedImage);
+      }
+    }
+  }
+
+  //Function called when the user update with/without the image
   updateProfile() async {
     setState(ViewState.busy);
-
     final GraphQLClient _client = graphQLConfiguration.authClient();
     QueryResult result;
     Map<String, dynamic> _variables = {};
@@ -81,17 +85,15 @@ class UpdateProfilePageViewModel extends BaseModel {
         'file': img,
         "firstName": _userModel.firstName,
         "lastName": _userModel.lastName,
-        "email": _userDetails[0]['email'] == _userModel.email
-            ? null
-            : _userModel.email,
+        "email":
+            _userDetails[0].email == _userModel.email ? null : _userModel.email,
       };
     } else {
       _variables = {
         "firstName": _userModel.firstName,
         "lastName": _userModel.lastName,
-        "email": _userDetails[0]['email'] == _userModel.email
-            ? null
-            : _userModel.email,
+        "email":
+            _userDetails[0].email == _userModel.email ? null : _userModel.email,
       };
     }
 
