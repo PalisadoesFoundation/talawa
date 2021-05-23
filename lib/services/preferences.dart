@@ -17,6 +17,7 @@ class Preferences with ChangeNotifier {
 
   String orgName;
   String orgImgSrc;
+  String langCode;
 
   //it saves the user first name
   Future saveUserFName(String fName) async {
@@ -160,12 +161,32 @@ class Preferences with ChangeNotifier {
     );
   }
 
+  //saves the user id
+  Future saveLanguage(String languageCode, String countryCode) async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(
+      'language_code',
+      languageCode,
+    );
+
+    await preferences.setString(
+      'countryCode',
+      countryCode,
+    );
+  }
+
+  //get the current organization name
+  Future<String> getCurrentLanguage() async {
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    langCode = preferences.getString("language_code");
+    return langCode;
+  }
+
   //gets the user id
   Future<String> getUserId() async {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final String uid = preferences.getString(
-      userId,
-    );
+    final String uid = preferences.getString(userId);
+    await getCurrentLanguage();
     return uid;
   }
 
