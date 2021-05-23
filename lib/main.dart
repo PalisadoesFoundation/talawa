@@ -95,6 +95,20 @@ class MyApp extends StatelessWidget {
           showPerformanceOverlay: false,
           navigatorKey: locator<NavigationService>().navigatorKey,
           onGenerateRoute: router.generateRoute,
+          localeResolutionCallback:
+              (Locale locale, Iterable<Locale> supportedLocales) {
+            if (locale == null) {
+              debugPrint("*language locale is null!!!");
+              return supportedLocales.first;
+            }
+            for (final Locale supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode ||
+                  supportedLocale.countryCode == locale.countryCode) {
+                return supportedLocale;
+              }
+            }
+            return supportedLocales.first;
+          },
           home: FutureBuilder(
             future: preferences.getUserId(),
             initialData: "Initial Data",
