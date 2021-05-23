@@ -23,7 +23,7 @@ class LanguageSelectorPage extends StatelessWidget {
       Language(
         countryCode: 'CN',
         langCode: 'zh',
-        langName: 'China',
+        langName: 'Chinese',
         langSample: '欢迎用户',
       ),
       Language(
