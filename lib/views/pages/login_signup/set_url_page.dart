@@ -10,6 +10,7 @@ import 'package:talawa/utils/loghelper.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
+import 'package:talawa/views/lang_selector.dart';
 
 import '../../../locator.dart';
 
@@ -531,6 +532,36 @@ class _UrlPageState extends State<UrlPage>
                 ),
               ],
             ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      LanguageSelectorPage(),
+                  fullscreenDialog: true,
+                  transitionDuration: const Duration(milliseconds: 500),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    final tween = Tween(
+                      begin: const Offset(0.0, 1.0),
+                      end: Offset.zero,
+                    );
+
+                    final curvedAnimation = CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.ease,
+                    );
+
+                    return SlideTransition(
+                      position: tween.animate(curvedAnimation),
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },
+            child: const Text('Select Language'),
           ),
         ],
       );

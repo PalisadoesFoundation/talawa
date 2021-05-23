@@ -19,10 +19,10 @@ class AppLanguage extends ChangeNotifier {
 
     if (langCode == null) {
       _appLocale = const Locale('en');
-      notifyListeners();
+      //notifyListeners();
     }
     _appLocale = Locale(langCode);
-    notifyListeners();
+    //notifyListeners();
   }
 
   /// Change App Language

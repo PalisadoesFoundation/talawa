@@ -60,10 +60,20 @@ Future<void> main() async {
   });
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    Provider.of<AppLanguage>(context, listen: false).fetchLocale();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Provider.of<AppLanguage>(context, listen: false).fetchLocale();
     return GestureDetector(
       onTap: () {
         final FocusScopeNode currentFocus = FocusScope.of(context);
