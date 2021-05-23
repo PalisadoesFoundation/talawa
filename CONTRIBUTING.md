@@ -34,8 +34,6 @@ For Talawa, we had employed the following branching strategy to simplify the dev
 - `alpha-x.x.x`: for stability teesting
 - `master`: Where the stable production ready code lies
 
-Detailed document containing how GitFlow works: https://nvie.com/posts/a-successful-git-branching-model/
-
 ### Contributing Code
 
 Code contributions to Talawa come in the form of pull requests. These are done by forking the repo and making changes locally.
