@@ -3,11 +3,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
-import 'package:talawa/services/post_provider.dart';
+import 'package:talawa/controllers/news_feed_controller.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/home_page.dart';
+import 'package:talawa/router.dart' as router;
 
 Widget createHomePageScreen() => MultiProvider(
       providers: [
@@ -23,10 +27,15 @@ Widget createHomePageScreen() => MultiProvider(
         ChangeNotifierProvider<Preferences>(
           create: (_) => Preferences(),
         ),
-        ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
+        ChangeNotifierProvider<NewsFeedProvider>(
+            create: (_) => NewsFeedProvider()),
+        ChangeNotifierProvider<GroupController>(
+            create: (_) => GroupController()),
       ],
-      child: const MaterialApp(
-        home: HomePage(),
+      child: MaterialApp(
+        home: const HomePage(),
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
       ),
     );
 
@@ -34,6 +43,8 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
+  setupLocator();
+
   group('HomePage Widget Test', () {
     testWidgets("Testing if HomePage shows up", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
@@ -80,16 +91,18 @@ void main() {
     });
 
     testWidgets('Testing if Groups Page Shows up', (tester) async {
-      await tester.pumpWidget(createHomePageScreen());
-      //checking if the first page is newsfeed page
-      expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
-      expect(find.byKey(const Key('GROUPS_APP_BAR')), findsNothing);
-      final chatIcon = find.byIcon(Icons.chat);
-      //tapping the chatIcon
-      await tester.tap(chatIcon);
-      await tester.pumpAndSettle();
-      //Group page should be present
-      expect(find.byKey(const Key('GROUPS_APP_BAR')), findsOneWidget);
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createHomePageScreen());
+        //checking if the first page is newsfeed page
+        expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
+        expect(find.byKey(const Key('GROUPS_APP_BAR')), findsNothing);
+        final chatIcon = find.byIcon(Icons.chat);
+        //tapping the chatIcon
+        await tester.tap(chatIcon);
+        await tester.pump();
+        // //Group page should be present
+        expect(find.byKey(const Key('GROUPS_APP_BAR')), findsOneWidget);
+      });
     });
 
     testWidgets('Testing if Events Page Shows up', (tester) async {
@@ -119,15 +132,17 @@ void main() {
     });
 
     testWidgets('Testing if Profile Page Shows up', (tester) async {
-      await tester.pumpWidget(createHomePageScreen());
-      //checking if newsfeed page is present
-      expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
-      expect(find.byKey(const Key('PROFILE_PAGE_SCAFFOLD')), findsNothing);
-      final folderIcon = find.byIcon(Icons.folder);
-      await tester.tap(folderIcon);
-      await tester.pump();
-      //profile page should show up
-      expect(find.byKey(const Key('PROFILE_PAGE_SCAFFOLD')), findsOneWidget);
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createHomePageScreen());
+        //checking if newsfeed page is present
+        expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
+        expect(find.byKey(const Key('PROFILE_PAGE_SCAFFOLD')), findsNothing);
+        final folderIcon = find.byIcon(Icons.folder);
+        await tester.tap(folderIcon);
+        await tester.pump();
+        //profile page should show up
+        expect(find.byKey(const Key('PROFILE_PAGE_SCAFFOLD')), findsOneWidget);
+      });
     });
   });
 }

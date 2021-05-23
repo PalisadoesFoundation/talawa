@@ -6,10 +6,11 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
+import 'package:talawa/views/pages/home_page.dart';
 
 class SwitchOrganization extends StatefulWidget {
   @override
@@ -19,7 +20,6 @@ class SwitchOrganization extends StatefulWidget {
 class _SwitchOrganizationState extends State<SwitchOrganization> {
   final Queries _query = Queries();
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  FToast fToast;
   int visit = 0;
   String orgId;
   int isSelected;
@@ -36,8 +36,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     fetchUserDetails();
   }
 
@@ -47,53 +45,76 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
 
     final GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
-    final QueryResult result = await _client.query(QueryOptions(
-        documentNode: gql(_query.fetchUserInfo), variables: {'id': userID}));
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(_query.fetchUserInfo),
+        variables: {
+          'id': userID,
+        },
+      ),
+    );
     if (result.loading) {
       setState(() {
         _progressBarState = true;
       });
     } else if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
-        showError(result.exception.toString());
+        showError(
+          result.exception.toString(),
+        );
       });
     } else if (!result.hasException && !result.loading) {
-      setState(() {
-        _progressBarState = false;
-        userOrg = result.data['users'][0]['joinedOrganizations'] as List;
-        print(userOrg);
-        if (userOrg.isEmpty) {
-          showError("You are not registered to any organization");
-        }
-      });
+      setState(
+        () {
+          _progressBarState = false;
+          userOrg = result.data['users'][0]['joinedOrganizations'] as List;
+          print(userOrg);
+          if (userOrg.isEmpty) {
+            showError(
+              "You are not registered to any organization",
+            );
+          }
+        },
+      );
     }
   }
 
   //this method allows user to change the organization if he wants to
   Future switchOrg() async {
     if (userOrg[isSelected]['_id'] == orgId) {
-      _successToast("Switched to ${userOrg[isSelected]['name']}");
-
-      //Kill all previous stacked screen
-      Navigator.of(context).popUntil(ModalRoute.withName("/"));
+      CustomToast.sucessToast(
+        msg: "Switched to ${userOrg[isSelected]['name']}",
+      );
 
       //New Screen with updated data set
-      pushNewScreen(
-        context,
-        screen: const ProfilePage(),
-      );
+      pushNewScreen(context,
+          screen: const HomePage(
+            openPageIndex: 4,
+          ),
+          withNavBar: false);
     } else {
       final GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
       final QueryResult result = await _client.mutate(
-          MutationOptions(documentNode: gql(_query.fetchOrgById(itemIndex))));
+        MutationOptions(
+          documentNode: gql(
+            _query.fetchOrgById(
+              itemIndex,
+            ),
+          ),
+        ),
+      );
       if (result.hasException) {
         print(result.exception);
-        _exceptionToast(result.exception.toString());
+        CustomToast.exceptionToast(
+          msg: result.exception.toString(),
+        );
       } else if (!result.hasException) {
-        _successToast("Switched to ${result.data['organizations'][0]['name']}");
+        CustomToast.sucessToast(
+          msg: "Switched to ${result.data['organizations'][0]['name']}",
+        );
 
         //save new current org in preference
         final String currentOrgId =
@@ -106,14 +127,12 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
             result.data['organizations'][0]['name'].toString();
         await _pref.saveCurrentOrgName(currentOrgName);
 
-        //Kill all previous stacked screen
-        Navigator.of(context).popUntil(ModalRoute.withName("/"));
-
         //New Screen with Updated data set
-        pushNewScreen(
-          context,
-          screen: const ProfilePage(),
-        );
+        pushNewScreen(context,
+            screen: const HomePage(
+              openPageIndex: 4,
+            ),
+            withNavBar: false);
       }
     }
   }
@@ -135,13 +154,19 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
       appBar: AppBar(
         title: const Text(
           'Switch Organization',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
       body: _progressBarState
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
           : ListView.separated(
-              padding: const EdgeInsets.only(top: 10.0),
+              padding: EdgeInsets.only(
+                top: SizeConfig.safeBlockVertical * 1.25,
+              ),
               itemCount: userOrg.length,
               itemBuilder: (context, index) {
                 if (userOrg[index]['_id'] == orgId) {
@@ -150,26 +175,32 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
                 return RadioListTile(
                   secondary: userOrg[index]['image'] != null
                       ? CircleAvatar(
-                          radius: 30,
+                          radius: SizeConfig.safeBlockVertical * 7.25,
                           backgroundImage: NetworkImage(
-                              Provider.of<GraphQLConfiguration>(context)
-                                      .displayImgRoute +
-                                  userOrg[index]['image'].toString()))
-                      : const CircleAvatar(
-                          radius: 30,
-                          backgroundImage:
-                              AssetImage("assets/images/team.png")),
+                            Provider.of<GraphQLConfiguration>(context)
+                                    .displayImgRoute +
+                                userOrg[index]['image'].toString(),
+                          ),
+                        )
+                      : CircleAvatar(
+                          radius: SizeConfig.safeBlockVertical * 3.75,
+                          backgroundImage: const AssetImage(
+                            "assets/images/team.png",
+                          ),
+                        ),
                   activeColor: UIData.secondaryColor,
                   groupValue: isSelected,
                   title: Text(
                       '${userOrg[index]['name']}\n${userOrg[index]['description']}'),
                   value: index,
                   onChanged: (int val) {
-                    setState(() {
-                      orgId = null;
-                      isSelected = val;
-                      itemIndex = userOrg[index]['_id'].toString();
-                    });
+                    setState(
+                      () {
+                        orgId = null;
+                        isSelected = val;
+                        itemIndex = userOrg[index]['_id'].toString();
+                      },
+                    );
                   },
                 );
               },
@@ -199,52 +230,6 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         style: const TextStyle(fontSize: 16),
         textAlign: TextAlign.center,
       ),
-    );
-  }
-
-  //the method which is called when the result is successful
-  _successToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  //the method is called when the result is an exception
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }

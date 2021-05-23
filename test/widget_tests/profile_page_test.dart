@@ -6,27 +6,36 @@ import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/signup_login_controller.dart';
+import 'package:talawa/controllers/url_controller.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/services/comment.dart';
+import 'package:talawa/controllers/news_feed_controller.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
+import 'package:talawa/router.dart' as router;
 
 Widget createLoginPageScreen() => MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
-          create: (_) => GraphQLConfiguration(),
-        ),
-        ChangeNotifierProvider<OrgController>(
-          create: (_) => OrgController(),
-        ),
-        ChangeNotifierProvider<AuthController>(
-          create: (_) => AuthController(),
-        ),
-        ChangeNotifierProvider<Preferences>(
-          create: (_) => Preferences(),
-        ),
+            create: (_) => GraphQLConfiguration()),
+        ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
+        ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
+        ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
+        ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
+        ChangeNotifierProvider<NewsFeedProvider>(
+            create: (_) => NewsFeedProvider()),
+        ChangeNotifierProvider<UrlController>(create: (_) => UrlController()),
+        ChangeNotifierProvider<SignupLoginController>(
+            create: (_) => SignupLoginController()),
       ],
       child: MaterialApp(
         home: UrlPage(),
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
       ),
     );
 
@@ -34,7 +43,7 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
-
+  setupLocator();
   // Function for ignoring overflow errors.
   // ignore: prefer_function_declarations_over_variables
   final void Function(FlutterErrorDetails) onErrorIgnoreOverflowErrors = (
@@ -58,8 +67,8 @@ void main() {
 
     // Ignore if is overflow error.
     if (ifIsOverflowError) {
-      // ignore: avoid_print
-      print("Over flow error");
+      // ignore: avoid_debugPrint
+      debugPrint("Over flow error");
     }
 
     // Throw other errors.
@@ -83,7 +92,9 @@ void main() {
 
     testWidgets("Testing overflow of LoginPage in a mobile screen",
         (tester) async {
-      binding.window.physicalSizeTestValue = const Size(440, 800);
+      binding.window.physicalSizeTestValue = Size(
+          SizeConfig.safeBlockHorizontal * 110,
+          SizeConfig.safeBlockVertical * 100);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createLoginPageScreen());

@@ -3,12 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/model/orgmemeber.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/members/member_details.dart';
 
 Widget createProfileScreen(
-        {String creatorId, List admins, Map member, Color color}) =>
+        {String creatorId, List<Admin> admins, Member member, Color color}) =>
     MultiProvider(
         providers: [
           ChangeNotifierProvider<GraphQLConfiguration>(
@@ -35,16 +36,15 @@ Widget createProfileScreen(
 void main() {
   group('Member Info Page Widget Tests', () {
     testWidgets('When member is creator of the organization ', (tester) async {
-      final Map memberData = {
-        '_id': '5f566b32dc1b6076634d30a0',
-        'firstName': 'Arya',
-        'lastName': 'Stark',
-        'email': 'arya@stark.com',
-        'image': null
-      };
-      final List adminsData = [
-        {'_id': '5f566b32dc1b6076634d30a0'},
-        {'_id': '5f566b32dsie6076634d30a0'}
+      final Member memberData = Member(
+          id: '5f566b32dc1b6076634d30a0',
+          firstName: 'Arya',
+          lastName: 'Stark',
+          email: 'arya@stark.com',
+          image: null);
+      final List<Admin> adminsData = [
+        Admin(id: '5f566b32dc1b6076634d30a0'),
+        Admin(id: '5f566b32dsie6076634d30a0')
       ];
       await tester.pumpWidget(
           createProfileScreen(
@@ -60,16 +60,15 @@ void main() {
     });
 
     testWidgets('When member is admin of the organization ', (tester) async {
-      final Map memberData = {
-        '_id': '5f566b32dc1b6076634d30a0',
-        'firstName': 'Arya',
-        'lastName': 'Stark',
-        'email': 'arya@stark.com',
-        'image': null
-      };
-      final List adminsData = [
-        {'_id': '5f566b32dc1b6076634d30a0'},
-        {'_id': '5f566badsie6076634d30a0'}
+      final Member memberData = Member(
+          id: '5f566b32dc1b6076634d30a0',
+          firstName: 'Arya',
+          lastName: 'Stark',
+          email: 'arya@stark.com',
+          image: null);
+      final List<Admin> adminsData = [
+        Admin(id: '5f566b32dc1b6076634d30a0'),
+        Admin(id: '5f566b32dsie6076634d30a0')
       ];
       await tester.pumpWidget(
           createProfileScreen(
@@ -86,16 +85,15 @@ void main() {
 
     testWidgets('When member is not a creator/admin of the organization ',
         (tester) async {
-      final Map memberData = {
-        '_id': '5f566b32dc1b6076634d30a0',
-        'firstName': 'Arya',
-        'lastName': 'Stark',
-        'email': 'arya@stark.com',
-        'image': null
-      };
-      final List adminsData = [
-        {'_id': '5f566b32dc2j5076634d30a0'},
-        {'_id': '5f566badsie6076634d30a0'}
+      final Member memberData = Member(
+          id: '5f566b32dc1b6076634d30a0',
+          firstName: 'Arya',
+          lastName: 'Stark',
+          email: 'arya@stark.com',
+          image: null);
+      final List<Admin> adminsData = [
+        Admin(id: '5f566b32dc1b6076634d30a0'),
+        Admin(id: '5f566b32dsie6076634d30a0')
       ];
       await tester.pumpWidget(
           createProfileScreen(

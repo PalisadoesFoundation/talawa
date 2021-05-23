@@ -1,7 +1,6 @@
 //flutter imported packages
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 //pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -9,12 +8,13 @@ import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 class OrganizationMembers extends StatefulWidget {
   @override
@@ -30,7 +30,6 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   List membersList = [];
   List adminsList = [];
   List selectedMembers = [];
-  FToast fToast;
   bool forward = false;
   bool processing = false;
   String userId;
@@ -41,11 +40,11 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(
+        milliseconds: 500,
+      ),
     );
     viewMembers();
   }
@@ -55,11 +54,21 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     final String orgId = await _preferences.getCurrentOrgId();
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    final QueryResult result = await _client
-        .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(
+          _query.fetchOrgById(
+            orgId,
+          ),
+        ),
+      ),
+    );
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       //showError(result.exception.toString());
+      CustomToast.exceptionToast(
+        msg: result.exception.toString(),
+      );
     } else if (!result.hasException) {
       result.data['organizations'][0]['admins']
           .forEach((admin) => adminsList.add(admin['_id']));
@@ -69,7 +78,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         membersList = result.data['organizations'][0]['members'] as List;
       });
       if (membersList.length == 1) {
-        _exceptionToast('You are alone here.');
+        CustomToast.exceptionToast(
+          msg: 'You are alone here.',
+        );
       }
     }
   }
@@ -82,16 +93,24 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     final GraphQLClient _client = graphQLConfiguration.authClient();
     final String orgId = await _preferences.getCurrentOrgId();
 
-    final QueryResult result = await _client.query(QueryOptions(
-        documentNode: gql(_query.removeMember(orgId, selectedMembers))));
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(
+          _query.removeMember(
+            orgId,
+            selectedMembers,
+          ),
+        ),
+      ),
+    );
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       return removeMembers();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print(result.exception.toString().substring(16));
-      _exceptionToast(result.exception.toString());
+      debugPrint(result.exception.toString().substring(16));
+      CustomToast.exceptionToast(msg: result.exception.toString());
       setState(() {
         processing = false;
       });
@@ -100,7 +119,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       setState(() {
         processing = false;
       });
-      _successToast('Member(s) removed successfully');
+      CustomToast.sucessToast(
+        msg: 'Member(s) removed successfully',
+      );
       viewMembers();
     }
   }
@@ -112,9 +133,16 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     if (!adminsList.contains(selectedMembers[0])) {
       final GraphQLClient _client = graphQLConfiguration.authClient();
       final String orgId = await _preferences.getCurrentOrgId();
-      final QueryResult result = await _client.query(QueryOptions(
-          documentNode:
-              gql(_query.addAdmin(orgId, selectedMembers[0].toString()))));
+      final QueryResult result = await _client.query(
+        QueryOptions(
+          documentNode: gql(
+            _query.addAdmin(
+              orgId,
+              selectedMembers[0].toString(),
+            ),
+          ),
+        ),
+      );
       if (result.hasException &&
           result.exception.toString().substring(16) == accessTokenException) {
         _authController.getNewToken();
@@ -122,6 +150,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       } else if (result.hasException &&
           result.exception.toString().substring(16) != accessTokenException) {
         print(result.exception.toString().substring(16));
+        CustomToast.exceptionToast(
+          msg: "Something went wrong!Try again later",
+        );
         setState(() {
           processing = false;
         });
@@ -130,11 +161,15 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         setState(() {
           processing = false;
         });
-        _successToast('Admin created');
+        CustomToast.sucessToast(
+          msg: 'Admin created',
+        );
         viewMembers();
       }
     } else {
-      _exceptionToast('Already an admin');
+      CustomToast.exceptionToast(
+        msg: 'Already an admin',
+      );
     }
   }
 
@@ -143,14 +178,20 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     if (selected == true) {
       if (!adminsList.contains(memberId)) {
         setState(() {
-          selectedMembers.add('"$memberId"');
+          selectedMembers.add(
+            '"$memberId"',
+          );
         });
       } else {
-        _exceptionToast("Can't select admins");
+        CustomToast.exceptionToast(
+          msg: "Can't select admins",
+        );
       }
     } else {
       setState(() {
-        selectedMembers.remove('"$memberId"');
+        selectedMembers.remove(
+          '"$memberId"',
+        );
       });
     }
   }
@@ -159,8 +200,12 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Organization Members',
-            style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Organization Members',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ),
       body: Stack(
         children: [
@@ -173,10 +218,15 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                 )
               : const SizedBox(),
           membersList.isEmpty
-              ? const Center(child: CircularProgressIndicator())
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
               : ListView.separated(
                   itemCount: membersList.length,
-                  itemBuilder: (context, index) {
+                  itemBuilder: (
+                    context,
+                    index,
+                  ) {
                     final members = membersList[index];
                     final String mId = members['_id'].toString();
                     final String name =
@@ -184,33 +234,39 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                     return CheckboxListTile(
                       secondary: members['image'] != null
                           ? CircleAvatar(
-                              radius: 30,
+                              radius: SizeConfig.safeBlockVertical * 3.75,
                               backgroundImage: NetworkImage(
-                                  Provider.of<GraphQLConfiguration>(context)
-                                          .displayImgRoute +
-                                      members['image'].toString()))
+                                Provider.of<GraphQLConfiguration>(context)
+                                        .displayImgRoute +
+                                    members['image'].toString(),
+                              ),
+                            )
                           : CircleAvatar(
-                              radius: 30.0,
+                              radius: SizeConfig.safeBlockVertical * 3.75,
                               backgroundColor: Colors.white,
                               child: Text(
-                                  members['firstName']
-                                          .toString()
-                                          .substring(0, 1)
-                                          .toUpperCase() +
-                                      members['lastName']
-                                          .toString()
-                                          .substring(0, 1)
-                                          .toUpperCase(),
-                                  style: const TextStyle(
-                                    color: UIData.primaryColor,
-                                    fontSize: 22,
-                                  )),
+                                members['firstName']
+                                        .toString()
+                                        .substring(0, 1)
+                                        .toUpperCase() +
+                                    members['lastName']
+                                        .toString()
+                                        .substring(0, 1)
+                                        .toUpperCase(),
+                                style: const TextStyle(
+                                  color: UIData.primaryColor,
+                                  fontSize: 22,
+                                ),
+                              ),
                             ),
                       title: Text(name),
                       subtitle: Text(adminsList.contains(mId) ? 'Admin' : ''),
                       value: selectedMembers.contains('"$mId"'),
                       onChanged: (bool value) {
-                        _onMemberSelected(value, members['_id'].toString());
+                        _onMemberSelected(
+                          value,
+                          members['_id'].toString(),
+                        );
                       },
                     );
                   },
@@ -225,33 +281,44 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.generate(2, (int index) {
           final Widget child = Container(
-            margin: const EdgeInsets.only(bottom: 15),
+            margin: const EdgeInsets.only(
+              bottom: 15,
+            ),
             alignment: FractionalOffset.bottomRight,
             child: ScaleTransition(
               scale: CurvedAnimation(
                 parent: _controller,
-                curve: Interval(0.0, 1.0 - index, curve: Curves.easeOut),
+                curve: Interval(
+                  0.0,
+                  1.0 - index,
+                  curve: Curves.easeOut,
+                ),
               ),
               child: FloatingActionButton.extended(
                 heroTag: null,
                 backgroundColor: UIData.secondaryColor,
                 tooltip: index == 0 ? "Remove" : "Admin",
                 icon: Icon(
-                    index == 0 ? Icons.delete : Icons.admin_panel_settings,
-                    color: Colors.white),
+                  index == 0 ? Icons.delete : Icons.admin_panel_settings,
+                  color: Colors.white,
+                ),
                 label: Text(index == 0 ? "Remove" : "Admin"),
                 onPressed: () {
                   if (index == 0) {
                     dialog(
-                        "Are you sure you want to remove selected member(s)?",
-                        removeMembers);
+                      "Are you sure you want to remove selected member(s)?",
+                      removeMembers,
+                    );
                   } else if (index == 1) {
                     if (selectedMembers.length == 1) {
                       dialog(
-                          "Are you sure you want to make selected member and admin?",
-                          addAdmin);
+                        "Are you sure you want to make selected member and admin?",
+                        addAdmin,
+                      );
                     } else {
-                      _exceptionToast('You can make one admin at a time');
+                      CustomToast.exceptionToast(
+                        msg: 'You can make one admin at a time',
+                      );
                     }
                   }
                 },
@@ -293,31 +360,13 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   //dialog to confirm if the admin really wants to remove the member or not
   void dialog(String msg, Function function) {
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertBox(
-            message: msg,
-            function: function,
-          );
-        });
-  }
-
-  _successToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: true),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(
-        msg: msg,
-        success: false,
-      ),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
+      context: context,
+      builder: (BuildContext context) {
+        return AlertBox(
+          message: msg,
+          function: function,
+        );
+      },
     );
   }
 }

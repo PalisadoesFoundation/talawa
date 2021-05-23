@@ -7,29 +7,39 @@ import 'package:provider/provider.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/signup_login_controller.dart';
+import 'package:talawa/services/comment.dart';
+import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
 import '../helper.dart';
 
 Widget createRegisterPageScreen() => MultiProvider(
       providers: [
         ChangeNotifierProvider<GraphQLConfiguration>(
-          create: (_) => GraphQLConfiguration(),
-        ),
-        ChangeNotifierProvider<OrgController>(
-          create: (_) => OrgController(),
-        ),
-        ChangeNotifierProvider<AuthController>(
-          create: (_) => AuthController(),
-        ),
-        ChangeNotifierProvider<Preferences>(
-          create: (_) => Preferences(),
-        ),
+            create: (_) => GraphQLConfiguration()),
+        ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
+        ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
+        ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
+        ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
+        ChangeNotifierProvider<NewsFeedProvider>(
+            create: (_) => NewsFeedProvider()),
+        ChangeNotifierProvider<GroupController>(
+            create: (_) => GroupController()),
+        ChangeNotifierProvider<SignupLoginController>(
+            create: (_) => SignupLoginController()),
       ],
       child: MaterialApp(
-        home: RegisterPage(),
+        home: Builder(
+          builder: (context) {
+            SizeConfig().init(context);
+            return RegisterPage();
+          },
+        ),
       ),
     );
 
@@ -50,7 +60,6 @@ void main() {
 
     testWidgets("Validations return false when empty form is submitted",
         (tester) async {
-      // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createRegisterPageScreen());

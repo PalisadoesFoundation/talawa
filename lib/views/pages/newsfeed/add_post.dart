@@ -1,16 +1,11 @@
 //flutter imported packages
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/services/post_provider.dart';
+import 'package:talawa/controllers/post_controller.dart';
 
-//pages are called here
-import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 class AddPost extends StatefulWidget {
   const AddPost({Key key}) : super(key: key);
@@ -20,46 +15,19 @@ class AddPost extends StatefulWidget {
 }
 
 class _AddPostState extends State<AddPost> {
-  final titleController = TextEditingController();
-  final textController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController textController = TextEditingController();
+
   AutovalidateMode validate = AutovalidateMode.disabled;
   String id;
   String organizationId;
   Map result;
-  FToast fToast;
   Preferences preferences = Preferences();
 
-  //giving every variable its initial state
   @override
   initState() {
     super.initState();
-    getCurrentOrgId();
-    fToast = FToast();
-    fToast.init(context);
-  }
-
-  //this method is getting the current org id
-  getCurrentOrgId() async {
-    final orgId = await preferences.getCurrentOrgId();
-    setState(() {
-      organizationId = orgId;
-    });
-    print(organizationId);
-  }
-
-  //creating post
-  Future createPost() async {
-    final String description = textController.text.trim().replaceAll('\n', ' ');
-    final String title = titleController.text.trim().replaceAll('\n', ' ');
-    result = await Queries().addPost(description, organizationId, title) as Map;
-    print(result);
-    if (result != null) {
-      Provider.of<PostProvider>(context, listen: false).getPosts();
-      Navigator.pop(context, true);
-    } else {
-      _exceptionToast(result.toString().substring(16));
-    }
-    return result;
+    Provider.of<PostController>(context, listen: false).getCurrentOrgId();
   }
 
   @override
@@ -71,14 +39,18 @@ class _AddPostState extends State<AddPost> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  //main build starts from here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        key: const Key(
+          'ADD_POST_APP_BAR',
+        ),
         title: const Text(
           'New Post',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -94,7 +66,9 @@ class _AddPostState extends State<AddPost> {
                     child: TextFormField(
                       maxLines: null,
                       keyboardType: TextInputType.multiline,
-                      inputFormatters: [LengthLimitingTextInputFormatter(30)],
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(30),
+                      ],
                       key: const Key('Title'),
                       textInputAction: TextInputAction.next,
                       validator: (String value) {
@@ -116,7 +90,6 @@ class _AddPostState extends State<AddPost> {
                         ),
                         labelText: 'Give your post a title....',
                       ),
-                      //  'Give your post a title....',
                     ),
                   ),
                 ),
@@ -126,10 +99,12 @@ class _AddPostState extends State<AddPost> {
                     child: TextFormField(
                       maxLines: null,
                       inputFormatters: [
-                        LengthLimitingTextInputFormatter(10000)
+                        LengthLimitingTextInputFormatter(10000),
                       ],
                       keyboardType: TextInputType.multiline,
-                      key: const Key('Description'),
+                      key: const Key(
+                        'Description',
+                      ),
                       controller: textController,
                       validator: (String value) {
                         if (value.length > 10000) {
@@ -148,8 +123,7 @@ class _AddPostState extends State<AddPost> {
                           ),
                         ),
                         labelText: 'Write Your post here....',
-                      ),
-                      //  'Give your post Description here....',
+                      ), //  'Give your post Description here....',
                     ),
                   ),
                 ),
@@ -171,7 +145,11 @@ class _AddPostState extends State<AddPost> {
       onPressed: () {
         if (_formKey.currentState.validate()) {
           _formKey.currentState.save();
-          createPost();
+          Provider.of<PostController>(context, listen: false).createPost(
+            textController.text.trim().replaceAll('\n', ' '),
+            titleController.text.trim().replaceAll('\n', ' '),
+            context,
+          );
         }
       },
       child: const Icon(
@@ -183,29 +161,28 @@ class _AddPostState extends State<AddPost> {
 
   Widget inputField(String name, TextEditingController controller) {
     return Padding(
-        padding: const EdgeInsets.all(10),
-        child: TextField(
-          inputFormatters: [
-            LengthLimitingTextInputFormatter(10),
-          ],
-          keyboardType: TextInputType.multiline,
-          controller: controller,
-          decoration: InputDecoration(
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: const BorderSide(color: Colors.teal)),
-              hintText: name),
-        ));
-  }
-
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(
-        msg: msg,
-        success: false,
+      padding: const EdgeInsets.all(
+        10,
       ),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
+      child: TextField(
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(
+            10,
+          ),
+        ],
+        keyboardType: TextInputType.multiline,
+        controller: controller,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                20.0,
+              ),
+              borderSide: const BorderSide(
+                color: Colors.teal,
+              ),
+            ),
+            hintText: name),
+      ),
     );
   }
 }

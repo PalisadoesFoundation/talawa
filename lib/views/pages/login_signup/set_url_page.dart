@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_logs/flutter_logs.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/routing_constants.dart';
+import 'package:talawa/services/navigation_service.dart';
+import 'package:provider/provider.dart';
+import 'package:talawa/controllers/url_controller.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/loghelper.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:http/http.dart' as http;
-import 'package:talawa/views/pages/login_signup/login_page.dart';
-import 'package:talawa/views/pages/login_signup/register_page.dart';
+
+import '../../../locator.dart';
 
 class UrlPage extends StatefulWidget {
   @override
@@ -23,29 +27,53 @@ void changeFirst() {
 class _UrlPageState extends State<UrlPage>
     with TickerProviderStateMixin<UrlPage> {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
-
+  final NavigationService _navigationService = locator<NavigationService>();
   MediaQueryData _media;
   final _formKey = GlobalKey<FormState>();
   final urlController = TextEditingController();
-  String dropdownValue = 'HTTP';
+  bool isUrlCalled = false;
+
   final Preferences _pref = Preferences();
   String orgUrl, orgImgUrl;
   String saveMsg = "Set URL";
   String urlInput;
-  FToast fToast;
-  bool isUrlCalled = false;
+
   //animation Controllers
   AnimationController controller;
   AnimationController loginController;
   AnimationController helloController;
   AnimationController createController;
+
   // animation
   Animation<double> loginAnimation;
   Animation<double> createAnimation;
   Animation<double> animation;
   Animation<double> helloAnimation;
 
-  listenToUrl() {
+  void assignAnimation({@required bool firstTime}) {
+    if (!firstTime) {
+      animation = Tween(begin: 1.0, end: 1.0).animate(controller);
+      helloAnimation = Tween(begin: 1.0, end: 1.0).animate(helloController);
+      createAnimation = Tween(begin: 1.0, end: 1.0).animate(createController);
+      loginAnimation = Tween(begin: 1.0, end: 1.0).animate(loginController);
+    } else {
+      loginAnimation = Tween(begin: 0.0, end: 1.0).animate(loginController);
+      createAnimation = Tween(begin: 0.0, end: 1.0).animate(createController);
+      animation = Tween(begin: 0.0, end: 1.0).animate(controller);
+      helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
+    }
+  }
+
+  Future<void> load() async {
+    await controller?.forward();
+    await helloController?.forward();
+    await createController?.forward();
+    await loginController?.forward();
+    changeFirst();
+  }
+
+  /// Listen to the url entry by user
+  void listenToUrl() {
     if (saveMsg == "URL SAVED!" && urlController.text != urlInput) {
       setState(() {
         saveMsg = "Set URL";
@@ -54,29 +82,7 @@ class _UrlPageState extends State<UrlPage>
     urlInput = urlController.text;
   }
 
-  Future<void> checkAndSetUrl() async {
-    setState(() {
-      isUrlCalled = true;
-    });
-
-    try {
-      await http.get('${dropdownValue.toLowerCase()}://${urlController.text}/');
-      setApiUrl();
-      _setURL();
-    } catch (e) {
-      LogHelper().log(LogLevel.ERROR, widget.toStringShort(), "checkAndSetUrl",
-          "Incorrect Oraganization",
-          exception: e as Exception);
-      _exceptionToast('Incorrect Organization Entered');
-      LogHelper().exportLogs();
-    }
-
-    setState(() {
-      isUrlCalled = false;
-    });
-  }
-
-  Future setApiUrl() async {
+  Future setApiUrl(String dropdownValue) async {
     setState(() {
       orgUrl = "${dropdownValue.toLowerCase()}://${urlController.text}/";
       orgImgUrl =
@@ -92,86 +98,36 @@ class _UrlPageState extends State<UrlPage>
     });
   }
 
-  _exceptionToast(String msg) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: Text(
-              msg,
-              style: const TextStyle(fontSize: 15.0, color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 5),
-    );
-  }
-
-  void assignAnimation({@required bool firstTime}) {
-    if (!firstTime) {
-      animation = Tween(begin: 1.0, end: 1.0).animate(controller);
-
-      helloAnimation = Tween(begin: 1.0, end: 1.0).animate(helloController);
-
-      createAnimation = Tween(begin: 1.0, end: 1.0).animate(createController);
-
-      loginAnimation = Tween(begin: 1.0, end: 1.0).animate(loginController);
-    } else {
-      loginAnimation = Tween(begin: 0.0, end: 1.0).animate(loginController);
-
-      createAnimation = Tween(begin: 0.0, end: 1.0).animate(createController);
-
-      animation = Tween(begin: 0.0, end: 1.0).animate(controller);
-
-      helloAnimation = Tween(begin: 0.0, end: 1.0).animate(helloController);
-    }
-  }
-
-  Future<void> load() async {
-    await controller?.forward();
-    await helloController?.forward();
-    await createController?.forward();
-    await loginController?.forward();
-    changeFirst();
-  }
-
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     urlController.addListener(listenToUrl);
     // Initializing all the animationControllers
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(
+        milliseconds: 2000,
+      ),
     );
     loginController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(
+        milliseconds: 500,
+      ),
     );
 
     helloController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(
+        milliseconds: 500,
+      ),
     );
 
     createController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(
+        milliseconds: 500,
+      ),
     );
   }
 
@@ -179,6 +135,8 @@ class _UrlPageState extends State<UrlPage>
   Widget build(BuildContext context) {
     assignAnimation(firstTime: first);
     load();
+    SizeConfig().init(context);
+
     Widget mainScreen() {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,12 +152,14 @@ class _UrlPageState extends State<UrlPage>
           ),
           Container(
             //container with login and sign up button
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+            padding: EdgeInsets.fromLTRB(
+                0, 0, 0, SizeConfig.safeBlockVertical * 6.25),
 
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  padding: EdgeInsets.fromLTRB(
+                      SizeConfig.safeBlockHorizontal * 5, 0, 0, 0),
                   width: _media != null
                       ? _media.size.width
                       : MediaQuery.of(context).size.width,
@@ -215,10 +175,9 @@ class _UrlPageState extends State<UrlPage>
                               child: const Text(
                                 "TALAWA",
                                 style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 60,
-                                ),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 60),
                               ),
                             ),
                           ),
@@ -230,19 +189,16 @@ class _UrlPageState extends State<UrlPage>
                           child: const Text(
                             ".",
                             style: TextStyle(
-                              color: Colors.orange,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 60,
-                            ),
+                                color: Colors.orange,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 60),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                SizedBox(height: SizeConfig.safeBlockVertical * 2),
                 FadeTransition(
                   opacity: createAnimation,
                   child: Container(
@@ -250,114 +206,159 @@ class _UrlPageState extends State<UrlPage>
                       width: _media != null
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(
-                          left: 20.0, right: 30.0, top: 10.0),
+                      margin: EdgeInsets.only(
+                          left: SizeConfig.safeBlockHorizontal * 5,
+                          right: SizeConfig.safeBlockHorizontal * 7.5,
+                          top: SizeConfig.safeBlockVertical * 1.25),
                       alignment: Alignment.center,
                       child: Column(
                         children: [
                           Row(
                             children: <Widget>[
-                              DropdownButton<String>(
-                                value: dropdownValue,
-                                icon: const Icon(Icons.arrow_downward,
-                                    color: Colors.orange),
-                                iconSize: 24,
-                                elevation: 16,
-                                style:
-                                    const TextStyle(color: UIData.primaryColor),
-                                underline: Container(
-                                  height: 2,
-                                  color: UIData.primaryColor,
+                              Consumer<UrlController>(
+                                builder: (context, urlController, _) =>
+                                    DropdownButton<String>(
+                                  value: urlController.getDropDownValue,
+                                  icon: const Icon(
+                                    Icons.arrow_downward,
+                                    color: Colors.orange,
+                                  ),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(
+                                    color: UIData.primaryColor,
+                                  ),
+                                  underline: Container(
+                                    height: 2,
+                                    color: UIData.primaryColor,
+                                  ),
+                                  onChanged: (String newValue) {
+                                    urlController.setDropDownValue(newValue);
+                                    setState(() {
+                                      saveMsg = 'Set URL';
+                                    });
+                                  },
+                                  items: <String>['HTTP', 'HTTPS']
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
                                 ),
-                                onChanged: (String newValue) {
-                                  setState(() {
-                                    dropdownValue = newValue;
-                                    saveMsg = 'Set URL';
-                                  });
-                                },
-                                items: <String>[
-                                  'HTTP',
-                                  'HTTPS'
-                                ].map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
                               ),
-                              const SizedBox(
-                                width: 10,
-                              ),
+                              SizedBox(
+                                  width: SizeConfig.safeBlockHorizontal * 2.5),
                               Expanded(
                                 child: Form(
-                                    key: _formKey,
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.url,
-                                      validator: (value) =>
-                                          Validator.validateURL(
-                                              urlController.text),
-                                      textAlign: TextAlign.left,
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              color: Colors.white),
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              color: Colors.orange),
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
-                                        ),
-                                        prefixIcon: const Icon(Icons.web,
+                                  key: _formKey,
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.url,
+                                    validator: (value) => Validator.validateURL(
+                                      urlController.text,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(color: Colors.white),
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
                                             color: Colors.white),
-                                        labelText: "Type Org URL Here",
-                                        labelStyle: const TextStyle(
-                                            color: Colors.white),
-                                        alignLabelWithHint: true,
-                                        hintText:
-                                            'talawa-graphql-api.herokuapp.com',
-                                        hintStyle:
-                                            const TextStyle(color: Colors.grey),
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
                                       ),
-                                      controller: urlController,
-                                    )),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Colors.orange),
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                      ),
+                                      prefixIcon: const Icon(Icons.web,
+                                          color: Colors.white),
+                                      labelText: "Type Org URL Here",
+                                      labelStyle:
+                                          const TextStyle(color: Colors.white),
+                                      alignLabelWithHint: true,
+                                      hintText:
+                                          'talawa-graphql-api.herokuapp.com/graphql',
+                                      hintStyle:
+                                          const TextStyle(color: Colors.grey),
+                                    ),
+                                    controller: urlController,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
+                          SizedBox(
+                            height: SizeConfig.safeBlockVertical * 0.75,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                  ),
-                                  onPressed: () async {
-                                    FocusScope.of(context).unfocus();
-                                    if (_formKey.currentState.validate()) {
-                                      _formKey.currentState.save();
+                              Consumer<UrlController>(
+                                builder: (context, urlControl, _) =>
+                                    ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          FocusScope.of(context).unfocus();
+                                          if (_formKey.currentState
+                                              .validate()) {
+                                            _formKey.currentState.save();
 
-                                      await checkAndSetUrl();
-                                    }
-                                  },
-                                  child: isUrlCalled
-                                      ? const SizedBox(
-                                          height: 14,
-                                          width: 14,
-                                          child: CircularProgressIndicator(
-                                              backgroundColor: Colors.white),
-                                        )
-                                      : Text(
-                                          saveMsg,
-                                        )),
+                                            setState(() {
+                                              isUrlCalled = true;
+                                            });
+
+                                            try {
+                                              await urlControl.checkAndSetUrl(
+                                                text: urlController.text,
+                                              );
+                                              setApiUrl(
+                                                  urlControl.getDropDownValue);
+                                              _setURL();
+                                            } catch (e) {
+                                              LogHelper().log(
+                                                LogLevel.ERROR,
+                                                widget.toStringShort(),
+                                                "checkAndSetUrl",
+                                                "Incorrect Oraganization",
+                                                exception: e as Exception,
+                                              );
+
+                                              CustomToast.exceptionToast(
+                                                  msg:
+                                                      'Incorrect Organization Entered');
+                                              LogHelper().exportLogs();
+                                            }
+
+                                            setState(() {
+                                              isUrlCalled = false;
+                                            });
+                                          }
+                                        },
+                                        child: isUrlCalled
+                                            ? SizedBox(
+                                                height: SizeConfig
+                                                        .safeBlockVertical *
+                                                    1.75,
+                                                width: SizeConfig
+                                                        .safeBlockHorizontal *
+                                                    3.5,
+                                                child:
+                                                    const CircularProgressIndicator(
+                                                        backgroundColor:
+                                                            Colors.white),
+                                              )
+                                            : Text(
+                                                saveMsg,
+                                              )),
+                              ),
                             ],
                           ),
                         ],
@@ -365,8 +366,8 @@ class _UrlPageState extends State<UrlPage>
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical * 2.5,
                 ),
                 FadeTransition(
                   //changed opacity animation to match login button animation
@@ -377,8 +378,11 @@ class _UrlPageState extends State<UrlPage>
                       width: _media != null
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(
-                          left: 50.0, right: 50.0, top: 10.0),
+                      margin: EdgeInsets.only(
+                        left: SizeConfig.safeBlockHorizontal * 12.5,
+                        right: SizeConfig.safeBlockHorizontal * 12.5,
+                        top: SizeConfig.safeBlockVertical * 1.25,
+                      ),
                       alignment: Alignment.center,
                       child: Row(
                         children: <Widget>[
@@ -387,7 +391,9 @@ class _UrlPageState extends State<UrlPage>
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderRadius: BorderRadius.circular(
+                                    30.0,
+                                  ),
                                 ),
                               ),
                               onPressed: saveMsg != "URL SAVED!"
@@ -395,22 +401,30 @@ class _UrlPageState extends State<UrlPage>
                                   : () async {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  RegisterPage()),
-                                        );
+                                        _navigationService.navigateTo(
+                                            routes.RegisterPageRoute);
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //       builder: (context) =>
+                                        //           RegisterPage()),
+                                        // );
                                       }
                                     },
                               child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 20.0,
-                                  horizontal: 20.0,
+                                padding: EdgeInsets.symmetric(
+                                  vertical: SizeConfig.safeBlockVertical * 2.5,
+                                  horizontal:
+                                      SizeConfig.safeBlockHorizontal * 5,
                                 ),
                                 decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.orange),
-                                    borderRadius: BorderRadius.circular(50.0)),
+                                  border: Border.all(
+                                    color: Colors.orange,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    50.0,
+                                  ),
+                                ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const <Widget>[
@@ -436,7 +450,9 @@ class _UrlPageState extends State<UrlPage>
                     ),
                   ),
                 ),
-                const SizedBox(height: 5),
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical * 0.75,
+                ),
                 FadeTransition(
                   opacity: loginAnimation,
                   child: Container(
@@ -444,8 +460,11 @@ class _UrlPageState extends State<UrlPage>
                       width: _media != null
                           ? _media.size.width
                           : MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(
-                          left: 50.0, right: 50.0, top: 10.0),
+                      margin: EdgeInsets.only(
+                        left: SizeConfig.safeBlockHorizontal * 12.5,
+                        right: SizeConfig.safeBlockHorizontal * 12.5,
+                        top: SizeConfig.safeBlockVertical * 1.25,
+                      ),
                       alignment: Alignment.center,
                       child: Row(
                         children: <Widget>[
@@ -454,7 +473,9 @@ class _UrlPageState extends State<UrlPage>
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderRadius: BorderRadius.circular(
+                                    30.0,
+                                  ),
                                 ),
                               ),
                               onPressed: saveMsg != "URL SAVED!"
@@ -462,21 +483,27 @@ class _UrlPageState extends State<UrlPage>
                                   : () async {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginPage()));
+                                        _navigationService
+                                            .navigateTo(routes.LoginPageRoute);
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             LoginPage()));
                                       }
                                     },
                               child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 20.0,
-                                  horizontal: 20.0,
+                                padding: EdgeInsets.symmetric(
+                                  vertical: SizeConfig.safeBlockVertical * 2.5,
+                                  horizontal:
+                                      SizeConfig.safeBlockHorizontal * 5,
                                 ),
                                 decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.orange),
-                                    borderRadius: BorderRadius.circular(50.0)),
+                                  border: Border.all(color: Colors.orange),
+                                  borderRadius: BorderRadius.circular(
+                                    50.0,
+                                  ),
+                                ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const <Widget>[

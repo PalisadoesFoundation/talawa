@@ -1,5 +1,6 @@
 //flutter packages imported here
 import 'package:flutter/material.dart';
+import 'package:talawa/model/orgmemeber.dart';
 
 //packages for pages are imported here
 import 'package:talawa/services/queries_.dart';
@@ -13,7 +14,7 @@ class RegisteredEvents extends StatefulWidget {
     Key key,
     @required this.member,
   }) : super(key: key);
-  Map member;
+  Member member;
 
   @override
   _RegisteredEventsState createState() => _RegisteredEventsState();
@@ -33,8 +34,8 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
   }
 
   //method to get the user details
-  getUserDetails() async {
-    final String userID = widget.member['_id'].toString();
+  Future getUserDetails() async {
+    final String userID = widget.member.id.toString();
     final Map result =
         await apiFunctions.gqlquery(Queries().registeredEventsByUser(userID));
     setState(() {
@@ -47,24 +48,36 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
   @override
   Widget build(BuildContext context) {
     return userEvents == null
-        ? const Center(
-            child: Loading(),
+        ? Center(
+            child: Loading(
+              key: UniqueKey(),
+              isCurrentOrgNull: false,
+              emptyContentIcon: Icons.event_note_outlined,
+              emptyContentMsg: 'No registered events, Join an event!',
+              refreshFunction: getUserDetails,
+            ),
           )
         : userEvents.isNotEmpty
             ? ListView.builder(
                 itemCount: userEvents.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    leading: Text('${userEvents[index]['title']}'),
+                    leading: Text(
+                      '${userEvents[index]['title']}',
+                    ),
                   );
-                })
+                },
+              )
             : Container(
                 child: const Center(
-                    child: Text(
-                  "No registered events",
-                  style: TextStyle(fontSize: 20),
-                  textAlign: TextAlign.center,
-                )),
+                  child: Text(
+                    "No registered events",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               );
   }
 }

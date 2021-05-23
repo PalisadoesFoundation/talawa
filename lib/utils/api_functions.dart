@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -21,11 +22,17 @@ class ApiFunctions {
 
     final QueryResult result = await _client.query(options);
     if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
+        result.exception.toString().contains(accessTokenException)) {
+      _authController.getNewToken();
+      gqlquery(query);
+    } else if (result.hasException &&
+        result.exception.toString().contains(
+              refreshAccessTokenExpiredException,
+            )) {
       _authController.getNewToken();
       gqlquery(query);
     } else if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       String message = "";
       if (result.exception.clientException != null) {
         message = result.exception.clientException.message;
@@ -43,15 +50,27 @@ class ApiFunctions {
   Future<dynamic> gqlmutation(String mutation) async {
     final GraphQLClient _client = graphQLConfiguration.authClient();
     final QueryResult result = await _client.mutate(MutationOptions(
-      documentNode: gql(mutation),
+      documentNode: gql(
+        mutation,
+      ),
     ));
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      return gqlmutation(mutation);
+      return gqlmutation(
+        mutation,
+      );
+    } else if (result.hasException &&
+        result.exception.toString().contains(
+              refreshAccessTokenExpiredException,
+            )) {
+      _authController.getNewToken();
+      return gqlmutation(
+        mutation,
+      );
     } else if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
     } else {
       return result.data;
     }

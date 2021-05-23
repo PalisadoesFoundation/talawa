@@ -55,6 +55,7 @@ The process of proposing a change to Talawa can be summarized as:
       ```
       flutter format --set-exit-if-changed .
       ```
+1. Ensure that **your code should not more than 300 lines**. It is there to make the code more modular and readable. Submissions that are not properly maintained will be rejected if the contributor does not fix them. Otherwise, the contributor will have to explain the need for it.
 1. After making changes you can add them to git locally using `git add <file_name>`(to add changes only in a particular file) or `git add .` (to add all changes).
 1. After adding the changes you need to commit them using `git commit -m '<commit message>'`(look at the commit guidelines below for commit messages).
    1. You can link and automatically close the issue tied to your pull request by [using a supported keyword in either the pull request's description or in a commit message.](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue) This is a very useful feature that helps to prevent zombie issues that never die.
@@ -64,6 +65,76 @@ The process of proposing a change to Talawa can be summarized as:
 1. Review and address comments on your pull request if requested.
 
 ### General Guidelines
+
+#### Folder Description
+
+- `controllers`: The folder contains all the files responsible for managing the state.
+  ```
+  1. Files contain codes for all the business logic related to any screen.
+  2. Files also contain the client-side query & mutation calls and server-side side response.
+  3. Before adding any controller make sure whether it already exists or not.
+  ```
+- `enum`: The folder contains all the enumerator used in the entire project.
+  ```
+  1. File contains an enum that is either used with controllers or widgets.
+  2. Before creating any new enum files check if the existing enum can be modified to fulfil your requirement.
+  ```
+- `model`: The folder contains all the data models file.
+  ```
+  1. Files contains data model that is used in controller file that contains the server-side response in an organised form.
+  2. These data models are used to effectively organise projects and render the data on widgets.
+  3. In the controller file, convert every response to a particular data model type.
+  ```
+- `utils`: The folder contains all the external utility files.
+  ```
+  1. Codes related to an external utility like validator, UI-scaling, constant strings etc
+  2. Any utility-related files should be created here if not already present.
+  ```
+- `views`: The folder contains all the files related to the UI display.
+  ```
+  1. Pages: Folder that contains all the pages related to sub-folder and code.
+  2. Widgets: Folder that contains widget file for pages to avoid code duplication
+  ```
+
+#### File Code Rules
+
+- Filename should be created with lowercase and underscore letters
+- The business logic & UI based file should be separated from each other.
+  - `controllers`: Folder that contains all business logic files
+  - `views`: Folder that contains UI specific files
+- If it is UI based file, try to use as much `stateless widget` as possible.
+- Don't use the `print` statement in your code, instead use `debugPrint`.
+- Constructor should be present just after the class declaration.
+- Make sure to add proper `keyword` (final or const) and data types for any variable.
+- In your files, structure code this way inside your widget class:
+  ```
+  -- constructor
+  -- explicitly defined variables using its type (private if possible)
+  -- build method (Inside build(), use sub methods like _buildAppBar()
+  -- sub-build methods
+  -- other methods
+  -- utility methods
+  ```
+
+**_Note: Don't use constant numerical value anywhere in your UI related code. Use SizeConfig class to assign the constant value. SizeConfig class does the job of scaling the UI based on the device size._**
+
+Example:
+
+```
+Incorrect Way:
+SizedBox(height: 8, width: 4)
+
+Correct Way:
+SizedBox(height: SizeConfig.safeBlockVertical, width: SizeConfig.safeBlockHorizontal)
+```
+
+The value of `safeBlockVertical` and `safeBlockHorizontal` will be displayed in your `console` and varies based on the device being used.
+
+#### Before making PR, ensure these:
+
+    - All your file should contain at max `300` lines of code.
+    - Follow proper code formatting and run `flutter format .` before your PR.
+    - Run `flutter analyze` before your PR and make sure to resolve all the found issues.
 
 #### Project structure
 
@@ -89,25 +160,6 @@ core
 - models: business data models, entities
 - theme: application theme, colors, dimens
 - utils: utility classes
-```
-
-#### Structure code this way
-
-```
-// Inside widget class
--- constructor
--- explicitly defined variables using its type (private if possible)
--- build method (Inside build(), use sub methods like _buildAppBar()
--- sub-build methods
--- other methods
--- utility methods
-```
-
-#### Other Information
-
-```
--- file should be named using lowercase and underscore
--- const and final keywords should be specified along with the widget
 ```
 
 #### Commit guidelines
