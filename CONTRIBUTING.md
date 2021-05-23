@@ -31,7 +31,7 @@ Make sure you are following [issue report guidelines](https://github.com/Palisad
 For Talawa, we had employed the following branching strategy to simplify the development process and to ensure that only stable code is pushed to the `master` branch:
 
 - `develop`: For unstable code and bug fixing
-- `alpha-x.x.x`: for stability teesting
+- `alpha-x.x.x`: For stability testing
 - `master`: Where the stable production ready code lies
 
 ### Contributing Code
