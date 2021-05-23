@@ -1,11 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/signup_login_controller.dart';
-import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/services/app_localization.dart';
+import 'package:talawa/services/image_service.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class AddImage extends StatelessWidget {
@@ -61,7 +60,7 @@ class AddImage extends StatelessWidget {
                     AppLocalizations.of(context).translate('Camera'),
                   ),
                   onTap: () {
-                    _imgFrom(pickFrom: From.camera, context: context);
+                    getImageFromCamera(context);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -73,7 +72,7 @@ class AddImage extends StatelessWidget {
                       AppLocalizations.of(context).translate('Photo Library'),
                     ),
                     onTap: () {
-                      _imgFrom(pickFrom: From.gallery, context: context);
+                      getImageFromGallery(context);
                       Navigator.of(context).pop();
                     }),
               ],
@@ -84,21 +83,23 @@ class AddImage extends StatelessWidget {
     );
   }
 
-  Future<void> _imgFrom({
-    From pickFrom = From.none,
-    @required BuildContext context,
-  }) async {
-    File pickImageFile;
-    if (pickFrom != From.none) {
-      final PickedFile selectedImage = await ImagePicker().getImage(
-        source:
-            pickFrom == From.camera ? ImageSource.camera : ImageSource.gallery,
-      );
-      pickImageFile = File(selectedImage.path);
-      await Provider.of<SignupLoginController>(
-        context,
-        listen: false,
-      ).setProfileImage(pickImageFile);
+  getImageFromCamera(context) async {
+    final File capturedImage = await ImageService.fetchImageFromCamera();
+    if (capturedImage != null) {
+      final File croppedImage = await ImageService.cropImage(capturedImage);
+      if (croppedImage != null) {
+        context.setProfileImage(croppedImage);
+      }
+    }
+  }
+
+  getImageFromGallery(context) async {
+    final File capturedImage = await ImageService.fetchImageFromGallery();
+    if (capturedImage != null) {
+      final File croppedImage = await ImageService.cropImage(capturedImage);
+      if (croppedImage != null) {
+        context.setProfileImage(croppedImage);
+      }
     }
   }
 }

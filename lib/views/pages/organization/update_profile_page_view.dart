@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -71,19 +70,19 @@ class UpdateProfileView extends StatelessWidget {
                   : Container(),
               _buildTextField(
                 "First Name",
-                model.userDetails[0]["firstName"].toString() ?? '',
+                model.userDetails[0].firstName.toString(),
                 model.setUserFirstName,
                 context,
               ),
               _buildTextField(
                 "Last Name",
-                model.userDetails[0]["lastName"].toString(),
+                model.userDetails[0].lastName.toString(),
                 model.setUserLastname,
                 context,
               ),
               _buildTextField(
                 "Email",
-                model.userDetails[0]["email"].toString(),
+                model.userDetails[0].email.toString(),
                 model.setUserEmail,
                 context,
               ),
@@ -243,10 +242,11 @@ class UpdateProfileView extends StatelessWidget {
                   size: 30,
                 ),
                 SizedBox(height: SizeConfig.safeBlockVertical * 0.75),
-                const Center(
+                Center(
                   child: Text(
-                    'Update your profile picture',
-                    style: TextStyle(
+                    AppLocalizations.of(context)
+                        .translate('Update your profile picture'),
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'OpenSans',
@@ -259,17 +259,19 @@ class UpdateProfileView extends StatelessWidget {
                   children: <Widget>[
                     ListTile(
                       leading: const Icon(Icons.camera_alt_outlined),
-                      title: const Text('Camera'),
+                      title: Text(
+                          AppLocalizations.of(context).translate('Camera')),
                       onTap: () {
-                        model.imgFrom(pickFrom: From.camera);
+                        model.getImageFromCamera();
                         Navigator.of(context).pop();
                       },
                     ),
                     ListTile(
                         leading: const Icon(Icons.photo_library),
-                        title: const Text('Photo Library'),
+                        title: Text(AppLocalizations.of(context)
+                            .translate('Photo Library')),
                         onTap: () {
-                          model.imgFrom(pickFrom: From.gallery);
+                          model.getImageFromGallery();
                           Navigator.of(context).pop();
                         }),
                   ],

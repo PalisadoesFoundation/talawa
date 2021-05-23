@@ -10,9 +10,9 @@ import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
-import 'package:talawa/views/pages/organization/update_profile_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:talawa/services/app_localization.dart';
+import 'package:talawa/views/pages/organization/update_profile_page_view.dart';
 
 Widget createProfileUpdateScreen() => MultiProvider(
       providers: [
@@ -38,7 +38,7 @@ Widget createProfileUpdateScreen() => MultiProvider(
             lastName: "User",
             email: "test@test.com",
           );
-          return const UpdateProfilePage(
+          return const UpdateProfileView(
             userDetails: [user],
           );
         }),
