@@ -83,7 +83,7 @@ Widget popUpMenue(
       } else if (val == 3) {
         return model.editEvent(context, event);
       } else if (val == 4) {
-        return model.deleteEvent(context, event.id);
+        return model.deleteEvent(context, event);
       }
     },
     itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
