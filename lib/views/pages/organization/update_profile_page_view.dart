@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -69,13 +68,13 @@ class UpdateProfileView extends StatelessWidget {
                   : Container(),
               _buildTextField(
                   "First Name",
-                  model.userDetails[0]["firstName"].toString(),
+                  model.userDetails[0].firstName.toString(),
                   model.setUserFirstName),
               _buildTextField(
                   "Last Name",
-                  model.userDetails[0]["lastName"].toString(),
+                  model.userDetails[0].lastName.toString(),
                   model.setUserLastname),
-              _buildTextField("Email", model.userDetails[0]["email"].toString(),
+              _buildTextField("Email", model.userDetails[0].email.toString(),
                   model.setUserEmail),
               Container(
                 margin: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 5),
@@ -251,7 +250,7 @@ class UpdateProfileView extends StatelessWidget {
                       leading: const Icon(Icons.camera_alt_outlined),
                       title: const Text('Camera'),
                       onTap: () {
-                        model.imgFrom(pickFrom: From.camera);
+                        model.getImageFromCamera();
                         Navigator.of(context).pop();
                       },
                     ),
@@ -259,7 +258,7 @@ class UpdateProfileView extends StatelessWidget {
                         leading: const Icon(Icons.photo_library),
                         title: const Text('Photo Library'),
                         onTap: () {
-                          model.imgFrom(pickFrom: From.gallery);
+                          model.getImageFromGallery();
                           Navigator.of(context).pop();
                         }),
                   ],
