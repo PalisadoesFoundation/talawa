@@ -20,6 +20,54 @@ import 'switch_org_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage();
+
+  Widget showOrgSettingsButton({@required BuildContext context, @required ProfilePageViewModel model}) {
+    return ListTile(
+        key: const Key('Organization Settings'),
+        title: const Text(
+          'Organization Settings',
+          style: TextStyle(fontSize: 18.0),
+        ),
+        leading: const Icon(
+          Icons.settings,
+          color: UIData.secondaryColor,
+        ),
+        onTap: () {
+          pushNewScreen(
+            context,
+            screen: OrganizationSettings(
+                creator: model.creator == model.userID, public: model.isPublic, organization: model.curOrganization),
+          );
+        });
+  }
+
+  Widget showLeaveOrgButton({@required BuildContext context, @required ProfilePageViewModel model}) {
+    return model.org.isEmpty
+        ? const SizedBox()
+        : ListTile(
+            key: const Key('Leave This Organization'),
+            title: const Text(
+              'Leave This Organization',
+              style: TextStyle(fontSize: 18.0),
+            ),
+            leading: const Icon(
+              Icons.exit_to_app,
+              color: UIData.secondaryColor,
+            ),
+            onTap: () async {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertBox(
+                    message: "Are you sure you want to leave this organization?",
+                    function: model.leaveOrg,
+                  );
+                },
+              );
+            },
+          );
+  }
+
   //main build starts from here
   @override
   Widget build(BuildContext context) {
@@ -153,52 +201,12 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                 );
                               }),
-                          model.isCreator == null
-                              ? const SizedBox()
-                              : model.isCreator == true
-                                  ? ListTile(
-                                      key: const Key('Organization Settings'),
-                                      title: const Text(
-                                        'Organization Settings',
-                                        style: TextStyle(fontSize: 18.0),
-                                      ),
-                                      leading: const Icon(
-                                        Icons.settings,
-                                        color: UIData.secondaryColor,
-                                      ),
-                                      onTap: () {
-                                        pushNewScreen(
-                                          context,
-                                          screen: OrganizationSettings(
-                                              creator: model.creator == model.userID,
-                                              public: model.isPublic,
-                                              organization: model.curOrganization),
-                                        );
-                                      })
-                                  : model.org.isEmpty
-                                      ? const SizedBox()
-                                      : ListTile(
-                                          key: const Key('Leave This Organization'),
-                                          title: const Text(
-                                            'Leave This Organization',
-                                            style: TextStyle(fontSize: 18.0),
-                                          ),
-                                          leading: const Icon(
-                                            Icons.exit_to_app,
-                                            color: UIData.secondaryColor,
-                                          ),
-                                          onTap: () async {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertBox(
-                                                  message: "Are you sure you want to leave this organization?",
-                                                  function: model.leaveOrg,
-                                                );
-                                              },
-                                            );
-                                          },
-                                        ),
+                          ///Only Creator of the Org can access Organisation settings
+                          ///If the user is the creator, Organisation Setting button is display
+                          ///Else Leave Organisation button is displayed for the members of Organisation
+                          model.isCreator
+                              ? showOrgSettingsButton(context: context, model: model)
+                              : showLeaveOrgButton(context: context, model: model),
                           ListTile(
                               key: const Key('Logout'),
                               title: const Text(
