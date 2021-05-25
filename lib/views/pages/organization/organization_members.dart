@@ -1,10 +1,10 @@
 //flutter imported packages
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-
-//pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+
+//pages are imported here
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
@@ -13,7 +13,6 @@ import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
-
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
 
 class OrganizationMembers extends StatefulWidget {
@@ -21,8 +20,7 @@ class OrganizationMembers extends StatefulWidget {
   _OrganizationMembersState createState() => _OrganizationMembersState();
 }
 
-class _OrganizationMembersState extends State<OrganizationMembers>
-    with SingleTickerProviderStateMixin {
+class _OrganizationMembersState extends State<OrganizationMembers> with SingleTickerProviderStateMixin {
   final Preferences _preferences = Preferences();
   AnimationController _controller;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -40,12 +38,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(
-        milliseconds: 500,
-      ),
-    );
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
     viewMembers();
   }
 
@@ -55,32 +48,20 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
     final QueryResult result = await _client.query(
-      QueryOptions(
-        documentNode: gql(
-          _query.fetchOrgById(
-            orgId,
-          ),
-        ),
-      ),
+      QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))),
     );
     if (result.hasException) {
       debugPrint(result.exception.toString());
       //showError(result.exception.toString());
-      CustomToast.exceptionToast(
-        msg: result.exception.toString(),
-      );
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException) {
-      result.data['organizations'][0]['admins']
-          .forEach((admin) => adminsList.add(admin['_id']));
+      result.data['organizations'][0]['admins'].forEach((admin) => adminsList.add(admin['_id']));
       setState(() {
-        creatorId =
-            result.data['organizations'][0]['creator']['_id'].toString();
+        creatorId = result.data['organizations'][0]['creator']['_id'].toString();
         membersList = result.data['organizations'][0]['members'] as List;
       });
       if (membersList.length == 1) {
-        CustomToast.exceptionToast(
-          msg: 'You are alone here.',
-        );
+        CustomToast.exceptionToast(msg: 'You are alone here.');
       }
     }
   }
@@ -94,21 +75,12 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     final String orgId = await _preferences.getCurrentOrgId();
 
     final QueryResult result = await _client.query(
-      QueryOptions(
-        documentNode: gql(
-          _query.removeMember(
-            orgId,
-            selectedMembers,
-          ),
-        ),
-      ),
+      QueryOptions(documentNode: gql(_query.removeMember(orgId, selectedMembers))),
     );
-    if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
+    if (result.hasException && result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       return removeMembers();
-    } else if (result.hasException &&
-        result.exception.toString().substring(16) != accessTokenException) {
+    } else if (result.hasException && result.exception.toString().substring(16) != accessTokenException) {
       debugPrint(result.exception.toString().substring(16));
       CustomToast.exceptionToast(msg: result.exception.toString());
       setState(() {
@@ -119,9 +91,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       setState(() {
         processing = false;
       });
-      CustomToast.sucessToast(
-        msg: 'Member(s) removed successfully',
-      );
+      CustomToast.sucessToast(msg: 'Member(s) removed successfully');
       viewMembers();
     }
   }
@@ -134,25 +104,14 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       final GraphQLClient _client = graphQLConfiguration.authClient();
       final String orgId = await _preferences.getCurrentOrgId();
       final QueryResult result = await _client.query(
-        QueryOptions(
-          documentNode: gql(
-            _query.addAdmin(
-              orgId,
-              selectedMembers[0].toString(),
-            ),
-          ),
-        ),
+        QueryOptions(documentNode: gql(_query.addAdmin(orgId, selectedMembers[0].toString()))),
       );
-      if (result.hasException &&
-          result.exception.toString().substring(16) == accessTokenException) {
+      if (result.hasException && result.exception.toString().substring(16) == accessTokenException) {
         _authController.getNewToken();
         return addAdmin();
-      } else if (result.hasException &&
-          result.exception.toString().substring(16) != accessTokenException) {
+      } else if (result.hasException && result.exception.toString().substring(16) != accessTokenException) {
         print(result.exception.toString().substring(16));
-        CustomToast.exceptionToast(
-          msg: "Something went wrong!Try again later",
-        );
+        CustomToast.exceptionToast(msg: "Something went wrong!Try again later");
         setState(() {
           processing = false;
         });
@@ -161,15 +120,11 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         setState(() {
           processing = false;
         });
-        CustomToast.sucessToast(
-          msg: 'Admin created',
-        );
+        CustomToast.sucessToast(msg: 'Admin created');
         viewMembers();
       }
     } else {
-      CustomToast.exceptionToast(
-        msg: 'Already an admin',
-      );
+      CustomToast.exceptionToast(msg: 'Already an admin');
     }
   }
 
@@ -178,20 +133,14 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     if (selected == true) {
       if (!adminsList.contains(memberId)) {
         setState(() {
-          selectedMembers.add(
-            '"$memberId"',
-          );
+          selectedMembers.add('"$memberId"');
         });
       } else {
-        CustomToast.exceptionToast(
-          msg: "Can't select admins",
-        );
+        CustomToast.exceptionToast(msg: "Can't select admins");
       }
     } else {
       setState(() {
-        selectedMembers.remove(
-          '"$memberId"',
-        );
+        selectedMembers.remove('"$memberId"');
       });
     }
   }
@@ -223,21 +172,16 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                 )
               : ListView.separated(
                   itemCount: membersList.length,
-                  itemBuilder: (
-                    context,
-                    index,
-                  ) {
+                  itemBuilder: (context, index) {
                     final members = membersList[index];
                     final String mId = members['_id'].toString();
-                    final String name =
-                        '${members['firstName']} ${members['lastName']}';
+                    final String name = '${members['firstName']} ${members['lastName']}';
                     return CheckboxListTile(
                       secondary: members['image'] != null
                           ? CircleAvatar(
                               radius: SizeConfig.safeBlockVertical * 3.75,
                               backgroundImage: NetworkImage(
-                                Provider.of<GraphQLConfiguration>(context)
-                                        .displayImgRoute +
+                                Provider.of<GraphQLConfiguration>(context).displayImgRoute +
                                     members['image'].toString(),
                               ),
                             )
@@ -245,14 +189,8 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                               radius: SizeConfig.safeBlockVertical * 3.75,
                               backgroundColor: Colors.white,
                               child: Text(
-                                members['firstName']
-                                        .toString()
-                                        .substring(0, 1)
-                                        .toUpperCase() +
-                                    members['lastName']
-                                        .toString()
-                                        .substring(0, 1)
-                                        .toUpperCase(),
+                                members['firstName'].toString().substring(0, 1).toUpperCase() +
+                                    members['lastName'].toString().substring(0, 1).toUpperCase(),
                                 style: const TextStyle(
                                   color: UIData.primaryColor,
                                   fontSize: 22,
@@ -263,10 +201,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                       subtitle: Text(adminsList.contains(mId) ? 'Admin' : ''),
                       value: selectedMembers.contains('"$mId"'),
                       onChanged: (bool value) {
-                        _onMemberSelected(
-                          value,
-                          members['_id'].toString(),
-                        );
+                        _onMemberSelected(value, members['_id'].toString());
                       },
                     );
                   },
@@ -281,18 +216,12 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.generate(2, (int index) {
           final Widget child = Container(
-            margin: const EdgeInsets.only(
-              bottom: 15,
-            ),
+            margin: const EdgeInsets.only(bottom: 15),
             alignment: FractionalOffset.bottomRight,
             child: ScaleTransition(
               scale: CurvedAnimation(
                 parent: _controller,
-                curve: Interval(
-                  0.0,
-                  1.0 - index,
-                  curve: Curves.easeOut,
-                ),
+                curve: Interval(0.0, 1.0 - index, curve: Curves.easeOut),
               ),
               child: FloatingActionButton.extended(
                 heroTag: null,
@@ -305,20 +234,12 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                 label: Text(index == 0 ? "Remove" : "Admin"),
                 onPressed: () {
                   if (index == 0) {
-                    dialog(
-                      "Are you sure you want to remove selected member(s)?",
-                      removeMembers,
-                    );
+                    dialog("Are you sure you want to remove selected member(s)?", removeMembers);
                   } else if (index == 1) {
                     if (selectedMembers.length == 1) {
-                      dialog(
-                        "Are you sure you want to make selected member and admin?",
-                        addAdmin,
-                      );
+                      dialog("Are you sure you want to make selected member and admin?", addAdmin);
                     } else {
-                      CustomToast.exceptionToast(
-                        msg: 'You can make one admin at a time',
-                      );
+                      CustomToast.exceptionToast(msg: 'You can make one admin at a time');
                     }
                   }
                 },
@@ -344,8 +265,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                 animation: _controller,
                 builder: (BuildContext context, Widget child) {
                   return Transform(
-                    transform:
-                        Matrix4.rotationZ(_controller.value * 1 * math.pi),
+                    transform: Matrix4.rotationZ(_controller.value * 1 * math.pi),
                     alignment: FractionalOffset.center,
                     child: const Icon(Icons.expand_more),
                   );
@@ -362,10 +282,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertBox(
-          message: msg,
-          function: function,
-        );
+        return AlertBox(message: msg, function: function);
       },
     );
   }

@@ -16,8 +16,7 @@ import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/widgets/text_field_decoration.dart';
 
 class UpdateOrganization extends StatefulWidget {
-  const UpdateOrganization(
-      {this.isPublic, this.description, this.isVisible, this.name});
+  const UpdateOrganization({this.isPublic, this.description, this.isVisible, this.name});
 
   final String description;
   final String name;
@@ -61,28 +60,26 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   //this method is used if we want to update the organization
   updateOrg() async {
     final String currentOrgId = await _preferences.getCurrentOrgId();
-    orgNameController.text =
-        orgNameController.text.trim().replaceAll('\n', ' ');
-    orgDescController.text =
-        orgDescController.text.trim().replaceAll('\n', ' ');
-    orgMemberDescController.text =
-        orgMemberDescController.text.trim().replaceAll('\n', ' ');
+    orgNameController.text = orgNameController.text.trim().replaceAll('\n', ' ');
+    orgDescController.text = orgDescController.text.trim().replaceAll('\n', ' ');
+    orgMemberDescController.text = orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final GraphQLClient _client = graphQLConfiguration.authClient();
-    final QueryResult result = await _client.mutate(MutationOptions(
+    final QueryResult result = await _client.mutate(
+      MutationOptions(
         documentNode: gql(_queries.updateOrg(
-      currentOrgId,
-      orgNameController.text,
-      orgDescController.text,
-      isPublic: isPublic,
-      visibleInSearch: isVisible,
-    ))));
+          currentOrgId,
+          orgNameController.text,
+          orgDescController.text,
+          isPublic: isPublic,
+          visibleInSearch: isVisible,
+        )),
+      ),
+    );
 
-    if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
+    if (result.hasException && result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       return updateOrg();
-    } else if (result.hasException &&
-        result.exception.toString().substring(16) != accessTokenException) {
+    } else if (result.hasException && result.exception.toString().substring(16) != accessTokenException) {
       debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
@@ -93,10 +90,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
         _progressBarState = true;
       });
       CustomToast.sucessToast(msg: "Success!");
-      pushNewScreen(
-        context,
-        screen: const ProfilePage(),
-      );
+      pushNewScreen(context, screen: const ProfilePage());
     }
   }
 
@@ -140,9 +134,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       appBar: AppBar(
         title: const Text(
           'Update Organization',
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Container(
@@ -164,17 +156,12 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                     ),
                     child: Column(
                       children: <Widget>[
-                        const Image(
-                          image: AssetImage(
-                            'assets/images/team.png',
-                          ),
-                        ),
+                        const Image(image: AssetImage('assets/images/team.png')),
                         const SizedBox(
                           height: 20,
                         ),
                         TextFormField(
-                          validator: (value) =>
-                              Validator.validateOrgName(value),
+                          validator: (value) => Validator.validateOrgName(value),
                           textAlign: TextAlign.left,
                           textCapitalization: TextCapitalization.words,
                           style: const TextStyle(color: Colors.black),
@@ -192,8 +179,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                           textCapitalization: TextCapitalization.words,
-                          validator: (value) =>
-                              Validator.validateOrgDesc(value),
+                          validator: (value) => Validator.validateOrgDesc(value),
                           textAlign: TextAlign.left,
                           style: const TextStyle(color: Colors.black),
                           decoration: FormFieldFormatting.formFieldFormatting(
@@ -202,9 +188,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                               prefixIcon: Icons.note_sharp),
                           controller: orgDescController,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         TextFormField(
                           autofillHints: const <String>[
                             AutofillHints.impp,
@@ -212,8 +196,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                           keyboardType: TextInputType.multiline,
                           maxLines: null,
                           textCapitalization: TextCapitalization.words,
-                          validator: (value) =>
-                              Validator.validateOrgAttendeesDesc(value),
+                          validator: (value) => Validator.validateOrgAttendeesDesc(value),
                           textAlign: TextAlign.left,
                           style: const TextStyle(color: Colors.black),
                           decoration: FormFieldFormatting.formFieldFormatting(
@@ -232,50 +215,28 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             color: Colors.black,
                           ),
                         ),
-                        getRadioButton(
-                          radioValue,
-                          2,
-                          public: true,
-                        ),
+                        getRadioButton(radioValue, 2, public: true),
                         const Text(
                           'Do you want others to be able to find your organization from the search page?',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
-                        getRadioButton(
-                          radioValue1,
-                          2,
-                          public: false,
-                        ),
+                        getRadioButton(radioValue1, 2, public: false),
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 20.0,
-                            horizontal: 30.0,
-                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
                           width: double.infinity,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  30.0,
-                                ),
-                              ),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
                             ),
                             onPressed: () async {
-                              if (_formKey.currentState.validate() &&
-                                  radioValue >= 0 &&
-                                  radioValue1 >= 0) {
+                              if (_formKey.currentState.validate() && radioValue >= 0 && radioValue1 >= 0) {
                                 _formKey.currentState.save();
                                 updateOrg();
                                 setState(() {
                                   toggleProgressBarState();
                                 });
                               } else if (radioValue < 0 || radioValue1 < 0) {
-                                CustomToast.exceptionToast(
-                                  msg: "A choice must be selected",
-                                );
+                                CustomToast.exceptionToast(msg: "A choice must be selected");
                               }
                             },
                             child: _progressBarState
@@ -284,8 +245,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                                         width: 20,
                                         height: 20,
                                         child: CircularProgressIndicator(
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
+                                          valueColor: AlwaysStoppedAnimation<Color>(
                                             Colors.white,
                                           ),
                                           strokeWidth: 3,
@@ -293,9 +253,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                                         )))
                                 : const Text(
                                     "UPDATE ORGANIZATION",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                           ),
                         ),
