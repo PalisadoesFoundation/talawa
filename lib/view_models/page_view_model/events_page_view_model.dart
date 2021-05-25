@@ -28,6 +28,7 @@ class EventPageViewModel extends BaseModel {
   List<EventsModel> get eventList => _eventList;
   List<EventsModel> get displayEvents => _displayEvents;
   String get dateSelected => _dateSelected;
+  String get userID => _userID;
 
   setDisplayEvents(List<EventsModel> events) {
     _displayEvents = events;

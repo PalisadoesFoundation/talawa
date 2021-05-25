@@ -105,24 +105,28 @@ Widget popUpMenue(
               style: const TextStyle(color: Colors.black),
             ),
           )),
-      const PopupMenuItem<int>(
-          value: 3,
-          child: const ListTile(
-            leading: const Icon(Icons.edit, color: Colors.grey),
-            title: const Text(
-              'Edit this event',
-              style: const TextStyle(color: Colors.black),
-            ),
-          )),
-      const PopupMenuItem<int>(
-          value: 4,
-          child: const ListTile(
-            leading: const Icon(Icons.delete, color: Colors.grey),
-            title: const Text(
-              'Delete This Event',
-              style: const TextStyle(color: Colors.black),
-            ),
-          ))
+      event.creator.id == model.userID
+          ? const PopupMenuItem<int>(
+              value: 3,
+              child: const ListTile(
+                leading: const Icon(Icons.edit, color: Colors.grey),
+                title: const Text(
+                  'Edit this event',
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ))
+          : null,
+      event.creator.id == model.userID
+          ? const PopupMenuItem<int>(
+              value: 4,
+              child: const ListTile(
+                leading: const Icon(Icons.delete, color: Colors.grey),
+                title: const Text(
+                  'Delete This Event',
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ))
+          : null,
     ],
   );
 }
