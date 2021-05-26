@@ -47,9 +47,7 @@ class ApiFunctions {
   }
 
   //function to mutate the query
-  Future<dynamic> gqlmutation(
-    String mutation,
-  ) async {
+  Future<dynamic> gqlmutation(String mutation) async {
     final GraphQLClient _client = graphQLConfiguration.authClient();
     final QueryResult result = await _client.mutate(MutationOptions(
       documentNode: gql(
@@ -78,9 +76,7 @@ class ApiFunctions {
     }
   }
 
-  Future<dynamic> sendLogs(
-    String filePath,
-  ) async {
+  Future<dynamic> sendLogs(String filePath) async {
     //TODO: Add the Url and uncomment the block
     // var request = http.MultipartRequest('POST', Uri.parse(''));
     // request.files.add(

@@ -43,12 +43,7 @@ class ProfilePageViewModel extends BaseModel {
   bool get isCreator => _isCreator;
   AuthController get authController => _authController;
 
-  initialize(BuildContext context, bool isCreator, List<User> test) {
-    if (isCreator != null && test != null) {
-      _userDetails = test;
-      _isCreator = isCreator;
-      _org = _userDetails[0].joinedOrganizations;
-    }
+  initialize({@required BuildContext context}) {
     _context = context;
     fetchUserDetails();
   }

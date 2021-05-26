@@ -1,13 +1,14 @@
 //flutter imported function
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-
 //files are imported here
 import 'package:provider/provider.dart';
 import 'package:talawa/model/orgmemeber.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
+
 import '../../../utils/uidata.dart';
 import 'reg_eventstab.dart';
 import 'user_taskstab.dart';
@@ -79,25 +80,29 @@ class _MemberDetailState extends State<MemberDetail>
                   widget.member.image == null
                       ? defaultUserImg()
                       : userImg(widget.member.image),
-                  Card(
-                      child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(
-                        left: SizeConfig.safeBlockHorizontal * 5),
-                    alignment: Alignment.centerLeft,
-                    height: SizeConfig.safeBlockVertical * 3.75,
-                    child: Text('User email: ${widget.member.email}'),
-                  )),
-                  Card(
-                    child: Container(
+                  Flexible(
+                    child: Card(
+                        child: Container(
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.only(
                           left: SizeConfig.safeBlockHorizontal * 5),
                       alignment: Alignment.centerLeft,
                       height: SizeConfig.safeBlockVertical * 3.75,
-                      child: Text(
-                        'User Privileges: ${getPrivilege(widget.member.id)}',
-                        key: const Key('Privilege'),
+                      child: Text('User email: ${widget.member.email}'),
+                    )),
+                  ),
+                  Flexible(
+                    child: Card(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.only(
+                            left: SizeConfig.safeBlockHorizontal * 5),
+                        alignment: Alignment.centerLeft,
+                        height: SizeConfig.safeBlockVertical * 3.75,
+                        child: Text(
+                          'User Privileges: ${getPrivilege(widget.member.id)}',
+                          key: const Key('Privilege'),
+                        ),
                       ),
                     ),
                   ),

@@ -37,10 +37,7 @@ class OrgController with ChangeNotifier {
   }
 
   Future<void> setNewOrg(
-    BuildContext context,
-    String newOrgId,
-    String newOrgName,
-  ) async {
+      BuildContext context, String newOrgId, String newOrgName) async {
     await Preferences.removeOrg();
     await _pref.saveCurrentOrgId(newOrgId);
     await _pref.saveCurrentOrgName(newOrgName);
