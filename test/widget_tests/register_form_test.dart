@@ -20,18 +20,14 @@ import '../helper.dart';
 
 Widget createRegisterPageScreen() => MultiProvider(
       providers: [
-        ChangeNotifierProvider<GraphQLConfiguration>(
-            create: (_) => GraphQLConfiguration()),
+        ChangeNotifierProvider<GraphQLConfiguration>(create: (_) => GraphQLConfiguration()),
         ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
-        ChangeNotifierProvider<NewsFeedProvider>(
-            create: (_) => NewsFeedProvider()),
-        ChangeNotifierProvider<GroupController>(
-            create: (_) => GroupController()),
-        ChangeNotifierProvider<SignupLoginController>(
-            create: (_) => SignupLoginController()),
+        ChangeNotifierProvider<NewsFeedProvider>(create: (_) => NewsFeedProvider()),
+        ChangeNotifierProvider<GroupController>(create: (_) => GroupController()),
+        ChangeNotifierProvider<SignupLoginController>(create: (_) => SignupLoginController()),
       ],
       child: MaterialApp(
         home: Builder(
@@ -52,14 +48,10 @@ void main() {
       await tester.pumpWidget(createRegisterPageScreen());
 
       /// Verify if [Register Page] shows up.
-      expect(
-        find.byType(RegisterPage),
-        findsOneWidget,
-      );
+      expect(find.byType(RegisterPage), findsOneWidget);
     });
 
-    testWidgets("Validations return false when empty form is submitted",
-        (tester) async {
+    testWidgets("Validations return false when empty form is submitted", (tester) async {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createRegisterPageScreen());
@@ -90,9 +82,7 @@ void main() {
       );
     });
 
-    testWidgets(
-        "Validations return false when any one of five fields are empty",
-        (tester) async {
+    testWidgets("Validations return false when any one of five fields are empty", (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
@@ -116,128 +106,68 @@ void main() {
       if (index == 0) {
         // Fill all the other TextFormFields except at index 0.
         // Fill in last name field.
-        await tester.enterText(
-          find.byType(TextFormField).at(1),
-          "Last Name",
-        );
+        await tester.enterText(find.byType(TextFormField).at(1), "Last Name");
 
         // Fill in email field.
-        await tester.enterText(
-          find.byType(TextFormField).at(2),
-          "test@gmail.com",
-        );
+        await tester.enterText(find.byType(TextFormField).at(2), "test@gmail.com");
 
         // Fill in password field.
-        await tester.enterText(
-          find.byType(TextFormField).at(3),
-          "Password1@",
-        );
+        await tester.enterText(find.byType(TextFormField).at(3), "Password1@");
 
         // Fill in confirm password field.
-        await tester.enterText(
-          find.byType(TextFormField).at(4),
-          "Password1@",
-        );
+        await tester.enterText(find.byType(TextFormField).at(4), "Password1@");
       } else if (index == 1) {
         // Fill all the other TextFormFields except at index 1.
         // Fill in first name.
-        await tester.enterText(
-          find.byType(TextFormField).at(0),
-          "First Name",
-        );
+        await tester.enterText(find.byType(TextFormField).at(0), "First Name");
 
         // Fill in email field.
-        await tester.enterText(
-          find.byType(TextFormField).at(2),
-          "test@gmail.com",
-        );
+        await tester.enterText(find.byType(TextFormField).at(2), "test@gmail.com");
 
         // Fill in password field.
-        await tester.enterText(
-          find.byType(TextFormField).at(3),
-          "Password1@",
-        );
+        await tester.enterText(find.byType(TextFormField).at(3), "Password1@");
 
         // Fill in confirm password field.
-        await tester.enterText(
-          find.byType(TextFormField).at(4),
-          "Password1@",
-        );
+        await tester.enterText(find.byType(TextFormField).at(4), "Password1@");
       } else if (index == 2) {
         // Fill all the other TextFormFields except at index 2.
         // Fill in first name.
-        await tester.enterText(
-          find.byType(TextFormField).at(0),
-          "First Name",
-        );
+        await tester.enterText(find.byType(TextFormField).at(0), "First Name");
 
         // Fill in last name field.
-        await tester.enterText(
-          find.byType(TextFormField).at(1),
-          "Last Name",
-        );
+        await tester.enterText(find.byType(TextFormField).at(1), "Last Name");
 
         // Fill in password field.
-        await tester.enterText(
-          find.byType(TextFormField).at(3),
-          "Password1@",
-        );
+        await tester.enterText(find.byType(TextFormField).at(3), "Password1@");
 
         // Fill in confirm password field.
-        await tester.enterText(
-          find.byType(TextFormField).at(4),
-          "Password1@",
-        );
+        await tester.enterText(find.byType(TextFormField).at(4), "Password1@");
       } else if (index == 3) {
         // Fill all the other TextFormFields except at index 3.
         // Fill in first name.
-        await tester.enterText(
-          find.byType(TextFormField).at(0),
-          "First Name",
-        );
+        await tester.enterText(find.byType(TextFormField).at(0), "First Name");
 
         // Fill in last name field.
-        await tester.enterText(
-          find.byType(TextFormField).at(1),
-          "Last Name",
-        );
+        await tester.enterText(find.byType(TextFormField).at(1), "Last Name");
 
         // Fill in email field.
-        await tester.enterText(
-          find.byType(TextFormField).at(2),
-          "test@gmail.com",
-        );
+        await tester.enterText(find.byType(TextFormField).at(2), "test@gmail.com");
 
         // Fill in confirm password field.
-        await tester.enterText(
-          find.byType(TextFormField).at(4),
-          "Password1@",
-        );
+        await tester.enterText(find.byType(TextFormField).at(4), "Password1@");
       } else if (index == 4) {
         // Fill all the other TextFormFields except at index 4.
         // Fill in first name.
-        await tester.enterText(
-          find.byType(TextFormField).at(0),
-          "First Name",
-        );
+        await tester.enterText(find.byType(TextFormField).at(0), "First Name");
 
         // Fill in last name field.
-        await tester.enterText(
-          find.byType(TextFormField).at(1),
-          "Last Name",
-        );
+        await tester.enterText(find.byType(TextFormField).at(1), "Last Name");
 
         // Fill in email field.
-        await tester.enterText(
-          find.byType(TextFormField).at(2),
-          "test@gmail.com",
-        );
+        await tester.enterText(find.byType(TextFormField).at(2), "test@gmail.com");
 
         // Fill in password field.
-        await tester.enterText(
-          find.byType(TextFormField).at(3),
-          "Password1@",
-        );
+        await tester.enterText(find.byType(TextFormField).at(3), "Password1@");
       }
 
       // Get hold of SIGN UP button.
@@ -260,8 +190,7 @@ void main() {
       );
     });
 
-    testWidgets("Validations return false when both password field don't match",
-        (tester) async {
+    testWidgets("Validations return false when both password field don't match", (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
@@ -274,34 +203,19 @@ void main() {
       final formKey = form.key as GlobalKey<FormState>;
 
       // Fill in first name.
-      await tester.enterText(
-        find.byType(TextFormField).at(0),
-        "First Name",
-      );
+      await tester.enterText(find.byType(TextFormField).at(0), "First Name");
 
       // Fill in last name field.
-      await tester.enterText(
-        find.byType(TextFormField).at(1),
-        "Last Name",
-      );
+      await tester.enterText(find.byType(TextFormField).at(1), "Last Name");
 
       // Fill in email field.
-      await tester.enterText(
-        find.byType(TextFormField).at(2),
-        "test@gmail.com",
-      );
+      await tester.enterText(find.byType(TextFormField).at(2), "test@gmail.com");
 
       // Fill in password field.
-      await tester.enterText(
-        find.byType(TextFormField).at(3),
-        "Password1@",
-      );
+      await tester.enterText(find.byType(TextFormField).at(3), "Password1@");
 
       // Fill in confirm password field (slightly different this time).
-      await tester.enterText(
-        find.byType(TextFormField).at(4),
-        "Password1@2",
-      );
+      await tester.enterText(find.byType(TextFormField).at(4), "Password1@2");
 
       // Get hold of SIGN UP button.
       final signUpButton = find.text("SIGN UP");
@@ -317,8 +231,7 @@ void main() {
       );
     });
 
-    testWidgets("Validations return true when all fields are correctly filled",
-        (tester) async {
+    testWidgets("Validations return true when all fields are correctly filled", (tester) async {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
@@ -331,34 +244,19 @@ void main() {
       final formKey = form.key as GlobalKey<FormState>;
 
       // Fill in first name.
-      await tester.enterText(
-        find.byType(TextFormField).at(0),
-        "First Name",
-      );
+      await tester.enterText(find.byType(TextFormField).at(0), "First Name");
 
       // Fill in last name field.
-      await tester.enterText(
-        find.byType(TextFormField).at(1),
-        "Last Name",
-      );
+      await tester.enterText(find.byType(TextFormField).at(1), "Last Name");
 
       // Fill in email field.
-      await tester.enterText(
-        find.byType(TextFormField).at(2),
-        "test@gmail.com",
-      );
+      await tester.enterText(find.byType(TextFormField).at(2), "test@gmail.com");
 
       // Fill in password field.
-      await tester.enterText(
-        find.byType(TextFormField).at(3),
-        "Password1@",
-      );
+      await tester.enterText(find.byType(TextFormField).at(3), "Password1@");
 
       // Fill in confirm password field.
-      await tester.enterText(
-        find.byType(TextFormField).at(4),
-        "Password1@",
-      );
+      await tester.enterText(find.byType(TextFormField).at(4), "Password1@");
 
       // Get hold of SIGN UP button.
       final signUpButton = find.text("SIGN UP");
