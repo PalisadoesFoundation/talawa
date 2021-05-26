@@ -177,16 +177,23 @@ class EventPageViewModel extends BaseModel {
   }
 
   //function called to delete the event
-  Future<void> deleteEvent(BuildContext context, String eventId) async {
-    showProgress(context, 'Deleting Event . . .', isDismissible: false);
-    final String mutation = Queries().deleteEvent(eventId);
-    final Map result = await _apiFunctions.gqlquery(mutation);
-    if (result["exception"] != null) {
+  Future<void> deleteEvent(
+      BuildContext context, String eventId, Creator creator) async {
+    final String _currentUID = await _preferences.getUserId();
+    if (creator.id == _currentUID) {
+      showProgress(context, 'Deleting Event . . .', isDismissible: false);
+      final String mutation = Queries().deleteEvent(eventId);
+      final Map result = await _apiFunctions.gqlquery(mutation);
+      if (result["exception"] != null) {
+        CustomToast.exceptionToast(
+            msg: "Could not delete event! Please try again later");
+      }
+      await getEvents();
+      hideProgress();
+    } else {
       CustomToast.exceptionToast(
-          msg: "Could not delete event! Please try again later");
+          msg: "You cannot delete an event created by someone else.");
     }
-    await getEvents();
-    hideProgress();
   }
 
   //function to called be called for register
