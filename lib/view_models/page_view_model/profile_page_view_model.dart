@@ -167,7 +167,7 @@ class ProfilePageViewModel extends BaseModel {
           .saveCurrentOrgName(newOrgName);
       Provider.of<Preferences>(_context, listen: false)
           .saveCurrentOrgId(newOrgId);
-
+      //  _successToast('You are no longer apart of this organization');
       pushNewScreen(
         _context,
         screen: const ProfilePage(),
