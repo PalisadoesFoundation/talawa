@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:talawa/view_models/page_view_model/update_profile_page_viewModel.dart';
+import 'package:talawa/view_models/page_view_model/update_profile_page_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
 class UpdateProfileView extends StatelessWidget {
@@ -251,7 +250,7 @@ class UpdateProfileView extends StatelessWidget {
                       leading: const Icon(Icons.camera_alt_outlined),
                       title: const Text('Camera'),
                       onTap: () {
-                        model.imgFrom(pickFrom: From.camera);
+                        model.getImageFromCamera();
                         Navigator.of(context).pop();
                       },
                     ),
@@ -259,7 +258,7 @@ class UpdateProfileView extends StatelessWidget {
                         leading: const Icon(Icons.photo_library),
                         title: const Text('Photo Library'),
                         onTap: () {
-                          model.imgFrom(pickFrom: From.gallery);
+                          model.getImageFromGallery();
                           Navigator.of(context).pop();
                         }),
                   ],

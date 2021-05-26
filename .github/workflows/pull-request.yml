@@ -34,6 +34,15 @@ jobs:
       - run: chmod +x ./.github/workflows/countline.py
       - run: ./.github/workflows/countline.py
   
+  Trailing-Comma-Pattern:
+    name: Trailing comma added at the end of every required code
+    needs: Linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: chmod +x ./.github/workflows/trailing_commas.py
+      - run: ./.github/workflows/trailing_commas.py    
+
   Coverage_report:
     name: Generate coverage report
     needs: Linter
@@ -52,7 +61,3 @@ jobs:
       with:
         path: "./coverage/lcov.info"
         min_coverage: 30
-
-
-
-  
