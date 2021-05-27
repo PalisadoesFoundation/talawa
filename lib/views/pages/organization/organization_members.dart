@@ -20,7 +20,8 @@ class OrganizationMembers extends StatefulWidget {
   _OrganizationMembersState createState() => _OrganizationMembersState();
 }
 
-class _OrganizationMembersState extends State<OrganizationMembers> with SingleTickerProviderStateMixin {
+class _OrganizationMembersState extends State<OrganizationMembers>
+    with SingleTickerProviderStateMixin {
   final Preferences _preferences = Preferences();
   AnimationController _controller;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
@@ -38,7 +39,8 @@ class _OrganizationMembersState extends State<OrganizationMembers> with SingleTi
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 500));
     viewMembers();
   }
 
@@ -52,13 +54,13 @@ class _OrganizationMembersState extends State<OrganizationMembers> with SingleTi
     );
     if (result.hasException) {
       debugPrint(result.exception.toString());
-      //showError(result.exception.toString());
       CustomToast.exceptionToast(msg: result.exception.toString());
-    } else if (!result.hasException) {
-      result.data['organizations'][0]['admins'].forEach((admin) => adminsList.add(admin['_id']));
+    } else {
+      final memberData = result.data['organizations'][0];
+      memberData['admins'].forEach((admin) => adminsList.add(admin['_id']));
       setState(() {
-        creatorId = result.data['organizations'][0]['creator']['_id'].toString();
-        membersList = result.data['organizations'][0]['members'] as List;
+        creatorId = memberData['creator']['_id'].toString();
+        membersList = memberData['members'] as List;
       });
       if (membersList.length == 1) {
         CustomToast.exceptionToast(msg: 'You are alone here.');
@@ -75,24 +77,30 @@ class _OrganizationMembersState extends State<OrganizationMembers> with SingleTi
     final String orgId = await _preferences.getCurrentOrgId();
 
     final QueryResult result = await _client.query(
-      QueryOptions(documentNode: gql(_query.removeMember(orgId, selectedMembers))),
+      QueryOptions(
+          documentNode: gql(_query.removeMember(orgId, selectedMembers))),
     );
-    if (result.hasException && result.exception.toString().substring(16) == accessTokenException) {
-      _authController.getNewToken();
-      return removeMembers();
-    } else if (result.hasException && result.exception.toString().substring(16) != accessTokenException) {
-      debugPrint(result.exception.toString().substring(16));
-      CustomToast.exceptionToast(msg: result.exception.toString());
-      setState(() {
-        processing = false;
-      });
-    } else if (!result.hasException) {
+
+    if (!result.hasException) {
       selectedMembers = [];
       setState(() {
         processing = false;
       });
       CustomToast.sucessToast(msg: 'Member(s) removed successfully');
       viewMembers();
+      return;
+    }
+
+    final String exceptionString = result.exception.toString().substring(16);
+    if (exceptionString == accessTokenException) {
+      _authController.getNewToken();
+      return removeMembers();
+    } else {
+      debugPrint(exceptionString);
+      CustomToast.exceptionToast(msg: result.exception.toString());
+      setState(() {
+        processing = false;
+      });
     }
   }
 
@@ -100,31 +108,39 @@ class _OrganizationMembersState extends State<OrganizationMembers> with SingleTi
     setState(() {
       processing = true;
     });
-    if (!adminsList.contains(selectedMembers[0])) {
-      final GraphQLClient _client = graphQLConfiguration.authClient();
-      final String orgId = await _preferences.getCurrentOrgId();
-      final QueryResult result = await _client.query(
-        QueryOptions(documentNode: gql(_query.addAdmin(orgId, selectedMembers[0].toString()))),
-      );
-      if (result.hasException && result.exception.toString().substring(16) == accessTokenException) {
-        _authController.getNewToken();
-        return addAdmin();
-      } else if (result.hasException && result.exception.toString().substring(16) != accessTokenException) {
-        print(result.exception.toString().substring(16));
-        CustomToast.exceptionToast(msg: "Something went wrong!Try again later");
-        setState(() {
-          processing = false;
-        });
-      } else if (!result.hasException) {
-        selectedMembers = [];
-        setState(() {
-          processing = false;
-        });
-        CustomToast.sucessToast(msg: 'Admin created');
-        viewMembers();
-      }
-    } else {
+
+    if (adminsList.contains(selectedMembers[0])) {
       CustomToast.exceptionToast(msg: 'Already an admin');
+      return;
+    }
+
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    final String orgId = await _preferences.getCurrentOrgId();
+    final QueryResult result = await _client.query(
+      QueryOptions(
+          documentNode:
+              gql(_query.addAdmin(orgId, selectedMembers[0].toString()))),
+    );
+    final String exceptionString = result.exception.toString().substring(16);
+
+    if (!result.hasException) {
+      selectedMembers = [];
+      setState(() {
+        processing = false;
+      });
+      CustomToast.sucessToast(msg: 'Admin created');
+      viewMembers();
+    }
+
+    if (exceptionString == accessTokenException) {
+      _authController.getNewToken();
+      return addAdmin();
+    } else {
+      print(exceptionString);
+      CustomToast.exceptionToast(msg: "Something went wrong!Try again later");
+      setState(() {
+        processing = false;
+      });
     }
   }
 
@@ -151,9 +167,7 @@ class _OrganizationMembersState extends State<OrganizationMembers> with SingleTi
       appBar: AppBar(
         title: const Text(
           'Organization Members',
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Stack(
@@ -175,13 +189,15 @@ class _OrganizationMembersState extends State<OrganizationMembers> with SingleTi
                   itemBuilder: (context, index) {
                     final members = membersList[index];
                     final String mId = members['_id'].toString();
-                    final String name = '${members['firstName']} ${members['lastName']}';
+                    final String name =
+                        '${members['firstName']} ${members['lastName']}';
                     return CheckboxListTile(
                       secondary: members['image'] != null
                           ? CircleAvatar(
                               radius: SizeConfig.safeBlockVertical * 3.75,
                               backgroundImage: NetworkImage(
-                                Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                                Provider.of<GraphQLConfiguration>(context)
+                                        .displayImgRoute +
                                     members['image'].toString(),
                               ),
                             )
@@ -189,8 +205,14 @@ class _OrganizationMembersState extends State<OrganizationMembers> with SingleTi
                               radius: SizeConfig.safeBlockVertical * 3.75,
                               backgroundColor: Colors.white,
                               child: Text(
-                                members['firstName'].toString().substring(0, 1).toUpperCase() +
-                                    members['lastName'].toString().substring(0, 1).toUpperCase(),
+                                members['firstName']
+                                        .toString()
+                                        .substring(0, 1)
+                                        .toUpperCase() +
+                                    members['lastName']
+                                        .toString()
+                                        .substring(0, 1)
+                                        .toUpperCase(),
                                 style: const TextStyle(
                                   color: UIData.primaryColor,
                                   fontSize: 22,
@@ -234,12 +256,17 @@ class _OrganizationMembersState extends State<OrganizationMembers> with SingleTi
                 label: Text(index == 0 ? "Remove" : "Admin"),
                 onPressed: () {
                   if (index == 0) {
-                    dialog("Are you sure you want to remove selected member(s)?", removeMembers);
+                    dialog(
+                        "Are you sure you want to remove selected member(s)?",
+                        removeMembers);
                   } else if (index == 1) {
                     if (selectedMembers.length == 1) {
-                      dialog("Are you sure you want to make selected member and admin?", addAdmin);
+                      dialog(
+                          "Are you sure you want to make selected member and admin?",
+                          addAdmin);
                     } else {
-                      CustomToast.exceptionToast(msg: 'You can make one admin at a time');
+                      CustomToast.exceptionToast(
+                          msg: 'You can make one admin at a time');
                     }
                   }
                 },
@@ -255,17 +282,16 @@ class _OrganizationMembersState extends State<OrganizationMembers> with SingleTi
                 setState(() {
                   forward = !forward;
                 });
-                if (_controller.isDismissed) {
-                  _controller.forward();
-                } else {
-                  _controller.reverse();
-                }
+                _controller.isDismissed
+                    ? _controller.forward()
+                    : _controller.reverse();
               },
               child: AnimatedBuilder(
                 animation: _controller,
                 builder: (BuildContext context, Widget child) {
                   return Transform(
-                    transform: Matrix4.rotationZ(_controller.value * 1 * math.pi),
+                    transform:
+                        Matrix4.rotationZ(_controller.value * 1 * math.pi),
                     alignment: FractionalOffset.center,
                     child: const Icon(Icons.expand_more),
                   );

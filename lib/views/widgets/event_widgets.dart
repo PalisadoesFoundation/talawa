@@ -57,7 +57,10 @@ class EventWidgets {
     );
   }
 
-  Widget inputField({@required String name, @required TextEditingController controller, @required String errorText}) {
+  Widget inputField(
+      {@required String name,
+      @required TextEditingController controller,
+      @required String errorText}) {
     return Padding(
         padding: const EdgeInsets.all(10),
         child: TextField(
@@ -74,7 +77,10 @@ class EventWidgets {
         ));
   }
 
-  Widget switchTile({@required String name, @required bool switchValue, @required Function(bool) onChanged}) {
+  Widget switchTile(
+      {@required String name,
+      @required bool switchValue,
+      @required Function(bool) onChanged}) {
     return SwitchListTile(
       activeColor: UIData.secondaryColor,
       value: switchValue,
@@ -94,7 +100,8 @@ class EventWidgets {
     @required List<String> recurranceList,
   }) {
     return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5),
+      contentPadding:
+          EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5),
       leading: Text(
         'Recurrence',
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
@@ -102,7 +109,8 @@ class EventWidgets {
       trailing: AbsorbPointer(
         absorbing: !recurringSwitchVal,
         child: DropdownButton<String>(
-          style: TextStyle(color: recurringSwitchVal ? UIData.secondaryColor : Colors.grey),
+          style: TextStyle(
+              color: recurringSwitchVal ? UIData.secondaryColor : Colors.grey),
           value: recurrance,
           icon: const Icon(Icons.arrow_drop_down),
           onChanged: onChanged,

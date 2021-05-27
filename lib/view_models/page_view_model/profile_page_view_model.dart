@@ -55,8 +55,8 @@ class ProfilePageViewModel extends BaseModel {
     _orgId = await _preferences.getCurrentOrgId();
     _userID = await _preferences.getUserId();
     final GraphQLClient _client = _graphQLConfiguration.clientToQuery();
-    final QueryResult result =
-        await _client.query(QueryOptions(documentNode: gql(_query.fetchUserInfo), variables: {'id': _userID}));
+    final QueryResult result = await _client.query(QueryOptions(
+        documentNode: gql(_query.fetchUserInfo), variables: {'id': _userID}));
     if (result.hasException) {
       print(result.exception);
       CustomToast.exceptionToast(msg: "Something went wrong!");
@@ -76,9 +76,12 @@ class ProfilePageViewModel extends BaseModel {
         }
       }
       if (notFound == _org.length && _org.isNotEmpty) {
-        _orgController.setNewOrg(_context, _org[0]['_id'].toString(), _org[0]['name'].toString());
-        Provider.of<Preferences>(_context, listen: false).saveCurrentOrgName(_org[0]['name'].toString());
-        Provider.of<Preferences>(_context, listen: false).saveCurrentOrgId(_org[0]['_id'].toString());
+        _orgController.setNewOrg(
+            _context, _org[0]['_id'].toString(), _org[0]['name'].toString());
+        Provider.of<Preferences>(_context, listen: false)
+            .saveCurrentOrgName(_org[0]['name'].toString());
+        Provider.of<Preferences>(_context, listen: false)
+            .saveCurrentOrgId(_org[0]['_id'].toString());
         await _preferences.saveCurrentOrgImgSrc(_org[0]['image'].toString());
       }
       fetchOrgAdmin();
@@ -92,7 +95,8 @@ class ProfilePageViewModel extends BaseModel {
     _orgId = await _preferences.getCurrentOrgId();
     if (_orgId != null) {
       final GraphQLClient _client = _graphQLConfiguration.authClient();
-      final QueryResult result = await _client.query(QueryOptions(documentNode: gql(_query.fetchOrgById(_orgId))));
+      final QueryResult result = await _client
+          .query(QueryOptions(documentNode: gql(_query.fetchOrgById(_orgId))));
       if (result.hasException) {
         print(result.exception.toString());
         CustomToast.exceptionToast(msg: "Please Try Again later!");
@@ -101,7 +105,8 @@ class ProfilePageViewModel extends BaseModel {
         _curOrganization = result.data['organizations'] as List;
         _creator = result.data['organizations'][0]['creator']['_id'].toString();
         _isPublic = result.data['organizations'][0]['isPublic'] as bool;
-        result.data['organizations'][0]['admins'].forEach((userId) => _admins.add(userId));
+        result.data['organizations'][0]['admins']
+            .forEach((userId) => _admins.add(userId));
         for (int i = 0; i < _admins.length; i++) {
           print(_admins[i]['_id']);
           if (_admins[i]['_id'] == _userID) {
@@ -127,7 +132,8 @@ class ProfilePageViewModel extends BaseModel {
 
     final GraphQLClient _client = _graphQLConfiguration.authClient();
 
-    final QueryResult result = await _client.mutate(MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
+    final QueryResult result = await _client
+        .mutate(MutationOptions(documentNode: gql(_query.leaveOrg(orgId))));
 
     if (result.hasException) {
       final ExceptionType exceptionType = retrieveExceptionType(result);
@@ -143,17 +149,24 @@ class ProfilePageViewModel extends BaseModel {
     }
     if (!result.loading) {
       print('done');
-      remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'] as List;
+      remaindingOrg =
+          result.data['leaveOrganization']['joinedOrganizations'] as List;
       if (remaindingOrg.isEmpty) {
         newOrgId = null;
       } else if (remaindingOrg.isNotEmpty) {
-        newOrgId = result.data['leaveOrganization']['joinedOrganizations'][0]['_id'].toString();
-        newOrgName = result.data['leaveOrganization']['joinedOrganizations'][0]['name'].toString();
+        newOrgId = result.data['leaveOrganization']['joinedOrganizations'][0]
+                ['_id']
+            .toString();
+        newOrgName = result.data['leaveOrganization']['joinedOrganizations'][0]
+                ['name']
+            .toString();
       }
 
       _orgController.setNewOrg(_context, newOrgId, newOrgName);
-      Provider.of<Preferences>(_context, listen: false).saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(_context, listen: false).saveCurrentOrgId(newOrgId);
+      Provider.of<Preferences>(_context, listen: false)
+          .saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(_context, listen: false)
+          .saveCurrentOrgId(newOrgId);
       //  _successToast('You are no longer apart of this organization');
       pushNewScreen(
         _context,

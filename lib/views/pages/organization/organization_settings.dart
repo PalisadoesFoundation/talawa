@@ -54,10 +54,12 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         ),
       ),
     );
-    if (result.hasException && result.exception.toString().substring(16) == accessTokenException) {
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       return leaveOrg();
-    } else if (result.hasException && result.exception.toString().substring(16) != accessTokenException) {
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
       setState(() {
         processing = false;
       });
@@ -65,14 +67,19 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
       setState(() {
-        remaindingOrg = result.data['leaveOrganization']['joinedOrganizations'] as List;
+        remaindingOrg =
+            result.data['leaveOrganization']['joinedOrganizations'] as List;
         if (remaindingOrg.isEmpty) {
           newOrgId = null;
         } else if (remaindingOrg.isNotEmpty) {
           setState(
             () {
-              newOrgId = result.data['leaveOrganization']['joinedOrganizations'][0]['_id'].toString();
-              newOrgName = result.data['leaveOrganization']['joinedOrganizations'][0]['name'].toString();
+              newOrgId = result.data['leaveOrganization']['joinedOrganizations']
+                      [0]['_id']
+                  .toString();
+              newOrgName = result.data['leaveOrganization']
+                      ['joinedOrganizations'][0]['name']
+                  .toString();
             },
           );
         }
@@ -80,9 +87,12 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context, listen: false).saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context, listen: false).saveCurrentOrgId(newOrgId);
-      CustomToast.sucessToast(msg: 'You are no longer apart of this organization');
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgId(newOrgId);
+      CustomToast.sucessToast(
+          msg: 'You are no longer apart of this organization');
       pushNewScreen(
         context,
         screen: const ProfilePage(),
@@ -105,10 +115,12 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       documentNode: gql(_query.removeOrg(orgId)),
     ));
 
-    if (result.hasException && result.exception.toString().substring(16) == accessTokenException) {
+    if (result.hasException &&
+        result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
       return removeOrg();
-    } else if (result.hasException && result.exception.toString().substring(16) != accessTokenException) {
+    } else if (result.hasException &&
+        result.exception.toString().substring(16) != accessTokenException) {
       Navigator.of(context).pop();
       setState(() {
         processing = false;
@@ -119,18 +131,25 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         msg: 'Successfully Removed Organization',
       );
       setState(() {
-        remaindingOrg = result.data['removeOrganization']['joinedOrganizations'] as List;
+        remaindingOrg =
+            result.data['removeOrganization']['joinedOrganizations'] as List;
         if (remaindingOrg.isEmpty) {
           newOrgId = null;
         } else if (remaindingOrg.isNotEmpty) {
-          newOrgId = result.data['removeOrganization']['joinedOrganizations'][0]['_id'].toString();
-          newOrgName = result.data['removeOrganization']['joinedOrganizations'][0]['name'].toString();
+          newOrgId = result.data['removeOrganization']['joinedOrganizations'][0]
+                  ['_id']
+              .toString();
+          newOrgName = result.data['removeOrganization']['joinedOrganizations']
+                  [0]['name']
+              .toString();
         }
         processing = false;
       });
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(context, listen: false).saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(context, listen: false).saveCurrentOrgId(newOrgId);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgId(newOrgId);
       Navigator.of(context).pop();
       pushNewScreen(context, screen: const ProfilePage());
     }
@@ -174,12 +193,19 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                       pushNewScreen(
                         context,
                         screen: UpdateOrganization(
-                            description: widget.organization[0]['description'].toString(),
+                            description: widget.organization[0]['description']
+                                .toString(),
                             name: widget.organization[0]['name'].toString(),
-                            isPublic: (widget.organization[0]['isPublic'] as bool) ? 0 : 1,
-                            isVisible: widget.organization[0]['visibleInSearch'] == null
+                            isPublic:
+                                (widget.organization[0]['isPublic'] as bool)
+                                    ? 0
+                                    : 1,
+                            isVisible: widget.organization[0]
+                                        ['visibleInSearch'] ==
+                                    null
                                 ? -1
-                                : (widget.organization[0][0]['visibleInSearch'] as bool)
+                                : (widget.organization[0][0]['visibleInSearch']
+                                        as bool)
                                     ? 0
                                     : 1),
                       );
@@ -191,9 +217,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                         key: const Key('Accept MemberShip Requests'),
                         title: const Text(
                           'Accept MemberShip Requests',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                          ),
+                          style: TextStyle(fontSize: 18.0),
                         ),
                         subtitle: const Text('For Private Organizations'),
                         leading: const Icon(
@@ -249,17 +273,16 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertBox(
-                                  message: "Are you sure you want to remove this organization?",
+                                  message:
+                                      "Are you sure you want to remove this organization?",
                                   function: removeOrg,
                                 );
                               });
                         })
                     : ListTile(
                         key: const Key('Leave Organization'),
-                        title: const Text(
-                          'Leave Organization',
-                          style: TextStyle(fontSize: 18.0),
-                        ),
+                        title: const Text('Leave Organization',
+                            style: TextStyle(fontSize: 18.0)),
                         leading: const Icon(
                           Icons.person,
                           color: UIData.secondaryColor,
@@ -269,7 +292,8 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertBox(
-                                message: "Are you sure you want to leave this organization?",
+                                message:
+                                    "Are you sure you want to leave this organization?",
                                 function: leaveOrg,
                               );
                             },

@@ -27,17 +27,23 @@ class _EditEventState extends State<EditEvent> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final locationController = TextEditingController();
-  bool _validateTitle = false, _validateDescription = false, _validateLocation = false;
+  bool _validateTitle = false,
+      _validateDescription = false,
+      _validateLocation = false;
   ApiFunctions apiFunctions = ApiFunctions();
 
   DateTimeRange dateRange = DateTimeRange(
-    start: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 1, 0),
-    end: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 1, 1, 0),
+    start: DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 1, 0),
+    end: DateTime(DateTime.now().year, DateTime.now().month,
+        DateTime.now().day + 1, 1, 0),
   );
 
   Map<String, DateTime> startEndTimes = {
-    'Start Time': DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 12, 0),
-    'End Time': DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
+    'Start Time': DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 12, 0),
+    'End Time': DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
   };
 
   Map event;
@@ -102,8 +108,10 @@ class _EditEventState extends State<EditEvent> {
   }
 
   //method to select the time
-  Future<void> _selectTime(BuildContext context, String name, TimeOfDay time) async {
-    final TimeOfDay picked = await showTimePicker(context: context, initialTime: time);
+  Future<void> _selectTime(
+      BuildContext context, String name, TimeOfDay time) async {
+    final TimeOfDay picked =
+        await showTimePicker(context: context, initialTime: time);
     if (picked != null && picked != time) {
       setState(() {
         startEndTimes[name] = DateTime(
@@ -136,8 +144,10 @@ class _EditEventState extends State<EditEvent> {
 
     if (switchVals['All Day']) {
       startEndTimes = {
-        'Start Time': DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 12, 0),
-        'End Time': DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 23, 59),
+        'Start Time': DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 12, 0),
+        'End Time': DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 23, 59),
       };
     }
     final String mutation = Queries().updateEvent(
@@ -193,7 +203,8 @@ class _EditEventState extends State<EditEvent> {
           ),
           //widget for the date buttons
           _eventWidgets.dateButton(
-            dateText: '${DateFormat.yMMMd().format(dateRange.start)} | ${DateFormat.yMMMd().format(dateRange.end)} ',
+            dateText:
+                '${DateFormat.yMMMd().format(dateRange.start)} | ${DateFormat.yMMMd().format(dateRange.end)} ',
             onTap: () {
               _selectDate(context);
             },
@@ -205,7 +216,9 @@ class _EditEventState extends State<EditEvent> {
       //widget to add the event
       floatingActionButton: _eventWidgets.addEventFab(
         onPressed: () async {
-          if (titleController.text.isEmpty || descriptionController.text.isEmpty || locationController.text.isEmpty) {
+          if (titleController.text.isEmpty ||
+              descriptionController.text.isEmpty ||
+              locationController.text.isEmpty) {
             if (titleController.text.isEmpty) {
               setState(() {
                 _validateTitle = true;
@@ -227,7 +240,8 @@ class _EditEventState extends State<EditEvent> {
             );
           } else {
             try {
-              showProgress(context, 'Updating Event Details . . .', isDismissible: false);
+              showProgress(context, 'Updating Event Details . . .',
+                  isDismissible: false);
               await updateEvent();
             } catch (e) {
               if (e == "User cannot delete event they didn't create") {
@@ -294,5 +308,4 @@ class _EditEventState extends State<EditEvent> {
       },
     );
   }
-
 }

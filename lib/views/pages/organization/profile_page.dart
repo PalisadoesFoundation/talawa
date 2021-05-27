@@ -21,7 +21,8 @@ import 'switch_org_page.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage();
 
-  Widget showOrgSettingsButton({@required BuildContext context, @required ProfilePageViewModel model}) {
+  Widget showOrgSettingsButton(
+      {@required BuildContext context, @required ProfilePageViewModel model}) {
     return ListTile(
         key: const Key('Organization Settings'),
         title: const Text(
@@ -36,12 +37,15 @@ class ProfilePage extends StatelessWidget {
           pushNewScreen(
             context,
             screen: OrganizationSettings(
-                creator: model.creator == model.userID, public: model.isPublic, organization: model.curOrganization),
+                creator: model.creator == model.userID,
+                public: model.isPublic,
+                organization: model.curOrganization),
           );
         });
   }
 
-  Widget showLeaveOrgButton({@required BuildContext context, @required ProfilePageViewModel model}) {
+  Widget showLeaveOrgButton(
+      {@required BuildContext context, @required ProfilePageViewModel model}) {
     return model.org.isEmpty
         ? const SizedBox()
         : ListTile(
@@ -59,7 +63,8 @@ class ProfilePage extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertBox(
-                    message: "Are you sure you want to leave this organization?",
+                    message:
+                        "Are you sure you want to leave this organization?",
                     function: model.leaveOrg,
                   );
                 },
@@ -112,30 +117,44 @@ class ProfilePage extends StatelessWidget {
                             trailing: model.userDetails[0].image != null
                                 ? CircleAvatar(
                                     radius: SizeConfig.safeBlockVertical * 3.75,
-                                    backgroundImage: NetworkImage(
-                                        Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                                            model.userDetails[0].image.toString()))
+                                    backgroundImage: NetworkImage(Provider.of<
+                                                GraphQLConfiguration>(context)
+                                            .displayImgRoute +
+                                        model.userDetails[0].image.toString()))
                                 : CircleAvatar(
-                                    radius: SizeConfig.safeBlockVertical * 5.625,
+                                    radius:
+                                        SizeConfig.safeBlockVertical * 5.625,
                                     backgroundColor: Colors.white,
                                     child: Text(
-                                        model.userDetails[0].firstName.toString().substring(0, 1).toUpperCase() +
-                                            model.userDetails[0].lastName.toString().substring(0, 1).toUpperCase(),
+                                        model.userDetails[0].firstName
+                                                .toString()
+                                                .substring(0, 1)
+                                                .toUpperCase() +
+                                            model.userDetails[0].lastName
+                                                .toString()
+                                                .substring(0, 1)
+                                                .toUpperCase(),
                                         style: const TextStyle(
                                           color: UIData.primaryColor,
                                         )),
                                   )),
                         SizedBox(height: SizeConfig.safeBlockVertical * 1.25),
                         Padding(
-                          padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 4),
-                          child: Text("${model.userDetails[0].firstName} ${model.userDetails[0].lastName}",
-                              style: const TextStyle(fontSize: 20.0, color: Colors.white)),
+                          padding: EdgeInsets.only(
+                              left: SizeConfig.safeBlockHorizontal * 4),
+                          child: Text(
+                              "${model.userDetails[0].firstName} ${model.userDetails[0].lastName}",
+                              style: const TextStyle(
+                                  fontSize: 20.0, color: Colors.white)),
                         ),
                         SizedBox(height: SizeConfig.safeBlockVertical * 0.625),
                         Padding(
-                          padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 4),
-                          child: Text("Current Organization: ${model.orgName ?? 'No Organization Joined'}",
-                              style: const TextStyle(fontSize: 16.0, color: Colors.white)),
+                          padding: EdgeInsets.only(
+                              left: SizeConfig.safeBlockHorizontal * 4),
+                          child: Text(
+                              "Current Organization: ${model.orgName ?? 'No Organization Joined'}",
+                              style: const TextStyle(
+                                  fontSize: 16.0, color: Colors.white)),
                         ),
                       ],
                     ),
@@ -201,12 +220,15 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                 );
                               }),
+
                           ///Only Creator of the Org can access Organisation settings
                           ///If the user is the creator, Organisation Setting button is display
                           ///Else Leave Organisation button is displayed for the members of Organisation
                           model.isCreator
-                              ? showOrgSettingsButton(context: context, model: model)
-                              : showLeaveOrgButton(context: context, model: model),
+                              ? showOrgSettingsButton(
+                                  context: context, model: model)
+                              : showLeaveOrgButton(
+                                  context: context, model: model),
                           ListTile(
                               key: const Key('Logout'),
                               title: const Text(
@@ -222,8 +244,10 @@ class ProfilePage extends StatelessWidget {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertBox(
-                                          message: "Are you sure you want to logout?",
-                                          function: () => model.authController.logout(context));
+                                          message:
+                                              "Are you sure you want to logout?",
+                                          function: () => model.authController
+                                              .logout(context));
                                     });
                               }),
                           MyAboutTile(),

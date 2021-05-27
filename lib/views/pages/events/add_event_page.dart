@@ -62,37 +62,39 @@ class _AddEventState extends State<AddEvent> {
         ),
         floatingActionButton: _eventWidgets.addEventFab(
           onPressed: () async {
-              bool isEmpty = false;
-              if (model.titleController.text.isEmpty) {
-                model.setValidateTitle(true);
-                isEmpty = true;
-              }
-              if (model.descriptionController.text.isEmpty) {
-                model.setValidateDescription(true);
-                isEmpty = true;
-              }
-              if (model.locationController.text.isEmpty) {
-                model.setValidateLocation(true);
-                isEmpty = true;
-              }
-              if (isEmpty) {
-                Fluttertoast.showToast(msg: 'Fill in the empty fields', backgroundColor: Colors.grey[500]);
-                return;
-              }
+            bool isEmpty = false;
+            if (model.titleController.text.isEmpty) {
+              model.setValidateTitle(true);
+              isEmpty = true;
+            }
+            if (model.descriptionController.text.isEmpty) {
+              model.setValidateDescription(true);
+              isEmpty = true;
+            }
+            if (model.locationController.text.isEmpty) {
+              model.setValidateLocation(true);
+              isEmpty = true;
+            }
+            if (isEmpty) {
+              Fluttertoast.showToast(
+                  msg: 'Fill in the empty fields',
+                  backgroundColor: Colors.grey[500]);
+              return;
+            }
 
-              showProgress(context, 'Creating New Event . . .', isDismissible: false);
-              await model.createEvent();
-              hideProgress();
-              Navigator.pushAndRemoveUntil(
-                  context, MaterialPageRoute(builder: (context) => const Events()), (route) => false);
+            showProgress(context, 'Creating New Event . . .',
+                isDismissible: false);
+            await model.createEvent();
+            hideProgress();
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const Events()),
+                (route) => false);
           },
         ),
       ),
     );
   }
-
-
-
 
   //widget to get the time button
   Widget timeButton(String name, DateTime time, AddEventPageViewModel model) {
@@ -107,7 +109,8 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
-  Widget inputField(String name, TextEditingController controller, AddEventPageViewModel model) {
+  Widget inputField(String name, TextEditingController controller,
+      AddEventPageViewModel model) {
     return _eventWidgets.inputField(
       name: name,
       controller: controller,
@@ -136,5 +139,4 @@ class _AddEventState extends State<AddEvent> {
       },
     );
   }
-
 }
