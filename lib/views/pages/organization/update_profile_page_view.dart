@@ -3,7 +3,7 @@ import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:talawa/view_models/page_view_model/update_profile_page_viewModel.dart';
+import 'package:talawa/view_models/page_view_model/update_profile_page_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
 class UpdateProfileView extends StatelessWidget {

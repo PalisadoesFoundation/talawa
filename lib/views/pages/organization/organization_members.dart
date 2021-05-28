@@ -1,10 +1,10 @@
 //flutter imported packages
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-
-//pages are imported here
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+
+//pages are imported here
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
@@ -13,7 +13,6 @@ import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
-
 import 'package:talawa/views/widgets/alert_dialog_box.dart';
 
 class OrganizationMembers extends StatefulWidget {
@@ -41,11 +40,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(
-        milliseconds: 500,
-      ),
-    );
+        vsync: this, duration: const Duration(milliseconds: 500));
     viewMembers();
   }
 
@@ -55,32 +50,20 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
     final QueryResult result = await _client.query(
-      QueryOptions(
-        documentNode: gql(
-          _query.fetchOrgById(
-            orgId,
-          ),
-        ),
-      ),
+      QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))),
     );
     if (result.hasException) {
       debugPrint(result.exception.toString());
-      //showError(result.exception.toString());
-      CustomToast.exceptionToast(
-        msg: result.exception.toString(),
-      );
-    } else if (!result.hasException) {
-      result.data['organizations'][0]['admins']
-          .forEach((admin) => adminsList.add(admin['_id']));
+      CustomToast.exceptionToast(msg: result.exception.toString());
+    } else {
+      final memberData = result.data['organizations'][0];
+      memberData['admins'].forEach((admin) => adminsList.add(admin['_id']));
       setState(() {
-        creatorId =
-            result.data['organizations'][0]['creator']['_id'].toString();
-        membersList = result.data['organizations'][0]['members'] as List;
+        creatorId = memberData['creator']['_id'].toString();
+        membersList = memberData['members'] as List;
       });
       if (membersList.length == 1) {
-        CustomToast.exceptionToast(
-          msg: 'You are alone here.',
-        );
+        CustomToast.exceptionToast(msg: 'You are alone here.');
       }
     }
   }
@@ -95,34 +78,29 @@ class _OrganizationMembersState extends State<OrganizationMembers>
 
     final QueryResult result = await _client.query(
       QueryOptions(
-        documentNode: gql(
-          _query.removeMember(
-            orgId,
-            selectedMembers,
-          ),
-        ),
-      ),
+          documentNode: gql(_query.removeMember(orgId, selectedMembers))),
     );
-    if (result.hasException &&
-        result.exception.toString().substring(16) == accessTokenException) {
-      _authController.getNewToken();
-      return removeMembers();
-    } else if (result.hasException &&
-        result.exception.toString().substring(16) != accessTokenException) {
-      debugPrint(result.exception.toString().substring(16));
-      CustomToast.exceptionToast(msg: result.exception.toString());
-      setState(() {
-        processing = false;
-      });
-    } else if (!result.hasException) {
+
+    if (!result.hasException) {
       selectedMembers = [];
       setState(() {
         processing = false;
       });
-      CustomToast.sucessToast(
-        msg: 'Member(s) removed successfully',
-      );
+      CustomToast.sucessToast(msg: 'Member(s) removed successfully');
       viewMembers();
+      return;
+    }
+
+    final String exceptionString = result.exception.toString().substring(16);
+    if (exceptionString == accessTokenException) {
+      _authController.getNewToken();
+      return removeMembers();
+    } else {
+      debugPrint(exceptionString);
+      CustomToast.exceptionToast(msg: result.exception.toString());
+      setState(() {
+        processing = false;
+      });
     }
   }
 
@@ -130,46 +108,39 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     setState(() {
       processing = true;
     });
-    if (!adminsList.contains(selectedMembers[0])) {
-      final GraphQLClient _client = graphQLConfiguration.authClient();
-      final String orgId = await _preferences.getCurrentOrgId();
-      final QueryResult result = await _client.query(
-        QueryOptions(
-          documentNode: gql(
-            _query.addAdmin(
-              orgId,
-              selectedMembers[0].toString(),
-            ),
-          ),
-        ),
-      );
-      if (result.hasException &&
-          result.exception.toString().substring(16) == accessTokenException) {
-        _authController.getNewToken();
-        return addAdmin();
-      } else if (result.hasException &&
-          result.exception.toString().substring(16) != accessTokenException) {
-        print(result.exception.toString().substring(16));
-        CustomToast.exceptionToast(
-          msg: "Something went wrong!Try again later",
-        );
-        setState(() {
-          processing = false;
-        });
-      } else if (!result.hasException) {
-        selectedMembers = [];
-        setState(() {
-          processing = false;
-        });
-        CustomToast.sucessToast(
-          msg: 'Admin created',
-        );
-        viewMembers();
-      }
+
+    if (adminsList.contains(selectedMembers[0])) {
+      CustomToast.exceptionToast(msg: 'Already an admin');
+      return;
+    }
+
+    final GraphQLClient _client = graphQLConfiguration.authClient();
+    final String orgId = await _preferences.getCurrentOrgId();
+    final QueryResult result = await _client.query(
+      QueryOptions(
+          documentNode:
+              gql(_query.addAdmin(orgId, selectedMembers[0].toString()))),
+    );
+    final String exceptionString = result.exception.toString().substring(16);
+
+    if (!result.hasException) {
+      selectedMembers = [];
+      setState(() {
+        processing = false;
+      });
+      CustomToast.sucessToast(msg: 'Admin created');
+      viewMembers();
+    }
+
+    if (exceptionString == accessTokenException) {
+      _authController.getNewToken();
+      return addAdmin();
     } else {
-      CustomToast.exceptionToast(
-        msg: 'Already an admin',
-      );
+      print(exceptionString);
+      CustomToast.exceptionToast(msg: "Something went wrong!Try again later");
+      setState(() {
+        processing = false;
+      });
     }
   }
 
@@ -178,20 +149,14 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     if (selected == true) {
       if (!adminsList.contains(memberId)) {
         setState(() {
-          selectedMembers.add(
-            '"$memberId"',
-          );
+          selectedMembers.add('"$memberId"');
         });
       } else {
-        CustomToast.exceptionToast(
-          msg: "Can't select admins",
-        );
+        CustomToast.exceptionToast(msg: "Can't select admins");
       }
     } else {
       setState(() {
-        selectedMembers.remove(
-          '"$memberId"',
-        );
+        selectedMembers.remove('"$memberId"');
       });
     }
   }
@@ -202,9 +167,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       appBar: AppBar(
         title: const Text(
           'Organization Members',
-          style: TextStyle(
-            color: Colors.white,
-          ),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Stack(
@@ -223,10 +186,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                 )
               : ListView.separated(
                   itemCount: membersList.length,
-                  itemBuilder: (
-                    context,
-                    index,
-                  ) {
+                  itemBuilder: (context, index) {
                     final members = membersList[index];
                     final String mId = members['_id'].toString();
                     final String name =
@@ -263,10 +223,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                       subtitle: Text(adminsList.contains(mId) ? 'Admin' : ''),
                       value: selectedMembers.contains('"$mId"'),
                       onChanged: (bool value) {
-                        _onMemberSelected(
-                          value,
-                          members['_id'].toString(),
-                        );
+                        _onMemberSelected(value, members['_id'].toString());
                       },
                     );
                   },
@@ -281,18 +238,12 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.generate(2, (int index) {
           final Widget child = Container(
-            margin: const EdgeInsets.only(
-              bottom: 15,
-            ),
+            margin: const EdgeInsets.only(bottom: 15),
             alignment: FractionalOffset.bottomRight,
             child: ScaleTransition(
               scale: CurvedAnimation(
                 parent: _controller,
-                curve: Interval(
-                  0.0,
-                  1.0 - index,
-                  curve: Curves.easeOut,
-                ),
+                curve: Interval(0.0, 1.0 - index, curve: Curves.easeOut),
               ),
               child: FloatingActionButton.extended(
                 heroTag: null,
@@ -306,19 +257,16 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                 onPressed: () {
                   if (index == 0) {
                     dialog(
-                      "Are you sure you want to remove selected member(s)?",
-                      removeMembers,
-                    );
+                        "Are you sure you want to remove selected member(s)?",
+                        removeMembers);
                   } else if (index == 1) {
                     if (selectedMembers.length == 1) {
                       dialog(
-                        "Are you sure you want to make selected member and admin?",
-                        addAdmin,
-                      );
+                          "Are you sure you want to make selected member and admin?",
+                          addAdmin);
                     } else {
                       CustomToast.exceptionToast(
-                        msg: 'You can make one admin at a time',
-                      );
+                          msg: 'You can make one admin at a time');
                     }
                   }
                 },
@@ -334,11 +282,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                 setState(() {
                   forward = !forward;
                 });
-                if (_controller.isDismissed) {
-                  _controller.forward();
-                } else {
-                  _controller.reverse();
-                }
+                _controller.isDismissed
+                    ? _controller.forward()
+                    : _controller.reverse();
               },
               child: AnimatedBuilder(
                 animation: _controller,
@@ -362,10 +308,7 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertBox(
-          message: msg,
-          function: function,
-        );
+        return AlertBox(message: msg, function: function);
       },
     );
   }
