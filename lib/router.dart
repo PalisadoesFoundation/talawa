@@ -1,45 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/model/posts.dart';
-import 'package:talawa/routing_constants.dart';
-import 'package:talawa/views/pages/_pages.dart';
-import 'package:talawa/views/pages/home_page.dart';
-import 'package:talawa/views/pages/login_signup/login_page.dart';
-import 'package:talawa/views/pages/login_signup/register_page.dart';
-import 'package:talawa/views/pages/login_signup/set_url_page.dart';
-import 'package:talawa/views/pages/newsfeed/add_post.dart';
-import 'package:talawa/views/pages/newsfeed/news_article.dart';
-import 'package:talawa/views/pages/organization/Create%20Organization/create_organization_view.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
-import 'package:talawa/views/pages/organization/switch_org_page.dart';
+import 'package:talawa/main.dart';
+import 'package:talawa/splash_screen.dart';
+import 'package:talawa/views/pre_auth_screens/change_password.dart';
+import 'package:talawa/views/pre_auth_screens/login.dart';
+import 'package:talawa/views/pre_auth_screens/recover.dart';
+import 'package:talawa/views/pre_auth_screens/select_language.dart';
+import 'package:talawa/views/pre_auth_screens/set_url.dart';
+import 'package:talawa/views/pre_auth_screens/signup_holder.dart';
+import 'constants/routing_constants.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
-    case routes.HomeRoute:
-      return MaterialPageRoute(builder: (context) => HomePage());
-    case routes.LoginPageRoute:
-      return MaterialPageRoute(builder: (context) => LoginPage());
-    case routes.CreateOrgPageRoute:
-      return MaterialPageRoute(builder: (context) => CreateOrganization());
-    case routes.JoinOrganizationPageRoute:
-      return MaterialPageRoute(builder: (context) => JoinOrganization());
-    case routes.SwitchOrgPageRoute:
-      return MaterialPageRoute(builder: (context) => SwitchOrganization());
-    case routes.RegisterPageRoute:
-      return MaterialPageRoute(builder: (context) => RegisterPage());
-    case routes.ProfilePageRoute:
-      return MaterialPageRoute(builder: (context) => ProfilePage());
-    case routes.AddPostPageRoute:
-      return MaterialPageRoute(builder: (context) => AddPost());
-    case routes.NewsArticlePageRoute:
-      final params = settings.arguments as Map<String, dynamic>;
-      final post = params["post"] as Posts;
-      final index = params["index"] as int;
+    case Routes.splashScreen:
       return MaterialPageRoute(
-          builder: (context) => NewsArticle(
-                post: post,
-                index: index,
+          builder: (context) => const SplashScreen(key: Key('SplashScreen')));
+    case Routes.languageSelectionRoute:
+      return MaterialPageRoute(
+          builder: (context) =>
+              const SelectLanguage(key: Key('SelectLanguage')));
+    case Routes.setUrlScreen:
+      return MaterialPageRoute(
+          builder: (context) => const SetUrl(key: Key('SetUrl')));
+    case Routes.loginScreen:
+      return MaterialPageRoute(
+          builder: (context) => const Login(key: Key('Login')));
+    case Routes.signupScreen:
+      return MaterialPageRoute(
+          builder: (context) => const Signup(key: Key('Signup')));
+    case Routes.recoverScreen:
+      return MaterialPageRoute(
+          builder: (context) => const Recover(key: Key('Recover')));
+    case Routes.updateScreen:
+      return MaterialPageRoute(
+          builder: (context) => const UpdatePassword(key: Key('Update')));
+    case Routes.demoPageViewRoute:
+      return MaterialPageRoute(
+          builder: (context) => const DemoPageView(
+                key: Key("DemoPage"),
               ));
+
     default:
-      return MaterialPageRoute(builder: (context) => UrlPage());
+      return MaterialPageRoute(
+          builder: (context) => const DemoPageView(
+                key: Key("DemoPage"),
+              ));
   }
 }
