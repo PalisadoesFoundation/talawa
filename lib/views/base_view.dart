@@ -6,13 +6,12 @@ import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';
 
 class BaseView<T extends ChangeNotifier> extends StatefulWidget {
-  final Function(T)? onModelReady;
-  final Widget Function(BuildContext, T, Widget?) builder;
-
   const BaseView({
     required this.builder,
     this.onModelReady,
   });
+  final Function(T)? onModelReady;
+  final Widget Function(BuildContext, T, Widget?) builder;
 
   @override
   _BaseViewState<T> createState() => _BaseViewState<T>();
