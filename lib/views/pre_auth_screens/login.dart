@@ -118,6 +118,8 @@ class _LoginState extends State<Login> {
                   emailFocus.unfocus();
                   passwordFocus.unfocus();
                   print('tapped');
+                  locator<NavigationService>()
+                      .pushReplacementScreen('/homePage');
                 },
                 textColor: const Color(0xFF008A37),
                 key: const Key('LoginButton'),
