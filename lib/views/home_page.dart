@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/views/Home%20Screen/home_view.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({required Key key}) : super(key: key);
+class MainScreen extends StatefulWidget {
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  MainScreenState createState() => MainScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   final List<Widget> _childrenPages = [
-    Container(
-      child: const Center(
-        child: Text('Newsfeed Screen'),
-      ),
-    ),
+    HomeView(key: Key("HomeView")),
     Container(
       child: const Center(
         child: Text('Events Screen'),

@@ -79,3 +79,9 @@ InputDecoration textInputDecoration = const InputDecoration(
   errorMaxLines: 3,
 );
 const scaffoldColor = Colors.white;
+
+const appBarTitle = TextStyle(
+  fontWeight: FontWeight.w600,
+  fontSize: 20,
+  color: Color(0xFF737373),
+);
