@@ -33,12 +33,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.updateScreen:
       return MaterialPageRoute(
           builder: (context) => const UpdatePassword(key: Key('Update')));
-    case Routes.demoPageViewRoute:
-      return MaterialPageRoute(
-          builder: (context) => const DemoPageView(
-                key: Key("DemoPage"),
-              ));
-
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(
