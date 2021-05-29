@@ -10,7 +10,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pr-message: "Congratulations on making your first PR! :confetti_ball: If you haven't already, check out our [Contributing Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md) and [PR Reporting Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/PR-guidelines.md) to ensure that you are following our guidelines for contributing and creating PR."
-  
+
   Linter:
     name: Checking if code formatting is done correctly
     runs-on: ubuntu-latest
@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: chmod +x ./.github/workflows/countline.py
-      - run: ./.github/workflows/countline.py
+      - run: ./.github/workflows/countline.py --exclude lib/custom_painters/talawa_logo.dart
 
   Trailing-Comma-Pattern:
     name: Trailing comma added at the end of every required code
@@ -50,7 +50,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Sets up a Flutter environment 
+      - name: Sets up a Flutter environment
         uses: subosito/flutter-action@v1
         with:
           channel: 'beta'
@@ -61,5 +61,3 @@ jobs:
         with:
           path: "./coverage/lcov.info"
           min_coverage: 30
-  
-
