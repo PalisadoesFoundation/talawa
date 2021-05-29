@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/views/widgets/raised_roundedge_button.dart';
-import 'package:talawa/views/widgets/rich_text.dart';
+import 'package:talawa/widgets/raised_roundedge_button.dart';
+import 'package:talawa/widgets/rich_text.dart';
 
 import '../../size_config.dart';
 import '../../textstyles.dart';
