@@ -12,27 +12,27 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _childrenPages = [
     Container(
       child: const Center(
-        child: Text('Add Newsfeed Here'),
+        child: Text('Newsfeed Screen'),
       ),
     ),
     Container(
       child: const Center(
-        child: Text('Add EventsScreen Here'),
+        child: Text('Events Screen'),
       ),
     ),
     Container(
       child: const Center(
-        child: Text('Add Post Screen Here'),
+        child: Text('Post Screen'),
       ),
     ),
     Container(
       child: const Center(
-        child: Text('Add Chat Screen Here'),
+        child: Text('Chat Screen'),
       ),
     ),
     Container(
       child: const Center(
-        child: Text('Add Profile Screen Here'),
+        child: Text('Profile Screen'),
       ),
     ),
   ];
@@ -40,12 +40,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _childrenPages[_currentIndex], // new
-
+      body: _childrenPages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // new
+        type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: onTabTapped,
+        selectedItemColor: const Color(0xff34AD64),
         items: [
           const BottomNavigationBarItem(
             icon: Icon(Icons.home),
