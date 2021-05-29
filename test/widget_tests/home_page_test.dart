@@ -1,42 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:provider/provider.dart';
-import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/controllers/groups_controller.dart';
-import 'package:talawa/controllers/org_controller.dart';
-import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/gql_client.dart';
-import 'package:talawa/views/pages/home_page.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/views/home_page.dart';
 
-Widget createHomePageScreen() => MultiProvider(
-      providers: [
-        ChangeNotifierProvider<GraphQLConfiguration>(
-          create: (_) => GraphQLConfiguration(),
-        ),
-        ChangeNotifierProvider<OrgController>(
-          create: (_) => OrgController(),
-        ),
-        ChangeNotifierProvider<AuthController>(
-          create: (_) => AuthController(),
-        ),
-        ChangeNotifierProvider<Preferences>(
-          create: (_) => Preferences(),
-        ),
-        ChangeNotifierProvider<NewsFeedProvider>(
-            create: (_) => NewsFeedProvider()),
-        ChangeNotifierProvider<GroupController>(
-            create: (_) => GroupController()),
-      ],
-      child: MaterialApp(
-        home: const HomePage(),
-        navigatorKey: locator<NavigationService>().navigatorKey,
-        onGenerateRoute: router.generateRoute,
+Widget createHomePageScreen() => MaterialApp(
+      home: const HomePage(
+        key: Key('homePage'),
       ),
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      onGenerateRoute: router.generateRoute,
     );
 
 void main() {
@@ -48,100 +22,95 @@ void main() {
   group('HomePage Widget Test', () {
     testWidgets("Testing if HomePage shows up", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
-      // debugDumpApp();
-      // Verify if HomePage Page shows up by checking PersistentTabView.
-      expect(find.byType(PersistentTabView), findsOneWidget);
+
+      expect(find.byType(BottomNavigationBar), findsOneWidget);
     });
 
-    testWidgets("Testing overflow of New Article in a mobile screen",
-        (tester) async {
+    testWidgets("Testing overflow in a mobile screen", (tester) async {
       binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createHomePageScreen());
-      // Verify if HomePage Page shows up by checking PersistentTabView.
-      expect(find.byType(PersistentTabView), findsOneWidget);
+      // Verify if HomePage Page shows up by checking BottomNavigationBar.
+      expect(find.byType(BottomNavigationBar), findsOneWidget);
     });
 
-    testWidgets("Testing overflow of New Article in a tablet screen",
-        (tester) async {
+    testWidgets("Testing overflow in a tablet screen", (tester) async {
       binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createHomePageScreen());
-      // Verify if HomePage Page shows up by checking PersistentTabView.
-      expect(find.byType(PersistentTabView), findsOneWidget);
+      expect(find.byType(BottomNavigationBar), findsOneWidget);
     });
 
     testWidgets('Verifying presence of icons in HomePage', (tester) async {
       await tester.pumpWidget(createHomePageScreen());
       //detecting icons by find.byIcon(Icons.home)
       expect(find.byIcon(Icons.home), findsOneWidget);
-      expect(find.byIcon(Icons.chat), findsOneWidget);
-      expect(find.byIcon(Icons.calendar_today), findsOneWidget);
-      expect(find.byIcon(Icons.group), findsOneWidget);
-      expect(find.byIcon(Icons.folder), findsOneWidget);
+      expect(find.byIcon(Icons.event_note), findsOneWidget);
+      expect(find.byIcon(Icons.add_box), findsOneWidget);
+      expect(find.byIcon(Icons.chat_bubble_outline), findsOneWidget);
+      expect(find.byIcon(Icons.account_circle), findsOneWidget);
     });
 
-    testWidgets('Verifying if the first page is NEWSFEED', (tester) async {
+    testWidgets('Verifying if the first index points to newsfeed',
+        (tester) async {
       await tester.pumpWidget(createHomePageScreen());
-      expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
+      expect(find.text('Newsfeed Screen'), findsOneWidget);
       //any other page should not be there
-      expect(find.byKey(const Key('GROUPS_APP_BAR')), findsNothing);
+      expect(find.text('Events Screen'), findsNothing);
     });
 
-    testWidgets('Testing if Groups Page Shows up', (tester) async {
+    testWidgets('Testing if Events Screen Shows up', (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(createHomePageScreen());
         //checking if the first page is newsfeed page
-        expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
-        expect(find.byKey(const Key('GROUPS_APP_BAR')), findsNothing);
-        final chatIcon = find.byIcon(Icons.chat);
-        //tapping the chatIcon
-        await tester.tap(chatIcon);
+        expect(find.text('Newsfeed Screen'), findsOneWidget);
+        expect(find.text('Events Screen'), findsNothing);
+        final eventIcon = find.byIcon(Icons.event_note);
+        //tapping the eventIcon
+        await tester.tap(eventIcon);
         await tester.pump();
-        // //Group page should be present
-        expect(find.byKey(const Key('GROUPS_APP_BAR')), findsOneWidget);
+        // Event Screen should be present
+        expect(find.text('Events Screen'), findsOneWidget);
       });
     });
 
-    testWidgets('Testing if Events Page Shows up', (tester) async {
+    testWidgets('Testing if Post Screen Shows up', (tester) async {
       await tester.pumpWidget(createHomePageScreen());
       //checking if the first page is newsfeed page
-      expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
-      //Events page should be absent
-      expect(find.byKey(const Key('EVENTS_APP_BAR')), findsNothing);
-      final calendarIcon = find.byIcon(Icons.calendar_today);
-      //tapping on calendarIcon
-      await tester.tap(calendarIcon);
+      expect(find.text('Newsfeed Screen'), findsOneWidget);
+      //Post Screen should be absent
+      expect(find.text('Post Screen'), findsNothing);
+      final postIcon = find.byIcon(Icons.add_box);
+      //tapping on postIcon
+      await tester.tap(postIcon);
       await tester.pump();
-      //events page should show up
-      expect(find.byKey(const Key('EVENTS_APP_BAR')), findsOneWidget);
+      //Post Screen should show up
+      expect(find.text('Post Screen'), findsOneWidget);
     });
 
-    testWidgets('Testing if Member Page Shows up', (tester) async {
+    testWidgets('Testing if Chat Screen up', (tester) async {
       await tester.pumpWidget(createHomePageScreen());
       //checking if newsfeed page is present
-      expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
-      expect(find.byKey(const Key('ORGANIZATION_APP_BAR')), findsNothing);
-      final Finder groupIcon = find.byIcon(Icons.group);
-      await tester.tap(groupIcon);
+      expect(find.text('Newsfeed Screen'), findsOneWidget);
+      expect(find.text('Chat Screen'), findsNothing);
+      final Finder chatIcon = find.byIcon(Icons.chat_bubble_outline);
+      await tester.tap(chatIcon);
       await tester.pump();
-      //Member page should show up
-      expect(find.byKey(const Key('ORGANIZATION_APP_BAR')), findsOneWidget);
+      expect(find.text('Chat Screen'), findsOneWidget);
     });
 
-    testWidgets('Testing if Profile Page Shows up', (tester) async {
+    testWidgets('Testing if Profile Screen Shows up', (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(createHomePageScreen());
         //checking if newsfeed page is present
-        expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
-        expect(find.byKey(const Key('PROFILE_PAGE_SCAFFOLD')), findsNothing);
-        final folderIcon = find.byIcon(Icons.folder);
-        await tester.tap(folderIcon);
+        expect(find.text('Newsfeed Screen'), findsOneWidget);
+        expect(find.text('Profile Screen'), findsNothing);
+        final profileIcon = find.byIcon(Icons.account_circle);
+        await tester.tap(profileIcon);
         await tester.pump();
-        //profile page should show up
-        expect(find.byKey(const Key('PROFILE_PAGE_SCAFFOLD')), findsOneWidget);
+        expect(find.text('Profile Screen'), findsOneWidget);
       });
     });
   });
