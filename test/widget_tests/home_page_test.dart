@@ -56,7 +56,7 @@ void main() {
     testWidgets('Verifying if the first index points to newsfeed',
         (tester) async {
       await tester.pumpWidget(createHomePageScreen());
-      expect(find.text('Newsfeed Screen'), findsOneWidget);
+      expect(find.text('Organization Name'), findsOneWidget);
       //any other page should not be there
       expect(find.text('Events Screen'), findsNothing);
     });
@@ -65,7 +65,7 @@ void main() {
       await tester.runAsync(() async {
         await tester.pumpWidget(createHomePageScreen());
         //checking if the first page is newsfeed page
-        expect(find.text('Newsfeed Screen'), findsOneWidget);
+        expect(find.text('Organization Name'), findsOneWidget);
         expect(find.text('Events Screen'), findsNothing);
         final eventIcon = find.byIcon(Icons.event_note);
         //tapping the eventIcon
@@ -79,7 +79,7 @@ void main() {
     testWidgets('Testing if Post Screen Shows up', (tester) async {
       await tester.pumpWidget(createHomePageScreen());
       //checking if the first page is newsfeed page
-      expect(find.text('Newsfeed Screen'), findsOneWidget);
+      expect(find.text('Organization Name'), findsOneWidget);
       //Post Screen should be absent
       expect(find.text('Post Screen'), findsNothing);
       final postIcon = find.byIcon(Icons.add_box);
@@ -93,7 +93,7 @@ void main() {
     testWidgets('Testing if Chat Screen up', (tester) async {
       await tester.pumpWidget(createHomePageScreen());
       //checking if newsfeed page is present
-      expect(find.text('Newsfeed Screen'), findsOneWidget);
+      expect(find.text('Organization Name'), findsOneWidget);
       expect(find.text('Chat Screen'), findsNothing);
       final Finder chatIcon = find.byIcon(Icons.chat_bubble_outline);
       await tester.tap(chatIcon);
@@ -105,7 +105,7 @@ void main() {
       await tester.runAsync(() async {
         await tester.pumpWidget(createHomePageScreen());
         //checking if newsfeed page is present
-        expect(find.text('Newsfeed Screen'), findsOneWidget);
+        expect(find.text('Organization Name'), findsOneWidget);
         expect(find.text('Profile Screen'), findsNothing);
         final profileIcon = find.byIcon(Icons.account_circle);
         await tester.tap(profileIcon);
