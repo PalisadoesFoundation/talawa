@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/views/Home%20Screen/home_view.dart';
+import 'package:talawa/views/home_page.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
 import 'package:talawa/views/pre_auth_screens/recover.dart';
@@ -37,6 +38,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.homeScreen:
       return MaterialPageRoute(
           builder: (context) => const HomeView(key: Key('Update')));
+    case Routes.mainScreen:
+      return MaterialPageRoute(
+          builder: (context) => const MainScreen(key: Key('homePage')));
+
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(
