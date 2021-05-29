@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/splash_screen.dart';
+import 'package:talawa/views/Home%20Screen/home_view.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
 import 'package:talawa/views/pre_auth_screens/recover.dart';
@@ -33,6 +34,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.updateScreen:
       return MaterialPageRoute(
           builder: (context) => const UpdatePassword(key: Key('Update')));
+    case Routes.homeScreen:
+      return MaterialPageRoute(
+          builder: (context) => const HomeView(key: Key('Update')));
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(
