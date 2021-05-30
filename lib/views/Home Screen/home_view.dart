@@ -15,9 +15,12 @@ class HomeView extends StatelessWidget {
         appBar: AppBar(
           elevation: 0.0,
           centerTitle: true,
-          title: const Text(
+          title: Text(
             'Organization Name',
-            style: appBarTitle,
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
           ),
         ),
         body: ListView(

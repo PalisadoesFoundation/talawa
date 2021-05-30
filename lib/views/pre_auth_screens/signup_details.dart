@@ -23,12 +23,14 @@ class _SignUpDetailsState extends State<SignUpDetails> {
   bool hidePassword = true;
 
   List<Map<String, dynamic>> text = [
+    /// Add textstyle after defining routes
+
     // ignore: unnecessary_string_escapes
-    {'text': "Let\'s ", 'textStyle': selectLanguageStyle},
-    {'text': 'get ', 'textStyle': selectLanguageStyle},
-    // ignore: unnecessary_string_escapes
-    {'text': "you ", 'textStyle': selectLanguageStyle},
-    {'text': 'SignUp ', 'textStyle': greetingStyle},
+    // {'text': "Let\'s ", 'textStyle': selectLanguageStyle},
+    // {'text': 'get ', 'textStyle': selectLanguageStyle},
+    // // ignore: unnecessary_string_escapes
+    // {'text': "you ", 'textStyle': selectLanguageStyle},
+    // {'text': 'SignUp ', 'textStyle': greetingStyle},
   ];
 
   @override
@@ -60,7 +62,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                 keyboardType: TextInputType.text,
                 autofillHints: const <String>[AutofillHints.givenName],
                 enableSuggestions: true,
-                decoration: textInputDecoration.copyWith(
+                decoration: InputDecoration(
                   hintText: 'John',
                   labelText: 'Enter your first name',
                   labelStyle: Theme.of(context).textTheme.subtitle1,
@@ -74,7 +76,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                 keyboardType: TextInputType.text,
                 autofillHints: const <String>[AutofillHints.familyName],
                 enableSuggestions: true,
-                decoration: textInputDecoration.copyWith(
+                decoration: InputDecoration(
                   hintText: 'Carlos',
                   labelText: 'Enter your last name',
                 )),
@@ -87,7 +89,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                 keyboardType: TextInputType.emailAddress,
                 autofillHints: const <String>[AutofillHints.email],
                 enableSuggestions: true,
-                decoration: textInputDecoration.copyWith(
+                decoration: InputDecoration(
                   hintText: 'test@test.org',
                   labelText: 'Enter your registered Email *',
                   labelStyle: Theme.of(context).textTheme.subtitle1,
@@ -105,7 +107,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                 onFieldSubmitted: (done) {
                   FocusScope.of(context).requestFocus(confirmFocus);
                 },
-                decoration: textInputDecoration.copyWith(
+                decoration: InputDecoration(
                   suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
@@ -130,7 +132,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                 enableSuggestions: true,
                 autofillHints: const <String>[AutofillHints.password],
                 obscureText: hidePassword,
-                decoration: textInputDecoration.copyWith(
+                decoration: InputDecoration(
                   hintText: 'Password',
                   labelText: 'Confirm your password',
                   labelStyle: Theme.of(context).textTheme.subtitle1,

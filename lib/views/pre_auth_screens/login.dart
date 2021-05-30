@@ -21,11 +21,37 @@ class _LoginState extends State<Login> {
   FocusNode passwordFocus = FocusNode();
   List<Map<String, dynamic>> text = [
     // ignore: unnecessary_string_escapes
-    {'text': "We\'re ", 'textStyle': selectLanguageStyle},
-    {'text': 'Glad ', 'textStyle': greetingStyle},
+    {
+      'text': "We\'re ",
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5
+    },
+    {
+      'text': 'Glad ',
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline6!
+              .copyWith(fontSize: 24)
+    },
     // ignore: unnecessary_string_escapes
-    {'text': "you\'re ", 'textStyle': selectLanguageStyle},
-    {'text': 'Back ', 'textStyle': greetingStyle},
+    {
+      'text': "you\'re ",
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5
+    },
+    {
+      'text': 'Back ',
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline6!
+              .copyWith(fontSize: 24)
+    },
   ];
 
   @override
@@ -72,7 +98,7 @@ class _LoginState extends State<Login> {
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: const <String>[AutofillHints.email],
                   enableSuggestions: true,
-                  decoration: textInputDecoration.copyWith(
+                  decoration: InputDecoration(
                     hintText: 'test@test.org',
                     labelText: 'Enter your registered Email *',
                     labelStyle: Theme.of(context).textTheme.subtitle1,
@@ -88,7 +114,7 @@ class _LoginState extends State<Login> {
                   enableSuggestions: true,
                   autofillHints: const <String>[AutofillHints.password],
                   obscureText: true,
-                  decoration: textInputDecoration.copyWith(
+                  decoration: InputDecoration(
                     hintText: 'password',
                     labelText: 'Enter your password *',
                     labelStyle: Theme.of(context).textTheme.subtitle1,
@@ -105,7 +131,8 @@ class _LoginState extends State<Login> {
                     },
                     child: Text(
                       'Forgot password?',
-                      style: languageDefaultStyle.copyWith(fontSize: 14),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontSize: 14, color: const Color(0xFF4285F4)),
                     ),
                   ),
                 ],

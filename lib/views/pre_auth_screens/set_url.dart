@@ -19,11 +19,44 @@ class _SetUrlState extends State<SetUrl> {
   TextEditingController url = TextEditingController();
   FocusNode urlFocus = FocusNode();
   List<Map<String, dynamic>> text = [
-    {'text': 'Join ', 'textStyle': greetingStyle},
-    {'text': 'and ', 'textStyle': selectLanguageStyle},
-    {'text': 'Collaborate ', 'textStyle': greetingStyle},
-    {'text': 'with     your ', 'textStyle': selectLanguageStyle},
-    {'text': 'Organizations', 'textStyle': greetingSubStyle},
+    {
+      'text': 'Join ',
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline6!
+              .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
+    },
+    {
+      'text': 'and ',
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5
+    },
+    {
+      'text': 'Collaborate ',
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline6!
+              .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
+    },
+    {
+      'text': 'with     your ',
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5
+    },
+    {
+      'text': 'Organizations',
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5!
+              .copyWith(fontSize: 24, color: const Color(0xFF4285F4))
+    },
   ];
 
   @override
@@ -61,7 +94,7 @@ class _SetUrlState extends State<SetUrl> {
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.text,
                 enableSuggestions: true,
-                decoration: textInputDecoration.copyWith(
+                decoration: InputDecoration(
                     hintText:
                         'https://talawa-api-graphql.herokuapp.com/graphql',
                     labelText: 'Enter Organization URL *',
@@ -70,9 +103,9 @@ class _SetUrlState extends State<SetUrl> {
                       onTap: () {
                         print('tapped');
                       },
-                      child: const Text(
+                      child: Text(
                         'Verify',
-                        style: urlVerifyStyle,
+                        style: Theme.of(context).textTheme.bodyText1,
                         textAlign: TextAlign.center,
                       ),
                     )),
@@ -130,7 +163,7 @@ class _SetUrlState extends State<SetUrl> {
                     ),
                     Text(
                       'Change language',
-                      style: languageStyle.copyWith(
+                      style: Theme.of(context).textTheme.headline6!.copyWith(
                           color: Theme.of(context)
                               .colorScheme
                               .onBackground

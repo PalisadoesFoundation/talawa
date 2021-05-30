@@ -21,11 +21,36 @@ class _UpdatePasswordState extends State<UpdatePassword> {
   FocusNode reNewPasswordFocus = FocusNode();
   List<Map<String, dynamic>> text = [
     // ignore: unnecessary_string_escapes
-    {'text': "Hello, ", 'textStyle': selectLanguageStyle},
-    {'text': 'User Name ', 'textStyle': greetingStyle},
+    {
+      'text': "Hello, ",
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5
+    },
+    {
+      'text': 'User Name ',
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline6!
+              .copyWith(fontSize: 24)
+    },
     // ignore: unnecessary_string_escapes
-    {'text': "we\'ve ", 'textStyle': selectLanguageStyle},
-    {'text': 'got you covered ', 'textStyle': selectLanguageStyle},
+    {
+      'text': "we\'ve ",
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5
+    },
+    {
+      'text': 'got you covered ',
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5
+    },
   ];
 
   @override
@@ -74,7 +99,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                   enableSuggestions: true,
                   autofillHints: const <String>[AutofillHints.password],
                   obscureText: true,
-                  decoration: textInputDecoration.copyWith(
+                  decoration: InputDecoration(
                     hintText: 'password',
                     labelText: 'Enter new password *',
                   )),
@@ -89,7 +114,7 @@ class _UpdatePasswordState extends State<UpdatePassword> {
                   enableSuggestions: true,
                   autofillHints: const <String>[AutofillHints.password],
                   obscureText: true,
-                  decoration: textInputDecoration.copyWith(
+                  decoration: InputDecoration(
                     hintText: 'password',
                     labelText: 'Re-Enter your password *',
                   )),

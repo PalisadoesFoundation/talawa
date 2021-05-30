@@ -18,10 +18,29 @@ class _RecoverState extends State<Recover> {
   TextEditingController email = TextEditingController();
   List<Map<String, dynamic>> text = [
     // ignore: unnecessary_string_escapes
-    {'text': "Sit back relax, we'll ", 'textStyle': selectLanguageStyle},
-    {'text': 'Recover ', 'textStyle': greetingStyle},
+    {
+      'text': "Sit back relax, we'll ",
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5
+    },
+    {
+      'text': 'Recover ',
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline6!
+              .copyWith(fontSize: 24)
+    },
     // ignore: unnecessary_string_escapes
-    {'text': "your password", 'textStyle': selectLanguageStyle},
+    {
+      'text': "your password",
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5
+    },
   ];
 
   @override
@@ -67,7 +86,7 @@ class _RecoverState extends State<Recover> {
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: const <String>[AutofillHints.email],
                   enableSuggestions: true,
-                  decoration: textInputDecoration.copyWith(
+                  decoration: InputDecoration(
                     hintText: 'test@test.org',
                     labelText: 'Enter your registered Email *',
                     labelStyle: Theme.of(context).textTheme.subtitle1,

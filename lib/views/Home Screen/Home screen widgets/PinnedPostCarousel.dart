@@ -31,9 +31,9 @@ class PinnedPostCarousel extends StatelessWidget {
                         color: Theme.of(context).accentColor,
                       ),
                     ),
-                    const Text(
+                    Text(
                       "See all Pinned news",
-                      style: languageStyle,
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                   ],
                 ),
