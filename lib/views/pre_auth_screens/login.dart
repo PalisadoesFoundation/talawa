@@ -5,7 +5,6 @@ import 'package:talawa/widgets/raised_roundedge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 import '../../size_config.dart';
-import '../../textstyles.dart';
 
 class Login extends StatefulWidget {
   const Login({required Key key}) : super(key: key);

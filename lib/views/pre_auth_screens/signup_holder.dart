@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../../locator.dart';
 import '../../size_config.dart';
-import '../../textstyles.dart';
 
 class Signup extends StatefulWidget {
   const Signup({required Key key}) : super(key: key);

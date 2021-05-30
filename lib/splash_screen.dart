@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/size_config.dart';
-import 'package:talawa/textstyles.dart';
 
 import 'custom_painters/talawa_logo.dart';
 

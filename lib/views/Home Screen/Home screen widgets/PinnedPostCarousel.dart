@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../textstyles.dart';
-
 class PinnedPostCarousel extends StatelessWidget {
   const PinnedPostCarousel({
     Key? key,

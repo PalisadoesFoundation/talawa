@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/textstyles.dart';
 import 'package:talawa/views/Home%20Screen/Home%20screen%20widgets/NewsPostWidget.dart';
 import 'package:talawa/views/Home%20Screen/Home%20screen%20widgets/PinnedPostCarousel.dart';
 

@@ -3,7 +3,6 @@ import 'package:talawa/widgets/raised_roundedge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 import '../../size_config.dart';
-import '../../textstyles.dart';
 
 class SignUpDetails extends StatefulWidget {
   const SignUpDetails({required Key key, required this.swipePage})

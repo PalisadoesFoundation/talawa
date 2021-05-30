@@ -6,7 +6,6 @@ import 'package:talawa/widgets/raised_roundedge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 import '../../locator.dart';
 import '../../size_config.dart';
-import '../../textstyles.dart';
 
 class SetUrl extends StatefulWidget {
   const SetUrl({required Key key}) : super(key: key);
