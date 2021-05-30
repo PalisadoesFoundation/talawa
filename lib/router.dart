@@ -37,10 +37,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           builder: (context) => const UpdatePassword(key: Key('Update')));
     case Routes.homeScreen:
       return MaterialPageRoute(
-          builder: (context) => const HomeView(key: Key('Update')));
+          builder: (context) => const HomeView(key: Key('HomeScreen')));
     case Routes.mainScreen:
       return MaterialPageRoute(
-          builder: (context) => const MainScreen(key: Key('homePage')));
+          builder: (context) => const MainScreen(key: Key('MainScreen')));
 
     default:
       return MaterialPageRoute(

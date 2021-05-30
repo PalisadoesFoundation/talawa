@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/textstyles.dart';
 import 'package:talawa/views/Home%20Screen/Home%20screen%20widgets/NewsPostWidget.dart';
 import 'package:talawa/views/Home%20Screen/Home%20screen%20widgets/PinnedPostCarousel.dart';
 
@@ -15,10 +14,12 @@ class HomeView extends StatelessWidget {
         appBar: AppBar(
           elevation: 0.0,
           centerTitle: true,
-          backgroundColor: Colors.white,
-          title: const Text(
+          title: Text(
             'Organization Name',
-            style: appBarTitle,
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
+                ),
           ),
         ),
         body: ListView(

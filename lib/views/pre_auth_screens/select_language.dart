@@ -5,7 +5,6 @@ import 'package:talawa/services/navigation_service.dart';
 
 import '../../locator.dart';
 import '../../size_config.dart';
-import '../../textstyles.dart';
 
 class SelectLanguage extends StatefulWidget {
   const SelectLanguage({required Key key}) : super(key: key);
@@ -21,7 +20,6 @@ class _SelectLanguageState extends State<SelectLanguage> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      backgroundColor: scaffoldColor,
       body: Padding(
         padding: EdgeInsets.fromLTRB(
             SizeConfig.screenWidth! * 0.06,
@@ -33,9 +31,9 @@ class _SelectLanguageState extends State<SelectLanguage> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: SizeConfig.screenWidth! * 0.06),
-              child: const Text(
+              child: Text(
                 'Select Language',
-                style: selectLanguageStyle,
+                style: Theme.of(context).textTheme.headline5,
               ),
             ),
             SizedBox(
@@ -72,17 +70,22 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                   children: [
                                     Text(
                                       languages[index],
-                                      style: languageStyle,
+                                      style:
+                                          Theme.of(context).textTheme.headline6,
                                     ),
-                                    const Text(
+                                    Text(
                                       'Default',
-                                      style: languageDefaultStyle,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                              color: const Color(0xFF4285F4)),
                                     ),
                                   ],
                                 )
                               : Text(
                                   languages[index],
-                                  style: languageStyle,
+                                  style: Theme.of(context).textTheme.headline6,
                                 ),
                         ),
                       );
@@ -98,9 +101,12 @@ class _SelectLanguageState extends State<SelectLanguage> {
                   print('selected');
                   locator<NavigationService>().pushScreen('/setUrl');
                 },
-                child: const Text(
+                child: Text(
                   'Select',
-                  style: languageSelectStyle,
+                  style: Theme.of(context).textTheme.headline5!.copyWith(
+                        fontSize: 18,
+                        color: const Color(0xFF008A37),
+                      ),
                 ),
               ),
             )

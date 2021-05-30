@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../../locator.dart';
 import '../../size_config.dart';
-import '../../textstyles.dart';
 
 class Signup extends StatefulWidget {
   const Signup({required Key key}) : super(key: key);
@@ -48,7 +47,6 @@ class _SignupState extends State<Signup> {
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: Colors.black,
           ),
           onPressed: () {
             locator<NavigationService>().pop();
@@ -70,7 +68,7 @@ class _SignupState extends State<Signup> {
                 builder: TimelineTileBuilder.connected(
                   contentsBuilder: (_, index) => Text(
                     progressLabel[index],
-                    style: languageDefaultStyle.copyWith(
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
                         color: index <= currentPageIndex
                             ? const Color(0xFF008A37)
                             : const Color(0xFF737373)),

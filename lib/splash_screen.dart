@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/size_config.dart';
-import 'package:talawa/textstyles.dart';
 
 import 'custom_painters/talawa_logo.dart';
 
@@ -42,9 +41,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'TALAWA',
-                    style: appNameStyle,
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                 ],
               )),
@@ -56,9 +55,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'from',
-                    style: fromStyle,
+                    style: Theme.of(context).textTheme.caption,
                   ),
                 ],
               )),
@@ -70,9 +69,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'PALISADOES',
-                    style: palisadoesStyle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle2!
+                        .copyWith(fontWeight: FontWeight.w700),
                   ),
                 ],
               ))

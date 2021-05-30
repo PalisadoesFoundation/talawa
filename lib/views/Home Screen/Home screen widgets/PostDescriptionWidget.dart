@@ -37,7 +37,6 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
               children: <Widget>[
                 Text(
                   flag ? (firstHalf + "...") : (firstHalf + secondHalf),
-                  style: TextStyle(fontFamily: 'open-sans'),
                 ),
                 InkWell(
                   child: Row(

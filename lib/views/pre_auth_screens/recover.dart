@@ -5,7 +5,6 @@ import 'package:talawa/widgets/raised_roundedge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 import '../../size_config.dart';
-import '../../textstyles.dart';
 
 class Recover extends StatefulWidget {
   const Recover({required Key key}) : super(key: key);
@@ -18,10 +17,29 @@ class _RecoverState extends State<Recover> {
   TextEditingController email = TextEditingController();
   List<Map<String, dynamic>> text = [
     // ignore: unnecessary_string_escapes
-    {'text': "Sit back relax, we'll ", 'textStyle': selectLanguageStyle},
-    {'text': 'Recover ', 'textStyle': greetingStyle},
+    {
+      'text': "Sit back relax, we'll ",
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5
+    },
+    {
+      'text': 'Recover ',
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline6!
+              .copyWith(fontSize: 24)
+    },
     // ignore: unnecessary_string_escapes
-    {'text': "your password", 'textStyle': selectLanguageStyle},
+    {
+      'text': "your password",
+      'textStyle':
+          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
+              .textTheme
+              .headline5
+    },
   ];
 
   @override
@@ -34,7 +52,6 @@ class _RecoverState extends State<Recover> {
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: Colors.black,
           ),
           onPressed: () {
             locator<NavigationService>().pop();
@@ -68,9 +85,10 @@ class _RecoverState extends State<Recover> {
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: const <String>[AutofillHints.email],
                   enableSuggestions: true,
-                  decoration: textInputDecoration.copyWith(
+                  decoration: InputDecoration(
                     hintText: 'test@test.org',
                     labelText: 'Enter your registered Email *',
+                    labelStyle: Theme.of(context).textTheme.subtitle1,
                   )),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.086,
