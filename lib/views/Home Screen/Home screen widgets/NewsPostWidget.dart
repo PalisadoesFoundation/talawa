@@ -24,7 +24,7 @@ class NewsPost extends StatelessWidget {
         DescriptionTextWidget(text: description),
         Container(
           height: 400,
-          color: const Color(0xFFe5e5e5),
+          color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),

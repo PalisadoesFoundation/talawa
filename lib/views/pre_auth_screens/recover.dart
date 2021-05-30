@@ -34,7 +34,6 @@ class _RecoverState extends State<Recover> {
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: Colors.black,
           ),
           onPressed: () {
             locator<NavigationService>().pop();
@@ -71,6 +70,7 @@ class _RecoverState extends State<Recover> {
                   decoration: textInputDecoration.copyWith(
                     hintText: 'test@test.org',
                     labelText: 'Enter your registered Email *',
+                    labelStyle: Theme.of(context).textTheme.subtitle1,
                   )),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.086,

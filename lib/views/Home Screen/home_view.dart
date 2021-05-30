@@ -15,7 +15,6 @@ class HomeView extends StatelessWidget {
         appBar: AppBar(
           elevation: 0.0,
           centerTitle: true,
-          backgroundColor: Colors.white,
           title: const Text(
             'Organization Name',
             style: appBarTitle,

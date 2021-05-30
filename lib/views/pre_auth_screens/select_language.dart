@@ -21,7 +21,6 @@ class _SelectLanguageState extends State<SelectLanguage> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      backgroundColor: scaffoldColor,
       body: Padding(
         padding: EdgeInsets.fromLTRB(
             SizeConfig.screenWidth! * 0.06,

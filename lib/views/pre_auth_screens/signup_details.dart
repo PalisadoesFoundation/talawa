@@ -63,6 +63,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                 decoration: textInputDecoration.copyWith(
                   hintText: 'John',
                   labelText: 'Enter your first name',
+                  labelStyle: Theme.of(context).textTheme.subtitle1,
                 )),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.015,
@@ -89,6 +90,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                 decoration: textInputDecoration.copyWith(
                   hintText: 'test@test.org',
                   labelText: 'Enter your registered Email *',
+                  labelStyle: Theme.of(context).textTheme.subtitle1,
                 )),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.015,
@@ -115,6 +117,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                           : Icons.visibility)),
                   hintText: 'Password',
                   labelText: 'Enter your password',
+                  labelStyle: Theme.of(context).textTheme.subtitle1,
                 )),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.015,
@@ -130,6 +133,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                 decoration: textInputDecoration.copyWith(
                   hintText: 'Password',
                   labelText: 'Confirm your password',
+                  labelStyle: Theme.of(context).textTheme.subtitle1,
                 )),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.086,

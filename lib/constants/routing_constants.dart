@@ -8,6 +8,6 @@ class Routes {
   static const String signupScreen = "/signup";
   static const String recoverScreen = "/recover";
   static const String updateScreen = "/update";
-  static const String homeScreen = "/home";
+  static const String homeScreen = "/homeScreen";
   static const String mainScreen = "/mainScreen";
 }

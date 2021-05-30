@@ -65,6 +65,7 @@ class _SetUrlState extends State<SetUrl> {
                     hintText:
                         'https://talawa-api-graphql.herokuapp.com/graphql',
                     labelText: 'Enter Organization URL *',
+                    labelStyle: Theme.of(context).textTheme.subtitle1,
                     suffix: InkWell(
                       onTap: () {
                         print('tapped');
@@ -129,7 +130,11 @@ class _SetUrlState extends State<SetUrl> {
                     ),
                     Text(
                       'Change language',
-                      style: languageStyle.copyWith(color: Colors.black),
+                      style: languageStyle.copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(0.8)),
                     )
                   ],
                 ),

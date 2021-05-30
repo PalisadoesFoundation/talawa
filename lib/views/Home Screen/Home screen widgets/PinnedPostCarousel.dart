@@ -12,23 +12,23 @@ class PinnedPostCarousel extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 220,
-          color: const Color(0xFFe5e5e5),
-        ),
+            height: 220,
+            color:
+                Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5)),
         Container(
           height: 50,
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          color: const Color(0xFFf2f3f5),
+          color: Theme.of(context).colorScheme.primaryVariant,
           child: Row(
             children: [
               Expanded(
                 child: Row(
                   children: [
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(right: 8.0),
                       child: Icon(
                         Icons.article,
-                        color: Color(0xFF34AD64),
+                        color: Theme.of(context).accentColor,
                       ),
                     ),
                     const Text(

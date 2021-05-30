@@ -38,7 +38,6 @@ class _LoginState extends State<Login> {
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
-            color: Colors.black,
           ),
           onPressed: () {
             locator<NavigationService>().pop();
@@ -76,6 +75,7 @@ class _LoginState extends State<Login> {
                   decoration: textInputDecoration.copyWith(
                     hintText: 'test@test.org',
                     labelText: 'Enter your registered Email *',
+                    labelStyle: Theme.of(context).textTheme.subtitle1,
                   )),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.025,
@@ -91,6 +91,7 @@ class _LoginState extends State<Login> {
                   decoration: textInputDecoration.copyWith(
                     hintText: 'password',
                     labelText: 'Enter your password *',
+                    labelStyle: Theme.of(context).textTheme.subtitle1,
                   )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -119,7 +120,7 @@ class _LoginState extends State<Login> {
                   passwordFocus.unfocus();
                   print('tapped');
                   locator<NavigationService>()
-                      .pushReplacementScreen('/homePage');
+                      .pushReplacementScreen('/mainScreen');
                 },
                 textColor: const Color(0xFF008A37),
                 key: const Key('LoginButton'),

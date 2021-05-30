@@ -42,9 +42,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'TALAWA',
-                    style: appNameStyle,
+                    style: Theme.of(context).textTheme.headline1,
                   ),
                 ],
               )),
@@ -70,9 +70,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     'PALISADOES',
-                    style: palisadoesStyle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline1!
+                        .copyWith(fontSize: 12),
                   ),
                 ],
               ))

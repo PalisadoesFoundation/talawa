@@ -1,21 +1,9 @@
 import 'package:flutter/material.dart';
 
-const appNameStyle = TextStyle(
-  fontWeight: FontWeight.w700,
-  fontSize: 26,
-  color: Colors.black,
-);
-
 const fromStyle = TextStyle(
   fontWeight: FontWeight.w400,
   fontSize: 10,
   color: Color(0xFF737373),
-);
-
-const palisadoesStyle = TextStyle(
-  fontWeight: FontWeight.w700,
-  fontSize: 12,
-  color: Colors.black,
 );
 
 const selectLanguageStyle = TextStyle(
@@ -72,10 +60,6 @@ InputDecoration textInputDecoration = const InputDecoration(
   disabledBorder: InputBorder.none,
   hintText: 'hintText',
   labelText: 'labelText',
-  labelStyle: TextStyle(
-    color: Color.fromRGBO(0, 0, 0, 0.539261),
-    fontWeight: FontWeight.w400,
-  ),
   errorMaxLines: 3,
 );
 const scaffoldColor = Colors.white;
@@ -84,4 +68,8 @@ const appBarTitle = TextStyle(
   fontWeight: FontWeight.w600,
   fontSize: 20,
   color: Color(0xFF737373),
+);
+const textFieldLabel = TextStyle(
+  fontWeight: FontWeight.w600,
+  fontSize: 20,
 );
