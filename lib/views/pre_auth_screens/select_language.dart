@@ -4,7 +4,7 @@ import 'package:talawa/constants/contants.dart';
 import 'package:talawa/services/navigation_service.dart';
 
 import '../../locator.dart';
-import '../../size_config.dart';
+import '../../services/size_config.dart';
 
 class SelectLanguage extends StatefulWidget {
   const SelectLanguage({required Key key}) : super(key: key);
@@ -18,7 +18,6 @@ class _SelectLanguageState extends State<SelectLanguage> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.fromLTRB(

@@ -4,7 +4,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/viewModel/demo_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/router.dart' as router;
-import 'custom_theme.dart';
+import 'constants/custom_theme.dart';
 
 void main() {
   setupLocator();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/views/Home%20Screen/Home%20screen%20widgets/NewsPostWidget.dart';
-import 'package:talawa/views/Home%20Screen/Home%20screen%20widgets/PinnedPostCarousel.dart';
+import 'package:talawa/widgets/pinned_carousel_widget.dart';
+import 'package:talawa/widgets/post_widget.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({required Key key}) : super(key: key);
@@ -23,7 +23,10 @@ class HomeView extends StatelessWidget {
           ),
         ),
         body: ListView(
-          children: [PinnedPostCarousel(), NewsPost(description: description)],
+          children: [
+            const PinnedPostCarousel(),
+            const NewsPost(description: description)
+          ],
         ));
   }
 }

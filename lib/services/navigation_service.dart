@@ -13,6 +13,11 @@ class NavigationService {
         .pushNamed(routeName, arguments: arguments);
   }
 
+  Future<dynamic> removeAllAndPush(String routeName, {dynamic arguments}) {
+    return navigatorKey.currentState!
+        .pushNamedAndRemoveUntil(routeName, ModalRoute.withName('/selectLang'));
+  }
+
   void pop() {
     return navigatorKey.currentState!.pop();
   }

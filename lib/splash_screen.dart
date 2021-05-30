@@ -1,7 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:talawa/size_config.dart';
-
+import 'package:talawa/services/size_config.dart';
 import 'custom_painters/talawa_logo.dart';
+import 'locator.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({required Key key}) : super(key: key);
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    locator<SizeConfig>().init(context);
     print(SizeConfig.screenWidth! * 0.6);
     return Scaffold(
       body: Stack(

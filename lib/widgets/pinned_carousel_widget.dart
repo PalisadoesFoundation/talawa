@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/services/size_config.dart';
 
 class PinnedPostCarousel extends StatelessWidget {
   const PinnedPostCarousel({
@@ -15,28 +16,29 @@ class PinnedPostCarousel extends StatelessWidget {
                 Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5)),
         Container(
           height: 50,
+          width: SizeConfig.screenWidth,
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           color: Theme.of(context).colorScheme.primaryVariant,
           child: Row(
             children: [
               Expanded(
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(right: 8.0),
-                      child: Icon(
-                        Icons.article,
-                        color: Theme.of(context).accentColor,
-                      ),
-                    ),
-                    Text(
-                      "See all Pinned news",
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ],
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Icon(
+                    Icons.article,
+                    color: Theme.of(context).accentColor,
+                  ),
                 ),
               ),
-              const Icon(Icons.arrow_forward_ios)
+              Expanded(
+                flex: 8,
+                child: Text(
+                  "See all Pinned news",
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+              ),
+              const Expanded(flex: 1, child: Icon(Icons.arrow_forward_ios))
             ],
           ),
         )

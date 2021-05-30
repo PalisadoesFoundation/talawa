@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/views/Home%20Screen/home_view.dart';
+import 'package:talawa/services/size_config.dart';
+
+import 'after_auth_screens/feed_page/organization_feed.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -11,7 +13,7 @@ class MainScreen extends StatefulWidget {
 class MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   final List<Widget> _childrenPages = [
-    HomeView(key: Key("HomeView")),
+    const HomeView(key: Key("HomeView")),
     Container(
       child: const Center(
         child: Text('Events Screen'),
@@ -36,6 +38,8 @@ class MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(SizeConfig.screenWidth);
+    print(SizeConfig.screenHeight);
     return Scaffold(
       body: _childrenPages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(

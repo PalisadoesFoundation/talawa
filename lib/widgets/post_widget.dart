@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/views/Home%20Screen/Home%20screen%20widgets/PostDescriptionWidget.dart';
+
+import 'post_detailed_page.dart';
 
 class NewsPost extends StatelessWidget {
   const NewsPost({
@@ -14,12 +15,12 @@ class NewsPost extends StatelessWidget {
     return Column(
       children: [
         // const PinnedPostCarousel(),
-        ListTile(
-          leading: const CircleAvatar(
+        const ListTile(
+          leading: CircleAvatar(
             backgroundColor: Color(0xFF737373),
           ),
-          title: const Text("Rutvik Chandla"),
-          subtitle: const Text("3m"),
+          title: Text("Rutvik Chandla"),
+          subtitle: Text("3m"),
         ),
         DescriptionTextWidget(text: description),
         Container(
@@ -27,36 +28,36 @@ class NewsPost extends StatelessWidget {
           color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 "1,165 Likes",
                 style: TextStyle(
                     fontFamily: 'open-sans', fontWeight: FontWeight.w800),
               ),
-              Text("10 comments")
+              const Text("10 comments")
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Divider(),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
           child: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.thumb_up,
-                color: Color(0XFF737373),
+                color: Color(0xff737373),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 18.0),
+              const Padding(
+                padding: EdgeInsets.only(left: 18.0),
                 child: Icon(
                   Icons.comment,
-                  color: Color(0XFF737373),
+                  color: Color(0xff737373),
                 ),
               )
             ],

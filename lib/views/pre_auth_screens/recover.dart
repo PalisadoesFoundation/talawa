@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/widgets/raised_roundedge_button.dart';
+import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
-import '../../size_config.dart';
+import '../../services/size_config.dart';
 
 class Recover extends StatefulWidget {
   const Recover({required Key key}) : super(key: key);
@@ -15,36 +15,26 @@ class Recover extends StatefulWidget {
 
 class _RecoverState extends State<Recover> {
   TextEditingController email = TextEditingController();
-  List<Map<String, dynamic>> text = [
-    // ignore: unnecessary_string_escapes
-    {
-      'text': "Sit back relax, we'll ",
-      'textStyle':
-          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-              .textTheme
-              .headline5
-    },
-    {
-      'text': 'Recover ',
-      'textStyle':
-          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-              .textTheme
-              .headline6!
-              .copyWith(fontSize: 24)
-    },
-    // ignore: unnecessary_string_escapes
-    {
-      'text': "your password",
-      'textStyle':
-          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-              .textTheme
-              .headline5
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    final text = [
+      // ignore: unnecessary_string_escapes
+      {
+        'text': "Sit back relax, we'll ",
+        'textStyle': Theme.of(context).textTheme.headline5
+      },
+      {
+        'text': 'Recover ',
+        'textStyle':
+            Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
+      },
+      // ignore: unnecessary_string_escapes
+      {
+        'text': "your password",
+        'textStyle': Theme.of(context).textTheme.headline5
+      },
+    ];
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
