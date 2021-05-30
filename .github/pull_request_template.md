@@ -19,7 +19,7 @@ Thanks for submitting a pull request! Please provide enough information so that 
 
 **Issue Number:**
 
-<!--Add related issue number here.-->
+Fixes #<!--Add related issue number here.-->
 
 **Did you add tests for your changes?**
 
