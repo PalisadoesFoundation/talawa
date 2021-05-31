@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/services/size_config.dart';
 
 import 'after_auth_screens/feed_page/organization_feed.dart';
 
@@ -38,8 +37,6 @@ class MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(SizeConfig.screenWidth);
-    print(SizeConfig.screenHeight);
     return Scaffold(
       body: _childrenPages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(

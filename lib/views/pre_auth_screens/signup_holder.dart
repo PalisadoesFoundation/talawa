@@ -9,15 +9,19 @@ import '../../locator.dart';
 import '../../services/size_config.dart';
 
 class Signup extends StatefulWidget {
-  const Signup({required Key key, this.tab = 0}) : super(key: key);
+  const Signup(
+      {required Key key, required this.tab, required this.selectedOrgId})
+      : super(key: key);
   final int tab;
+  final String selectedOrgId;
   @override
   _SignupState createState() => _SignupState();
 }
 
 class _SignupState extends State<Signup> {
   late PageController controller;
-  int currentPageIndex = 0;
+  late int currentPageIndex;
+  late String selectedOrg;
   List<int> pages = [0, 1, 2];
   List<String> progressLabel = [
     'Select\nOrganization',
@@ -29,6 +33,7 @@ class _SignupState extends State<Signup> {
   void initState() {
     controller = PageController(initialPage: widget.tab);
     currentPageIndex = widget.tab;
+    selectedOrg = widget.selectedOrgId;
     super.initState();
   }
 
@@ -44,16 +49,23 @@ class _SignupState extends State<Signup> {
         if (currentPageIndex == 0) {
           return true;
         } else {
-          if (currentPageIndex != 2) {
+          if (currentPageIndex != 2 && selectedOrg == "-1") {
             controller.animateToPage(currentPageIndex - 1,
                 duration: const Duration(milliseconds: 1000),
                 curve: Curves.ease);
             return false;
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Signup completed'),
-              duration: Duration(milliseconds: 750),
-            ));
+            if (selectedOrg != "-1") {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Cannot change Organization for invitation link'),
+                duration: Duration(milliseconds: 750),
+              ));
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Wait for confirmation'),
+                duration: Duration(milliseconds: 750),
+              ));
+            }
             return false;
           }
         }
@@ -134,6 +146,7 @@ class _SignupState extends State<Signup> {
                     SelectOrganization(
                       swipePage: nextPage,
                       key: const Key('SelectOrganization'),
+                      selectedOrgId: selectedOrg,
                     ),
                     SignUpDetails(
                       swipePage: nextPage,

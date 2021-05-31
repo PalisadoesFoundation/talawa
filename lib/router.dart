@@ -17,18 +17,32 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const SplashScreen(key: Key('SplashScreen')));
     case Routes.languageSelectionRoute:
+      final int selectedLangId = int.parse(settings.arguments!.toString());
       return MaterialPageRoute(
-          builder: (context) =>
-              const SelectLanguage(key: Key('SelectLanguage')));
+          builder: (context) => SelectLanguage(
+                key: const Key('SelectLanguage'),
+                selectedLangId: selectedLangId,
+              ));
     case Routes.setUrlScreen:
+      final String uri = settings.arguments!.toString();
       return MaterialPageRoute(
-          builder: (context) => const SetUrl(key: Key('SetUrl')));
+          builder: (context) => SetUrl(
+                key: const Key('SetUrl'),
+                uri: uri,
+              ));
     case Routes.loginScreen:
       return MaterialPageRoute(
           builder: (context) => const Login(key: Key('Login')));
     case Routes.signupScreen:
+      final int tab = int.parse(settings.arguments!.toString().split('_')[0]);
+      final String id = settings.arguments!.toString().split('_')[1];
+      print('tab: $tab, id: $id');
       return MaterialPageRoute(
-          builder: (context) => const Signup(key: Key('Signup')));
+          builder: (context) => Signup(
+                key: const Key('Signup'),
+                tab: tab,
+                selectedOrgId: id,
+              ));
     case Routes.recoverScreen:
       return MaterialPageRoute(
           builder: (context) => const Recover(key: Key('Recover')));

@@ -25,15 +25,6 @@ class WaitingPage extends StatelessWidget {
             lastName: 'Chandla',
           ),
           isPublic: false),
-      OrgInfo(
-          id: '2',
-          name: 'Organization 1',
-          creatorInfo: User(
-            id: '3',
-            firstName: 'Rutvik',
-            lastName: 'Chandla',
-          ),
-          isPublic: false)
     ];
     final text = [
       {
@@ -121,7 +112,8 @@ class WaitingPage extends StatelessWidget {
               RaisedRoundedButton(
                 buttonLabel: 'Log out',
                 onTap: () {
-                  locator<NavigationService>().removeAllAndPush('/setUrl');
+                  locator<NavigationService>()
+                      .removeAllAndPush('/setUrl', '/selectLang');
                 },
                 textColor: const Color(0xFF008A37),
                 key: const Key('Logout'),

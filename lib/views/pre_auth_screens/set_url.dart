@@ -9,7 +9,8 @@ import '../../locator.dart';
 import '../../services/size_config.dart';
 
 class SetUrl extends StatefulWidget {
-  const SetUrl({required Key key}) : super(key: key);
+  const SetUrl({required Key key, required this.uri}) : super(key: key);
+  final String uri;
 
   @override
   _SetUrlState createState() => _SetUrlState();
@@ -21,7 +22,7 @@ class _SetUrlState extends State<SetUrl> {
   FocusNode urlFocus = FocusNode();
   AutovalidateMode _validate = AutovalidateMode.disabled;
 
-  checkURLandNavigate(String navigateTo) async {
+  checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
     _validate = AutovalidateMode.always;
     if (_formKey.currentState!.validate()) {
@@ -29,12 +30,19 @@ class _SetUrlState extends State<SetUrl> {
       final bool? urlPresent = await Validator.validateUrlExistence(url.text);
       if (urlPresent!) {
         print('tapped');
-        locator<NavigationService>().pushScreen(navigateTo);
+        locator<NavigationService>()
+            .pushScreen(navigateTo, arguments: argument);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("URL doesn't exist please check the url")));
       }
     }
+  }
+
+  @override
+  void initState() {
+    url.text = widget.uri;
+    super.initState();
   }
 
   @override
@@ -132,7 +140,7 @@ class _SetUrlState extends State<SetUrl> {
                 ),
                 RaisedRoundedButton(
                   buttonLabel: 'Login',
-                  onTap: () => checkURLandNavigate('/login'),
+                  onTap: () => checkURLandNavigate('/login', ''),
                   showArrow: true,
                   textColor: const Color(0xFF008A37),
                   key: const Key('LoginButton'),
@@ -143,7 +151,7 @@ class _SetUrlState extends State<SetUrl> {
                 ),
                 RaisedRoundedButton(
                   buttonLabel: 'Sign Up',
-                  onTap: () => checkURLandNavigate('/signup'),
+                  onTap: () => checkURLandNavigate('/signup', '0_-1'),
                   showArrow: true,
                   textColor: Colors.white,
                   key: const Key('SignUpButton'),

@@ -4,7 +4,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
-import '../../services/size_config.dart';
+import 'package:talawa/services/size_config.dart';
 
 class Login extends StatefulWidget {
   const Login({required Key key}) : super(key: key);

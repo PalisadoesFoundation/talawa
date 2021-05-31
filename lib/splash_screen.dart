@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:uni_links/uni_links.dart';
 import 'custom_painters/talawa_logo.dart';
 import 'locator.dart';
 
@@ -12,18 +15,70 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Uri? _initialUri;
+  Uri? _latestUri;
+  late StreamSubscription _sub;
+
+  Future<void> _handleInitialUri() async {
+    _sub = uriLinkStream.listen((Uri? uri) {
+      if (!mounted) return;
+      print('got uri: $uri');
+      setState(() {
+        _latestUri = uri;
+      });
+    }, onError: (Object err) {
+      if (!mounted) return;
+      print('got err: $err');
+      setState(() {
+        _latestUri = null;
+      });
+    });
+    try {
+      final uri = await getInitialUri();
+      if (!mounted) return;
+      setState(() => _initialUri = uri);
+    } on PlatformException {
+      if (!mounted) return;
+      setState(() => _initialUri = null);
+      print('failed to get initial uri');
+    } on FormatException catch (err) {
+      if (!mounted) return;
+      setState(() => _initialUri = null);
+      print('malformed initial uri error: $err');
+    }
+    if (_latestUri == null && _initialUri == null) {
+      Future.delayed(const Duration(milliseconds: 1500)).then((value) {
+        locator<NavigationService>()
+            .pushReplacementScreen('/selectLang', arguments: '0');
+      });
+    } else {
+      if (_initialUri != null) {
+        print('initial: $_initialUri');
+        print('latest: $_latestUri');
+        if (_initialUri!.pathSegments[1] == 'invite') {
+          locator<NavigationService>().fromInviteLink(
+              _initialUri!.queryParameters.keys.toList(growable: false),
+              _initialUri!.queryParameters.values.toList(growable: false));
+        }
+      }
+    }
+  }
+
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 1500)).then((value) {
-      Navigator.pushReplacementNamed(context, '/selectLang');
-    });
+    _handleInitialUri();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     locator<SizeConfig>().init(context);
-    print(SizeConfig.screenWidth! * 0.6);
     return Scaffold(
       body: Stack(
         children: [
