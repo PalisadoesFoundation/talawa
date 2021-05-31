@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/widgets/raised_roundedge_button.dart';
+import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
-import '../../size_config.dart';
+import '../../services/size_config.dart';
 
 class Login extends StatefulWidget {
   const Login({required Key key}) : super(key: key);
@@ -18,44 +18,24 @@ class _LoginState extends State<Login> {
   TextEditingController password = TextEditingController();
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
-  List<Map<String, dynamic>> text = [
-    // ignore: unnecessary_string_escapes
-    {
-      'text': "We\'re ",
-      'textStyle':
-          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-              .textTheme
-              .headline5
-    },
-    {
-      'text': 'Glad ',
-      'textStyle':
-          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-              .textTheme
-              .headline6!
-              .copyWith(fontSize: 24)
-    },
-    // ignore: unnecessary_string_escapes
-    {
-      'text': "you\'re ",
-      'textStyle':
-          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-              .textTheme
-              .headline5
-    },
-    {
-      'text': 'Back ',
-      'textStyle':
-          Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-              .textTheme
-              .headline6!
-              .copyWith(fontSize: 24)
-    },
-  ];
+  late List<Map<String, dynamic>> text;
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    text = [
+      {'text': "We're ", 'textStyle': Theme.of(context).textTheme.headline5},
+      {
+        'text': 'Glad ',
+        'textStyle':
+            Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
+      },
+      {'text': "you're ", 'textStyle': Theme.of(context).textTheme.headline5},
+      {
+        'text': 'Back ',
+        'textStyle':
+            Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
+      },
+    ];
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,

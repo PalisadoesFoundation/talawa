@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/enums/viewstate.dart';
+import 'package:talawa/enums/view_state.dart';
 
 //this is the base model to change the notifier
 class BaseModel extends ChangeNotifier {

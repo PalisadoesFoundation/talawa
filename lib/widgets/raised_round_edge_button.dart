@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../size_config.dart';
+import '../services/size_config.dart';
 
 class RaisedRoundedButton extends StatefulWidget {
   const RaisedRoundedButton(
@@ -9,6 +9,8 @@ class RaisedRoundedButton extends StatefulWidget {
       required this.backgroundColor,
       required this.textColor,
       required this.onTap,
+      this.height,
+      this.width,
       this.showArrow = false})
       : super(key: key);
   final Color backgroundColor;
@@ -16,6 +18,8 @@ class RaisedRoundedButton extends StatefulWidget {
   final bool showArrow;
   final String buttonLabel;
   final Function onTap;
+  final double? height;
+  final double? width;
 
   @override
   _RaisedRoundedButtonState createState() => _RaisedRoundedButtonState();
@@ -24,21 +28,21 @@ class RaisedRoundedButton extends StatefulWidget {
 class _RaisedRoundedButtonState extends State<RaisedRoundedButton> {
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return GestureDetector(
         onTap: () {
           widget.onTap();
         },
         child: Container(
-          width: SizeConfig.screenWidth! * 0.94,
-          height: SizeConfig.screenHeight! * 0.07,
+          width: widget.width ?? SizeConfig.screenWidth! * 0.94,
+          height: widget.height ?? SizeConfig.screenHeight! * 0.07,
           alignment: Alignment.center,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: widget.backgroundColor,
               boxShadow: [
-                const BoxShadow(
-                  offset: Offset(0, 1),
+                BoxShadow(
+                  color: Theme.of(context).dividerColor,
+                  offset: const Offset(0, 1),
                   blurRadius: 4.0,
                   spreadRadius: 0,
                 )
