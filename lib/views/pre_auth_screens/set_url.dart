@@ -5,8 +5,8 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
-import '../../locator.dart';
-import '../../services/size_config.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/services/size_config.dart';
 
 class SetUrl extends StatefulWidget {
   const SetUrl({required Key key, required this.uri}) : super(key: key);

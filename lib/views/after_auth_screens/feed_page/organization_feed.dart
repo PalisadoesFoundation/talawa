@@ -1,32 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/view_model/organization_feed_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/pinned_carousel_widget.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({required Key key}) : super(key: key);
+class OrganizationFeed extends StatelessWidget {
+  const OrganizationFeed({required Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const String description =
-        "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.";
-
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          centerTitle: true,
-          title: Text(
-            'Organization Name',
-            style: Theme.of(context).textTheme.headline6!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                ),
+    return BaseView<OrganizationFeedViewModel>(
+      onModelReady: (model) => model.initialise(),
+      builder: (context, model, child) => Scaffold(
+          appBar: AppBar(
+            elevation: 0.0,
+            centerTitle: true,
+            title: Text(
+              'Organization Name',
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                  ),
+            ),
           ),
-        ),
-        body: ListView(
-          children: [
-            const PinnedPostCarousel(),
-            const NewsPost(description: description)
-          ],
-        ));
+          body: model.isBusy
+              ? const CircularProgressIndicator()
+              : ListView(
+                  children: [
+                    model.pinnedPosts.isNotEmpty
+                        ? PinnedPostCarousel(
+                            pinnedPosts: model.pinnedPosts,
+                          )
+                        : Container(),
+                    model.posts.isNotEmpty
+                        ? Column(
+                            children: [
+                              for (int i = 0; i < model.posts.length; i++)
+                                Column(
+                                  children: [
+                                    NewsPost(post: model.posts[i]),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 10.0),
+                                      child: Divider(
+                                        height: 8,
+                                        thickness: 8,
+                                      ),
+                                    )
+                                  ],
+                                )
+                            ],
+                          )
+                        : Container(),
+                  ],
+                )),
+    );
   }
 }

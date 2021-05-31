@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/constants.dart';
-import 'package:talawa/data_parsers/org_info.dart';
+import 'package:talawa/models/org_info.dart';
 import 'package:talawa/widgets/join_org_tile.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/services/size_config.dart';

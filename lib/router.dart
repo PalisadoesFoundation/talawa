@@ -51,7 +51,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           builder: (context) => const ChangePass(key: Key('Update')));
     case Routes.homeScreen:
       return MaterialPageRoute(
-          builder: (context) => const HomeView(key: Key('HomeScreen')));
+          builder: (context) => const OrganizationFeed(key: Key('HomeScreen')));
     case Routes.mainScreen:
       return MaterialPageRoute(
           builder: (context) => const MainScreen(key: Key('MainScreen')));
