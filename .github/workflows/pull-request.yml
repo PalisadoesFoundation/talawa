@@ -42,6 +42,7 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
+      - run: flutter pub get
       - run: flutter analyze --no-pub
 
   Count-lines-of-code:
