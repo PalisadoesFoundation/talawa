@@ -30,7 +30,6 @@ jobs:
     needs: Linter
     runs-on: ubuntu-latest
     run:
-        shell: bash
         working-directory: GSoC
     steps:
       - uses: actions/checkout@v2
