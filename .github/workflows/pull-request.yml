@@ -37,11 +37,11 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'beta'
-      - run: flutter analyze .
+      - run: flutter analyze --no-pub
 
   Count-lines-of-code:
     name: Total number of lines in every file should not be more than 300
-    needs: Flutter-analyze
+    needs: Linter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
