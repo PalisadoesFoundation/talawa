@@ -13,6 +13,10 @@ analyzer:
     unnecessary_parenthesis: warning
     prefer_final_fields: warning
     sort_pub_dependencies: error
+  exclude:
+    - "bin/cache/**"
+      # Ignore protoc generated files
+    - "dev/tools/lib/proto/*"
 
 linter:
   rules:
