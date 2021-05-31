@@ -24,6 +24,7 @@
 **/doc/api/
 .dart_tool/
 .flutter-plugins
+.packages
 .pub-cache/
 .pub/
 /build/
@@ -187,4 +188,4 @@ dmypy.json
 
 # End of https://www.gitignore.io/api/python
 .flutter-plugins-dependencies
-
+pubspec.lock
