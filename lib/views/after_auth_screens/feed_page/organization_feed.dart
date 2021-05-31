@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/viewModel/organization_feed_viewModel.dart';
+import 'package:talawa/viewModel/organization_feed_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/pinned_carousel_widget.dart';
 import 'package:talawa/widgets/post_widget.dart';

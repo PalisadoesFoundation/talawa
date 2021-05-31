@@ -1,5 +1,19 @@
 include: package:lint/analysis_options.yaml
 
+analyzer:
+  errors:
+    # treat missing required parameters as a warning (not a hint)
+    camel_case_types: error
+    unnecessary_null_in_if_null_operators: error
+    prefer_const_constructors: warning
+    constant_identifier_names: warning
+    avoid_positional_boolean_parameters: warning
+    unnecessary_const: error
+    avoid_void_async: error
+    unnecessary_parenthesis: warning
+    prefer_final_fields: warning
+    sort_pub_dependencies: error
+
 linter:
   rules:
     # Make constructors the first thing in every class

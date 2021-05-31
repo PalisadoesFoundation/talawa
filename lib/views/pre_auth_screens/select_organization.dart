@@ -46,7 +46,7 @@ class _SelectOrganizationState extends State<SelectOrganization> {
       child: Scrollbar(
         controller: _controllerSelected,
         isAlwaysShown: true,
-        interactive: true,
+        //interactive: true,
         child: ListView.separated(
           controller: _controllerSelected,
           shrinkWrap: true,
@@ -76,7 +76,7 @@ class _SelectOrganizationState extends State<SelectOrganization> {
       flex: selectedOrganizations.isNotEmpty ? 6 : 1,
       child: Scrollbar(
         isAlwaysShown: true,
-        interactive: true,
+        //interactive: true,
         controller: _controllerListedOrg,
         child: ListView.separated(
           controller: _controllerListedOrg,
