@@ -30,7 +30,6 @@ jobs:
 
   Flutter-analyze:
     name: Analyzing flutter code
-    needs: Linter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -40,6 +39,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'beta'
+      - run: sudo chown -R $USER:$USER /opt/flutter
       - run: flutter pub get
       - run: flutter analyze --no-pub
 
