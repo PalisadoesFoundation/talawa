@@ -9,6 +9,7 @@ part 'post_model.g.dart';
 class Post {
   Post(this.description, this.createdAt, this.imageUrl, this.videoUrl,
       this.creator, this.organization, this.likedBy, this.comments);
+  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 
   String? description;
   String? createdAt;
@@ -19,6 +20,5 @@ class Post {
   List<User>? likedBy;
   List<Comment>? comments;
 
-  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
   Map<String, dynamic> toJson() => _$PostToJson(this);
 }

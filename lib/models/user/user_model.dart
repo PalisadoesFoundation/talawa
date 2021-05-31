@@ -14,6 +14,9 @@ class User {
       this.image,
       this.joinedOrganizations,
       this.lastName});
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
   String id;
   String? firstName;
   String? lastName;
@@ -23,6 +26,5 @@ class User {
   List<Organization>? createdOrganizations;
   List<Organization>? adminFor;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }

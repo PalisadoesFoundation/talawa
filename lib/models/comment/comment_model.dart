@@ -6,6 +6,8 @@ part 'comment_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Comment {
   Comment(this.text, this.createdAt, this.creator, this.post, this.likeCount);
+  factory Comment.fromJson(Map<String, dynamic> json) =>
+      _$CommentFromJson(json);
 
   String? text;
   String? createdAt;
@@ -13,7 +15,5 @@ class Comment {
   String? post;
   String? likeCount;
 
-  factory Comment.fromJson(Map<String, dynamic> json) =>
-      _$CommentFromJson(json);
   Map<String, dynamic> toJson() => _$CommentToJson(this);
 }

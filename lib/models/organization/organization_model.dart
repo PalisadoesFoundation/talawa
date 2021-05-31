@@ -13,7 +13,10 @@ class Organization {
       this.creator,
       this.members,
       this.admins,
+      // ignore: avoid_positional_boolean_parameters
       this.visibleInSearch);
+  factory Organization.fromJson(Map<String, dynamic> json) =>
+      _$OrganizationFromJson(json);
 
   String? apiUrl;
   String? image;
@@ -24,7 +27,6 @@ class Organization {
   List<User>? members;
   List<User>? admins;
   bool? visibleInSearch;
-  factory Organization.fromJson(Map<String, dynamic> json) =>
-      _$OrganizationFromJson(json);
+
   Map<String, dynamic> toJson() => _$OrganizationToJson(this);
 }
