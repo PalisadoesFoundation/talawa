@@ -40,6 +40,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'beta'
+      - run: flutter pub get
       - run: flutter analyze --no-pub
 
   Count-lines-of-code:
