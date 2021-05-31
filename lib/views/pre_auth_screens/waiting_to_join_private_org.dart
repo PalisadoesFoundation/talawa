@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:talawa/data_parsers/org_info.dart';
-import 'package:talawa/data_parsers/user_info.dart';
+import 'package:talawa/models/org_info.dart';
+import 'package:talawa/models/user_info.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/join_org_tile.dart';
