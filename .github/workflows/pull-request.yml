@@ -1,5 +1,8 @@
 name: PR Workflow
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - GSoC
 
 jobs:
   PR-Greeting:
@@ -29,8 +32,6 @@ jobs:
     name: Analyzing flutter code
     needs: Linter
     runs-on: ubuntu-latest
-    run:
-        working-directory: GSoC
     steps:
       - uses: actions/checkout@v2
       - uses: axel-op/dart-package-analyzer@v3
