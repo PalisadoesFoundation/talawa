@@ -1,7 +1,7 @@
-import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
-import 'package:talawa/demo_server_data/post_demo_data.dart';
 import 'package:talawa/enums/view_state.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/demo_server_data/post_demo_data.dart';
+import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
 import 'package:talawa/viewModel/base_view_model.dart';
 
 class OrganizationFeedViewModel extends BaseModel {

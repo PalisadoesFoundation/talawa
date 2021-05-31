@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/color_pallete.dart';
 
 class DescriptionTextWidget extends StatefulWidget {
   const DescriptionTextWidget({required this.text});
