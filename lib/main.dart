@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/viewModel/demo_view_model.dart';
+import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/router.dart' as router;
 import 'constants/custom_theme.dart';
@@ -23,7 +24,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: router.generateRoute,
-      initialRoute: '/',
+      // initialRoute: '/',
+      home: const OrganizationFeed(
+        key: Key('HomeView'),
+      ),
     );
   }
 }

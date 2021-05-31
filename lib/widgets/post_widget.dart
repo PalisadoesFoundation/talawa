@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/models/post/post_model.dart';
 
 import 'post_detailed_page.dart';
 
 class NewsPost extends StatelessWidget {
   const NewsPost({
     Key? key,
-    required this.description,
+    required this.post,
   }) : super(key: key);
 
-  final String description;
-
+  final Post post;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // const PinnedPostCarousel(),
-        const ListTile(
-          leading: CircleAvatar(
+        ListTile(
+          leading: const CircleAvatar(
             backgroundColor: Color(0xFF737373),
           ),
-          title: Text("Rutvik Chandla"),
-          subtitle: Text("3m"),
+          title: Text("${post.creator!.firstName} ${post.creator!.lastName}"),
+          subtitle: const Text("3m"),
         ),
-        DescriptionTextWidget(text: description),
+        DescriptionTextWidget(text: post.description!),
         Container(
           height: 400,
           color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
@@ -32,12 +32,12 @@ class NewsPost extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "1,165 Likes",
-                style: TextStyle(
+              Text(
+                "${post.likedBy!.length} Likes",
+                style: const TextStyle(
                     fontFamily: 'open-sans', fontWeight: FontWeight.w800),
               ),
-              const Text("10 comments")
+              Text("${post.comments!.length} comments")
             ],
           ),
         ),

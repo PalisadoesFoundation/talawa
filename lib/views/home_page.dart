@@ -13,7 +13,7 @@ class MainScreen extends StatefulWidget {
 class MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   final List<Widget> _childrenPages = [
-    const HomeView(key: Key("HomeView")),
+    const OrganizationFeed(key: Key("HomeView")),
     Container(
       child: const Center(
         child: Text('Events Screen'),

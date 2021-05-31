@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/color_pallete.dart';
+import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
 
 class PinnedPostCarousel extends StatelessWidget {
   const PinnedPostCarousel({
     Key? key,
+    required this.pinnedPosts,
   }) : super(key: key);
+
+  final List<Post> pinnedPosts;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-            height: 220,
-            color:
-                Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5)),
+          height: 220,
+          color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
+          child: CustomCarouselScroller(
+            pinnedPosts: pinnedPosts,
+            key: const Key('Carousel'),
+          ),
+        ),
         Container(
           height: 50,
           width: SizeConfig.screenWidth,
@@ -44,5 +53,84 @@ class PinnedPostCarousel extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+class CustomCarouselScroller extends StatefulWidget {
+  const CustomCarouselScroller({Key? key, required this.pinnedPosts})
+      : super(key: key);
+  final List<Post> pinnedPosts;
+
+  @override
+  _CustomCarouselScrollerState createState() => _CustomCarouselScrollerState();
+}
+
+class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
+  final PageController controller = PageController(initialPage: 0);
+  int pindex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ListTile(
+              leading: CircleAvatar(
+                radius: 15.0,
+                backgroundColor: talawaGrey,
+              ),
+              title: Text(
+                  "${widget.pinnedPosts[pindex].creator!.firstName} ${widget.pinnedPosts[pindex].creator!.lastName}"),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                widget.pinnedPosts[pindex].description!.length > 90
+                    ? "${widget.pinnedPosts[pindex].description!.substring(0, 90)}..."
+                    : widget.pinnedPosts[pindex].description!,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: const Color(0xFF737373)),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+              child: Row(
+                children: [
+                  for (int i = 0; i < 4; i++)
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: Divider(
+                          thickness: 3.0,
+                          color: pindex == i ? talawaYellow : Colors.grey,
+                        ),
+                      ),
+                    )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+      PageView(
+        scrollDirection: Axis.horizontal,
+        controller: controller,
+        onPageChanged: (index) {
+          setState(() {
+            pindex = index;
+          });
+        },
+        children:
+            List.generate(widget.pinnedPosts.length, (index) => Container()),
+      ),
+    ]);
   }
 }

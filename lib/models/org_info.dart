@@ -1,4 +1,4 @@
-import 'package:talawa/data_parsers/user_info.dart';
+import 'package:talawa/models/user_info.dart';
 
 class OrgInfo {
   OrgInfo(

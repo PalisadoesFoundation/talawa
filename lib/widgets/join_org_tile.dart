@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/data_parsers/org_info.dart';
+import 'package:talawa/models/org_info.dart';
 
 class JoinOrgTile extends StatelessWidget {
   const JoinOrgTile(

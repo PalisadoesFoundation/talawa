@@ -32,27 +32,37 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       child: secondHalf.isEmpty
-          ? Text(firstHalf)
+          ? Text(
+              firstHalf,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2!
+                  .copyWith(fontFamily: 'open-sans'),
+            )
           : Column(
               children: <Widget>[
                 Text(
                   flag ? ("$firstHalf...") : (firstHalf + secondHalf),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(fontFamily: 'open-sans'),
                 ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      flag = !flag;
-                    });
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          flag = !flag;
+                        });
+                      },
+                      child: Text(
                         flag ? "show more" : "show less",
                         style: const TextStyle(color: Colors.blue),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),

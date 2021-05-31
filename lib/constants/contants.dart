@@ -1,5 +1,5 @@
-import 'package:talawa/data_parsers/org_info.dart';
-import 'package:talawa/data_parsers/user_info.dart';
+import 'package:talawa/models/org_info.dart';
+import 'package:talawa/models/user_info.dart';
 
 List<String> languages = ['English', 'Hindi', 'Chinese', 'Spanish'];
 
