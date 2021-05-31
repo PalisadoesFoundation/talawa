@@ -9,17 +9,17 @@ class User {
       {this.adminFor,
       this.createdOrganizations,
       this.email,
-      this.firstName,
+      required this.firstName,
       required this.id,
       this.image,
       this.joinedOrganizations,
-      this.lastName});
+      required this.lastName});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
   String id;
-  String? firstName;
-  String? lastName;
+  String firstName;
+  String lastName;
   String? email;
   String? image;
   List<Organization>? joinedOrganizations;

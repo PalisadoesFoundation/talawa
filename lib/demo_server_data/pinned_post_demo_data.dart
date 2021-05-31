@@ -1,4 +1,4 @@
-const postsDemoData = [
+const pinnedPostsDemoData = [
   {
     "description":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
@@ -43,8 +43,8 @@ const postsDemoData = [
     "createdAt": "created at string",
     "imageUrl": "image url string",
     "creator": {
-      "firstName": "Ranchhod Das Chhanchad",
-      "lastName": "Chandla",
+      "firstName": "Ranchhod Das",
+      "lastName": "Chanchad",
       "id": "asdasdasd"
     },
     "likedBy": [
@@ -120,7 +120,7 @@ const postsDemoData = [
     "imageUrl": "image url string",
     "creator": {
       "firstName": "Utkarsh",
-      "lastName": "Shengde",
+      "lastName": "Shendge",
       "id": "asdasdasd"
     },
     "likedBy": [

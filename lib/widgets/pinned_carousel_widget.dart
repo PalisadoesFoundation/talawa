@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/color_pallete.dart';
+import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
 
 class PinnedPostCarousel extends StatelessWidget {
   const PinnedPostCarousel({
     Key? key,
+    required this.pinnedPosts,
   }) : super(key: key);
+
+  final List<Post> pinnedPosts;
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +18,9 @@ class PinnedPostCarousel extends StatelessWidget {
         Container(
           height: 220,
           color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
-          child: const CustomCarouselScroller(
-            key: Key('Carousel'),
+          child: CustomCarouselScroller(
+            pinnedPosts: pinnedPosts,
+            key: const Key('Carousel'),
           ),
         ),
         Container(
@@ -52,7 +57,9 @@ class PinnedPostCarousel extends StatelessWidget {
 }
 
 class CustomCarouselScroller extends StatefulWidget {
-  const CustomCarouselScroller({Key? key}) : super(key: key);
+  const CustomCarouselScroller({Key? key, required this.pinnedPosts})
+      : super(key: key);
+  final List<Post> pinnedPosts;
 
   @override
   _CustomCarouselScrollerState createState() => _CustomCarouselScrollerState();
@@ -72,19 +79,20 @@ class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const ListTile(
+            ListTile(
               leading: CircleAvatar(
                 radius: 15.0,
-                backgroundColor: Color(0xFF737373),
+                backgroundColor: talawaGrey,
               ),
-              title: Text("User Name"),
+              title: Text(
+                  "${widget.pinnedPosts[pindex].creator!.firstName} ${widget.pinnedPosts[pindex].creator!.lastName}"),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                description.length > 90
-                    ? "${description.substring(0, 90)}..."
-                    : description,
+                widget.pinnedPosts[pindex].description!.length > 90
+                    ? "${widget.pinnedPosts[pindex].description!.substring(0, 90)}..."
+                    : widget.pinnedPosts[pindex].description!,
                 style: Theme.of(context)
                     .textTheme
                     .bodyText1!
@@ -120,24 +128,9 @@ class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
             pindex = index;
           });
         },
-        children: const <Widget>[
-          Center(
-            child: Text('First Page'),
-          ),
-          Center(
-            child: Text('Second Page'),
-          ),
-          Center(
-            child: Text('Third Page'),
-          ),
-          Center(
-            child: Text('Fourth Page'),
-          )
-        ],
+        children:
+            List.generate(widget.pinnedPosts.length, (index) => Container()),
       ),
     ]);
   }
 }
-
-const String description =
-    "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.";

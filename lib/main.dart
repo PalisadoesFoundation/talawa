@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: router.generateRoute,
       // initialRoute: '/',
-      home: const HomeView(
+      home: const OrganizationFeed(
         key: Key('HomeView'),
       ),
     );

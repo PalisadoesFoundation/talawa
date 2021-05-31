@@ -15,13 +15,13 @@ User _$UserFromJson(Map<String, dynamic> json) {
         ?.map((e) => Organization.fromJson(e as Map<String, dynamic>))
         .toList(),
     email: json['email'] as String?,
-    firstName: json['firstName'] as String?,
+    firstName: json['firstName'] as String,
     id: json['id'] as String,
     image: json['image'] as String?,
     joinedOrganizations: (json['joinedOrganizations'] as List<dynamic>?)
         ?.map((e) => Organization.fromJson(e as Map<String, dynamic>))
         .toList(),
-    lastName: json['lastName'] as String?,
+    lastName: json['lastName'] as String,
   );
 }
 
