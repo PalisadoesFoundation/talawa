@@ -7,9 +7,13 @@ class PinnedPostCarousel extends StatelessWidget {
   const PinnedPostCarousel({
     Key? key,
     required this.pinnedPosts,
+    required this.navigateToPinnedPostPage,
+    required this.navigateToIndividualPostPage,
   }) : super(key: key);
 
   final List<Post> pinnedPosts;
+  final Function navigateToPinnedPostPage;
+  final Function navigateToIndividualPostPage;
 
   @override
   Widget build(BuildContext context) {
@@ -21,34 +25,38 @@ class PinnedPostCarousel extends StatelessWidget {
           child: CustomCarouselScroller(
             pinnedPosts: pinnedPosts,
             key: const Key('Carousel'),
+            navigateToIndividualPostPage: navigateToIndividualPostPage,
           ),
         ),
-        Container(
-          height: 50,
-          width: SizeConfig.screenWidth,
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          color: Theme.of(context).colorScheme.primaryVariant,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(
-                    Icons.article,
-                    color: Theme.of(context).accentColor,
+        GestureDetector(
+          onTap: () => navigateToPinnedPostPage(),
+          child: Container(
+            height: 50,
+            width: SizeConfig.screenWidth,
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            color: Theme.of(context).colorScheme.primaryVariant,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Icon(
+                      Icons.article,
+                      color: Theme.of(context).accentColor,
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 8,
-                child: Text(
-                  "See all Pinned news",
-                  style: Theme.of(context).textTheme.headline6,
+                Expanded(
+                  flex: 8,
+                  child: Text(
+                    "See all Pinned news",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                 ),
-              ),
-              const Expanded(flex: 1, child: Icon(Icons.arrow_forward_ios))
-            ],
+                const Expanded(flex: 1, child: Icon(Icons.arrow_forward_ios))
+              ],
+            ),
           ),
         )
       ],
@@ -57,9 +65,13 @@ class PinnedPostCarousel extends StatelessWidget {
 }
 
 class CustomCarouselScroller extends StatefulWidget {
-  const CustomCarouselScroller({Key? key, required this.pinnedPosts})
+  const CustomCarouselScroller(
+      {Key? key,
+      required this.pinnedPosts,
+      required this.navigateToIndividualPostPage})
       : super(key: key);
   final List<Post> pinnedPosts;
+  final Function navigateToIndividualPostPage;
 
   @override
   _CustomCarouselScrollerState createState() => _CustomCarouselScrollerState();
@@ -128,8 +140,10 @@ class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
             pindex = index;
           });
         },
-        children:
-            List.generate(widget.pinnedPosts.length, (index) => Container()),
+        children: List.generate(
+          widget.pinnedPosts.length,
+          (index) => Container(),
+        ),
       ),
     ]);
   }
