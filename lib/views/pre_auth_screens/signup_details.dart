@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
-
-import '../../services/size_config.dart';
+import 'package:talawa/services/size_config.dart';
 
 class SignUpDetails extends StatefulWidget {
   const SignUpDetails({required Key key, required this.swipePage})

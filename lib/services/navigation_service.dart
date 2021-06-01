@@ -10,12 +10,25 @@ class NavigationService {
 
   Future<dynamic> pushReplacementScreen(String routeName, {dynamic arguments}) {
     return navigatorKey.currentState!
-        .pushNamed(routeName, arguments: arguments);
+        .pushReplacementNamed(routeName, arguments: arguments);
   }
 
-  Future<dynamic> removeAllAndPush(String routeName, {dynamic arguments}) {
-    return navigatorKey.currentState!
-        .pushNamedAndRemoveUntil(routeName, ModalRoute.withName('/selectLang'));
+  void fromInviteLink(List<String> routeNames, List<dynamic> arguments) {
+    int i = 1;
+    removeAllAndPush('/${routeNames[0]}', '/', arguments: arguments[0]);
+    for (; i < routeNames.length; i++) {
+      if (i == 0) {
+        pushReplacementScreen('/${routeNames[i]}', arguments: arguments[i]);
+      }
+      pushScreen('/${routeNames[i]}', arguments: arguments[i]);
+    }
+  }
+
+  Future<dynamic> removeAllAndPush(String routeName, String tillRoute,
+      {dynamic arguments}) {
+    return navigatorKey.currentState!.pushNamedAndRemoveUntil(
+        routeName, ModalRoute.withName(tillRoute),
+        arguments: arguments);
   }
 
   void pop() {
