@@ -7,9 +7,11 @@ class NewsPost extends StatelessWidget {
   const NewsPost({
     Key? key,
     required this.post,
+    this.function,
   }) : super(key: key);
 
   final Post post;
+  final Function? function;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,7 +21,10 @@ class NewsPost extends StatelessWidget {
           leading: const CircleAvatar(
             backgroundColor: Color(0xFF737373),
           ),
-          title: Text("${post.creator!.firstName} ${post.creator!.lastName}"),
+          title: Text(
+            "${post.creator!.firstName} ${post.creator!.lastName}",
+            style: const TextStyle(fontSize: 18),
+          ),
           subtitle: const Text("3m"),
         ),
         DescriptionTextWidget(text: post.description!),
@@ -32,12 +37,17 @@ class NewsPost extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "${post.likedBy!.length} Likes",
-                style: const TextStyle(
-                    fontFamily: 'open-sans', fontWeight: FontWeight.w800),
+              GestureDetector(
+                onTap: () => function != null ? function!(post) : {},
+                child: Text(
+                  "${post.likedBy!.length} Likes",
+                  style: const TextStyle(
+                      fontFamily: 'open-sans', fontWeight: FontWeight.w800),
+                ),
               ),
-              Text("${post.comments!.length} comments")
+              GestureDetector(
+                  onTap: () => function != null ? function!(post) : {},
+                  child: Text("${post.comments!.length} comments"))
             ],
           ),
         ),
@@ -53,13 +63,15 @@ class NewsPost extends StatelessWidget {
                 Icons.thumb_up,
                 color: Color(0xff737373),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 18.0),
-                child: Icon(
-                  Icons.comment,
-                  color: Color(0xff737373),
-                ),
-              )
+              GestureDetector(
+                  onTap: () => function != null ? function!(post) : {},
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 18.0),
+                    child: Icon(
+                      Icons.comment,
+                      color: Color(0xff737373),
+                    ),
+                  )),
             ],
           ),
         ),

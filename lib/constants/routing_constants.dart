@@ -10,4 +10,6 @@ class Routes {
   static const String updateScreen = "/update";
   static const String homeScreen = "/homeScreen";
   static const String mainScreen = "/mainScreen";
+  static const String individualPost = "/individualPost";
+  static const String pinnedPostpage = "/pinnedPostPage";
 }

@@ -15,5 +15,6 @@ void setupLocator() {
 
   //Page viewModels
   locator.registerFactory(() => DemoViewModel());
+  // locator.registerFactory(() => OrganizationFeedViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
 }

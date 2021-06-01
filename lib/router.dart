@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/main.dart';
+import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
+import 'package:talawa/views/after_auth_screens/feed_page/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
+import 'package:talawa/views/after_auth_screens/feed_page/pinned_post_page.dart';
 import 'package:talawa/views/home_page.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
@@ -55,7 +58,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.mainScreen:
       return MaterialPageRoute(
           builder: (context) => const MainScreen(key: Key('MainScreen')));
-
+    case Routes.individualPost:
+      final Post post = settings.arguments! as Post;
+      return MaterialPageRoute(
+          builder: (context) => InividualPostView(
+                key: const Key('MainScreen'),
+                post: post,
+              ));
+    case Routes.pinnedPostpage:
+      final List<Post> pinnedPosts = settings.arguments! as List<Post>;
+      return MaterialPageRoute(
+          builder: (context) => PinnedPostPage(pinnedPosts: pinnedPosts));
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(
