@@ -1,3 +1,4 @@
+
 {
     "Set URL": "Set URL",
     "URL SAVED!": "URL SAVED!",
@@ -87,6 +88,7 @@
     "Updating Event Details": "Updating Event Details",
     "User cannot delete event they didn't create": "User cannot delete event they didn't create",
     "You can't edit events you didn't create": "You can't edit events you didn't create",
+    "You can't delete events you didn't create": "You can't delete events you didn't create",
     "This event is Public": "This event is Public",
     "This event is Private": "This event is Private",
     "You Are Registered": "You Are Registered",
@@ -105,6 +107,10 @@
     "Registrants": "Registrants",
     "No Registrants found": "No Registrants found",
     "No Tasks found": "No Tasks found",
+    "Deleting Event": "Deleting Event",
+    "Could not delete event! Please try again later": "Could not delete event! Please try again later",
+    "You cannot edit events you didn't create": "You cannot edit events you didn't create",
+    "Please Try Again later!": "Please Try Again later!",
 
     "No memberes to show, Join an organization!": "No memberes to show, Join an organization!",
     "View Assigned Tasks": "View Assigned Tasks",

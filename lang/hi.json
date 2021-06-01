@@ -192,12 +192,17 @@
     "Refreshing": "ताज़ा करना",
     "Load More": "अधिक लोड करें",
     "There is some error with": "इसमें कुछ त्रुटि है",
+    "Deleting Event": "घटना हटाना",
     
     "User Info": "उपयोगकर्ता जानकारी",
     "Registered Events": "पंजीकृत कार्यक्रम",
+    "Please Try Again later!": "कृपया बाद में पुन: प्रयास करें!",
     "Upload Organization Image": "संगठन छवि अपलोड करें",
+    "Could not delete event! Please try again later": "घटना को हटाया नहीं जा सका! बाद में पुन: प्रयास करें",
     "No": "नहीं",
     "CREATE ORGANIZATION": "संगठन बनाएं",
+     "You cannot edit events you didn't create": "आप उन ईवेंट को संपादित नहीं कर सकते जो आपने नहीं बनाए",
+    "You can't delete events you didn't create": "आप उन इवेंट को नहीं हटा सकते जिन्हें आपने नहीं बनाया",
 
     "Please verify URL first": "कृपया पहले URL सत्यापित करें",
     "Firstname must not be left blank.": "प्रथम नाम खाली नहीं छोड़ा जाना चाहिए।",

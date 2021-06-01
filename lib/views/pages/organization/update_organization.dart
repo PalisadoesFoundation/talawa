@@ -69,14 +69,17 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     orgMemberDescController.text =
         orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final GraphQLClient _client = graphQLConfiguration.authClient();
-    final QueryResult result = await _client.mutate(MutationOptions(
+    final QueryResult result = await _client.mutate(
+      MutationOptions(
         documentNode: gql(_queries.updateOrg(
-      currentOrgId,
-      orgNameController.text,
-      orgDescController.text,
-      isPublic: isPublic,
-      visibleInSearch: isVisible,
-    ))));
+          currentOrgId,
+          orgNameController.text,
+          orgDescController.text,
+          isPublic: isPublic,
+          visibleInSearch: isVisible,
+        )),
+      ),
+    );
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
@@ -95,10 +98,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       });
       CustomToast.sucessToast(
           msg: AppLocalizations.of(context).translate("Success!"));
-      pushNewScreen(
-        context,
-        screen: const ProfilePage(),
-      );
+      pushNewScreen(context, screen: const ProfilePage());
     }
   }
 
@@ -169,10 +169,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                     child: Column(
                       children: <Widget>[
                         const Image(
-                          image: AssetImage(
-                            'assets/images/team.png',
-                          ),
-                        ),
+                            image: AssetImage('assets/images/team.png')),
                         const SizedBox(
                           height: 20,
                         ),
@@ -210,9 +207,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                               prefixIcon: Icons.note_sharp),
                           controller: orgDescController,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         TextFormField(
                           autofillHints: const <String>[
                             AutofillHints.impp,
@@ -244,11 +239,7 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             color: Colors.black,
                           ),
                         ),
-                        getRadioButton(
-                          radioValue,
-                          2,
-                          public: true,
-                        ),
+                        getRadioButton(radioValue, 2, public: true),
                         Text(
                           AppLocalizations.of(context).translate(
                               'Do you want others to be able to find your organization from the search page?'),
@@ -257,24 +248,15 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
                             color: Colors.black,
                           ),
                         ),
-                        getRadioButton(
-                          radioValue1,
-                          2,
-                          public: false,
-                        ),
+                        getRadioButton(radioValue1, 2, public: false),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            vertical: 20.0,
-                            horizontal: 30.0,
-                          ),
+                              vertical: 20.0, horizontal: 30.0),
                           width: double.infinity,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  30.0,
-                                ),
-                              ),
+                                  borderRadius: BorderRadius.circular(30.0)),
                             ),
                             onPressed: () async {
                               if (_formKey.currentState.validate() &&

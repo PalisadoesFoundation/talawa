@@ -192,12 +192,17 @@
     "Refreshing": "Refrescante",
     "Load More": "Carga más",
     "There is some error with": "Hay algún error con",
+    "Deleting Event": "Eliminando evento",
 
     "User Info": "Información de usuario",
     "Registered Events": "Eventos registrados",
     "Upload Organization Image": "Cargar imagen de la organización",
     "No": "No",
     "CREATE ORGANIZATION": "CREAR ORGANIZACIÓN",
+    "You can't delete events you didn't create": "No puedes borrar eventos que no creaste",
+    "Could not delete event! Please try again later": "¡No se pudo borrar el evento! Por favor, inténtelo de nuevo más tarde",
+    "You cannot edit events you didn't create": "No puedes editar eventos que no creaste",
+    "Please Try Again later!": "¡Por favor, inténtelo de nuevo más tarde!",
 
     "Please verify URL first": "Primero verifique la URL",
     "Firstname must not be left blank.": "El nombre no debe dejarse en blanco.",

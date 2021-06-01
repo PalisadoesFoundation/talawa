@@ -7,7 +7,7 @@ import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:talawa/view_models/page_view_model/create_organization_page_viewModel.dart';
+import 'package:talawa/view_models/page_view_model/create_organization_page_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/views/pages/organization/create_organization/create_organization_ui_helper.dart';
 
@@ -180,9 +180,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                         model.radioValue1 >= 0) {
                                       _formKey.currentState.save();
                                       if (model.image != null) {
-                                        model.createOrg(true);
+                                        model.createOrg(true, context);
                                       } else {
-                                        model.createOrg(false);
+                                        model.createOrg(false, context);
                                       }
                                       model.toggleProgressBarState();
                                     } else if (model.radioValue < 0 ||

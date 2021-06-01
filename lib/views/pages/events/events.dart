@@ -1,7 +1,10 @@
 //flutter packages are called here
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/model/events.dart';
 import 'package:talawa/services/app_localization.dart';
@@ -13,8 +16,7 @@ import 'package:talawa/views/pages/events/event_card_widget.dart';
 import 'package:talawa/views/widgets/loading.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+
 import '../../base_view.dart';
 
 class Events extends StatefulWidget {

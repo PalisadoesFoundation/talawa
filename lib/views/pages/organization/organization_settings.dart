@@ -64,9 +64,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       setState(() {
         processing = false;
       });
-      CustomToast.exceptionToast(
-        msg: result.exception.toString(),
-      );
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException && !result.loading) {
       //set org at the top of the list as the new current org
       setState(() {
@@ -90,14 +88,10 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       });
 
       _orgController.setNewOrg(context, newOrgId, newOrgName);
-      Provider.of<Preferences>(
-        context,
-        listen: false,
-      ).saveCurrentOrgName(newOrgName);
-      Provider.of<Preferences>(
-        context,
-        listen: false,
-      ).saveCurrentOrgId(newOrgId);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgId(newOrgId);
       CustomToast.sucessToast(
         msg: AppLocalizations.of(context)
             .translate('You are no longer apart of this organization'),
@@ -120,15 +114,9 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
     String newOrgName;
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
-    final QueryResult result = await _client.mutate(
-      MutationOptions(
-        documentNode: gql(
-          _query.removeOrg(
-            orgId,
-          ),
-        ),
-      ),
-    );
+    final QueryResult result = await _client.mutate(MutationOptions(
+      documentNode: gql(_query.removeOrg(orgId)),
+    ));
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
@@ -161,29 +149,13 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         }
         processing = false;
       });
-
-      _orgController.setNewOrg(
-        context,
-        newOrgId,
-        newOrgName,
-      );
-      Provider.of<Preferences>(
-        context,
-        listen: false,
-      ).saveCurrentOrgName(
-        newOrgName,
-      );
-      Provider.of<Preferences>(
-        context,
-        listen: false,
-      ).saveCurrentOrgId(
-        newOrgId,
-      );
+      _orgController.setNewOrg(context, newOrgId, newOrgName);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgName(newOrgName);
+      Provider.of<Preferences>(context, listen: false)
+          .saveCurrentOrgId(newOrgId);
       Navigator.of(context).pop();
-      pushNewScreen(
-        context,
-        screen: const ProfilePage(),
-      );
+      pushNewScreen(context, screen: const ProfilePage());
     }
   }
 
@@ -202,9 +174,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
         children: [
           processing
               ? Container(
-                  color: Colors.transparent.withOpacity(
-                    0.3,
-                  ),
+                  color: Colors.transparent.withOpacity(0.3),
                   child: const Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -251,9 +221,7 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
                 widget.public
                     ? const SizedBox()
                     : ListTile(
-                        key: const Key(
-                          'Accept MemberShip Requests',
-                        ),
+                        key: const Key('Accept MemberShip Requests'),
                         title: Text(
                           AppLocalizations.of(context)
                               .translate('Accept MemberShip Requests'),

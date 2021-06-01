@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/view_models/page_view_model/create_organization_page_viewModel.dart';
+import 'package:talawa/view_models/page_view_model/create_organization_page_view_model.dart';
 
 Widget addImage(CreateOrganizationViewModel model, BuildContext context) {
   //function which is being called when the image is being add
