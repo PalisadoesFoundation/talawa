@@ -83,7 +83,7 @@ Widget popUpMenue(
       } else if (val == 3) {
         return model.editEvent(context, event);
       } else if (val == 4) {
-        return model.deleteEvent(context, event.id);
+        return model.deleteEvent(context, event);
       }
     },
     itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
@@ -105,24 +105,26 @@ Widget popUpMenue(
               style: const TextStyle(color: Colors.black),
             ),
           )),
-      const PopupMenuItem<int>(
-          value: 3,
-          child: const ListTile(
-            leading: const Icon(Icons.edit, color: Colors.grey),
-            title: const Text(
-              'Edit this event',
-              style: const TextStyle(color: Colors.black),
-            ),
-          )),
-      const PopupMenuItem<int>(
-          value: 4,
-          child: const ListTile(
-            leading: const Icon(Icons.delete, color: Colors.grey),
-            title: const Text(
-              'Delete This Event',
-              style: const TextStyle(color: Colors.black),
-            ),
-          ))
+      if (event.creator.id == model.userID) ...[
+        const PopupMenuItem<int>(
+            value: 3,
+            child: const ListTile(
+              leading: const Icon(Icons.edit, color: Colors.grey),
+              title: const Text(
+                'Edit this event',
+                style: const TextStyle(color: Colors.black),
+              ),
+            )),
+        const PopupMenuItem<int>(
+            value: 4,
+            child: const ListTile(
+              leading: const Icon(Icons.delete, color: Colors.grey),
+              title: const Text(
+                'Delete This Event',
+                style: const TextStyle(color: Colors.black),
+              ),
+            )),
+      ],
     ],
   );
 }

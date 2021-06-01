@@ -193,6 +193,8 @@ class _OrganizationBodyState extends State<OrganizationBody> {
 
               final List organizations =
                   result.data['organizationsConnection'] as List;
+              organizations.sort((a, b) => (a['name'].toString().toLowerCase())
+                  .compareTo(b['name'].toString().toLowerCase()));
               print(organizations.length);
 
               if (organizations.isEmpty) {
