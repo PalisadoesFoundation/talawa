@@ -19,7 +19,6 @@ class _RecoverState extends State<Recover> {
   @override
   Widget build(BuildContext context) {
     final text = [
-      // ignore: unnecessary_string_escapes
       {
         'text': "Sit back relax, we'll ",
         'textStyle': Theme.of(context).textTheme.headline5
@@ -29,7 +28,6 @@ class _RecoverState extends State<Recover> {
         'textStyle':
             Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
       },
-      // ignore: unnecessary_string_escapes
       {
         'text': "your password",
         'textStyle': Theme.of(context).textTheme.headline5

@@ -3,8 +3,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
-
-import '../../services/size_config.dart';
+import 'package:talawa/services/size_config.dart';
 
 class ChangePass extends StatefulWidget {
   const ChangePass({required Key key}) : super(key: key);
@@ -22,14 +21,12 @@ class _ChangePassState extends State<ChangePass> {
   @override
   Widget build(BuildContext context) {
     final text = [
-      // ignore: unnecessary_string_escapes
       {'text': "Hello, ", 'textStyle': Theme.of(context).textTheme.headline5},
       {
         'text': 'User Name ',
         'textStyle':
             Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
       },
-      // ignore: unnecessary_string_escapes
       {'text': "we've ", 'textStyle': Theme.of(context).textTheme.headline5},
       {
         'text': 'got you covered ',

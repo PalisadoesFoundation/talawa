@@ -1,20 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:talawa/constants/contants.dart';
+import 'package:talawa/constants/constants.dart';
 import 'package:talawa/services/navigation_service.dart';
-
-import '../../locator.dart';
-import '../../services/size_config.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/services/size_config.dart';
 
 class SelectLanguage extends StatefulWidget {
-  const SelectLanguage({required Key key}) : super(key: key);
+  const SelectLanguage({required Key key, required this.selectedLangId})
+      : super(key: key);
+  final int selectedLangId;
 
   @override
   _SelectLanguageState createState() => _SelectLanguageState();
 }
 
 class _SelectLanguageState extends State<SelectLanguage> {
-  int selected = 0;
+  late int selectedLangIndex;
+
+  @override
+  void initState() {
+    selectedLangIndex = widget.selectedLangId;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +56,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                       return InkWell(
                         onTap: () {
                           setState(() {
-                            selected = index;
+                            selectedLangIndex = index;
                           });
                         },
                         child: Container(
@@ -59,7 +66,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                             horizontal: SizeConfig.screenWidth! * 0.06,
                           ),
                           decoration: BoxDecoration(
-                              color: index == selected
+                              color: index == selectedLangIndex
                                   ? const Color(0xFFC4C4C4).withOpacity(0.15)
                                   : Colors.transparent),
                           child: index == 0
@@ -98,7 +105,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
               child: TextButton(
                 onPressed: () {
                   print('selected');
-                  locator<NavigationService>().pushScreen('/setUrl');
+                  locator<NavigationService>()
+                      .pushScreen('/setUrl', arguments: '');
                 },
                 child: Text(
                   'Select',

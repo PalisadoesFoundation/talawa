@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
-
-import 'after_auth_screens/feed_page/organization_feed.dart';
+import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
