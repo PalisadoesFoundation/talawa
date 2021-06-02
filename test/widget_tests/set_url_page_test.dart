@@ -132,12 +132,7 @@ void main() {
 
     testWidgets("Create an Account Button is working if url is verfied",
         (tester) async {
-      // Ignore overflow errors.
-      FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
-
-      // Get the create account button.
-      final createAccountButton = find.text("Create an Account");
 
       /// Enter [calico.palisadoes.org] in [TextFormField].
       await tester.enterText(
@@ -156,7 +151,7 @@ void main() {
 
       // Tap on Set URL Button.
       await tester.tap(setURLButton);
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Verify that saveMsg changes from "Set URL" to "URL SAVED!".
       expect(
@@ -168,13 +163,16 @@ void main() {
         findsOneWidget,
       );
 
+      // Get the create account button.
+      final createAccountButton = find.text("Create an Account");
+
       // Tap on the createAccountButton.
       await tester.tap(createAccountButton);
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // RegisterForm should be displayed.
       expect(
-        find.text("SIGN UP"),
+        find.text("Create an Account"),
         findsOneWidget,
       );
     });
