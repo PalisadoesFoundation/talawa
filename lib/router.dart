@@ -75,7 +75,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final Post post = settings.arguments! as Post;
       return MaterialPageRoute(
           builder: (context) => InividualPostView(
-                key: const Key('MainScreen'),
+                key: const Key('InividualPost'),
                 post: post,
               ));
     case Routes.pinnedPostpage:
