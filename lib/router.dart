@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
+import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/pinned_post_page.dart';
@@ -81,6 +82,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final List<Post> pinnedPosts = settings.arguments! as List<Post>;
       return MaterialPageRoute(
           builder: (context) => PinnedPostPage(pinnedPosts: pinnedPosts));
+    case Routes.exploreEventsScreen:
+      return MaterialPageRoute(
+          builder: (context) => const ExploreEvents(key: Key('ExploreEvents')));
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(
