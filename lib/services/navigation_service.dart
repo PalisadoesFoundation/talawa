@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class NavigationService {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -29,6 +30,22 @@ class NavigationService {
     return navigatorKey.currentState!.pushNamedAndRemoveUntil(
         routeName, ModalRoute.withName(tillRoute),
         arguments: arguments);
+  }
+
+  void pushDialog(Widget dialog) {
+    showDialog(
+        context: navigatorKey.currentContext!,
+        barrierColor: Colors.transparent,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return dialog;
+        });
+  }
+
+  void showSnackBar(String message,
+      {Duration duration = const Duration(seconds: 2)}) {
+    ScaffoldMessenger.of(navigatorKey.currentContext!)
+        .showSnackBar(SnackBar(duration: duration, content: Text(message)));
   }
 
   void pop() {

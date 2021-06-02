@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/splash_screen.dart';
@@ -7,8 +8,10 @@ import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
 import 'package:talawa/views/pre_auth_screens/recover.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
+import 'package:talawa/views/pre_auth_screens/select_organization.dart';
 import 'package:talawa/views/pre_auth_screens/set_url.dart';
-import 'package:talawa/views/pre_auth_screens/signup_holder.dart';
+import 'package:talawa/views/pre_auth_screens/signup_details.dart';
+import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart';
 import 'constants/routing_constants.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -33,16 +36,25 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.loginScreen:
       return MaterialPageRoute(
           builder: (context) => const Login(key: Key('Login')));
-    case Routes.signupScreen:
-      final int tab = int.parse(settings.arguments!.toString().split('_')[0]);
-      final String id = settings.arguments!.toString().split('_')[1];
-      print('tab: $tab, id: $id');
-      return MaterialPageRoute(
-          builder: (context) => Signup(
+    case Routes.selectOrgScreen:
+      final String id = settings.arguments!.toString();
+      print('id: $id');
+      return CupertinoPageRoute(
+          builder: (context) => SelectOrganization(
                 key: const Key('Signup'),
-                tab: tab,
                 selectedOrgId: id,
               ));
+    case Routes.signupDetailScreen:
+      final String id = settings.arguments!.toString();
+      print('id: $id');
+      return CupertinoPageRoute(
+          builder: (context) => SignUpDetails(
+                key: const Key('Signup'),
+                selectedOrgId: id,
+              ));
+    case Routes.waitingScreen:
+      return MaterialPageRoute(
+          builder: (context) => const WaitingPage(key: Key('Recover')));
     case Routes.recoverScreen:
       return MaterialPageRoute(
           builder: (context) => const Recover(key: Key('Recover')));
@@ -55,7 +67,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.mainScreen:
       return MaterialPageRoute(
           builder: (context) => const MainScreen(key: Key('MainScreen')));
-
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(
