@@ -17,14 +17,14 @@ class OrganizationFeedViewModel extends BaseModel {
   void initialise() {
     setState(ViewState.busy);
     //Fetching posts
-    final postJsonResult = postsDemoData;
+    const postJsonResult = postsDemoData;
 
     postJsonResult.forEach((postJsonData) {
       _posts.add(Post.fromJson(postJsonData));
     });
 
     //fetching pinnedPosts
-    final pinnedPostJsonResult = pinnedPostsDemoData;
+    const pinnedPostJsonResult = pinnedPostsDemoData;
     pinnedPostJsonResult.forEach((pinnedPostJsonData) {
       _pinnedPosts.add(Post.fromJson(pinnedPostJsonData));
     });
