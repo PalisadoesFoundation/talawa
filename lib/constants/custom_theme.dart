@@ -8,6 +8,7 @@ class TalawaTheme {
   static const Color _lightPrimaryVariantColor = Color(0xFFe5e5e5);
   static const Color _lightIconColor = Color(0xff8C8E8D);
   static const Color _lightInBlack = Color(0xff000000);
+  static const Color _lightColorSchemePrimary = Color(0xfffabc57);
 
   static const Color _darkCursorColor = Color(0xff34AD64);
   static const Color _darkAccentColor = Color(0xff34AD64);
@@ -16,6 +17,7 @@ class TalawaTheme {
   static const Color _darkPrimaryVariantColor = Colors.black;
   static const Color _darkIconColor = Colors.white70;
   static const Color _darkInWhite = Color(0xffffffff);
+  static const Color _darkColorSchemePrimary = Color(0xfffabc57);
 
   static final lightTheme = ThemeData(
       scaffoldBackgroundColor: _lightScaffoldColor,
@@ -23,8 +25,10 @@ class TalawaTheme {
         cursorColor: _lightCursorColor,
       ),
       primaryColor: _lightPrimaryColor,
-      colorScheme:
-          const ColorScheme.light(primaryVariant: _lightPrimaryVariantColor),
+      colorScheme: const ColorScheme.light(
+          primaryVariant: _lightPrimaryVariantColor,
+          primary: _lightColorSchemePrimary,
+          secondary: Color(0xffF5F5F5)),
       accentColor: _lightAccentColor,
       iconTheme: const IconThemeData(
         color: _lightIconColor,
@@ -39,8 +43,10 @@ class TalawaTheme {
       ),
       scaffoldBackgroundColor: _darkScaffoldColor,
       primaryColor: _darkPrimaryColor,
-      colorScheme:
-          const ColorScheme.dark(primaryVariant: _darkPrimaryVariantColor),
+      colorScheme: const ColorScheme.dark(
+          primaryVariant: _darkPrimaryVariantColor,
+          primary: _darkColorSchemePrimary,
+          secondary: Colors.black),
       iconTheme: const IconThemeData(
         color: _darkIconColor,
       ),

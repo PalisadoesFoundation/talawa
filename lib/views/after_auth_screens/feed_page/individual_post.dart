@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/color_pallete.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_model.dart';
@@ -123,9 +122,9 @@ class CommentTemplate extends StatelessWidget {
               ),
               Text(
                 comment.text!,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16,
-                    color: talawaGrey,
+                    color: Color(0xff737373),
                     fontFamily: "open-sans",
                     fontWeight: FontWeight.w600),
               ),

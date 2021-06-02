@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/color_pallete.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
 
@@ -92,9 +91,9 @@ class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ListTile(
-              leading: CircleAvatar(
+              leading: const CircleAvatar(
                 radius: 15.0,
-                backgroundColor: talawaGrey,
+                backgroundColor: Color(0xff737373),
               ),
               title: Text(
                   "${widget.pinnedPosts[pindex].creator!.firstName} ${widget.pinnedPosts[pindex].creator!.lastName}"),
@@ -122,7 +121,9 @@ class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
                         child: Divider(
                           thickness: 3.0,
-                          color: pindex == i ? talawaYellow : Colors.grey,
+                          color: pindex == i
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.grey,
                         ),
                       ),
                     )
