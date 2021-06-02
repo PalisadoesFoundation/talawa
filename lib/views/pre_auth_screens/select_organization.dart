@@ -1,146 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/constants/contants.dart';
-import 'package:talawa/models/org_info.dart';
+import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/view_model/select_organization_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/join_org_tile.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
-
-import '../../services/size_config.dart';
+import 'package:talawa/services/size_config.dart';
+import 'package:talawa/widgets/signup_progress_bar.dart';
+import '../../locator.dart';
 
 class SelectOrganization extends StatefulWidget {
-  const SelectOrganization({required Key key, required this.swipePage})
+  const SelectOrganization({required Key key, required this.selectedOrgId})
       : super(key: key);
-  final Function swipePage;
+  final String selectedOrgId;
 
   @override
   _SelectOrganizationState createState() => _SelectOrganizationState();
 }
 
 class _SelectOrganizationState extends State<SelectOrganization> {
-  List<OrgInfo> selectedOrganizations = [];
-  final ScrollController _controllerSelected = ScrollController();
-  final ScrollController _controllerListedOrg = ScrollController();
-
-  selectDeselectOrg(OrgInfo item) {
-    setState(() {
-      bool present = false;
-      selectedOrganizations.forEach((org) {
-        if (org.id == item.id) {
-          present = true;
-        }
-      });
-      if (present) {
-        selectedOrganizations.remove(item);
-      } else {
-        selectedOrganizations.add(item);
-      }
-    });
-  }
-
-  Widget showSelectedOrganizations() {
-    return Expanded(
-      flex: selectedOrganizations.isNotEmpty
-          ? selectedOrganizations.length > 1
-              ? 3
-              : 1
-          : 0,
-      child: Scrollbar(
-        controller: _controllerSelected,
-        isAlwaysShown: true,
-        //interactive: true,
-        child: ListView.separated(
-          controller: _controllerSelected,
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          itemCount: selectedOrganizations.length,
-          itemBuilder: (BuildContext context, int index) {
-            return JoinOrgTile(
-              index: index,
-              item: organizations[index],
-              onTap: (item) => selectDeselectOrg(item),
-              showIcon: true,
-              key: Key('OrgItem$index'),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider(
-              color: Color(0xFFE5E5E5),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget showOrganizationList() {
-    return Expanded(
-      flex: selectedOrganizations.isNotEmpty ? 6 : 1,
-      child: Scrollbar(
-        isAlwaysShown: true,
-        //interactive: true,
-        controller: _controllerListedOrg,
-        child: ListView.separated(
-          controller: _controllerListedOrg,
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          itemCount: organizations.length,
-          itemBuilder: (BuildContext context, int index) {
-            return JoinOrgTile(
-              index: index,
-              item: organizations[index],
-              onTap: (item) => selectDeselectOrg(item),
-              key: Key('OrgSelItem$index'),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: EdgeInsets.only(
-                  left: SizeConfig.screenWidth! * 0.2, right: 20),
-              child: const Divider(
-                color: Color(0xFFE5E5E5),
-                thickness: 1.5,
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      showSelectedOrganizations(),
-      const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12.0),
-        child: Divider(
-          color: Colors.grey,
-          thickness: 2.0,
-        ),
-      ),
-      showOrganizationList(),
-      SizedBox(
-        height: SizeConfig.screenHeight! * 0.0215,
-      ),
-      RaisedRoundedButton(
-        buttonLabel: 'Continue',
-        onTap: () {
-          if (selectedOrganizations.isNotEmpty) {
-            widget.swipePage();
-            print('tapped');
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Select at least one organization to continue'),
-              duration: Duration(milliseconds: 750),
-            ));
-          }
-        },
-        textColor: const Color(0xFF008A37),
-        key: const Key('SignUpLoginDetailsButton'),
-        backgroundColor: Colors.white,
-      ),
-      SizedBox(
-        height: SizeConfig.screenHeight! * 0.0215,
-      ),
-    ]);
+    return BaseView<SelectOrganizationViewModel>(
+        onModelReady: (model) => model.initialise(widget.selectedOrgId),
+        builder: (context, model, child) {
+          return Scaffold(
+              extendBodyBehindAppBar: true,
+              appBar: AppBar(
+                elevation: 0.0,
+                backgroundColor: Colors.transparent,
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back,
+                  ),
+                  onPressed: () {
+                    locator<NavigationService>().pop();
+                  },
+                ),
+              ),
+              body: Padding(
+                  padding:
+                      EdgeInsets.only(top: SizeConfig.safeBlockVertical! * 6),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SignupProgressBar(
+                            key: const Key('SelectOrg'), currentPageIndex: 0),
+                        model.selectedOrganization.id != '-1'
+                            ? JoinOrgTile(
+                                index: 0,
+                                item: model.selectedOrganization,
+                                onTap: (item) => model.selectOrg(item),
+                                key: const Key('OrgSelItem'),
+                                showIcon: true,
+                              )
+                            : const SizedBox(),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Divider(
+                            color: Colors.grey,
+                            thickness: 2.0,
+                          ),
+                        ),
+                        model.showOrganizationList(),
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.0215,
+                        ),
+                        RaisedRoundedButton(
+                          buttonLabel: 'Continue',
+                          onTap: model.onTapContinue,
+                          textColor: const Color(0xFF008A37),
+                          key: const Key('SignUpLoginDetailsButton'),
+                          backgroundColor: Colors.white,
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.0215,
+                        ),
+                      ])));
+        });
   }
 }

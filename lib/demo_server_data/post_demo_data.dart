@@ -17,7 +17,15 @@ const postsDemoData = [
     "comments": [
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "1", "id": "asdasdasdas"}
+      },
+      {
+        "text": "This is the posted comment",
+        "creator": {"firstName": "User", "lastName": "2", "id": "asdasdasdas"}
+      },
+      {
+        "text": "This is the posted comment",
+        "creator": {"firstName": "User", "lastName": "3", "id": "asdasdasdas"}
       },
       {
         "text": "This is the posted comment",
@@ -25,15 +33,7 @@ const postsDemoData = [
       },
       {
         "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
-      },
-      {
-        "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
-      },
-      {
-        "text": "This is the posted comment",
-        "creator": {"firstName": "User", "lastName": "4", "id": "asdasdasdas"}
+        "creator": {"firstName": "User", "lastName": "5", "id": "asdasdasdas"}
       },
     ]
   },

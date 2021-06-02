@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/viewModel/organization_feed_view_model.dart';
+import 'package:talawa/view_model/organization_feed_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/pinned_carousel_widget.dart';
-import 'package:talawa/widgets/post_widget.dart';
+import 'package:talawa/widgets/post_list_widget.dart';
 
 class OrganizationFeed extends StatelessWidget {
   const OrganizationFeed({required Key key}) : super(key: key);
@@ -30,26 +30,16 @@ class OrganizationFeed extends StatelessWidget {
                     model.pinnedPosts.isNotEmpty
                         ? PinnedPostCarousel(
                             pinnedPosts: model.pinnedPosts,
+                            navigateToPinnedPostPage:
+                                model.navigateToPinnedPostPage,
+                            navigateToIndividualPostPage:
+                                model.navigateToIndividualPage,
                           )
                         : Container(),
                     model.posts.isNotEmpty
-                        ? Column(
-                            children: [
-                              for (int i = 0; i < model.posts.length; i++)
-                                Column(
-                                  children: [
-                                    NewsPost(post: model.posts[i]),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 10.0),
-                                      child: Divider(
-                                        height: 8,
-                                        thickness: 8,
-                                      ),
-                                    )
-                                  ],
-                                )
-                            ],
+                        ? PostListWidget(
+                            posts: model.posts,
+                            function: model.navigateToIndividualPage,
                           )
                         : Container(),
                   ],
