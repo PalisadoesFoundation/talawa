@@ -12,7 +12,6 @@ import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/home_page.dart';
-import 'package:talawa/views/pages/organization/profile_page.dart';
 
 class OrgController with ChangeNotifier {
   String currentUserId;
@@ -206,10 +205,7 @@ class OrgController with ChangeNotifier {
       _successToast("Success!", fToast);
 
       if (fromProfile) {
-        pushNewScreen(
-          context,
-          screen: const ProfilePage(),
-        );
+        pushNewScreen(context, screen: const HomePage(), withNavBar: false);
       } else {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
