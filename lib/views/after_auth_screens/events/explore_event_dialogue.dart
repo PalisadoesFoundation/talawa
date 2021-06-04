@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/widgets/datepicker.dart';
+import 'package:talawa/widgets/date_time_picker.dart';
 
 class ExploreEventDialog extends StatefulWidget {
   const ExploreEventDialog({required Key key}) : super(key: key);
@@ -11,8 +11,8 @@ class ExploreEventDialog extends StatefulWidget {
 }
 
 class _ExploreEventDialogState extends State<ExploreEventDialog> {
-  DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now().add(const Duration(days: 1));
+  DateTime _startDate = DateTime.now();
+  DateTime _endDate = DateTime.now().add(const Duration(days: 1));
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +38,11 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                   GestureDetector(
                     onTap: () async {
                       final _date =
-                          await customDatePicker(initialDate: startDate);
+                          await customDatePicker(initialDate: _startDate);
                       print("TAPPED");
                       print(_date);
                       setState(() {
-                        startDate = _date;
+                        _startDate = _date;
                       });
                     },
                     child: SizedBox(
@@ -58,7 +58,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                               size: 19,
                             ),
                             Text(
-                              "${startDate.toLocal()}".split(' ')[0],
+                              "${_startDate.toLocal()}".split(' ')[0],
                             ),
                           ],
                         ),
@@ -79,11 +79,11 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                   GestureDetector(
                     onTap: () async {
                       final _date =
-                          await customDatePicker(initialDate: endDate);
+                          await customDatePicker(initialDate: _endDate);
                       print("TAPPED");
                       print(_date);
                       setState(() {
-                        endDate = _date;
+                        _endDate = _date;
                       });
                     },
                     child: SizedBox(
@@ -99,7 +99,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                               size: 20,
                             ),
                             Text(
-                              "${endDate.toLocal()}".split(' ')[0],
+                              "${_endDate.toLocal()}".split(' ')[0],
                             ),
                           ],
                         ),
