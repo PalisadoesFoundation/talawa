@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/explore_events_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_card.dart';
+
+import '../../../locator.dart';
 
 class ExploreEvents extends StatefulWidget {
   const ExploreEvents({required Key key}) : super(key: key);
@@ -110,8 +113,15 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                 shrinkWrap: true,
                                 itemCount: model.events.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return EventCard(
-                                    event: model.events[index],
+                                  return GestureDetector(
+                                    onTap: () {
+                                      locator<NavigationService>().pushScreen(
+                                          "/eventInfo",
+                                          arguments: model.events[index]);
+                                    },
+                                    child: EventCard(
+                                      event: model.events[index],
+                                    ),
                                   );
                                 }),
                           ],
@@ -120,7 +130,11 @@ class _ExploreEventsState extends State<ExploreEvents> {
                     ),
               floatingActionButton: FloatingActionButton.extended(
                 backgroundColor: Theme.of(context).primaryColor,
-                onPressed: () {},
+                onPressed: () {
+                  locator<NavigationService>().pushScreen(
+                    "/createEventPage",
+                  );
+                },
                 icon: Icon(
                   Icons.add,
                   color: Theme.of(context).accentColor,
