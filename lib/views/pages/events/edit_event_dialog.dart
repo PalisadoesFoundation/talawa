@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:talawa/views/pages/events/events.dart';
 import 'package:talawa/views/widgets/show_progress.dart';
 import 'package:talawa/views/widgets/event_widgets.dart';
+import 'package:talawa/enums/event_recurrance.dart';
 
 // ignore: must_be_immutable
 class EditEvent extends StatefulWidget {
@@ -79,7 +80,7 @@ class _EditEventState extends State<EditEvent> {
         'Recurring': widget.event.recurring,
         'All Day': widget.event.allDay,
       };
-      recurrance = widget.event.recurrance.toString();
+      recurrance = recurranceValues.reverse[widget.event.recurrance];
     });
   }
 
