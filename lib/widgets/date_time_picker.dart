@@ -13,3 +13,14 @@ Future<DateTime> customDatePicker({required DateTime initialDate}) async {
   }
   return initialDate;
 }
+
+Future<TimeOfDay> customTimePicker({required TimeOfDay initialTime}) async {
+  final TimeOfDay? _pickedtime = await showTimePicker(
+      context: locator<NavigationService>().navigatorKey.currentContext!,
+      initialTime: initialTime);
+
+  if (_pickedtime != null && _pickedtime != initialTime) {
+    return _pickedtime;
+  }
+  return initialTime;
+}

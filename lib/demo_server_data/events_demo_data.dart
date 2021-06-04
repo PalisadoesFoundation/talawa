@@ -23,7 +23,14 @@ const eventsDemoData = [
     "registrants": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
       {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"}
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
     ],
     "admins": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
@@ -62,7 +69,14 @@ const eventsDemoData = [
     "registrants": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
       {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"}
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
     ],
     "admins": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
@@ -103,7 +117,14 @@ const eventsDemoData = [
     "registrants": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
       {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"}
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
     ],
     "admins": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
@@ -145,7 +166,14 @@ const eventsDemoData = [
     "registrants": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
       {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"}
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
     ],
     "admins": [
       {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
