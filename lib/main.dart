@@ -24,14 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: router.generateRoute,
-      // initialRoute: '/',
-      home: const OrganizationFeed(
-        key: Key('HomeView'),
-      ),
       initialRoute: '/',
-      /*home: const OrganizationFeed(
-        key: Key('HomeView'),
-      ),*/
     );
   }
 }

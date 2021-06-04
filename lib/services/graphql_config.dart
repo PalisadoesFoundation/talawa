@@ -2,7 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/services/user_config.dart';
 
-class GraphqlConfig {
+class GraphqlConfigService {
   static const urlKey = "url";
   static const imageUrlKey = "imageUrl";
   static String? token;

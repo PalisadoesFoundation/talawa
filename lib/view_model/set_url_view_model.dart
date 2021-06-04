@@ -1,21 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:talawa/enums/view_state.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/utils/validators.dart';
+import 'package:talawa/services/snackbar_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/widgets/progress_dialog.dart';
+import 'package:http/http.dart' as http;
 
 class SetUrlViewModel extends BaseModel {
+  //services
+  final _navigationService = locator<NavigationService>();
+  final _graphqlConfigService = locator<GraphqlConfigService>();
+  final _snackbarService = locator<SnackBarService>();
+
+  //Variables
+  bool _verified = false;
   late List<Map<String, dynamic>> greeting;
-  static const urlKey = "url";
-  static const imageUrlKey = "imageUrl";
+  static const _urlKey = "url";
+  static const _imageUrlKey = "imageUrl";
   final formKey = GlobalKey<FormState>();
-  TextEditingController url = TextEditingController();
-  FocusNode urlFocus = FocusNode();
+  final TextEditingController _url = TextEditingController();
+  final FocusNode _urlFocus = FocusNode();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
   AutovalidateMode validate = AutovalidateMode.disabled;
 
+  // Getters
+  bool get verified => _verified;
+  FocusNode get urlNode => _urlFocus;
+  TextEditingController get url => _url;
+
+  // setters
+  void setVerifiedURL({required bool val}) {
+    _verified = val;
+    notifyListeners();
+  }
+
+  void unfocus() {
+    _urlFocus.unfocus();
+    notifyListeners();
+  }
+
+  //Functions
   initialise() {
     greeting = [
       {
@@ -24,7 +50,7 @@ class SetUrlViewModel extends BaseModel {
             Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
                 .textTheme
                 .headline6!
-                .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
+                .copyWith(fontSize: 32, fontWeight: FontWeight.w700)
       },
       {
         'text': 'and ',
@@ -39,10 +65,10 @@ class SetUrlViewModel extends BaseModel {
             Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
                 .textTheme
                 .headline6!
-                .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
+                .copyWith(fontSize: 32, fontWeight: FontWeight.w700)
       },
       {
-        'text': 'with     your ',
+        'text': 'with your ',
         'textStyle':
             Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
                 .textTheme
@@ -54,31 +80,33 @@ class SetUrlViewModel extends BaseModel {
             Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
                 .textTheme
                 .headline5!
-                .copyWith(fontSize: 24, color: const Color(0xFF4285F4))
+                .copyWith(
+                    fontSize: 32,
+                    color: const Color(0xFF4285F4),
+                    fontWeight: FontWeight.w700)
       },
     ];
   }
 
-  Future<void> checkURLandNavigate(String navigateTo, String argument) async {
-    urlFocus.unfocus();
-    validate = AutovalidateMode.always;
-    if (formKey.currentState!.validate()) {
-      locator<NavigationService>()
-          .pushDialog(const ProgressDialog(key: Key('UrlCheckProgress')));
-      validate = AutovalidateMode.disabled;
-      final bool? urlPresent = await Validator.validateUrlExistence(url.text);
-      if (urlPresent!) {
-        const FlutterSecureStorage storage = FlutterSecureStorage();
-        await storage.write(key: urlKey, value: url.text);
-        await storage.write(key: imageUrlKey, value: "${url.text}/talawa/");
-        locator<NavigationService>().pop();
-        GraphqlConfig().getOrgUrl();
-        locator<NavigationService>()
-            .pushScreen(navigateTo, arguments: argument);
-      } else {
-        locator<NavigationService>()
-            .showSnackBar("URL doesn't exist/no connection please check");
-      }
+  void navigateTo(String route) {
+    _navigationService.pushScreen(route);
+  }
+
+  Future<void> verifyURL() async {
+    final String _urlString = _url.text;
+    setState(ViewState.busy);
+    print(_urlString);
+    try {
+      await http.get(Uri.parse(_urlString));
+      await _storage.write(key: _urlKey, value: _urlString);
+      await _storage.write(key: _imageUrlKey, value: "$_urlString/talawa/");
+      setVerifiedURL(val: true);
+      _graphqlConfigService.getOrgUrl();
+    } catch (e) {
+      _snackbarService
+          .showSnackBar("URL doesn't exist/no connection please check");
     }
+    print(await _storage.read(key: _urlKey));
+    setState(ViewState.idle);
   }
 }

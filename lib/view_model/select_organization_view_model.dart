@@ -4,12 +4,16 @@ import 'package:talawa/enums/view_state.dart';
 import 'package:talawa/models/org_info.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/snackbar_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/join_org_tile.dart';
 
 import '../locator.dart';
 
 class SelectOrganizationViewModel extends BaseModel {
+  //services
+  final _snackBarService = locator<SnackBarService>();
+
   late OrgInfo selectedOrganization = OrgInfo(id: '-1');
   final ScrollController controller = ScrollController();
 
@@ -36,8 +40,7 @@ class SelectOrganizationViewModel extends BaseModel {
           .pushScreen('/signupDetails', arguments: selectedOrganization.id);
       print('tapped');
     } else {
-      locator<NavigationService>().showSnackBar(
-          'Select one organization to continue',
+      _snackBarService.showSnackBar('Select one organization to continue',
           duration: const Duration(milliseconds: 750));
     }
   }

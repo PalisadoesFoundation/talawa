@@ -16,7 +16,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
         .toList(),
     email: json['email'] as String?,
     firstName: json['firstName'] as String,
-    id: json['id'] as String,
+    id: json['_id'] as String,
     image: json['image'] as String?,
     joinedOrganizations: (json['joinedOrganizations'] as List<dynamic>?)
         ?.map((e) => Organization.fromJson(e as Map<String, dynamic>))

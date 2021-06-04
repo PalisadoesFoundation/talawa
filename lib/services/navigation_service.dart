@@ -42,12 +42,6 @@ class NavigationService {
         });
   }
 
-  void showSnackBar(String message,
-      {Duration duration = const Duration(seconds: 2)}) {
-    ScaffoldMessenger.of(navigatorKey.currentContext!)
-        .showSnackBar(SnackBar(duration: duration, content: Text(message)));
-  }
-
   void pop() {
     return navigatorKey.currentState!.pop();
   }
