@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 //pages are imported here
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/custom_toast.dart';
@@ -63,7 +64,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
         membersList = memberData['members'] as List;
       });
       if (membersList.length == 1) {
-        CustomToast.exceptionToast(msg: 'You are alone here.');
+        CustomToast.exceptionToast(
+          msg: AppLocalizations.of(context).translate('You are alone here.'),
+        );
       }
     }
   }
@@ -86,7 +89,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       setState(() {
         processing = false;
       });
-      CustomToast.sucessToast(msg: 'Member(s) removed successfully');
+      CustomToast.sucessToast(
+          msg: AppLocalizations.of(context)
+              .translate('Member(s) removed successfully'));
       viewMembers();
       return;
     }
@@ -110,7 +115,8 @@ class _OrganizationMembersState extends State<OrganizationMembers>
     });
 
     if (adminsList.contains(selectedMembers[0])) {
-      CustomToast.exceptionToast(msg: 'Already an admin');
+      CustomToast.exceptionToast(
+          msg: AppLocalizations.of(context).translate('Already an admin'));
       return;
     }
 
@@ -128,7 +134,8 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       setState(() {
         processing = false;
       });
-      CustomToast.sucessToast(msg: 'Admin created');
+      CustomToast.sucessToast(
+          msg: AppLocalizations.of(context).translate('Admin created'));
       viewMembers();
     }
 
@@ -137,7 +144,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
       return addAdmin();
     } else {
       print(exceptionString);
-      CustomToast.exceptionToast(msg: "Something went wrong!Try again later");
+      CustomToast.exceptionToast(
+          msg: AppLocalizations.of(context)
+              .translate("Something went wrong!Try again later"));
       setState(() {
         processing = false;
       });
@@ -152,7 +161,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
           selectedMembers.add('"$memberId"');
         });
       } else {
-        CustomToast.exceptionToast(msg: "Can't select admins");
+        CustomToast.exceptionToast(
+          msg: AppLocalizations.of(context).translate("Can't select admins"),
+        );
       }
     } else {
       setState(() {
@@ -165,9 +176,11 @@ class _OrganizationMembersState extends State<OrganizationMembers>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Organization Members',
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          AppLocalizations.of(context).translate('Organization Members'),
+          style: const TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
       body: Stack(
@@ -220,7 +233,9 @@ class _OrganizationMembersState extends State<OrganizationMembers>
                               ),
                             ),
                       title: Text(name),
-                      subtitle: Text(adminsList.contains(mId) ? 'Admin' : ''),
+                      subtitle: Text(adminsList.contains(mId)
+                          ? AppLocalizations.of(context).translate('Admin')
+                          : ''),
                       value: selectedMembers.contains('"$mId"'),
                       onChanged: (bool value) {
                         _onMemberSelected(value, members['_id'].toString());
@@ -248,25 +263,35 @@ class _OrganizationMembersState extends State<OrganizationMembers>
               child: FloatingActionButton.extended(
                 heroTag: null,
                 backgroundColor: UIData.secondaryColor,
-                tooltip: index == 0 ? "Remove" : "Admin",
+                tooltip: index == 0
+                    ? AppLocalizations.of(context).translate("Remove")
+                    : AppLocalizations.of(context).translate("Admin"),
                 icon: Icon(
                   index == 0 ? Icons.delete : Icons.admin_panel_settings,
                   color: Colors.white,
                 ),
-                label: Text(index == 0 ? "Remove" : "Admin"),
+                label: Text(index == 0
+                    ? AppLocalizations.of(context).translate("Remove")
+                    : AppLocalizations.of(context).translate("Admin")),
                 onPressed: () {
                   if (index == 0) {
                     dialog(
-                        "Are you sure you want to remove selected member(s)?",
-                        removeMembers);
+                      AppLocalizations.of(context).translate(
+                          "Are you sure you want to remove selected member(s)?"),
+                      removeMembers,
+                    );
                   } else if (index == 1) {
                     if (selectedMembers.length == 1) {
                       dialog(
-                          "Are you sure you want to make selected member and admin?",
-                          addAdmin);
+                        AppLocalizations.of(context).translate(
+                            "Are you sure you want to make selected member and admin?"),
+                        addAdmin,
+                      );
                     } else {
                       CustomToast.exceptionToast(
-                          msg: 'You can make one admin at a time');
+                        msg: AppLocalizations.of(context)
+                            .translate('You can make one admin at a time'),
+                      );
                     }
                   }
                 },

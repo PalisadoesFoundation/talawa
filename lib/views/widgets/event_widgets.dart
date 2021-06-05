@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 
 class EventWidgets {
   //widget to get the date button
-  Widget dateButton({@required Function() onTap, @required String dateText}) {
+  Widget dateButton({
+    @required Function() onTap,
+    @required String dateText,
+    @required BuildContext context,
+  }) {
     return ListTile(
       onTap: onTap,
       leading: Text(
-        'Date',
+        AppLocalizations.of(context).translate('Date'),
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
       ),
       trailing: Text(
@@ -24,25 +29,27 @@ class EventWidgets {
     @required bool allDaySwitchVal,
     @required String timeText,
     @required Function() onTap,
+    @required BuildContext context,
   }) {
     return AbsorbPointer(
-        absorbing: allDaySwitchVal,
-        child: ListTile(
-          onTap: onTap,
-          leading: Text(
-            name,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey[600],
-            ),
+      absorbing: allDaySwitchVal,
+      child: ListTile(
+        onTap: onTap,
+        leading: Text(
+          AppLocalizations.of(context).translate(name),
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey[600],
           ),
-          trailing: Text(
-            timeText,
-            style: TextStyle(
-              color: !allDaySwitchVal ? UIData.secondaryColor : Colors.grey,
-            ),
+        ),
+        trailing: Text(
+          timeText,
+          style: TextStyle(
+            color: !allDaySwitchVal ? UIData.secondaryColor : Colors.grey,
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   //widget to add the event
@@ -57,10 +64,12 @@ class EventWidgets {
     );
   }
 
-  Widget inputField(
-      {@required String name,
-      @required TextEditingController controller,
-      @required String errorText}) {
+  Widget inputField({
+    @required String name,
+    @required TextEditingController controller,
+    @required String errorText,
+    @required BuildContext context,
+  }) {
     return Padding(
         padding: const EdgeInsets.all(10),
         child: TextField(
@@ -72,21 +81,23 @@ class EventWidgets {
               borderRadius: BorderRadius.circular(20.0),
               borderSide: const BorderSide(color: Colors.teal),
             ),
-            hintText: name,
+            hintText: AppLocalizations.of(context).translate(name),
           ),
         ));
   }
 
-  Widget switchTile(
-      {@required String name,
-      @required bool switchValue,
-      @required Function(bool) onChanged}) {
+  Widget switchTile({
+    @required String name,
+    @required bool switchValue,
+    @required Function(bool) onChanged,
+    @required BuildContext context,
+  }) {
     return SwitchListTile(
       activeColor: UIData.secondaryColor,
       value: switchValue,
       contentPadding: const EdgeInsets.symmetric(horizontal: 20),
       title: Text(
-        name,
+        AppLocalizations.of(context).translate(name),
         style: TextStyle(color: Colors.grey[600]),
       ),
       onChanged: onChanged,
@@ -98,12 +109,13 @@ class EventWidgets {
     @required String recurrance,
     @required Function(String) onChanged,
     @required List<String> recurranceList,
+    @required BuildContext context,
   }) {
     return ListTile(
       contentPadding:
           EdgeInsets.symmetric(horizontal: SizeConfig.safeBlockHorizontal * 5),
       leading: Text(
-        'Recurrence',
+        AppLocalizations.of(context).translate('Recurrence'),
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
       ),
       trailing: AbsorbPointer(
@@ -117,7 +129,7 @@ class EventWidgets {
           items: recurranceList.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value),
+              child: Text(AppLocalizations.of(context).translate(value)),
             );
           }).toList(),
         ),

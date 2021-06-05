@@ -2,13 +2,14 @@
 import 'package:flutter/material.dart';
 //pages are imported here
 import 'package:talawa/enums/viewstate.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
 import 'package:talawa/view_models/page_view_model/create_organization_page_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/views/pages/organization/Create%20Organization/create_organization_UI_Helper.dart';
+import 'package:talawa/views/pages/organization/create_organization/create_organization_ui_helper.dart';
 
 class CreateOrganization extends StatefulWidget {
   const CreateOrganization({this.isFromProfile = false});
@@ -34,7 +35,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
               Navigator.pop(context);
             },
           ),
-          title: const Text('Create Organization'),
+          title: Text(
+              AppLocalizations.of(context).translate("CREATE ORGANIZATION")),
         ),
         body: Container(
           color: Colors.white,
@@ -45,8 +47,9 @@ class _CreateOrganizationState extends State<CreateOrganization> {
             child: Column(
               children: <Widget>[
                 addImage(model, context),
-                const Text(
-                  'Upload Organization Image',
+                Text(
+                  AppLocalizations.of(context)
+                      .translate('Upload Organization Image'),
                   style: const TextStyle(fontSize: 16, color: Colors.black),
                 ),
                 Form(
@@ -65,36 +68,44 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                             child: Column(
                           children: <Widget>[
                             buildTextFormField(
-                                false,
-                                Validator.validateOrgName,
-                                Icons.group,
-                                model.orgNameController,
-                                "Organization Name",
-                                "My Organization"),
+                              false,
+                              Validator.validateOrgName,
+                              Icons.group,
+                              model.orgNameController,
+                              "Organization Name",
+                              "My Organization",
+                              context,
+                            ),
                             buildTextFormField(
-                                true,
-                                Validator.validateOrgName,
-                                Icons.note,
-                                model.orgDescController,
-                                "Organization Description",
-                                "My Description"),
+                              true,
+                              Validator.validateOrgName,
+                              Icons.note,
+                              model.orgDescController,
+                              "Organization Description",
+                              "My Description",
+                              context,
+                            ),
                             buildTextFormField(
-                                true,
-                                Validator.validateOrgAttendeesDesc,
-                                Icons.note,
-                                model.orgMemberDescController,
-                                "Member Description",
-                                "Member Description"),
+                              true,
+                              Validator.validateOrgAttendeesDesc,
+                              Icons.note,
+                              model.orgMemberDescController,
+                              "Member Description",
+                              "Member Description",
+                              context,
+                            ),
                           ],
                         )),
-                        const Text(
-                          'Do you want your organization to be public?',
+                        Text(
+                          AppLocalizations.of(context).translate(
+                              'Do you want your organization to be public?'),
                           style: const TextStyle(
                               fontSize: 16, color: Colors.black),
                         ),
                         RadioListTile(
                           groupValue: model.radioValue,
-                          title: const Text('Yes'),
+                          title: Text(
+                              AppLocalizations.of(context).translate('Yes')),
                           value: 0,
                           activeColor: UIData.secondaryColor,
                           onChanged: (int val) {
@@ -105,22 +116,25 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         RadioListTile(
                           activeColor: UIData.secondaryColor,
                           groupValue: model.radioValue,
-                          title: const Text('No'),
+                          title: Text(
+                              AppLocalizations.of(context).translate('No')),
                           value: 1,
                           onChanged: (int val) {
                             model.setRadioValue(val);
                             model.setIsPublic(false);
                           },
                         ),
-                        const Text(
-                          'Do you want others to be able to find your organization from the search page?',
+                        Text(
+                          AppLocalizations.of(context).translate(
+                              'Do you want others to be able to find your organization from the search page?'),
                           style: const TextStyle(
                               fontSize: 16, color: Colors.black),
                         ),
                         RadioListTile(
                           activeColor: UIData.secondaryColor,
                           groupValue: model.radioValue1,
-                          title: const Text('Yes'),
+                          title: Text(
+                              AppLocalizations.of(context).translate('Yes')),
                           value: 0,
                           onChanged: (int val) {
                             FocusScope.of(context).unfocus();
@@ -131,7 +145,8 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                         RadioListTile(
                           activeColor: UIData.secondaryColor,
                           groupValue: model.radioValue1,
-                          title: const Text('No'),
+                          title: Text(
+                              AppLocalizations.of(context).translate('No')),
                           value: 1,
                           onChanged: (int val) {
                             FocusScope.of(context).unfocus();
@@ -152,12 +167,39 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
                             ),
+                            onPressed: model.state == ViewState.busy
+                                ? () {
+                                    CustomToast.exceptionToast(
+                                      msg: AppLocalizations.of(context)
+                                          .translate('Request in Progress'),
+                                    );
+                                  }
+                                : () async {
+                                    if (_formKey.currentState.validate() &&
+                                        model.radioValue >= 0 &&
+                                        model.radioValue1 >= 0) {
+                                      _formKey.currentState.save();
+                                      if (model.image != null) {
+                                        model.createOrg(true, context);
+                                      } else {
+                                        model.createOrg(false, context);
+                                      }
+                                      model.toggleProgressBarState();
+                                    } else if (model.radioValue < 0 ||
+                                        model.radioValue1 < 0) {
+                                      CustomToast.exceptionToast(
+                                        msg: AppLocalizations.of(context)
+                                            .translate(
+                                                "A choice must be selected"),
+                                      );
+                                    }
+                                  },
                             child: model.state == ViewState.busy
                                 ? const Center(
-                                    child: const SizedBox(
+                                    child: SizedBox(
                                       width: 20,
                                       height: 20,
-                                      child: const CircularProgressIndicator(
+                                      child: CircularProgressIndicator(
                                         valueColor:
                                             AlwaysStoppedAnimation<Color>(
                                                 Colors.white),
@@ -166,32 +208,11 @@ class _CreateOrganizationState extends State<CreateOrganization> {
                                       ),
                                     ),
                                   )
-                                : const Text(
-                                    "CREATE ORGANIZATION",
+                                : Text(
+                                    AppLocalizations.of(context)
+                                        .translate("CREATE ORGANIZATION"),
                                     style: const TextStyle(color: Colors.white),
                                   ),
-                            onPressed: model.state == ViewState.busy
-                                ? () {
-                                    CustomToast.exceptionToast(
-                                        msg: 'Request in Progress');
-                                  }
-                                : () async {
-                                    if (_formKey.currentState.validate() &&
-                                        model.radioValue >= 0 &&
-                                        model.radioValue1 >= 0) {
-                                      _formKey.currentState.save();
-                                      if (model.image != null) {
-                                        model.createOrg(true);
-                                      } else {
-                                        model.createOrg(false);
-                                      }
-                                      model.toggleProgressBarState();
-                                    } else if (model.radioValue < 0 ||
-                                        model.radioValue1 < 0) {
-                                      CustomToast.exceptionToast(
-                                          msg: "A choice must be selected");
-                                    }
-                                  },
                           ),
                         ),
                       ],

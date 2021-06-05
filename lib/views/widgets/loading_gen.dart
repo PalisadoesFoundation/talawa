@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 
 class LoaderWidget extends StatefulWidget {
@@ -62,14 +63,17 @@ class _LoaderWidgetState extends State<LoaderWidget> {
                 width: widget.isTest ? 30 : SizeConfig.screenWidth / 1.3,
               ),
               SizedBox(
-                  height:
-                      widget.isTest ? 2 : SizeConfig.safeBlockVertical * 3.75),
+                height: widget.isTest ? 2 : SizeConfig.safeBlockVertical * 3.75,
+              ),
               Text(
                 widget.isShowingError != null
                     ? widget.isShowingError
-                        ? "Something went wrong"
-                        : "No News Feed to show"
-                    : 'No data or something went wrong',
+                        ? AppLocalizations.of(context)
+                            .translate("Something went wrong")
+                        : AppLocalizations.of(context)
+                            .translate("No News Feed to show")
+                    : AppLocalizations.of(context)
+                        .translate('No data or something went wrong'),
                 style: const TextStyle(color: Colors.red),
               ),
             ],

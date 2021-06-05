@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/model/orgmemeber.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/custom_toast.dart';
@@ -95,9 +96,9 @@ class _OrganizationsState extends State<Organizations> {
 
   //returns a random color based on the user id (1 of 18)
   Color idToColor(String id) {
-    String userId = id.replaceAll(RegExp('[a-z]'), '');
+    final String userId = id.replaceAll(RegExp('[a-z]'), '');
     int colorInt = int.parse(userId.substring(userId.length - 10));
-    colorInt = (colorInt % 18);
+    colorInt = colorInt % 18;
     return Color.alphaBlend(
       Colors.black45,
       Colors.primaries[colorInt],
@@ -110,8 +111,8 @@ class _OrganizationsState extends State<Organizations> {
     return Scaffold(
         appBar: AppBar(
           key: const Key('ORGANIZATION_APP_BAR'),
-          title: const Text(
-            'Members',
+          title: Text(
+            AppLocalizations.of(context).translate('Members'),
             style: const TextStyle(color: Colors.white),
           ),
         ),
@@ -121,7 +122,8 @@ class _OrganizationsState extends State<Organizations> {
                   key: UniqueKey(),
                   isCurrentOrgNull: currentOrgID == null,
                   emptyContentIcon: Icons.group,
-                  emptyContentMsg: 'No memberes to show, Join an organization!',
+                  emptyContentMsg: AppLocalizations.of(context)
+                      .translate('No memberes to show, Join an organization!'),
                   refreshFunction: getMembers,
                 ),
               )
@@ -178,37 +180,38 @@ class _OrganizationsState extends State<Organizations> {
   Widget memberCard(int index, List<Member> membersList) {
     final Color color = idToColor(membersList[index].id.toString());
     return GestureDetector(
-        onTap: () {
-          pushNewScreen(context,
-              screen: MemberDetail(
-                member: membersList[index],
-                color: color,
-                admins: admins,
-                creatorId: creatorId,
-              ));
-        },
-        child: Card(
-          clipBehavior: Clip.hardEdge,
-          child: Row(
-            children: [
-              membersList[index].image == null
-                  ? defaultUserImage(membersList[index])
-                  : userImage(membersList[index]),
-              Flexible(
-                child: Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.all(20),
-                    height: SizeConfig.safeBlockVertical * 10,
-                    color: Colors.white,
-                    child: Text(
-                      '${membersList[index].firstName} ${membersList[index].lastName}',
-                      textAlign: TextAlign.left,
-                      overflow: TextOverflow.ellipsis,
-                    )),
-              )
-            ],
-          ),
-        ));
+      onTap: () {
+        pushNewScreen(context,
+            screen: MemberDetail(
+              member: membersList[index],
+              color: color,
+              admins: admins,
+              creatorId: creatorId,
+            ));
+      },
+      child: Card(
+        clipBehavior: Clip.hardEdge,
+        child: Row(
+          children: [
+            membersList[index].image == null
+                ? defaultUserImage(membersList[index])
+                : userImage(membersList[index]),
+            Flexible(
+              child: Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.all(20),
+                  height: SizeConfig.safeBlockVertical * 10,
+                  color: Colors.white,
+                  child: Text(
+                    '${membersList[index].firstName} ${membersList[index].lastName}',
+                    textAlign: TextAlign.left,
+                    overflow: TextOverflow.ellipsis,
+                  )),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   //widget to get the user images
@@ -243,37 +246,43 @@ class _OrganizationsState extends State<Organizations> {
   //widget to get the default user image
   Widget defaultUserImage(Member member) {
     return Container(
-        padding: const EdgeInsets.all(0),
-        height: SizeConfig.safeBlockVertical * 10,
-        width: SizeConfig.safeBlockHorizontal * 25,
-        color: idToColor(member.id.toString()),
-        child: Padding(
-            padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 2.5),
-            child: CircleAvatar(
-                backgroundColor: Colors.black12,
-                child: Icon(
-                  Icons.person,
-                  size: SizeConfig.safeBlockHorizontal * 7.5,
-                  color: Colors.white70,
-                ))));
+      padding: const EdgeInsets.all(0),
+      height: SizeConfig.safeBlockVertical * 10,
+      width: SizeConfig.safeBlockHorizontal * 25,
+      color: idToColor(member.id.toString()),
+      child: Padding(
+        padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 2.5),
+        child: CircleAvatar(
+          backgroundColor: Colors.black12,
+          child: Icon(
+            Icons.person,
+            size: SizeConfig.safeBlockHorizontal * 7.5,
+            color: Colors.white70,
+          ),
+        ),
+      ),
+    );
   }
 
   //the widget is user for pop up menu
   Widget popUpMenue(Member member) {
     return PopupMenuButton<int>(
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-        const PopupMenuItem<int>(
+        PopupMenuItem<int>(
             value: 1,
-            child: const ListTile(
+            child: ListTile(
               leading: const Icon(Icons.playlist_add_check),
-              title: const Text('View Assigned Tasks'),
+              title: Text(AppLocalizations.of(context)
+                  .translate('View Assigned Tasks')),
             )),
-        const PopupMenuItem<int>(
-            value: 2,
-            child: const ListTile(
-              leading: const Icon(Icons.playlist_add_check),
-              title: const Text('View Registered Events'),
-            )),
+        PopupMenuItem<int>(
+          value: 2,
+          child: ListTile(
+            leading: const Icon(Icons.playlist_add_check),
+            title: Text(AppLocalizations.of(context)
+                .translate('View Registered Events')),
+          ),
+        ),
       ],
     );
   }

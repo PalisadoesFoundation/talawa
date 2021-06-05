@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/services/app_localization.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
@@ -25,6 +27,11 @@ Widget userTasksPage() => MultiProvider(
             create: (_) => NewsFeedProvider()),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: Builder(builder: (context) {
           SizeConfig().init(context);
           return UserTasks(
@@ -44,8 +51,8 @@ void main() {
   group("users task tab page tests", () {
     testWidgets("Testing if users task tab shows up", (tester) async {
       await tester.pumpWidget(userTasksPage());
-
       await tester.pumpAndSettle();
+
       //verify if [users task tab ] page appears
       expect(find.byType(Container), findsWidgets);
     });
@@ -67,6 +74,7 @@ void main() {
         (tester) async {
       await tester.pumpWidget(userTasksPage());
       await tester.pumpAndSettle();
+
       binding.window.physicalSizeTestValue = Size(
           SizeConfig.safeBlockHorizontal * 256,
           SizeConfig.safeBlockVertical * 96);

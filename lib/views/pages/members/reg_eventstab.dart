@@ -1,6 +1,7 @@
 //flutter packages imported here
 import 'package:flutter/material.dart';
 import 'package:talawa/model/orgmemeber.dart';
+import 'package:talawa/services/app_localization.dart';
 
 //packages for pages are imported here
 import 'package:talawa/services/queries_.dart';
@@ -53,7 +54,8 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
               key: UniqueKey(),
               isCurrentOrgNull: false,
               emptyContentIcon: Icons.event_note_outlined,
-              emptyContentMsg: 'No registered events, Join an event!',
+              emptyContentMsg: AppLocalizations.of(context)
+                  .translate('No registered events, Join an event!'),
               refreshFunction: getUserDetails,
             ),
           )
@@ -69,10 +71,11 @@ class _RegisteredEventsState extends State<RegisteredEvents> {
                 },
               )
             : Container(
-                child: const Center(
+                child: Center(
                   child: Text(
-                    "No registered events",
-                    style: TextStyle(
+                    AppLocalizations.of(context)
+                        .translate("No registered events"),
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                     textAlign: TextAlign.center,

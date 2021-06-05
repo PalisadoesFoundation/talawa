@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/model/events.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/page_view_model/events_page_view_model.dart';
 import 'package:talawa/views/pages/events/add_event_page.dart';
-
 import 'event_detail_page.dart';
 
 Widget eventCard(int index, EventPageViewModel model, BuildContext context) {
@@ -26,11 +26,11 @@ Widget eventCard(int index, EventPageViewModel model, BuildContext context) {
           trailing: popUpMenue(model.displayEvents[index], model, context),
           children: <Widget>[
             model.displayEvents[index].isPublic
-                ? menueText('This event is Public')
-                : menueText('This event is Private'),
+                ? menueText('This event is Public', context)
+                : menueText('This event is Private', context),
             model.displayEvents[index].isRegistered
-                ? menueText('You Are Registered')
-                : menueText('You Are Not Registered'),
+                ? menueText('You Are Registered', context)
+                : menueText('You Are Not Registered', context),
             ListTile(
               trailing: ElevatedButton(
                 style: ButtonStyle(
@@ -46,8 +46,8 @@ Widget eventCard(int index, EventPageViewModel model, BuildContext context) {
                     screen: EventDetail(event: model.displayEvents[index]),
                   );
                 },
-                child: const Text(
-                  "More",
+                child: Text(
+                  AppLocalizations.of(context).translate("More"),
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
@@ -64,10 +64,10 @@ Widget eventCard(int index, EventPageViewModel model, BuildContext context) {
   );
 }
 
-Widget menueText(String text) {
+Widget menueText(String text, BuildContext context) {
   return ListTile(
       title: Text(
-    text,
+    AppLocalizations.of(context).translate(text),
     style: TextStyle(color: Colors.grey[700]),
   ));
 }
@@ -87,43 +87,46 @@ Widget popUpMenue(
       }
     },
     itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-      const PopupMenuItem<int>(
+      PopupMenuItem<int>(
           value: 1,
-          child: const ListTile(
+          child: ListTile(
             leading: const Icon(Icons.playlist_add_check, color: Colors.grey),
-            title: const Text(
-              'Register For Event',
+            title: Text(
+              AppLocalizations.of(context).translate('Register For Event'),
               style: const TextStyle(color: Colors.black),
             ),
           )),
-      const PopupMenuItem<int>(
+      PopupMenuItem<int>(
           value: 2,
-          child: const ListTile(
+          child: ListTile(
             leading: const Icon(Icons.note_add, color: Colors.grey),
-            title: const Text(
-              'Add a Task to this Event',
+            title: Text(
+              AppLocalizations.of(context)
+                  .translate('Add a Task to this Event'),
               style: const TextStyle(color: Colors.black),
             ),
           )),
+      // ignore: sdk_version_ui_as_code
       if (event.creator.id == model.userID) ...[
-        const PopupMenuItem<int>(
+        PopupMenuItem<int>(
             value: 3,
-            child: const ListTile(
+            child: ListTile(
               leading: const Icon(Icons.edit, color: Colors.grey),
-              title: const Text(
-                'Edit this event',
+              title: Text(
+                AppLocalizations.of(context).translate('Edit this event'),
                 style: const TextStyle(color: Colors.black),
               ),
             )),
-        const PopupMenuItem<int>(
-            value: 4,
-            child: const ListTile(
-              leading: const Icon(Icons.delete, color: Colors.grey),
-              title: const Text(
-                'Delete This Event',
-                style: const TextStyle(color: Colors.black),
-              ),
-            )),
+        PopupMenuItem<int>(
+          value: 4,
+          child: ListTile(
+            leading: const Icon(Icons.delete, color: Colors.grey),
+            title: Text(
+              AppLocalizations.of(context).translate('Delete This Event'),
+              style: const TextStyle(color: Colors.black),
+            ),
+          ),
+        ),
       ],
     ],
   );
@@ -131,16 +134,17 @@ Widget popUpMenue(
 
 Widget eventFab(BuildContext context) {
   return FloatingActionButton(
-      backgroundColor: UIData.secondaryColor,
-      child: const Icon(
-        Icons.add,
-        color: Colors.white,
-      ),
-      onPressed: () {
-        pushNewScreen(
-          context,
-          withNavBar: true,
-          screen: const AddEvent(),
-        );
-      });
+    backgroundColor: UIData.secondaryColor,
+    onPressed: () {
+      pushNewScreen(
+        context,
+        withNavBar: true,
+        screen: const AddEvent(),
+      );
+    },
+    child: const Icon(
+      Icons.add,
+      color: Colors.white,
+    ),
+  );
 }

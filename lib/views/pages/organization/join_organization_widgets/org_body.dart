@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/queries_.dart';
-import 'package:talawa/views/pages/organization/Join-Organization-Widgets/org_tile.dart';
+import 'package:talawa/views/pages/organization/join_organization_widgets/org_tile.dart';
 import 'package:talawa/views/widgets/loader_gen.dart';
 import 'package:talawa/views/widgets/pagination_display.dart';
 
@@ -73,16 +74,16 @@ class _OrganizationBodyState extends State<OrganizationBody> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const <Widget>[
-                      SizedBox(
+                    children: <Widget>[
+                      const SizedBox(
                         height: 25,
                         width: 25,
                         child: CircularProgressIndicator(),
                       ),
-                      SizedBox(width: 15),
+                      const SizedBox(width: 15),
                       Text(
-                        'Loading...',
-                        style: TextStyle(
+                        '${AppLocalizations.of(context).translate("Loading")}...',
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'OpenSans',
@@ -171,16 +172,16 @@ class _OrganizationBodyState extends State<OrganizationBody> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const <Widget>[
-                      SizedBox(
+                    children: <Widget>[
+                      const SizedBox(
                         height: 25,
                         width: 25,
                         child: CircularProgressIndicator(),
                       ),
-                      SizedBox(width: 15),
+                      const SizedBox(width: 15),
                       Text(
-                        'Loading...',
-                        style: TextStyle(
+                        '${AppLocalizations.of(context).translate("Loading")}...',
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'OpenSans',

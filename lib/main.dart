@@ -44,7 +44,7 @@ Future<void> main() async {
         ChangeNotifierProvider<OrgController>(create: (_) => OrgController()),
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
-        ChangeNotifierProvider.value(value: AppLanguage()),
+        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
         ChangeNotifierProvider<GroupController>(
             create: (_) => GroupController()),
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
             const Locale('es', 'ES'),
             const Locale('fr', 'FR'),
             const Locale('hi', 'IN'),
-            const Locale('zh-CN', 'CN'),
+            const Locale('zh', 'CN'),
           ],
           localizationsDelegates: [
             AppLocalizations.delegate,
@@ -95,6 +95,20 @@ class MyApp extends StatelessWidget {
           showPerformanceOverlay: false,
           navigatorKey: locator<NavigationService>().navigatorKey,
           onGenerateRoute: router.generateRoute,
+          localeResolutionCallback:
+              (Locale locale, Iterable<Locale> supportedLocales) {
+            if (locale == null) {
+              debugPrint("*language locale is null!!!");
+              return supportedLocales.first;
+            }
+            for (final Locale supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode ||
+                  supportedLocale.countryCode == locale.countryCode) {
+                return supportedLocale;
+              }
+            }
+            return supportedLocales.first;
+          },
           home: FutureBuilder(
             future: preferences.getUserId(),
             initialData: "Initial Data",

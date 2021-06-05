@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/custom_toast.dart';
@@ -73,7 +74,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
           print(userOrg);
           if (userOrg.isEmpty) {
             showError(
-              "You are not registered to any organization",
+              AppLocalizations.of(context)
+                  .translate("You are not registered to any organization"),
             );
           }
         },
@@ -85,7 +87,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
   Future switchOrg() async {
     if (userOrg[isSelected]['_id'] == orgId) {
       CustomToast.sucessToast(
-        msg: "Switched to ${userOrg[isSelected]['name']}",
+        msg:
+            "${AppLocalizations.of(context).translate("Switched to")} ${userOrg[isSelected]['name']}",
       );
 
       //New Screen with updated data set
@@ -113,7 +116,8 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
         );
       } else if (!result.hasException) {
         CustomToast.sucessToast(
-          msg: "Switched to ${result.data['organizations'][0]['name']}",
+          msg:
+              "${AppLocalizations.of(context).translate("Switched to")} ${result.data['organizations'][0]['name']}",
         );
 
         //save new current org in preference
@@ -152,9 +156,9 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Switch Organization',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).translate('Switch Organization'),
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -210,7 +214,7 @@ class _SwitchOrganizationState extends State<SwitchOrganization> {
             ),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.save),
-        label: const Text("SAVE"),
+        label: Text(AppLocalizations.of(context).translate("SAVE")),
         backgroundColor: UIData.secondaryColor,
         foregroundColor: Colors.white,
         elevation: 5.0,

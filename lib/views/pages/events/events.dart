@@ -7,6 +7,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/model/events.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -36,9 +37,9 @@ class _EventsState extends State<Events> {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           key: const Key('EVENTS_APP_BAR'),
-          title: const Text(
-            'Events',
-            style: TextStyle(color: Colors.white),
+          title: Text(
+            AppLocalizations.of(context).translate('Events'),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         floatingActionButton: eventFab(context),
@@ -60,26 +61,28 @@ class _EventsState extends State<Events> {
                     child: CustomScrollView(
                       slivers: [
                         SliverAppBar(
-                            backgroundColor: Colors.white,
-                            automaticallyImplyLeading: false,
-                            expandedHeight: SizeConfig.safeBlockVertical * 47.5,
-                            flexibleSpace: FlexibleSpaceBar(
-                              background: calendar(model),
-                            )),
+                          backgroundColor: Colors.white,
+                          automaticallyImplyLeading: false,
+                          expandedHeight: SizeConfig.safeBlockVertical * 47.5,
+                          flexibleSpace: FlexibleSpaceBar(
+                            background: calendar(model),
+                          ),
+                        ),
                         SliverStickyHeader(
                           header: carouselSliderBar(model),
-                          sliver: const SliverFillRemaining(
-                              child: Center(
-                            child: Text(
-                              'No Event Created',
-                              style: TextStyle(
-                                fontSize: 15.0,
+                          sliver: SliverFillRemaining(
+                            child: Center(
+                              child: Text(
+                                AppLocalizations.of(context)
+                                    .translate('No Event Created'),
+                                style: const TextStyle(fontSize: 15.0),
                               ),
                             ),
-                          )),
+                          ),
                         ),
                       ],
-                    ))
+                    ),
+                  )
                 : RefreshIndicator(
                     onRefresh: () async {
                       try {
@@ -110,52 +113,55 @@ class _EventsState extends State<Events> {
                                     children: [carouselSliderBar(model)],
                                   ),
                                   Expanded(
-                                      child: model.eventList.isEmpty
-                                          ? const Center(
-                                              child: Text('No Events Today.'))
-                                          : Timeline.builder(
-                                              lineColor: UIData.primaryColor,
-                                              position: TimelinePosition.Left,
-                                              itemCount: model.eventList.length,
-                                              itemBuilder: (context, index) {
-                                                if (index == 0) {
-                                                  return TimelineModel(
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Container(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  vertical:
-                                                                      SizeConfig
-                                                                              .safeBlockVertical *
-                                                                          0.625),
-                                                          child: Text(
-                                                            '${model.eventList.length} Events',
-                                                            style: const TextStyle(
-                                                                color: Colors
-                                                                    .black45),
-                                                          ),
-                                                        ),
-                                                        eventCard(index, model,
-                                                            context)
-                                                      ],
-                                                    ),
-                                                    iconBackground:
-                                                        UIData.secondaryColor,
-                                                  );
-                                                }
+                                    child: model.eventList.isEmpty
+                                        ? Center(
+                                            child: Text(AppLocalizations.of(
+                                                    context)
+                                                .translate('No Events Today.')))
+                                        : Timeline.builder(
+                                            lineColor: UIData.primaryColor,
+                                            position: TimelinePosition.Left,
+                                            itemCount: model.eventList.length,
+                                            itemBuilder: (context, index) {
+                                              if (index == 0) {
                                                 return TimelineModel(
-                                                  eventCard(
-                                                      index, model, context),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        padding: EdgeInsets.symmetric(
+                                                            vertical: SizeConfig
+                                                                    .safeBlockVertical *
+                                                                0.625),
+                                                        child: Text(
+                                                          '${model.eventList.length} ${AppLocalizations.of(context).translate("Events")}',
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .black45),
+                                                        ),
+                                                      ),
+                                                      eventCard(
+                                                          index, model, context)
+                                                    ],
+                                                  ),
                                                   iconBackground:
                                                       UIData.secondaryColor,
-                                                  position: TimelineItemPosition
-                                                      .right,
                                                 );
-                                              }))
+                                              }
+                                              return TimelineModel(
+                                                eventCard(
+                                                    index, model, context),
+                                                iconBackground:
+                                                    UIData.secondaryColor,
+                                                position:
+                                                    TimelineItemPosition.right,
+                                              );
+                                            },
+                                          ),
+                                  )
                                 ],
                               ),
                             ),
@@ -213,9 +219,9 @@ class _EventsState extends State<Events> {
               child: CarouselSlider(
                 carouselController: carouselController,
                 items: [
-                  const Text(
-                    'All',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  Text(
+                    AppLocalizations.of(context).translate('All'),
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
                   ),
                   Text(
                     model.dateSelected,
@@ -257,7 +263,8 @@ class _EventsState extends State<Events> {
             key: UniqueKey(),
             isCurrentOrgNull: model.isCurrOrgNull,
             emptyContentIcon: Icons.event,
-            emptyContentMsg: 'No events to show, Create One!',
+            emptyContentMsg: AppLocalizations.of(context)
+                .translate('No events to show, Create One!'),
             refreshFunction: model.getEvents,
           ))
         : RefreshIndicator(
@@ -277,7 +284,7 @@ class _EventsState extends State<Events> {
                             Container(
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               child: Text(
-                                '${model.displayEvents.length} Events',
+                                '${model.displayEvents.length} ${AppLocalizations.of(context).translate("Events")}',
                                 style: const TextStyle(color: Colors.black45),
                               ),
                             ),
@@ -285,10 +292,13 @@ class _EventsState extends State<Events> {
                           ],
                         ),
                         iconBackground: UIData.secondaryColor)
-                    : TimelineModel(eventCard(index, model, context),
+                    : TimelineModel(
+                        eventCard(index, model, context),
                         iconBackground: UIData.secondaryColor,
-                        position: TimelineItemPosition.right);
+                        position: TimelineItemPosition.right,
+                      );
               },
-            ));
+            ),
+          );
   }
 }

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/views/pages/organization/organization_settings.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/services/app_localization.dart';
 
 Widget createProfileScreen({bool isCreator, List organization, bool public}) =>
     MaterialApp(
+      localizationsDelegates: [
+        const AppLocalizationsDelegate(isTest: true),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       home: OrganizationSettings(
         creator: isCreator,
         organization: organization,
@@ -41,6 +48,7 @@ void main() {
             organization: joinedCreator,
           ),
           const Duration(microseconds: 100));
+      await tester.pumpAndSettle();
 
       //finding the update organization tile so that the creator can update organization
       expect(find.byKey(const Key('Update Organization')), findsOneWidget);
@@ -81,6 +89,7 @@ void main() {
             organization: joinedCreator,
           ),
           const Duration(microseconds: 100));
+      await tester.pumpAndSettle();
 
       //finding the update organization tile so that the creator can update organization
       expect(find.byKey(const Key('Update Organization')), findsOneWidget);
@@ -118,6 +127,7 @@ void main() {
             organization: joinedCreator,
           ),
           const Duration(microseconds: 100));
+      await tester.pumpAndSettle();
 
       //finding the update organization tile so that the admin can update organization
       expect(find.byKey(const Key('Update Organization')), findsOneWidget);
@@ -158,6 +168,7 @@ void main() {
             organization: joinedCreator,
           ),
           const Duration(microseconds: 100));
+      await tester.pumpAndSettle();
 
       //finding the update organization tile so that the creator can update organization
       expect(find.byKey(const Key('Update Organization')), findsOneWidget);
