@@ -45,7 +45,12 @@ class UserConfig {
 
   Future? updateUserMemberRequestOrg(List<OrgInfo> orgDetails) {
     currentUser!.updateMemberRequestOrg(orgDetails);
-    currentUser!.save();
+    final box = Hive.box<User>('currentUser');
+    if (box.get('user') == null) {
+      box.put('user', currentUser!);
+    } else {
+      box.put('user', currentUser!);
+    }
   }
 
   Future? updateUserAdminOrg(List<OrgInfo> orgDetails) {

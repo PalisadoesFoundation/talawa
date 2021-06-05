@@ -65,7 +65,7 @@ class SignupDetailsViewModel extends BaseModel {
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
       final bool signUpSuccess = await locator<DataBaseMutationFunctions>()
-          .signup('test', 'test', 'test9@gsoc.us', 'Test@123');
+          .signup(firstName.text, lastName.text, email.text, password.text);
       if (signUpSuccess) {
         locator<GraphqlConfig>().getToken();
         if (selectedOrganization.isPublic!) {

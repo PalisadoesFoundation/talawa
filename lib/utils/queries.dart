@@ -25,6 +25,12 @@ class Queries {
                    image
                    name
                  }
+                 membershipRequests{
+                   organization{
+                    _id
+                    name
+                   }
+                 }
                  adminFor{
                    _id
                    image
@@ -58,6 +64,12 @@ class Queries {
                    _id
                    image
                    name
+                 }
+                 membershipRequests{
+                   organization{
+                    _id
+                    name
+                   }
                  }
                  adminFor{
                    _id

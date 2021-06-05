@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/locator.dart';
 
@@ -57,7 +58,11 @@ class LoginViewModel extends BaseModel {
       final bool loginSuccess = await locator<DataBaseMutationFunctions>()
           .login(email.text, password.text);
       if (loginSuccess) {
-        locator<NavigationService>().pushReplacementScreen('/mainScreen');
+        if (locator<UserConfig>().currentUser!.joinedOrganizations!.isEmpty) {
+          locator<NavigationService>().removeAllAndPush('/waiting', '/');
+        } else {
+          locator<NavigationService>().removeAllAndPush('/mainScreen', '/');
+        }
       }
     }
   }
