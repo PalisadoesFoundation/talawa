@@ -54,9 +54,11 @@ class LoginViewModel extends BaseModel {
     validate = AutovalidateMode.always;
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
-      locator<DataBaseMutationFunctions>().login(email.text, password.text);
+      final bool loginSuccess = await locator<DataBaseMutationFunctions>()
+          .login(email.text, password.text);
+      if (loginSuccess) {
+        locator<NavigationService>().pushReplacementScreen('/mainScreen');
+      }
     }
-    /*locator<NavigationService>()
-        .pushReplacementScreen('/mainScreen');*/
   }
 }

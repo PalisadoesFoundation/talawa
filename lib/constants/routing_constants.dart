@@ -16,4 +16,5 @@ class Routes {
   static const String progressDialog = "/progress";
   static const String individualPost = "/individualPost";
   static const String pinnedPostpage = "/pinnedPostPage";
+  static const String exploreEventsScreen = "/exploreEvents";
 }

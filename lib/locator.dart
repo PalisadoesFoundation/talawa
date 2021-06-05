@@ -3,7 +3,9 @@ import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/demo_view_model.dart';
+import 'package:talawa/view_model/explore_events_view_model.dart';
 import 'package:talawa/view_model/login_view_model.dart';
 import 'package:talawa/view_model/organization_feed_view_model.dart';
 import 'package:talawa/view_model/progress_dialog_view_model.dart';
@@ -21,6 +23,9 @@ void setupLocator() {
   //sizeConfig
   locator.registerSingleton(SizeConfig());
 
+  //userConfig
+  locator.registerSingleton(UserConfig());
+
   //graphql
   locator.registerSingleton(GraphqlConfig());
 
@@ -37,4 +42,5 @@ void setupLocator() {
   locator.registerFactory(() => SelectOrganizationViewModel());
   locator.registerFactory(() => SignupDetailsViewModel());
   locator.registerFactory(() => WaitingViewModel());
+  locator.registerFactory(() => ExploreEventsViewModel());
 }

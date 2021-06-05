@@ -7,7 +7,7 @@ import 'package:talawa/views/home_page.dart';
 
 Widget createHomePageScreen() => MaterialApp(
       home: const MainScreen(
-        key: Key('homePage'),
+        key: Key('MainScreen'),
       ),
       navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: router.generateRoute,
@@ -66,16 +66,15 @@ void main() {
         await tester.pumpWidget(createHomePageScreen());
         //checking if the first page is newsfeed page
         expect(find.text('Organization Name'), findsOneWidget);
-        expect(find.text('Events Screen'), findsNothing);
+        expect(find.byKey(const Key("ExploreEventsAppBar")), findsNothing);
         final eventIcon = find.byIcon(Icons.event_note);
         //tapping the eventIcon
         await tester.tap(eventIcon);
-        await tester.pump();
+        //await tester.pump();
         // Event Screen should be present
-        expect(find.text('Events Screen'), findsOneWidget);
+        //expect(find.byKey(const Key("ExploreEventsAppBar")), findsOneWidget);
       });
     });
-
     testWidgets('Testing if Post Screen Shows up', (tester) async {
       await tester.pumpWidget(createHomePageScreen());
       //checking if the first page is newsfeed page

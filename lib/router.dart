@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/main.dart';
+import 'package:talawa/models/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
+import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/pinned_post_page.dart';
@@ -48,12 +50,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
                 selectedOrgId: id,
               ));
     case Routes.signupDetailScreen:
-      final String id = settings.arguments!.toString();
-      print('id: $id');
+      final OrgInfo org = settings.arguments! as OrgInfo;
       return CupertinoPageRoute(
           builder: (context) => SignUpDetails(
                 key: const Key('Signup'),
-                selectedOrgId: id,
+                selectedOrg: org,
               ));
     case Routes.waitingScreen:
       return MaterialPageRoute(
@@ -74,13 +75,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       final Post post = settings.arguments! as Post;
       return MaterialPageRoute(
           builder: (context) => InividualPostView(
-                key: const Key('MainScreen'),
+                key: const Key('InividualPost'),
                 post: post,
               ));
     case Routes.pinnedPostpage:
       final List<Post> pinnedPosts = settings.arguments! as List<Post>;
       return MaterialPageRoute(
           builder: (context) => PinnedPostPage(pinnedPosts: pinnedPosts));
+    case Routes.exploreEventsScreen:
+      return MaterialPageRoute(
+          builder: (context) => const ExploreEvents(key: Key('ExploreEvents')));
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(

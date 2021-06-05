@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/view_state.dart';
+import 'package:talawa/models/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-
-import '../locator.dart';
+import 'package:talawa/locator.dart';
 
 class SignupDetailsViewModel extends BaseModel {
   late List<Map<String, dynamic>> greeting;
   final formKey = GlobalKey<FormState>();
+  late OrgInfo selectedOrganization;
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
   TextEditingController email = TextEditingController();
@@ -18,7 +21,8 @@ class SignupDetailsViewModel extends BaseModel {
   bool hidePassword = true;
   AutovalidateMode validate = AutovalidateMode.disabled;
 
-  initialise() {
+  initialise(OrgInfo org) {
+    selectedOrganization = org;
     greeting = [
       {
         'text': "Let's ",
@@ -52,7 +56,7 @@ class SignupDetailsViewModel extends BaseModel {
     ];
   }
 
-  next() {
+  next() async {
     FocusScope.of(locator<NavigationService>().navigatorKey.currentContext!)
         .unfocus();
     setState(ViewState.busy);
@@ -60,9 +64,30 @@ class SignupDetailsViewModel extends BaseModel {
     setState(ViewState.idle);
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
-      print('tapped');
-      locator<DataBaseMutationFunctions>()
-          .signup(firstName.text, lastName.text, email.text, password.text);
+      final bool signUpSuccess = await locator<DataBaseMutationFunctions>()
+          .signup('test', 'test', 'test9@gsoc.us', 'Test@123');
+      if (signUpSuccess) {
+        locator<GraphqlConfig>().getToken();
+        if (selectedOrganization.isPublic!) {
+          final bool successJoin = await locator<DataBaseMutationFunctions>()
+              .joinPublicOrg(selectedOrganization.id!);
+          if (successJoin) {
+            locator<UserConfig>().currentUser!.print();
+            locator<NavigationService>().removeAllAndPush('/mainScreen', '/');
+          } else {
+            locator<NavigationService>().showSnackBar('SomeThing went wrong');
+          }
+        } else {
+          final bool successRequest = await locator<DataBaseMutationFunctions>()
+              .sendMembershipRequest(selectedOrganization.id!);
+          if (successRequest) {
+            locator<UserConfig>().currentUser!.print();
+            locator<NavigationService>().removeAllAndPush('/waiting', '/');
+          } else {
+            locator<NavigationService>().showSnackBar('SomeThing went wrong');
+          }
+        }
+      }
     }
   }
 }
