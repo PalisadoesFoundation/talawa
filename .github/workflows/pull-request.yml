@@ -42,7 +42,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'beta'
-          ​flutter-version​: ​'​1.9.1+hotfix.6​'​
+          ​flutter-version​: ​'​2.2.1'​
       - run: flutter pub get
       - run: flutter analyze --no-pub
 
