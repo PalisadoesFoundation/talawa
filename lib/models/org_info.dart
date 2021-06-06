@@ -34,6 +34,7 @@ class OrgInfo {
   }
 
   List<OrgInfo> fromJsonToList(List<dynamic> json) {
+    // ignore: prefer_final_locals
     List<OrgInfo>? _orgList = [];
     json.forEach((element) {
       final OrgInfo org = OrgInfo.fromJson(element as Map<String, dynamic>);
