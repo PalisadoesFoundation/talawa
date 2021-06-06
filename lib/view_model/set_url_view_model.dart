@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/validators.dart';
@@ -68,11 +68,12 @@ class SetUrlViewModel extends BaseModel {
       validate = AutovalidateMode.disabled;
       final bool? urlPresent = await Validator.validateUrlExistence(url.text);
       if (urlPresent!) {
-        const FlutterSecureStorage storage = FlutterSecureStorage();
-        await storage.write(key: urlKey, value: url.text);
-        await storage.write(key: imageUrlKey, value: "${url.text}/talawa/");
+        final box = Hive.box('url');
+        box.put(urlKey, url.text);
+        box.put(imageUrlKey, "${url.text}/talawa/");
+
         locator<NavigationService>().pop();
-        GraphqlConfig().getOrgUrl();
+        locator<GraphqlConfig>().getOrgUrl();
         locator<NavigationService>()
             .pushScreen(navigateTo, arguments: argument);
       } else {

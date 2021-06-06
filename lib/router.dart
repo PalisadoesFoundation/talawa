@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/main.dart';
+import 'package:talawa/models/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
@@ -52,12 +53,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
                 selectedOrgId: id,
               ));
     case Routes.signupDetailScreen:
-      final String id = settings.arguments!.toString();
-      print('id: $id');
+      final OrgInfo org = settings.arguments! as OrgInfo;
       return CupertinoPageRoute(
           builder: (context) => SignUpDetails(
                 key: const Key('Signup'),
-                selectedOrgId: id,
+                selectedOrg: org,
               ));
     case Routes.waitingScreen:
       return MaterialPageRoute(

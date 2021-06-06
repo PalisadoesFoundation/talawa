@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/locator.dart';
 
@@ -54,9 +55,15 @@ class LoginViewModel extends BaseModel {
     validate = AutovalidateMode.always;
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
-      locator<DataBaseMutationFunctions>().login(email.text, password.text);
+      final bool loginSuccess = await locator<DataBaseMutationFunctions>()
+          .login(email.text, password.text);
+      if (loginSuccess) {
+        if (locator<UserConfig>().currentUser!.joinedOrganizations!.isEmpty) {
+          locator<NavigationService>().removeAllAndPush('/waiting', '/');
+        } else {
+          locator<NavigationService>().removeAllAndPush('/mainScreen', '/');
+        }
+      }
     }
-    /*locator<NavigationService>()
-        .pushReplacementScreen('/mainScreen');*/
   }
 }
