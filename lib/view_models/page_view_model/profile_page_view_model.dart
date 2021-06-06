@@ -9,6 +9,7 @@ import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/enums/exception_type.dart';
 import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/model/user.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/exception.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
@@ -45,11 +46,11 @@ class ProfilePageViewModel extends BaseModel {
 
   initialize({@required BuildContext context}) {
     _context = context;
-    fetchUserDetails();
+    fetchUserDetails(context);
   }
 
   //used to fetch the users details from the server
-  Future fetchUserDetails() async {
+  Future fetchUserDetails(BuildContext context) async {
     setState(ViewState.busy);
     _orgName = await _preferences.getCurrentOrgName();
     _orgId = await _preferences.getCurrentOrgId();
@@ -59,7 +60,11 @@ class ProfilePageViewModel extends BaseModel {
         documentNode: gql(_query.fetchUserInfo), variables: {'id': _userID}));
     if (result.hasException) {
       print(result.exception);
-      CustomToast.exceptionToast(msg: "Something went wrong!");
+      CustomToast.exceptionToast(
+        msg: AppLocalizations.of(context).translate(
+          "Something went wrong!Try again later",
+        ),
+      );
     } else if (!result.hasException) {
       print(result);
       _userDetails = userFromJson(json.encode(result.data['users']));
@@ -84,13 +89,13 @@ class ProfilePageViewModel extends BaseModel {
             .saveCurrentOrgId(_org[0]['_id'].toString());
         await _preferences.saveCurrentOrgImgSrc(_org[0]['image'].toString());
       }
-      fetchOrgAdmin();
+      fetchOrgAdmin(context);
     }
     setState(ViewState.idle);
   }
 
   //used to fetch Organization Admin details
-  Future fetchOrgAdmin() async {
+  Future fetchOrgAdmin(BuildContext context) async {
     _orgName = await _preferences.getCurrentOrgName();
     _orgId = await _preferences.getCurrentOrgId();
     if (_orgId != null) {
@@ -99,7 +104,10 @@ class ProfilePageViewModel extends BaseModel {
           .query(QueryOptions(documentNode: gql(_query.fetchOrgById(_orgId))));
       if (result.hasException) {
         print(result.exception.toString());
-        CustomToast.exceptionToast(msg: "Please Try Again later!");
+        CustomToast.exceptionToast(
+          msg:
+              AppLocalizations.of(context).translate("Please Try Again later!"),
+        );
       } else if (!result.hasException) {
         print('here');
         _curOrganization = result.data['organizations'] as List;
@@ -124,7 +132,7 @@ class ProfilePageViewModel extends BaseModel {
   }
 
   //function used when someone wants to leave organization
-  Future leaveOrg() async {
+  Future leaveOrg(BuildContext context) async {
     List remaindingOrg = [];
     String newOrgId;
     String newOrgName;
@@ -140,10 +148,14 @@ class ProfilePageViewModel extends BaseModel {
       if (exceptionType == ExceptionType.accesstokenException) {
         _authController.getNewToken();
         print('loop');
-        return leaveOrg();
+        return leaveOrg(context);
       } else {
         print('exception: ${result.exception.toString()}');
-        CustomToast.exceptionToast(msg: "Please Try Again later!");
+        CustomToast.exceptionToast(
+          msg: AppLocalizations.of(context).translate(
+            "Please Try Again later!",
+          ),
+        );
       }
       return;
     }

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:talawa/model/events.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 
 //pages are imported here
@@ -60,19 +61,19 @@ class _EventDetailState extends State<EventDetail>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       displayText(
-                        "To Do: ${widget.event.description}",
+                        "${AppLocalizations.of(context).translate("To Do")}: ${widget.event.description}",
                       ),
                       displayText(
-                        "Held: ${widget.event.recurrance.toString()[0]}${widget.event.recurrance.toString().substring(1).toLowerCase()}",
+                        "${AppLocalizations.of(context).translate("Held")}: ${widget.event.recurrance.toString()[0]}${widget.event.recurrance.toString().substring(1).toLowerCase()}",
                       ),
                       displayText(
-                        "Next: ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.startTime))).toString()}",
+                        "${AppLocalizations.of(context).translate("Next")}: ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.startTime))).toString()}",
                       ),
                       displayText(
-                        "Where: ${widget.event.location.toString()}",
+                        "${AppLocalizations.of(context).translate("Where")}: ${widget.event.location.toString()}",
                       ),
                       displayText(
-                        "From: ${'${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.startTime)))} to ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.endTime)))}'}",
+                        "${AppLocalizations.of(context).translate("From")}: ${'${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.startTime)))} to ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.endTime)))}'}",
                       ),
                     ],
                   ),
@@ -93,18 +94,18 @@ class _EventDetailState extends State<EventDetail>
                   indicatorColor: Colors.white,
                   controller: _tabController,
                   tabs: [
-                    const Tab(
+                    Tab(
                       icon: Text(
-                        'Tasks',
-                        style: TextStyle(
+                        AppLocalizations.of(context).translate('Tasks'),
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
                     ),
-                    const Tab(
+                    Tab(
                       icon: Text(
-                        'Registrants',
-                        style: TextStyle(color: Colors.white),
+                        AppLocalizations.of(context).translate('Registrants'),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ],

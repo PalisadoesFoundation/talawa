@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/organization/join_organization_view.dart';
 
@@ -85,7 +86,8 @@ class _LoadingState extends State<Loading> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'No organization found!',
+                    AppLocalizations.of(context)
+                        .translate('No organization found!'),
                     style: TextStyle(
                       fontSize: SizeConfig.safeBlockVertical * 2.5,
                       color: Colors.grey,
@@ -101,9 +103,10 @@ class _LoadingState extends State<Loading> {
                                   )),
                           (route) => false);
                     },
-                    child: const Text(
-                      'Join Organization!',
-                      style: TextStyle(
+                    child: Text(
+                      AppLocalizations.of(context)
+                          .translate('Join Organization!'),
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                     ),
@@ -126,9 +129,10 @@ class _LoadingState extends State<Loading> {
                   SizedBox(height: SizeConfig.safeBlockVertical * 3.75),
                   widget.isNetworkError != null
                       ? widget.isNetworkError
-                          ? showErrorText("Something went wrong")
+                          ? showErrorText("Something went wrong", context)
                           : showEmptyContentText(widget.emptyContentMsg)
-                      : showErrorText('No data or something went wrong'),
+                      : showErrorText(
+                          'No data or something went wrong', context),
                   SizedBox(
                     height: SizeConfig.safeBlockVertical * 10,
                   ),
@@ -165,7 +169,10 @@ class _LoadingState extends State<Loading> {
                             SizeConfig.safeBlockVertical * 3.2)),
                         child: Center(
                           child: Text(
-                            loading ? 'Refreshing...' : 'Refresh',
+                            loading
+                                ? '${AppLocalizations.of(context).translate("Refreshing")}...'
+                                : AppLocalizations.of(context)
+                                    .translate('Refresh'),
                             style: const TextStyle(
                               color: Colors.orange,
                               fontWeight: FontWeight.bold,
@@ -180,9 +187,9 @@ class _LoadingState extends State<Loading> {
   }
 }
 
-Widget showErrorText(String msg) {
+Widget showErrorText(String msg, BuildContext context) {
   return Text(
-    msg,
+    AppLocalizations.of(context).translate(msg),
     style: const TextStyle(color: Colors.red),
   );
 }
@@ -191,8 +198,9 @@ Widget showEmptyContentText(String msg) {
   return Text(
     msg,
     style: TextStyle(
-        fontSize: SizeConfig.safeBlockVertical * 2.5,
-        fontWeight: FontWeight.bold,
-        color: Colors.grey),
+      fontSize: SizeConfig.safeBlockVertical * 2.5,
+      fontWeight: FontWeight.bold,
+      color: Colors.grey,
+    ),
   );
 }

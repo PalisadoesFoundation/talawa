@@ -1,5 +1,6 @@
 //flutter package imported
 import 'package:flutter/material.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/package_info.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 
@@ -44,13 +45,14 @@ class _MyAboutTileState extends State<MyAboutTile> {
         SizedBox(
           height: SizeConfig.safeBlockVertical * 1.25,
         ),
-        const Text(
-          "Collaborative",
+        Text(
+          AppLocalizations.of(context).translate("Collaborative"),
         ),
       ],
       applicationName: UIData.appName,
-      applicationVersion:
-          packageInfo != null ? packageInfo['version'].toString() : "Loading..",
+      applicationVersion: packageInfo != null
+          ? packageInfo['version'].toString()
+          : "${AppLocalizations.of(context).translate("Loading")}..",
       applicationLegalese: "Apache License 2.0",
     );
   }

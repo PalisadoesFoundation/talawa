@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/services/app_localization.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
@@ -41,6 +43,11 @@ Widget newsArticlePage() => MultiProvider(
             create: (_) => GroupController()),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: Builder(
           builder: (ctx) {
             SizeConfig().init(ctx);
@@ -68,6 +75,7 @@ void main() {
     testWidgets("Testing if newsArticle Page shows up", (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(newsArticlePage());
+        await tester.pumpAndSettle();
 
         /// Verify if [News Article Page] shows up.
 
@@ -85,6 +93,7 @@ void main() {
 
       await tester.runAsync(() async {
         await tester.pumpWidget(newsArticlePage());
+        await tester.pumpAndSettle();
 
         /// Verify if [News Article Page] shows up.
         expect(
@@ -101,6 +110,7 @@ void main() {
 
       await tester.runAsync(() async {
         await tester.pumpWidget(newsArticlePage());
+        await tester.pumpAndSettle();
 
         /// Verify if [News Article Page] shows up.
         expect(
@@ -113,6 +123,7 @@ void main() {
     testWidgets("Load Comments Button is working", (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(newsArticlePage());
+        await tester.pumpAndSettle();
 
         //     // Get the Load Comment button.
         final loadCommentsButton = find.text("Load Comments");
@@ -143,6 +154,7 @@ void main() {
 
     //execute the test
     await tester.pumpWidget(newsArticlePage());
+    await tester.pumpAndSettle();
     await tester.enterText(leaveCommentTextField, "hello how are you");
     await tester.tap(leaveCommentButton);
     await tester.pump();

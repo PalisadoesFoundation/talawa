@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
-
-import 'package:talawa/views/pages/organization/Join-Organization-Widgets/org_body.dart';
-import 'package:talawa/views/pages/organization/Create%20Organization/create_organization_view.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/views/pages/organization/create_organization/create_organization_view.dart';
+import 'package:talawa/views/pages/organization/join_organization_widgets/org_body.dart';
 
 class JoinOrganization extends StatefulWidget {
   const JoinOrganization({this.msg, this.fromProfile = false});
@@ -76,19 +77,21 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                         !widget.fromProfile
                             ? const SizedBox(width: 16)
                             : const SizedBox(width: 10),
-                        const Expanded(
+                        Expanded(
                           child: ListTile(
-                            contentPadding: EdgeInsets.all(0),
+                            contentPadding: const EdgeInsets.all(0),
                             title: Text(
-                              'Join Organization',
-                              style: TextStyle(
+                              AppLocalizations.of(context)
+                                  .translate('Join Organization'),
+                              style: const TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
                             subtitle: Text(
-                              'Welcome, Join organization to get started',
-                              style: TextStyle(
+                              AppLocalizations.of(context).translate(
+                                  'Welcome, Join organization to get started'),
+                              style: const TextStyle(
                                 fontSize: 14,
                                 fontFamily: 'OpenSans',
                               ),
@@ -138,7 +141,8 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                           padding: EdgeInsets.all(0.0),
                           child: Icon(Icons.search, color: Colors.black),
                         ),
-                        hintText: "Search Organization Name",
+                        hintText: AppLocalizations.of(context)
+                            .translate("Search Organization Name"),
                       ),
                     ),
                   ),
@@ -206,7 +210,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                   color: choice == filter ? Colors.green : Colors.white,
                 ),
                 title: Text(
-                  choice,
+                  AppLocalizations.of(context).translate(choice),
                   style: const TextStyle(
                     fontFamily: 'OpenSans',
                   ),

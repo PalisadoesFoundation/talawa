@@ -99,9 +99,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 : Padding(
                     padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
                     child: CircleAvatar(
-                        radius: SizeConfig.safeBlockVertical * 5,
-                        backgroundImage:
-                            const AssetImage("assets/images/team.png")),
+                      radius: SizeConfig.safeBlockVertical * 5,
+                      backgroundImage:
+                          const AssetImage("assets/images/team.png"),
+                    ),
                   );
           }
         },

@@ -10,6 +10,8 @@ import 'package:talawa/controllers/news_feed_controller.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/views/pages/organization/update_profile_page_view.dart';
 
 Widget createProfileUpdateScreen() => MultiProvider(
@@ -24,6 +26,11 @@ Widget createProfileUpdateScreen() => MultiProvider(
             create: (_) => NewsFeedProvider()),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: Builder(builder: (BuildContext context) {
           SizeConfig().init(context);
           const user = User(
@@ -38,13 +45,13 @@ Widget createProfileUpdateScreen() => MultiProvider(
       ),
     );
 
-void main() async {
-  await setupLocator();
+void main() {
+  setupLocator();
   group('Member Info Page Widget Tests', () {
     testWidgets("3 TestFormField Exist in Profile Page Update",
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-          createProfileUpdateScreen(), const Duration(microseconds: 100));
+      await tester.pumpWidget(createProfileUpdateScreen());
+      await tester.pumpAndSettle();
 
       final textField = find.byType(TextFormField);
       expect(textField, findsNWidgets(3));
@@ -52,8 +59,8 @@ void main() async {
 
     testWidgets("Flexible Space Bar in Profile Widget",
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-          createProfileUpdateScreen(), const Duration(microseconds: 100));
+      await tester.pumpWidget(createProfileUpdateScreen());
+      await tester.pumpAndSettle();
 
       final tile = find.byType(ListTile);
       expect(tile, findsOneWidget);
