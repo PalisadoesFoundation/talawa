@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:talawa/models/org_info.dart';
 
-class User {
+part 'user_info.g.dart';
+
+@HiveType(typeId: 1)
+class User extends HiveObject {
   User(
       {this.adminFor,
       this.createdOrganizations,
@@ -14,24 +18,44 @@ class User {
       this.authToken,
       this.refreshToken});
 
-  factory User.fromJson(Map<String, dynamic> json, String from) {
+  factory User.fromJson(Map<String, dynamic> json, {bool fromOrg = false}) {
+    if (fromOrg) {
+      return User(
+        authToken: json['accessToken'] as String?,
+        refreshToken: json['refreshToken'] as String?,
+        id: json['_id'] as String?,
+        firstName: json['firstName'] as String?,
+        lastName: json['lastName'] as String?,
+        email: json['email'] as String?,
+        image: json['image'] as String?,
+        adminFor: (json['adminFor'] as List<dynamic>?)
+            ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
+            .toList(),
+        createdOrganizations: (json['createdOrganizations'] as List<dynamic>?)
+            ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
+            .toList(),
+        joinedOrganizations: (json['joinedOrganizations'] as List<dynamic>?)
+            ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
+            .toList(),
+      );
+    }
     return User(
-      authToken: json[from]['accessToken'] as String,
-      refreshToken: json[from]['refreshToken'] as String,
-      id: json[from]['user']['_id'] as String,
-      firstName: json[from]['user']['firstName'] as String,
-      lastName: json[from]['user']['lastName'] as String,
-      email: json[from]['user']['email'] as String,
-      image: json[from]['user']['image'] as String?,
-      adminFor: (json[from]['user']['adminFor'] as List<dynamic>?)
+      authToken: json['accessToken'] as String?,
+      refreshToken: json['refreshToken'] as String?,
+      id: json['user']['_id'] as String?,
+      firstName: json['user']['firstName'] as String?,
+      lastName: json['user']['lastName'] as String?,
+      email: json['user']['email'] as String?,
+      image: json['user']['image'] as String?,
+      adminFor: (json['user']['adminFor'] as List<dynamic>?)
           ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
           .toList(),
       createdOrganizations:
-          (json[from]['user']['createdOrganizations'] as List<dynamic>?)
+          (json['user']['createdOrganizations'] as List<dynamic>?)
               ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
               .toList(),
       joinedOrganizations:
-          (json[from]['user']['joinedOrganizations'] as List<dynamic>?)
+          (json['user']['joinedOrganizations'] as List<dynamic>?)
               ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
               .toList(),
     );
@@ -51,17 +75,28 @@ class User {
     debugPrint('membershipRequests: ${this.membershipRequests}');
   }
 
+  @HiveField(0)
   String? authToken;
+  @HiveField(1)
   String? refreshToken;
+  @HiveField(2)
   String? id;
+  @HiveField(3)
   String? firstName;
+  @HiveField(4)
   String? lastName;
+  @HiveField(5)
   String? email;
+  @HiveField(6)
   String? image;
-  List<OrgInfo>? joinedOrganizations;
-  List<OrgInfo>? createdOrganizations;
-  List<OrgInfo>? adminFor;
-  List<OrgInfo>? membershipRequests;
+  @HiveField(7)
+  List<OrgInfo>? joinedOrganizations = [];
+  @HiveField(8)
+  List<OrgInfo>? createdOrganizations = [];
+  @HiveField(9)
+  List<OrgInfo>? adminFor = [];
+  @HiveField(10)
+  List<OrgInfo>? membershipRequests = [];
 
   updateJoinedOrg(List<OrgInfo> orgList) {
     this.joinedOrganizations!.addAll(orgList);

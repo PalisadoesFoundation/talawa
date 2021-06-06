@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:talawa/models/org_info.dart';
 
 class JoinOrgTile extends StatelessWidget {
@@ -22,10 +24,29 @@ class JoinOrgTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
         child: Row(
           children: [
-            const Expanded(
+            Expanded(
               flex: 1,
-              child: CircleAvatar(
-                radius: 25,
+              child: CachedNetworkImage(
+                imageBuilder: (context, imageProvider) {
+                  return CircleAvatar(
+                    radius: 25,
+                    backgroundImage: imageProvider,
+                  );
+                },
+                imageUrl:
+                    item.image ?? 'https://i.pravatar.cc/25?img=${index + 1}',
+                placeholder: (context, url) => CircleAvatar(
+                  radius: 25,
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.transparent,
+                    highlightColor: Colors.white30,
+                    child: const CircleAvatar(
+                      radius: 25,
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) =>
+                    const CircleAvatar(child: Icon(Icons.error)),
               ),
             ),
             Expanded(

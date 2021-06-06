@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:uni_links/uni_links.dart';
 import 'custom_painters/talawa_logo.dart';
 import 'locator.dart';
@@ -47,9 +48,20 @@ class _SplashScreenState extends State<SplashScreen> {
       print('malformed initial uri error: $err');
     }
     if (_latestUri == null && _initialUri == null) {
-      Future.delayed(const Duration(milliseconds: 1500)).then((value) {
-        locator<NavigationService>()
-            .pushReplacementScreen('/selectLang', arguments: '0');
+      Future.delayed(const Duration(milliseconds: 1000)).then((value) async {
+        final bool userLoggedIn = await locator<UserConfig>().userLoggedIn();
+        if (userLoggedIn) {
+          if (locator<UserConfig>().currentUser!.joinedOrganizations!.isEmpty) {
+            locator<NavigationService>()
+                .pushReplacementScreen('/waiting', arguments: '0');
+          } else {
+            locator<NavigationService>()
+                .pushReplacementScreen('/mainScreen', arguments: '0');
+          }
+        } else {
+          locator<NavigationService>()
+              .pushReplacementScreen('/selectLang', arguments: '0');
+        }
       });
     } else {
       if (_initialUri != null) {

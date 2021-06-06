@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
 
 class MainScreen extends StatefulWidget {
@@ -13,11 +14,7 @@ class MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   final List<Widget> _childrenPages = [
     const OrganizationFeed(key: Key("HomeView")),
-    Container(
-      child: const Center(
-        child: Text('Events Screen'),
-      ),
-    ),
+    const ExploreEvents(key: Key('ExploreEvents')),
     Container(
       child: const Center(
         child: Text('Post Screen'),

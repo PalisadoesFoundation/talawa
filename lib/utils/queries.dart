@@ -25,6 +25,12 @@ class Queries {
                    image
                    name
                  }
+                 membershipRequests{
+                   organization{
+                    _id
+                    name
+                   }
+                 }
                  adminFor{
                    _id
                    image
@@ -59,6 +65,12 @@ class Queries {
                    image
                    name
                  }
+                 membershipRequests{
+                   organization{
+                    _id
+                    name
+                   }
+                 }
                  adminFor{
                    _id
                    image
@@ -69,5 +81,101 @@ class Queries {
             }
         }
     """;
+  }
+
+  String get fetchJoinInOrg {
+    return """
+    query organizationsConnection(\$first: Int, \$skip: Int){
+      organizationsConnection(
+        first: \$first,
+        skip: \$skip,
+        orderBy: name_ASC
+      ){
+        image
+        _id
+        name
+        image
+        isPublic
+        creator{
+          firstName
+          lastName
+        }
+      }
+    }
+""";
+  }
+
+  String joinOrgById(String orgId) {
+    return '''
+    mutation {
+      joinPublicOrganization(organizationId: "$orgId") {
+          joinedOrganizations{
+            _id
+            name
+            image
+            description
+            isPublic
+            creator{
+              _id
+              firstName
+              lastName
+              image
+              email
+            }
+            admins{
+              _id
+              firstName
+              lastName
+              image
+              email
+            }
+            members{
+              _id
+              firstName
+              lastName
+              image
+              email
+            }
+          }
+      }
+	}
+  ''';
+  }
+
+  String sendMembershipRequest(String orgId) {
+    return '''
+      mutation {
+          sendMembershipRequest(organizationId: "$orgId"){
+            organization{
+              _id
+              name
+              image
+              description
+              isPublic
+              creator{
+                _id
+                firstName
+                lastName
+                image
+                email
+              }
+              admins{
+                _id
+                firstName
+                lastName
+                image
+                email
+              }
+              members{
+                _id
+                firstName
+                lastName
+                image
+                email
+              }
+            }
+         }
+    }
+  ''';
   }
 }
