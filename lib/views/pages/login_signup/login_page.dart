@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
+import 'package:talawa/views/lang_selector.dart';
 import 'package:talawa/views/pages/login_signup/login_form.dart';
 import 'package:talawa/views/pages/login_signup/register_page.dart';
 
@@ -66,7 +67,55 @@ class _LoginScreenState extends State<LoginPage> {
                         ),
                       ),
                     ],
-                  )
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  LanguageSelectorPage(),
+                          fullscreenDialog: true,
+                          transitionDuration: const Duration(milliseconds: 500),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            final tween = Tween(
+                              begin: const Offset(0.0, 1.0),
+                              end: Offset.zero,
+                            );
+
+                            final curvedAnimation = CurvedAnimation(
+                              parent: animation,
+                              curve: Curves.ease,
+                            );
+
+                            return SlideTransition(
+                              position: tween.animate(curvedAnimation),
+                              child: child,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        const Spacer(),
+                        const Icon(
+                          Icons.translate,
+                          color: UIData.primaryColor,
+                        ),
+                        const SizedBox(width: 5),
+                        const Text('Change App Language'),
+                        const Spacer(),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

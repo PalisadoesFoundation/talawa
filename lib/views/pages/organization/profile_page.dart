@@ -10,6 +10,7 @@ import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/page_view_model/profile_page_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/views/lang_selector.dart';
 import 'package:talawa/views/pages/organization/join_organization_view.dart';
 import 'package:talawa/views/pages/organization/update_profile_page_view.dart';
 import 'package:talawa/views/widgets/about_tile.dart';
@@ -233,6 +234,23 @@ class ProfilePage extends StatelessWidget {
                                   context: context, model: model)
                               : showLeaveOrgButton(
                                   context: context, model: model),
+                          ListTile(
+                              key: const Key('CHANGE_LANGUAGE'),
+                              title: Text(
+                                AppLocalizations.of(context)
+                                    .translate('Change Language'),
+                                style: const TextStyle(fontSize: 18.0),
+                              ),
+                              leading: const Icon(
+                                Icons.translate,
+                                color: UIData.secondaryColor,
+                              ),
+                              onTap: () {
+                                pushNewScreen(
+                                  context,
+                                  screen: LanguageSelectorPage(),
+                                );
+                              }),
                           ListTile(
                               key: const Key('Logout'),
                               title: Text(
