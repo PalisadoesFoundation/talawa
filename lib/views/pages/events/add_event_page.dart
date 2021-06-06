@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/services/app_localization.dart';
 
 import 'package:intl/intl.dart';
 import 'package:talawa/view_models/page_view_model/add_event_page_view_model.dart';
@@ -24,9 +25,9 @@ class _AddEventState extends State<AddEvent> {
     return BaseView<AddEventPageViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'New Event',
-            style: TextStyle(color: Colors.white),
+          title: Text(
+            AppLocalizations.of(context).translate('New Event'),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         body: ListView(
@@ -41,6 +42,7 @@ class _AddEventState extends State<AddEvent> {
             switchTile('All Day', model),
             _eventWidgets.recurrenceDropdown(
               recurringSwitchVal: model.switchVals['Recurring'],
+              context: context,
               recurranceList: model.recurranceList,
               recurrance: model.recurrance,
               onChanged: (String newValue) {
@@ -49,6 +51,7 @@ class _AddEventState extends State<AddEvent> {
             ),
             //widget to get the date button
             _eventWidgets.dateButton(
+              context: context,
               dateText:
                   '${DateFormat.yMMMd().format(model.dateRange.start)} | ${DateFormat.yMMMd().format(model.dateRange.end)} ',
               onTap: () {
@@ -82,7 +85,8 @@ class _AddEventState extends State<AddEvent> {
               return;
             }
 
-            showProgress(context, 'Creating New Event . . .',
+            showProgress(context,
+                '${AppLocalizations.of(context).translate("Creating New Event")} . . .',
                 isDismissible: false);
             await model.createEvent();
             hideProgress();
@@ -99,7 +103,8 @@ class _AddEventState extends State<AddEvent> {
   //widget to get the time button
   Widget timeButton(String name, DateTime time, AddEventPageViewModel model) {
     return _eventWidgets.timeButton(
-      name: 'Start Time',
+      context: context,
+      name: AppLocalizations.of(context).translate('Start Time'),
       timeText: TimeOfDay.fromDateTime(time).format(context),
       allDaySwitchVal: model.switchVals['All Day'],
       onTap: () {
@@ -112,6 +117,7 @@ class _AddEventState extends State<AddEvent> {
   Widget inputField(String name, TextEditingController controller,
       AddEventPageViewModel model) {
     return _eventWidgets.inputField(
+      context: context,
       name: name,
       controller: controller,
       errorText: name == 'Title'
@@ -120,11 +126,13 @@ class _AddEventState extends State<AddEvent> {
               : null
           : name == 'Description'
               ? model.validateDescription
-                  ? "Field Can't Be Empty"
+                  ? AppLocalizations.of(context)
+                      .translate("Field Can't Be Empty")
                   : null
               : name == 'Location'
                   ? model.validateLocation
-                      ? "Field Can't Be Empty"
+                      ? AppLocalizations.of(context)
+                          .translate("Field Can't Be Empty")
                       : null
                   : null,
     );
@@ -132,6 +140,7 @@ class _AddEventState extends State<AddEvent> {
 
   Widget switchTile(String name, AddEventPageViewModel model) {
     return _eventWidgets.switchTile(
+      context: context,
       name: name,
       switchValue: model.switchVals[name],
       onChanged: (val) {

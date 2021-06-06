@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/services/app_localization.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
@@ -30,6 +32,11 @@ Widget groupsPage() => MultiProvider(
         ),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: Groups(),
       ),
     );
@@ -42,6 +49,7 @@ void main() {
   group("Groups page Tests", () {
     testWidgets("Testing if Groups page shows up", (tester) async {
       await tester.pumpWidget(groupsPage());
+      await tester.pump();
 
       /// Verify if [Groups page] shows up.
       expect(
@@ -56,6 +64,7 @@ void main() {
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(groupsPage());
+      await tester.pump();
 
       /// Verify if [Groups page] shows up.
       expect(
@@ -70,6 +79,7 @@ void main() {
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(groupsPage());
+      await tester.pump();
 
       /// Verify if [Groups page] shows up.
       expect(
@@ -80,6 +90,7 @@ void main() {
 
     testWidgets("empty groups for user with no org", (tester) async {
       await tester.pumpWidget(groupsPage());
+      await tester.pump();
 
       final emptyTextWidget = find.byType(Text);
 

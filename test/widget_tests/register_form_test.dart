@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/services/app_localization.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
@@ -34,6 +36,11 @@ Widget createRegisterPageScreen() => MultiProvider(
             create: (_) => SignupLoginController()),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: Builder(
           builder: (context) {
             SizeConfig().init(context);
@@ -50,6 +57,7 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createRegisterPageScreen());
+      await tester.pumpAndSettle();
 
       /// Verify if [Register Page] shows up.
       expect(find.byType(RegisterPage), findsOneWidget);
@@ -60,6 +68,7 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createRegisterPageScreen());
+      await tester.pumpAndSettle();
 
       /// Get the hold of [Form] Widget.
       final form = tester.widget(find.byType(Form));
@@ -94,6 +103,7 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createRegisterPageScreen());
+      await tester.pumpAndSettle();
 
       /// Make an instance of [Random] class.
       final Random random = Random();
@@ -207,6 +217,7 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createRegisterPageScreen());
+      await tester.pumpAndSettle();
 
       /// Get the hold of [Form] Widget.
       final form = tester.widget(find.byType(Form));
@@ -250,6 +261,7 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createRegisterPageScreen());
+      await tester.pumpAndSettle();
 
       /// Get the hold of [Form] Widget.
       final form = tester.widget(find.byType(Form));

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 //importing the pages here
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/post_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
         icon: const Icon(
           Icons.home,
         ),
-        title: "Home",
+        title: AppLocalizations.of(context).translate("Home"),
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
@@ -96,7 +97,7 @@ class _HomePageState extends State<HomePage> {
         icon: const Icon(
           Icons.chat,
         ),
-        title: "Chats",
+        title: AppLocalizations.of(context).translate("Chats"),
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
@@ -105,7 +106,7 @@ class _HomePageState extends State<HomePage> {
         icon: const Icon(
           Icons.calendar_today,
         ),
-        title: "Events",
+        title: AppLocalizations.of(context).translate("Events"),
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
@@ -114,7 +115,7 @@ class _HomePageState extends State<HomePage> {
         icon: const Icon(
           Icons.group,
         ),
-        title: "Members",
+        title: AppLocalizations.of(context).translate("Members"),
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),
@@ -123,7 +124,7 @@ class _HomePageState extends State<HomePage> {
         icon: const Icon(
           Icons.folder,
         ),
-        title: "Profile",
+        title: AppLocalizations.of(context).translate("Profile"),
         activeColorPrimary: Colors.white,
         inactiveColorPrimary: Colors.white,
       ),

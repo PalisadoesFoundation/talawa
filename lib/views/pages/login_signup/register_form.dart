@@ -5,6 +5,7 @@ import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 // pages are called here
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/signup_login_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -55,11 +56,12 @@ class RegisterFormState extends State<RegisterForm> {
           children: <Widget>[
             AddImage(),
             Provider.of<SignupLoginController>(context).getImage == null
-                ? const Padding(
-                    padding: EdgeInsets.all(8.0),
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Add Profile Image',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      AppLocalizations.of(context)
+                          .translate('Add Profile Image'),
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
                     ))
                 : IconButton(
                     icon: const Icon(Icons.delete, size: 30, color: Colors.red),
@@ -77,7 +79,8 @@ class RegisterFormState extends State<RegisterForm> {
                     textInputAction: TextInputAction.next,
                     textCapitalization: TextCapitalization.words,
                     controller: _firstNameController,
-                    validator: (value) => Validator.validateFirstName(value),
+                    validator: (value) =>
+                        Validator.validateFirstName(value, context),
                     textAlign: TextAlign.left,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
@@ -90,10 +93,12 @@ class RegisterFormState extends State<RegisterForm> {
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       prefixIcon: const Icon(Icons.person, color: Colors.white),
-                      labelText: "First Name",
+                      labelText:
+                          AppLocalizations.of(context).translate("First Name"),
                       labelStyle: const TextStyle(color: Colors.white),
                       alignLabelWithHint: true,
-                      hintText: 'Earl',
+                      hintText: AppLocalizations.of(context)
+                          .translate('First Name Example'),
                       hintStyle: const TextStyle(color: Colors.grey),
                     ),
                     onSaved: (value) => model.firstName = value,
@@ -104,7 +109,8 @@ class RegisterFormState extends State<RegisterForm> {
                     textInputAction: TextInputAction.next,
                     textCapitalization: TextCapitalization.words,
                     controller: _lastNameController,
-                    validator: Validator.validateLastName,
+                    validator: (val) =>
+                        Validator.validateLastName(val, context),
                     textAlign: TextAlign.left,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
@@ -117,10 +123,12 @@ class RegisterFormState extends State<RegisterForm> {
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       prefixIcon: const Icon(Icons.person, color: Colors.white),
-                      labelText: "Last Name",
+                      labelText:
+                          AppLocalizations.of(context).translate("Last Name"),
                       labelStyle: const TextStyle(color: Colors.white),
                       alignLabelWithHint: true,
-                      hintText: 'John',
+                      hintText: AppLocalizations.of(context)
+                          .translate('Last Name Example'),
                       hintStyle: const TextStyle(color: Colors.grey),
                     ),
                     onSaved: (value) => model.lastName = value,
@@ -130,7 +138,7 @@ class RegisterFormState extends State<RegisterForm> {
                     autofillHints: const <String>[AutofillHints.email],
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
-                    validator: Validator.validateEmail,
+                    validator: (val) => Validator.validateEmail(val, context),
                     controller: _emailController,
                     textAlign: TextAlign.left,
                     style: const TextStyle(color: Colors.white),
@@ -144,10 +152,12 @@ class RegisterFormState extends State<RegisterForm> {
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       prefixIcon: const Icon(Icons.email, color: Colors.white),
-                      labelText: "Email",
+                      labelText:
+                          AppLocalizations.of(context).translate("Email"),
                       labelStyle: const TextStyle(color: Colors.white),
                       alignLabelWithHint: true,
-                      hintText: 'foo@bar.com',
+                      hintText: AppLocalizations.of(context)
+                          .translate("Email Example"),
                       hintStyle: const TextStyle(color: Colors.grey),
                     ),
                     onSaved: (value) => model.email = value,
@@ -158,7 +168,8 @@ class RegisterFormState extends State<RegisterForm> {
                     textInputAction: TextInputAction.next,
                     obscureText: _obscureText,
                     controller: _originalPasswordController,
-                    validator: Validator.validatePassword,
+                    validator: (val) =>
+                        Validator.validatePassword(val, context),
                     textAlign: TextAlign.left,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
@@ -180,11 +191,13 @@ class RegisterFormState extends State<RegisterForm> {
                           color: Colors.white,
                         ),
                       ),
-                      labelText: "Password",
+                      labelText:
+                          AppLocalizations.of(context).translate("Password"),
                       labelStyle: const TextStyle(color: Colors.white),
                       focusColor: UIData.primaryColor,
                       alignLabelWithHint: true,
-                      hintText: 'Password',
+                      hintText: AppLocalizations.of(context)
+                          .translate('Password Hint'),
                       hintStyle: const TextStyle(color: Colors.grey),
                     ),
                     onFieldSubmitted: (_) {
@@ -211,7 +224,7 @@ class RegisterFormState extends State<RegisterForm> {
                     obscureText: true,
                     focusNode: confirmPassField,
                     validator: (value) => Validator.validatePasswordConfirm(
-                        _originalPasswordController.text, value),
+                        _originalPasswordController.text, value, context),
                     textAlign: TextAlign.left,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
@@ -224,7 +237,8 @@ class RegisterFormState extends State<RegisterForm> {
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       prefixIcon: const Icon(Icons.lock, color: Colors.white),
-                      labelText: "Confirm Password",
+                      labelText: AppLocalizations.of(context)
+                          .translate("Confirm Password"),
                       labelStyle: const TextStyle(color: Colors.white),
                       focusColor: UIData.primaryColor,
                     ),
@@ -282,7 +296,7 @@ class RegisterFormState extends State<RegisterForm> {
                           strokeWidth: 3,
                           backgroundColor: Colors.black,
                         ))
-                    : const Text("SIGN UP"),
+                    : Text(AppLocalizations.of(context).translate("SIGN UP")),
               ),
             ),
           ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:talawa/services/app_localization.dart';
 
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -72,7 +73,7 @@ class _OrganisationTileState extends State<OrganisationTile> {
               overflow: TextOverflow.ellipsis,
             ),
             Text(
-              'Created by: ${widget.organization['creator']['firstName']} ${widget.organization['creator']['lastName']}',
+              '${AppLocalizations.of(context).translate("Created by")}: ${widget.organization['creator']['firstName']} ${widget.organization['creator']['lastName']}',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -116,7 +117,7 @@ class _OrganisationTileState extends State<OrganisationTile> {
                     backgroundColor: Colors.black,
                   ),
                 )
-              : const Text("JOIN"),
+              : Text(AppLocalizations.of(context).translate("JOIN")),
         ),
         isThreeLine: true,
       ),
@@ -133,15 +134,15 @@ class _OrganisationTileState extends State<OrganisationTile> {
       context: widget.scaffoldKey.currentContext,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: const Text("Confirmation"),
-          content:
-              const Text("Are you sure you want to join this organization?"),
+          title: Text(AppLocalizations.of(context).translate("Confirmation")),
+          content: Text(AppLocalizations.of(context)
+              .translate("Are you sure you want to join this organization?")),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(dialogContext).pop();
               },
-              child: const Text("Close"),
+              child: Text(AppLocalizations.of(context).translate("Close")),
             ),
             TextButton(
               onPressed: () async {
@@ -178,7 +179,7 @@ class _OrganisationTileState extends State<OrganisationTile> {
                   });
                 }
               },
-              child: const Text("Yes"),
+              child: Text(AppLocalizations.of(context).translate("Yes")),
             )
           ],
         );

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/signup_login_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/image_service.dart';
 import 'package:talawa/utils/uidata.dart';
 
@@ -55,8 +56,8 @@ class AddImage extends StatelessWidget {
                   leading: const Icon(
                     Icons.camera_alt_outlined,
                   ),
-                  title: const Text(
-                    'Camera',
+                  title: Text(
+                    AppLocalizations.of(context).translate('Camera'),
                   ),
                   onTap: () {
                     getImageFromCamera(context);
@@ -67,8 +68,8 @@ class AddImage extends StatelessWidget {
                     leading: const Icon(
                       Icons.photo_library,
                     ),
-                    title: const Text(
-                      'Photo Library',
+                    title: Text(
+                      AppLocalizations.of(context).translate('Photo Library'),
                     ),
                     onTap: () {
                       getImageFromGallery(context);

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/custom_toast.dart';
@@ -64,7 +65,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
 
       if (membershipRequestsList.isEmpty) {
         CustomToast.exceptionToast(
-          msg: 'You have no new requests.',
+          msg: AppLocalizations.of(context)
+              .translate('You have no new requests.'),
         );
       }
     }
@@ -101,7 +103,7 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
         processing = false;
       });
       CustomToast.sucessToast(
-        msg: 'Success',
+        msg: AppLocalizations.of(context).translate('Success'),
       );
       viewMemberShipRequests();
     }
@@ -137,7 +139,8 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
       setState(() {
         processing = false;
       });
-      CustomToast.sucessToast(msg: 'Success');
+      CustomToast.sucessToast(
+          msg: AppLocalizations.of(context).translate('Success'));
       viewMemberShipRequests();
     }
   }
@@ -146,9 +149,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Membership Requests',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).translate('Membership Requests'),
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -168,9 +171,9 @@ class _AcceptRequestsPageState extends State<AcceptRequestsPage> {
                         SizedBox(
                           height: SizeConfig.safeBlockVertical * 31.25,
                         ),
-                        const Text(
-                          "No request",
-                          style: TextStyle(
+                        Text(
+                          AppLocalizations.of(context).translate("No request"),
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),

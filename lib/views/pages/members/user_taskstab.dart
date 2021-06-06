@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/model/orgmemeber.dart';
+import 'package:talawa/services/app_localization.dart';
 
 //pages are called here
 import 'package:talawa/services/queries_.dart';
@@ -68,7 +69,8 @@ class _UserTasksState extends State<UserTasks> {
                 key: UniqueKey(),
                 isCurrentOrgNull: false,
                 emptyContentIcon: Icons.work_outline_rounded,
-                emptyContentMsg: 'No Tasks found, Create One!',
+                emptyContentMsg: AppLocalizations.of(context)
+                    .translate('No Tasks found, Create One!'),
                 refreshFunction: getUserDetails,
               ),
             ),
@@ -81,15 +83,16 @@ class _UserTasksState extends State<UserTasks> {
                 child: ListView.builder(
                     itemCount: userTasks.length,
                     itemBuilder: (context, index) {
-                      String title = "Title: ${userTasks[index]["title"]}";
+                      String title =
+                          "${AppLocalizations.of(context).translate("Title")}: ${userTasks[index]["title"]}";
                       title += userTasks[index]["event"] != null
-                          ? '\nEvent: ${userTasks[index]["event"]["title"]}'
+                          ? '\n${AppLocalizations.of(context).translate("Event")}: ${userTasks[index]["event"]["title"]}'
                           : "";
                       String description =
                           userTasks[index]["description"].toString();
                       description += userTasks[index]["deadline"] != null
-                          ? ' \nDue Date: ${DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"].toString())))}'
-                          : '\nDue Date: N/A';
+                          ? ' \n${AppLocalizations.of(context).translate("Due Date")}: ${DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"].toString())))}'
+                          : '\n${AppLocalizations.of(context).translate("Due Date")}: N/A';
                       return Card(
                           child: Column(
                         children: <Widget>[
@@ -98,7 +101,7 @@ class _UserTasksState extends State<UserTasks> {
                               title,
                             ),
                             subtitle: Text(
-                              'Description: $description',
+                              '${AppLocalizations.of(context).translate("Description")}: $description',
                             ),
                             contentPadding: EdgeInsets.fromLTRB(
                               SizeConfig.safeBlockHorizontal * 2,
@@ -114,10 +117,10 @@ class _UserTasksState extends State<UserTasks> {
                 key: const Key(
                   "User Task Not Exists",
                 ),
-                child: const Center(
+                child: Center(
                   child: Text(
-                    "No Tasks found",
-                    style: TextStyle(
+                    AppLocalizations.of(context).translate("No Tasks found"),
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                     textAlign: TextAlign.center,

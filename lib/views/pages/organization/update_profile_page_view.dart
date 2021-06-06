@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/viewstate.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
@@ -29,18 +30,19 @@ class UpdateProfileView extends StatelessWidget {
               Navigator.of(context).pop();
             },
           ),
-          title: const ListTile(
-            contentPadding: EdgeInsets.all(0),
+          title: ListTile(
+            contentPadding: const EdgeInsets.all(0),
             title: Text(
-              'Update Profile',
-              style: TextStyle(
+              AppLocalizations.of(context).translate('Update Profile'),
+              style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w800,
               ),
             ),
             subtitle: Text(
-              'Keep your profile upto date',
-              style: TextStyle(
+              AppLocalizations.of(context)
+                  .translate('Keep your profile upto date'),
+              style: const TextStyle(
                 fontSize: 14,
                 fontFamily: 'OpenSans',
               ),
@@ -67,15 +69,23 @@ class UpdateProfileView extends StatelessWidget {
                       onPressed: () => model.setProfileImage(null))
                   : Container(),
               _buildTextField(
-                  "First Name",
-                  model.userDetails[0].firstName.toString(),
-                  model.setUserFirstName),
+                "First Name",
+                model.userDetails[0].firstName.toString(),
+                model.setUserFirstName,
+                context,
+              ),
               _buildTextField(
-                  "Last Name",
-                  model.userDetails[0].lastName.toString(),
-                  model.setUserLastname),
-              _buildTextField("Email", model.userDetails[0].email.toString(),
-                  model.setUserEmail),
+                "Last Name",
+                model.userDetails[0].lastName.toString(),
+                model.setUserLastname,
+                context,
+              ),
+              _buildTextField(
+                "Email",
+                model.userDetails[0].email.toString(),
+                model.setUserEmail,
+                context,
+              ),
               Container(
                 margin: EdgeInsets.all(SizeConfig.safeBlockHorizontal * 5),
                 child: ElevatedButton.icon(
@@ -107,9 +117,9 @@ class UpdateProfileView extends StatelessWidget {
                           Icons.update,
                           color: Colors.white,
                         ),
-                  label: const Text(
-                    'Update Profile',
-                    style: TextStyle(
+                  label: Text(
+                    AppLocalizations.of(context).translate('Update Profile'),
+                    style: const TextStyle(
                       fontSize: 18,
                       color: Colors.white,
                     ),
@@ -123,8 +133,8 @@ class UpdateProfileView extends StatelessWidget {
     );
   }
 
-  Container _buildTextField(
-      String labelText, String initialValue, Function function) {
+  Container _buildTextField(String labelText, String initialValue,
+      Function function, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[200],
@@ -139,7 +149,7 @@ class UpdateProfileView extends StatelessWidget {
       child: TextFormField(
         style: const TextStyle(fontSize: 20),
         keyboardType: TextInputType.name,
-        validator: (value) => Validator.validateLastName(value),
+        validator: (value) => Validator.validateLastName(value, context),
         enableSuggestions: true,
         cursorRadius: const Radius.circular(10),
         cursorColor: Colors.blue[800],
@@ -150,7 +160,7 @@ class UpdateProfileView extends StatelessWidget {
         },
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(0),
-          labelText: labelText,
+          labelText: AppLocalizations.of(context).translate(labelText),
           counterText: '',
           border: InputBorder.none,
           enabledBorder: InputBorder.none,
@@ -232,10 +242,11 @@ class UpdateProfileView extends StatelessWidget {
                   size: 30,
                 ),
                 SizedBox(height: SizeConfig.safeBlockVertical * 0.75),
-                const Center(
+                Center(
                   child: Text(
-                    'Update your profile picture',
-                    style: TextStyle(
+                    AppLocalizations.of(context)
+                        .translate('Update your profile picture'),
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       fontFamily: 'OpenSans',
@@ -248,7 +259,8 @@ class UpdateProfileView extends StatelessWidget {
                   children: <Widget>[
                     ListTile(
                       leading: const Icon(Icons.camera_alt_outlined),
-                      title: const Text('Camera'),
+                      title: Text(
+                          AppLocalizations.of(context).translate('Camera')),
                       onTap: () {
                         model.getImageFromCamera();
                         Navigator.of(context).pop();
@@ -256,7 +268,8 @@ class UpdateProfileView extends StatelessWidget {
                     ),
                     ListTile(
                         leading: const Icon(Icons.photo_library),
-                        title: const Text('Photo Library'),
+                        title: Text(AppLocalizations.of(context)
+                            .translate('Photo Library')),
                         onTap: () {
                           model.getImageFromGallery();
                           Navigator.of(context).pop();

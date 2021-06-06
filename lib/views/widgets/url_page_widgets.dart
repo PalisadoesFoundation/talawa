@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/services/app_localization.dart';
 
 import 'package:talawa/utils/ui_scaling.dart';
 
@@ -47,7 +48,7 @@ class LoginCreateAccountButton extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                         child: Text(
-                          buttonName,
+                          AppLocalizations.of(context).translate(buttonName),
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 18),

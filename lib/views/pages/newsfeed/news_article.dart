@@ -1,21 +1,13 @@
 //the flutter packages are imported here
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:flutter/services.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:talawa/controllers/post_controller.dart';
 import 'package:talawa/model/posts.dart';
+import 'package:talawa/services/app_localization.dart';
 
 //the pages are called here
-import 'package:talawa/services/queries_.dart';
-import 'package:talawa/services/comment.dart';
-import 'package:talawa/services/preferences.dart';
-import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
-import 'package:talawa/utils/api_functions.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/view_models/newwfeed_view_model/new_article_page_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -159,10 +151,12 @@ class _NewsArticleState extends State<NewsArticle> {
                             keyboardType: TextInputType.multiline,
                             validator: (String value) {
                               if (value.length > 500) {
-                                return "Comment cannot be longer than 500 letters";
+                                return AppLocalizations.of(context).translate(
+                                    "Comment cannot be longer than 500 letters");
                               }
                               if (value.isEmpty) {
-                                return "Comment cannot be empty";
+                                return AppLocalizations.of(context)
+                                    .translate("Comment cannot be empty");
                               }
                               return null;
                             },
@@ -182,7 +176,8 @@ class _NewsArticleState extends State<NewsArticle> {
                                   model.createComment();
                                 },
                               ),
-                              hintText: 'Leave a Comment...',
+                              hintText:
+                                  '${AppLocalizations.of(context).translate("Leave a Comment")}...',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20.0),
                                 borderSide: const BorderSide(
@@ -223,9 +218,9 @@ class _NewsArticleState extends State<NewsArticle> {
       onPressed: () {
         model.changeLoading(value: true);
       },
-      child: const Text(
-        'Load Comments',
-        style: TextStyle(color: Colors.black54),
+      child: Text(
+        AppLocalizations.of(context).translate('Load Comments'),
+        style: const TextStyle(color: Colors.black54),
       ),
     );
   }
@@ -245,7 +240,8 @@ class _NewsArticleState extends State<NewsArticle> {
         ListTile(
           key: const ValueKey('commentIcon'),
           leading: const Icon(Icons.chat),
-          title: Text('${model.comments.length}  Comments'),
+          title: Text(
+              '${model.comments.length}  ${AppLocalizations.of(context).translate("Comments")}'),
         ),
         Flexible(
           child: ListView.builder(
@@ -290,7 +286,8 @@ class _NewsArticleState extends State<NewsArticle> {
                 onPressed: () {
                   model.showMoreComments(value: true);
                 },
-                child: const Text("View More Comments"))
+                child: Text(AppLocalizations.of(context)
+                    .translate("View More Comments")))
       ],
     );
   }

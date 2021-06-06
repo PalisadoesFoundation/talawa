@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/views/pages/login_signup/login_page.dart';
@@ -36,9 +37,10 @@ class _RegisterePageState extends State<RegisterPage>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      const Text(
-                        "Already have an account?",
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context)
+                            .translate("Already have an account?"),
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
@@ -55,10 +57,10 @@ class _RegisterePageState extends State<RegisterPage>
                               ),
                             );
                           },
-                          child: const Text(
-                            "SIGN IN!",
+                          child: Text(
+                            AppLocalizations.of(context).translate("SIGN IN!"),
                             textAlign: TextAlign.start,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: UIData.primaryColor,
                             ),
                           ),

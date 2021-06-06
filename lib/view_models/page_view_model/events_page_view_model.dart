@@ -7,6 +7,7 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/enums/event_recurrance.dart';
 import 'package:talawa/enums/viewstate.dart';
 import 'package:talawa/model/events.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/api_functions.dart';
@@ -180,14 +181,21 @@ class EventPageViewModel extends BaseModel {
   //function called to delete the event
   Future<void> deleteEvent(BuildContext context, EventsModel event) async {
     if (event.creator.id != _userID) {
-      Fluttertoast.showToast(msg: "You can\'t delete events you didn't create");
+      Fluttertoast.showToast(
+          msg: AppLocalizations.of(context)
+              .translate("You can\'t delete events you didn't create"));
     } else {
-      showProgress(context, 'Deleting Event . . .', isDismissible: false);
+      showProgress(context,
+          '${AppLocalizations.of(context).translate("Deleting Event")} . . .',
+          isDismissible: false);
       final String mutation = Queries().deleteEvent(event.id);
       final Map result = await _apiFunctions.gqlquery(mutation);
       if (result["exception"] != null) {
         CustomToast.exceptionToast(
-            msg: "Could not delete event! Please try again later");
+          msg: AppLocalizations.of(context).translate(
+            "Could not delete event! Please try again later",
+          ),
+        );
       }
       await getEvents();
       hideProgress();
@@ -203,7 +211,11 @@ class EventPageViewModel extends BaseModel {
   //functions to edit the event
   Future<void> editEvent(BuildContext context, EventsModel event) async {
     if (event.creator.id != _userID) {
-      Fluttertoast.showToast(msg: "You cannot edit events you didn't create");
+      Fluttertoast.showToast(
+        msg: AppLocalizations.of(context).translate(
+          "You cannot edit events you didn't create",
+        ),
+      );
     } else {
       pushNewScreen(context,
           withNavBar: true,

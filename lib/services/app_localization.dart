@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AppLocalizations {
-  AppLocalizations(this.locale);
+  AppLocalizations(
+    this.locale, {
+    this.isTest = false,
+  });
   final Locale locale;
+  bool isTest;
 
   // Helper method to keep the code in the widgets concise
   static AppLocalizations of(BuildContext context) {
@@ -13,9 +17,13 @@ class AppLocalizations {
 
   // Static member to have a simple access to the delegate from the MaterialApp
   static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+      AppLocalizationsDelegate();
 
   Map<String, String> _localizedStrings;
+
+  Future<AppLocalizations> loadTest(Locale locale) async {
+    return AppLocalizations(locale);
+  }
 
   Future<bool> load() async {
     // Load the language JSON file from the "lang" folder
@@ -33,13 +41,20 @@ class AppLocalizations {
 
   // This method will be called from every widget which needs a localized text
   String translate(String key) {
+    if (isTest) return key;
+
+    if (key == null) {
+      return '...';
+    }
     return _localizedStrings[key];
   }
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
-  const _AppLocalizationsDelegate();
+class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+  const AppLocalizationsDelegate({
+    this.isTest = false,
+  });
+  final bool isTest;
 
   @override
   bool isSupported(Locale locale) {
@@ -50,11 +65,17 @@ class _AppLocalizationsDelegate
   @override
   Future<AppLocalizations> load(Locale locale) async {
     // AppLocalizations class is where the JSON loading actually runs
-    final AppLocalizations localizations = AppLocalizations(locale);
-    await localizations.load();
+    final AppLocalizations localizations =
+        AppLocalizations(locale, isTest: isTest);
+    if (isTest) {
+      await localizations.loadTest(locale);
+    } else {
+      await localizations.load();
+    }
+
     return localizations;
   }
 
   @override
-  bool shouldReload(_AppLocalizationsDelegate old) => false;
+  bool shouldReload(AppLocalizationsDelegate old) => false;
 }

@@ -1,6 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:talawa/services/app_localization.dart';
 
 //pages are called here
 import 'package:talawa/services/queries_.dart';
@@ -43,7 +44,8 @@ class _AddEventTaskState extends State<AddEventTask> {
     );
     if (result["exception"] != null) {
       CustomToast.exceptionToast(
-        msg: "Failed to add task!Try again later",
+        msg: AppLocalizations.of(context)
+            .translate("Failed to add task!Try again later"),
       );
     }
   }
@@ -70,8 +72,8 @@ class _AddEventTaskState extends State<AddEventTask> {
   Widget build(BuildContext context) {
     return AlertDialog(
       insetPadding: const EdgeInsets.all(0),
-      title: const Text(
-        "Add A Task To This Event",
+      title: Text(
+        AppLocalizations.of(context).translate("Add A Task To This Event"),
       ),
       // ignore: sized_box_for_whitespace
       content: Container(
@@ -87,10 +89,12 @@ class _AddEventTaskState extends State<AddEventTask> {
                   titleController,
                   (value) {
                     if (titleController.text == "") {
-                      return "This Field is Required";
+                      return AppLocalizations.of(context)
+                          .translate("This Field is Required");
                     }
                     if (titleController.text.length > 30) {
-                      return "title cannot be longer than 30 letters";
+                      return AppLocalizations.of(context)
+                          .translate("title cannot be longer than 30 letters");
                     }
                     return null;
                   },
@@ -103,19 +107,19 @@ class _AddEventTaskState extends State<AddEventTask> {
                   descriptionController,
                   (value) {
                     if (descriptionController.text == "") {
-                      return "This Field is Required";
+                      return AppLocalizations.of(context)
+                          .translate("This Field is Required");
                     }
                     if (descriptionController.text.length > 10000) {
-                      return "description cannot be longer than 10000 letters";
+                      return AppLocalizations.of(context).translate(
+                          "description cannot be longer than 10000 letters");
                     }
                     return null;
                   },
                   10000,
                 ),
               ),
-              Flexible(
-                child: dateButton(),
-              ),
+              Flexible(child: dateButton()),
             ],
           ),
         ),
@@ -125,8 +129,8 @@ class _AddEventTaskState extends State<AddEventTask> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text(
-            "Cancel",
+          child: Text(
+            AppLocalizations.of(context).translate("Cancel"),
           ),
         ),
         TextButton(
@@ -136,8 +140,8 @@ class _AddEventTaskState extends State<AddEventTask> {
               Navigator.of(context).pop();
             }
           },
-          child: const Text(
-            "Add",
+          child: Text(
+            AppLocalizations.of(context).translate("Add"),
           ),
         ),
       ],
@@ -151,7 +155,7 @@ class _AddEventTaskState extends State<AddEventTask> {
         _selectDate(context);
       },
       leading: Text(
-        'Date',
+        AppLocalizations.of(context).translate('Date'),
         style: TextStyle(
           fontSize: 16,
           color: Colors.grey[600],
@@ -199,7 +203,7 @@ class _AddEventTaskState extends State<AddEventTask> {
               color: Colors.teal,
             ),
           ),
-          hintText: name,
+          hintText: AppLocalizations.of(context).translate(name),
         ),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 //pages are called here
 import 'package:provider/provider.dart';
 import 'package:talawa/controllers/groups_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/uidata.dart';
@@ -18,9 +19,9 @@ class Groups extends StatelessWidget {
         key: const Key(
           'GROUPS_APP_BAR',
         ),
-        title: const Text(
-          'Chats',
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          AppLocalizations.of(context).translate('Chats'),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: FutureBuilder(
@@ -98,10 +99,11 @@ class Groups extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             //Text for empty chat groups
-            child: const Text(
-              "Register in an event to start chatting",
-              key: Key('EMPTY_CHAT_GROUP'),
-              style: TextStyle(
+            child: Text(
+              AppLocalizations.of(context)
+                  .translate("Register in an event to start chatting"),
+              key: const Key('EMPTY_CHAT_GROUP'),
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey,
@@ -122,7 +124,8 @@ class Groups extends StatelessWidget {
               : TextButton.icon(
                   key: const Key('click_to_refresh_button'),
                   icon: const Icon(Icons.refresh),
-                  label: const Text('Click to Refresh..'),
+                  label: Text(
+                      '${AppLocalizations.of(context).translate("Click to Refresh")}..'),
                   onPressed: () async {
                     try {
                       await Provider.of<GroupController>(context, listen: false)
