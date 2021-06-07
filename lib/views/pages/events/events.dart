@@ -113,7 +113,7 @@ class _EventsState extends State<Events> {
                                     children: [carouselSliderBar(model)],
                                   ),
                                   Expanded(
-                                    child: model.eventList.isEmpty
+                                    child: model.displayEvents.isEmpty
                                         ? Center(
                                             child: Text(AppLocalizations.of(
                                                     context)
@@ -121,7 +121,8 @@ class _EventsState extends State<Events> {
                                         : Timeline.builder(
                                             lineColor: UIData.primaryColor,
                                             position: TimelinePosition.Left,
-                                            itemCount: model.eventList.length,
+                                            itemCount:
+                                                model.displayEvents.length,
                                             itemBuilder: (context, index) {
                                               if (index == 0) {
                                                 return TimelineModel(
@@ -136,7 +137,7 @@ class _EventsState extends State<Events> {
                                                                     .safeBlockVertical *
                                                                 0.625),
                                                         child: Text(
-                                                          '${model.eventList.length} ${AppLocalizations.of(context).translate("Events")}',
+                                                          '${model.displayEvents.length} ${AppLocalizations.of(context).translate("Events")}',
                                                           style:
                                                               const TextStyle(
                                                                   color: Colors
@@ -230,12 +231,12 @@ class _EventsState extends State<Events> {
                 ],
                 options: CarouselOptions(
                   onPageChanged: (item, reason) {
-                    final List<EventsModel> _currentFilterEvents =
-                        model.filterEventsByDay(
-                            _calendarController.selectedDay, model.eventList);
                     if (item == 0) {
                       model.setDisplayEvents(model.eventList);
                     } else if (item == 1) {
+                      final List<EventsModel> _currentFilterEvents =
+                          model.filterEventsByDay(
+                              _calendarController.selectedDay, model.eventList);
                       model.setDisplayEvents(_currentFilterEvents);
                     }
                   },
