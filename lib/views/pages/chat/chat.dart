@@ -1,5 +1,6 @@
 //flutter packages
 import 'package:flutter/material.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 
 //pages are called here
@@ -70,7 +71,8 @@ class _ChatState extends State<Chat> {
                         20.0,
                       ),
                     ),
-                    hintText: "    Enter your message....",
+                    hintText:
+                        "    ${AppLocalizations.of(context).translate("Enter your message")}....",
                   ),
                 ),
               ),

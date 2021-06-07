@@ -5,6 +5,11 @@ class AppLanguage extends ChangeNotifier {
   Locale _appLocale = const Locale('en');
 
   Locale get appLocal => _appLocale ?? const Locale("en");
+  testLocale() {
+    _appLocale = const Locale('en');
+    return Null;
+  }
+
   fetchLocale() async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString('language_code') == null) {
@@ -36,10 +41,10 @@ class AppLanguage extends ChangeNotifier {
       _appLocale = const Locale("hi");
       await prefs.setString('language_code', 'hi');
       await prefs.setString('countryCode', 'IN');
-    } else if (type == const Locale("zh-CN")) {
+    } else if (type == const Locale("zh")) {
       //If selected language is Chinese
-      _appLocale = const Locale("zh-CN");
-      await prefs.setString('language_code', 'zh-CN');
+      _appLocale = const Locale("zh");
+      await prefs.setString('language_code', 'zh');
       await prefs.setString('countryCode', 'CN');
     } else {
       //If selected language is english

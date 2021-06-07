@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/services/app_localization.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
@@ -42,6 +44,11 @@ Widget newsfeedPage() => MultiProvider(
         ),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: Builder(
           builder: (ctx) {
             SizeConfig().init(ctx);
@@ -63,6 +70,7 @@ void main() {
     testWidgets("Testing if newsfeed Page shows up", (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(newsfeedPage());
+        await tester.pump();
 
         /// Verify if [Newsfeed Page] shows up.
         expect(
@@ -89,6 +97,7 @@ void main() {
 
       await tester.runAsync(() async {
         await tester.pumpWidget(newsfeedPage());
+        await tester.pump();
 
         /// Verify if [News Article Page] shows up.
         expect(
@@ -115,6 +124,7 @@ void main() {
 
       await tester.runAsync(() async {
         await tester.pumpWidget(newsfeedPage());
+        await tester.pump();
 
         /// Verify if [Newsfeed Page] shows up.
         expect(
@@ -136,6 +146,7 @@ void main() {
 
     testWidgets("finds add post fab", (tester) async {
       await tester.pumpWidget(newsfeedPage());
+      await tester.pump();
 
       //get [add post fab]
       final addPostFab = find.byType(FloatingActionButton);
@@ -147,6 +158,7 @@ void main() {
     testWidgets("tapping add post fab opens add post screen", (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(newsfeedPage());
+        await tester.pump();
 
         //get [add post fab]
         final addPostFab = find.byType(FloatingActionButton);
@@ -154,12 +166,13 @@ void main() {
         //finds [add post fab]
         expect(addPostFab, findsOneWidget);
 
+        //Finds [Add Post] screen
+        expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
+
         //tap on the [add post fab]
         await tester.tap(addPostFab);
         await tester.pumpAndSettle();
 
-        //Finds [Add Post] screen
-        //expect(find.byKey(const Key('NEWSFEED_APP_BAR')), findsOneWidget);
         //Finds the form on [Add Post] screen
         expect(find.byType(Form), findsOneWidget);
       });

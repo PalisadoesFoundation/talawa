@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/services/app_localization.dart';
 
 //this file is there to check the internet connectivity of the device it is being running
 
@@ -13,13 +14,13 @@ class _NoInternetConnectionState extends State<NoInternetConnection> {
     return Container(
       child: Center(
         child: Column(
-          children: const [
+          children: [
             Text(
-              'No Internet Connection.',
-              style: TextStyle(fontSize: 20),
+              AppLocalizations.of(context).translate('No Internet Connection.'),
+              style: const TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             ),
-            Icon(
+            const Icon(
               Icons.signal_cellular_connected_no_internet_4_bar,
               color: Colors.red,
             )

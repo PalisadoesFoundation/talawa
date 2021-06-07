@@ -29,7 +29,7 @@ class NewsFeed extends StatelessWidget {
     //print(AppLocalizations.of(context).translate('hello-world'));
     return Scaffold(
       appBar: CustomAppBar(
-        'NewsFeed',
+        AppLocalizations.of(context).translate('NewsFeed'),
         key: const Key('NEWSFEED_APP_BAR'),
       ),
       floatingActionButton: addPostFab(context),
@@ -57,7 +57,8 @@ class NewsFeed extends StatelessWidget {
                     isCurrentOrgNull:
                         Provider.of<NewsFeedProvider>(context).isCurrOrgIdNull,
                     emptyContentIcon: Icons.photo_album_outlined,
-                    emptyContentMsg: 'No post to show, Create One!',
+                    emptyContentMsg: AppLocalizations.of(context)
+                        .translate('No post to show, Create One!'),
                     refreshFunction: () => getPostsList(context),
                     key: UniqueKey(),
                   ))

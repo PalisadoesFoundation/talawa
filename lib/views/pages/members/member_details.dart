@@ -1,13 +1,15 @@
 //flutter imported function
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-
 //files are imported here
 import 'package:provider/provider.dart';
 import 'package:talawa/model/orgmemeber.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
+
 import '../../../utils/uidata.dart';
 import 'reg_eventstab.dart';
 import 'user_taskstab.dart';
@@ -45,14 +47,14 @@ class _MemberDetailState extends State<MemberDetail>
 
   String getPrivilege(String id) {
     if (widget.creatorId.compareTo(id) == 0) {
-      return 'Creator';
+      return AppLocalizations.of(context).translate('Creator');
     }
     for (int i = 0; i < widget.admins.length; i++) {
       if (widget.admins[i].id == id) {
-        return 'Admin';
+        return AppLocalizations.of(context).translate('Admin');
       }
     }
-    return 'Member';
+    return AppLocalizations.of(context).translate('Member');
   }
 
   //main build starts here
@@ -60,9 +62,9 @@ class _MemberDetailState extends State<MemberDetail>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'User Info',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).translate('User Info'),
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -79,25 +81,30 @@ class _MemberDetailState extends State<MemberDetail>
                   widget.member.image == null
                       ? defaultUserImg()
                       : userImg(widget.member.image),
-                  Card(
-                      child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(
-                        left: SizeConfig.safeBlockHorizontal * 5),
-                    alignment: Alignment.centerLeft,
-                    height: SizeConfig.safeBlockVertical * 3.75,
-                    child: Text('User email: ${widget.member.email}'),
-                  )),
-                  Card(
-                    child: Container(
+                  Flexible(
+                    child: Card(
+                        child: Container(
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.only(
                           left: SizeConfig.safeBlockHorizontal * 5),
                       alignment: Alignment.centerLeft,
                       height: SizeConfig.safeBlockVertical * 3.75,
                       child: Text(
-                        'User Privileges: ${getPrivilege(widget.member.id)}',
-                        key: const Key('Privilege'),
+                          '${AppLocalizations.of(context).translate("User email")}: ${widget.member.email}'),
+                    )),
+                  ),
+                  Flexible(
+                    child: Card(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.only(
+                            left: SizeConfig.safeBlockHorizontal * 5),
+                        alignment: Alignment.centerLeft,
+                        height: SizeConfig.safeBlockVertical * 3.75,
+                        child: Text(
+                          '${AppLocalizations.of(context).translate("User Privileges")}: ${getPrivilege(widget.member.id)}',
+                          key: const Key('Privilege'),
+                        ),
                       ),
                     ),
                   ),
@@ -118,18 +125,19 @@ class _MemberDetailState extends State<MemberDetail>
                   indicatorColor: Colors.white,
                   controller: _tabController,
                   tabs: [
-                    const Tab(
+                    Tab(
                       icon: Text(
-                        'Tasks',
-                        style: TextStyle(
+                        AppLocalizations.of(context).translate('Tasks'),
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
                     ),
-                    const Tab(
+                    Tab(
                       icon: Text(
-                        'Registered Events',
-                        style: TextStyle(color: Colors.white),
+                        AppLocalizations.of(context)
+                            .translate('Registered Events'),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ],

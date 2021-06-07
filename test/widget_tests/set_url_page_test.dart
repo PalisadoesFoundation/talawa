@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/services/app_localization.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
@@ -34,6 +36,11 @@ Widget createLoginPageScreen() => MultiProvider(
             create: (_) => SignupLoginController()),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: Builder(builder: (context) {
           SizeConfig().init(context);
           return UrlPage();
@@ -52,6 +59,7 @@ void main() {
     testWidgets("Testing if LoginPage shows up", (tester) async {
       // locator.registerLazySingleton(() => NavigationService());
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       /// Verify if [LoginPage] shows up.
       expect(
@@ -62,11 +70,13 @@ void main() {
 
     testWidgets("Testing overflow of LoginPage in a mobile screen",
         (tester) async {
-      await tester.pumpWidget(createLoginPageScreen());
       binding.window.physicalSizeTestValue = Size(
           SizeConfig.safeBlockHorizontal * 110,
           SizeConfig.safeBlockVertical * 100);
       binding.window.devicePixelRatioTestValue = 1.0;
+
+      await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       /// Verify if [LoginPage] shows up.
       expect(
@@ -83,6 +93,7 @@ void main() {
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       /// Verify if [LoginPage] shows up.
       expect(
@@ -96,6 +107,7 @@ void main() {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       // Get the create account button.
       final createAccountButton = find.text("Create an Account");
@@ -115,13 +127,13 @@ void main() {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       // Get the login button.
       final loginButton = find.text("Login");
 
       // Tap on the login button
       await tester.tap(loginButton);
-      await tester.pumpAndSettle();
 
       // LoginForm should not be displayed.
       expect(
@@ -132,12 +144,8 @@ void main() {
 
     testWidgets("Create an Account Button is working if url is verfied",
         (tester) async {
-      // Ignore overflow errors.
-      FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
-
-      // Get the create account button.
-      final createAccountButton = find.text("Create an Account");
+      await tester.pumpAndSettle();
 
       /// Enter [calico.palisadoes.org] in [TextFormField].
       await tester.enterText(
@@ -156,7 +164,7 @@ void main() {
 
       // Tap on Set URL Button.
       await tester.tap(setURLButton);
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Verify that saveMsg changes from "Set URL" to "URL SAVED!".
       expect(
@@ -168,13 +176,16 @@ void main() {
         findsOneWidget,
       );
 
+      // Get the create account button.
+      final createAccountButton = find.text("Create an Account");
+
       // Tap on the createAccountButton.
       await tester.tap(createAccountButton);
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // RegisterForm should be displayed.
       expect(
-        find.text("SIGN UP"),
+        find.text("Create an Account"),
         findsOneWidget,
       );
     });
@@ -182,6 +193,7 @@ void main() {
     testWidgets("Login Button is working if url is verfied", (tester) async {
       //FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       // Get the create account button.
       final loginButton = find.text("Login");
@@ -232,6 +244,7 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       // Verify that protocol selection button is present.
       expect(
@@ -246,6 +259,7 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       /// Enter [calico.palisadoes.org] in [TextFormField].
       await tester.enterText(

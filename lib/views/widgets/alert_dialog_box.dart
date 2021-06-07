@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/services/app_localization.dart';
 
 class AlertBox extends StatefulWidget {
   const AlertBox({
@@ -19,8 +20,8 @@ class _AlertBoxState extends State<AlertBox> {
     BuildContext context,
   ) {
     return AlertDialog(
-      title: const Text(
-        "Confirmation",
+      title: Text(
+        AppLocalizations.of(context).translate("Confirmation"),
       ),
       content: Text(
         widget.message,
@@ -30,8 +31,8 @@ class _AlertBoxState extends State<AlertBox> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text(
-            "Close",
+          child: Text(
+            AppLocalizations.of(context).translate("Close"),
           ),
         ),
         ElevatedButton(
@@ -40,8 +41,8 @@ class _AlertBoxState extends State<AlertBox> {
             widget.function();
             Navigator.pop(context);
           },
-          child: const Text(
-            "Yes",
+          child: Text(
+            AppLocalizations.of(context).translate("Yes"),
           ),
         )
       ],

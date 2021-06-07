@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/enums/exception_type.dart';
-import 'package:talawa/enums/image_from.dart';
 import 'package:talawa/enums/viewstate.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/exception.dart';
+import 'package:talawa/services/image_service.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
@@ -71,7 +71,7 @@ class CreateOrganizationViewModel extends BaseModel {
     _isFromProfile = isFromProfile;
   }
 
-  createOrg(bool imgPresent) async {
+  createOrg(bool imgPresent, BuildContext context) async {
     //this is the function which will be called when the organization is created
     setState(ViewState.busy);
     final GraphQLClient _client = graphQLConfiguration.authClient();
@@ -114,7 +114,7 @@ class CreateOrganizationViewModel extends BaseModel {
       final ExceptionType exceptionType = retrieveExceptionType(result);
       if (exceptionType == ExceptionType.accesstokenException) {
         _authController.getNewToken();
-        return createOrg(imgPresent);
+        return createOrg(imgPresent, context);
       } else {
         setState(ViewState.idle);
         CustomToast.exceptionToast(msg: result.exception.toString());
@@ -124,7 +124,8 @@ class CreateOrganizationViewModel extends BaseModel {
 
     if (!result.loading) {
       setState(ViewState.idle);
-      CustomToast.sucessToast(msg: "Success!");
+      CustomToast.sucessToast(
+          msg: AppLocalizations.of(context).translate("Success!"));
       print(result.data);
 
       if (_isFromProfile) {
@@ -139,17 +140,25 @@ class CreateOrganizationViewModel extends BaseModel {
     }
   }
 
-  //get image from camera and gallery based on the enum passed
-  imgFrom({From pickFrom = From.none}) async {
-    File pickImageFile;
-    if (pickFrom != From.none) {
-      final PickedFile selectedImage = await ImagePicker().getImage(
-          source: pickFrom == From.camera
-              ? ImageSource.camera
-              : ImageSource.gallery);
-      pickImageFile = File(selectedImage.path);
-      _image = pickImageFile;
-      notifyListeners();
+  getImageFromCamera() async {
+    final File capturedImage = await ImageService.fetchImageFromCamera();
+    if (capturedImage != null) {
+      final File croppedImage = await ImageService.cropImage(capturedImage);
+      if (croppedImage != null) {
+        _image = croppedImage;
+        notifyListeners();
+      }
+    }
+  }
+
+  getImageFromGallery() async {
+    final File capturedImage = await ImageService.fetchImageFromGallery();
+    if (capturedImage != null) {
+      final File croppedImage = await ImageService.cropImage(capturedImage);
+      if (croppedImage != null) {
+        _image = croppedImage;
+        notifyListeners();
+      }
     }
   }
 }

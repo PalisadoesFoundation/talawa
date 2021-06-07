@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:talawa/enums/image_from.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/view_models/page_view_model/create_organization_page_viewModel.dart';
+import 'package:talawa/view_models/page_view_model/create_organization_page_view_model.dart';
 
 Widget addImage(CreateOrganizationViewModel model, BuildContext context) {
   //function which is being called when the image is being add
@@ -53,18 +53,19 @@ void _showPicker(BuildContext context, CreateOrganizationViewModel model) {
               ListTile(
                 //taking picture from the camera
                 leading: const Icon(Icons.camera_alt_outlined),
-                title: const Text('Camera'),
+                title: Text(AppLocalizations.of(context).translate('Camera')),
                 onTap: () {
-                  model.imgFrom(pickFrom: From.camera);
+                  model.getImageFromCamera();
                   Navigator.of(context).pop();
                 },
               ),
               ListTile(
                   //taking picture from the library
                   leading: const Icon(Icons.photo_library),
-                  title: const Text('Photo Library'),
+                  title: Text(
+                      AppLocalizations.of(context).translate('Photo Library')),
                   onTap: () {
-                    model.imgFrom(pickFrom: From.gallery);
+                    model.getImageFromGallery();
                     Navigator.of(context).pop();
                   }),
             ],
@@ -74,19 +75,21 @@ void _showPicker(BuildContext context, CreateOrganizationViewModel model) {
 }
 
 Padding buildTextFormField(
-    bool bigInput,
-    String Function(String) validateFunction,
-    IconData prefixIconData,
-    TextEditingController controller,
-    String labelText,
-    String hintText) {
+  bool bigInput,
+  String Function(String, BuildContext) validateFunction,
+  IconData prefixIconData,
+  TextEditingController controller,
+  String labelText,
+  String hintText,
+  BuildContext context,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: SizeConfig.safeBlockVertical * 2.5),
     child: TextFormField(
       keyboardType: TextInputType.multiline,
       inputFormatters: [LengthLimitingTextInputFormatter(bigInput ? 40 : 5000)],
       // autofillHints: const <String>[AutofillHints.organizationName],
-      validator: (value) => validateFunction(value),
+      validator: (value) => validateFunction(value, context),
       textAlign: TextAlign.left,
       textCapitalization: TextCapitalization.words,
       textInputAction: TextInputAction.next,
@@ -100,10 +103,12 @@ Padding buildTextFormField(
           prefixIconData,
           color: UIData.secondaryColor,
         ),
-        labelText: labelText ?? "Organization Name",
+        labelText: AppLocalizations.of(context)
+            .translate(labelText ?? "Organization Name"),
         labelStyle: const TextStyle(color: Colors.black),
         alignLabelWithHint: true,
-        hintText: hintText ?? 'My Organization',
+        hintText: AppLocalizations.of(context)
+            .translate(hintText ?? 'My Organization'),
         hintStyle: const TextStyle(color: Colors.grey),
       ),
       controller: controller,
