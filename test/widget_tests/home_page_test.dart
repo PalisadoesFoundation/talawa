@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/graphql_config.dart';
+import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/views/home_page.dart';
 
 Widget createHomePageScreen() => MaterialApp(
@@ -18,6 +20,8 @@ void main() {
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
   setupLocator();
+  locator<GraphqlConfig>().test();
+  locator<SizeConfig>().test();
 
   group('HomePage Widget Test', () {
     testWidgets("Testing if HomePage shows up", (tester) async {

@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/widgets/progress_dialog.dart';
-import 'package:talawa/locator.dart';
-import 'package:talawa/services/graphql_config.dart';
 
 class DataBaseMutationFunctions {
-  final GraphQLClient clientNonAuth = locator<GraphqlConfig>().clientToQuery();
-  late GraphQLClient clientAuth = locator<GraphqlConfig>().authClient();
-  final navigatorService = locator<NavigationService>();
-  final userConfig = locator<UserConfig>();
-  final Queries _query = Queries();
+  late GraphQLClient clientNonAuth;
+  late GraphQLClient clientAuth;
+  late NavigationService navigatorService;
+  late UserConfig userConfig;
+  late Queries _query;
+
+  init() {
+    clientNonAuth = locator<GraphqlConfig>().clientToQuery();
+    clientAuth = locator<GraphqlConfig>().authClient();
+    navigatorService = locator<NavigationService>();
+    userConfig = locator<UserConfig>();
+    _query = Queries();
+  }
 
   GraphQLError userNotFound = const GraphQLError(message: 'User not found');
   GraphQLError userNotAuthenticated = const GraphQLError(
@@ -144,9 +152,8 @@ class DataBaseMutationFunctions {
     } else if (result.data != null && result.isConcrete) {
       final User signedInUser =
           User.fromJson(result.data!['signUp'] as Map<String, dynamic>);
-      userConfig.updateUser(signedInUser);
-      // clientAuth = locator<GraphqlConfig>().authClient();
-      return true;
+      final bool userSaved = await userConfig.updateUser(signedInUser);
+      return userSaved;
     }
     return false;
   }

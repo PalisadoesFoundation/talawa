@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/locator.dart';
 
 class LoginViewModel extends BaseModel {
   final databaseService = locator<DataBaseMutationFunctions>();
@@ -56,6 +56,7 @@ class LoginViewModel extends BaseModel {
     validate = AutovalidateMode.always;
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
+      databaseService.init();
       final bool loginSuccess =
           await databaseService.login(email.text, password.text);
       print(loginSuccess ? 'logging in' : 'failed');

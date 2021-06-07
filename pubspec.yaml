@@ -20,6 +20,7 @@ dependencies:
   hive: ^2.0.4
   http: ^0.13.3
   json_annotation: ^4.0.1
+  mockito: ^5.0.10
   path_provider: 2.0.2
   provider: ^5.0.0
   shared_preferences: ^2.0.6

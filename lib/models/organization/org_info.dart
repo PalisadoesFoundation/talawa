@@ -41,7 +41,7 @@ class OrgInfo {
   }
 
   List<OrgInfo> fromJsonToList(List<dynamic> json) {
-    List<OrgInfo>? _orgList = [];
+    final List<OrgInfo> _orgList = [];
     json.forEach((element) {
       final OrgInfo org = OrgInfo.fromJson(element as Map<String, dynamic>);
       _orgList.add(org);

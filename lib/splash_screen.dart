@@ -1,12 +1,13 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:talawa/custom_painters/talawa_logo.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:uni_links/uni_links.dart';
-import 'package:talawa/custom_painters/talawa_logo.dart';
-import 'package:talawa/locator.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({required Key key}) : super(key: key);

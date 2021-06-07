@@ -1,13 +1,17 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
-import 'package:talawa/services/user_config.dart';
+import 'package:http/http.dart' as http;
+import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/user_config.dart';
 
 class GraphqlConfig {
   static const imageUrlKey = "imageUrl";
   static const urlKey = "url";
   static String? orgURI = ' ';
   static String? token;
+  static HttpLink httpLink =
+      HttpLink('https://talawa-graphql-api.herokuapp.com/graphql');
 
 //prefix route for showing images
   String? displayImgRoute;
@@ -16,6 +20,7 @@ class GraphqlConfig {
     final _token = locator<UserConfig>().currentUser!.authToken;
     token = _token;
     getOrgUrl();
+    return true;
   }
 
   getOrgUrl() {
@@ -29,15 +34,14 @@ class GraphqlConfig {
   GraphQLClient clientToQuery() {
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
-      link: HttpLink(
-          'https://talawa-graphql-api.herokuapp.com/graphql'), //bug over here in using a variable that stores the same url
+      link:
+          httpLink, //bug over here in using a variable that stores the same url
     );
   }
 
   GraphQLClient authClient() {
     final AuthLink authLink = AuthLink(getToken: () async => 'Bearer $token');
-    final HttpLink httpLink = HttpLink(
-        'https://talawa-graphql-api.herokuapp.com/graphql'); //bug over here in using a variable that stores the same url
+    //bug over here in using a variable that stores the same url
     final Link finalAuthLink = authLink.concat(httpLink);
     getToken();
     return GraphQLClient(
@@ -45,4 +49,24 @@ class GraphqlConfig {
       link: finalAuthLink,
     );
   }
+
+  test() {
+    httpLink = HttpLink('https://talawa-graphql-api.herokuapp.com/graphql',
+        httpClient: MockHttpClient());
+  }
+}
+
+class MockHttpClient extends Mock implements http.Client {
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest? request) =>
+      // ignore: invalid_use_of_visible_for_testing_member
+      super.noSuchMethod(
+        Invocation.method(#send, [request]),
+        returnValue: Future.value(
+          http.StreamedResponse(
+            Stream.fromIterable(const [<int>[]]),
+            500,
+          ),
+        ),
+      ) as Future<http.StreamedResponse>;
 }

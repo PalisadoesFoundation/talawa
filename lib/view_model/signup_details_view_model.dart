@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/view_state.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
-import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/locator.dart';
 
 class SignupDetailsViewModel extends BaseModel {
   final databaseService = locator<DataBaseMutationFunctions>();
@@ -62,10 +61,10 @@ class SignupDetailsViewModel extends BaseModel {
     setState(ViewState.idle);
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
+      databaseService.init();
       final bool signUpSuccess = await databaseService.signup(
           firstName.text, lastName.text, email.text, password.text);
       if (signUpSuccess) {
-        locator<GraphqlConfig>().getToken();
         if (selectedOrganization.isPublic!) {
           final bool successJoin =
               await databaseService.joinPublicOrg(selectedOrganization.id!);

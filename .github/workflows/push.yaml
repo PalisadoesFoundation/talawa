@@ -11,6 +11,24 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pr-message: "Congratulations on making your first PR! :confetti_ball: If you haven't already, check out our [Contributing Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md) and [PR Reporting Guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/PR-guidelines.md) to ensure that you are following our guidelines for contributing and creating PR."
 
+  Flutter-analyze:
+    name: Analyzing flutter code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: axel-op/dart-package-analyzer@v3
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+          flutter-version: '2.2.1'
+      - run: flutter pub get
+      - run: flutter analyze --no-pub
+
   Linter:
     name: Checking if code formatting is done correctly
     runs-on: ubuntu-latest
