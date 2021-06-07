@@ -49,7 +49,7 @@ class _EventsState extends State<Events> {
                 key: UniqueKey(),
                 isCurrentOrgNull: false,
               ))
-            : model.eventList.isEmpty
+            : model.displayEvents.isEmpty
                 ? RefreshIndicator(
                     onRefresh: () async {
                       try {
