@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/models/org_info.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/signup_details_view_model.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';

@@ -9,8 +9,8 @@ import 'package:talawa/view_model/demo_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/router.dart' as router;
 import 'constants/custom_theme.dart';
-import 'models/org_info.dart';
-import 'models/user_info.dart';
+import 'models/organization/org_info.dart';
+import 'models/user/user_info.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -15,12 +15,9 @@ class NavigationService {
   }
 
   void fromInviteLink(List<String> routeNames, List<dynamic> arguments) {
-    int i = 1;
-    removeAllAndPush('/${routeNames[0]}', '/', arguments: arguments[0]);
-    for (; i < routeNames.length; i++) {
-      if (i == 0) {
-        pushReplacementScreen('/${routeNames[i]}', arguments: arguments[i]);
-      }
+    int i = 0;
+    removeAllAndPush('/${routeNames[i]}', '/', arguments: arguments[i]);
+    for (i = 1; i < routeNames.length; i++) {
       pushScreen('/${routeNames[i]}', arguments: arguments[i]);
     }
   }

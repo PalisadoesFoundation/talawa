@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:talawa/models/org_info.dart';
+import 'package:talawa/models/organization/org_info.dart';
 
 part 'user_info.g.dart';
 
@@ -16,49 +16,37 @@ class User extends HiveObject {
       this.joinedOrganizations,
       this.lastName,
       this.authToken,
-      this.refreshToken});
+      this.refreshToken,
+      this.membershipRequests});
 
-  factory User.fromJson(Map<String, dynamic> json, {bool fromOrg = false}) {
+  factory User.fromJson(Map<String, dynamic> json1, {bool fromOrg = false}) {
+    Map<String, dynamic> json;
     if (fromOrg) {
-      return User(
-        authToken: json['accessToken'] as String?,
-        refreshToken: json['refreshToken'] as String?,
+      json = json1;
+    } else {
+      json = json1['user'] as Map<String, dynamic>;
+    }
+    return User(
+        authToken: fromOrg ? ' ' : json1['accessToken'] as String?,
+        refreshToken: fromOrg ? ' ' : json1['refreshToken'] as String?,
         id: json['_id'] as String?,
         firstName: json['firstName'] as String?,
         lastName: json['lastName'] as String?,
         email: json['email'] as String?,
         image: json['image'] as String?,
         adminFor: (json['adminFor'] as List<dynamic>?)
-            ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
+            ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
             .toList(),
         createdOrganizations: (json['createdOrganizations'] as List<dynamic>?)
-            ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
+            ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
             .toList(),
         joinedOrganizations: (json['joinedOrganizations'] as List<dynamic>?)
-            ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
+            ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
             .toList(),
-      );
-    }
-    return User(
-      authToken: json['accessToken'] as String?,
-      refreshToken: json['refreshToken'] as String?,
-      id: json['user']['_id'] as String?,
-      firstName: json['user']['firstName'] as String?,
-      lastName: json['user']['lastName'] as String?,
-      email: json['user']['email'] as String?,
-      image: json['user']['image'] as String?,
-      adminFor: (json['user']['adminFor'] as List<dynamic>?)
-          ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
-          .toList(),
-      createdOrganizations:
-          (json['user']['createdOrganizations'] as List<dynamic>?)
-              ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
-              .toList(),
-      joinedOrganizations:
-          (json['user']['joinedOrganizations'] as List<dynamic>?)
-              ?.map((e) => OrgInfo.fromJson(e as Map<String, OrgInfo>))
-              .toList(),
-    );
+        membershipRequests: (json['membershipRequests'] as List<dynamic>?)
+            ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>,
+                memberRequest: true))
+            .toList());
   }
 
   print() {
@@ -99,19 +87,19 @@ class User extends HiveObject {
   List<OrgInfo>? membershipRequests = [];
 
   updateJoinedOrg(List<OrgInfo> orgList) {
-    this.joinedOrganizations!.addAll(orgList);
+    this.joinedOrganizations = orgList;
   }
 
   updateCreatedOrg(List<OrgInfo> orgList) {
-    this.createdOrganizations!.addAll(orgList);
+    this.createdOrganizations = orgList;
   }
 
   updateMemberRequestOrg(List<OrgInfo> orgList) {
-    this.membershipRequests!.addAll(orgList);
+    this.membershipRequests = orgList;
   }
 
   updateAdminFor(List<OrgInfo> orgList) {
-    this.adminFor!.addAll(orgList);
+    this.adminFor = orgList;
   }
 
   update(User details) {

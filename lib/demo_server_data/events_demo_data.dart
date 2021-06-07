@@ -11,37 +11,38 @@ const eventsDemoData = [
     "endDate": "15 Aug",
     "startTime": "11am",
     "endTime": "3pm",
-    "recurrance": "MONTHLY",
+    "recurrence": "MONTHLY",
     "isPublic": "true",
     "isSubscribed": "false",
     "isRegisterable": "true",
     "creator": {
       "firstName": "Utkarsh",
       "lastName": "Shendge",
-      "id": "asdasdasd"
+      "_id": "asdasdasd"
     },
     "registrants": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
     ],
     "admins": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
     ],
     "organization": {
-      "id": '1',
+      "_id": '1',
       "name": 'Mathematicians',
-      "creatorInfo": {
+      "image": ' ',
+      "creator": {
         "firstName": "Utkarsh",
         "lastName": "Shendge",
-        "id": "asdasdasd"
+        "_id": "asdasdasd"
       }
     },
   },
@@ -57,46 +58,45 @@ const eventsDemoData = [
     "endDate": "13 May",
     "startTime": "2am",
     "endTime": "3pm",
-    "recurrance": "MONTHLY",
+    "recurrence": "MONTHLY",
     "isPublic": "true",
     "isSubscribed": "true",
     "isRegisterable": "true",
     "creator": {
       "firstName": "Rutvik",
       "lastName": "Chandla",
-      "id": "asdasdasd"
+      "_id": "asdasdasd"
     },
     "registrants": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
     ],
     "admins": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
     ],
     "organization": {
-      "id": '1',
+      "_id": '1',
       "name": 'Courses',
-      "creatorInfo": {
+      "image": ' ',
+      "creator": {
         "firstName": "Rutvik",
         "lastName": "Chandla",
-        "id": "asdasdasd"
+        "_id": "asdasdasd"
       }
     },
   },
   {
     "title": "System Design",
-    // ignore: missing_whitespace_between_adjacent_strings
     "description":
         "Systems design is the process of defining the architecture, product design, modules, interfaces, and data for a system to satisfy specified requirements. Systems design could be seen as the application of systems theory to product development.",
-
     "attendees": "29",
     "location": "Shimla, India",
     "recurring": "false",
@@ -105,37 +105,38 @@ const eventsDemoData = [
     "endDate": "18 Aug",
     "startTime": "8am",
     "endTime": "3pm",
-    "recurrance": "MONTHLY",
+    "recurrence": "MONTHLY",
     "isPublic": "false",
     "isSubscribed": "false",
     "isRegisterable": "true",
     "creator": {
       "firstName": "Ritik",
       "lastName": "Srivastav",
-      "id": "asdasdasd"
+      "_id": "asdasdasd"
     },
     "registrants": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
     ],
     "admins": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
     ],
     "organization": {
-      "id": '1',
+      "_id": '1',
+      "image": ' ',
       "name": 'Computer Science',
-      "creatorInfo": {
+      "creator": {
         "firstName": "Ritik",
         "lastName": "Srivastav",
-        "id": "asdasdasd"
+        "_id": "asdasdasd"
       }
     },
   },
@@ -143,7 +144,7 @@ const eventsDemoData = [
     "title": "Gaming",
     // ignore: missing_whitespace_between_adjacent_strings
     "description":
-        "Cyberpunk 2077 is a 2020 action role-playing video game developed and published by CD Projekt. The story takes place in Night City, an open world set in the Cyberpunk universe.",
+        "Cyberpunk 2077 is a 2020 action role-playing v_ideo game developed and published by CD Projekt. The story takes place in Night City, an open world set in the Cyberpunk universe.",
 
     "attendees": "5k+",
     "location": "Nagpur, India",
@@ -153,7 +154,7 @@ const eventsDemoData = [
     "endDate": "15 Aug",
     "startTime": "11am",
     "endTime": "3pm",
-    "recurrance": "MONTHLY",
+    "recurrence": "MONTHLY",
     "isPublic": "true",
     "isSubscribed": "true",
     "isRegisterable": "true",
@@ -161,30 +162,31 @@ const eventsDemoData = [
     "creator": {
       "firstName": "Utkarsh",
       "lastName": "Shendge",
-      "id": "asdasdasd"
+      "_id": "asdasdasd"
     },
     "registrants": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
-      {"firstName": "Warren", "lastName": "Buff", "id": "asdasdasd"},
-      {"firstName": "Bustin", "lastName": "Jiber", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
+      {"firstName": "Warren", "lastName": "Buff", "_id": "asdasdasd"},
+      {"firstName": "Bustin", "lastName": "Jiber", "_id": "asdasdasd"},
     ],
     "admins": [
-      {"firstName": "Utkarsh", "lastName": "Shendge", "id": "asdasdasd"},
+      {"firstName": "Utkarsh", "lastName": "Shendge", "_id": "asdasdasd"},
     ],
     "organization": {
-      "id": '1',
+      "_id": '1',
+      "image": ' ',
       "name": 'Cyclone',
-      "creatorInfo": {
+      "creator": {
         "firstName": "Utkarsh",
         "lastName": "Shendge",
-        "id": "asdasdasd"
+        "_id": "asdasdasd"
       }
     },
   }

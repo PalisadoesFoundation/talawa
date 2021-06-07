@@ -1,5 +1,5 @@
-name: PR Workflow
-on: [pull_request]
+name: PUSH Workflow
+on: [push]
 
 jobs:
   PR-Greeting:

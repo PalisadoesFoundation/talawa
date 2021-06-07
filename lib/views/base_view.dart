@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 //Pages are imported here
 import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/size_config.dart';
 
 class BaseView<T extends ChangeNotifier> extends StatefulWidget {
   const BaseView({
@@ -34,6 +35,7 @@ class _BaseViewState<T extends ChangeNotifier> extends State<BaseView<T>> {
   Widget build(
     BuildContext context,
   ) {
+    locator<SizeConfig>().init(context);
     return ChangeNotifierProvider<T>(
       create: (context) => model,
       child: Consumer<T>(

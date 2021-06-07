@@ -1,14 +1,13 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/services/user_config.dart';
-
-import '../locator.dart';
+import 'package:talawa/locator.dart';
 
 class GraphqlConfig {
-  static const urlKey = "url";
   static const imageUrlKey = "imageUrl";
+  static const urlKey = "url";
+  static String? orgURI = ' ';
   static String? token;
-  static String? orgURI;
 
 //prefix route for showing images
   String? displayImgRoute;
@@ -19,13 +18,12 @@ class GraphqlConfig {
     getOrgUrl();
   }
 
-  getOrgUrl() async {
-    final box = await Hive.openBox('url');
+  getOrgUrl() {
+    final box = Hive.box('url');
     final String? url = box.get(urlKey) as String?;
     final String? imgUrl = box.get(imageUrlKey) as String?;
-    orgURI = url;
-    displayImgRoute = imgUrl;
-    print('uri  : $orgURI');
+    orgURI = url ?? ' ';
+    displayImgRoute = imgUrl ?? ' ';
   }
 
   GraphQLClient clientToQuery() {

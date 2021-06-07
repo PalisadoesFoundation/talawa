@@ -57,11 +57,18 @@ class WaitingPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  JoinOrgTile(
-                      key: const Key('WaitingJoin'),
-                      index: 0,
-                      item: model.pendingRequestOrg,
-                      onTap: (item) {}),
+                  Expanded(
+                      child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: model.pendingRequestOrg.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return JoinOrgTile(
+                          key: const Key('WaitingJoin'),
+                          index: index,
+                          item: model.pendingRequestOrg[index],
+                          onTap: (item) {});
+                    },
+                  )),
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.symmetric(
@@ -70,21 +77,6 @@ class WaitingPage extends StatelessWidget {
                       child: Column(
                         children: [
                           const Spacer(),
-                          RaisedRoundedButton(
-                            buttonLabel: 'Join an Public Organization',
-                            onTap: () {
-                              if (true) {
-                                locator<NavigationService>()
-                                    .pushScreen('/selectOrg');
-                              }
-                            },
-                            textColor: Colors.white,
-                            key: const Key('Join More'),
-                            backgroundColor: const Color(0xFF008A37),
-                          ),
-                          SizedBox(
-                            height: SizeConfig.screenHeight! * 0.043,
-                          ),
                           RaisedRoundedButton(
                             buttonLabel: 'Log out',
                             onTap: model.logout,

@@ -178,8 +178,8 @@ class _EventInfoPageState extends State<EventInfoPage> {
             ),
             MemberListTile(
                 userImageUrl: ' ',
-                firstName: widget.event.admins![0].firstName,
-                lastName: widget.event.admins![0].lastName),
+                firstName: widget.event.admins![0].firstName!,
+                lastName: widget.event.admins![0].lastName!),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
             ),
@@ -212,8 +212,8 @@ class _EventInfoPageState extends State<EventInfoPage> {
                 itemBuilder: (BuildContext context, int index) {
                   return MemberListTile(
                       userImageUrl: ' ',
-                      firstName: widget.event.registrants![index].firstName,
-                      lastName: widget.event.registrants![index].lastName);
+                      firstName: widget.event.registrants![index].firstName!,
+                      lastName: widget.event.registrants![index].lastName!);
                 }),
           ],
         ),

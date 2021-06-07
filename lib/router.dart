@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/main.dart';
-import 'package:talawa/models/org_info.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
@@ -46,7 +46,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           builder: (context) => const Login(key: Key('Login')));
     case Routes.selectOrgScreen:
       final String id = settings.arguments!.toString();
-      print('id: $id');
       return CupertinoPageRoute(
           builder: (context) => SelectOrganization(
                 key: const Key('Signup'),
@@ -60,8 +59,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
                 selectedOrg: org,
               ));
     case Routes.waitingScreen:
-      return MaterialPageRoute(
-          builder: (context) => const WaitingPage(key: Key('Recover')));
+      return CupertinoPageRoute(
+          builder: (context) => const WaitingPage(key: Key('Waiting')));
     case Routes.recoverScreen:
       return MaterialPageRoute(
           builder: (context) => const Recover(key: Key('Recover')));
@@ -77,8 +76,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.individualPost:
       final Post post = settings.arguments! as Post;
       return MaterialPageRoute(
-          builder: (context) => InividualPostView(
-                key: const Key('InividualPost'),
+          builder: (context) => IndividualPostView(
+                key: const Key('IndividualPost'),
                 post: post,
               ));
     case Routes.pinnedPostpage:

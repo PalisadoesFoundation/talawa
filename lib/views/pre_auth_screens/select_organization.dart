@@ -21,71 +21,72 @@ class _SelectOrganizationState extends State<SelectOrganization> {
   @override
   Widget build(BuildContext context) {
     return BaseView<SelectOrganizationViewModel>(
+        onModelReady: (model) => model.initialise(widget.selectedOrgId),
         builder: (context, model, child) {
-      model.initialise(widget.selectedOrgId);
-      return Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            elevation: 0.0,
-            backgroundColor: Colors.transparent,
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
+          return Scaffold(
+              extendBodyBehindAppBar: true,
+              appBar: AppBar(
+                elevation: 0.0,
+                backgroundColor: Colors.transparent,
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back,
+                  ),
+                  onPressed: () {
+                    locator<NavigationService>().pop();
+                  },
+                ),
               ),
-              onPressed: () {
-                locator<NavigationService>().pop();
-              },
-            ),
-          ),
-          body: Padding(
-              padding: EdgeInsets.only(top: SizeConfig.safeBlockVertical! * 6),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SignupProgressBar(
-                        key: const Key('SelectOrg'), currentPageIndex: 0),
-                    model.selectedOrganization.id != '-1'
-                        ? Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Text(
-                              'Selected Organization',
-                              style: Theme.of(context).textTheme.headline5,
-                            ),
-                          )
-                        : const SizedBox(),
-                    model.selectedOrganization.id != '-1'
-                        ? JoinOrgTile(
-                            index: model.organizations
-                                .indexOf(model.selectedOrganization),
-                            item: model.selectedOrganization,
-                            onTap: (item) => model.selectOrg(item),
-                            key: const Key('OrgSelItem'),
-                            showIcon: false,
-                          )
-                        : const SizedBox(),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0),
-                      child: Divider(
-                        color: Colors.grey,
-                        thickness: 2.0,
-                      ),
-                    ),
-                    Expanded(child: model.showOrganizationList()),
-                    SizedBox(
-                      height: SizeConfig.screenHeight! * 0.0215,
-                    ),
-                    RaisedRoundedButton(
-                      buttonLabel: 'Continue',
-                      onTap: model.onTapContinue,
-                      textColor: const Color(0xFF008A37),
-                      key: const Key('SignUpLoginDetailsButton'),
-                      backgroundColor: Colors.white,
-                    ),
-                    SizedBox(
-                      height: SizeConfig.screenHeight! * 0.0215,
-                    ),
-                  ])));
-    });
+              body: Padding(
+                  padding:
+                      EdgeInsets.only(top: SizeConfig.safeBlockVertical! * 6),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SignupProgressBar(
+                            key: const Key('SelectOrg'), currentPageIndex: 0),
+                        model.selectedOrganization.id != '-1'
+                            ? Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: Text(
+                                  'Selected Organization',
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
+                              )
+                            : const SizedBox(),
+                        model.selectedOrganization.id != '-1'
+                            ? JoinOrgTile(
+                                index: model.organizations
+                                    .indexOf(model.selectedOrganization),
+                                item: model.selectedOrganization,
+                                onTap: (item) => model.selectOrg(item),
+                                key: const Key('OrgSelItem'),
+                                showIcon: false,
+                              )
+                            : const SizedBox(),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Divider(
+                            color: Colors.grey,
+                            thickness: 2.0,
+                          ),
+                        ),
+                        Expanded(child: model.showOrganizationList()),
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.0215,
+                        ),
+                        RaisedRoundedButton(
+                          buttonLabel: 'Continue',
+                          onTap: model.onTapContinue,
+                          textColor: const Color(0xFF008A37),
+                          key: const Key('SignUpLoginDetailsButton'),
+                          backgroundColor: Colors.white,
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.0215,
+                        ),
+                      ])));
+        });
   }
 }
