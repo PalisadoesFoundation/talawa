@@ -95,6 +95,7 @@ class TalawaTheme {
     ),
     bodyText2: TextStyle(
       fontSize: 14,
+      color: Colors.white,
     ),
     caption: TextStyle(
       fontWeight: FontWeight.w400,

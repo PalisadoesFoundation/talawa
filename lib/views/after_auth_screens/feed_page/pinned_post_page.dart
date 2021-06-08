@@ -10,7 +10,6 @@ class PinnedPostPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0.0,
         title: const Text('Pinned Posts'),
       ),
