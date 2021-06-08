@@ -90,7 +90,7 @@ class TalawaTheme {
     ),
     bodyText1: TextStyle(
       fontSize: 14,
-      color: Color(0xFF008A37),
+      color: Colors.white,
     ),
     bodyText2: TextStyle(
       fontSize: 14,
