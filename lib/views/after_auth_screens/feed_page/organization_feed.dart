@@ -12,6 +12,93 @@ class OrganizationFeed extends StatelessWidget {
     return BaseView<OrganizationFeedViewModel>(
       onModelReady: (model) => model.initialise(),
       builder: (context, model, child) => Scaffold(
+          drawer: Drawer(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    UserAccountsDrawerHeader(
+                      currentAccountPicture: CircleAvatar(
+                        backgroundColor:
+                            Theme.of(context).iconTheme.color!.withOpacity(0.2),
+                        child: Text(
+                          "R",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(fontSize: 40),
+                        ),
+                      ),
+                      accountName: Text("Rutvik Chandla"),
+                      accountEmail: Text("Selected Organization"),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 8.0),
+                      child: Text(
+                        "Switch Organization",
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ),
+                    Container(
+                      height: 250,
+                      child: ListView.builder(
+                        itemCount: 8,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(
+                            leading: CircleAvatar(),
+                            title: Text(
+                              'Organization ${index}',
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    Divider(),
+                    ListTile(
+                      leading: Icon(
+                        Icons.add,
+                        size: 30,
+                      ),
+                      title: Text("Join new Organization"),
+                      trailing: Icon(
+                        Icons.arrow_forward,
+                      ),
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        Icons.switch_right,
+                        size: 30,
+                      ),
+                      title: Text("Switch Organization"),
+                      trailing: Icon(
+                        Icons.arrow_forward,
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        'from',
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                      Text(
+                        'PALISADOES',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(letterSpacing: 1.5),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           appBar: AppBar(
             elevation: 0.0,
             centerTitle: true,
