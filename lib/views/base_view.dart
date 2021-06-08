@@ -1,6 +1,5 @@
 //the flutter material package is called
 import 'package:flutter/material.dart';
-
 //Pages are imported here
 import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';

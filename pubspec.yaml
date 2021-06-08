@@ -20,6 +20,7 @@ dependencies:
   hive: ^2.0.4
   http: ^0.13.3
   json_annotation: ^4.0.1
+  mockito: ^5.0.10
   path_provider: 2.0.2
   provider: ^5.0.0
   shared_preferences: ^2.0.6
@@ -60,17 +61,17 @@ flutter:
   fonts:
     - family: product-sans
       fonts:
-        - asset: fonts/ProductSans-Regular.ttf
-        - asset: fonts/ProductSans-Medium.ttf
+        - asset: assets/fonts/ProductSans-Regular.ttf
+        - asset: assets/fonts/ProductSans-Medium.ttf
           weight: 600
-        - asset: fonts/ProductSans-Bold.ttf
+        - asset: assets/fonts/ProductSans-Bold.ttf
           weight: 800
     - family: open-sans
       fonts:
-        - asset: fonts/OpenSans-Regular.ttf
-        - asset: fonts/OpenSans-SemiBold.ttf
+        - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-SemiBold.ttf
           weight: 600
-        - asset: fonts/OpenSans-Bold.ttf
+        - asset: assets/fonts/OpenSans-Bold.ttf
           weight: 800
   #       - asset:
   #         style: italic

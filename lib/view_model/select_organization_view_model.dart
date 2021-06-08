@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/view_state.dart';
-import 'package:talawa/models/org_info.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -15,18 +15,21 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../locator.dart';
 
 class SelectOrganizationViewModel extends BaseModel {
-  late OrgInfo selectedOrganization = OrgInfo(id: '-1');
+  final databaseService = locator<DataBaseMutationFunctions>();
   final ScrollController controller = ScrollController();
+  final navigatorService = locator<NavigationService>();
+  late OrgInfo selectedOrganization = OrgInfo(id: '-1');
   late List<OrgInfo> organizations = [];
 
   initialise(String initialData) async {
     if (!initialData.contains('-1')) {
-      print('here');
-      organizations.forEach((element) {
-        if (element.id == initialData) {
-          selectedOrganization = element;
-        }
-      });
+      final fetch = await databaseService.fetchOrgById(initialData);
+      if (fetch.runtimeType == OrgInfo) {
+        selectedOrganization = fetch as OrgInfo;
+        setState(ViewState.idle);
+        navigatorService.pushScreen('/signupDetails',
+            arguments: selectedOrganization);
+      }
     }
   }
 
@@ -37,12 +40,10 @@ class SelectOrganizationViewModel extends BaseModel {
 
   onTapContinue() {
     if (selectedOrganization.id != '-1') {
-      locator<NavigationService>()
-          .pushScreen('/signupDetails', arguments: selectedOrganization);
-      print('tapped');
+      navigatorService.pushScreen('/signupDetails',
+          arguments: selectedOrganization);
     } else {
-      locator<NavigationService>().showSnackBar(
-          'Select one organization to continue',
+      navigatorService.showSnackBar('Select one organization to continue',
           duration: const Duration(milliseconds: 750));
     }
   }
@@ -61,13 +62,13 @@ class SelectOrganizationViewModel extends BaseModel {
             {Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
             Future<QueryResult?> Function()? refetch}) {
           if (result.hasException) {
-            final bool? isException = locator<DataBaseMutationFunctions>()
-                .encounteredExceptionOrError(result.exception!,
-                    showPopUps: false);
+            final bool? isException =
+                databaseService.encounteredExceptionOrError(
+              result.exception!,
+            );
             if (isException!) {
-              print('Exception');
+              refetch!();
             } else {
-              print('error');
               refetch!();
             }
           } else {

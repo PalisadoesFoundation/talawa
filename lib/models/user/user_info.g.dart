@@ -27,7 +27,8 @@ class UserAdapter extends TypeAdapter<User> {
       lastName: fields[4] as String?,
       authToken: fields[0] as String?,
       refreshToken: fields[1] as String?,
-    )..membershipRequests = (fields[10] as List?)?.cast<OrgInfo>();
+      membershipRequests: (fields[10] as List?)?.cast<OrgInfo>(),
+    );
   }
 
   @override

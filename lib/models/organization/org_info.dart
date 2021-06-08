@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:talawa/models/user_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 
 part 'org_info.g.dart';
 
@@ -15,7 +15,14 @@ class OrgInfo {
       this.isPublic,
       this.name});
 
-  factory OrgInfo.fromJson(Map<String, dynamic> json) {
+  factory OrgInfo.fromJson(Map<String, dynamic> json1,
+      {bool memberRequest = false}) {
+    Map<String, dynamic> json;
+    if (memberRequest) {
+      json = json1['organization'] as Map<String, dynamic>;
+    } else {
+      json = json1;
+    }
     return OrgInfo(
       image: json['image'] as String?,
       name: json['name'] as String?,
@@ -34,7 +41,7 @@ class OrgInfo {
   }
 
   List<OrgInfo> fromJsonToList(List<dynamic> json) {
-    List<OrgInfo>? _orgList = [];
+    final List<OrgInfo> _orgList = [];
     json.forEach((element) {
       final OrgInfo org = OrgInfo.fromJson(element as Map<String, dynamic>);
       _orgList.add(org);
