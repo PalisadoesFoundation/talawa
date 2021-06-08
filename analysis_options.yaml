@@ -1,5 +1,8 @@
 include: package:lint/analysis_options.yaml
 
+analyzer:
+  exclude: [lib/generated_plugin_registrant.dart]
+
 linter:
   rules:
     # Make constructors the first thing in every class

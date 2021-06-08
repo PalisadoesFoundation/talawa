@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/locator.dart';
 
 class LoginViewModel extends BaseModel {
-  late List<Map<String, dynamic>> greeting;
+  final databaseService = locator<DataBaseMutationFunctions>();
   final formKey = GlobalKey<FormState>();
-  TextEditingController email = TextEditingController();
+  late List<Map<String, dynamic>> greeting;
   TextEditingController password = TextEditingController();
-  FocusNode emailFocus = FocusNode();
+  TextEditingController email = TextEditingController();
   FocusNode passwordFocus = FocusNode();
+  FocusNode emailFocus = FocusNode();
   AutovalidateMode validate = AutovalidateMode.disabled;
+  bool hidePassword = true;
 
   initialize() {
     greeting = [
@@ -54,9 +56,10 @@ class LoginViewModel extends BaseModel {
     validate = AutovalidateMode.always;
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
-      locator<DataBaseMutationFunctions>().login(email.text, password.text);
+      databaseService.init();
+      final bool loginSuccess =
+          await databaseService.login(email.text, password.text);
+      print(loginSuccess ? 'logging in' : 'failed');
     }
-    /*locator<NavigationService>()
-        .pushReplacementScreen('/mainScreen');*/
   }
 }

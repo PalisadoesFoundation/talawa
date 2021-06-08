@@ -104,7 +104,6 @@ class _SelectLanguageState extends State<SelectLanguage> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {
-                  print('selected');
                   locator<NavigationService>()
                       .pushScreen('/setUrl', arguments: '');
                 },

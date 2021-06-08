@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/validators.dart';
@@ -8,53 +8,57 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/widgets/progress_dialog.dart';
 
 class SetUrlViewModel extends BaseModel {
-  late List<Map<String, dynamic>> greeting;
-  static const urlKey = "url";
-  static const imageUrlKey = "imageUrl";
+  final navigatorService = locator<NavigationService>();
+  final graphqlService = locator<GraphqlConfig>();
   final formKey = GlobalKey<FormState>();
+  static const imageUrlKey = "imageUrl";
+  static const urlKey = "url";
   TextEditingController url = TextEditingController();
   FocusNode urlFocus = FocusNode();
+  late List<Map<String, dynamic>> greeting;
   AutovalidateMode validate = AutovalidateMode.disabled;
 
-  initialise() {
+  initialise({String inviteUrl = ''}) {
+    final uri = inviteUrl;
+    if (uri.isNotEmpty) {
+      final box = Hive.box('url');
+      box.put(urlKey, uri);
+      box.put(imageUrlKey, "$uri/talawa/");
+      graphqlService.getOrgUrl();
+    }
     greeting = [
       {
         'text': 'Join ',
-        'textStyle':
-            Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-                .textTheme
-                .headline6!
-                .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
+        'textStyle': Theme.of(navigatorService.navigatorKey.currentContext!)
+            .textTheme
+            .headline6!
+            .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
       },
       {
         'text': 'and ',
-        'textStyle':
-            Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-                .textTheme
-                .headline5
+        'textStyle': Theme.of(navigatorService.navigatorKey.currentContext!)
+            .textTheme
+            .headline5
       },
       {
         'text': 'Collaborate ',
-        'textStyle':
-            Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-                .textTheme
-                .headline6!
-                .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
+        'textStyle': Theme.of(navigatorService.navigatorKey.currentContext!)
+            .textTheme
+            .headline6!
+            .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
       },
       {
-        'text': 'with     your ',
-        'textStyle':
-            Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-                .textTheme
-                .headline5
+        'text': 'with your ',
+        'textStyle': Theme.of(navigatorService.navigatorKey.currentContext!)
+            .textTheme
+            .headline5
       },
       {
         'text': 'Organizations',
-        'textStyle':
-            Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-                .textTheme
-                .headline5!
-                .copyWith(fontSize: 24, color: const Color(0xFF4285F4))
+        'textStyle': Theme.of(navigatorService.navigatorKey.currentContext!)
+            .textTheme
+            .headline5!
+            .copyWith(fontSize: 24, color: const Color(0xFF4285F4))
       },
     ];
   }
@@ -63,20 +67,21 @@ class SetUrlViewModel extends BaseModel {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
     if (formKey.currentState!.validate()) {
-      locator<NavigationService>()
+      navigatorService
           .pushDialog(const ProgressDialog(key: Key('UrlCheckProgress')));
       validate = AutovalidateMode.disabled;
-      final bool? urlPresent = await Validator.validateUrlExistence(url.text);
-      if (urlPresent!) {
-        const FlutterSecureStorage storage = FlutterSecureStorage();
-        await storage.write(key: urlKey, value: url.text);
-        await storage.write(key: imageUrlKey, value: "${url.text}/talawa/");
-        locator<NavigationService>().pop();
-        GraphqlConfig().getOrgUrl();
-        locator<NavigationService>()
-            .pushScreen(navigateTo, arguments: argument);
+      final String uri = url.text.trim();
+      final bool? urlPresent = await Validator.validateUrlExistence(uri);
+      if (urlPresent! == true) {
+        final box = Hive.box('url');
+        box.put(urlKey, uri);
+        box.put(imageUrlKey, "$uri/talawa/");
+
+        navigatorService.pop();
+        graphqlService.getOrgUrl();
+        navigatorService.pushScreen(navigateTo, arguments: argument);
       } else {
-        locator<NavigationService>()
+        navigatorService
             .showSnackBar("URL doesn't exist/no connection please check");
       }
     }

@@ -22,9 +22,8 @@ class _SetUrlState extends State<SetUrl> {
   @override
   Widget build(BuildContext context) {
     return BaseView<SetUrlViewModel>(
-        onModelReady: (model) => model.initialise(),
+        onModelReady: (model) => model.initialise(inviteUrl: widget.uri),
         builder: (context, model, child) {
-          model.url.text = widget.uri;
           return Scaffold(
             body: Container(
               margin: EdgeInsets.fromLTRB(
@@ -34,6 +33,7 @@ class _SetUrlState extends State<SetUrl> {
                   0.0),
               width: SizeConfig.screenWidth,
               height: SizeConfig.screenHeight,
+              alignment: Alignment.center,
               child: SingleChildScrollView(
                 child: Form(
                   key: model.formKey,
@@ -115,8 +115,9 @@ class _SetUrlState extends State<SetUrl> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          locator<NavigationService>()
-                              .pushReplacementScreen('/mainScreen');
+                          locator<NavigationService>().pushReplacementScreen(
+                              '/selectLang',
+                              arguments: '0');
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

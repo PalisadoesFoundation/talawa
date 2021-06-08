@@ -42,16 +42,27 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                       EdgeInsets.only(top: SizeConfig.safeBlockVertical! * 6),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SignupProgressBar(
                             key: const Key('SelectOrg'), currentPageIndex: 0),
                         model.selectedOrganization.id != '-1'
+                            ? Padding(
+                                padding: const EdgeInsets.all(15),
+                                child: Text(
+                                  'Selected Organization',
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
+                              )
+                            : const SizedBox(),
+                        model.selectedOrganization.id != '-1'
                             ? JoinOrgTile(
-                                index: 0,
+                                index: model.organizations
+                                    .indexOf(model.selectedOrganization),
                                 item: model.selectedOrganization,
                                 onTap: (item) => model.selectOrg(item),
                                 key: const Key('OrgSelItem'),
-                                showIcon: true,
+                                showIcon: false,
                               )
                             : const SizedBox(),
                         const Padding(
@@ -61,7 +72,7 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                             thickness: 2.0,
                           ),
                         ),
-                        model.showOrganizationList(),
+                        Expanded(child: model.showOrganizationList()),
                         SizedBox(
                           height: SizeConfig.screenHeight! * 0.0215,
                         ),

@@ -81,9 +81,19 @@ class _LoginState extends State<Login> {
                           keyboardType: TextInputType.text,
                           enableSuggestions: true,
                           autofillHints: const <String>[AutofillHints.password],
-                          obscureText: false,
-                          //validator: (value) => Validator.validatePassword(value!),
+                          obscureText: model.hidePassword,
+                          validator: (value) =>
+                              Validator.validatePassword(value!),
                           decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    model.hidePassword = !model.hidePassword;
+                                  });
+                                },
+                                icon: Icon(model.hidePassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility)),
                             hintText: 'password',
                             labelText: 'Enter your password *',
                             labelStyle: Theme.of(context).textTheme.subtitle1,

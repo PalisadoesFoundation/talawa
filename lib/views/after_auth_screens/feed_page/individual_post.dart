@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/color_pallete.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
-import 'package:talawa/models/user/user_model.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
-class InividualPostView extends StatelessWidget {
-  const InividualPostView({Key? key, required this.post}) : super(key: key);
+class IndividualPostView extends StatelessWidget {
+  const IndividualPostView({Key? key, required this.post}) : super(key: key);
   final Post post;
 
   @override
@@ -123,9 +122,9 @@ class CommentTemplate extends StatelessWidget {
               ),
               Text(
                 comment.text!,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16,
-                    color: talawaGrey,
+                    color: Color(0xff737373),
                     fontFamily: "open-sans",
                     fontWeight: FontWeight.w600),
               ),

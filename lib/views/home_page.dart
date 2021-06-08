@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
+import 'package:talawa/widgets/raised_round_edge_button.dart';
+
+import '../locator.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -13,11 +20,7 @@ class MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   final List<Widget> _childrenPages = [
     const OrganizationFeed(key: Key("HomeView")),
-    Container(
-      child: const Center(
-        child: Text('Events Screen'),
-      ),
-    ),
+    const ExploreEvents(key: Key('ExploreEvents')),
     Container(
       child: const Center(
         child: Text('Post Screen'),
@@ -29,16 +32,42 @@ class MainScreenState extends State<MainScreen> {
       ),
     ),
     Container(
-      child: const Center(
-        child: Text('Profile Screen'),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: SizeConfig.screenHeight! * 0.4,
+            ),
+            const Text('Profile Screen'),
+            SizedBox(
+              height: SizeConfig.screenHeight! * 0.4,
+            ),
+            RaisedRoundedButton(
+              buttonLabel: 'Log out',
+              onTap: () {
+                final user = Hive.box<User>('currentUser');
+                final url = Hive.box('url');
+                user.clear();
+                url.clear();
+                locator<NavigationService>()
+                    .removeAllAndPush('/selectLang', '/', arguments: '0');
+              },
+              textColor: const Color(0xFF008A37),
+              key: const Key('Logout'),
+              backgroundColor: Colors.white,
+            ),
+            SizedBox(
+              height: SizeConfig.screenHeight! * 0.0215,
+            ),
+          ],
+        ),
       ),
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    print(SizeConfig.screenWidth);
-    print(SizeConfig.screenHeight);
     return Scaffold(
       body: _childrenPages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
