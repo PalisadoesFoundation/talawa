@@ -37,7 +37,7 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
               style: Theme.of(context)
                   .textTheme
                   .bodyText2!
-                  .copyWith(fontFamily: 'open-sans', fontSize: 16),
+                  .copyWith(fontFamily: 'open-sans'),
             )
           : Column(
               children: <Widget>[
@@ -46,7 +46,7 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2!
-                      .copyWith(fontFamily: 'open-sans', fontSize: 16),
+                      .copyWith(fontFamily: 'open-sans'),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
