@@ -49,10 +49,10 @@ class _SplashScreenState extends State<SplashScreen> {
       print('malformed initial uri error: $err');
     }
     if (_latestUri == null && _initialUri == null) {
-      Future.delayed(const Duration(milliseconds: 100)).then((value) async {
-        final bool userLoggedIn = await locator<UserConfig>().userLoggedIn();
+      final bool userLoggedIn = await locator<UserConfig>().userLoggedIn();
+      Future.delayed(const Duration(milliseconds: 750)).then((value) async {
         if (userLoggedIn) {
-          if (locator<UserConfig>().currentUser!.joinedOrganizations!.isEmpty) {
+          if (locator<UserConfig>().currentUser.joinedOrganizations!.isEmpty) {
             locator<NavigationService>()
                 .pushReplacementScreen('/waiting', arguments: '0');
           } else {

@@ -10,7 +10,7 @@ import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/pinned_post_page.dart';
-import 'package:talawa/views/home_page.dart';
+import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
 import 'package:talawa/views/pre_auth_screens/recover.dart';
@@ -19,6 +19,7 @@ import 'package:talawa/views/pre_auth_screens/select_organization.dart';
 import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/signup_details.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart';
+
 import 'constants/routing_constants.dart';
 import 'models/events/event_model.dart';
 
