@@ -90,7 +90,7 @@ void main() {
       await tester.tap(postIcon);
       await tester.pump();
       //Post Screen should show up
-      expect(find.text('Post Screen'), findsOneWidget);
+      expect(find.text('Share News'), findsOneWidget);
     });
 
     testWidgets('Testing if Chat Screen up', (tester) async {
