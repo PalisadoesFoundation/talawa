@@ -10,7 +10,7 @@ import 'navigation_service.dart';
 
 class UserConfig with ChangeNotifier {
   late User? _currentUser = User(id: 'null', authToken: 'null');
-  late OrgInfo? _currentOrg;
+  late OrgInfo? _currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
 
   OrgInfo get currentOrg => _currentOrg!;
   set currentOrg(OrgInfo org) => _currentOrg = org;

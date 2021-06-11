@@ -10,16 +10,9 @@ import 'package:talawa/widgets/event_card.dart';
 
 import '../../../locator.dart';
 
-class ExploreEvents extends StatefulWidget {
-  const ExploreEvents({required Key key}) : super(key: key);
-
-  @override
-  _ExploreEventsState createState() => _ExploreEventsState();
-}
-
-class _ExploreEventsState extends State<ExploreEvents> {
-  String _chosenValue = 'My Events';
-
+class ExploreEvents extends StatelessWidget {
+  const ExploreEvents({required Key key, this.drawerKey}) : super(key: key);
+  final GlobalKey<ScaffoldState>? drawerKey;
   @override
   Widget build(BuildContext context) {
     return BaseView<ExploreEventsViewModel>(builder: (context, model, child) {
@@ -37,6 +30,10 @@ class _ExploreEventsState extends State<ExploreEvents> {
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
                 ),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => drawerKey!.currentState!.openDrawer(),
           ),
           actions: [
             Padding(
@@ -69,7 +66,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
                                   const EdgeInsets.symmetric(horizontal: 20),
                               width: SizeConfig.screenWidth! * 0.55,
                               child: DropdownButtonHideUnderline(
-                                  child: dropDownList()),
+                                  child: dropDownList(model, context)),
                             ),
                           ),
                           GestureDetector(
@@ -152,9 +149,9 @@ class _ExploreEventsState extends State<ExploreEvents> {
     });
   }
 
-  Widget dropDownList() {
+  Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
     return DropdownButton<String>(
-      value: _chosenValue,
+      value: model.chosenValue,
       items: <String>[
         'My Events',
         'Public Events',
@@ -172,9 +169,7 @@ class _ExploreEventsState extends State<ExploreEvents> {
         );
       }).toList(),
       onChanged: (value) {
-        setState(() {
-          _chosenValue = value.toString();
-        });
+        model.choseValue(value!);
       },
     );
   }

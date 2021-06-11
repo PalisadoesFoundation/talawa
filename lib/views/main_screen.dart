@@ -4,20 +4,15 @@ import 'package:talawa/widgets/custom_drawer.dart';
 
 import 'base_view.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
-
-  @override
-  MainScreenState createState() => MainScreenState();
-}
-
-class MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseView<MainScreenViewModel>(
         onModelReady: (model) => model.initialize(),
         builder: (context, model, child) {
           return Scaffold(
+            key: model.scaffoldKey,
             drawer: const CustomDrawer(),
             body: model.childrenPage[model.currentIndex],
             bottomNavigationBar: BottomNavigationBar(

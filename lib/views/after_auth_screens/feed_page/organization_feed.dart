@@ -5,7 +5,8 @@ import 'package:talawa/widgets/pinned_carousel_widget.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
 
 class OrganizationFeed extends StatelessWidget {
-  const OrganizationFeed({required Key key}) : super(key: key);
+  const OrganizationFeed({required Key key, this.drawerKey}) : super(key: key);
+  final GlobalKey<ScaffoldState>? drawerKey;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,10 @@ class OrganizationFeed extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
                     ),
+              ),
+              leading: IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () => drawerKey!.currentState!.openDrawer(),
               ),
             ),
             body: model.isBusy

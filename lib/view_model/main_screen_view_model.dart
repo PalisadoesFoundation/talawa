@@ -6,6 +6,7 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
@@ -13,22 +14,15 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 import '../locator.dart';
 
 class MainScreenViewModel extends BaseModel {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late List<Widget> childrenPage;
   int currentIndex = 0;
 
   initialize() {
     childrenPage = [
-      const OrganizationFeed(
-        key: Key("OrganizationFeed"),
-      ),
-      const ExploreEvents(
-        key: Key('ExploreEvents'),
-      ),
-      Container(
-        child: const Center(
-          child: Text('Post Screen'),
-        ),
-      ),
+      OrganizationFeed(key: const Key("HomeView"), drawerKey: scaffoldKey),
+      ExploreEvents(key: const Key('ExploreEvents'), drawerKey: scaffoldKey),
+      AddPost(key: const Key('AddPost'), drawerKey: scaffoldKey),
       Container(
         child: const Center(
           child: Text('Chat Screen'),
