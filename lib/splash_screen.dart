@@ -93,10 +93,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     locator<SizeConfig>().init(context);
     return Scaffold(
+      key: const Key('SplashScreenScaffold'),
       body: Stack(
         children: [
           Center(
             child: CustomPaint(
+              key: const Key('LogoPainter'),
               size: Size(SizeConfig.screenWidth! * 0.6,
                   (SizeConfig.screenWidth! * 0.6).toDouble()),
               painter: AppLogo(),
