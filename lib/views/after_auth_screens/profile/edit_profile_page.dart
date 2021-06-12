@@ -91,7 +91,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             Flexible(
                               child: TextFormField(
-                                  controller: model.firstNameTextController,
+                                  controller: model.firstNameTextController
+                                    ..text = model.user.values.first.firstName!,
                                   focusNode: model.firstNameFocus,
                                   keyboardType: TextInputType.name,
                                   decoration: InputDecoration(
@@ -121,7 +122,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                             Flexible(
                               child: TextFormField(
-                                  controller: model.lastNameTextController,
+                                  controller: model.lastNameTextController
+                                    ..text = model.user.values.first.lastName!,
                                   focusNode: model.lastNameFocus,
                                   keyboardType: TextInputType.name,
                                   decoration: InputDecoration(

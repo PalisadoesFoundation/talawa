@@ -9,10 +9,8 @@ import 'package:talawa/view_model/base_view_model.dart';
 class EditProfilePageViewModel extends BaseModel {
   final user = Hive.box<User>('currentUser');
   final org = Hive.box<OrgInfo>('currentOrg');
-  TextEditingController firstNameTextController =
-      TextEditingController(text: 'Bruce');
-  TextEditingController lastNameTextController =
-      TextEditingController(text: 'Wayne');
+  TextEditingController firstNameTextController = TextEditingController();
+  TextEditingController lastNameTextController = TextEditingController();
   FocusNode firstNameFocus = FocusNode();
   FocusNode lastNameFocus = FocusNode();
   final databaseService = locator<DataBaseMutationFunctions>();
