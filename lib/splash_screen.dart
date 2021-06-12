@@ -49,10 +49,10 @@ class _SplashScreenState extends State<SplashScreen> {
       print('malformed initial uri error: $err');
     }
     if (_latestUri == null && _initialUri == null) {
-      Future.delayed(const Duration(milliseconds: 100)).then((value) async {
-        final bool userLoggedIn = await locator<UserConfig>().userLoggedIn();
+      final bool userLoggedIn = await locator<UserConfig>().userLoggedIn();
+      Future.delayed(const Duration(milliseconds: 750)).then((value) async {
         if (userLoggedIn) {
-          if (locator<UserConfig>().currentUser!.joinedOrganizations!.isEmpty) {
+          if (locator<UserConfig>().currentUser.joinedOrganizations!.isEmpty) {
             locator<NavigationService>()
                 .pushReplacementScreen('/waiting', arguments: '0');
           } else {
@@ -93,10 +93,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     locator<SizeConfig>().init(context);
     return Scaffold(
+      key: const Key('SplashScreenScaffold'),
       body: Stack(
         children: [
           Center(
             child: CustomPaint(
+              key: const Key('LogoPainter'),
               size: Size(SizeConfig.screenWidth! * 0.6,
                   (SizeConfig.screenWidth! * 0.6).toDouble()),
               painter: AppLogo(),

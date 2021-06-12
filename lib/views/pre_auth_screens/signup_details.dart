@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
-import 'package:talawa/view_model/signup_details_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
-import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/signup_progress_bar.dart';
-import 'package:talawa/views/base_view.dart';
 
 class SignUpDetails extends StatefulWidget {
   const SignUpDetails({required Key key, required this.selectedOrg})

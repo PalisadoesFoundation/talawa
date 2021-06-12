@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/custom_painters/language_icon.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
-import 'package:talawa/view_model/set_url_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
-import 'package:talawa/locator.dart';
-import 'package:talawa/services/size_config.dart';
-import 'package:talawa/views/base_view.dart';
 
 class SetUrl extends StatefulWidget {
   const SetUrl({required Key key, required this.uri}) : super(key: key);

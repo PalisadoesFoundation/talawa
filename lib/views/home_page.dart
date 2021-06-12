@@ -10,14 +10,14 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 import '../locator.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  MainScreenState createState() => MainScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class MainScreenState extends State<MainScreen> {
+class HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final List<Widget> _childrenPages = [
     const OrganizationFeed(key: Key("HomeView")),

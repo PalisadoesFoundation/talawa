@@ -25,8 +25,8 @@ class DataBaseMutationFunctions {
   }
 
   GraphQLError userNotFound = const GraphQLError(message: 'User not found');
-  GraphQLError userNotAuthenticated = const GraphQLError(
-      message: 'User is not authenticated: Undefined location');
+  GraphQLError userNotAuthenticated =
+      const GraphQLError(message: 'User is not authenticated');
   GraphQLError emailAccountPresent =
       const GraphQLError(message: 'Email address already exists');
   GraphQLError wrongCredentials =
@@ -50,6 +50,9 @@ class DataBaseMutationFunctions {
       for (int i = 0; i < exception.graphqlErrors.length; i++) {
         if (exception.graphqlErrors[i].message ==
             refreshAccessTokenExpiredException.message) {
+          return true;
+        } else if (exception.graphqlErrors[i].message ==
+            userNotAuthenticated.message) {
           return true;
         } else if (exception.graphqlErrors[i].message == userNotFound.message) {
           if (showSnackBar) {
@@ -98,6 +101,7 @@ class DataBaseMutationFunctions {
         navigatorService.pop();
       }
     } else if (result.data != null && result.isConcrete) {
+      print(result.data);
       userConfig.updateAccessToken(
           refreshToken: result.data!['refreshToken']['refreshToken'].toString(),
           accessToken: result.data!['refreshToken']['accessToken'].toString());
@@ -124,9 +128,11 @@ class DataBaseMutationFunctions {
       final User loggedInUser =
           User.fromJson(result.data!['login'] as Map<String, dynamic>);
       userConfig.updateUser(loggedInUser);
-      if (userConfig.currentUser!.joinedOrganizations!.isEmpty) {
+      if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
         navigatorService.removeAllAndPush('/waiting', '/');
       } else {
+        userConfig.saveCurrentOrgInHive(
+            userConfig.currentUser.joinedOrganizations![0]);
         navigatorService.removeAllAndPush('/mainScreen', '/');
       }
       return true;
@@ -159,23 +165,26 @@ class DataBaseMutationFunctions {
   }
 
   Future<bool> joinPublicOrg(String id) async {
+    print(id);
     final QueryResult result = await clientAuth
         .mutate(MutationOptions(document: gql(_query.joinOrgById(id))));
 
     if (result.hasException) {
       final bool? exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {
-        refreshAccessToken(userConfig.currentUser!.refreshToken!);
+        refreshAccessToken(userConfig.currentUser.refreshToken!);
         joinPublicOrg(id);
       } else {
-        navigatorService.pop();
+        //navigatorService.pop();
       }
     } else if (result.data != null && result.isConcrete) {
-      final OrgInfo joinedOrg = OrgInfo.fromJson(
-          result.data!['joinPublicOrganization']['joinedOrganizations'][0]
-              as Map<String, dynamic>);
-      userConfig.updateUserJoinedOrg([joinedOrg]);
-      navigatorService.pop();
+      final List<OrgInfo>? joinedOrg = (result.data!['joinPublicOrganization']
+              ['joinedOrganizations'] as List<dynamic>?)
+          ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+          .toList();
+      print(joinedOrg);
+      userConfig.updateUserJoinedOrg(joinedOrg!);
+      //navigatorService.pop();
       return true;
     }
     return false;
@@ -187,7 +196,7 @@ class DataBaseMutationFunctions {
     if (result.hasException) {
       final bool? exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {
-        refreshAccessToken(userConfig.currentUser!.refreshToken!);
+        refreshAccessToken(userConfig.currentUser.refreshToken!);
         sendMembershipRequest(id);
       } else {
         navigatorService.pop();
@@ -208,16 +217,19 @@ class DataBaseMutationFunctions {
         document: gql(_query.fetchUserInfo), variables: {'id': id}));
 
     if (result.hasException) {
-      final bool? exception = encounteredExceptionOrError(result.exception!);
+      final bool? exception =
+          encounteredExceptionOrError(result.exception!, showSnackBar: false);
       if (exception!) {
         fetchCurrentUserInfo(id);
       } else {
-        navigatorService.pop();
+        //navigatorService.pop();
       }
     } else if (result.data != null && result.isConcrete) {
       final User userInfo = User.fromJson(
           result.data!['users'][0] as Map<String, dynamic>,
           fromOrg: true);
+      userInfo.authToken = userConfig.currentUser.authToken;
+      userInfo.refreshToken = userConfig.currentUser.refreshToken;
       userConfig.updateUser(userInfo);
       return true;
     }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AddPost extends StatelessWidget {
-  const AddPost({Key? key}) : super(key: key);
+  const AddPost({Key? key, this.drawerKey}) : super(key: key);
+  final GlobalKey<ScaffoldState>? drawerKey;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,10 @@ class AddPost extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
                 ),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () => drawerKey!.currentState!.openDrawer(),
           ),
           actions: [
             TextButton(

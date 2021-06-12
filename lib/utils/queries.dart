@@ -14,27 +14,120 @@ class Queries {
                 lastName
                 email
                 image
-                 joinedOrganizations{
-                   image
+                joinedOrganizations{
                   _id
                   name
-                 }
-                 createdOrganizations{
-                   _id
-                   image
-                   name
-                 }
-                 membershipRequests{
-                   organization{
+                  image
+                  description
+                  isPublic
+                  creator{
+                    _id
+                    firstName
+                    lastName
+                    image
+                    email
+                  } 
+                  admins{
+                    _id
+                    firstName
+                    lastName
+                    image
+                    email
+                  }
+                  members{
+                    _id
+                    firstName
+                    lastName
+                    image
+                    email
+                  }
+                }
+                createdOrganizations{
+                  _id
+                  name
+                  image
+                  description
+                  isPublic
+                  creator{
+                    _id
+                    firstName
+                    lastName
+                    image
+                    email
+                  } 
+                  admins{
+                    _id
+                    firstName
+                    lastName
+                    image
+                    email
+                  }
+                  members{
+                    _id
+                    firstName
+                    lastName
+                    image
+                    email
+                  }
+                }
+                membershipRequests{
+                  organization{
                     _id
                     name
-                   }
-                 }
-                 adminFor{
-                   _id
-                   image
-                   name
-                 }
+                    image
+                    description
+                    isPublic
+                    creator{
+                      _id
+                      firstName
+                      lastName
+                      image
+                      email
+                    } 
+                    admins{
+                      _id
+                      firstName
+                      lastName
+                      image
+                      email
+                    }
+                    members{
+                      _id
+                      firstName
+                      lastName
+                      image
+                      email
+                    }
+                  }
+                }
+                adminFor{
+                 _id
+                  name
+                  image
+                  description
+                  isPublic
+                  creator{
+                    _id
+                    firstName
+                    lastName
+                    image
+                    email
+                  } 
+                  admins{
+                    _id
+                    firstName
+                    lastName
+                    image
+                    email
+                  }
+                  members{
+                    _id
+                    firstName
+                    lastName
+                    image
+                    email
+                  }
+                }
               }
               refreshToken
             }
@@ -58,22 +151,56 @@ class Queries {
                 _id
                 name
                 image
+                description
                 isPublic
                 creator{
                   _id
                   firstName
                   lastName
+                  image
+                  email
+                } 
+                admins{
+                  _id
+                  firstName
+                  lastName
+                  image
+                  email
+                }
+                members{
+                  _id
+                  firstName
+                  lastName
+                  image
+                  email
                 }
               }
               createdOrganizations{
                 _id
                 name
                 image
+                description
                 isPublic
                 creator{
                   _id
                   firstName
                   lastName
+                  image
+                  email
+                } 
+                admins{
+                  _id
+                  firstName
+                  lastName
+                  image
+                  email
+                }
+                members{
+                  _id
+                  firstName
+                  lastName
+                  image
+                  email
                 }
               }
               membershipRequests{
@@ -81,18 +208,58 @@ class Queries {
                   _id
                   name
                   image
+                  description
                   isPublic
                   creator{
                     _id
                     firstName
                     lastName
+                    image
+                    email
+                  } 
+                  admins{
+                    _id
+                    firstName
+                    lastName
+                    image
+                    email
+                  }
+                  members{
+                    _id
+                    firstName
+                    lastName
+                    image
+                    email
                   }
                 }
               }
               adminFor{
-                _id
-                image
+               _id
                 name
+                image
+                description
+                isPublic
+                creator{
+                  _id
+                  firstName
+                  lastName
+                  image
+                  email
+                } 
+                admins{
+                  _id
+                  firstName
+                  lastName
+                  image
+                  email
+                }
+                members{
+                  _id
+                  firstName
+                  lastName
+                  image
+                  email
+                }
               }
             }
             refreshToken
