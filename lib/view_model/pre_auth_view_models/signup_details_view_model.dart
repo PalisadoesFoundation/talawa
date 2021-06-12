@@ -69,7 +69,9 @@ class SignupDetailsViewModel extends BaseModel {
           final bool successJoin =
               await databaseService.joinPublicOrg(selectedOrganization.id!);
           if (successJoin) {
-            userConfig.currentUser!.print();
+            userConfig.currentUser.print();
+            userConfig.saveCurrentOrgInHive(
+                userConfig.currentUser.joinedOrganizations![0]);
             navigatorService.removeAllAndPush('/mainScreen', '/');
           } else {
             navigatorService.showSnackBar('SomeThing went wrong');
@@ -78,7 +80,7 @@ class SignupDetailsViewModel extends BaseModel {
           final bool successRequest = await databaseService
               .sendMembershipRequest(selectedOrganization.id!);
           if (successRequest) {
-            userConfig.currentUser!.print();
+            userConfig.currentUser.print();
             navigatorService.removeAllAndPush('/waiting', '/');
           } else {
             navigatorService.showSnackBar('SomeThing went wrong');

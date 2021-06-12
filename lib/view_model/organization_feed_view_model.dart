@@ -1,10 +1,11 @@
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/enums/view_state.dart';
-import 'package:talawa/locator.dart';
-import 'package:talawa/models/post/post_model.dart';
-import 'package:talawa/demo_server_data/post_demo_data.dart';
 import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
+import 'package:talawa/demo_server_data/post_demo_data.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class OrganizationFeedViewModel extends BaseModel {
@@ -13,9 +14,14 @@ class OrganizationFeedViewModel extends BaseModel {
 
   List<Post> get posts => _posts;
   List<Post> get pinnedPosts => _pinnedPosts;
+  late OrgInfo _currentOrganisation;
+
+  String get currentOrgName => locator<UserConfig>().currentOrg.name!;
 
   void initialise() {
-    setState(ViewState.busy);
+    print('page refreshed');
+    _currentOrganisation = locator<UserConfig>().currentOrg;
+    print(_currentOrganisation);
     //Fetching posts
     final postJsonResult = postsDemoData;
 
@@ -28,8 +34,6 @@ class OrganizationFeedViewModel extends BaseModel {
     pinnedPostJsonResult.forEach((pinnedPostJsonData) {
       _pinnedPosts.add(Post.fromJson(pinnedPostJsonData));
     });
-
-    setState(ViewState.idle);
   }
 
   void navigateToIndividualPage(Post post) {

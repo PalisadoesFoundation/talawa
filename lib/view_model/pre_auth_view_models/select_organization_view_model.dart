@@ -12,7 +12,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/join_org_tile.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../locator.dart';
+import '../../locator.dart';
 
 class SelectOrganizationViewModel extends BaseModel {
   final databaseService = locator<DataBaseMutationFunctions>();
@@ -36,6 +36,7 @@ class SelectOrganizationViewModel extends BaseModel {
   selectOrg(OrgInfo item) {
     selectedOrganization = item;
     setState(ViewState.idle);
+    print(selectedOrganization.id);
   }
 
   onTapContinue() {

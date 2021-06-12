@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/view_model/waiting_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/join_org_tile.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';

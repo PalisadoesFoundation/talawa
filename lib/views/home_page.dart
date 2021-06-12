@@ -3,29 +3,26 @@ import 'package:hive/hive.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 import '../locator.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  MainScreenState createState() => MainScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class MainScreenState extends State<MainScreen> {
+class HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final List<Widget> _childrenPages = [
     const OrganizationFeed(key: Key("HomeView")),
     const ExploreEvents(key: Key('ExploreEvents')),
-    Container(
-      child: const Center(
-        child: Text('Post Screen'),
-      ),
-    ),
+    const AddPost(key: Key('AddPost')),
     Container(
       child: const Center(
         child: Text('Chat Screen'),
