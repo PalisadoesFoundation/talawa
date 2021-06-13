@@ -16,15 +16,21 @@ class UserConfig {
   final _currentOrgInfoController = StreamController<OrgInfo>();
 
   Stream<OrgInfo> get currentOrfInfoStream => _currentOrgInfoStream;
+  StreamController<OrgInfo> get currentOrgInfoController =>
+      _currentOrgInfoController;
 
   OrgInfo get currentOrg => _currentOrg!;
   String get currentOrgName => _currentOrg!.name!;
   set currentOrg(OrgInfo org) => _currentOrg = org;
   User get currentUser => _currentUser!;
 
-  Future<bool> userLoggedIn() async {
+  void initialiseStream() {
     _currentOrgInfoStream =
         _currentOrgInfoController.stream.asBroadcastStream();
+  }
+
+  Future<bool> userLoggedIn() async {
+    initialiseStream();
     final boxUser = Hive.box<User>('currentUser');
     final boxOrg = Hive.box<OrgInfo>('currentOrg');
     _currentOrg = boxOrg.get('org');
