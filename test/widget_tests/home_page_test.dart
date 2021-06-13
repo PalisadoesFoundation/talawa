@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/views/main_screen.dart';
 
 Widget createHomePageScreen() => MaterialApp(
@@ -24,6 +26,10 @@ void main() {
   locator<SizeConfig>().test();
 
   group('HomePage Widget Test', () {
+    final _userConfig = locator<UserConfig>();
+    _userConfig.initialiseStream();
+    _userConfig.currentOrgInfoController
+        .add(OrgInfo(name: 'Organization Name', id: 'null'));
     testWidgets("Testing if HomePage shows up", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
 

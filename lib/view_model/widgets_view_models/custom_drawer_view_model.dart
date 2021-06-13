@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -13,11 +15,14 @@ class CustomDrawerViewModel extends BaseModel {
   late User _currentUser;
   late List<OrgInfo> _switchAbleOrg;
   late OrgInfo _selectedOrg;
-
+  late StreamSubscription _currentOrganizationStreamSubscription;
   OrgInfo get selectedOrg => _selectedOrg;
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
 
   initialize() {
+    _currentOrganizationStreamSubscription = _userConfig.currentOrfInfoStream
+        .listen((updatedOrganization) =>
+            setSelectedOrganizationName(updatedOrganization));
     _currentUser = _userConfig.currentUser;
     _selectedOrg = _userConfig.currentOrg;
     _switchAbleOrg = _currentUser.joinedOrganizations!;
@@ -32,5 +37,16 @@ class CustomDrawerViewModel extends BaseModel {
       // _navigationService.pop();
       _navigationService.showSnackBar('Switched to ${switchToOrg.name}');
     }
+  }
+
+  setSelectedOrganizationName(OrgInfo updatedOrganization) {
+    _selectedOrg = updatedOrganization;
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _currentOrganizationStreamSubscription.cancel();
+    super.dispose();
   }
 }
