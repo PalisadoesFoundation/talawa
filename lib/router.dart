@@ -10,6 +10,8 @@ import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/individual_post.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/feed_page/pinned_post_page.dart';
+import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
+import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
@@ -97,6 +99,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.createEventPage:
       return MaterialPageRoute(
           builder: (context) => const CreateEventPage(key: Key('CreateEvent')));
+    case Routes.profilePage:
+      return MaterialPageRoute(
+          builder: (context) => const ProfilePage(key: Key('Profile')));
+    case Routes.editProfilePage:
+      return MaterialPageRoute(
+          builder: (context) => const EditProfilePage(key: Key('EditProfile')));
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(
