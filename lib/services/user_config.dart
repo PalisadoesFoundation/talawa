@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -8,18 +9,27 @@ import 'package:talawa/services/graphql_config.dart';
 
 import 'navigation_service.dart';
 
-class UserConfig with ChangeNotifier {
+class UserConfig {
   late User? _currentUser = User(id: 'null', authToken: 'null');
   late OrgInfo? _currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
+  late Stream<OrgInfo> _currentOrgInfoStream;
+  final _currentOrgInfoController = StreamController<OrgInfo>();
+
+  Stream<OrgInfo> get currentOrfInfoStream => _currentOrgInfoStream;
 
   OrgInfo get currentOrg => _currentOrg!;
+  String get currentOrgName => _currentOrg!.name!;
   set currentOrg(OrgInfo org) => _currentOrg = org;
   User get currentUser => _currentUser!;
 
   Future<bool> userLoggedIn() async {
+    _currentOrgInfoStream =
+        _currentOrgInfoController.stream.asBroadcastStream();
     final boxUser = Hive.box<User>('currentUser');
     final boxOrg = Hive.box<OrgInfo>('currentOrg');
     _currentOrg = boxOrg.get('org');
+    _currentOrgInfoController.add(_currentOrg!);
+
     _currentUser = boxUser.get('user');
     if (_currentUser == null) {
       _currentUser = User(id: 'null', authToken: 'null');
@@ -31,6 +41,8 @@ class UserConfig with ChangeNotifier {
           .fetchCurrentUserInfo(_currentUser!.id!);
       if (fetchUpdates) {
         _currentOrg ??= _currentUser!.joinedOrganizations![0];
+        _currentOrgInfoController.add(_currentOrg!);
+
         saveUserInHive();
         return true;
       } else {
@@ -44,7 +56,6 @@ class UserConfig with ChangeNotifier {
   Future updateUserJoinedOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateJoinedOrg(orgDetails);
     saveUserInHive();
-    notifyListeners();
   }
 
   Future updateUserCreatedOrg(List<OrgInfo> orgDetails) async {
@@ -92,12 +103,13 @@ class UserConfig with ChangeNotifier {
 
   saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {
     _currentOrg = saveOrgAsCurrent;
+    _currentOrgInfoController.add(_currentOrg!);
+    print(_currentOrg!.name);
     final box = Hive.box<OrgInfo>('currentOrg');
     if (box.get('org') == null) {
       box.put('org', _currentOrg!);
     } else {
       box.put('org', _currentOrg!);
     }
-    notifyListeners();
   }
 }
