@@ -26,6 +26,7 @@ class CustomDrawerViewModel extends BaseModel {
     _currentUser = _userConfig.currentUser;
     _selectedOrg = _userConfig.currentOrg;
     _switchAbleOrg = _currentUser.joinedOrganizations!;
+    print(_switchAbleOrg[5].print());
   }
 
   switchOrg(OrgInfo switchToOrg) {
@@ -34,9 +35,9 @@ class CustomDrawerViewModel extends BaseModel {
       _navigationService.showSnackBar('${switchToOrg.name} already selected');
     } else {
       _userConfig.saveCurrentOrgInHive(switchToOrg);
-      // _navigationService.pop();
       _navigationService.showSnackBar('Switched to ${switchToOrg.name}');
     }
+    _navigationService.pop();
   }
 
   setSelectedOrganizationName(OrgInfo updatedOrganization) {

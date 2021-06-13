@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/profile_page_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/profile_list_tile.dart';
@@ -20,8 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return BaseView<ProfilePageViewModel>(
-        onModelReady: (model) => model.initialize(
-            Provider.of<UserConfig>(context, listen: true).currentOrg),
+        onModelReady: (model) => model.initialize(),
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(

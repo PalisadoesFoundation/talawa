@@ -66,7 +66,7 @@ class _SetUrlState extends State<SetUrl> {
                             Validator.validateURL(value),
                         decoration: InputDecoration(
                             hintText:
-                                'https://talawa-api-graphql.herokuapp.com/graphql',
+                                'https://talawa-graphql-api.herokuapp.com/graphql',
                             labelText: 'Enter Organization URL *',
                             labelStyle: Theme.of(context).textTheme.subtitle1,
                             suffixIcon: InkWell(

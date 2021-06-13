@@ -5,6 +5,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class ProfilePageViewModel extends BaseModel {
@@ -12,10 +13,11 @@ class ProfilePageViewModel extends BaseModel {
   late final Box<dynamic> url;
   late final Box<OrgInfo> orgization;
   late OrgInfo currentOrg;
+  final _userConfig = locator<UserConfig>();
 
-  initialize(OrgInfo org) {
+  initialize() {
     setState(ViewState.busy);
-    currentOrg = org;
+    currentOrg = _userConfig.currentOrg;
     print('page refreshed');
     user = Hive.box<User>('currentUser');
     url = Hive.box('url');

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/explore_events_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.dart';
 import 'package:talawa/views/base_view.dart';
@@ -16,8 +14,7 @@ class ExploreEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<ExploreEventsViewModel>(
-        onModelReady: (model) => model.initialise(
-            Provider.of<UserConfig>(context, listen: true).currentOrg),
+        onModelReady: (model) => model.initialise(),
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
