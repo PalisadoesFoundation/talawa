@@ -19,4 +19,6 @@ class Routes {
   static const String exploreEventsScreen = "/exploreEvents";
   static const String eventInfoPage = "/eventInfo";
   static const String createEventPage = "/createEventPage";
+  static const String profilePage = "/profilePage";
+  static const String editProfilePage = "/editProfilePage";
 }

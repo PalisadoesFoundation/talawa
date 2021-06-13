@@ -5,6 +5,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/demo_view_model.dart';
+import 'package:talawa/view_model/edit_profile_view_model.dart';
 import 'package:talawa/view_model/explore_events_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/organization_feed_view_model.dart';
@@ -13,6 +14,7 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
+import 'package:talawa/view_model/profile_page_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
@@ -46,6 +48,8 @@ void setupLocator() {
   locator.registerFactory(() => WaitingViewModel());
   locator.registerFactory(() => ExploreEventsViewModel());
   locator.registerFactory(() => MainScreenViewModel());
+  locator.registerFactory(() => ProfilePageViewModel());
+  locator.registerFactory(() => EditProfilePageViewModel());
 
   //Widgets viewModels
   locator.registerFactory(() => ProgressDialogViewModel());
