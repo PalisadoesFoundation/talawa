@@ -50,15 +50,4 @@ class CustomDrawerViewModel extends BaseModel {
     _currentOrganizationStreamSubscription.cancel();
     super.dispose();
   }
-
-  setSelectedOrganizationName(OrgInfo updatedOrganization) {
-    _selectedOrg = updatedOrganization;
-    notifyListeners();
-  }
-
-  @override
-  void dispose() {
-    _currentOrganizationStreamSubscription.cancel();
-    super.dispose();
-  }
 }
