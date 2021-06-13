@@ -1,5 +1,3 @@
-//all the queries used in the program
-
 class Queries {
   String registerUser(
       String firstName, String lastName, String email, String password) {

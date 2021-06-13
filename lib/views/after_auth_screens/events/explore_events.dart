@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/view_model/explore_events_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_card.dart';
-
-import '../../../locator.dart';
 
 class ExploreEvents extends StatelessWidget {
   const ExploreEvents({required Key key, this.drawerKey}) : super(key: key);
@@ -115,8 +113,7 @@ class ExploreEvents extends StatelessWidget {
                               itemBuilder: (BuildContext context, int index) {
                                 return GestureDetector(
                                   onTap: () {
-                                    locator<NavigationService>().pushScreen(
-                                        "/eventInfo",
+                                    navigationService.pushScreen("/eventInfo",
                                         arguments: model.events[index]);
                                   },
                                   child: EventCard(
@@ -131,7 +128,7 @@ class ExploreEvents extends StatelessWidget {
             floatingActionButton: FloatingActionButton.extended(
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: () {
-                locator<NavigationService>().pushScreen(
+                navigationService.pushScreen(
                   "/createEventPage",
                 );
               },

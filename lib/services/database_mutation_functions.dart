@@ -3,24 +3,17 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/widgets/progress_dialog.dart';
 
 class DataBaseMutationFunctions {
   late GraphQLClient clientNonAuth;
   late GraphQLClient clientAuth;
-  late NavigationService navigatorService;
-  late UserConfig userConfig;
   late Queries _query;
 
   init() {
-    clientNonAuth = locator<GraphqlConfig>().clientToQuery();
-    clientAuth = locator<GraphqlConfig>().authClient();
-    navigatorService = locator<NavigationService>();
-    userConfig = locator<UserConfig>();
+    clientNonAuth = graphqlConfig.clientToQuery();
+    clientAuth = graphqlConfig.authClient();
     _query = Queries();
   }
 
@@ -40,13 +33,13 @@ class DataBaseMutationFunctions {
   bool? encounteredExceptionOrError(OperationException exception,
       {bool showSnackBar = true}) {
     if (exception.linkException != null) {
-      print(exception.linkException);
+      debugPrint(exception.linkException.toString());
       if (showSnackBar) {
-        navigatorService.showSnackBar("Server not running/wrong url");
+        navigationService.showSnackBar("Server not running/wrong url");
       }
       return false;
     } else {
-      print(exception.graphqlErrors);
+      debugPrint(exception.graphqlErrors.toString());
       for (int i = 0; i < exception.graphqlErrors.length; i++) {
         if (exception.graphqlErrors[i].message ==
             refreshAccessTokenExpiredException.message) {
@@ -56,32 +49,32 @@ class DataBaseMutationFunctions {
           return true;
         } else if (exception.graphqlErrors[i].message == userNotFound.message) {
           if (showSnackBar) {
-            navigatorService
+            navigationService
                 .showSnackBar("No account registered with this email");
           }
           return false;
         } else if (exception.graphqlErrors[i].message ==
             wrongCredentials.message) {
           if (showSnackBar) {
-            navigatorService.showSnackBar("Enter a valid password");
+            navigationService.showSnackBar("Enter a valid password");
           }
           return false;
         } else if (exception.graphqlErrors[i].message ==
             organizationNotFound.message) {
           if (showSnackBar) {
-            navigatorService.showSnackBar("Organization Not Found");
+            navigationService.showSnackBar("Organization Not Found");
           }
           return false;
         } else if (exception.graphqlErrors[i].message ==
             emailAccountPresent.message) {
           if (showSnackBar) {
-            navigatorService
+            navigationService
                 .showSnackBar("Account with this email already registered");
           }
           return false;
         }
       }
-      navigatorService.showSnackBar("Something went wrong");
+      navigationService.showSnackBar("Something went wrong");
       return false;
     }
   }
@@ -98,10 +91,9 @@ class DataBaseMutationFunctions {
       if (exception!) {
         refreshAccessToken(refreshToken);
       } else {
-        navigatorService.pop();
+        navigationService.pop();
       }
     } else if (result.data != null && result.isConcrete) {
-      print(result.data);
       userConfig.updateAccessToken(
           refreshToken: result.data!['refreshToken']['refreshToken'].toString(),
           accessToken: result.data!['refreshToken']['accessToken'].toString());
@@ -111,7 +103,7 @@ class DataBaseMutationFunctions {
   }
 
   Future<bool> login(String email, String password) async {
-    navigatorService
+    navigationService
         .pushDialog(const ProgressDialog(key: Key('LoginProgress')));
 
     final QueryResult result = await clientNonAuth.mutate(
@@ -121,19 +113,19 @@ class DataBaseMutationFunctions {
       if (exception!) {
         login(email, password);
       } else {
-        navigatorService.pop();
+        navigationService.pop();
       }
     } else if (result.data != null && result.isConcrete) {
-      navigatorService.pop();
+      navigationService.pop();
       final User loggedInUser =
           User.fromJson(result.data!['login'] as Map<String, dynamic>);
       userConfig.updateUser(loggedInUser);
       if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-        navigatorService.removeAllAndPush('/waiting', '/');
+        navigationService.removeAllAndPush('/waiting', '/');
       } else {
         userConfig.saveCurrentOrgInHive(
             userConfig.currentUser.joinedOrganizations![0]);
-        navigatorService.removeAllAndPush('/mainScreen', '/');
+        navigationService.removeAllAndPush('/mainScreen', '/');
       }
       return true;
     }
@@ -142,7 +134,7 @@ class DataBaseMutationFunctions {
 
   Future<bool> signup(
       String firstName, String lastName, String email, String password) async {
-    navigatorService
+    navigationService
         .pushDialog(const ProgressDialog(key: Key('SignUpProgress')));
 
     final QueryResult result = await clientNonAuth.mutate(MutationOptions(
@@ -153,19 +145,19 @@ class DataBaseMutationFunctions {
       if (exception!) {
         login(email, password);
       } else {
-        navigatorService.pop();
+        navigationService.pop();
       }
     } else if (result.data != null && result.isConcrete) {
       final User signedInUser =
           User.fromJson(result.data!['signUp'] as Map<String, dynamic>);
       final bool userSaved = await userConfig.updateUser(signedInUser);
-      return userSaved;
+      final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
+      return userSaved && tokenRefreshed;
     }
     return false;
   }
 
   Future<bool> joinPublicOrg(String id) async {
-    print(id);
     final QueryResult result = await clientAuth
         .mutate(MutationOptions(document: gql(_query.joinOrgById(id))));
 
@@ -182,7 +174,6 @@ class DataBaseMutationFunctions {
               ['joinedOrganizations'] as List<dynamic>?)
           ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
           .toList();
-      print(joinedOrg);
       userConfig.updateUserJoinedOrg(joinedOrg!);
       //navigatorService.pop();
       return true;
@@ -199,14 +190,14 @@ class DataBaseMutationFunctions {
         refreshAccessToken(userConfig.currentUser.refreshToken!);
         sendMembershipRequest(id);
       } else {
-        navigatorService.pop();
+        navigationService.pop();
       }
     } else if (result.data != null && result.isConcrete) {
       final OrgInfo membershipRequest = OrgInfo.fromJson(
           result.data!['sendMembershipRequest']['organization']
               as Map<String, dynamic>);
       userConfig.updateUserMemberRequestOrg([membershipRequest]);
-      navigatorService.pop();
+      navigationService.pop();
       return true;
     }
     return false;

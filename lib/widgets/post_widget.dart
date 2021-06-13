@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
-
-import 'post_detailed_page.dart';
+import 'package:talawa/widgets/post_detailed_page.dart';
 
 class NewsPost extends StatelessWidget {
   const NewsPost({

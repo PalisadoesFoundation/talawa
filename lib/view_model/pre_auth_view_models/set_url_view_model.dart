@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/widgets/progress_dialog.dart';
 
 class SetUrlViewModel extends BaseModel {
-  final navigatorService = locator<NavigationService>();
-  final graphqlService = locator<GraphqlConfig>();
   final formKey = GlobalKey<FormState>();
   static const imageUrlKey = "imageUrl";
   static const urlKey = "url";
@@ -24,38 +20,38 @@ class SetUrlViewModel extends BaseModel {
       final box = Hive.box('url');
       box.put(urlKey, uri);
       box.put(imageUrlKey, "$uri/talawa/");
-      graphqlService.getOrgUrl();
+      graphqlConfig.getOrgUrl();
     }
     greeting = [
       {
         'text': 'Join ',
-        'textStyle': Theme.of(navigatorService.navigatorKey.currentContext!)
+        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .headline6!
             .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
       },
       {
         'text': 'and ',
-        'textStyle': Theme.of(navigatorService.navigatorKey.currentContext!)
+        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .headline5
       },
       {
         'text': 'Collaborate ',
-        'textStyle': Theme.of(navigatorService.navigatorKey.currentContext!)
+        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .headline6!
             .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
       },
       {
         'text': 'with your ',
-        'textStyle': Theme.of(navigatorService.navigatorKey.currentContext!)
+        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .headline5
       },
       {
         'text': 'Organizations',
-        'textStyle': Theme.of(navigatorService.navigatorKey.currentContext!)
+        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .headline5!
             .copyWith(fontSize: 24, color: const Color(0xFF4285F4))
@@ -63,25 +59,25 @@ class SetUrlViewModel extends BaseModel {
     ];
   }
 
-  Future<void> checkURLandNavigate(String navigateTo, String argument) async {
+  checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
     if (formKey.currentState!.validate()) {
-      navigatorService
+      navigationService
           .pushDialog(const ProgressDialog(key: Key('UrlCheckProgress')));
       validate = AutovalidateMode.disabled;
       final String uri = url.text.trim();
       final bool? urlPresent = await Validator.validateUrlExistence(uri);
       if (urlPresent! == true) {
         final box = Hive.box('url');
-        box.put(urlKey, uri);
-        box.put(imageUrlKey, "$uri/talawa/");
+        await box.put(urlKey, uri);
+        await box.put(imageUrlKey, "$uri/talawa/");
 
-        navigatorService.pop();
-        graphqlService.getOrgUrl();
-        navigatorService.pushScreen(navigateTo, arguments: argument);
+        navigationService.pop();
+        graphqlConfig.getOrgUrl();
+        navigationService.pushScreen(navigateTo, arguments: argument);
       } else {
-        navigatorService
+        navigationService
             .showSnackBar("URL doesn't exist/no connection please check");
       }
     }

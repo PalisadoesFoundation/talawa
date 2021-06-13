@@ -3,15 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path;
+import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
-import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/view_model/demo_view_model.dart';
+import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-
-import 'constants/custom_theme.dart';
-import 'models/organization/org_info.dart';
-import 'models/user/user_info.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: TalawaTheme.lightTheme,
       darkTheme: TalawaTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      navigatorKey: locator<NavigationService>().navigatorKey,
+      navigatorKey: navigationService.navigatorKey,
       onGenerateRoute: router.generateRoute,
       initialRoute: '/',
     );
@@ -60,4 +58,9 @@ class DemoPageView extends StatelessWidget {
       ),
     );
   }
+}
+
+class DemoViewModel extends BaseModel {
+  final String _title = "Title from the viewMode GSoC branch";
+  String get title => _title;
 }

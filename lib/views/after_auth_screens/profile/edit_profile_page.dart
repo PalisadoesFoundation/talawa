@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/view_model/edit_profile_view_model.dart';
-import '../../base_view.dart';
+import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
@@ -76,19 +76,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                   const Divider(),
                   Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: [
                         Row(
                           children: [
-                            SizedBox(
-                              height: SizeConfig.screenHeight! * 0.027,
-                              width: SizeConfig.screenWidth! * 0.055,
-                              child: const Icon(Icons.person),
-                            ),
-                            SizedBox(
-                              width: SizeConfig.screenWidth! * 0.045,
-                            ),
                             Flexible(
                               child: TextFormField(
                                   controller: model.firstNameTextController
@@ -101,25 +93,19 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         Theme.of(context).textTheme.subtitle1,
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
+                                    prefixIcon: const Icon(Icons.person),
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          FocusScope.of(context).requestFocus(
+                                              model.firstNameFocus);
+                                        },
+                                        icon: const Icon(Icons.edit)),
                                   )),
                             ),
-                            IconButton(
-                                onPressed: () {
-                                  FocusScope.of(context)
-                                      .requestFocus(model.firstNameFocus);
-                                },
-                                icon: const Icon(Icons.edit)),
                           ],
                         ),
                         Row(
                           children: [
-                            SizedBox(
-                              height: SizeConfig.screenHeight! * 0.027,
-                              width: SizeConfig.screenWidth! * 0.055,
-                            ),
-                            SizedBox(
-                              width: SizeConfig.screenWidth! * 0.045,
-                            ),
                             Flexible(
                               child: TextFormField(
                                   controller: model.lastNameTextController
@@ -132,14 +118,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         Theme.of(context).textTheme.subtitle1,
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
+                                    prefixIcon: const Icon(Icons.person),
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          FocusScope.of(context).requestFocus(
+                                              model.lastNameFocus);
+                                        },
+                                        icon: const Icon(Icons.edit)),
                                   )),
                             ),
-                            IconButton(
-                                onPressed: () {
-                                  FocusScope.of(context)
-                                      .requestFocus(model.lastNameFocus);
-                                },
-                                icon: const Icon(Icons.edit)),
                           ],
                         ),
                       ],

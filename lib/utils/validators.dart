@@ -6,7 +6,7 @@ class Validator {
     String value,
   ) {
     if (value.isEmpty) {
-      return 'Please verify URL first'.toUpperCase();
+      return 'Please verify URL first';
     }
     final bool validURL = Uri.parse(value).isAbsolute;
     if (!validURL) {

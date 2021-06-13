@@ -1,13 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/database_mutation_functions.dart';
-import 'package:talawa/services/graphql_config.dart';
-
-import 'navigation_service.dart';
 
 class UserConfig {
   late User? _currentUser = User(id: 'null', authToken: 'null');
@@ -42,10 +39,10 @@ class UserConfig {
       _currentUser = User(id: 'null', authToken: 'null');
       return false;
     }
-    locator<GraphqlConfig>().getToken().then((value) async {
-      locator<DataBaseMutationFunctions>().init();
-      final bool fetchUpdates = await locator<DataBaseMutationFunctions>()
-          .fetchCurrentUserInfo(_currentUser!.id!);
+    graphqlConfig.getToken().then((value) async {
+      databaseFunctions.init();
+      final bool fetchUpdates =
+          await databaseFunctions.fetchCurrentUserInfo(_currentUser!.id!);
       if (fetchUpdates) {
         _currentOrg ??= _currentUser!.joinedOrganizations![0];
         _currentOrgInfoController.add(_currentOrg!);
@@ -53,8 +50,7 @@ class UserConfig {
         saveUserInHive();
         return true;
       } else {
-        locator<NavigationService>()
-            .showSnackBar("Couldn't update User details");
+        navigationService.showSnackBar("Couldn't update User details");
       }
     });
     return true;
@@ -91,10 +87,10 @@ class UserConfig {
     try {
       _currentUser = updatedUserDetails;
       saveUserInHive();
-      locator<DataBaseMutationFunctions>().init();
+      databaseFunctions.init();
       return true;
     } on Exception catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return false;
     }
   }
@@ -111,7 +107,6 @@ class UserConfig {
   saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {
     _currentOrg = saveOrgAsCurrent;
     _currentOrgInfoController.add(_currentOrg!);
-    print(_currentOrg!.name);
     final box = Hive.box<OrgInfo>('currentOrg');
     if (box.get('org') == null) {
       box.put('org', _currentOrg!);

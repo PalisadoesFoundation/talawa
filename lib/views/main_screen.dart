@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
-
-import 'base_view.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);

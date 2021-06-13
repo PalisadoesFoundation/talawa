@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
-
-import '../../services/size_config.dart';
 
 class Recover extends StatefulWidget {
   const Recover({required Key key}) : super(key: key);
@@ -42,7 +40,7 @@ class _RecoverState extends State<Recover> {
             Icons.arrow_back,
           ),
           onPressed: () {
-            locator<NavigationService>().pop();
+            navigationService.pop();
           },
         ),
       ),
@@ -83,9 +81,7 @@ class _RecoverState extends State<Recover> {
               ),
               RaisedRoundedButton(
                 buttonLabel: 'Recover Password',
-                onTap: () {
-                  print('tapped');
-                },
+                onTap: () {},
                 textColor: const Color(0xFF008A37),
                 key: const Key('RecoverButton'),
                 backgroundColor: Colors.white,

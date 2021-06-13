@@ -2,20 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-
-import '../../locator.dart';
+import 'package:talawa/locator.dart';
 
 class WaitingViewModel extends BaseModel {
-  final navigationService = locator<NavigationService>();
   late List<Map<String, dynamic>> greeting;
   late List<OrgInfo> pendingRequestOrg;
   late User currentUser;
 
   initialise() {
-    currentUser = locator<UserConfig>().currentUser;
+    currentUser = userConfig.currentUser;
     pendingRequestOrg = currentUser.membershipRequests!;
     greeting = [
       {
