@@ -33,7 +33,8 @@ class UserConfig {
     initialiseStream();
     final boxUser = Hive.box<User>('currentUser');
     final boxOrg = Hive.box<OrgInfo>('currentOrg');
-    _currentOrg = boxOrg.get('org');
+    _currentOrg =
+        boxOrg.get('org') ?? OrgInfo(name: 'Organization Name', id: 'null');
     _currentOrgInfoController.add(_currentOrg!);
 
     _currentUser = boxUser.get('user');

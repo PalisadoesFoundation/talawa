@@ -20,8 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return BaseView<ProfilePageViewModel>(
-        onModelReady: (model) => model.initialize(
-            Provider.of<UserConfig>(context, listen: true).currentOrg),
+        onModelReady: (model) => model.initialize(),
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(

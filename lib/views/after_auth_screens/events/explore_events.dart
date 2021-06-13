@@ -16,8 +16,7 @@ class ExploreEvents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<ExploreEventsViewModel>(
-        onModelReady: (model) => model.initialise(
-            Provider.of<UserConfig>(context, listen: true).currentOrg),
+        onModelReady: (model) => model.initialise(),
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(

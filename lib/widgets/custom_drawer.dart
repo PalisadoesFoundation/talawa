@@ -51,8 +51,8 @@ class CustomDrawer extends StatelessWidget {
                           child: ListView.builder(
                             controller: model.controller,
                             padding: EdgeInsets.zero,
-                            // itemCount: model.switchAbleOrg.length,
-                            itemCount: 3,
+                            itemCount: model.switchAbleOrg.length,
+                            // itemCount: 3,
                             itemBuilder: (BuildContext context, int index) {
                               return ListTile(
                                 onTap: () =>
@@ -63,7 +63,7 @@ class CustomDrawer extends StatelessWidget {
                                   imageUrl: model.switchAbleOrg[index].image,
                                   orgFirstAlphabet: model
                                       .switchAbleOrg[index].name!
-                                      .substring(0, 2),
+                                      .substring(0, 1),
                                   fontSize: 18,
                                 ),
                                 title: Text(
