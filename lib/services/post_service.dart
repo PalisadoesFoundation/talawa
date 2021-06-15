@@ -11,12 +11,23 @@ import 'package:talawa/utils/post_queries.dart';
 
 class PostService {
   PostService() {
+    _postStream = _postStreamController.stream.asBroadcastStream();
     _userConfig = locator<UserConfig>();
     _dbFunctions = locator<DataBaseMutationFunctions>();
     _graphqlConfig = locator<GraphqlConfig>();
     _currentOrg = _userConfig.currentOrg;
-    // setOrgStreamSubscription();
+    setOrgStreamSubscription();
   }
+
+  late UserConfig _userConfig;
+  late DataBaseMutationFunctions _dbFunctions;
+  late GraphqlConfig _graphqlConfig;
+  late StreamSubscription _currentOrganizationStreamSubscription;
+  late OrgInfo _currentOrg;
+  final Set<String> _posts = {};
+  //Post Stream
+  late Stream<Post> _postStream;
+  final StreamController<Post> _postStreamController = StreamController<Post>();
 
   void setOrgStreamSubscription() {
     _currentOrganizationStreamSubscription =
@@ -26,32 +37,19 @@ class PostService {
     });
   }
 
-  late UserConfig _userConfig;
-  late DataBaseMutationFunctions _dbFunctions;
-  late GraphqlConfig _graphqlConfig;
-  late StreamSubscription _currentOrganizationStreamSubscription;
-  List<Post> _posts = [];
-  late OrgInfo _currentOrg;
-
   // void : function to get all Posts
   Future<void> getPosts() async {
     final String currentOrgID = _currentOrg.id!;
     final String query = PostQueries().getPostsById(currentOrgID);
     final Map<String, dynamic> result = await _dbFunctions.gqlquery(query);
-    print(result['postsByOrganization'][0]);
-    for (var result in result['postsByOrganization']) {
-      Map<String, dynamic> postJson = result as Map<String, dynamic>;
-      // Post post = Post.fromJson(result);
-      // print(post.createdAt);
-    }
-    // if (result != null) {
-    //   print(posts.isEmpty);
-    //   updateLikepostMap(currentUserID);
-    //   posts.isEmpty
-    //       ? addAllPost(result['postsByOrganization'].reversed.toList() as List)
-    //       : updatePosts(
-    //           result['postsByOrganization'].reversed.toList() as List);
-    //   updateLikepostMap(currentUserID);
-    // }
+    List postsJson = result['postsByOrganization'] as List;
+
+    postsJson.forEach((postJson) {
+      Post post = Post.fromJson(postJson as Map<String, dynamic>);
+      if (!_posts.contains(post.sId)) {
+        _posts.add(post.sId);
+        _postStreamController.add(post);
+      }
+    });
   }
 }

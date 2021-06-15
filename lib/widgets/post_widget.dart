@@ -21,7 +21,7 @@ class NewsPost extends StatelessWidget {
             backgroundColor: Color(0xFF737373),
           ),
           title: Text(
-            "${post.creator!.firstName} ${post.creator!.lastName}",
+            "${post.creator.firstName} ${post.creator.lastName}",
             style: const TextStyle(fontSize: 18),
           ),
           subtitle: const Text("3m"),

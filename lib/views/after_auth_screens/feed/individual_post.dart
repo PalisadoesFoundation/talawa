@@ -53,7 +53,7 @@ class IndividualPageLikeSection extends StatelessWidget {
     required this.usersLiked,
   }) : super(key: key);
 
-  final List<User> usersLiked;
+  final List<LikedBy> usersLiked;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class IndividualPageLikeSection extends StatelessWidget {
 class IndividualPostCommentSection extends StatelessWidget {
   const IndividualPostCommentSection({Key? key, required this.comments})
       : super(key: key);
-  final List<Comment> comments;
+  final List<Comments> comments;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,7 @@ class CommentTemplate extends StatelessWidget {
     required this.comment,
   }) : super(key: key);
 
-  final Comment comment;
+  final Comments comment;
 
   @override
   Widget build(BuildContext context) {
@@ -117,12 +117,12 @@ class CommentTemplate extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  "${comment.creator!.firstName} ${comment.creator!.lastName}",
+                  "FirstName LastName",
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
               Text(
-                comment.text!,
+                comment.sId!,
                 style: Theme.of(context).textTheme.bodyText2,
               ),
             ],
@@ -133,7 +133,7 @@ class CommentTemplate extends StatelessWidget {
   }
 }
 
-Widget likedUserCircleAvatar(User user) {
+Widget likedUserCircleAvatar(LikedBy user) {
   return Padding(
     padding: const EdgeInsets.only(right: 10.0, bottom: 16.0),
     child: Stack(

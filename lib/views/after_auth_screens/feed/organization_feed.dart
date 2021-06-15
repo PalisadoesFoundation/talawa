@@ -19,6 +19,7 @@ class OrganizationFeed extends StatelessWidget {
               centerTitle: true,
               title: Text(
                 model.currentOrgName,
+                // "hii",
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
