@@ -9,7 +9,7 @@ class Post {
       this.image,
       this.videoUrl,
       this.creator,
-      this.organization,
+      // this.organization,
       this.likedBy,
       this.comments});
 
@@ -23,9 +23,9 @@ class Post {
           ? null
           : User.fromJson(json['creator'] as Map<String, dynamic>,
               fromOrg: true),
-      organization: json['organization'] == null
-          ? null
-          : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
+      // organization: json['organization'] == null
+      //     ? null
+      //     : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
       likedBy: (json['likedBy'] as List<dynamic>?)
           ?.map((e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true))
           .toList(),
@@ -40,7 +40,7 @@ class Post {
   String? image;
   String? videoUrl;
   User? creator;
-  OrgInfo? organization;
+  // OrgInfo? organization;
   List<User>? likedBy;
   List<Comment>? comments;
 }

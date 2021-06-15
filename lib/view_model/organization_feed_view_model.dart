@@ -6,6 +6,7 @@ import 'package:talawa/demo_server_data/post_demo_data.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
@@ -35,6 +36,7 @@ class OrganizationFeedViewModel extends BaseModel {
         .listen((updatedOrganization) =>
             setCurrentOrganizationName(updatedOrganization.name!));
 
+    locator<PostService>().getPosts();
     final postJsonResult = postsDemoData;
 
     postJsonResult.forEach((postJsonData) {

@@ -86,6 +86,24 @@ class DataBaseMutationFunctions {
     }
   }
 
+  Future<Map<String, dynamic>> gqlquery(String query) async {
+    final QueryOptions options = QueryOptions(
+      document: gql(query),
+      variables: <String, dynamic>{},
+    );
+
+    final QueryResult result = await clientAuth.query(options);
+    if (result.hasException) {
+      final bool? exception =
+          encounteredExceptionOrError(result.exception!, showSnackBar: false);
+      if (exception!) debugPrint("Exception Occured");
+    } else if (result.data != null && result.isConcrete) {
+      return result.data!;
+    }
+
+    return result.data!;
+  }
+
   Future<bool> refreshAccessToken(String refreshToken) async {
     final QueryResult result = await clientNonAuth.mutate(MutationOptions(
       document: gql(
