@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
@@ -30,7 +29,7 @@ class _LoginState extends State<Login> {
                   Icons.arrow_back,
                 ),
                 onPressed: () {
-                  locator<NavigationService>().pop();
+                  navigationService.pop();
                 },
               ),
             ),
@@ -103,11 +102,9 @@ class _LoginState extends State<Login> {
                         children: [
                           TextButton(
                             onPressed: () {
-                              print('selected');
                               model.emailFocus.unfocus();
                               model.passwordFocus.unfocus();
-                              locator<NavigationService>()
-                                  .pushScreen('/recover');
+                              navigationService.pushScreen('/recover');
                             },
                             child: Text(
                               'Forgot password?',

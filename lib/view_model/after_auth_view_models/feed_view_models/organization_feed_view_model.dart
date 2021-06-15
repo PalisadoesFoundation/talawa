@@ -5,14 +5,10 @@ import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
 import 'package:talawa/demo_server_data/post_demo_data.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
-import 'package:talawa/services/navigation_service.dart';
-import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class OrganizationFeedViewModel extends BaseModel {
   final List<Post> _posts = [], _pinnedPosts = [];
-  final NavigationService _navigationService = locator<NavigationService>();
-  final UserConfig _userConfig = locator<UserConfig>();
   late StreamSubscription _currentOrganizationStreamSubscription;
 
   List<Post> get posts => _posts;
@@ -28,10 +24,10 @@ class OrganizationFeedViewModel extends BaseModel {
 
   void initialise() {
     // For caching/initalizing the current organization after the stream subsciption has canceled and the stream is updated
-    _currentOrgname = _userConfig.currentOrg.name!;
+    _currentOrgname = userConfig.currentOrg.name!;
 
     // Attasching the stream subscription to rebuild the widgets automatically
-    _currentOrganizationStreamSubscription = _userConfig.currentOrfInfoStream
+    _currentOrganizationStreamSubscription = userConfig.currentOrfInfoStream
         .listen((updatedOrganization) =>
             setCurrentOrganizationName(updatedOrganization.name!));
 
@@ -49,11 +45,11 @@ class OrganizationFeedViewModel extends BaseModel {
   }
 
   void navigateToIndividualPage(Post post) {
-    _navigationService.pushScreen(Routes.individualPost, arguments: post);
+    navigationService.pushScreen(Routes.individualPost, arguments: post);
   }
 
   void navigateToPinnedPostPage() {
-    _navigationService.pushScreen(Routes.pinnedPostpage,
+    navigationService.pushScreen(Routes.pinnedPostPage,
         arguments: _pinnedPosts);
   }
 

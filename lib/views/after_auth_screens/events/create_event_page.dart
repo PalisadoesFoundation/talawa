@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_form.dart';
-import 'package:talawa/widgets/event_date_time_tile.dart';
 import 'package:talawa/widgets/date_time_picker.dart';
+import 'package:talawa/widgets/event_date_time_tile.dart';
 
 class CreateEventPage extends StatefulWidget {
   const CreateEventPage({Key? key}) : super(key: key);
@@ -33,7 +32,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
         centerTitle: true,
         leading: GestureDetector(
             onTap: () {
-              locator<NavigationService>().pop();
+              navigationService.pop();
             },
             child: const Icon(Icons.close)),
         title: Text(
@@ -220,7 +219,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     onChanged: (value) {
                       setState(() {
                         isPublicSwitch = value;
-                        print(isPublicSwitch);
                       });
                     },
                     activeColor: Theme.of(context).colorScheme.primary,
@@ -235,7 +233,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     onChanged: (value) {
                       setState(() {
                         isRegisterableSwitch = value;
-                        print(isRegisterableSwitch);
                       });
                     },
                     activeColor: Theme.of(context).colorScheme.primary,

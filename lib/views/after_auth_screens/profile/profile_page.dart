@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/view_model/profile_page_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/from_palisadoes.dart';
 import 'package:talawa/widgets/profile_list_tile.dart';
-
-import '../../../locator.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, this.drawerKey}) : super(key: key);
@@ -43,58 +43,33 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(
-                              top: 15, bottom: 15, right: 15),
+                          padding: const EdgeInsets.all(15),
                           child: ListTile(
-                            contentPadding: EdgeInsets.zero,
                             dense: true,
-                            leading: model.user.values.first.image != null
-                                ? CircleAvatar(
-                                    radius: SizeConfig.screenHeight! * 0.068,
-                                    backgroundColor:
-                                        Colors.grey.withOpacity(0.5),
-                                    backgroundImage: NetworkImage(
-                                        model.user.values.first.image!),
-                                  )
-                                : CircleAvatar(
-                                    radius: SizeConfig.screenHeight! * 0.068,
-                                    backgroundColor:
-                                        Colors.grey.withOpacity(0.2),
-                                    child: Text(
-                                      model.user.values.first.firstName!
-                                              .toString()
-                                              .substring(0, 1)
-                                              .toUpperCase() +
-                                          model.user.values.first.lastName!
-                                              .toString()
-                                              .substring(0, 1)
-                                              .toUpperCase(),
-                                      style:
-                                          Theme.of(context).textTheme.headline6,
-                                    ),
-                                  ),
-                            title: Transform.translate(
-                              offset:
-                                  Offset(-SizeConfig.screenWidth! * 0.083, 0),
-                              child: Text(
-                                '${model.user.values.first.firstName!} ${model.user.values.first.lastName!}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline5!
-                                    .copyWith(fontSize: 18),
-                              ),
+                            leading: CustomAvatar(
+                              isImageNull: model.currentUser.image == null,
+                              firstAlphabet:
+                                  model.currentUser.firstName!.substring(0, 1),
+                              imageUrl: model.currentUser.image,
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .fontSize,
                             ),
-                            subtitle: Transform.translate(
-                              offset:
-                                  Offset(-SizeConfig.screenWidth! * 0.083, 0),
-                              child: Text(
-                                model.currentOrg.name!,
-                                style: Theme.of(context).textTheme.headline6,
-                              ),
+                            title: Text(
+                              '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(fontSize: 18),
+                            ),
+                            subtitle: Text(
+                              model.currentUser.email!,
+                              style: Theme.of(context).textTheme.headline6,
                             ),
                             trailing: GestureDetector(
                               onTap: () {
-                                locator<NavigationService>()
+                                navigationService
                                     .pushScreen("/editProfilePage");
                               },
                               child: Icon(
@@ -108,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: SizedBox(
-                            height: SizeConfig.screenHeight! * 0.66,
+                            height: SizeConfig.screenHeight! * 0.63,
                             child: Column(
                               children: [
                                 const ProfileSettingsTile(
@@ -116,53 +91,33 @@ class _ProfilePageState extends State<ProfilePage> {
                                   title: 'App Settings',
                                   subTitle: 'Language, dark mode, font size',
                                 ),
-                                ProfileSettingsTile(
-                                  icon: Icon(
-                                    Icons.people,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  ),
-                                  title: 'Members',
-                                  subTitle: 'See Organization-Name members',
-                                ),
-                                ProfileSettingsTile(
-                                  icon: Icon(
-                                    Icons.storage,
-                                    color: Theme.of(context).accentColor,
-                                  ),
-                                  title: 'Storage and data',
-                                  subTitle: 'Caching, storage',
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    model.logout(context);
-                                  },
-                                  child: const ProfileSettingsTile(
-                                    icon: Icon(Icons.logout),
-                                    title: 'Log out',
-                                    subTitle: 'Log out from Talawa',
-                                  ),
-                                ),
                                 const ProfileSettingsTile(
                                   icon: Icon(Icons.help_outline),
                                   title: 'Help',
                                   subTitle: 'Reach out to us for help',
                                 ),
+                                ProfileSettingsTile(
+                                  icon: Icon(
+                                    Icons.monetization_on,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                  title: 'Donate Us',
+                                  subTitle: 'Help us to develop for you',
+                                ),
+                                GestureDetector(
+                                  onTap: () => model.logout(context),
+                                  child: ProfileSettingsTile(
+                                    icon: Icon(
+                                      Icons.logout,
+                                      color: Theme.of(context).accentColor,
+                                    ),
+                                    title: 'Log out',
+                                    subTitle: 'Log out from Talawa',
+                                  ),
+                                ),
                                 const Spacer(),
-                                Text(
-                                  'from',
-                                  style: Theme.of(context).textTheme.caption,
-                                ),
-                                Text(
-                                  'PALISADOES',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle2!
-                                      .copyWith(fontWeight: FontWeight.w700),
-                                ),
-                                SizedBox(
-                                  height: SizeConfig.screenHeight! * 0.082,
-                                )
+                                const FromPalisadoes(),
                               ],
                             ),
                           ),

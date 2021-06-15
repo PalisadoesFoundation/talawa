@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
-import 'package:talawa/services/size_config.dart';
 
 class ChangePass extends StatefulWidget {
   const ChangePass({required Key key}) : super(key: key);
@@ -43,7 +42,7 @@ class _ChangePassState extends State<ChangePass> {
             color: Colors.black,
           ),
           onPressed: () {
-            locator<NavigationService>().pop();
+            navigationService.pop();
           },
         ),
       ),
@@ -103,7 +102,6 @@ class _ChangePassState extends State<ChangePass> {
                 onTap: () {
                   newPasswordFocus.unfocus();
                   reNewPasswordFocus.unfocus();
-                  print('tapped');
                 },
                 textColor: const Color(0xFF008A37),
                 key: const Key('Change Password Button'),
