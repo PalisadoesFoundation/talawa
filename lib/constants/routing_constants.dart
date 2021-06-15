@@ -21,4 +21,5 @@ class Routes {
   static const String createEventPage = "/createEventPage";
   static const String profilePage = "/profilePage";
   static const String editProfilePage = "/editProfilePage";
+  static const String joinOrg = '/joinOrg';
 }

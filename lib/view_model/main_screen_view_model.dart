@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/enums/view_state.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';

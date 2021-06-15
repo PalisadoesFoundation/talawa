@@ -4,7 +4,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/utils/queries.dart';
-import 'package:talawa/widgets/progress_dialog.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 class DataBaseMutationFunctions {
   late GraphQLClient clientNonAuth;
@@ -29,6 +29,8 @@ class DataBaseMutationFunctions {
   GraphQLError refreshAccessTokenExpiredException = const GraphQLError(
       message:
           'Access Token has expired. Please refresh session.: Undefined location');
+  GraphQLError memberRequestExist =
+      const GraphQLError(message: 'Membership Request already exists');
 
   bool? encounteredExceptionOrError(OperationException exception,
       {bool showSnackBar = true}) {
@@ -51,6 +53,12 @@ class DataBaseMutationFunctions {
           if (showSnackBar) {
             navigationService
                 .showSnackBar("No account registered with this email");
+          }
+          return false;
+        } else if (exception.graphqlErrors[i].message ==
+            memberRequestExist.message) {
+          if (showSnackBar) {
+            navigationService.showSnackBar("Membership request already exist");
           }
           return false;
         } else if (exception.graphqlErrors[i].message ==
@@ -104,7 +112,7 @@ class DataBaseMutationFunctions {
 
   Future<bool> login(String email, String password) async {
     navigationService
-        .pushDialog(const ProgressDialog(key: Key('LoginProgress')));
+        .pushDialog(const CustomProgressDialog(key: Key('LoginProgress')));
 
     final QueryResult result = await clientNonAuth.mutate(
         MutationOptions(document: gql(_query.loginUser(email, password))));
@@ -135,7 +143,7 @@ class DataBaseMutationFunctions {
   Future<bool> signup(
       String firstName, String lastName, String email, String password) async {
     navigationService
-        .pushDialog(const ProgressDialog(key: Key('SignUpProgress')));
+        .pushDialog(const CustomProgressDialog(key: Key('SignUpProgress')));
 
     final QueryResult result = await clientNonAuth.mutate(MutationOptions(
         document:
@@ -164,8 +172,8 @@ class DataBaseMutationFunctions {
     if (result.hasException) {
       final bool? exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {
-        refreshAccessToken(userConfig.currentUser.refreshToken!);
-        joinPublicOrg(id);
+        refreshAccessToken(userConfig.currentUser.refreshToken!)
+            .then((value) => joinPublicOrg(id));
       } else {
         //navigatorService.pop();
       }
@@ -187,12 +195,13 @@ class DataBaseMutationFunctions {
     if (result.hasException) {
       final bool? exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {
-        refreshAccessToken(userConfig.currentUser.refreshToken!);
-        sendMembershipRequest(id);
+        refreshAccessToken(userConfig.currentUser.refreshToken!)
+            .then((value) => sendMembershipRequest(id));
       } else {
         navigationService.pop();
       }
     } else if (result.data != null && result.isConcrete) {
+      print(result.data!['sendMembershipRequest']['organization']);
       final OrgInfo membershipRequest = OrgInfo.fromJson(
           result.data!['sendMembershipRequest']['organization']
               as Map<String, dynamic>);

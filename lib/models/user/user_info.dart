@@ -95,7 +95,7 @@ class User extends HiveObject {
   }
 
   updateMemberRequestOrg(List<OrgInfo> orgList) {
-    this.membershipRequests = orgList;
+    this.membershipRequests = [...membershipRequests!, ...orgList];
   }
 
   updateAdminFor(List<OrgInfo> orgList) {

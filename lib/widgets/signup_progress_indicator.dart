@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:timelines/timelines.dart';
 
-class SignupProgressBar extends StatelessWidget {
-  SignupProgressBar({required Key key, required this.currentPageIndex})
+class SignupProgressIndicator extends StatelessWidget {
+  SignupProgressIndicator({required Key key, required this.currentPageIndex})
       : super(key: key);
 
   final int currentPageIndex;

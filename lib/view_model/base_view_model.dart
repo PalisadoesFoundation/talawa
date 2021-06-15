@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/enums/view_state.dart';
+import 'package:talawa/enums/enums.dart';
 
 class BaseModel extends ChangeNotifier {
   ViewState _state = ViewState.idle;
