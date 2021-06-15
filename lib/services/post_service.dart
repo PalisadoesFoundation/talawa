@@ -29,10 +29,14 @@ class PostService {
   late Stream<Post> _postStream;
   final StreamController<Post> _postStreamController = StreamController<Post>();
 
+  //Getters
+  Stream<Post> get postStream => _postStream;
+
   void setOrgStreamSubscription() {
     _currentOrganizationStreamSubscription =
         _userConfig.currentOrfInfoStream.listen((updatedOrganization) {
       _currentOrg = updatedOrganization;
+      _posts.clear();
       getPosts();
     });
   }

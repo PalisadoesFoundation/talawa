@@ -32,24 +32,27 @@ class OrganizationFeed extends StatelessWidget {
             ),
             body: model.isBusy
                 ? const CircularProgressIndicator()
-                : ListView(
-                    children: [
-                      model.pinnedPosts.isNotEmpty
-                          ? PinnedPostCarousel(
-                              pinnedPosts: model.pinnedPosts,
-                              navigateToPinnedPostPage:
-                                  model.navigateToPinnedPostPage,
-                              navigateToIndividualPostPage:
-                                  model.navigateToIndividualPage,
-                            )
-                          : Container(),
-                      model.posts.isNotEmpty
-                          ? PostListWidget(
-                              posts: model.posts,
-                              function: model.navigateToIndividualPage,
-                            )
-                          : Container(),
-                    ],
+                : RefreshIndicator(
+                    onRefresh: () async => model.fetchNewPosts(),
+                    child: ListView(
+                      children: [
+                        model.pinnedPosts.isNotEmpty
+                            ? PinnedPostCarousel(
+                                pinnedPosts: model.pinnedPosts,
+                                navigateToPinnedPostPage:
+                                    model.navigateToPinnedPostPage,
+                                navigateToIndividualPostPage:
+                                    model.navigateToIndividualPage,
+                              )
+                            : Container(),
+                        model.posts.isNotEmpty
+                            ? PostListWidget(
+                                posts: model.posts,
+                                function: model.navigateToIndividualPage,
+                              )
+                            : Container(),
+                      ],
+                    ),
                   ));
       },
     );

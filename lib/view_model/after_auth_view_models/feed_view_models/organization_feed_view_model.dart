@@ -9,8 +9,12 @@ import 'package:talawa/services/post_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class OrganizationFeedViewModel extends BaseModel {
+  //Service
+  final _postService = locator<PostService>();
+
   final List<Post> _posts = [], _pinnedPosts = [];
   late StreamSubscription _currentOrganizationStreamSubscription;
+  late StreamSubscription _postStreamSubscription;
 
   List<Post> get posts => _posts;
   List<Post> get pinnedPosts => _pinnedPosts;
@@ -18,7 +22,12 @@ class OrganizationFeedViewModel extends BaseModel {
 
   String get currentOrgName => _currentOrgname;
 
+  void fetchNewPosts() {
+    _postService.getPosts();
+  }
+
   void setCurrentOrganizationName(String updatedOrganization) {
+    _posts.clear();
     _currentOrgname = updatedOrganization;
     notifyListeners();
   }
@@ -27,17 +36,18 @@ class OrganizationFeedViewModel extends BaseModel {
     // For caching/initalizing the current organization after the stream subsciption has canceled and the stream is updated
     _currentOrgname = userConfig.currentOrg.name!;
 
+    // ------
     // Attasching the stream subscription to rebuild the widgets automatically
     _currentOrganizationStreamSubscription = userConfig.currentOrfInfoStream
         .listen((updatedOrganization) =>
             setCurrentOrganizationName(updatedOrganization.name!));
 
-    locator<PostService>().getPosts();
-    final postJsonResult = postsDemoData;
+    _postStreamSubscription =
+        _postService.postStream.listen((newPost) => addNewPost(newPost));
 
-    postJsonResult.forEach((postJsonData) {
-      _posts.add(Post.fromJson(postJsonData));
-    });
+    // ------
+    // Calling function to ge the post for the only 1st time.
+    _postService.getPosts();
 
     // //fetching pinnedPosts
     // final pinnedPostJsonResult = pinnedPostsDemoData;
@@ -58,7 +68,13 @@ class OrganizationFeedViewModel extends BaseModel {
   @override
   void dispose() {
     // Canceling the subscription so that there will be no rebuild after the widget is disposed.
+    _postStreamSubscription.cancel();
     _currentOrganizationStreamSubscription.cancel();
     super.dispose();
+  }
+
+  addNewPost(Post newPost) {
+    _posts.insert(0, newPost);
+    notifyListeners();
   }
 }

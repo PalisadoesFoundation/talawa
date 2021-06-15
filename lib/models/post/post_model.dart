@@ -12,7 +12,7 @@ class Post {
 
   Post.fromJson(Map<String, dynamic> json) {
     sId = json['_id'] as String;
-    description = json['description'] as String?;
+    description = json['text'] as String?;
     createdAt = json['createdAt'] as String?;
     imageUrl = json['imageUrl'] as String?;
     videoUrl = json['videoUrl'] as String?;
