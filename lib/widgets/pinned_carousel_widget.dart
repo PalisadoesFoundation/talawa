@@ -96,7 +96,7 @@ class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
                 backgroundColor: Color(0xff737373),
               ),
               title: Text(
-                  "${widget.pinnedPosts[pindex].creator!.firstName} ${widget.pinnedPosts[pindex].creator!.lastName}"),
+                  "${widget.pinnedPosts[pindex].creator.firstName} ${widget.pinnedPosts[pindex].creator.lastName}"),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),

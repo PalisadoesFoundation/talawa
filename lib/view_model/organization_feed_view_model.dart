@@ -1,18 +1,20 @@
 import 'dart:async';
 
 import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
+import 'package:talawa/demo_server_data/post_demo_data.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class OrganizationFeedViewModel extends BaseModel {
-  //Service
-  final _postService = locator<PostService>();
-
   final List<Post> _posts = [], _pinnedPosts = [];
+  final NavigationService _navigationService = locator<NavigationService>();
+  final UserConfig _userConfig = locator<UserConfig>();
   late StreamSubscription _currentOrganizationStreamSubscription;
-  late StreamSubscription _postStreamSubscription;
 
   List<Post> get posts => _posts;
   List<Post> get pinnedPosts => _pinnedPosts;
@@ -20,59 +22,47 @@ class OrganizationFeedViewModel extends BaseModel {
 
   String get currentOrgName => _currentOrgname;
 
-  void fetchNewPosts() {
-    _postService.getPosts();
-  }
-
   void setCurrentOrganizationName(String updatedOrganization) {
-    _posts.clear();
     _currentOrgname = updatedOrganization;
     notifyListeners();
   }
 
   void initialise() {
     // For caching/initalizing the current organization after the stream subsciption has canceled and the stream is updated
-    _currentOrgname = userConfig.currentOrg.name!;
+    _currentOrgname = _userConfig.currentOrg.name!;
 
-    // ------
     // Attasching the stream subscription to rebuild the widgets automatically
-    _currentOrganizationStreamSubscription = userConfig.currentOrfInfoStream
+    _currentOrganizationStreamSubscription = _userConfig.currentOrfInfoStream
         .listen((updatedOrganization) =>
             setCurrentOrganizationName(updatedOrganization.name!));
 
-    _postStreamSubscription =
-        _postService.postStream.listen((newPost) => addNewPost(newPost));
+    locator<PostService>().getPosts();
+    final postJsonResult = postsDemoData;
 
-    // ------
-    // Calling function to ge the post for the only 1st time.
-    _postService.getPosts();
+    postJsonResult.forEach((postJsonData) {
+      _posts.add(Post.fromJson(postJsonData));
+    });
 
-    // //fetching pinnedPosts
-    // final pinnedPostJsonResult = pinnedPostsDemoData;
-    // pinnedPostJsonResult.forEach((pinnedPostJsonData) {
-    //   _pinnedPosts.add(Post.fromJson(pinnedPostJsonData));
-    // });
+    //fetching pinnedPosts
+    final pinnedPostJsonResult = pinnedPostsDemoData;
+    pinnedPostJsonResult.forEach((pinnedPostJsonData) {
+      _pinnedPosts.add(Post.fromJson(pinnedPostJsonData));
+    });
   }
 
   void navigateToIndividualPage(Post post) {
-    navigationService.pushScreen(Routes.individualPost, arguments: post);
+    _navigationService.pushScreen(Routes.individualPost, arguments: post);
   }
 
   void navigateToPinnedPostPage() {
-    navigationService.pushScreen(Routes.pinnedPostPage,
+    _navigationService.pushScreen(Routes.pinnedPostPage,
         arguments: _pinnedPosts);
   }
 
   @override
   void dispose() {
     // Canceling the subscription so that there will be no rebuild after the widget is disposed.
-    _postStreamSubscription.cancel();
     _currentOrganizationStreamSubscription.cancel();
     super.dispose();
-  }
-
-  addNewPost(Post newPost) {
-    _posts.insert(0, newPost);
-    notifyListeners();
   }
 }
