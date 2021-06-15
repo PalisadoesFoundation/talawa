@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
 class IndividualPostView extends StatelessWidget {

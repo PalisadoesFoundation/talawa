@@ -12,7 +12,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-    List<Widget> childrenPage = [
+    final List<Widget> childrenPage = [
       OrganizationFeed(key: const Key("HomeView"), drawerKey: scaffoldKey),
       ExploreEvents(key: const Key('ExploreEvents'), drawerKey: scaffoldKey),
       AddPost(key: const Key('AddPost'), drawerKey: scaffoldKey),

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -21,10 +20,13 @@ class PostService {
 
   late UserConfig _userConfig;
   late DataBaseMutationFunctions _dbFunctions;
+  // ignore: unused_field
   late GraphqlConfig _graphqlConfig;
+  // ignore: unused_field
   late StreamSubscription _currentOrganizationStreamSubscription;
   late OrgInfo _currentOrg;
-  final Set<String> _posts = {};
+  // ignore: prefer_final_fields
+  Set<String> _posts = {};
   //Post Stream
   late Stream<Post> _postStream;
   final StreamController<Post> _postStreamController = StreamController<Post>();
@@ -46,14 +48,18 @@ class PostService {
     final String currentOrgID = _currentOrg.id!;
     final String query = PostQueries().getPostsById(currentOrgID);
     final Map<String, dynamic> result = await _dbFunctions.gqlquery(query);
-    List postsJson = result['postsByOrganization'] as List;
+    final List postsJson = result['postsByOrganization'] as List;
 
     postsJson.forEach((postJson) {
-      Post post = Post.fromJson(postJson as Map<String, dynamic>);
+      final Post post = Post.fromJson(postJson as Map<String, dynamic>);
       if (!_posts.contains(post.sId)) {
         _posts.add(post.sId);
         _postStreamController.add(post);
       }
     });
+  }
+
+  void dispose() {
+    _currentOrganizationStreamSubscription.cancel();
   }
 }
