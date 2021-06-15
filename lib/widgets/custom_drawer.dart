@@ -4,6 +4,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/from_palisadoes.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -29,7 +30,7 @@ class CustomDrawer extends StatelessWidget {
                         currentAccountPicture: CustomAvatar(
                           isImageNull: model.selectedOrg.image == null,
                           imageUrl: model.selectedOrg.image,
-                          orgFirstAlphabet:
+                          firstAlphabet:
                               model.selectedOrg.name!.substring(0, 1),
                         ),
                         accountName: Text(model.selectedOrg.name!),
@@ -61,7 +62,7 @@ class CustomDrawer extends StatelessWidget {
                                   isImageNull:
                                       model.switchAbleOrg[index].image == null,
                                   imageUrl: model.switchAbleOrg[index].image,
-                                  orgFirstAlphabet: model
+                                  firstAlphabet: model
                                       .switchAbleOrg[index].name!
                                       .substring(0, 1),
                                   fontSize: 18,
@@ -91,39 +92,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'from',
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: SizeConfig.blockSizeHorizontal,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'PALISADOES',
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle2!
-                                .copyWith(fontWeight: FontWeight.w700),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: SizeConfig.blockSizeHorizontal! * 5,
-                      ),
-                    ],
-                  ),
+                  const FromPalisadoes(),
                 ],
               ),
             ),

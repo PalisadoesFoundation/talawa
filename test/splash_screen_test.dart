@@ -3,8 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
-import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/splash_screen.dart';
 
@@ -16,7 +14,7 @@ Widget createSplashScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
       home: const SplashScreen(
         key: Key('SplashScreen'),
       ),
-      navigatorKey: locator<NavigationService>().navigatorKey,
+      navigatorKey: navigationService.navigatorKey,
       onGenerateRoute: router.generateRoute,
     );
 
@@ -28,14 +26,13 @@ Widget createSplashScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
       home: const SplashScreen(
         key: Key('SplashScreen'),
       ),
-      navigatorKey: locator<NavigationService>().navigatorKey,
+      navigatorKey: navigationService.navigatorKey,
       onGenerateRoute: router.generateRoute,
     );
 
 void main() {
   setupLocator();
-  locator<GraphqlConfig>().test();
-  locator<SizeConfig>().test();
+  graphqlConfig.test();
   group('Splash Screen Widget Test in light mode', () {
     testWidgets("Testing if Splash Screen shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());

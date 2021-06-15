@@ -32,9 +32,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            print("OUCH!!");
-          },
+          onPressed: () {},
           label: Text(
             "Register",
             style: Theme.of(context)

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:talawa/custom_painters/language_icon.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
@@ -25,6 +24,8 @@ class _SetUrlState extends State<SetUrl> {
         onModelReady: (model) => model.initialise(inviteUrl: widget.uri),
         builder: (context, model, child) {
           return Scaffold(
+            key: const Key('SetUrlScreenScaffold'),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             body: Container(
               margin: EdgeInsets.fromLTRB(
                   SizeConfig.screenWidth! * 0.06,
@@ -46,6 +47,7 @@ class _SetUrlState extends State<SetUrl> {
                         padding: EdgeInsets.only(
                             top: SizeConfig.screenHeight! * 0.08),
                         child: CustomPaint(
+                          key: const Key('LogoPainter'),
                           size: Size(SizeConfig.screenWidth! * 0.6,
                               (SizeConfig.screenWidth! * 0.6).toDouble()),
                           painter: AppLogo(),
@@ -56,6 +58,7 @@ class _SetUrlState extends State<SetUrl> {
                         words: model.greeting,
                       ),
                       TextFormField(
+                        key: const Key('UrlInputField'),
                         controller: model.url,
                         focusNode: model.urlFocus,
                         textInputAction: TextInputAction.done,
@@ -70,6 +73,7 @@ class _SetUrlState extends State<SetUrl> {
                             labelText: 'Enter Organization URL *',
                             labelStyle: Theme.of(context).textTheme.subtitle1,
                             suffixIcon: InkWell(
+                              key: const Key('VerifyButton'),
                               onTap: () {
                                 model.urlFocus.unfocus();
                                 model.validate = AutovalidateMode.always;
@@ -91,32 +95,44 @@ class _SetUrlState extends State<SetUrl> {
                         height: SizeConfig.screenHeight! * 0.086,
                       ),
                       RaisedRoundedButton(
-                        buttonLabel: 'Login',
-                        onTap: () => model.checkURLandNavigate('/login', ''),
-                        showArrow: true,
-                        textColor: const Color(0xFF008A37),
                         key: const Key('LoginButton'),
-                        backgroundColor: Colors.white,
+                        buttonLabel: 'Login',
+                        onTap: () async {
+                          await model.checkURLandNavigate('/login', '');
+                        },
+                        showArrow: true,
+                        textColor: Theme.of(context)
+                            .inputDecorationTheme
+                            .focusedBorder!
+                            .borderSide
+                            .color,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondaryVariant,
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.0215,
                       ),
                       RaisedRoundedButton(
+                        key: const Key('SignUpButton'),
                         buttonLabel: 'Sign Up',
                         onTap: () =>
                             model.checkURLandNavigate('/selectOrg', '-1'),
                         showArrow: true,
-                        textColor: Colors.white,
-                        key: const Key('SignUpButton'),
-                        backgroundColor: const Color(0xFF008A37),
+                        textColor:
+                            Theme.of(context).colorScheme.secondaryVariant,
+                        backgroundColor: Theme.of(context)
+                            .inputDecorationTheme
+                            .focusedBorder!
+                            .borderSide
+                            .color,
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.08,
                       ),
                       GestureDetector(
+                        key: const Key('ChangeLanguage'),
                         onTap: () {
-                          locator<NavigationService>().pushReplacementScreen(
-                              '/selectLang',
+                          navigationService.pushReplacementScreen('/selectLang',
                               arguments: '0');
                         },
                         child: Row(
