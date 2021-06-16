@@ -29,4 +29,15 @@ class PostQueries {
       }
 """;
   }
+
+  String addLike() {
+    return """
+     mutation likePost(\$postID: ID!) { 
+      likePost( id: \$postID,)
+      {
+        _id
+      }
+    }
+  """;
+  }
 }

@@ -4,11 +4,15 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 class ProfilePageViewModel extends BaseModel {
+  // Services
+  final _userConfig = locator<UserConfig>();
+
   late final Box<User> user;
   late final Box<dynamic> url;
   late final Box<OrgInfo> organisation;
@@ -17,8 +21,8 @@ class ProfilePageViewModel extends BaseModel {
 
   initialize() {
     setState(ViewState.busy);
-    currentOrg = userConfig.currentOrg;
-    currentUser = userConfig.currentUser;
+    currentOrg = _userConfig.currentOrg;
+    currentUser = _userConfig.currentUser;
     setState(ViewState.idle);
   }
 
