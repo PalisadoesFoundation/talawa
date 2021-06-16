@@ -288,6 +288,37 @@ class Queries {
 """;
   }
 
+  String get fetchJoinInOrgByName {
+    return """
+    query organizationsConnection(
+      \$first: Int, 
+      \$skip: Int, 
+      \$nameStartsWith: String
+    ){
+      organizationsConnection(
+        where:{
+          name_starts_with: \$nameStartsWith,
+          visibleInSearch: true,
+          isPublic: true,
+        }
+        first: \$first,
+        skip: \$skip,
+        orderBy: name_ASC
+      ){
+        image
+        _id
+        name
+        image
+        isPublic
+        creator{
+          firstName
+          lastName
+        }
+      }
+    }
+""";
+  }
+
   String joinOrgById(String orgId) {
     return '''
     mutation {

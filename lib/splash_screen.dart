@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -48,13 +49,19 @@ class _SplashScreenState extends State<SplashScreen> {
       Future.delayed(const Duration(milliseconds: 750)).then((value) async {
         if (userLoggedIn) {
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-            navigationService.pushReplacementScreen('/waiting', arguments: '0');
+            if (userConfig.currentUser.membershipRequests!.isEmpty) {
+              navigationService.pushReplacementScreen(Routes.joinOrg,
+                  arguments: '0');
+            } else {
+              navigationService.pushReplacementScreen(Routes.waitingScreen,
+                  arguments: '0');
+            }
           } else {
-            navigationService.pushReplacementScreen('/mainScreen',
+            navigationService.pushReplacementScreen(Routes.mainScreen,
                 arguments: '0');
           }
         } else {
-          navigationService.pushReplacementScreen('/selectLang',
+          navigationService.pushReplacementScreen(Routes.languageSelectionRoute,
               arguments: '0');
         }
       });

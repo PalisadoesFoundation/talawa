@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/widgets/member_list_tile.dart';
+import 'package:talawa/widgets/custom_list_tile.dart';
 
 class EventInfoPage extends StatefulWidget {
   const EventInfoPage({Key? key, required this.event}) : super(key: key);
@@ -174,10 +176,20 @@ class _EventInfoPageState extends State<EventInfoPage> {
               color: Theme.of(context).colorScheme.onBackground,
               thickness: 2,
             ),
-            MemberListTile(
-                userImageUrl: ' ',
-                firstName: widget.event.admins![0].firstName!,
-                lastName: widget.event.admins![0].lastName!),
+            ListView.builder(
+                padding: const EdgeInsets.all(0.0),
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: widget.event.admins!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final User admin = widget.event.admins![index];
+                  return CustomListTile(
+                      key: Key('Admins$index'),
+                      index: index,
+                      type: TileType.user,
+                      userInfo: admin,
+                      onTapUserInfo: () {});
+                }),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
             ),
@@ -208,10 +220,13 @@ class _EventInfoPageState extends State<EventInfoPage> {
                 shrinkWrap: true,
                 itemCount: widget.event.registrants!.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return MemberListTile(
-                      userImageUrl: ' ',
-                      firstName: widget.event.registrants![index].firstName!,
-                      lastName: widget.event.registrants![index].lastName!);
+                  final User attendee = widget.event.registrants![index];
+                  return CustomListTile(
+                      key: Key('Attendee$index'),
+                      index: index,
+                      type: TileType.user,
+                      userInfo: attendee,
+                      onTapUserInfo: () {});
                 }),
           ],
         ),

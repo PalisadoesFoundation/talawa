@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -76,12 +78,14 @@ class CustomDrawer extends StatelessWidget {
                         ),
                       ),
                       const Divider(),
-                      const ListTile(
-                        leading: Icon(
+                      ListTile(
+                        onTap: () =>
+                            navigationService.popAndPushScreen(Routes.joinOrg),
+                        leading: const Icon(
                           Icons.add,
                           size: 30,
                         ),
-                        title: Text("Join new Organization"),
+                        title: const Text("Join new Organization"),
                       ),
                       const ListTile(
                         leading: Icon(

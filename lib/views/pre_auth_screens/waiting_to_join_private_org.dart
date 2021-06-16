@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/join_org_tile.dart';
+import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
-import 'package:talawa/widgets/signup_progress_bar.dart';
+import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 class WaitingPage extends StatelessWidget {
   const WaitingPage({required Key key}) : super(key: key);
@@ -29,7 +30,7 @@ class WaitingPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SignupProgressBar(
+                  SignupProgressIndicator(
                       key: const Key('Waiting'), currentPageIndex: 2),
                   Container(
                     margin: EdgeInsets.fromLTRB(
@@ -60,11 +61,12 @@ class WaitingPage extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     itemCount: model.pendingRequestOrg.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return JoinOrgTile(
+                      return CustomListTile(
                           key: const Key('WaitingJoin'),
                           index: index,
-                          item: model.pendingRequestOrg[index],
-                          onTap: (item) {});
+                          type: TileType.org,
+                          orgInfo: model.pendingRequestOrg[index],
+                          onTapOrgInfo: (item) {});
                     },
                   )),
                   Expanded(
@@ -76,11 +78,32 @@ class WaitingPage extends StatelessWidget {
                         children: [
                           const Spacer(),
                           RaisedRoundedButton(
+                            key: const Key('JoinOrg'),
+                            buttonLabel: 'Join Organisation',
+                            onTap: model.joinOrg,
+                            showArrow: true,
+                            textColor:
+                                Theme.of(context).colorScheme.secondaryVariant,
+                            backgroundColor: Theme.of(context)
+                                .inputDecorationTheme
+                                .focusedBorder!
+                                .borderSide
+                                .color,
+                          ),
+                          SizedBox(
+                            height: SizeConfig.screenHeight! * 0.0215,
+                          ),
+                          RaisedRoundedButton(
+                            key: const Key('Logout'),
                             buttonLabel: 'Log out',
                             onTap: model.logout,
-                            textColor: const Color(0xFF008A37),
-                            key: const Key('Logout'),
-                            backgroundColor: Colors.white,
+                            textColor: Theme.of(context)
+                                .inputDecorationTheme
+                                .focusedBorder!
+                                .borderSide
+                                .color,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondaryVariant,
                           ),
                           SizedBox(
                             height: SizeConfig.screenHeight! * 0.0215,
