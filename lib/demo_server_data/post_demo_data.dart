@@ -1,7 +1,7 @@
 const postsDemoData = [
   {
     "_id": "asdasdasd",
-    "description":
+    "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
     "createdAt": "created at string",
     "imageUrl": "image url string",
@@ -45,7 +45,7 @@ const postsDemoData = [
   },
   {
     "_id": "asdasdasd",
-    "description":
+    "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Andro_id in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
     "createdAt": "created at string",
     "imageUrl": "image url string",
@@ -89,7 +89,7 @@ const postsDemoData = [
   },
   {
     "_id": "asdasdasd",
-    "description":
+    "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Andro_id in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
     "createdAt": "created at string",
     "imageUrl": "image url string",
@@ -133,7 +133,7 @@ const postsDemoData = [
   },
   {
     "_id": "asdasdasd",
-    "description":
+    "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Andro_id in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
     "createdAt": "created at string",
     "imageUrl": "image url string",
