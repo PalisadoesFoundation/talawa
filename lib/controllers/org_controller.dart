@@ -1,7 +1,7 @@
 //flutter packages are called here
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
@@ -9,6 +9,7 @@ import 'package:talawa/controllers/auth_controller.dart';
 //pages are called here
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/home_page.dart';
@@ -82,7 +83,7 @@ class OrgController with ChangeNotifier {
     );
 
     if (result.hasException || userDetailsResult.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       showError(result.exception.toString());
     } else if (!result.hasException &&
         !disposed &&
@@ -105,7 +106,7 @@ class OrgController with ChangeNotifier {
 
       // Filtering out organizations that are already joined by user.
       joinedOrganizationsIds.forEach((e) {
-        print(e);
+        debugPrint(e.toString());
         organizationInfo =
             organizationInfo.where((element) => element['_id'] != e).toList();
       });
@@ -114,7 +115,7 @@ class OrgController with ChangeNotifier {
   }
 
   /// FUNCTION CALLED TP JOIN THE PRIVATE ORGANIZATION
-  Future joinPrivateOrg(BuildContext context, FToast fToast, String itemIndex,
+  Future joinPrivateOrg(BuildContext context, String itemIndex,
       {@required bool fromProfile}) async {
     final GraphQLClient _client = graphQLConfiguration.authClient();
 
@@ -124,14 +125,14 @@ class OrgController with ChangeNotifier {
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      return joinPrivateOrg(context, fToast, itemIndex,
-          fromProfile: fromProfile);
+      return joinPrivateOrg(context, itemIndex, fromProfile: fromProfile);
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      _exceptionToast(result.exception.toString().substring(16), fToast);
+      CustomToast.exceptionToast(
+        msg: result.exception.toString().substring(16),
+      );
     } else if (!result.hasException && !result.loading) {
-      print(result.data);
-      _successToast("Request Sent to Organization Admin", fToast);
+      CustomToast.sucessToast(msg: "Request Sent to Organization Admin");
 
       if (fromProfile) {
         Navigator.pop(context);
@@ -147,22 +148,30 @@ class OrgController with ChangeNotifier {
 
   /// Function which will be called if the person wants to join the public organization
   Future<void> joinPublicOrg(
-      String orgName, String itemIndex, FToast fToast, BuildContext context,
+      String orgName, String itemIndex, BuildContext context,
       {bool fromProfile}) async {
     final GraphQLClient _client = graphQLConfiguration.authClient();
+    debugPrint(orgName);
 
-    print(orgName);
-
-    final QueryResult result = await _client
-        .mutate(MutationOptions(documentNode: gql(_query.getOrgId(itemIndex))));
+    final QueryResult result = await _client.mutate(
+      MutationOptions(
+        documentNode: gql(
+          _query.getOrgId(
+            itemIndex,
+          ),
+        ),
+      ),
+    );
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
       _authController.getNewToken();
-      _exceptionToast(result.exception.toString().substring(16), fToast);
+      CustomToast.exceptionToast(
+          msg: result.exception.toString().substring(16));
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      _exceptionToast(result.exception.toString().substring(16), fToast);
+      CustomToast.exceptionToast(
+          msg: result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       joinedOrg =
           result.data['joinPublicOrganization']['joinedOrganizations'] as List;
@@ -203,7 +212,7 @@ class OrgController with ChangeNotifier {
           }
         }
       }
-      _successToast("Success!", fToast);
+      CustomToast.sucessToast(msg: "Success!");
 
       if (fromProfile) {
         pushNewScreen(
@@ -229,45 +238,6 @@ class OrgController with ChangeNotifier {
         style: const TextStyle(fontSize: 16),
         textAlign: TextAlign.center,
       ),
-    );
-  }
-
-  _successToast(String msg, FToast fToast) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.green,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(msg),
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
-
-  _exceptionToast(String msg, FToast fToast) {
-    final Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: Colors.red,
-      ),
-      child: Text(msg),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }

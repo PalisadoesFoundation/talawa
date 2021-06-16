@@ -128,7 +128,6 @@ class _OrganizationSettingsState extends State<OrganizationSettings> {
       setState(() {
         processing = false;
       });
-      //_exceptionToast(result.exception.toString().substring(16));
     } else if (!result.hasException && !result.loading) {
       CustomToast.sucessToast(
         msg: AppLocalizations.of(context)

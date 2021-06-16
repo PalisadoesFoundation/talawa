@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/enums/exception_type.dart';
@@ -9,9 +9,10 @@ import 'package:talawa/enums/org_filter.dart';
 import 'package:talawa/services/exception.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/services/queries_.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/view_models/base_model.dart';
-import 'package:talawa/views/widgets/shared/toast_container.dart';
+
 import '../../locator.dart';
 
 class JoinOrgnizationViewModel extends BaseModel {
@@ -19,7 +20,7 @@ class JoinOrgnizationViewModel extends BaseModel {
   final Preferences _pref = Preferences();
   String token, _itemIndex, _isPublic, _currentUserId = "";
   GraphQLConfiguration graphQLConfiguration = locator<GraphQLConfiguration>();
-  FToast fToast;
+
   List _organizationInfo = [],
       joinedOrg = [],
       joinedOrganizations = [],
@@ -41,8 +42,6 @@ class JoinOrgnizationViewModel extends BaseModel {
   String get isPublic => _isPublic;
   String get itemIndex => _itemIndex;
   void initialise(BuildContext context, OrganisationFilter filter) {
-    fToast = FToast();
-    fToast.init(context);
     fetchOrg(filter);
   }
 
@@ -144,13 +143,6 @@ class JoinOrgnizationViewModel extends BaseModel {
     }
   }
 
-  showToast(String msg, Color color) {
-    fToast.showToast(
-        child: toastContainer(msg, color),
-        gravity: ToastGravity.BOTTOM,
-        toastDuration: const Duration(seconds: 3));
-  }
-
   void searchOrgName(String orgName) {
     //it is the search bar to search the organization
     _filteredOrgInfo.clear();
@@ -238,15 +230,18 @@ class JoinOrgnizationViewModel extends BaseModel {
       final ExceptionType exceptionType = retrieveExceptionType(result);
       if (exceptionType == ExceptionType.accesstokenException) {
         _authController.getNewToken();
-        showToast(result.exception.toString().substring(16), Colors.red);
+        CustomToast.exceptionToast(
+            msg: result.exception.toString().substring(16));
+
         return joinPrivateOrg(context);
       } else {
-        showToast(result.exception.toString().substring(16), Colors.red);
+        CustomToast.exceptionToast(
+            msg: result.exception.toString().substring(16));
       }
       return;
     }
     if (!result.loading) {
-      showToast("Request Sent to Organization Admin", Colors.green);
+      CustomToast.sucessToast(msg: "Request Sent to Organization Admin");
       Navigator.pop(context);
     }
   }
@@ -261,10 +256,14 @@ class JoinOrgnizationViewModel extends BaseModel {
       final ExceptionType exceptionType = retrieveExceptionType(result);
       if (exceptionType == ExceptionType.accesstokenException) {
         _authController.getNewToken();
-        showToast(result.exception.toString().substring(16), Colors.red);
+        CustomToast.exceptionToast(
+            msg: result.exception.toString().substring(16));
+
         return joinPublicOrg(context, orgName);
       } else {
-        showToast(result.exception.toString().substring(16), Colors.red);
+        CustomToast.exceptionToast(
+          msg: result.exception.toString().substring(16),
+        );
       }
       return;
     }
@@ -306,7 +305,8 @@ class JoinOrgnizationViewModel extends BaseModel {
           }
         }
       }
-      showToast("Success!", Colors.green);
+      CustomToast.sucessToast(msg: "Success!");
+
       Navigator.pop(context);
     }
   }

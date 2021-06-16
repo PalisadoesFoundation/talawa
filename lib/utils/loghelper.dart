@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_logs/flutter_logs.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:talawa/utils/custom_toast.dart';
 
 class LogHelper {
   init() async {
@@ -45,10 +45,7 @@ class LogHelper {
           // var responseCode = await ApiFunctions().sendLogs(file.path);
           // if(responseCode == 200){
           // }
-          Fluttertoast.showToast(
-            msg: "The Logs are saved in ${file.path}",
-            toastLength: Toast.LENGTH_LONG,
-          );
+          CustomToast.sucessToast(msg: "The Logs are saved in ${file.path}");
         } else {
           FlutterLogs.logError(
             "LogHelper",

@@ -26,7 +26,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController searchController = TextEditingController();
 
-  FToast fToast;
   bool disposed = false;
   String searchText;
   String filter = "Show All";
@@ -34,8 +33,7 @@ class _JoinOrganizationState extends State<JoinOrganization> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
+
     Provider.of<OrgController>(
       context,
       listen: false,
@@ -158,7 +156,6 @@ class _JoinOrganizationState extends State<JoinOrganization> {
                       color: Colors.white,
                       child: OrganizationBody(
                         fromProfile: widget.fromProfile,
-                        fToast: fToast,
                         scaffoldKey: scaffoldKey,
                         filter: filter,
                         query: searchText,
