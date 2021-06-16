@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/views/main_screen.dart';
@@ -20,10 +19,6 @@ void main() {
   locator<SizeConfig>().test();
 
   group('HomePage Widget Test', () {
-    userConfig.initialiseStream();
-    userConfig.currentOrgInfoController
-        .add(OrgInfo(name: 'Organization Name', id: 'null'));
-    databaseFunctions.init();
     //   testWidgets("Testing if HomePage shows up", (tester) async {
     //     await tester.pumpWidget(createHomePageScreen());
 
