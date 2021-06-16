@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:talawa/enums/view_state.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
-import 'package:talawa/widgets/progress_dialog.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 class ProfilePageViewModel extends BaseModel {
   late final Box<User> user;
@@ -29,7 +29,7 @@ class ProfilePageViewModel extends BaseModel {
       successText: 'Logout',
       success: () {
         navigationService.pop();
-        navigationService.pushDialog(const ProgressDialog(
+        navigationService.pushDialog(const CustomProgressDialog(
           key: Key('LogoutProgress'),
         ));
         Future.delayed(const Duration(seconds: 1)).then((value) {

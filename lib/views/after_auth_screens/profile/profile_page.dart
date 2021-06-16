@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/options/options.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
+import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
-import 'package:talawa/widgets/profile_list_tile.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, this.drawerKey}) : super(key: key);
@@ -42,84 +44,101 @@ class _ProfilePageState extends State<ProfilePage> {
                 : SingleChildScrollView(
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: ListTile(
-                            dense: true,
-                            leading: CustomAvatar(
-                              isImageNull: model.currentUser.image == null,
-                              firstAlphabet:
-                                  model.currentUser.firstName!.substring(0, 1),
-                              imageUrl: model.currentUser.image,
-                              fontSize: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .fontSize,
-                            ),
-                            title: Text(
-                              '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5!
-                                  .copyWith(fontSize: 18),
-                            ),
-                            subtitle: Text(
-                              model.currentUser.email!,
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
-                            trailing: GestureDetector(
-                              onTap: () {
-                                navigationService
-                                    .pushScreen("/editProfilePage");
-                              },
-                              child: Icon(
-                                Icons.drive_file_rename_outline,
-                                color: Theme.of(context).accentColor,
-                              ),
-                            ),
-                          ),
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.01,
                         ),
-                        const Divider(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: SizedBox(
-                            height: SizeConfig.screenHeight! * 0.63,
-                            child: Column(
-                              children: [
-                                const ProfileSettingsTile(
-                                  icon: Icon(Icons.phonelink_setup),
-                                  title: 'App Settings',
-                                  subTitle: 'Language, dark mode, font size',
+                        CustomListTile(
+                            key: const Key('OptionEditProfile'),
+                            index: 0,
+                            type: TileType.option,
+                            option: Options(
+                                icon: CustomAvatar(
+                                  isImageNull: model.currentUser.image == null,
+                                  firstAlphabet: model.currentUser.firstName!
+                                      .substring(0, 1),
+                                  imageUrl: model.currentUser.image,
+                                  fontSize: Theme.of(context)
+                                      .textTheme
+                                      .headline6!
+                                      .fontSize,
                                 ),
-                                const ProfileSettingsTile(
-                                  icon: Icon(Icons.help_outline),
-                                  title: 'Help',
-                                  subTitle: 'Reach out to us for help',
-                                ),
-                                ProfileSettingsTile(
+                                title:
+                                    '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
+                                subtitle: model.currentUser.email!,
+                                trailingIconButton: IconButton(
                                   icon: Icon(
-                                    Icons.monetization_on,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
+                                    Icons.drive_file_rename_outline,
+                                    color: Theme.of(context).accentColor,
                                   ),
-                                  title: 'Donate Us',
-                                  subTitle: 'Help us to develop for you',
-                                ),
-                                GestureDetector(
-                                  onTap: () => model.logout(context),
-                                  child: ProfileSettingsTile(
+                                  onPressed: () {
+                                    navigationService
+                                        .pushScreen("/editProfilePage");
+                                  },
+                                )),
+                            onTapOption: () {}),
+                        const Divider(),
+                        SizedBox(
+                          height: SizeConfig.screenHeight! * 0.63,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              CustomListTile(
+                                  key: const Key('Option0'),
+                                  index: 0,
+                                  type: TileType.option,
+                                  option: Options(
+                                    icon: const Icon(
+                                      Icons.phonelink_setup,
+                                      size: 30,
+                                    ),
+                                    title: 'App Settings',
+                                    subtitle: 'Language, dark mode, font size',
+                                  ),
+                                  onTapOption: () {}),
+                              CustomListTile(
+                                  key: const Key('Option1'),
+                                  index: 1,
+                                  type: TileType.option,
+                                  option: Options(
+                                    icon: const Icon(
+                                      Icons.help_outline,
+                                      size: 30,
+                                    ),
+                                    title: 'Help',
+                                    subtitle: 'Reach out to us for help',
+                                  ),
+                                  onTapOption: () {}),
+                              CustomListTile(
+                                  key: const Key('Option2'),
+                                  index: 2,
+                                  type: TileType.option,
+                                  option: Options(
+                                    icon: Icon(
+                                      Icons.monetization_on,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      size: 30,
+                                    ),
+                                    title: 'Donate Us',
+                                    subtitle: 'Help us to develop for you',
+                                  ),
+                                  onTapOption: () {}),
+                              CustomListTile(
+                                  key: const Key('Option3'),
+                                  index: 3,
+                                  type: TileType.option,
+                                  option: Options(
                                     icon: Icon(
                                       Icons.logout,
                                       color: Theme.of(context).accentColor,
+                                      size: 30,
                                     ),
                                     title: 'Log out',
-                                    subTitle: 'Log out from Talawa',
+                                    subtitle: 'Log out from Talawa',
                                   ),
-                                ),
-                                const Spacer(),
-                                const FromPalisadoes(),
-                              ],
-                            ),
+                                  onTapOption: () => model.logout(context)),
+                              const FromPalisadoes(),
+                            ],
                           ),
                         )
                       ],

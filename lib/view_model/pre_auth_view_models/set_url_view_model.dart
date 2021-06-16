@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/widgets/progress_dialog.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 class SetUrlViewModel extends BaseModel {
   final formKey = GlobalKey<FormState>();
@@ -64,7 +64,7 @@ class SetUrlViewModel extends BaseModel {
     validate = AutovalidateMode.always;
     if (formKey.currentState!.validate()) {
       navigationService
-          .pushDialog(const ProgressDialog(key: Key('UrlCheckProgress')));
+          .pushDialog(const CustomProgressDialog(key: Key('UrlCheckProgress')));
       validate = AutovalidateMode.disabled;
       final String uri = url.text.trim();
       final bool? urlPresent = await Validator.validateUrlExistence(uri);

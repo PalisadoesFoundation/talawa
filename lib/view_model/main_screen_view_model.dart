@@ -1,4 +1,5 @@
-import 'package:talawa/enums/view_state.dart';
+import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class MainScreenViewModel extends BaseModel {

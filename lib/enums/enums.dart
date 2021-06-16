@@ -3,3 +3,5 @@ enum ViewState {
   idle,
   busy,
 }
+
+enum TileType { user, org, option }

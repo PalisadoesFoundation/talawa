@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CustomAvatar extends StatelessWidget {
   const CustomAvatar(
@@ -27,10 +29,24 @@ class CustomAvatar extends StatelessWidget {
                   .copyWith(fontSize: fontSize),
             ),
           )
-        : CircleAvatar(
-            backgroundColor:
-                Theme.of(context).iconTheme.color!.withOpacity(0.2),
-            backgroundImage: NetworkImage(imageUrl!),
+        : CachedNetworkImage(
+            imageBuilder: (context, imageProvider) {
+              return CircleAvatar(
+                backgroundColor:
+                    Theme.of(context).iconTheme.color!.withOpacity(0.2),
+                backgroundImage: imageProvider,
+              );
+            },
+            imageUrl: imageUrl!,
+            placeholder: (context, url) => CircleAvatar(
+              child: Shimmer.fromColors(
+                baseColor: Colors.transparent,
+                highlightColor: Colors.white30,
+                child: const CircleAvatar(),
+              ),
+            ),
+            errorWidget: (context, url, error) =>
+                const CircleAvatar(child: Icon(Icons.error)),
           );
   }
 }
