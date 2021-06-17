@@ -9,13 +9,15 @@ import 'package:flutter/src/widgets/navigator.dart' as _i9;
 import 'package:gql_http_link/src/link.dart' as _i3;
 import 'package:graphql/src/graphql_client.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i2;
+import 'package:talawa/models/events/event_model.dart' as _i14;
 import 'package:talawa/models/organization/org_info.dart' as _i6;
 import 'package:talawa/models/post/post_model.dart' as _i12;
 import 'package:talawa/models/user/user_info.dart' as _i7;
+import 'package:talawa/services/event_service.dart' as _i13;
 import 'package:talawa/services/graphql_config.dart' as _i10;
 import 'package:talawa/services/navigation_service.dart' as _i8;
 import 'package:talawa/services/post_service.dart' as _i11;
-import 'package:talawa/services/user_config.dart' as _i13;
+import 'package:talawa/services/user_config.dart' as _i15;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: comment_references
@@ -150,10 +152,32 @@ class MockPostService extends _i2.Mock implements _i11.PostService {
           returnValueForMissingStub: Future.value()) as _i5.Future<void>);
 }
 
+/// A class which mocks [EventService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockEventService extends _i2.Mock implements _i13.EventService {
+  @override
+  _i5.Stream<_i14.Event> get eventStream =>
+      (super.noSuchMethod(Invocation.getter(#eventStream),
+          returnValue: Stream<_i14.Event>.empty()) as _i5.Stream<_i14.Event>);
+  @override
+  void setOrgStreamSubscription() =>
+      super.noSuchMethod(Invocation.method(#setOrgStreamSubscription, []),
+          returnValueForMissingStub: null);
+  @override
+  _i5.Future<void> getEvents() =>
+      (super.noSuchMethod(Invocation.method(#getEvents, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future.value()) as _i5.Future<void>);
+  @override
+  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
+      returnValueForMissingStub: null);
+}
+
 /// A class which mocks [UserConfig].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUserConfig extends _i2.Mock implements _i13.UserConfig {
+class MockUserConfig extends _i2.Mock implements _i15.UserConfig {
   @override
   _i5.Stream<_i6.OrgInfo> get currentOrfInfoStream =>
       (super.noSuchMethod(Invocation.getter(#currentOrfInfoStream),

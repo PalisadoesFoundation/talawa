@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
-import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
@@ -14,7 +13,6 @@ class ExploreEventsViewModel extends BaseModel {
   String _chosenValue = 'My Events';
   List<Event> _events = [];
 
-  final databaseService = locator<DataBaseMutationFunctions>();
   late StreamSubscription _currentOrganizationStreamSubscription;
   late final List<Event> _bufferEvents;
 
