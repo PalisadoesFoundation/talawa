@@ -195,7 +195,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 ),
                                 RaisedRoundedButton(
                                   buttonLabel: 'Next',
-                                  onTap: model.next,
+                                  onTap: model.signUp,
                                   textColor: const Color(0xFF008A37),
                                   key: const Key('SignUpLoginDetailsButton'),
                                   backgroundColor: Colors.white,

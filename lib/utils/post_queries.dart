@@ -2,7 +2,7 @@ class PostQueries {
   String getPostsById(String orgId) {
     return """
       query {
-        postsByOrganization(id: "$orgId")
+        postsByOrganization(id: "$orgId",orderBy: createdAt_DESC )
         { 
           _id
           text
@@ -13,8 +13,10 @@ class PostQueries {
           commentCount
           likeCount
           creator{
+            _id
             firstName
             lastName
+            image
           }
           organization{
             _id

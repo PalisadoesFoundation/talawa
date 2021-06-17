@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -41,15 +42,23 @@ class UserConfig {
     }
     graphqlConfig.getToken().then((value) async {
       databaseFunctions.init();
-      final bool fetchUpdates =
-          await databaseFunctions.fetchCurrentUserInfo(_currentUser!.id!);
-      if (fetchUpdates) {
+      try {
+        final QueryResult result = await databaseFunctions.gqlNonAuthMutation(
+            queries.fetchUserInfo,
+            variables: {'id': currentUser.id!}) as QueryResult;
+        final User userInfo = User.fromJson(
+            result.data!['users'][0] as Map<String, dynamic>,
+            fromOrg: true);
+        userInfo.authToken = userConfig.currentUser.authToken;
+        userInfo.refreshToken = userConfig.currentUser.refreshToken;
+        userConfig.updateUser(userInfo);
         _currentOrg ??= _currentUser!.joinedOrganizations![0];
         _currentOrgInfoController.add(_currentOrg!);
 
         saveUserInHive();
         return true;
-      } else {
+      } on Exception catch (e) {
+        print(e);
         navigationService.showSnackBar("Couldn't update User details");
       }
     });

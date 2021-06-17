@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -34,12 +35,13 @@ class PostService {
   Future<void> getPosts() async {
     final String currentOrgID = _currentOrg.id!;
     final String query = PostQueries().getPostsById(currentOrgID);
-    final Map<String, dynamic> result = await _dbFunctions.gqlquery(query);
+    final QueryResult result =
+        await _dbFunctions.gqlAuthQuery(query) as QueryResult;
 
     //Checking if the dbFunctions return the postJSON, if not return.
-    if (result['postsByOrganization'] == null) return;
+    if (result.data!['postsByOrganization'] == null) return;
 
-    final List postsJson = result['postsByOrganization'] as List;
+    final List postsJson = result.data!['postsByOrganization'] as List;
     postsJson.forEach((postJson) {
       final Post post = Post.fromJson(postJson as Map<String, dynamic>);
       _postStreamController.add(post);
@@ -49,8 +51,7 @@ class PostService {
   Future<void> addLike(String postID) {
     final String mutation = PostQueries().addLike();
     final result =
-        _dbFunctions.gqlmutation(mutation, variables: {"postID": postID});
-    print(result);
+        _dbFunctions.gqlAuthMutation(mutation, variables: {"postID": postID});
     return result;
   }
 }

@@ -42,26 +42,32 @@ class SelectOrganizationViewModel extends BaseModel {
     }
   }
 
-  selectOrg(OrgInfo item) {
+  selectOrg(OrgInfo item) async {
     bool orgAlreadyJoined = false;
     bool orgRequestAlreadyPresent = false;
-    userConfig.currentUser.joinedOrganizations!.forEach((element) {
-      if (element.id! == item.id) {
-        orgAlreadyJoined = true;
+    final bool userLoggedIn = await userConfig.userLoggedIn();
+    if (userLoggedIn) {
+      userConfig.currentUser.joinedOrganizations!.forEach((element) {
+        if (element.id! == item.id) {
+          orgAlreadyJoined = true;
+        }
+      });
+      userConfig.currentUser.membershipRequests!.forEach((element) {
+        if (element.id! == item.id) {
+          orgRequestAlreadyPresent = true;
+        }
+      });
+      if (!orgAlreadyJoined && !orgRequestAlreadyPresent) {
+        selectedOrganization = item;
+        setState(ViewState.idle);
+      } else if (orgAlreadyJoined) {
+        navigationService.showSnackBar('Organisation already joined');
+      } else {
+        navigationService.showSnackBar('Membership request already sent');
       }
-    });
-    userConfig.currentUser.membershipRequests!.forEach((element) {
-      if (element.id! == item.id) {
-        orgRequestAlreadyPresent = true;
-      }
-    });
-    if (!orgAlreadyJoined && !orgRequestAlreadyPresent) {
+    } else {
       selectedOrganization = item;
       setState(ViewState.idle);
-    } else if (orgAlreadyJoined) {
-      navigationService.showSnackBar('Organisation already joined');
-    } else {
-      navigationService.showSnackBar('Membership request already sent');
     }
   }
 
@@ -77,9 +83,15 @@ class SelectOrganizationViewModel extends BaseModel {
 
   onTapJoin() async {
     if (selectedOrganization.isPublic == true) {
-      final bool successJoin =
-          await databaseFunctions.joinPublicOrg(selectedOrganization.id!);
-      if (successJoin) {
+      try {
+        final QueryResult result = await databaseFunctions.gqlAuthMutation(
+            queries.joinOrgById(selectedOrganization.id!)) as QueryResult;
+
+        final List<OrgInfo>? joinedOrg = (result.data!['joinPublicOrganization']
+                ['joinedOrganizations'] as List<dynamic>?)
+            ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+            .toList();
+        userConfig.updateUserJoinedOrg(joinedOrg!);
         if (userConfig.currentUser.joinedOrganizations!.length == 1) {
           userConfig.saveCurrentOrgInHive(
               userConfig.currentUser.joinedOrganizations![0]);
@@ -90,21 +102,29 @@ class SelectOrganizationViewModel extends BaseModel {
           navigationService
               .showSnackBar('Joined ${selectedOrganization.name} successfully');
         }
-      } else {
+      } on Exception catch (e) {
+        print(e);
         navigationService.showSnackBar('SomeThing went wrong');
       }
     } else {
-      final bool successRequest = await databaseFunctions
-          .sendMembershipRequest(selectedOrganization.id!);
-      if (successRequest) {
+      try {
+        final QueryResult result = await databaseFunctions.gqlAuthMutation(
+                queries.sendMembershipRequest(selectedOrganization.id!))
+            as QueryResult;
+        final OrgInfo membershipRequest = OrgInfo.fromJson(
+            result.data!['sendMembershipRequest']['organization']
+                as Map<String, dynamic>);
+        userConfig.updateUserMemberRequestOrg([membershipRequest]);
         if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
           navigationService.removeAllAndPush(
               Routes.waitingScreen, Routes.splashScreen);
         } else {
+          navigationService.pop();
           navigationService.showSnackBar(
               'Join in request sent to ${selectedOrganization.name} successfully');
         }
-      } else {
+      } on Exception catch (e) {
+        print(e);
         navigationService.showSnackBar('SomeThing went wrong');
       }
     }

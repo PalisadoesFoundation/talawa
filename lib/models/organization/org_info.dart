@@ -25,19 +25,28 @@ class OrgInfo {
       json = json1;
     }
     return OrgInfo(
-      image: json['image'] as String?,
-      name: json['name'] as String?,
-      description: json['description'] as String?,
-      isPublic: json['isPublic'] as bool?,
-      creatorInfo:
-          User.fromJson(json['creator'] as Map<String, dynamic>, fromOrg: true),
-      members: (json['members'] as List<dynamic>?)
-          ?.map((e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true))
-          .toList(),
-      admins: (json['admins'] as List<dynamic>?)
-          ?.map((e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true))
-          .toList(),
-      id: json['_id'] as String,
+      id: json['_id'] != null ? json['_id'] as String : null,
+      image: json['image'] != null ? json['image'] as String? : null,
+      name: json['name'] != null ? json['name'] as String? : null,
+      description:
+          json['description'] != null ? json['description'] as String? : null,
+      isPublic: json['isPublic'] != null ? json['isPublic'] as bool? : null,
+      creatorInfo: json['creator'] != null
+          ? User.fromJson(json['creator'] as Map<String, dynamic>,
+              fromOrg: true)
+          : null,
+      members: json['members'] != null
+          ? (json['members'] as List<dynamic>?)
+              ?.map((e) =>
+                  User.fromJson(e as Map<String, dynamic>, fromOrg: true))
+              .toList()
+          : null,
+      admins: json['admins'] != null
+          ? (json['admins'] as List<dynamic>?)
+              ?.map((e) =>
+                  User.fromJson(e as Map<String, dynamic>, fromOrg: true))
+              .toList()
+          : null,
     );
   }
 
@@ -67,7 +76,7 @@ class OrgInfo {
   @HiveField(7)
   User? creatorInfo;
 
-  print() {
+  printOrgInfo() {
     debugPrint('_id: ${this.id}');
     debugPrint('name: ${this.name}');
     debugPrint('image: ${this.image}');

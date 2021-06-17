@@ -1,3 +1,6 @@
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
+
 class Post {
   Post(
       {required this.sId,
@@ -13,14 +16,15 @@ class Post {
   Post.fromJson(Map<String, dynamic> json) {
     sId = json['_id'] as String;
     description = json['text'] as String?;
-    createdAt = json['createdAt'] as String?;
+    createdAt = DateTime.fromMillisecondsSinceEpoch(
+        int.parse(json['createdAt'] as String));
     imageUrl = json['imageUrl'] as String?;
     videoUrl = json['videoUrl'] as String?;
-    creator = (json['creator'] != null
-        ? Creator.fromJson(json['creator'] as Map<String, dynamic>)
-        : null)!;
+    creator = json['creator'] != null
+        ? User.fromJson(json['creator'] as Map<String, dynamic>, fromOrg: true)
+        : null;
     organization = json['organization'] != null
-        ? Organization.fromJson(json['organization'] as Map<String, dynamic>)
+        ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
         : null;
     if (json['likedBy'] != null) {
       likedBy = <LikedBy>[];
@@ -38,66 +42,28 @@ class Post {
 
   late String sId;
   String? description;
-  String? createdAt;
+  DateTime? createdAt;
   String? imageUrl;
   String? videoUrl;
-  late Creator creator;
-  Organization? organization;
+  User? creator;
+  OrgInfo? organization;
   List<LikedBy>? likedBy;
   List<Comments>? comments;
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = this.sId;
-    data['description'] = this.description;
-    data['createdAt'] = this.createdAt;
-    data['imageUrl'] = this.imageUrl;
-    data['videoUrl'] = this.videoUrl;
-    data['creator'] = this.creator.toJson();
-    if (this.organization != null) {
-      data['organization'] = this.organization?.toJson();
+  String getPostCreatedDuration() {
+    if (DateTime.now().difference(this.createdAt!).inSeconds < 60) {
+      return '${DateTime.now().difference(this.createdAt!).inSeconds} Seconds Ago';
+    } else if (DateTime.now().difference(this.createdAt!).inMinutes < 60) {
+      return '${DateTime.now().difference(this.createdAt!).inMinutes} Minutes Ago';
+    } else if (DateTime.now().difference(this.createdAt!).inHours < 24) {
+      return '${DateTime.now().difference(this.createdAt!).inHours} Hours Ago';
+    } else if (DateTime.now().difference(this.createdAt!).inDays < 30) {
+      return '${DateTime.now().difference(this.createdAt!).inDays} Days Ago';
+    } else if (DateTime.now().difference(this.createdAt!).inDays < 365) {
+      return '${DateTime.now().difference(this.createdAt!).inDays ~/ 30} Months Ago';
+    } else {
+      return '${DateTime.now().difference(this.createdAt!).inDays ~/ 365} Years Ago';
     }
-    if (this.likedBy != null) {
-      data['likedBy'] = this.likedBy?.map((v) => v.toJson()).toList();
-    }
-    if (this.comments != null) {
-      data['comments'] = this.comments?.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class Creator {
-  Creator({this.firstName, this.lastName});
-
-  Creator.fromJson(Map<String, dynamic> json) {
-    firstName = json['firstName'] as String?;
-    lastName = json['lastName'] as String?;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    return data;
-  }
-
-  String? firstName;
-  String? lastName;
-}
-
-class Organization {
-  Organization({this.sId});
-
-  Organization.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'] as String?;
-  }
-  String? sId;
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = this.sId;
-    data['_id'] = this.sId;
-    return data;
   }
 }
 

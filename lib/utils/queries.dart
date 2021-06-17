@@ -23,22 +23,7 @@ class Queries {
                     firstName
                     lastName
                     image
-                    email
                   } 
-                  admins{
-                    _id
-                    firstName
-                    lastName
-                    image
-                    email
-                  }
-                  members{
-                    _id
-                    firstName
-                    lastName
-                    image
-                    email
-                  }
                 }
                 createdOrganizations{
                   _id
@@ -51,22 +36,7 @@ class Queries {
                     firstName
                     lastName
                     image
-                    email
                   } 
-                  admins{
-                    _id
-                    firstName
-                    lastName
-                    image
-                    email
-                  }
-                  members{
-                    _id
-                    firstName
-                    lastName
-                    image
-                    email
-                  }
                 }
                 membershipRequests{
                   organization{
@@ -80,51 +50,11 @@ class Queries {
                       firstName
                       lastName
                       image
-                      email
                     } 
-                    admins{
-                      _id
-                      firstName
-                      lastName
-                      image
-                      email
-                    }
-                    members{
-                      _id
-                      firstName
-                      lastName
-                      image
-                      email
-                    }
                   }
                 }
                 adminFor{
-                 _id
-                  name
-                  image
-                  description
-                  isPublic
-                  creator{
-                    _id
-                    firstName
-                    lastName
-                    image
-                    email
-                  } 
-                  admins{
-                    _id
-                    firstName
-                    lastName
-                    image
-                    email
-                  }
-                  members{
-                    _id
-                    firstName
-                    lastName
-                    image
-                    email
-                  }
+                  _id
                 }
               }
               refreshToken
@@ -156,22 +86,7 @@ class Queries {
                   firstName
                   lastName
                   image
-                  email
                 } 
-                admins{
-                  _id
-                  firstName
-                  lastName
-                  image
-                  email
-                }
-                members{
-                  _id
-                  firstName
-                  lastName
-                  image
-                  email
-                }
               }
               createdOrganizations{
                 _id
@@ -184,22 +99,7 @@ class Queries {
                   firstName
                   lastName
                   image
-                  email
                 } 
-                admins{
-                  _id
-                  firstName
-                  lastName
-                  image
-                  email
-                }
-                members{
-                  _id
-                  firstName
-                  lastName
-                  image
-                  email
-                }
               }
               membershipRequests{
                 organization{
@@ -213,51 +113,11 @@ class Queries {
                     firstName
                     lastName
                     image
-                    email
                   } 
-                  admins{
-                    _id
-                    firstName
-                    lastName
-                    image
-                    email
-                  }
-                  members{
-                    _id
-                    firstName
-                    lastName
-                    image
-                    email
-                  }
                 }
               }
               adminFor{
-               _id
-                name
-                image
-                description
-                isPublic
-                creator{
-                  _id
-                  firstName
-                  lastName
-                  image
-                  email
-                } 
-                admins{
-                  _id
-                  firstName
-                  lastName
-                  image
-                  email
-                }
-                members{
-                  _id
-                  firstName
-                  lastName
-                  image
-                  email
-                }
+                _id
               }
             }
             refreshToken
@@ -334,21 +194,6 @@ class Queries {
               firstName
               lastName
               image
-              email
-            }
-            admins{
-              _id
-              firstName
-              lastName
-              image
-              email
-            }
-            members{
-              _id
-              firstName
-              lastName
-              image
-              email
             }
           }
       }
@@ -371,21 +216,6 @@ class Queries {
                 firstName
                 lastName
                 image
-                email
-              }
-              admins{
-                _id
-                firstName
-                lastName
-                image
-                email
-              }
-              members{
-                _id
-                firstName
-                lastName
-                image
-                email
               }
             }
          }
@@ -412,22 +242,7 @@ class Queries {
                 firstName
                 lastName
                 image
-                email
               } 
-              admins{
-                _id
-                firstName
-                lastName
-                image
-                email
-              }
-              members{
-                _id
-                firstName
-                lastName
-                image
-                email
-              }
             }
             createdOrganizations{
               _id
@@ -440,80 +255,24 @@ class Queries {
                 firstName
                 lastName
                 image
-                email
               } 
-              admins{
-                _id
-                firstName
-                lastName
-                image
-                email
-              }
-              members{
-                _id
-                firstName
-                lastName
-                image
-                email
-              }
             }
             membershipRequests{
               organization{
                 _id
                 name
                 image
-                description
                 isPublic
                 creator{
                   _id
                   firstName
                   lastName
                   image
-                  email
-                } 
-                admins{
-                  _id
-                  firstName
-                  lastName
-                  image
-                  email
-                }
-                members{
-                  _id
-                  firstName
-                  lastName
-                  image
-                  email
                 }
               }
             }
             adminFor{
              _id
-              name
-              image
-              description
-              isPublic
-              creator{
-                _id
-                firstName
-                lastName
-                image
-                email
-              } 
-              admins{
-                _id
-                firstName
-                lastName
-                image
-                email
-              }
-              members{
-                _id
-                firstName
-                lastName
-                image
-                email
-              }
             }
           }
         }
@@ -569,7 +328,6 @@ class Queries {
           _id
           firstName
           lastName
-          email
           image
         }
       }

@@ -21,12 +21,14 @@ class CustomAvatar extends StatelessWidget {
         ? CircleAvatar(
             backgroundColor:
                 Theme.of(context).iconTheme.color!.withOpacity(0.2),
-            child: Text(
-              firstAlphabet!,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2!
-                  .copyWith(fontSize: fontSize),
+            child: Center(
+              child: Text(
+                firstAlphabet!,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2!
+                    .copyWith(fontSize: fontSize),
+              ),
             ),
           )
         : CachedNetworkImage(
