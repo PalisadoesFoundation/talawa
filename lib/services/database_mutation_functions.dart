@@ -111,13 +111,11 @@ class DataBaseMutationFunctions {
 
   Future<dynamic> gqlAuthMutation(String mutation,
       {Map<String, dynamic>? variables}) async {
-
     final QueryResult result = await clientAuth.mutate(MutationOptions(
       document: gql(mutation),
       variables: variables ?? <String, dynamic>{},
     ));
     if (result.hasException) {
-
       final bool? exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {
         gqlAuthMutation(mutation, variables: variables);

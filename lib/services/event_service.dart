@@ -44,7 +44,7 @@ class EventService {
     _dbFunctions.init();
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
 
-    final result = await _dbFunctions.gqlmutation(mutation);
+    final result = await _dbFunctions.gqlAuthMutation(mutation);
     if (result["events"] == null) return;
     final List eventsJson = result["events"] as List;
     eventsJson.forEach((eventJsonData) {
