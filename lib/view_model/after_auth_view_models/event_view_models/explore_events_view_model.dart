@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
+<<<<<<< HEAD
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -10,6 +11,16 @@ import 'package:talawa/view_model/base_view_model.dart';
 class ExploreEventsViewModel extends BaseModel {
   final _eventService = locator<EventService>();
   late StreamSubscription _eventStreamSubscription;
+=======
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/services/user_config.dart';
+import 'package:talawa/view_model/base_view_model.dart';
+
+class ExploreEventsViewModel extends BaseModel {
+  //Services
+  final _userConfig = locator<UserConfig>();
+
+>>>>>>> GSoC
   String _chosenValue = 'My Events';
   List<Event> _events = [];
 
@@ -51,6 +62,7 @@ class ExploreEventsViewModel extends BaseModel {
   }
 
   void initialise() {
+<<<<<<< HEAD
     setState(ViewState.busy);
 
     _currentOrganizationStreamSubscription = userConfig.currentOrfInfoStream
@@ -61,6 +73,10 @@ class ExploreEventsViewModel extends BaseModel {
     _bufferEvents = _events;
     setState(ViewState.idle);
   }
+=======
+    currentOrg = _userConfig.currentOrg;
+    const eventJsonResult = eventsDemoData;
+>>>>>>> GSoC
 
   @override
   void dispose() {

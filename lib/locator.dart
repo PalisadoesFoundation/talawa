@@ -18,6 +18,7 @@ import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
 GetIt locator = GetIt.instance;
@@ -65,4 +66,5 @@ void setupLocator() {
   //Widgets viewModels
   locator.registerFactory(() => ProgressDialogViewModel());
   locator.registerFactory(() => CustomDrawerViewModel());
+  locator.registerFactory(() => LikeButtonViewModel());
 }
