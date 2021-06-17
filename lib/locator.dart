@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_service.dart';
@@ -37,6 +38,8 @@ void setupLocator() {
   locator.registerSingleton(UserConfig());
 
   locator.registerLazySingleton(() => PostService());
+
+  locator.registerLazySingleton(() => EventService());
 
   //graphql
   locator.registerSingleton(GraphqlConfig());

@@ -269,4 +269,20 @@ class DataBaseMutationFunctions {
     }
     return false;
   }
+
+  Future<Map<String, dynamic>> fetchEventsByOrgId(String id) async {
+    final QueryResult result = await clientNonAuth
+        .mutate(MutationOptions(document: gql(_query.fetchOrgEvents(id))));
+
+    if (result.hasException) {
+      final bool? exception = encounteredExceptionOrError(result.exception!);
+      if (exception!) {
+        fetchEventsByOrgId(id);
+      }
+    } else if (result.data != null && result.isConcrete) {
+      return result.data!;
+    }
+    return result.data!;
+  }
 }
+//result.data!["events"];

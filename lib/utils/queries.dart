@@ -576,4 +576,34 @@ class Queries {
     }
   ''';
   }
+
+  String fetchOrgEvents(String orgId) {
+    return """
+      query {
+        events(id: "$orgId"){ 
+          _id
+          organization {
+            _id
+            image
+          }
+          title
+          description
+          isPublic
+          isRegisterable
+          recurring
+          recurrance
+          startTime
+          endTime
+          allDay
+          startTime
+          endTime
+          location
+          isRegistered
+          creator{
+            _id
+          }
+        }
+      }
+    """;
+  }
 }

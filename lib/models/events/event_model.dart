@@ -1,9 +1,11 @@
+import 'package:talawa/demo_server_data/events_demo_data.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
 class Event {
   Event(
-      {this.title,
+      {this.id,
+      this.title,
       this.description,
       this.attendees,
       this.location,
@@ -15,7 +17,7 @@ class Event {
       this.endTime,
       this.recurrence,
       this.isPublic,
-      this.isSubscribed,
+      this.isRegistered,
       this.isRegisterable,
       this.creator,
       this.organization,
@@ -26,20 +28,21 @@ class Event {
     Map<String, dynamic> json,
   ) {
     return Event(
+      id: json['_id'] as String,
       title: json['title'] as String?,
       description: json['description'] as String?,
       attendees: json['attendees'] as String?,
       location: json['location'] as String?,
-      recurring: json['recurring'] as String?,
-      allDay: json['allDay'] as String?,
+      recurring: json['recurring'] as bool?,
+      allDay: json['allDay'] as bool?,
       startDate: json['startDate'] as String?,
       endDate: json['endDate'] as String?,
       startTime: json['startTime'] as String?,
       endTime: json['endTime'] as String?,
       recurrence: json['recurrence'] as String?,
-      isPublic: json['isPublic'] as String?,
-      isSubscribed: json['isSubscribed'] as String?,
-      isRegisterable: json['isRegisterable'] as String?,
+      isPublic: json['isPublic'] as bool?,
+      isRegistered: json['isSubscribed'] as bool?,
+      isRegisterable: json['isRegisterable'] as bool?,
       creator: json['creator'] == null
           ? null
           : User.fromJson(json['creator'] as Map<String, dynamic>,
@@ -58,21 +61,21 @@ class Event {
           .toList(),
     );
   }
-
+  String? id;
   String? title;
   String? description;
   String? attendees;
   String? location;
-  String? recurring;
-  String? allDay;
+  bool? recurring;
+  bool? allDay;
   String? startDate;
   String? endDate;
   String? startTime;
   String? endTime;
   String? recurrence;
-  String? isPublic;
-  String? isSubscribed;
-  String? isRegisterable;
+  bool? isPublic;
+  bool? isRegistered;
+  bool? isRegisterable;
   User? creator;
   OrgInfo? organization;
   List<User>? admins;
