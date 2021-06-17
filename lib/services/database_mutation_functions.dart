@@ -8,7 +8,6 @@ class DataBaseMutationFunctions {
   late GraphQLClient clientNonAuth;
   late GraphQLClient clientAuth;
   late Queries _query;
-
   init() {
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
@@ -98,7 +97,6 @@ class DataBaseMutationFunctions {
       document: gql(query),
       variables: <String, dynamic>{},
     );
-
     final QueryResult result = await clientAuth.query(options);
     if (result.hasException) {
       final bool? exception = encounteredExceptionOrError(result.exception!);
@@ -113,11 +111,13 @@ class DataBaseMutationFunctions {
 
   Future<dynamic> gqlAuthMutation(String mutation,
       {Map<String, dynamic>? variables}) async {
+
     final QueryResult result = await clientAuth.mutate(MutationOptions(
       document: gql(mutation),
       variables: variables ?? <String, dynamic>{},
     ));
     if (result.hasException) {
+
       final bool? exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {
         gqlAuthMutation(mutation, variables: variables);
@@ -171,7 +171,6 @@ class DataBaseMutationFunctions {
   Future<dynamic> fetchOrgById(String id) async {
     final QueryResult result = await clientNonAuth
         .mutate(MutationOptions(document: gql(_query.fetchOrgById(id))));
-
     if (result.hasException) {
       final bool? exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {

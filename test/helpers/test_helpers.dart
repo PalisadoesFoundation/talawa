@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_service.dart';
@@ -24,6 +26,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<NavigationService>(returnNullOnMissingStub: true),
   MockSpec<GraphqlConfig>(returnNullOnMissingStub: true),
   MockSpec<PostService>(returnNullOnMissingStub: true),
+  MockSpec<EventService>(returnNullOnMissingStub: true),
   MockSpec<UserConfig>(returnNullOnMissingStub: true),
 ])
 void _removeRegistrationIfExists<T extends Object>() {
@@ -86,11 +89,25 @@ PostService getAndRegisterPostService() {
   return service;
 }
 
+EventService getAndRegisterEventService() {
+  _removeRegistrationIfExists<EventService>();
+  final service = MockEventService();
+
+  //Mock Stream for currentOrgStream
+  final StreamController<Event> _streamController = StreamController();
+  final Stream<Event> _stream = _streamController.stream.asBroadcastStream();
+  when(service.eventStream).thenAnswer((invocation) => _stream);
+
+  locator.registerSingleton<EventService>(service);
+  return service;
+}
+
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterGraphqlConfig();
   getAndRegisterUserConfig();
   getAndRegisterPostService();
+  getAndRegisterEventService();
 }
 
 void unregisterServices() {
@@ -98,6 +115,7 @@ void unregisterServices() {
   locator.unregister<GraphqlConfig>();
   locator.unregister<UserConfig>();
   locator.unregister<PostService>();
+  locator.unregister<EventService>();
 }
 
 void registerViewModels() {
