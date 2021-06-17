@@ -9,13 +9,15 @@ class EventCard extends StatelessWidget {
   final Event event;
   @override
   Widget build(BuildContext context) {
+    final bool isSubscribed = event.isRegistered ?? false;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Stack(
         children: [
           Card(
             shape: RoundedRectangleBorder(
-              side: false
+              side: isSubscribed
                   ? BorderSide(
                       color: Theme.of(context).accentColor,
                       width: SizeConfig.screenWidth! * 0.008,
@@ -171,7 +173,7 @@ class EventCard extends StatelessWidget {
           Positioned(
             top: SizeConfig.screenHeight! * 0.007,
             right: SizeConfig.screenWidth! * 0.013,
-            child: false
+            child: isSubscribed
                 ? Container(
                     height: SizeConfig.screenHeight! * 0.041,
                     width: SizeConfig.screenWidth! * 0.277,

@@ -1,4 +1,3 @@
-import 'package:talawa/demo_server_data/events_demo_data.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 

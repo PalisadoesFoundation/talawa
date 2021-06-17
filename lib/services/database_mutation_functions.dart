@@ -10,7 +10,6 @@ class DataBaseMutationFunctions {
   late GraphQLClient clientNonAuth;
   late GraphQLClient clientAuth;
   late Queries _query;
-
   init() {
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
@@ -92,7 +91,6 @@ class DataBaseMutationFunctions {
       document: gql(query),
       variables: <String, dynamic>{},
     );
-
     final QueryResult result = await clientAuth.query(options);
     if (result.hasException) {
       final bool? exception =
@@ -101,13 +99,18 @@ class DataBaseMutationFunctions {
     } else if (result.data != null && result.isConcrete) {
       return result.data!;
     }
-
     return result.data!;
   }
 
   //function to mutate the query
   Future<dynamic> gqlmutation(String mutation,
-      {Map<String, dynamic>? variables}) async {
+      {Map<String, dynamic>? variables, bool? showProgress}) async {
+    // ignore: parameter_assignments
+    showProgress = showProgress ?? false;
+    if (showProgress) {
+      navigationService
+          .pushDialog(const CustomProgressDialog(key: Key('MutationProgress')));
+    }
     final QueryResult result = await clientAuth.mutate(MutationOptions(
       document: gql(mutation),
       variables: variables ?? <String, dynamic>{},
@@ -115,11 +118,17 @@ class DataBaseMutationFunctions {
     if (result.hasException) {
       final bool? exception =
           encounteredExceptionOrError(result.exception!, showSnackBar: false);
-      if (exception!) debugPrint("Exception Occured");
+      if (exception!) {
+        debugPrint("Exception Occured");
+        refreshAccessToken(userConfig.currentUser.refreshToken!);
+        gqlmutation(mutation, variables: variables, showProgress: showProgress);
+      }
     } else if (result.data != null && result.isConcrete) {
+      if (showProgress) {
+        navigationService.pop();
+      }
       return result.data!;
     }
-
     return null;
   }
 
@@ -219,7 +228,6 @@ class DataBaseMutationFunctions {
           ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
           .toList();
       userConfig.updateUserJoinedOrg(joinedOrg!);
-      //navigatorService.pop();
       return true;
     }
     return false;
@@ -275,7 +283,6 @@ class DataBaseMutationFunctions {
   Future<dynamic> fetchOrgById(String id) async {
     final QueryResult result = await clientNonAuth
         .mutate(MutationOptions(document: gql(_query.fetchOrgById(id))));
-
     if (result.hasException) {
       final bool? exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {
@@ -287,20 +294,4 @@ class DataBaseMutationFunctions {
     }
     return false;
   }
-
-  Future<Map<String, dynamic>> fetchEventsByOrgId(String id) async {
-    final QueryResult result = await clientNonAuth
-        .mutate(MutationOptions(document: gql(_query.fetchOrgEvents(id))));
-
-    if (result.hasException) {
-      final bool? exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
-        fetchEventsByOrgId(id);
-      }
-    } else if (result.data != null && result.isConcrete) {
-      return result.data!;
-    }
-    return result.data!;
-  }
 }
-//result.data!["events"];

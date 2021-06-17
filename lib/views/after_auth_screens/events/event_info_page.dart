@@ -4,7 +4,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/services/user_config.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 
 class EventInfoPage extends StatefulWidget {

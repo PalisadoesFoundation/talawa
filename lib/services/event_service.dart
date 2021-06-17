@@ -5,29 +5,23 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
-import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/utils/event_queries.dart';
 
 class EventService {
   EventService() {
     _eventStream = _eventStreamController.stream.asBroadcastStream();
-    _userConfig = locator<UserConfig>();
-    _dbFunctions = locator<DataBaseMutationFunctions>();
-    _graphqlConfig = locator<GraphqlConfig>();
     _currentOrg = _userConfig.currentOrg;
     setOrgStreamSubscription();
   }
 
-  late UserConfig _userConfig;
-  late DataBaseMutationFunctions _dbFunctions;
+  final _userConfig = locator<UserConfig>();
+  final _dbFunctions = locator<DataBaseMutationFunctions>();
 
-  // ignore: unused_field
-  late GraphqlConfig _graphqlConfig;
-  // ignore: unused_field
   late OrgInfo _currentOrg;
   late StreamSubscription _currentOrganizationStreamSubscription;
-
   late Stream<Event> _eventStream;
+
   final List<Event> _events = [];
   final StreamController<Event> _eventStreamController =
       StreamController<Event>();
@@ -48,11 +42,11 @@ class EventService {
   Future<void> getEvents() async {
     final String currentOrgID = _currentOrg.id!;
     _dbFunctions.init();
+    final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
 
-    final Map<String, dynamic> result =
-        await _dbFunctions.fetchEventsByOrgId(currentOrgID);
+    final result = await _dbFunctions.gqlmutation(mutation);
+    if (result["events"] == null) return;
     final List eventsJson = result["events"] as List;
-
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
       if (!_ids.contains(event.id)) {

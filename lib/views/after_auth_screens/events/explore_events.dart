@@ -47,86 +47,101 @@ class ExploreEvents extends StatelessWidget {
                 ? const CircularProgressIndicator()
                 : RefreshIndicator(
                     onRefresh: () async => model.fetchNewEvents(),
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.screenWidth! * 0.027),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Stack(
+                      children: [
+                        ListView(),
+                        SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.screenWidth! * 0.027),
+                            child: Column(
                               children: [
-                                Card(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                  elevation: 2,
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    width: SizeConfig.screenWidth! * 0.55,
-                                    child: DropdownButtonHideUnderline(
-                                        child: dropDownList(model, context)),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (_) {
-                                          return const ExploreEventDialog(
-                                              key: Key('ExploreEvents'));
-                                        });
-                                  },
-                                  child: Card(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    child: SizedBox(
-                                      height: SizeConfig.screenHeight! * 0.068,
-                                      width: SizeConfig.screenWidth! * 0.27,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          const Icon(
-                                            Icons.calendar_today,
-                                            color: Color(0xff524F4F),
-                                            size: 19,
-                                          ),
-                                          const SizedBox(
-                                            width: 50,
-                                            child: Text(
-                                              "22 May",
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                          ),
-                                        ],
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Card(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                      elevation: 2,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        width: SizeConfig.screenWidth! * 0.55,
+                                        child: DropdownButtonHideUnderline(
+                                            child:
+                                                dropDownList(model, context)),
                                       ),
                                     ),
-                                  ),
-                                )
+                                    GestureDetector(
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (_) {
+                                              return const ExploreEventDialog(
+                                                  key: Key('ExploreEvents'));
+                                            });
+                                      },
+                                      child: Card(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        child: SizedBox(
+                                          height:
+                                              SizeConfig.screenHeight! * 0.068,
+                                          width: SizeConfig.screenWidth! * 0.27,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              const Icon(
+                                                Icons.calendar_today,
+                                                color: Color(0xff524F4F),
+                                                size: 19,
+                                              ),
+                                              const SizedBox(
+                                                width: 50,
+                                                child: Text(
+                                                  "22 May",
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: SizeConfig.screenHeight! * 0.027,
+                                ),
+                                ListView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: model.events.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          navigationService.pushScreen(
+                                              "/eventInfo",
+                                              arguments: model.events[index]);
+                                        },
+                                        child: EventCard(
+                                          event: model.events[index],
+                                        ),
+                                      );
+                                    }),
                               ],
                             ),
-                            SizedBox(
-                              height: SizeConfig.screenHeight! * 0.027,
-                            ),
-                            ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: model.events.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      navigationService.pushScreen("/eventInfo",
-                                          arguments: model.events[index]);
-                                    },
-                                    child: EventCard(
-                                      event: model.events[index],
-                                    ),
-                                  );
-                                }),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
             floatingActionButton: FloatingActionButton.extended(
