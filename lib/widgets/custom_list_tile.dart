@@ -37,7 +37,7 @@ class CustomListTile extends StatelessWidget {
               ? onTapUserInfo!()
               : onTapOption!(),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+        padding: const EdgeInsets.symmetric(vertical: 5),
         child: Row(
           children: [
             Expanded(

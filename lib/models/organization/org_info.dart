@@ -29,8 +29,10 @@ class OrgInfo {
       name: json['name'] as String?,
       description: json['description'] as String?,
       isPublic: json['isPublic'] as bool?,
-      creatorInfo:
-          User.fromJson(json['creator'] as Map<String, dynamic>, fromOrg: true),
+      creatorInfo: json['creator'] == null
+          ? null
+          : User.fromJson(json['creator'] as Map<String, dynamic>,
+              fromOrg: true),
       members: (json['members'] as List<dynamic>?)
           ?.map((e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true))
           .toList(),
