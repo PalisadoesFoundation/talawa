@@ -45,10 +45,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     },
                     child: Text(
                       'Add',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 16),
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: 16, color: Theme.of(context).accentColor),
                     )),
               ],
             ),
@@ -62,6 +60,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       children: [
                         const Icon(
                           Icons.image,
+                        ),
+                        SizedBox(
+                          width: SizeConfig.screenWidth! * 0.036,
                         ),
                         TextButton(
                             onPressed: () {},

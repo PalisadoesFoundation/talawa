@@ -101,10 +101,11 @@ class ExploreEvents extends StatelessWidget {
                                                 color: Color(0xff524F4F),
                                                 size: 19,
                                               ),
-                                              const SizedBox(
-                                                width: 50,
-                                                child: Text(
-                                                  "22 May",
+                                              SizedBox(
+                                                width: SizeConfig.screenWidth! *
+                                                    0.17,
+                                                child: const Text(
+                                                  "Add Date",
                                                   style:
                                                       TextStyle(fontSize: 16),
                                                 ),
