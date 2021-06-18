@@ -67,4 +67,17 @@ class EventQueries {
     }
   """;
   }
+
+  String registerForEvent() {
+    return """
+     mutation registerForEvent(\$eventId: ID!) { 
+      registerForEvent(id: \$eventId)
+        {
+        _id
+        title
+        description
+      }
+    }
+  """;
+  }
 }

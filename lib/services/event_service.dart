@@ -45,8 +45,8 @@ class EventService {
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
 
     final result = await _dbFunctions.gqlAuthMutation(mutation);
-    if (result["events"] == null) return;
-    final List eventsJson = result["events"] as List;
+    if (result.data!["events"] == null) return;
+    final List eventsJson = result.data!["events"] as List;
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
       if (!_ids.contains(event.id)) {
@@ -71,6 +71,18 @@ class EventService {
     _events.forEach((element) {
       _eventStreamController.add(element);
     });
+  }
+
+  Future<void> registerForAnEvent(String eventId) async {
+    final tokenResult = await _dbFunctions
+        .refreshAccessToken(userConfig.currentUser.refreshToken!);
+    print(tokenResult);
+    final Map<String, dynamic> variables = {'eventId': eventId};
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().registerForEvent(),
+      variables: variables,
+    );
+    print(result);
   }
 
   void _parseEventDateTime() {

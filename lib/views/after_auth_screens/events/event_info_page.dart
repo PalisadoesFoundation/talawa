@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
-import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 
@@ -36,7 +36,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
       ),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            print("OUCH!!");
+            //EventService().registerForAnEvent(widget.event.id!);
           },
           label: Text(
             "Register",
@@ -90,8 +90,6 @@ class _EventInfoPageState extends State<EventInfoPage> {
             SizedBox(
               height: SizeConfig.screenHeight! * 0.011,
             ),
-
-            //    const Divider(),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -177,9 +175,6 @@ class _EventInfoPageState extends State<EventInfoPage> {
               ],
             ),
 
-            // SizedBox(
-            //   height: SizeConfig.screenHeight! * 0.022,
-            // ),
             const Divider(),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
@@ -238,19 +233,19 @@ class _EventInfoPageState extends State<EventInfoPage> {
               color: Theme.of(context).colorScheme.onBackground,
               thickness: 2,
             ),
-            //Needs to be replaced with actual event attendees
+
+            //  Needs to be replaced with actual event attendees
             ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: userConfig.currentOrg.members!.length,
+                itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
-                  final User attendee = userConfig.currentOrg.members![index];
                   return CustomListTile(
                       key: Key('Attendee$index'),
                       index: index,
                       type: TileType.user,
-                      userInfo: attendee,
+                      userInfo: userConfig.currentUser,
                       onTapUserInfo: () {});
                 })
           ],

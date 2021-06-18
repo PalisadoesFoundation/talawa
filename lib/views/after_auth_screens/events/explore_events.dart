@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
@@ -101,10 +102,11 @@ class ExploreEvents extends StatelessWidget {
                                                 color: Color(0xff524F4F),
                                                 size: 19,
                                               ),
-                                              const SizedBox(
-                                                width: 50,
-                                                child: Text(
-                                                  "22 May",
+                                              SizedBox(
+                                                width: SizeConfig.screenWidth! *
+                                                    0.17,
+                                                child: const Text(
+                                                  "Add Date",
                                                   style:
                                                       TextStyle(fontSize: 16),
                                                 ),
