@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 class SignupDetailsViewModel extends BaseModel {
   final formKey = GlobalKey<FormState>();
@@ -48,38 +51,68 @@ class SignupDetailsViewModel extends BaseModel {
     ];
   }
 
-  next() async {
+  signUp() async {
     FocusScope.of(navigationService.navigatorKey.currentContext!).unfocus();
     setState(ViewState.busy);
     validate = AutovalidateMode.always;
     setState(ViewState.idle);
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
+      navigationService
+          .pushDialog(const CustomProgressDialog(key: Key('SignUpProgress')));
       databaseFunctions.init();
-      final bool signUpSuccess = await databaseFunctions.signup(
-          firstName.text, lastName.text, email.text, password.text);
-      if (signUpSuccess) {
-        if (selectedOrganization.isPublic!) {
-          final bool successJoin =
-              await databaseFunctions.joinPublicOrg(selectedOrganization.id!);
-          if (successJoin) {
-            userConfig.currentUser.print();
-            userConfig.saveCurrentOrgInHive(
-                userConfig.currentUser.joinedOrganizations![0]);
-            navigationService.removeAllAndPush('/mainScreen', '/');
+      try {
+        final QueryResult result = await databaseFunctions.gqlNonAuthMutation(
+                queries.registerUser(
+                    firstName.text, lastName.text, email.text, password.text))
+            as QueryResult;
+        final User signedInUser =
+            User.fromJson(result.data!['signUp'] as Map<String, dynamic>);
+        final bool userSaved = await userConfig.updateUser(signedInUser);
+        final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
+        if (userSaved && tokenRefreshed) {
+          if (selectedOrganization.isPublic!) {
+            try {
+              final QueryResult result =
+                  await databaseFunctions.gqlAuthMutation(
+                          queries.joinOrgById(selectedOrganization.id!))
+                      as QueryResult;
+
+              final List<OrgInfo>? joinedOrg =
+                  (result.data!['joinPublicOrganization']['joinedOrganizations']
+                          as List<dynamic>?)
+                      ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+                      .toList();
+              userConfig.updateUserJoinedOrg(joinedOrg!);
+              userConfig.saveCurrentOrgInHive(
+                  userConfig.currentUser.joinedOrganizations![0]);
+              navigationService.removeAllAndPush('/mainScreen', '/');
+            } on Exception catch (e) {
+              print(e);
+              navigationService.showSnackBar('SomeThing went wrong');
+            }
           } else {
-            navigationService.showSnackBar('SomeThing went wrong');
-          }
-        } else {
-          final bool successRequest = await databaseFunctions
-              .sendMembershipRequest(selectedOrganization.id!);
-          if (successRequest) {
-            userConfig.currentUser.print();
-            navigationService.removeAllAndPush('/waiting', '/');
-          } else {
-            navigationService.showSnackBar('SomeThing went wrong');
+            try {
+              final QueryResult result =
+                  await databaseFunctions.gqlAuthMutation(queries
+                          .sendMembershipRequest(selectedOrganization.id!))
+                      as QueryResult;
+
+              final OrgInfo membershipRequest = OrgInfo.fromJson(
+                  result.data!['sendMembershipRequest']['organization']
+                      as Map<String, dynamic>);
+              userConfig.updateUserMemberRequestOrg([membershipRequest]);
+              navigationService.pop();
+              navigationService.removeAllAndPush('/waiting', '/');
+            } on Exception catch (e) {
+              print(e);
+              navigationService.showSnackBar('SomeThing went wrong');
+            }
           }
         }
+      } on Exception catch (e) {
+        print(e);
+        navigationService.showSnackBar('SomeThing went wrong');
       }
     }
   }

@@ -5,8 +5,8 @@ import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
-
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 class CreateEventViewModel extends BaseModel {
   TextEditingController eventTitleTextController = TextEditingController();
@@ -52,8 +52,13 @@ class CreateEventViewModel extends BaseModel {
       'endTime': endTime.microsecondsSinceEpoch.toString(),
     };
     _dbFunctions.init();
-    final result = await _dbFunctions.gqlmutation(EventQueries().addEvent(),
-        variables: variables, showProgress: true);
+    navigationService.pushDialog(
+        const CustomProgressDialog(key: Key('EventCreationProgress')));
+    final result = await _dbFunctions.gqlAuthMutation(
+      EventQueries().addEvent(),
+      variables: variables,
+    );
+    navigationService.pop();
     print('Result is : $result');
     if (result != null) {
       navigationService.pop();

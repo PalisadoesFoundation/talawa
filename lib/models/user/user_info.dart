@@ -11,7 +11,7 @@ class User extends HiveObject {
       this.createdOrganizations,
       this.email,
       this.firstName,
-      required this.id,
+      this.id,
       this.image,
       this.joinedOrganizations,
       this.lastName,
@@ -30,23 +30,32 @@ class User extends HiveObject {
         authToken: fromOrg ? ' ' : json1['accessToken'] as String?,
         refreshToken: fromOrg ? ' ' : json1['refreshToken'] as String?,
         id: json['_id'] as String?,
-        firstName: json['firstName'] as String?,
-        lastName: json['lastName'] as String?,
-        email: json['email'] as String?,
-        image: json['image'] as String?,
-        adminFor: (json['adminFor'] as List<dynamic>?)
-            ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        createdOrganizations: (json['createdOrganizations'] as List<dynamic>?)
-            ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        joinedOrganizations: (json['joinedOrganizations'] as List<dynamic>?)
-            ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        membershipRequests: (json['membershipRequests'] as List<dynamic>?)
-            ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>,
-                memberRequest: true))
-            .toList());
+        firstName:
+            json['firstName'] != null ? json['firstName'] as String? : null,
+        lastName: json['lastName'] != null ? json['lastName'] as String? : null,
+        email: json['email'] != null ? json['email'] as String? : null,
+        image: json['image'] != null ? json['image'] as String? : null,
+        adminFor: json['adminFor'] != null
+            ? (json['adminFor'] as List<dynamic>?)
+                ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+                .toList()
+            : null,
+        createdOrganizations: json['createdOrganizations'] != null
+            ? (json['createdOrganizations'] as List<dynamic>?)
+                ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+                .toList()
+            : null,
+        joinedOrganizations: json['joinedOrganizations'] != null
+            ? (json['joinedOrganizations'] as List<dynamic>?)
+                ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+                .toList()
+            : null,
+        membershipRequests: json['membershipRequests'] != null
+            ? (json['membershipRequests'] as List<dynamic>?)
+                ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>,
+                    memberRequest: true))
+                .toList()
+            : null);
   }
 
   print() {

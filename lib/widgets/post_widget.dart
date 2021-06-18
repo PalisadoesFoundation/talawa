@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/post_detailed_page.dart';
 
 class NewsPost extends StatelessWidget {
@@ -21,14 +22,18 @@ class NewsPost extends StatelessWidget {
       children: [
         // const PinnedPostCarousel(),
         ListTile(
-          leading: const CircleAvatar(
-            backgroundColor: Color(0xFF737373),
+          leading: CustomAvatar(
+            isImageNull: post.creator!.image == null,
+            firstAlphabet:
+                post.creator!.firstName!.substring(0, 1).toUpperCase(),
+            imageUrl: post.creator!.image,
+            fontSize: 24,
           ),
           title: Text(
-            "${post.creator.firstName} ${post.creator.lastName}",
-            style: const TextStyle(fontSize: 18),
+            "${post.creator!.firstName} ${post.creator!.lastName}",
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
           ),
-          subtitle: const Text("3m"),
+          subtitle: Text(post.getPostCreatedDuration()),
         ),
         DescriptionTextWidget(text: post.description!),
         Container(

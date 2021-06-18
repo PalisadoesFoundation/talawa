@@ -4,8 +4,8 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_form.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/event_date_time_tile.dart';
 import 'package:talawa/widgets/date_time_picker.dart';
+import 'package:talawa/widgets/event_date_time_tile.dart';
 
 class CreateEventPage extends StatefulWidget {
   const CreateEventPage({Key? key}) : super(key: key);
@@ -213,7 +213,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       children: [
                         Text('Keep Public', style: _subtitleTextStyle),
                         SizedBox(
-                          width: SizeConfig.screenWidth! * 0.023,
+                          width: SizeConfig.screenWidth! * 0.005,
                         ),
                         Switch(
                           value: model.isPublicSwitch,
@@ -228,7 +228,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         const Spacer(),
                         Text('Keep Registerable', style: _subtitleTextStyle),
                         SizedBox(
-                          width: SizeConfig.screenWidth! * 0.023,
+                          width: SizeConfig.screenWidth! * 0.005,
                         ),
                         Switch(
                           value: model.isRegisterableSwitch,

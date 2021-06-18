@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/utils/queries.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 class DataBaseMutationFunctions {
   late GraphQLClient clientNonAuth;
@@ -44,9 +42,17 @@ class DataBaseMutationFunctions {
       for (int i = 0; i < exception.graphqlErrors.length; i++) {
         if (exception.graphqlErrors[i].message ==
             refreshAccessTokenExpiredException.message) {
+          print('token refreshed');
+          refreshAccessToken(userConfig.currentUser.refreshToken!).then(
+              (value) => graphqlConfig
+                  .getToken()
+                  .then((value) => databaseFunctions.init()));
+          print('client refreshed');
           return true;
         } else if (exception.graphqlErrors[i].message ==
             userNotAuthenticated.message) {
+          print('client refreshed');
+          graphqlConfig.getToken().then((value) => databaseFunctions.init());
           return true;
         } else if (exception.graphqlErrors[i].message == userNotFound.message) {
           if (showSnackBar) {
@@ -86,48 +92,52 @@ class DataBaseMutationFunctions {
     }
   }
 
-  Future<Map<String, dynamic>> gqlquery(String query) async {
+  Future<dynamic> gqlAuthQuery(String query) async {
     final QueryOptions options = QueryOptions(
       document: gql(query),
       variables: <String, dynamic>{},
     );
     final QueryResult result = await clientAuth.query(options);
     if (result.hasException) {
-      final bool? exception =
-          encounteredExceptionOrError(result.exception!, showSnackBar: false);
-      if (exception!) debugPrint("Exception Occured");
+      final bool? exception = encounteredExceptionOrError(result.exception!);
+      if (exception!) {
+        gqlAuthQuery(query);
+      }
     } else if (result.data != null && result.isConcrete) {
-      return result.data!;
+      return result;
     }
-    return result.data!;
+    return null;
   }
 
-  //function to mutate the query
-  Future<dynamic> gqlmutation(String mutation,
-      {Map<String, dynamic>? variables, bool? showProgress}) async {
-    // ignore: parameter_assignments
-    showProgress = showProgress ?? false;
-    if (showProgress) {
-      navigationService
-          .pushDialog(const CustomProgressDialog(key: Key('MutationProgress')));
-    }
+  Future<dynamic> gqlAuthMutation(String mutation,
+      {Map<String, dynamic>? variables}) async {
     final QueryResult result = await clientAuth.mutate(MutationOptions(
       document: gql(mutation),
       variables: variables ?? <String, dynamic>{},
     ));
     if (result.hasException) {
-      final bool? exception =
-          encounteredExceptionOrError(result.exception!, showSnackBar: false);
+      final bool? exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {
-        debugPrint("Exception Occured");
-        refreshAccessToken(userConfig.currentUser.refreshToken!);
-        gqlmutation(mutation, variables: variables, showProgress: showProgress);
+        gqlAuthMutation(mutation, variables: variables);
       }
     } else if (result.data != null && result.isConcrete) {
-      if (showProgress) {
-        navigationService.pop();
+      return result;
+    }
+    return null;
+  }
+
+  Future<dynamic> gqlNonAuthMutation(String mutation,
+      {Map<String, dynamic>? variables, bool reCall = true}) async {
+    final QueryResult result = await clientNonAuth.mutate(MutationOptions(
+        document: gql(mutation), variables: variables ?? <String, dynamic>{}));
+
+    if (result.hasException) {
+      final bool? exception = encounteredExceptionOrError(result.exception!);
+      if (exception! && reCall) {
+        gqlNonAuthMutation(mutation, variables: variables);
       }
-      return result.data!;
+    } else if (result.data != null && result.isConcrete) {
+      return result;
     }
     return null;
   }
@@ -150,131 +160,7 @@ class DataBaseMutationFunctions {
       userConfig.updateAccessToken(
           refreshToken: result.data!['refreshToken']['refreshToken'].toString(),
           accessToken: result.data!['refreshToken']['accessToken'].toString());
-      return true;
-    }
-    return false;
-  }
-
-  Future<bool> login(String email, String password) async {
-    navigationService
-        .pushDialog(const CustomProgressDialog(key: Key('LoginProgress')));
-
-    final QueryResult result = await clientNonAuth.mutate(
-        MutationOptions(document: gql(_query.loginUser(email, password))));
-    if (result.hasException) {
-      final bool? exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
-        login(email, password);
-      } else {
-        navigationService.pop();
-      }
-    } else if (result.data != null && result.isConcrete) {
-      navigationService.pop();
-      final User loggedInUser =
-          User.fromJson(result.data!['login'] as Map<String, dynamic>);
-      userConfig.updateUser(loggedInUser);
-      if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-        navigationService.removeAllAndPush('/waiting', '/');
-      } else {
-        userConfig.saveCurrentOrgInHive(
-            userConfig.currentUser.joinedOrganizations![0]);
-        navigationService.removeAllAndPush('/mainScreen', '/');
-      }
-      return true;
-    }
-    return false;
-  }
-
-  Future<bool> signup(
-      String firstName, String lastName, String email, String password) async {
-    navigationService
-        .pushDialog(const CustomProgressDialog(key: Key('SignUpProgress')));
-
-    final QueryResult result = await clientNonAuth.mutate(MutationOptions(
-        document:
-            gql(_query.registerUser(firstName, lastName, email, password))));
-    if (result.hasException) {
-      final bool? exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
-        login(email, password);
-      } else {
-        navigationService.pop();
-      }
-    } else if (result.data != null && result.isConcrete) {
-      final User signedInUser =
-          User.fromJson(result.data!['signUp'] as Map<String, dynamic>);
-      final bool userSaved = await userConfig.updateUser(signedInUser);
-      final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
-      return userSaved && tokenRefreshed;
-    }
-    return false;
-  }
-
-  Future<bool> joinPublicOrg(String id) async {
-    final QueryResult result = await clientAuth
-        .mutate(MutationOptions(document: gql(_query.joinOrgById(id))));
-
-    if (result.hasException) {
-      final bool? exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
-        refreshAccessToken(userConfig.currentUser.refreshToken!)
-            .then((value) => joinPublicOrg(id));
-      } else {
-        //navigatorService.pop();
-      }
-    } else if (result.data != null && result.isConcrete) {
-      final List<OrgInfo>? joinedOrg = (result.data!['joinPublicOrganization']
-              ['joinedOrganizations'] as List<dynamic>?)
-          ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-          .toList();
-      userConfig.updateUserJoinedOrg(joinedOrg!);
-      return true;
-    }
-    return false;
-  }
-
-  Future<bool> sendMembershipRequest(String id) async {
-    final QueryResult result = await clientAuth.mutate(
-        MutationOptions(document: gql(_query.sendMembershipRequest(id))));
-    if (result.hasException) {
-      final bool? exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
-        refreshAccessToken(userConfig.currentUser.refreshToken!)
-            .then((value) => sendMembershipRequest(id));
-      } else {
-        navigationService.pop();
-      }
-    } else if (result.data != null && result.isConcrete) {
-      print(result.data!['sendMembershipRequest']['organization']);
-      final OrgInfo membershipRequest = OrgInfo.fromJson(
-          result.data!['sendMembershipRequest']['organization']
-              as Map<String, dynamic>);
-      userConfig.updateUserMemberRequestOrg([membershipRequest]);
-      navigationService.pop();
-      return true;
-    }
-    return false;
-  }
-
-  Future<bool> fetchCurrentUserInfo(String id) async {
-    final QueryResult result = await clientNonAuth.mutate(MutationOptions(
-        document: gql(_query.fetchUserInfo), variables: {'id': id}));
-
-    if (result.hasException) {
-      final bool? exception =
-          encounteredExceptionOrError(result.exception!, showSnackBar: false);
-      if (exception!) {
-        fetchCurrentUserInfo(id);
-      } else {
-        //navigatorService.pop();
-      }
-    } else if (result.data != null && result.isConcrete) {
-      final User userInfo = User.fromJson(
-          result.data!['users'][0] as Map<String, dynamic>,
-          fromOrg: true);
-      userInfo.authToken = userConfig.currentUser.authToken;
-      userInfo.refreshToken = userConfig.currentUser.refreshToken;
-      userConfig.updateUser(userInfo);
+      databaseFunctions.init();
       return true;
     }
     return false;

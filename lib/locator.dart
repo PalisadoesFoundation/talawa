@@ -7,6 +7,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
@@ -28,6 +29,7 @@ final navigationService = locator<NavigationService>();
 final databaseFunctions = locator<DataBaseMutationFunctions>();
 final graphqlConfig = locator<GraphqlConfig>();
 final sizeConfig = locator<SizeConfig>();
+final queries = locator<Queries>();
 
 void setupLocator() {
   //services
@@ -48,6 +50,9 @@ void setupLocator() {
 
   //databaseMutationFunction
   locator.registerSingleton(DataBaseMutationFunctions());
+
+  //queries
+  locator.registerSingleton(Queries());
 
   //Page viewModels
   locator.registerFactory(() => DemoViewModel());
