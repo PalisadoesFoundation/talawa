@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
-import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 
