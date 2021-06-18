@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/join_org_tile.dart';
+import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
-import 'package:talawa/widgets/signup_progress_bar.dart';
-
-import '../../locator.dart';
+import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 class SelectOrganization extends StatefulWidget {
   const SelectOrganization({required Key key, required this.selectedOrgId})
@@ -34,7 +33,7 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                     Icons.arrow_back,
                   ),
                   onPressed: () {
-                    locator<NavigationService>().pop();
+                    navigationService.pop();
                   },
                 ),
               ),
@@ -45,7 +44,7 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SignupProgressBar(
+                        SignupProgressIndicator(
                             key: const Key('SelectOrg'), currentPageIndex: 0),
                         model.selectedOrganization.id != '-1'
                             ? Padding(
@@ -57,11 +56,12 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                               )
                             : const SizedBox(),
                         model.selectedOrganization.id != '-1'
-                            ? JoinOrgTile(
+                            ? CustomListTile(
                                 index: model.organizations
                                     .indexOf(model.selectedOrganization),
-                                item: model.selectedOrganization,
-                                onTap: (item) => model.selectOrg(item),
+                                type: TileType.org,
+                                orgInfo: model.selectedOrganization,
+                                onTapOrgInfo: (item) => model.selectOrg(item),
                                 key: const Key('OrgSelItem'),
                                 showIcon: false,
                               )

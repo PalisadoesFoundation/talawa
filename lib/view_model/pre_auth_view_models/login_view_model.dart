@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/database_mutation_functions.dart';
-import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 class LoginViewModel extends BaseModel {
-  final databaseService = locator<DataBaseMutationFunctions>();
   final formKey = GlobalKey<FormState>();
   late List<Map<String, dynamic>> greeting;
   TextEditingController password = TextEditingController();
@@ -19,33 +19,29 @@ class LoginViewModel extends BaseModel {
     greeting = [
       {
         'text': "We're ",
-        'textStyle':
-            Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-                .textTheme
-                .headline5
+        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+            .textTheme
+            .headline5
       },
       {
         'text': 'Glad ',
-        'textStyle':
-            Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-                .textTheme
-                .headline6!
-                .copyWith(fontSize: 24)
+        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+            .textTheme
+            .headline6!
+            .copyWith(fontSize: 24)
       },
       {
         'text': "you're ",
-        'textStyle':
-            Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-                .textTheme
-                .headline5
+        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+            .textTheme
+            .headline5
       },
       {
         'text': 'Back ',
-        'textStyle':
-            Theme.of(locator<NavigationService>().navigatorKey.currentContext!)
-                .textTheme
-                .headline6!
-                .copyWith(fontSize: 24)
+        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
+            .textTheme
+            .headline6!
+            .copyWith(fontSize: 24)
       },
     ];
   }
@@ -56,10 +52,26 @@ class LoginViewModel extends BaseModel {
     validate = AutovalidateMode.always;
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
-      databaseService.init();
-      final bool loginSuccess =
-          await databaseService.login(email.text, password.text);
-      print(loginSuccess ? 'logging in' : 'failed');
+      navigationService
+          .pushDialog(const CustomProgressDialog(key: Key('LoginProgress')));
+      databaseFunctions.init();
+      try {
+        final QueryResult result = await databaseFunctions.gqlNonAuthMutation(
+            queries.loginUser(email.text, password.text)) as QueryResult;
+        navigationService.pop();
+        final User loggedInUser =
+            User.fromJson(result.data!['login'] as Map<String, dynamic>);
+        userConfig.updateUser(loggedInUser);
+        if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
+          navigationService.removeAllAndPush('/waiting', '/');
+        } else {
+          userConfig.saveCurrentOrgInHive(
+              userConfig.currentUser.joinedOrganizations![0]);
+          navigationService.removeAllAndPush('/mainScreen', '/');
+        }
+      } on Exception catch (e) {
+        print(e);
+      }
     }
   }
 }

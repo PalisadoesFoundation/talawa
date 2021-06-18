@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talawa/view_model/organization_feed_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/pinned_carousel_widget.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
@@ -19,6 +19,7 @@ class OrganizationFeed extends StatelessWidget {
               centerTitle: true,
               title: Text(
                 model.currentOrgName,
+                // "hii",
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
@@ -31,24 +32,27 @@ class OrganizationFeed extends StatelessWidget {
             ),
             body: model.isBusy
                 ? const CircularProgressIndicator()
-                : ListView(
-                    children: [
-                      model.pinnedPosts.isNotEmpty
-                          ? PinnedPostCarousel(
-                              pinnedPosts: model.pinnedPosts,
-                              navigateToPinnedPostPage:
-                                  model.navigateToPinnedPostPage,
-                              navigateToIndividualPostPage:
-                                  model.navigateToIndividualPage,
-                            )
-                          : Container(),
-                      model.posts.isNotEmpty
-                          ? PostListWidget(
-                              posts: model.posts,
-                              function: model.navigateToIndividualPage,
-                            )
-                          : Container(),
-                    ],
+                : RefreshIndicator(
+                    onRefresh: () async => model.fetchNewPosts(),
+                    child: ListView(
+                      children: [
+                        model.pinnedPosts.isNotEmpty
+                            ? PinnedPostCarousel(
+                                pinnedPosts: model.pinnedPosts,
+                                navigateToPinnedPostPage:
+                                    model.navigateToPinnedPostPage,
+                                navigateToIndividualPostPage:
+                                    model.navigateToIndividualPage,
+                              )
+                            : Container(),
+                        model.posts.isNotEmpty
+                            ? PostListWidget(
+                                posts: model.posts,
+                                function: model.navigateToIndividualPage,
+                              )
+                            : Container(),
+                      ],
+                    ),
                   ));
       },
     );

@@ -9,6 +9,11 @@ class NavigationService {
         .pushNamed(routeName, arguments: arguments);
   }
 
+  Future<dynamic> popAndPushScreen(String routeName, {dynamic arguments}) {
+    navigatorKey.currentState!.pop();
+    return pushScreen(routeName, arguments: arguments);
+  }
+
   Future<dynamic> pushReplacementScreen(String routeName, {dynamic arguments}) {
     return navigatorKey.currentState!
         .pushReplacementNamed(routeName, arguments: arguments);

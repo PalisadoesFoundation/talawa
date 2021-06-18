@@ -28,7 +28,8 @@ class TalawaTheme {
       colorScheme: const ColorScheme.light(
           primaryVariant: _lightPrimaryVariantColor,
           primary: _lightColorSchemePrimary,
-          secondary: Color(0xffF5F5F5)),
+          secondary: Color(0xffF5F5F5),
+          secondaryVariant: _darkScaffoldColor),
       accentColor: _lightAccentColor,
       iconTheme: const IconThemeData(
         color: _lightIconColor,
@@ -46,7 +47,8 @@ class TalawaTheme {
       colorScheme: const ColorScheme.dark(
           primaryVariant: _darkPrimaryVariantColor,
           primary: _darkColorSchemePrimary,
-          secondary: Colors.black),
+          secondary: Colors.black,
+          secondaryVariant: _lightScaffoldColor),
       iconTheme: const IconThemeData(
         color: _darkIconColor,
       ),

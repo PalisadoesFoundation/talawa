@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/widgets/member_list_tile.dart';
+import 'package:talawa/widgets/custom_list_tile.dart';
 
 class EventInfoPage extends StatefulWidget {
   const EventInfoPage({Key? key, required this.event}) : super(key: key);
@@ -65,32 +68,46 @@ class _EventInfoPageState extends State<EventInfoPage> {
                 const Icon(Icons.chat_bubble_outline)
               ],
             ),
-            Text(
-              "Created by: ${widget.event.creator!.firstName} ${widget.event.creator!.lastName}",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText2!
-                  .copyWith(fontWeight: FontWeight.w600),
+            Row(
+              children: [
+                widget.event.creator!.firstName != null
+                    ? Text(
+                        "Created by: ${widget.event.creator!.firstName} ${widget.event.creator!.lastName}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(fontWeight: FontWeight.w600),
+                      )
+                    : Text(
+                        "Created by: Luke Skywalker",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(fontWeight: FontWeight.w600),
+                      ),
+              ],
             ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.011,
             ),
+
             //    const Divider(),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Icon(
-                  Icons.schedule,
-                  size: 12,
+                  Icons.calendar_today,
+                  size: 13,
                 ),
                 SizedBox(
-                  width: SizeConfig.screenWidth! * 0.025,
+                  width: SizeConfig.screenWidth! * 0.027,
                 ),
                 Text(
-                  "${widget.event.startTime!} - ${widget.event.endTime!}",
+                  "${widget.event.startDate!} - ${widget.event.endDate!}",
                   style: Theme.of(context).textTheme.caption,
                 ),
                 const Spacer(),
-                widget.event.isPublic == 'true'
+                widget.event.isPublic!
                     ? Icon(
                         Icons.lock_open,
                         size: 13,
@@ -102,9 +119,9 @@ class _EventInfoPageState extends State<EventInfoPage> {
                         color: Theme.of(context).colorScheme.primary,
                       ),
                 SizedBox(
-                  width: SizeConfig.screenWidth! * 0.013,
+                  width: SizeConfig.screenWidth! * 0.027,
                 ),
-                widget.event.isPublic == 'true'
+                widget.event.isPublic!
                     ? Text(
                         'public',
                         style: Theme.of(context).textTheme.caption,
@@ -119,32 +136,47 @@ class _EventInfoPageState extends State<EventInfoPage> {
               height: SizeConfig.screenHeight! * 0.011,
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Icon(
-                  Icons.calendar_today,
-                  size: 13,
+                  Icons.schedule,
+                  size: 12,
                 ),
                 SizedBox(
-                  width: SizeConfig.screenWidth! * 0.027,
+                  width: SizeConfig.screenWidth! * 0.025,
                 ),
                 Text(
-                  "${widget.event.startDate!} - ${widget.event.endDate!}",
+                  "${widget.event.startTime!} - ${widget.event.endTime!}",
                   style: Theme.of(context).textTheme.caption,
                 ),
-                const Spacer(),
+              ],
+            ),
+            SizedBox(
+              height: SizeConfig.screenHeight! * 0.011,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 const Icon(
                   Icons.place,
                   size: 12,
                 ),
                 SizedBox(
-                  width: SizeConfig.screenWidth! * 0.013,
+                  width: SizeConfig.screenWidth! * 0.027,
                 ),
-                Text(
-                  widget.event.location!,
-                  style: Theme.of(context).textTheme.caption,
+                SizedBox(
+                  width: SizeConfig.screenWidth! * 0.88,
+                  child: Text(
+                    widget.event.location!,
+                    style: Theme.of(context).textTheme.caption,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                    maxLines: 3,
+                  ),
                 ),
               ],
             ),
+
             // SizedBox(
             //   height: SizeConfig.screenHeight! * 0.022,
             // ),
@@ -176,10 +208,12 @@ class _EventInfoPageState extends State<EventInfoPage> {
               color: Theme.of(context).colorScheme.onBackground,
               thickness: 2,
             ),
-            MemberListTile(
-                userImageUrl: ' ',
-                firstName: widget.event.admins![0].firstName!,
-                lastName: widget.event.admins![0].lastName!),
+            CustomListTile(
+                index: 0,
+                key: const Key('Admins'),
+                type: TileType.user,
+                userInfo: userConfig.currentUser,
+                onTapUserInfo: () {}),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
             ),
@@ -204,17 +238,21 @@ class _EventInfoPageState extends State<EventInfoPage> {
               color: Theme.of(context).colorScheme.onBackground,
               thickness: 2,
             ),
+            //Needs to be replaced with actual event attendees
             ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: widget.event.registrants!.length,
+                itemCount: userConfig.currentOrg.members!.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return MemberListTile(
-                      userImageUrl: ' ',
-                      firstName: widget.event.registrants![index].firstName!,
-                      lastName: widget.event.registrants![index].lastName!);
-                }),
+                  final User attendee = userConfig.currentOrg.members![index];
+                  return CustomListTile(
+                      key: Key('Attendee$index'),
+                      index: index,
+                      type: TileType.user,
+                      userInfo: attendee,
+                      onTapUserInfo: () {});
+                })
           ],
         ),
       ),

@@ -3,7 +3,6 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/user_config.dart';
 
 class GraphqlConfig {
   static const imageUrlKey = "imageUrl";
@@ -16,7 +15,7 @@ class GraphqlConfig {
   String? displayImgRoute;
 
   Future getToken() async {
-    final _token = locator<UserConfig>().currentUser.authToken;
+    final _token = userConfig.currentUser.authToken;
     token = _token;
     getOrgUrl();
     return true;
@@ -44,7 +43,7 @@ class GraphqlConfig {
     final AuthLink authLink = AuthLink(getToken: () async => 'Bearer $token');
     final Link finalAuthLink = authLink.concat(httpLink);
     return GraphQLClient(
-      cache: GraphQLCache(),
+      cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
       link: finalAuthLink,
     );
   }

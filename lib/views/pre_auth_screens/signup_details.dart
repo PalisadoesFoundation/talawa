@@ -6,7 +6,7 @@ import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
-import 'package:talawa/widgets/signup_progress_bar.dart';
+import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 class SignUpDetails extends StatefulWidget {
   const SignUpDetails({required Key key, required this.selectedOrg})
@@ -36,7 +36,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SignupProgressBar(
+                          SignupProgressIndicator(
                               key: const Key('SelectOrg'), currentPageIndex: 1),
                           Form(
                             key: model.formKey,
@@ -195,7 +195,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 ),
                                 RaisedRoundedButton(
                                   buttonLabel: 'Next',
-                                  onTap: model.next,
+                                  onTap: model.signUp,
                                   textColor: const Color(0xFF008A37),
                                   key: const Key('SignUpLoginDetailsButton'),
                                   backgroundColor: Colors.white,

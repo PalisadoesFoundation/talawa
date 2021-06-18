@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../services/size_config.dart';
+import 'package:talawa/services/size_config.dart';
 
 class RaisedRoundedButton extends StatefulWidget {
   const RaisedRoundedButton(

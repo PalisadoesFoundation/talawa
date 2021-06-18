@@ -1,15 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/main.dart';
+import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
-import 'package:talawa/views/after_auth_screens/feed_page/individual_post.dart';
-import 'package:talawa/views/after_auth_screens/feed_page/organization_feed.dart';
-import 'package:talawa/views/after_auth_screens/feed_page/pinned_post_page.dart';
+import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
+import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
+import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
+import 'package:talawa/views/after_auth_screens/join_organisation_after_auth.dart';
+import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
+import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
@@ -19,9 +24,6 @@ import 'package:talawa/views/pre_auth_screens/select_organization.dart';
 import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/signup_details.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart';
-
-import 'constants/routing_constants.dart';
-import 'models/events/event_model.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -81,7 +83,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
                 key: const Key('IndividualPost'),
                 post: post,
               ));
-    case Routes.pinnedPostpage:
+    case Routes.pinnedPostPage:
       final List<Post> pinnedPosts = settings.arguments! as List<Post>;
       return MaterialPageRoute(
           builder: (context) => PinnedPostPage(pinnedPosts: pinnedPosts));
@@ -97,6 +99,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.createEventPage:
       return MaterialPageRoute(
           builder: (context) => const CreateEventPage(key: Key('CreateEvent')));
+    case Routes.profilePage:
+      return MaterialPageRoute(
+          builder: (context) => const ProfilePage(key: Key('Profile')));
+    case Routes.editProfilePage:
+      return MaterialPageRoute(
+          builder: (context) => const EditProfilePage(key: Key('EditProfile')));
+    case Routes.joinOrg:
+      return MaterialPageRoute(
+          builder: (context) => const JoinOrganisationAfterAuth(
+              key: Key('JoinOrganisationAfterAuth')));
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(
