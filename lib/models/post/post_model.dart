@@ -1,46 +1,96 @@
-import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
 class Post {
   Post(
-      {this.description,
+      {required this.sId,
+      this.description,
       this.createdAt,
-      this.image,
+      this.imageUrl,
       this.videoUrl,
-      this.creator,
+      required this.creator,
       this.organization,
       this.likedBy,
       this.comments});
 
-  factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(
-      description: json['description'] as String?,
-      createdAt: json['createdAt'] as String?,
-      image: json['image'] as String?,
-      videoUrl: json['videoUrl'] as String?,
-      creator: json['creator'] == null
-          ? null
-          : User.fromJson(json['creator'] as Map<String, dynamic>,
-              fromOrg: true),
-      organization: json['organization'] == null
-          ? null
-          : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
-      likedBy: (json['likedBy'] as List<dynamic>?)
-          ?.map((e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true))
-          .toList(),
-      comments: (json['comments'] as List<dynamic>?)
-          ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  Post.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'] as String;
+    description = json['text'] as String?;
+    createdAt = DateTime.fromMillisecondsSinceEpoch(
+        int.parse(json['createdAt'] as String));
+    imageUrl = json['imageUrl'] as String?;
+    videoUrl = json['videoUrl'] as String?;
+    creator = json['creator'] != null
+        ? User.fromJson(json['creator'] as Map<String, dynamic>, fromOrg: true)
+        : null;
+    organization = json['organization'] != null
+        ? OrgInfo.fromJson(json['organization'] as Map<String, dynamic>)
+        : null;
+    if (json['likedBy'] != null) {
+      likedBy = <LikedBy>[];
+      json['likedBy'].forEach((v) {
+        likedBy?.add(LikedBy.fromJson(v as Map<String, dynamic>));
+      });
+    }
+    if (json['comments'] != null) {
+      comments = <Comments>[];
+      json['comments'].forEach((v) {
+        comments?.add(Comments.fromJson(v as Map<String, dynamic>));
+      });
+    }
   }
 
+  late String sId;
   String? description;
-  String? createdAt;
-  String? image;
+  DateTime? createdAt;
+  String? imageUrl;
   String? videoUrl;
   User? creator;
   OrgInfo? organization;
-  List<User>? likedBy;
-  List<Comment>? comments;
+  List<LikedBy>? likedBy;
+  List<Comments>? comments;
+
+  String getPostCreatedDuration() {
+    if (DateTime.now().difference(this.createdAt!).inSeconds < 60) {
+      return '${DateTime.now().difference(this.createdAt!).inSeconds} Seconds Ago';
+    } else if (DateTime.now().difference(this.createdAt!).inMinutes < 60) {
+      return '${DateTime.now().difference(this.createdAt!).inMinutes} Minutes Ago';
+    } else if (DateTime.now().difference(this.createdAt!).inHours < 24) {
+      return '${DateTime.now().difference(this.createdAt!).inHours} Hours Ago';
+    } else if (DateTime.now().difference(this.createdAt!).inDays < 30) {
+      return '${DateTime.now().difference(this.createdAt!).inDays} Days Ago';
+    } else if (DateTime.now().difference(this.createdAt!).inDays < 365) {
+      return '${DateTime.now().difference(this.createdAt!).inDays ~/ 30} Months Ago';
+    } else {
+      return '${DateTime.now().difference(this.createdAt!).inDays ~/ 365} Years Ago';
+    }
+  }
+}
+
+class LikedBy {
+  LikedBy({this.sId});
+  LikedBy.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'] as String?;
+  }
+
+  String? sId;
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = this.sId;
+    return data;
+  }
+}
+
+class Comments {
+  Comments({this.sId});
+  Comments.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'] as String?;
+  }
+
+  String? sId;
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = this.sId;
+    return data;
+  }
 }

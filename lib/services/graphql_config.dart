@@ -3,21 +3,19 @@ import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/user_config.dart';
 
 class GraphqlConfig {
   static const imageUrlKey = "imageUrl";
   static const urlKey = "url";
   static String? orgURI = ' ';
   static String? token;
-  static HttpLink httpLink =
-      HttpLink('https://talawa-graphql-api.herokuapp.com/graphql');
+  late HttpLink httpLink;
 
 //prefix route for showing images
   String? displayImgRoute;
 
-  getToken() async {
-    final _token = locator<UserConfig>().currentUser!.authToken;
+  Future getToken() async {
+    final _token = userConfig.currentUser.authToken;
     token = _token;
     getOrgUrl();
     return true;
@@ -29,23 +27,23 @@ class GraphqlConfig {
     final String? imgUrl = box.get(imageUrlKey) as String?;
     orgURI = url ?? ' ';
     displayImgRoute = imgUrl ?? ' ';
+    httpLink = HttpLink(orgURI!);
+    clientToQuery();
+    authClient();
   }
 
   GraphQLClient clientToQuery() {
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
-      link:
-          httpLink, //bug over here in using a variable that stores the same url
+      link: httpLink,
     );
   }
 
   GraphQLClient authClient() {
     final AuthLink authLink = AuthLink(getToken: () async => 'Bearer $token');
-    //bug over here in using a variable that stores the same url
     final Link finalAuthLink = authLink.concat(httpLink);
-    getToken();
     return GraphQLClient(
-      cache: GraphQLCache(),
+      cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
       link: finalAuthLink,
     );
   }

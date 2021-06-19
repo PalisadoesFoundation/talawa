@@ -28,7 +28,8 @@ class TalawaTheme {
       colorScheme: const ColorScheme.light(
           primaryVariant: _lightPrimaryVariantColor,
           primary: _lightColorSchemePrimary,
-          secondary: Color(0xffF5F5F5)),
+          secondary: Color(0xffF5F5F5),
+          secondaryVariant: _darkScaffoldColor),
       accentColor: _lightAccentColor,
       iconTheme: const IconThemeData(
         color: _lightIconColor,
@@ -46,7 +47,8 @@ class TalawaTheme {
       colorScheme: const ColorScheme.dark(
           primaryVariant: _darkPrimaryVariantColor,
           primary: _darkColorSchemePrimary,
-          secondary: Colors.black),
+          secondary: Colors.black,
+          secondaryVariant: _lightScaffoldColor),
       iconTheme: const IconThemeData(
         color: _darkIconColor,
       ),
@@ -58,6 +60,7 @@ class TalawaTheme {
   static const TextTheme _lightTextTheme = TextTheme(
     headline4: TextStyle(
       fontWeight: FontWeight.w700,
+      fontSize: 34,
     ),
     headline5: TextStyle(
       color: _lightInBlack,
@@ -74,14 +77,13 @@ class TalawaTheme {
       fontSize: 14,
     ),
     caption: TextStyle(
-      fontWeight: FontWeight.w400,
-      color: Color(0xFF737373),
-    ),
+        fontWeight: FontWeight.w400, color: Color(0xFF737373), fontSize: 12.0),
   );
 
   static const TextTheme _darkTextTheme = TextTheme(
     headline4: TextStyle(
       fontWeight: FontWeight.w700,
+      fontSize: 34,
     ),
     headline5: TextStyle(color: _darkInWhite, fontSize: 20),
     headline6: TextStyle(
@@ -97,9 +99,7 @@ class TalawaTheme {
       color: Colors.white,
     ),
     caption: TextStyle(
-      fontWeight: FontWeight.w400,
-      color: Color(0xFF737373),
-    ),
+        fontWeight: FontWeight.w400, color: Color(0xFF737373), fontSize: 12.0),
   );
 
   static const InputDecorationTheme _lightInputDecor = InputDecorationTheme(

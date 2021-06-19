@@ -15,8 +15,11 @@ class Routes {
   static const String mainScreen = "/mainScreen";
   static const String progressDialog = "/progress";
   static const String individualPost = "/individualPost";
-  static const String pinnedPostpage = "/pinnedPostPage";
+  static const String pinnedPostPage = "/pinnedPostPage";
   static const String exploreEventsScreen = "/exploreEvents";
   static const String eventInfoPage = "/eventInfo";
   static const String createEventPage = "/createEventPage";
+  static const String profilePage = "/profilePage";
+  static const String editProfilePage = "/editProfilePage";
+  static const String joinOrg = '/joinOrg';
 }

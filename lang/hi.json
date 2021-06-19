@@ -54,5 +54,6 @@
     "Password must not be left blank": "पासवर्ड खाली नहीं छोड़ना चाहिए",
     "Invalid Password": "अवैध पासवर्ड",
     "Password must not contain spaces": "पासवर्ड में रिक्त स्थान नहीं होना चाहिए",
-    "Password does not match original": "पासवर्ड मूल से मेल नहीं खाता"
+    "Password does not match original": "पासवर्ड मूल से मेल नहीं खाता",
+    "Join Organisation": "संगठन में शामिल हों"
 }

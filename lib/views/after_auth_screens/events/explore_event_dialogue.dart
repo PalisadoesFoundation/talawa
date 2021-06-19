@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/date_time_picker.dart';
 
@@ -39,8 +38,6 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     onTap: () async {
                       final _date =
                           await customDatePicker(initialDate: _startDate);
-                      print("TAPPED");
-                      print(_date);
                       setState(() {
                         _startDate = _date;
                       });
@@ -80,8 +77,6 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     onTap: () async {
                       final _date =
                           await customDatePicker(initialDate: _endDate);
-                      print("TAPPED");
-                      print(_date);
                       setState(() {
                         _endDate = _date;
                       });
@@ -122,7 +117,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
               children: [
                 TextButton(
                     onPressed: () {
-                      locator<NavigationService>().pop();
+                      navigationService.pop();
                     },
                     child: Text(
                       'Cancel',
@@ -130,8 +125,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     )),
                 TextButton(
                     onPressed: () {
-                      print('BEEP');
-                      locator<NavigationService>().pop();
+                      navigationService.pop();
                     },
                     child: const Text(
                       'Done',

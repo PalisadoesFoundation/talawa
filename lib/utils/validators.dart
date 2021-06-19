@@ -6,7 +6,7 @@ class Validator {
     String value,
   ) {
     if (value.isEmpty) {
-      return 'Please verify URL first'.toUpperCase();
+      return 'Please verify URL first';
     }
     final bool validURL = Uri.parse(value).isAbsolute;
     if (!validURL) {
@@ -100,5 +100,18 @@ class Validator {
       debugPrint(e.toString());
       return false;
     }
+  }
+
+  static String? validateEventForm(String value, String? label) {
+    if (value.isEmpty) {
+      return '$label must not be left blank.';
+    }
+    // ignore: unnecessary_raw_strings
+    const String pattern = r'(?=.*?[A-Za-z]).+';
+    final RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(value)) {
+      return "Invalid $label";
+    }
+    return null;
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/constants.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -29,6 +28,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key('SelectLanguageScreenScaffold'),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
         padding: EdgeInsets.fromLTRB(
             SizeConfig.screenWidth! * 0.06,
@@ -49,21 +50,28 @@ class _SelectLanguageState extends State<SelectLanguage> {
             SizedBox(
               height: SizeConfig.screenHeight! * 0.018,
             ),
-            //const CupertinoSearchTextField(),
+            const CupertinoSearchTextField(
+              key: Key('SearchField'),
+            ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.016,
             ),
             Expanded(
                 child: ListView.builder(
+                    key: const Key('LanguagesList'),
                     itemCount: languages.length,
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
-                        onTap: () async {
+                        key: Key(selectedLangIndex == index
+                            ? 'Selected'
+                            : 'NotSelected'),
+                        onTap: () {
                           setState(() {
                             selectedLangIndex = index;
                           });
                         },
                         child: Container(
+                          key: Key('LanguageItem$index'),
                           alignment: Alignment.centerLeft,
                           height: SizeConfig.screenHeight! * 0.063,
                           padding: EdgeInsets.symmetric(
@@ -75,6 +83,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                   : Colors.transparent),
                           child: index == 0
                               ? Row(
+                                  key: const Key('LanguageItem'),
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -97,6 +106,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                               : Text(
                                   languages[index].langName,
                                   style: Theme.of(context).textTheme.headline6,
+                                  key: const Key('LanguageItem'),
                                 ),
                         ),
                       );
@@ -108,14 +118,14 @@ class _SelectLanguageState extends State<SelectLanguage> {
               height: SizeConfig.screenHeight! * 0.08,
               alignment: Alignment.centerRight,
               child: TextButton(
+                key: const Key('NavigateToUrlPage'),
                 onPressed: () async {
                   await Provider.of<AppLanguage>(
                     context,
                     listen: false,
                   ).changeLanguage(
                       Locale(languages[selectedLangIndex].langCode));
-                  locator<NavigationService>()
-                      .pushScreen('/setUrl', arguments: '');
+                  navigationService.pushScreen('/setUrl', arguments: '');
                 },
                 child: Text(
                   AppLocalizations.of(context)!.strictTranslate('Select'),
@@ -123,6 +133,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                         fontSize: 18,
                         color: const Color(0xFF008A37),
                       ),
+                  key: const Key('SelectLangTextButton'),
                 ),
               ),
             )

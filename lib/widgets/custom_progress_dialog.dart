@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/view_model/progress_dialog_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
-class ProgressDialog extends StatelessWidget {
-  const ProgressDialog({required Key key}) : super(key: key);
+class CustomProgressDialog extends StatelessWidget {
+  const CustomProgressDialog({required Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

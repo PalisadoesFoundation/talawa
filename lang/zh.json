@@ -53,5 +53,6 @@
     "Password must not be left blank": "密码不能为空",
     "Invalid Password": "无效的密码",
     "Password must not contain spaces": "密码不能包含空格",
-    "Password does not match original": "密码与原密码不符"
+    "Password does not match original": "密码与原密码不符",
+    "Join Organisation": "加入组织"
 }

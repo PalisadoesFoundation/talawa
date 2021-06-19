@@ -53,5 +53,6 @@
     "Password must not be left blank": "La contraseña no debe dejarse en blanco",
     "Invalid Password": "Contraseña invalida",
     "Password must not contain spaces": "La contraseña no debe contener espacios",
-    "Password does not match original": "La contraseña no coincide con la original"
+    "Password does not match original": "La contraseña no coincide con la original",
+    "Join Organisation": "Unirse a la organización"
 }

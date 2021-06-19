@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
-import 'package:talawa/view_model/login_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
-import 'package:talawa/services/size_config.dart';
 
 class Login extends StatefulWidget {
   const Login({required Key key}) : super(key: key);
@@ -31,7 +30,7 @@ class _LoginState extends State<Login> {
                   Icons.arrow_back,
                 ),
                 onPressed: () {
-                  locator<NavigationService>().pop();
+                  navigationService.pop();
                 },
               ),
             ),
@@ -110,11 +109,9 @@ class _LoginState extends State<Login> {
                         children: [
                           TextButton(
                             onPressed: () {
-                              print('selected');
                               model.emailFocus.unfocus();
                               model.passwordFocus.unfocus();
-                              locator<NavigationService>()
-                                  .pushScreen('/recover');
+                              navigationService.pushScreen('/recover');
                             },
                             child: Text(
                               '${AppLocalizations.of(context)!.translate("Forgot password")}?',
