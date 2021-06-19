@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/custom_painters/language_icon.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/set_url_view_model.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
@@ -61,13 +62,16 @@ class _SetUrlState extends State<SetUrl> {
                         textInputAction: TextInputAction.done,
                         keyboardType: TextInputType.text,
                         enableSuggestions: true,
-                        validator: (value) => Validator.validateURL(value!),
+                        validator: (value) => AppLocalizations.of(context)!
+                            .translate(Validator.validateURL(value!)),
                         onFieldSubmitted: (value) =>
-                            Validator.validateURL(value),
+                            AppLocalizations.of(context)!
+                                .translate(Validator.validateURL(value)),
                         decoration: InputDecoration(
                             hintText:
                                 'https://talawa-api-graphql.herokuapp.com/graphql',
-                            labelText: 'Enter Organization URL *',
+                            labelText:
+                                '${AppLocalizations.of(context)!.translate("Enter Organization URL")} *',
                             labelStyle: Theme.of(context).textTheme.subtitle1,
                             suffixIcon: InkWell(
                               onTap: () {
@@ -80,7 +84,8 @@ class _SetUrlState extends State<SetUrl> {
                                 width: 48,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'Verify',
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate("Verify"),
                                   style: Theme.of(context).textTheme.bodyText1,
                                   textAlign: TextAlign.center,
                                 ),
@@ -91,7 +96,8 @@ class _SetUrlState extends State<SetUrl> {
                         height: SizeConfig.screenHeight! * 0.086,
                       ),
                       RaisedRoundedButton(
-                        buttonLabel: 'Login',
+                        buttonLabel: AppLocalizations.of(context)!
+                            .strictTranslate('Login'),
                         onTap: () => model.checkURLandNavigate('/login', ''),
                         showArrow: true,
                         textColor: const Color(0xFF008A37),
@@ -102,7 +108,8 @@ class _SetUrlState extends State<SetUrl> {
                         height: SizeConfig.screenHeight! * 0.0215,
                       ),
                       RaisedRoundedButton(
-                        buttonLabel: 'Sign Up',
+                        buttonLabel: AppLocalizations.of(context)!
+                            .strictTranslate('Sign Up'),
                         onTap: () =>
                             model.checkURLandNavigate('/selectOrg', '-1'),
                         showArrow: true,
@@ -133,7 +140,8 @@ class _SetUrlState extends State<SetUrl> {
                               width: 10,
                             ),
                             Text(
-                              'Change language',
+                              AppLocalizations.of(context)!
+                                  .strictTranslate('Change language'),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6!

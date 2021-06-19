@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 import 'package:talawa/services/size_config.dart';
@@ -21,15 +22,22 @@ class _ChangePassState extends State<ChangePass> {
   @override
   Widget build(BuildContext context) {
     final text = [
-      {'text': "Hello, ", 'textStyle': Theme.of(context).textTheme.headline5},
       {
-        'text': 'User Name ',
+        'text': "${AppLocalizations.of(context)!.translate("Hello")}, ",
+        'textStyle': Theme.of(context).textTheme.headline5
+      },
+      {
+        'text': '${AppLocalizations.of(context)!.translate("User Name")} ',
         'textStyle':
             Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
       },
-      {'text': "we've ", 'textStyle': Theme.of(context).textTheme.headline5},
       {
-        'text': 'got you covered ',
+        'text': "${AppLocalizations.of(context)!.translate("we've")} ",
+        'textStyle': Theme.of(context).textTheme.headline5
+      },
+      {
+        'text':
+            '${AppLocalizations.of(context)!.translate("got you covered")} ',
         'textStyle': Theme.of(context).textTheme.headline5
       },
     ];
@@ -76,9 +84,11 @@ class _ChangePassState extends State<ChangePass> {
                   enableSuggestions: true,
                   autofillHints: const <String>[AutofillHints.password],
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: 'password',
-                    labelText: 'Enter new password *',
+                  decoration: InputDecoration(
+                    hintText:
+                        AppLocalizations.of(context)!.translate('password'),
+                    labelText:
+                        '${AppLocalizations.of(context)!.translate("Enter new password")} *',
                   )),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.025,
@@ -91,15 +101,18 @@ class _ChangePassState extends State<ChangePass> {
                   enableSuggestions: true,
                   autofillHints: const <String>[AutofillHints.password],
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: 'password',
-                    labelText: 'Re-Enter your password *',
+                  decoration: InputDecoration(
+                    hintText:
+                        AppLocalizations.of(context)!.translate('password'),
+                    labelText:
+                        '${AppLocalizations.of(context)!.translate("Re-Enter your password")} *',
                   )),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.086,
               ),
               RaisedRoundedButton(
-                buttonLabel: 'Change Password ',
+                buttonLabel:
+                    '${AppLocalizations.of(context)!.translate("Change Password")} ',
                 onTap: () {
                   newPasswordFocus.unfocus();
                   reNewPasswordFocus.unfocus();

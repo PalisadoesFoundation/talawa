@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/lang_controller.dart';
 
 class SelectLanguage extends StatefulWidget {
   const SelectLanguage({required Key key, required this.selectedLangId})
@@ -38,14 +41,15 @@ class _SelectLanguageState extends State<SelectLanguage> {
             Padding(
               padding: EdgeInsets.only(top: SizeConfig.screenWidth! * 0.06),
               child: Text(
-                'Select Language',
+                AppLocalizations.of(context)!
+                    .strictTranslate('Select Language'),
                 style: Theme.of(context).textTheme.headline5,
               ),
             ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.018,
             ),
-            const CupertinoSearchTextField(),
+            //const CupertinoSearchTextField(),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.016,
             ),
@@ -54,7 +58,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                     itemCount: languages.length,
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
-                        onTap: () {
+                        onTap: () async {
                           setState(() {
                             selectedLangIndex = index;
                           });
@@ -75,12 +79,13 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      languages[index],
+                                      languages[index].langName,
                                       style:
                                           Theme.of(context).textTheme.headline6,
                                     ),
                                     Text(
-                                      'Default',
+                                      AppLocalizations.of(context)!
+                                          .strictTranslate('Default'),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText2!
@@ -90,7 +95,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                   ],
                                 )
                               : Text(
-                                  languages[index],
+                                  languages[index].langName,
                                   style: Theme.of(context).textTheme.headline6,
                                 ),
                         ),
@@ -103,12 +108,17 @@ class _SelectLanguageState extends State<SelectLanguage> {
               height: SizeConfig.screenHeight! * 0.08,
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {
+                onPressed: () async {
+                  await Provider.of<AppLanguage>(
+                    context,
+                    listen: false,
+                  ).changeLanguage(
+                      Locale(languages[selectedLangIndex].langCode));
                   locator<NavigationService>()
                       .pushScreen('/setUrl', arguments: '');
                 },
                 child: Text(
-                  'Select',
+                  AppLocalizations.of(context)!.strictTranslate('Select'),
                   style: Theme.of(context).textTheme.headline5!.copyWith(
                         fontSize: 18,
                         color: const Color(0xFF008A37),

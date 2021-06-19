@@ -1,10 +1,14 @@
 import 'dart:io';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path;
+import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/lang_controller.dart';
 import 'package:talawa/view_model/demo_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/router.dart' as router;
@@ -22,14 +26,43 @@ Future<void> main() async {
   await Hive.openBox<User>('currentUser');
   await Hive.openBox('url');
   setupLocator();
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+    ],
+    child: MyApp(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    Provider.of<AppLanguage>(context, listen: false).fetchLocale();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: Provider.of<AppLanguage>(context).appLocal,
+      supportedLocales: [
+        const Locale('en', 'US'),
+        const Locale('es', 'ES'),
+        const Locale('fr', 'FR'),
+        const Locale('hi', 'IN'),
+        const Locale('zh', 'CN'),
+      ],
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       title: 'Talawa',
       themeMode: ThemeMode.system,
       theme: TalawaTheme.lightTheme,
@@ -37,6 +70,20 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: locator<NavigationService>().navigatorKey,
       onGenerateRoute: router.generateRoute,
+      localeResolutionCallback:
+          (Locale? locale, Iterable<Locale> supportedLocales) {
+        if (locale == null) {
+          debugPrint("*language locale is null!!!");
+          return supportedLocales.first;
+        }
+        for (final Locale supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale.languageCode ||
+              supportedLocale.countryCode == locale.countryCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first;
+      },
       initialRoute: '/',
     );
   }

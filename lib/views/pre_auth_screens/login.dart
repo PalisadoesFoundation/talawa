@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/login_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -65,39 +66,45 @@ class _LoginState extends State<Login> {
                           keyboardType: TextInputType.emailAddress,
                           autofillHints: const <String>[AutofillHints.email],
                           enableSuggestions: true,
-                          validator: (value) => Validator.validateEmail(value!),
+                          validator: (value) => AppLocalizations.of(context)!
+                              .translate(Validator.validateEmail(value!)),
                           decoration: InputDecoration(
-                            hintText: 'test@test.org',
-                            labelText: 'Enter your registered Email *',
+                            hintText: AppLocalizations.of(context)!
+                                .translate("Email Hint"),
+                            labelText:
+                                '${AppLocalizations.of(context)!.translate("Enter your registered Email")} *',
                             labelStyle: Theme.of(context).textTheme.subtitle1,
                           )),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.025,
                       ),
                       TextFormField(
-                          controller: model.password,
-                          focusNode: model.passwordFocus,
-                          textInputAction: TextInputAction.done,
-                          keyboardType: TextInputType.text,
-                          enableSuggestions: true,
-                          autofillHints: const <String>[AutofillHints.password],
-                          obscureText: model.hidePassword,
-                          validator: (value) =>
-                              Validator.validatePassword(value!),
-                          decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    model.hidePassword = !model.hidePassword;
-                                  });
-                                },
-                                icon: Icon(model.hidePassword
-                                    ? Icons.visibility_off
-                                    : Icons.visibility)),
-                            hintText: 'password',
-                            labelText: 'Enter your password *',
-                            labelStyle: Theme.of(context).textTheme.subtitle1,
-                          )),
+                        controller: model.password,
+                        focusNode: model.passwordFocus,
+                        textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.text,
+                        enableSuggestions: true,
+                        autofillHints: const <String>[AutofillHints.password],
+                        obscureText: model.hidePassword,
+                        validator: (value) => AppLocalizations.of(context)!
+                            .translate(Validator.validatePassword(value!)),
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  model.hidePassword = !model.hidePassword;
+                                });
+                              },
+                              icon: Icon(model.hidePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility)),
+                          hintText: AppLocalizations.of(context)!
+                              .translate('password'),
+                          labelText:
+                              '${AppLocalizations.of(context)!.translate("Enter your password")} *',
+                          labelStyle: Theme.of(context).textTheme.subtitle1,
+                        ),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -110,7 +117,7 @@ class _LoginState extends State<Login> {
                                   .pushScreen('/recover');
                             },
                             child: Text(
-                              'Forgot password?',
+                              '${AppLocalizations.of(context)!.translate("Forgot password")}?',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText2!
@@ -125,17 +132,14 @@ class _LoginState extends State<Login> {
                         height: SizeConfig.screenHeight! * 0.086,
                       ),
                       RaisedRoundedButton(
-                        buttonLabel: 'Login',
-                        onTap: () {
-                          model.login();
-                        },
+                        buttonLabel: AppLocalizations.of(context)!
+                            .strictTranslate('Login'),
+                        onTap: () => model.login(),
                         textColor: const Color(0xFF008A37),
                         key: const Key('LoginButton'),
                         backgroundColor: Colors.white,
                       ),
-                      SizedBox(
-                        height: SizeConfig.screenHeight! * 0.0215,
-                      ),
+                      SizedBox(height: SizeConfig.screenHeight! * 0.0215),
                     ],
                   ),
                 ),

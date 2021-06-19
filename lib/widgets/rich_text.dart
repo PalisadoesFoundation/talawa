@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:talawa/utils/app_localization.dart';
 
 class CustomRichText extends StatelessWidget {
   const CustomRichText({required Key key, required this.words})
@@ -7,14 +8,20 @@ class CustomRichText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RichText(
-        textAlign: TextAlign.start,
-        text: TextSpan(
-            text: words[0]['text'].toString(),
-            style: words[0]['textStyle'] as TextStyle,
-            children: List.generate(
-                words.length - 1,
-                (index) => TextSpan(
-                    text: words[index + 1]['text'].toString(),
-                    style: words[index + 1]['textStyle'] as TextStyle))));
+      textAlign: TextAlign.start,
+      text: TextSpan(
+        text: AppLocalizations.of(context)!
+            .translate(words[0]['text'].toString().trim()),
+        style: words[0]['textStyle'] as TextStyle,
+        children: List.generate(
+          words.length - 1,
+          (index) => TextSpan(
+            text: AppLocalizations.of(context)!
+                .translate(words[index + 1]['text'].toString().trim()),
+            style: words[index + 1]['textStyle'] as TextStyle,
+          ),
+        ),
+      ),
+    );
   }
 }
