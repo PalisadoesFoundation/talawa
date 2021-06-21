@@ -1,12 +1,15 @@
 //flutter imported function
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-
 //files are imported here
 import 'package:provider/provider.dart';
+import 'package:talawa/model/orgmemeber.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
+
 import '../../../utils/uidata.dart';
 import 'reg_eventstab.dart';
 import 'user_taskstab.dart';
@@ -21,9 +24,9 @@ class MemberDetail extends StatefulWidget {
       this.creatorId})
       : super(key: key);
 
-  final List admins;
+  final List<Admin> admins;
   final String creatorId;
-  Map member;
+  Member member;
   Color color;
 
   @override
@@ -36,95 +39,111 @@ class _MemberDetailState extends State<MemberDetail>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 2);
+    _tabController = TabController(
+      vsync: this,
+      length: 2,
+    );
   }
 
   String getPrivilege(String id) {
     if (widget.creatorId.compareTo(id) == 0) {
-      return 'Creator';
+      return AppLocalizations.of(context).translate('Creator');
     }
     for (int i = 0; i < widget.admins.length; i++) {
-      if (widget.admins[i]['_id'] == id) {
-        return 'Admin';
+      if (widget.admins[i].id == id) {
+        return AppLocalizations.of(context).translate('Admin');
       }
     }
-    return 'Member';
+    return AppLocalizations.of(context).translate('Member');
   }
 
   //main build starts here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'User Info',
-            style: TextStyle(color: Colors.white),
+      appBar: AppBar(
+        title: Text(
+          AppLocalizations.of(context).translate('User Info'),
+          style: const TextStyle(
+            color: Colors.white,
           ),
         ),
-        body: CustomScrollView(slivers: [
+      ),
+      body: CustomScrollView(
+        slivers: [
           SliverAppBar(
-              backgroundColor: Colors.white,
-              automaticallyImplyLeading: false,
-              expandedHeight: SizeConfig.safeBlockVertical * 31.25,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Column(children: [
-                  widget.member['image'] == null
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            expandedHeight: SizeConfig.safeBlockVertical * 31.25,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Column(
+                children: [
+                  widget.member.image == null
                       ? defaultUserImg()
-                      : userImg(widget.member['image'].toString()),
-                  Card(
+                      : userImg(widget.member.image),
+                  Flexible(
+                    child: Card(
+                        child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.only(
+                          left: SizeConfig.safeBlockHorizontal * 5),
+                      alignment: Alignment.centerLeft,
+                      height: SizeConfig.safeBlockVertical * 3.75,
+                      child: Text(
+                          '${AppLocalizations.of(context).translate("User email")}: ${widget.member.email}'),
+                    )),
+                  ),
+                  Flexible(
+                    child: Card(
                       child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(
-                        left: SizeConfig.safeBlockHorizontal * 5),
-                    alignment: Alignment.centerLeft,
-                    height: SizeConfig.safeBlockVertical * 3.75,
-                    child: Text('User email: ${widget.member['email']}'),
-                  )),
-                  Card(
-                      child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(
-                        left: SizeConfig.safeBlockHorizontal * 5),
-                    alignment: Alignment.centerLeft,
-                    height: SizeConfig.safeBlockVertical * 3.75,
-                    child: Text(
-                      // ignore: prefer_interpolation_to_compose_strings
-                      'User Privileges: ' +
-                          getPrivilege(widget.member['_id'].toString()),
-                      key: const Key('Privilege'),
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.only(
+                            left: SizeConfig.safeBlockHorizontal * 5),
+                        alignment: Alignment.centerLeft,
+                        height: SizeConfig.safeBlockVertical * 3.75,
+                        child: Text(
+                          '${AppLocalizations.of(context).translate("User Privileges")}: ${getPrivilege(widget.member.id)}',
+                          key: const Key('Privilege'),
+                        ),
+                      ),
                     ),
-                  )),
-                ]),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
           SliverStickyHeader(
             header: Container(
-                height: SizeConfig.safeBlockVertical * 7.5,
-                decoration:
-                    BoxDecoration(color: Theme.of(context).primaryColor),
-                child: Material(
-                  color: UIData.secondaryColor,
-                  child: TabBar(
-                    labelPadding: const EdgeInsets.all(0),
-                    indicatorColor: Colors.white,
-                    controller: _tabController,
-                    tabs: const [
-                      Tab(
-                        icon: Text(
-                          'Tasks',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
+              height: SizeConfig.safeBlockVertical * 7.5,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+              child: Material(
+                color: UIData.secondaryColor,
+                child: TabBar(
+                  labelPadding: const EdgeInsets.all(0),
+                  indicatorColor: Colors.white,
+                  controller: _tabController,
+                  tabs: [
+                    Tab(
+                      icon: Text(
+                        AppLocalizations.of(context).translate('Tasks'),
+                        style: const TextStyle(
+                          color: Colors.white,
                         ),
                       ),
-                      Tab(
-                        icon: Text(
-                          'Registered Events',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                    ),
+                    Tab(
+                      icon: Text(
+                        AppLocalizations.of(context)
+                            .translate('Registered Events'),
+                        style: const TextStyle(color: Colors.white),
                       ),
-                    ],
-                  ),
-                )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             sliver: SliverFillRemaining(
               child: TabBarView(
                 controller: _tabController,
@@ -139,7 +158,9 @@ class _MemberDetailState extends State<MemberDetail>
               ),
             ),
           ),
-        ]));
+        ],
+      ),
+    );
   }
 
   //widget to get the user image
@@ -155,21 +176,23 @@ class _MemberDetailState extends State<MemberDetail>
           fit: BoxFit.cover,
         ),
       ),
-      child: Stack(alignment: AlignmentDirectional.bottomStart, children: [
-        ClipRRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-            child: Container(
-              alignment: Alignment.center,
-              color: Colors.grey.withOpacity(0.1),
-              child: Image.network(
-                Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                    link,
+      child: Stack(
+        alignment: AlignmentDirectional.bottomStart,
+        children: [
+          ClipRRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: Container(
+                alignment: Alignment.center,
+                color: Colors.grey.withOpacity(0.1),
+                child: Image.network(
+                  Provider.of<GraphQLConfiguration>(context).displayImgRoute +
+                      link,
+                ),
               ),
             ),
           ),
-        ),
-        Container(
+          Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
@@ -181,14 +204,16 @@ class _MemberDetailState extends State<MemberDetail>
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                '${widget.member['firstName']} ${widget.member['lastName']}',
+                '${widget.member.firstName.toString()} ${widget.member.lastName.toString()}',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                 ),
               ),
-            ))
-      ]),
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -202,32 +227,33 @@ class _MemberDetailState extends State<MemberDetail>
         children: [
           // ignore: sized_box_for_whitespace
           Container(
-              height: SizeConfig.safeBlockVertical * 16.25,
-              child: Icon(
-                Icons.person,
-                size: SizeConfig.safeBlockVertical * 12.25,
-                color: Colors.white54,
-              )),
+            height: SizeConfig.safeBlockVertical * 16.25,
+            child: Icon(
+              Icons.person,
+              size: SizeConfig.safeBlockVertical * 12.25,
+              color: Colors.white54,
+            ),
+          ),
           Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [Colors.black45, Colors.transparent]),
-              ),
-              padding:
-                  EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 5),
-              height: SizeConfig.safeBlockVertical * 5,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '${widget.member['firstName']} ${widget.member['lastName']}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [Colors.black45, Colors.transparent]),
+            ),
+            padding: EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 5),
+            height: SizeConfig.safeBlockVertical * 5,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '${widget.member.firstName.toString()} ${widget.member.lastName.toString()}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
                 ),
-              ))
+              ),
+            ),
+          ),
         ],
       ),
     );

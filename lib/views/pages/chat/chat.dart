@@ -1,5 +1,6 @@
 //flutter packages
 import 'package:flutter/material.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 
 //pages are called here
@@ -22,51 +23,68 @@ class _ChatState extends State<Chat> {
           children: <Widget>[
             CircleAvatar(
               backgroundColor: UIData.secondaryColor,
-              child: Image.asset(UIData.talawaLogo),
+              child: Image.asset(
+                UIData.talawaLogo,
+              ),
             ),
             Padding(
-              padding:
-                  EdgeInsets.only(left: SizeConfig.safeBlockHorizontal * 2.5),
+              padding: EdgeInsets.only(
+                left: SizeConfig.safeBlockHorizontal * 2.5,
+              ),
               child: Text(
                 widget.groupName,
-                style: const TextStyle(color: Colors.white),
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
             )
           ],
         ),
       ),
       body: Align(
-          alignment: Alignment.bottomCenter, child: _textComposerWidget()),
+        alignment: Alignment.bottomCenter,
+        child: _textComposerWidget(),
+      ),
     );
   }
 
   Widget _textComposerWidget() {
     return Padding(
-      padding: EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 1.25),
+      padding: EdgeInsets.only(
+        bottom: SizeConfig.safeBlockVertical * 1.25,
+      ),
       child: IconTheme(
-        data: const IconThemeData(color: Colors.blue),
+        data: const IconThemeData(
+          color: Colors.blue,
+        ),
         child: Container(
           margin: EdgeInsets.symmetric(
-              horizontal: SizeConfig.safeBlockHorizontal * 2),
+            horizontal: SizeConfig.safeBlockHorizontal * 2,
+          ),
           child: Row(
             children: <Widget>[
               Flexible(
                 child: TextField(
-                  textInputAction: TextInputAction.newline,
-                  maxLines: null,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                  decoration: InputDecoration.collapsed(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        20.0,
                       ),
-                      hintText: "Enter your message...."),
+                    ),
+                    hintText:
+                        "    ${AppLocalizations.of(context).translate("Enter your message")}....",
+                  ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.safeBlockHorizontal * 2),
+                  horizontal: SizeConfig.safeBlockHorizontal * 2,
+                ),
                 child: IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.send),
+                  icon: const Icon(
+                    Icons.send,
+                  ),
                 ),
               )
             ],

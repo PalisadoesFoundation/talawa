@@ -6,10 +6,12 @@ class CommentHandler with ChangeNotifier {
 
   ///Returns the comment to a given post
   String comment(String postId) {
-    final CommentModel comment =
-        _comments.firstWhere((element) => element.postId == postId, orElse: () {
-      return CommentModel("", "");
-    });
+    final CommentModel comment = _comments.firstWhere(
+      (element) => element.postId == postId,
+      orElse: () {
+        return CommentModel("", "");
+      },
+    );
 
     return comment.comment;
   }
@@ -31,7 +33,9 @@ class CommentHandler with ChangeNotifier {
     final int index =
         _comments.indexWhere((element) => element.postId == postId);
     if (index != -1) {
-      _comments.add(CommentModel(postId, comment));
+      _comments.add(
+        CommentModel(postId, comment),
+      );
       _comments.removeAt(index);
       notifyListeners();
     }

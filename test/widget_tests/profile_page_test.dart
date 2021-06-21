@@ -2,16 +2,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/services/app_localization.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/newsfeed_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/controllers/signup_login_controller.dart';
+import 'package:talawa/controllers/url_controller.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/comment.dart';
+<<<<<<< HEAD
+=======
+import 'package:talawa/controllers/news_feed_controller.dart';
+import 'package:talawa/services/navigation_service.dart';
+>>>>>>> origin/master
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/login_signup/set_url_page.dart';
+import 'package:talawa/router.dart' as router;
 
 Widget createLoginPageScreen() => MultiProvider(
       providers: [
@@ -21,10 +32,21 @@ Widget createLoginPageScreen() => MultiProvider(
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
-        ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
+        ChangeNotifierProvider<NewsFeedProvider>(
+            create: (_) => NewsFeedProvider()),
+        ChangeNotifierProvider<UrlController>(create: (_) => UrlController()),
+        ChangeNotifierProvider<SignupLoginController>(
+            create: (_) => SignupLoginController()),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: UrlPage(),
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
       ),
     );
 
@@ -32,7 +54,7 @@ void main() {
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
-
+  setupLocator();
   // Function for ignoring overflow errors.
   // ignore: prefer_function_declarations_over_variables
   final void Function(FlutterErrorDetails) onErrorIgnoreOverflowErrors = (
@@ -56,8 +78,8 @@ void main() {
 
     // Ignore if is overflow error.
     if (ifIsOverflowError) {
-      // ignore: avoid_print
-      print("Over flow error");
+      // ignore: avoid_debugPrint
+      debugPrint("Over flow error");
     }
 
     // Throw other errors.
@@ -71,6 +93,7 @@ void main() {
   group("Login Page Tests", () {
     testWidgets("Testing if LoginPage shows up", (tester) async {
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       /// Verify if [LoginPage] shows up.
       expect(
@@ -87,6 +110,7 @@ void main() {
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       //finding is the circular progress indicator is visible to user
       //expect(find.byKey(Key('loading')), findsOneWidget);
@@ -98,6 +122,7 @@ void main() {
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       /// Verify if [LoginPage] shows up.
       expect(
@@ -111,6 +136,7 @@ void main() {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       // Get the create account button.
       final createAccountButton = find.text("Create an Account");
@@ -130,6 +156,7 @@ void main() {
       // Ignore overflow errors.
       FlutterError.onError = onErrorIgnoreOverflowErrors;
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       // Get the login button.
       final loginButton = find.text("Login");
@@ -151,6 +178,7 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       // Get the create account button.
       final createAccountButton = find.text("Create an Account");
@@ -200,6 +228,7 @@ void main() {
       FlutterError.onError = onErrorIgnoreOverflowErrors;
 
       await tester.pumpWidget(createLoginPageScreen());
+      await tester.pumpAndSettle();
 
       // Get the create account button.
       final loginButton = find.text("Login");

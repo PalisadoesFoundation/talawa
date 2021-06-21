@@ -1,6 +1,8 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:talawa/model/events.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 
 //pages are imported here
@@ -12,7 +14,7 @@ import 'package:intl/intl.dart';
 // ignore: must_be_immutable
 class EventDetail extends StatefulWidget {
   EventDetail({Key key, @required this.event}) : super(key: key);
-  Map event;
+  EventsModel event;
 
   @override
   _EventDetailState createState() => _EventDetailState();
@@ -25,17 +27,20 @@ class _EventDetailState extends State<EventDetail>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 2);
+    _tabController = TabController(
+      vsync: this,
+      length: 2,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
-    print(widget.event);
+    debugPrint(widget.event.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.event['title'].toString(),
+          widget.event.title,
           style: const TextStyle(color: Colors.white),
           overflow: TextOverflow.ellipsis,
         ),
@@ -56,19 +61,19 @@ class _EventDetailState extends State<EventDetail>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       displayText(
-                        "To Do: ${widget.event['description'].toString()}",
+                        "${AppLocalizations.of(context).translate("To Do")}: ${widget.event.description}",
                       ),
                       displayText(
-                        "Held: ${widget.event['recurrance'][0]}${widget.event['recurrance'].substring(1).toLowerCase()}",
+                        "${AppLocalizations.of(context).translate("Held")}: ${widget.event.recurrance.toString()[0]}${widget.event.recurrance.toString().substring(1).toLowerCase()}",
                       ),
                       displayText(
-                        "Next: ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime'].toString()))).toString()}",
+                        "${AppLocalizations.of(context).translate("Next")}: ${DateFormat.yMMMd('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.startTime))).toString()}",
                       ),
                       displayText(
-                        "Where: ${widget.event['location'].toString()}",
+                        "${AppLocalizations.of(context).translate("Where")}: ${widget.event.location.toString()}",
                       ),
                       displayText(
-                        "From: ${'${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['startTime'].toString())))} to ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event['endTime'].toString())))}'}",
+                        "${AppLocalizations.of(context).translate("From")}: ${'${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.startTime)))} to ${DateFormat.jm('en_US').format(DateTime.fromMicrosecondsSinceEpoch(int.parse(widget.event.endTime)))}'}",
                       ),
                     ],
                   ),
@@ -78,46 +83,46 @@ class _EventDetailState extends State<EventDetail>
           ),
           SliverStickyHeader(
             header: Container(
-                height: SizeConfig.safeBlockVertical * 7.5,
-                decoration:
-                    BoxDecoration(color: Theme.of(context).primaryColor),
-                child: Material(
-                  color: UIData.secondaryColor,
-                  child: TabBar(
-                    labelPadding: const EdgeInsets.all(0),
-                    indicatorColor: Colors.white,
-                    controller: _tabController,
-                    tabs: const [
-                      Tab(
-                        icon: Text(
-                          'Tasks',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        icon: Text(
-                          'Registrants',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
-            sliver: SliverFillRemaining(
-              child: Container(
-                child: TabBarView(
+              height: SizeConfig.safeBlockVertical * 7.5,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+              child: Material(
+                color: UIData.secondaryColor,
+                child: TabBar(
+                  labelPadding: const EdgeInsets.all(0),
+                  indicatorColor: Colors.white,
                   controller: _tabController,
-                  children: <Widget>[
-                    TaskList(
-                      event: widget.event,
+                  tabs: [
+                    Tab(
+                      icon: Text(
+                        AppLocalizations.of(context).translate('Tasks'),
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                    RegList(
-                      event: widget.event,
+                    Tab(
+                      icon: Text(
+                        AppLocalizations.of(context).translate('Registrants'),
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     ),
                   ],
                 ),
+              ),
+            ),
+            sliver: SliverFillRemaining(
+              child: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                  TaskList(
+                    event: widget.event,
+                  ),
+                  RegList(
+                    event: widget.event,
+                  ),
+                ],
               ),
             ),
           ),
@@ -129,15 +134,20 @@ class _EventDetailState extends State<EventDetail>
   Widget displayText(String text) {
     return Container(
       decoration: const BoxDecoration(
-          color: Colors.black26,
-          borderRadius: BorderRadius.all(Radius.circular(5))),
+        color: Colors.black26,
+        borderRadius: BorderRadius.all(
+          Radius.circular(5),
+        ),
+      ),
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(8),
       height: SizeConfig.safeBlockVertical * 5.5,
       child: Text(
         text,
         style: TextStyle(
-            fontSize: SizeConfig.safeBlockVertical * 2.5, color: Colors.white),
+          fontSize: SizeConfig.safeBlockVertical * 2.5,
+          color: Colors.white,
+        ),
         overflow: TextOverflow.ellipsis,
       ),
     );

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/views/pages/events/events.dart';
@@ -25,11 +28,17 @@ Widget createEventsPageScreen() => MultiProvider(
         ),
       ],
       child: const MaterialApp(
+        localizationsDelegates: [
+          AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: Events(),
       ),
     );
 
 void main() {
+  setupLocator();
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
@@ -37,6 +46,7 @@ void main() {
   group("events Page Tests", () {
     testWidgets("Testing if events page shows up", (tester) async {
       await tester.pumpWidget(createEventsPageScreen());
+      await tester.pump();
 
       /// Verify if [events page] shows up.
       expect(find.byKey(const Key('EVENTS_APP_BAR')), findsOneWidget);
@@ -49,6 +59,7 @@ void main() {
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createEventsPageScreen());
+      await tester.pump();
 
       /// Verify if [events page] shows up.
       expect(find.byKey(const Key('EVENTS_APP_BAR')), findsOneWidget);
@@ -61,6 +72,7 @@ void main() {
       binding.window.devicePixelRatioTestValue = 1.0;
 
       await tester.pumpWidget(createEventsPageScreen());
+      await tester.pump();
 
       /// Verify if [events page] shows up.
       expect(find.byKey(const Key('EVENTS_APP_BAR')), findsOneWidget);
@@ -69,6 +81,7 @@ void main() {
 
     testWidgets("Testing if add event fab shows up", (tester) async {
       await tester.pumpWidget(createEventsPageScreen());
+      await tester.pump();
 
       /// Verify if [events page] shows up.
       expect(find.byKey(const Key('EVENTS_APP_BAR')), findsOneWidget);

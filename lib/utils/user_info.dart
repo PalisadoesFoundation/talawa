@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class UserInfo {
   static int userOrg = 0;
   static List orgList = [];
@@ -5,12 +7,16 @@ class UserInfo {
   int get currentOrg => userOrg;
   List get currentOrgList => orgList;
 
-  set currentOrg(int val) {
+  set currentOrg(
+    int val,
+  ) {
     userOrg = val;
   }
 
-  set currentOrgList(List val) {
+  set currentOrgList(
+    List val,
+  ) {
     orgList = val;
-    print(orgList);
+    debugPrint(orgList.toString());
   }
 }

@@ -15,7 +15,6 @@ class Queries {
             refreshToken
           }
         }
-
     ''';
   }
 
@@ -39,7 +38,6 @@ class Queries {
               refreshToken
             }
         }
-
     """;
   }
 
@@ -88,7 +86,6 @@ class Queries {
               refreshToken
             }
         }
-
     """;
   }
 
@@ -111,7 +108,6 @@ class Queries {
               refreshToken
             }
         }
-
     """;
   }
 
@@ -467,19 +463,20 @@ class Queries {
   }
 
   //to update an event
-  String updateEvent(
-      {eventId,
-      title,
-      description,
-      location,
-      isPublic,
-      isRegisterable,
-      recurring,
-      recurrance,
-      allDay,
-      date,
-      startTime,
-      endTime}) {
+  String updateEvent({
+    eventId,
+    title,
+    description,
+    location,
+    isPublic,
+    isRegisterable,
+    recurring,
+    recurrance,
+    allDay,
+    date,
+    startTime,
+    endTime,
+  }) {
     return """mutation {
       updateEvent(
          id: "$eventId"
@@ -539,17 +536,18 @@ class Queries {
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
 
-  addEventTask(
-      {String eventId,
-      String title,
-      String description,
-      String deadline}) async {
+  addEventTask({
+    String eventId,
+    String title,
+    String description,
+    String deadline,
+  }) async {
     const String createTaskMutation = """
      mutation createTask(\$eventId: ID!, \$title: String!, \$description: String, \$deadline: String) { 
       createTask(eventId: \$eventId, 
@@ -579,8 +577,8 @@ class Queries {
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
@@ -672,7 +670,9 @@ class Queries {
     _authController.getNewToken();
 
     final QueryResult _resp = await _client.mutate(MutationOptions(
-      documentNode: gql(createEventMutation),
+      documentNode: gql(
+        createEventMutation,
+      ),
       variables: {
         'startDate': startDate,
         'endDate': endDate,
@@ -691,14 +691,13 @@ class Queries {
     ));
 
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data as Map<String, dynamic>;
     }
   }
 
 /////////////////////MEMBERS//////////////////////////////////////////////////////////////////////
-
   //task by users
   String tasksByUser(String id) {
     return """
@@ -881,6 +880,12 @@ query{
         }
       ){
         _id
+        text
+        createdAt
+        creator{
+          firstName
+          lastName
+        }
       }
     }
   """;
@@ -889,7 +894,9 @@ query{
     final AuthController _authController = AuthController();
 
     final QueryResult _resp = await _client.mutate(MutationOptions(
-      documentNode: gql(createCommentMutation),
+      documentNode: gql(
+        createCommentMutation,
+      ),
       variables: {
         'postId': postId, //Add your variables here
         'text': text
@@ -908,13 +915,13 @@ query{
       createComments(postId, text);
     }
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
 
-  addPost(String text, String organizationId, String title) async {
+  Future<Map> addPost(String text, String organizationId, String title) async {
     print(text);
     print(organizationId);
     print(title);
@@ -939,7 +946,9 @@ query{
     _authController.getNewToken();
 
     final QueryResult _resp = await _client.mutate(MutationOptions(
-      documentNode: gql(addPostMutation),
+      documentNode: gql(
+        addPostMutation,
+      ),
       variables: {
         'title': title, //Add your variables here
         'text': text,
@@ -947,11 +956,20 @@ query{
       },
     ));
 
-    if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
-      return _resp.data;
+    if (!_resp.loading && !_resp.hasException) {
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
+      return _resp.data as Map;
     }
+
+    String errorMsg;
+    if (_resp.exception.clientException != null) {
+      errorMsg = _resp.exception.clientException.message;
+    } else {
+      errorMsg = _resp.exception.graphqlErrors.first.message;
+    }
+
+    return {'error': errorMsg};
   }
 
   addLike(String postID) async {
@@ -976,8 +994,8 @@ query{
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }
@@ -1007,8 +1025,8 @@ query{
       },
     ));
     if (!_resp.loading) {
-      print(_resp.data);
-      print(_resp.exception);
+      debugPrint(_resp.data.toString());
+      debugPrint(_resp.exception.toString());
       return _resp.data;
     }
   }

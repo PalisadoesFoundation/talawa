@@ -1,5 +1,6 @@
 //flutter package imported
 import 'package:flutter/material.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/utils/package_info.dart';
 import 'package:talawa/utils/ui_scaling.dart';
 
@@ -21,8 +22,9 @@ class _MyAboutTileState extends State<MyAboutTile> {
 
   Future<void> initPackageInfo() async {
     packageInfo = await PackageDetails.getInfo();
-    setState(() {});
-    print(packageInfo);
+    debugPrint(
+      packageInfo.toString(),
+    );
   }
 
   @override
@@ -32,20 +34,25 @@ class _MyAboutTileState extends State<MyAboutTile> {
       applicationIcon: Container(
         width: SizeConfig.safeBlockHorizontal * 12.5,
         height: SizeConfig.safeBlockVertical * 6.25,
-        child: Image.asset('assets/images/talawaLogo-dark.png'),
+        child: Image.asset(
+          'assets/images/talawaLogo-dark.png',
+        ),
       ),
-      icon: Image.asset('assets/images/talawaLogo-dark.png'),
+      icon: Image.asset(
+        'assets/images/talawaLogo-dark.png',
+      ),
       aboutBoxChildren: <Widget>[
         SizedBox(
           height: SizeConfig.safeBlockVertical * 1.25,
         ),
-        const Text(
-          "Collaborative",
+        Text(
+          AppLocalizations.of(context).translate("Collaborative"),
         ),
       ],
       applicationName: UIData.appName,
-      applicationVersion:
-          packageInfo != null ? packageInfo['version'].toString() : "Loading..",
+      applicationVersion: packageInfo != null
+          ? packageInfo['version'].toString()
+          : "${AppLocalizations.of(context).translate("Loading")}..",
       applicationLegalese: "Apache License 2.0",
     );
   }

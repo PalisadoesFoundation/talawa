@@ -36,7 +36,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   void initState() {
     super.initState();
-    getImg();
   }
 
   Future getImg() async {
@@ -44,40 +43,70 @@ class _CustomAppBarState extends State<CustomAppBar> {
     final GraphQLClient _client = graphQLConfiguration.clientToQuery();
     final String orgId = await preferences.getCurrentOrgId();
 
-    final QueryResult result = await _client
-        .query(QueryOptions(documentNode: gql(_query.fetchOrgById(orgId))));
+    final QueryResult result = await _client.query(
+      QueryOptions(
+        documentNode: gql(
+          _query.fetchOrgById(orgId),
+        ),
+      ),
+    );
     if (result.hasException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
     } else if (!result.hasException) {
-      // print(result.data);
-      setState(() {
-        _imgSrc = result.data['organizations'][0]['image'].toString();
-      });
+      final res = result.data['organizations'][0]['image'];
+      if (res == null) {
+        _imgSrc = null;
+      } else {
+        _imgSrc = res.toString();
+      }
     }
+    return;
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+  ) {
     return AppBar(
       title: Text(
         widget.title,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(
+          color: Colors.white,
+        ),
       ),
-      leading: _imgSrc != null
-          ? Padding(
+      leading: FutureBuilder(
+        future: getImg(),
+        builder: (_, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return Padding(
               padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
               child: CircleAvatar(
                 radius: SizeConfig.safeBlockVertical * 5,
-                backgroundImage: NetworkImage(
-                    Provider.of<GraphQLConfiguration>(context).displayImgRoute +
-                        _imgSrc),
-              ))
-          : Padding(
-              padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
-              child: CircleAvatar(
-                  radius: SizeConfig.safeBlockVertical * 5,
-                  backgroundImage: const AssetImage("assets/images/team.png")),
-            ),
+              ),
+            );
+          } else {
+            return _imgSrc != null
+                ? Padding(
+                    padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
+                    child: CircleAvatar(
+                      radius: SizeConfig.safeBlockVertical * 5,
+                      backgroundImage: NetworkImage(
+                          Provider.of<GraphQLConfiguration>(context)
+                                  .displayImgRoute +
+                              _imgSrc),
+                    ),
+                  )
+                : Padding(
+                    padding: EdgeInsets.all(SizeConfig.safeBlockHorizontal),
+                    child: CircleAvatar(
+                      radius: SizeConfig.safeBlockVertical * 5,
+                      backgroundImage:
+                          const AssetImage("assets/images/team.png"),
+                    ),
+                  );
+          }
+        },
+      ),
     );
   }
 }

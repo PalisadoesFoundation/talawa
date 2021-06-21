@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
 import 'package:talawa/controllers/newsfeed_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/comment.dart';
+<<<<<<< HEAD
+=======
+import 'package:talawa/controllers/news_feed_controller.dart';
+>>>>>>> origin/master
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/ui_scaling.dart';
@@ -19,9 +25,15 @@ Widget addTaskDialog() => MultiProvider(
         ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
         ChangeNotifierProvider<Preferences>(create: (_) => Preferences()),
         ChangeNotifierProvider<CommentHandler>(create: (_) => CommentHandler()),
-        ChangeNotifierProvider<PostProvider>(create: (_) => PostProvider()),
+        ChangeNotifierProvider<NewsFeedProvider>(
+            create: (_) => NewsFeedProvider()),
       ],
       child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: Builder(builder: (context) {
           SizeConfig().init(context);
           return AddEventTask(
@@ -37,6 +49,8 @@ void main() {
         "Testing if add Task Dialog page shows up validations on empty submission",
         (tester) async {
       await tester.pumpWidget(addTaskDialog());
+      await tester.pumpAndSettle();
+
       final Finder formWidgetFinder = find.byType(Form);
       final Form formWidget = tester.widget(formWidgetFinder) as Form;
       final GlobalKey<FormState> formKey =
@@ -47,6 +61,8 @@ void main() {
         "Testing if add Task Dialog page shows up validations on empty submission of description field",
         (tester) async {
       await tester.pumpWidget(addTaskDialog());
+      await tester.pumpAndSettle();
+
       final Finder title = find.byKey(const Key('Title'));
       await tester.enterText(title, "Something post title");
       await tester.pump();
@@ -60,6 +76,8 @@ void main() {
         "Testing if add Task Dialog page shows up validations on empty submission of title field",
         (tester) async {
       await tester.pumpWidget(addTaskDialog());
+      await tester.pumpAndSettle();
+
       final Finder description = find.byKey(const Key('Description'));
       await tester.enterText(description, "Description for the post");
       await tester.pump();
@@ -73,6 +91,8 @@ void main() {
         "Testing if add Task Dialog page shows up validations on submission on fields with data",
         (tester) async {
       await tester.pumpWidget(addTaskDialog());
+      await tester.pumpAndSettle();
+
       final Finder title = find.byKey(const Key('Title'));
       await tester.enterText(title, "Something post title");
       final Finder description = find.byKey(const Key('Description'));

@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/services/app_localization.dart';
 import 'package:talawa/services/queries_.dart';
 import 'package:talawa/services/preferences.dart';
+import 'package:talawa/utils/custom_toast.dart';
 import 'package:talawa/utils/gql_client.dart';
 import 'package:talawa/utils/globals.dart';
 import 'package:talawa/utils/uidata.dart';
 import 'package:talawa/utils/validator.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:talawa/views/pages/organization/profile_page.dart';
 import 'package:talawa/views/widgets/text_field_decoration.dart';
-import 'package:talawa/views/widgets/toast_tile.dart';
 
 class UpdateOrganization extends StatefulWidget {
   const UpdateOrganization(
@@ -41,7 +41,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   bool isPublic = true;
   bool isVisible = true;
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-  FToast fToast;
   final Preferences _preferences = Preferences();
   final AuthController _authController = AuthController();
 
@@ -49,8 +48,6 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   @override
   void initState() {
     super.initState();
-    fToast = FToast();
-    fToast.init(context);
     orgNameController.text = widget.name;
     orgDescController.text = widget.description;
     radioValue = widget.isPublic;
@@ -72,14 +69,17 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
     orgMemberDescController.text =
         orgMemberDescController.text.trim().replaceAll('\n', ' ');
     final GraphQLClient _client = graphQLConfiguration.authClient();
-    final QueryResult result = await _client.mutate(MutationOptions(
+    final QueryResult result = await _client.mutate(
+      MutationOptions(
         documentNode: gql(_queries.updateOrg(
-      currentOrgId,
-      orgNameController.text,
-      orgDescController.text,
-      isPublic: isPublic,
-      visibleInSearch: isVisible,
-    ))));
+          currentOrgId,
+          orgNameController.text,
+          orgDescController.text,
+          isPublic: isPublic,
+          visibleInSearch: isVisible,
+        )),
+      ),
+    );
 
     if (result.hasException &&
         result.exception.toString().substring(16) == accessTokenException) {
@@ -87,20 +87,18 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
       return updateOrg();
     } else if (result.hasException &&
         result.exception.toString().substring(16) != accessTokenException) {
-      print(result.exception);
+      debugPrint(result.exception.toString());
       setState(() {
         _progressBarState = false;
       });
-      _exceptionToast(result.exception.toString().substring(16));
+      CustomToast.exceptionToast(msg: result.exception.toString());
     } else if (!result.hasException && !result.loading) {
       setState(() {
         _progressBarState = true;
       });
-      _successToast("Success!");
-      pushNewScreen(
-        context,
-        screen: const ProfilePage(),
-      );
+      CustomToast.sucessToast(
+          msg: AppLocalizations.of(context).translate("Success!"));
+      pushNewScreen(context, screen: const ProfilePage());
     }
   }
 
@@ -112,7 +110,9 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
         count,
         (index) => RadioListTile(
           groupValue: group,
-          title: Text(index == 0 ? 'Yes' : 'No'),
+          title: Text(index == 0
+              ? AppLocalizations.of(context).translate('Yes')
+              : AppLocalizations.of(context).translate('No')),
           value: index,
           activeColor: UIData.secondaryColor,
           onChanged: (int val) {
@@ -141,153 +141,173 @@ class _UpdateOrganizationState extends State<UpdateOrganization> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: const Text('Update Organization',
-                style: TextStyle(color: Colors.white))),
-        body: Container(
-          color: Colors.white,
-          child: radioValue == null
-              ? const Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  scrollDirection: Axis.vertical,
-                  child: Form(
-                    key: _formKey,
-                    autovalidateMode: _validate,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-                      child: Column(
-                        children: <Widget>[
-                          const Image(
-                              image: AssetImage('assets/images/team.png')),
-                          const SizedBox(
-                            height: 20,
+      appBar: AppBar(
+        title: Text(
+          AppLocalizations.of(context).translate('Update Organization'),
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      ),
+      body: Container(
+        color: Colors.white,
+        child: radioValue == null
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                padding: const EdgeInsets.only(
+                  bottom: 10.0,
+                ),
+                scrollDirection: Axis.vertical,
+                child: Form(
+                  key: _formKey,
+                  autovalidateMode: _validate,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 30.0,
+                      right: 30.0,
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        const Image(
+                            image: AssetImage('assets/images/team.png')),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          validator: (value) =>
+                              Validator.validateOrgName(value, context),
+                          textAlign: TextAlign.left,
+                          textCapitalization: TextCapitalization.words,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: FormFieldFormatting.formFieldFormatting(
+                            hintText: AppLocalizations.of(context)
+                                .translate("Organization Name"),
+                            labelText: AppLocalizations.of(context)
+                                .translate('My Organization'),
+                            prefixIcon: Icons.group,
                           ),
-                          TextFormField(
-                            validator: (value) =>
-                                Validator.validateOrgName(value),
-                            textAlign: TextAlign.left,
-                            textCapitalization: TextCapitalization.words,
-                            style: const TextStyle(color: Colors.black),
-                            decoration: FormFieldFormatting.formFieldFormatting(
-                              hintText: "Organization Name",
-                              labelText: 'My Organization',
-                              prefixIcon: Icons.group,
+                          controller: orgNameController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          textCapitalization: TextCapitalization.words,
+                          validator: (value) =>
+                              Validator.validateOrgDesc(value, context),
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: FormFieldFormatting.formFieldFormatting(
+                              hintText: AppLocalizations.of(context)
+                                  .translate("My Description"),
+                              labelText: AppLocalizations.of(context)
+                                  .translate("Organization Description"),
+                              prefixIcon: Icons.note_sharp),
+                          controller: orgDescController,
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          autofillHints: const <String>[
+                            AutofillHints.impp,
+                          ],
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          textCapitalization: TextCapitalization.words,
+                          validator: (value) =>
+                              Validator.validateOrgAttendeesDesc(
+                                  value, context),
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(color: Colors.black),
+                          decoration: FormFieldFormatting.formFieldFormatting(
+                              hintText: AppLocalizations.of(context)
+                                  .translate("Member Description"),
+                              labelText: AppLocalizations.of(context)
+                                  .translate("Member Description"),
+                              prefixIcon: Icons.note_sharp),
+                          controller: orgMemberDescController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          AppLocalizations.of(context).translate(
+                              'Do you want your organization to be public?'),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                        getRadioButton(radioValue, 2, public: true),
+                        Text(
+                          AppLocalizations.of(context).translate(
+                              'Do you want others to be able to find your organization from the search page?'),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                        getRadioButton(radioValue1, 2, public: false),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 30.0),
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0)),
                             ),
-                            controller: orgNameController,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            textCapitalization: TextCapitalization.words,
-                            validator: (value) =>
-                                Validator.validateOrgDesc(value),
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(color: Colors.black),
-                            decoration: FormFieldFormatting.formFieldFormatting(
-                                hintText: "My Description",
-                                labelText: "Organization Description",
-                                prefixIcon: Icons.note_sharp),
-                            controller: orgDescController,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          TextFormField(
-                            autofillHints: const <String>[AutofillHints.impp],
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            textCapitalization: TextCapitalization.words,
-                            validator: (value) =>
-                                Validator.validateOrgAttendeesDesc(value),
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(color: Colors.black),
-                            decoration: FormFieldFormatting.formFieldFormatting(
-                                hintText: "Member Description",
-                                labelText: "Member Description",
-                                prefixIcon: Icons.note_sharp),
-                            controller: orgMemberDescController,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const Text(
-                              'Do you want your organization to be public?',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.black)),
-                          getRadioButton(radioValue, 2, public: true),
-                          const Text(
-                              'Do you want others to be able to find your organization from the search page?',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.black)),
-                          getRadioButton(radioValue1, 2, public: false),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 20.0, horizontal: 30.0),
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                ),
-                              ),
-                              onPressed: () async {
-                                if (_formKey.currentState.validate() &&
-                                    radioValue >= 0 &&
-                                    radioValue1 >= 0) {
-                                  _formKey.currentState.save();
-                                  updateOrg();
-                                  setState(() {
-                                    toggleProgressBarState();
-                                  });
-                                } else if (radioValue < 0 || radioValue1 < 0) {
-                                  _exceptionToast("A choice must be selected");
-                                }
-                              },
-                              child: _progressBarState
-                                  ? const Center(
-                                      child: SizedBox(
-                                          width: 20,
-                                          height: 20,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                                    Colors.white),
-                                            strokeWidth: 3,
-                                            backgroundColor: Colors.black,
-                                          )))
-                                  : const Text(
-                                      "UPDATE ORGANIZATION",
-                                      style: TextStyle(color: Colors.white),
+                            onPressed: () async {
+                              if (_formKey.currentState.validate() &&
+                                  radioValue >= 0 &&
+                                  radioValue1 >= 0) {
+                                _formKey.currentState.save();
+                                updateOrg();
+                                setState(() {
+                                  toggleProgressBarState();
+                                });
+                              } else if (radioValue < 0 || radioValue1 < 0) {
+                                CustomToast.exceptionToast(
+                                  msg: AppLocalizations.of(context)
+                                      .translate("A choice must be selected"),
+                                );
+                              }
+                            },
+                            child: _progressBarState
+                                ? const Center(
+                                    child: SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            Colors.white,
+                                          ),
+                                          strokeWidth: 3,
+                                          backgroundColor: Colors.black,
+                                        )))
+                                : Text(
+                                    AppLocalizations.of(context)
+                                        .translate("UPDATE ORGANIZATION"),
+                                    style: const TextStyle(
+                                      color: Colors.white,
                                     ),
-                            ),
+                                  ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-        ));
-  }
-
-  //a message if the result is successful
-  _successToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: true),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 1),
+              ),
+      ),
     );
   }
+}
 
-  //a method which is called when the result is an exception
-  _exceptionToast(String msg) {
-    fToast.showToast(
-      child: ToastTile(msg: msg, success: false),
-      gravity: ToastGravity.BOTTOM,
-      toastDuration: const Duration(seconds: 3),
-    );
-  }
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  throw UnimplementedError();
 }

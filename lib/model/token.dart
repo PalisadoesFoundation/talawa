@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-//class to represent he token of an user
+//class to represent the token of an user
 class Token {
   Token({this.tokenString});
   String tokenString;
@@ -19,7 +19,9 @@ class Token {
       default:
         throw Exception('Illegal base64url string!"');
     }
-    return utf8.decode(base64Url.decode(output));
+    return utf8.decode(
+      base64Url.decode(output),
+    );
   }
 
   Map<String, dynamic> parseJwt() {

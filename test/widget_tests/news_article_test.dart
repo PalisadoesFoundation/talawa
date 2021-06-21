@@ -3,14 +3,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/locator.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:talawa/services/app_localization.dart';
 
 // Local files imports.
 import 'package:talawa/controllers/auth_controller.dart';
+import 'package:talawa/controllers/groups_controller.dart';
 import 'package:talawa/controllers/org_controller.dart';
 import 'package:talawa/controllers/post_controller.dart';
+import 'package:talawa/model/posts.dart';
 import 'package:talawa/services/comment.dart';
 import 'package:talawa/services/preferences.dart';
 import 'package:talawa/utils/gql_client.dart';
+import 'package:talawa/utils/ui_scaling.dart';
 import 'package:talawa/views/pages/newsfeed/news_article.dart';
 
 Widget newsArticlePage() => MultiProvider(
@@ -33,34 +39,51 @@ Widget newsArticlePage() => MultiProvider(
         ChangeNotifierProvider<CommentHandler>(
           create: (_) => CommentHandler(),
         ),
+        ChangeNotifierProvider<GroupController>(
+            create: (_) => GroupController()),
       ],
-      child: const MaterialApp(
-        home: NewsArticle(
-          index: 0,
-          post: {
-            '_id': '605259ecb1257f67811d7ae3',
-            'text': 'ndlnldwnl',
-            'title': 'naanlls'
+      child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        home: Builder(
+          builder: (ctx) {
+            SizeConfig().init(ctx);
+            return NewsArticle(
+              index: 0,
+              post: Posts(
+                id: '605259ecb1257f67811d7ae3',
+                text: 'ndlnldwnl',
+                title: 'naanlls',
+              ),
+            );
           },
         ),
       ),
     );
 
 void main() {
+  setupLocator();
+
   final TestWidgetsFlutterBinding binding =
       TestWidgetsFlutterBinding.ensureInitialized()
           as TestWidgetsFlutterBinding;
 
   group("News Article Tests", () {
     testWidgets("Testing if newsArticle Page shows up", (tester) async {
-      await tester.pumpWidget(newsArticlePage());
+      await tester.runAsync(() async {
+        await tester.pumpWidget(newsArticlePage());
+        await tester.pumpAndSettle();
 
-      /// Verify if [News Article Page] shows up.
+        /// Verify if [News Article Page] shows up.
 
-      expect(
-        find.byType(TextField),
-        findsOneWidget,
-      );
+        expect(
+          find.byType(TextField),
+          findsOneWidget,
+        );
+      });
     });
 
     testWidgets("Testing overflow of New Article in a mobile screen",
@@ -68,13 +91,16 @@ void main() {
       binding.window.physicalSizeTestValue = const Size(440, 800);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(newsArticlePage());
+      await tester.runAsync(() async {
+        await tester.pumpWidget(newsArticlePage());
+        await tester.pumpAndSettle();
 
-      /// Verify if [News Article Page] shows up.
-      expect(
-        find.byType(TextField),
-        findsOneWidget,
-      );
+        /// Verify if [News Article Page] shows up.
+        expect(
+          find.byType(TextField),
+          findsOneWidget,
+        );
+      });
     });
 
     testWidgets("Testing overflow of New Article in a tablet screen",
@@ -82,32 +108,39 @@ void main() {
       binding.window.physicalSizeTestValue = const Size(1024, 768);
       binding.window.devicePixelRatioTestValue = 1.0;
 
-      await tester.pumpWidget(newsArticlePage());
+      await tester.runAsync(() async {
+        await tester.pumpWidget(newsArticlePage());
+        await tester.pumpAndSettle();
 
-      /// Verify if [News Article Page] shows up.
-      expect(
-        find.byType(TextField),
-        findsOneWidget,
-      );
+        /// Verify if [News Article Page] shows up.
+        expect(
+          find.byType(TextField),
+          findsOneWidget,
+        );
+      });
     });
 
     testWidgets("Load Comments Button is working", (tester) async {
-      await tester.pumpWidget(newsArticlePage());
+      await tester.runAsync(() async {
+        await tester.pumpWidget(newsArticlePage());
+        await tester.pumpAndSettle();
 
-      // Get the Load Comment button.
-      final loadCommentsButton = find.text("Load Comments");
+        //     // Get the Load Comment button.
+        final loadCommentsButton = find.text("Load Comments");
 
-      // Tap on the loadCommentsButton.
-      await tester.tap(loadCommentsButton);
-      await tester.pumpAndSettle();
+        await tester.pumpAndSettle();
+        // Tap on the loadCommentsButton.
+        await tester.tap(loadCommentsButton);
+        await tester.pumpAndSettle();
 
-      // Comments Icon Should be displayed.
-      const iconKey = ValueKey('commentIcon');
+        //     // Comments Icon Should be displayed.
+        const iconKey = ValueKey('commentIcon');
 
-      expect(
-        find.byKey(iconKey),
-        findsWidgets,
-      );
+        expect(
+          find.byKey(iconKey),
+          findsOneWidget,
+        );
+      });
     });
   });
 
@@ -121,6 +154,7 @@ void main() {
 
     //execute the test
     await tester.pumpWidget(newsArticlePage());
+    await tester.pumpAndSettle();
     await tester.enterText(leaveCommentTextField, "hello how are you");
     await tester.tap(leaveCommentButton);
     await tester.pump();

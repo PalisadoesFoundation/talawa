@@ -1,6 +1,8 @@
 //flutter packages are called here
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/model/orgmemeber.dart';
+import 'package:talawa/services/app_localization.dart';
 
 //pages are called here
 import 'package:talawa/services/queries_.dart';
@@ -16,7 +18,7 @@ class UserTasks extends StatefulWidget {
     @required this.member,
   }) : super(key: key);
 
-  Map member;
+  Member member;
 
   @override
   _UserTasksState createState() => _UserTasksState();
@@ -35,14 +37,16 @@ class _UserTasksState extends State<UserTasks> {
   }
 
   //getting user details
-  getUserDetails() async {
-    final String userID = widget.member['_id'].toString();
+  Future getUserDetails() async {
+    final String userID = widget.member.id.toString();
     final Map result =
         await apiFunctions.gqlquery(Queries().tasksByUser(userID));
     print(result);
-    setState(() {
-      userTasks = result == null ? [] : result['tasksByUser'] as List;
-    });
+    setState(
+      () {
+        userTasks = result == null ? [] : result['tasksByUser'] as List;
+      },
+    );
   }
 
   @override
@@ -60,25 +64,35 @@ class _UserTasksState extends State<UserTasks> {
     return userTasks == null
         ? Container(
             key: const Key("User Task Loading"),
-            child: const Center(
-              child: Loading(),
+            child: Center(
+              child: Loading(
+                key: UniqueKey(),
+                isCurrentOrgNull: false,
+                emptyContentIcon: Icons.work_outline_rounded,
+                emptyContentMsg: AppLocalizations.of(context)
+                    .translate('No Tasks found, Create One!'),
+                refreshFunction: getUserDetails,
+              ),
             ),
           )
         : userTasks.isNotEmpty
             ? Container(
-                key: const Key("User Task Exists"),
+                key: const Key(
+                  "User Task Exists",
+                ),
                 child: ListView.builder(
                     itemCount: userTasks.length,
                     itemBuilder: (context, index) {
-                      String title = "Title: ${userTasks[index]["title"]}";
+                      String title =
+                          "${AppLocalizations.of(context).translate("Title")}: ${userTasks[index]["title"]}";
                       title += userTasks[index]["event"] != null
-                          ? '\nEvent: ${userTasks[index]["event"]["title"]}'
+                          ? '\n${AppLocalizations.of(context).translate("Event")}: ${userTasks[index]["event"]["title"]}'
                           : "";
                       String description =
                           userTasks[index]["description"].toString();
                       description += userTasks[index]["deadline"] != null
-                          ? ' \nDue Date: ${DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"].toString())))}'
-                          : '\nDue Date: N/A';
+                          ? ' \n${AppLocalizations.of(context).translate("Due Date")}: ${DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(int.parse(userTasks[index]["deadline"].toString())))}'
+                          : '\n${AppLocalizations.of(context).translate("Due Date")}: N/A';
                       return Card(
                           child: Column(
                         children: <Widget>[
@@ -87,23 +101,28 @@ class _UserTasksState extends State<UserTasks> {
                               title,
                             ),
                             subtitle: Text(
-                              'Description: $description',
+                              '${AppLocalizations.of(context).translate("Description")}: $description',
                             ),
                             contentPadding: EdgeInsets.fromLTRB(
-                                SizeConfig.safeBlockHorizontal * 2,
-                                SizeConfig.safeBlockVertical,
-                                SizeConfig.safeBlockHorizontal * 2,
-                                SizeConfig.safeBlockVertical),
+                              SizeConfig.safeBlockHorizontal * 2,
+                              SizeConfig.safeBlockVertical,
+                              SizeConfig.safeBlockHorizontal * 2,
+                              SizeConfig.safeBlockVertical,
+                            ),
                           ),
                         ],
                       ));
                     }))
             : Container(
-                key: const Key("User Task Not Exists"),
-                child: const Center(
+                key: const Key(
+                  "User Task Not Exists",
+                ),
+                child: Center(
                   child: Text(
-                    "No Tasks found",
-                    style: TextStyle(fontSize: 20),
+                    AppLocalizations.of(context).translate("No Tasks found"),
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),

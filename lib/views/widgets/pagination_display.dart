@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+<<<<<<< HEAD
+=======
+import 'package:talawa/services/app_localization.dart';
+>>>>>>> origin/master
 
 class PaginationIcon extends StatelessWidget {
   const PaginationIcon({
@@ -15,12 +19,22 @@ class PaginationIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return _paginationWidget();
   }
 
   /// WIDGET TO BE DISPLAYED BASED ON THE [PAGINATION] TENDENCY
   Widget _paginationWidget() {
     if (isNextPageExist) {
+=======
+    return _paginationWidget(context);
+  }
+
+  /// WIDGET TO BE DISPLAYED BASED ON THE [PAGINATION] TENDENCY
+  Widget _paginationWidget(BuildContext context) {
+    if (isNextPageExist) {
+      //fetchMoreHelper();
+>>>>>>> origin/master
       if (result.loading) {
         return const Center(
           child: Padding(
@@ -33,6 +47,10 @@ class PaginationIcon extends StatelessWidget {
           ),
         );
       } else {
+<<<<<<< HEAD
+=======
+        fetchMoreHelper();
+>>>>>>> origin/master
         return Padding(
           padding: const EdgeInsets.all(10.0),
           child: Center(
@@ -40,6 +58,7 @@ class PaginationIcon extends StatelessWidget {
               onTap: () => fetchMoreHelper(),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+<<<<<<< HEAD
                 children: const <Widget>[
                   Icon(
                     Icons.add_circle_outline_outlined,
@@ -49,11 +68,26 @@ class PaginationIcon extends StatelessWidget {
                   Text(
                     'Load More',
                     style: TextStyle(
+=======
+                children: <Widget>[
+                  const Icon(
+                    Icons.add_circle_outline_outlined,
+                    size: 50,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    AppLocalizations.of(context).translate('Load More'),
+                    style: const TextStyle(
+>>>>>>> origin/master
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
+<<<<<<< HEAD
                   SizedBox(height: 25),
+=======
+                  const SizedBox(height: 25),
+>>>>>>> origin/master
                 ],
               ),
             ),
