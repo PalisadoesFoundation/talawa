@@ -18,8 +18,8 @@
     "your password": "我们会找回您的密码",
     "Recover Password": "恢复你的密码",
     "Select Language": "选择语言",
-    "Default": "选择",
-    "Select": "Select",
+    "Default": "默认值",
+    "Select": "选择",
     "Selected Organization": "选定组织",
     "Continue": "继续",
     "Enter Organization URL": "输入组织 URL",
@@ -54,5 +54,15 @@
     "Invalid Password": "无效的密码",
     "Password must not contain spaces": "密码不能包含空格",
     "Password does not match original": "密码与原密码不符",
-    "Join Organisation": "加入组织"
+    "Join Organisation": "加入组织",
+
+    "We're": "我们很高兴",
+    "Glad": "",
+    "you're": "你回来了",
+    "Back": "",
+
+    "Let's": "让我们",
+    "get": "帮",
+    "you": "",
+    "SignUp": "你注册"
 }

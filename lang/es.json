@@ -18,7 +18,7 @@
     "your password": "relájese, recuperaremos su contraseña",
     "Recover Password": "Recupera tu contraseña",
     "Select Language": "Seleccione el idioma",
-    "Default": "Default",
+    "Default": "Valor por defecto",
     "Select": "Seleccione",
     "Selected Organization": "Organización seleccionada",
     "Continue": "Continuar",
@@ -54,5 +54,15 @@
     "Invalid Password": "Contraseña invalida",
     "Password must not contain spaces": "La contraseña no debe contener espacios",
     "Password does not match original": "La contraseña no coincide con la original",
-    "Join Organisation": "Unirse a la organización"
+    "Join Organisation": "Unirse a la organización",
+
+    "We're": "Nos",
+    "Glad": "alegra que",
+    "you're": "hayas",
+    "Back": "vuelto",
+
+    "Let's": "Consigamos",
+    "get": "que",
+    "you": "te",
+    "SignUp": "registres"
 }

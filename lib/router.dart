@@ -31,12 +31,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const SplashScreen(key: Key('SplashScreen')));
     case Routes.languageSelectionRoute:
-      final int selectedLangId = int.parse(settings.arguments!.toString());
       return MaterialPageRoute(
-          builder: (context) => SelectLanguage(
-                key: const Key('SelectLanguage'),
-                selectedLangId: selectedLangId,
-              ));
+          builder: (context) =>
+              const SelectLanguage(key: Key('SelectLanguage')));
     case Routes.setUrlScreen:
       final String uri = settings.arguments!.toString();
       return MaterialPageRoute(

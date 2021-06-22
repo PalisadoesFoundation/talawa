@@ -65,8 +65,14 @@ class _SetUrlState extends State<SetUrl> {
                         textInputAction: TextInputAction.done,
                         keyboardType: TextInputType.text,
                         enableSuggestions: true,
-                        validator: (value) => AppLocalizations.of(context)!
-                            .translate(Validator.validateURL(value!)),
+                        validator: (value) {
+                          final String? msg = Validator.validateURL(value!);
+                          if (msg == null) {
+                            return null;
+                          }
+
+                          return AppLocalizations.of(context)!.translate(msg);
+                        },
                         onFieldSubmitted: (value) =>
                             AppLocalizations.of(context)!
                                 .translate(Validator.validateURL(value)),
@@ -104,6 +110,7 @@ class _SetUrlState extends State<SetUrl> {
                         buttonLabel: AppLocalizations.of(context)!
                             .strictTranslate('Login'),
                         onTap: () async {
+                          print("login");
                           await model.checkURLandNavigate('/login', '');
                         },
                         showArrow: true,

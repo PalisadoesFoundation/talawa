@@ -70,11 +70,21 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                             AutofillHints.givenName
                                           ],
                                           enableSuggestions: true,
-                                          validator: (value) =>
-                                              AppLocalizations.of(context)!
-                                                  .translate(Validator
-                                                      .validateFirstName(
-                                                          value!)),
+                                          validator: (value) {
+                                            final String? msg =
+                                                Validator.validateFirstName(
+                                                    value!);
+                                            if (msg == null) {
+                                              return null;
+                                            }
+
+                                            return AppLocalizations.of(context)!
+                                                .translate(
+                                              Validator.validateFirstName(
+                                                value,
+                                              ),
+                                            );
+                                          },
                                           decoration: InputDecoration(
                                             hintText: AppLocalizations.of(
                                                     context)!
@@ -97,11 +107,19 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                             AutofillHints.familyName
                                           ],
                                           enableSuggestions: true,
-                                          validator: (value) =>
-                                              AppLocalizations.of(context)!
-                                                  .translate(Validator
-                                                      .validateLastName(
-                                                          value!)),
+                                          validator: (value) {
+                                            final String? msg =
+                                                Validator.validateLastName(
+                                                    value!);
+                                            if (msg == null) {
+                                              return null;
+                                            }
+
+                                            return AppLocalizations.of(context)!
+                                                .translate(
+                                              Validator.validateLastName(value),
+                                            );
+                                          },
                                           decoration: InputDecoration(
                                             hintText: AppLocalizations.of(
                                                     context)!
@@ -125,11 +143,18 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                             AutofillHints.email
                                           ],
                                           enableSuggestions: true,
-                                          validator: (value) =>
-                                              AppLocalizations.of(context)!
-                                                  .translate(
-                                                      Validator.validateEmail(
-                                                          value!)),
+                                          validator: (value) {
+                                            final String? msg =
+                                                Validator.validateEmail(value!);
+                                            if (msg == null) {
+                                              return null;
+                                            }
+
+                                            return AppLocalizations.of(context)!
+                                                .translate(
+                                              Validator.validateEmail(value),
+                                            );
+                                          },
                                           decoration: InputDecoration(
                                             hintText: 'test@test.org',
                                             labelText:
@@ -152,11 +177,19 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                             AutofillHints.password
                                           ],
                                           enableSuggestions: true,
-                                          validator: (value) =>
-                                              AppLocalizations.of(context)!
-                                                  .translate(Validator
-                                                      .validatePassword(
-                                                          value!)),
+                                          validator: (value) {
+                                            final String? msg =
+                                                Validator.validatePassword(
+                                                    value!);
+                                            if (msg == null) {
+                                              return null;
+                                            }
+
+                                            return AppLocalizations.of(context)!
+                                                .translate(
+                                              Validator.validatePassword(value),
+                                            );
+                                          },
                                           onFieldSubmitted: (done) {
                                             FocusScope.of(context).requestFocus(
                                                 model.confirmFocus);
@@ -195,12 +228,21 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                             AutofillHints.password
                                           ],
                                           obscureText: model.hidePassword,
-                                          validator: (value) =>
-                                              AppLocalizations.of(context)!
-                                                  .translate(Validator
-                                                      .validatePasswordConfirm(
-                                                          model.password.text,
-                                                          value!)),
+                                          validator: (value) {
+                                            final String? msg = Validator
+                                                .validatePasswordConfirm(
+                                                    model.password.text,
+                                                    value!);
+                                            if (msg == null) {
+                                              return null;
+                                            }
+
+                                            return AppLocalizations.of(context)!
+                                                .translate(Validator
+                                                    .validatePasswordConfirm(
+                                                        model.password.text,
+                                                        value));
+                                          },
                                           decoration: InputDecoration(
                                             hintText:
                                                 AppLocalizations.of(context)!

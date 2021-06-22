@@ -53,5 +53,15 @@
     "Invalid Password": "Invalid Password",
     "Password must not contain spaces": "Password must not contain spaces",
     "Password does not match original": "Password does not match original",
-    "Join Organisation": "Join Organisation"
+    "Join Organisation": "Join Organisation",
+
+    "We're": "We're",
+    "Glad": "Glad",
+    "you're": "you're",
+    "Back": "Back",
+
+    "Let's": "Let's",
+    "get": "get",
+    "you": "you",
+    "SignUp": "SignUp"
 }

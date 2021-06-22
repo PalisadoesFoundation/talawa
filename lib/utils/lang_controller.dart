@@ -15,6 +15,7 @@ class AppLanguage extends ChangeNotifier {
     final String langCode = prefs.getString('language_code') ?? 'en';
     print(langCode);
     _appLocale = Locale(langCode);
+    notifyListeners();
     return Null;
   }
 

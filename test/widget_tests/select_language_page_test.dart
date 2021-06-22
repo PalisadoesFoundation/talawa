@@ -30,10 +30,7 @@ Widget createSelectLanguageScreenLight(
         key: const Key('Root'),
         themeMode: themeMode,
         theme: TalawaTheme.lightTheme,
-        home: const SelectLanguage(
-          key: Key('SelectLanguage'),
-          selectedLangId: 0,
-        ),
+        home: const SelectLanguage(key: Key('SelectLanguage')),
         navigatorKey: locator<NavigationService>().navigatorKey,
         onGenerateRoute: router.generateRoute,
       ),
@@ -53,10 +50,7 @@ Widget createSelectLanguageScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
         key: const Key('Root'),
         themeMode: themeMode,
         darkTheme: TalawaTheme.darkTheme,
-        home: const SelectLanguage(
-          key: Key('SelectLanguage'),
-          selectedLangId: 0,
-        ),
+        home: const SelectLanguage(key: Key('SelectLanguage')),
         navigatorKey: locator<NavigationService>().navigatorKey,
         onGenerateRoute: router.generateRoute,
       ),
@@ -138,11 +132,13 @@ void main() {
       final int randomNumber = Random().nextInt(languages.length);
       await tester.pumpWidget(createSelectLanguageScreenLight());
       await tester.pumpAndSettle();
+
       final findAppNameWidget = find.byKey(Key('LanguageItem$randomNumber'));
       await tester.tap(findAppNameWidget);
       await tester.pumpAndSettle(const Duration(seconds: 1));
+
       expect((tester.firstWidget(findAppNameWidget) as Container).decoration,
-          BoxDecoration(color: const Color(0xFFC4C4C4).withOpacity(0.15)));
+          const BoxDecoration(color: Colors.transparent));
     });
     testWidgets("Testing to navigate to url page", (tester) async {
       await tester.pumpWidget(createSelectLanguageScreenLight());
