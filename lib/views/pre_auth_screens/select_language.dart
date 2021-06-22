@@ -45,6 +45,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                 AppLocalizations.of(context)!
                     .strictTranslate('Select Language'),
                 style: Theme.of(context).textTheme.headline5,
+                key: const Key('Select Language'),
               ),
             ),
             SizedBox(

@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path;
+import 'package:provider/provider.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -12,39 +14,60 @@ import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/lang_controller.dart';
 import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 Widget createSetUrlScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
-    MaterialApp(
-      key: const Key('Root'),
-      themeMode: themeMode,
-      theme: TalawaTheme.lightTheme,
-      home: const SetUrl(
-        key: Key('SetUrl'),
-        uri: 'null',
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+      ],
+      child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        key: const Key('Root'),
+        themeMode: themeMode,
+        theme: TalawaTheme.lightTheme,
+        home: const SetUrl(
+          key: Key('SetUrl'),
+          uri: 'null',
+        ),
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
       ),
-      navigatorKey: locator<NavigationService>().navigatorKey,
-      onGenerateRoute: router.generateRoute,
     );
 
 Widget createSetUrlScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
-    MaterialApp(
-      key: const Key('Root'),
-      themeMode: themeMode,
-      darkTheme: TalawaTheme.darkTheme,
-      home: const SetUrl(
-        key: Key('SetUrl'),
-        uri: 'null',
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+      ],
+      child: MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        key: const Key('Root'),
+        themeMode: themeMode,
+        darkTheme: TalawaTheme.darkTheme,
+        home: const SetUrl(
+          key: Key('SetUrl'),
+          uri: 'null',
+        ),
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
       ),
-      navigatorKey: locator<NavigationService>().navigatorKey,
-      onGenerateRoute: router.generateRoute,
     );
 
 Future<void> main() async {
-  TestWidgetsFlutterBinding.ensureInitialized();
-  //initializing Hive
+  TestWidgetsFlutterBinding.ensureInitialized(); //initializing Hive
   final Directory dir = await path.getApplicationDocumentsDirectory();
   Hive
     ..init(dir.path)
@@ -65,6 +88,7 @@ Future<void> main() async {
     testWidgets("Testing if Select Language Screen shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
 
       //initializing the screenScaffold Finder
       final screenScaffoldWidget =
@@ -83,6 +107,7 @@ Future<void> main() async {
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
 
       //initializing the logo Finder
       final logoWidget = find.byKey(const Key('LogoPainter'));
@@ -98,6 +123,7 @@ Future<void> main() async {
     testWidgets("Testing if custom rich text shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
 
       //initializing the custom rich text widget Finder
       final customRichTextWidget = find.byKey(const Key('UrlPageText'));
@@ -148,6 +174,7 @@ Future<void> main() async {
     testWidgets("Testing the Url Input text form field", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
 
       //initializing the url input field widget Finder
       final urlInputFieldWidget = find.byKey(const Key('UrlInputField'));
@@ -191,6 +218,7 @@ Future<void> main() async {
     testWidgets("Testing change language button", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
 
       //initializing the change language widget Finder
       final changeLanguageWidget = find.byKey(const Key('ChangeLanguage'));
@@ -204,13 +232,14 @@ Future<void> main() async {
 
       //taping the change language button
       await tester.tapAt(offset);
-      await tester.pumpAndSettle(const Duration(seconds: 2));
+      await tester.pumpAndSettle();
       //testing that the scaffold is no more visible
       expect(screenScaffoldWidget, findsNothing);
     });
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
 
       //initializing the login button Finder
       final loginButtonWidget = find.byKey(const Key('LoginButton'));
@@ -238,6 +267,7 @@ Future<void> main() async {
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
 
       //initializing the signup button Finder
       final signupButtonWidget = find.byKey(const Key('SignUpButton'));
@@ -269,6 +299,7 @@ Future<void> main() async {
     testWidgets("Testing if Select Language Screen shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
 
       //initializing the screenScaffold Finder
       final screenScaffoldWidget =
@@ -287,6 +318,7 @@ Future<void> main() async {
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
 
       //initializing the logo Finder
       final logoWidget = find.byKey(const Key('LogoPainter'));
@@ -302,6 +334,7 @@ Future<void> main() async {
     testWidgets("Testing if custom rich text shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
 
       //initializing the custom rich text widget Finder
       final customRichTextWidget = find.byKey(const Key('UrlPageText'));
@@ -352,6 +385,7 @@ Future<void> main() async {
     testWidgets("Testing the Url Input text form field", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
 
       //initializing the url input field widget Finder
       final urlInputFieldWidget = find.byKey(const Key('UrlInputField'));
@@ -369,7 +403,7 @@ Future<void> main() async {
 
       //submitting the field with null url
       await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+      await tester.pumpAndSettle();
       //testing the nullErrorUrlSubmission widget appears
       expect(nullErrorUrlSubmission, findsOneWidget);
 
@@ -377,7 +411,7 @@ Future<void> main() async {
       await tester.enterText(urlInputFieldWidget, 'non-url text');
       //submitting the field with non url input
       await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+      await tester.pumpAndSettle();
       //testing the invalidUrlSubmission widget appears
       expect(invalidUrlSubmission, findsOneWidget);
 
@@ -386,7 +420,7 @@ Future<void> main() async {
           'https://talawa-graphql-api.herokuapp.com/graphql');
       //submitting the field with a existing url
       await tester.tap(findVerifyButton);
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+      await tester.pumpAndSettle();
       //testing nullErrorUrlSubmission is not found
       expect(nullErrorUrlSubmission, findsNothing);
       //testing invalidUrlSubmission is not found
@@ -395,6 +429,7 @@ Future<void> main() async {
     testWidgets("Testing change language button", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
 
       //initializing the change language widget Finder
       final changeLanguageWidget = find.byKey(const Key('ChangeLanguage'));
@@ -408,13 +443,14 @@ Future<void> main() async {
 
       //taping the change language button
       await tester.tapAt(offset);
-      await tester.pumpAndSettle(const Duration(seconds: 2));
+      await tester.pumpAndSettle();
       //testing that the scaffold is no more visible
       expect(screenScaffoldWidget, findsNothing);
     });
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
 
       //initializing the login button Finder
       final loginButtonWidget = find.byKey(const Key('LoginButton'));
@@ -442,6 +478,7 @@ Future<void> main() async {
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
 
       //initializing the signup button Finder
       final signupButtonWidget = find.byKey(const Key('SignUpButton'));
