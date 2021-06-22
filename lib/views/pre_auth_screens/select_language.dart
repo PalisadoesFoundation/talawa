@@ -51,9 +51,9 @@ class _SelectLanguageState extends State<SelectLanguage> {
             SizedBox(
               height: SizeConfig.screenHeight! * 0.018,
             ),
-            const CupertinoSearchTextField(
-              key: Key('SearchField'),
-            ),
+            // const CupertinoSearchTextField(
+            //   key: Key('SearchField'),
+            // ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.016,
             ),
@@ -66,10 +66,17 @@ class _SelectLanguageState extends State<SelectLanguage> {
                         key: Key(selectedLangIndex == index
                             ? 'Selected'
                             : 'NotSelected'),
-                        onTap: () {
+                        onTap: () async {
                           setState(() {
                             selectedLangIndex = index;
                           });
+
+                          await Provider.of<AppLanguage>(
+                            context,
+                            listen: false,
+                          ).changeLanguage(
+                            Locale(languages[selectedLangIndex].langCode),
+                          );
                         },
                         child: Container(
                           key: Key('LanguageItem$index'),
@@ -121,11 +128,6 @@ class _SelectLanguageState extends State<SelectLanguage> {
               child: TextButton(
                 key: const Key('NavigateToUrlPage'),
                 onPressed: () async {
-                  await Provider.of<AppLanguage>(
-                    context,
-                    listen: false,
-                  ).changeLanguage(
-                      Locale(languages[selectedLangIndex].langCode));
                   navigationService.pushScreen('/setUrl', arguments: '');
                 },
                 child: Text(

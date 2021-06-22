@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -22,6 +21,7 @@ Widget createSelectLanguageScreenLight(
         ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
       ],
       child: MaterialApp(
+        locale: const Locale('en'),
         localizationsDelegates: [
           const AppLocalizationsDelegate(isTest: true),
           GlobalMaterialLocalizations.delegate,
@@ -102,12 +102,13 @@ void main() {
         TalawaTheme.lightTheme.textTheme.headline5!.fontSize,
       );
     });
-    testWidgets("Testing if search box shows up", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenLight());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('SearchField'));
-      expect(findAppNameWidget, findsOneWidget);
-    });
+    //This will be added once we implement the search box
+    // testWidgets("Testing if search box shows up", (tester) async {
+    //   await tester.pumpWidget(createSelectLanguageScreenLight());
+    //   await tester.pumpAndSettle();
+    //   final findAppNameWidget = find.byKey(const Key('SearchField'));
+    //   expect(findAppNameWidget, findsOneWidget);
+    // });
     testWidgets("Testing if languages list shows up", (tester) async {
       await tester.pumpWidget(createSelectLanguageScreenLight());
       await tester.pumpAndSettle();
@@ -146,9 +147,12 @@ void main() {
     testWidgets("Testing to navigate to url page", (tester) async {
       await tester.pumpWidget(createSelectLanguageScreenLight());
       await tester.pumpAndSettle();
+
       final findAppNameWidget = find.byKey(const Key('NavigateToUrlPage'));
+
       await tester.tap(findAppNameWidget);
-      await tester.pump();
+      await tester.pumpAndSettle(const Duration(seconds: 3));
+
       expect(findAppNameWidget, findsNothing);
     });
     testWidgets("Testing to select and navigate button appears",
@@ -191,12 +195,13 @@ void main() {
       expect((tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
           TalawaTheme.darkTheme.textTheme.headline5!.fontSize);
     });
-    testWidgets("Testing if search box shows up", (tester) async {
-      await tester.pumpWidget(createSelectLanguageScreenDark());
-      await tester.pumpAndSettle();
-      final findAppNameWidget = find.byKey(const Key('SearchField'));
-      expect(findAppNameWidget, findsOneWidget);
-    });
+    // This is not needed now will be added when required
+    // testWidgets("Testing if search box shows up", (tester) async {
+    //   await tester.pumpWidget(createSelectLanguageScreenDark());
+    //   await tester.pumpAndSettle();
+    //   final findAppNameWidget = find.byKey(const Key('SearchField'));
+    //   expect(findAppNameWidget, findsOneWidget);
+    // });
     testWidgets("Testing if languages list shows up", (tester) async {
       await tester.pumpWidget(createSelectLanguageScreenDark());
       await tester.pumpAndSettle();
