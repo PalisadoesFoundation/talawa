@@ -32,10 +32,6 @@ class EventCard extends StatelessWidget {
                   height: SizeConfig.screenHeight! * 0.11,
                   width: double.infinity,
                   color: Colors.grey.withOpacity(0.3),
-                  // child: Image.network(
-                  //   'https://picsum.photos/id/50/200/300',
-                  //   fit: BoxFit.fill,
-                  // ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),
@@ -43,9 +39,14 @@ class EventCard extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text(
-                            event.title!,
-                            style: Theme.of(context).textTheme.headline5,
+                          SizedBox(
+                            width: SizeConfig.screenWidth! * 0.50,
+                            child: Text(
+                              event.title!,
+                              style: Theme.of(context).textTheme.headline5,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                            ),
                           ),
                           const Spacer(),
                           const Icon(
@@ -71,7 +72,7 @@ class EventCard extends StatelessWidget {
                             size: 12,
                           ),
                           SizedBox(
-                            width: SizeConfig.screenWidth! * 0.025,
+                            width: SizeConfig.screenWidth! * 0.015,
                           ),
                           Text(
                             "${event.startTime!} - ${event.endTime!}",
