@@ -48,10 +48,11 @@ class PostService {
     });
   }
 
-  Future<void> addLike(String postID) {
+  Future<void> addLike(String postID) async {
     final String mutation = PostQueries().addLike();
-    final result =
-        _dbFunctions.gqlAuthMutation(mutation, variables: {"postID": postID});
+    final result = await _dbFunctions
+        .gqlAuthMutation(mutation, variables: {"postID": postID});
+    print(result);
     return result;
   }
 }

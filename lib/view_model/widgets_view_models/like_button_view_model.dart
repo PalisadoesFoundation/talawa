@@ -13,17 +13,19 @@ class LikeButtonViewModel extends BaseModel {
   // Local Variables for session caching
   bool _isLiked = false;
   late User _user;
-  late List<Comments> _likedBy;
+  List<LikedBy> _likedBy = [];
   late String _postID;
 
   // Getters
   bool get isLiked => _isLiked;
-
+  List<LikedBy> get likedBy => _likedBy;
+  int get likesCount => _likedBy.length;
   // initialize
-  void initialize(List<Comments> likedBy, String postID) {
+  void initialize(List<LikedBy> likedBy, String postID) {
     _postID = postID;
     _user = _userConfig.currentUser;
     _likedBy = likedBy;
+    notifyListeners();
     checkAndSetTheIsLiked();
   }
 
