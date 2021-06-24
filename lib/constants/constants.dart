@@ -10,25 +10,25 @@ List<Language> languages = [
   Language(
     countryCode: 'IN',
     langCode: 'hi',
-    langName: 'Hindi',
+    langName: 'हिंदी',
     langSample: 'स्वागत उपयोगकर्ता',
   ),
   Language(
     countryCode: 'CN',
     langCode: 'zh',
-    langName: 'Chinese',
+    langName: '中国人',
     langSample: '欢迎用户',
   ),
   Language(
     countryCode: 'FR',
     langCode: 'fr',
-    langName: 'French',
+    langName: 'français',
     langSample: 'Bienvenue utilisateur',
   ),
   Language(
     countryCode: 'ES',
     langCode: 'es',
-    langName: 'Spanish',
+    langName: 'Española',
     langSample: 'Bienvenida usuario',
   ),
 ];

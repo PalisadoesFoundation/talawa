@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 
 class FromPalisadoes extends StatelessWidget {
   const FromPalisadoes({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class FromPalisadoes extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'from',
+              AppLocalizations.of(context)!.strictTranslate('from'),
               style: Theme.of(context).textTheme.caption,
             ),
           ],

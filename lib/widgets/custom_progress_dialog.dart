@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
@@ -40,7 +41,7 @@ class CustomProgressDialog extends StatelessWidget {
                                 fit: BoxFit.scaleDown)),
                       ),
                       Text(
-                        'No Internet!',
+                        '${AppLocalizations.of(context)!.strictTranslate("No Internet")}!',
                         style: Theme.of(context).textTheme.headline5,
                       ),
                     ],

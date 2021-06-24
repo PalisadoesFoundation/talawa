@@ -3,6 +3,7 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/options/options.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
@@ -32,7 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               key: const Key("ProfilePageAppBar"),
               title: Text(
-                'Profile',
+                AppLocalizations.of(context)!.strictTranslate('Profile'),
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
@@ -91,8 +92,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       Icons.phonelink_setup,
                                       size: 30,
                                     ),
-                                    title: 'App Settings',
-                                    subtitle: 'Language, dark mode, font size',
+                                    title: AppLocalizations.of(context)!
+                                        .strictTranslate('App Settings'),
+                                    subtitle:
+                                        '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
                                   ),
                                   onTapOption: () {}),
                               CustomListTile(
@@ -104,8 +107,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                       Icons.help_outline,
                                       size: 30,
                                     ),
-                                    title: 'Help',
-                                    subtitle: 'Reach out to us for help',
+                                    title: AppLocalizations.of(context)!
+                                        .strictTranslate('Help'),
+                                    subtitle: AppLocalizations.of(context)!
+                                        .strictTranslate(
+                                            'Reach out to us for help'),
                                   ),
                                   onTapOption: () {}),
                               CustomListTile(
@@ -119,8 +125,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                           Theme.of(context).colorScheme.primary,
                                       size: 30,
                                     ),
-                                    title: 'Donate Us',
-                                    subtitle: 'Help us to develop for you',
+                                    title: AppLocalizations.of(context)!
+                                        .strictTranslate('Donate Us'),
+                                    subtitle: AppLocalizations.of(context)!
+                                        .strictTranslate(
+                                            'Help us to develop for you'),
                                   ),
                                   onTapOption: () {}),
                               CustomListTile(
@@ -133,8 +142,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       color: Theme.of(context).accentColor,
                                       size: 30,
                                     ),
-                                    title: 'Log out',
-                                    subtitle: 'Log out from Talawa',
+                                    title: AppLocalizations.of(context)!
+                                        .strictTranslate('Log out'),
+                                    subtitle: AppLocalizations.of(context)!
+                                        .strictTranslate('Log out from Talawa'),
                                   ),
                                   onTapOption: () => model.logout(context)),
                               const FromPalisadoes(),

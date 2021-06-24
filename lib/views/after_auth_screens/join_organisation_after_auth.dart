@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
@@ -19,7 +20,8 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
             appBar: AppBar(
               centerTitle: true,
               title: Text(
-                'Join Organisation',
+                AppLocalizations.of(context)!
+                    .strictTranslate('Join Organisation'),
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
@@ -84,7 +86,8 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                     ? Column(
                         children: [
                           RaisedRoundedButton(
-                            buttonLabel: 'Join selected organisation',
+                            buttonLabel: AppLocalizations.of(context)!
+                                .strictTranslate('Join selected organisation'),
                             onTap: model.onTapJoin,
                             textColor: const Color(0xFF008A37),
                             key: const Key('JoinSelectedOrgButton'),

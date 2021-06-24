@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
 class IndividualPostView extends StatelessWidget {
@@ -39,7 +40,7 @@ Padding buildPadding(BuildContext context, String text) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Text(
-      text,
+      AppLocalizations.of(context)!.strictTranslate(text),
       style: Theme.of(context).textTheme.headline6,
     ),
   );
@@ -115,7 +116,8 @@ class CommentTemplate extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  "FirstName LastName",
+                  AppLocalizations.of(context)!
+                      .strictTranslate("FirstName LastName"),
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),

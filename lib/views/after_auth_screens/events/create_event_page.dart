@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_form.dart';
 import 'package:talawa/views/base_view.dart';
@@ -32,7 +33,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   },
                   child: const Icon(Icons.close)),
               title: Text(
-                'Add Event',
+                AppLocalizations.of(context)!.strictTranslate('Add Event'),
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
@@ -40,14 +41,15 @@ class _CreateEventPageState extends State<CreateEventPage> {
               ),
               actions: [
                 TextButton(
-                    onPressed: () {
-                      model.createEvent();
-                    },
-                    child: Text(
-                      'Add',
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          fontSize: 16, color: Theme.of(context).accentColor),
-                    )),
+                  onPressed: () {
+                    model.createEvent();
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.strictTranslate('Add'),
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        fontSize: 16, color: Theme.of(context).accentColor),
+                  ),
+                ),
               ],
             ),
             body: SingleChildScrollView(
@@ -65,8 +67,13 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           width: SizeConfig.screenWidth! * 0.036,
                         ),
                         TextButton(
-                            onPressed: () {},
-                            child: Text("Add Image", style: _subtitleTextStyle))
+                          onPressed: () {},
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .strictTranslate("Add Image"),
+                            style: _subtitleTextStyle,
+                          ),
+                        )
                       ],
                     ),
                     const Divider(),
@@ -77,8 +84,11 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       height: SizeConfig.screenHeight! * 0.013,
                     ),
                     const Divider(),
-                    Text('Select Start Date and Time',
-                        style: _subtitleTextStyle),
+                    Text(
+                      AppLocalizations.of(context)!
+                          .strictTranslate('Select Start Date and Time'),
+                      style: _subtitleTextStyle,
+                    ),
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.013,
                     ),
@@ -112,9 +122,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           color: Color(0xff524F4F),
                           size: 19,
                         ),
-                        SizedBox(
-                          width: SizeConfig.screenWidth! * 0.045,
-                        ),
+                        SizedBox(width: SizeConfig.screenWidth! * 0.045),
                         GestureDetector(
                           onTap: () async {
                             final _time = await customTimePicker(
@@ -135,7 +143,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       height: SizeConfig.screenHeight! * 0.026,
                     ),
                     Text(
-                      'Select End Date and Time',
+                      AppLocalizations.of(context)!
+                          .strictTranslate('Select End Date and Time'),
                       style: Theme.of(context)
                           .textTheme
                           .headline5!
@@ -203,16 +212,21 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         SizedBox(
                           width: SizeConfig.screenWidth! * 0.045,
                         ),
-                        Text('Does not repeat', style: _subtitleTextStyle)
+                        Text(
+                          AppLocalizations.of(context)!
+                              .strictTranslate('Does not repeat'),
+                          style: _subtitleTextStyle,
+                        )
                       ],
                     ),
-                    SizedBox(
-                      height: SizeConfig.screenHeight! * 0.026,
-                    ),
+                    SizedBox(height: SizeConfig.screenHeight! * 0.026),
                     const Divider(),
                     Row(
                       children: [
-                        Text('Keep Public', style: _subtitleTextStyle),
+                        Text(
+                            AppLocalizations.of(context)!
+                                .strictTranslate('Keep Public'),
+                            style: _subtitleTextStyle),
                         SizedBox(
                           width: SizeConfig.screenWidth! * 0.005,
                         ),
@@ -227,7 +241,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           activeColor: Theme.of(context).colorScheme.primary,
                         ),
                         const Spacer(),
-                        Text('Keep Registerable', style: _subtitleTextStyle),
+                        Text(
+                            AppLocalizations.of(context)!
+                                .strictTranslate('Keep Registerable'),
+                            style: _subtitleTextStyle),
                         SizedBox(
                           width: SizeConfig.screenWidth! * 0.005,
                         ),

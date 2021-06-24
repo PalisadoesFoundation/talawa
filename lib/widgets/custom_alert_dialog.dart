@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   const CustomAlertDialog(
       {Key? key,
+      this.successText,
+      this.dialogTitle,
       this.reverse = false,
       required this.success,
-      this.successText = 'Confirm',
-      this.dialogTitle = 'Confirmation',
       required this.dialogSubTitle})
       : super(key: key);
   final bool reverse;
   final Function success;
-  final String successText;
-  final String dialogTitle;
+  final String? successText;
+  final String? dialogTitle;
   final String dialogSubTitle;
 
   @override
@@ -24,16 +25,17 @@ class CustomAlertDialog extends StatelessWidget {
       RaisedRoundedButton(
         key: const Key('Close'),
         onTap: () => navigationService.pop(),
-        buttonLabel: 'Close',
+        buttonLabel: AppLocalizations.of(context)!.strictTranslate('Close'),
         textColor: Colors.white,
         backgroundColor: const Color(0xFF008A37),
         width: SizeConfig.screenWidth! * 0.2,
         height: SizeConfig.screenHeight! * 0.06,
       ),
       RaisedRoundedButton(
-        key: Key(successText),
+        key: Key(successText ?? 'Confirm'),
         onTap: () => success(),
-        buttonLabel: successText,
+        buttonLabel: successText ??
+            AppLocalizations.of(context)!.strictTranslate('Confirm'),
         textColor: const Color(0xFF008A37),
         backgroundColor: Colors.white,
         width: SizeConfig.screenWidth! * 0.2,
@@ -42,7 +44,8 @@ class CustomAlertDialog extends StatelessWidget {
     ];
     return AlertDialog(
       title: Text(
-        dialogTitle,
+        dialogTitle ??
+            AppLocalizations.of(context)!.strictTranslate('Confirmation'),
         style: Theme.of(context)
             .textTheme
             .headline5!

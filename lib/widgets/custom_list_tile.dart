@@ -3,6 +3,7 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/options/options.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 
 class CustomListTile extends StatelessWidget {
@@ -81,7 +82,7 @@ class CustomListTile extends StatelessWidget {
                     type != TileType.user
                         ? Text(
                             type == TileType.org
-                                ? 'Creator: ${orgInfo!.creatorInfo!.firstName!} ${orgInfo!.creatorInfo!.lastName!}'
+                                ? '${AppLocalizations.of(context)!.strictTranslate("Creator")}: ${orgInfo!.creatorInfo!.firstName!} ${orgInfo!.creatorInfo!.lastName!}'
                                 : option!.subtitle,
                             style: type == TileType.org
                                 ? Theme.of(context).textTheme.headline6
@@ -109,7 +110,11 @@ class CustomListTile extends StatelessWidget {
                                       ? const Color(0xFF34AD64)
                                       : const Color(0xffFABC57),
                                 ),
-                                Text(orgInfo!.isPublic! ? 'Public' : 'Private'),
+                                Text(orgInfo!.isPublic!
+                                    ? AppLocalizations.of(context)!
+                                        .strictTranslate('Public')
+                                    : AppLocalizations.of(context)!
+                                        .strictTranslate('Private')),
                               ],
                             ),
                             showIcon

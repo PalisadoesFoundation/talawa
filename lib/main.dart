@@ -97,7 +97,8 @@ class DemoPageView extends StatelessWidget {
     return BaseView<DemoViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: const Text('Demo Page'),
+          title:
+              Text(AppLocalizations.of(context)!.strictTranslate('Demo Page')),
         ),
         body: Container(
           child: Text(model.title),

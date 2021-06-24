@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:timelines/timelines.dart';
 
 class SignupProgressIndicator extends StatelessWidget {
@@ -24,7 +25,7 @@ class SignupProgressIndicator extends StatelessWidget {
         padding: EdgeInsets.zero,
         builder: TimelineTileBuilder.connected(
           contentsBuilder: (_, index) => Text(
-            progressLabel[index],
+            AppLocalizations.of(context)!.strictTranslate(progressLabel[index]),
             style: Theme.of(context).textTheme.bodyText2!.copyWith(
                 color: index <= currentPageIndex
                     ? const Color(0xFF008A37)

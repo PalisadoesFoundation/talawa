@@ -113,7 +113,6 @@ void main() {
       await tester.pumpWidget(createSelectLanguageScreenLight());
       await tester.pumpAndSettle();
       final findAppNameWidget = find.byKey(const Key('LanguageItem'));
-      print(findAppNameWidget);
       expect(findAppNameWidget, findsNWidgets(languages.length));
     });
     testWidgets("Testing if only one language is selected", (tester) async {
@@ -135,7 +134,7 @@ void main() {
 
       final findAppNameWidget = find.byKey(Key('LanguageItem$randomNumber'));
       await tester.tap(findAppNameWidget);
-      await tester.pumpAndSettle(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
       expect((tester.firstWidget(findAppNameWidget) as Container).decoration,
           const BoxDecoration(color: Colors.transparent));
@@ -224,13 +223,14 @@ void main() {
     });
     testWidgets("Testing to change language items", (tester) async {
       final int randomNumber = Random().nextInt(languages.length);
+
       await tester.pumpWidget(createSelectLanguageScreenDark());
       await tester.pumpAndSettle();
 
       final findAppNameWidget = find.byKey(Key('LanguageItem$randomNumber'));
 
       await tester.tap(findAppNameWidget);
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       expect((tester.firstWidget(findAppNameWidget) as Container).decoration,
           const BoxDecoration(color: Colors.transparent));

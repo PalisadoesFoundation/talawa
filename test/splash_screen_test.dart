@@ -1,33 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/splash_screen.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/lang_controller.dart';
 
 Widget createSplashScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
-    MaterialApp(
-      key: const Key('Root'),
-      themeMode: themeMode,
-      theme: TalawaTheme.lightTheme,
-      home: const SplashScreen(
-        key: Key('SplashScreen'),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+      ],
+      child: MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        key: const Key('Root'),
+        themeMode: themeMode,
+        theme: TalawaTheme.lightTheme,
+        home: const SplashScreen(
+          key: Key('SplashScreen'),
+        ),
+        navigatorKey: navigationService.navigatorKey,
+        onGenerateRoute: router.generateRoute,
       ),
-      navigatorKey: navigationService.navigatorKey,
-      onGenerateRoute: router.generateRoute,
     );
 
 Widget createSplashScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
-    MaterialApp(
-      key: const Key('Root'),
-      themeMode: themeMode,
-      darkTheme: TalawaTheme.darkTheme,
-      home: const SplashScreen(
-        key: Key('SplashScreen'),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+      ],
+      child: MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        key: const Key('Root'),
+        themeMode: themeMode,
+        darkTheme: TalawaTheme.darkTheme,
+        home: const SplashScreen(
+          key: Key('SplashScreen'),
+        ),
+        navigatorKey: navigationService.navigatorKey,
+        onGenerateRoute: router.generateRoute,
       ),
-      navigatorKey: navigationService.navigatorKey,
-      onGenerateRoute: router.generateRoute,
     );
 
 void main() {
@@ -36,6 +62,7 @@ void main() {
   group('Splash Screen Widget Test in light mode', () {
     testWidgets("Testing if Splash Screen shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());
+      await tester.pumpAndSettle();
       final screenScaffoldWidget =
           find.byKey(const Key('SplashScreenScaffold'));
       expect(screenScaffoldWidget, findsOneWidget);
@@ -48,6 +75,7 @@ void main() {
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());
+      await tester.pumpAndSettle();
       final logoWidget = find.byKey(const Key('LogoPainter'));
       expect(logoWidget, findsOneWidget);
       expect(
@@ -57,6 +85,7 @@ void main() {
     });
     testWidgets("Testing if app name shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());
+      await tester.pumpAndSettle();
       final findAppNameWidget = find.text('TALAWA');
       expect(findAppNameWidget, findsOneWidget);
       expect((tester.firstWidget(findAppNameWidget) as Text).style!.color,
@@ -68,6 +97,7 @@ void main() {
     });
     testWidgets("Testing if provider text shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());
+      await tester.pumpAndSettle();
       final findProviderTextWidget = find.text('from');
       expect(findProviderTextWidget, findsOneWidget);
       expect((tester.firstWidget(findProviderTextWidget) as Text).style!.color,
@@ -83,6 +113,7 @@ void main() {
     });
     testWidgets("Testing if provider name shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());
+      await tester.pumpAndSettle();
       final findProviderNameWidget = find.text('PALISADOES');
       expect(findProviderNameWidget, findsOneWidget);
       expect((tester.firstWidget(findProviderNameWidget) as Text).style!.color,
@@ -97,6 +128,7 @@ void main() {
   group('Splash Screen Widget Test in dark mode', () {
     testWidgets("Testing if Splash Screen shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenDark());
+      await tester.pumpAndSettle();
       final screenScaffoldWidget =
           find.byKey(const Key('SplashScreenScaffold'));
       expect(screenScaffoldWidget, findsOneWidget);
@@ -109,6 +141,7 @@ void main() {
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenDark());
+      await tester.pumpAndSettle();
       final logoWidget = find.byKey(const Key('LogoPainter'));
       expect(logoWidget, findsOneWidget);
       expect(
@@ -118,6 +151,7 @@ void main() {
     });
     testWidgets("Testing if app name shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenDark());
+      await tester.pumpAndSettle();
       final findAppNameWidget = find.text('TALAWA');
       expect(findAppNameWidget, findsOneWidget);
       expect((tester.firstWidget(findAppNameWidget) as Text).style!.color,
@@ -129,6 +163,7 @@ void main() {
     });
     testWidgets("Testing if provider text shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenDark());
+      await tester.pumpAndSettle();
       final findProviderTextWidget = find.text('from');
       expect(findProviderTextWidget, findsOneWidget);
       expect((tester.firstWidget(findProviderTextWidget) as Text).style!.color,
@@ -144,6 +179,7 @@ void main() {
     });
     testWidgets("Testing if provider name shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenDark());
+      await tester.pumpAndSettle();
       final findProviderNameWidget = find.text('PALISADOES');
       expect(findProviderNameWidget, findsOneWidget);
       expect((tester.firstWidget(findProviderNameWidget) as Text).style!.color,

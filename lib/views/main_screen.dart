@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
@@ -17,8 +18,9 @@ class MainScreen extends StatelessWidget {
       ExploreEvents(key: const Key('ExploreEvents'), drawerKey: scaffoldKey),
       AddPost(key: const Key('AddPost'), drawerKey: scaffoldKey),
       Container(
-        child: const Center(
-          child: Text('Chat Screen'),
+        child: Center(
+          child: Text(
+              AppLocalizations.of(context)!.strictTranslate('Chat Screen')),
         ),
       ),
       ProfilePage(key: const Key('Profile'), drawerKey: scaffoldKey),
@@ -38,25 +40,25 @@ class MainScreen extends StatelessWidget {
           onTap: model.onTabTapped,
           selectedItemColor: const Color(0xff34AD64),
           items: [
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.home),
+              label: AppLocalizations.of(context)!.strictTranslate('Home'),
             ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.event_note),
-              label: 'Events',
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.event_note),
+              label: AppLocalizations.of(context)!.strictTranslate('Events'),
             ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.add_box),
-              label: 'Post',
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.add_box),
+              label: AppLocalizations.of(context)!.strictTranslate('Post'),
             ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_outline),
-              label: 'Chat',
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.chat_bubble_outline),
+              label: AppLocalizations.of(context)!.strictTranslate('Chat'),
             ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: 'Profile',
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.account_circle),
+              label: AppLocalizations.of(context)!.strictTranslate('Profile'),
             )
           ],
         ),

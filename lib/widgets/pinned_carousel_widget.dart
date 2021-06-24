@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 
 class PinnedPostCarousel extends StatelessWidget {
   const PinnedPostCarousel({
@@ -49,7 +50,8 @@ class PinnedPostCarousel extends StatelessWidget {
                 Expanded(
                   flex: 8,
                   child: Text(
-                    "See all Pinned news",
+                    AppLocalizations.of(context)!
+                        .strictTranslate("See all Pinned news"),
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
