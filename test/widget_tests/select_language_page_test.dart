@@ -137,7 +137,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect((tester.firstWidget(findAppNameWidget) as Container).decoration,
-          const BoxDecoration(color: Colors.transparent));
+          const BoxDecoration(color: Color(0x26c4c4c4)));
     });
     testWidgets("Testing to navigate to url page", (tester) async {
       await tester.pumpWidget(createSelectLanguageScreenLight());
