@@ -30,7 +30,11 @@ class LikeButtonViewModel extends BaseModel {
   }
 
   void toggleIsLiked() {
-    if (!_isLiked) _postService.addLike(_postID);
+    if (!_isLiked) {
+      _postService.addLike(_postID);
+    } else {
+      _postService.removeLike(_postID);
+    }
     _isLiked = !_isLiked;
     notifyListeners();
   }

@@ -52,7 +52,15 @@ class PostService {
     final String mutation = PostQueries().addLike();
     final result = await _dbFunctions
         .gqlAuthMutation(mutation, variables: {"postID": postID});
-    print(result);
+    // print(result);
+    return result;
+  }
+
+  Future<void> removeLike(String postID) async {
+    final String mutation = PostQueries().removeLike();
+    final result = await _dbFunctions
+        .gqlAuthMutation(mutation, variables: {"postID": postID});
+    // print(result);
     return result;
   }
 }
