@@ -13,7 +13,8 @@ import 'package:talawa/utils/lang_controller.dart';
 Widget createSplashScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+        ChangeNotifierProvider<AppLanguage>(
+            create: (_) => AppLanguage(isTest: true)),
       ],
       child: MaterialApp(
         locale: const Locale('en'),
@@ -36,7 +37,8 @@ Widget createSplashScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
 Widget createSplashScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+        ChangeNotifierProvider<AppLanguage>(
+            create: (_) => AppLanguage(isTest: true)),
       ],
       child: MaterialApp(
         locale: const Locale('en'),

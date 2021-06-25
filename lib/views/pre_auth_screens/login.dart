@@ -65,8 +65,15 @@ class _LoginState extends State<Login> {
                           keyboardType: TextInputType.emailAddress,
                           autofillHints: const <String>[AutofillHints.email],
                           enableSuggestions: true,
-                          validator: (value) => AppLocalizations.of(context)!
-                              .translate(Validator.validateEmail(value!)),
+                          validator: (value) {
+                            final String? err = Validator.validateEmail(value!);
+                            if (err != null) {
+                              return AppLocalizations.of(context)!
+                                  .translate(err);
+                            }
+
+                            return null;
+                          },
                           decoration: InputDecoration(
                             hintText: AppLocalizations.of(context)!
                                 .translate("Email Hint"),
@@ -85,8 +92,15 @@ class _LoginState extends State<Login> {
                         enableSuggestions: true,
                         autofillHints: const <String>[AutofillHints.password],
                         obscureText: model.hidePassword,
-                        validator: (value) => AppLocalizations.of(context)!
-                            .translate(Validator.validatePassword(value!)),
+                        validator: (value) {
+                          final String? err =
+                              Validator.validatePassword(value!);
+                          if (err != null) {
+                            return AppLocalizations.of(context)!.translate(err);
+                          }
+
+                          return null;
+                        },
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                               onPressed: () {

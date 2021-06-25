@@ -18,7 +18,8 @@ Widget createSelectLanguageScreenLight(
         {ThemeMode themeMode = ThemeMode.light}) =>
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+        ChangeNotifierProvider<AppLanguage>(
+            create: (_) => AppLanguage(isTest: true)),
       ],
       child: MaterialApp(
         locale: const Locale('en'),
@@ -39,7 +40,8 @@ Widget createSelectLanguageScreenLight(
 Widget createSelectLanguageScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+        ChangeNotifierProvider<AppLanguage>(
+            create: (_) => AppLanguage(isTest: true)),
       ],
       child: MaterialApp(
         localizationsDelegates: [
@@ -136,8 +138,10 @@ void main() {
       await tester.tap(findAppNameWidget);
       await tester.pumpAndSettle();
 
-      expect((tester.firstWidget(findAppNameWidget) as Container).decoration,
-          const BoxDecoration(color: Color(0x26c4c4c4)));
+      expect(
+        (tester.firstWidget(findAppNameWidget) as Container).decoration,
+        BoxDecoration(color: const Color(0xFFC4C4C4).withOpacity(0.15)),
+      );
     });
     testWidgets("Testing to navigate to url page", (tester) async {
       await tester.pumpWidget(createSelectLanguageScreenLight());
@@ -230,10 +234,10 @@ void main() {
       final findAppNameWidget = find.byKey(Key('LanguageItem$randomNumber'));
 
       await tester.tap(findAppNameWidget);
-      await tester.pump();
+      await tester.pumpAndSettle();
 
       expect((tester.firstWidget(findAppNameWidget) as Container).decoration,
-          const BoxDecoration(color: Colors.transparent));
+          BoxDecoration(color: const Color(0xFFC4C4C4).withOpacity(0.15)));
     });
     testWidgets("Testing to select and navigate button appears",
         (tester) async {

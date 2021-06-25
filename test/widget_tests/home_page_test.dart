@@ -14,7 +14,8 @@ import '../helpers/test_helpers.dart';
 
 Widget createHomePageScreen() => MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+        ChangeNotifierProvider<AppLanguage>(
+            create: (_) => AppLanguage(isTest: true)),
       ],
       child: MaterialApp(
         locale: const Locale('en'),

@@ -23,7 +23,8 @@ import 'package:talawa/widgets/rich_text.dart';
 Widget createSetUrlScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+        ChangeNotifierProvider<AppLanguage>(
+            create: (_) => AppLanguage(isTest: true)),
       ],
       child: MaterialApp(
         localizationsDelegates: [
@@ -46,7 +47,8 @@ Widget createSetUrlScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
 Widget createSetUrlScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppLanguage>(create: (_) => AppLanguage()),
+        ChangeNotifierProvider<AppLanguage>(
+            create: (_) => AppLanguage(isTest: true)),
       ],
       child: MaterialApp(
         localizationsDelegates: [

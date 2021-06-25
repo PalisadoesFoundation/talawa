@@ -68,48 +68,52 @@ class _SelectLanguageState extends State<SelectLanguage> {
                           );
                         },
                         child: Consumer<AppLanguage>(
-                          builder: (context, appLang, _) => Container(
-                            key: Key('LanguageItem$index'),
-                            alignment: Alignment.centerLeft,
-                            height: SizeConfig.screenHeight! * 0.063,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: SizeConfig.screenWidth! * 0.06,
-                            ),
-                            decoration: BoxDecoration(
-                                color: languages[index].langCode ==
-                                        appLang.appLocal.languageCode
-                                    ? const Color(0xFFC4C4C4).withOpacity(0.15)
-                                    : Colors.transparent),
-                            child: index == 0
-                                ? Row(
-                                    key: const Key('LanguageItem'),
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        languages[index].langName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6,
-                                      ),
-                                      Text(
-                                        AppLocalizations.of(context)!
-                                            .strictTranslate('Default'),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                                color: const Color(0xFF4285F4)),
-                                      ),
-                                    ],
-                                  )
-                                : Text(
-                                    languages[index].langName,
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
-                                    key: const Key('LanguageItem'),
-                                  ),
-                          ),
+                          builder: (context, appLang, _) {
+                            return Container(
+                              key: Key('LanguageItem$index'),
+                              alignment: Alignment.centerLeft,
+                              height: SizeConfig.screenHeight! * 0.063,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.screenWidth! * 0.06,
+                              ),
+                              decoration: BoxDecoration(
+                                  color: languages[index].langCode ==
+                                          appLang.appLocal.languageCode
+                                      ? const Color(0xFFC4C4C4)
+                                          .withOpacity(0.15)
+                                      : Colors.transparent),
+                              child: index == 0
+                                  ? Row(
+                                      key: const Key('LanguageItem'),
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          languages[index].langName,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
+                                        ),
+                                        Text(
+                                          AppLocalizations.of(context)!
+                                              .strictTranslate('Default'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(
+                                                  color:
+                                                      const Color(0xFF4285F4)),
+                                        ),
+                                      ],
+                                    )
+                                  : Text(
+                                      languages[index].langName,
+                                      style:
+                                          Theme.of(context).textTheme.headline6,
+                                      key: const Key('LanguageItem'),
+                                    ),
+                            );
+                          },
                         ),
                       );
                     })),
