@@ -10,7 +10,8 @@ import 'package:talawa/view_model/base_view_model.dart';
 
 class OrganizationFeedViewModel extends BaseModel {
   // Local caching variables for a session.
-  final List<Post> _posts = [], _pinnedPosts = [];
+  // ignore: prefer_final_fields
+  List<Post> _posts = [], _pinnedPosts = [];
   final Set<String> _renderedPostID = {};
   late String _currentOrgname = "";
 
@@ -22,6 +23,7 @@ class OrganizationFeedViewModel extends BaseModel {
   // Stream variables
   late StreamSubscription _currentOrganizationStreamSubscription;
   late StreamSubscription _postsSubscription;
+  late StreamSubscription _updatePostSubscription;
 
   // Getters
   List<Post> get posts => _posts;
@@ -44,15 +46,18 @@ class OrganizationFeedViewModel extends BaseModel {
   void initialise() {
     // For caching/initalizing the current organization after the stream subsciption has canceled and the stream is updated
     _currentOrgname = _userConfig.currentOrg.name!;
-
+    _postService.getPosts();
     // ------
     // Attasching the stream subscription to rebuild the widgets automatically
     _currentOrganizationStreamSubscription = _userConfig.currentOrfInfoStream
         .listen((updatedOrganization) =>
             setCurrentOrganizationName(updatedOrganization.name!));
 
-    _postsSubscription = _postService.postStream
-        .listen((newPost) => checkIfExistsAndAddNewPost(newPost));
+    _postsSubscription =
+        _postService.postStream.listen((newPosts) => buildNewPosts(newPosts));
+
+    _updatePostSubscription =
+        _postService.updatedPostStream.listen((post) => updatedPost(post));
   }
 
   void initializeWithDemoData() {
@@ -69,13 +74,9 @@ class OrganizationFeedViewModel extends BaseModel {
     // });
   }
 
-  void checkIfExistsAndAddNewPost(Post newPost) {
-    if (!_renderedPostID.contains(newPost.sId)) {
-      // print(newPost.sId);
-      _renderedPostID.add(newPost.sId);
-      _posts.add(newPost);
-      notifyListeners();
-    }
+  void buildNewPosts(List<Post> newPosts) {
+    _posts = newPosts;
+    notifyListeners();
   }
 
   void navigateToIndividualPage(Post post) {
@@ -92,11 +93,22 @@ class OrganizationFeedViewModel extends BaseModel {
     // Canceling the subscription so that there will be no rebuild after the widget is disposed.
     _currentOrganizationStreamSubscription.cancel();
     _postsSubscription.cancel();
+    _updatePostSubscription.cancel();
     super.dispose();
   }
 
   addNewPost(Post newPost) {
     _posts.insert(0, newPost);
     notifyListeners();
+  }
+
+  updatedPost(Post post) {
+    for (int i = 0; i < _posts.length; i++) {
+      if (_posts[i].sId == post.sId) {
+        _posts[i] = post;
+        notifyListeners();
+        break;
+      }
+    }
   }
 }

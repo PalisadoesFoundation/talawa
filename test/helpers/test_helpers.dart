@@ -81,9 +81,15 @@ PostService getAndRegisterPostService() {
   final service = MockPostService();
 
   //Mock Stream for currentOrgStream
-  final StreamController<Post> _streamController = StreamController();
-  final Stream<Post> _stream = _streamController.stream.asBroadcastStream();
+  final StreamController<List<Post>> _streamController = StreamController();
+  final Stream<List<Post>> _stream =
+      _streamController.stream.asBroadcastStream();
   when(service.postStream).thenAnswer((invocation) => _stream);
+
+  final StreamController<Post> _updateStreamController = StreamController();
+  final Stream<Post> _updateStream =
+      _updateStreamController.stream.asBroadcastStream();
+  when(service.updatedPostStream).thenAnswer((invocation) => _updateStream);
 
   locator.registerSingleton<PostService>(service);
   return service;

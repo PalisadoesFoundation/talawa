@@ -2,11 +2,13 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/services/comment_service.dart';
+import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class CommentsViewModel extends BaseModel {
   late CommentService _commentService;
+  late PostService _postService;
   late String _postID;
   late List<Comment> _commentlist;
   late UserConfig _userConfig;
@@ -19,6 +21,7 @@ class CommentsViewModel extends BaseModel {
     _postID = postID;
     _commentService = locator<CommentService>();
     _userConfig = locator<UserConfig>();
+    _postService = locator<PostService>();
     notifyListeners();
     getComments();
   }
@@ -41,6 +44,7 @@ class CommentsViewModel extends BaseModel {
   }
 
   void addCommentLocally(String msg) {
+    _postService.addCommentLocally(_postID);
     final _creator = _userConfig.currentUser;
     final Comment _localComment = Comment(
         text: msg, createdAt: DateTime.now().toString(), creator: _creator);

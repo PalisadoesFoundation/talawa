@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -16,6 +18,9 @@ class LikeButtonViewModel extends BaseModel {
   List<LikedBy> _likedBy = [];
   late String _postID;
 
+  // ignore: unused_field
+  late StreamSubscription _updatePostSubscription;
+
   // Getters
   bool get isLiked => _isLiked;
   List<LikedBy> get likedBy => _likedBy;
@@ -27,6 +32,8 @@ class LikeButtonViewModel extends BaseModel {
     _likedBy = likedBy;
     notifyListeners();
     checkAndSetTheIsLiked();
+    _updatePostSubscription =
+        _postService.updatedPostStream.listen((post) => updatePost(post));
   }
 
   void toggleIsLiked() {
@@ -35,8 +42,6 @@ class LikeButtonViewModel extends BaseModel {
     } else {
       _postService.removeLike(_postID);
     }
-    _isLiked = !_isLiked;
-    notifyListeners();
   }
 
   void setIsLiked({bool val = true}) {
@@ -45,13 +50,27 @@ class LikeButtonViewModel extends BaseModel {
   }
 
   /*TODO: This function must be removed bec the checking, that the user 
-  has liked the post or not must  be send from the backend and not 
-  the processing should be done in front end.*/
+          has liked the post or not must  be send from the backend and not 
+          the processing should be done in front end.*/
   void checkAndSetTheIsLiked() {
+    setIsLiked(val: false);
     for (var i = 0; i < _likedBy.length; i++) {
       if (_likedBy[i].sId == _user.id) {
         setIsLiked();
       }
     }
+  }
+
+  updatePost(Post post) {
+    if (_postID == post.sId) {
+      _likedBy = post.likedBy!;
+      checkAndSetTheIsLiked();
+    }
+  }
+
+  @override
+  // ignore: must_call_super
+  void dispose() {
+    _updatePostSubscription.cancel();
   }
 }
