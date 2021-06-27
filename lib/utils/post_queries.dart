@@ -42,4 +42,18 @@ class PostQueries {
     }
   """;
   }
+
+  String removeLike() {
+    return """
+     mutation unlikePost(\$postID: ID!) { 
+      unlikePost( id: \$postID,)
+      {
+        _id
+        likedBy{
+        _id
+        }
+      }
+    }
+  """;
+  }
 }

@@ -42,7 +42,7 @@ class NewsPost extends StatelessWidget {
         ),
         BaseView<LikeButtonViewModel>(
           onModelReady: (model) =>
-              model.initialize(post.comments ?? [], post.sId),
+              model.initialize(post.likedBy ?? [], post.sId),
           builder: (context, model, child) => Column(
             children: [
               Padding(
@@ -54,7 +54,7 @@ class NewsPost extends StatelessWidget {
                     GestureDetector(
                       onTap: () => function != null ? function!(post) : {},
                       child: Text(
-                        "${post.likedBy!.length + (model.isLiked ? 1 : 0)} Likes",
+                        "${model.likedBy.length} Likes",
                         style: const TextStyle(
                             fontFamily: 'open-sans',
                             fontWeight: FontWeight.w800),

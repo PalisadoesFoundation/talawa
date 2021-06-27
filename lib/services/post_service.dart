@@ -11,22 +11,36 @@ import 'package:talawa/utils/post_queries.dart';
 class PostService {
   PostService() {
     _postStream = _postStreamController.stream.asBroadcastStream();
+    _updatedPostStream =
+        _updatedPostStreamController.stream.asBroadcastStream();
     _currentOrg = _userConfig.currentOrg;
     setOrgStreamSubscription();
   }
+  // Stream for entire posts
+  final StreamController<List<Post>> _postStreamController =
+      StreamController<List<Post>>();
+  late Stream<List<Post>> _postStream;
 
-  final StreamController<Post> _postStreamController = StreamController<Post>();
-  late Stream<Post> _postStream;
+  //Stream for individul post update
+  final StreamController<Post> _updatedPostStreamController =
+      StreamController<Post>();
+  late Stream<Post> _updatedPostStream;
+
   final _userConfig = locator<UserConfig>();
   final _dbFunctions = locator<DataBaseMutationFunctions>();
   late OrgInfo _currentOrg;
+  final Set<String> _renderedPostID = {};
+  // ignore: prefer_final_fields
+  List<Post> _posts = [];
 
   //Getters
-  Stream<Post> get postStream => _postStream;
+  Stream<List<Post>> get postStream => _postStream;
+  Stream<Post> get updatedPostStream => _updatedPostStream;
 
   //Setters
   void setOrgStreamSubscription() {
     _userConfig.currentOrfInfoStream.listen((updatedOrganization) {
+      _renderedPostID.clear();
       _currentOrg = updatedOrganization;
     });
   }
@@ -42,16 +56,64 @@ class PostService {
     if (result.data!['postsByOrganization'] == null) return;
 
     final List postsJson = result.data!['postsByOrganization'] as List;
+
+    final List<Post> _newPosts = [];
     postsJson.forEach((postJson) {
       final Post post = Post.fromJson(postJson as Map<String, dynamic>);
-      _postStreamController.add(post);
+      if (!_renderedPostID.contains(post.sId)) {
+        _newPosts.add(post);
+        _renderedPostID.add(post.sId);
+      }
+    });
+    _postStreamController.add(_newPosts);
+    _posts = _newPosts;
+  }
+
+  // --- Functions related to Likes --- //
+  Future<void> addLike(String postID) async {
+    _localAddLike(postID);
+    final String mutation = PostQueries().addLike();
+    final result = await _dbFunctions
+        .gqlAuthMutation(mutation, variables: {"postID": postID});
+    print(result);
+    return result;
+  }
+
+  void _localAddLike(String postID) {
+    _posts.forEach((post) {
+      if (post.sId == postID) {
+        post.likedBy!.add(LikedBy(sId: _userConfig.currentUser.id));
+        _updatedPostStreamController.add(post);
+      }
     });
   }
 
-  Future<void> addLike(String postID) {
-    final String mutation = PostQueries().addLike();
-    final result =
-        _dbFunctions.gqlAuthMutation(mutation, variables: {"postID": postID});
+  Future<void> removeLike(String postID) async {
+    _removeLocal(postID);
+    final String mutation = PostQueries().removeLike();
+    final result = await _dbFunctions
+        .gqlAuthMutation(mutation, variables: {"postID": postID});
+    print(result);
     return result;
+  }
+
+  void _removeLocal(String postID) {
+    _posts.forEach((post) {
+      if (post.sId == postID) {
+        post.likedBy!.removeWhere(
+            (likeUser) => likeUser.sId == _userConfig.currentUser.id);
+        _updatedPostStreamController.add(post);
+      }
+    });
+  }
+
+  // --- Functions related to comments --- //
+  void addCommentLocally(String postID) {
+    for (int i = 0; i < _posts.length; i++) {
+      if (_posts[i].sId == postID) {
+        _posts[i].comments!.add(Comments(sId: postID));
+        _updatedPostStreamController.add(_posts[i]);
+      }
+    }
   }
 }
