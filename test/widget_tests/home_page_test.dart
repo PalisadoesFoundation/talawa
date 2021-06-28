@@ -1,51 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/utils/lang_controller.dart';
+import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 import 'package:talawa/views/main_screen.dart';
 
 import '../helpers/test_helpers.dart';
 
-Widget createHomePageScreen() => MultiProvider(
-      providers: [
-        ChangeNotifierProvider<AppLanguage>(
-            create: (_) => AppLanguage(isTest: true)),
-      ],
-      child: MaterialApp(
-        locale: const Locale('en'),
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(isTest: true),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        themeMode: ThemeMode.light,
-        theme: TalawaTheme.lightTheme,
-        home: const MainScreen(
-          key: Key('MainScreen'),
-        ),
-        navigatorKey: navigationService.navigatorKey,
-        onGenerateRoute: router.generateRoute,
-      ),
+Widget createHomePageScreen() => BaseView<AppLanguage>(
+      onModelReady: (model) => model.initialize(),
+      builder: (context, model, child) {
+        return MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+          home: const MainScreen(
+            key: Key('MainScreen'),
+          ),
+          navigatorKey: navigationService.navigatorKey,
+          onGenerateRoute: router.generateRoute,
+        );
+      },
     );
 
 void main() {
+  locator.registerFactory(() => AppLanguage(isTest: true));
+  setUp(() {
+    registerServices();
+    registerViewModels();
+    locator<SizeConfig>().test();
+  });
+  tearDown(() {
+    unregisterServices();
+    unregisterViewModels();
+  });
   group('HomePage Widget Test', () {
-    setUp(() {
-      registerServices();
-      registerViewModels();
-      locator<SizeConfig>().test();
-    });
-    tearDown(() {
-      unregisterServices();
-      unregisterViewModels();
-    });
-
     testWidgets("Testing if HomePage shows up", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
       await tester.pumpAndSettle();
