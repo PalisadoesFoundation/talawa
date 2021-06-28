@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
@@ -18,16 +19,17 @@ class _RecoverState extends State<Recover> {
   Widget build(BuildContext context) {
     final text = [
       {
-        'text': "Sit back relax, we'll ",
+        'text':
+            "${AppLocalizations.of(context)!.translate("Sit back relax, we'll")} ",
         'textStyle': Theme.of(context).textTheme.headline5
       },
       {
-        'text': 'Recover ',
+        'text': '${AppLocalizations.of(context)!.translate("Recover")} ',
         'textStyle':
             Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
       },
       {
-        'text': "your password",
+        'text': AppLocalizations.of(context)!.translate("your password"),
         'textStyle': Theme.of(context).textTheme.headline5
       },
     ];
@@ -72,15 +74,18 @@ class _RecoverState extends State<Recover> {
                   autofillHints: const <String>[AutofillHints.email],
                   enableSuggestions: true,
                   decoration: InputDecoration(
-                    hintText: 'test@test.org',
-                    labelText: 'Enter your registered Email *',
+                    hintText:
+                        AppLocalizations.of(context)!.translate("Email Hint"),
+                    labelText:
+                        '${AppLocalizations.of(context)!.translate("Enter your registered Email")} *',
                     labelStyle: Theme.of(context).textTheme.subtitle1,
                   )),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.086,
               ),
               RaisedRoundedButton(
-                buttonLabel: 'Recover Password',
+                buttonLabel: AppLocalizations.of(context)!
+                    .strictTranslate('Recover Password'),
                 onTap: () {},
                 textColor: const Color(0xFF008A37),
                 key: const Key('RecoverButton'),

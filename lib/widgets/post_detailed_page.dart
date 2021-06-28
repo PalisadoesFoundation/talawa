@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/utils/app_localization.dart';
 
 class DescriptionTextWidget extends StatefulWidget {
   const DescriptionTextWidget({required this.text});
@@ -58,7 +59,11 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
                         });
                       },
                       child: Text(
-                        flag ? "show more" : "show less",
+                        flag
+                            ? AppLocalizations.of(context)!
+                                .strictTranslate("show more")
+                            : AppLocalizations.of(context)!
+                                .strictTranslate("show less"),
                         style: const TextStyle(color: Colors.blue),
                       ),
                     ),

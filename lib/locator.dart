@@ -8,6 +8,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
@@ -77,5 +78,6 @@ void setupLocator() {
   locator.registerFactory(() => ProgressDialogViewModel());
   locator.registerFactory(() => CustomDrawerViewModel());
   locator.registerFactory(() => LikeButtonViewModel());
+  locator.registerFactory(() => AppLanguage());
   locator.registerFactory(() => CommentsViewModel());
 }

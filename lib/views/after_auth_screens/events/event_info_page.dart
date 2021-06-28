@@ -3,6 +3,7 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 
 class EventInfoPage extends StatefulWidget {
@@ -20,7 +21,8 @@ class _EventInfoPageState extends State<EventInfoPage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: const Text('Event Details'),
+            title: Text(
+                AppLocalizations.of(context)!.strictTranslate('Event Details')),
             pinned: true,
             expandedHeight: SizeConfig.screenWidth,
             flexibleSpace: FlexibleSpaceBar(
@@ -38,7 +40,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
             //EventService().registerForAnEvent(widget.event.id!);
           },
           label: Text(
-            "Register",
+            AppLocalizations.of(context)!.strictTranslate("Register"),
             style: Theme.of(context)
                 .textTheme
                 .bodyText2!
@@ -71,14 +73,14 @@ class _EventInfoPageState extends State<EventInfoPage> {
               children: [
                 widget.event.creator!.firstName != null
                     ? Text(
-                        "Created by: ${widget.event.creator!.firstName} ${widget.event.creator!.lastName}",
+                        "${AppLocalizations.of(context)!.strictTranslate("Created by")}: ${widget.event.creator!.firstName} ${widget.event.creator!.lastName}",
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!
                             .copyWith(fontWeight: FontWeight.w600),
                       )
                     : Text(
-                        "Created by: Luke Skywalker",
+                        "${AppLocalizations.of(context)!.strictTranslate("Created by")}: Luke Skywalker",
                         style: Theme.of(context)
                             .textTheme
                             .bodyText2!
@@ -120,11 +122,12 @@ class _EventInfoPageState extends State<EventInfoPage> {
                 ),
                 widget.event.isPublic!
                     ? Text(
-                        'public',
+                        AppLocalizations.of(context)!.strictTranslate('public'),
                         style: Theme.of(context).textTheme.caption,
                       )
                     : Text(
-                        'private',
+                        AppLocalizations.of(context)!
+                            .strictTranslate('private'),
                         style: Theme.of(context).textTheme.caption,
                       ),
               ],
@@ -179,22 +182,18 @@ class _EventInfoPageState extends State<EventInfoPage> {
               height: SizeConfig.screenHeight! * 0.013,
             ),
             Text(
-              "Description",
+              AppLocalizations.of(context)!.strictTranslate("Description"),
               style:
                   Theme.of(context).textTheme.headline5!.copyWith(fontSize: 16),
             ),
-            SizedBox(
-              width: SizeConfig.screenWidth! * 0.013,
-            ),
+            SizedBox(width: SizeConfig.screenWidth! * 0.013),
             Text(
               widget.event.description!,
               style: Theme.of(context).textTheme.caption,
             ),
-            SizedBox(
-              height: SizeConfig.screenHeight! * 0.013,
-            ),
+            SizedBox(height: SizeConfig.screenHeight! * 0.013),
             Text(
-              "Admins",
+              AppLocalizations.of(context)!.strictTranslate("Admins"),
               style:
                   Theme.of(context).textTheme.headline5!.copyWith(fontSize: 16),
             ),
@@ -215,17 +214,19 @@ class _EventInfoPageState extends State<EventInfoPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Attendees",
+                  AppLocalizations.of(context)!.strictTranslate("Attendees"),
                   style: Theme.of(context)
                       .textTheme
                       .headline5!
                       .copyWith(fontSize: 16),
                 ),
-                Text('See all',
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption!
-                        .copyWith(color: const Color(0xff4285F4))),
+                Text(
+                  AppLocalizations.of(context)!.strictTranslate('See all'),
+                  style: Theme.of(context)
+                      .textTheme
+                      .caption!
+                      .copyWith(color: const Color(0xff4285F4)),
+                ),
               ],
             ),
             Divider(
@@ -241,7 +242,8 @@ class _EventInfoPageState extends State<EventInfoPage> {
                 itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
                   return CustomListTile(
-                      key: Key('Attendee$index'),
+                      key: Key(
+                          '${AppLocalizations.of(context)!.strictTranslate("Attendee")}$index'),
                       index: index,
                       type: TileType.user,
                       userInfo: userConfig.currentUser,

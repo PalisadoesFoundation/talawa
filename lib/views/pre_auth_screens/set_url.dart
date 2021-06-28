@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/custom_painters/language_icon.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
-import 'package:talawa/locator.dart';
-import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
-import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
-import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/services/size_config.dart';
+import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 
 class SetUrl extends StatefulWidget {
   const SetUrl({required Key key, required this.uri}) : super(key: key);
@@ -64,13 +65,22 @@ class _SetUrlState extends State<SetUrl> {
                         textInputAction: TextInputAction.done,
                         keyboardType: TextInputType.text,
                         enableSuggestions: true,
-                        validator: (value) => Validator.validateURL(value!),
+                        validator: (value) {
+                          final String? msg = Validator.validateURL(value!);
+                          if (msg == null) {
+                            return null;
+                          }
+
+                          return AppLocalizations.of(context)!.translate(msg);
+                        },
                         onFieldSubmitted: (value) =>
-                            Validator.validateURL(value),
+                            AppLocalizations.of(context)!
+                                .translate(Validator.validateURL(value)),
                         decoration: InputDecoration(
                             hintText:
-                                'https://talawa-graphql-api.herokuapp.com/graphql',
-                            labelText: 'Enter Organization URL *',
+                                'https://talawa-api-graphql.herokuapp.com/graphql',
+                            labelText:
+                                '${AppLocalizations.of(context)!.translate("Enter Organization URL")} *',
                             labelStyle: Theme.of(context).textTheme.subtitle1,
                             suffixIcon: InkWell(
                               key: const Key('VerifyButton'),
@@ -84,7 +94,8 @@ class _SetUrlState extends State<SetUrl> {
                                 width: 48,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'Verify',
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate("Verify"),
                                   style: Theme.of(context).textTheme.bodyText1,
                                   textAlign: TextAlign.center,
                                 ),
@@ -96,8 +107,10 @@ class _SetUrlState extends State<SetUrl> {
                       ),
                       RaisedRoundedButton(
                         key: const Key('LoginButton'),
-                        buttonLabel: 'Login',
+                        buttonLabel: AppLocalizations.of(context)!
+                            .strictTranslate('Login'),
                         onTap: () async {
+                          print("login");
                           await model.checkURLandNavigate('/login', '');
                         },
                         showArrow: true,
@@ -114,7 +127,8 @@ class _SetUrlState extends State<SetUrl> {
                       ),
                       RaisedRoundedButton(
                         key: const Key('SignUpButton'),
-                        buttonLabel: 'Sign Up',
+                        buttonLabel: AppLocalizations.of(context)!
+                            .strictTranslate('Sign Up'),
                         onTap: () =>
                             model.checkURLandNavigate('/selectOrg', '-1'),
                         showArrow: true,
@@ -149,7 +163,8 @@ class _SetUrlState extends State<SetUrl> {
                               width: 10,
                             ),
                             Text(
-                              'Change language',
+                              AppLocalizations.of(context)!
+                                  .strictTranslate('Change language'),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6!

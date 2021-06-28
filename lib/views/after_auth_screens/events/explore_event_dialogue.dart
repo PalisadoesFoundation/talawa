@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/date_time_picker.dart';
 
 class ExploreEventDialog extends StatefulWidget {
@@ -28,9 +29,8 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Start Date',
-                  ),
+                  Text(AppLocalizations.of(context)!
+                      .strictTranslate('Start Date')),
                   const SizedBox(
                     height: 5,
                   ),
@@ -67,9 +67,8 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'End Date',
-                  ),
+                  Text(AppLocalizations.of(context)!
+                      .strictTranslate('End Date')),
                   const SizedBox(
                     height: 5,
                   ),
@@ -120,17 +119,19 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                       navigationService.pop();
                     },
                     child: Text(
-                      'Cancel',
+                      AppLocalizations.of(context)!.strictTranslate('Cancel'),
                       style: Theme.of(context).textTheme.bodyText2,
                     )),
                 TextButton(
-                    onPressed: () {
-                      navigationService.pop();
-                    },
-                    child: const Text(
-                      'Done',
-                      style: TextStyle(fontSize: 14, color: Color(0xff4285F4)),
-                    ))
+                  onPressed: () {
+                    navigationService.pop();
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.strictTranslate('Done'),
+                    style:
+                        const TextStyle(fontSize: 14, color: Color(0xff4285F4)),
+                  ),
+                )
               ],
             ),
           ),

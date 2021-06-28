@@ -1,27 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/lang_view_model.dart';
 
 class SelectLanguage extends StatefulWidget {
-  const SelectLanguage({required Key key, required this.selectedLangId})
-      : super(key: key);
-  final int selectedLangId;
+  const SelectLanguage({required Key key}) : super(key: key);
 
   @override
   _SelectLanguageState createState() => _SelectLanguageState();
 }
 
 class _SelectLanguageState extends State<SelectLanguage> {
-  late int selectedLangIndex;
-
-  @override
-  void initState() {
-    selectedLangIndex = widget.selectedLangId;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,16 +32,18 @@ class _SelectLanguageState extends State<SelectLanguage> {
             Padding(
               padding: EdgeInsets.only(top: SizeConfig.screenWidth! * 0.06),
               child: Text(
-                'Select Language',
+                AppLocalizations.of(context)!
+                    .strictTranslate('Select Language'),
                 style: Theme.of(context).textTheme.headline5,
+                key: const Key('Select Language'),
               ),
             ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.018,
             ),
-            const CupertinoSearchTextField(
-              key: Key('SearchField'),
-            ),
+            // const CupertinoSearchTextField(
+            //   key: Key('SearchField'),
+            // ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.016,
             ),
@@ -58,51 +53,67 @@ class _SelectLanguageState extends State<SelectLanguage> {
                     itemCount: languages.length,
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
-                        key: Key(selectedLangIndex == index
+                        key: Key(Provider.of<AppLanguage>(context)
+                                    .appLocal
+                                    .languageCode ==
+                                languages[index].langCode
                             ? 'Selected'
                             : 'NotSelected'),
-                        onTap: () {
-                          setState(() {
-                            selectedLangIndex = index;
-                          });
+                        onTap: () async {
+                          await Provider.of<AppLanguage>(
+                            context,
+                            listen: false,
+                          ).changeLanguage(
+                            Locale(languages[index].langCode),
+                          );
                         },
-                        child: Container(
-                          key: Key('LanguageItem$index'),
-                          alignment: Alignment.centerLeft,
-                          height: SizeConfig.screenHeight! * 0.063,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.screenWidth! * 0.06,
-                          ),
-                          decoration: BoxDecoration(
-                              color: index == selectedLangIndex
-                                  ? const Color(0xFFC4C4C4).withOpacity(0.15)
-                                  : Colors.transparent),
-                          child: index == 0
-                              ? Row(
-                                  key: const Key('LanguageItem'),
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      languages[index],
+                        child: Consumer<AppLanguage>(
+                          builder: (context, appLang, _) {
+                            return Container(
+                              key: Key('LanguageItem$index'),
+                              alignment: Alignment.centerLeft,
+                              height: SizeConfig.screenHeight! * 0.063,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: SizeConfig.screenWidth! * 0.06,
+                              ),
+                              decoration: BoxDecoration(
+                                  color: languages[index].langCode ==
+                                          appLang.appLocal.languageCode
+                                      ? const Color(0xFFC4C4C4)
+                                          .withOpacity(0.15)
+                                      : Colors.transparent),
+                              child: index == 0
+                                  ? Row(
+                                      key: const Key('LanguageItem'),
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          languages[index].langName,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline6,
+                                        ),
+                                        Text(
+                                          AppLocalizations.of(context)!
+                                              .strictTranslate('Default'),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(
+                                                  color:
+                                                      const Color(0xFF4285F4)),
+                                        ),
+                                      ],
+                                    )
+                                  : Text(
+                                      languages[index].langName,
                                       style:
                                           Theme.of(context).textTheme.headline6,
+                                      key: const Key('LanguageItem'),
                                     ),
-                                    Text(
-                                      'Default',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                              color: const Color(0xFF4285F4)),
-                                    ),
-                                  ],
-                                )
-                              : Text(
-                                  languages[index],
-                                  style: Theme.of(context).textTheme.headline6,
-                                  key: const Key('LanguageItem'),
-                                ),
+                            );
+                          },
                         ),
                       );
                     })),
@@ -114,11 +125,11 @@ class _SelectLanguageState extends State<SelectLanguage> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 key: const Key('NavigateToUrlPage'),
-                onPressed: () {
+                onPressed: () async {
                   navigationService.pushScreen('/setUrl', arguments: '');
                 },
                 child: Text(
-                  'Select',
+                  AppLocalizations.of(context)!.strictTranslate('Select'),
                   style: Theme.of(context).textTheme.headline5!.copyWith(
                         fontSize: 18,
                         color: const Color(0xFF008A37),

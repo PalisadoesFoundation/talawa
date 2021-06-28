@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -50,7 +51,8 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                             ? Padding(
                                 padding: const EdgeInsets.all(15),
                                 child: Text(
-                                  'Selected Organization',
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate('Selected Organization'),
                                   style: Theme.of(context).textTheme.headline5,
                                 ),
                               )
@@ -78,7 +80,8 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                           height: SizeConfig.screenHeight! * 0.0215,
                         ),
                         RaisedRoundedButton(
-                          buttonLabel: 'Continue',
+                          buttonLabel: AppLocalizations.of(context)!
+                              .strictTranslate('Continue'),
                           onTap: model.onTapContinue,
                           textColor: const Color(0xFF008A37),
                           key: const Key('SignUpLoginDetailsButton'),

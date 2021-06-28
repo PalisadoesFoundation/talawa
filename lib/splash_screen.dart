@@ -6,6 +6,7 @@ import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:uni_links/uni_links.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -126,7 +127,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'from',
+                    AppLocalizations.of(context)!.strictTranslate('from'),
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ],

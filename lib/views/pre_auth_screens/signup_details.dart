@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
@@ -69,12 +70,27 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                             AutofillHints.givenName
                                           ],
                                           enableSuggestions: true,
-                                          validator: (value) =>
+                                          validator: (value) {
+                                            final String? msg =
+                                                Validator.validateFirstName(
+                                                    value!);
+                                            if (msg == null) {
+                                              return null;
+                                            }
+
+                                            return AppLocalizations.of(context)!
+                                                .translate(
                                               Validator.validateFirstName(
-                                                  value!),
+                                                value,
+                                              ),
+                                            );
+                                          },
                                           decoration: InputDecoration(
-                                            hintText: 'John',
-                                            labelText: 'Enter your first name*',
+                                            hintText: AppLocalizations.of(
+                                                    context)!
+                                                .translate('First Name Hint'),
+                                            labelText:
+                                                '${AppLocalizations.of(context)!.translate("Enter your first name")}*',
                                             labelStyle: Theme.of(context)
                                                 .textTheme
                                                 .subtitle1,
@@ -91,12 +107,25 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                             AutofillHints.familyName
                                           ],
                                           enableSuggestions: true,
-                                          validator: (value) =>
-                                              Validator.validateLastName(
-                                                  value!),
+                                          validator: (value) {
+                                            final String? msg =
+                                                Validator.validateLastName(
+                                                    value!);
+                                            if (msg == null) {
+                                              return null;
+                                            }
+
+                                            return AppLocalizations.of(context)!
+                                                .translate(
+                                              Validator.validateLastName(value),
+                                            );
+                                          },
                                           decoration: InputDecoration(
-                                            hintText: 'Carlos',
-                                            labelText: 'Enter your last name*',
+                                            hintText: AppLocalizations.of(
+                                                    context)!
+                                                .translate('Last Name Hint'),
+                                            labelText:
+                                                '${AppLocalizations.of(context)!.translate("Enter your last name")}*',
                                             labelStyle: Theme.of(context)
                                                 .textTheme
                                                 .subtitle1,
@@ -114,12 +143,22 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                             AutofillHints.email
                                           ],
                                           enableSuggestions: true,
-                                          validator: (value) =>
-                                              Validator.validateEmail(value!),
+                                          validator: (value) {
+                                            final String? msg =
+                                                Validator.validateEmail(value!);
+                                            if (msg == null) {
+                                              return null;
+                                            }
+
+                                            return AppLocalizations.of(context)!
+                                                .translate(
+                                              Validator.validateEmail(value),
+                                            );
+                                          },
                                           decoration: InputDecoration(
                                             hintText: 'test@test.org',
                                             labelText:
-                                                'Enter your registered Email*',
+                                                '${AppLocalizations.of(context)!.translate("Enter your registered Email")}*',
                                             labelStyle: Theme.of(context)
                                                 .textTheme
                                                 .subtitle1,
@@ -138,9 +177,19 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                             AutofillHints.password
                                           ],
                                           enableSuggestions: true,
-                                          validator: (value) =>
-                                              Validator.validatePassword(
-                                                  value!),
+                                          validator: (value) {
+                                            final String? msg =
+                                                Validator.validatePassword(
+                                                    value!);
+                                            if (msg == null) {
+                                              return null;
+                                            }
+
+                                            return AppLocalizations.of(context)!
+                                                .translate(
+                                              Validator.validatePassword(value),
+                                            );
+                                          },
                                           onFieldSubmitted: (done) {
                                             FocusScope.of(context).requestFocus(
                                                 model.confirmFocus);
@@ -156,8 +205,11 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                                 icon: Icon(model.hidePassword
                                                     ? Icons.visibility_off
                                                     : Icons.visibility)),
-                                            hintText: 'Password',
-                                            labelText: 'Enter your password*',
+                                            hintText:
+                                                AppLocalizations.of(context)!
+                                                    .translate('password'),
+                                            labelText:
+                                                '${AppLocalizations.of(context)!.translate("Enter your password")}*',
                                             labelStyle: Theme.of(context)
                                                 .textTheme
                                                 .subtitle1,
@@ -176,12 +228,27 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                             AutofillHints.password
                                           ],
                                           obscureText: model.hidePassword,
-                                          validator: (value) =>
-                                              Validator.validatePasswordConfirm(
-                                                  model.password.text, value!),
+                                          validator: (value) {
+                                            final String? msg = Validator
+                                                .validatePasswordConfirm(
+                                                    model.password.text,
+                                                    value!);
+                                            if (msg == null) {
+                                              return null;
+                                            }
+
+                                            return AppLocalizations.of(context)!
+                                                .translate(Validator
+                                                    .validatePasswordConfirm(
+                                                        model.password.text,
+                                                        value));
+                                          },
                                           decoration: InputDecoration(
-                                            hintText: 'Password',
-                                            labelText: 'Confirm your password*',
+                                            hintText:
+                                                AppLocalizations.of(context)!
+                                                    .translate('password'),
+                                            labelText:
+                                                '${AppLocalizations.of(context)!.translate("Confirm your password")}*',
                                             labelStyle: Theme.of(context)
                                                 .textTheme
                                                 .subtitle1,
@@ -194,7 +261,8 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   ),
                                 ),
                                 RaisedRoundedButton(
-                                  buttonLabel: 'Next',
+                                  buttonLabel: AppLocalizations.of(context)!
+                                      .strictTranslate('Next'),
                                   onTap: model.signUp,
                                   textColor: const Color(0xFF008A37),
                                   key: const Key('SignUpLoginDetailsButton'),

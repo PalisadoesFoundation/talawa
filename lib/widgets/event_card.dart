@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({Key? key, required this.event}) : super(key: key);
@@ -136,11 +137,13 @@ class EventCard extends StatelessWidget {
                           ),
                           event.isPublic!
                               ? Text(
-                                  'public',
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate('public'),
                                   style: Theme.of(context).textTheme.caption,
                                 )
                               : Text(
-                                  'private',
+                                  AppLocalizations.of(context)!
+                                      .strictTranslate('private'),
                                   style: Theme.of(context).textTheme.caption,
                                 ),
                           SizedBox(
@@ -184,7 +187,8 @@ class EventCard extends StatelessWidget {
                             bottomLeft: Radius.circular(15))),
                     child: Center(
                       child: Text(
-                        'Subscribed',
+                        AppLocalizations.of(context)!
+                            .strictTranslate('Subscribed'),
                         style: Theme.of(context).textTheme.headline6!.copyWith(
                             color: Colors.white, fontWeight: FontWeight.w700),
                       ),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
@@ -50,7 +51,8 @@ class WaitingPage extends StatelessWidget {
                           height: SizeConfig.screenHeight! * 0.03,
                         ),
                         Text(
-                          'Request Sent to',
+                          AppLocalizations.of(context)!
+                              .strictTranslate('Request Sent to'),
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ],
@@ -79,7 +81,8 @@ class WaitingPage extends StatelessWidget {
                           const Spacer(),
                           RaisedRoundedButton(
                             key: const Key('JoinOrg'),
-                            buttonLabel: 'Join Organisation',
+                            buttonLabel: AppLocalizations.of(context)!
+                                .strictTranslate('Join Organisation'),
                             onTap: model.joinOrg,
                             showArrow: true,
                             textColor:
@@ -95,7 +98,8 @@ class WaitingPage extends StatelessWidget {
                           ),
                           RaisedRoundedButton(
                             key: const Key('Logout'),
-                            buttonLabel: 'Log out',
+                            buttonLabel: AppLocalizations.of(context)!
+                                .strictTranslate('Log out'),
                             onTap: model.logout,
                             textColor: Theme.of(context)
                                 .inputDecorationTheme

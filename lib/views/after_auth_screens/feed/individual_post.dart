@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_widget.dart';
@@ -86,7 +87,7 @@ Padding buildPadding(BuildContext context, String text) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Text(
-      text,
+      AppLocalizations.of(context)!.strictTranslate(text),
       style: Theme.of(context).textTheme.headline6,
     ),
   );

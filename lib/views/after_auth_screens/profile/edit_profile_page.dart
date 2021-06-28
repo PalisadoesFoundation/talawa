@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
@@ -20,7 +21,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             appBar: AppBar(
                 elevation: 0.0,
                 title: Text(
-                  'Profile',
+                  AppLocalizations.of(context)!.strictTranslate('Profile'),
                   style: Theme.of(context).textTheme.headline6!.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
@@ -88,7 +89,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   focusNode: model.firstNameFocus,
                                   keyboardType: TextInputType.name,
                                   decoration: InputDecoration(
-                                    labelText: 'First Name',
+                                    labelText: AppLocalizations.of(context)!
+                                        .strictTranslate('First Name'),
                                     labelStyle:
                                         Theme.of(context).textTheme.subtitle1,
                                     focusedBorder: InputBorder.none,
@@ -113,7 +115,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   focusNode: model.lastNameFocus,
                                   keyboardType: TextInputType.name,
                                   decoration: InputDecoration(
-                                    labelText: 'Last Name',
+                                    labelText: AppLocalizations.of(context)!
+                                        .strictTranslate('Last Name'),
                                     labelStyle:
                                         Theme.of(context).textTheme.subtitle1,
                                     focusedBorder: InputBorder.none,
@@ -149,7 +152,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Email',
+                                AppLocalizations.of(context)!
+                                    .strictTranslate('Email'),
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption!
@@ -171,7 +175,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       )),
                   const Divider(),
                   TextButton(
-                      onPressed: () async {}, child: const Text('Update'))
+                      onPressed: () async {},
+                      child: Text(AppLocalizations.of(context)!
+                          .strictTranslate('Update')))
                 ],
               ),
             ),

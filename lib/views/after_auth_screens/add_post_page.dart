@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/utils/app_localization.dart';
 
 class AddPost extends StatelessWidget {
   const AddPost({Key? key, this.drawerKey}) : super(key: key);
@@ -11,7 +12,7 @@ class AddPost extends StatelessWidget {
           elevation: 0.9,
           centerTitle: true,
           title: Text(
-            'Share News',
+            AppLocalizations.of(context)!.strictTranslate('Share News'),
             style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
@@ -25,7 +26,7 @@ class AddPost extends StatelessWidget {
             TextButton(
               onPressed: () {},
               child: Text(
-                "Post",
+                AppLocalizations.of(context)!.strictTranslate("Post"),
                 style: Theme.of(context).textTheme.headline5!.copyWith(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).accentColor),
@@ -35,12 +36,11 @@ class AddPost extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
-            const ListTile(
-              leading: CircleAvatar(
-                radius: 25,
-              ),
-              title: Text('Rutvik Chandla'),
-              subtitle: Text('Organization Name'),
+            ListTile(
+              leading: const CircleAvatar(radius: 25),
+              title: const Text('Rutvik Chandla'),
+              subtitle: Text(AppLocalizations.of(context)!
+                  .strictTranslate('Organization Name')),
             ),
             Row(
               children: <Widget>[
@@ -52,15 +52,15 @@ class AddPost extends StatelessWidget {
                 TextButton(
                     onPressed: () {},
                     child: Text(
-                      '# Add hasthtag',
+                      '# ${AppLocalizations.of(context)!.strictTranslate("Add hasthtag")}',
                       style: Theme.of(context).textTheme.headline6,
                     )),
               ],
             ),
             const Divider(),
-            const Expanded(
+            Expanded(
                 child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 maxLines: null,
                 decoration: InputDecoration(
@@ -69,7 +69,8 @@ class AddPost extends StatelessWidget {
                     enabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
-                    hintText: "Write here what do you want to share"),
+                    hintText: AppLocalizations.of(context)!.strictTranslate(
+                        "Write here what do you want to share")),
               ),
             ))
           ],

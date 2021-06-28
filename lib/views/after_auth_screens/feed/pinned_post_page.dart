@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
 
 class PinnedPostPage extends StatelessWidget {
@@ -11,7 +12,8 @@ class PinnedPostPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        title: const Text('Pinned Posts'),
+        title:
+            Text(AppLocalizations.of(context)!.strictTranslate('Pinned Posts')),
       ),
       body: ListView(
         children: [PostListWidget(posts: pinnedPosts)],

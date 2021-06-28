@@ -31,36 +31,36 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const SplashScreen(key: Key('SplashScreen')));
     case Routes.languageSelectionRoute:
-      final int selectedLangId = int.parse(settings.arguments!.toString());
       return MaterialPageRoute(
-          builder: (context) => SelectLanguage(
-                key: const Key('SelectLanguage'),
-                selectedLangId: selectedLangId,
-              ));
+          builder: (context) =>
+              const SelectLanguage(key: Key('SelectLanguage')));
     case Routes.setUrlScreen:
       final String uri = settings.arguments!.toString();
       return MaterialPageRoute(
-          builder: (context) => SetUrl(
-                key: const Key('SetUrl'),
-                uri: uri,
-              ));
+        builder: (context) => SetUrl(
+          key: const Key('SetUrl'),
+          uri: uri,
+        ),
+      );
     case Routes.loginScreen:
       return MaterialPageRoute(
           builder: (context) => const Login(key: Key('Login')));
     case Routes.selectOrgScreen:
       final String id = settings.arguments!.toString();
       return CupertinoPageRoute(
-          builder: (context) => SelectOrganization(
-                key: const Key('Signup'),
-                selectedOrgId: id,
-              ));
+        builder: (context) => SelectOrganization(
+          key: const Key('Signup'),
+          selectedOrgId: id,
+        ),
+      );
     case Routes.signupDetailScreen:
       final OrgInfo org = settings.arguments! as OrgInfo;
       return CupertinoPageRoute(
-          builder: (context) => SignUpDetails(
-                key: const Key('Signup'),
-                selectedOrg: org,
-              ));
+        builder: (context) => SignUpDetails(
+          key: const Key('Signup'),
+          selectedOrg: org,
+        ),
+      );
     case Routes.waitingScreen:
       return CupertinoPageRoute(
           builder: (context) => const WaitingPage(key: Key('Waiting')));

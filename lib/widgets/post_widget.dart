@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
@@ -54,7 +55,7 @@ class NewsPost extends StatelessWidget {
                     GestureDetector(
                       onTap: () => function != null ? function!(post) : {},
                       child: Text(
-                        "${model.likedBy.length} Likes",
+                        "${model.likedBy.length} ${AppLocalizations.of(context)!.strictTranslate("Likes")}",
                         style: const TextStyle(
                             fontFamily: 'open-sans',
                             fontWeight: FontWeight.w800),
@@ -62,7 +63,8 @@ class NewsPost extends StatelessWidget {
                     ),
                     GestureDetector(
                         onTap: () => function != null ? function!(post) : {},
-                        child: Text("${post.comments!.length} comments"))
+                        child: Text(
+                            "${post.comments!.length} ${AppLocalizations.of(context)!.strictTranslate("comments")}"))
                   ],
                 ),
               ),

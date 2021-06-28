@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
@@ -36,13 +37,15 @@ class CustomDrawer extends StatelessWidget {
                               model.selectedOrg.name!.substring(0, 1),
                         ),
                         accountName: Text(model.selectedOrg.name!),
-                        accountEmail: const Text("Selected Organization"),
+                        accountEmail: Text(AppLocalizations.of(context)!
+                            .strictTranslate("Selected Organization")),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 8.0),
                         child: Text(
-                          "Switch Organization",
+                          AppLocalizations.of(context)!
+                              .strictTranslate("Switch Organization"),
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
@@ -85,14 +88,13 @@ class CustomDrawer extends StatelessWidget {
                           Icons.add,
                           size: 30,
                         ),
-                        title: const Text("Join new Organization"),
+                        title: Text(AppLocalizations.of(context)!
+                            .strictTranslate("Join new Organization")),
                       ),
-                      const ListTile(
-                        leading: Icon(
-                          Icons.logout,
-                          size: 30,
-                        ),
-                        title: Text("Leave Current Organization"),
+                      ListTile(
+                        leading: const Icon(Icons.logout, size: 30),
+                        title: Text(AppLocalizations.of(context)!
+                            .strictTranslate("Leave Current Organization")),
                       ),
                     ],
                   ),

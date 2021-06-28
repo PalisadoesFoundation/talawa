@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.dart';
 import 'package:talawa/views/base_view.dart';
@@ -21,7 +22,7 @@ class ExploreEvents extends StatelessWidget {
               automaticallyImplyLeading: false,
               centerTitle: true,
               title: Text(
-                'Explore Events',
+                AppLocalizations.of(context)!.strictTranslate('Explore Events'),
                 style: Theme.of(context).textTheme.headline6!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 20,
@@ -36,10 +37,7 @@ class ExploreEvents extends StatelessWidget {
                   padding: EdgeInsets.only(
                     right: SizeConfig.screenWidth! * 0.027,
                   ),
-                  child: const Icon(
-                    Icons.search,
-                    size: 20,
-                  ),
+                  child: const Icon(Icons.search, size: 20),
                 )
               ],
             ),
@@ -104,10 +102,12 @@ class ExploreEvents extends StatelessWidget {
                                               SizedBox(
                                                 width: SizeConfig.screenWidth! *
                                                     0.17,
-                                                child: const Text(
-                                                  "Add Date",
-                                                  style:
-                                                      TextStyle(fontSize: 16),
+                                                child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .strictTranslate(
+                                                          "Add Date"),
+                                                  style: const TextStyle(
+                                                      fontSize: 16),
                                                 ),
                                               ),
                                             ],
@@ -118,8 +118,7 @@ class ExploreEvents extends StatelessWidget {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: SizeConfig.screenHeight! * 0.027,
-                                ),
+                                    height: SizeConfig.screenHeight! * 0.027),
                                 ListView.builder(
                                     physics:
                                         const NeverScrollableScrollPhysics(),
@@ -157,7 +156,7 @@ class ExploreEvents extends StatelessWidget {
                 color: Theme.of(context).accentColor,
               ),
               label: Text(
-                "Event",
+                AppLocalizations.of(context)!.strictTranslate("Event"),
                 style: Theme.of(context)
                     .textTheme
                     .headline5!
@@ -180,7 +179,7 @@ class ExploreEvents extends StatelessWidget {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(
-            value,
+            AppLocalizations.of(context)!.strictTranslate(value),
             style: Theme.of(context)
                 .textTheme
                 .headline6!
