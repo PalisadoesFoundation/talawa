@@ -133,8 +133,13 @@ class MockGraphqlConfig extends _i2.Mock implements _i10.GraphqlConfig {
 /// See the documentation for Mockito's code generation for more information.
 class MockPostService extends _i2.Mock implements _i11.PostService {
   @override
-  _i5.Stream<_i12.Post> get postStream =>
+  _i5.Stream<List<_i12.Post>> get postStream =>
       (super.noSuchMethod(Invocation.getter(#postStream),
+              returnValue: Stream<List<_i12.Post>>.empty())
+          as _i5.Stream<List<_i12.Post>>);
+  @override
+  _i5.Stream<_i12.Post> get updatedPostStream =>
+      (super.noSuchMethod(Invocation.getter(#updatedPostStream),
           returnValue: Stream<_i12.Post>.empty()) as _i5.Stream<_i12.Post>);
   @override
   void setOrgStreamSubscription() =>
@@ -150,6 +155,15 @@ class MockPostService extends _i2.Mock implements _i11.PostService {
       (super.noSuchMethod(Invocation.method(#addLike, [postID]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future.value()) as _i5.Future<void>);
+  @override
+  _i5.Future<void> removeLike(String? postID) =>
+      (super.noSuchMethod(Invocation.method(#removeLike, [postID]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future.value()) as _i5.Future<void>);
+  @override
+  void addCommentLocally(String? postID) =>
+      super.noSuchMethod(Invocation.method(#addCommentLocally, [postID]),
+          returnValueForMissingStub: null);
 }
 
 /// A class which mocks [EventService].
@@ -167,6 +181,11 @@ class MockEventService extends _i2.Mock implements _i13.EventService {
   @override
   _i5.Future<void> getEvents() =>
       (super.noSuchMethod(Invocation.method(#getEvents, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future.value()) as _i5.Future<void>);
+  @override
+  _i5.Future<void> registerForAnEvent(String? eventId) =>
+      (super.noSuchMethod(Invocation.method(#registerForAnEvent, [eventId]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future.value()) as _i5.Future<void>);
   @override

@@ -1,22 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/models/comment/comment_model.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
-class IndividualPostView extends StatelessWidget {
+//Global Stete, should be removed in next few iterations
+late CommentsViewModel _commentViewModel;
+
+class IndividualPostView extends StatefulWidget {
   const IndividualPostView({Key? key, required this.post}) : super(key: key);
   final Post post;
 
+  @override
+  _IndividualPostViewState createState() => _IndividualPostViewState();
+}
+
+class _IndividualPostViewState extends State<IndividualPostView> {
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
       ),
+      bottomSheet: Container(
+        height: 60,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _controller,
+                textInputAction: TextInputAction.send,
+                onSubmitted: (msg) {
+                  _commentViewModel.createComment(msg);
+                  _controller.text = "";
+                },
+                textAlign: TextAlign.start,
+                decoration: const InputDecoration(
+                  hintText: "Write your comment here..",
+                  contentPadding: EdgeInsets.all(8.0),
+                  focusColor: Colors.black,
+                  border: InputBorder.none,
+                ),
+                keyboardType: TextInputType.text,
+              ),
+            ),
+            TextButton(
+                onPressed: () {
+                  _commentViewModel.createComment(_controller.text);
+                  _controller.text = "";
+                },
+                child: const Text("Send"))
+          ],
+        ),
+      ),
       body: ListView(
         children: [
           NewsPost(
-            post: post,
+            post: widget.post,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -24,9 +68,12 @@ class IndividualPostView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 IndividualPageLikeSection(
-                  usersLiked: post.likedBy!,
+                  usersLiked: widget.post.likedBy!,
                 ),
-                IndividualPostCommentSection(comments: post.comments!)
+                IndividualPostCommentSection(
+                  comments: widget.post.comments!,
+                  postID: widget.post.sId,
+                )
               ],
             ),
           )
@@ -72,19 +119,27 @@ class IndividualPageLikeSection extends StatelessWidget {
 }
 
 class IndividualPostCommentSection extends StatelessWidget {
-  const IndividualPostCommentSection({Key? key, required this.comments})
+  const IndividualPostCommentSection(
+      {Key? key, required this.comments, required this.postID})
       : super(key: key);
   final List<Comments> comments;
+  final String postID;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        buildPadding(context, "Comments"),
-        for (int i = 0; i < comments.length; i++)
-          CommentTemplate(comment: comments[i])
-      ],
+    return BaseView<CommentsViewModel>(
+      onModelReady: (model) {
+        model.initialise(postID);
+        _commentViewModel = model;
+      },
+      builder: (context, model, child) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildPadding(context, "Comments"),
+          for (int i = 0; i < model.commentList.length; i++)
+            CommentTemplate(comment: model.commentList[i])
+        ],
+      ),
     );
   }
 }
@@ -95,7 +150,7 @@ class CommentTemplate extends StatelessWidget {
     required this.comment,
   }) : super(key: key);
 
-  final Comments comment;
+  final Comment comment;
 
   @override
   Widget build(BuildContext context) {
@@ -116,14 +171,16 @@ class CommentTemplate extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  AppLocalizations.of(context)!
-                      .strictTranslate("FirstName LastName"),
+                  "${comment.creator!.firstName!} ${comment.creator!.lastName!}",
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
               Text(
-                comment.sId!,
-                style: Theme.of(context).textTheme.bodyText2,
+                comment.text!,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontSize: 16.0),
               ),
             ],
           ),
