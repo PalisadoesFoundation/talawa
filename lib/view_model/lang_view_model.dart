@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talawa/view_model/base_view_model.dart';
 
-class AppLanguage extends ChangeNotifier {
+class AppLanguage extends BaseModel {
   AppLanguage({this.isTest = false});
   final bool isTest;
 
   Locale _appLocale = const Locale('en');
   Locale get appLocal => _appLocale;
+
+  initialize() {
+    fetchLocale();
+  }
 
   fetchLocale() async {
     final prefs = await SharedPreferences.getInstance();
