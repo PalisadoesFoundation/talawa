@@ -5,6 +5,7 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
+import 'package:talawa/widgets/event_admin_fab.dart';
 
 class EventInfoPage extends StatefulWidget {
   const EventInfoPage({Key? key, required this.event}) : super(key: key);
@@ -35,17 +36,18 @@ class _EventInfoPageState extends State<EventInfoPage> {
           _eventInfoBody()
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            //EventService().registerForAnEvent(widget.event.id!);
-          },
-          label: Text(
-            AppLocalizations.of(context)!.strictTranslate("Register"),
-            style: Theme.of(context)
-                .textTheme
-                .bodyText2!
-                .copyWith(color: Theme.of(context).accentColor),
-          )),
+      floatingActionButton:
+          widget.event.creator!.id != userConfig.currentUser.id
+              ? FloatingActionButton.extended(
+                  onPressed: () {},
+                  label: Text(
+                    "Register",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .copyWith(color: Theme.of(context).accentColor),
+                  ))
+              : eventAdminFab(context: context, event: widget.event),
     );
   }
 
