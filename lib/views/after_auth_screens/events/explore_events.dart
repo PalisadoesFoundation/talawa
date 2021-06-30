@@ -42,7 +42,7 @@ class ExploreEvents extends StatelessWidget {
               ],
             ),
             body: model.isBusy
-                ? const CircularProgressIndicator()
+                ? const Center(child: CircularProgressIndicator())
                 : RefreshIndicator(
                     onRefresh: () async => model.fetchNewEvents(),
                     child: Stack(

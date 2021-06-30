@@ -80,4 +80,16 @@ class EventQueries {
     }
   """;
   }
+
+  String deleteEvent(String id) {
+    return """
+      mutation {
+        removeEvent(
+          id: "$id",
+          ){
+            _id
+          }
+        }
+    """;
+  }
 }
