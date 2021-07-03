@@ -15,6 +15,7 @@ class PostService {
         _updatedPostStreamController.stream.asBroadcastStream();
     _currentOrg = _userConfig.currentOrg;
     setOrgStreamSubscription();
+    getPosts();
   }
   // Stream for entire posts
   final StreamController<List<Post>> _postStreamController =
@@ -40,8 +41,12 @@ class PostService {
   //Setters
   void setOrgStreamSubscription() {
     _userConfig.currentOrfInfoStream.listen((updatedOrganization) {
-      _renderedPostID.clear();
-      _currentOrg = updatedOrganization;
+      if (updatedOrganization != _currentOrg) {
+        print("org changes from post service");
+        _renderedPostID.clear();
+        _currentOrg = updatedOrganization;
+        getPosts();
+      }
     });
   }
 
