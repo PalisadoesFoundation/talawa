@@ -113,6 +113,7 @@ class MockGraphqlConfig extends _i2.Mock implements _i10.GraphqlConfig {
       super.noSuchMethod(Invocation.setter(#httpLink, _httpLink),
           returnValueForMissingStub: null);
   @override
+  // ignore: avoid_setters_without_getters
   set displayImgRoute(String? _displayImgRoute) =>
       super.noSuchMethod(Invocation.setter(#displayImgRoute, _displayImgRoute),
           returnValueForMissingStub: null);
