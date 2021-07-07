@@ -21,7 +21,7 @@ class MultiMediaPickerService {
   //Getters
   Stream get fileStream => _fileStream;
 
-  Future getPhotoFromGallery({bool camera = false}) async {
+  Future<File?> getPhotoFromGallery({bool camera = false}) async {
     try {
       final _image = await _picker.getImage(
           source: camera ? ImageSource.camera : ImageSource.gallery);

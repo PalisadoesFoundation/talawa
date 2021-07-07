@@ -38,7 +38,7 @@ class AddPostViewModel extends BaseModel {
     final _image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
     if (_image != null) {
-      _imageFile = _image as File;
+      _imageFile = _image;
       notifyListeners();
     }
   }
