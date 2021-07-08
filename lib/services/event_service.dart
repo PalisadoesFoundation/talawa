@@ -58,7 +58,7 @@ class EventService {
     print(result);
   }
 
-  Future<void> deleteEvent(String eventId) async {
+  Future<dynamic> deleteEvent(String eventId) async {
     navigationService.pushDialog(
         const CustomProgressDialog(key: Key('DeleteEventProgress')));
     final tokenResult = await _dbFunctions
@@ -68,11 +68,7 @@ class EventService {
       EventQueries().deleteEvent(eventId),
     );
     navigationService.pop();
-    if (result != null) {
-      await getEvents();
-      print(result);
-      navigationService.pop();
-    }
+    return result;
   }
 
   Future<void> editEvent(

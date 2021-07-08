@@ -130,7 +130,10 @@ class ExploreEvents extends StatelessWidget {
                                         onTap: () {
                                           navigationService.pushScreen(
                                               "/eventInfo",
-                                              arguments: model.events[index]);
+                                              arguments: {
+                                                "event": model.events[index],
+                                                "exploreEventViewModel": model
+                                              });
                                         },
                                         child: EventCard(
                                           event: model.events[index],

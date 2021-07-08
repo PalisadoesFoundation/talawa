@@ -92,10 +92,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const ExploreEvents(key: Key('ExploreEvents')));
     case Routes.eventInfoPage:
-      final Event event = settings.arguments! as Event;
+      final Map<String, dynamic> args =
+          settings.arguments! as Map<String, dynamic>;
+      //  final Event event = settings.arguments! as Event;
       return MaterialPageRoute(
-        builder: (context) =>
-            EventInfoPage(key: const Key('EventInfo'), event: event),
+        builder: (context) => EventInfoPage(
+          key: const Key('EventInfo'),
+          agrs: args,
+        ),
       );
     case Routes.createEventPage:
       return MaterialPageRoute(

@@ -91,6 +91,17 @@ class ExploreEventsViewModel extends BaseModel {
     _events.insert(0, newEvent);
   }
 
+  Future<void> deleteEvent({required String eventId}) async {
+    final result = await _eventService.deleteEvent(eventId);
+    if (result != null) {
+      navigationService.pop();
+      print(result);
+      _uniqueEventIds.remove(eventId);
+      _events.removeWhere((element) => element.id == eventId);
+      notifyListeners();
+    }
+  }
+
   @override
   void dispose() {
     _eventStreamSubscription.cancel();

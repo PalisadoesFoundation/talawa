@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
-import 'package:talawa/services/event_service.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 
-Widget eventAdminFab({required BuildContext context, required Event event}) {
+Widget eventAdminFab(
+    {required BuildContext context,
+    required Event event,
+    required ExploreEventsViewModel exploreEventsViewModel}) {
   return SpeedDial(
     icon: Icons.menu,
     activeIcon: Icons.close,
@@ -28,7 +31,7 @@ Widget eventAdminFab({required BuildContext context, required Event event}) {
         backgroundColor: Theme.of(context).primaryColor,
         labelBackgroundColor: Theme.of(context).primaryColor,
         onTap: () {
-          EventService().deleteEvent(event.id!);
+          exploreEventsViewModel.deleteEvent(eventId: event.id!);
         },
       ),
       SpeedDialChild(
