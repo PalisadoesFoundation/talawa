@@ -6,6 +6,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
 
 class ExploreEventsViewModel extends BaseModel {
   final _eventService = locator<EventService>();
@@ -92,14 +93,23 @@ class ExploreEventsViewModel extends BaseModel {
   }
 
   Future<void> deleteEvent({required String eventId}) async {
-    final result = await _eventService.deleteEvent(eventId);
-    if (result != null) {
-      navigationService.pop();
-      print(result);
-      _uniqueEventIds.remove(eventId);
-      _events.removeWhere((element) => element.id == eventId);
-      notifyListeners();
-    }
+    navigationService.pushDialog(CustomAlertDialog(
+      reverse: true,
+      dialogSubTitle: 'Are you sure you want to delete this event?',
+      successText: 'Delete',
+      success: () {
+        navigationService.pop();
+        _eventService.deleteEvent(eventId).then((result) {
+          if (result != null) {
+            navigationService.pop();
+            print(result);
+            _uniqueEventIds.remove(eventId);
+            _events.removeWhere((element) => element.id == eventId);
+            notifyListeners();
+          }
+        });
+      },
+    ));
   }
 
   @override
