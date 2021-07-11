@@ -116,10 +116,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.editEventPage:
       final Event event = settings.arguments! as Event;
       return MaterialPageRoute(
-          builder: (context) => EditEventPage(
-                key: const Key('EditEvent'),
-                event: event,
-              ));
+        builder: (context) => EditEventPage(
+          key: const Key('EditEvent'),
+          event: event,
+        ),
+      );
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(

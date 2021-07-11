@@ -61,8 +61,9 @@ class ExploreEventsViewModel extends BaseModel {
         .listen((updatedOrganization) => refreshEvents());
     await _eventService.getEvents();
 
-    _eventStreamSubscription = _eventService.eventStream
-        .listen((newEvent) => checkIfExistsAndAddNewEvent(newEvent));
+    _eventStreamSubscription = _eventService.eventStream.listen(
+      (newEvent) => checkIfExistsAndAddNewEvent(newEvent),
+    );
     _bufferEvents = _events;
     setState(ViewState.idle);
   }
@@ -79,12 +80,12 @@ class ExploreEventsViewModel extends BaseModel {
   }
 
   void _parseEventDateTime(Event newEvent) {
-    final DateTime _startDate =
-        DateTime.fromMicrosecondsSinceEpoch(int.parse(newEvent.startTime!))
-            .toLocal();
-    final DateTime _endDate =
-        DateTime.fromMicrosecondsSinceEpoch(int.parse(newEvent.endTime!))
-            .toLocal();
+    final DateTime _startDate = DateTime.fromMicrosecondsSinceEpoch(
+      int.parse(newEvent.startTime!),
+    ).toLocal();
+    final DateTime _endDate = DateTime.fromMicrosecondsSinceEpoch(
+      int.parse(newEvent.endTime!),
+    ).toLocal();
     newEvent.startDate = DateFormat('yMd').format(_startDate);
     newEvent.endDate = DateFormat('yMd').format(_endDate);
     newEvent.startTime = DateFormat.jm().format(_startDate);
@@ -93,23 +94,27 @@ class ExploreEventsViewModel extends BaseModel {
   }
 
   Future<void> deleteEvent({required String eventId}) async {
-    navigationService.pushDialog(CustomAlertDialog(
-      reverse: true,
-      dialogSubTitle: 'Are you sure you want to delete this event?',
-      successText: 'Delete',
-      success: () {
-        navigationService.pop();
-        _eventService.deleteEvent(eventId).then((result) {
-          if (result != null) {
-            navigationService.pop();
-            print(result);
-            _uniqueEventIds.remove(eventId);
-            _events.removeWhere((element) => element.id == eventId);
-            notifyListeners();
-          }
-        });
-      },
-    ));
+    navigationService.pushDialog(
+      CustomAlertDialog(
+        reverse: true,
+        dialogSubTitle: 'Are you sure you want to delete this event?',
+        successText: 'Delete',
+        success: () {
+          navigationService.pop();
+          _eventService.deleteEvent(eventId).then(
+            (result) {
+              if (result != null) {
+                navigationService.pop();
+                print(result);
+                _uniqueEventIds.remove(eventId);
+                _events.removeWhere((element) => element.id == eventId);
+                notifyListeners();
+              }
+            },
+          );
+        },
+      ),
+    );
   }
 
   @override

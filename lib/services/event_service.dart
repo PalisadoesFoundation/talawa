@@ -74,8 +74,11 @@ class EventService {
   Future<void> editEvent(
       {required String eventId,
       required Map<String, dynamic> variables}) async {
-    navigationService
-        .pushDialog(const CustomProgressDialog(key: Key('EditEventProgress')));
+    navigationService.pushDialog(
+      const CustomProgressDialog(
+        key: Key('EditEventProgress'),
+      ),
+    );
     final tokenResult = await _dbFunctions
         .refreshAccessToken(userConfig.currentUser.refreshToken!);
     debugPrint(tokenResult.toString());

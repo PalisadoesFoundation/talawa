@@ -59,11 +59,12 @@ class EditEventViewModel extends BaseModel {
           eventStartTime.hour,
           eventStartTime.minute);
       final DateTime endTime = DateTime(
-          eventStartDate.year,
-          eventStartDate.month,
-          eventStartDate.day,
-          eventEndTime.hour,
-          eventEndTime.minute);
+        eventStartDate.year,
+        eventStartDate.month,
+        eventStartDate.day,
+        eventEndTime.hour,
+        eventEndTime.minute,
+      );
       final Map<String, dynamic> variables = {
         'title': eventTitleTextController.text,
         'description': eventDescriptionTextController.text,
