@@ -7,3 +7,5 @@ enum ViewState {
 enum TileType { user, org, option }
 
 enum CallFor { login, signup, joinPublicOrg }
+
+enum ModalSheet { donation, invite }

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:uni_links/uni_links.dart';
@@ -45,14 +46,14 @@ class _SplashScreenState extends State<SplashScreen> {
       if (!mounted) return;
       setState(() => _initialUri = null);
     }
+    final bool userLoggedIn = await userConfig.userLoggedIn();
     if (_latestUri == null && _initialUri == null) {
-      final bool userLoggedIn = await userConfig.userLoggedIn();
       Future.delayed(const Duration(milliseconds: 750)).then((value) async {
         if (userLoggedIn) {
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
             if (userConfig.currentUser.membershipRequests!.isEmpty) {
               navigationService.pushReplacementScreen(Routes.joinOrg,
-                  arguments: '0');
+                  arguments: '-1');
             } else {
               navigationService.pushReplacementScreen(Routes.waitingScreen,
                   arguments: '0');
@@ -63,15 +64,41 @@ class _SplashScreenState extends State<SplashScreen> {
           }
         } else {
           navigationService.pushReplacementScreen(Routes.languageSelectionRoute,
-              arguments: '0');
+              arguments: 'en');
         }
       });
     } else {
       if (_initialUri != null) {
         if (_initialUri!.pathSegments[1] == 'invite') {
-          navigationService.fromInviteLink(
-              _initialUri!.queryParameters.keys.toList(growable: false),
-              _initialUri!.queryParameters.values.toList(growable: false));
+          if (!userLoggedIn) {
+            navigationService.fromInviteLink(
+                _initialUri!.queryParameters.keys.toList(growable: false),
+                _initialUri!.queryParameters.values.toList(growable: false));
+          } else if (_initialUri!.queryParameters.values
+                  .toList(growable: false)[1]
+                  .compareTo(GraphqlConfig.orgURI!) ==
+              0) {
+            if (_initialUri!.queryParameters.keys.last.compareTo('selectOrg') ==
+                0) {
+              print('here');
+              final List<String> routeNames = [
+                Routes.mainScreen.split('/').last,
+                Routes.joinOrg.split('/').last
+              ];
+              final List<dynamic> arguments = [
+                '0',
+                _initialUri!.queryParameters.values.last
+              ];
+              print(routeNames);
+              print(arguments);
+              navigationService.fromInviteLink(routeNames, arguments);
+            } else {
+              navigationService.showSnackBar('Invalid url');
+            }
+          } else {
+            navigationService.showSnackBar(
+                'Organisation on different server!. Logout and open link again');
+          }
         }
       }
     }

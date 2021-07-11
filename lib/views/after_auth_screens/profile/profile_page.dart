@@ -24,6 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
         onModelReady: (model) => model.initialize(),
         builder: (context, model, child) {
           return Scaffold(
+            key: model.scaffoldKey,
             appBar: AppBar(
               elevation: 0.0,
               centerTitle: true,
@@ -131,9 +132,27 @@ class _ProfilePageState extends State<ProfilePage> {
                                         .strictTranslate(
                                             'Help us to develop for you'),
                                   ),
-                                  onTapOption: () {}),
+                                  onTapOption: () => model.modalBottomSheet(
+                                      context, ModalSheet.donation)),
                               CustomListTile(
                                   key: const Key('Option3'),
+                                  index: 3,
+                                  type: TileType.option,
+                                  option: Options(
+                                    icon: Icon(
+                                      Icons.share,
+                                      color: Theme.of(context).accentColor,
+                                      size: 30,
+                                    ),
+                                    title: AppLocalizations.of(context)!
+                                        .strictTranslate('Invite'),
+                                    subtitle: AppLocalizations.of(context)!
+                                        .strictTranslate('Invite to org'),
+                                  ),
+                                  onTapOption: () => model.modalBottomSheet(
+                                      context, ModalSheet.invite)),
+                              CustomListTile(
+                                  key: const Key('Option4'),
                                   index: 3,
                                   type: TileType.option,
                                   option: Options(
