@@ -34,7 +34,7 @@ class AddPostViewModel extends BaseModel {
     _multiMediaPickerService = locator<MultiMediaPickerService>();
   }
 
-  Future getImageFromGallery({bool camera = false}) async {
+  Future<void> getImageFromGallery({bool camera = false}) async {
     final _image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
     if (_image != null) {
@@ -50,7 +50,7 @@ class AddPostViewModel extends BaseModel {
     _navigationService.showSnackBar("Post is uploaded");
   }
 
-  removeImage() {
+  void removeImage() {
     _imageFile = null;
     notifyListeners();
   }
