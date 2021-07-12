@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -49,8 +48,7 @@ class PostService {
   Future<void> getPosts() async {
     final String currentOrgID = _currentOrg.id!;
     final String query = PostQueries().getPostsById(currentOrgID);
-    final QueryResult result =
-        await _dbFunctions.gqlAuthQuery(query) as QueryResult;
+    final result = await _dbFunctions.gqlAuthQuery(query);
 
     //Checking if the dbFunctions return the postJSON, if not return.
     if (result.data!['postsByOrganization'] == null) return;
