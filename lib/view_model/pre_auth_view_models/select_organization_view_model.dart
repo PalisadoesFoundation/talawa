@@ -15,7 +15,6 @@ import 'package:visibility_detector/visibility_detector.dart';
 class SelectOrganizationViewModel extends BaseModel {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   late Barcode result;
-  late QRViewController qrController;
   final ScrollController allOrgController = ScrollController();
   final ScrollController controller = ScrollController();
   final FocusNode searchFocus = FocusNode();
@@ -25,7 +24,6 @@ class SelectOrganizationViewModel extends BaseModel {
   bool searching = false;
   late Widget showSearchOrgList = Container();
   late String orgId;
-  bool isInitialized = false;
 
   searchActive() {
     if (searchFocus.hasFocus) {

@@ -7,12 +7,12 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
+import 'package:vibration/vibration.dart';
 
 class SetUrlViewModel extends BaseModel {
   final formKey = GlobalKey<FormState>();
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   late Barcode result;
-  late QRViewController controller;
   String orgId = '-1';
   static const imageUrlKey = "imageUrl";
   static const urlKey = "url";
@@ -20,7 +20,7 @@ class SetUrlViewModel extends BaseModel {
   FocusNode urlFocus = FocusNode();
   late List<Map<String, dynamic>> greeting;
   AutovalidateMode validate = AutovalidateMode.disabled;
-  bool isInitialised = false;
+
   initialise({String inviteUrl = ''}) {
     final uri = inviteUrl;
     if (uri.isNotEmpty) {
@@ -94,9 +94,6 @@ class SetUrlViewModel extends BaseModel {
   }
 
   scanQR(BuildContext context) {
-    if (isInitialised) {
-      controller.resumeCamera();
-    }
     showModalBottomSheet(
         context: context,
         barrierColor: Colors.transparent,
@@ -145,17 +142,17 @@ class SetUrlViewModel extends BaseModel {
   }
 
   void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       if (scanData.code.isNotEmpty) {
+        print(scanData.code);
         try {
           final List<String> data = scanData.code.split('?');
           url.text = data[0];
           final List<String> queries = data[1].split('&');
           orgId = queries[0].split('=')[1];
+          Vibration.vibrate(duration: 100);
+          controller.stopCamera();
           controller.dispose();
-          this.controller.stopCamera();
-          isInitialised = true;
           final box = Hive.box('url');
           box.put(urlKey, url.text);
           box.put(imageUrlKey, "${url.text}/talawa/");

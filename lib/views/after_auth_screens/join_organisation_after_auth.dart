@@ -10,6 +10,7 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
+import 'package:vibration/vibration.dart';
 
 class JoinOrganisationAfterAuth extends StatelessWidget {
   const JoinOrganisationAfterAuth({Key? key, required this.orgId})
@@ -121,9 +122,6 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
   }
 
   scanQR(BuildContext context, SelectOrganizationViewModel model) {
-    if (model.isInitialized) {
-      model.qrController.resumeCamera();
-    }
     showModalBottomSheet(
         context: context,
         barrierColor: Colors.transparent,
@@ -175,18 +173,18 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
 
   void _onQRViewCreated(
       QRViewController controller, SelectOrganizationViewModel model) {
-    model.qrController = controller;
     controller.scannedDataStream.listen((scanData) {
       if (scanData.code.isNotEmpty) {
+        print(scanData.code);
         try {
           final List<String> data = scanData.code.split('?');
           final String url = data[0];
+          Vibration.vibrate(duration: 100);
           if (url == GraphqlConfig.orgURI) {
             final List<String> queries = data[1].split('&');
             model.orgId = queries[0].split('=')[1];
+            controller.stopCamera();
             controller.dispose();
-            model.isInitialized = true;
-            model.qrController.stopCamera();
             Navigator.pop(navigationService.navigatorKey.currentContext!);
             model.initialise(model.orgId);
           } else {
