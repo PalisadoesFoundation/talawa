@@ -43,5 +43,19 @@
 		<false/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>LSApplicationQueriesSchemes</key>
+        <array>
+        <string>instagram-stories</string>
+        <string>facebook-stories</string>
+        <string>facebook</string>
+        <string>instagram</string>
+        <string>twitter</string>
+        <string>whatsapp</string>
+        <string>tg</string>
+        </array>
+        <key>io.flutter.embedded_views_preview</key>
+        <true/>
+        <key>NSCameraUsageDescription</key>
+        <string>This app needs camera access to scan QR codes</string>
 	</dict>
 </plist>

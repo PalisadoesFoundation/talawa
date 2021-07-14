@@ -82,8 +82,8 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       const Divider(),
                       ListTile(
-                        onTap: () =>
-                            navigationService.popAndPushScreen(Routes.joinOrg),
+                        onTap: () => navigationService
+                            .popAndPushScreen(Routes.joinOrg, arguments: '-1'),
                         leading: const Icon(
                           Icons.add,
                           size: 30,

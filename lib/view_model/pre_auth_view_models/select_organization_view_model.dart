@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -12,6 +13,8 @@ import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class SelectOrganizationViewModel extends BaseModel {
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  late Barcode result;
   final ScrollController allOrgController = ScrollController();
   final ScrollController controller = ScrollController();
   final FocusNode searchFocus = FocusNode();
@@ -20,6 +23,7 @@ class SelectOrganizationViewModel extends BaseModel {
   late List<OrgInfo> organizations = [];
   bool searching = false;
   late Widget showSearchOrgList = Container();
+  late String orgId;
 
   searchActive() {
     if (searchFocus.hasFocus) {
@@ -32,17 +36,23 @@ class SelectOrganizationViewModel extends BaseModel {
   initialise(String initialData) async {
     searchFocus.addListener(searchActive);
     if (!initialData.contains('-1')) {
+      databaseFunctions.init();
       final fetch = await databaseFunctions.fetchOrgById(initialData);
       if (fetch.runtimeType == OrgInfo) {
         selectedOrganization = fetch as OrgInfo;
+        if (userConfig.currentUser.refreshToken?.isEmpty ?? true) {
+          navigationService.pushScreen('/signupDetails',
+              arguments: selectedOrganization);
+        } else {
+          selectOrg(selectedOrganization);
+        }
         setState(ViewState.idle);
-        navigationService.pushScreen('/signupDetails',
-            arguments: selectedOrganization);
       }
     }
   }
 
   selectOrg(OrgInfo item) async {
+    print(item.id);
     bool orgAlreadyJoined = false;
     bool orgRequestAlreadyPresent = false;
     final bool userLoggedIn = await userConfig.userLoggedIn();
@@ -61,6 +71,7 @@ class SelectOrganizationViewModel extends BaseModel {
         selectedOrganization = item;
         setState(ViewState.idle);
       } else if (orgAlreadyJoined) {
+        selectedOrganization = OrgInfo(id: '-1');
         navigationService.showSnackBar('Organisation already joined');
       } else {
         navigationService.showSnackBar('Membership request already sent');

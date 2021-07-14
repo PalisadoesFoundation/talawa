@@ -12,6 +12,7 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 class ProfilePageViewModel extends BaseModel {
   // Services
   final _userConfig = locator<UserConfig>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   late final Box<User> user;
   late final Box<dynamic> url;

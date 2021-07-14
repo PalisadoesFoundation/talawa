@@ -5,9 +5,10 @@
 In order to give everyone a chance to submit a pull request and contribute to the Talawa project, we have put restrictions in place. This section outlines the guidelines that should be imposed upon pull requests in the Talawa project.
 
 1. Do not start working on any open issue and raise a PR unless it is assigned to you.
-3. Pull requests must be based on [open issues](https://github.com/PalisadoesFoundation/talawa/issues) available.
-4. [Use this method to automatically close the issue when the PR is completed.](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue)
-5. Each contributor may only create one pull request at a time. We have this rule in place due to our limited resources - if everyone was allowed to post multiple pull requests we will not be able to review them properly. It is also better for contributors because you can focus on creating one quality PR - so spend time making sure it is as good as it can be.
+2. Pull requests must be based on [open issues](https://github.com/PalisadoesFoundation/talawa/issues) available.
+3. [Use this method to automatically close the issue when the PR is completed.](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue)
+4. Each contributor may only create one pull request at a time. We have this rule in place due to our limited resources - if everyone was allowed to post multiple pull requests we will not be able to review them properly. It is also better for contributors because you can focus on creating one quality PR - so spend time making sure it is as good as it can be.
+5. Upon successful push to the fork check in all test are passing, if no fix the issues and than create a pull request.
 6. If the pull request's code quality is not up to par, or it would break the app, it will more likely be closed. So please be careful when creating a PR.
 7. Please follow the [PR template](https://github.com/PalisadoesFoundation/talawa/blob/master/.github/PR_TEMPLATE/pr-template.md). Ensure the PR title clearly describes the problem it is solving. In the description, include the relevant issue number, snapshots and videos after changes added.
 8. If you are borrowing code, please disclose it. It is fine and sometimes even recommended to borrow code, but we need to know about it to assess your work. If we find out that your pull request contains a lot of code copied from elsewhere, we will close the pull request.
