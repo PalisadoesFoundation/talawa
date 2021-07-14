@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -56,20 +55,23 @@ class LoginViewModel extends BaseModel {
           .pushDialog(const CustomProgressDialog(key: Key('LoginProgress')));
       databaseFunctions.init();
       try {
-        final QueryResult result = await databaseFunctions.gqlNonAuthMutation(
-            queries.loginUser(email.text, password.text)) as QueryResult;
+        final result = await databaseFunctions
+            .gqlNonAuthMutation(queries.loginUser(email.text, password.text));
         navigationService.pop();
-        final User loggedInUser =
-            User.fromJson(result.data!['login'] as Map<String, dynamic>);
-        userConfig.updateUser(loggedInUser);
-        if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-          navigationService.removeAllAndPush('/waiting', '/');
-        } else {
-          userConfig.saveCurrentOrgInHive(
-              userConfig.currentUser.joinedOrganizations![0]);
-          navigationService.removeAllAndPush('/mainScreen', '/');
+        if (result != null) {
+          final User loggedInUser =
+              User.fromJson(result.data!['login'] as Map<String, dynamic>);
+          userConfig.updateUser(loggedInUser);
+          if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
+            navigationService.removeAllAndPush('/waiting', '/');
+          } else {
+            userConfig.saveCurrentOrgInHive(
+                userConfig.currentUser.joinedOrganizations![0]);
+            navigationService.removeAllAndPush('/mainScreen', '/');
+          }
         }
       } on Exception catch (e) {
+        print('here');
         print(e);
       }
     }
