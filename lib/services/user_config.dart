@@ -11,7 +11,8 @@ class UserConfig {
   late User? _currentUser = User(id: 'null', authToken: 'null');
   late OrgInfo? _currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
   late Stream<OrgInfo> _currentOrgInfoStream;
-  final _currentOrgInfoController = StreamController<OrgInfo>();
+  final StreamController<OrgInfo> _currentOrgInfoController =
+      StreamController<OrgInfo>.broadcast();
 
   Stream<OrgInfo> get currentOrfInfoStream => _currentOrgInfoStream;
   StreamController<OrgInfo> get currentOrgInfoController =>

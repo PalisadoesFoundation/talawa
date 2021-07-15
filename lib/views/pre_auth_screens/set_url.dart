@@ -1,14 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/custom_painters/language_icon.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
-import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/utils/validators.dart';
-import 'package:talawa/widgets/raised_round_edge_button.dart';
-import 'package:talawa/widgets/rich_text.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/raised_round_edge_button.dart';
+import 'package:talawa/widgets/rich_text.dart';
 
 class SetUrl extends StatefulWidget {
   const SetUrl({required Key key, required this.uri}) : super(key: key);
@@ -44,6 +45,19 @@ class _SetUrlState extends State<SetUrl> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Container(
+                        alignment: Alignment.centerRight,
+                        margin: EdgeInsets.only(
+                            top: SizeConfig.safeBlockVertical! * 2),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.qr_code_scanner,
+                            size: 30,
+                            semanticLabel: 'Join Organisation with QR',
+                          ),
+                          onPressed: () => model.scanQR(context),
+                        ),
+                      ),
                       Padding(
                         padding: EdgeInsets.only(
                             top: SizeConfig.screenHeight! * 0.08),
@@ -78,7 +92,7 @@ class _SetUrlState extends State<SetUrl> {
                                 .translate(Validator.validateURL(value)),
                         decoration: InputDecoration(
                             hintText:
-                                'https://talawa-api-graphql.herokuapp.com/graphql',
+                                'https://talawa-graphql-api.herokuapp.com/graphql',
                             labelText:
                                 '${AppLocalizations.of(context)!.translate("Enter Organization URL")} *',
                             labelStyle: Theme.of(context).textTheme.subtitle1,
@@ -129,8 +143,8 @@ class _SetUrlState extends State<SetUrl> {
                         key: const Key('SignUpButton'),
                         buttonLabel: AppLocalizations.of(context)!
                             .strictTranslate('Sign Up'),
-                        onTap: () =>
-                            model.checkURLandNavigate('/selectOrg', '-1'),
+                        onTap: () => model.checkURLandNavigate(
+                            '/selectOrg', model.orgId),
                         showArrow: true,
                         textColor:
                             Theme.of(context).colorScheme.secondaryVariant,
@@ -141,7 +155,7 @@ class _SetUrlState extends State<SetUrl> {
                             .color,
                       ),
                       SizedBox(
-                        height: SizeConfig.screenHeight! * 0.08,
+                        height: SizeConfig.screenHeight! * 0.06,
                       ),
                       GestureDetector(
                         key: const Key('ChangeLanguage'),
@@ -149,32 +163,36 @@ class _SetUrlState extends State<SetUrl> {
                           navigationService.pushReplacementScreen('/selectLang',
                               arguments: '0');
                         },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomPaint(
-                              size: Size(
-                                  SizeConfig.screenWidth! * 0.125,
-                                  (SizeConfig.screenWidth! * 0.125 * 0.5)
-                                      .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                              painter: LanguageIcon(),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!
-                                  .strictTranslate('Change language'),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onBackground
-                                          .withOpacity(0.8)),
-                            )
-                          ],
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: SizeConfig.safeBlockVertical! * 2),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CustomPaint(
+                                size: Size(
+                                    SizeConfig.screenWidth! * 0.125,
+                                    (SizeConfig.screenWidth! * 0.125 * 0.5)
+                                        .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                                painter: LanguageIcon(),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!
+                                    .strictTranslate('Change language'),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground
+                                            .withOpacity(0.8)),
+                              )
+                            ],
+                          ),
                         ),
                       )
                     ],

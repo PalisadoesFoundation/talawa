@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/splash_screen.dart';
+import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
@@ -32,6 +36,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const SplashScreen(key: Key('SplashScreen')));
     case Routes.languageSelectionRoute:
+      final String langCode = settings.arguments!.toString();
+      Provider.of<AppLanguage>(
+        locator<NavigationService>().navigatorKey.currentContext!,
+        listen: false,
+      ).changeLanguage(
+        Locale(langCode),
+      );
       return MaterialPageRoute(
           builder: (context) =>
               const SelectLanguage(key: Key('SelectLanguage')));
@@ -110,9 +121,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const EditProfilePage(key: Key('EditProfile')));
     case Routes.joinOrg:
+      final String id = settings.arguments!.toString();
       return MaterialPageRoute(
-          builder: (context) => const JoinOrganisationAfterAuth(
-              key: Key('JoinOrganisationAfterAuth')));
+          builder: (context) => JoinOrganisationAfterAuth(
+                key: const Key('JoinOrganisationAfterAuth'),
+                orgId: id,
+              ));
     case Routes.editEventPage:
       final Event event = settings.arguments! as Event;
       return MaterialPageRoute(
@@ -121,6 +135,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           event: event,
         ),
       );
+
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(
