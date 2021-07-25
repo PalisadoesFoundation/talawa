@@ -23,6 +23,7 @@ class MultiMediaPickerService {
 
   Future<File?> getPhotoFromGallery({bool camera = false}) async {
     try {
+      // ignore: deprecated_member_use
       final _image = await _picker.getImage(
           source: camera ? ImageSource.camera : ImageSource.gallery);
       if (_image != null) return File(_image.path);
