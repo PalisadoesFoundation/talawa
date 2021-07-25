@@ -10,6 +10,7 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
@@ -135,6 +136,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           event: event,
         ),
       );
+    case Routes.appSettings:
+      return MaterialPageRoute(
+          builder: (context) => const AppSettingsPage(key: Key('AppSettings')));
 
     default:
       return MaterialPageRoute(
