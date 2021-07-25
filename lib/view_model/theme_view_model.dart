@@ -20,12 +20,18 @@ class AppTheme extends BaseModel {
     notifyListeners();
   }
 
+  _initPrefs() async {
+    _pref = await SharedPreferences.getInstance();
+  }
+
   _loadFromPrefs() async {
+    await _initPrefs();
     _isDarkMode = _pref.getBool(key) ?? true;
     notifyListeners();
   }
 
   _saveToPrefs() async {
+    await _initPrefs();
     _pref.setBool(key, _isDarkMode);
   }
 }
