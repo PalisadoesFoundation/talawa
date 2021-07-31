@@ -50,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: chmod +x ./.github/workflows/countline.py
-      - run: ./.github/workflows/countline.py --exclude lib/custom_painters/talawa_logo.dart lib/utils/queries.dart test/widget_tests/set_url_page_test.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart
+      - run: ./.github/workflows/countline.py --exclude lib/custom_painters/talawa_logo.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart test/widget_tests/set_url_page_test.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart
 
   Trailing-Comma-Pattern:
     name: Trailing comma added at the end of every required code

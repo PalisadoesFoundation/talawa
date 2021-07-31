@@ -62,51 +62,52 @@ class SignupDetailsViewModel extends BaseModel {
           .pushDialog(const CustomProgressDialog(key: Key('SignUpProgress')));
       databaseFunctions.init();
       try {
-        final QueryResult result = await databaseFunctions.gqlNonAuthMutation(
-                queries.registerUser(
-                    firstName.text, lastName.text, email.text, password.text))
-            as QueryResult;
-        final User signedInUser =
-            User.fromJson(result.data!['signUp'] as Map<String, dynamic>);
-        final bool userSaved = await userConfig.updateUser(signedInUser);
-        final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
-        if (userSaved && tokenRefreshed) {
-          if (selectedOrganization.isPublic!) {
-            try {
-              final QueryResult result =
-                  await databaseFunctions.gqlAuthMutation(
-                          queries.joinOrgById(selectedOrganization.id!))
-                      as QueryResult;
+        final result = await databaseFunctions.gqlNonAuthMutation(
+            queries.registerUser(
+                firstName.text, lastName.text, email.text, password.text));
+        if (result != null) {
+          final User signedInUser =
+              User.fromJson(result.data!['signUp'] as Map<String, dynamic>);
+          final bool userSaved = await userConfig.updateUser(signedInUser);
+          final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
+          if (userSaved && tokenRefreshed) {
+            if (selectedOrganization.isPublic!) {
+              try {
+                final QueryResult result =
+                    await databaseFunctions.gqlAuthMutation(
+                            queries.joinOrgById(selectedOrganization.id!))
+                        as QueryResult;
 
-              final List<OrgInfo>? joinedOrg =
-                  (result.data!['joinPublicOrganization']['joinedOrganizations']
-                          as List<dynamic>?)
-                      ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-                      .toList();
-              userConfig.updateUserJoinedOrg(joinedOrg!);
-              userConfig.saveCurrentOrgInHive(
-                  userConfig.currentUser.joinedOrganizations![0]);
-              navigationService.removeAllAndPush('/mainScreen', '/');
-            } on Exception catch (e) {
-              print(e);
-              navigationService.showSnackBar('SomeThing went wrong');
-            }
-          } else {
-            try {
-              final QueryResult result =
-                  await databaseFunctions.gqlAuthMutation(queries
-                          .sendMembershipRequest(selectedOrganization.id!))
-                      as QueryResult;
+                final List<OrgInfo>? joinedOrg = (result
+                            .data!['joinPublicOrganization']
+                        ['joinedOrganizations'] as List<dynamic>?)
+                    ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+                    .toList();
+                userConfig.updateUserJoinedOrg(joinedOrg!);
+                userConfig.saveCurrentOrgInHive(
+                    userConfig.currentUser.joinedOrganizations![0]);
+                navigationService.removeAllAndPush('/mainScreen', '/');
+              } on Exception catch (e) {
+                print(e);
+                navigationService.showSnackBar('SomeThing went wrong');
+              }
+            } else {
+              try {
+                final QueryResult result =
+                    await databaseFunctions.gqlAuthMutation(queries
+                            .sendMembershipRequest(selectedOrganization.id!))
+                        as QueryResult;
 
-              final OrgInfo membershipRequest = OrgInfo.fromJson(
-                  result.data!['sendMembershipRequest']['organization']
-                      as Map<String, dynamic>);
-              userConfig.updateUserMemberRequestOrg([membershipRequest]);
-              navigationService.pop();
-              navigationService.removeAllAndPush('/waiting', '/');
-            } on Exception catch (e) {
-              print(e);
-              navigationService.showSnackBar('SomeThing went wrong');
+                final OrgInfo membershipRequest = OrgInfo.fromJson(
+                    result.data!['sendMembershipRequest']['organization']
+                        as Map<String, dynamic>);
+                userConfig.updateUserMemberRequestOrg([membershipRequest]);
+                navigationService.pop();
+                navigationService.removeAllAndPush('/waiting', '/');
+              } on Exception catch (e) {
+                print(e);
+                navigationService.showSnackBar('SomeThing went wrong');
+              }
             }
           }
         }
