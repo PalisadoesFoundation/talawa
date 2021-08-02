@@ -8,6 +8,8 @@ import 'package:talawa/view_model/base_view_model.dart';
 class DirectChatViewModel extends BaseModel {
   late LRUChatListCache? _chats;
   ChatListNode? _chatIterator;
+
+  //Getters
   LRUChatListCache get chats => _chats!;
   ChatListNode? get chatIterator => _chatIterator;
 
@@ -25,10 +27,13 @@ class DirectChatViewModel extends BaseModel {
     notifyListeners();
   }
 
+  /* To use with pre-built Animatedlist (takes "List" as an input),
+  "ChatIterator imitates the behaviour of serial iteration of Arraylist"*/
   void reInitialiseIterator() {
     if (_chats != null) _chatIterator = _chats!.head;
   }
 
+  // Imitates "index++"" for the LRUCacheList
   bool incrementIterator() {
     if (_chats != null && _chatIterator!.next != _chats!.tail) {
       _chatIterator = _chatIterator!.next;
