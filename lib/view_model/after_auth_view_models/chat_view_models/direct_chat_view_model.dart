@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:talawa/demo_server_data/direct_chat_demo_data.dart';
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/lru_cache.dart';
