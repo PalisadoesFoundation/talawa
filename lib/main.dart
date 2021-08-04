@@ -1,86 +1,108 @@
+import 'dart:io';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
-import 'package:talawa/controllers/activity_controller.dart';
-import 'package:talawa/controllers/auth_controller.dart';
-import 'package:talawa/controllers/note_controller.dart';
-import 'package:talawa/controllers/user_controller.dart';
-import 'package:talawa/services/connectivity_service.dart';
-import 'package:talawa/views/pages/_pages.dart';
-import 'package:talawa/utils/uidata.dart';
-import 'package:talawa/views/pages/add_responsibility_page.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/views/base_view.dart';
+import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/router.dart' as router;
+import 'package:talawa/view_model/base_view_model.dart';
 
-import 'controllers/responsibility_controller.dart';
-import 'enums/connectivity_status.dart';
-
-void main() {
-  // DependencyInjection().initialise(Injector.getInjector());
-  // injector = Injector.getInjector();
-  // await AppInitializer().initialise(injector);
-  // final SocketService socketService = injector.get<SocketService>();
-  // socketService.createSocketConnection();
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider<AuthController>(create: (_) => AuthController()),
-      ChangeNotifierProvider<ActivityController>(
-          create: (_) => ActivityController()),
-      ChangeNotifierProvider<ResponsibilityController>(
-          create: (_) => ResponsibilityController()),
-      ChangeNotifierProvider<UserController>(create: (_) => UserController()),
-      ChangeNotifierProvider<NoteController>(create: (_) => NoteController()),
-      StreamProvider<ConnectivityStatus>(create:(_)=>ConnectivityService().connectionStatusController.stream)
-    ],
-    child: MyApp(),
-  ));
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final Directory dir = await path.getApplicationDocumentsDirectory();
+  Hive
+    ..init(dir.path)
+    ..registerAdapter(UserAdapter())
+    ..registerAdapter(OrgInfoAdapter());
+  await Hive.openBox<User>('currentUser');
+  await Hive.openBox<OrgInfo>('currentOrg');
+  await Hive.openBox('url');
+  setupLocator();
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-  //route definition
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return BaseView<AppLanguage>(
+      onModelReady: (model) => model.initialize(),
+      builder: (context, model, child) {
+        return MaterialApp(
+          locale: Provider.of<AppLanguage>(context).appLocal,
+          supportedLocales: [
+            const Locale('en', 'US'),
+            const Locale('es', 'ES'),
+            const Locale('fr', 'FR'),
+            const Locale('hi', 'IN'),
+            const Locale('zh', 'CN'),
+          ],
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          title: 'Talawa',
+          themeMode: ThemeMode.system,
+          theme: TalawaTheme.lightTheme,
+          darkTheme: TalawaTheme.darkTheme,
+          debugShowCheckedModeBanner: false,
+          navigatorKey: navigationService.navigatorKey,
+          onGenerateRoute: router.generateRoute,
+          localeResolutionCallback:
+              (Locale? locale, Iterable<Locale> supportedLocales) {
+            if (locale == null) {
+              debugPrint("*language locale is null!!!");
+              return supportedLocales.first;
+            }
+            for (final Locale supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode ||
+                  supportedLocale.countryCode == locale.countryCode) {
+                return supportedLocale;
+              }
+            }
+            return supportedLocales.first;
+          },
+          initialRoute: '/',
+        );
+      },
+    );
+  }
+}
+
+class DemoPageView extends StatelessWidget {
+  const DemoPageView({required Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: UIData.appName,
-      theme: ThemeData(
-          primaryColor: UIData.quitoThemeColor,
-          fontFamily: UIData.quickFont,
-          primarySwatch: UIData.quitoThemeColor),
-      debugShowCheckedModeBanner: false,
-      showPerformanceOverlay: false,
-      onGenerateRoute: (RouteSettings settings) {
-        print('build route for ${settings.name}');
-        var routes = <String, WidgetBuilder>{
-          UIData.homeRoute: (BuildContext context) => HomePage(),
-          UIData.addActivityPage: (BuildContext context) => AddActivityPage(),
-          UIData.addResponsibilityPage: (BuildContext context) =>
-              AddResponsibilityPage(settings.arguments),
-          UIData.activityDetails: (BuildContext context) => ActivityDetails(settings.arguments),
-          UIData.notFoundRoute: (BuildContext context) => NotFoundPage(),
-          UIData.responsibilityPage: (BuildContext context) => NotFoundPage(),
-          UIData.contactPage: (BuildContext context) => ContactPage(settings.arguments)
-        };
-        WidgetBuilder builder = routes[settings.name];
-        return MaterialPageRoute(builder: (ctx) => builder(ctx));
-      },
-      home: FutureBuilder(
-          future: Provider.of<AuthController>(context).getUser(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return snapshot.data ? HomePage() : LoginPage();
-            } else {
-              return Container(color: Colors.white);
-            }
-          }),
-      onUnknownRoute: (RouteSettings rs) => new MaterialPageRoute(
-          builder: (context) => new NotFoundPage(
-                appTitle: UIData.coming_soon,
-                icon: FontAwesomeIcons.solidSmile,
-                title: UIData.coming_soon,
-                message: "Under Development",
-                iconColor: Colors.green,
-              )),
+    return BaseView<DemoViewModel>(
+      builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          title:
+              Text(AppLocalizations.of(context)!.strictTranslate('Demo Page')),
+        ),
+        body: Container(
+          child: Text(model.title),
+        ),
+      ),
     );
   }
+}
+
+class DemoViewModel extends BaseModel {
+  final String _title = "Title from the viewMode GSoC branch";
+  String get title => _title;
 }

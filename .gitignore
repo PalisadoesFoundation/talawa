@@ -28,6 +28,7 @@
 .pub-cache/
 .pub/
 /build/
+.flutter-plugins-dependencies
 
 # Android related
 **/android/**/gradle-wrapper.jar
@@ -186,3 +187,5 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/python
+.flutter-plugins-dependencies
+pubspec.lock
