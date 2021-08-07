@@ -69,7 +69,7 @@ class SelectOrganizationViewModel extends BaseModel {
       });
       if (!orgAlreadyJoined && !orgRequestAlreadyPresent) {
         selectedOrganization = item;
-        setState(ViewState.idle);
+        notifyListeners();
       } else if (orgAlreadyJoined) {
         selectedOrganization = OrgInfo(id: '-1');
         navigationService.showSnackBar('Organisation already joined');
@@ -78,7 +78,7 @@ class SelectOrganizationViewModel extends BaseModel {
       }
     } else {
       selectedOrganization = item;
-      setState(ViewState.idle);
+      notifyListeners();
     }
   }
 
