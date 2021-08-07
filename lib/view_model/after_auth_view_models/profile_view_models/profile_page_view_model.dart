@@ -33,7 +33,7 @@ class ProfilePageViewModel extends BaseModel {
   late final Box<OrgInfo> organisation;
   late OrgInfo currentOrg;
   late User currentUser;
-  double bottomSheetHeight = SizeConfig.screenHeight! * 0.6;
+  double bottomSheetHeight = SizeConfig.screenHeight! * 0.68;
   String donationCurrency = "USD";
   final List<String> denomination = ['1', '5', '10'];
 
@@ -49,17 +49,15 @@ class ProfilePageViewModel extends BaseModel {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    _navigationService.showSnackBar("SUCCESS: ${response.paymentId!}");
+    showSnackBar("SUCCESS: ${response.paymentId!}");
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    _navigationService.showSnackBar(
-        "ERROR: ${response.code} - ${response.message!}",
-        duration: const Duration(seconds: 10));
+    showSnackBar("ERROR: ${response.code} - ${response.message!}");
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
-    _navigationService.showSnackBar("EXTERNAL_WALLET: ${response.walletName!}");
+    showSnackBar("EXTERNAL_WALLET: ${response.walletName!}");
   }
 
   Future<void> logout(BuildContext context) async {
@@ -233,7 +231,7 @@ class ProfilePageViewModel extends BaseModel {
         Future.delayed(const Duration(milliseconds: 300), () {
           {
             setter(() {
-              bottomSheetHeight = SizeConfig.screenHeight! * 0.625;
+              bottomSheetHeight = SizeConfig.screenHeight! * 0.68;
             });
           }
         });

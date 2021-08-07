@@ -195,13 +195,28 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Scaffold(
                   backgroundColor: Theme.of(context).colorScheme.primaryVariant,
                   appBar: AppBar(
+                    centerTitle: true,
                     automaticallyImplyLeading: false,
                     backgroundColor: Colors.transparent,
                     elevation: 0.0,
-                    toolbarHeight: SizeConfig.screenHeight! * 0.05,
+                    toolbarHeight: SizeConfig.screenHeight! * 0.15,
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        'Donating to \n${model.currentOrg.name}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(fontSize: 24),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                     actions: [
                       Padding(
-                        padding: const EdgeInsets.only(right: 8.0, top: 8.0),
+                        padding: EdgeInsets.only(
+                            right: 8.0, top: SizeConfig.screenHeight! * 0.01),
                         child: IconButton(
                           icon: Icon(
                             Icons.cancel,
@@ -212,133 +227,131 @@ class _ProfilePageState extends State<ProfilePage> {
                       )
                     ],
                   ),
-                  body: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Text(
-                          'Donating to \n${model.currentOrg.name}',
-                          style: Theme.of(context).textTheme.headline4,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
+                  body: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
                         ),
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenWidth! * 0.05,
-                      ),
-                      Text(
-                        'Please Select and amount',
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenWidth! * 0.05,
-                      ),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: List.generate(
-                              3,
-                              (index) => model.dominationButton(
-                                  model.denomination[index],
-                                  context,
-                                  setState)),
-                        ),
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenWidth! * 0.05,
-                      ),
-                      Text(
-                        'Or',
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                      Text(
-                        'Input custom amount',
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenWidth! * 0.05,
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.screenWidth! * 0.05),
-                        child: TextField(
-                          controller: model.donationAmount,
-                          focusNode: model.donationField,
-                          textInputAction: TextInputAction.next,
-                          keyboardType: TextInputType.number,
-                          autofillHints: const <String>[AutofillHints.email],
-                          enableSuggestions: true,
+                        Text(
+                          'Please Select and amount',
                           style: Theme.of(context).textTheme.headline5,
-                          decoration: InputDecoration(
-                            hintText: AppLocalizations.of(context)!
-                                .translate("Enter donation amount"),
-                            labelText: AppLocalizations.of(context)!
-                                .translate("Enter custom donation amount"),
-                            labelStyle: Theme.of(context).textTheme.subtitle1,
-                            prefixIcon: GestureDetector(
-                              onTap: () {
-                                model.changeCurrency(context, setState);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      model.donationCurrency,
-                                      textAlign: TextAlign.center,
-                                      style:
-                                          Theme.of(context).textTheme.headline5,
-                                    ),
-                                    const Icon(
-                                        Icons.arrow_drop_down_circle_outlined)
-                                  ],
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: List.generate(
+                                3,
+                                (index) => model.dominationButton(
+                                    model.denomination[index],
+                                    context,
+                                    setState)),
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        Text(
+                          'Or',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        Text(
+                          'Input custom amount',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.screenWidth! * 0.05),
+                          child: TextField(
+                            controller: model.donationAmount,
+                            focusNode: model.donationField,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.number,
+                            autofillHints: const <String>[AutofillHints.email],
+                            enableSuggestions: true,
+                            style: Theme.of(context).textTheme.headline6,
+                            onChanged: (text) {
+                              setState(() {});
+                            },
+                            decoration: InputDecoration(
+                              hintText: AppLocalizations.of(context)!
+                                  .translate("Enter donation amount"),
+                              labelText: AppLocalizations.of(context)!
+                                  .translate("Enter custom donation amount"),
+                              labelStyle: Theme.of(context).textTheme.subtitle1,
+                              prefixIcon: GestureDetector(
+                                onTap: () {
+                                  model.changeCurrency(context, setState);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        model.donationCurrency,
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5,
+                                      ),
+                                      const Icon(
+                                          Icons.arrow_drop_down_circle_outlined)
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(12.0)),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).accentColor,
-                                  width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10.0)),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).accentColor),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(12.0)),
+                                borderSide: BorderSide(
+                                    color: Theme.of(context).accentColor,
+                                    width: 2),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                    color: Theme.of(context).accentColor),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: SizeConfig.screenWidth! * 0.05,
-                      ),
-                      ElevatedButton(
-                          onPressed: model.donationAmount.text.isEmpty
-                              ? () => model
-                                  .showSnackBar('Select or enter an amount')
-                              : model.initiateDonation,
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  model.donationAmount.text.isEmpty
-                                      ? Colors.grey
-                                      : Theme.of(context).colorScheme.primary)),
-                          child: Text(
-                            'DONATE',
-                            style: Theme.of(context).textTheme.button,
-                          ))
-                    ],
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        ElevatedButton(
+                            onPressed: model.donationAmount.text.isEmpty
+                                ? () => model
+                                    .showSnackBar('Select or enter an amount')
+                                : model.initiateDonation,
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(model
+                                        .donationAmount.text.isEmpty
+                                    ? Colors.grey
+                                    : Theme.of(context).colorScheme.primary)),
+                            child: Text(
+                              'DONATE',
+                              style: Theme.of(context).textTheme.button,
+                            ))
+                      ],
+                    ),
                   ),
                 ),
               ),
             );
           });
-        });
+        }).then((value) => setState(() {
+          model.bottomSheetHeight = SizeConfig.screenHeight! * 0.65;
+        }));
   }
 }
