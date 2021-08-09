@@ -29,7 +29,7 @@ class WaitingPage extends StatelessWidget {
               padding: EdgeInsets.only(top: SizeConfig.safeBlockVertical! * 6),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SignupProgressIndicator(
                       key: const Key('Waiting'), currentPageIndex: 2),
@@ -59,62 +59,54 @@ class WaitingPage extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                      child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: model.pendingRequestOrg.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return CustomListTile(
-                          key: const Key('WaitingJoin'),
-                          index: index,
-                          type: TileType.org,
-                          orgInfo: model.pendingRequestOrg[index],
-                          onTapOrgInfo: (item) {});
-                    },
-                  )),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.screenWidth! * 0.06,
-                      ),
-                      child: Column(
-                        children: [
-                          const Spacer(),
-                          RaisedRoundedButton(
-                            key: const Key('JoinOrg'),
-                            buttonLabel: AppLocalizations.of(context)!
-                                .strictTranslate('Join Organisation'),
-                            onTap: model.joinOrg,
-                            showArrow: true,
-                            textColor:
-                                Theme.of(context).colorScheme.secondaryVariant,
-                            backgroundColor: Theme.of(context)
-                                .inputDecorationTheme
-                                .focusedBorder!
-                                .borderSide
-                                .color,
-                          ),
-                          SizedBox(
-                            height: SizeConfig.screenHeight! * 0.0215,
-                          ),
-                          RaisedRoundedButton(
-                            key: const Key('Logout'),
-                            buttonLabel: AppLocalizations.of(context)!
-                                .strictTranslate('Log out'),
-                            onTap: model.logout,
-                            textColor: Theme.of(context)
-                                .inputDecorationTheme
-                                .focusedBorder!
-                                .borderSide
-                                .color,
-                            backgroundColor:
-                                Theme.of(context).colorScheme.secondaryVariant,
-                          ),
-                          SizedBox(
-                            height: SizeConfig.screenHeight! * 0.0215,
-                          ),
-                        ],
-                      ),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      itemCount: model.pendingRequestOrg.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return CustomListTile(
+                            key: const Key('WaitingJoin'),
+                            index: index,
+                            type: TileType.org,
+                            orgInfo: model.pendingRequestOrg[index],
+                            onTapOrgInfo: (item) {});
+                      },
                     ),
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.0215,
+                  ),
+                  RaisedRoundedButton(
+                    key: const Key('JoinOrg'),
+                    buttonLabel: AppLocalizations.of(context)!
+                        .strictTranslate('Join Organisation'),
+                    onTap: model.joinOrg,
+                    showArrow: true,
+                    textColor: Theme.of(context).colorScheme.secondaryVariant,
+                    backgroundColor: Theme.of(context)
+                        .inputDecorationTheme
+                        .focusedBorder!
+                        .borderSide
+                        .color,
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.0215,
+                  ),
+                  RaisedRoundedButton(
+                    key: const Key('Logout'),
+                    buttonLabel: AppLocalizations.of(context)!
+                        .strictTranslate('Log out'),
+                    onTap: model.logout,
+                    textColor: Theme.of(context)
+                        .inputDecorationTheme
+                        .focusedBorder!
+                        .borderSide
+                        .color,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.secondaryVariant,
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.0215,
                   ),
                 ],
               ),
