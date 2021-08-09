@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/demo_server_data/pinned_post_demo_data.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -11,9 +12,10 @@ import 'package:talawa/view_model/base_view_model.dart';
 class OrganizationFeedViewModel extends BaseModel {
   // Local caching variables for a session.
   // ignore: prefer_final_fields
-  List<Post> _posts = [], _pinnedPosts = [];
+  List<Post> _posts = [],
+      _pinnedPosts = pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
   final Set<String> _renderedPostID = {};
-  late String _currentOrgname = "";
+  late String _currentOrgName = "";
 
   // Importing services.
   final NavigationService _navigationService = locator<NavigationService>();
@@ -28,13 +30,13 @@ class OrganizationFeedViewModel extends BaseModel {
   // Getters
   List<Post> get posts => _posts;
   List<Post> get pinnedPosts => _pinnedPosts;
-  String get currentOrgName => _currentOrgname;
+  String get currentOrgName => _currentOrgName;
 
   // Setters
   void setCurrentOrganizationName(String updatedOrganization) {
     _posts.clear();
     _renderedPostID.clear();
-    _currentOrgname = updatedOrganization;
+    _currentOrgName = updatedOrganization;
     notifyListeners();
     _postService.getPosts();
   }
@@ -44,11 +46,11 @@ class OrganizationFeedViewModel extends BaseModel {
   }
 
   void initialise() {
-    // For caching/initalizing the current organization after the stream subsciption has canceled and the stream is updated
-    _currentOrgname = _userConfig.currentOrg.name!;
+    // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
+    _currentOrgName = _userConfig.currentOrg.name!;
     _postService.getPosts();
     // ------
-    // Attasching the stream subscription to rebuild the widgets automatically
+    // Attaching the stream subscription to rebuild the widgets automatically
     _currentOrganizationStreamSubscription = _userConfig.currentOrfInfoStream
         .listen((updatedOrganization) =>
             setCurrentOrganizationName(updatedOrganization.name!));

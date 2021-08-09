@@ -12,19 +12,19 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key, this.drawerKey}) : super(key: key);
-  final GlobalKey<ScaffoldState>? drawerKey;
-  @override
-  _ProfilePageState createState() => _ProfilePageState();
-}
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({
+    required Key key,
+    this.homeModel,
+  }) : super(key: key);
+  final MainScreenViewModel? homeModel;
 
-class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return BaseView<ProfilePageViewModel>(
@@ -37,7 +37,8 @@ class _ProfilePageState extends State<ProfilePage> {
               centerTitle: true,
               leading: IconButton(
                 icon: const Icon(Icons.menu),
-                onPressed: () => widget.drawerKey!.currentState!.openDrawer(),
+                onPressed: () =>
+                    homeModel!.scaffoldKey.currentState!.openDrawer(),
               ),
               key: const Key("ProfilePageAppBar"),
               title: Text(
@@ -92,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               CustomListTile(
-                                  key: const Key('Option0'),
+                                  key: homeModel!.keySPAppSetting,
                                   index: 0,
                                   type: TileType.option,
                                   option: Options(
@@ -107,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   onTapOption: () {}),
                               CustomListTile(
-                                  key: const Key('Option1'),
+                                  key: homeModel!.keySPHelp,
                                   index: 1,
                                   type: TileType.option,
                                   option: Options(
@@ -123,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   onTapOption: () {}),
                               CustomListTile(
-                                  key: const Key('Option2'),
+                                  key: homeModel!.keySPDonateUs,
                                   index: 2,
                                   type: TileType.option,
                                   option: Options(
@@ -142,7 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   onTapOption: () =>
                                       modalBottomSheet(context, donate())),
                               CustomListTile(
-                                  key: const Key('Option3'),
+                                  key: homeModel!.keySPInvite,
                                   index: 3,
                                   type: TileType.option,
                                   option: Options(
@@ -159,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   onTapOption: () => modalBottomSheet(
                                       context, invite(context))),
                               CustomListTile(
-                                  key: const Key('Option4'),
+                                  key: homeModel!.keySPLogout,
                                   index: 3,
                                   type: TileType.option,
                                   option: Options(
@@ -174,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         .strictTranslate('Log out from Talawa'),
                                   ),
                                   onTapOption: () => model.logout(context)),
-                              const FromPalisadoes(),
+                              FromPalisadoes(key: homeModel!.keySPPalisadoes),
                             ],
                           ),
                         )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -63,11 +64,11 @@ class LoginViewModel extends BaseModel {
               User.fromJson(result.data!['login'] as Map<String, dynamic>);
           userConfig.updateUser(loggedInUser);
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-            navigationService.removeAllAndPush('/waiting', '/');
+            navigationService.removeAllAndPush(Routes.waitingScreen, Routes.splashScreen);
           } else {
             userConfig.saveCurrentOrgInHive(
                 userConfig.currentUser.joinedOrganizations![0]);
-            navigationService.removeAllAndPush('/mainScreen', '/');
+            navigationService.removeAllAndPush(Routes.mainScreen, Routes.splashScreen,arguments: false);
           }
         }
       } on Exception catch (e) {

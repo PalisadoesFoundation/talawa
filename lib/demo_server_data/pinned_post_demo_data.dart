@@ -1,8 +1,9 @@
 const pinnedPostsDemoData = [
   {
-    "description":
+    "_id": "1",
+    "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
-    "createdAt": "created at string",
+    "createdAt": "1617427716797",
     "imageUrl": "image url string",
     "creator": {
       "firstName": "Rutvik",
@@ -38,9 +39,10 @@ const pinnedPostsDemoData = [
     ]
   },
   {
-    "description":
+    "_id": "2",
+    "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
-    "createdAt": "created at string",
+    "createdAt": "1617427716797",
     "imageUrl": "image url string",
     "creator": {
       "firstName": "Ranchhod Das",
@@ -76,9 +78,10 @@ const pinnedPostsDemoData = [
     ]
   },
   {
-    "description":
+    "_id": "3",
+    "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
-    "createdAt": "created at string",
+    "createdAt": "1617427716797",
     "imageUrl": "image url string",
     "creator": {
       "firstName": "Ritik",
@@ -114,9 +117,10 @@ const pinnedPostsDemoData = [
     ]
   },
   {
-    "description":
+    "_id": "4",
+    "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
-    "createdAt": "created at string",
+    "createdAt": "1617427716797",
     "imageUrl": "image url string",
     "creator": {
       "firstName": "Utkarsh",
