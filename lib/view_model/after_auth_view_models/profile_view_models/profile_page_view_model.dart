@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:social_share/social_share.dart';
+import 'package:talawa/constants/constants.dart';
 import 'package:talawa/custom_painters/telegram_logo.dart';
 import 'package:talawa/custom_painters/whatsapp_logo.dart';
 import 'package:talawa/enums/enums.dart';
@@ -35,6 +36,7 @@ class ProfilePageViewModel extends BaseModel {
   late User currentUser;
   double bottomSheetHeight = SizeConfig.screenHeight! * 0.68;
   String donationCurrency = "USD";
+  String donationCurrencySymbol = "\$";
   final List<String> denomination = ['1', '5', '10'];
 
   initialize() {
@@ -87,9 +89,11 @@ class ProfilePageViewModel extends BaseModel {
   changeCurrency(BuildContext context, Function setter) {
     showCurrencyPicker(
         context: context,
+        currencyFilter: supportedCurrencies,
         onSelect: (Currency currency) {
           setter(() {
             donationCurrency = currency.code;
+            donationCurrencySymbol = currency.symbol;
           });
         });
   }
@@ -214,7 +218,7 @@ class ProfilePageViewModel extends BaseModel {
                 ? Theme.of(context).accentColor
                 : Theme.of(context).colorScheme.primary),
         child: Text(
-          '\$$amount',
+          '$donationCurrencySymbol $amount',
           style: Theme.of(context).textTheme.subtitle1,
         ),
       ),
@@ -250,18 +254,19 @@ class ProfilePageViewModel extends BaseModel {
   initiateDonation() {
     popBottomSheet();
     final options = {
-      'key': 'rzp_test_Fs6iRWL4ppk5ng',
+      'key': 'rzp_test_KEXnTpuXnSlaNz',
       'amount': int.parse(donationAmount.text) * 100,
       'currency': donationCurrency,
-      'name': currentOrg.name,
-      'description': 'Donating as ',
-      //'notes': _userConfig.currentUser.id,
-      'prefill': {
-        'contact': '8888888888',
-        'email': _userConfig.currentUser.email
+      'name': 'Donating to',
+      'description': currentOrg.name,
+      'notes': {
+        'userId': _userConfig.currentUser.id,
+        'message': 'thanks',
+        'orgId': currentOrg.id
       },
+      'prefill': {'email': _userConfig.currentUser.email},
       'external': {
-        'wallets': ['paytm', 'phonepe']
+        'wallets': ['amazonpay', 'phonepe', 'paypal']
       }
     };
     try {
