@@ -44,7 +44,6 @@ class OrganizationFeed extends StatelessWidget {
   }
 }
 
-
 //TODO: Add pinned post widget
 //For Pinned Post Widget (code snippet)
 /* PinnedPostCarousel(
