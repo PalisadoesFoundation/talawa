@@ -41,7 +41,7 @@ class SelectOrganizationViewModel extends BaseModel {
       if (fetch.runtimeType == OrgInfo) {
         selectedOrganization = fetch as OrgInfo;
         if (userConfig.currentUser.refreshToken?.isEmpty ?? true) {
-          navigationService.pushScreen('/signupDetails',
+          navigationService.pushScreen(Routes.signupDetailScreen,
               arguments: selectedOrganization);
         } else {
           selectOrg(selectedOrganization);
@@ -84,7 +84,7 @@ class SelectOrganizationViewModel extends BaseModel {
 
   onTapContinue() {
     if (selectedOrganization.id != '-1') {
-      navigationService.pushScreen('/signupDetails',
+      navigationService.pushScreen(Routes.signupDetailScreen,
           arguments: selectedOrganization);
     } else {
       navigationService.showSnackBar('Select one organization to continue',
@@ -119,20 +119,21 @@ class SelectOrganizationViewModel extends BaseModel {
       }
     } else {
       try {
-        final QueryResult result = await databaseFunctions.gqlAuthMutation(
-                queries.sendMembershipRequest(selectedOrganization.id!))
-            as QueryResult;
-        final OrgInfo membershipRequest = OrgInfo.fromJson(
-            result.data!['sendMembershipRequest']['organization']
-                as Map<String, dynamic>);
-        userConfig.updateUserMemberRequestOrg([membershipRequest]);
-        if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-          navigationService.removeAllAndPush(
-              Routes.waitingScreen, Routes.splashScreen);
-        } else {
-          navigationService.pop();
-          navigationService.showSnackBar(
-              'Join in request sent to ${selectedOrganization.name} successfully');
+        final result = await databaseFunctions.gqlAuthMutation(
+            queries.sendMembershipRequest(selectedOrganization.id!));
+        if (result != null) {
+          final OrgInfo membershipRequest = OrgInfo.fromJson(
+              result.data!['sendMembershipRequest']['organization']
+                  as Map<String, dynamic>);
+          userConfig.updateUserMemberRequestOrg([membershipRequest]);
+          if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
+            navigationService.removeAllAndPush(
+                Routes.waitingScreen, Routes.splashScreen);
+          } else {
+            navigationService.pop();
+            navigationService.showSnackBar(
+                'Join in request sent to ${selectedOrganization.name} successfully');
+          }
         }
       } on Exception catch (e) {
         print(e);
