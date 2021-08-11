@@ -51,7 +51,6 @@ class ExploreEventsViewModel extends BaseModel {
 
   void initialise() {
     setState(ViewState.busy);
-
     _currentOrganizationStreamSubscription = userConfig.currentOrfInfoStream
         .listen((updatedOrganization) => refreshEvents());
     _eventStreamSubscription =
