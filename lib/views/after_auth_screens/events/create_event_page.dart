@@ -97,52 +97,24 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         height: SizeConfig.screenHeight! * 0.013,
                       ),
                       DateTimeTile(
-                          child: Row(
-                        children: [
-                          const Icon(
-                            Icons.calendar_today,
-                            color: Color(0xff524F4F),
-                            size: 19,
-                          ),
-                          SizedBox(
-                            width: SizeConfig.screenWidth! * 0.045,
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              final _date = await customDatePicker(
-                                  initialDate: model.eventStartDate);
-                              setState(() {
-                                model.eventStartDate = _date;
-                              });
-                            },
-                            child: Text(
+                          date:
                               "${model.eventStartDate.toLocal()}".split(' ')[0],
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.schedule,
-                            color: Color(0xff524F4F),
-                            size: 19,
-                          ),
-                          SizedBox(width: SizeConfig.screenWidth! * 0.045),
-                          GestureDetector(
-                            onTap: () async {
-                              final _time = await customTimePicker(
-                                  initialTime: model.eventStartTime);
+                          time: model.eventStartTime.format(context),
+                          setDate: () async {
+                            final _date = await customDatePicker(
+                                initialDate: model.eventStartDate);
+                            setState(() {
+                              model.eventStartDate = _date;
+                            });
+                          },
+                          setTime: () async {
+                            final _time = await customTimePicker(
+                                initialTime: model.eventStartTime);
 
-                              setState(() {
-                                model.eventStartTime = _time;
-                              });
-                            },
-                            child: Text(
-                              model.eventStartTime.format(context),
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ),
-                        ],
-                      )),
+                            setState(() {
+                              model.eventStartTime = _time;
+                            });
+                          }),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.026,
                       ),
@@ -158,54 +130,23 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         height: SizeConfig.screenHeight! * 0.013,
                       ),
                       DateTimeTile(
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.calendar_today,
-                              color: Color(0xff524F4F),
-                              size: 19,
-                            ),
-                            SizedBox(
-                              width: SizeConfig.screenWidth! * 0.045,
-                            ),
-                            GestureDetector(
-                              onTap: () async {
-                                final _date = await customDatePicker(
-                                    initialDate: model.eventEndDate);
-                                setState(() {
-                                  model.eventEndDate = _date;
-                                });
-                              },
-                              child: Text(
-                                "${model.eventEndDate.toLocal()}".split(' ')[0],
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.schedule,
-                              color: Color(0xff524F4F),
-                              size: 19,
-                            ),
-                            SizedBox(
-                              width: SizeConfig.screenWidth! * 0.045,
-                            ),
-                            GestureDetector(
-                              onTap: () async {
-                                final _time = await customTimePicker(
-                                    initialTime: model.eventEndTime);
+                        date: "${model.eventEndDate.toLocal()}".split(' ')[0],
+                        time: model.eventEndTime.format(context),
+                        setDate: () async {
+                          final _date = await customDatePicker(
+                              initialDate: model.eventEndDate);
+                          setState(() {
+                            model.eventEndDate = _date;
+                          });
+                        },
+                        setTime: () async {
+                          final _time = await customTimePicker(
+                              initialTime: model.eventEndTime);
 
-                                setState(() {
-                                  model.eventEndTime = _time;
-                                });
-                              },
-                              child: Text(
-                                model.eventEndTime.format(context),
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ),
-                          ],
-                        ),
+                          setState(() {
+                            model.eventEndTime = _time;
+                          });
+                        },
                       ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.026,
