@@ -6,7 +6,6 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/post_detailed_page.dart';
 import 'package:talawa/widgets/video_widget.dart';
-import 'package:video_player/video_player.dart';
 
 class NewsPost extends StatelessWidget {
   const NewsPost({
