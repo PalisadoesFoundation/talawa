@@ -5,7 +5,12 @@ Service usage: "add_post_view_model.dart"
 
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
 
 class MultiMediaPickerService {
   MultiMediaPickerService() {
@@ -28,8 +33,20 @@ class MultiMediaPickerService {
           source: camera ? ImageSource.camera : ImageSource.gallery);
       if (_image != null) return File(_image.path);
     } catch (e) {
+      if (e is PlatformException && e.code == 'camera_access_denied') {
+        locator<NavigationService>().pushDialog(CustomAlertDialog(
+            success: () {
+              locator<NavigationService>().pop();
+              openAppSettings();
+            },
+            dialogTitle: 'Permission Denied',
+            successText: 'OPEN SETTINGS',
+            dialogSubTitle:
+                'Camera permission is required, to access this feature'));
+      }
+
       print(
-          "MulitMediaPickerService : Exception occured while choosing photo from the gallery");
+          "MulitMediaPickerService : Exception occured while choosing photo from the gallery $e");
     }
     return null;
   }
