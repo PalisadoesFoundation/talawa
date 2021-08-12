@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class CustomDrawerViewModel extends BaseModel {
   final ScrollController controller = ScrollController();
-  final _navigationService = locator<NavigationService>();
   final List<TargetFocus> targets = [];
   late TutorialCoachMark tutorialCoachMark;
   late User _currentUser;
