@@ -52,7 +52,11 @@ class DataBaseMutationFunctions {
         } else if (exception.graphqlErrors[i].message ==
             userNotAuthenticated.message) {
           print('client refreshed');
-          graphqlConfig.getToken().then((value) => databaseFunctions.init());
+          refreshAccessToken(userConfig.currentUser.refreshToken!).then(
+              (value) => graphqlConfig
+                  .getToken()
+                  .then((value) => databaseFunctions.init()));
+          // graphqlConfig.getToken().then((value) => databaseFunctions.init());
           return true;
         } else if (exception.graphqlErrors[i].message == userNotFound.message) {
           if (showSnackBar) {

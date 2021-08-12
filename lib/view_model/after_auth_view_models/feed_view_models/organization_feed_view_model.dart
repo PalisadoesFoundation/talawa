@@ -34,11 +34,13 @@ class OrganizationFeedViewModel extends BaseModel {
 
   // Setters
   void setCurrentOrganizationName(String updatedOrganization) {
-    _posts.clear();
-    _renderedPostID.clear();
-    _currentOrgName = updatedOrganization;
-    notifyListeners();
-    _postService.getPosts();
+    if (updatedOrganization != _currentOrgName) {
+      _posts.clear();
+      _renderedPostID.clear();
+      _currentOrgName = updatedOrganization;
+      notifyListeners();
+    }
+    // _postService.getPosts();
   }
 
   void fetchNewPosts() {
@@ -46,9 +48,8 @@ class OrganizationFeedViewModel extends BaseModel {
   }
 
   void initialise() {
-    // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
+    // For caching/initalizing the current organization after the stream subsciption has canceled and the stream is updated
     _currentOrgName = _userConfig.currentOrg.name!;
-    _postService.getPosts();
     // ------
     // Attaching the stream subscription to rebuild the widgets automatically
     _currentOrganizationStreamSubscription = _userConfig.currentOrfInfoStream

@@ -48,7 +48,7 @@ class ExploreEvents extends StatelessWidget {
               ],
             ),
             body: model.isBusy
-                ? const CircularProgressIndicator()
+                ? const Center(child: CircularProgressIndicator())
                 : RefreshIndicator(
                     onRefresh: () async => model.fetchNewEvents(),
                     child: Stack(
@@ -139,7 +139,10 @@ class ExploreEvents extends StatelessWidget {
                                         onTap: () {
                                           navigationService.pushScreen(
                                               "/eventInfo",
-                                              arguments: model.events[index]);
+                                              arguments: {
+                                                "event": model.events[index],
+                                                "exploreEventViewModel": model
+                                              });
                                         },
                                         child: EventCard(
                                           event: model.events[index],
