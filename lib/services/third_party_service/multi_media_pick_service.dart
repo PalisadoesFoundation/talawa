@@ -40,9 +40,9 @@ class MultiMediaPickerService {
               openAppSettings();
             },
             dialogTitle: 'Permission Denied',
-            successText: 'OPEN SETTINGS',
+            successText: 'SETTINGS',
             dialogSubTitle:
-                'Camera permission is required, to access this feature'));
+                'Camera permission is required, to use this feature, give permission from app settings'));
       }
 
       print(

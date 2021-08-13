@@ -36,6 +36,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.talawa"
         minSdkVersion 20
+        multiDexEnabled = true
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -55,5 +56,6 @@ flutter {
 }
 
 dependencies {
+    implementation("androidx.multidex:multidex:2.0.1")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
