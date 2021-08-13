@@ -65,6 +65,7 @@ class SignupDetailsViewModel extends BaseModel {
         final result = await databaseFunctions.gqlNonAuthMutation(
             queries.registerUser(
                 firstName.text, lastName.text, email.text, password.text));
+        navigationService.pop();
         if (result != null) {
           final User signedInUser =
               User.fromJson(result.data!['signUp'] as Map<String, dynamic>);
