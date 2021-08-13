@@ -106,7 +106,8 @@ void main() {
       await tester.tap(chatIcon);
       await tester.pump();
       await tester.pumpAndSettle();
-      expect(find.text('Chat Screen'), findsWidgets);
+      expect(find.byKey(const PageStorageKey('Save-Direct-Chat-Page-Position')),
+          findsOneWidget);
     });
 
     testWidgets('Testing if Profile Screen Shows up', (tester) async {

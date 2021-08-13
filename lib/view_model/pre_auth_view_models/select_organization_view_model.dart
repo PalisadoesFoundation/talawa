@@ -41,7 +41,7 @@ class SelectOrganizationViewModel extends BaseModel {
       if (fetch.runtimeType == OrgInfo) {
         selectedOrganization = fetch as OrgInfo;
         if (userConfig.currentUser.refreshToken?.isEmpty ?? true) {
-          navigationService.pushScreen('/signupDetails',
+          navigationService.pushScreen(Routes.signupDetailScreen,
               arguments: selectedOrganization);
         } else {
           selectOrg(selectedOrganization);
@@ -69,7 +69,7 @@ class SelectOrganizationViewModel extends BaseModel {
       });
       if (!orgAlreadyJoined && !orgRequestAlreadyPresent) {
         selectedOrganization = item;
-        setState(ViewState.idle);
+        notifyListeners();
       } else if (orgAlreadyJoined) {
         selectedOrganization = OrgInfo(id: '-1');
         navigationService.showSnackBar('Organisation already joined');
@@ -78,13 +78,13 @@ class SelectOrganizationViewModel extends BaseModel {
       }
     } else {
       selectedOrganization = item;
-      setState(ViewState.idle);
+      notifyListeners();
     }
   }
 
   onTapContinue() {
     if (selectedOrganization.id != '-1') {
-      navigationService.pushScreen('/signupDetails',
+      navigationService.pushScreen(Routes.signupDetailScreen,
           arguments: selectedOrganization);
     } else {
       navigationService.showSnackBar('Select one organization to continue',
@@ -119,20 +119,21 @@ class SelectOrganizationViewModel extends BaseModel {
       }
     } else {
       try {
-        final QueryResult result = await databaseFunctions.gqlAuthMutation(
-                queries.sendMembershipRequest(selectedOrganization.id!))
-            as QueryResult;
-        final OrgInfo membershipRequest = OrgInfo.fromJson(
-            result.data!['sendMembershipRequest']['organization']
-                as Map<String, dynamic>);
-        userConfig.updateUserMemberRequestOrg([membershipRequest]);
-        if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-          navigationService.removeAllAndPush(
-              Routes.waitingScreen, Routes.splashScreen);
-        } else {
-          navigationService.pop();
-          navigationService.showSnackBar(
-              'Join in request sent to ${selectedOrganization.name} successfully');
+        final result = await databaseFunctions.gqlAuthMutation(
+            queries.sendMembershipRequest(selectedOrganization.id!));
+        if (result != null) {
+          final OrgInfo membershipRequest = OrgInfo.fromJson(
+              result.data!['sendMembershipRequest']['organization']
+                  as Map<String, dynamic>);
+          userConfig.updateUserMemberRequestOrg([membershipRequest]);
+          if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
+            navigationService.removeAllAndPush(
+                Routes.waitingScreen, Routes.splashScreen);
+          } else {
+            navigationService.pop();
+            navigationService.showSnackBar(
+                'Join in request sent to ${selectedOrganization.name} successfully');
+          }
         }
       } on Exception catch (e) {
         print(e);

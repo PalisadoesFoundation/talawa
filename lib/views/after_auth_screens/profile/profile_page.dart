@@ -136,8 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         .strictTranslate(
                                             'Help us to develop for you'),
                                   ),
-                                  onTapOption: () =>
-                                      modalBottomSheet(context, donate())),
+                                  onTapOption: () => donate(context, model)),
                               CustomListTile(
                                   key: const Key('Option3'),
                                   index: 3,
@@ -153,8 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     subtitle: AppLocalizations.of(context)!
                                         .strictTranslate('Invite to org'),
                                   ),
-                                  onTapOption: () => modalBottomSheet(
-                                      context, invite(context))),
+                                  onTapOption: () => model.invite(context)),
                               CustomListTile(
                                   key: const Key('Option4'),
                                   index: 3,
@@ -182,29 +180,183 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
-  void modalBottomSheet(BuildContext context, Widget child) {
+
+  donate(BuildContext context, ProfilePageViewModel model) {
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         ),
         builder: (BuildContext context) {
-          return ClipRRect(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.75,
-              decoration: const BoxDecoration(
-                color: Colors.white,
+          return StatefulBuilder(builder: (context, setState) {
+            model.attachListener(setState);
+            return ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              child: SizedBox(
+                height: model.bottomSheetHeight,
+                child: Scaffold(
+                  backgroundColor: Theme.of(context).colorScheme.primaryVariant,
+                  appBar: AppBar(
+                    centerTitle: true,
+                    automaticallyImplyLeading: false,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0.0,
+                    toolbarHeight: SizeConfig.screenHeight! * 0.15,
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        'Donating to \n${model.currentOrg.name}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(fontSize: 24),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    actions: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            right: 8.0, top: SizeConfig.screenHeight! * 0.01),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.cancel,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          onPressed: model.popBottomSheet,
+                        ),
+                      )
+                    ],
+                  ),
+                  body: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        Text(
+                          'Please Select and amount',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: List.generate(
+                                3,
+                                (index) => model.dominationButton(
+                                    model.denomination[index],
+                                    context,
+                                    setState)),
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        Text(
+                          'Or',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        Text(
+                          'Input custom amount',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.screenWidth! * 0.05),
+                          child: TextField(
+                            controller: model.donationAmount,
+                            focusNode: model.donationField,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.number,
+                            autofillHints: const <String>[AutofillHints.email],
+                            enableSuggestions: true,
+                            style: Theme.of(context).textTheme.headline6,
+                            onChanged: (text) {
+                              setState(() {});
+                            },
+                            decoration: InputDecoration(
+                              hintText: AppLocalizations.of(context)!
+                                  .translate("Enter donation amount"),
+                              labelText: AppLocalizations.of(context)!
+                                  .translate("Enter custom donation amount"),
+                              labelStyle: Theme.of(context).textTheme.subtitle1,
+                              prefixIcon: GestureDetector(
+                                onTap: () {
+                                  model.changeCurrency(context, setState);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        model.donationCurrency,
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5,
+                                      ),
+                                      const Icon(
+                                          Icons.arrow_drop_down_circle_outlined)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(12.0)),
+                                borderSide: BorderSide(
+                                    color: Theme.of(context).accentColor,
+                                    width: 2),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                    color: Theme.of(context).accentColor),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        ElevatedButton(
+                            onPressed: model.donationAmount.text.isEmpty
+                                ? () => model
+                                    .showSnackBar('Select or enter an amount')
+                                : model.initiateDonation,
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(model
+                                        .donationAmount.text.isEmpty
+                                    ? Colors.grey
+                                    : Theme.of(context).colorScheme.primary)),
+                            child: Text(
+                              'DONATE',
+                              style: Theme.of(context).textTheme.button,
+                            ))
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              child: child,
-            ),
-          );
-        });
-  }
-
-  Widget donate() {
-    return Container();
+            );
+          });
+        }).then((value) => setState(() {
+          model.bottomSheetHeight = SizeConfig.screenHeight! * 0.65;
+        }));
   }
 }

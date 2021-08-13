@@ -16,6 +16,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
@@ -144,6 +145,7 @@ void registerViewModels() {
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => LikeButtonViewModel());
   locator.registerFactory(() => SizeConfig());
+  locator.registerFactory(() => DirectChatViewModel());
 }
 
 void unregisterViewModels() {
@@ -154,4 +156,5 @@ void unregisterViewModels() {
   locator.unregister<ProfilePageViewModel>();
   locator.unregister<LikeButtonViewModel>();
   locator.unregister<SizeConfig>();
+  locator.unregister<DirectChatViewModel>();
 }
