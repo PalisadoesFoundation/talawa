@@ -30,10 +30,7 @@ class MainScreen extends StatelessWidget {
       return Scaffold(
         key: scaffoldKey,
         drawer: const CustomDrawer(),
-        body: IndexedStack(
-          index: model.currentIndex,
-          children: childrenPage,
-        ),
+        body: childrenPage.elementAt(model.currentIndex),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: model.currentIndex,
