@@ -12,6 +12,10 @@ PODS:
   - qr_code_scanner (0.2.0):
     - Flutter
     - MTBBarcodeScanner
+  - razorpay-pod (1.1.14)
+  - razorpay_flutter (1.1.10):
+    - Flutter
+    - razorpay-pod
   - Reachability (3.2)
   - shared_preferences (0.0.1):
     - Flutter
@@ -30,6 +34,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
+  - razorpay_flutter (from `.symlinks/plugins/razorpay_flutter/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - social_share (from `.symlinks/plugins/social_share/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
@@ -40,6 +45,7 @@ SPEC REPOS:
   trunk:
     - FMDB
     - MTBBarcodeScanner
+    - razorpay-pod
     - Reachability
 
 EXTERNAL SOURCES:
@@ -51,6 +57,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider/ios"
   qr_code_scanner:
     :path: ".symlinks/plugins/qr_code_scanner/ios"
+  razorpay_flutter:
+    :path: ".symlinks/plugins/razorpay_flutter/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
   social_share:
@@ -69,6 +77,8 @@ SPEC CHECKSUMS:
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
+  razorpay-pod: 7991bc0823d0f4b2934b4ea87967d54d2e284e2c
+  razorpay_flutter: 84b3bfd206ae9c9c2a9ba585524a1b3d8102b6c1
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   social_share: 702a5e3842addd22db515aa9e1e00a4b80a0296d
@@ -76,6 +86,6 @@ SPEC CHECKSUMS:
   uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   vibration: 1ec279c4a1a7a646627b54039d812334b3f1114a
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: fe0e1ee7f3d1f7d00b11b474b62dd62134535aea
 
 COCOAPODS: 1.10.2
