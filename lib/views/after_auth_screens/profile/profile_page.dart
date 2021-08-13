@@ -9,7 +9,6 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
-import 'package:talawa/widgets/invite_child.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key, this.drawerKey}) : super(key: key);
@@ -179,7 +178,6 @@ class _ProfilePageState extends State<ProfilePage> {
           );
         });
   }
-
 
   donate(BuildContext context, ProfilePageViewModel model) {
     showModalBottomSheet(
