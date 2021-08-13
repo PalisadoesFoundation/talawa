@@ -247,6 +247,11 @@ class ProfilePageViewModel extends BaseModel {
     _navigationService.pop();
   }
 
+  updateSheetHeight() {
+    bottomSheetHeight = SizeConfig.screenHeight! * 0.65;
+    notifyListeners();
+  }
+
   showSnackBar(String message) {
     _navigationService.showSnackBar(message);
   }

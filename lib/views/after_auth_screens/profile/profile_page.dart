@@ -5,7 +5,6 @@ import 'package:talawa/models/options/options.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
-import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
@@ -352,8 +351,6 @@ class ProfilePage extends StatelessWidget {
               ),
             );
           });
-        }).then((value) => setState(() {
-          model.bottomSheetHeight = SizeConfig.screenHeight! * 0.65;
-        }));
+        }).then((value) => model.updateSheetHeight());
   }
 }

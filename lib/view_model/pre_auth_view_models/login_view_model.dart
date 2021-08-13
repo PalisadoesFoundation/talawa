@@ -64,11 +64,14 @@ class LoginViewModel extends BaseModel {
               User.fromJson(result.data!['login'] as Map<String, dynamic>);
           userConfig.updateUser(loggedInUser);
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
-            navigationService.removeAllAndPush(Routes.waitingScreen, Routes.splashScreen);
+            navigationService.removeAllAndPush(
+                Routes.waitingScreen, Routes.splashScreen);
           } else {
             userConfig.saveCurrentOrgInHive(
                 userConfig.currentUser.joinedOrganizations![0]);
-            navigationService.removeAllAndPush(Routes.mainScreen, Routes.splashScreen,arguments: false);
+            navigationService.removeAllAndPush(
+                Routes.mainScreen, Routes.splashScreen,
+                arguments: false);
           }
         }
       } on Exception catch (e) {

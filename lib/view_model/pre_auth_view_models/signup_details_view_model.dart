@@ -87,7 +87,9 @@ class SignupDetailsViewModel extends BaseModel {
                 userConfig.updateUserJoinedOrg(joinedOrg!);
                 userConfig.saveCurrentOrgInHive(
                     userConfig.currentUser.joinedOrganizations![0]);
-                navigationService.removeAllAndPush(Routes.mainScreen,Routes.splashScreen,arguments: true);
+                navigationService.removeAllAndPush(
+                    Routes.mainScreen, Routes.splashScreen,
+                    arguments: true);
               } on Exception catch (e) {
                 print(e);
                 navigationService.showSnackBar('SomeThing went wrong');
@@ -104,7 +106,8 @@ class SignupDetailsViewModel extends BaseModel {
                         as Map<String, dynamic>);
                 userConfig.updateUserMemberRequestOrg([membershipRequest]);
                 navigationService.pop();
-                navigationService.removeAllAndPush(Routes.waitingScreen, Routes.splashScreen);
+                navigationService.removeAllAndPush(
+                    Routes.waitingScreen, Routes.splashScreen);
               } on Exception catch (e) {
                 print(e);
                 navigationService.showSnackBar('SomeThing went wrong');
