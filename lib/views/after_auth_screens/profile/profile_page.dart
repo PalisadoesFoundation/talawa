@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:social_share/social_share.dart';
-import 'package:talawa/custom_painters/telegram_logo.dart';
-import 'package:talawa/custom_painters/whatsapp_logo.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/options/options.dart';
-import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
-import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
@@ -105,7 +98,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                     subtitle:
                                         '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
                                   ),
-                                  onTapOption: () {}),
+                                  onTapOption: () {
+                                    navigationService
+                                        .pushScreen("/appSettingsPage");
+                                  }),
                               CustomListTile(
                                   key: const Key('Option1'),
                                   index: 1,
@@ -139,8 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         .strictTranslate(
                                             'Help us to develop for you'),
                                   ),
-                                  onTapOption: () =>
-                                      modalBottomSheet(context, donate())),
+                                  onTapOption: () => donate(context, model)),
                               CustomListTile(
                                   key: const Key('Option3'),
                                   index: 3,
@@ -156,8 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     subtitle: AppLocalizations.of(context)!
                                         .strictTranslate('Invite to org'),
                                   ),
-                                  onTapOption: () => modalBottomSheet(
-                                      context, invite(context))),
+                                  onTapOption: () => model.invite(context)),
                               CustomListTile(
                                   key: const Key('Option4'),
                                   index: 3,
@@ -185,112 +179,182 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
 
-  Widget invite(BuildContext context) {
-    final String url =
-        'https://cyberwake.github.io/applink/invite?selectLang=${AppLanguage().appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
-    final String qrData =
-        '${GraphqlConfig.orgURI}?orgid=${userConfig.currentOrg.id!}';
-    print(url);
-    print(qrData);
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        QrImage(
-          data: qrData,
-          version: QrVersions.auto,
-          size: 200.0,
-          foregroundColor: Colors.black,
-        ),
-        SizedBox(
-          height: SizeConfig.screenHeight! * 0.08,
-        ),
-        Text(
-          'Scan the QR to join ${userConfig.currentOrg.name}',
-          style: const TextStyle(color: Colors.black),
-        ),
-        SizedBox(
-          height: SizeConfig.screenHeight! * 0.02,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            iconButton(
-                const FaIcon(
-                  FontAwesomeIcons.twitter,
-                  size: 35,
-                  color: Color(0xFF1DA1F2),
-                ),
-                () async => SocialShare.shareTwitter('Join us', url: url)),
-            iconButton(
-                CustomPaint(
-                  size: Size(
-                      50,
-                      (50 * 1.004)
-                          .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                  painter: WhatsappLogo(),
-                ),
-                () async => SocialShare.shareWhatsapp(url)),
-            iconButton(
-                CustomPaint(
-                  size: Size(
-                      45,
-                      (45 * 1)
-                          .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                  painter: TelegramLogo(),
-                ),
-                () async => SocialShare.shareTelegram(url)),
-            iconButton(
-                const FaIcon(
-                  FontAwesomeIcons.shareAlt,
-                  size: 30,
-                  color: Color(0xff40c351),
-                ),
-                () async => SocialShare.shareOptions(url)),
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget iconButton(Widget icon, Function onTap) {
-    return Stack(
-      children: [
-        IconButton(
-            onPressed: () {
-              print('tapped');
-              onTap();
-            },
-            icon: icon),
-      ],
-    );
-  }
-
-  void modalBottomSheet(BuildContext context, Widget child) {
+  donate(BuildContext context, ProfilePageViewModel model) {
     showModalBottomSheet(
         context: context,
+        isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         ),
         builder: (BuildContext context) {
-          return ClipRRect(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.75,
-              decoration: const BoxDecoration(
-                color: Colors.white,
+          return StatefulBuilder(builder: (context, setState) {
+            model.attachListener(setState);
+            return ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              child: SizedBox(
+                height: model.bottomSheetHeight,
+                child: Scaffold(
+                  backgroundColor: Theme.of(context).colorScheme.primaryVariant,
+                  appBar: AppBar(
+                    centerTitle: true,
+                    automaticallyImplyLeading: false,
+                    backgroundColor: Colors.transparent,
+                    elevation: 0.0,
+                    toolbarHeight: SizeConfig.screenHeight! * 0.15,
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        'Donating to \n${model.currentOrg.name}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(fontSize: 24),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    actions: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            right: 8.0, top: SizeConfig.screenHeight! * 0.01),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.cancel,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          onPressed: model.popBottomSheet,
+                        ),
+                      )
+                    ],
+                  ),
+                  body: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        Text(
+                          'Please Select and amount',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: List.generate(
+                                3,
+                                (index) => model.dominationButton(
+                                    model.denomination[index],
+                                    context,
+                                    setState)),
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        Text(
+                          'Or',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        Text(
+                          'Input custom amount',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.screenWidth! * 0.05),
+                          child: TextField(
+                            controller: model.donationAmount,
+                            focusNode: model.donationField,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.number,
+                            autofillHints: const <String>[AutofillHints.email],
+                            enableSuggestions: true,
+                            style: Theme.of(context).textTheme.headline6,
+                            onChanged: (text) {
+                              setState(() {});
+                            },
+                            decoration: InputDecoration(
+                              hintText: AppLocalizations.of(context)!
+                                  .translate("Enter donation amount"),
+                              labelText: AppLocalizations.of(context)!
+                                  .translate("Enter custom donation amount"),
+                              labelStyle: Theme.of(context).textTheme.subtitle1,
+                              prefixIcon: GestureDetector(
+                                onTap: () {
+                                  model.changeCurrency(context, setState);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        model.donationCurrency,
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5,
+                                      ),
+                                      const Icon(
+                                          Icons.arrow_drop_down_circle_outlined)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(12.0)),
+                                borderSide: BorderSide(
+                                    color: Theme.of(context).accentColor,
+                                    width: 2),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                    color: Theme.of(context).accentColor),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeConfig.screenWidth! * 0.05,
+                        ),
+                        ElevatedButton(
+                            onPressed: model.donationAmount.text.isEmpty
+                                ? () => model
+                                    .showSnackBar('Select or enter an amount')
+                                : model.initiateDonation,
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(model
+                                        .donationAmount.text.isEmpty
+                                    ? Colors.grey
+                                    : Theme.of(context).colorScheme.primary)),
+                            child: Text(
+                              'DONATE',
+                              style: Theme.of(context).textTheme.button,
+                            ))
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              child: child,
-            ),
-          );
-        });
-  }
-
-  Widget donate() {
-    return Container();
+            );
+          });
+        }).then((value) => setState(() {
+          model.bottomSheetHeight = SizeConfig.screenHeight! * 0.65;
+        }));
   }
 }

@@ -60,16 +60,14 @@ class PostService {
 
     final List postsJson = result.data!['postsByOrganization'] as List;
 
-    final List<Post> _newPosts = [];
     postsJson.forEach((postJson) {
       final Post post = Post.fromJson(postJson as Map<String, dynamic>);
       if (!_renderedPostID.contains(post.sId)) {
-        _newPosts.add(post);
+        _posts.insert(0, post);
         _renderedPostID.add(post.sId);
       }
     });
-    _postStreamController.add(_newPosts);
-    _posts = _newPosts;
+    _postStreamController.add(_posts);
   }
 
   // --- Functions related to Likes --- //

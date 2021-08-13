@@ -9,6 +9,7 @@ import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -24,6 +25,7 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
+import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
@@ -86,4 +88,6 @@ void setupLocator() {
   locator.registerFactory(() => LikeButtonViewModel());
   locator.registerFactory(() => AppLanguage());
   locator.registerFactory(() => CommentsViewModel());
+  locator.registerFactory(() => AppTheme());
+  locator.registerFactory(() => DirectChatViewModel());
 }
