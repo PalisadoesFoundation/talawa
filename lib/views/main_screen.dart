@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
+import 'package:talawa/views/after_auth_screens/chat/chat_page.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
@@ -28,13 +29,7 @@ class MainScreen extends StatelessWidget {
                     key: const Key('ExploreEvents'), homeModel: model),
                 AddPost(
                     key: const Key('AddPost'), drawerKey: model.scaffoldKey),
-                Container(
-                  key: const Key('Chat'),
-                  child: Center(
-                    child: Text(AppLocalizations.of(context)!
-                        .strictTranslate('Chat Screen')),
-                  ),
-                ),
+                const ChatPage(),
                 ProfilePage(key: model.keySPEditProfile, homeModel: model),
               ],
             ),
