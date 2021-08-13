@@ -60,6 +60,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
       body: ListView(
         children: [
           NewsPost(
+            isInView: true,
             post: widget.post,
           ),
           Padding(
@@ -73,6 +74,9 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 IndividualPostCommentSection(
                   comments: widget.post.comments!,
                   postID: widget.post.sId,
+                ),
+                const SizedBox(
+                  height: 200,
                 )
               ],
             ),

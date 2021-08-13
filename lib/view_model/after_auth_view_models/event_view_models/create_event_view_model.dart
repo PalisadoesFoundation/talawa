@@ -59,7 +59,7 @@ class CreateEventViewModel extends BaseModel {
       validate = AutovalidateMode.disabled;
 
       final DateTime startDate = eventStartDate;
-      final DateTime endDate = eventStartDate;
+      final DateTime endDate = eventEndDate;
       final DateTime startTime = DateTime(startDate.year, startDate.month,
           startDate.day, eventStartTime.hour, eventStartTime.minute);
       final DateTime endTime = DateTime(endDate.year, endDate.month,

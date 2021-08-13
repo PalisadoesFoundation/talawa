@@ -8,7 +8,11 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
@@ -50,6 +54,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => EventService());
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => OrganizationService());
+  locator.registerLazySingleton(() => MultiMediaPickerService());
 
   //graphql
   locator.registerSingleton(GraphqlConfig());
@@ -75,6 +80,8 @@ void setupLocator() {
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => EditProfilePageViewModel());
   locator.registerFactory(() => CreateEventViewModel());
+  locator.registerFactory(() => EditEventViewModel());
+  locator.registerFactory(() => AddPostViewModel());
 
   //Widgets viewModels
   locator.registerFactory(() => ProgressDialogViewModel());
@@ -82,4 +89,5 @@ void setupLocator() {
   locator.registerFactory(() => LikeButtonViewModel());
   locator.registerFactory(() => AppLanguage());
   locator.registerFactory(() => CommentsViewModel());
+  locator.registerFactory(() => DirectChatViewModel());
 }

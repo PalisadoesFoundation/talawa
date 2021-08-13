@@ -17,20 +17,20 @@ class WaitingViewModel extends BaseModel {
     print(pendingRequestOrg.length);
     greeting = [
       {
-        'text': "Please wait ",
+        'text': "Please wait",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .headline5
       },
       {
-        'text': currentUser.firstName,
+        'text': " ${currentUser.firstName} ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .headline6!
             .copyWith(fontSize: 24)
       },
       {
-        'text': " for organisation(s) to accept your invitation. ",
+        'text': "for organisation(s) to accept your invitation.",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
             .headline5
@@ -43,10 +43,12 @@ class WaitingViewModel extends BaseModel {
     final url = Hive.box('url');
     user.clear();
     url.clear();
-    navigationService.removeAllAndPush('/selectLang', '/', arguments: '0');
+    navigationService.removeAllAndPush(
+        Routes.languageSelectionRoute, Routes.splashScreen,
+        arguments: '0');
   }
 
   joinOrg() {
-    navigationService.pushScreen(Routes.joinOrg);
+    navigationService.pushScreen(Routes.joinOrg, arguments: '-1');
   }
 }
