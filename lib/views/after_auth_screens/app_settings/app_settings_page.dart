@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/lang_switch.dart';
 import 'package:talawa/widgets/theme_switch.dart';
 
@@ -17,7 +18,7 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
         elevation: 0.0,
         centerTitle: true,
         title: Text(
-          'Settings',
+          AppLocalizations.of(context)!.strictTranslate('Settings'),
           style: Theme.of(context).textTheme.headline6!.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
