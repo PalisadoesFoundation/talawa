@@ -289,6 +289,18 @@ class Queries {
     ''';
   }
 
+  String updateLanguage(String languageCode) {
+    return '''
+        mutation {
+          updateLanguage(languageCode: "$languageCode"){
+            _id
+            firstName
+            appLanguageCode
+          }
+        }
+    ''';
+  }
+
   String fetchOrgById(String orgId) {
     return '''
     query{

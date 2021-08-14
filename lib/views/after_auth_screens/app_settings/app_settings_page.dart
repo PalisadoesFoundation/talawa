@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/widgets/lang_switch.dart';
 import 'package:talawa/widgets/theme_switch.dart';
 
 class AppSettingsPage extends StatefulWidget {
@@ -28,6 +29,7 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
         child: Column(
           children: [
             const ChangeThemeTile(),
+            const LanguageTile(),
           ],
         ),
       ),

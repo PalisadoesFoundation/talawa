@@ -41,12 +41,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) {
+      builder: (context, langModel, child) {
         return BaseView<AppTheme>(
             onModelReady: (model) => model.initialize(),
             builder: (context, model, child) {
               return MaterialApp(
-                locale: Provider.of<AppLanguage>(context).appLocal,
+                locale: langModel.appLocal,
                 supportedLocales: [
                   const Locale('en', 'US'),
                   const Locale('es', 'ES'),

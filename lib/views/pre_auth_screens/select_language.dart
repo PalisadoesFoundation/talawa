@@ -126,7 +126,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
               child: TextButton(
                 key: const Key('NavigateToUrlPage'),
                 onPressed: () async {
-                  navigationService.pushScreen('/setUrl', arguments: '');
+                  Provider.of<AppLanguage>(context, listen: false)
+                      .selectLanguagePress();
                 },
                 child: Text(
                   AppLocalizations.of(context)!.strictTranslate('Select'),
