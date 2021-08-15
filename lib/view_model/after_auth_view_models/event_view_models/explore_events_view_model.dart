@@ -102,13 +102,15 @@ class ExploreEventsViewModel extends BaseModel {
         success: () {
           navigationService.pop();
           _eventService.deleteEvent(eventId).then(
-            (result) {
+            (result) async {
               if (result != null) {
                 navigationService.pop();
+                setState(ViewState.busy);
                 print(result);
                 _uniqueEventIds.remove(eventId);
                 _events.removeWhere((element) => element.id == eventId);
-                notifyListeners();
+                await Future.delayed(const Duration(milliseconds: 500));
+                setState(ViewState.idle);
               }
             },
           );

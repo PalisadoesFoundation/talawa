@@ -35,10 +35,12 @@ class EventService {
   }
 
   Future<void> getEvents() async {
+    await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
     final String currentOrgID = _currentOrg.id!;
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
     final result = await _dbFunctions.gqlAuthMutation(mutation);
     if (result == null) return;
+    print(result);
     final List eventsJson = result.data!["events"] as List;
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
@@ -46,7 +48,7 @@ class EventService {
     });
   }
 
-  Future<void> registerForAnEvent(String eventId) async {
+  Future<dynamic> registerForAnEvent(String eventId) async {
     final tokenResult = await _dbFunctions
         .refreshAccessToken(userConfig.currentUser.refreshToken!);
     print(tokenResult);
@@ -55,7 +57,7 @@ class EventService {
       EventQueries().registerForEvent(),
       variables: variables,
     );
-    print(result);
+    return result;
   }
 
   Future<dynamic> deleteEvent(String eventId) async {

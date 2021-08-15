@@ -109,7 +109,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
         builder: (context) => EventInfoPage(
           key: const Key('EventInfo'),
-          agrs: args,
+          args: args,
         ),
       );
     case Routes.createEventPage:

@@ -4,13 +4,15 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/event_admin_fab.dart';
 
 class EventInfoPage extends StatefulWidget {
-  const EventInfoPage({Key? key, required this.agrs}) : super(key: key);
-  final Map<String, dynamic> agrs;
+  const EventInfoPage({Key? key, required this.args}) : super(key: key);
+  final Map<String, dynamic> args;
   @override
   _EventInfoPageState createState() => _EventInfoPageState();
 }
@@ -18,41 +20,47 @@ class EventInfoPage extends StatefulWidget {
 class _EventInfoPageState extends State<EventInfoPage> {
   @override
   Widget build(BuildContext context) {
-    final Event event = widget.agrs["event"] as Event;
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: Text(
-                AppLocalizations.of(context)!.strictTranslate('Event Details')),
-            pinned: true,
-            expandedHeight: SizeConfig.screenWidth,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
-                'https://picsum.photos/id/26/200/300',
-                fit: BoxFit.fill,
-              ),
+    return BaseView<EventInfoViewModel>(
+        onModelReady: (model) => model.initialize(args: widget.args),
+        builder: (context, model, child) {
+          return Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  title: Text(AppLocalizations.of(context)!
+                      .strictTranslate('Event Details')),
+                  pinned: true,
+                  expandedHeight: SizeConfig.screenWidth,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Image.network(
+                      'https://picsum.photos/id/26/200/300',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                _eventInfoBody(model.event)
+              ],
             ),
-          ),
-          _eventInfoBody(event)
-        ],
-      ),
-      floatingActionButton: event.creator!.id != userConfig.currentUser.id
-          ? FloatingActionButton.extended(
-              onPressed: () {},
-              label: Text(
-                "Register",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText2!
-                    .copyWith(color: Theme.of(context).accentColor),
-              ))
-          : eventAdminFab(
-              context: context,
-              event: event,
-              exploreEventsViewModel: widget.agrs["exploreEventViewModel"]
-                  as ExploreEventsViewModel),
-    );
+            floatingActionButton: model.event.creator!.id !=
+                    userConfig.currentUser.id
+                ? FloatingActionButton.extended(
+                    onPressed: () {
+                      model.registerForEvent();
+                    },
+                    label: Text(
+                      model.fabTitle,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(color: Theme.of(context).accentColor),
+                    ))
+                : eventAdminFab(
+                    context: context,
+                    event: model.event,
+                    exploreEventsViewModel: widget.args["exploreEventViewModel"]
+                        as ExploreEventsViewModel),
+          );
+        });
   }
 
   Widget _eventInfoBody(Event event) {
@@ -75,24 +83,12 @@ class _EventInfoPageState extends State<EventInfoPage> {
                 const Icon(Icons.chat_bubble_outline)
               ],
             ),
-            Row(
-              children: [
-                event.creator!.firstName != null
-                    ? Text(
-                        "${AppLocalizations.of(context)!.strictTranslate("Created by")}: ${event.creator!.firstName} ${event.creator!.lastName}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(fontWeight: FontWeight.w600),
-                      )
-                    : Text(
-                        "${AppLocalizations.of(context)!.strictTranslate("Created by")}: Luke Skywalker",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(fontWeight: FontWeight.w600),
-                      ),
-              ],
+            Text(
+              "${AppLocalizations.of(context)!.strictTranslate("Created by")}: ${event.creator!.firstName} ${event.creator!.lastName}",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText2!
+                  .copyWith(fontWeight: FontWeight.w600),
             ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.011,
