@@ -23,4 +23,5 @@ class Routes {
   static const String editProfilePage = "/editProfilePage";
   static const String joinOrg = '/joinOrg';
   static const String editEventPage = "/editEventPage";
+  static const String appSettings = '/appSettingsPage';
 }

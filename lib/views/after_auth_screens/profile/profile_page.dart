@@ -99,7 +99,10 @@ class ProfilePage extends StatelessWidget {
                                     subtitle:
                                         '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
                                   ),
-                                  onTapOption: () {}),
+                                  onTapOption: () {
+                                    navigationService
+                                        .pushScreen("/appSettingsPage");
+                                  }),
                               CustomListTile(
                                   key: homeModel!.keySPHelp,
                                   index: 1,
