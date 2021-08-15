@@ -7,6 +7,7 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_card.dart';
+import 'package:talawa/widgets/event_search_delegate.dart';
 
 class ExploreEvents extends StatelessWidget {
   const ExploreEvents({
@@ -43,7 +44,17 @@ class ExploreEvents extends StatelessWidget {
                   padding: EdgeInsets.only(
                     right: SizeConfig.screenWidth! * 0.027,
                   ),
-                  child: const Icon(Icons.search, size: 20),
+                  child: model.events.isNotEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            showSearch(
+                                context: context,
+                                delegate: EventSearch(
+                                    eventList: model.events,
+                                    exploreEventsViewModel: model));
+                          },
+                          icon: const Icon(Icons.search, size: 20))
+                      : const SizedBox(),
                 )
               ],
             ),
@@ -146,6 +157,7 @@ class ExploreEvents extends StatelessWidget {
                                         },
                                         child: EventCard(
                                           event: model.events[index],
+                                          isSearchItem: false,
                                         ),
                                       );
                                     }),
