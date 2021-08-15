@@ -4,6 +4,7 @@ import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
@@ -12,12 +13,14 @@ import 'package:talawa/widgets/from_palisadoes.dart';
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
     Key? key,
+    required this.homeModel,
   }) : super(key: key);
+  final MainScreenViewModel homeModel;
 
   @override
   Widget build(BuildContext context) {
     return BaseView<CustomDrawerViewModel>(
-        onModelReady: (model) => model.initialize(),
+        onModelReady: (model) => model.initialize(homeModel, context),
         builder: (context, model, child) {
           return Container(
             width: SizeConfig.screenWidth! * 0.6,
@@ -36,52 +39,70 @@ class CustomDrawer extends StatelessWidget {
                           firstAlphabet:
                               model.selectedOrg.name!.substring(0, 1),
                         ),
-                        accountName: Text(model.selectedOrg.name!),
-                        accountEmail: Text(AppLocalizations.of(context)!
-                            .strictTranslate("Selected Organization")),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 8.0),
-                        child: Text(
-                          AppLocalizations.of(context)!
-                              .strictTranslate("Switch Organization"),
-                          style: Theme.of(context).textTheme.headline6,
+                        accountName: Column(
+                          key: homeModel.keyDrawerCurOrg,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              model.selectedOrg.name!,
+                            ),
+                            Text(AppLocalizations.of(context)!
+                                .strictTranslate("Selected Organization"))
+                          ],
                         ),
+                        accountEmail: const SizedBox(),
                       ),
-                      SizedBox(
-                        height: 270,
-                        child: Scrollbar(
-                          controller: model.controller,
-                          isAlwaysShown: true,
-                          child: ListView.builder(
-                            controller: model.controller,
-                            padding: EdgeInsets.zero,
-                            itemCount: model.switchAbleOrg.length,
-                            // itemCount: 3,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListTile(
-                                onTap: () =>
-                                    model.switchOrg(model.switchAbleOrg[index]),
-                                leading: CustomAvatar(
-                                  isImageNull:
-                                      model.switchAbleOrg[index].image == null,
-                                  imageUrl: model.switchAbleOrg[index].image,
-                                  firstAlphabet: model
-                                      .switchAbleOrg[index].name!
-                                      .substring(0, 1),
-                                  fontSize: 18,
-                                ),
-                                title: Text(
-                                  model.switchAbleOrg[index].name!,
-                                ),
-                              );
-                            },
+                      Column(
+                        key: homeModel.keyDrawerSwitchableOrg,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 8.0),
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .strictTranslate("Switch Organization"),
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
                           ),
-                        ),
+                          SizedBox(
+                            height: SizeConfig.screenHeight! * 0.45,
+                            child: Scrollbar(
+                              controller: model.controller,
+                              isAlwaysShown: true,
+                              child: ListView.builder(
+                                controller: model.controller,
+                                padding: EdgeInsets.zero,
+                                itemCount: model.switchAbleOrg.length,
+                                // itemCount: 3,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ListTile(
+                                    onTap: () => model
+                                        .switchOrg(model.switchAbleOrg[index]),
+                                    leading: CustomAvatar(
+                                      isImageNull:
+                                          model.switchAbleOrg[index].image ==
+                                              null,
+                                      imageUrl:
+                                          model.switchAbleOrg[index].image,
+                                      firstAlphabet: model
+                                          .switchAbleOrg[index].name!
+                                          .substring(0, 1),
+                                      fontSize: 18,
+                                    ),
+                                    title: Text(
+                                      model.switchAbleOrg[index].name!,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const Divider(),
                       ListTile(
+                        key: homeModel.keyDrawerJoinOrg,
                         onTap: () => navigationService
                             .popAndPushScreen(Routes.joinOrg, arguments: '-1'),
                         leading: const Icon(
@@ -92,13 +113,14 @@ class CustomDrawer extends StatelessWidget {
                             .strictTranslate("Join new Organization")),
                       ),
                       ListTile(
+                        key: homeModel.keyDrawerLeaveCurrentOrg,
                         leading: const Icon(Icons.logout, size: 30),
                         title: Text(AppLocalizations.of(context)!
                             .strictTranslate("Leave Current Organization")),
                       ),
+                      const FromPalisadoes(),
                     ],
                   ),
-                  const FromPalisadoes(),
                 ],
               ),
             ),
