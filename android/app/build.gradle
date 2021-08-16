@@ -37,6 +37,7 @@ android {
         applicationId "com.example.talawa"
         minSdkVersion 20
         targetSdkVersion 30
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -55,5 +56,6 @@ flutter {
 }
 
 dependencies {
+    implementation 'com.android.support:multidex:2.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
