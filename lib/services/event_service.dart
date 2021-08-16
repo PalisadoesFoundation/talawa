@@ -36,11 +36,11 @@ class EventService {
 
   Future<void> getEvents() async {
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
+    _dbFunctions.init();
     final String currentOrgID = _currentOrg.id!;
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
     final result = await _dbFunctions.gqlAuthMutation(mutation);
     if (result == null) return;
-    print(result);
     final List eventsJson = result.data!["events"] as List;
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);

@@ -146,6 +146,7 @@ class ExploreEvents extends StatelessWidget {
                                             },
                                             child: EventCard(
                                               event: model.events[index],
+                                              isSearchItem: false,
                                             ),
                                           );
                                         }),

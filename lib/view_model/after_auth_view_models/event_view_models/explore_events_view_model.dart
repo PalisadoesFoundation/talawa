@@ -126,8 +126,9 @@ class ExploreEventsViewModel extends BaseModel {
 
       case 'Registered Events':
         {
-          _events = List.from(
-              _bufferEvents.where((element) => element.isRegistered == true));
+          _events = List.from(_bufferEvents.where((element) =>
+              element.isRegistered == true &&
+              element.creator!.id != userConfig.currentUser.id));
           _emptyListMessage = "No registered events are present";
         }
         break;

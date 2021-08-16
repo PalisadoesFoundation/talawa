@@ -8,8 +8,17 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({Key? key, required this.event}) : super(key: key);
+  const EventCard(
+      {Key? key,
+      required this.event,
+      this.eventTitleHighlightedText,
+      this.eventTitleNormalText,
+      required this.isSearchItem})
+      : super(key: key);
   final Event event;
+  final String? eventTitleHighlightedText;
+  final String? eventTitleNormalText;
+  final bool isSearchItem;
   @override
   Widget build(BuildContext context) {
     final bool isRegistered = event.isRegistered ?? false;
@@ -43,14 +52,32 @@ class EventCard extends StatelessWidget {
                       Row(
                         children: [
                           SizedBox(
-                            width: SizeConfig.screenWidth! * 0.48,
-                            child: Text(
-                              event.title!,
-                              style: Theme.of(context).textTheme.headline5,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
+                              width: SizeConfig.screenWidth! * 0.48,
+                              child: isSearchItem
+                                  ? RichText(
+                                      text: TextSpan(
+                                          text: eventTitleHighlightedText,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline5!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.bold),
+                                          children: [
+                                            TextSpan(
+                                                text: eventTitleNormalText,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline5!
+                                                    .copyWith(
+                                                        color: Colors.grey))
+                                          ]),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                    )
+                                  : Text(event.title!,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5)),
                           const Spacer(),
                           const Icon(
                             Icons.calendar_today,
@@ -134,7 +161,7 @@ class EventCard extends StatelessWidget {
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!
-                                          .strictTranslate('Creator'),
+                                          .strictTranslate('Created'),
                                       style:
                                           Theme.of(context).textTheme.caption,
                                     ),
