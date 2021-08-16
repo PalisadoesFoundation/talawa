@@ -87,8 +87,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const OrganizationFeed(key: Key('HomeScreen')));
     case Routes.mainScreen:
+      final bool fromSignUp = settings.arguments! as bool;
       return MaterialPageRoute(
-          builder: (context) => const MainScreen(key: Key('MainScreen')));
+          builder: (context) =>
+              MainScreen(key: const Key('MainScreen'), fromSignUp: fromSignUp));
     case Routes.individualPost:
       final Post post = settings.arguments! as Post;
       return MaterialPageRoute(

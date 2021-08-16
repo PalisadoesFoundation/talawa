@@ -1,13 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class CustomDrawerViewModel extends BaseModel {
   final ScrollController controller = ScrollController();
+  final List<TargetFocus> targets = [];
+  late TutorialCoachMark tutorialCoachMark;
   late User _currentUser;
   late List<OrgInfo> _switchAbleOrg;
   late OrgInfo _selectedOrg;
@@ -15,7 +20,7 @@ class CustomDrawerViewModel extends BaseModel {
   OrgInfo get selectedOrg => _selectedOrg;
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
 
-  initialize() {
+  initialize(MainScreenViewModel homeModel, BuildContext context) {
     _currentOrganizationStreamSubscription = userConfig.currentOrfInfoStream
         .listen((updatedOrganization) =>
             setSelectedOrganizationName(updatedOrganization));

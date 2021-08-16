@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -65,6 +66,7 @@ class SignupDetailsViewModel extends BaseModel {
         final result = await databaseFunctions.gqlNonAuthMutation(
             queries.registerUser(
                 firstName.text, lastName.text, email.text, password.text));
+        navigationService.pop();
         if (result != null) {
           final User signedInUser =
               User.fromJson(result.data!['signUp'] as Map<String, dynamic>);
@@ -86,7 +88,9 @@ class SignupDetailsViewModel extends BaseModel {
                 userConfig.updateUserJoinedOrg(joinedOrg!);
                 userConfig.saveCurrentOrgInHive(
                     userConfig.currentUser.joinedOrganizations![0]);
-                navigationService.removeAllAndPush('/mainScreen', '/');
+                navigationService.removeAllAndPush(
+                    Routes.mainScreen, Routes.splashScreen,
+                    arguments: true);
               } on Exception catch (e) {
                 print(e);
                 navigationService.showSnackBar('SomeThing went wrong');
@@ -103,7 +107,8 @@ class SignupDetailsViewModel extends BaseModel {
                         as Map<String, dynamic>);
                 userConfig.updateUserMemberRequestOrg([membershipRequest]);
                 navigationService.pop();
-                navigationService.removeAllAndPush('/waiting', '/');
+                navigationService.removeAllAndPush(
+                    Routes.waitingScreen, Routes.splashScreen);
               } on Exception catch (e) {
                 print(e);
                 navigationService.showSnackBar('SomeThing went wrong');

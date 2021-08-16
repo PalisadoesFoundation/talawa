@@ -19,6 +19,7 @@ class EventCard extends StatelessWidget {
   final String? eventTitleHighlightedText;
   final String? eventTitleNormalText;
   final bool isSearchItem;
+  
   @override
   Widget build(BuildContext context) {
     final bool isRegistered = event.isRegistered ?? false;
