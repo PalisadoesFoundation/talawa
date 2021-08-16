@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen> {
             }
           } else {
             navigationService.pushReplacementScreen(Routes.mainScreen,
-                arguments: '0');
+                arguments: false);
           }
         } else {
           navigationService.pushReplacementScreen(Routes.languageSelectionRoute,
