@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class AppLanguage extends BaseModel {
@@ -59,5 +60,21 @@ class AppLanguage extends BaseModel {
     }
 
     notifyListeners();
+  }
+
+  Future<void> appLanguageQuery() async {
+    try {
+      await databaseFunctions.gqlAuthQuery(queries.userLanguage());
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> userLanguageQuery(String userId) async {
+    try {
+      await databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId));
+    } catch (e) {
+      print(e);
+    }
   }
 }
