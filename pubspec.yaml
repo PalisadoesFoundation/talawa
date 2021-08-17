@@ -34,6 +34,7 @@ dependencies:
   json_annotation: ^4.0.1
   mockito: ^5.0.10
   path_provider: ^2.0.2
+  permission_handler: ^8.1.4+2
   provider: ^5.0.0
   qr_code_scanner: ^0.5.1
   qr_flutter: ^4.0.0
@@ -46,7 +47,7 @@ dependencies:
   vibration: ^1.7.4-nullsafety.0
   video_player: ^2.1.12
   visibility_detector: ^0.2.0
-  permission_handler: ^8.1.4+2
+  
 dev_dependencies:
   build_runner: ^2.0.4
   flutter_test:
