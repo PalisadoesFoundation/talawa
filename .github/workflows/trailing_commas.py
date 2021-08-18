@@ -56,7 +56,7 @@ def syntax_matcher(root: str, files: list):
 
         file_location = os.path.join(root, name)
         data = []
-        with open(file_location, 'r') as read_loc:
+        with open(file_location, 'r', encoding="latin-1") as read_loc:
             data = read_loc.readlines()
             with open(file_location, 'w') as write_loc:
 
