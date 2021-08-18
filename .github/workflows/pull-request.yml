@@ -29,7 +29,7 @@ jobs:
         run: chmod +x ./.github/workflows/trailing_commas.py
       - name: Running trailing commas
         run: ./.github/workflows/trailing_commas.py
-      - name: Check for correct formatting of code
+      - name: Checking for correct formatting of code
         run: flutter format --set-exit-if-changed .
       - name: Count lines of code in each file
         run: chmod +x ./.github/workflows/countline.py
