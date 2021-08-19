@@ -1,24 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talawa/locator.dart';
+import 'package:talawa/services/database_mutation_functions.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class AppLanguage extends BaseModel {
   AppLanguage({this.isTest = false});
-  final bool isTest;
 
-  Locale _appLocale = const Locale('en');
+  final bool isTest;
+  final navigationService = locator<NavigationService>();
+  final databaseFunctions = locator<DataBaseMutationFunctions>();
+
+  late Locale _appLocale;
   Locale get appLocal => _appLocale;
 
-  initialize() {
-    fetchLocale();
+  Future<void> initialize() async {
+    _appLocale = const Locale('en');
+    await fetchLocale();
   }
 
-  fetchLocale() async {
+  Future<void> fetchLocale() async {
     final prefs = await SharedPreferences.getInstance();
     final String langCode = prefs.getString('language_code') ?? 'en';
     _appLocale = Locale(langCode);
+
     notifyListeners();
-    return Null;
   }
 
   Future<void> changeLanguage(Locale type) async {
@@ -58,6 +65,27 @@ class AppLanguage extends BaseModel {
       }
     }
 
+    print(_appLocale.languageCode);
     notifyListeners();
+  }
+
+  selectLanguagePress() async {
+    final bool userLoggedIn = await userConfig.userLoggedIn();
+    if (userLoggedIn) {
+      dbLanguageUpdate();
+      navigationService.popAndPushScreen('/appSettingsPage', arguments: '');
+    } else {
+      navigationService.pushScreen('/setUrl', arguments: '');
+    }
+  }
+
+  Future<void> dbLanguageUpdate() async {
+    try {
+      await databaseFunctions
+          .gqlAuthMutation(queries.updateLanguage(_appLocale.languageCode));
+      print('Language Updated in Database');
+    } catch (e) {
+      print(e);
+    }
   }
 }
