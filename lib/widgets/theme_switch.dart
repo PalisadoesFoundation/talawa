@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 
 class ChangeThemeTile extends StatelessWidget {
@@ -10,7 +11,7 @@ class ChangeThemeTile extends StatelessWidget {
     final themeProvider = Provider.of<AppTheme>(context);
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      title: const Text("Dark Theme"),
+      title: Text(AppLocalizations.of(context)!.strictTranslate("Dark Theme")),
       trailing: Switch.adaptive(
         autofocus: true,
         activeColor: Theme.of(context).colorScheme.primary,

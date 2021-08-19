@@ -44,7 +44,6 @@ class MultiMediaPickerService {
             dialogSubTitle:
                 'Camera permission is required, to use this feature, give permission from app settings'));
       }
-
       print(
           "MulitMediaPickerService : Exception occured while choosing photo from the gallery $e");
     }
