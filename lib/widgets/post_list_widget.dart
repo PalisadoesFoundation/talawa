@@ -17,6 +17,8 @@ class PostListWidget extends StatelessWidget {
     return InViewNotifierList(
       contextCacheCount: 15,
       scrollDirection: Axis.vertical,
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       initialInViewIds: ['0'],
       isInViewPortCondition:
           (double deltaTop, double deltaBottom, double viewPortDimension) {

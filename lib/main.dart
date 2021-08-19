@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -40,44 +41,48 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) {
-        return MaterialApp(
-          locale: Provider.of<AppLanguage>(context).appLocal,
-          supportedLocales: [
-            const Locale('en', 'US'),
-            const Locale('es', 'ES'),
-            const Locale('fr', 'FR'),
-            const Locale('hi', 'IN'),
-            const Locale('zh', 'CN'),
-          ],
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          title: 'Talawa',
-          themeMode: ThemeMode.system,
-          theme: TalawaTheme.lightTheme,
-          darkTheme: TalawaTheme.darkTheme,
-          debugShowCheckedModeBanner: false,
-          navigatorKey: navigationService.navigatorKey,
-          onGenerateRoute: router.generateRoute,
-          localeResolutionCallback:
-              (Locale? locale, Iterable<Locale> supportedLocales) {
-            if (locale == null) {
-              debugPrint("*language locale is null!!!");
-              return supportedLocales.first;
-            }
-            for (final Locale supportedLocale in supportedLocales) {
-              if (supportedLocale.languageCode == locale.languageCode ||
-                  supportedLocale.countryCode == locale.countryCode) {
-                return supportedLocale;
-              }
-            }
-            return supportedLocales.first;
-          },
-          initialRoute: '/',
-        );
+      builder: (context, langModel, child) {
+        return BaseView<AppTheme>(
+            onModelReady: (model) => model.initialize(),
+            builder: (context, model, child) {
+              return MaterialApp(
+                locale: langModel.appLocal,
+                supportedLocales: [
+                  const Locale('en', 'US'),
+                  const Locale('es', 'ES'),
+                  const Locale('fr', 'FR'),
+                  const Locale('hi', 'IN'),
+                  const Locale('zh', 'CN'),
+                ],
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                title: 'Talawa',
+                theme: Provider.of<AppTheme>(context).isdarkTheme
+                    ? TalawaTheme.darkTheme
+                    : TalawaTheme.lightTheme,
+                debugShowCheckedModeBanner: false,
+                navigatorKey: navigationService.navigatorKey,
+                onGenerateRoute: router.generateRoute,
+                localeResolutionCallback:
+                    (Locale? locale, Iterable<Locale> supportedLocales) {
+                  if (locale == null) {
+                    debugPrint("*language locale is null!!!");
+                    return supportedLocales.first;
+                  }
+                  for (final Locale supportedLocale in supportedLocales) {
+                    if (supportedLocale.languageCode == locale.languageCode ||
+                        supportedLocale.countryCode == locale.countryCode) {
+                      return supportedLocale;
+                    }
+                  }
+                  return supportedLocales.first;
+                },
+                initialRoute: '/',
+              );
+            });
       },
     );
   }

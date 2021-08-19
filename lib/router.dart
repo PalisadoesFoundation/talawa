@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/splash_screen.dart';
-import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
@@ -36,13 +33,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const SplashScreen(key: Key('SplashScreen')));
     case Routes.languageSelectionRoute:
-      final String langCode = settings.arguments!.toString();
-      Provider.of<AppLanguage>(
-        locator<NavigationService>().navigatorKey.currentContext!,
-        listen: false,
-      ).changeLanguage(
-        Locale(langCode),
-      );
       return MaterialPageRoute(
           builder: (context) =>
               const SelectLanguage(key: Key('SelectLanguage')));
@@ -86,8 +76,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const OrganizationFeed(key: Key('HomeScreen')));
     case Routes.mainScreen:
+      final bool fromSignUp = settings.arguments! as bool;
       return MaterialPageRoute(
-          builder: (context) => const MainScreen(key: Key('MainScreen')));
+          builder: (context) =>
+              MainScreen(key: const Key('MainScreen'), fromSignUp: fromSignUp));
     case Routes.individualPost:
       final Post post = settings.arguments! as Post;
       return MaterialPageRoute(
@@ -135,6 +127,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           event: event,
         ),
       );
+    case Routes.appSettings:
+      return MaterialPageRoute(
+          builder: (context) => const AppSettingsPage(key: Key('AppSettings')));
 
     default:
       return MaterialPageRoute(

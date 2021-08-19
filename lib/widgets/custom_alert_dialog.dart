@@ -10,22 +10,27 @@ class CustomAlertDialog extends StatelessWidget {
       this.successText,
       this.dialogTitle,
       this.reverse = false,
+      this.secondaryButtonText = 'Close',
+      this.secondaryButtonTap,
       required this.success,
       required this.dialogSubTitle})
       : super(key: key);
   final bool reverse;
   final Function success;
+  final Function? secondaryButtonTap;
   final String? successText;
   final String? dialogTitle;
   final String dialogSubTitle;
+  final String secondaryButtonText;
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> actions = [
       RaisedRoundedButton(
         key: const Key('Close'),
-        onTap: () => navigationService.pop(),
-        buttonLabel: AppLocalizations.of(context)!.strictTranslate('Close'),
+        onTap: () => secondaryButtonTap ?? navigationService.pop(),
+        buttonLabel:
+            AppLocalizations.of(context)!.strictTranslate(secondaryButtonText),
         textColor: Colors.white,
         backgroundColor: const Color(0xFF008A37),
         width: SizeConfig.screenWidth! * 0.2,
