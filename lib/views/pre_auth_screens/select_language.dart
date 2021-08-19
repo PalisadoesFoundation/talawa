@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/constants.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -126,7 +125,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
               child: TextButton(
                 key: const Key('NavigateToUrlPage'),
                 onPressed: () async {
-                  navigationService.pushScreen('/setUrl', arguments: '');
+                  Provider.of<AppLanguage>(context, listen: false)
+                      .selectLanguagePress();
                 },
                 child: Text(
                   AppLocalizations.of(context)!.strictTranslate('Select'),

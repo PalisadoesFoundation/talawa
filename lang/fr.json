@@ -153,5 +153,7 @@
     "Join in request sent to": "Demande d'adhésion envoyée à",
     "successfully": "avec succès",
     "Are you sure you want to logout?": "Êtes-vous sûr de vouloir vous déconnecter?",
-    "Logout": "Se déconnecter"
+    "Logout": "Se déconnecter",
+    "Settings": "Paramètres",
+    "Dark Theme": "Thème sombre"
 }
