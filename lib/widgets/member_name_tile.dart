@@ -29,11 +29,11 @@ class MemberNameTile extends StatelessWidget {
           children: [
             userImage != null
                 ? CircleAvatar(
-                    radius: SizeConfig.screenHeight! * 0.02,
+                    radius: SizeConfig.screenHeight! * 0.0201,
                     backgroundImage: NetworkImage(userImage!),
                   )
                 : CircleAvatar(
-                    radius: SizeConfig.screenHeight! * 0.02,
+                    radius: SizeConfig.screenHeight! * 0.0201,
                     backgroundColor: Theme.of(context).accentColor,
                     child: Text(
                       userName.toString().substring(0, 1).toUpperCase(),
