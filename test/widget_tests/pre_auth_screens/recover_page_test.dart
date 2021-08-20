@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -12,6 +11,8 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/views/pre_auth_screens/recover.dart';
 import 'package:talawa/widgets/rich_text.dart';
+
+import '../../helpers/test_locator.dart';
 
 Widget createRecoverScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
     BaseView<AppLanguage>(
@@ -56,10 +57,7 @@ Widget createRecoverScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     );
 
 void main() {
-  locator.registerSingleton(NavigationService());
-  locator.registerSingleton(GraphqlConfig());
-  locator.registerSingleton(SizeConfig());
-  locator.registerFactory(() => AppLanguage(isTest: true));
+  testSetupLocator();
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
   group('Select Language Screen Widget Test in light mode', () {

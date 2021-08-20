@@ -7,61 +7,49 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/views/base_view.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 import '../../helpers/test_helpers.dart';
+import '../../helpers/test_locator.dart';
 
 Widget createWaitingScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
-    BaseView<AppLanguage>(
-      onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) {
-        return MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          key: const Key('Root'),
-          themeMode: themeMode,
-          theme: TalawaTheme.lightTheme,
-          home: const WaitingPage(key: Key('WaitingPage')),
-          navigatorKey: locator<NavigationService>().navigatorKey,
-          onGenerateRoute: router.generateRoute,
-        );
-      },
+    MaterialApp(
+      locale: const Locale('en'),
+      localizationsDelegates: [
+        const AppLocalizationsDelegate(isTest: true),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      key: const Key('Root'),
+      themeMode: themeMode,
+      theme: TalawaTheme.lightTheme,
+      home: const WaitingPage(key: Key('WaitingPage')),
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      onGenerateRoute: router.generateRoute,
     );
 
 Widget createWaitingScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
-    BaseView<AppLanguage>(
-      onModelReady: (model) => model.initialize(),
-      builder: (context, model, child) {
-        return MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          key: const Key('Root'),
-          themeMode: themeMode,
-          theme: TalawaTheme.darkTheme,
-          home: const WaitingPage(key: Key('WaitingPage')),
-          navigatorKey: locator<NavigationService>().navigatorKey,
-          onGenerateRoute: router.generateRoute,
-        );
-      },
+    MaterialApp(
+      locale: const Locale('en'),
+      localizationsDelegates: [
+        const AppLocalizationsDelegate(isTest: true),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      key: const Key('Root'),
+      themeMode: themeMode,
+      theme: TalawaTheme.darkTheme,
+      home: const WaitingPage(key: Key('WaitingPage')),
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      onGenerateRoute: router.generateRoute,
     );
 
 Future<void> main() async {
@@ -82,7 +70,6 @@ Future<void> main() async {
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
   await Hive.openBox('url');
-  locator.registerFactory(() => AppLanguage(isTest: true));
   setUp(() {
     registerServices();
     registerViewModels();

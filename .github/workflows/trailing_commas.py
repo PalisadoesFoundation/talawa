@@ -58,13 +58,9 @@ def syntax_matcher(root: str, files: list):
         data = []
         with open(file_location, 'r') as read_loc:
             data = read_loc.readlines()
-            with open(file_location, 'w') as write_loc:
+            with open(file_location, 'w', encoding='latin-1') as write_loc:
 
                 for index in range(0, len(data)):
-                    # genral case of addition of commas
-                    if '))' and not ')) {' in data[index]:
-                        data[index] = data[index].replace('))', '),)')
-
                     # for cases of function declaration without any parameters
                     if '(,)' in data[index]:
                         data[index] = data[index].replace('(,)', '()')
