@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
@@ -69,7 +70,14 @@ Widget createSetUrlScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     );
 
 Future<void> main() async {
-  TestWidgetsFlutterBinding.ensureInitialized(); //initializing Hive
+  TestWidgetsFlutterBinding.ensureInitialized();
+  const testMockStorage = './test/fixtures/core';
+  const channel = MethodChannel(
+    'plugins.flutter.io/path_provider',
+  );
+  channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    return testMockStorage;
+  }); //initializing Hive
   final Directory dir = await path.getApplicationDocumentsDirectory();
   Hive
     ..init(dir.path)
