@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
@@ -71,7 +72,8 @@ class LoginViewModel extends BaseModel {
                 userConfig.currentUser.joinedOrganizations![0]);
             navigationService.removeAllAndPush(
                 Routes.mainScreen, Routes.splashScreen,
-                arguments: false);
+                arguments:
+                    MainScreenArgs(mainScreenIndex: 0, fromSignUp: false));
           }
         }
       } on Exception catch (e) {

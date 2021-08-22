@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -24,8 +25,9 @@ Widget createHomePageScreen() {
         ],
         themeMode: ThemeMode.light,
         theme: TalawaTheme.lightTheme,
-        home: const MainScreen(
-          key: Key('MainScreen'),
+        home: MainScreen(
+          key: const Key('MainScreen'),
+          mainScreenArgs: MainScreenArgs(mainScreenIndex: 0),
         ),
         //navigatorKey: navigationService.navigatorKey,
         //onGenerateRoute: router.generateRoute,

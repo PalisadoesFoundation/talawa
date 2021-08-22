@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
@@ -30,8 +31,11 @@ import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart';
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case Routes.splashScreen:
+      final int mainScreenIndex = settings.arguments! as int;
       return MaterialPageRoute(
-          builder: (context) => const SplashScreen(key: Key('SplashScreen')));
+          builder: (context) => SplashScreen(
+              key: const Key('SplashScreen'),
+              mainScreenIndex: mainScreenIndex));
     case Routes.languageSelectionRoute:
       return MaterialPageRoute(
           builder: (context) =>
@@ -76,10 +80,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const OrganizationFeed(key: Key('HomeScreen')));
     case Routes.mainScreen:
-      final bool fromSignUp = settings.arguments! as bool;
+      final MainScreenArgs mainScreenArgs =
+          settings.arguments! as MainScreenArgs;
+      //  final bool fromSignUp = settings.arguments! as bool;
       return MaterialPageRoute(
-          builder: (context) =>
-              MainScreen(key: const Key('MainScreen'), fromSignUp: fromSignUp));
+          builder: (context) => MainScreen(
+                key: const Key('MainScreen'),
+                mainScreenArgs: mainScreenArgs,
+              ));
     case Routes.individualPost:
       final Post post = settings.arguments! as Post;
       return MaterialPageRoute(

@@ -57,8 +57,11 @@ class MainScreenViewModel extends BaseModel {
     notifyListeners();
   }
 
-  initialise(BuildContext ctx, {required bool fromSignUp}) {
+  initialise(BuildContext ctx,
+      {required bool fromSignUp, required int mainScreenIndex}) {
+    currentIndex = mainScreenIndex;
     showAppTour = fromSignUp;
+    notifyListeners();
     if (!showAppTour) {
       tourComplete = true;
       tourSkipped = false;
