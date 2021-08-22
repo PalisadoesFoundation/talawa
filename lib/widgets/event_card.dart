@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -39,10 +40,29 @@ class EventCard extends StatelessWidget {
             color: Theme.of(context).primaryColor,
             child: Column(
               children: [
-                Container(
-                  height: SizeConfig.screenHeight! * 0.11,
-                  width: double.infinity,
-                  color: Colors.grey.withOpacity(0.3),
+                AspectRatio(
+                  aspectRatio: 2.5,
+                  child: Container(
+                    height: SizeConfig.screenHeight! * 0.11,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.3),
+                        image: const DecorationImage(
+                          fit: BoxFit.fitWidth,
+                          alignment: FractionalOffset.topCenter,
+                          image: NetworkImage(
+                              'https://picsum.photos/id/1022/200/300'),
+                        )),
+                    child: ClipRRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.0)),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),

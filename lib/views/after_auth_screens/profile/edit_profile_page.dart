@@ -36,37 +36,62 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   Center(
                     child: Stack(
                       children: [
-                        model.user.values.first.image != null
+                        model.imageFile != null
                             ? CircleAvatar(
                                 radius: SizeConfig.screenHeight! * 0.082,
-                                backgroundImage: NetworkImage(
-                                    model.user.values.first.image!),
+                                backgroundImage: Image.file(
+                                  model.imageFile!,
+                                  fit: BoxFit.fitWidth,
+                                ).image,
                               )
-                            : CircleAvatar(
-                                radius: SizeConfig.screenHeight! * 0.082,
-                                backgroundColor: Colors.grey.withOpacity(0.2),
-                                child: Text(
-                                  model.user.values.first.firstName!
-                                          .toString()
-                                          .substring(0, 1)
-                                          .toUpperCase() +
-                                      model.user.values.first.lastName!
-                                          .toString()
-                                          .substring(0, 1)
-                                          .toUpperCase(),
-                                  style: Theme.of(context).textTheme.headline4,
-                                ),
-                              ),
+                            : model.user.image != null
+                                ? CircleAvatar(
+                                    radius: SizeConfig.screenHeight! * 0.082,
+                                    backgroundImage:
+                                        NetworkImage(model.user.image!),
+                                  )
+                                : CircleAvatar(
+                                    radius: SizeConfig.screenHeight! * 0.082,
+                                    backgroundColor:
+                                        Colors.grey.withOpacity(0.2),
+                                    child: Text(
+                                      model.user.firstName!
+                                              .toString()
+                                              .substring(0, 1)
+                                              .toUpperCase() +
+                                          model.user.lastName!
+                                              .toString()
+                                              .substring(0, 1)
+                                              .toUpperCase(),
+                                      style:
+                                          Theme.of(context).textTheme.headline4,
+                                    ),
+                                  ),
                         Positioned(
                           bottom: 0,
                           right: 0,
-                          child: CircleAvatar(
-                            radius: SizeConfig.screenHeight! * 0.034,
-                            backgroundColor: Theme.of(context).accentColor,
-                            child: const Icon(
-                              Icons.photo_camera,
-                              color: Colors.white,
-                            ),
+                          child: InkWell(
+                            onTap: () {
+                              model.imageFile == null
+                                  ? model.getImageFromGallery()
+                                  : model.removeImage();
+                            },
+                            child: model.imageFile == null
+                                ? CircleAvatar(
+                                    radius: SizeConfig.screenHeight! * 0.034,
+                                    backgroundColor:
+                                        Theme.of(context).accentColor,
+                                    child: const Icon(
+                                      Icons.photo_camera,
+                                      color: Colors.white,
+                                    ))
+                                : CircleAvatar(
+                                    radius: SizeConfig.screenHeight! * 0.02,
+                                    backgroundColor:
+                                        Theme.of(context).accentColor,
+                                    child: const Icon(Icons.close,
+                                        color: Colors.white),
+                                  ),
                           ),
                         ),
                       ],
@@ -85,7 +110,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             Flexible(
                               child: TextFormField(
                                   controller: model.firstNameTextController
-                                    ..text = model.user.values.first.firstName!,
+                                    ..text = model.user.firstName!,
                                   focusNode: model.firstNameFocus,
                                   keyboardType: TextInputType.name,
                                   decoration: InputDecoration(
@@ -111,7 +136,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             Flexible(
                               child: TextFormField(
                                   controller: model.lastNameTextController
-                                    ..text = model.user.values.first.lastName!,
+                                    ..text = model.user.lastName!,
                                   focusNode: model.lastNameFocus,
                                   keyboardType: TextInputType.name,
                                   decoration: InputDecoration(
@@ -163,7 +188,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             .onBackground),
                               ),
                               Text(
-                                model.user.values.first.email!,
+                                model.user.email!,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText2!

@@ -5,7 +5,9 @@ Service usage: "add_post_view_model.dart"
 
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class MultiMediaPickerService {
   MultiMediaPickerService() {
@@ -26,10 +28,40 @@ class MultiMediaPickerService {
       // ignore: deprecated_member_use
       final _image = await _picker.getImage(
           source: camera ? ImageSource.camera : ImageSource.gallery);
-      if (_image != null) return File(_image.path);
+      if (_image != null) {
+        return await cropImage(imageFile: File(_image.path));
+      }
     } catch (e) {
       print(
           "MulitMediaPickerService : Exception occured while choosing photo from the gallery");
+    }
+    return null;
+  }
+
+  Future<File?> cropImage({required File imageFile}) async {
+    try {
+      final File? croppedImage = await ImageCropper.cropImage(
+          sourcePath: imageFile.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.original,
+          ],
+          androidUiSettings: const AndroidUiSettings(
+              toolbarTitle: 'Crop Image',
+              toolbarColor: Color(0xff18191A),
+              toolbarWidgetColor: Colors.white,
+              backgroundColor: Colors.black,
+              cropGridColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          iosUiSettings: const IOSUiSettings(
+            minimumAspectRatio: 1.0,
+          ));
+      if (croppedImage != null) {
+        return File(croppedImage.path);
+      }
+    } catch (e) {
+      print("MulitMediaPickerService : Exception occured while cropping Image");
     }
     return null;
   }

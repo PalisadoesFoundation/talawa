@@ -29,7 +29,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
             expandedHeight: SizeConfig.screenWidth,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
-                'https://picsum.photos/id/26/200/300',
+                'https://picsum.photos/id/1022/200/300',
                 fit: BoxFit.fill,
               ),
             ),
