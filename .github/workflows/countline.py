@@ -135,7 +135,7 @@ def main():
                         continue
 
                 # Process the rest
-                with open(filepath) as code:
+                with open(filepath, encoding="latin-1") as code:
                     line_count = sum(
                         1 for line in code
                         if line.strip() and not line.startswith('#')
