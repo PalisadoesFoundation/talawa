@@ -1,15 +1,16 @@
 import 'dart:io';
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path;
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
-import 'package:path_provider/path_provider.dart' as path;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
@@ -18,7 +19,7 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
 
-import '../helpers/test_locator.dart';
+import '../../helpers/test_locator.dart';
 
 Widget createSelectLanguageScreenLight(
         {ThemeMode themeMode = ThemeMode.light}) =>

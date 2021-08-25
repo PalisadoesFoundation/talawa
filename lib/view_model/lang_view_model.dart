@@ -88,4 +88,20 @@ class AppLanguage extends BaseModel {
       print(e);
     }
   }
+
+  Future<void> appLanguageQuery() async {
+    try {
+      await databaseFunctions.gqlAuthQuery(queries.userLanguage());
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> userLanguageQuery(String userId) async {
+    try {
+      await databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId));
+    } catch (e) {
+      print(e);
+    }
+  }
 }

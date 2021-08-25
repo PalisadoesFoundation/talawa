@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/validators.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
@@ -13,7 +14,8 @@ class Recover extends StatefulWidget {
 }
 
 class _RecoverState extends State<Recover> {
-  TextEditingController email = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class _RecoverState extends State<Recover> {
       },
     ];
     return Scaffold(
+      key: const Key('RecoverScreenScaffold'),
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.transparent,
@@ -61,32 +64,39 @@ class _RecoverState extends State<Recover> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomRichText(
-                key: const Key('UrlPageText'),
+                key: const Key('RecoverPageText'),
                 words: text,
               ),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.05,
               ),
-              TextFormField(
-                  controller: email,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.emailAddress,
-                  autofillHints: const <String>[AutofillHints.email],
-                  enableSuggestions: true,
-                  decoration: InputDecoration(
-                    hintText:
-                        AppLocalizations.of(context)!.translate("Email Hint"),
-                    labelText:
-                        '${AppLocalizations.of(context)!.translate("Enter your registered Email")} *',
-                    labelStyle: Theme.of(context).textTheme.subtitle1,
-                  )),
+              Form(
+                key: formKey,
+                child: TextFormField(
+                    key: const Key('EmailInputField'),
+                    controller: email,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.emailAddress,
+                    autofillHints: const <String>[AutofillHints.email],
+                    enableSuggestions: true,
+                    validator: (email) => Validator.validateEmail(email!),
+                    decoration: InputDecoration(
+                      hintText:
+                          AppLocalizations.of(context)!.translate("Email Hint"),
+                      labelText:
+                          '${AppLocalizations.of(context)!.translate("Enter your registered Email")} *',
+                      labelStyle: Theme.of(context).textTheme.subtitle1,
+                    )),
+              ),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.086,
               ),
               RaisedRoundedButton(
                 buttonLabel: AppLocalizations.of(context)!
                     .strictTranslate('Recover Password'),
-                onTap: () {},
+                onTap: () {
+                  formKey.currentState!.validate();
+                },
                 textColor: const Color(0xFF008A37),
                 key: const Key('RecoverButton'),
                 backgroundColor: Colors.white,
