@@ -11,29 +11,22 @@ class WaitingViewModel extends BaseModel {
   late List<OrgInfo> pendingRequestOrg;
   late User currentUser;
 
-  initialise() {
+  initialise(BuildContext context) {
     currentUser = userConfig.currentUser;
     pendingRequestOrg = currentUser.membershipRequests!;
-    print(pendingRequestOrg.length);
     greeting = [
       {
         'text': "Please wait",
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
-            .textTheme
-            .headline5
+        'textStyle': Theme.of(context).textTheme.headline5
       },
       {
         'text': " ${currentUser.firstName} ",
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
-            .textTheme
-            .headline6!
-            .copyWith(fontSize: 24)
+        'textStyle':
+            Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
       },
       {
         'text': "for organisation(s) to accept your invitation.",
-        'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
-            .textTheme
-            .headline5
+        'textStyle': Theme.of(context).textTheme.headline5
       },
     ];
   }
