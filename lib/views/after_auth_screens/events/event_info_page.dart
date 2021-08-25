@@ -242,7 +242,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
 
             //  Needs to be replaced with actual event attendees
             ListView.builder(
-                padding: const EdgeInsets.all(0.0),
+                padding: EdgeInsets.zero,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: 10,
