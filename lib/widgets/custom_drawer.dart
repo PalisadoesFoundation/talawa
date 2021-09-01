@@ -26,8 +26,7 @@ class CustomDrawer extends StatelessWidget {
             width: SizeConfig.screenWidth! * 0.6,
             alignment: Alignment.centerLeft,
             child: Drawer(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: ListView(
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,9 +118,9 @@ class CustomDrawer extends StatelessWidget {
                             .strictTranslate("Leave Current Organization")),
                       ),
                       SizedBox(
-                        height: SizeConfig.screenHeight! * 0.02,
+                        height: SizeConfig.screenHeight! * 0.05,
                       ),
-                      const FromPalisadoes(),
+                      const FromPalisadoes()
                     ],
                   ),
                 ],
