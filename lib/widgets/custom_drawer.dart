@@ -66,7 +66,7 @@ class CustomDrawer extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: SizeConfig.screenHeight! * 0.45,
+                            height: SizeConfig.screenHeight! * 0.41,
                             child: Scrollbar(
                               controller: model.controller,
                               isAlwaysShown: true,
@@ -117,6 +117,9 @@ class CustomDrawer extends StatelessWidget {
                         leading: const Icon(Icons.logout, size: 30),
                         title: Text(AppLocalizations.of(context)!
                             .strictTranslate("Leave Current Organization")),
+                      ),
+                      SizedBox(
+                        height: SizeConfig.screenHeight! * 0.02,
                       ),
                       const FromPalisadoes(),
                     ],
