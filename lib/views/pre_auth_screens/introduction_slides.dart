@@ -38,11 +38,11 @@ class _IntroductionSlidesState extends State<IntroductionSlides> {
       onDone: () {
         navigationService.pushScreen('/setUrl', arguments: '');
       },
-      done: const Text('Get Started',
-          style: TextStyle(fontWeight: FontWeight.w600)),
+      done: Text(AppLocalizations.of(context)!.strictTranslate('Get Started'),
+          style: const TextStyle(fontWeight: FontWeight.w600)),
       next: const Icon(Icons.arrow_forward),
       showSkipButton: true,
-      skip: const Text('Skip'),
+      skip: Text(AppLocalizations.of(context)!.strictTranslate('Skip')),
     );
   }
 }
