@@ -26,8 +26,7 @@ class CustomDrawer extends StatelessWidget {
             width: SizeConfig.screenWidth! * 0.6,
             alignment: Alignment.centerLeft,
             child: Drawer(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: ListView(
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +65,7 @@ class CustomDrawer extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: SizeConfig.screenHeight! * 0.45,
+                            height: SizeConfig.screenHeight! * 0.41,
                             child: Scrollbar(
                               controller: model.controller,
                               isAlwaysShown: true,
@@ -118,7 +117,10 @@ class CustomDrawer extends StatelessWidget {
                         title: Text(AppLocalizations.of(context)!
                             .strictTranslate("Leave Current Organization")),
                       ),
-                      const FromPalisadoes(),
+                      SizedBox(
+                        height: SizeConfig.screenHeight! * 0.05,
+                      ),
+                      const FromPalisadoes()
                     ],
                   ),
                 ],
