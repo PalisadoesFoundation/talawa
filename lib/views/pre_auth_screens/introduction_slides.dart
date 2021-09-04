@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/utils/app_localization.dart';
 
 class IntroductionSlides extends StatefulWidget {
   const IntroductionSlides({Key? key}) : super(key: key);
@@ -15,21 +16,22 @@ class _IntroductionSlidesState extends State<IntroductionSlides> {
     return IntroductionScreen(
       pages: [
         PageViewModel(
-          title: "Communities",
-          body:
-              "Discover community or\n Start your own community & watch it grow",
+          title: AppLocalizations.of(context)!.strictTranslate("Communities"),
+          body: AppLocalizations.of(context)!.strictTranslate(
+              "Discover community or Start your own community & watch it grow"),
           image: Image.asset("assets/images/community.png"),
         ),
         PageViewModel(
-          title: "Event Calendar",
-          body:
-              "Schedule, create and view your upcoming community events on Talawa.\nStart your own or register for existing events.",
+          title:
+              AppLocalizations.of(context)!.strictTranslate("Event Calendar"),
+          body: AppLocalizations.of(context)!.strictTranslate(
+              "Schedule, create and view your upcoming community events on Talawa. Start your own or register for existing events."),
           image: Image.asset("assets/images/event.png"),
         ),
         PageViewModel(
-          title: "Group Chat",
-          body:
-              "Talk to your own community groups.\nTalawa app makes it simple & secure to use.",
+          title: AppLocalizations.of(context)!.strictTranslate("Group Chat"),
+          body: AppLocalizations.of(context)!.strictTranslate(
+              "Talk to your own community groups. Talawa app makes it simple & secure to use."),
           image: Image.asset("assets/images/chat.png"),
         ),
       ],
