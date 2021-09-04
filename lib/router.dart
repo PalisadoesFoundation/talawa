@@ -19,6 +19,7 @@ import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
+import 'package:talawa/views/pre_auth_screens/introduction_slides.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
 import 'package:talawa/views/pre_auth_screens/recover.dart';
 import 'package:talawa/views/pre_auth_screens/select_language.dart';
@@ -36,6 +37,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) =>
               const SelectLanguage(key: Key('SelectLanguage')));
+    case Routes.introductionSlides:
+      return MaterialPageRoute(
+          builder: (context) => const IntroductionSlides());
     case Routes.setUrlScreen:
       final String uri = settings.arguments!.toString();
       return MaterialPageRoute(

@@ -5,7 +5,6 @@ import 'package:talawa/constants/constants.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
-import 'package:talawa/views/pre_auth_screens/introduction_slides.dart';
 
 class SelectLanguage extends StatefulWidget {
   const SelectLanguage({required Key key}) : super(key: key);
@@ -126,13 +125,8 @@ class _SelectLanguageState extends State<SelectLanguage> {
               child: TextButton(
                 key: const Key('NavigateToUrlPage'),
                 onPressed: () async {
-                  // Provider.of<AppLanguage>(context, listen: false)
-                  //     .selectLanguagePress();
-
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const IntroductionSlides()));
+                  Provider.of<AppLanguage>(context, listen: false)
+                      .selectLanguagePress();
                 },
                 child: Text(
                   AppLocalizations.of(context)!.strictTranslate('Select'),

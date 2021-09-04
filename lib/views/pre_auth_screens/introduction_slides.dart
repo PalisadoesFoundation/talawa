@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:talawa/locator.dart';
 
 class IntroductionSlides extends StatefulWidget {
   const IntroductionSlides({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class _IntroductionSlidesState extends State<IntroductionSlides> {
         ),
       ],
       onDone: () {
-        print("Done");
+        navigationService.pushScreen('/setUrl', arguments: '');
       },
       done: const Text('Get Started',
           style: TextStyle(fontWeight: FontWeight.w600)),
