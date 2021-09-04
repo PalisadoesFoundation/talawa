@@ -31,6 +31,24 @@ List<Language> languages = [
     langName: 'Española',
     langSample: 'Bienvenida usuario',
   ),
+  Language(
+    countryCode: 'JP',
+    langCode: 'ja',
+    langName: '日本',
+    langSample: 'ようこそユーザー',
+  ),
+  Language(
+    countryCode: 'GE',
+    langCode: 'de',
+    langName: 'Deutsch',
+    langSample: 'Willkommen Benutzer',
+  ),
+  Language(
+    countryCode: 'PE',
+    langCode: 'pt',
+    langName: 'português',
+    langSample: 'Bem-vindo, usuário',
+  ),
 ];
 
 List<String> supportedCurrencies = [
