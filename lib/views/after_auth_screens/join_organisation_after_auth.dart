@@ -23,6 +23,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
         onModelReady: (model) => model.initialise(orgId),
         builder: (context, model, child) {
           return Scaffold(
+            key: const Key('JoinOrgScreen'),
             appBar: AppBar(
               centerTitle: true,
               title: Text(

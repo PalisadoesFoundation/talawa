@@ -46,7 +46,8 @@ class MainScreenViewModel extends BaseModel {
       GlobalKey(debugLabel: "ProfileScreenPalisadoes");
 
   late bool showAppTour;
-  bool tourComplete = false, tourSkipped = false;
+  bool tourComplete = false;
+  bool tourSkipped = false;
   late BuildContext context;
   late TutorialCoachMark tutorialCoachMark;
   final List<TargetFocus> targets = [];

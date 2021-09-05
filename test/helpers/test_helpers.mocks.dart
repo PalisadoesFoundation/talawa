@@ -19,6 +19,7 @@ import 'package:talawa/services/post_service.dart' as _i9;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
     as _i11;
 import 'package:talawa/services/user_config.dart' as _i15;
+import 'package:talawa/view_model/lang_view_model.dart' as _i16;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -102,6 +103,16 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
   @override
   // ignore: unnecessary_overrides
   String toString() => super.toString();
+}
+
+/// A class which mocks [AppLanguage].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAppLanguage extends _i2.Mock implements _i16.AppLanguage {
+  @override
+  _i4.Future<void> initialize() =>
+      (super.noSuchMethod(Invocation.method(#initialize, []),
+          returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
 }
 
 /// A class which mocks [GraphqlConfig].
