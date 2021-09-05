@@ -142,7 +142,6 @@ coverage.xml
 .scrapy
 
 # Sphinx documentation
-docs/_build/
 
 # PyBuilder
 target/
@@ -187,5 +186,4 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/python
-.flutter-plugins-dependencies
 pubspec.lock
