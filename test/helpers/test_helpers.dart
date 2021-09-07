@@ -20,7 +20,9 @@ import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
+import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 
 import 'test_helpers.mocks.dart';
@@ -44,6 +46,13 @@ NavigationService getAndRegisterNavigationService() {
   final service = MockNavigationService();
   when(service.navigatorKey).thenReturn(GlobalKey<NavigatorState>());
   locator.registerSingleton<NavigationService>(service);
+  return service;
+}
+
+AppLanguage getAndRegisterAppLanguage() {
+  _removeRegistrationIfExists<AppLanguage>();
+  final service = MockAppLanguage();
+  locator.registerSingleton<AppLanguage>(service);
   return service;
 }
 
@@ -74,7 +83,25 @@ UserConfig getAndRegisterUserConfig() {
       id: "xzy1",
       firstName: "Test",
       lastName: "User",
-      email: "testuser@gmail.com"));
+      email: "testuser@gmail.com",
+      refreshToken: "testtoken",
+      authToken: 'testtoken',
+      adminFor: [],
+      joinedOrganizations: [],
+      membershipRequests: [
+        OrgInfo(
+          id: '1',
+          name: 'test org',
+          isPublic: false,
+          creatorInfo: User(firstName: 'test', lastName: 'test'),
+        ),
+        OrgInfo(
+          id: '2',
+          name: 'test org',
+          isPublic: false,
+          creatorInfo: User(firstName: 'test', lastName: 'test'),
+        )
+      ]));
 
   locator.registerSingleton<UserConfig>(service);
   return service;
@@ -121,6 +148,7 @@ EventService getAndRegisterEventService() {
 
 void registerServices() {
   getAndRegisterNavigationService();
+  getAndRegisterAppLanguage();
   getAndRegisterGraphqlConfig();
   getAndRegisterUserConfig();
   getAndRegisterPostService();
@@ -146,6 +174,7 @@ void registerViewModels() {
   locator.registerFactory(() => LikeButtonViewModel());
   locator.registerFactory(() => SizeConfig());
   locator.registerFactory(() => DirectChatViewModel());
+  locator.registerFactory(() => WaitingViewModel());
 }
 
 void unregisterViewModels() {
@@ -157,4 +186,5 @@ void unregisterViewModels() {
   locator.unregister<LikeButtonViewModel>();
   locator.unregister<SizeConfig>();
   locator.unregister<DirectChatViewModel>();
+  locator.unregister<WaitingViewModel>();
 }

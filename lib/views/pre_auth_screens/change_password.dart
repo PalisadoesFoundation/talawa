@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/utils/validators.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
@@ -13,10 +14,11 @@ class ChangePass extends StatefulWidget {
 }
 
 class _ChangePassState extends State<ChangePass> {
-  TextEditingController newPassword = TextEditingController();
-  TextEditingController reNewPassword = TextEditingController();
-  FocusNode newPasswordFocus = FocusNode();
-  FocusNode reNewPasswordFocus = FocusNode();
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController newPassword = TextEditingController();
+  final TextEditingController reNewPassword = TextEditingController();
+  final FocusNode newPasswordFocus = FocusNode();
+  final FocusNode reNewPasswordFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class _ChangePassState extends State<ChangePass> {
       },
     ];
     return Scaffold(
+      key: const Key('ChangePassScreenScaffold'),
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.transparent,
@@ -64,66 +67,75 @@ class _ChangePassState extends State<ChangePass> {
               0.0),
           width: SizeConfig.screenWidth,
           height: SizeConfig.screenHeight,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomRichText(
-                key: const Key('UrlPageText'),
-                words: text,
-              ),
-              SizedBox(
-                height: SizeConfig.screenHeight! * 0.05,
-              ),
-              TextFormField(
-                  controller: newPassword,
-                  focusNode: newPasswordFocus,
-                  textInputAction: TextInputAction.done,
-                  keyboardType: TextInputType.text,
-                  enableSuggestions: true,
-                  autofillHints: const <String>[AutofillHints.password],
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText:
-                        AppLocalizations.of(context)!.translate('password'),
-                    labelText:
-                        '${AppLocalizations.of(context)!.translate("Enter new password")} *',
-                  )),
-              SizedBox(
-                height: SizeConfig.screenHeight! * 0.025,
-              ),
-              TextFormField(
-                  controller: reNewPassword,
-                  focusNode: reNewPasswordFocus,
-                  textInputAction: TextInputAction.done,
-                  keyboardType: TextInputType.text,
-                  enableSuggestions: true,
-                  autofillHints: const <String>[AutofillHints.password],
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText:
-                        AppLocalizations.of(context)!.translate('password'),
-                    labelText:
-                        '${AppLocalizations.of(context)!.translate("Re-Enter your password")} *',
-                  )),
-              SizedBox(
-                height: SizeConfig.screenHeight! * 0.086,
-              ),
-              RaisedRoundedButton(
-                buttonLabel:
-                    '${AppLocalizations.of(context)!.translate("Change Password")} ',
-                onTap: () {
-                  newPasswordFocus.unfocus();
-                  reNewPasswordFocus.unfocus();
-                },
-                textColor: const Color(0xFF008A37),
-                key: const Key('Change Password Button'),
-                backgroundColor: Colors.white,
-              ),
-              SizedBox(
-                height: SizeConfig.screenHeight! * 0.0215,
-              ),
-            ],
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomRichText(
+                  key: const Key('ChangePageText'),
+                  words: text,
+                ),
+                SizedBox(
+                  height: SizeConfig.screenHeight! * 0.05,
+                ),
+                TextFormField(
+                    key: const Key('PassInputField'),
+                    controller: newPassword,
+                    focusNode: newPasswordFocus,
+                    textInputAction: TextInputAction.done,
+                    keyboardType: TextInputType.text,
+                    enableSuggestions: true,
+                    autofillHints: const <String>[AutofillHints.password],
+                    obscureText: true,
+                    validator: (pass) => Validator.validatePassword(pass!),
+                    decoration: InputDecoration(
+                      hintText:
+                          AppLocalizations.of(context)!.translate('password'),
+                      labelText:
+                          '${AppLocalizations.of(context)!.translate("Enter new password")} *',
+                    )),
+                SizedBox(
+                  height: SizeConfig.screenHeight! * 0.025,
+                ),
+                TextFormField(
+                    key: const Key('PassRepeatInputField'),
+                    controller: reNewPassword,
+                    focusNode: reNewPasswordFocus,
+                    textInputAction: TextInputAction.done,
+                    keyboardType: TextInputType.text,
+                    enableSuggestions: true,
+                    autofillHints: const <String>[AutofillHints.password],
+                    obscureText: true,
+                    validator: (pass) => Validator.validatePasswordConfirm(
+                        pass!, newPassword.text),
+                    decoration: InputDecoration(
+                      hintText:
+                          AppLocalizations.of(context)!.translate('password'),
+                      labelText:
+                          '${AppLocalizations.of(context)!.translate("Re-Enter your password")} *',
+                    )),
+                SizedBox(
+                  height: SizeConfig.screenHeight! * 0.086,
+                ),
+                RaisedRoundedButton(
+                  buttonLabel:
+                      '${AppLocalizations.of(context)!.translate("Change Password")} ',
+                  onTap: () {
+                    formKey.currentState!.validate();
+                    newPasswordFocus.unfocus();
+                    reNewPasswordFocus.unfocus();
+                  },
+                  textColor: const Color(0xFF008A37),
+                  key: const Key('ChangePasswordButton'),
+                  backgroundColor: Colors.white,
+                ),
+                SizedBox(
+                  height: SizeConfig.screenHeight! * 0.0215,
+                ),
+              ],
+            ),
           ),
         ),
       ),

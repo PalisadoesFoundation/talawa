@@ -319,6 +319,22 @@ class Queries {
   ''';
   }
 
+  String userLanguage() {
+    return '''
+    query{
+      myLanguage
+    }
+  ''';
+  }
+
+  String newUserLanguage(String userId) {
+    return '''
+    query{
+      userLanguage(userId:"$userId")
+    }
+  ''';
+  }
+
   String fetchOrgDetailsById(String orgId) {
     return '''
     query{
