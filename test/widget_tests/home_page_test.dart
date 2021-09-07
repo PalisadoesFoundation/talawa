@@ -11,27 +11,22 @@ import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 Widget createHomePageScreen() {
-  return BaseView<AppLanguage>(
-    onModelReady: (model) => model.initialize(),
-    builder: (context, model, child) {
-      return MaterialApp(
-        locale: model.appLocal,
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(isTest: true),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        themeMode: ThemeMode.light,
-        theme: TalawaTheme.lightTheme,
-        home: MainScreen(
-          key: const Key('MainScreen'),
-          mainScreenArgs: MainScreenArgs(mainScreenIndex: 0),
-        ),
-        //navigatorKey: navigationService.navigatorKey,
-        //onGenerateRoute: router.generateRoute,
+  return MaterialApp(
+      locale: const Locale('en'),
+      localizationsDelegates: [
+        const AppLocalizationsDelegate(isTest: true),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      themeMode: ThemeMode.light,
+      theme: TalawaTheme.lightTheme,
+      home: MainScreen(
+        key: const Key('MainScreen'),
+        mainScreenArgs: MainScreenArgs(mainScreenIndex: 0),
+      )
+      //navigatorKey: navigationService.navigatorKey,
+      //onGenerateRoute: router.generateRoute,
       );
-    },
-  );
 }
 
 void main() {
