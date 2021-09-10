@@ -40,7 +40,6 @@ class ExploreEventsViewModel extends BaseModel {
 
   Future<void> initialise() async {
     setState(ViewState.busy);
-
     _currentOrganizationStreamSubscription = userConfig.currentOrfInfoStream
         .listen((updatedOrganization) => refreshEvents());
     await _eventService.getEvents();

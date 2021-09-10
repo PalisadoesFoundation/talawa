@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
+import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -23,8 +25,14 @@ class CreateEventViewModel extends BaseModel {
   FocusNode locationFocus = FocusNode();
   FocusNode descriptionFocus = FocusNode();
 
-  final formKey = GlobalKey<FormState>();
+  late OrganizationService _organizationService;
+  late final Map<String, bool> _adminCheckedMap = {};
+  late final List<User> _selectedAdmins = [];
+  late final Map<String, bool> _memberCheckedMap = {};
+  late final List<User> _selectedMembers = [];
+  late List<User> _orgMembersList = [];
 
+  final formKey = GlobalKey<FormState>();
   final _eventService = locator<EventService>();
   final _dbFunctions = locator<DataBaseMutationFunctions>();
   AutovalidateMode validate = AutovalidateMode.disabled;
@@ -32,8 +40,14 @@ class CreateEventViewModel extends BaseModel {
   late OrgInfo _currentOrg;
   final _userConfig = locator<UserConfig>();
 
+  List<User> get selectedAdmins => _selectedAdmins;
+  List<User> get selectedMembers => _selectedMembers;
+  Map<String, bool> get adminCheckedMap => _adminCheckedMap;
+  Map<String, bool> get memberCheckedMap => _memberCheckedMap;
+
   initialize() {
     _currentOrg = _userConfig.currentOrg;
+    _organizationService = locator<OrganizationService>();
   }
 
   Future<void> createEvent() async {
@@ -82,5 +96,47 @@ class CreateEventViewModel extends BaseModel {
         await _eventService.getEvents();
       }
     }
+  }
+
+  Future<List<User>> getCurrentOrgUsersList({required bool isAdmin}) async {
+    if (_orgMembersList.isEmpty) {
+      _orgMembersList = await _organizationService
+          .getOrgMembersList(userConfig.currentOrg.id!);
+    }
+
+    _orgMembersList.forEach((orgMember) {
+      if (isAdmin) {
+        _adminCheckedMap.putIfAbsent(orgMember.id!, () => false);
+      } else {
+        _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
+      }
+      _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
+    });
+    return _orgMembersList;
+  }
+
+  void buildUserList({required bool isAdmin}) {
+    isAdmin ? _selectedAdmins.clear() : _selectedMembers.clear();
+
+    _orgMembersList.forEach((orgMember) {
+      if (_adminCheckedMap[orgMember.id] == true && isAdmin) {
+        _selectedAdmins.add(orgMember);
+      } else if (_memberCheckedMap[orgMember.id] == true && !isAdmin) {
+        _selectedMembers.add(orgMember);
+      }
+    });
+    notifyListeners();
+  }
+
+  void removeUserFromList({required bool isAdmin, required String userId}) {
+    if (isAdmin) {
+      _selectedAdmins.removeWhere((user) => user.id == userId);
+      _adminCheckedMap[userId] = false;
+    } else {
+      _selectedMembers.removeWhere((user) => user.id == userId);
+      _memberCheckedMap[userId] = false;
+    }
+
+    notifyListeners();
   }
 }
