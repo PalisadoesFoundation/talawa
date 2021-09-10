@@ -133,12 +133,12 @@ class CustomDrawer extends StatelessWidget {
                                   ),
                                 ],
                                 title: const Text(
-                                  'Confirmation',
+                                  "Confirmation",
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 22),
                                 ),
                                 content: const Text(
-                                    'Are you sure you want to exit this organization?'),
+                                    "Are you sure you want to exit this organization?"),
                               );
                             },
                           );
