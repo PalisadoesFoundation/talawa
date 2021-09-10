@@ -112,6 +112,37 @@ class CustomDrawer extends StatelessWidget {
                             .strictTranslate("Join new Organization")),
                       ),
                       ListTile(
+                        onTap: () async {
+                          await showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text("Close"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      //Exit organization
+                                    },
+                                    child: const Text(
+                                      "Exit",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                                ],
+                                title: const Text(
+                                  'Confirmation',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 22),
+                                ),
+                                content: const Text(
+                                    'Are you sure you want to exit this organization?'),
+                              );
+                            },
+                          );
+                        },
                         key: homeModel.keyDrawerLeaveCurrentOrg,
                         leading: const Icon(Icons.logout, size: 30),
                         title: Text(AppLocalizations.of(context)!
