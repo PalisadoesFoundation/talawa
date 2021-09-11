@@ -215,7 +215,7 @@ class ProfilePageViewModel extends BaseModel {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: donationAmount.text == amount
-                ? Theme.of(context).accentColor
+                ? Theme.of(context).colorScheme.secondary
                 : Theme.of(context).colorScheme.primary),
         child: Text(
           '$donationCurrencySymbol $amount',

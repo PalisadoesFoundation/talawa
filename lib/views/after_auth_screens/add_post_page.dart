@@ -34,7 +34,7 @@ class AddPost extends StatelessWidget {
                 AppLocalizations.of(context)!.strictTranslate("Post"),
                 style: Theme.of(context).textTheme.headline5!.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: Theme.of(context).accentColor),
+                    color: Theme.of(context).colorScheme.secondary),
               ),
             ),
           ],

@@ -48,7 +48,8 @@ class _EditEventPageState extends State<EditEventPage> {
                   child: Text(
                     'Done',
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 16, color: Theme.of(context).accentColor),
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.secondary),
                   )),
             ],
           ),

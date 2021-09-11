@@ -62,7 +62,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           right: 0,
                           child: CircleAvatar(
                             radius: SizeConfig.screenHeight! * 0.034,
-                            backgroundColor: Theme.of(context).accentColor,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
                             child: const Icon(
                               Icons.photo_camera,
                               color: Colors.white,

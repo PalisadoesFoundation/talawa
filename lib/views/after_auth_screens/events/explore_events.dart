@@ -178,14 +178,14 @@ class ExploreEvents extends StatelessWidget {
               },
               icon: Icon(
                 Icons.add,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               label: Text(
                 AppLocalizations.of(context)!.strictTranslate("Event"),
                 style: Theme.of(context)
                     .textTheme
                     .headline5!
-                    .copyWith(color: Theme.of(context).accentColor),
+                    .copyWith(color: Theme.of(context).colorScheme.secondary),
               ),
             ),
           );
@@ -209,7 +209,7 @@ class ExploreEvents extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headline6!
-                .copyWith(color: Theme.of(context).accentColor),
+                .copyWith(color: Theme.of(context).colorScheme.secondary),
           ),
         );
       }).toList(),

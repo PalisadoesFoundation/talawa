@@ -49,7 +49,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   child: Text(
                     AppLocalizations.of(context)!.strictTranslate('Add'),
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 16, color: Theme.of(context).accentColor),
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.secondary),
                   ),
                 ),
               ],
@@ -218,7 +219,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             Text("Add Admins", style: _subtitleTextStyle),
                             Icon(
                               Icons.add,
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).colorScheme.secondary,
                             )
                           ],
                         ),
@@ -249,7 +250,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             Text("Add Members", style: _subtitleTextStyle),
                             Icon(
                               Icons.add,
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).colorScheme.secondary,
                             )
                           ],
                         ),

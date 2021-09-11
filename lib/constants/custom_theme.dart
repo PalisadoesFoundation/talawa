@@ -25,18 +25,18 @@ class TalawaTheme {
         cursorColor: _lightCursorColor,
       ),
       primaryColor: _lightPrimaryColor,
-      colorScheme: const ColorScheme.light(
-          primaryVariant: _lightPrimaryVariantColor,
-          primary: _lightColorSchemePrimary,
-          secondary: Color(0xffF5F5F5),
-          secondaryVariant: _darkScaffoldColor),
-      accentColor: _lightAccentColor,
       iconTheme: const IconThemeData(
         color: _lightIconColor,
       ),
       fontFamily: 'product-sans',
       textTheme: _lightTextTheme,
-      inputDecorationTheme: _lightInputDecor);
+      inputDecorationTheme: _lightInputDecor,
+      colorScheme: const ColorScheme.light(
+              primaryVariant: _lightPrimaryVariantColor,
+              primary: _lightColorSchemePrimary,
+              secondary: Color(0xffF5F5F5),
+              secondaryVariant: _darkScaffoldColor)
+          .copyWith(secondary: _lightAccentColor));
 
   static final darkTheme = ThemeData(
       textSelectionTheme: const TextSelectionThemeData(
@@ -44,18 +44,18 @@ class TalawaTheme {
       ),
       scaffoldBackgroundColor: _darkScaffoldColor,
       primaryColor: _darkPrimaryColor,
-      colorScheme: const ColorScheme.dark(
-          primaryVariant: _darkPrimaryVariantColor,
-          primary: _darkColorSchemePrimary,
-          secondary: Colors.black,
-          secondaryVariant: _lightScaffoldColor),
       iconTheme: const IconThemeData(
         color: _darkIconColor,
       ),
-      accentColor: _darkAccentColor,
       fontFamily: 'product-sans',
       textTheme: _darkTextTheme,
-      inputDecorationTheme: _darkInputDecor);
+      inputDecorationTheme: _darkInputDecor,
+      colorScheme: const ColorScheme.dark(
+              primaryVariant: _darkPrimaryVariantColor,
+              primary: _darkColorSchemePrimary,
+              secondary: Colors.black,
+              secondaryVariant: _lightScaffoldColor)
+          .copyWith(secondary: _darkAccentColor));
 
   static const TextTheme _lightTextTheme = TextTheme(
     headline4: TextStyle(
