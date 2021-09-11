@@ -7,6 +7,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
 
@@ -112,37 +113,17 @@ class CustomDrawer extends StatelessWidget {
                             .strictTranslate("Join new Organization")),
                       ),
                       ListTile(
-                        onTap: () async {
-                          await showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text("Close"),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      //Exit organization
-                                    },
-                                    child: const Text(
-                                      "Exit",
-                                      style: TextStyle(color: Colors.red),
-                                    ),
-                                  ),
-                                ],
-                                title: const Text(
-                                  "Confirmation",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 22),
-                                ),
-                                content: const Text(
-                                    "Are you sure you want to exit this organization?"),
-                              );
+                        onTap: () => navigationService.pushDialog(
+                          CustomAlertDialog(
+                            reverse: true,
+                            dialogSubTitle:
+                                'Are you sure you want to exit this organization?',
+                            successText: 'Exit',
+                            success: () {
+                              //Exit org
                             },
-                          );
-                        },
+                          ),
+                        ),
                         key: homeModel.keyDrawerLeaveCurrentOrg,
                         leading: const Icon(Icons.logout, size: 30),
                         title: Text(AppLocalizations.of(context)!
