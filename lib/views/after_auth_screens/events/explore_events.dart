@@ -78,7 +78,7 @@ class ExploreEvents extends StatelessWidget {
                                     Card(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .secondary,
+                                          .onPrimary,
                                       elevation: 2,
                                       child: Container(
                                         padding: const EdgeInsets.symmetric(
@@ -102,7 +102,7 @@ class ExploreEvents extends StatelessWidget {
                                         key: homeModel?.keySEDateFilter,
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .secondary,
+                                            .onPrimary,
                                         child: SizedBox(
                                           height:
                                               SizeConfig.screenHeight! * 0.068,
