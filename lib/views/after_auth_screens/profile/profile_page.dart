@@ -26,9 +26,11 @@ class ProfilePage extends StatelessWidget {
           return Scaffold(
             key: model.scaffoldKey,
             appBar: AppBar(
+              backgroundColor: Theme.of(context).primaryColor,
               elevation: 0.0,
               centerTitle: true,
               leading: IconButton(
+                color: Theme.of(context).iconTheme.color,
                 icon: const Icon(Icons.menu),
                 onPressed: () =>
                     homeModel!.scaffoldKey.currentState!.openDrawer(),

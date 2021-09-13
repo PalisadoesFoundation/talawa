@@ -27,6 +27,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Theme.of(context).primaryColor,
               elevation: 1,
               centerTitle: true,
               leading: GestureDetector(

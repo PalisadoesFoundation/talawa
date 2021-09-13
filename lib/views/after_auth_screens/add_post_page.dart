@@ -14,6 +14,7 @@ class AddPost extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           elevation: 0.9,
           centerTitle: true,
           title: Text(
@@ -24,6 +25,7 @@ class AddPost extends StatelessWidget {
                 ),
           ),
           leading: IconButton(
+            color: Theme.of(context).iconTheme.color,
             icon: const Icon(Icons.menu),
             onPressed: () => drawerKey!.currentState!.openDrawer(),
           ),

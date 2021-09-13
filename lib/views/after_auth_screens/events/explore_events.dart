@@ -23,6 +23,7 @@ class ExploreEvents extends StatelessWidget {
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Theme.of(context).primaryColor,
               key: const Key("ExploreEventsAppBar"),
               elevation: 0.0,
               automaticallyImplyLeading: false,
@@ -35,6 +36,7 @@ class ExploreEvents extends StatelessWidget {
                     ),
               ),
               leading: IconButton(
+                color: Theme.of(context).iconTheme.color,
                 icon: const Icon(Icons.menu),
                 onPressed: () =>
                     homeModel!.scaffoldKey.currentState!.openDrawer(),
