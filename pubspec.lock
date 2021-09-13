@@ -253,6 +253,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.6"
+  dots_indicator:
+    dependency: transitive
+    description:
+      name: dots_indicator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   eventify:
     dependency: transitive
     description:
@@ -497,6 +504,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.17.0"
+  introduction_screen:
+    dependency: "direct main"
+    description:
+      name: introduction_screen
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   inview_notifier_list:
     dependency: "direct main"
     description:

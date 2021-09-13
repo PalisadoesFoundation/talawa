@@ -90,7 +90,7 @@ class AppLanguage extends BaseModel {
       dbLanguageUpdate();
       navigationService.popAndPushScreen('/appSettingsPage', arguments: '');
     } else {
-      navigationService.pushScreen('/setUrl', arguments: '');
+      navigationService.pushScreen('/introductionSlides');
     }
   }
 

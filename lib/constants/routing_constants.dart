@@ -4,6 +4,7 @@ class Routes {
   static const String demoPageViewRoute = "/demoPageViewRoute";
   static const String splashScreen = "/";
   static const String languageSelectionRoute = "/selectLang";
+  static const String introductionSlides = "/introductionSlides";
   static const String setUrlScreen = "/setUrl";
   static const String loginScreen = "/login";
   static const String selectOrgScreen = "/selectOrg";
