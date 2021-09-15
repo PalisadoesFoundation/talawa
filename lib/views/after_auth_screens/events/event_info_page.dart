@@ -39,6 +39,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
       ),
       floatingActionButton: event.creator!.id != userConfig.currentUser.id
           ? FloatingActionButton.extended(
+              backgroundColor: Theme.of(context).primaryColor,
               onPressed: () {},
               label: Text(
                 "Register",
