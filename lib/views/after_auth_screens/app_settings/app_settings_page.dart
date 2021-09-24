@@ -15,6 +15,8 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: Theme.of(context).iconTheme,
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 0.0,
         centerTitle: true,
         title: Text(

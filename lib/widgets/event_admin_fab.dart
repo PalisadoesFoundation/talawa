@@ -15,7 +15,7 @@ Widget eventAdminFab(
     overlayColor: Theme.of(context).colorScheme.onBackground,
     overlayOpacity: 0.5,
     backgroundColor: Theme.of(context).primaryColor,
-    foregroundColor: Theme.of(context).accentColor,
+    foregroundColor: Theme.of(context).colorScheme.secondary,
     elevation: 8.0,
     children: [
       SpeedDialChild(
@@ -26,8 +26,8 @@ Widget eventAdminFab(
         labelStyle: Theme.of(context)
             .textTheme
             .headline6!
-            .copyWith(color: Theme.of(context).accentColor),
-        foregroundColor: Theme.of(context).accentColor,
+            .copyWith(color: Theme.of(context).colorScheme.secondary),
+        foregroundColor: Theme.of(context).colorScheme.secondary,
         backgroundColor: Theme.of(context).primaryColor,
         labelBackgroundColor: Theme.of(context).primaryColor,
         onTap: () {
@@ -42,8 +42,8 @@ Widget eventAdminFab(
         labelStyle: Theme.of(context)
             .textTheme
             .headline6!
-            .copyWith(color: Theme.of(context).accentColor),
-        foregroundColor: Theme.of(context).accentColor,
+            .copyWith(color: Theme.of(context).colorScheme.secondary),
+        foregroundColor: Theme.of(context).colorScheme.secondary,
         backgroundColor: Theme.of(context).primaryColor,
         labelBackgroundColor: Theme.of(context).primaryColor,
         onTap: () {

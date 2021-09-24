@@ -1,6 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
-import 'package:json_annotation/json_annotation.dart';
+
 part 'chat_list_tile_data_model.g.dart';
 
 @JsonSerializable()

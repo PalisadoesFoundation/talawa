@@ -26,9 +26,11 @@ class ProfilePage extends StatelessWidget {
           return Scaffold(
             key: model.scaffoldKey,
             appBar: AppBar(
+              backgroundColor: Theme.of(context).primaryColor,
               elevation: 0.0,
               centerTitle: true,
               leading: IconButton(
+                color: Theme.of(context).iconTheme.color,
                 icon: const Icon(Icons.menu),
                 onPressed: () =>
                     homeModel!.scaffoldKey.currentState!.openDrawer(),
@@ -71,7 +73,8 @@ class ProfilePage extends StatelessWidget {
                                 trailingIconButton: IconButton(
                                   icon: Icon(
                                     Icons.drive_file_rename_outline,
-                                    color: Theme.of(context).accentColor,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                   ),
                                   onPressed: () {
                                     navigationService
@@ -144,7 +147,9 @@ class ProfilePage extends StatelessWidget {
                                   option: Options(
                                     icon: Icon(
                                       Icons.share,
-                                      color: Theme.of(context).accentColor,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       size: 30,
                                     ),
                                     title: AppLocalizations.of(context)!
@@ -160,7 +165,9 @@ class ProfilePage extends StatelessWidget {
                                   option: Options(
                                     icon: Icon(
                                       Icons.logout,
-                                      color: Theme.of(context).accentColor,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       size: 30,
                                     ),
                                     title: AppLocalizations.of(context)!
@@ -318,14 +325,17 @@ class ProfilePage extends StatelessWidget {
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(12.0)),
                                 borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     width: 2),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(10.0)),
                                 borderSide: BorderSide(
-                                    color: Theme.of(context).accentColor),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary),
                               ),
                             ),
                           ),

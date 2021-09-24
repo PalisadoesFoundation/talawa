@@ -23,6 +23,7 @@ class ExploreEvents extends StatelessWidget {
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Theme.of(context).primaryColor,
               key: const Key("ExploreEventsAppBar"),
               elevation: 0.0,
               automaticallyImplyLeading: false,
@@ -35,6 +36,7 @@ class ExploreEvents extends StatelessWidget {
                     ),
               ),
               leading: IconButton(
+                color: Theme.of(context).iconTheme.color,
                 icon: const Icon(Icons.menu),
                 onPressed: () =>
                     homeModel!.scaffoldKey.currentState!.openDrawer(),
@@ -78,7 +80,7 @@ class ExploreEvents extends StatelessWidget {
                                     Card(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .secondary,
+                                          .onPrimary,
                                       elevation: 2,
                                       child: Container(
                                         padding: const EdgeInsets.symmetric(
@@ -102,7 +104,7 @@ class ExploreEvents extends StatelessWidget {
                                         key: homeModel?.keySEDateFilter,
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .secondary,
+                                            .onPrimary,
                                         child: SizedBox(
                                           height:
                                               SizeConfig.screenHeight! * 0.068,
@@ -178,14 +180,14 @@ class ExploreEvents extends StatelessWidget {
               },
               icon: Icon(
                 Icons.add,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               label: Text(
                 AppLocalizations.of(context)!.strictTranslate("Event"),
                 style: Theme.of(context)
                     .textTheme
                     .headline5!
-                    .copyWith(color: Theme.of(context).accentColor),
+                    .copyWith(color: Theme.of(context).colorScheme.secondary),
               ),
             ),
           );
@@ -209,7 +211,7 @@ class ExploreEvents extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .headline6!
-                .copyWith(color: Theme.of(context).accentColor),
+                .copyWith(color: Theme.of(context).colorScheme.secondary),
           ),
         );
       }).toList(),

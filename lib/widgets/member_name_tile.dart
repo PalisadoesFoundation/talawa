@@ -34,7 +34,7 @@ class MemberNameTile extends StatelessWidget {
                   )
                 : CircleAvatar(
                     radius: SizeConfig.screenHeight! * 0.0201,
-                    backgroundColor: Theme.of(context).accentColor,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: Text(
                       userName.toString().substring(0, 1).toUpperCase(),
                       style: const TextStyle(color: Colors.white),
