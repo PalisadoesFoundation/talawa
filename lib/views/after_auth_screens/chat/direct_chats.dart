@@ -48,7 +48,7 @@ Widget chatTile(BuildContext context, ChatListTileDataModel chat,
           ),
           chat.unreadCount != null && chat.unreadCount! > 0
               ? CircleAvatar(
-                  backgroundColor: Theme.of(context).accentColor,
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
                   radius: 10,
                   child: Text(
                     chat.unreadCount!.toString(),

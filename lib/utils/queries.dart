@@ -195,6 +195,7 @@ class Queries {
               lastName
               image
             }
+            
           }
       }
 	}
@@ -243,6 +244,7 @@ class Queries {
                 lastName
                 image
               } 
+              
             }
             createdOrganizations{
               _id

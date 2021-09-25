@@ -43,7 +43,7 @@ class PinnedPostCarousel extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 8.0),
                     child: Icon(
                       Icons.article,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                 ),
