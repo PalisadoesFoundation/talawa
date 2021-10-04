@@ -57,6 +57,21 @@ class AppLanguage extends BaseModel {
         _appLocale = const Locale("zh");
         await prefs.setString('language_code', 'zh');
         await prefs.setString('countryCode', 'CN');
+      } else if (type == const Locale("de")) {
+        //If selected language is Chinese
+        _appLocale = const Locale("de");
+        await prefs.setString('language_code', 'de');
+        await prefs.setString('countryCode', 'GE');
+      } else if (type == const Locale("ja")) {
+        //If selected language is Chinese
+        _appLocale = const Locale("ja");
+        await prefs.setString('language_code', 'ja');
+        await prefs.setString('countryCode', 'JP');
+      } else if (type == const Locale("pt")) {
+        //If selected language is Chinese
+        _appLocale = const Locale("pt");
+        await prefs.setString('language_code', 'pt');
+        await prefs.setString('countryCode', 'PT');
       } else {
         //If selected language is english
         _appLocale = const Locale("en");
@@ -84,6 +99,22 @@ class AppLanguage extends BaseModel {
       await databaseFunctions
           .gqlAuthMutation(queries.updateLanguage(_appLocale.languageCode));
       print('Language Updated in Database');
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> appLanguageQuery() async {
+    try {
+      await databaseFunctions.gqlAuthQuery(queries.userLanguage());
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> userLanguageQuery(String userId) async {
+    try {
+      await databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId));
     } catch (e) {
       print(e);
     }

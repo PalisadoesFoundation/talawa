@@ -48,32 +48,31 @@ class _RaisedRoundedButtonState extends State<RaisedRoundedButton> {
               ]),
           child: widget.showArrow
               ? Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(
-                      width: SizeConfig.screenWidth! * 0.06,
+                    //unused
+                    const Expanded(
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: Colors.transparent,
+                      ),
                     ),
-                    //Unused
-                    const Icon(
-                      Icons.arrow_forward,
-                      color: Colors.transparent,
+                    Expanded(
+                      child: Text(
+                        widget.buttonLabel,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                            color: widget.textColor),
+                      ),
                     ),
-                    const Spacer(),
-                    Text(
-                      widget.buttonLabel,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18,
-                          color: widget.textColor),
+                    Expanded(
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: widget.textColor,
+                      ),
                     ),
-                    const Spacer(),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: widget.textColor,
-                    ),
-                    SizedBox(
-                      width: SizeConfig.screenWidth! * 0.06,
-                    )
                   ],
                 )
               : FittedBox(

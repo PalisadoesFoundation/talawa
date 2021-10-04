@@ -13,7 +13,7 @@ class DirectChatViewModel extends BaseModel {
 
   void initialise() {
     _chats = LRUChatListCache();
-    final List<Map<String, dynamic>> _chatListTileJson = directChatDemoData;
+    const List<Map<String, dynamic>> _chatListTileJson = directChatDemoData;
 
     _chatListTileJson.forEach((chat) {
       final _chatListTile = ChatListTileDataModel.fromJson(chat);

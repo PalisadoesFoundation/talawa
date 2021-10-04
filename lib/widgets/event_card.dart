@@ -30,7 +30,7 @@ class EventCard extends StatelessWidget {
             shape: RoundedRectangleBorder(
               side: isSubscribed
                   ? BorderSide(
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.secondary,
                       width: SizeConfig.screenWidth! * 0.008,
                     )
                   : BorderSide.none,
@@ -208,7 +208,7 @@ class EventCard extends StatelessWidget {
                     height: SizeConfig.screenHeight! * 0.041,
                     width: SizeConfig.screenWidth! * 0.277,
                     decoration: BoxDecoration(
-                        color: Theme.of(context).accentColor,
+                        color: Theme.of(context).colorScheme.secondary,
                         borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(15))),
                     child: Center(

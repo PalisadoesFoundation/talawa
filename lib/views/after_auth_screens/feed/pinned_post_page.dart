@@ -11,9 +11,16 @@ class PinnedPostPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: Theme.of(context).iconTheme,
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 0.0,
-        title:
-            Text(AppLocalizations.of(context)!.strictTranslate('Pinned Posts')),
+        title: Text(
+          AppLocalizations.of(context)!.strictTranslate('Pinned Posts'),
+          style: Theme.of(context).textTheme.headline6!.copyWith(
+                fontWeight: FontWeight.w600,
+                fontSize: 20,
+              ),
+        ),
       ),
       body: ListView(
         children: [PostListWidget(posts: pinnedPosts)],

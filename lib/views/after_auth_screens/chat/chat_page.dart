@@ -11,6 +11,7 @@ class ChatPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           elevation: 0.0,
           centerTitle: true,
           title: Text(

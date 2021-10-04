@@ -19,6 +19,7 @@ import 'package:talawa/services/post_service.dart' as _i9;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
     as _i11;
 import 'package:talawa/services/user_config.dart' as _i15;
+import 'package:talawa/view_model/lang_view_model.dart' as _i16;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -27,6 +28,7 @@ import 'package:talawa/services/user_config.dart' as _i15;
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 // ignore_for_file: prefer_const_constructors
 // ignore_for_file: unnecessary_parenthesis
+// ignore_for_file: unnecessary_overrides
 
 class _FakeGlobalKey<T extends _i1.State<_i1.StatefulWidget>> extends _i2.Fake
     implements _i1.GlobalKey<T> {}
@@ -100,8 +102,17 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
   void pop() => super.noSuchMethod(Invocation.method(#pop, []),
       returnValueForMissingStub: null);
   @override
-  // ignore: unnecessary_overrides
   String toString() => super.toString();
+}
+
+/// A class which mocks [AppLanguage].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAppLanguage extends _i2.Mock implements _i16.AppLanguage {
+  @override
+  _i4.Future<void> initialize() =>
+      (super.noSuchMethod(Invocation.method(#initialize, []),
+          returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
 }
 
 /// A class which mocks [GraphqlConfig].
@@ -132,7 +143,6 @@ class MockGraphqlConfig extends _i2.Mock implements _i8.GraphqlConfig {
       (super.noSuchMethod(Invocation.method(#authClient, []),
           returnValue: _FakeGraphQLClient()) as _i3.GraphQLClient);
   @override
-  // ignore: unnecessary_overrides
   String toString() => super.toString();
 }
 
@@ -173,7 +183,6 @@ class MockPostService extends _i2.Mock implements _i9.PostService {
       super.noSuchMethod(Invocation.method(#addCommentLocally, [postID]),
           returnValueForMissingStub: null);
   @override
-  // ignore: unnecessary_overrides
   String toString() => super.toString();
 }
 
@@ -192,7 +201,6 @@ class MockMultiMediaPickerService extends _i2.Mock
           Invocation.method(#getPhotoFromGallery, [], {#camera: camera}),
           returnValue: Future<_i12.File?>.value()) as _i4.Future<_i12.File?>);
   @override
-  // ignore: unnecessary_overrides
   String toString() => super.toString();
 }
 
@@ -234,7 +242,6 @@ class MockEventService extends _i2.Mock implements _i13.EventService {
   void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
       returnValueForMissingStub: null);
   @override
-  // ignore: unnecessary_overrides
   String toString() => super.toString();
 }
 
@@ -310,6 +317,5 @@ class MockUserConfig extends _i2.Mock implements _i15.UserConfig {
       super.noSuchMethod(
           Invocation.method(#saveCurrentOrgInHive, [saveOrgAsCurrent]));
   @override
-  // ignore: unnecessary_overrides
   String toString() => super.toString();
 }

@@ -22,6 +22,9 @@ class UserConfig {
   String get currentOrgName => _currentOrg!.name!;
   set currentOrg(OrgInfo org) => _currentOrg = org;
   User get currentUser => _currentUser!;
+  set currentUser(User user) {
+    _currentUser = user;
+  }
 
   void initialiseStream() {
     _currentOrgInfoStream =

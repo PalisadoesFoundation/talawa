@@ -11,14 +11,15 @@ import 'package:talawa/widgets/rich_text.dart';
 import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 class WaitingPage extends StatelessWidget {
-  const WaitingPage({required Key key}) : super(key: key);
+  const WaitingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BaseView<WaitingViewModel>(
-        onModelReady: (model) => model.initialise(),
+        onModelReady: (model) => model.initialise(context),
         builder: (context, model, child) {
           return Scaffold(
+            key: const Key('WaitingPageScaffold'),
             extendBodyBehindAppBar: true,
             appBar: AppBar(
               elevation: 0.0,
@@ -44,7 +45,7 @@ class WaitingPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomRichText(
-                          key: const Key('UrlPageText'),
+                          key: const Key('WaitingPageText'),
                           words: model.greeting,
                         ),
                         SizedBox(
@@ -60,6 +61,7 @@ class WaitingPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: ListView.builder(
+                      key: const Key('PendingRequestList'),
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,
                       itemCount: model.pendingRequestOrg.length,

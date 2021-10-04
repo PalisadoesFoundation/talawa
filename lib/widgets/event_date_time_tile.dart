@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 
 class DateTimeTile extends StatelessWidget {
-  const DateTimeTile({Key? key, required this.child}) : super(key: key);
-  final Widget child;
+  const DateTimeTile(
+      {Key? key,
+      required this.date,
+      required this.time,
+      required this.setDate,
+      required this.setTime})
+      : super(key: key);
+  final String date;
+  final String time;
+  final Function setDate;
+  final Function setTime;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +23,45 @@ class DateTimeTile extends StatelessWidget {
       child: Padding(
           padding:
               EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth! * 0.083),
-          child: child),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.calendar_today,
+                color: Color(0xff524F4F),
+                size: 19,
+              ),
+              SizedBox(
+                width: SizeConfig.screenWidth! * 0.045,
+              ),
+              InkWell(
+                onTap: () async {
+                  setDate();
+                },
+                child: Text(
+                  date,
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ),
+              const Spacer(),
+              const Icon(
+                Icons.schedule,
+                color: Color(0xff524F4F),
+                size: 19,
+              ),
+              SizedBox(
+                width: SizeConfig.screenWidth! * 0.045,
+              ),
+              InkWell(
+                onTap: () async {
+                  setTime();
+                },
+                child: Text(
+                  time,
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ),
+            ],
+          )),
     );
   }
 }

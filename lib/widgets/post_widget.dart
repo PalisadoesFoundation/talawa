@@ -88,7 +88,7 @@ class NewsPost extends StatelessWidget {
                       child: Icon(
                         Icons.thumb_up,
                         color: model.isLiked
-                            ? Theme.of(context).accentColor
+                            ? Theme.of(context).colorScheme.secondary
                             : const Color(0xff737373),
                       ),
                     ),

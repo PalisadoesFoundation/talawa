@@ -19,14 +19,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
-                elevation: 0.0,
-                title: Text(
-                  AppLocalizations.of(context)!.strictTranslate('Profile'),
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                      ),
-                )),
+              backgroundColor: Theme.of(context).primaryColor,
+              elevation: 0.0,
+              title: Text(
+                AppLocalizations.of(context)!.strictTranslate('Profile'),
+                style: Theme.of(context).textTheme.headline6!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                    ),
+              ),
+            ),
             body: SingleChildScrollView(
               child: Column(
                 children: [
@@ -62,7 +64,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           right: 0,
                           child: CircleAvatar(
                             radius: SizeConfig.screenHeight! * 0.034,
-                            backgroundColor: Theme.of(context).accentColor,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
                             child: const Icon(
                               Icons.photo_camera,
                               color: Colors.white,

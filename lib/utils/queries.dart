@@ -195,6 +195,7 @@ class Queries {
               lastName
               image
             }
+            
           }
       }
 	}
@@ -243,6 +244,7 @@ class Queries {
                 lastName
                 image
               } 
+              
             }
             createdOrganizations{
               _id
@@ -315,6 +317,22 @@ class Queries {
           lastName
         }
       }
+    }
+  ''';
+  }
+
+  String userLanguage() {
+    return '''
+    query{
+      myLanguage
+    }
+  ''';
+  }
+
+  String newUserLanguage(String userId) {
+    return '''
+    query{
+      userLanguage(userId:"$userId")
     }
   ''';
   }

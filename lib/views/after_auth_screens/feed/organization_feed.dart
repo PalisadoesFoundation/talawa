@@ -19,6 +19,7 @@ class OrganizationFeed extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
             appBar: AppBar(
+              backgroundColor: Theme.of(context).primaryColor,
               elevation: 0.0,
               centerTitle: true,
               title: Text(
@@ -31,7 +32,10 @@ class OrganizationFeed extends StatelessWidget {
               ),
               leading: IconButton(
                 key: homeModel?.keySHMenuIcon,
-                icon: const Icon(Icons.menu),
+                icon: Icon(
+                  Icons.menu,
+                  color: Theme.of(context).iconTheme.color,
+                ),
                 onPressed: () =>
                     homeModel!.scaffoldKey.currentState!.openDrawer(),
               ),
