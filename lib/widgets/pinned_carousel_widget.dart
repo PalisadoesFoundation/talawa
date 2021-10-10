@@ -20,7 +20,7 @@ class PinnedPostCarousel extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 220,
+          height: 130,
           color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
           child: CustomCarouselScroller(
             pinnedPosts: pinnedPosts,
@@ -55,7 +55,12 @@ class PinnedPostCarousel extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
-                const Expanded(flex: 1, child: Icon(Icons.arrow_forward_ios))
+                const Expanded(
+                  flex: 1,
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                  ),
+                )
               ],
             ),
           ),
@@ -66,11 +71,11 @@ class PinnedPostCarousel extends StatelessWidget {
 }
 
 class CustomCarouselScroller extends StatefulWidget {
-  const CustomCarouselScroller(
-      {Key? key,
-      required this.pinnedPosts,
-      required this.navigateToIndividualPostPage})
-      : super(key: key);
+  const CustomCarouselScroller({
+    Key? key,
+    required this.pinnedPosts,
+    required this.navigateToIndividualPostPage,
+  }) : super(key: key);
   final List<Post> pinnedPosts;
   final Function navigateToIndividualPostPage;
 
@@ -80,13 +85,15 @@ class CustomCarouselScroller extends StatefulWidget {
 
 class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
   final PageController controller = PageController(initialPage: 0);
-  int pindex = 0;
+  int postIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8.0,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
@@ -98,18 +105,18 @@ class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
                 backgroundColor: Color(0xff737373),
               ),
               title: Text(
-                  "${widget.pinnedPosts[pindex].creator!.firstName} ${widget.pinnedPosts[pindex].creator!.lastName}"),
+                "${widget.pinnedPosts[postIndex].creator!.firstName} ${widget.pinnedPosts[postIndex].creator!.lastName}",
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                widget.pinnedPosts[pindex].description!.length > 90
-                    ? "${widget.pinnedPosts[pindex].description!.substring(0, 90)}..."
-                    : widget.pinnedPosts[pindex].description!,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(color: const Color(0xFF737373)),
+                widget.pinnedPosts[postIndex].description!.length > 90
+                    ? "${widget.pinnedPosts[postIndex].description!.substring(0, 90)}..."
+                    : widget.pinnedPosts[postIndex].description!,
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: const Color(0xFF737373),
+                    ),
               ),
             ),
             Padding(
@@ -120,10 +127,12 @@ class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
                   for (int i = 0; i < 4; i++)
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 5.0,
+                        ),
                         child: Divider(
                           thickness: 3.0,
-                          color: pindex == i
+                          color: postIndex == i
                               ? Theme.of(context).colorScheme.primary
                               : Colors.grey,
                         ),
@@ -140,7 +149,7 @@ class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
         controller: controller,
         onPageChanged: (index) {
           setState(() {
-            pindex = index;
+            postIndex = index;
           });
         },
         children: List.generate(
