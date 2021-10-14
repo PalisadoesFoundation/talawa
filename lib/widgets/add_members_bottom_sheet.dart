@@ -57,6 +57,12 @@ class EventBottomSheet {
                                         itemCount: snapshot.data!.length,
                                         itemBuilder: (context, index) {
                                           return CheckboxListTile(
+                                            checkColor: Theme.of(context)
+                                                .colorScheme
+                                                .background,
+                                            activeColor: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
                                             title: Text(
                                                 "${snapshot.data![index].firstName!} ${snapshot.data![index].lastName!}"),
                                             value: isAdmin

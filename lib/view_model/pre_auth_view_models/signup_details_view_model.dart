@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -90,7 +91,8 @@ class SignupDetailsViewModel extends BaseModel {
                     userConfig.currentUser.joinedOrganizations![0]);
                 navigationService.removeAllAndPush(
                     Routes.mainScreen, Routes.splashScreen,
-                    arguments: true);
+                    arguments:
+                        MainScreenArgs(mainScreenIndex: 0, fromSignUp: true));
               } on Exception catch (e) {
                 print(e);
                 navigationService.showSnackBar('SomeThing went wrong');

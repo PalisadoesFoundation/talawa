@@ -73,7 +73,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             width: SizeConfig.screenWidth! * 0.036,
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () => model.getImageFromGallery(),
                             child: Text(
                               AppLocalizations.of(context)!
                                   .strictTranslate("Add Image"),
@@ -82,6 +82,31 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           )
                         ],
                       ),
+                      model.imageFile != null
+                          ? Container(
+                              height: 300,
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Image.file(
+                                    model.imageFile!,
+                                    fit: BoxFit.fitWidth,
+                                    width: MediaQuery.of(context).size.width,
+                                  ),
+                                  Positioned(
+                                    right: 5,
+                                    top: 5,
+                                    child: IconButton(
+                                        onPressed: () => model.removeImage(),
+                                        icon: const Icon(
+                                          Icons.cancel,
+                                          color: Colors.black,
+                                        )),
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container(),
                       const Divider(),
                       CreateEventForm(
                         model: model,
