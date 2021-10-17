@@ -26,6 +26,7 @@ class _EditEventPageState extends State<EditEventPage> {
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
             elevation: 1,
             centerTitle: true,
             leading: GestureDetector(
@@ -48,7 +49,8 @@ class _EditEventPageState extends State<EditEventPage> {
                   child: Text(
                     'Done',
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 16, color: Theme.of(context).accentColor),
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.secondary),
                   )),
             ],
           ),

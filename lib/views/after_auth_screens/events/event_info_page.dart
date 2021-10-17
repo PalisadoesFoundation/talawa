@@ -52,7 +52,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
-                          .copyWith(color: Theme.of(context).accentColor),
+                          .copyWith(color: Theme.of(context).colorScheme.secondary),
                     ))
                 : eventAdminFab(
                     context: context,
@@ -112,7 +112,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
                     ? Icon(
                         Icons.lock_open,
                         size: 13,
-                        color: Theme.of(context).accentColor,
+                        color: Theme.of(context).colorScheme.secondary,
                       )
                     : Icon(
                         Icons.lock,

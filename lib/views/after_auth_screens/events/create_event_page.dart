@@ -27,6 +27,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
         builder: (context, model, child) {
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: Theme.of(context).primaryColor,
               elevation: 1,
               centerTitle: true,
               leading: GestureDetector(
@@ -49,7 +50,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                   child: Text(
                     AppLocalizations.of(context)!.strictTranslate('Add'),
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 16, color: Theme.of(context).accentColor),
+                        fontSize: 16,
+                        color: Theme.of(context).colorScheme.secondary),
                   ),
                 ),
               ],
@@ -71,7 +73,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             width: SizeConfig.screenWidth! * 0.036,
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () => model.getImageFromGallery(),
                             child: Text(
                               AppLocalizations.of(context)!
                                   .strictTranslate("Add Image"),
@@ -80,6 +82,31 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           )
                         ],
                       ),
+                      model.imageFile != null
+                          ? Container(
+                              height: 300,
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Image.file(
+                                    model.imageFile!,
+                                    fit: BoxFit.fitWidth,
+                                    width: MediaQuery.of(context).size.width,
+                                  ),
+                                  Positioned(
+                                    right: 5,
+                                    top: 5,
+                                    child: IconButton(
+                                        onPressed: () => model.removeImage(),
+                                        icon: const Icon(
+                                          Icons.cancel,
+                                          color: Colors.black,
+                                        )),
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container(),
                       const Divider(),
                       CreateEventForm(
                         model: model,
@@ -218,7 +245,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             Text("Add Admins", style: _subtitleTextStyle),
                             Icon(
                               Icons.add,
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).colorScheme.secondary,
                             )
                           ],
                         ),
@@ -249,7 +276,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             Text("Add Members", style: _subtitleTextStyle),
                             Icon(
                               Icons.add,
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).colorScheme.secondary,
                             )
                           ],
                         ),
