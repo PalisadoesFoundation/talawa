@@ -172,7 +172,9 @@ class EventCard extends StatelessWidget {
                                     Icon(
                                       Icons.verified,
                                       size: 13,
-                                      color: Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                     ),
                                     SizedBox(
                                       width: SizeConfig.screenWidth! * 0.013,

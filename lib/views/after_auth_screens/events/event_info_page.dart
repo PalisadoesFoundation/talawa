@@ -49,10 +49,8 @@ class _EventInfoPageState extends State<EventInfoPage> {
                     },
                     label: Text(
                       model.fabTitle,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(color: Theme.of(context).colorScheme.secondary),
+                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          color: Theme.of(context).colorScheme.secondary),
                     ))
                 : eventAdminFab(
                     context: context,
