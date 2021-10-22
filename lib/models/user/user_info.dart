@@ -125,7 +125,7 @@ class User extends HiveObject {
   /// Update user details
   update(User details) {
 
-    /// errors in the lines below check to see if the attributes are assign correctly
+    /// errors in the lines below check to see if the attributes are assigned correctly
     this.firstName = details.firstName;
     this.lastName = details.firstName;
     this.email = details.firstName;
