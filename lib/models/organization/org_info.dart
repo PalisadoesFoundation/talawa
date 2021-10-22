@@ -4,8 +4,13 @@ import 'package:talawa/models/user/user_info.dart';
 
 part 'org_info.g.dart';
 
+/// An OrgInfo object repesents an organization's information details.
+///
+/// It can be encoded as a string and is generated as TypeAdapter.
 @HiveType(typeId: 2)
+@JsonSerializable()
 class OrgInfo {
+  /// Returns a new instance of OrgInfo class
   OrgInfo(
       {this.admins,
       this.members,
@@ -16,6 +21,7 @@ class OrgInfo {
       this.isPublic,
       this.name});
 
+  /// Factory constructor utilizing the `fromJson` factory.
   factory OrgInfo.fromJson(Map<String, dynamic> json1,
       {bool memberRequest = false}) {
     Map<String, dynamic> json;
@@ -50,6 +56,7 @@ class OrgInfo {
     );
   }
 
+  /// Returns a list of all OrgInfo objects.
   List<OrgInfo> fromJsonToList(List<dynamic> json) {
     final List<OrgInfo> _orgList = [];
     json.forEach((element) {
@@ -59,6 +66,7 @@ class OrgInfo {
     return _orgList;
   }
 
+  /// fields annotated for HiveType
   @HiveField(0)
   String? image;
   @HiveField(1)
@@ -76,6 +84,7 @@ class OrgInfo {
   @HiveField(7)
   User? creatorInfo;
 
+  /// Prints the properties for OrgInfo object to the console.
   printOrgInfo() {
     debugPrint('_id: ${this.id}');
     debugPrint('name: ${this.name}');
