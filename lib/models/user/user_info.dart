@@ -103,16 +103,16 @@ class User extends HiveObject {
   @HiveField(10)
   List<OrgInfo>? membershipRequests = [];
   
-  /// Update Joined Org
+  /// Update  the Joined Organizations
   updateJoinedOrg(List<OrgInfo> orgList) {
     this.joinedOrganizations = orgList;
   }
-  /// update createOrg
+  /// update the organizations created by the user
   updateCreatedOrg(List<OrgInfo> orgList) {
     this.createdOrganizations = orgList;
   }
 
-  /// update Member Request
+  /// update the  Member Request organizations
   updateMemberRequestOrg(List<OrgInfo> orgList) {
     this.membershipRequests = [...membershipRequests!, ...orgList];
   }
@@ -124,10 +124,12 @@ class User extends HiveObject {
 
   /// Update user details
   update(User details) {
+
+    /// errors in the lines below check to see if the attributes are assign correctly
     this.firstName = details.firstName;
-    this.lastName = details.lastName;
-    this.email = details.email;
-    this.image = details.image;
+    this.lastName = details.firstName;
+    this.email = details.firstName;
+    this.image = details.firstName;
     this.authToken = details.authToken;
     this.refreshToken = details.refreshToken;
     this.joinedOrganizations = details.joinedOrganizations;
