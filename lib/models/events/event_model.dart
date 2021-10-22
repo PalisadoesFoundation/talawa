@@ -1,7 +1,9 @@
+/// Imported packages
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
-class Event {
+class Event {  
+  ///Creates an event object
   Event(
       {this.id,
       this.title,
@@ -23,6 +25,7 @@ class Event {
       this.admins,
       this.registrants});
 
+  /// Returns a runtime instance of the Event class
   factory Event.fromJson(
     Map<String, dynamic> json,
   ) {
@@ -32,23 +35,46 @@ class Event {
       description: json['description'] as String?,
       attendees: json['attendees'] as String?,
       location: json['location'] as String?,
+      
+      /// only true if the event occurs repeatedly
       recurring: json['recurring'] as bool?,
+
+      /// only true if the event lasts all day (12 am to 12 midnight)
       allDay: json['allDay'] as bool?,
+
       startDate: json['startDate'] as String?,
       endDate: json['endDate'] as String?,
       startTime: json['startTime'] as String?,
       endTime: json['endTime'] as String?,
       recurrence: json['recurrence'] as String?,
+
+      /// only true if the event is a public one
       isPublic: json['isPublic'] as bool?,
+
+      /// only true if the user is registered for this event
       isRegistered: json['isSubscribed'] as bool?,
+
+      /// only true if users can register for the event
       isRegisterable: json['isRegisterable'] as bool?,
+
+      /// Giving [creator] a default value of null
+      ///
+      /// Returns a parsed User object and creates the corresponding g.dart file
       creator: json['creator'] == null
           ? null
           : User.fromJson(json['creator'] as Map<String, dynamic>,
               fromOrg: true),
+      
+      /// Giving [organization] a default value of null
+      ///
+      /// Returns a parsed Organization object and creates the corresponding g.dart file
       organization: json['organization'] == null
           ? null
           : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
+      
+      /// Giving [admins] a default value of null
+      ///
+      /// Returns a parsed list of User objects who are considered admins and creates the corresponding g.dart file
       admins: json['admins'] == null
           ? null
           : (json['admins'] as List<dynamic>?)
