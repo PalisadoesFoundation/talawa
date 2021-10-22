@@ -1,10 +1,16 @@
+/// Importing files need for this file user_info.dart
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
 
+/// user_info.g.dart' will be split and its private members 
+/// are accessible for all code within the files 
 part 'user_info.g.dart';
 
+/// HiveType can be used to keep track of old field Ids which must not be reused.
 @HiveType(typeId: 1)
+
+/// The user class extends HiveObject
 class User extends HiveObject {
   User(
       {this.adminFor,
@@ -19,6 +25,7 @@ class User extends HiveObject {
       this.refreshToken,
       this.membershipRequests});
 
+  /// Returns an instance of an user
   factory User.fromJson(Map<String, dynamic> json1, {bool fromOrg = false}) {
     Map<String, dynamic> json;
     if (fromOrg) {
@@ -58,6 +65,7 @@ class User extends HiveObject {
             : null);
   }
 
+  /// Output User Details
   print() {
     debugPrint('authToken: ${this.authToken}');
     debugPrint('refreshToken: ${this.refreshToken}');
@@ -94,28 +102,32 @@ class User extends HiveObject {
   List<OrgInfo>? adminFor = [];
   @HiveField(10)
   List<OrgInfo>? membershipRequests = [];
-
+  
+  /// Update Joined Org
   updateJoinedOrg(List<OrgInfo> orgList) {
     this.joinedOrganizations = orgList;
   }
-
+  /// update createOrg
   updateCreatedOrg(List<OrgInfo> orgList) {
     this.createdOrganizations = orgList;
   }
 
+  /// update Member Request
   updateMemberRequestOrg(List<OrgInfo> orgList) {
     this.membershipRequests = [...membershipRequests!, ...orgList];
   }
-
+  
+  /// update adminfor
   updateAdminFor(List<OrgInfo> orgList) {
     this.adminFor = orgList;
   }
 
+  /// Update user details
   update(User details) {
     this.firstName = details.firstName;
-    this.lastName = details.firstName;
-    this.email = details.firstName;
-    this.image = details.firstName;
+    this.lastName = details.lastName;
+    this.email = details.email;
+    this.image = details.image;
     this.authToken = details.authToken;
     this.refreshToken = details.refreshToken;
     this.joinedOrganizations = details.joinedOrganizations;
