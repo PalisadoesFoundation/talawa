@@ -1,4 +1,4 @@
-/// Importing files need for this file user_info.dart
+/// importing packages and files
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -103,21 +103,21 @@ class User extends HiveObject {
   @HiveField(10)
   List<OrgInfo>? membershipRequests = [];
   
-  /// Update  the Joined Organizations
+  /// Update the list of organizations joined by the user
   updateJoinedOrg(List<OrgInfo> orgList) {
     this.joinedOrganizations = orgList;
   }
-  /// update the organizations created by the user
+  /// update the list of organizations created by the user
   updateCreatedOrg(List<OrgInfo> orgList) {
     this.createdOrganizations = orgList;
   }
 
-  /// update the  Member Request organizations
+  /// update the list of membership requests for an organizations
   updateMemberRequestOrg(List<OrgInfo> orgList) {
     this.membershipRequests = [...membershipRequests!, ...orgList];
   }
   
-  /// update adminfor
+  /// update admin for the orgnaization
   updateAdminFor(List<OrgInfo> orgList) {
     this.adminFor = orgList;
   }
