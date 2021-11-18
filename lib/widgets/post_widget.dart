@@ -113,9 +113,7 @@ class NewsPost extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
 class PostContainer extends StatefulWidget {
-  // ignore: avoid_unused_constructor_parameters
   const PostContainer({
     required this.isInView,
     required this.id,
@@ -139,6 +137,7 @@ class PostContainerState extends State<PostContainer> {
 
   @override
   void dispose() {
+    controller.dispose();
     super.dispose();
   }
 
@@ -149,7 +148,6 @@ class PostContainerState extends State<PostContainer> {
     return VisibilityDetector(
       key: Key(widget.id),
       onVisibilityChanged: (info) {
-        print('post visibility info: ${info.visibleFraction}');
         info.visibleFraction > 0.5 ? inView = true : inView = false;
         setState(() {});
       },
