@@ -5,6 +5,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/queries.dart';
@@ -107,7 +108,8 @@ class SelectOrganizationViewModel extends BaseModel {
           userConfig.saveCurrentOrgInHive(
               userConfig.currentUser.joinedOrganizations![0]);
           navigationService.removeAllAndPush(
-              Routes.mainScreen, Routes.splashScreen);
+              Routes.mainScreen, Routes.splashScreen,
+              arguments: MainScreenArgs(mainScreenIndex: 0));
         } else {
           navigationService.pop();
           navigationService

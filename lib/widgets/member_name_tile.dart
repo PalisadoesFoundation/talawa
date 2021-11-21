@@ -22,7 +22,7 @@ class MemberNameTile extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius:
                 BorderRadius.circular(SizeConfig.screenHeight! * 0.02),
-            color: Theme.of(context).colorScheme.secondary),
+            color: Theme.of(context).colorScheme.primaryVariant),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,

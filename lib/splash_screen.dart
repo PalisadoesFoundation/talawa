@@ -5,13 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:uni_links/uni_links.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({required Key key}) : super(key: key);
+  const SplashScreen({required Key key, this.mainScreenIndex = 0})
+      : super(key: key);
+  final int mainScreenIndex;
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -60,7 +63,9 @@ class _SplashScreenState extends State<SplashScreen> {
             }
           } else {
             navigationService.pushReplacementScreen(Routes.mainScreen,
-                arguments: false);
+                arguments: MainScreenArgs(
+                    mainScreenIndex: widget.mainScreenIndex,
+                    fromSignUp: false));
           }
         } else {
           navigationService.pushReplacementScreen(Routes.languageSelectionRoute,

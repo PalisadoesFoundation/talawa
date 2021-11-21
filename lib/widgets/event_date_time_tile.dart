@@ -17,7 +17,7 @@ class DateTimeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).colorScheme.secondary,
+      color: Theme.of(context).colorScheme.primaryVariant,
       height: SizeConfig.screenHeight! * 0.068,
       width: double.infinity,
       child: Padding(

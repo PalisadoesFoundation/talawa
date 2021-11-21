@@ -5,7 +5,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:talawa/constants/custom_theme.dart';
+import 'package:talawa/constants/quick_actions.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -37,6 +39,32 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final quickActions = const QuickActions();
+  late int mainScreenQuickActionindex = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    initQuickActions();
+    super.initState();
+  }
+
+  initQuickActions() async {
+    final bool userLoggedIn = await userConfig.userLoggedIn();
+    if (userLoggedIn &&
+        userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
+      quickActions.initialize((type) {
+        if (type == ShortCutMenu.eventAction.type) {
+          mainScreenQuickActionindex = 1;
+        } else if (type == ShortCutMenu.feedAction.type) {
+          mainScreenQuickActionindex = 0;
+        } else if (type == ShortCutMenu.chatAction.type) {
+          mainScreenQuickActionindex = 3;
+        }
+      });
+      quickActions.setShortcutItems(ShortCutMenu.quickActionsList);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<AppLanguage>(
@@ -84,6 +112,12 @@ class _MyAppState extends State<MyApp> {
                   return supportedLocales.first;
                 },
                 initialRoute: '/',
+                onGenerateInitialRoutes: (String initialRouteName) {
+                  return [
+                    router.generateRoute(RouteSettings(
+                        name: '/', arguments: mainScreenQuickActionindex)),
+                  ];
+                },
               );
             });
       },
