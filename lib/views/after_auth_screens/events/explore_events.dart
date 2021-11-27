@@ -138,31 +138,34 @@ class ExploreEvents extends StatelessWidget {
                                 ),
                                 SizedBox(
                                     height: SizeConfig.screenHeight! * 0.027),
-                                ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: model.events.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return GestureDetector(
-                                        key: index == 0
-                                            ? homeModel?.keySECard
-                                            : null,
-                                        onTap: () {
-                                          navigationService.pushScreen(
-                                              "/eventInfo",
-                                              arguments: {
-                                                "event": model.events[index],
-                                                "exploreEventViewModel": model
-                                              });
-                                        },
-                                        child: EventCard(
-                                          event: model.events[index],
-                                          isSearchItem: false,
-                                        ),
-                                      );
-                                    }),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 60.0),
+                                  child: ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: model.events.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return GestureDetector(
+                                          key: index == 0
+                                              ? homeModel?.keySECard
+                                              : null,
+                                          onTap: () {
+                                            navigationService.pushScreen(
+                                                "/eventInfo",
+                                                arguments: {
+                                                  "event": model.events[index],
+                                                  "exploreEventViewModel": model
+                                                });
+                                          },
+                                          child: EventCard(
+                                            event: model.events[index],
+                                            isSearchItem: false,
+                                          ),
+                                        );
+                                      }),
+                                ),
                               ],
                             ),
                           ),
