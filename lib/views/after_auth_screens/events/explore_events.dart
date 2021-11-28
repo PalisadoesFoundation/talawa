@@ -138,8 +138,9 @@ class ExploreEvents extends StatelessWidget {
                                 ),
                                 SizedBox(
                                     height: SizeConfig.screenHeight! * 0.027),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 60.0),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      bottom: SizeConfig.screenHeight! * 0.09),
                                   child: ListView.builder(
                                       physics:
                                           const NeverScrollableScrollPhysics(),
