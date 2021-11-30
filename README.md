@@ -61,4 +61,3 @@ We have tried to make the process simple. Here's what you need to do.
     $ flutter pub get
     ```
 1. Start developing!
-
