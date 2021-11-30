@@ -6,7 +6,6 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/post_detailed_page.dart';
 import 'package:talawa/widgets/video_widget.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 class NewsPost extends StatelessWidget {
   const NewsPost({
@@ -44,7 +43,7 @@ class NewsPost extends StatelessWidget {
         Container(
           height: 400,
           color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
-          child: PostContainer(isInView: isInView, id: post.sId),
+          child: PostContainer(isInView: isInView),
         ),
         BaseView<LikeButtonViewModel>(
           onModelReady: (model) =>
@@ -113,14 +112,11 @@ class NewsPost extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class PostContainer extends StatefulWidget {
-  const PostContainer({
-    required this.isInView,
-    required this.id,
-    Key? key,
-  }) : super(key: key);
+  // ignore: avoid_unused_constructor_parameters
+  const PostContainer({required this.isInView, Key? key}) : super(key: key);
   final bool isInView;
-  final String id;
 
   @override
   PostContainerState createState() => PostContainerState();
@@ -128,7 +124,6 @@ class PostContainer extends StatefulWidget {
 
 class PostContainerState extends State<PostContainer> {
   bool startedPlaying = false;
-  bool inView = true;
 
   @override
   void initState() {
@@ -137,7 +132,6 @@ class PostContainerState extends State<PostContainer> {
 
   @override
   void dispose() {
-    controller.dispose();
     super.dispose();
   }
 
@@ -145,67 +139,59 @@ class PostContainerState extends State<PostContainer> {
   int pindex = 0;
   @override
   Widget build(BuildContext context) {
-    return VisibilityDetector(
-      key: Key(widget.id),
-      onVisibilityChanged: (info) {
-        info.visibleFraction > 0.5 ? inView = true : inView = false;
-        setState(() {});
-      },
-      child: Stack(children: [
-        PageView(
-          scrollDirection: Axis.horizontal,
-          controller: controller,
-          onPageChanged: (index) {
-            setState(() {
-              pindex = index;
-              inView = pindex == 0;
-            });
-          },
-          children: List.generate(
-            4,
-            (index) => index == 0
-                ? Center(
-                    child: VideoWidget(
-                        url:
-                            'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-                        play: inView))
-                : const Image(
-                    image: NetworkImage(
-                        'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                  ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 100.0, vertical: 10.0),
-                child: Row(
-                  children: [
-                    for (int i = 0; i < 4; i++)
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Divider(
-                            thickness: 3.0,
-                            color: pindex == i
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.grey,
-                          ),
-                        ),
-                      )
-                  ],
+    return Stack(children: [
+      PageView(
+        scrollDirection: Axis.horizontal,
+        controller: controller,
+        onPageChanged: (index) {
+          setState(() {
+            pindex = index;
+          });
+        },
+        children: List.generate(
+          4,
+          (index) => index == 0
+              ? Center(
+                  child: VideoWidget(
+                      url:
+                          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+                      play: widget.isInView))
+              : const Image(
+                  image: NetworkImage(
+                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
                 ),
-              )
-            ],
-          ),
         ),
-      ]),
-    );
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10.0),
+              child: Row(
+                children: [
+                  for (int i = 0; i < 4; i++)
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: Divider(
+                          thickness: 3.0,
+                          color: pindex == i
+                              ? Theme.of(context).colorScheme.primary
+                              : Colors.grey,
+                        ),
+                      ),
+                    )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    ]);
   }
 }
