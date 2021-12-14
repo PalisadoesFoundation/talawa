@@ -274,7 +274,7 @@ Future<void> main() async {
         'Login',
       );
     });
-    testWidgets("Testing if signup button works", (tester) async {
+    testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenLight());
       await tester.pumpAndSettle();
@@ -485,7 +485,7 @@ Future<void> main() async {
         'Login',
       );
     });
-    testWidgets("Testing if signup button works", (tester) async {
+    testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenDark());
       await tester.pumpAndSettle();
