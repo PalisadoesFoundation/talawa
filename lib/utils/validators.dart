@@ -72,11 +72,39 @@ class Validator {
     const String noSpaces = r'^\S+$';
     final RegExp noSpaceRegex = RegExp(noSpaces);
 
-    if (!regExp.hasMatch(password)) {
-      return "Invalid Password";
+    //Regex for uppercase
+    const String upperCase = r'[A-Z]';
+    final RegExp upperCaseRegex = RegExp(upperCase);
+
+    //Regex for LowerCase
+    const String lowercase = r'[a-z]';
+    final RegExp lowerCaseRegex = RegExp(lowercase);
+
+    //Regex for Digit
+    const String hasDigit = r'[0-9]';
+    final RegExp hasDigitRegex = RegExp(hasDigit);
+
+    //Regex for Special Characters
+    const String hasSpecialCharacters = r'[!@#$%^&*(),.?":{}|<>]';
+    final RegExp hasSpecialCharactersRegex = RegExp(hasSpecialCharacters);
+
+    if (!upperCaseRegex.hasMatch(password)) {
+      return "Password should contain atleast 1 uppercase character";
+    }
+    if (!lowerCaseRegex.hasMatch(password)) {
+      return "Password Should Contain atleast 1 Lowercase character";
+    }
+    if (!hasDigitRegex.hasMatch(password)) {
+      return "Password Should Contain atleast 1 Digit";
+    }
+    if (!hasSpecialCharactersRegex.hasMatch(password)) {
+      return "Password Should Contain atleast 1 Special character";
     }
     if (!noSpaceRegex.hasMatch(password)) {
       return "Password must not contain spaces";
+    }
+    if (!regExp.hasMatch(password)) {
+      return "Invalid Password";
     }
 
     return null;
