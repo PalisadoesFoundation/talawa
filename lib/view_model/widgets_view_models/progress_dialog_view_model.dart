@@ -6,9 +6,10 @@ import 'package:talawa/view_model/base_view_model.dart';
 class ProgressDialogViewModel extends BaseModel {
   late ConnectivityResult connectivityResult;
   bool connectivityPresent = false;
-  initialise() async {
+
+  Future<void> initialise() async {
     setState(ViewState.busy);
-    connectivityResult = await Connectivity().checkConnectivity();
+    connectivityResult = await connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       connectivityPresent = false;
       Future.delayed(const Duration(seconds: 2))
