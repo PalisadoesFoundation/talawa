@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -24,7 +25,6 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
-
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks([], customMocks: [
@@ -34,6 +34,8 @@ import 'test_helpers.mocks.dart';
   MockSpec<MultiMediaPickerService>(returnNullOnMissingStub: true),
   MockSpec<EventService>(returnNullOnMissingStub: true),
   MockSpec<UserConfig>(returnNullOnMissingStub: true),
+  MockSpec<AppLanguage>(returnNullOnMissingStub: true),
+  MockSpec<Connectivity>(returnNullOnMissingStub: true),
 ])
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
@@ -146,6 +148,13 @@ EventService getAndRegisterEventService() {
   return service;
 }
 
+Connectivity getAndRegisterConnectivityService() {
+  _removeRegistrationIfExists<Connectivity>();
+  final service = MockConnectivity();
+  locator.registerSingleton<Connectivity>(service);
+  return service;
+}
+
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterAppLanguage();
@@ -154,6 +163,7 @@ void registerServices() {
   getAndRegisterPostService();
   getAndRegisterEventService();
   getAndRegisterMultiMediaPickerService();
+  getAndRegisterConnectivityService();
 }
 
 void unregisterServices() {
@@ -163,6 +173,7 @@ void unregisterServices() {
   locator.unregister<PostService>();
   locator.unregister<EventService>();
   locator.unregister<MultiMediaPickerService>();
+  locator.unregister<Connectivity>();
 }
 
 void registerViewModels() {
