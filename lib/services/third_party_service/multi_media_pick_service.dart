@@ -31,8 +31,7 @@ class MultiMediaPickerService {
 
   Future<File?> getPhotoFromGallery({bool camera = false}) async {
     try {
-      // ignore: deprecated_member_use
-      final _image = await _picker.getImage(
+      final _image = await _picker.pickImage(
           source: camera ? ImageSource.camera : ImageSource.gallery);
       if (_image != null) {
         return await cropImage(imageFile: File(_image.path));
@@ -47,7 +46,7 @@ class MultiMediaPickerService {
             dialogTitle: 'Permission Denied',
             successText: 'SETTINGS',
             dialogSubTitle:
-                'Camera permission is required, to use this feature, give permission from app settings'));
+                "Camera permission is required, to use this feature, give permission from app settings"));
       }
       print(
           "MulitMediaPickerService : Exception occured while choosing photo from the gallery $e");
