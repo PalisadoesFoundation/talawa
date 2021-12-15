@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -5,12 +7,16 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/org_service.dart';
+import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 class CreateEventViewModel extends BaseModel {
+  late MultiMediaPickerService _multiMediaPickerService;
+  late File? _imageFile;
+
   TextEditingController eventTitleTextController = TextEditingController();
   TextEditingController eventLocationTextController = TextEditingController();
   TextEditingController eventDescriptionTextController =
@@ -39,15 +45,18 @@ class CreateEventViewModel extends BaseModel {
 
   late OrgInfo _currentOrg;
   final _userConfig = locator<UserConfig>();
-
   List<User> get selectedAdmins => _selectedAdmins;
   List<User> get selectedMembers => _selectedMembers;
   Map<String, bool> get adminCheckedMap => _adminCheckedMap;
   Map<String, bool> get memberCheckedMap => _memberCheckedMap;
+  File? get imageFile => _imageFile;
 
   initialize() {
     _currentOrg = _userConfig.currentOrg;
     _organizationService = locator<OrganizationService>();
+
+    _imageFile = null;
+    _multiMediaPickerService = locator<MultiMediaPickerService>();
   }
 
   Future<void> createEvent() async {
@@ -92,10 +101,23 @@ class CreateEventViewModel extends BaseModel {
       print('Result is : $result');
       if (result != null) {
         navigationService.pop();
-
         _eventService.getEvents();
       }
     }
+  }
+
+  Future<void> getImageFromGallery({bool camera = false}) async {
+    final _image =
+        await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
+    if (_image != null) {
+      _imageFile = _image;
+      notifyListeners();
+    }
+  }
+
+  void removeImage() {
+    _imageFile = null;
+    notifyListeners();
   }
 
   Future<List<User>> getCurrentOrgUsersList({required bool isAdmin}) async {

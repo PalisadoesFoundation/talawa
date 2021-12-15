@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/add_post_page.dart';
@@ -10,13 +11,15 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key, this.fromSignUp = false}) : super(key: key);
-  final bool fromSignUp;
+  const MainScreen({Key? key, required this.mainScreenArgs}) : super(key: key);
+  //final bool fromSignUp;
+  final MainScreenArgs mainScreenArgs;
   @override
   Widget build(BuildContext context) {
     return BaseView<MainScreenViewModel>(
-        onModelReady: (model) =>
-            model.initialise(context, fromSignUp: fromSignUp),
+        onModelReady: (model) => model.initialise(context,
+            fromSignUp: mainScreenArgs.fromSignUp,
+            mainScreenIndex: mainScreenArgs.mainScreenIndex),
         builder: (context, model, child) {
           return Scaffold(
             key: model.scaffoldKey,
