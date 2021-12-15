@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/services/comment_service.dart';
@@ -39,6 +40,7 @@ final databaseFunctions = locator<DataBaseMutationFunctions>();
 final graphqlConfig = locator<GraphqlConfig>();
 final sizeConfig = locator<SizeConfig>();
 final queries = locator<Queries>();
+final connectivity = locator<Connectivity>();
 
 void setupLocator() {
   //services
@@ -56,6 +58,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => OrganizationService());
   locator.registerLazySingleton(() => MultiMediaPickerService());
+  locator.registerLazySingleton(() => Connectivity());
 
   //graphql
   locator.registerSingleton(GraphqlConfig());
