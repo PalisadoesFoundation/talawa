@@ -89,7 +89,24 @@ UserConfig getAndRegisterUserConfig() {
       refreshToken: "testtoken",
       authToken: 'testtoken',
       adminFor: [],
-      joinedOrganizations: [],
+      joinedOrganizations: [
+        OrgInfo(
+          id: '3',
+          name: 'test org 3',
+          isPublic: true,
+          creatorInfo: User(firstName: 'test', lastName: '1'),
+        ),
+        OrgInfo(
+          id: '4',
+          name: 'test org 4',
+          isPublic: false,
+          creatorInfo: User(firstName: 'test', lastName: '2'),
+        ),
+        OrgInfo(
+          id: "XYZ",
+          name: "Organization Name",
+        ),
+      ],
       membershipRequests: [
         OrgInfo(
           id: '1',
