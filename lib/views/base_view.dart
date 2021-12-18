@@ -20,6 +20,7 @@ class _BaseViewState<T extends ChangeNotifier> extends State<BaseView<T>> {
   @override
   void initState() {
     if (widget.onModelReady != null) {
+      // ignore: prefer_null_aware_method_calls
       widget.onModelReady!(
         model,
       );
