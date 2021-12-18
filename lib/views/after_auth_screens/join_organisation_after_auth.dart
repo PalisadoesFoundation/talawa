@@ -175,10 +175,10 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
   void _onQRViewCreated(
       QRViewController controller, SelectOrganizationViewModel model) {
     controller.scannedDataStream.listen((scanData) {
-      if (scanData.code.isNotEmpty) {
+      if (scanData.code!.isNotEmpty) {
         print(scanData.code);
         try {
-          final List<String> data = scanData.code.split('?');
+          final List<String> data = scanData.code!.split('?');
           final String url = data[0];
           Vibration.vibrate(duration: 100);
           if (url == GraphqlConfig.orgURI) {
