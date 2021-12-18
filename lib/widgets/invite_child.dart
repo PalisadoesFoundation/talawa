@@ -50,10 +50,10 @@ Widget invite(BuildContext context) {
               () async => SocialShare.shareTwitter('Join us', url: url)),
           iconButton(
               CustomPaint(
-                size: Size(
+                size: const Size(
                     50,
-                    (50 * 1.004)
-                        .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                    50 *
+                        1.004), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
                 painter: WhatsappLogo(),
               ),
               () async => SocialShare.shareWhatsapp(url)),

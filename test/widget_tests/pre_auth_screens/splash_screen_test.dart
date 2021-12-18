@@ -77,10 +77,8 @@ void main() {
       await tester.pumpAndSettle();
       final logoWidget = find.byKey(const Key('LogoPainter'));
       expect(logoWidget, findsOneWidget);
-      expect(
-          (tester.firstWidget(logoWidget) as CustomPaint).size,
-          Size(SizeConfig.screenWidth! * 0.6,
-              (SizeConfig.screenWidth! * 0.6).toDouble()));
+      expect((tester.firstWidget(logoWidget) as CustomPaint).size,
+          Size(SizeConfig.screenWidth! * 0.6, SizeConfig.screenWidth! * 0.6));
     });
     testWidgets("Testing if app name shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());

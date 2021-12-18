@@ -125,10 +125,8 @@ Future<void> main() async {
       //finding the logo
       expect(logoWidget, findsOneWidget);
       //testing logo size
-      expect(
-          (tester.firstWidget(logoWidget) as CustomPaint).size,
-          Size(SizeConfig.screenWidth! * 0.6,
-              (SizeConfig.screenWidth! * 0.6).toDouble()));
+      expect((tester.firstWidget(logoWidget) as CustomPaint).size,
+          Size(SizeConfig.screenWidth! * 0.6, SizeConfig.screenWidth! * 0.6));
     });
     testWidgets("Testing if custom rich text shows up", (tester) async {
       //pushing setUrlScreen
@@ -336,10 +334,8 @@ Future<void> main() async {
       //finding the logo
       expect(logoWidget, findsOneWidget);
       //testing logo size
-      expect(
-          (tester.firstWidget(logoWidget) as CustomPaint).size,
-          Size(SizeConfig.screenWidth! * 0.6,
-              (SizeConfig.screenWidth! * 0.6).toDouble()));
+      expect((tester.firstWidget(logoWidget) as CustomPaint).size,
+          Size(SizeConfig.screenWidth! * 0.6, SizeConfig.screenWidth! * 0.6));
     });
     testWidgets("Testing if custom rich text shows up", (tester) async {
       //pushing setUrlScreen
