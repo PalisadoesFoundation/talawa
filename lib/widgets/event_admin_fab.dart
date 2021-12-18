@@ -4,10 +4,11 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 
-Widget eventAdminFab(
-    {required BuildContext context,
-    required Event event,
-    required ExploreEventsViewModel exploreEventsViewModel}) {
+Widget eventAdminFab({
+  required BuildContext context,
+  required Event event,
+  required ExploreEventsViewModel exploreEventsViewModel,
+}) {
   return SpeedDial(
     icon: Icons.menu,
     activeIcon: Icons.close,

@@ -20,9 +20,10 @@ class CustomDrawerViewModel extends BaseModel {
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
 
   initialize(MainScreenViewModel homeModel, BuildContext context) {
-    _currentOrganizationStreamSubscription = userConfig.currentOrfInfoStream
-        .listen((updatedOrganization) =>
-            setSelectedOrganizationName(updatedOrganization));
+    _currentOrganizationStreamSubscription =
+        userConfig.currentOrfInfoStream.listen(
+      (updatedOrganization) => setSelectedOrganizationName(updatedOrganization),
+    );
     _currentUser = userConfig.currentUser;
     _selectedOrg = userConfig.currentOrg;
     _switchAbleOrg = _currentUser.joinedOrganizations!;

@@ -27,16 +27,19 @@ import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'test_helpers.mocks.dart';
 
-@GenerateMocks([], customMocks: [
-  MockSpec<NavigationService>(returnNullOnMissingStub: true),
-  MockSpec<GraphqlConfig>(returnNullOnMissingStub: true),
-  MockSpec<PostService>(returnNullOnMissingStub: true),
-  MockSpec<MultiMediaPickerService>(returnNullOnMissingStub: true),
-  MockSpec<EventService>(returnNullOnMissingStub: true),
-  MockSpec<UserConfig>(returnNullOnMissingStub: true),
-  MockSpec<AppLanguage>(returnNullOnMissingStub: true),
-  MockSpec<Connectivity>(returnNullOnMissingStub: true),
-])
+@GenerateMocks(
+  [],
+  customMocks: [
+    MockSpec<NavigationService>(returnNullOnMissingStub: true),
+    MockSpec<GraphqlConfig>(returnNullOnMissingStub: true),
+    MockSpec<PostService>(returnNullOnMissingStub: true),
+    MockSpec<MultiMediaPickerService>(returnNullOnMissingStub: true),
+    MockSpec<EventService>(returnNullOnMissingStub: true),
+    MockSpec<UserConfig>(returnNullOnMissingStub: true),
+    MockSpec<AppLanguage>(returnNullOnMissingStub: true),
+    MockSpec<Connectivity>(returnNullOnMissingStub: true),
+  ],
+)
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
     locator.unregister<T>();
@@ -70,10 +73,12 @@ UserConfig getAndRegisterUserConfig() {
   final service = MockUserConfig();
 
   //Mock Data for current organizaiton.
-  when(service.currentOrg).thenReturn(OrgInfo(
-    id: "XYZ",
-    name: "Organization Name",
-  ));
+  when(service.currentOrg).thenReturn(
+    OrgInfo(
+      id: "XYZ",
+      name: "Organization Name",
+    ),
+  );
 
   //Mock Stream for currentOrgStream
   final StreamController<OrgInfo> _streamController = StreamController();
@@ -81,7 +86,8 @@ UserConfig getAndRegisterUserConfig() {
   when(service.currentOrfInfoStream).thenAnswer((invocation) => _stream);
 
   //Mkock current user
-  when(service.currentUser).thenReturn(User(
+  when(service.currentUser).thenReturn(
+    User(
       id: "xzy1",
       firstName: "Test",
       lastName: "User",
@@ -103,7 +109,9 @@ UserConfig getAndRegisterUserConfig() {
           isPublic: false,
           creatorInfo: User(firstName: 'test', lastName: 'test'),
         )
-      ]));
+      ],
+    ),
+  );
 
   locator.registerSingleton<UserConfig>(service);
   return service;

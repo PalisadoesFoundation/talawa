@@ -47,8 +47,4 @@ linter:
 
     prefer_const_literals_to_create_immutables: false
 
-    require_trailing_commas: false
-
     avoid_dynamic_calls: false
-
-    noop_primitive_operations: false

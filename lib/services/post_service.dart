@@ -102,7 +102,8 @@ class PostService {
     _posts.forEach((post) {
       if (post.sId == postID) {
         post.likedBy!.removeWhere(
-            (likeUser) => likeUser.sId == _userConfig.currentUser.id);
+          (likeUser) => likeUser.sId == _userConfig.currentUser.id,
+        );
         _updatedPostStreamController.add(post);
       }
     });

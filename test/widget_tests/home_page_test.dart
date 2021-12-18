@@ -12,21 +12,21 @@ import '../helpers/test_locator.dart';
 
 Widget createHomePageScreen() {
   return MaterialApp(
-      locale: const Locale('en'),
-      localizationsDelegates: [
-        const AppLocalizationsDelegate(isTest: true),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      themeMode: ThemeMode.light,
-      theme: TalawaTheme.lightTheme,
-      home: MainScreen(
-        key: const Key('MainScreen'),
-        mainScreenArgs: MainScreenArgs(mainScreenIndex: 0),
-      )
-      //navigatorKey: navigationService.navigatorKey,
-      //onGenerateRoute: router.generateRoute,
-      );
+    locale: const Locale('en'),
+    localizationsDelegates: [
+      const AppLocalizationsDelegate(isTest: true),
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    themeMode: ThemeMode.light,
+    theme: TalawaTheme.lightTheme,
+    home: MainScreen(
+      key: const Key('MainScreen'),
+      mainScreenArgs: MainScreenArgs(mainScreenIndex: 0),
+    ),
+    //navigatorKey: navigationService.navigatorKey,
+    //onGenerateRoute: router.generateRoute,
+  );
 }
 
 void main() {
@@ -103,8 +103,10 @@ void main() {
       await tester.tap(chatIcon);
       await tester.pump();
       await tester.pumpAndSettle();
-      expect(find.byKey(const PageStorageKey('Save-Direct-Chat-Page-Position')),
-          findsOneWidget);
+      expect(
+        find.byKey(const PageStorageKey('Save-Direct-Chat-Page-Position')),
+        findsOneWidget,
+      );
     });
 
     testWidgets('Testing if Profile Screen Shows up', (tester) async {

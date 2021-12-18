@@ -26,17 +26,20 @@ class _SplashScreenState extends State<SplashScreen> {
   late StreamSubscription _sub;
 
   Future<void> _handleInitialUri() async {
-    _sub = uriLinkStream.listen((Uri? uri) {
-      if (!mounted) return;
-      setState(() {
-        _latestUri = uri;
-      });
-    }, onError: (Object err) {
-      if (!mounted) return;
-      setState(() {
-        _latestUri = null;
-      });
-    });
+    _sub = uriLinkStream.listen(
+      (Uri? uri) {
+        if (!mounted) return;
+        setState(() {
+          _latestUri = uri;
+        });
+      },
+      onError: (Object err) {
+        if (!mounted) return;
+        setState(() {
+          _latestUri = null;
+        });
+      },
+    );
     try {
       final uri = await getInitialUri();
       if (!mounted) return;
@@ -55,21 +58,30 @@ class _SplashScreenState extends State<SplashScreen> {
         if (userLoggedIn) {
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
             if (userConfig.currentUser.membershipRequests!.isEmpty) {
-              navigationService.pushReplacementScreen(Routes.joinOrg,
-                  arguments: '-1');
+              navigationService.pushReplacementScreen(
+                Routes.joinOrg,
+                arguments: '-1',
+              );
             } else {
-              navigationService.pushReplacementScreen(Routes.waitingScreen,
-                  arguments: '0');
+              navigationService.pushReplacementScreen(
+                Routes.waitingScreen,
+                arguments: '0',
+              );
             }
           } else {
-            navigationService.pushReplacementScreen(Routes.mainScreen,
-                arguments: MainScreenArgs(
-                    mainScreenIndex: widget.mainScreenIndex,
-                    fromSignUp: false));
+            navigationService.pushReplacementScreen(
+              Routes.mainScreen,
+              arguments: MainScreenArgs(
+                mainScreenIndex: widget.mainScreenIndex,
+                fromSignUp: false,
+              ),
+            );
           }
         } else {
-          navigationService.pushReplacementScreen(Routes.languageSelectionRoute,
-              arguments: 'en');
+          navigationService.pushReplacementScreen(
+            Routes.languageSelectionRoute,
+            arguments: 'en',
+          );
         }
       });
     } else {
@@ -77,8 +89,9 @@ class _SplashScreenState extends State<SplashScreen> {
         if (_initialUri!.pathSegments[1] == 'invite') {
           if (!userLoggedIn) {
             navigationService.fromInviteLink(
-                _initialUri!.queryParameters.keys.toList(growable: false),
-                _initialUri!.queryParameters.values.toList(growable: false));
+              _initialUri!.queryParameters.keys.toList(growable: false),
+              _initialUri!.queryParameters.values.toList(growable: false),
+            );
           } else if (_initialUri!.queryParameters.values
                   .toList(growable: false)[1]
                   .compareTo(GraphqlConfig.orgURI!) ==
@@ -102,7 +115,8 @@ class _SplashScreenState extends State<SplashScreen> {
             }
           } else {
             navigationService.showSnackBar(
-                'Organisation on different server!. Logout and open link again');
+              'Organisation on different server!. Logout and open link again',
+            );
           }
         }
       }
@@ -131,56 +145,61 @@ class _SplashScreenState extends State<SplashScreen> {
           Center(
             child: CustomPaint(
               key: const Key('LogoPainter'),
-              size: Size(SizeConfig.screenWidth! * 0.6,
-                  (SizeConfig.screenWidth! * 0.6).toDouble()),
+              size: Size(
+                SizeConfig.screenWidth! * 0.6,
+                SizeConfig.screenWidth! * 0.6,
+              ),
               painter: AppLogo(),
             ),
           ),
           Positioned(
-              top: SizeConfig.screenHeight! / 1.5,
-              left: 0.0,
-              right: 0.0,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'TALAWA',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                ],
-              )),
+            top: SizeConfig.screenHeight! / 1.5,
+            left: 0.0,
+            right: 0.0,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'TALAWA',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              ],
+            ),
+          ),
           Positioned(
-              top: SizeConfig.screenHeight! / 1.08,
-              left: 0.0,
-              right: 0.0,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.strictTranslate('from'),
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                ],
-              )),
+            top: SizeConfig.screenHeight! / 1.08,
+            left: 0.0,
+            right: 0.0,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.strictTranslate('from'),
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ],
+            ),
+          ),
           Positioned(
-              top: SizeConfig.screenHeight! / 1.05,
-              left: 0.0,
-              right: 0.0,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'PALISADOES',
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle2!
-                        .copyWith(fontWeight: FontWeight.w700),
-                  ),
-                ],
-              ))
+            top: SizeConfig.screenHeight! / 1.05,
+            left: 0.0,
+            right: 0.0,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'PALISADOES',
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle2!
+                      .copyWith(fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

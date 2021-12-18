@@ -28,13 +28,15 @@ class MultiMediaPickerService {
     try {
       // ignore: deprecated_member_use
       final _image = await _picker.getImage(
-          source: camera ? ImageSource.camera : ImageSource.gallery);
+        source: camera ? ImageSource.camera : ImageSource.gallery,
+      );
       if (_image != null) {
         return await cropImage(imageFile: File(_image.path));
       }
     } catch (e) {
       print(
-          "MulitMediaPickerService : Exception occured while choosing photo from the gallery");
+        "MulitMediaPickerService : Exception occured while choosing photo from the gallery",
+      );
     }
     return null;
   }
@@ -42,22 +44,24 @@ class MultiMediaPickerService {
   Future<File?> cropImage({required File imageFile}) async {
     try {
       final File? croppedImage = await ImageCropper.cropImage(
-          sourcePath: imageFile.path,
-          aspectRatioPresets: [
-            CropAspectRatioPreset.square,
-            CropAspectRatioPreset.original,
-          ],
-          androidUiSettings: const AndroidUiSettings(
-              toolbarTitle: 'Crop Image',
-              toolbarColor: Color(0xff18191A),
-              toolbarWidgetColor: Colors.white,
-              backgroundColor: Colors.black,
-              cropGridColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          iosUiSettings: const IOSUiSettings(
-            minimumAspectRatio: 1.0,
-          ));
+        sourcePath: imageFile.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.original,
+        ],
+        androidUiSettings: const AndroidUiSettings(
+          toolbarTitle: 'Crop Image',
+          toolbarColor: Color(0xff18191A),
+          toolbarWidgetColor: Colors.white,
+          backgroundColor: Colors.black,
+          cropGridColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        iosUiSettings: const IOSUiSettings(
+          minimumAspectRatio: 1.0,
+        ),
+      );
       if (croppedImage != null) {
         return File(croppedImage.path);
       }

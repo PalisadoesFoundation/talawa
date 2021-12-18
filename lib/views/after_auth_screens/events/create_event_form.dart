@@ -38,7 +38,10 @@ class CreateEventForm extends StatelessWidget {
               enabledBorder: InputBorder.none,
               prefixIcon: Container(
                 transform: Matrix4.translationValues(
-                    -SizeConfig.screenWidth! * 0.027, 0.0, 0.0),
+                  -SizeConfig.screenWidth! * 0.027,
+                  0.0,
+                  0.0,
+                ),
                 child: const Icon(Icons.title, size: 25),
               ),
             ),
@@ -71,7 +74,10 @@ class CreateEventForm extends StatelessWidget {
               enabledBorder: InputBorder.none,
               prefixIcon: Container(
                 transform: Matrix4.translationValues(
-                    -SizeConfig.screenWidth! * 0.027, 0.0, 0.0),
+                  -SizeConfig.screenWidth! * 0.027,
+                  0.0,
+                  0.0,
+                ),
                 child: const Icon(Icons.place, size: 25),
               ),
             ),
@@ -105,7 +111,10 @@ class CreateEventForm extends StatelessWidget {
               enabledBorder: InputBorder.none,
               prefixIcon: Container(
                 transform: Matrix4.translationValues(
-                    -SizeConfig.screenWidth! * 0.027, 0.0, 0.0),
+                  -SizeConfig.screenWidth! * 0.027,
+                  0.0,
+                  0.0,
+                ),
                 child: const Icon(Icons.view_headline, size: 25),
               ),
             ),

@@ -53,9 +53,11 @@ class OrganizationFeedViewModel extends BaseModel {
     _currentOrgName = _userConfig.currentOrg.name!;
     // ------
     // Attaching the stream subscription to rebuild the widgets automatically
-    _currentOrganizationStreamSubscription = _userConfig.currentOrfInfoStream
-        .listen((updatedOrganization) =>
-            setCurrentOrganizationName(updatedOrganization.name!));
+    _currentOrganizationStreamSubscription =
+        _userConfig.currentOrfInfoStream.listen(
+      (updatedOrganization) =>
+          setCurrentOrganizationName(updatedOrganization.name!),
+    );
 
     _postsSubscription =
         _postService.postStream.listen((newPosts) => buildNewPosts(newPosts));
@@ -88,8 +90,10 @@ class OrganizationFeedViewModel extends BaseModel {
   }
 
   void navigateToPinnedPostPage() {
-    _navigationService.pushScreen(Routes.pinnedPostPage,
-        arguments: _pinnedPosts);
+    _navigationService.pushScreen(
+      Routes.pinnedPostPage,
+      arguments: _pinnedPosts,
+    );
   }
 
   @override

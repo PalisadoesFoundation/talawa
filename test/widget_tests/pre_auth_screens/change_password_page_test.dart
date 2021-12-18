@@ -122,8 +122,10 @@ void main() {
       expect(customRichTextWidget, findsOneWidget);
 
       //testing greeting text
-      expect((tester.firstWidget(customRichTextWidget) as CustomRichText).words,
-          greeting);
+      expect(
+        (tester.firstWidget(customRichTextWidget) as CustomRichText).words,
+        greeting,
+      );
     });
     testWidgets("Testing the Password Input text form field", (tester) async {
       //pushing change pass Screen
@@ -242,8 +244,10 @@ void main() {
       expect(customRichTextWidget, findsOneWidget);
 
       //testing greeting text
-      expect((tester.firstWidget(customRichTextWidget) as CustomRichText).words,
-          greeting);
+      expect(
+        (tester.firstWidget(customRichTextWidget) as CustomRichText).words,
+        greeting,
+      );
     });
     testWidgets("Testing the Password Input text form field", (tester) async {
       //pushing change pass Screen

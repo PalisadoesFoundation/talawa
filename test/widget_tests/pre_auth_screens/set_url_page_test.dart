@@ -25,7 +25,8 @@ Widget createSetUrlScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
     MultiProvider(
       providers: [
         ChangeNotifierProvider<AppLanguage>(
-            create: (_) => AppLanguage(isTest: true)),
+          create: (_) => AppLanguage(isTest: true),
+        ),
       ],
       child: MaterialApp(
         localizationsDelegates: [
@@ -49,7 +50,8 @@ Widget createSetUrlScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     MultiProvider(
       providers: [
         ChangeNotifierProvider<AppLanguage>(
-            create: (_) => AppLanguage(isTest: true)),
+          create: (_) => AppLanguage(isTest: true),
+        ),
       ],
       child: MaterialApp(
         localizationsDelegates: [
@@ -125,8 +127,10 @@ Future<void> main() async {
       //finding the logo
       expect(logoWidget, findsOneWidget);
       //testing logo size
-      expect((tester.firstWidget(logoWidget) as CustomPaint).size,
-          Size(SizeConfig.screenWidth! * 0.6, SizeConfig.screenWidth! * 0.6));
+      expect(
+        (tester.firstWidget(logoWidget) as CustomPaint).size,
+        Size(SizeConfig.screenWidth! * 0.6, SizeConfig.screenWidth! * 0.6),
+      );
     });
     testWidgets("Testing if custom rich text shows up", (tester) async {
       //pushing setUrlScreen
@@ -176,8 +180,10 @@ Future<void> main() async {
       expect(customRichTextWidget, findsOneWidget);
 
       //testing greeting text
-      expect((tester.firstWidget(customRichTextWidget) as CustomRichText).words,
-          greeting);
+      expect(
+        (tester.firstWidget(customRichTextWidget) as CustomRichText).words,
+        greeting,
+      );
     });
     testWidgets("Testing the Url Input text form field", (tester) async {
       //pushing setUrlScreen
@@ -213,8 +219,10 @@ Future<void> main() async {
       expect(invalidUrlSubmission, findsOneWidget);
 
       //inputting an existing url text in the field
-      await tester.enterText(urlInputFieldWidget,
-          'https://talawa-graphql-api.herokuapp.com/graphql');
+      await tester.enterText(
+        urlInputFieldWidget,
+        'https://talawa-graphql-api.herokuapp.com/graphql',
+      );
       //submitting the field with a existing url
       await tester.tap(findVerifyButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
@@ -334,8 +342,10 @@ Future<void> main() async {
       //finding the logo
       expect(logoWidget, findsOneWidget);
       //testing logo size
-      expect((tester.firstWidget(logoWidget) as CustomPaint).size,
-          Size(SizeConfig.screenWidth! * 0.6, SizeConfig.screenWidth! * 0.6));
+      expect(
+        (tester.firstWidget(logoWidget) as CustomPaint).size,
+        Size(SizeConfig.screenWidth! * 0.6, SizeConfig.screenWidth! * 0.6),
+      );
     });
     testWidgets("Testing if custom rich text shows up", (tester) async {
       //pushing setUrlScreen
@@ -385,8 +395,10 @@ Future<void> main() async {
       expect(customRichTextWidget, findsOneWidget);
 
       //testing greeting text
-      expect((tester.firstWidget(customRichTextWidget) as CustomRichText).words,
-          greeting);
+      expect(
+        (tester.firstWidget(customRichTextWidget) as CustomRichText).words,
+        greeting,
+      );
     });
     testWidgets("Testing the Url Input text form field", (tester) async {
       //pushing setUrlScreen
@@ -422,8 +434,10 @@ Future<void> main() async {
       expect(invalidUrlSubmission, findsOneWidget);
 
       //inputting an existing url text in the field
-      await tester.enterText(urlInputFieldWidget,
-          'https://talawa-graphql-api.herokuapp.com/graphql');
+      await tester.enterText(
+        urlInputFieldWidget,
+        'https://talawa-graphql-api.herokuapp.com/graphql',
+      );
       //submitting the field with a existing url
       await tester.tap(findVerifyButton);
       await tester.pumpAndSettle();

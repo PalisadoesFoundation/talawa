@@ -27,8 +27,11 @@ class DirectChats extends StatelessWidget {
   }
 }
 
-Widget chatTile(BuildContext context, ChatListTileDataModel chat,
-    Animation<double> animation) {
+Widget chatTile(
+  BuildContext context,
+  ChatListTileDataModel chat,
+  Animation<double> animation,
+) {
   return SizeTransition(
     axis: Axis.vertical,
     sizeFactor: animation,
@@ -53,7 +56,9 @@ Widget chatTile(BuildContext context, ChatListTileDataModel chat,
                   child: Text(
                     chat.unreadCount!.toString(),
                     style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 )
               : Container(),

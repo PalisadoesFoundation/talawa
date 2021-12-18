@@ -42,37 +42,41 @@ Widget invite(BuildContext context) {
         mainAxisSize: MainAxisSize.min,
         children: [
           iconButton(
-              const FaIcon(
-                FontAwesomeIcons.twitter,
-                size: 35,
-                color: Color(0xFF1DA1F2),
-              ),
-              () async => SocialShare.shareTwitter('Join us', url: url)),
+            const FaIcon(
+              FontAwesomeIcons.twitter,
+              size: 35,
+              color: Color(0xFF1DA1F2),
+            ),
+            () async => SocialShare.shareTwitter('Join us', url: url),
+          ),
           iconButton(
-              CustomPaint(
-                size: const Size(
-                    50,
-                    50 *
-                        1.004), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                painter: WhatsappLogo(),
-              ),
-              () async => SocialShare.shareWhatsapp(url)),
+            CustomPaint(
+              size: const Size(
+                50,
+                50 * 1.004,
+              ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+              painter: WhatsappLogo(),
+            ),
+            () async => SocialShare.shareWhatsapp(url),
+          ),
           iconButton(
-              CustomPaint(
-                size: Size(
-                    45,
-                    (45 * 1)
-                        .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                painter: TelegramLogo(),
-              ),
-              () async => SocialShare.shareTelegram(url)),
+            CustomPaint(
+              size: Size(
+                45,
+                (45 * 1).toDouble(),
+              ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+              painter: TelegramLogo(),
+            ),
+            () async => SocialShare.shareTelegram(url),
+          ),
           iconButton(
-              const FaIcon(
-                FontAwesomeIcons.shareAlt,
-                size: 30,
-                color: Color(0xff40c351),
-              ),
-              () async => SocialShare.shareOptions(url)),
+            const FaIcon(
+              FontAwesomeIcons.shareAlt,
+              size: 30,
+              color: Color(0xff40c351),
+            ),
+            () async => SocialShare.shareOptions(url),
+          ),
         ],
       )
     ],
@@ -83,11 +87,12 @@ Widget iconButton(Widget icon, Function onTap) {
   return Stack(
     children: [
       IconButton(
-          onPressed: () {
-            print('tapped');
-            onTap();
-          },
-          icon: icon),
+        onPressed: () {
+          print('tapped');
+          onTap();
+        },
+        icon: icon,
+      ),
     ],
   );
 }

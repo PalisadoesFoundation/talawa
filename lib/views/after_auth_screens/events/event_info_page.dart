@@ -24,7 +24,8 @@ class _EventInfoPageState extends State<EventInfoPage> {
         slivers: [
           SliverAppBar(
             title: Text(
-                AppLocalizations.of(context)!.strictTranslate('Event Details')),
+              AppLocalizations.of(context)!.strictTranslate('Event Details'),
+            ),
             pinned: true,
             expandedHeight: SizeConfig.screenWidth,
             flexibleSpace: FlexibleSpaceBar(
@@ -47,12 +48,14 @@ class _EventInfoPageState extends State<EventInfoPage> {
                     .textTheme
                     .bodyText2!
                     .copyWith(color: Theme.of(context).colorScheme.secondary),
-              ))
+              ),
+            )
           : eventAdminFab(
               context: context,
               event: event,
               exploreEventsViewModel: widget.agrs["exploreEventViewModel"]
-                  as ExploreEventsViewModel),
+                  as ExploreEventsViewModel,
+            ),
     );
   }
 
@@ -209,11 +212,12 @@ class _EventInfoPageState extends State<EventInfoPage> {
               thickness: 2,
             ),
             CustomListTile(
-                index: 0,
-                key: const Key('Admins'),
-                type: TileType.user,
-                userInfo: userConfig.currentUser,
-                onTapUserInfo: () {}),
+              index: 0,
+              key: const Key('Admins'),
+              type: TileType.user,
+              userInfo: userConfig.currentUser,
+              onTapUserInfo: () {},
+            ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
             ),
@@ -243,19 +247,22 @@ class _EventInfoPageState extends State<EventInfoPage> {
 
             //  Needs to be replaced with actual event attendees
             ListView.builder(
-                padding: EdgeInsets.zero,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int index) {
-                  return CustomListTile(
-                      key: Key(
-                          '${AppLocalizations.of(context)!.strictTranslate("Attendee")}$index'),
-                      index: index,
-                      type: TileType.user,
-                      userInfo: userConfig.currentUser,
-                      onTapUserInfo: () {});
-                })
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) {
+                return CustomListTile(
+                  key: Key(
+                    '${AppLocalizations.of(context)!.strictTranslate("Attendee")}$index',
+                  ),
+                  index: index,
+                  type: TileType.user,
+                  userInfo: userConfig.currentUser,
+                  onTapUserInfo: () {},
+                );
+              },
+            )
           ],
         ),
       ),

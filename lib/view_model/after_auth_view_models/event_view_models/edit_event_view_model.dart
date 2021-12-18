@@ -53,11 +53,12 @@ class EditEventViewModel extends BaseModel {
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
       final DateTime startTime = DateTime(
-          eventStartDate.year,
-          eventStartDate.month,
-          eventStartDate.day,
-          eventStartTime.hour,
-          eventStartTime.minute);
+        eventStartDate.year,
+        eventStartDate.month,
+        eventStartDate.day,
+        eventStartTime.hour,
+        eventStartTime.minute,
+      );
       final DateTime endTime = DateTime(
         eventStartDate.year,
         eventStartDate.month,
