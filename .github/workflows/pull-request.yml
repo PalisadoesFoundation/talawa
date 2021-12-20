@@ -20,6 +20,7 @@ jobs:
         with:
           repository: nishnatadebnath/talawa
           ref: testingIOS
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
