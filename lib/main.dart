@@ -1,17 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart' as path;
-import 'package:provider/provider.dart';
-import 'package:quick_actions/quick_actions.dart';
-import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/constants/quick_actions.dart';
-import 'package:talawa/locator.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/router.dart' as router;
+
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
