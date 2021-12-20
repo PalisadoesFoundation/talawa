@@ -86,6 +86,6 @@ jobs:
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Building for ios
-        run: flutter run
+        run: echo Hello!
           
 
