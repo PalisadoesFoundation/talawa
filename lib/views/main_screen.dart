@@ -15,7 +15,7 @@ class MainScreen extends StatelessWidget {
   //final bool fromSignUp;
   final MainScreenArgs mainScreenArgs;
   @override
-  Widget build(BuildContext context) {
+  Widget (BuildContext context) {
     return BaseView<MainScreenViewModel>(
         onModelReady: (model) => model.initialise(context,
             fromSignUp: mainScreenArgs.fromSignUp,
