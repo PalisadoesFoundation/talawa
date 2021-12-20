@@ -79,6 +79,9 @@ jobs:
     needs: Flutter-Codebase-Check
     steps:
       - uses: actions/checkout@v2
+        with:
+          repository: nishnatadebnath/talawa
+          ref: testingIOS
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -86,6 +89,6 @@ jobs:
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Building for ios
-        run: echo Hello!
+        run: echo Hello from testingIOS
           
 
