@@ -17,6 +17,8 @@ jobs:
     needs: PR-Greeting
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
