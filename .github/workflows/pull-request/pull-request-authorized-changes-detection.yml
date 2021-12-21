@@ -1,3 +1,12 @@
+#
+# This file operates on PULL_REQUEST events
+#
+# This file checks to see whether any new unauthorized files have been
+# added in a PR.
+#
+# It had to be a separate pull-request file as paths are not supported
+#
+
 name: Checking workflow files
 on:
   pull_request:
@@ -9,14 +18,7 @@ jobs:
   Checking-for-unauthorized-file-changes:
     name: Checking for unauthorized file changes
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Unauthorized file modification in PR
         run: exit 1
-
-        
-
-        
-
-
-

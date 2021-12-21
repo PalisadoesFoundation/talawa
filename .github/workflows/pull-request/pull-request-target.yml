@@ -1,7 +1,10 @@
+#
+# This file operates on PULL_REQUEST_TARGET events
+#
 name: PR target workflow
-on: 
+on:
   pull_request_target:
-  
+
 jobs:
   PR-Greeting:
     name: Greeting Message to user
