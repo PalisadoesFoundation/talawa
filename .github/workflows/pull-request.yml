@@ -1,10 +1,8 @@
 name: PR Workflow
 on: 
   pull_request:
-
-jobs:
   
-
+jobs:
   Flutter-Codebase-Check:
     name: Checking codebase
     runs-on: ubuntu-latest
