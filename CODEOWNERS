@@ -1,2 +1,3 @@
 *.yml @palisadoes
+*.py @palisadoes
 CODEOWNERS @palisadoes
