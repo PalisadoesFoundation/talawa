@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -19,6 +17,8 @@ class CustomDrawerViewModel extends BaseModel {
   late StreamSubscription _currentOrganizationStreamSubscription;
   OrgInfo get selectedOrg => _selectedOrg;
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
+  set switchAbleOrg(List<OrgInfo> switchableOrg) =>
+      _switchAbleOrg = switchableOrg;
 
   initialize(MainScreenViewModel homeModel, BuildContext context) {
     _currentOrganizationStreamSubscription = userConfig.currentOrfInfoStream
@@ -30,14 +30,25 @@ class CustomDrawerViewModel extends BaseModel {
   }
 
   switchOrg(OrgInfo switchToOrg) {
-    if (selectedOrg == switchToOrg) {
+    if (selectedOrg == switchToOrg && isPresentinSwitchableOrg(switchToOrg)) {
       // _navigationService.pop();
       navigationService.showSnackBar('${switchToOrg.name} already selected');
     } else {
       userConfig.saveCurrentOrgInHive(switchToOrg);
+      setSelectedOrganizationName(switchToOrg);
       navigationService.showSnackBar('Switched to ${switchToOrg.name}');
     }
     navigationService.pop();
+  }
+
+  bool isPresentinSwitchableOrg(OrgInfo switchToOrg) {
+    var isPresent = false;
+    for (final OrgInfo orgs in switchAbleOrg) {
+      if (orgs.id == switchToOrg.id) {
+        isPresent = true;
+      }
+    }
+    return isPresent;
   }
 
   setSelectedOrganizationName(OrgInfo updatedOrganization) {
