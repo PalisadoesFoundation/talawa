@@ -45,7 +45,7 @@ jobs:
       - name: Report code coverage
         uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
         with:
-          path: "./coverage/lcov.info"
+          path: './coverage/lcov.info'
           min_coverage: 32
 
   Android-Build:
