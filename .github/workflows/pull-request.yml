@@ -43,10 +43,10 @@ jobs:
       - name: Codebase testing
         run: flutter test --coverage
       - name: Report code coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
+        uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
         with:
-          path: './coverage/lcov.info'
-          min_coverage: 32
+            path: './coverage/lcov.info'
+            min_coverage: 35            
 
   Android-Build:
     name: Testing build for android
