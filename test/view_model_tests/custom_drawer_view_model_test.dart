@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -6,11 +5,9 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
-import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import '../helpers/test_helpers.dart';
-import '../helpers/test_helpers.mocks.dart';
 import '../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
@@ -79,7 +76,7 @@ void main() {
       //Intializing a mock model with mockBuildContext
       await model.initialize(mainscreenModel, mockBuildContext);
       //Storing the first switchable org in mockOrgInfo
-      OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
+      final OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
 
       //Calling the switchOrg function
       model.switchOrg(mockChangeOrgTo);

@@ -16,6 +16,7 @@ class CustomDrawerViewModel extends BaseModel {
   late OrgInfo _selectedOrg;
   late StreamSubscription _currentOrganizationStreamSubscription;
   OrgInfo get selectedOrg => _selectedOrg;
+  // ignore: unnecessary_getters_setters
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
   set switchAbleOrg(List<OrgInfo> switchableOrg) =>
       _switchAbleOrg = switchableOrg;
