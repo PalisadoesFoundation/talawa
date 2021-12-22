@@ -44,16 +44,30 @@ The process of proposing a change to Talawa can be summarized as:
 1. The repository can be cloned locally using `git clone <forked repo url>`.
 1. Make the desired changes to the Talawa source.
 1. Run the app and test your changes.
-1. If you've added code that should be tested, write tests.
+1. If you've added code, then test suites must be added. 
+   1. **_General_:** 
+      1. We need to get to 100% test coverage for the app. We periodically increase the desired test coverage for our pull requests to meet this goal.
+      1. Pull requests that don't meet the minimum test coverage levels will not be accepted. This may mean that you will have to create tests for code you did not write. You can decide which part of the code base needs additional tests if this happens to you.
+   1. **_Testing_:**
+      1. Test using the `flutter test` command.
+   1. **_Test Code Coverage_:**
+      1. You can determine the percentage test coverage of your code by running these two commands in sequence:
+         ```
+         flutter test --coverage
+         genhtml coverage/lcov.info -o coverage
+         ```
+      1. The coverage rate will be visible on the penultimate line of the `genhtml` command's output.
+      1. The `genhtml` command is part of the linux `lcov` package. Similar packages can be found for Windows and MacOS.
+      1. The currently acceptable coverage rate can be found in the [GitHub Pull Request file](https://github.com/PalisadoesFoundation/talawa/blob/develop/.github/workflows/pull-request.yml). Search for the value below the line containing `min_coverage`.
 1. Ensure that your code is appropriately formatted before making your submission. Submissions which are not properly formatted will be rejected if they are not fixed by the contributor.
-   1. **In your IDE:**
+   1. **_In your IDE_:**
       1. _Visual Studio Code:_ There is a setting which allows your code to be formatted [automatically when you save](https://stackoverflow.com/a/66538607/15290492), or you may manually trigger it using `Ctrl + Shift + P` or `Cmd + Shift + P` and typing `Format Document`.
       1. _IntelliJ_, _Android Studio_, and other _Jetbrains_-based IDEs. Use the `Ctrl + Alt + L` or `Cmd + Opt + L` to trigger code formatting.
-   1. **On the command line before committing**: Run this command from the root of your repository directory tree.
+   1. **_On the command line before committing_**: Run this command from the root of your repository directory tree.
       ```
       flutter format --set-exit-if-changed .
       ```
-1. Ensure that **your code should not more than 300 lines**. It is there to make the code more modular and readable. Submissions that are not properly maintained will be rejected if the contributor does not fix them. Otherwise, the contributor will have to explain the need for it.
+1. Ensure that your code should not more than **_300 lines_**. It is there to make the code more modular and readable. Submissions that are not properly maintained will be rejected if the contributor does not fix them. Otherwise, the contributor will have to explain the need for it.
 1. After making changes you can add them to git locally using `git add <file_name>`(to add changes only in a particular file) or `git add .` (to add all changes).
 1. After adding the changes you need to commit them using `git commit -m '<commit message>'`(look at the commit guidelines below for commit messages).
    1. You can link and automatically close the issue tied to your pull request by [using a supported keyword in either the pull request's description or in a commit message.](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue) This is a very useful feature that helps to prevent zombie issues that never die.
@@ -63,6 +77,8 @@ The process of proposing a change to Talawa can be summarized as:
 1. Review and address comments on your pull request if requested.
 
 ### General Guidelines
+
+Please also follow these general rules.
 
 #### Folder Description
 
