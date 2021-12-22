@@ -1,3 +1,2 @@
-*.yml @palisadoes
-*.py @palisadoes
+/.github/ @palisadoes
 CODEOWNERS @palisadoes

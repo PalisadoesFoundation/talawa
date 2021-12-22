@@ -2,8 +2,7 @@ name: Checking workflow files
 on:
   pull_request:
     paths:
-      - '.githhub/**/*.yml'
-      - '.githhub/**/*.py'
+      - '.github/**'
 
 jobs:
   Checking-for-unauthorized-file-changes:
