@@ -29,11 +29,16 @@ class _SelectLanguageState extends State<SelectLanguage> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: SizeConfig.screenWidth! * 0.06),
-              child: Text(
-                AppLocalizations.of(context)!
-                    .strictTranslate('Select Language'),
-                style: Theme.of(context).textTheme.headline5,
-                key: const Key('Select Language'),
+              child: SizedBox(
+                height: SizeConfig.screenHeight! * 0.08,
+                child: FittedBox(
+                  child: Text(
+                    AppLocalizations.of(context)!
+                        .strictTranslate('Select Language'),
+                    style: Theme.of(context).textTheme.headline5,
+                    key: const Key('Select Language'),
+                  ),
+                ),
               ),
             ),
             SizedBox(
