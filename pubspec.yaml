@@ -42,7 +42,7 @@ dependencies:
   razorpay_flutter: ^1.2.7
   shared_preferences: ^2.0.6
   shimmer: ^2.0.0
-  social_share: ^2.1.1
+  social_share: ^2.2.1
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.1.1
   uni_links: ^0.5.1
