@@ -29,6 +29,7 @@ class EventCard extends StatelessWidget {
         children: [
           Card(
             shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
               side: isSubscribed
                   ? BorderSide(
                       color: Theme.of(context).colorScheme.secondary,
@@ -46,6 +47,7 @@ class EventCard extends StatelessWidget {
                     height: SizeConfig.screenHeight! * 0.11,
                     width: double.infinity,
                     decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
                         color: Colors.grey.withOpacity(0.3),
                         image: const DecorationImage(
                           fit: BoxFit.fitWidth,
@@ -54,6 +56,9 @@ class EventCard extends StatelessWidget {
                               'https://picsum.photos/id/1022/200/300'),
                         )),
                     child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(15),
+                          topLeft: Radius.circular(15)),
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                         child: Container(
