@@ -42,13 +42,13 @@ class AddPost extends StatelessWidget {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: BaseView<AddPostViewModel>(
-            onModelReady: (m) {
-              m.initialise();
-              model = m;
-            },
-            builder: (context, model, child) => Column(
+        body: BaseView<AddPostViewModel>(
+          onModelReady: (m) {
+            m.initialise();
+            model = m;
+          },
+          builder: (context, model, child) => SingleChildScrollView(
+            child: Column(
               children: <Widget>[
                 ListTile(
                   leading: const CircleAvatar(radius: 25),
