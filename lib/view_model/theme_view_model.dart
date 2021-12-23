@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
@@ -12,6 +13,14 @@ class AppTheme extends BaseModel {
   initialize() {
     _isDarkMode = true;
     _loadFromPrefs();
+  }
+
+  checkForTheme() {
+    if (_isDarkMode) {
+      return true;
+    }
+
+    return false;
   }
 
   switchTheme({required bool isOn}) {

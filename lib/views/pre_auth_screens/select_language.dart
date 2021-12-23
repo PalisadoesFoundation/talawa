@@ -4,6 +4,7 @@ import 'package:talawa/constants/constants.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/view_model/theme_view_model.dart';
 
 class SelectLanguage extends StatefulWidget {
   const SelectLanguage({required Key key}) : super(key: key);
@@ -90,12 +91,22 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                           languages[index].langName,
                                           style: (languages[index].langCode ==
                                                   appLang.appLocal.languageCode)
-                                              ? Theme.of(context)
-                                                  .textTheme
-                                                  .headline6
-                                                  ?.copyWith(
-                                                      color: const Color(
-                                                          0xFFFFFFFF))
+                                              ? (Provider.of<AppTheme>(context,
+                                                              listen: false)
+                                                          .checkForTheme() ==
+                                                      true)
+                                                  ? Theme.of(context)
+                                                      .textTheme
+                                                      .headline6
+                                                      ?.copyWith(
+                                                          color: const Color(
+                                                              0xFFFFFFFF))
+                                                  : Theme.of(context)
+                                                      .textTheme
+                                                      .headline6
+                                                      ?.copyWith(
+                                                          color: const Color(
+                                                              0xFF000000))
                                               : Theme.of(context)
                                                   .textTheme
                                                   .headline6,
@@ -116,12 +127,21 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                       languages[index].langName,
                                       style: (languages[index].langCode ==
                                               appLang.appLocal.languageCode)
-                                          ? Theme.of(context)
-                                              .textTheme
-                                              .headline6
-                                              ?.copyWith(
-                                                  color:
-                                                      const Color(0xFFFFFFFF))
+                                          ? (Provider.of<AppTheme>(context)
+                                                      .checkForTheme() ==
+                                                  true)
+                                              ? Theme.of(context)
+                                                  .textTheme
+                                                  .headline6
+                                                  ?.copyWith(
+                                                      color: const Color(
+                                                          0xFFFFFFFF))
+                                              : Theme.of(context)
+                                                  .textTheme
+                                                  .headline6
+                                                  ?.copyWith(
+                                                      color: const Color(
+                                                          0xFF000000))
                                           : Theme.of(context)
                                               .textTheme
                                               .headline6,
