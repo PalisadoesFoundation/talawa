@@ -56,9 +56,7 @@ class EventCard extends StatelessWidget {
                               'https://picsum.photos/id/1022/200/300'),
                         )),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(15),
-                          topLeft: Radius.circular(15)),
+                      borderRadius:  BorderRadius.only(topRight: Radius.circular(15),topLeft: Radius.circular(15)),
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                         child: Container(
