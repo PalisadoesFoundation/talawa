@@ -30,11 +30,16 @@ class _SelectLanguageState extends State<SelectLanguage> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: SizeConfig.screenWidth! * 0.06),
-              child: Text(
-                AppLocalizations.of(context)!
-                    .strictTranslate('Select Language'),
-                style: Theme.of(context).textTheme.headline5,
-                key: const Key('Select Language'),
+              child: SizedBox(
+                height: SizeConfig.screenHeight! * 0.035,
+                child: FittedBox(
+                  child: Text(
+                    AppLocalizations.of(context)!
+                        .strictTranslate('Select Language'),
+                    style: Theme.of(context).textTheme.headline5,
+                    key: const Key('Select Language'),
+                  ),
+                ),
               ),
             ),
             SizedBox(
@@ -97,14 +102,14 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                                       true)
                                                   ? Theme.of(context)
                                                       .textTheme
-                                                      .headline6
-                                                      ?.copyWith(
+                                                      .headline6!
+                                                      .copyWith(
                                                           color: const Color(
                                                               0xFFFFFFFF))
                                                   : Theme.of(context)
                                                       .textTheme
-                                                      .headline6
-                                                      ?.copyWith(
+                                                      .headline6!
+                                                      .copyWith(
                                                           color: const Color(
                                                               0xFF000000))
                                               : Theme.of(context)
@@ -132,14 +137,14 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                                   true)
                                               ? Theme.of(context)
                                                   .textTheme
-                                                  .headline6
-                                                  ?.copyWith(
+                                                  .headline6!
+                                                  .copyWith(
                                                       color: const Color(
                                                           0xFFFFFFFF))
                                               : Theme.of(context)
                                                   .textTheme
-                                                  .headline6
-                                                  ?.copyWith(
+                                                  .headline6!
+                                                  .copyWith(
                                                       color: const Color(
                                                           0xFF000000))
                                           : Theme.of(context)
