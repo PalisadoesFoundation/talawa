@@ -88,10 +88,17 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                       children: [
                                         Text(
                                           languages[index].langName,
-                                          style: (languages[index].langCode == appLang.appLocal.languageCode) ? 
-                                          Theme.of(context).textTheme
-                                              .headline6?.copyWith(color: const Color(0xFFFFFFFF)) 
-                                              : Theme.of(context).textTheme.headline6,
+                                          style: (languages[index].langCode ==
+                                                  appLang.appLocal.languageCode)
+                                              ? Theme.of(context)
+                                                  .textTheme
+                                                  .headline6
+                                                  ?.copyWith(
+                                                      color: const Color(
+                                                          0xFFFFFFFF))
+                                              : Theme.of(context)
+                                                  .textTheme
+                                                  .headline6,
                                         ),
                                         Text(
                                           AppLocalizations.of(context)!
@@ -107,11 +114,17 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                     )
                                   : Text(
                                       languages[index].langName,
-                                      style:
-                                          (languages[index].langCode == appLang.appLocal.languageCode) ? 
-                                          Theme.of(context).textTheme
-                                              .headline6?.copyWith(color: const Color(0xFFFFFFFF)) 
-                                              : Theme.of(context).textTheme.headline6,
+                                      style: (languages[index].langCode ==
+                                              appLang.appLocal.languageCode)
+                                          ? Theme.of(context)
+                                              .textTheme
+                                              .headline6
+                                              ?.copyWith(
+                                                  color:
+                                                      const Color(0xFFFFFFFF))
+                                          : Theme.of(context)
+                                              .textTheme
+                                              .headline6,
                                       key: const Key('LanguageItem'),
                                     ),
                             );
