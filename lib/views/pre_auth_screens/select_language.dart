@@ -30,7 +30,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
             Padding(
               padding: EdgeInsets.only(top: SizeConfig.screenWidth! * 0.06),
               child: SizedBox(
-                height: SizeConfig.screenHeight! * 0.08,
+                height: SizeConfig.screenHeight! * 0.045,
                 child: FittedBox(
                   child: Text(
                     AppLocalizations.of(context)!
