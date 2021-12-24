@@ -68,15 +68,50 @@ class Validator {
         r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*%^~.]).{8,}$';
     final RegExp regExp = RegExp(pattern);
 
-    //Regex for no spaces allowed
+    // Regex for no spaces allowed
     const String noSpaces = r'^\S+$';
     final RegExp noSpaceRegex = RegExp(noSpaces);
 
-    if (!regExp.hasMatch(password)) {
-      return "Invalid Password";
+    /* Regex(es) for catching individual match errors */
+
+    // Lowercase letters
+    const String small = '(.*[a-z].*)';
+    final RegExp smallRegex = RegExp(small);
+
+    // Uppercase letters
+    const String capital = '(.*[A-Z].*)';
+    final RegExp capitalRegex = RegExp(capital);
+
+    // Digits
+    const String digits = r'(.*\d.*)';
+    final RegExp digitsRegex = RegExp(digits);
+
+    // Special Characters
+    const String specials = r'(.*\W.*)';
+    final RegExp specialsRegex = RegExp(specials);
+
+    /* End */
+
+    if (!smallRegex.hasMatch(password)) {
+      return "At least one lowercase letter is required";
+    }
+    if (!capitalRegex.hasMatch(password)) {
+      return "At least one capital letter is required";
+    }
+    if (!digitsRegex.hasMatch(password)) {
+      return "At least one digit is required";
+    }
+    if (!specialsRegex.hasMatch(password)) {
+      return "At least one special character is required";
     }
     if (!noSpaceRegex.hasMatch(password)) {
       return "Password must not contain spaces";
+    }
+    if (password.length < 8) {
+      return "Password must be at least eight characters long";
+    }
+    if (!regExp.hasMatch(password)) {
+      return "Invalid Password";
     }
 
     return null;

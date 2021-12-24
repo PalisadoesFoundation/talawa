@@ -33,13 +33,13 @@
     "Next": "Next",
     "Request Sent to": "Request Sent to",
     "Log out": "Log out",
-
+    
     "Join": "Join",
     "and": "and",
     "Collaborate": "Collaborate",
     "with your": "with your",
     "Organizations": "Organizations",
-
+    
     "Title from the viewMode GSoC branch": "Title from the viewMode GSoC branch",
     "Please verify URL first": "Please verify URL first",
     "Enter a valid URL": "Enter a valid URL",
@@ -51,6 +51,11 @@
     "Please enter a valid Email Address": "Please enter a valid Email Address",
     "Password must not be left blank": "Password must not be left blank",
     "Invalid Password": "Invalid Password",
+    "At least one lowercase letter is required": "At least one lowercase letter is required",
+    "At least one capital letter is required": "At least one capital letter is required",
+    "At least one digit is required": "At least one digit is required",
+    "At least one special character is required": "At least one special character is required",
+    "Password must be at least eight characters long": "Password must be at least eight characters long",
     "Password must not contain spaces": "Password must not contain spaces",
     "Password does not match original": "Password does not match original",
     "Join Organisation": "Join Organisation",
@@ -59,7 +64,7 @@
     "Glad": "Glad",
     "you're": "you're",
     "Back": "Back",
-
+    
     "Let's": "Let's",
     "get": "get",
     "you": "you",
