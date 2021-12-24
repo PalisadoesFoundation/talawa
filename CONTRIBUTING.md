@@ -51,7 +51,7 @@ The process of proposing a change to Talawa can be summarized as:
    1. **_Testing_:**
       1. Test using the `flutter test` command.
    1. **_Test Code Coverage_:**
-      1. The current code coverage of the repo is: [![codecov](https://codecov.io/gh/PalisadoesFoundation/talawa/branch/master/graph/badge.svg?token=3PJXIKRS1S)](https://codecov.io/gh/PalisadoesFoundation/talawa)
+      1. The current code coverage of the repo is: [![codecov](https://codecov.io/gh/PalisadoesFoundation/talawa/branch/develop/graph/badge.svg?token=3PJXIKRS1S)](https://codecov.io/gh/PalisadoesFoundation/talawa)
       2. You can determine the percentage test coverage of your code by running these two commands in sequence:
          ```
          flutter test --coverage
