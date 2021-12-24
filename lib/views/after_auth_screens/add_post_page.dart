@@ -13,6 +13,7 @@ class AddPost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0.9,
@@ -46,76 +47,78 @@ class AddPost extends StatelessWidget {
             m.initialise();
             model = m;
           },
-          builder: (context, model, child) => Column(
-            children: <Widget>[
-              ListTile(
-                leading: const CircleAvatar(radius: 25),
-                title: Text(model.userName),
-                subtitle: Text(AppLocalizations.of(context)!
-                    .strictTranslate(model.orgName)),
-              ),
-              Row(
-                children: <Widget>[
-                  IconButton(
-                      onPressed: () => model.getImageFromGallery(),
-                      icon: const Icon(Icons.photo)),
-                  IconButton(
-                      onPressed: () => model.getImageFromGallery(camera: true),
-                      icon: const Icon(Icons.camera_alt)),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.file_upload)),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        '# ${AppLocalizations.of(context)!.strictTranslate("Add hasthtag")}',
-                        style: Theme.of(context).textTheme.headline6,
-                      )),
-                ],
-              ),
-              const Divider(),
-              Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: TextField(
-                  controller: model.controller,
-                  maxLines: null,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                      hintText: AppLocalizations.of(context)!.strictTranslate(
-                          "Write here what do you want to share")),
+          builder: (context, model, child) => SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: const CircleAvatar(radius: 25),
+                  title: Text(model.userName),
+                  subtitle: Text(AppLocalizations.of(context)!
+                      .strictTranslate(model.orgName)),
                 ),
-              )),
-              model.imageFile != null
-                  // ignore: sized_box_for_whitespace
-                  ? Container(
-                      height: 230,
-                      padding: const EdgeInsets.all(8.0),
-                      child: Stack(
-                        children: [
-                          Image.file(
-                            model.imageFile!,
-                            fit: BoxFit.cover,
-                            width: MediaQuery.of(context).size.width,
-                          ),
-                          Positioned(
-                            right: 5,
-                            top: 5,
-                            child: IconButton(
-                                onPressed: () => model.removeImage(),
-                                icon: const Icon(
-                                  Icons.cancel,
-                                  color: Colors.black,
-                                )),
-                          )
-                        ],
-                      ),
-                    )
-                  : Container(),
-            ],
+                Row(
+                  children: <Widget>[
+                    IconButton(
+                        onPressed: () => model.getImageFromGallery(),
+                        icon: const Icon(Icons.photo)),
+                    IconButton(
+                        onPressed: () =>
+                            model.getImageFromGallery(camera: true),
+                        icon: const Icon(Icons.camera_alt)),
+                    IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.file_upload)),
+                    TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          '# ${AppLocalizations.of(context)!.strictTranslate("Add hasthtag")}',
+                          style: Theme.of(context).textTheme.headline6,
+                        )),
+                  ],
+                ),
+                const Divider(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: TextField(
+                    controller: model.controller,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        hintText: AppLocalizations.of(context)!.strictTranslate(
+                            "Write here what do you want to share")),
+                  ),
+                ),
+                model.imageFile != null
+                    // ignore: sized_box_for_whitespace
+                    ? Container(
+                        height: 230,
+                        padding: const EdgeInsets.all(8.0),
+                        child: Stack(
+                          children: [
+                            Image.file(
+                              model.imageFile!,
+                              fit: BoxFit.cover,
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                            Positioned(
+                              right: 5,
+                              top: 5,
+                              child: IconButton(
+                                  onPressed: () => model.removeImage(),
+                                  icon: const Icon(
+                                    Icons.cancel,
+                                    color: Colors.black,
+                                  )),
+                            )
+                          ],
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
           ),
         ));
   }
