@@ -23,6 +23,8 @@ class EventQueries {
           isRegistered
           creator{
             _id
+            firstName
+            lastName
           }
         }
       }
@@ -76,6 +78,7 @@ class EventQueries {
         _id
         title
         description
+        isRegistered
       }
     }
   """;

@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -18,23 +18,22 @@ class EventCard extends StatelessWidget {
   final String? eventTitleHighlightedText;
   final String? eventTitleNormalText;
   final bool isSearchItem;
-
   @override
   Widget build(BuildContext context) {
-    final bool isSubscribed = event.isRegistered ?? false;
-
+    final bool isRegistered = event.isRegistered ?? false;
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Stack(
         children: [
           Card(
             shape: RoundedRectangleBorder(
-              side: isSubscribed
-                  ? BorderSide(
-                      color: Theme.of(context).colorScheme.secondary,
-                      width: SizeConfig.screenWidth! * 0.008,
-                    )
-                  : BorderSide.none,
+              side:
+                  isRegistered && userConfig.currentUser.id != event.creator!.id
+                      ? BorderSide(
+                          color: Theme.of(context).colorScheme.secondary,
+                          width: SizeConfig.screenWidth! * 0.008,
+                        )
+                      : BorderSide.none,
             ),
             elevation: 3,
             color: Theme.of(context).primaryColor,
@@ -167,6 +166,29 @@ class EventCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+                          userConfig.currentUser.id == event.creator!.id
+                              ? Row(
+                                  children: [
+                                    Icon(
+                                      Icons.verified,
+                                      size: 13,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ),
+                                    SizedBox(
+                                      width: SizeConfig.screenWidth! * 0.013,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .strictTranslate('Created'),
+                                      style:
+                                          Theme.of(context).textTheme.caption,
+                                    ),
+                                  ],
+                                )
+                              : const SizedBox(),
+                          const Spacer(),
                           event.isPublic!
                               ? Icon(
                                   Icons.lock_open,
@@ -223,24 +245,30 @@ class EventCard extends StatelessWidget {
           Positioned(
             top: SizeConfig.screenHeight! * 0.007,
             right: SizeConfig.screenWidth! * 0.013,
-            child: isSubscribed
-                ? Container(
-                    height: SizeConfig.screenHeight! * 0.041,
-                    width: SizeConfig.screenWidth! * 0.277,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.secondary,
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(15))),
-                    child: Center(
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .strictTranslate('Subscribed'),
-                        style: Theme.of(context).textTheme.headline6!.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                  )
-                : const SizedBox(),
+            child:
+                isRegistered && userConfig.currentUser.id != event.creator!.id
+                    ? Container(
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.secondary,
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(15))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: Text(
+                              AppLocalizations.of(context)!
+                                  .strictTranslate("Registered"),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
           )
         ],
       ),

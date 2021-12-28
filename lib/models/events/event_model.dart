@@ -40,7 +40,7 @@ class Event {
       endTime: json['endTime'] as String?,
       recurrence: json['recurrence'] as String?,
       isPublic: json['isPublic'] as bool?,
-      isRegistered: json['isSubscribed'] as bool?,
+      isRegistered: json['isRegistered'] as bool?,
       isRegisterable: json['isRegisterable'] as bool?,
       creator: json['creator'] == null
           ? null

@@ -12,39 +12,23 @@ class ExploreEventsViewModel extends BaseModel {
   final _eventService = locator<EventService>();
   late StreamSubscription _eventStreamSubscription;
 
-  String _chosenValue = 'My Events';
+  String _chosenValue = 'All Events';
+  String _emptyListMessage = "Looks like there aren't any events.";
   List<Event> _events = [];
   final Set<String> _uniqueEventIds = {};
   late StreamSubscription _currentOrganizationStreamSubscription;
   late final List<Event> _bufferEvents;
   List<Event> get events => _events;
   EventService get eventService => _eventService;
+  String get emptyListMessage => _emptyListMessage;
 
   String get chosenValue => _chosenValue;
-  choseValue(String value) {
-    _chosenValue = value;
+
+  Future<void> fetchNewEvents() async {
+    setState(ViewState.busy);
     notifyListeners();
-
-    if (chosenValue == 'Private Events') {
-      print(_events.length);
-
-      _events =
-          _bufferEvents.where((element) => element.isPublic == false).toList();
-      print(_events.length);
-    } else if (chosenValue == 'Public Events') {
-      print(_events.length);
-
-      _events =
-          _bufferEvents.where((element) => element.isPublic == true).toList();
-      print(_events.length);
-    } else if (chosenValue == 'My Events') {
-      _events = _bufferEvents;
-    }
-  }
-
-  void fetchNewEvents() {
-    notifyListeners();
-    _eventService.getEvents();
+    await _eventService.getEvents();
+    setState(ViewState.idle);
   }
 
   void refreshEvents() {
@@ -101,13 +85,15 @@ class ExploreEventsViewModel extends BaseModel {
         success: () {
           navigationService.pop();
           _eventService.deleteEvent(eventId).then(
-            (result) {
+            (result) async {
               if (result != null) {
                 navigationService.pop();
+                setState(ViewState.busy);
                 print(result);
                 _uniqueEventIds.remove(eventId);
                 _events.removeWhere((element) => element.id == eventId);
-                notifyListeners();
+                await Future.delayed(const Duration(milliseconds: 500));
+                setState(ViewState.idle);
               }
             },
           );
@@ -116,16 +102,66 @@ class ExploreEventsViewModel extends BaseModel {
     );
   }
 
+  choseValueFromDropdown(String value) async {
+    _chosenValue = value;
+    notifyListeners();
+    setState(ViewState.busy);
+
+    switch (_chosenValue) {
+      case 'All Events':
+        {
+          _events = _bufferEvents;
+          _emptyListMessage = "Looks like there aren't any events.";
+        }
+        break;
+
+      case 'Created Events':
+        {
+          _events = List.from(_bufferEvents.where(
+              (element) => element.creator!.id == userConfig.currentUser.id));
+          _emptyListMessage = "You have not created any event.";
+        }
+        break;
+
+      case 'Registered Events':
+        {
+          _events = List.from(_bufferEvents.where((element) =>
+              element.isRegistered == true &&
+              element.creator!.id != userConfig.currentUser.id));
+          _emptyListMessage = "No registered events are present";
+        }
+        break;
+      case 'Public Events':
+        {
+          _events = _bufferEvents
+              .where((element) => element.isPublic == true)
+              .toList();
+
+          _emptyListMessage = "There aren't any public events.";
+        }
+        break;
+      case 'Private Events':
+        {
+          _events = _bufferEvents
+              .where((element) => element.isPublic == false)
+              .toList();
+          _emptyListMessage = "There aren't any private events.";
+        }
+        break;
+
+      default:
+        {
+          _events = _bufferEvents;
+        }
+    }
+    await Future.delayed(const Duration(milliseconds: 500));
+    setState(ViewState.idle);
+  }
+
   @override
   void dispose() {
     _eventStreamSubscription.cancel();
     _currentOrganizationStreamSubscription.cancel();
     super.dispose();
-  }
-
-  addNewEvent(Event newEvent) {
-    _events.insert(0, newEvent);
-    print(_events.length);
-    notifyListeners();
   }
 }
