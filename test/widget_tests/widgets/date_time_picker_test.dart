@@ -53,7 +53,8 @@ void main() {
     });
 
     testWidgets('Check if selecting a time works', (tester) async {
-      await tester.pumpWidget(dateTimePicker(checkProp: chooseTime, isTimeType: true));
+      await tester
+          .pumpWidget(dateTimePicker(checkProp: chooseTime, isTimeType: true));
 
       await tester.tap(find.text('Open'));
       await tester.pump();
@@ -64,7 +65,8 @@ void main() {
     });
 
     testWidgets('Check if cancelling the time picker works', (tester) async {
-      await tester.pumpWidget(dateTimePicker(checkProp: cancelTime, isTimeType: true));
+      await tester
+          .pumpWidget(dateTimePicker(checkProp: cancelTime, isTimeType: true));
 
       await tester.tap(find.text('Open'));
       await tester.pump();
