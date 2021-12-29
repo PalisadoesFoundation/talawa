@@ -21,7 +21,10 @@ void onCancel() {
   cancelled = true;
 }
 
-Widget createCustomAlertDialog({bool reverse = false, String? dialogTitle, bool passSecondaryFunc = true}) {
+Widget createCustomAlertDialog(
+    {bool reverse = false,
+    String? dialogTitle,
+    bool passSecondaryFunc = true}) {
   return MaterialApp(
     navigatorKey: locator<NavigationService>().navigatorKey,
     navigatorObservers: [],
@@ -48,7 +51,7 @@ Widget createCustomAlertDialog({bool reverse = false, String? dialogTitle, bool 
           navigationService.pushDialog(
             CustomAlertDialog(
               success: onSuccess,
-              secondaryButtonTap: passSecondaryFunc ? onCancel: null,
+              secondaryButtonTap: passSecondaryFunc ? onCancel : null,
               dialogSubTitle: 'Yes Boi',
               reverse: reverse,
             ),
@@ -95,7 +98,8 @@ void main() {
       expect(success, true);
     });
 
-    testWidgets('Check if the Cancel button works (with secondary func)', (tester) async {
+    testWidgets('Check if the Cancel button works (with secondary func)',
+        (tester) async {
       await tester.pumpWidget(createCustomAlertDialog());
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
@@ -109,8 +113,10 @@ void main() {
       expect(find.byType(AlertDialog), findsOneWidget);
     });
 
-    testWidgets('Check if the Cancel button works (without secondary func)', (tester) async {
-      await tester.pumpWidget(createCustomAlertDialog(passSecondaryFunc: false));
+    testWidgets('Check if the Cancel button works (without secondary func)',
+        (tester) async {
+      await tester
+          .pumpWidget(createCustomAlertDialog(passSecondaryFunc: false));
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
