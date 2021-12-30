@@ -56,7 +56,7 @@ class DataBaseMutationFunctions {
               (value) => graphqlConfig
                   .getToken()
                   .then((value) => databaseFunctions.init()));
-          // graphqlConfig.getToken().then((value) => databaseFunctions.init());
+          //  graphqlConfig.getToken().then((value) => databaseFunctions.init());
           return true;
         } else if (exception.graphqlErrors[i].message == userNotFound.message) {
           if (showSnackBar) {
