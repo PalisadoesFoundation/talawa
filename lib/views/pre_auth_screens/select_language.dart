@@ -4,6 +4,7 @@ import 'package:talawa/constants/constants.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+import 'package:talawa/view_model/theme_view_model.dart';
 
 class SelectLanguage extends StatefulWidget {
   const SelectLanguage({required Key key}) : super(key: key);
@@ -91,12 +92,44 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          languages[index].langName,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6,
-                                        ),
+                                        (Theme.of(context).brightness ==
+                                                Brightness.dark)
+                                            ? ((languages[index].langCode ==
+                                                    appLang
+                                                        .appLocal.languageCode)
+                                                ? Text(
+                                                    languages[index].langName,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline6!
+                                                        .copyWith(
+                                                          color: Colors.white,
+                                                        ),
+                                                  )
+                                                : Text(
+                                                    languages[index].langName,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline6,
+                                                  ))
+                                            : ((languages[index].langCode ==
+                                                    appLang
+                                                        .appLocal.languageCode)
+                                                ? Text(
+                                                    languages[index].langName,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline6!
+                                                        .copyWith(
+                                                          color: Colors.black,
+                                                        ),
+                                                  )
+                                                : Text(
+                                                    languages[index].langName,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline6,
+                                                  )),
                                         Text(
                                           AppLocalizations.of(context)!
                                               .strictTranslate('Default'),
@@ -109,12 +142,42 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                         ),
                                       ],
                                     )
-                                  : Text(
-                                      languages[index].langName,
-                                      style:
-                                          Theme.of(context).textTheme.headline6,
-                                      key: const Key('LanguageItem'),
-                                    ),
+                                  : (Theme.of(context).brightness ==
+                                          Brightness.dark)
+                                      ? ((languages[index].langCode ==
+                                              appLang.appLocal.languageCode)
+                                          ? Text(
+                                              languages[index].langName,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6!
+                                                  .copyWith(
+                                                    color: Colors.white,
+                                                  ),
+                                            )
+                                          : Text(
+                                              languages[index].langName,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6,
+                                            ))
+                                      : ((languages[index].langCode ==
+                                              appLang.appLocal.languageCode)
+                                          ? Text(
+                                              languages[index].langName,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6!
+                                                  .copyWith(
+                                                    color: Colors.black,
+                                                  ),
+                                            )
+                                          : Text(
+                                              languages[index].langName,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline6,
+                                            )),
                             );
                           },
                         ),
