@@ -3,7 +3,6 @@ import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/lru_cache.dart';
-import 'package:talawa/views/after_auth_screens/add_post_page.dart';
 
 void main() {
   group('Checking lru cache view model', () {
