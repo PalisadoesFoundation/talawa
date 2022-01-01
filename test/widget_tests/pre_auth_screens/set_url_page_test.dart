@@ -128,6 +128,8 @@ Future<void> main() async {
       //testing logo size
       expect((tester.firstWidget(iconButton) as Icon).semanticLabel,
           'Join Organisation with QR');
+
+      expect((tester.firstWidget(iconButton) as Icon).size, 30);
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
@@ -355,6 +357,8 @@ Future<void> main() async {
       //testing logo size
       expect((tester.firstWidget(iconButton) as Icon).semanticLabel,
           'Join Organisation with QR');
+
+      expect((tester.firstWidget(iconButton) as Icon).size, 30);
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
