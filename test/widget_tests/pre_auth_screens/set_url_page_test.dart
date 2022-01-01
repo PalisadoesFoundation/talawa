@@ -114,6 +114,21 @@ Future<void> main() async {
         TalawaTheme.lightTheme.scaffoldBackgroundColor,
       );
     });
+
+    testWidgets("Testing if icon button shows up", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
+
+      //initializing the logo Finder
+      final iconButton = find.byIcon(Icons.qr_code_scanner);
+
+      //finding the logo
+      expect(iconButton, findsOneWidget);
+      //testing logo size
+      expect((tester.firstWidget(iconButton) as Icon).semanticLabel,
+          'Join Organisation with QR');
+    });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenLight());
@@ -130,6 +145,7 @@ Future<void> main() async {
           Size(SizeConfig.screenWidth! * 0.6,
               (SizeConfig.screenWidth! * 0.6).toDouble()));
     });
+
     testWidgets("Testing if custom rich text shows up", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenLight());
@@ -324,6 +340,21 @@ Future<void> main() async {
             .scaffoldBackgroundColor,
         TalawaTheme.darkTheme.scaffoldBackgroundColor,
       );
+    });
+
+    testWidgets("Testing if icon button shows up", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
+
+      //initializing the logo Finder
+      final iconButton = find.byIcon(Icons.qr_code_scanner);
+
+      //finding the logo
+      expect(iconButton, findsOneWidget);
+      //testing logo size
+      expect((tester.firstWidget(iconButton) as Icon).semanticLabel,
+          'Join Organisation with QR');
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
