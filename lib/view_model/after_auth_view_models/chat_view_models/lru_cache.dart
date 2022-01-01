@@ -25,10 +25,10 @@ class LRUChatListCache {
   LRUChatListCache() {
     cache = <String, ChatListNode>{};
     head = ChatListNode();
-    tail = ChatListNode();
+    tail = head;
 
-    head.next = tail;
-    tail.prev = head;
+    // head.next = tail;
+    // tail.prev = head;
   }
 
   int length = 0;
@@ -38,13 +38,13 @@ class LRUChatListCache {
 
   // Use for inserting the new messages from the backend
   void addNewIncomingChat(ChatListNode chatNode) {
-    if (cache.containsKey(chatNode.chat!.sender!.id)) {
+    if (cache.containsKey(chatNode.key)) {
       // When the new message is already in the list, update the content and move it to the first.
-      cache[chatNode.chat!.sender!.id!]!.chat = chatNode.chat;
-      moveToHead(cache[chatNode.chat!.sender!.id!]!);
+      cache[chatNode.key]!.chat = chatNode.chat;
+      moveToHead(cache[chatNode.key]!);
     } else {
-      // Inser the new message at the top.
-      cache[chatNode.chat!.sender!.id!] = chatNode;
+      // Insert the new message at the top.
+      //cache[chatNode.chat!.sender!.id!] = chatNode;
       addChat(chatNode);
     }
   }
@@ -67,11 +67,10 @@ class LRUChatListCache {
 
   //Helper function to addListTile.
   void addChat(ChatListNode chatNode) {
-    chatNode.prev = head;
-    chatNode.next = head.next;
-
-    head.next!.prev = chatNode;
-    head.next = chatNode;
+    chatNode.next = head;
+    head.prev = chatNode;
+    head = chatNode;
+    cache.putIfAbsent(chatNode.key!, () => chatNode);
     length += 1;
   }
 }
