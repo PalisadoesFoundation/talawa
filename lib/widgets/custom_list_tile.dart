@@ -3,6 +3,7 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/options/options.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 
@@ -42,7 +43,7 @@ class CustomListTile extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-                flex: 1,
+                flex: 2,
                 child: type == TileType.option
                     ? option!.icon
                     : CustomAvatar(
@@ -58,7 +59,7 @@ class CustomListTile extends StatelessWidget {
                         fontSize: 18,
                       )),
             Expanded(
-                flex: 3,
+                flex: 5,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -94,7 +95,7 @@ class CustomListTile extends StatelessWidget {
                   ],
                 )),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: type != TileType.user
                   ? type == TileType.org
                       ? Column(
@@ -102,6 +103,17 @@ class CustomListTile extends StatelessWidget {
                           children: [
                             Row(
                               children: [
+                                SizedBox(
+                                  width: SizeConfig.blockSizeHorizontal! * 15,
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(orgInfo!.isPublic!
+                                        ? AppLocalizations.of(context)!
+                                            .strictTranslate('Public')
+                                        : AppLocalizations.of(context)!
+                                            .strictTranslate('Private')),
+                                  ),
+                                ),
                                 Icon(
                                   orgInfo!.isPublic!
                                       ? Icons.lock_open
@@ -110,11 +122,6 @@ class CustomListTile extends StatelessWidget {
                                       ? const Color(0xFF34AD64)
                                       : const Color(0xffFABC57),
                                 ),
-                                Text(orgInfo!.isPublic!
-                                    ? AppLocalizations.of(context)!
-                                        .strictTranslate('Public')
-                                    : AppLocalizations.of(context)!
-                                        .strictTranslate('Private')),
                               ],
                             ),
                             showIcon
