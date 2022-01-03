@@ -138,31 +138,37 @@ class ExploreEvents extends StatelessWidget {
                                 ),
                                 SizedBox(
                                     height: SizeConfig.screenHeight! * 0.027),
-                                ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: model.events.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return GestureDetector(
-                                        key: index == 0
-                                            ? homeModel?.keySECard
-                                            : null,
-                                        onTap: () {
-                                          navigationService.pushScreen(
-                                              "/eventInfo",
-                                              arguments: {
-                                                "event": model.events[index],
-                                                "exploreEventViewModel": model
-                                              });
-                                        },
-                                        child: EventCard(
-                                          event: model.events[index],
-                                          isSearchItem: false,
+                                model.events.isEmpty
+                                    ? SizedBox(
+                                        height: SizeConfig.screenHeight! * 0.5,
+                                        child: Center(
+                                          child: Text(model.emptyListMessage),
                                         ),
-                                      );
-                                    }),
+                                      )
+                                    : ListView.builder(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: model.events.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              navigationService.pushScreen(
+                                                  "/eventInfo",
+                                                  arguments: {
+                                                    "event":
+                                                        model.events[index],
+                                                    "exploreEventViewModel":
+                                                        model
+                                                  });
+                                            },
+                                            child: EventCard(
+                                              event: model.events[index],
+                                              isSearchItem: false,
+                                            ),
+                                          );
+                                        }),
                               ],
                             ),
                           ),
@@ -200,7 +206,9 @@ class ExploreEvents extends StatelessWidget {
       value: model.chosenValue,
       isExpanded: true,
       items: <String>[
-        'My Events',
+        'All Events',
+        'Created Events',
+        'Registered Events',
         'Public Events',
         'Private Events',
       ].map<DropdownMenuItem<String>>((String value) {
@@ -216,7 +224,7 @@ class ExploreEvents extends StatelessWidget {
         );
       }).toList(),
       onChanged: (value) {
-        model.choseValue(value!);
+        model.choseValueFromDropdown(value!);
       },
     );
   }

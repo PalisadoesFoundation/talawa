@@ -39,7 +39,11 @@ jobs:
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
-        run: flutter test
+        run: flutter test --coverage
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{secrets.CODECOV}} 
+          file: ./coverage/lcov.info 
 
   Android-Build:
     name: Testing build for android
