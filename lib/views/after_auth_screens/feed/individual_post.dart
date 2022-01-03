@@ -60,7 +60,6 @@ class _IndividualPostViewState extends State<IndividualPostView> {
       body: ListView(
         children: [
           NewsPost(
-            isInView: true,
             post: widget.post,
           ),
           Padding(
