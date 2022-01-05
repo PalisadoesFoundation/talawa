@@ -35,18 +35,18 @@ Core features include:
  
 # Installation for Developers
 
-You can test talawa in your own development environment. This section shows you how.
+You can test talawa in your own development environment. This section shows you how:
 
 ## Prerequisites
 
-You'll need to setup the IDE and mobile device emulator on your local system, and have access to a system running the Talawa API which the mobile needs to access to operate properly.
+You'll need to set up the IDE and mobile device emulator on your local system and have access to a system running the Talawa API, which the mobile needs to access to operate properly.
 
 1. **Development Environment**: You'll need to have the following installed:
     1. [Flutter SDK](https://flutter.dev/docs/get-started/install)
     1. [Android Studio](https://developer.android.com/studio)
 1. **API Environment**: You will need to enter the URL of the API server in the Talawa app when it first starts up. The URL could be active on a system you control or in our test environment.
-    1. *Your API Server:* Check the [Talawa API repository](https://github.com/PalisadoesFoundation/talawa-api) for information on how to setup the API on your local machine or a machine under your legitimate control. There is a section in the README.md file that discusses installation.
-    2. *Our API Server for Talawa Contributors*: We also have a test environment that our open source contributors use. Try it if you are not inclined to setup or customize your own API server.This is a development environment. The data stored on this server may be modified or deleted without warning. Information about this server can be found in the [Talawa documentation site](https://palisadoesfoundation.github.io/talawa-docs/)
+    1. *Your API Server:* Check the [Talawa API repository](https://github.com/PalisadoesFoundation/talawa-api) for information on how to set up the API on your local machine or a machine under your legitimate control. There is a section in the README.md file that discusses installation.
+    2. *Our API Server for Talawa Contributors*: We also have a test environment that our open source contributors use. Try it if you are not inclined to set up or customize your own API server. This is a development environment. The data stored on this server may be modified or deleted without warning. Information about this server can be found on the [Talawa documentation site](https://palisadoesfoundation.github.io/talawa-docs/).
 
 ## Command Line Steps
 
@@ -57,7 +57,7 @@ We have tried to make the process simple. Here's what you need to do.
     $ git clone https://github.com/PalisadoesFoundation/talawa.git
     $ cd talawa
     ```
-1. Install packages
+1. Install packages.
     ```sh
     $ flutter pub get
     ```
