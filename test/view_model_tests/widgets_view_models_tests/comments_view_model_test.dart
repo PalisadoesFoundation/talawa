@@ -14,6 +14,7 @@ class MockCommentsViewModel extends BaseModel {
   // Getters
   List<Comment> get commentList => _commentlist;
 
+  //initialises the variables
   void initialise(String postID) {
     _userConfig = getAndRegisterUserConfig();
     _commentlist = [];
@@ -21,14 +22,17 @@ class MockCommentsViewModel extends BaseModel {
     notifyListeners();
   }
 
+  //gets the already created and stored comments
   List getComments() {
     return commentList;
   }
 
+  //creates new comments
   Future createComment(String msg) async {
     addCommentLocally(msg);
   }
 
+  //adds comments locally 
   void addCommentLocally(String msg) {
     final _creator = _userConfig.currentUser;
     final Comment _localComment = Comment(
@@ -45,14 +49,18 @@ void main() {
 
     test("Check for no comments created.", () {
       final comments = model.getComments();
+
+      //checks if no comments ae created
       expect(model.getComments().isEmpty, true);
     });
 
     test("check if comment is created", () {
       model.createComment("test message");
 
+      //checks if comments are created
       expect(model.getComments().isNotEmpty, true);
-
+      
+      //checks if created comment is same as input
       expect(model._commentlist.first.text, "test message");
     });
   });
