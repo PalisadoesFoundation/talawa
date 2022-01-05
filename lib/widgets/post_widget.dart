@@ -13,12 +13,10 @@ class NewsPost extends StatelessWidget {
     Key? key,
     required this.post,
     this.function,
-    required this.isInView,
   }) : super(key: key);
 
   final Post post;
   final Function? function;
-  final bool isInView;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class NewsPost extends StatelessWidget {
         Container(
           height: 400,
           color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
-          child: PostContainer(isInView: isInView, id: post.sId),
+          child: PostContainer(id: post.sId),
         ),
         BaseView<LikeButtonViewModel>(
           onModelReady: (model) =>
@@ -115,11 +113,9 @@ class NewsPost extends StatelessWidget {
 
 class PostContainer extends StatefulWidget {
   const PostContainer({
-    required this.isInView,
     required this.id,
     Key? key,
   }) : super(key: key);
-  final bool isInView;
   final String id;
 
   @override

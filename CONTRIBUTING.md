@@ -6,7 +6,7 @@ If you are new to contributing to open source, please read the Open Source Guide
 
 ## Code of Conduct
 
-A safe environment is required for everyone to contribute. Read our [Code of Conduct Guide](https://github.com/PalisadoesFoundation/talawa/blob/master/CODE_OF_CONDUCT.md) to understand what this means. Let us know immediately if you have unacceptable experiences in this area.
+A safe environment is required for everyone to contribute. Read our [Code of Conduct Guide](https://github.com/PalisadoesFoundation/talawa/blob/develop/CODE_OF_CONDUCT.md) to understand what this means. Let us know immediately if you have unacceptable experiences in this area.
 
 No one should fear voicing their opinion. Respones must be respectful.
 
@@ -20,11 +20,11 @@ We utilize GitHub issues and pull requests to keep track of issues and contribut
 
 #### Issues
 
-Make sure you are following [issue report guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/issue-guidelines.md) available here before creating any new issues on Talawa project.
+Make sure you are following [issue report guidelines](https://github.com/PalisadoesFoundation/talawa/blob/develop/issue-guidelines.md) available here before creating any new issues on Talawa project.
 
 #### Pull Requests
 
-[Pull Request guidelines](https://github.com/PalisadoesFoundation/talawa/blob/master/PR-guidelines.md) is best resource to follow to start working on open issues.
+[Pull Request guidelines](https://github.com/PalisadoesFoundation/talawa/blob/develop/PR-guidelines.md) is best resource to follow to start working on open issues.
 
 #### Branching Strategy
 
@@ -60,21 +60,21 @@ The process of proposing a change to Talawa can be summarized as:
       1. The coverage rate will be visible on the penultimate line of the `genhtml` command's output.
       1. The `genhtml` command is part of the linux `lcov` package. Similar packages can be found for Windows and MacOS.
       1. The currently acceptable coverage rate can be found in the [GitHub Pull Request file](https://github.com/PalisadoesFoundation/talawa/blob/develop/.github/workflows/pull-request.yml). Search for the value below the line containing `min_coverage`.
-1. Ensure that your code is appropriately formatted before making your submission. Submissions which are not properly formatted will be rejected if they are not fixed by the contributor.
+1. Ensure that your code is appropriately formatted before making your submission. Submissions that are not properly formatted will be rejected if they are not fixed by the contributor.
    1. **_In your IDE_:**
-      1. _Visual Studio Code:_ There is a setting which allows your code to be formatted [automatically when you save](https://stackoverflow.com/a/66538607/15290492), or you may manually trigger it using `Ctrl + Shift + P` or `Cmd + Shift + P` and typing `Format Document`.
+      1. _Visual Studio Code:_ There is a setting that allows your code to be formatted [automatically when you save](https://stackoverflow.com/a/66538607/15290492), or you may manually trigger it using `Ctrl + Shift + P` or `Cmd + Shift + P` and typing `Format Document`.
       1. _IntelliJ_, _Android Studio_, and other _Jetbrains_-based IDEs. Use the `Ctrl + Alt + L` or `Cmd + Opt + L` to trigger code formatting.
    1. **_On the command line before committing_**: Run this command from the root of your repository directory tree.
       ```
       flutter format --set-exit-if-changed .
       ```
-1. Ensure that your code should not more than **_300 lines_**. It is there to make the code more modular and readable. Submissions that are not properly maintained will be rejected if the contributor does not fix them. Otherwise, the contributor will have to explain the need for it.
-1. After making changes you can add them to git locally using `git add <file_name>`(to add changes only in a particular file) or `git add .` (to add all changes).
-1. After adding the changes you need to commit them using `git commit -m '<commit message>'`(look at the commit guidelines below for commit messages).
+1. Ensure that your code should not be more than **_300 lines_**. It is there to make the code more modular and readable. Submissions that are not properly maintained will be rejected if the contributor does not fix them. Otherwise, the contributor will have to explain the need for it.
+1. After making changes, you can add them to git locally using `git add <file_name>`(to add changes only in a particular file) or `git add .` (to add all changes).
+1. After adding the changes, you need to commit them using `git commit -m '<commit message>'`(look at the commit guidelines below for commit messages).
    1. You can link and automatically close the issue tied to your pull request by [using a supported keyword in either the pull request's description or in a commit message.](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue) This is a very useful feature that helps to prevent zombie issues that never die.
-1. Once you have successfully commited your changes, you need to push the changes to the forked repo on github using: `git push origin <branch_name>`.(Here branch name must be name of the branch you want to push the changes to.)
+1. Once you have successfully committed your changes, you need to push the changes to the forked repo on GitHub using: `git push origin <branch_name>`.(Here, the branch name must be the name of the branch you want to push the changes to.)
 1. Now create a pull request to the Talawa repository from your forked repo. Open an issue regarding the same and link your PR to it.
-1. Ensure the test suite passes, either locally or on CI once a PR has been created.
+1. Ensure the test suite passes, either locally or on CI, once a PR has been created.
 1. Review and address comments on your pull request if requested.
 
 ### General Guidelines
@@ -87,22 +87,22 @@ Please also follow these general rules.
   ```
   1. Files contain codes for all the business logic related to any screen.
   2. Files also contain the client-side query & mutation calls and server-side side response.
-  3. Before adding any controller make sure whether it already exists or not.
+  3. Before adding any controller, make sure whether it already exists or not.
   ```
-- `enum`: The folder contains all the enumerator used in the entire project.
+- `enum`: The folder contains all the enumerators used in the entire project.
   ```
   1. File contains an enum that is either used with controllers or widgets.
-  2. Before creating any new enum files check if the existing enum can be modified to fulfil your requirement.
+  2. Before creating new enum files, check if the existing enum can be modified to fulfill your requirements.
   ```
-- `model`: The folder contains all the data models file.
+- `model`: The folder contains all the data models files.
   ```
-  1. Files contains data model that is used in controller file that contains the server-side response in an organised form.
+  1. Files contain a data model that is used in the controller file that contains the server-side response in an organised form.
   2. These data models are used to effectively organise projects and render the data on widgets.
   3. In the controller file, convert every response to a particular data model type.
   ```
 - `utils`: The folder contains all the external utility files.
   ```
-  1. Codes related to an external utility like validator, UI-scaling, constant strings etc
+  1. Codes related to an external utility like validator, UI-scaling, constant strings, etc.
   2. Any utility-related files should be created here if not already present.
   ```
 - `views`: The folder contains all the files related to the UI display.
@@ -114,11 +114,11 @@ Please also follow these general rules.
 #### File Code Rules
 
 - Filename should be created with lowercase and underscore letters
-- The business logic & UI based file should be separated from each other.
+- The business logic & UI-based files should be separated from each other.
   - `controllers`: Folder that contains all business logic files
   - `views`: Folder that contains UI specific files
 - If it is UI based file, try to use as much `stateless widget` as possible.
-- Don't use the `print` statement in your code, instead use `debugPrint`.
+- Don't use the `print` statement in your code; instead use `debugPrint`.
 - Constructor should be present just after the class declaration.
 - Make sure to add proper `keyword` (final or const) and data types for any variable.
 - In your files, structure code this way inside your widget class:
@@ -131,7 +131,7 @@ Please also follow these general rules.
   -- utility methods
   ```
 
-**_Note: Don't use constant numerical value anywhere in your UI related code. Use SizeConfig class to assign the constant value. SizeConfig class does the job of scaling the UI based on the device size._**
+**_Note: Don't use constant numerical value anywhere in your UI-related code. Use SizeConfig class to assign the constant value. SizeConfig class does the job of scaling the UI based on the device size._**
 
 Example:
 
@@ -184,7 +184,7 @@ feat: (addition of a new feature)
 rfac: (refactoring the code: optimization/ different logic of existing code - output doesn't change, just the way of execution changes)
 docs: (documenting the code, be it readme, or extra comments)
 bfix: (bug fixing)
-chor: (chore - beautifying code, indents, spaces, camelcasing, changing variable names to have an appropriate meaning)
+chor: (chore - beautifying code, indents, spaces, camelCasing, changing variable names to have an appropriate meaning)
 ptch: (patches - small changes in code, mainly UI, for example color of a button, increasing size of text, etc)
 conf: (configurational settings - changing directory structure, updating gitignore, add libraries, changing manifest etc)
 ```
