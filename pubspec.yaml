@@ -31,7 +31,6 @@ dependencies:
   image_cropper: ^1.4.1
   image_picker: ^0.8.1+3
   intl: ^0.17.0
-  inview_notifier_list: ^2.0.0
   json_annotation: ^4.0.1
   mockito: ^5.0.14
   path_provider: ^2.0.2
