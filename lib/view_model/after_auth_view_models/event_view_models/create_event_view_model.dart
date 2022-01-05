@@ -26,7 +26,7 @@ class CreateEventViewModel extends BaseModel {
   DateTime eventStartDate = DateTime.now();
   DateTime eventEndDate = DateTime.now();
   bool isPublicSwitch = true;
-  bool isRegisterableSwitch = false;
+  bool isRegisterableSwitch = true;
   FocusNode titleFocus = FocusNode();
   FocusNode locationFocus = FocusNode();
   FocusNode descriptionFocus = FocusNode();
@@ -101,7 +101,8 @@ class CreateEventViewModel extends BaseModel {
       print('Result is : $result');
       if (result != null) {
         navigationService.pop();
-        _eventService.getEvents();
+
+        await _eventService.getEvents();
       }
     }
   }
