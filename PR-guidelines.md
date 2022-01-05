@@ -5,7 +5,7 @@
 In order to give everyone a chance to submit a pull request and contribute to the Talawa project, we have put restrictions in place. This section outlines the guidelines that should be imposed upon pull requests in the Talawa project.
 
 ## Pull Requests and Issues
-1. Do not start working on any open issue and raise a PR unless the issue is assigned to you.
+1. Do not start working on any open issue and raise a PR unless the issue is assigned to you. PRs that don't meet these guidelines will be closed.
 1. Pull requests must be based on [open issues](https://github.com/PalisadoesFoundation/talawa/issues) available.
 1. [Use this method to automatically close the issue when the PR is completed.](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue)
 
