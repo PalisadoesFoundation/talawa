@@ -12,7 +12,7 @@ class DirectChats extends StatelessWidget {
       onModelReady: (model) => model.initialise(),
       builder: (context, model, child) => AnimatedList(
         key: const PageStorageKey("Save-Direct-Chat-Page-Position"),
-        initialItemCount: model.chats.length,
+        initialItemCount: model.chats!.length,
         itemBuilder: (context, index, animation) {
           final bool _isValidIncrement = model.incrementIterator();
 
