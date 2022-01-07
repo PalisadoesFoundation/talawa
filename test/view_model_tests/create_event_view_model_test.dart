@@ -58,9 +58,9 @@ void main() {
     });
 
     test('Check addition of members', () {
-      List<User> allMembers =
+      final List<User> allMembers =
           userConfig.currentOrg.members! + userConfig.currentOrg.admins!;
-      model.setOrgMembersList(allMembers);
+      model.orgMembersList = allMembers;
 
       // non admins (normal members)
       final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
@@ -80,9 +80,9 @@ void main() {
     });
 
     test('Removing of members from event', () {
-      List<User> allMembers =
+      final List<User> allMembers =
           userConfig.currentOrg.members! + userConfig.currentOrg.admins!;
-      model.setOrgMembersList(allMembers);
+      model.orgMembersList = allMembers;
 
       // non admins (normal members)
       // to remove, first we need to add a member

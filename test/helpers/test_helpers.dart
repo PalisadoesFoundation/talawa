@@ -69,12 +69,12 @@ UserConfig getAndRegisterUserConfig() {
   _removeRegistrationIfExists<UserConfig>();
   final service = MockUserConfig();
 
-  User member1 = User(id: "testMem1");
-  User member2 = User(id: "testMem2");
-  User admin1 = User(id: "testAdmin1");
-  User admin2 = User(id: "testAdmin2");
-  List<User> members = [member1, member2];
-  List<User> admins = [admin1, admin2];
+  final User member1 = User(id: "testMem1");
+  final User member2 = User(id: "testMem2");
+  final User admin1 = User(id: "testAdmin1");
+  final User admin2 = User(id: "testAdmin2");
+  final List<User> members = [member1, member2];
+  final List<User> admins = [admin1, admin2];
 
   //Mock Data for current organizaiton.
   when(service.currentOrg).thenReturn(OrgInfo(

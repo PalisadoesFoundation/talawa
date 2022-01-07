@@ -45,6 +45,13 @@ class CreateEventViewModel extends BaseModel {
 
   late OrgInfo _currentOrg;
   final _userConfig = locator<UserConfig>();
+
+  // only for test
+  set orgMembersList(List<User> memberList) {
+    _orgMembersList = memberList;
+  }
+
+  List<User> get orgMembersList => _orgMembersList;
   List<User> get selectedAdmins => _selectedAdmins;
   List<User> get selectedMembers => _selectedMembers;
   Map<String, bool> get adminCheckedMap => _adminCheckedMap;
@@ -161,10 +168,5 @@ class CreateEventViewModel extends BaseModel {
     }
 
     notifyListeners();
-  }
-
-  // only for test
-  void setOrgMembersList(List<User> memberList) {
-    _orgMembersList = memberList;
   }
 }
