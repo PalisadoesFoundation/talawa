@@ -90,7 +90,8 @@ void main() {
       await showLoginScreen(tester);
 
       // expect(find.text("We're Glad you're Back "), findsOneWidget);
-      expect(find.textContaining("Enter your registered Email"), findsOneWidget);
+      expect(
+          find.textContaining("Enter your registered Email"), findsOneWidget);
       expect(find.textContaining("Enter your password"), findsOneWidget);
       expect(find.textContaining("Forgot password"), findsOneWidget);
     });
@@ -99,7 +100,8 @@ void main() {
       await showLoginScreen(tester);
 
       final emailField = tester.firstWidget(find.byType(TextFormField).first);
-      final passwordField = tester.widgetList(find.byType(TextFormField).last).first;
+      final passwordField =
+          tester.widgetList(find.byType(TextFormField).last).first;
 
       await tester.enterText(find.byType(TextFormField).first, 'ravidi');
       await tester.enterText(find.byType(TextFormField).last, 'shaikh');
