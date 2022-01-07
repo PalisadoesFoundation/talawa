@@ -69,10 +69,19 @@ UserConfig getAndRegisterUserConfig() {
   _removeRegistrationIfExists<UserConfig>();
   final service = MockUserConfig();
 
+  User member1 = User(id: "testMem1");
+  User member2 = User(id: "testMem2");
+  User admin1 = User(id: "testAdmin1");
+  User admin2 = User(id: "testAdmin2");
+  List<User> members = [member1, member2];
+  List<User> admins = [admin1, admin2];
+
   //Mock Data for current organizaiton.
   when(service.currentOrg).thenReturn(OrgInfo(
     id: "XYZ",
     name: "Organization Name",
+    members: members,
+    admins: admins,
   ));
 
   //Mock Stream for currentOrgStream

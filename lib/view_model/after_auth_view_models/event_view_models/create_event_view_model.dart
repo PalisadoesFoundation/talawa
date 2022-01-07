@@ -162,4 +162,9 @@ class CreateEventViewModel extends BaseModel {
 
     notifyListeners();
   }
+
+  // only for test
+  void setOrgMembersList(List<User> memberList) {
+    _orgMembersList = memberList;
+  }
 }
