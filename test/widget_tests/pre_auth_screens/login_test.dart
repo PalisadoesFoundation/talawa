@@ -5,7 +5,7 @@ import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/views/main_screen.dart';
+// import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
 import 'package:talawa/views/pre_auth_screens/recover.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
