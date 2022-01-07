@@ -36,7 +36,7 @@ class CreateEventViewModel extends BaseModel {
   late final List<User> _selectedAdmins = [];
   late final Map<String, bool> _memberCheckedMap = {};
   late final List<User> _selectedMembers = [];
-  late List<User> _orgMembersList = [];
+  late List<User> orgMembersList = [];
 
   final formKey = GlobalKey<FormState>();
   final _eventService = locator<EventService>();
@@ -45,13 +45,6 @@ class CreateEventViewModel extends BaseModel {
 
   late OrgInfo _currentOrg;
   final _userConfig = locator<UserConfig>();
-
-  // only for test
-  set orgMembersList(List<User> memberList) {
-    _orgMembersList = memberList;
-  }
-
-  List<User> get orgMembersList => _orgMembersList;
   List<User> get selectedAdmins => _selectedAdmins;
   List<User> get selectedMembers => _selectedMembers;
   Map<String, bool> get adminCheckedMap => _adminCheckedMap;
@@ -129,12 +122,12 @@ class CreateEventViewModel extends BaseModel {
   }
 
   Future<List<User>> getCurrentOrgUsersList({required bool isAdmin}) async {
-    if (_orgMembersList.isEmpty) {
-      _orgMembersList = await _organizationService
+    if (orgMembersList.isEmpty) {
+      orgMembersList = await _organizationService
           .getOrgMembersList(userConfig.currentOrg.id!);
     }
 
-    _orgMembersList.forEach((orgMember) {
+    orgMembersList.forEach((orgMember) {
       if (isAdmin) {
         _adminCheckedMap.putIfAbsent(orgMember.id!, () => false);
       } else {
@@ -142,13 +135,13 @@ class CreateEventViewModel extends BaseModel {
       }
       _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
     });
-    return _orgMembersList;
+    return orgMembersList;
   }
 
   void buildUserList({required bool isAdmin}) {
     isAdmin ? _selectedAdmins.clear() : _selectedMembers.clear();
 
-    _orgMembersList.forEach((orgMember) {
+    orgMembersList.forEach((orgMember) {
       if (_adminCheckedMap[orgMember.id] == true && isAdmin) {
         _selectedAdmins.add(orgMember);
       } else if (_memberCheckedMap[orgMember.id] == true && !isAdmin) {
