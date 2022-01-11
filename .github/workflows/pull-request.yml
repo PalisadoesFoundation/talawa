@@ -1,3 +1,14 @@
+##############################################################################
+##############################################################################
+#
+# NOTE!
+#
+# Please read the README.md file in this directory that defines what should 
+# be placed in this file
+#
+##############################################################################
+##############################################################################
+
 name: PR Workflow
 on: 
   pull_request:
@@ -42,11 +53,13 @@ jobs:
         run: flutter pub get
       - name: Codebase testing
         run: flutter test --coverage
-      - name: Report code coverage
+      - name: Present current coverage in PR
+        uses: codecov/codecov-action@v2.1.0           
+      - name: Test acceptable level of code coverage
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
         with:
             path: './coverage/lcov.info'
-            min_coverage: 34.2
+            min_coverage: 35.2
 
   Android-Build:
     name: Testing build for android
