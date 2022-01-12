@@ -8,7 +8,7 @@ import 'dart:ui' as _i9;
 
 import 'package:connectivity_plus/connectivity_plus.dart' as _i20;
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart'
-as _i21;
+    as _i21;
 import 'package:flutter/material.dart' as _i1;
 import 'package:graphql_flutter/graphql_flutter.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i2;
@@ -23,11 +23,11 @@ import 'package:talawa/services/graphql_config.dart' as _i10;
 import 'package:talawa/services/navigation_service.dart' as _i7;
 import 'package:talawa/services/post_service.dart' as _i11;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
-as _i13;
+    as _i13;
 import 'package:talawa/services/user_config.dart' as _i17;
 import 'package:talawa/view_model/lang_view_model.dart' as _i18;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
-as _i22;
+    as _i22;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -75,8 +75,8 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
   @override
   _i1.GlobalKey<_i1.NavigatorState> get navigatorKey =>
       (super.noSuchMethod(Invocation.getter(#navigatorKey),
-          returnValue: _FakeGlobalKey_0<_i1.NavigatorState>())
-      as _i1.GlobalKey<_i1.NavigatorState>);
+              returnValue: _FakeGlobalKey_0<_i1.NavigatorState>())
+          as _i1.GlobalKey<_i1.NavigatorState>);
   @override
   set navigatorKey(_i1.GlobalKey<_i1.NavigatorState>? _navigatorKey) =>
       super.noSuchMethod(Invocation.setter(#navigatorKey, _navigatorKey),
@@ -88,14 +88,14 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
           returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
   @override
   _i4.Future<dynamic> popAndPushScreen(String? routeName,
-      {dynamic arguments}) =>
+          {dynamic arguments}) =>
       (super.noSuchMethod(
           Invocation.method(
               #popAndPushScreen, [routeName], {#arguments: arguments}),
           returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
   @override
   _i4.Future<dynamic> pushReplacementScreen(String? routeName,
-      {dynamic arguments}) =>
+          {dynamic arguments}) =>
       (super.noSuchMethod(
           Invocation.method(
               #pushReplacementScreen, [routeName], {#arguments: arguments}),
@@ -107,7 +107,7 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
           returnValueForMissingStub: null);
   @override
   _i4.Future<dynamic> removeAllAndPush(String? routeName, String? tillRoute,
-      {dynamic arguments}) =>
+          {dynamic arguments}) =>
       (super.noSuchMethod(
           Invocation.method(#removeAllAndPush, [routeName, tillRoute],
               {#arguments: arguments}),
@@ -118,7 +118,7 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
           returnValueForMissingStub: null);
   @override
   void showSnackBar(String? message,
-      {Duration? duration = const Duration(seconds: 2)}) =>
+          {Duration? duration = const Duration(seconds: 2)}) =>
       super.noSuchMethod(
           Invocation.method(#showSnackBar, [message], {#duration: duration}),
           returnValueForMissingStub: null);
@@ -167,8 +167,8 @@ class MockPostService extends _i2.Mock implements _i11.PostService {
   @override
   _i4.Stream<List<_i12.Post>> get postStream =>
       (super.noSuchMethod(Invocation.getter(#postStream),
-          returnValue: Stream<List<_i12.Post>>.empty())
-      as _i4.Stream<List<_i12.Post>>);
+              returnValue: Stream<List<_i12.Post>>.empty())
+          as _i4.Stream<List<_i12.Post>>);
   @override
   _i4.Stream<_i12.Post> get updatedPostStream =>
       (super.noSuchMethod(Invocation.getter(#updatedPostStream),
@@ -217,7 +217,7 @@ class MockMultiMediaPickerService extends _i2.Mock
   @override
   _i4.Future<_i14.File?> cropImage({_i14.File? imageFile}) => (super
       .noSuchMethod(Invocation.method(#cropImage, [], {#imageFile: imageFile}),
-      returnValue: Future<_i14.File?>.value()) as _i4.Future<_i14.File?>);
+          returnValue: Future<_i14.File?>.value()) as _i4.Future<_i14.File?>);
   @override
   String toString() => super.toString();
 }
@@ -249,7 +249,7 @@ class MockEventService extends _i2.Mock implements _i15.EventService {
           returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
   @override
   _i4.Future<void> editEvent(
-      {String? eventId, Map<String, dynamic>? variables}) =>
+          {String? eventId, Map<String, dynamic>? variables}) =>
       (super.noSuchMethod(
           Invocation.method(
               #editEvent, [], {#eventId: eventId, #variables: variables}),
@@ -273,8 +273,8 @@ class MockUserConfig extends _i2.Mock implements _i17.UserConfig {
   @override
   _i4.StreamController<_i5.OrgInfo> get currentOrgInfoController =>
       (super.noSuchMethod(Invocation.getter(#currentOrgInfoController),
-          returnValue: _FakeStreamController_3<_i5.OrgInfo>())
-      as _i4.StreamController<_i5.OrgInfo>);
+              returnValue: _FakeStreamController_3<_i5.OrgInfo>())
+          as _i4.StreamController<_i5.OrgInfo>);
   @override
   _i5.OrgInfo get currentOrg =>
       (super.noSuchMethod(Invocation.getter(#currentOrg),
@@ -282,7 +282,7 @@ class MockUserConfig extends _i2.Mock implements _i17.UserConfig {
   @override
   String get currentOrgName =>
       (super.noSuchMethod(Invocation.getter(#currentOrgName), returnValue: '')
-      as String);
+          as String);
   @override
   set currentOrg(_i5.OrgInfo? org) =>
       super.noSuchMethod(Invocation.setter(#currentOrg, org),
@@ -314,7 +314,7 @@ class MockUserConfig extends _i2.Mock implements _i17.UserConfig {
           returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
   @override
   _i4.Future<dynamic> updateUserMemberRequestOrg(
-      List<_i5.OrgInfo>? orgDetails) =>
+          List<_i5.OrgInfo>? orgDetails) =>
       (super.noSuchMethod(
           Invocation.method(#updateUserMemberRequestOrg, [orgDetails]),
           returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
@@ -324,7 +324,7 @@ class MockUserConfig extends _i2.Mock implements _i17.UserConfig {
           returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
   @override
   _i4.Future<dynamic> updateAccessToken(
-      {String? accessToken, String? refreshToken}) =>
+          {String? accessToken, String? refreshToken}) =>
       (super.noSuchMethod(
           Invocation.method(#updateAccessToken, [],
               {#accessToken: accessToken, #refreshToken: refreshToken}),
@@ -348,7 +348,7 @@ class MockAppLanguage extends _i2.Mock implements _i18.AppLanguage {
   @override
   bool get isTest =>
       (super.noSuchMethod(Invocation.getter(#isTest), returnValue: false)
-      as bool);
+          as bool);
   @override
   _i7.NavigationService get navigationService =>
       (super.noSuchMethod(Invocation.getter(#navigationService),
@@ -356,8 +356,8 @@ class MockAppLanguage extends _i2.Mock implements _i18.AppLanguage {
   @override
   _i8.DataBaseMutationFunctions get databaseFunctions =>
       (super.noSuchMethod(Invocation.getter(#databaseFunctions),
-          returnValue: _FakeDataBaseMutationFunctions_7())
-      as _i8.DataBaseMutationFunctions);
+              returnValue: _FakeDataBaseMutationFunctions_7())
+          as _i8.DataBaseMutationFunctions);
   @override
   _i9.Locale get appLocal => (super.noSuchMethod(Invocation.getter(#appLocal),
       returnValue: _FakeLocale_8()) as _i9.Locale);
@@ -367,11 +367,11 @@ class MockAppLanguage extends _i2.Mock implements _i18.AppLanguage {
   @override
   bool get isBusy =>
       (super.noSuchMethod(Invocation.getter(#isBusy), returnValue: false)
-      as bool);
+          as bool);
   @override
   bool get hasListeners =>
       (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
-      as bool);
+          as bool);
   @override
   _i4.Future<void> initialize() =>
       (super.noSuchMethod(Invocation.method(#initialize, []),
@@ -432,14 +432,14 @@ class MockConnectivity extends _i2.Mock implements _i20.Connectivity {
   @override
   _i4.Stream<_i21.ConnectivityResult> get onConnectivityChanged =>
       (super.noSuchMethod(Invocation.getter(#onConnectivityChanged),
-          returnValue: Stream<_i21.ConnectivityResult>.empty())
-      as _i4.Stream<_i21.ConnectivityResult>);
+              returnValue: Stream<_i21.ConnectivityResult>.empty())
+          as _i4.Stream<_i21.ConnectivityResult>);
   @override
   _i4.Future<_i21.ConnectivityResult> checkConnectivity() =>
       (super.noSuchMethod(Invocation.method(#checkConnectivity, []),
-          returnValue: Future<_i21.ConnectivityResult>.value(
-              _i21.ConnectivityResult.wifi))
-      as _i4.Future<_i21.ConnectivityResult>);
+              returnValue: Future<_i21.ConnectivityResult>.value(
+                  _i21.ConnectivityResult.wifi))
+          as _i4.Future<_i21.ConnectivityResult>);
   @override
   String toString() => super.toString();
 }
@@ -452,8 +452,8 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.GlobalKey<_i1.FormState> get formKey =>
       (super.noSuchMethod(Invocation.getter(#formKey),
-          returnValue: _FakeGlobalKey_0<_i1.FormState>())
-      as _i1.GlobalKey<_i1.FormState>);
+              returnValue: _FakeGlobalKey_0<_i1.FormState>())
+          as _i1.GlobalKey<_i1.FormState>);
   @override
   List<Map<String, dynamic>> get greeting =>
       (super.noSuchMethod(Invocation.getter(#greeting),
@@ -474,8 +474,8 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.TextEditingController get confirmPassword =>
       (super.noSuchMethod(Invocation.getter(#confirmPassword),
-          returnValue: _FakeTextEditingController_9())
-      as _i1.TextEditingController);
+              returnValue: _FakeTextEditingController_9())
+          as _i1.TextEditingController);
   @override
   set confirmPassword(_i1.TextEditingController? _confirmPassword) =>
       super.noSuchMethod(Invocation.setter(#confirmPassword, _confirmPassword),
@@ -483,8 +483,8 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.TextEditingController get firstName =>
       (super.noSuchMethod(Invocation.getter(#firstName),
-          returnValue: _FakeTextEditingController_9())
-      as _i1.TextEditingController);
+              returnValue: _FakeTextEditingController_9())
+          as _i1.TextEditingController);
   @override
   set firstName(_i1.TextEditingController? _firstName) =>
       super.noSuchMethod(Invocation.setter(#firstName, _firstName),
@@ -492,8 +492,8 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.TextEditingController get lastName =>
       (super.noSuchMethod(Invocation.getter(#lastName),
-          returnValue: _FakeTextEditingController_9())
-      as _i1.TextEditingController);
+              returnValue: _FakeTextEditingController_9())
+          as _i1.TextEditingController);
   @override
   set lastName(_i1.TextEditingController? _lastName) =>
       super.noSuchMethod(Invocation.setter(#lastName, _lastName),
@@ -501,8 +501,8 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.TextEditingController get password =>
       (super.noSuchMethod(Invocation.getter(#password),
-          returnValue: _FakeTextEditingController_9())
-      as _i1.TextEditingController);
+              returnValue: _FakeTextEditingController_9())
+          as _i1.TextEditingController);
   @override
   set password(_i1.TextEditingController? _password) =>
       super.noSuchMethod(Invocation.setter(#password, _password),
@@ -510,8 +510,8 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   _i1.TextEditingController get email =>
       (super.noSuchMethod(Invocation.getter(#email),
-          returnValue: _FakeTextEditingController_9())
-      as _i1.TextEditingController);
+              returnValue: _FakeTextEditingController_9())
+          as _i1.TextEditingController);
   @override
   set email(_i1.TextEditingController? _email) =>
       super.noSuchMethod(Invocation.setter(#email, _email),
@@ -535,7 +535,7 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   bool get hidePassword =>
       (super.noSuchMethod(Invocation.getter(#hidePassword), returnValue: false)
-      as bool);
+          as bool);
   @override
   set hidePassword(bool? _hidePassword) =>
       super.noSuchMethod(Invocation.setter(#hidePassword, _hidePassword),
@@ -546,11 +546,11 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   bool get isBusy =>
       (super.noSuchMethod(Invocation.getter(#isBusy), returnValue: false)
-      as bool);
+          as bool);
   @override
   bool get hasListeners =>
       (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
-      as bool);
+          as bool);
   @override
   dynamic initialise(_i5.OrgInfo? org) =>
       super.noSuchMethod(Invocation.method(#initialise, [org]));

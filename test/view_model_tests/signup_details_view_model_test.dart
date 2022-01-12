@@ -28,21 +28,22 @@ void main() {
   group('SignUp Tests', () {
     final model = MockSignupDetailsViewModel();
 
-    test('Test validation for first and last name' , (){
+    test('Test validation for first and last name', () {
       final String? blankFirstName = Validator.validateFirstName("");
       expect(blankFirstName, "Firstname must not be left blank.");
 
       final String? blankLastName = Validator.validateLastName("");
       expect(blankLastName, "Lastname must not be left blank.");
 
-      final String? validFirstName = Validator.validateFirstName("testFirstName");
-      expect(validFirstName , null);
+      final String? validFirstName =
+          Validator.validateFirstName("testFirstName");
+      expect(validFirstName, null);
 
       final String? validLastName = Validator.validateLastName("testLastName");
-      expect(validLastName , null);
+      expect(validLastName, null);
     });
 
-    test('Test validation for Email', (){
+    test('Test validation for Email', () {
       final String? blankEmail = Validator.validateEmail("");
       expect(blankEmail, "Email must not be left blank");
 
@@ -55,13 +56,14 @@ void main() {
       final String? invalidEmail3 = Validator.validateEmail("@test.com");
       expect(invalidEmail3, "Please enter a valid Email Address");
 
-      final String? validEmail = Validator.validateEmail("testName@testOrg.com");
+      final String? validEmail =
+          Validator.validateEmail("testName@testOrg.com");
       expect(validEmail, null);
     });
 
-    test('Test validation for password' , (){
+    test('Test validation for password', () {
       final String? blankPassword = Validator.validatePassword("");
-      expect(blankPassword , "Password must not be left blank");
+      expect(blankPassword, "Password must not be left blank");
 
       final String? invalidPassword1 = Validator.validatePassword("test");
       expect(invalidPassword1, "Invalid Password");
@@ -70,39 +72,41 @@ void main() {
       expect(invalidPassword2, "Invalid Password");
 
       final String? invalidPassword3 = Validator.validatePassword("TEST");
-      expect(invalidPassword3 , "Invalid Password");
+      expect(invalidPassword3, "Invalid Password");
 
       final String? invalidPassword4 = Validator.validatePassword("test123");
-      expect(invalidPassword4 , "Invalid Password");
+      expect(invalidPassword4, "Invalid Password");
 
       final String? invalidPassword5 = Validator.validatePassword("test123!");
-      expect(invalidPassword5 , "Invalid Password");
+      expect(invalidPassword5, "Invalid Password");
 
       final String? validPassword = Validator.validatePassword("tesT123!");
-      expect(validPassword , null);
+      expect(validPassword, null);
 
       // test for confirm password
-      final String? differentPassword = Validator.validatePasswordConfirm("tesT123", "test1234");
-      expect(differentPassword , "Password does not match original");
+      final String? differentPassword =
+          Validator.validatePasswordConfirm("tesT123", "test1234");
+      expect(differentPassword, "Password does not match original");
 
-      final String? matchingPassword = Validator.validatePasswordConfirm("tesT123", "tesT123");
+      final String? matchingPassword =
+          Validator.validatePasswordConfirm("tesT123", "tesT123");
       expect(matchingPassword, null);
     });
 
-    test('Test sign up function' , () async{
+    test('Test sign up function', () async {
       final User newUser = User();
 
-      when(model.signUp()).thenAnswer((realInvocation){
-        if(newUser.id == null || newUser.id == ""){
+      when(model.signUp()).thenAnswer((realInvocation) {
+        if (newUser.id == null || newUser.id == "") {
           return "User Id can't be blank";
         }
-        if(newUser.firstName == null || newUser.firstName == ""){
+        if (newUser.firstName == null || newUser.firstName == "") {
           return "First Name can't be blank";
         }
-        if(newUser.lastName == null || newUser.lastName == ""){
+        if (newUser.lastName == null || newUser.lastName == "") {
           return "Last Name can't be blank";
         }
-        if(newUser.email == null || newUser.email == ""){
+        if (newUser.email == null || newUser.email == "") {
           return "Email can't be blank";
         }
         return {
@@ -130,10 +134,7 @@ void main() {
         "firstName": newUser.firstName,
         "lastName": newUser.lastName,
         "email": newUser.email,
-      }
-      );
-
+      });
     });
-
   });
 }
