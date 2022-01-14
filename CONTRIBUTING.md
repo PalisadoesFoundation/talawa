@@ -16,15 +16,15 @@ If you are ready to start contributing code right away, get ready!
 
 1. Join our Slack and introduce yourself. See details on how to join below.
    1. This repository has its own dedicated channel.
-   1. There are many persons on the various channels who are willing to assist you in getting started.
+   1. There are many persons on the various channels, willing to assist you in getting started.
 1. Take a look at our issues (**_after reading our guidelines below_**):
-   1. We have a list of [good first issues](https://github.com/PalisadoesFoundation/talawa/labels/good%20first%20issue) that contain challenges with a limited scope for beginners.
-   1. There are issues for creating tests for our code base. We need to increase reliablility. Try those issues, or create your own for files that don't already have tests. This is another good strategy for beginners.
-   1. There are [dormant issues on which nobody has worked for some time](https://github.com/PalisadoesFoundation/talawa/issues?q=is%3Aopen+is%3Aissue+label%3Ano-issue-activity). These are another place to start
+   1. We have a list of [good first issues](https://github.com/PalisadoesFoundation/talawa/labels/good%20first%20issue) that contain challenges with limited scope for beginners.
+   1. There are issues for creating tests for our codebase. We need to increase reliability. Try those issues, or create your own files that don't already have tests. This is another good strategy for beginners.
+   1. There are [dormant issues on which nobody has worked for some time](https://github.com/PalisadoesFoundation/talawa/issues?q=is%3Aopen+is%3Aissue+label%3Ano-issue-activity). These are another place to start.
    1. There may also be [dormant PRs on which nobody has worked for some time](https://github.com/PalisadoesFoundation/talawa/issues?q=is%3Aopen+is%3Aissue+label%3Ano-issue-activity+label%3Ano-pr-activity)!
-1. Create an issue based on a bug you have found or a feature you would like to add. We value meaningful sugestions and will prioritize them.
+1. Create an issue based on a bug you have found or a feature you would like to add. We value meaningful suggestions and will prioritize them.
 
-Welcome aboard!
+**Welcome aboard!**
 
 ### Our Development Process
 
