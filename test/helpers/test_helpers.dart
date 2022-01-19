@@ -36,6 +36,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<UserConfig>(returnNullOnMissingStub: true),
   MockSpec<AppLanguage>(returnNullOnMissingStub: true),
   MockSpec<Connectivity>(returnNullOnMissingStub: true),
+  MockSpec<Post>(returnNullOnMissingStub: true),
 ])
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
@@ -180,6 +181,20 @@ Connectivity getAndRegisterConnectivityService() {
   final service = MockConnectivity();
   locator.registerSingleton<Connectivity>(service);
   return service;
+}
+
+Post getPostMockModel({
+  String sId = "PostID",
+}) {
+  final postMock = MockPost();
+  when(postMock.sId).thenReturn(sId);
+  when(postMock.creator).thenReturn(User(
+    firstName: "TestName",
+  ));
+  when(postMock.description).thenReturn("TestDescription");
+  when(postMock.comments).thenReturn([]);
+  when(postMock.getPostCreatedDuration()).thenReturn("2 Months Ago");
+  return postMock;
 }
 
 void registerServices() {
