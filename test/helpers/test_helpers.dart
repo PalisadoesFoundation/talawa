@@ -185,15 +185,17 @@ Connectivity getAndRegisterConnectivityService() {
 
 Post getPostMockModel({
   String sId = "PostID",
+  String description = "TestDescription",
+  String duration = "2 Months Ago",
 }) {
   final postMock = MockPost();
   when(postMock.sId).thenReturn(sId);
   when(postMock.creator).thenReturn(User(
     firstName: "TestName",
   ));
-  when(postMock.description).thenReturn("TestDescription");
+  when(postMock.description).thenReturn(description);
   when(postMock.comments).thenReturn([]);
-  when(postMock.getPostCreatedDuration()).thenReturn("2 Months Ago");
+  when(postMock.getPostCreatedDuration()).thenReturn(duration);
   return postMock;
 }
 
