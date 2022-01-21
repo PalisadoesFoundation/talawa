@@ -48,7 +48,7 @@
     "Email must not be left blank": "E-Mail darf nicht leer sein",
     "Please enter a valid Email Address": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
     "Password must not be left blank": "Passwort darf nicht leer bleiben",
-    "Invalid Password": "Ungültiges Passwort",
+    "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,$,etc.)": "Ihr Passwort muss mindestens 8 Zeichen lang sein, mindestens eine Ziffer, einen Groß- und einen Kleinbuchstaben und ein Sonderzeichen (@, #, $, etc.) enthalten.",
     "Password must not contain spaces": "Passwort darf keine Leerzeichen enthalten",
     "Password does not match original": "Passwort stimmt nicht mit Original überein",
     "Join Organisation": "Der Organisation beitreten",

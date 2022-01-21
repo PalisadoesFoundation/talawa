@@ -48,7 +48,7 @@
     "Email must not be left blank": "ईमेल खाली नहीं छोड़ना चाहिए",
     "Please enter a valid Email Address": "कृपया एक वैध ई - मेल एड्रेस डालें",
     "Password must not be left blank": "पासवर्ड खाली नहीं छोड़ना चाहिए",
-    "Invalid Password": "अवैध पासवर्ड",
+    "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,$,etc.)": "आपका पासवर्ड कम से कम 8 वर्णों का होना चाहिए, जिसमें कम से कम एक संख्यात्मक, एक अपरकेस और एक लोअरकेस अक्षर और एक विशेष वर्ण (@,#,$, आदि) हो।",
     "Password must not contain spaces": "पासवर्ड में रिक्त स्थान नहीं होना चाहिए",
     "Password does not match original": "पासवर्ड मूल से मेल नहीं खाता",
     "Join Organisation": "संगठन में शामिल हों",

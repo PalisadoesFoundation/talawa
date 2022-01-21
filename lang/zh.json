@@ -48,7 +48,7 @@
     "Email must not be left blank": "电子邮件不得留空",
     "Please enter a valid Email Address": "请输入有效的电子邮件地址",
     "Password must not be left blank": "密码不能为空",
-    "Invalid Password": "无效的密码",
+    "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,$,etc.)": "您的密码长度必须至少为 8 个字符，至少包含 1 个数字、1 个大写和 1 个小写字母以及 1 个特殊字符（@、#、$ 等）",
     "Password must not contain spaces": "密码不能包含空格",
     "Password does not match original": "密码与原密码不符",
     "Join Organisation": "加入组织",
