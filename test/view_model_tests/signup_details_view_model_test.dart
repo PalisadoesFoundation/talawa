@@ -117,18 +117,24 @@ void main() {
         };
       });
 
+      //checking with blank user Id
       expect(model.signUp(), "User Id can't be blank");
 
       newUser.id = "5";
+      //checking with blank first name
       expect(model.signUp(), "First Name can't be blank");
 
       newUser.firstName = "testFirstName";
+      //checking with blank last name
       expect(model.signUp(), "Last Name can't be blank");
 
       newUser.lastName = "testLastName";
+      //checking with blank email
       expect(model.signUp(), "Email can't be blank");
 
       newUser.email = "testName@testOrg.com";
+      // checking with all details
+      // should give proper response
       expect(model.signUp(), {
         "id": newUser.id,
         "firstName": newUser.firstName,
