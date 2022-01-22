@@ -67,9 +67,9 @@ Future<void> main() async {
     ..registerAdapter(UserAdapter())
     ..registerAdapter(OrgInfoAdapter());
   //opening Hive Boxes
-  await Hive.openBox<User>('currentUser');
-  await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox('url');
+  await Hive.openBox<User>('currentUser2');
+  await Hive.openBox<OrgInfo>('currentOrg2');
+  await Hive.openBox('url2');
   setUp(() {
     registerServices();
     registerViewModels();

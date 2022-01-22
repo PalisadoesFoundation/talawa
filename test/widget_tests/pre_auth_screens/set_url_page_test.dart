@@ -84,8 +84,8 @@ Future<void> main() async {
     ..registerAdapter(UserAdapter())
     ..registerAdapter(OrgInfoAdapter());
   //opening Hive Boxes
-  await Hive.openBox<User>('currentUser');
-  await Hive.openBox<OrgInfo>('currentOrg');
+  // await Hive.openBox<User>('currentUser');
+  // await Hive.openBox<OrgInfo>('currentOrg');
   await Hive.openBox('url');
   //setting up MVVM
   setupLocator();

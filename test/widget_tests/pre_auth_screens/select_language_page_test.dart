@@ -73,7 +73,7 @@ Future<void> main() async {
   //opening Hive Boxes
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox('url');
+  // await Hive.openBox('url');
 
   testSetupLocator();
   locator<GraphqlConfig>().test();

@@ -64,21 +64,22 @@ void main() {
     test('Test validation for password', () {
       final String? blankPassword = Validator.validatePassword("");
       expect(blankPassword, "Password must not be left blank");
-
+      final expected =
+          "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)";
       final String? invalidPassword1 = Validator.validatePassword("test");
-      expect(invalidPassword1, "Invalid Password");
+      expect(invalidPassword1, expected);
 
       final String? invalidPassword2 = Validator.validatePassword("123");
-      expect(invalidPassword2, "Invalid Password");
+      expect(invalidPassword2, expected);
 
       final String? invalidPassword3 = Validator.validatePassword("TEST");
-      expect(invalidPassword3, "Invalid Password");
+      expect(invalidPassword3, expected);
 
       final String? invalidPassword4 = Validator.validatePassword("test123");
-      expect(invalidPassword4, "Invalid Password");
+      expect(invalidPassword4, expected);
 
       final String? invalidPassword5 = Validator.validatePassword("test123!");
-      expect(invalidPassword5, "Invalid Password");
+      expect(invalidPassword5, expected);
 
       final String? validPassword = Validator.validatePassword("tesT123!");
       expect(validPassword, null);
