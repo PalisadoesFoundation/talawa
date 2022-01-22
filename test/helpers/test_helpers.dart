@@ -173,6 +173,8 @@ EventService getAndRegisterEventService() {
   final StreamController<Event> _streamController = StreamController();
   final Stream<Event> _stream = _streamController.stream.asBroadcastStream();
   when(service.eventStream).thenAnswer((invocation) => _stream);
+  when(service.getEvents).thenAnswer(
+      (invocation) => () async => _streamController.add(Event(title: 'test')));
 
   locator.registerSingleton<EventService>(service);
   return service;
