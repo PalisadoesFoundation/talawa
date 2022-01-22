@@ -4,11 +4,11 @@ import 'package:talawa/view_model/after_auth_view_models/chat_view_models/lru_ca
 import 'package:talawa/view_model/base_view_model.dart';
 
 class DirectChatViewModel extends BaseModel {
-  late LRUChatListCache? _chats;
+  LRUChatListCache? _chats;
   ChatListNode? _chatIterator;
 
   //Getters
-  LRUChatListCache get chats => _chats!;
+  LRUChatListCache? get chats => _chats;
   ChatListNode? get chatIterator => _chatIterator;
 
   void initialise() {
