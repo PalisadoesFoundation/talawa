@@ -52,7 +52,7 @@ Code contributions to Talawa come in the form of pull requests. These are done b
 
 The process of proposing a change to Talawa can be summarized as:
 
-1. Fork the Talawa repository and branch off `master`.
+1. Fork the Talawa repository and branch off `develop`.
 1. The repository can be cloned locally using `git clone <forked repo url>`.
 1. Make the desired changes to the Talawa source.
 1. Run the app and test your changes.
