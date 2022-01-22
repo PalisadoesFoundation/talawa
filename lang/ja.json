@@ -48,7 +48,7 @@
     "Email must not be left blank": "メールを空白のままにしないでください",
     "Please enter a valid Email Address": "有効なメールアドレスを入力してください",
     "Password must not be left blank": "パスワードは空白のままにしないでください",
-    "Invalid Password": "無効なパスワード",
+    "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,$,etc.)": "パスワードは8文字以上で、数字が1つ、大文字と小文字が1つ、特殊文字（@、＃、$など）が1つ含まれている必要があります。",
     "Password must not contain spaces": "パスワードにスペースを含めることはできません",
     "Password does not match original": "パスワードが元のパスワードと一致しません",
     "Join Organisation": "組織に参加する",
