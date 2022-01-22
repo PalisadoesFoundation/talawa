@@ -26,6 +26,11 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
     as _i13;
 import 'package:talawa/services/user_config.dart' as _i17;
 import 'package:talawa/view_model/lang_view_model.dart' as _i18;
+<<<<<<< HEAD
+=======
+import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
+    as _i22;
+>>>>>>> 6cb0101397924b8e420ec45beb8333d1ece67aae
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -57,6 +62,18 @@ class _FakeDataBaseMutationFunctions_7 extends _i2.Fake
 
 class _FakeLocale_8 extends _i2.Fake implements _i9.Locale {}
 
+<<<<<<< HEAD
+=======
+class _FakeTextEditingController_9 extends _i2.Fake
+    implements _i1.TextEditingController {}
+
+class _FakeFocusNode_10 extends _i2.Fake implements _i1.FocusNode {
+  @override
+  String toString({_i1.DiagnosticLevel? minLevel = _i1.DiagnosticLevel.info}) =>
+      super.toString();
+}
+
+>>>>>>> 6cb0101397924b8e420ec45beb8333d1ece67aae
 /// A class which mocks [NavigationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -391,6 +408,158 @@ class MockAppLanguage extends _i2.Mock implements _i18.AppLanguage {
       (super.noSuchMethod(Invocation.method(#userLanguageQuery, [userId]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  void setState(_i19.ViewState? viewState) =>
+      super.noSuchMethod(Invocation.method(#setState, [viewState]),
+          returnValueForMissingStub: null);
+  @override
+  void addListener(_i9.VoidCallback? listener) =>
+      super.noSuchMethod(Invocation.method(#addListener, [listener]),
+          returnValueForMissingStub: null);
+  @override
+  void removeListener(_i9.VoidCallback? listener) =>
+      super.noSuchMethod(Invocation.method(#removeListener, [listener]),
+          returnValueForMissingStub: null);
+  @override
+  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
+      returnValueForMissingStub: null);
+  @override
+  void notifyListeners() =>
+      super.noSuchMethod(Invocation.method(#notifyListeners, []),
+          returnValueForMissingStub: null);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [Connectivity].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockConnectivity extends _i2.Mock implements _i20.Connectivity {
+  @override
+  _i4.Stream<_i21.ConnectivityResult> get onConnectivityChanged =>
+      (super.noSuchMethod(Invocation.getter(#onConnectivityChanged),
+              returnValue: Stream<_i21.ConnectivityResult>.empty())
+          as _i4.Stream<_i21.ConnectivityResult>);
+  @override
+  _i4.Future<_i21.ConnectivityResult> checkConnectivity() =>
+      (super.noSuchMethod(Invocation.method(#checkConnectivity, []),
+              returnValue: Future<_i21.ConnectivityResult>.value(
+                  _i21.ConnectivityResult.wifi))
+          as _i4.Future<_i21.ConnectivityResult>);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [SignupDetailsViewModel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSignupDetailsViewModel extends _i2.Mock
+    implements _i22.SignupDetailsViewModel {
+  @override
+  _i1.GlobalKey<_i1.FormState> get formKey =>
+      (super.noSuchMethod(Invocation.getter(#formKey),
+              returnValue: _FakeGlobalKey_0<_i1.FormState>())
+          as _i1.GlobalKey<_i1.FormState>);
+  @override
+  List<Map<String, dynamic>> get greeting =>
+      (super.noSuchMethod(Invocation.getter(#greeting),
+          returnValue: <Map<String, dynamic>>[]) as List<Map<String, dynamic>>);
+  @override
+  set greeting(List<Map<String, dynamic>>? _greeting) =>
+      super.noSuchMethod(Invocation.setter(#greeting, _greeting),
+          returnValueForMissingStub: null);
+  @override
+  _i5.OrgInfo get selectedOrganization =>
+      (super.noSuchMethod(Invocation.getter(#selectedOrganization),
+          returnValue: _FakeOrgInfo_4()) as _i5.OrgInfo);
+  @override
+  set selectedOrganization(_i5.OrgInfo? _selectedOrganization) =>
+      super.noSuchMethod(
+          Invocation.setter(#selectedOrganization, _selectedOrganization),
+          returnValueForMissingStub: null);
+  @override
+  _i1.TextEditingController get confirmPassword =>
+      (super.noSuchMethod(Invocation.getter(#confirmPassword),
+              returnValue: _FakeTextEditingController_9())
+          as _i1.TextEditingController);
+  @override
+  set confirmPassword(_i1.TextEditingController? _confirmPassword) =>
+      super.noSuchMethod(Invocation.setter(#confirmPassword, _confirmPassword),
+          returnValueForMissingStub: null);
+  @override
+  _i1.TextEditingController get firstName =>
+      (super.noSuchMethod(Invocation.getter(#firstName),
+              returnValue: _FakeTextEditingController_9())
+          as _i1.TextEditingController);
+  @override
+  set firstName(_i1.TextEditingController? _firstName) =>
+      super.noSuchMethod(Invocation.setter(#firstName, _firstName),
+          returnValueForMissingStub: null);
+  @override
+  _i1.TextEditingController get lastName =>
+      (super.noSuchMethod(Invocation.getter(#lastName),
+              returnValue: _FakeTextEditingController_9())
+          as _i1.TextEditingController);
+  @override
+  set lastName(_i1.TextEditingController? _lastName) =>
+      super.noSuchMethod(Invocation.setter(#lastName, _lastName),
+          returnValueForMissingStub: null);
+  @override
+  _i1.TextEditingController get password =>
+      (super.noSuchMethod(Invocation.getter(#password),
+              returnValue: _FakeTextEditingController_9())
+          as _i1.TextEditingController);
+  @override
+  set password(_i1.TextEditingController? _password) =>
+      super.noSuchMethod(Invocation.setter(#password, _password),
+          returnValueForMissingStub: null);
+  @override
+  _i1.TextEditingController get email =>
+      (super.noSuchMethod(Invocation.getter(#email),
+              returnValue: _FakeTextEditingController_9())
+          as _i1.TextEditingController);
+  @override
+  set email(_i1.TextEditingController? _email) =>
+      super.noSuchMethod(Invocation.setter(#email, _email),
+          returnValueForMissingStub: null);
+  @override
+  _i1.AutovalidateMode get validate =>
+      (super.noSuchMethod(Invocation.getter(#validate),
+          returnValue: _i1.AutovalidateMode.disabled) as _i1.AutovalidateMode);
+  @override
+  set validate(_i1.AutovalidateMode? _validate) =>
+      super.noSuchMethod(Invocation.setter(#validate, _validate),
+          returnValueForMissingStub: null);
+  @override
+  _i1.FocusNode get confirmFocus =>
+      (super.noSuchMethod(Invocation.getter(#confirmFocus),
+          returnValue: _FakeFocusNode_10()) as _i1.FocusNode);
+  @override
+  set confirmFocus(_i1.FocusNode? _confirmFocus) =>
+      super.noSuchMethod(Invocation.setter(#confirmFocus, _confirmFocus),
+          returnValueForMissingStub: null);
+  @override
+  bool get hidePassword =>
+      (super.noSuchMethod(Invocation.getter(#hidePassword), returnValue: false)
+          as bool);
+  @override
+  set hidePassword(bool? _hidePassword) =>
+      super.noSuchMethod(Invocation.setter(#hidePassword, _hidePassword),
+          returnValueForMissingStub: null);
+  @override
+  _i19.ViewState get state => (super.noSuchMethod(Invocation.getter(#state),
+      returnValue: _i19.ViewState.idle) as _i19.ViewState);
+  @override
+  bool get isBusy =>
+      (super.noSuchMethod(Invocation.getter(#isBusy), returnValue: false)
+          as bool);
+  @override
+  bool get hasListeners =>
+      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
+          as bool);
+  @override
+  dynamic initialise(_i5.OrgInfo? org) =>
+      super.noSuchMethod(Invocation.method(#initialise, [org]));
   @override
   void setState(_i19.ViewState? viewState) =>
       super.noSuchMethod(Invocation.method(#setState, [viewState]),

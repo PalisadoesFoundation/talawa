@@ -50,7 +50,7 @@
     "Email must not be left blank": "Email must not be left blank",
     "Please enter a valid Email Address": "Please enter a valid Email Address",
     "Password must not be left blank": "Password must not be left blank",
-    "Invalid Password": "Invalid Password",
+    "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,$,etc.)": "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,$,etc.)",
     "Password must not contain spaces": "Password must not contain spaces",
     "Password does not match original": "Password does not match original",
     "Join Organisation": "Join Organisation",

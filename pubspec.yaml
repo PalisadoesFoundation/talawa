@@ -34,6 +34,7 @@ dependencies:
   json_annotation: ^4.0.1
   mockito: ^5.0.14
   path_provider: ^2.0.2
+  permission_handler: ^8.1.4+2
   provider: ^5.0.0
   qr_code_scanner: ^0.5.2
   qr_flutter: ^4.0.0
