@@ -117,17 +117,24 @@ class ExploreEventsViewModel extends BaseModel {
 
       case 'Created Events':
         {
-          _events = List.from(_bufferEvents.where(
-              (element) => element.creator!.id == userConfig.currentUser.id));
+          _events = List.from(
+            _bufferEvents.where(
+              (element) => element.creator!.id == userConfig.currentUser.id,
+            ),
+          );
           _emptyListMessage = "You have not created any event.";
         }
         break;
 
       case 'Registered Events':
         {
-          _events = List.from(_bufferEvents.where((element) =>
-              element.isRegistered == true &&
-              element.creator!.id != userConfig.currentUser.id));
+          _events = List.from(
+            _bufferEvents.where(
+              (element) =>
+                  element.isRegistered == true &&
+                  element.creator!.id != userConfig.currentUser.id,
+            ),
+          );
           _emptyListMessage = "No registered events are present";
         }
         break;

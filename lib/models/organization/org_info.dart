@@ -6,18 +6,21 @@ part 'org_info.g.dart';
 
 @HiveType(typeId: 2)
 class OrgInfo {
-  OrgInfo(
-      {this.admins,
-      this.members,
-      this.creatorInfo,
-      this.description,
-      this.id,
-      this.image,
-      this.isPublic,
-      this.name});
+  OrgInfo({
+    this.admins,
+    this.members,
+    this.creatorInfo,
+    this.description,
+    this.id,
+    this.image,
+    this.isPublic,
+    this.name,
+  });
 
-  factory OrgInfo.fromJson(Map<String, dynamic> json1,
-      {bool memberRequest = false}) {
+  factory OrgInfo.fromJson(
+    Map<String, dynamic> json1, {
+    bool memberRequest = false,
+  }) {
     Map<String, dynamic> json;
     if (memberRequest) {
       json = json1['organization'] as Map<String, dynamic>;
@@ -32,19 +35,23 @@ class OrgInfo {
           json['description'] != null ? json['description'] as String? : null,
       isPublic: json['isPublic'] != null ? json['isPublic'] as bool? : null,
       creatorInfo: json['creator'] != null
-          ? User.fromJson(json['creator'] as Map<String, dynamic>,
-              fromOrg: true)
+          ? User.fromJson(
+              json['creator'] as Map<String, dynamic>,
+              fromOrg: true,
+            )
           : null,
       members: json['members'] != null
           ? (json['members'] as List<dynamic>?)
-              ?.map((e) =>
-                  User.fromJson(e as Map<String, dynamic>, fromOrg: true))
+              ?.map(
+                (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
+              )
               .toList()
           : null,
       admins: json['admins'] != null
           ? (json['admins'] as List<dynamic>?)
-              ?.map((e) =>
-                  User.fromJson(e as Map<String, dynamic>, fromOrg: true))
+              ?.map(
+                (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
+              )
               .toList()
           : null,
     );

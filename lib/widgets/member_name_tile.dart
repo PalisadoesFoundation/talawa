@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 
 class MemberNameTile extends StatelessWidget {
-  const MemberNameTile(
-      {Key? key,
-      required this.userName,
-      this.userImage,
-      required this.onDelete})
-      : super(key: key);
+  const MemberNameTile({
+    Key? key,
+    required this.userName,
+    this.userImage,
+    required this.onDelete,
+  }) : super(key: key);
   final String userName;
   final Function onDelete;
   final String? userImage;
@@ -20,9 +20,9 @@ class MemberNameTile extends StatelessWidget {
         width: SizeConfig.screenWidth! * (0.3 + userName.length / 50),
         height: SizeConfig.screenHeight! * 0.04,
         decoration: BoxDecoration(
-            borderRadius:
-                BorderRadius.circular(SizeConfig.screenHeight! * 0.02),
-            color: Theme.of(context).colorScheme.primaryVariant),
+          borderRadius: BorderRadius.circular(SizeConfig.screenHeight! * 0.02),
+          color: Theme.of(context).colorScheme.primaryVariant,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,13 +47,14 @@ class MemberNameTile extends StatelessWidget {
               ),
             ),
             IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: () => onDelete(),
-                icon: const Icon(
-                  Icons.cancel_rounded,
-                  color: Color(0xff524F4F),
-                  size: 19,
-                ))
+              padding: EdgeInsets.zero,
+              onPressed: () => onDelete(),
+              icon: const Icon(
+                Icons.cancel_rounded,
+                color: Color(0xff524F4F),
+                size: 19,
+              ),
+            )
           ],
         ),
       ),

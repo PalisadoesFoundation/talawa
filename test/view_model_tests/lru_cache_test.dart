@@ -14,8 +14,10 @@ void main() {
       expect(model.head, mockChatListNode1);
       final ChatListNode mockChatListNode2 = createMockChatListNode(2);
       model.addChat(mockChatListNode2);
-      expect(model.head,
-          mockChatListNode2); //checking if chat added later are at top
+      expect(
+        model.head,
+        mockChatListNode2,
+      ); //checking if chat added later are at top
       expect(model.head, isNot(mockChatListNode1));
       expect(model.head.next, mockChatListNode1);
     });
@@ -67,8 +69,13 @@ void main() {
     final ChatListNode mockChatListNode3 = createMockChatListNode(3);
     model.addChat(mockChatListNode3);
 
-    final mockUpdatedChatMessage2 = ChatMessage("mock messageID 1", mockSender,
-        "This is modified mock message", DateTime.now(), true);
+    final mockUpdatedChatMessage2 = ChatMessage(
+      "mock messageID 1",
+      mockSender,
+      "This is modified mock message",
+      DateTime.now(),
+      true,
+    );
     final finalUpdatedmockChat1 =
         ChatListTileDataModel(mockSender, mockUpdatedChatMessage2, 5);
     final mockUpdatedChatListNode2 =
@@ -80,8 +87,13 @@ void main() {
 
 ChatListNode createMockChatListNode(int i) {
   final mockSender = ChatUser(name: "Mock sender", id: "Mock ID");
-  final mockChatMessage = ChatMessage("mock messageID $i", mockSender,
-      "This is mock message $i", DateTime.now(), true);
+  final mockChatMessage = ChatMessage(
+    "mock messageID $i",
+    mockSender,
+    "This is mock message $i",
+    DateTime.now(),
+    true,
+  );
   final finalmockChat = ChatListTileDataModel(mockSender, mockChatMessage, 5);
   final mockChatListNode =
       ChatListNode(key: "mock Key $i", chat: finalmockChat);

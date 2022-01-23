@@ -14,33 +14,38 @@ class EditEventForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
-              textInputAction: TextInputAction.next,
-              controller: model.eventTitleTextController,
-              keyboardType: TextInputType.name,
-              maxLength: 20,
-              focusNode: model.titleFocus,
-              validator: (value) =>
-                  Validator.validateEventForm(value!, 'Title'),
-              decoration: InputDecoration(
-                labelText: 'Add Event Title',
-                isDense: true,
-                labelStyle: Theme.of(context).textTheme.subtitle1,
-                focusedBorder: InputBorder.none,
-                counterText: "",
-                enabledBorder: InputBorder.none,
-                prefixIcon: Container(
-                    transform: Matrix4.translationValues(
-                        -SizeConfig.screenWidth! * 0.027, 0.0, 0.0),
-                    child: const Icon(
-                      Icons.title,
-                      size: 25,
-                    )),
-                suffixIcon: IconButton(
-                    onPressed: () {
-                      FocusScope.of(context).requestFocus(model.titleFocus);
-                    },
-                    icon: const Icon(Icons.edit)),
-              )),
+            textInputAction: TextInputAction.next,
+            controller: model.eventTitleTextController,
+            keyboardType: TextInputType.name,
+            maxLength: 20,
+            focusNode: model.titleFocus,
+            validator: (value) => Validator.validateEventForm(value!, 'Title'),
+            decoration: InputDecoration(
+              labelText: 'Add Event Title',
+              isDense: true,
+              labelStyle: Theme.of(context).textTheme.subtitle1,
+              focusedBorder: InputBorder.none,
+              counterText: "",
+              enabledBorder: InputBorder.none,
+              prefixIcon: Container(
+                transform: Matrix4.translationValues(
+                  -SizeConfig.screenWidth! * 0.027,
+                  0.0,
+                  0.0,
+                ),
+                child: const Icon(
+                  Icons.title,
+                  size: 25,
+                ),
+              ),
+              suffixIcon: IconButton(
+                onPressed: () {
+                  FocusScope.of(context).requestFocus(model.titleFocus);
+                },
+                icon: const Icon(Icons.edit),
+              ),
+            ),
+          ),
           SizedBox(
             height: SizeConfig.screenHeight! * 0.013,
           ),
@@ -59,12 +64,16 @@ class EditEventForm extends StatelessWidget {
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
               prefixIcon: Container(
-                  transform: Matrix4.translationValues(
-                      -SizeConfig.screenWidth! * 0.027, 0.0, 0.0),
-                  child: const Icon(
-                    Icons.place,
-                    size: 25,
-                  )),
+                transform: Matrix4.translationValues(
+                  -SizeConfig.screenWidth! * 0.027,
+                  0.0,
+                  0.0,
+                ),
+                child: const Icon(
+                  Icons.place,
+                  size: 25,
+                ),
+              ),
               suffixIcon: IconButton(
                 onPressed: () {
                   FocusScope.of(context).requestFocus(model.locationFocus);
@@ -93,7 +102,10 @@ class EditEventForm extends StatelessWidget {
               enabledBorder: InputBorder.none,
               prefixIcon: Container(
                 transform: Matrix4.translationValues(
-                    -SizeConfig.screenWidth! * 0.027, 0.0, 0.0),
+                  -SizeConfig.screenWidth! * 0.027,
+                  0.0,
+                  0.0,
+                ),
                 child: const Icon(
                   Icons.view_headline,
                   size: 25,

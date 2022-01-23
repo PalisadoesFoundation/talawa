@@ -57,10 +57,11 @@ void main() {
       // Since TextSpan isn't a widget, only way to check if it worked correctly
       // is by looking at the text
       expect(
-          (tester.firstWidget(find.byType(RichText)) as RichText)
-              .text
-              .toPlainText(),
-          'Hello Hello Hello ');
+        (tester.firstWidget(find.byType(RichText)) as RichText)
+            .text
+            .toPlainText(),
+        'Hello Hello Hello ',
+      );
     });
 
     testWidgets('Check for individual TextSpan(s) (en)', (tester) async {
