@@ -66,19 +66,24 @@ void main() {
       expect(blankPassword, "Password must not be left blank");
 
       final String? invalidPassword1 = Validator.validatePassword("test");
-      expect(invalidPassword1, "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)");
+      expect(invalidPassword1,
+          "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)");
 
       final String? invalidPassword2 = Validator.validatePassword("123");
-      expect(invalidPassword2, "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)");
+      expect(invalidPassword2,
+          "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)");
 
       final String? invalidPassword3 = Validator.validatePassword("TEST");
-      expect(invalidPassword3, "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)");
+      expect(invalidPassword3,
+          "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)");
 
       final String? invalidPassword4 = Validator.validatePassword("test123");
-      expect(invalidPassword4, "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)");
+      expect(invalidPassword4,
+          "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)");
 
       final String? invalidPassword5 = Validator.validatePassword("test123!");
-      expect(invalidPassword5, "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)");
+      expect(invalidPassword5,
+          "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)");
 
       final String? validPassword = Validator.validatePassword("tesT123!");
       expect(validPassword, null);
