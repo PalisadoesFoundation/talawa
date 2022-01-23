@@ -5,6 +5,7 @@ import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 
 class MockCommentsViewModel extends Mock implements CommentsViewModel {
+  @override
   late List<Comment> commentList;
   @override
   void initialise(String postID) {
