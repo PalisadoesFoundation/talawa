@@ -32,6 +32,7 @@ Follow these guidelines when creating new YAML defined GitHub actions. This is d
 There are some exceptions to these rules in which jobs can be placed in dedicated separate files:
 1. Jobs that require unique `cron:` schedules 
 1. Jobs that require unique `paths:` statements that operate only when files in a specific path are updated.
+1. Jobs only work correctly if they have a dedicated file (eg. `CodeQL`)
 
 ## Scripts
 

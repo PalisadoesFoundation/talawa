@@ -75,12 +75,17 @@ class _RaisedRoundedButtonState extends State<RaisedRoundedButton> {
                     ),
                   ],
                 )
-              : Text(
-                  widget.buttonLabel,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 18,
-                      color: widget.textColor),
+              : FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text(
+                      widget.buttonLabel,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 18,
+                          color: widget.textColor),
+                    ),
+                  ),
                 ),
         ));
   }
