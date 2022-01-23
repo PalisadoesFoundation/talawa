@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/size_config.dart';
@@ -69,16 +70,18 @@ void main() {
 
     testWidgets('Testing if Events Screen Shows up', (tester) async {
       await tester.runAsync(() async {
-        await tester.pumpWidget(createHomePageScreen());
-        await tester.pumpAndSettle();
+        mockNetworkImagesFor(() async {
+          await tester.pumpWidget(createHomePageScreen());
+          await tester.pumpAndSettle();
 
-        final eventIcon = find.byIcon(Icons.event_note);
-        //tapping the eventIcon
-        await tester.tap(eventIcon);
-        await tester.pump();
-        await tester.pumpAndSettle();
-        // Event Screen should be present
-        expect(find.byKey(const Key("ExploreEventsAppBar")), findsOneWidget);
+          final eventIcon = find.byIcon(Icons.event_note);
+          //tapping the eventIcon
+          await tester.tap(eventIcon);
+          await tester.pump();
+          await tester.pumpAndSettle();
+          // Event Screen should be present
+          expect(find.byKey(const Key("ExploreEventsAppBar")), findsOneWidget);
+        });
       });
     });
     testWidgets('Testing if Post Screen Shows up', (tester) async {

@@ -596,7 +596,7 @@ packages:
     source: hosted
     version: "1.0.0"
   network_image_mock:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: network_image_mock
       url: "https://pub.dartlang.org"
