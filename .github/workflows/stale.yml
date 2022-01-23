@@ -39,5 +39,5 @@ jobs:
         remove-stale-when-updated: true
         exempt-all-milestones: true
         exempt-pr-labels: 'bug'
-        exempt-issue-labels: 'bug, wip'
+        exempt-issue-labels: 'bug, wip, test'
         operations-per-run: 30
