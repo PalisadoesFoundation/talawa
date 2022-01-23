@@ -173,8 +173,28 @@ EventService getAndRegisterEventService() {
   final StreamController<Event> _streamController = StreamController();
   final Stream<Event> _stream = _streamController.stream.asBroadcastStream();
   when(service.eventStream).thenAnswer((invocation) => _stream);
-  when(service.getEvents).thenAnswer(
-      (invocation) => () async => _streamController.add(Event(title: 'test')));
+  when(service.getEvents()).thenAnswer(
+    (invocation) async => _streamController.add(
+      Event(
+        id: '1',
+        title: 'test',
+        startTime: '10000',
+        endTime: '20000',
+        location: 'ABC',
+        description: 'test',
+        creator: User(
+          id: "xzy1",
+          firstName: "Test",
+          lastName: "User",
+          email: "testuser@gmail.com",
+          refreshToken: "testtoken",
+          authToken: 'testtoken',
+        ),
+        isPublic: true,
+        organization: OrgInfo(id: 'XYZ'),
+      ),
+    ),
+  );
 
   locator.registerSingleton<EventService>(service);
   return service;
