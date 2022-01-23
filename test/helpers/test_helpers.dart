@@ -38,6 +38,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<AppLanguage>(returnNullOnMissingStub: true),
   MockSpec<Connectivity>(returnNullOnMissingStub: true),
   MockSpec<SignupDetailsViewModel>(returnNullOnMissingStub: true),
+  MockSpec<Post>(returnNullOnMissingStub: true),
 ])
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {

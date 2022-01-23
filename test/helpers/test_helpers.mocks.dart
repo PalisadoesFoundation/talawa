@@ -576,3 +576,53 @@ class MockSignupDetailsViewModel extends _i2.Mock
   @override
   String toString() => super.toString();
 }
+
+/// A class which mocks [Post].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPost extends _i2.Mock implements _i12.Post {
+  @override
+  String get sId =>
+      (super.noSuchMethod(Invocation.getter(#sId), returnValue: '') as String);
+  @override
+  set sId(String? _sId) => super.noSuchMethod(Invocation.setter(#sId, _sId),
+      returnValueForMissingStub: null);
+  @override
+  set description(String? _description) =>
+      super.noSuchMethod(Invocation.setter(#description, _description),
+          returnValueForMissingStub: null);
+  @override
+  set createdAt(DateTime? _createdAt) =>
+      super.noSuchMethod(Invocation.setter(#createdAt, _createdAt),
+          returnValueForMissingStub: null);
+  @override
+  set imageUrl(String? _imageUrl) =>
+      super.noSuchMethod(Invocation.setter(#imageUrl, _imageUrl),
+          returnValueForMissingStub: null);
+  @override
+  set videoUrl(String? _videoUrl) =>
+      super.noSuchMethod(Invocation.setter(#videoUrl, _videoUrl),
+          returnValueForMissingStub: null);
+  @override
+  set creator(_i6.User? _creator) =>
+      super.noSuchMethod(Invocation.setter(#creator, _creator),
+          returnValueForMissingStub: null);
+  @override
+  set organization(_i5.OrgInfo? _organization) =>
+      super.noSuchMethod(Invocation.setter(#organization, _organization),
+          returnValueForMissingStub: null);
+  @override
+  set likedBy(List<_i12.LikedBy>? _likedBy) =>
+      super.noSuchMethod(Invocation.setter(#likedBy, _likedBy),
+          returnValueForMissingStub: null);
+  @override
+  set comments(List<_i12.Comments>? _comments) =>
+      super.noSuchMethod(Invocation.setter(#comments, _comments),
+          returnValueForMissingStub: null);
+  @override
+  String getPostCreatedDuration() =>
+      (super.noSuchMethod(Invocation.method(#getPostCreatedDuration, []),
+          returnValue: '') as String);
+  @override
+  String toString() => super.toString();
+}
