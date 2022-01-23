@@ -1,3 +1,14 @@
+##############################################################################
+##############################################################################
+#
+# NOTE!
+#
+# Please read the README.md file in this directory that defines what should 
+# be placed in this file
+#
+##############################################################################
+##############################################################################
+
 name: Mark stale issues and pull requests
 
 on:
@@ -28,5 +39,5 @@ jobs:
         remove-stale-when-updated: true
         exempt-all-milestones: true
         exempt-pr-labels: 'bug'
-        exempt-issue-labels: 'bug, wip'
+        exempt-issue-labels: 'bug, wip, test'
         operations-per-run: 30
