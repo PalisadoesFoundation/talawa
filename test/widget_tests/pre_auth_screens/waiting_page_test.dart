@@ -149,8 +149,10 @@ Future<void> main() async {
       expect(customRichTextWidget, findsOneWidget);
 
       //testing greeting text
-      expect((tester.firstWidget(customRichTextWidget) as CustomRichText).words,
-          greeting);
+      expect(
+        (tester.firstWidget(customRichTextWidget) as CustomRichText).words,
+        greeting,
+      );
     });
   });
   group('Testing for pending request list', () {

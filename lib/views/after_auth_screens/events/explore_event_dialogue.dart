@@ -29,8 +29,9 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(AppLocalizations.of(context)!
-                      .strictTranslate('Start Date')),
+                  Text(
+                    AppLocalizations.of(context)!.strictTranslate('Start Date'),
+                  ),
                   const SizedBox(
                     height: 5,
                   ),
@@ -67,8 +68,9 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(AppLocalizations.of(context)!
-                      .strictTranslate('End Date')),
+                  Text(
+                    AppLocalizations.of(context)!.strictTranslate('End Date'),
+                  ),
                   const SizedBox(
                     height: 5,
                   ),
@@ -115,13 +117,14 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                    onPressed: () {
-                      navigationService.pop();
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.strictTranslate('Cancel'),
-                      style: Theme.of(context).textTheme.bodyText2,
-                    )),
+                  onPressed: () {
+                    navigationService.pop();
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.strictTranslate('Cancel'),
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ),
                 TextButton(
                   onPressed: () {
                     navigationService.pop();

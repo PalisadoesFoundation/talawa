@@ -64,7 +64,7 @@ void main() {
     test('Test validation for password', () {
       final String? blankPassword = Validator.validatePassword("");
       expect(blankPassword, "Password must not be left blank");
-      final expected =
+      const expected =
           "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)";
       final String? invalidPassword1 = Validator.validatePassword("test");
       expect(invalidPassword1, expected);

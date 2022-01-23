@@ -32,13 +32,15 @@ class MultiMediaPickerService {
   Future<File?> getPhotoFromGallery({bool camera = false}) async {
     try {
       final _image = await _picker.pickImage(
-          source: camera ? ImageSource.camera : ImageSource.gallery);
+        source: camera ? ImageSource.camera : ImageSource.gallery,
+      );
       if (_image != null) {
         return await cropImage(imageFile: File(_image.path));
       }
     } catch (e) {
       if (e is PlatformException && e.code == 'camera_access_denied') {
-        locator<NavigationService>().pushDialog(CustomAlertDialog(
+        locator<NavigationService>().pushDialog(
+          CustomAlertDialog(
             success: () {
               locator<NavigationService>().pop();
               openAppSettings();
@@ -46,10 +48,13 @@ class MultiMediaPickerService {
             dialogTitle: 'Permission Denied',
             successText: 'SETTINGS',
             dialogSubTitle:
-                "Camera permission is required, to use this feature, give permission from app settings"));
+                "Camera permission is required, to use this feature, give permission from app settings",
+          ),
+        );
       }
       print(
-          "MulitMediaPickerService : Exception occured while choosing photo from the gallery $e");
+        "MulitMediaPickerService : Exception occured while choosing photo from the gallery $e",
+      );
     }
     return null;
   }
@@ -57,22 +62,24 @@ class MultiMediaPickerService {
   Future<File?> cropImage({required File imageFile}) async {
     try {
       final File? croppedImage = await ImageCropper.cropImage(
-          sourcePath: imageFile.path,
-          aspectRatioPresets: [
-            CropAspectRatioPreset.square,
-            CropAspectRatioPreset.original,
-          ],
-          androidUiSettings: const AndroidUiSettings(
-              toolbarTitle: 'Crop Image',
-              toolbarColor: Color(0xff18191A),
-              toolbarWidgetColor: Colors.white,
-              backgroundColor: Colors.black,
-              cropGridColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          iosUiSettings: const IOSUiSettings(
-            minimumAspectRatio: 1.0,
-          ));
+        sourcePath: imageFile.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.original,
+        ],
+        androidUiSettings: const AndroidUiSettings(
+          toolbarTitle: 'Crop Image',
+          toolbarColor: Color(0xff18191A),
+          toolbarWidgetColor: Colors.white,
+          backgroundColor: Colors.black,
+          cropGridColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        iosUiSettings: const IOSUiSettings(
+          minimumAspectRatio: 1.0,
+        ),
+      );
       if (croppedImage != null) {
         return File(croppedImage.path);
       }

@@ -14,21 +14,25 @@ void onTap() {
   count++;
 }
 
-Widget createRaisedRoundButton(
-    {double? width, double? height, bool showArrow = false}) {
+Widget createRaisedRoundButton({
+  double? width,
+  double? height,
+  bool showArrow = false,
+}) {
   return MaterialApp(
-      home: Scaffold(
-    body: RaisedRoundedButton(
-      key: key,
-      backgroundColor: backgroundColor,
-      textColor: foregroundColor,
-      buttonLabel: buttonLabel,
-      onTap: onTap,
-      width: width,
-      height: height,
-      showArrow: showArrow,
+    home: Scaffold(
+      body: RaisedRoundedButton(
+        key: key,
+        backgroundColor: backgroundColor,
+        textColor: foregroundColor,
+        buttonLabel: buttonLabel,
+        onTap: onTap,
+        width: width,
+        height: height,
+        showArrow: showArrow,
+      ),
     ),
-  ));
+  );
 }
 
 void main() {
