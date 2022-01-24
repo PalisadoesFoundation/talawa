@@ -41,7 +41,6 @@ import 'test_helpers.mocks.dart';
     MockSpec<Connectivity>(returnNullOnMissingStub: true),
   ],
 )
-
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
     locator.unregister<T>();
