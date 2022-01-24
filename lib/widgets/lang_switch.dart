@@ -11,20 +11,26 @@ class LanguageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppLanguage>(builder: (context, appLang, _) {
-      final Language userLanguage = languages.firstWhere(
-          (element) => element.langCode == appLang.appLocal.languageCode);
-      return ListTile(
-        contentPadding: EdgeInsets.zero,
-        title: Text(AppLocalizations.of(context)!.strictTranslate("Language")),
-        trailing: TextButton(
-          onPressed: () {
-            navigationService.pushReplacementScreen('/selectLang',
-                arguments: '0');
-          },
-          child: Text(userLanguage.langName),
-        ),
-      );
-    });
+    return Consumer<AppLanguage>(
+      builder: (context, appLang, _) {
+        final Language userLanguage = languages.firstWhere(
+          (element) => element.langCode == appLang.appLocal.languageCode,
+        );
+        return ListTile(
+          contentPadding: EdgeInsets.zero,
+          title:
+              Text(AppLocalizations.of(context)!.strictTranslate("Language")),
+          trailing: TextButton(
+            onPressed: () {
+              navigationService.pushReplacementScreen(
+                '/selectLang',
+                arguments: '0',
+              );
+            },
+            child: Text(userLanguage.langName),
+          ),
+        );
+      },
+    );
   }
 }

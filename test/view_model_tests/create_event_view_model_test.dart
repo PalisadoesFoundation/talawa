@@ -88,7 +88,9 @@ void main() {
       model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
       model.buildUserList(isAdmin: false);
       model.removeUserFromList(
-          isAdmin: false, userId: usersInCurrentOrg.first.id!);
+        isAdmin: false,
+        userId: usersInCurrentOrg.first.id!,
+      );
       final bool isMemberFound =
           model.selectedMembers.contains(usersInCurrentOrg.first);
       expect(isMemberFound, false);
@@ -99,7 +101,9 @@ void main() {
       model.adminCheckedMap[adminsInCurrentOrg.first.id!] = true;
       model.buildUserList(isAdmin: true);
       model.removeUserFromList(
-          isAdmin: true, userId: adminsInCurrentOrg.first.id!);
+        isAdmin: true,
+        userId: adminsInCurrentOrg.first.id!,
+      );
       final bool isAdminFound =
           model.selectedAdmins.contains(adminsInCurrentOrg.first);
       expect(isAdminFound, false);

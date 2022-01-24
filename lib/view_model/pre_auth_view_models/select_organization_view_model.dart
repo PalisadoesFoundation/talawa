@@ -42,8 +42,10 @@ class SelectOrganizationViewModel extends BaseModel {
       if (fetch.runtimeType == OrgInfo) {
         selectedOrganization = fetch as OrgInfo;
         if (userConfig.currentUser.refreshToken?.isEmpty ?? true) {
-          navigationService.pushScreen(Routes.signupDetailScreen,
-              arguments: selectedOrganization);
+          navigationService.pushScreen(
+            Routes.signupDetailScreen,
+            arguments: selectedOrganization,
+          );
         } else {
           selectOrg(selectedOrganization);
         }
@@ -85,11 +87,15 @@ class SelectOrganizationViewModel extends BaseModel {
 
   onTapContinue() {
     if (selectedOrganization.id != '-1') {
-      navigationService.pushScreen(Routes.signupDetailScreen,
-          arguments: selectedOrganization);
+      navigationService.pushScreen(
+        Routes.signupDetailScreen,
+        arguments: selectedOrganization,
+      );
     } else {
-      navigationService.showSnackBar('Select one organization to continue',
-          duration: const Duration(milliseconds: 750));
+      navigationService.showSnackBar(
+        'Select one organization to continue',
+        duration: const Duration(milliseconds: 750),
+      );
     }
   }
 
@@ -97,7 +103,8 @@ class SelectOrganizationViewModel extends BaseModel {
     if (selectedOrganization.isPublic == true) {
       try {
         final QueryResult result = await databaseFunctions.gqlAuthMutation(
-            queries.joinOrgById(selectedOrganization.id!)) as QueryResult;
+          queries.joinOrgById(selectedOrganization.id!),
+        ) as QueryResult;
 
         final List<OrgInfo>? joinedOrg = (result.data!['joinPublicOrganization']
                 ['joinedOrganizations'] as List<dynamic>?)
@@ -106,10 +113,13 @@ class SelectOrganizationViewModel extends BaseModel {
         userConfig.updateUserJoinedOrg(joinedOrg!);
         if (userConfig.currentUser.joinedOrganizations!.length == 1) {
           userConfig.saveCurrentOrgInHive(
-              userConfig.currentUser.joinedOrganizations![0]);
+            userConfig.currentUser.joinedOrganizations![0],
+          );
           navigationService.removeAllAndPush(
-              Routes.mainScreen, Routes.splashScreen,
-              arguments: MainScreenArgs(mainScreenIndex: 0));
+            Routes.mainScreen,
+            Routes.splashScreen,
+            arguments: MainScreenArgs(mainScreenIndex: 0),
+          );
         } else {
           navigationService.pop();
           navigationService
@@ -122,19 +132,24 @@ class SelectOrganizationViewModel extends BaseModel {
     } else {
       try {
         final result = await databaseFunctions.gqlAuthMutation(
-            queries.sendMembershipRequest(selectedOrganization.id!));
+          queries.sendMembershipRequest(selectedOrganization.id!),
+        );
         if (result != null) {
           final OrgInfo membershipRequest = OrgInfo.fromJson(
-              result.data!['sendMembershipRequest']['organization']
-                  as Map<String, dynamic>);
+            result.data!['sendMembershipRequest']['organization']
+                as Map<String, dynamic>,
+          );
           userConfig.updateUserMemberRequestOrg([membershipRequest]);
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
             navigationService.removeAllAndPush(
-                Routes.waitingScreen, Routes.splashScreen);
+              Routes.waitingScreen,
+              Routes.splashScreen,
+            );
           } else {
             navigationService.pop();
             navigationService.showSnackBar(
-                'Join in request sent to ${selectedOrganization.name} successfully');
+              'Join in request sent to ${selectedOrganization.name} successfully',
+            );
           }
         }
       } on Exception catch (e) {
@@ -149,18 +164,24 @@ class SelectOrganizationViewModel extends BaseModel {
     return GraphQLProvider(
       client: ValueNotifier<GraphQLClient>(graphqlConfig.clientToQuery()),
       child: Query(
-        options:
-            QueryOptions(document: gql(Queries().fetchJoinInOrg), variables: {
-          'first': 15,
-          'skip': 0,
-        }),
-        builder: (QueryResult result,
-            {Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
-            Future<QueryResult?> Function()? refetch}) {
+        options: QueryOptions(
+          document: gql(Queries().fetchJoinInOrg),
+          variables: {
+            'first': 15,
+            'skip': 0,
+          },
+        ),
+        builder: (
+          QueryResult result, {
+          Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
+          Future<QueryResult?> Function()? refetch,
+        }) {
           if (result.hasException) {
             final bool? isException =
-                databaseFunctions.encounteredExceptionOrError(result.exception!,
-                    showSnackBar: false);
+                databaseFunctions.encounteredExceptionOrError(
+              result.exception!,
+              showSnackBar: false,
+            );
             if (isException!) {
               refetch!();
             } else {
@@ -169,7 +190,8 @@ class SelectOrganizationViewModel extends BaseModel {
           } else {
             if (!result.isLoading) {
               organizations = OrgInfo().fromJsonToList(
-                  result.data!['organizationsConnection'] as List);
+                result.data!['organizationsConnection'] as List,
+              );
             }
             return Scrollbar(
               isAlwaysShown: true,
@@ -185,26 +207,29 @@ class SelectOrganizationViewModel extends BaseModel {
                 itemBuilder: (BuildContext context, int index) {
                   if (index == organizations.length) {
                     return ListTile(
-                        title: Center(
-                            child: CupertinoActivityIndicator(
-                      radius: SizeConfig.screenWidth! * 0.065,
-                    )));
+                      title: Center(
+                        child: CupertinoActivityIndicator(
+                          radius: SizeConfig.screenWidth! * 0.065,
+                        ),
+                      ),
+                    );
                   }
                   if (index == organizations.length - 3) {
                     return VisibilityDetector(
-                        key: const Key('OrgSelItem'),
-                        onVisibilityChanged: (VisibilityInfo info) {
-                          if (info.visibleFraction > 0) {
-                            fetchMoreHelper(fetchMore!, organizations);
-                          }
-                        },
-                        child: CustomListTile(
-                          index: index,
-                          type: TileType.org,
-                          orgInfo: organizations[index],
-                          onTapOrgInfo: (item) => selectOrg(item),
-                          key: Key('OrgSelItem$index'),
-                        ));
+                      key: const Key('OrgSelItem'),
+                      onVisibilityChanged: (VisibilityInfo info) {
+                        if (info.visibleFraction > 0) {
+                          fetchMoreHelper(fetchMore!, organizations);
+                        }
+                      },
+                      child: CustomListTile(
+                        index: index,
+                        type: TileType.org,
+                        orgInfo: organizations[index],
+                        onTapOrgInfo: (item) => selectOrg(item),
+                        key: Key('OrgSelItem$index'),
+                      ),
+                    );
                   }
                   return CustomListTile(
                     index: index,
@@ -217,7 +242,9 @@ class SelectOrganizationViewModel extends BaseModel {
                 separatorBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: EdgeInsets.only(
-                        left: SizeConfig.screenWidth! * 0.2, right: 12),
+                      left: SizeConfig.screenWidth! * 0.2,
+                      right: 12,
+                    ),
                     child: const Divider(
                       color: Color(0xFFE5E5E5),
                       thickness: 0.5,
@@ -239,19 +266,24 @@ class SelectOrganizationViewModel extends BaseModel {
       client: ValueNotifier<GraphQLClient>(graphqlConfig.authClient()),
       child: Query(
         options: QueryOptions(
-            document: gql(Queries().fetchJoinInOrgByName),
-            variables: {
-              'nameStartsWith': searchOrgWithName,
-              'first': 30,
-              'skip': 0,
-            }),
-        builder: (QueryResult result,
-            {Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
-            Future<QueryResult?> Function()? refetch}) {
+          document: gql(Queries().fetchJoinInOrgByName),
+          variables: {
+            'nameStartsWith': searchOrgWithName,
+            'first': 30,
+            'skip': 0,
+          },
+        ),
+        builder: (
+          QueryResult result, {
+          Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
+          Future<QueryResult?> Function()? refetch,
+        }) {
           if (result.hasException) {
             final bool? isException =
-                databaseFunctions.encounteredExceptionOrError(result.exception!,
-                    showSnackBar: false);
+                databaseFunctions.encounteredExceptionOrError(
+              result.exception!,
+              showSnackBar: false,
+            );
             if (isException!) {
               refetch!();
             } else {
@@ -260,7 +292,8 @@ class SelectOrganizationViewModel extends BaseModel {
           } else {
             if (!result.isLoading) {
               organizations = OrgInfo().fromJsonToList(
-                  result.data!['organizationsConnection'] as List);
+                result.data!['organizationsConnection'] as List,
+              );
             }
             return Scrollbar(
               isAlwaysShown: true,
@@ -276,28 +309,31 @@ class SelectOrganizationViewModel extends BaseModel {
                 itemBuilder: (BuildContext context, int index) {
                   if (index == organizations.length) {
                     return ListTile(
-                        title: Center(
-                            child: CupertinoActivityIndicator(
-                      radius: SizeConfig.screenWidth! * 0.065,
-                    )));
+                      title: Center(
+                        child: CupertinoActivityIndicator(
+                          radius: SizeConfig.screenWidth! * 0.065,
+                        ),
+                      ),
+                    );
                   }
                   if (index == organizations.length - 3) {
                     return VisibilityDetector(
-                        key: const Key('OrgSelItem'),
-                        onVisibilityChanged: (VisibilityInfo info) {
-                          if (info.visibleFraction > 0) {
-                            print(organizations.length);
-                            fetchMoreHelper(fetchMore!, organizations);
-                            print(organizations.length);
-                          }
-                        },
-                        child: CustomListTile(
-                          index: index,
-                          type: TileType.org,
-                          orgInfo: organizations[index],
-                          onTapOrgInfo: (item) => selectOrg(item),
-                          key: Key('OrgSelItem$index'),
-                        ));
+                      key: const Key('OrgSelItem'),
+                      onVisibilityChanged: (VisibilityInfo info) {
+                        if (info.visibleFraction > 0) {
+                          print(organizations.length);
+                          fetchMoreHelper(fetchMore!, organizations);
+                          print(organizations.length);
+                        }
+                      },
+                      child: CustomListTile(
+                        index: index,
+                        type: TileType.org,
+                        orgInfo: organizations[index],
+                        onTapOrgInfo: (item) => selectOrg(item),
+                        key: Key('OrgSelItem$index'),
+                      ),
+                    );
                   }
                   return CustomListTile(
                     index: index,
@@ -310,7 +346,9 @@ class SelectOrganizationViewModel extends BaseModel {
                 separatorBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: EdgeInsets.only(
-                        left: SizeConfig.screenWidth! * 0.2, right: 12),
+                      left: SizeConfig.screenWidth! * 0.2,
+                      right: 12,
+                    ),
                     child: const Divider(
                       color: Color(0xFFE5E5E5),
                       thickness: 0.5,

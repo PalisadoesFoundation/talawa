@@ -65,8 +65,13 @@ class SignupDetailsViewModel extends BaseModel {
       databaseFunctions.init();
       try {
         final result = await databaseFunctions.gqlNonAuthMutation(
-            queries.registerUser(
-                firstName.text, lastName.text, email.text, password.text));
+          queries.registerUser(
+            firstName.text,
+            lastName.text,
+            email.text,
+            password.text,
+          ),
+        );
         navigationService.pop();
         if (result != null) {
           final User signedInUser =
@@ -78,8 +83,8 @@ class SignupDetailsViewModel extends BaseModel {
               try {
                 final QueryResult result =
                     await databaseFunctions.gqlAuthMutation(
-                            queries.joinOrgById(selectedOrganization.id!))
-                        as QueryResult;
+                  queries.joinOrgById(selectedOrganization.id!),
+                ) as QueryResult;
 
                 final List<OrgInfo>? joinedOrg = (result
                             .data!['joinPublicOrganization']
@@ -88,11 +93,14 @@ class SignupDetailsViewModel extends BaseModel {
                     .toList();
                 userConfig.updateUserJoinedOrg(joinedOrg!);
                 userConfig.saveCurrentOrgInHive(
-                    userConfig.currentUser.joinedOrganizations![0]);
+                  userConfig.currentUser.joinedOrganizations![0],
+                );
                 navigationService.removeAllAndPush(
-                    Routes.mainScreen, Routes.splashScreen,
-                    arguments:
-                        MainScreenArgs(mainScreenIndex: 0, fromSignUp: true));
+                  Routes.mainScreen,
+                  Routes.splashScreen,
+                  arguments:
+                      MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
+                );
               } on Exception catch (e) {
                 print(e);
                 navigationService.showSnackBar('SomeThing went wrong');
@@ -100,17 +108,20 @@ class SignupDetailsViewModel extends BaseModel {
             } else {
               try {
                 final QueryResult result =
-                    await databaseFunctions.gqlAuthMutation(queries
-                            .sendMembershipRequest(selectedOrganization.id!))
-                        as QueryResult;
+                    await databaseFunctions.gqlAuthMutation(
+                  queries.sendMembershipRequest(selectedOrganization.id!),
+                ) as QueryResult;
 
                 final OrgInfo membershipRequest = OrgInfo.fromJson(
-                    result.data!['sendMembershipRequest']['organization']
-                        as Map<String, dynamic>);
+                  result.data!['sendMembershipRequest']['organization']
+                      as Map<String, dynamic>,
+                );
                 userConfig.updateUserMemberRequestOrg([membershipRequest]);
                 navigationService.pop();
                 navigationService.removeAllAndPush(
-                    Routes.waitingScreen, Routes.splashScreen);
+                  Routes.waitingScreen,
+                  Routes.splashScreen,
+                );
               } on Exception catch (e) {
                 print(e);
                 navigationService.showSnackBar('SomeThing went wrong');

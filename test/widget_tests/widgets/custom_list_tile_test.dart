@@ -15,7 +15,10 @@ Widget createCustomListTileUser() {
           index: 0,
           type: TileType.user,
           option: Options(
-              icon: const Icon(Icons.add), title: 'henlo', subtitle: 'yesh'),
+            icon: const Icon(Icons.add),
+            title: 'henlo',
+            subtitle: 'yesh',
+          ),
           showIcon: false,
           onTapOrgInfo: (org) => SelectOrganizationViewModel().selectOrg(org),
           onTapOption: () {},

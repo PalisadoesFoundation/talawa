@@ -7,7 +7,8 @@ part of 'chat_list_tile_data_model.dart';
 // **************************************************************************
 
 ChatListTileDataModel _$ChatListTileDataModelFromJson(
-    Map<String, dynamic> json) {
+  Map<String, dynamic> json,
+) {
   return ChatListTileDataModel(
     json['sender'] == null
         ? null
@@ -20,7 +21,8 @@ ChatListTileDataModel _$ChatListTileDataModelFromJson(
 }
 
 Map<String, dynamic> _$ChatListTileDataModelToJson(
-        ChatListTileDataModel instance) =>
+  ChatListTileDataModel instance,
+) =>
     <String, dynamic>{
       'sender': instance.sender,
       'lastMessage': instance.lastMessage,
