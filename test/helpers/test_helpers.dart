@@ -23,6 +23,7 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'test_helpers.mocks.dart';
@@ -36,6 +37,8 @@ import 'test_helpers.mocks.dart';
   MockSpec<UserConfig>(returnNullOnMissingStub: true),
   MockSpec<AppLanguage>(returnNullOnMissingStub: true),
   MockSpec<Connectivity>(returnNullOnMissingStub: true),
+  MockSpec<SignupDetailsViewModel>(returnNullOnMissingStub: true),
+  MockSpec<Post>(returnNullOnMissingStub: true),
 ])
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
@@ -180,6 +183,22 @@ Connectivity getAndRegisterConnectivityService() {
   final service = MockConnectivity();
   locator.registerSingleton<Connectivity>(service);
   return service;
+}
+
+Post getPostMockModel({
+  String sId = "PostID",
+  String description = "TestDescription",
+  String duration = "2 Months Ago",
+}) {
+  final postMock = MockPost();
+  when(postMock.sId).thenReturn(sId);
+  when(postMock.creator).thenReturn(User(
+    firstName: "TestName",
+  ));
+  when(postMock.description).thenReturn(description);
+  when(postMock.comments).thenReturn([]);
+  when(postMock.getPostCreatedDuration()).thenReturn(duration);
+  return postMock;
 }
 
 void registerServices() {
