@@ -27,44 +27,48 @@ void main() {
   group('Event Info Tests', () {
     final model = EventInfoViewModel();
 
-    test("Test register for event" , () async{
-      final Event event1 = Event(id: "1" , isRegisterable: true);
+    test("Test register for event", () async {
+      final Event event1 = Event(id: "1", isRegisterable: true);
       model.event = event1;
       final mockEventService = getAndRegisterEventService();
 
       expect(model.getFabTitle(), "Register");
 
       // if registerForEvent is called with blank string
-      when(mockEventService.registerForAnEvent("")).thenAnswer((realInvocation) async{
+      when(mockEventService.registerForAnEvent(""))
+          .thenAnswer((realInvocation) async {
         return "ID can't be blank.";
       });
 
       final res = await mockEventService.registerForAnEvent("");
-      expect(res , "ID can't be blank.");
+      expect(res, "ID can't be blank.");
 
       // if registerForEvent is given proper id
-      when(mockEventService.registerForAnEvent(event1.id!)).thenAnswer((realInvocation) async{
+      when(mockEventService.registerForAnEvent(event1.id!))
+          .thenAnswer((realInvocation) async {
         event1.isRegistered = true;
         return event1;
       });
 
       final res2 = await mockEventService.registerForAnEvent(event1.id!);
-      expect(res2 , event1);
+      expect(res2, event1);
 
       // since the event is now registered the fab title must change to "Registered"
       expect(model.getFabTitle(), "Registered");
     });
 
-    test("Test getFabTitle function" , (){
-      final Event event1 = Event(id: "1" , isRegisterable: false);
+    test("Test getFabTitle function", () {
+      final Event event1 = Event(id: "1", isRegisterable: false);
       model.event = event1;
       expect(model.getFabTitle(), "Not Registrable");
 
-      final Event event2 = Event(id: "2" , isRegisterable: true , isRegistered: false);
+      final Event event2 =
+          Event(id: "2", isRegisterable: true, isRegistered: false);
       model.event = event2;
       expect(model.getFabTitle(), "Register");
 
-      final Event event3 = Event(id: "3" , isRegisterable: true , isRegistered: true);
+      final Event event3 =
+          Event(id: "3", isRegisterable: true, isRegistered: true);
       model.event = event3;
       expect(model.getFabTitle(), "Registered");
     });
