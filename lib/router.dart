@@ -33,13 +33,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Routes.splashScreen:
       final int mainScreenIndex = settings.arguments! as int;
       return MaterialPageRoute(
-          builder: (context) => SplashScreen(
-              key: const Key('SplashScreen'),
-              mainScreenIndex: mainScreenIndex));
+        builder: (context) => SplashScreen(
+          key: const Key('SplashScreen'),
+          mainScreenIndex: mainScreenIndex,
+        ),
+      );
     case Routes.languageSelectionRoute:
       return MaterialPageRoute(
-          builder: (context) =>
-              const SelectLanguage(key: Key('SelectLanguage')));
+        builder: (context) => const SelectLanguage(key: Key('SelectLanguage')),
+      );
     case Routes.setUrlScreen:
       final String uri = settings.arguments!.toString();
       return MaterialPageRoute(
@@ -50,7 +52,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case Routes.loginScreen:
       return MaterialPageRoute(
-          builder: (context) => const Login(key: Key('Login')));
+        builder: (context) => const Login(key: Key('Login')),
+      );
     case Routes.selectOrgScreen:
       final String id = settings.arguments!.toString();
       return CupertinoPageRoute(
@@ -69,39 +72,47 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case Routes.waitingScreen:
       return CupertinoPageRoute(
-          builder: (context) => const WaitingPage(key: Key('Waiting')));
+        builder: (context) => const WaitingPage(key: Key('Waiting')),
+      );
     case Routes.recoverScreen:
       return MaterialPageRoute(
-          builder: (context) => const Recover(key: Key('Recover')));
+        builder: (context) => const Recover(key: Key('Recover')),
+      );
     case Routes.updateScreen:
       return MaterialPageRoute(
-          builder: (context) => const ChangePass(key: Key('Update')));
+        builder: (context) => const ChangePass(key: Key('Update')),
+      );
     case Routes.homeScreen:
       return MaterialPageRoute(
-          builder: (context) => const OrganizationFeed(key: Key('HomeScreen')));
+        builder: (context) => const OrganizationFeed(key: Key('HomeScreen')),
+      );
     case Routes.mainScreen:
       final MainScreenArgs mainScreenArgs =
           settings.arguments! as MainScreenArgs;
       //  final bool fromSignUp = settings.arguments! as bool;
       return MaterialPageRoute(
-          builder: (context) => MainScreen(
-                key: const Key('MainScreen'),
-                mainScreenArgs: mainScreenArgs,
-              ));
+        builder: (context) => MainScreen(
+          key: const Key('MainScreen'),
+          mainScreenArgs: mainScreenArgs,
+        ),
+      );
     case Routes.individualPost:
       final Post post = settings.arguments! as Post;
       return MaterialPageRoute(
-          builder: (context) => IndividualPostView(
-                key: const Key('IndividualPost'),
-                post: post,
-              ));
+        builder: (context) => IndividualPostView(
+          key: const Key('IndividualPost'),
+          post: post,
+        ),
+      );
     case Routes.pinnedPostPage:
       final List<Post> pinnedPosts = settings.arguments! as List<Post>;
       return MaterialPageRoute(
-          builder: (context) => PinnedPostPage(pinnedPosts: pinnedPosts));
+        builder: (context) => PinnedPostPage(pinnedPosts: pinnedPosts),
+      );
     case Routes.exploreEventsScreen:
       return MaterialPageRoute(
-          builder: (context) => const ExploreEvents(key: Key('ExploreEvents')));
+        builder: (context) => const ExploreEvents(key: Key('ExploreEvents')),
+      );
     case Routes.eventInfoPage:
       final Map<String, dynamic> args =
           settings.arguments! as Map<String, dynamic>;
@@ -113,20 +124,24 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case Routes.createEventPage:
       return MaterialPageRoute(
-          builder: (context) => const CreateEventPage(key: Key('CreateEvent')));
+        builder: (context) => const CreateEventPage(key: Key('CreateEvent')),
+      );
     case Routes.profilePage:
       return MaterialPageRoute(
-          builder: (context) => const ProfilePage(key: Key('Profile')));
+        builder: (context) => const ProfilePage(key: Key('Profile')),
+      );
     case Routes.editProfilePage:
       return MaterialPageRoute(
-          builder: (context) => const EditProfilePage(key: Key('EditProfile')));
+        builder: (context) => const EditProfilePage(key: Key('EditProfile')),
+      );
     case Routes.joinOrg:
       final String id = settings.arguments!.toString();
       return MaterialPageRoute(
-          builder: (context) => JoinOrganisationAfterAuth(
-                key: const Key('JoinOrganisationAfterAuth'),
-                orgId: id,
-              ));
+        builder: (context) => JoinOrganisationAfterAuth(
+          key: const Key('JoinOrganisationAfterAuth'),
+          orgId: id,
+        ),
+      );
     case Routes.editEventPage:
       final Event event = settings.arguments! as Event;
       return MaterialPageRoute(
@@ -137,12 +152,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
     case Routes.appSettings:
       return MaterialPageRoute(
-          builder: (context) => const AppSettingsPage(key: Key('AppSettings')));
+        builder: (context) => const AppSettingsPage(key: Key('AppSettings')),
+      );
 
     default:
       return MaterialPageRoute(
-          builder: (context) => const DemoPageView(
-                key: Key("DemoPage"),
-              ));
+        builder: (context) => const DemoPageView(
+          key: Key("DemoPage"),
+        ),
+      );
   }
 }

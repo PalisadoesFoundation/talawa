@@ -37,8 +37,10 @@ class WaitingViewModel extends BaseModel {
     user.clear();
     url.clear();
     navigationService.removeAllAndPush(
-        Routes.languageSelectionRoute, Routes.splashScreen,
-        arguments: '0');
+      Routes.languageSelectionRoute,
+      Routes.splashScreen,
+      arguments: '0',
+    );
   }
 
   joinOrg() {

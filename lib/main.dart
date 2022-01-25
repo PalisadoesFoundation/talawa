@@ -71,55 +71,60 @@ class _MyAppState extends State<MyApp> {
       onModelReady: (model) => model.initialize(),
       builder: (context, langModel, child) {
         return BaseView<AppTheme>(
-            onModelReady: (model) => model.initialize(),
-            builder: (context, model, child) {
-              return MaterialApp(
-                locale: langModel.appLocal,
-                supportedLocales: [
-                  const Locale('en', 'US'),
-                  const Locale('es', 'ES'),
-                  const Locale('fr', 'FR'),
-                  const Locale('hi', 'IN'),
-                  const Locale('zh', 'CN'),
-                  const Locale('de', 'DE'),
-                  const Locale('ja', 'JP'),
-                  const Locale('pt', 'PT'),
-                ],
-                localizationsDelegates: [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                title: 'Talawa',
-                theme: Provider.of<AppTheme>(context).isdarkTheme
-                    ? TalawaTheme.darkTheme
-                    : TalawaTheme.lightTheme,
-                debugShowCheckedModeBanner: false,
-                navigatorKey: navigationService.navigatorKey,
-                onGenerateRoute: router.generateRoute,
-                localeResolutionCallback:
-                    (Locale? locale, Iterable<Locale> supportedLocales) {
-                  if (locale == null) {
-                    debugPrint("*language locale is null!!!");
-                    return supportedLocales.first;
-                  }
-                  for (final Locale supportedLocale in supportedLocales) {
-                    if (supportedLocale.languageCode == locale.languageCode ||
-                        supportedLocale.countryCode == locale.countryCode) {
-                      return supportedLocale;
-                    }
-                  }
+          onModelReady: (model) => model.initialize(),
+          builder: (context, model, child) {
+            return MaterialApp(
+              locale: langModel.appLocal,
+              supportedLocales: [
+                const Locale('en', 'US'),
+                const Locale('es', 'ES'),
+                const Locale('fr', 'FR'),
+                const Locale('hi', 'IN'),
+                const Locale('zh', 'CN'),
+                const Locale('de', 'DE'),
+                const Locale('ja', 'JP'),
+                const Locale('pt', 'PT'),
+              ],
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              title: 'Talawa',
+              theme: Provider.of<AppTheme>(context).isdarkTheme
+                  ? TalawaTheme.darkTheme
+                  : TalawaTheme.lightTheme,
+              debugShowCheckedModeBanner: false,
+              navigatorKey: navigationService.navigatorKey,
+              onGenerateRoute: router.generateRoute,
+              localeResolutionCallback:
+                  (Locale? locale, Iterable<Locale> supportedLocales) {
+                if (locale == null) {
+                  debugPrint("*language locale is null!!!");
                   return supportedLocales.first;
-                },
-                initialRoute: '/',
-                onGenerateInitialRoutes: (String initialRouteName) {
-                  return [
-                    router.generateRoute(RouteSettings(
-                        name: '/', arguments: mainScreenQuickActionindex)),
-                  ];
-                },
-              );
-            });
+                }
+                for (final Locale supportedLocale in supportedLocales) {
+                  if (supportedLocale.languageCode == locale.languageCode ||
+                      supportedLocale.countryCode == locale.countryCode) {
+                    return supportedLocale;
+                  }
+                }
+                return supportedLocales.first;
+              },
+              initialRoute: '/',
+              onGenerateInitialRoutes: (String initialRouteName) {
+                return [
+                  router.generateRoute(
+                    RouteSettings(
+                      name: '/',
+                      arguments: mainScreenQuickActionindex,
+                    ),
+                  ),
+                ];
+              },
+            );
+          },
+        );
       },
     );
   }

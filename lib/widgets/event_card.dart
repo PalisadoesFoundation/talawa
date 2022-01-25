@@ -7,13 +7,13 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard(
-      {Key? key,
-      required this.event,
-      this.eventTitleHighlightedText,
-      this.eventTitleNormalText,
-      required this.isSearchItem})
-      : super(key: key);
+  const EventCard({
+    Key? key,
+    required this.event,
+    this.eventTitleHighlightedText,
+    this.eventTitleNormalText,
+    required this.isSearchItem,
+  }) : super(key: key);
   final Event event;
   final String? eventTitleHighlightedText;
   final String? eventTitleNormalText;
@@ -45,19 +45,22 @@ class EventCard extends StatelessWidget {
                     height: SizeConfig.screenHeight! * 0.11,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.3),
-                        image: const DecorationImage(
-                          fit: BoxFit.fitWidth,
-                          alignment: FractionalOffset.topCenter,
-                          image: NetworkImage(
-                              'https://picsum.photos/id/1022/200/300'),
-                        )),
+                      color: Colors.grey.withOpacity(0.3),
+                      image: const DecorationImage(
+                        fit: BoxFit.fitWidth,
+                        alignment: FractionalOffset.topCenter,
+                        image: NetworkImage(
+                          'https://picsum.photos/id/1022/200/300',
+                        ),
+                      ),
+                    ),
                     child: ClipRRect(
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.0)),
+                            color: Colors.white.withOpacity(0.0),
+                          ),
                         ),
                       ),
                     ),
@@ -70,32 +73,38 @@ class EventCard extends StatelessWidget {
                       Row(
                         children: [
                           SizedBox(
-                              width: SizeConfig.screenWidth! * 0.48,
-                              child: isSearchItem
-                                  ? RichText(
-                                      text: TextSpan(
-                                          text: eventTitleHighlightedText,
+                            width: SizeConfig.screenWidth! * 0.48,
+                            child: isSearchItem
+                                ? RichText(
+                                    text: TextSpan(
+                                      text: eventTitleHighlightedText,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5!
+                                          .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                      children: [
+                                        TextSpan(
+                                          text: eventTitleNormalText,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline5!
                                               .copyWith(
-                                                  fontWeight: FontWeight.bold),
-                                          children: [
-                                            TextSpan(
-                                                text: eventTitleNormalText,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline5!
-                                                    .copyWith(
-                                                        color: Colors.grey))
-                                          ]),
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                    )
-                                  : Text(event.title!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headline5)),
+                                                color: Colors.grey,
+                                              ),
+                                        )
+                                      ],
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                  )
+                                : Text(
+                                    event.title!,
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                  ),
+                          ),
                           const Spacer(),
                           const Icon(
                             Icons.calendar_today,
@@ -132,7 +141,9 @@ class EventCard extends StatelessWidget {
                           SizedBox(
                             child: Text(
                               event.location!.substring(
-                                  0, min(event.location!.length, 20)),
+                                0,
+                                min(event.location!.length, 20),
+                              ),
                               style: Theme.of(context).textTheme.caption,
                             ),
                           )
@@ -245,30 +256,31 @@ class EventCard extends StatelessWidget {
           Positioned(
             top: SizeConfig.screenHeight! * 0.007,
             right: SizeConfig.screenWidth! * 0.013,
-            child:
-                isRegistered && userConfig.currentUser.id != event.creator!.id
-                    ? Container(
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.secondary,
-                            borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(15))),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Center(
-                            child: Text(
-                              AppLocalizations.of(context)!
-                                  .strictTranslate("Registered"),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline6!
-                                  .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),
-                            ),
-                          ),
+            child: isRegistered &&
+                    userConfig.currentUser.id != event.creator!.id
+                ? Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(context)!
+                              .strictTranslate("Registered"),
+                          style:
+                              Theme.of(context).textTheme.headline6!.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                         ),
-                      )
-                    : const SizedBox(),
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
           )
         ],
       ),

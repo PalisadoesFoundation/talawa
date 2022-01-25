@@ -26,29 +26,40 @@ class NavigationService {
     }
   }
 
-  Future<dynamic> removeAllAndPush(String routeName, String tillRoute,
-      {dynamic arguments}) {
+  Future<dynamic> removeAllAndPush(
+    String routeName,
+    String tillRoute, {
+    dynamic arguments,
+  }) {
     return navigatorKey.currentState!.pushNamedAndRemoveUntil(
-        routeName, ModalRoute.withName(tillRoute),
-        arguments: arguments);
+      routeName,
+      ModalRoute.withName(tillRoute),
+      arguments: arguments,
+    );
   }
 
   void pushDialog(Widget dialog) {
     showDialog(
-        context: navigatorKey.currentContext!,
-        barrierColor: Colors.transparent,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return dialog;
-        });
+      context: navigatorKey.currentContext!,
+      barrierColor: Colors.transparent,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return dialog;
+      },
+    );
   }
 
-  void showSnackBar(String message,
-      {Duration duration = const Duration(seconds: 2)}) {
-    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(SnackBar(
+  void showSnackBar(
+    String message, {
+    Duration duration = const Duration(seconds: 2),
+  }) {
+    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+      SnackBar(
         behavior: SnackBarBehavior.floating,
         duration: duration,
-        content: Text(message)));
+        content: Text(message),
+      ),
+    );
   }
 
   void pop() {

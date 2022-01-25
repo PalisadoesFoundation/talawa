@@ -48,11 +48,13 @@ class UserConfig {
       databaseFunctions.init();
       try {
         final QueryResult result = await databaseFunctions.gqlNonAuthMutation(
-            queries.fetchUserInfo,
-            variables: {'id': currentUser.id!}) as QueryResult;
+          queries.fetchUserInfo,
+          variables: {'id': currentUser.id!},
+        ) as QueryResult;
         final User userInfo = User.fromJson(
-            result.data!['users'][0] as Map<String, dynamic>,
-            fromOrg: true);
+          result.data!['users'][0] as Map<String, dynamic>,
+          fromOrg: true,
+        );
         userInfo.authToken = userConfig.currentUser.authToken;
         userInfo.refreshToken = userConfig.currentUser.refreshToken;
         userConfig.updateUser(userInfo);
@@ -89,8 +91,10 @@ class UserConfig {
     saveUserInHive();
   }
 
-  Future updateAccessToken(
-      {required String accessToken, required String refreshToken}) async {
+  Future updateAccessToken({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
     _currentUser!.refreshToken = refreshToken;
     _currentUser!.authToken = accessToken;
     saveUserInHive();
