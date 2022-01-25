@@ -27,6 +27,7 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks(
@@ -264,6 +265,7 @@ void registerViewModels() {
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => WaitingViewModel());
   locator.registerFactory(() => EventInfoViewModel());
+  locator.registerFactory(() => ProgressDialogViewModel());
 }
 
 void unregisterViewModels() {
@@ -277,4 +279,5 @@ void unregisterViewModels() {
   locator.unregister<DirectChatViewModel>();
   locator.unregister<WaitingViewModel>();
   locator.unregister<EventInfoViewModel>();
+  locator.unregister<ProgressDialogViewModel>();
 }
