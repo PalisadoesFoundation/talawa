@@ -18,6 +18,7 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
@@ -178,6 +179,28 @@ EventService getAndRegisterEventService() {
   final StreamController<Event> _streamController = StreamController();
   final Stream<Event> _stream = _streamController.stream.asBroadcastStream();
   when(service.eventStream).thenAnswer((invocation) => _stream);
+  when(service.getEvents()).thenAnswer(
+    (invocation) async => _streamController.add(
+      Event(
+        id: '1',
+        title: 'test',
+        startTime: '10000',
+        endTime: '20000',
+        location: 'ABC',
+        description: 'test',
+        creator: User(
+          id: "xzy1",
+          firstName: "Test",
+          lastName: "User",
+          email: "testuser@gmail.com",
+          refreshToken: "testtoken",
+          authToken: 'testtoken',
+        ),
+        isPublic: true,
+        organization: OrgInfo(id: 'XYZ'),
+      ),
+    ),
+  );
 
   locator.registerSingleton<EventService>(service);
   return service;
@@ -237,6 +260,7 @@ void registerViewModels() {
   locator.registerFactory(() => SizeConfig());
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => WaitingViewModel());
+  locator.registerFactory(() => EventInfoViewModel());
 }
 
 void unregisterViewModels() {
@@ -249,4 +273,5 @@ void unregisterViewModels() {
   locator.unregister<SizeConfig>();
   locator.unregister<DirectChatViewModel>();
   locator.unregister<WaitingViewModel>();
+  locator.unregister<EventInfoViewModel>();
 }
