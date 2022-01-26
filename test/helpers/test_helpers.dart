@@ -24,6 +24,7 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'test_helpers.mocks.dart';
@@ -39,6 +40,8 @@ import 'test_helpers.mocks.dart';
     MockSpec<UserConfig>(returnNullOnMissingStub: true),
     MockSpec<AppLanguage>(returnNullOnMissingStub: true),
     MockSpec<Connectivity>(returnNullOnMissingStub: true),
+    MockSpec<SignupDetailsViewModel>(returnNullOnMissingStub: true),
+    MockSpec<Post>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
