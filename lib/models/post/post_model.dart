@@ -2,22 +2,24 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
 class Post {
-  Post(
-      {required this.sId,
-      this.description,
-      this.createdAt,
-      this.imageUrl,
-      this.videoUrl,
-      required this.creator,
-      this.organization,
-      this.likedBy,
-      this.comments});
+  Post({
+    required this.sId,
+    this.description,
+    this.createdAt,
+    this.imageUrl,
+    this.videoUrl,
+    required this.creator,
+    this.organization,
+    this.likedBy,
+    this.comments,
+  });
 
   Post.fromJson(Map<String, dynamic> json) {
     sId = json['_id'] as String;
     description = json['text'] as String?;
     createdAt = DateTime.fromMillisecondsSinceEpoch(
-        int.parse(json['createdAt'] as String));
+      int.parse(json['createdAt'] as String),
+    );
     imageUrl = json['imageUrl'] as String?;
     videoUrl = json['videoUrl'] as String?;
     creator = json['creator'] != null

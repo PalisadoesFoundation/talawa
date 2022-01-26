@@ -1,6 +1,10 @@
 class Queries {
   String registerUser(
-      String firstName, String lastName, String email, String password) {
+    String firstName,
+    String lastName,
+    String email,
+    String password,
+  ) {
     return """
         mutation{
           signUp(data: {firstName: "$firstName", lastName: "$lastName", email: "$email", password: "$password"})

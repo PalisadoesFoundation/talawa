@@ -21,14 +21,16 @@ class ChatPage extends StatelessWidget {
                   fontSize: 20,
                 ),
           ),
-          bottom: const TabBar(tabs: [
-            Tab(
-              text: "Direct",
-            ),
-            Tab(
-              text: "Events",
-            ),
-          ]),
+          bottom: const TabBar(
+            tabs: [
+              Tab(
+                text: "Direct",
+              ),
+              Tab(
+                text: "Events",
+              ),
+            ],
+          ),
         ),
         body: const TabBarView(
           children: [

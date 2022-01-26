@@ -11,11 +11,13 @@ class CommentService {
   Future<void> createComments(String postId, String text) async {
     print("comment service called");
     final String _createCommentQuery = CommentQueries().createComment();
-    final result =
-        await _dbFunctions.gqlAuthMutation(_createCommentQuery, variables: {
-      'postId': postId, //Add your variables here
-      'text': text
-    });
+    final result = await _dbFunctions.gqlAuthMutation(
+      _createCommentQuery,
+      variables: {
+        'postId': postId, //Add your variables here
+        'text': text
+      },
+    );
     print("comment added");
     print(result);
     return result;

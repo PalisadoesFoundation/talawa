@@ -21,8 +21,9 @@ import 'package:talawa/views/pre_auth_screens/select_language.dart';
 
 import '../../helpers/test_locator.dart';
 
-Widget createSelectLanguageScreenLight(
-        {ThemeMode themeMode = ThemeMode.light}) =>
+Widget createSelectLanguageScreenLight({
+  ThemeMode themeMode = ThemeMode.light,
+}) =>
     BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
@@ -180,7 +181,9 @@ Future<void> main() async {
       final findAppNameWidget = find.byKey(const Key('SelectLangTextButton'));
       expect(findAppNameWidget, findsOneWidget);
       expect(
-          (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize, 18);
+        (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
+        18,
+      );
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.color,
         const Color(0xFF008A37),
@@ -206,12 +209,18 @@ Future<void> main() async {
       await tester.pumpAndSettle();
       final findAppNameWidget = find.text('Select Language');
       expect(findAppNameWidget, findsOneWidget);
-      expect((tester.firstWidget(findAppNameWidget) as Text).style!.color,
-          TalawaTheme.darkTheme.textTheme.headline5!.color);
-      expect((tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
-          TalawaTheme.darkTheme.textTheme.headline5!.fontFamily);
-      expect((tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
-          TalawaTheme.darkTheme.textTheme.headline5!.fontSize);
+      expect(
+        (tester.firstWidget(findAppNameWidget) as Text).style!.color,
+        TalawaTheme.darkTheme.textTheme.headline5!.color,
+      );
+      expect(
+        (tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
+        TalawaTheme.darkTheme.textTheme.headline5!.fontFamily,
+      );
+      expect(
+        (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
+        TalawaTheme.darkTheme.textTheme.headline5!.fontSize,
+      );
     });
     // This is not needed now will be added when required
     // testWidgets("Testing if search box shows up", (tester) async {
@@ -265,7 +274,9 @@ Future<void> main() async {
       final findAppNameWidget = find.byKey(const Key('SelectLangTextButton'));
       expect(findAppNameWidget, findsOneWidget);
       expect(
-          (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize, 18);
+        (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
+        18,
+      );
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.color,
         const Color(0xFF008A37),

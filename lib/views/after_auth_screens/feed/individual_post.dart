@@ -49,11 +49,12 @@ class _IndividualPostViewState extends State<IndividualPostView> {
               ),
             ),
             TextButton(
-                onPressed: () {
-                  _commentViewModel.createComment(_controller.text);
-                  _controller.text = "";
-                },
-                child: const Text("Send"))
+              onPressed: () {
+                _commentViewModel.createComment(_controller.text);
+                _controller.text = "";
+              },
+              child: const Text("Send"),
+            )
           ],
         ),
       ),
@@ -122,9 +123,11 @@ class IndividualPageLikeSection extends StatelessWidget {
 }
 
 class IndividualPostCommentSection extends StatelessWidget {
-  const IndividualPostCommentSection(
-      {Key? key, required this.comments, required this.postID})
-      : super(key: key);
+  const IndividualPostCommentSection({
+    Key? key,
+    required this.comments,
+    required this.postID,
+  }) : super(key: key);
   final List<Comments> comments;
   final String postID;
 
@@ -162,32 +165,34 @@ class CommentTemplate extends StatelessWidget {
       children: [
         const CircleAvatar(),
         Expanded(
-            child: Container(
-          decoration: BoxDecoration(
+          child: Container(
+            decoration: BoxDecoration(
               color: Theme.of(context).iconTheme.color!.withOpacity(0.2),
-              borderRadius: const BorderRadius.all(Radius.circular(8))),
-          padding: const EdgeInsets.all(16.0),
-          margin: const EdgeInsets.only(left: 8.0, bottom: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  "${comment.creator!.firstName!} ${comment.creator!.lastName!}",
-                  style: Theme.of(context).textTheme.bodyText2,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+            ),
+            padding: const EdgeInsets.all(16.0),
+            margin: const EdgeInsets.only(left: 8.0, bottom: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Text(
+                    "${comment.creator!.firstName!} ${comment.creator!.lastName!}",
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
                 ),
-              ),
-              Text(
-                comment.text!,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 16.0),
-              ),
-            ],
+                Text(
+                  comment.text!,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 16.0),
+                ),
+              ],
+            ),
           ),
-        ))
+        )
       ],
     );
   }

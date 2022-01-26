@@ -43,7 +43,8 @@ void main() {
   group('TimePicker tests', () {
     testWidgets('Check if time picker shows up', (tester) async {
       await tester.pumpWidget(
-          dateTimePicker(checkProp: TimeOfDay.now(), isTimeType: true));
+        dateTimePicker(checkProp: TimeOfDay.now(), isTimeType: true),
+      );
 
       await tester.tap(find.text('Open'));
       await tester.pump();

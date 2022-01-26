@@ -69,10 +69,20 @@ class CreateEventViewModel extends BaseModel {
 
       final DateTime startDate = eventStartDate;
       final DateTime endDate = eventEndDate;
-      final DateTime startTime = DateTime(startDate.year, startDate.month,
-          startDate.day, eventStartTime.hour, eventStartTime.minute);
-      final DateTime endTime = DateTime(endDate.year, endDate.month,
-          endDate.day, eventEndTime.hour, eventEndTime.minute);
+      final DateTime startTime = DateTime(
+        startDate.year,
+        startDate.month,
+        startDate.day,
+        eventStartTime.hour,
+        eventStartTime.minute,
+      );
+      final DateTime endTime = DateTime(
+        endDate.year,
+        endDate.month,
+        endDate.day,
+        eventEndTime.hour,
+        eventEndTime.minute,
+      );
       final Map<String, dynamic> variables = {
         'startDate': startDate.toString(),
         'endDate': endDate.toString(),
@@ -89,7 +99,8 @@ class CreateEventViewModel extends BaseModel {
       };
 
       navigationService.pushDialog(
-          const CustomProgressDialog(key: Key('EventCreationProgress')));
+        const CustomProgressDialog(key: Key('EventCreationProgress')),
+      );
       final tokenResult = await _dbFunctions
           .refreshAccessToken(userConfig.currentUser.refreshToken!);
       print(tokenResult);

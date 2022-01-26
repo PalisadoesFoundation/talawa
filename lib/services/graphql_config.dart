@@ -49,8 +49,10 @@ class GraphqlConfig {
   }
 
   test() {
-    httpLink = HttpLink('https://talawa-graphql-api.herokuapp.com/graphql',
-        httpClient: MockHttpClient());
+    httpLink = HttpLink(
+      'https://talawa-graphql-api.herokuapp.com/graphql',
+      httpClient: MockHttpClient(),
+    );
   }
 }
 

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomAvatar extends StatelessWidget {
-  const CustomAvatar(
-      {Key? key,
-      required this.isImageNull,
-      this.firstAlphabet,
-      this.imageUrl,
-      this.fontSize = 40})
-      : super(key: key);
+  const CustomAvatar({
+    Key? key,
+    required this.isImageNull,
+    this.firstAlphabet,
+    this.imageUrl,
+    this.fontSize = 40,
+  }) : super(key: key);
   final bool isImageNull;
   final String? firstAlphabet;
   final String? imageUrl;
