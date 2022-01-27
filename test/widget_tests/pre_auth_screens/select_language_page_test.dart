@@ -1,11 +1,11 @@
-import 'dart:io';
+// import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart' as path;
+// import 'package:path_provider/path_provider.dart' as path;
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -65,16 +65,17 @@ Widget createSelectLanguageScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     );
 
 Future<void> main() async {
-  TestWidgetsFlutterBinding.ensureInitialized(); //initializing Hive
-  final Directory dir = await path.getApplicationDocumentsDirectory();
+  TestWidgetsFlutterBinding.ensureInitialized();
+  //initializing Hive
+  const testMockStorage = 'test/fixtures/core';
   Hive
-    ..init(dir.path)
+    ..init(testMockStorage)
     ..registerAdapter(UserAdapter())
     ..registerAdapter(OrgInfoAdapter());
   //opening Hive Boxes
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox('url');
+  // await Hive.openBox('url');
 
   testSetupLocator();
   locator<GraphqlConfig>().test();
