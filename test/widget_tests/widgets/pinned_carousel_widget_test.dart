@@ -66,9 +66,13 @@ void main() {
       await tester.pump();
 
       expect(
-          find.byType(Row), findsNWidgets(2)); // 1 from CustomCarouselScroller
-      expect(find.byType(Expanded),
-          findsNWidgets(7)); // 4 from CustomCarouselScroller
+        find.byType(Row),
+        findsNWidgets(2),
+      ); // 1 from CustomCarouselScroller
+      expect(
+        find.byType(Expanded),
+        findsNWidgets(7),
+      ); // 4 from CustomCarouselScroller
       expect(find.byType(GestureDetector), findsNWidgets(2));
     });
 

@@ -21,10 +21,11 @@ void onCancel() {
   cancelled = true;
 }
 
-Widget createCustomAlertDialog(
-    {bool reverse = false,
-    String? dialogTitle,
-    bool passSecondaryFunc = true}) {
+Widget createCustomAlertDialog({
+  bool reverse = false,
+  String? dialogTitle,
+  bool passSecondaryFunc = true,
+}) {
   return MaterialApp(
     navigatorKey: locator<NavigationService>().navigatorKey,
     navigatorObservers: [],

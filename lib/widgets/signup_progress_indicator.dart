@@ -27,17 +27,19 @@ class SignupProgressIndicator extends StatelessWidget {
           contentsBuilder: (_, index) => Text(
             AppLocalizations.of(context)!.strictTranslate(progressLabel[index]),
             style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                color: index <= currentPageIndex
-                    ? const Color(0xFF008A37)
-                    : const Color(0xFF737373)),
+                  color: index <= currentPageIndex
+                      ? const Color(0xFF008A37)
+                      : const Color(0xFF737373),
+                ),
             textAlign: TextAlign.center,
           ),
           connectorBuilder: (_, index, __) {
             return SolidLineConnector(
-                space: 30,
-                color: index < currentPageIndex
-                    ? const Color(0xFF008A37)
-                    : const Color(0xFF737373));
+              space: 30,
+              color: index < currentPageIndex
+                  ? const Color(0xFF008A37)
+                  : const Color(0xFF737373),
+            );
           },
           indicatorBuilder: (_, index) {
             return DotIndicator(

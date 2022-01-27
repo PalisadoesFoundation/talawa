@@ -5,16 +5,16 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 class CustomAlertDialog extends StatelessWidget {
-  const CustomAlertDialog(
-      {Key? key,
-      this.successText,
-      this.dialogTitle,
-      this.reverse = false,
-      this.secondaryButtonText = 'Close',
-      this.secondaryButtonTap,
-      required this.success,
-      required this.dialogSubTitle})
-      : super(key: key);
+  const CustomAlertDialog({
+    Key? key,
+    this.successText,
+    this.dialogTitle,
+    this.reverse = false,
+    this.secondaryButtonText = 'Close',
+    this.secondaryButtonTap,
+    required this.success,
+    required this.dialogSubTitle,
+  }) : super(key: key);
   final bool reverse;
   final Function success;
   final Function? secondaryButtonTap;
@@ -58,8 +58,9 @@ class CustomAlertDialog extends StatelessWidget {
       ),
       content: Text(dialogSubTitle),
       buttonPadding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.screenWidth! * 0.05,
-          vertical: SizeConfig.screenHeight! * 0.05),
+        horizontal: SizeConfig.screenWidth! * 0.05,
+        vertical: SizeConfig.screenHeight! * 0.05,
+      ),
       actions: reverse ? actions.reversed.toList() : actions,
     );
   }
