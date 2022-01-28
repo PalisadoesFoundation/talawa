@@ -1,14 +1,14 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart' as path;
+// import 'package:hive/hive.dart';
+// import 'package:path_provider/path_provider.dart' as path;
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
+// import 'package:talawa/models/organization/org_info.dart';
+// import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
@@ -54,22 +54,22 @@ Widget createWaitingScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
 
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
-  const testMockStorage = './test/fixtures/core';
-  const channel = MethodChannel(
-    'plugins.flutter.io/path_provider',
-  );
-  channel.setMockMethodCallHandler((MethodCall methodCall) async {
-    return testMockStorage;
-  }); //initializing Hive
-  final Directory dir = await path.getApplicationDocumentsDirectory();
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
-  //opening Hive Boxes
-  await Hive.openBox<User>('currentUser');
-  await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox('url');
+  // const testMockStorage = './test/fixtures/core';
+  // const channel = MethodChannel(
+  //   'plugins.flutter.io/path_provider',
+  // );
+  // channel.setMockMethodCallHandler((MethodCall methodCall) async {
+  //   return testMockStorage;
+  // }); //initializing Hive
+  // final Directory dir = await path.getApplicationDocumentsDirectory();
+  // Hive
+  //   ..init(dir.path)
+  //   ..registerAdapter(UserAdapter())
+  //   ..registerAdapter(OrgInfoAdapter());
+  // // opening Hive Boxes
+  // await Hive.openBox<User>('currentUser');
+  // await Hive.openBox<OrgInfo>('currentOrg');
+  // await Hive.openBox('url');
   setUp(() {
     registerServices();
     registerViewModels();
