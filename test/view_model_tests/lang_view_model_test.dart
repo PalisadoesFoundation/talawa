@@ -53,10 +53,39 @@ void main() {
       model.changeLanguage(const Locale('en'));
       expect(model.appLocal, const Locale('en'));
 
-      // test changeLanguage function with different language
+      // test changeLanguage function with different languages
       await model.changeLanguage(const Locale('es'));
-      final Locale changedLocale = model.appLocal;
+      Locale changedLocale = model.appLocal;
       expect(changedLocale, const Locale('es'));
+
+      await model.changeLanguage(const Locale('fr'));
+      changedLocale = model.appLocal;
+      expect(changedLocale, const Locale('fr'));
+
+      await model.changeLanguage(const Locale('hi'));
+      changedLocale = model.appLocal;
+      expect(changedLocale, const Locale('hi'));
+
+      await model.changeLanguage(const Locale('zh'));
+      changedLocale = model.appLocal;
+      expect(changedLocale, const Locale('zh'));
+
+      await model.changeLanguage(const Locale('de'));
+      changedLocale = model.appLocal;
+      expect(changedLocale, const Locale('de'));
+
+      await model.changeLanguage(const Locale('ja'));
+      changedLocale = model.appLocal;
+      expect(changedLocale, const Locale('ja'));
+
+      await model.changeLanguage(const Locale('pt'));
+      changedLocale = model.appLocal;
+      expect(changedLocale, const Locale('pt'));
+
+      await model.changeLanguage(const Locale('en'));
+      changedLocale = model.appLocal;
+      expect(changedLocale, const Locale('en'));
+
     });
 
     test("test selectLanguagePress ", () async {
