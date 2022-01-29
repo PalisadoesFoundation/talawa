@@ -61,10 +61,11 @@ class _ChangePassState extends State<ChangePass> {
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
           margin: EdgeInsets.fromLTRB(
-              SizeConfig.screenWidth! * 0.06,
-              SizeConfig.screenHeight! * 0.2,
-              SizeConfig.screenWidth! * 0.06,
-              0.0),
+            SizeConfig.screenWidth! * 0.06,
+            SizeConfig.screenHeight! * 0.2,
+            SizeConfig.screenWidth! * 0.06,
+            0.0,
+          ),
           width: SizeConfig.screenWidth,
           height: SizeConfig.screenHeight,
           child: Form(
@@ -81,41 +82,45 @@ class _ChangePassState extends State<ChangePass> {
                   height: SizeConfig.screenHeight! * 0.05,
                 ),
                 TextFormField(
-                    key: const Key('PassInputField'),
-                    controller: newPassword,
-                    focusNode: newPasswordFocus,
-                    textInputAction: TextInputAction.done,
-                    keyboardType: TextInputType.text,
-                    enableSuggestions: true,
-                    autofillHints: const <String>[AutofillHints.password],
-                    obscureText: true,
-                    validator: (pass) => Validator.validatePassword(pass!),
-                    decoration: InputDecoration(
-                      hintText:
-                          AppLocalizations.of(context)!.translate('password'),
-                      labelText:
-                          '${AppLocalizations.of(context)!.translate("Enter new password")} *',
-                    )),
+                  key: const Key('PassInputField'),
+                  controller: newPassword,
+                  focusNode: newPasswordFocus,
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.text,
+                  enableSuggestions: true,
+                  autofillHints: const <String>[AutofillHints.password],
+                  obscureText: true,
+                  validator: (pass) => Validator.validatePassword(pass!),
+                  decoration: InputDecoration(
+                    hintText:
+                        AppLocalizations.of(context)!.translate('password'),
+                    labelText:
+                        '${AppLocalizations.of(context)!.translate("Enter new password")} *',
+                  ),
+                ),
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.025,
                 ),
                 TextFormField(
-                    key: const Key('PassRepeatInputField'),
-                    controller: reNewPassword,
-                    focusNode: reNewPasswordFocus,
-                    textInputAction: TextInputAction.done,
-                    keyboardType: TextInputType.text,
-                    enableSuggestions: true,
-                    autofillHints: const <String>[AutofillHints.password],
-                    obscureText: true,
-                    validator: (pass) => Validator.validatePasswordConfirm(
-                        pass!, newPassword.text),
-                    decoration: InputDecoration(
-                      hintText:
-                          AppLocalizations.of(context)!.translate('password'),
-                      labelText:
-                          '${AppLocalizations.of(context)!.translate("Re-Enter your password")} *',
-                    )),
+                  key: const Key('PassRepeatInputField'),
+                  controller: reNewPassword,
+                  focusNode: reNewPasswordFocus,
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.text,
+                  enableSuggestions: true,
+                  autofillHints: const <String>[AutofillHints.password],
+                  obscureText: true,
+                  validator: (pass) => Validator.validatePasswordConfirm(
+                    pass!,
+                    newPassword.text,
+                  ),
+                  decoration: InputDecoration(
+                    hintText:
+                        AppLocalizations.of(context)!.translate('password'),
+                    labelText:
+                        '${AppLocalizations.of(context)!.translate("Re-Enter your password")} *',
+                  ),
+                ),
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.086,
                 ),

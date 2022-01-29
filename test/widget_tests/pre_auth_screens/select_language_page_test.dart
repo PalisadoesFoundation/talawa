@@ -1,11 +1,11 @@
-import 'dart:io';
+// import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:path_provider/path_provider.dart' as path;
+// import 'package:path_provider/path_provider.dart' as path;
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -21,8 +21,9 @@ import 'package:talawa/views/pre_auth_screens/select_language.dart';
 
 import '../../helpers/test_locator.dart';
 
-Widget createSelectLanguageScreenLight(
-        {ThemeMode themeMode = ThemeMode.light}) =>
+Widget createSelectLanguageScreenLight({
+  ThemeMode themeMode = ThemeMode.light,
+}) =>
     BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
@@ -64,16 +65,17 @@ Widget createSelectLanguageScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
     );
 
 Future<void> main() async {
-  TestWidgetsFlutterBinding.ensureInitialized(); //initializing Hive
-  final Directory dir = await path.getApplicationDocumentsDirectory();
+  TestWidgetsFlutterBinding.ensureInitialized();
+  //initializing Hive
+  const testMockStorage = 'test/fixtures/core';
   Hive
-    ..init(dir.path)
+    ..init(testMockStorage)
     ..registerAdapter(UserAdapter())
     ..registerAdapter(OrgInfoAdapter());
   //opening Hive Boxes
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox('url');
+  // await Hive.openBox('url');
 
   testSetupLocator();
   locator<GraphqlConfig>().test();
@@ -180,7 +182,9 @@ Future<void> main() async {
       final findAppNameWidget = find.byKey(const Key('SelectLangTextButton'));
       expect(findAppNameWidget, findsOneWidget);
       expect(
-          (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize, 18);
+        (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
+        18,
+      );
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.color,
         const Color(0xFF008A37),
@@ -206,12 +210,18 @@ Future<void> main() async {
       await tester.pumpAndSettle();
       final findAppNameWidget = find.text('Select Language');
       expect(findAppNameWidget, findsOneWidget);
-      expect((tester.firstWidget(findAppNameWidget) as Text).style!.color,
-          TalawaTheme.darkTheme.textTheme.headline5!.color);
-      expect((tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
-          TalawaTheme.darkTheme.textTheme.headline5!.fontFamily);
-      expect((tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
-          TalawaTheme.darkTheme.textTheme.headline5!.fontSize);
+      expect(
+        (tester.firstWidget(findAppNameWidget) as Text).style!.color,
+        TalawaTheme.darkTheme.textTheme.headline5!.color,
+      );
+      expect(
+        (tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
+        TalawaTheme.darkTheme.textTheme.headline5!.fontFamily,
+      );
+      expect(
+        (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
+        TalawaTheme.darkTheme.textTheme.headline5!.fontSize,
+      );
     });
     // This is not needed now will be added when required
     // testWidgets("Testing if search box shows up", (tester) async {
@@ -265,7 +275,9 @@ Future<void> main() async {
       final findAppNameWidget = find.byKey(const Key('SelectLangTextButton'));
       expect(findAppNameWidget, findsOneWidget);
       expect(
-          (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize, 18);
+        (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
+        18,
+      );
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.color,
         const Color(0xFF008A37),

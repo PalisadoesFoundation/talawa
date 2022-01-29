@@ -33,7 +33,7 @@ jobs:
       - name: Count lines of code in each file
         run: chmod +x ./.github/workflows/countline.py
       - name: Running count lines
-        run: ./.github/workflows/countline.py --exclude lib/custom_painters/talawa_logo.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart test/helpers/test_helpers.mocks.dart test/widget_tests/pre_auth_screens/set_url_page_test.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart  
+        run: ./.github/workflows/countline.py --exclude lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart test/helpers/test_helpers.mocks.dart test/widget_tests/pre_auth_screens/set_url_page_test.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart test/widget_tests/pre_auth_screens/change_password_page_test.dart test/widget_tests/pre_auth_screens/select_language_page_test.dart
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
 
@@ -59,7 +59,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
         with:
             path: './coverage/lcov.info'
-            min_coverage: 38.71
+            min_coverage: 45.14
 
   Android-Build:
     name: Testing build for android

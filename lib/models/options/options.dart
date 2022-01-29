@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Options {
-  Options(
-      {required this.icon,
-      required this.title,
-      required this.subtitle,
-      this.trailingIconButton});
+  Options({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    this.trailingIconButton,
+  });
 
   Widget icon;
   String title;

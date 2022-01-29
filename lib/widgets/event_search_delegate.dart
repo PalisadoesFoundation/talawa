@@ -14,20 +14,22 @@ class EventSearch extends SearchDelegate<Event> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-          onPressed: () {
-            query.isNotEmpty ? query = '' : close(context, eventList.first);
-          },
-          icon: const Icon(Icons.clear))
+        onPressed: () {
+          query.isNotEmpty ? query = '' : close(context, eventList.first);
+        },
+        icon: const Icon(Icons.clear),
+      )
     ];
   }
 
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-        onPressed: () {
-          close(context, eventList.first);
-        },
-        icon: const Icon(Icons.arrow_back));
+      onPressed: () {
+        close(context, eventList.first);
+      },
+      icon: const Icon(Icons.arrow_back),
+    );
   }
 
   @override
@@ -48,29 +50,32 @@ class EventSearch extends SearchDelegate<Event> {
   Widget buildSuggestionsSucess(List<Event> suggestions) {
     return SingleChildScrollView(
       child: ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: suggestions.length,
-          itemBuilder: (BuildContext context, int index) {
-            final highlightedText =
-                suggestions[index].title!.substring(0, query.length);
-            final normalText =
-                suggestions[index].title!.substring(query.length);
-            return GestureDetector(
-              onTap: () {
-                navigationService.pushScreen("/eventInfo", arguments: {
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: suggestions.length,
+        itemBuilder: (BuildContext context, int index) {
+          final highlightedText =
+              suggestions[index].title!.substring(0, query.length);
+          final normalText = suggestions[index].title!.substring(query.length);
+          return GestureDetector(
+            onTap: () {
+              navigationService.pushScreen(
+                "/eventInfo",
+                arguments: {
                   "event": suggestions[index],
                   "exploreEventViewModel": exploreEventsViewModel
-                });
-              },
-              child: EventCard(
-                event: suggestions[index],
-                isSearchItem: true,
-                eventTitleHighlightedText: highlightedText,
-                eventTitleNormalText: normalText,
-              ),
-            );
-          }),
+                },
+              );
+            },
+            child: EventCard(
+              event: suggestions[index],
+              isSearchItem: true,
+              eventTitleHighlightedText: highlightedText,
+              eventTitleNormalText: normalText,
+            ),
+          );
+        },
+      ),
     );
   }
 }

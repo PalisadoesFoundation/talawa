@@ -8,18 +8,18 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 
 class CustomListTile extends StatelessWidget {
-  const CustomListTile(
-      {required Key key,
-      required this.index,
-      required this.type,
-      this.showIcon = false,
-      this.orgInfo,
-      this.onTapOrgInfo,
-      this.userInfo,
-      this.onTapUserInfo,
-      this.onTapOption,
-      this.option})
-      : super(key: key);
+  const CustomListTile({
+    required Key key,
+    required this.index,
+    required this.type,
+    this.showIcon = false,
+    this.orgInfo,
+    this.onTapOrgInfo,
+    this.userInfo,
+    this.onTapUserInfo,
+    this.onTapOption,
+    this.option,
+  }) : super(key: key);
   final int index;
   final TileType type;
   final OrgInfo? orgInfo;
@@ -43,57 +43,59 @@ class CustomListTile extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-                flex: 2,
-                child: type == TileType.option
-                    ? option!.icon
-                    : CustomAvatar(
-                        isImageNull: type == TileType.org
-                            ? orgInfo!.image == null
-                            : userInfo!.image == null,
-                        imageUrl: type == TileType.org
-                            ? orgInfo!.image
-                            : userInfo!.image,
-                        firstAlphabet: type == TileType.org
-                            ? orgInfo!.name!.substring(0, 1)
-                            : userInfo!.firstName!.substring(0, 1),
-                        fontSize: 18,
-                      )),
+              flex: 2,
+              child: type == TileType.option
+                  ? option!.icon
+                  : CustomAvatar(
+                      isImageNull: type == TileType.org
+                          ? orgInfo!.image == null
+                          : userInfo!.image == null,
+                      imageUrl: type == TileType.org
+                          ? orgInfo!.image
+                          : userInfo!.image,
+                      firstAlphabet: type == TileType.org
+                          ? orgInfo!.name!.substring(0, 1)
+                          : userInfo!.firstName!.substring(0, 1),
+                      fontSize: 18,
+                    ),
+            ),
             Expanded(
-                flex: 5,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      type == TileType.org
-                          ? orgInfo!.name!
-                          : type == TileType.user
-                              ? '${userInfo!.firstName!} ${userInfo!.lastName!}'
-                              : option!.title,
-                      style: type == TileType.org
-                          ? Theme.of(context).textTheme.headline5
-                          : type == TileType.user
+              flex: 5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    type == TileType.org
+                        ? orgInfo!.name!
+                        : type == TileType.user
+                            ? '${userInfo!.firstName!} ${userInfo!.lastName!}'
+                            : option!.title,
+                    style: type == TileType.org
+                        ? Theme.of(context).textTheme.headline5
+                        : type == TileType.user
+                            ? Theme.of(context).textTheme.headline6
+                            : option!.trailingIconButton == null
+                                ? Theme.of(context).textTheme.bodyText2
+                                : Theme.of(context)
+                                    .textTheme
+                                    .headline5!
+                                    .copyWith(fontSize: 18),
+                  ),
+                  type != TileType.user
+                      ? Text(
+                          type == TileType.org
+                              ? '${AppLocalizations.of(context)!.strictTranslate("Creator")}: ${orgInfo!.creatorInfo!.firstName!} ${orgInfo!.creatorInfo!.lastName!}'
+                              : option!.subtitle,
+                          style: type == TileType.org
                               ? Theme.of(context).textTheme.headline6
                               : option!.trailingIconButton == null
-                                  ? Theme.of(context).textTheme.bodyText2
-                                  : Theme.of(context)
-                                      .textTheme
-                                      .headline5!
-                                      .copyWith(fontSize: 18),
-                    ),
-                    type != TileType.user
-                        ? Text(
-                            type == TileType.org
-                                ? '${AppLocalizations.of(context)!.strictTranslate("Creator")}: ${orgInfo!.creatorInfo!.firstName!} ${orgInfo!.creatorInfo!.lastName!}'
-                                : option!.subtitle,
-                            style: type == TileType.org
-                                ? Theme.of(context).textTheme.headline6
-                                : option!.trailingIconButton == null
-                                    ? Theme.of(context).textTheme.caption
-                                    : Theme.of(context).textTheme.headline6,
-                          )
-                        : const SizedBox(),
-                  ],
-                )),
+                                  ? Theme.of(context).textTheme.caption
+                                  : Theme.of(context).textTheme.headline6,
+                        )
+                      : const SizedBox(),
+                ],
+              ),
+            ),
             Expanded(
               flex: 2,
               child: type != TileType.user
@@ -107,11 +109,13 @@ class CustomListTile extends StatelessWidget {
                                   width: SizeConfig.blockSizeHorizontal! * 15,
                                   child: Align(
                                     alignment: Alignment.centerRight,
-                                    child: Text(orgInfo!.isPublic!
-                                        ? AppLocalizations.of(context)!
-                                            .strictTranslate('Public')
-                                        : AppLocalizations.of(context)!
-                                            .strictTranslate('Private')),
+                                    child: Text(
+                                      orgInfo!.isPublic!
+                                          ? AppLocalizations.of(context)!
+                                              .strictTranslate('Public')
+                                          : AppLocalizations.of(context)!
+                                              .strictTranslate('Private'),
+                                    ),
                                   ),
                                 ),
                                 Icon(
