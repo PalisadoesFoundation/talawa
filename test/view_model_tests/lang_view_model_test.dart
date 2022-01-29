@@ -85,7 +85,6 @@ void main() {
       await model.changeLanguage(const Locale('en'));
       changedLocale = model.appLocal;
       expect(changedLocale, const Locale('en'));
-
     });
 
     test("test selectLanguagePress ", () async {
