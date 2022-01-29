@@ -24,51 +24,48 @@ void main() {
   });
 
   group('Language View Model Tests', () {
-
-    test("test change language" , (){
-
+    test("test change language", () {
       final model = AppLanguage(isTest: true);
       model.initialize();
 
       // check that initially the app language is set to english
       final Locale locale = model.appLocal;
-      expect(locale , const Locale('en'));
+      expect(locale, const Locale('en'));
 
       // test changeLanguage function with same language as before
       model.changeLanguage(const Locale('en'));
-      expect(model.appLocal , const Locale('en'));
+      expect(model.appLocal, const Locale('en'));
 
       // test changeLanguage function with different language
       model.changeLanguage(const Locale('es'));
       final Locale changedLocale = model.appLocal;
-      expect(changedLocale , const Locale('es'));
-
+      expect(changedLocale, const Locale('es'));
     });
 
-    test('change language with isTest false' , () async{
+    test('change language with isTest false', () async {
       final model = AppLanguage(isTest: false);
       model.initialize();
 
       // check that initially the app language is set to english
       final Locale locale = model.appLocal;
-      expect(locale , const Locale('en'));
+      expect(locale, const Locale('en'));
 
       // test changeLanguage function with same language as before
       model.changeLanguage(const Locale('en'));
-      expect(model.appLocal , const Locale('en'));
+      expect(model.appLocal, const Locale('en'));
 
       // test changeLanguage function with different language
       await model.changeLanguage(const Locale('es'));
       final Locale changedLocale = model.appLocal;
-      expect(changedLocale , const Locale('es'));
+      expect(changedLocale, const Locale('es'));
     });
 
-    test("test selectLanguagePress " , () async{
+    test("test selectLanguagePress ", () async {
       final model = AppLanguage(isTest: true);
       await model.initialize();
 
       // first considering user is not logged in
-      when(userConfig.userLoggedIn()).thenAnswer((realInvocation) async{
+      when(userConfig.userLoggedIn()).thenAnswer((realInvocation) async {
         return false;
       });
 
@@ -79,19 +76,18 @@ void main() {
       verify(navigationService.pushScreen('/setUrl', arguments: ''));
 
       // now consider user to be logged in
-      when(userConfig.userLoggedIn()).thenAnswer((realInvocation) async{
+      when(userConfig.userLoggedIn()).thenAnswer((realInvocation) async {
         return true;
       });
 
-      when(navigationService.popAndPushScreen('/appSettingsPage', arguments: ''))
+      when(navigationService.popAndPushScreen('/appSettingsPage',
+              arguments: ''))
           .thenAnswer((_) async {});
 
       await model.selectLanguagePress();
 
-      verify(navigationService.popAndPushScreen('/appSettingsPage', arguments: ''));
+      verify(navigationService.popAndPushScreen('/appSettingsPage',
+          arguments: ''));
     });
-
-
   });
 }
-
