@@ -44,25 +44,22 @@ void main() {
       locator.unregister<SizeConfig>();
     });
 
-    final MainScreenViewModel mainTestModel = getModel();
-
-    final TargetFocus testTarget =
-        TargetFocus(identify: "TestTarget", keyTarget: mainTestModel.keyBNChat);
-
     test("When initialized current index should be 0", () {
+      final mainTestModel = getModel();
       expect(mainTestModel.currentIndex, 0);
     });
     group("onTabTapped -", () {
       test(
           "When an index is passed that, current index should equal that index",
           () {
+        final mainTestModel = getModel();
         mainTestModel.onTabTapped(4);
         expect(mainTestModel.currentIndex, 4);
       });
 
       test("When called function should notify listeners of tab change", () {
         final mockcallback = MockCallBack();
-
+        final mainTestModel = getModel();
         mainTestModel.addListener(mockcallback);
 
         mainTestModel.onTabTapped(0);
@@ -80,7 +77,7 @@ void main() {
           int mainIndex = 1,
           required MainScreenViewModel model,
           BuildContext? pcontext}) {
-        mainTestModel.initialise(
+        model.initialise(
           pcontext ?? context,
           fromSignUp: fSignUp,
           mainScreenIndex: mainIndex,
@@ -92,7 +89,7 @@ void main() {
           () {
         const bool fSignup = true;
         const int mainIndex = 1;
-
+        final mainTestModel = getModel();
         runIntialize(
             fSignUp: fSignup, mainIndex: mainIndex, model: mainTestModel);
 
@@ -103,6 +100,7 @@ void main() {
       test(
           "When fromSignUp is false tourComplete should equal true, tourSkipped and showApptour false",
           () {
+        final mainTestModel = getModel();
         runIntialize(fSignUp: false, model: mainTestModel);
         expect(mainTestModel.tourComplete, true);
         expect(mainTestModel.tourSkipped, false);
@@ -112,11 +110,10 @@ void main() {
       test("When fromSignUp is false, App Tour dialog should not be displayed",
           () async {
         final mocknav = getAndRegisterNavigationService();
+        final mainTestModel = getModel();
 
-        // runIntialize(fSignUp: true, model: localmodel);
         mainTestModel.initialise(MockBuildContext(),
             fromSignUp: false, mainScreenIndex: 0);
-        print("AppTour ${mainTestModel.showAppTour}");
 
         // Ensures that navigation service was not called
         verifyZeroInteractions(mocknav);
@@ -125,21 +122,20 @@ void main() {
       test("When fromSignUp is true, App Tour dialog should be displayed",
           () async {
         final mocknav = getAndRegisterNavigationService();
-        // final localmodel = getModel();
-        // runIntialize(fSignUp: true, model: localmodel);
+        final mainTestModel = getModel();
 
         //Waits for any delay in navigation being called
         mainTestModel.initialise(MockBuildContext(),
             fromSignUp: true, mainScreenIndex: 0);
 
         await Future.delayed(const Duration(seconds: 2));
+        //Ensures that naviagation service was called
         verifyInteraction(mocknav, mockName: "NavigationService");
-      }
-          //Ensures that naviagation service was called
-          );
+      });
     });
 
     group("showTutorial", () {
+      final mainTestModel = getModel();
       test("When called tutorial coach should be assigned a value", () {
         mainTestModel.showTutorial(
             onClickTarget: (TargetFocus x) {}, onFinish: () {});
@@ -148,6 +144,9 @@ void main() {
     });
 
     group("tourHomeTargets", () {
+      final mainTestModel = getModel();
+      final TargetFocus testTarget = TargetFocus(
+          identify: "TestTarget", keyTarget: mainTestModel.keyBNChat);
       test("target list should be cleared before adding new targets", () {
         //Adding a testtarget before method is called
         mainTestModel.targets.add(testTarget);
@@ -159,7 +158,10 @@ void main() {
     });
 
     group("tourEventTargets", () {
+      final mainTestModel = getModel();
       test("target list should be cleared before adding new targets", () {
+        final TargetFocus testTarget = TargetFocus(
+            identify: "TestTarget", keyTarget: mainTestModel.keyBNChat);
         //Adding a target before method is called
         mainTestModel.targets.add(testTarget);
 
@@ -170,7 +172,10 @@ void main() {
     });
 
     group("tourAddPost", () {
+      final mainTestModel = getModel();
       test("target list should be cleared before adding new targets", () {
+        final TargetFocus testTarget = TargetFocus(
+            identify: "TestTarget", keyTarget: mainTestModel.keyBNChat);
         //Adding a target before method is called
         mainTestModel.targets.add(testTarget);
 
@@ -180,7 +185,10 @@ void main() {
       });
     });
     group("tourChat", () {
+      final mainTestModel = getModel();
       test("target list should be cleared before adding new targets", () {
+        final TargetFocus testTarget = TargetFocus(
+            identify: "TestTarget", keyTarget: mainTestModel.keyBNChat);
         //Adding a target before method is called
         mainTestModel.targets.add(testTarget);
 
@@ -191,7 +199,10 @@ void main() {
     });
 
     group("tourProfile", () {
+      final mainTestModel = getModel();
       test("target list should be cleared before adding new targets", () {
+        final TargetFocus testTarget = TargetFocus(
+            identify: "TestTarget", keyTarget: mainTestModel.keyBNChat);
         //Adding a target before method is called
         mainTestModel.targets.add(testTarget);
 
