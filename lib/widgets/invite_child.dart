@@ -9,7 +9,9 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
+final _appLanguageService = locator<AppLanguage>();
 Widget invite(BuildContext context) {
+  _appLanguageService.initialize();
   final String url =
       'https://cyberwake.github.io/applink/invite?selectLang=${AppLanguage().appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
   final String qrData =
