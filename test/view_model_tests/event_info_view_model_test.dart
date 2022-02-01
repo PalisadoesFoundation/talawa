@@ -5,6 +5,7 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
@@ -27,34 +28,42 @@ void main() {
   group('Event Info Tests', () {
     final model = EventInfoViewModel();
 
+    test("test initialization", () {
+      final Event event =
+          Event(id: "1", isRegisterable: true, isRegistered: false);
+      final ExploreEventsViewModel exploreEventsViewModel =
+          ExploreEventsViewModel();
+      model.initialize(args: {
+        "event": event,
+        "exploreEventViewModel": exploreEventsViewModel,
+      });
+      expect(model.fabTitle, "Register");
+    });
+
     test("Test register for event", () async {
-      final Event event1 = Event(id: "1", isRegisterable: true);
+      final Event event1 =
+          Event(id: "1", isRegisterable: true, isRegistered: false);
       model.event = event1;
-      final mockEventService = getAndRegisterEventService();
 
-      expect(model.getFabTitle(), "Register");
-
-      // if registerForEvent is called with blank string
-      when(mockEventService.registerForAnEvent(""))
+      final eventService = getAndRegisterEventService();
+      when(eventService.registerForAnEvent(model.event.id!))
           .thenAnswer((realInvocation) async {
-        return "ID can't be blank.";
+        return "Event Registered";
       });
+      await model.registerForEvent();
 
-      final res = await mockEventService.registerForAnEvent("");
-      expect(res, "ID can't be blank.");
+      verify(navigationService.pop());
 
-      // if registerForEvent is given proper id
-      when(mockEventService.registerForAnEvent(event1.id!))
-          .thenAnswer((realInvocation) async {
-        event1.isRegistered = true;
-        return event1;
-      });
+      verify(eventService.registerForAnEvent(model.event.id!));
+      expect(model.event.isRegistered, true);
+      expect(model.fabTitle, "Registered");
 
-      final res2 = await mockEventService.registerForAnEvent(event1.id!);
-      expect(res2, event1);
-
-      // since the event is now registered the fab title must change to "Registered"
-      expect(model.getFabTitle(), "Registered");
+      // now make the event non registrable
+      model.event.isRegistered = false;
+      model.event.isRegisterable = false;
+      await model.registerForEvent();
+      verifyNever(eventService.registerForAnEvent(model.event.id!));
+      expect(model.event.isRegistered, false);
     });
 
     test("Test getFabTitle function", () {
