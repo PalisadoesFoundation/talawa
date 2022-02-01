@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/widgets/invite_child.dart';
 
 import '../../helpers/test_locator.dart';
