@@ -87,7 +87,8 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
   });
 
   when(service.authClient()).thenAnswer((realInvocation) {
-    final AuthLink authLink = AuthLink(getToken: () async => 'Bearer ${GraphqlConfig.token}');
+    final AuthLink authLink =
+        AuthLink(getToken: () async => 'Bearer ${GraphqlConfig.token}');
     final Link finalAuthLink = authLink.concat(service.httpLink);
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
@@ -99,7 +100,7 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
   return service;
 }
 
-DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions(){
+DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions() {
   _removeRegistrationIfExists<DataBaseMutationFunctions>();
   final service = MockDataBaseMutationFunctions();
   locator.registerSingleton<DataBaseMutationFunctions>(service);
