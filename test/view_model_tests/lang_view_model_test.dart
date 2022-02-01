@@ -135,6 +135,22 @@ void main() {
           .thenAnswer((_) async {});
       await model.appLanguageQuery();
       verify(databaseFunctions.gqlAuthQuery(queries.userLanguage()));
+
+      //testing catch block in userLanguageQuery
+      when(databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId)))
+          .thenThrow(Error());
+      await model.userLanguageQuery(userId);
+
+      //testing catch block in appLanguageQuery
+      when(databaseFunctions.gqlAuthQuery(queries.userLanguage()))
+          .thenThrow(Error());
+      await model.appLanguageQuery();
+
+      //testing catch block in dbLanguageUpdate
+      when(databaseFunctions.gqlAuthMutation(
+              queries.updateLanguage(model.appLocal.languageCode)))
+          .thenThrow(Error());
+      await model.dbLanguageUpdate();
     });
   });
 }
