@@ -39,6 +39,7 @@ final databaseFunctions = locator<DataBaseMutationFunctions>();
 final graphqlConfig = locator<GraphqlConfig>();
 final sizeConfig = locator<SizeConfig>();
 final queries = locator<Queries>();
+final appLanguageService = locator<AppLanguage>();
 
 void testSetupLocator() {
   //services
