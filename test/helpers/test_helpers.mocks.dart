@@ -68,6 +68,8 @@ class _FakeFocusNode_10 extends _i2.Fake implements _i1.FocusNode {
       super.toString();
 }
 
+class _FakeGraphQLError_11 extends _i2.Fake implements _i3.GraphQLError {}
+
 /// A class which mocks [NavigationService].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -623,6 +625,124 @@ class MockPost extends _i2.Mock implements _i12.Post {
   String getPostCreatedDuration() =>
       (super.noSuchMethod(Invocation.method(#getPostCreatedDuration, []),
           returnValue: '') as String);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [DataBaseMutationFunctions].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDataBaseMutationFunctions extends _i2.Mock
+    implements _i8.DataBaseMutationFunctions {
+  @override
+  _i3.GraphQLClient get clientNonAuth =>
+      (super.noSuchMethod(Invocation.getter(#clientNonAuth),
+          returnValue: _FakeGraphQLClient_2()) as _i3.GraphQLClient);
+  @override
+  set clientNonAuth(_i3.GraphQLClient? _clientNonAuth) =>
+      super.noSuchMethod(Invocation.setter(#clientNonAuth, _clientNonAuth),
+          returnValueForMissingStub: null);
+  @override
+  _i3.GraphQLClient get clientAuth =>
+      (super.noSuchMethod(Invocation.getter(#clientAuth),
+          returnValue: _FakeGraphQLClient_2()) as _i3.GraphQLClient);
+  @override
+  set clientAuth(_i3.GraphQLClient? _clientAuth) =>
+      super.noSuchMethod(Invocation.setter(#clientAuth, _clientAuth),
+          returnValueForMissingStub: null);
+  @override
+  _i3.GraphQLError get userNotFound =>
+      (super.noSuchMethod(Invocation.getter(#userNotFound),
+          returnValue: _FakeGraphQLError_11()) as _i3.GraphQLError);
+  @override
+  set userNotFound(_i3.GraphQLError? _userNotFound) =>
+      super.noSuchMethod(Invocation.setter(#userNotFound, _userNotFound),
+          returnValueForMissingStub: null);
+  @override
+  _i3.GraphQLError get userNotAuthenticated =>
+      (super.noSuchMethod(Invocation.getter(#userNotAuthenticated),
+          returnValue: _FakeGraphQLError_11()) as _i3.GraphQLError);
+  @override
+  set userNotAuthenticated(_i3.GraphQLError? _userNotAuthenticated) =>
+      super.noSuchMethod(
+          Invocation.setter(#userNotAuthenticated, _userNotAuthenticated),
+          returnValueForMissingStub: null);
+  @override
+  _i3.GraphQLError get emailAccountPresent =>
+      (super.noSuchMethod(Invocation.getter(#emailAccountPresent),
+          returnValue: _FakeGraphQLError_11()) as _i3.GraphQLError);
+  @override
+  set emailAccountPresent(_i3.GraphQLError? _emailAccountPresent) =>
+      super.noSuchMethod(
+          Invocation.setter(#emailAccountPresent, _emailAccountPresent),
+          returnValueForMissingStub: null);
+  @override
+  _i3.GraphQLError get wrongCredentials =>
+      (super.noSuchMethod(Invocation.getter(#wrongCredentials),
+          returnValue: _FakeGraphQLError_11()) as _i3.GraphQLError);
+  @override
+  set wrongCredentials(_i3.GraphQLError? _wrongCredentials) => super
+      .noSuchMethod(Invocation.setter(#wrongCredentials, _wrongCredentials),
+          returnValueForMissingStub: null);
+  @override
+  _i3.GraphQLError get organizationNotFound =>
+      (super.noSuchMethod(Invocation.getter(#organizationNotFound),
+          returnValue: _FakeGraphQLError_11()) as _i3.GraphQLError);
+  @override
+  set organizationNotFound(_i3.GraphQLError? _organizationNotFound) =>
+      super.noSuchMethod(
+          Invocation.setter(#organizationNotFound, _organizationNotFound),
+          returnValueForMissingStub: null);
+  @override
+  _i3.GraphQLError get refreshAccessTokenExpiredException => (super
+      .noSuchMethod(Invocation.getter(#refreshAccessTokenExpiredException),
+          returnValue: _FakeGraphQLError_11()) as _i3.GraphQLError);
+  @override
+  set refreshAccessTokenExpiredException(
+          _i3.GraphQLError? _refreshAccessTokenExpiredException) =>
+      super.noSuchMethod(
+          Invocation.setter(#refreshAccessTokenExpiredException,
+              _refreshAccessTokenExpiredException),
+          returnValueForMissingStub: null);
+  @override
+  _i3.GraphQLError get memberRequestExist =>
+      (super.noSuchMethod(Invocation.getter(#memberRequestExist),
+          returnValue: _FakeGraphQLError_11()) as _i3.GraphQLError);
+  @override
+  set memberRequestExist(_i3.GraphQLError? _memberRequestExist) => super
+      .noSuchMethod(Invocation.setter(#memberRequestExist, _memberRequestExist),
+          returnValueForMissingStub: null);
+  @override
+  bool? encounteredExceptionOrError(_i3.OperationException? exception,
+          {bool? showSnackBar = true}) =>
+      (super.noSuchMethod(Invocation.method(#encounteredExceptionOrError,
+          [exception], {#showSnackBar: showSnackBar})) as bool?);
+  @override
+  _i4.Future<dynamic> gqlAuthQuery(String? query) =>
+      (super.noSuchMethod(Invocation.method(#gqlAuthQuery, [query]),
+          returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
+  @override
+  _i4.Future<dynamic> gqlAuthMutation(String? mutation,
+          {Map<String, dynamic>? variables}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #gqlAuthMutation, [mutation], {#variables: variables}),
+          returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
+  @override
+  _i4.Future<dynamic> gqlNonAuthMutation(String? mutation,
+          {Map<String, dynamic>? variables, bool? reCall = true}) =>
+      (super.noSuchMethod(
+          Invocation.method(#gqlNonAuthMutation, [mutation],
+              {#variables: variables, #reCall: reCall}),
+          returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
+  @override
+  _i4.Future<bool> refreshAccessToken(String? refreshToken) => (super
+      .noSuchMethod(Invocation.method(#refreshAccessToken, [refreshToken]),
+          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
+  @override
+  _i4.Future<dynamic> fetchOrgById(String? id) =>
+      (super.noSuchMethod(Invocation.method(#fetchOrgById, [id]),
+          returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
   @override
   String toString() => super.toString();
 }

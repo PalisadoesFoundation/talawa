@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
@@ -15,7 +14,6 @@ void main() {
 
   setUp(() {
     registerServices();
-    locator<SizeConfig>().test();
   });
 
   tearDown(() {
@@ -87,10 +85,11 @@ void main() {
       expect(changedLocale, const Locale('en'));
     });
 
-    test("test selectLanguagePress ", () async {
+    test("test functions", () async {
       final model = AppLanguage(isTest: true);
       await model.initialize();
 
+      // testing selectLanguagePress function
       // first considering user is not logged in
       when(userConfig.userLoggedIn()).thenAnswer((realInvocation) async {
         return false;
@@ -111,10 +110,32 @@ void main() {
               arguments: ''))
           .thenAnswer((_) async {});
 
+      databaseFunctions.init();
+
+      when(databaseFunctions
+          .gqlAuthMutation(queries.updateLanguage(model.appLocal.languageCode)))
+          .thenAnswer((_) async {});
+
       await model.selectLanguagePress();
 
+      verify(databaseFunctions
+          .gqlAuthMutation(queries.updateLanguage(model.appLocal.languageCode)));
       verify(navigationService.popAndPushScreen('/appSettingsPage',
           arguments: ''));
+
+
+      // testing userLanguageQuery function
+      const userId = "xyz1";
+      when(databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId))).thenAnswer((_) async {});
+      await model.userLanguageQuery(userId);
+      verify(databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId)));
+
+      //testing appLanguageQueryFunction
+      when(databaseFunctions.gqlAuthQuery(queries.userLanguage())).thenAnswer((_) async {});
+      await model.appLanguageQuery();
+      verify(databaseFunctions.gqlAuthQuery(queries.userLanguage()));
+
     });
+
   });
 }
