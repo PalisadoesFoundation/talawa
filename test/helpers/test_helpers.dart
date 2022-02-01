@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
@@ -9,6 +10,7 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -27,6 +29,7 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks(
@@ -42,6 +45,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<Connectivity>(returnNullOnMissingStub: true),
     MockSpec<SignupDetailsViewModel>(returnNullOnMissingStub: true),
     MockSpec<Post>(returnNullOnMissingStub: true),
+    MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -68,7 +72,37 @@ AppLanguage getAndRegisterAppLanguage() {
 GraphqlConfig getAndRegisterGraphqlConfig() {
   _removeRegistrationIfExists<GraphqlConfig>();
   final service = MockGraphqlConfig();
+
+  when(service.httpLink).thenReturn(HttpLink(
+    'https://talawa-graphql-api.herokuapp.com/graphql',
+    httpClient: MockHttpClient(),
+  ));
+
+  when(service.clientToQuery()).thenAnswer((realInvocation) {
+    return GraphQLClient(
+      cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
+      link: service.httpLink,
+    );
+  });
+
+  when(service.authClient()).thenAnswer((realInvocation) {
+    final AuthLink authLink =
+        AuthLink(getToken: () async => 'Bearer ${GraphqlConfig.token}');
+    final Link finalAuthLink = authLink.concat(service.httpLink);
+    return GraphQLClient(
+      cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
+      link: finalAuthLink,
+    );
+  });
+
   locator.registerSingleton<GraphqlConfig>(service);
+  return service;
+}
+
+DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions() {
+  _removeRegistrationIfExists<DataBaseMutationFunctions>();
+  final service = MockDataBaseMutationFunctions();
+  locator.registerSingleton<DataBaseMutationFunctions>(service);
   return service;
 }
 
@@ -241,6 +275,7 @@ void registerServices() {
   getAndRegisterEventService();
   getAndRegisterMultiMediaPickerService();
   getAndRegisterConnectivityService();
+  getAndRegisterDatabaseMutationFunctions();
 }
 
 void unregisterServices() {
@@ -251,6 +286,7 @@ void unregisterServices() {
   locator.unregister<EventService>();
   locator.unregister<MultiMediaPickerService>();
   locator.unregister<Connectivity>();
+  locator.unregister<DataBaseMutationFunctions>();
 }
 
 void registerViewModels() {
@@ -264,6 +300,7 @@ void registerViewModels() {
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => WaitingViewModel());
   locator.registerFactory(() => EventInfoViewModel());
+  locator.registerFactory(() => ProgressDialogViewModel());
 }
 
 void unregisterViewModels() {
@@ -277,4 +314,5 @@ void unregisterViewModels() {
   locator.unregister<DirectChatViewModel>();
   locator.unregister<WaitingViewModel>();
   locator.unregister<EventInfoViewModel>();
+  locator.unregister<ProgressDialogViewModel>();
 }

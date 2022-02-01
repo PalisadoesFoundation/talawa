@@ -231,4 +231,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Hive database files
+test/fixtures/core
+
 # End of https://www.gitignore.io/api/python
