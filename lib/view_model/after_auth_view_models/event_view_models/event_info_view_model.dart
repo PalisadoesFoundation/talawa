@@ -27,7 +27,9 @@ class EventInfoViewModel extends BaseModel {
         ),
       );
 
-      final registerResult = await EventService().registerForAnEvent(event.id!);
+      final registerResult =
+          await locator<EventService>().registerForAnEvent(event.id!);
+      //final registerResult = await EventService().registerForAnEvent(event.id!);
       if (registerResult != null) {
         event.isRegistered = true;
       }
