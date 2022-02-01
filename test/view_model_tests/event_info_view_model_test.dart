@@ -28,22 +28,26 @@ void main() {
   group('Event Info Tests', () {
     final model = EventInfoViewModel();
 
-    test("test initialization" , (){
-      final Event event = Event(id: "1" , isRegisterable: true , isRegistered: false);
-      final ExploreEventsViewModel exploreEventsViewModel = ExploreEventsViewModel();
+    test("test initialization", () {
+      final Event event =
+          Event(id: "1", isRegisterable: true, isRegistered: false);
+      final ExploreEventsViewModel exploreEventsViewModel =
+          ExploreEventsViewModel();
       model.initialize(args: {
         "event": event,
         "exploreEventViewModel": exploreEventsViewModel,
       });
-      expect(model.fabTitle , "Register");
+      expect(model.fabTitle, "Register");
     });
 
     test("Test register for event", () async {
-      final Event event1 = Event(id: "1", isRegisterable: true , isRegistered: false);
+      final Event event1 =
+          Event(id: "1", isRegisterable: true, isRegistered: false);
       model.event = event1;
 
       final eventService = getAndRegisterEventService();
-      when(eventService.registerForAnEvent(model.event.id!)).thenAnswer((realInvocation) async{
+      when(eventService.registerForAnEvent(model.event.id!))
+          .thenAnswer((realInvocation) async {
         return "Event Registered";
       });
       await model.registerForEvent();
@@ -51,15 +55,15 @@ void main() {
       verify(navigationService.pop());
 
       verify(eventService.registerForAnEvent(model.event.id!));
-      expect(model.event.isRegistered , true);
-      expect(model.fabTitle , "Registered");
+      expect(model.event.isRegistered, true);
+      expect(model.fabTitle, "Registered");
 
       // now make the event non registrable
       model.event.isRegistered = false;
       model.event.isRegisterable = false;
       await model.registerForEvent();
       verifyNever(eventService.registerForAnEvent(model.event.id!));
-      expect(model.event.isRegistered , false);
+      expect(model.event.isRegistered, false);
     });
 
     test("Test getFabTitle function", () {
