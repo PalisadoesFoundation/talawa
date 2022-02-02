@@ -5,7 +5,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/event_service.dart';
-import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
