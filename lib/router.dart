@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/main.dart';
+import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
+import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
@@ -139,6 +141,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) => const AppSettingsPage(key: Key('AppSettings')));
 
+    case Routes.chatMessageScreen:
+      final ChatListTileDataModel chat =
+          settings.arguments! as ChatListTileDataModel;
+      return MaterialPageRoute(
+        builder: (context) => ChatMessageScreen(
+          key: const Key('ChatMessageScreen'),
+          chat: chat,
+        ),
+      );
     default:
       return MaterialPageRoute(
           builder: (context) => const DemoPageView(
