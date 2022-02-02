@@ -60,6 +60,8 @@ NavigationService getAndRegisterNavigationService() {
   _removeRegistrationIfExists<NavigationService>();
   final service = MockNavigationService();
   when(service.navigatorKey).thenReturn(GlobalKey<NavigatorState>());
+  when(service.removeAllAndPush(any, any, arguments: anyNamed('arguments')))
+      .thenAnswer((_) async {});
   locator.registerSingleton<NavigationService>(service);
   return service;
 }
