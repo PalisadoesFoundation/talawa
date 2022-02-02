@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
@@ -31,7 +30,7 @@ class CreateEventViewModel extends BaseModel {
   FocusNode locationFocus = FocusNode();
   FocusNode descriptionFocus = FocusNode();
 
-  late OrganizationService _organizationService;
+  //late OrganizationService _organizationService;
   late final Map<String, bool> _adminCheckedMap = {};
   late final List<User> _selectedAdmins = [];
   late final Map<String, bool> _memberCheckedMap = {};
@@ -40,7 +39,6 @@ class CreateEventViewModel extends BaseModel {
 
   final formKey = GlobalKey<FormState>();
   final _eventService = locator<EventService>();
-  final _dbFunctions = locator<DataBaseMutationFunctions>();
   AutovalidateMode validate = AutovalidateMode.disabled;
 
   late OrgInfo _currentOrg;
@@ -53,7 +51,7 @@ class CreateEventViewModel extends BaseModel {
 
   initialize() {
     _currentOrg = _userConfig.currentOrg;
-    _organizationService = locator<OrganizationService>();
+    //_organizationService = locator<OrganizationService>();
 
     _imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
@@ -101,10 +99,10 @@ class CreateEventViewModel extends BaseModel {
       navigationService.pushDialog(
         const CustomProgressDialog(key: Key('EventCreationProgress')),
       );
-      final tokenResult = await _dbFunctions
+      final tokenResult = await databaseFunctions
           .refreshAccessToken(userConfig.currentUser.refreshToken!);
       print(tokenResult);
-      final result = await _dbFunctions.gqlAuthMutation(
+      final result = await databaseFunctions.gqlAuthMutation(
         EventQueries().addEvent(),
         variables: variables,
       );
@@ -134,7 +132,7 @@ class CreateEventViewModel extends BaseModel {
 
   Future<List<User>> getCurrentOrgUsersList({required bool isAdmin}) async {
     if (orgMembersList.isEmpty) {
-      orgMembersList = await _organizationService
+      orgMembersList = await organizationService
           .getOrgMembersList(userConfig.currentOrg.id!);
     }
 
