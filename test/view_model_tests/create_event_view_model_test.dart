@@ -19,16 +19,17 @@ import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
+
 class MockCallbackFunction extends Mock {
   call();
 }
 
 Widget createApp(
-    GlobalKey<FormState> formKey,
-    TextEditingController eventTitleTextController,
-    TextEditingController eventLocationTextController,
-    TextEditingController eventDescriptionTextController,
-    ) {
+  GlobalKey<FormState> formKey,
+  TextEditingController eventTitleTextController,
+  TextEditingController eventLocationTextController,
+  TextEditingController eventDescriptionTextController,
+) {
   return MaterialApp(
     locale: const Locale('en'),
     localizationsDelegates: [
@@ -42,9 +43,15 @@ Widget createApp(
           key: formKey,
           child: Column(
             children: [
-              TextFormField(controller: eventTitleTextController,),
-              TextFormField(controller: eventLocationTextController,),
-              TextFormField(controller: eventDescriptionTextController,),
+              TextFormField(
+                controller: eventTitleTextController,
+              ),
+              TextFormField(
+                controller: eventLocationTextController,
+              ),
+              TextFormField(
+                controller: eventDescriptionTextController,
+              ),
             ],
           ),
         ),
@@ -54,7 +61,6 @@ Widget createApp(
     onGenerateRoute: router.generateRoute,
   );
 }
-
 
 void main() {
   testSetupLocator();
@@ -71,16 +77,16 @@ void main() {
   });
 
   group('Create Event Tests', () {
-
-    test("test getCurrentOrgUsersList with isAdmin false" , () async{
+    test("test getCurrentOrgUsersList with isAdmin false", () async {
       final model = CreateEventViewModel();
       model.initialize();
 
       final User user1 = User(id: "fakeUser1");
       final User user2 = User(id: "fakeUser2");
-      final List<User> users = [user1 , user2];
+      final List<User> users = [user1, user2];
 
-      when(organizationService.getOrgMembersList("XYZ")).thenAnswer((realInvocation) async{
+      when(organizationService.getOrgMembersList("XYZ"))
+          .thenAnswer((realInvocation) async {
         return users;
       });
 
@@ -90,24 +96,24 @@ void main() {
 
       users.forEach((user) {
         final bool x = model.memberCheckedMap.containsKey(user.id);
-        if(!x){
+        if (!x) {
           isListCorrect = false;
         }
       });
 
-      expect(isListCorrect , true);
-
+      expect(isListCorrect, true);
     });
 
-    test("test getCurrentOrgUsersList with isAdmin true" , () async{
+    test("test getCurrentOrgUsersList with isAdmin true", () async {
       final model = CreateEventViewModel();
       model.initialize();
 
       final User user1 = User(id: "fakeUser1");
       final User user2 = User(id: "fakeUser2");
-      final List<User> users = [user1 , user2];
+      final List<User> users = [user1, user2];
 
-      when(organizationService.getOrgMembersList("XYZ")).thenAnswer((realInvocation) async{
+      when(organizationService.getOrgMembersList("XYZ"))
+          .thenAnswer((realInvocation) async {
         return users;
       });
 
@@ -117,25 +123,22 @@ void main() {
 
       users.forEach((user) {
         final bool x = model.adminCheckedMap.containsKey(user.id);
-        if(!x){
+        if (!x) {
           isListCorrect = false;
         }
       });
 
-      expect(isListCorrect , true);
-
+      expect(isListCorrect, true);
     });
 
-    testWidgets("testing createEvent function", (tester) async{
+    testWidgets("testing createEvent function", (tester) async {
       final model = CreateEventViewModel();
       model.initialize();
       await tester.pumpWidget(createApp(
           model.formKey,
           model.eventTitleTextController,
           model.eventLocationTextController,
-          model.eventDescriptionTextController)
-      );
-
+          model.eventDescriptionTextController));
 
       final DateTime startTime = DateTime(
         model.eventStartDate.year,
@@ -152,21 +155,24 @@ void main() {
         model.eventEndTime.minute,
       );
 
-
       await tester.pump();
       await tester.pumpAndSettle();
 
-      await tester.enterText(find.byType(TextFormField).first, 'fakeEventTitle');
-      await tester.enterText(find.byType(TextFormField).last, 'fakeEventDescription');
-      await tester.enterText(find.byType(TextFormField).at(1), 'fakeEventLocation');
+      await tester.enterText(
+          find.byType(TextFormField).first, 'fakeEventTitle');
+      await tester.enterText(
+          find.byType(TextFormField).last, 'fakeEventDescription');
+      await tester.enterText(
+          find.byType(TextFormField).at(1), 'fakeEventLocation');
       databaseFunctions.init();
 
-
-      when(databaseFunctions.refreshAccessToken("testtoken")).thenAnswer((realInvocation) async{
+      when(databaseFunctions.refreshAccessToken("testtoken"))
+          .thenAnswer((realInvocation) async {
         return true;
       });
 
-      when(databaseFunctions.gqlAuthMutation(EventQueries().addEvent(),
+      when(databaseFunctions.gqlAuthMutation(
+        EventQueries().addEvent(),
         variables: {
           'startDate': model.eventStartDate.toString(),
           'endDate': model.eventEndDate.toString(),
@@ -180,11 +186,13 @@ void main() {
           'allDay': false,
           'startTime': startTime.microsecondsSinceEpoch.toString(),
           'endTime': endTime.microsecondsSinceEpoch.toString(),
-        },)).thenAnswer((_) async{});
+        },
+      )).thenAnswer((_) async {});
 
       await model.createEvent();
 
-      verify(databaseFunctions.gqlAuthMutation(EventQueries().addEvent(),
+      verify(databaseFunctions.gqlAuthMutation(
+        EventQueries().addEvent(),
         variables: {
           'startDate': model.eventStartDate.toString(),
           'endDate': model.eventEndDate.toString(),
@@ -198,20 +206,21 @@ void main() {
           'allDay': false,
           'startTime': startTime.microsecondsSinceEpoch.toString(),
           'endTime': endTime.microsecondsSinceEpoch.toString(),
-        },));
+        },
+      ));
 
-        verify(navigationService.pop());
-
+      verify(navigationService.pop());
     });
 
-    test("test getImageFromGallery and removeImage functions" , () async{
+    test("test getImageFromGallery and removeImage functions", () async {
       final notifyListenerCallback = MockCallbackFunction();
       final model = CreateEventViewModel()..addListener(notifyListenerCallback);
       model.initialize();
 
       // testing getImageFromGallery
       // with camera false
-      when(multimediaPickerService.getPhotoFromGallery(camera: false)).thenAnswer((realInvocation) async{
+      when(multimediaPickerService.getPhotoFromGallery(camera: false))
+          .thenAnswer((realInvocation) async {
         return null;
       });
 
@@ -221,17 +230,18 @@ void main() {
 
       // with camera true
       final file = File('fakePath');
-      when(multimediaPickerService.getPhotoFromGallery(camera: true)).thenAnswer((_) async{
+      when(multimediaPickerService.getPhotoFromGallery(camera: true))
+          .thenAnswer((_) async {
         return file;
       });
       await model.getImageFromGallery(camera: true);
       verify(multimediaPickerService.getPhotoFromGallery(camera: true));
-      expect(model.imageFile , file);
+      expect(model.imageFile, file);
       verify(notifyListenerCallback());
 
       // testing removeImage
       model.removeImage();
-      expect(model.imageFile , null);
+      expect(model.imageFile, null);
       verify(notifyListenerCallback());
     });
 

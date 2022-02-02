@@ -64,12 +64,11 @@ NavigationService getAndRegisterNavigationService() {
   return service;
 }
 
-OrganizationService getAndRegisterOrganizationService(){
+OrganizationService getAndRegisterOrganizationService() {
   _removeRegistrationIfExists<OrganizationService>();
   final service = MockOrganizationService();
   locator.registerSingleton<OrganizationService>(service);
   return service;
-
 }
 
 AppLanguage getAndRegisterAppLanguage() {
