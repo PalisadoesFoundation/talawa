@@ -185,7 +185,9 @@ void main() {
           'startTime': startTime.microsecondsSinceEpoch.toString(),
           'endTime': endTime.microsecondsSinceEpoch.toString(),
         },
-      )).thenAnswer((_) async {});
+      )).thenAnswer((_) async {
+        return true;
+      });
 
       await model.createEvent();
 
