@@ -14,6 +14,7 @@ import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
@@ -46,6 +47,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<SignupDetailsViewModel>(returnNullOnMissingStub: true),
     MockSpec<Post>(returnNullOnMissingStub: true),
     MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: true),
+    MockSpec<OrganizationService>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -59,6 +61,13 @@ NavigationService getAndRegisterNavigationService() {
   final service = MockNavigationService();
   when(service.navigatorKey).thenReturn(GlobalKey<NavigatorState>());
   locator.registerSingleton<NavigationService>(service);
+  return service;
+}
+
+OrganizationService getAndRegisterOrganizationService() {
+  _removeRegistrationIfExists<OrganizationService>();
+  final service = MockOrganizationService();
+  locator.registerSingleton<OrganizationService>(service);
   return service;
 }
 
@@ -276,6 +285,7 @@ void registerServices() {
   getAndRegisterMultiMediaPickerService();
   getAndRegisterConnectivityService();
   getAndRegisterDatabaseMutationFunctions();
+  getAndRegisterOrganizationService();
 }
 
 void unregisterServices() {
@@ -287,6 +297,7 @@ void unregisterServices() {
   locator.unregister<MultiMediaPickerService>();
   locator.unregister<Connectivity>();
   locator.unregister<DataBaseMutationFunctions>();
+  locator.unregister<OrganizationService>();
 }
 
 void registerViewModels() {
