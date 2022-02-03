@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
-import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
@@ -31,16 +29,15 @@ class CreateEventViewModel extends BaseModel {
   FocusNode locationFocus = FocusNode();
   FocusNode descriptionFocus = FocusNode();
 
-  late OrganizationService _organizationService;
+  //late OrganizationService _organizationService;
   late final Map<String, bool> _adminCheckedMap = {};
   late final List<User> _selectedAdmins = [];
   late final Map<String, bool> _memberCheckedMap = {};
   late final List<User> _selectedMembers = [];
-  late List<User> _orgMembersList = [];
+  late List<User> orgMembersList = [];
 
   final formKey = GlobalKey<FormState>();
   final _eventService = locator<EventService>();
-  final _dbFunctions = locator<DataBaseMutationFunctions>();
   AutovalidateMode validate = AutovalidateMode.disabled;
 
   late OrgInfo _currentOrg;
@@ -53,7 +50,7 @@ class CreateEventViewModel extends BaseModel {
 
   initialize() {
     _currentOrg = _userConfig.currentOrg;
-    _organizationService = locator<OrganizationService>();
+    //_organizationService = locator<OrganizationService>();
 
     _imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
@@ -69,10 +66,20 @@ class CreateEventViewModel extends BaseModel {
 
       final DateTime startDate = eventStartDate;
       final DateTime endDate = eventEndDate;
-      final DateTime startTime = DateTime(startDate.year, startDate.month,
-          startDate.day, eventStartTime.hour, eventStartTime.minute);
-      final DateTime endTime = DateTime(endDate.year, endDate.month,
-          endDate.day, eventEndTime.hour, eventEndTime.minute);
+      final DateTime startTime = DateTime(
+        startDate.year,
+        startDate.month,
+        startDate.day,
+        eventStartTime.hour,
+        eventStartTime.minute,
+      );
+      final DateTime endTime = DateTime(
+        endDate.year,
+        endDate.month,
+        endDate.day,
+        eventEndTime.hour,
+        eventEndTime.minute,
+      );
       final Map<String, dynamic> variables = {
         'startDate': startDate.toString(),
         'endDate': endDate.toString(),
@@ -89,11 +96,12 @@ class CreateEventViewModel extends BaseModel {
       };
 
       navigationService.pushDialog(
-          const CustomProgressDialog(key: Key('EventCreationProgress')));
-      final tokenResult = await _dbFunctions
+        const CustomProgressDialog(key: Key('EventCreationProgress')),
+      );
+      final tokenResult = await databaseFunctions
           .refreshAccessToken(userConfig.currentUser.refreshToken!);
       print(tokenResult);
-      final result = await _dbFunctions.gqlAuthMutation(
+      final result = await databaseFunctions.gqlAuthMutation(
         EventQueries().addEvent(),
         variables: variables,
       );
@@ -122,12 +130,12 @@ class CreateEventViewModel extends BaseModel {
   }
 
   Future<List<User>> getCurrentOrgUsersList({required bool isAdmin}) async {
-    if (_orgMembersList.isEmpty) {
-      _orgMembersList = await _organizationService
+    if (orgMembersList.isEmpty) {
+      orgMembersList = await organizationService
           .getOrgMembersList(userConfig.currentOrg.id!);
     }
 
-    _orgMembersList.forEach((orgMember) {
+    orgMembersList.forEach((orgMember) {
       if (isAdmin) {
         _adminCheckedMap.putIfAbsent(orgMember.id!, () => false);
       } else {
@@ -135,13 +143,13 @@ class CreateEventViewModel extends BaseModel {
       }
       _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
     });
-    return _orgMembersList;
+    return orgMembersList;
   }
 
   void buildUserList({required bool isAdmin}) {
     isAdmin ? _selectedAdmins.clear() : _selectedMembers.clear();
 
-    _orgMembersList.forEach((orgMember) {
+    orgMembersList.forEach((orgMember) {
       if (_adminCheckedMap[orgMember.id] == true && isAdmin) {
         _selectedAdmins.add(orgMember);
       } else if (_memberCheckedMap[orgMember.id] == true && !isAdmin) {

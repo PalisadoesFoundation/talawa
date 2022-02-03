@@ -122,8 +122,10 @@ void main() {
       expect(customRichTextWidget, findsOneWidget);
 
       //testing greeting text
-      expect((tester.firstWidget(customRichTextWidget) as CustomRichText).words,
-          greeting);
+      expect(
+        (tester.firstWidget(customRichTextWidget) as CustomRichText).words,
+        greeting,
+      );
     });
     testWidgets("Testing the Password Input text form field", (tester) async {
       //pushing change pass Screen
@@ -141,7 +143,9 @@ void main() {
       //initializing the null pass Submission widget Finder
       final nullPassSubmission = find.text('Password must not be left blank');
       //initializing the invalid password submission widget Finder
-      final invalidPassSubmission = find.text('Invalid Password');
+      final invalidPassSubmission = find.text(
+        'Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)',
+      );
       //initializing the invalid password submission widget Finder
       final misMatchPassSubmission =
           find.text('Password does not match original');
@@ -242,8 +246,10 @@ void main() {
       expect(customRichTextWidget, findsOneWidget);
 
       //testing greeting text
-      expect((tester.firstWidget(customRichTextWidget) as CustomRichText).words,
-          greeting);
+      expect(
+        (tester.firstWidget(customRichTextWidget) as CustomRichText).words,
+        greeting,
+      );
     });
     testWidgets("Testing the Password Input text form field", (tester) async {
       //pushing change pass Screen
@@ -260,7 +266,9 @@ void main() {
       //initializing the null pass Submission widget Finder
       final nullPassSubmission = find.text('Password must not be left blank');
       //initializing the invalid password submission widget Finder
-      final invalidPassSubmission = find.text('Invalid Password');
+      final invalidPassSubmission = find.text(
+        'Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)',
+      );
       //initializing the invalid password submission widget Finder
       final misMatchPassSubmission =
           find.text('Password does not match original');

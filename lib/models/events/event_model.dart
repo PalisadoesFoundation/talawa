@@ -2,26 +2,27 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
 class Event {
-  Event(
-      {this.id,
-      this.title,
-      this.description,
-      this.attendees,
-      this.location,
-      this.recurring,
-      this.allDay,
-      this.startDate,
-      this.endDate,
-      this.startTime,
-      this.endTime,
-      this.recurrence,
-      this.isPublic,
-      this.isRegistered,
-      this.isRegisterable,
-      this.creator,
-      this.organization,
-      this.admins,
-      this.registrants});
+  Event({
+    this.id,
+    this.title,
+    this.description,
+    this.attendees,
+    this.location,
+    this.recurring,
+    this.allDay,
+    this.startDate,
+    this.endDate,
+    this.startTime,
+    this.endTime,
+    this.recurrence,
+    this.isPublic,
+    this.isRegistered,
+    this.isRegisterable,
+    this.creator,
+    this.organization,
+    this.admins,
+    this.registrants,
+  });
 
   factory Event.fromJson(
     Map<String, dynamic> json,
@@ -44,16 +45,19 @@ class Event {
       isRegisterable: json['isRegisterable'] as bool?,
       creator: json['creator'] == null
           ? null
-          : User.fromJson(json['creator'] as Map<String, dynamic>,
-              fromOrg: true),
+          : User.fromJson(
+              json['creator'] as Map<String, dynamic>,
+              fromOrg: true,
+            ),
       organization: json['organization'] == null
           ? null
           : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
       admins: json['admins'] == null
           ? null
           : (json['admins'] as List<dynamic>?)
-              ?.map((e) =>
-                  User.fromJson(e as Map<String, dynamic>, fromOrg: true))
+              ?.map(
+                (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
+              )
               .toList(),
       registrants: (json['registrants'] as List<dynamic>?)
           ?.map((e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true))

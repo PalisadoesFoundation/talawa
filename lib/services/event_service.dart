@@ -13,6 +13,7 @@ class EventService {
   EventService() {
     _eventStream = _eventStreamController.stream.asBroadcastStream();
     _currentOrg = _userConfig.currentOrg;
+    _userConfig.initialiseStream();
     setOrgStreamSubscription();
   }
 
@@ -62,7 +63,8 @@ class EventService {
 
   Future<dynamic> deleteEvent(String eventId) async {
     navigationService.pushDialog(
-        const CustomProgressDialog(key: Key('DeleteEventProgress')));
+      const CustomProgressDialog(key: Key('DeleteEventProgress')),
+    );
     final tokenResult = await _dbFunctions
         .refreshAccessToken(userConfig.currentUser.refreshToken!);
     debugPrint(tokenResult.toString());
@@ -73,9 +75,10 @@ class EventService {
     return result;
   }
 
-  Future<void> editEvent(
-      {required String eventId,
-      required Map<String, dynamic> variables}) async {
+  Future<void> editEvent({
+    required String eventId,
+    required Map<String, dynamic> variables,
+  }) async {
     navigationService.pushDialog(
       const CustomProgressDialog(
         key: Key('EditEventProgress'),
@@ -85,8 +88,9 @@ class EventService {
         .refreshAccessToken(userConfig.currentUser.refreshToken!);
     debugPrint(tokenResult.toString());
     final result = await _dbFunctions.gqlAuthMutation(
-        EventQueries().updateEvent(eventId: eventId),
-        variables: variables);
+      EventQueries().updateEvent(eventId: eventId),
+      variables: variables,
+    );
     navigationService.pop();
     if (result != null) {
       navigationService.removeAllAndPush('/mainScreen', '/');

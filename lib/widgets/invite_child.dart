@@ -9,19 +9,25 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
+final _appLanguageService = locator<AppLanguage>();
 Widget invite(BuildContext context) {
+  _appLanguageService.initialize();
+
   final String url =
-      'https://cyberwake.github.io/applink/invite?selectLang=${AppLanguage().appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
+      'https://cyberwake.github.io/applink/invite?selectLang=${_appLanguageService.appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
   final String qrData =
       '${GraphqlConfig.orgURI}?orgid=${userConfig.currentOrg.id!}';
-  print(url);
-  print(qrData);
+
+  // print(url);
+  // print(qrData);
+
   return Column(
     mainAxisSize: MainAxisSize.max,
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       QrImage(
+        key: const Key("QRcode"),
         data: qrData,
         version: QrVersions.auto,
         size: 200.0,
@@ -42,52 +48,62 @@ Widget invite(BuildContext context) {
         mainAxisSize: MainAxisSize.min,
         children: [
           iconButton(
-              const FaIcon(
-                FontAwesomeIcons.twitter,
-                size: 35,
-                color: Color(0xFF1DA1F2),
-              ),
-              () async => SocialShare.shareTwitter('Join us', url: url)),
+            "Twitter",
+            const FaIcon(
+              FontAwesomeIcons.twitter,
+              size: 35,
+              color: Color(0xFF1DA1F2),
+            ),
+            () async => SocialShare.shareTwitter('Join us', url: url),
+          ),
           iconButton(
-              CustomPaint(
-                size: Size(
-                    50,
-                    (50 * 1.004)
-                        .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                painter: WhatsappLogo(),
-              ),
-              () async => SocialShare.shareWhatsapp(url)),
+            "WhatsApp",
+            CustomPaint(
+              size: Size(
+                50,
+                (50 * 1.004).toDouble(),
+              ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+              painter: WhatsappLogo(),
+            ),
+            () async => SocialShare.shareWhatsapp(url),
+          ),
           iconButton(
-              CustomPaint(
-                size: Size(
-                    45,
-                    (45 * 1)
-                        .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                painter: TelegramLogo(),
-              ),
-              () async => SocialShare.shareTelegram(url)),
+            "Telegram",
+            CustomPaint(
+              size: Size(
+                45,
+                (45 * 1).toDouble(),
+              ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+              painter: TelegramLogo(),
+            ),
+            () async => SocialShare.shareTelegram(url),
+          ),
           iconButton(
-              const FaIcon(
-                FontAwesomeIcons.shareAlt,
-                size: 30,
-                color: Color(0xff40c351),
-              ),
-              () async => SocialShare.shareOptions(url)),
+            "Alt",
+            const FaIcon(
+              FontAwesomeIcons.shareAlt,
+              size: 30,
+              color: Color(0xff40c351),
+            ),
+            () async => SocialShare.shareOptions(url),
+          ),
         ],
       )
     ],
   );
 }
 
-Widget iconButton(Widget icon, Function onTap) {
+Widget iconButton(String key, Widget icon, Function onTap) {
   return Stack(
     children: [
       IconButton(
-          onPressed: () {
-            print('tapped');
-            onTap();
-          },
-          icon: icon),
+        key: Key(key),
+        onPressed: () {
+          print('tapped');
+          onTap();
+        },
+        icon: icon,
+      ),
     ],
   );
 }

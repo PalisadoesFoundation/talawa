@@ -66,14 +66,18 @@ class LoginViewModel extends BaseModel {
           userConfig.updateUser(loggedInUser);
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
             navigationService.removeAllAndPush(
-                Routes.waitingScreen, Routes.splashScreen);
+              Routes.waitingScreen,
+              Routes.splashScreen,
+            );
           } else {
             userConfig.saveCurrentOrgInHive(
-                userConfig.currentUser.joinedOrganizations![0]);
+              userConfig.currentUser.joinedOrganizations![0],
+            );
             navigationService.removeAllAndPush(
-                Routes.mainScreen, Routes.splashScreen,
-                arguments:
-                    MainScreenArgs(mainScreenIndex: 0, fromSignUp: false));
+              Routes.mainScreen,
+              Routes.splashScreen,
+              arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
+            );
           }
         }
       } on Exception catch (e) {

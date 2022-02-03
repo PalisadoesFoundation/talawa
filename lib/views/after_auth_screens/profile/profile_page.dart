@@ -21,186 +21,194 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<ProfilePageViewModel>(
-        onModelReady: (model) => model.initialize(),
-        builder: (context, model, child) {
-          return Scaffold(
-            key: model.scaffoldKey,
-            appBar: AppBar(
-              backgroundColor: Theme.of(context).primaryColor,
-              elevation: 0.0,
-              centerTitle: true,
-              leading: IconButton(
-                color: Theme.of(context).iconTheme.color,
-                icon: const Icon(Icons.menu),
-                onPressed: () =>
-                    homeModel!.scaffoldKey.currentState!.openDrawer(),
-              ),
-              key: const Key("ProfilePageAppBar"),
-              title: Text(
-                AppLocalizations.of(context)!.strictTranslate('Profile'),
-                style: Theme.of(context).textTheme.headline6!.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                    ),
-              ),
+      onModelReady: (model) => model.initialize(),
+      builder: (context, model, child) {
+        return Scaffold(
+          key: model.scaffoldKey,
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
+            elevation: 0.0,
+            centerTitle: true,
+            leading: IconButton(
+              color: Theme.of(context).iconTheme.color,
+              icon: const Icon(Icons.menu),
+              onPressed: () =>
+                  homeModel!.scaffoldKey.currentState!.openDrawer(),
             ),
-            body: model.isBusy
-                ? const CircularProgressIndicator()
-                : SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: SizeConfig.screenHeight! * 0.01,
-                        ),
-                        CustomListTile(
-                            key: const Key('OptionEditProfile'),
-                            index: 0,
-                            type: TileType.option,
-                            option: Options(
-                                icon: CustomAvatar(
-                                  isImageNull: model.currentUser.image == null,
-                                  firstAlphabet: model.currentUser.firstName!
-                                      .substring(0, 1),
-                                  imageUrl: model.currentUser.image,
-                                  fontSize: Theme.of(context)
-                                      .textTheme
-                                      .headline6!
-                                      .fontSize,
-                                ),
-                                title:
-                                    '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
-                                subtitle: model.currentUser.email!,
-                                trailingIconButton: IconButton(
-                                  icon: Icon(
-                                    Icons.drive_file_rename_outline,
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                  onPressed: () {
-                                    navigationService
-                                        .pushScreen("/editProfilePage");
-                                  },
-                                )),
-                            onTapOption: () {}),
-                        const Divider(),
-                        SizedBox(
-                          height: SizeConfig.screenHeight! * 0.63,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CustomListTile(
-                                  key: homeModel!.keySPAppSetting,
-                                  index: 0,
-                                  type: TileType.option,
-                                  option: Options(
-                                    icon: const Icon(
-                                      Icons.phonelink_setup,
-                                      size: 30,
-                                    ),
-                                    title: AppLocalizations.of(context)!
-                                        .strictTranslate('App Settings'),
-                                    subtitle:
-                                        '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
-                                  ),
-                                  onTapOption: () {
-                                    navigationService
-                                        .pushScreen("/appSettingsPage");
-                                  }),
-                              CustomListTile(
-                                  key: homeModel!.keySPHelp,
-                                  index: 1,
-                                  type: TileType.option,
-                                  option: Options(
-                                    icon: const Icon(
-                                      Icons.help_outline,
-                                      size: 30,
-                                    ),
-                                    title: AppLocalizations.of(context)!
-                                        .strictTranslate('Help'),
-                                    subtitle: AppLocalizations.of(context)!
-                                        .strictTranslate(
-                                            'Reach out to us for help'),
-                                  ),
-                                  onTapOption: () {}),
-                              CustomListTile(
-                                  key: homeModel!.keySPDonateUs,
-                                  index: 2,
-                                  type: TileType.option,
-                                  option: Options(
-                                    icon: Icon(
-                                      Icons.monetization_on,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      size: 30,
-                                    ),
-                                    title: AppLocalizations.of(context)!
-                                        .strictTranslate('Donate Us'),
-                                    subtitle: AppLocalizations.of(context)!
-                                        .strictTranslate(
-                                            'Help us to develop for you'),
-                                  ),
-                                  onTapOption: () => donate(context, model)),
-                              CustomListTile(
-                                  key: homeModel!.keySPInvite,
-                                  index: 3,
-                                  type: TileType.option,
-                                  option: Options(
-                                    icon: Icon(
-                                      Icons.share,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      size: 30,
-                                    ),
-                                    title: AppLocalizations.of(context)!
-                                        .strictTranslate('Invite'),
-                                    subtitle: AppLocalizations.of(context)!
-                                        .strictTranslate('Invite to org'),
-                                  ),
-                                  onTapOption: () => model.invite(context)),
-                              CustomListTile(
-                                  key: homeModel!.keySPLogout,
-                                  index: 3,
-                                  type: TileType.option,
-                                  option: Options(
-                                    icon: Icon(
-                                      Icons.logout,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      size: 30,
-                                    ),
-                                    title: AppLocalizations.of(context)!
-                                        .strictTranslate('Log out'),
-                                    subtitle: AppLocalizations.of(context)!
-                                        .strictTranslate('Log out from Talawa'),
-                                  ),
-                                  onTapOption: () => model.logout(context)),
-                              FromPalisadoes(key: homeModel!.keySPPalisadoes),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+            key: const Key("ProfilePageAppBar"),
+            title: Text(
+              AppLocalizations.of(context)!.strictTranslate('Profile'),
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
                   ),
-          );
-        });
+            ),
+          ),
+          body: model.isBusy
+              ? const CircularProgressIndicator()
+              : SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: SizeConfig.screenHeight! * 0.01,
+                      ),
+                      CustomListTile(
+                        key: const Key('OptionEditProfile'),
+                        index: 0,
+                        type: TileType.option,
+                        option: Options(
+                          icon: CustomAvatar(
+                            isImageNull: model.currentUser.image == null,
+                            firstAlphabet:
+                                model.currentUser.firstName!.substring(0, 1),
+                            imageUrl: model.currentUser.image,
+                            fontSize:
+                                Theme.of(context).textTheme.headline6!.fontSize,
+                          ),
+                          title:
+                              '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
+                          subtitle: model.currentUser.email!,
+                          trailingIconButton: IconButton(
+                            icon: Icon(
+                              Icons.drive_file_rename_outline,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                            onPressed: () {
+                              navigationService.pushScreen("/editProfilePage");
+                            },
+                          ),
+                        ),
+                        onTapOption: () {},
+                      ),
+                      const Divider(),
+                      SizedBox(
+                        height: SizeConfig.screenHeight! * 0.63,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CustomListTile(
+                              key: homeModel!.keySPAppSetting,
+                              index: 0,
+                              type: TileType.option,
+                              option: Options(
+                                icon: const Icon(
+                                  Icons.phonelink_setup,
+                                  size: 30,
+                                ),
+                                title: AppLocalizations.of(context)!
+                                    .strictTranslate('App Settings'),
+                                subtitle:
+                                    '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
+                              ),
+                              onTapOption: () {
+                                navigationService
+                                    .pushScreen("/appSettingsPage");
+                              },
+                            ),
+                            CustomListTile(
+                              key: homeModel!.keySPHelp,
+                              index: 1,
+                              type: TileType.option,
+                              option: Options(
+                                icon: const Icon(
+                                  Icons.help_outline,
+                                  size: 30,
+                                ),
+                                title: AppLocalizations.of(context)!
+                                    .strictTranslate('Help'),
+                                subtitle: AppLocalizations.of(context)!
+                                    .strictTranslate(
+                                  'Reach out to us for help',
+                                ),
+                              ),
+                              onTapOption: () {},
+                            ),
+                            CustomListTile(
+                              key: homeModel!.keySPDonateUs,
+                              index: 2,
+                              type: TileType.option,
+                              option: Options(
+                                icon: Icon(
+                                  Icons.monetization_on,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  size: 30,
+                                ),
+                                title: AppLocalizations.of(context)!
+                                    .strictTranslate('Donate Us'),
+                                subtitle: AppLocalizations.of(context)!
+                                    .strictTranslate(
+                                  'Help us to develop for you',
+                                ),
+                              ),
+                              onTapOption: () => donate(context, model),
+                            ),
+                            CustomListTile(
+                              key: homeModel!.keySPInvite,
+                              index: 3,
+                              type: TileType.option,
+                              option: Options(
+                                icon: Icon(
+                                  Icons.share,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  size: 30,
+                                ),
+                                title: AppLocalizations.of(context)!
+                                    .strictTranslate('Invite'),
+                                subtitle: AppLocalizations.of(context)!
+                                    .strictTranslate('Invite to org'),
+                              ),
+                              onTapOption: () => model.invite(context),
+                            ),
+                            CustomListTile(
+                              key: homeModel!.keySPLogout,
+                              index: 3,
+                              type: TileType.option,
+                              option: Options(
+                                icon: Icon(
+                                  Icons.logout,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  size: 30,
+                                ),
+                                title: AppLocalizations.of(context)!
+                                    .strictTranslate('Log out'),
+                                subtitle: AppLocalizations.of(context)!
+                                    .strictTranslate('Log out from Talawa'),
+                              ),
+                              onTapOption: () => model.logout(context),
+                            ),
+                            FromPalisadoes(key: homeModel!.keySPPalisadoes),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+        );
+      },
+    );
   }
 
   donate(BuildContext context, ProfilePageViewModel model) {
     showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
-        builder: (BuildContext context) {
-          return StatefulBuilder(builder: (context, setState) {
+      ),
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
             model.attachListener(setState);
             return ClipRRect(
               borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
               child: SizedBox(
                 height: model.bottomSheetHeight,
                 child: Scaffold(
@@ -227,7 +235,9 @@ class ProfilePage extends StatelessWidget {
                     actions: [
                       Padding(
                         padding: EdgeInsets.only(
-                            right: 8.0, top: SizeConfig.screenHeight! * 0.01),
+                          right: 8.0,
+                          top: SizeConfig.screenHeight! * 0.01,
+                        ),
                         child: IconButton(
                           icon: Icon(
                             Icons.cancel,
@@ -257,11 +267,13 @@ class ProfilePage extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: List.generate(
-                                3,
-                                (index) => model.dominationButton(
-                                    model.denomination[index],
-                                    context,
-                                    setState)),
+                              3,
+                              (index) => model.dominationButton(
+                                model.denomination[index],
+                                context,
+                                setState,
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -280,7 +292,8 @@ class ProfilePage extends StatelessWidget {
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(
-                              horizontal: SizeConfig.screenWidth! * 0.05),
+                            horizontal: SizeConfig.screenWidth! * 0.05,
+                          ),
                           child: TextField(
                             controller: model.donationAmount,
                             focusNode: model.donationField,
@@ -304,7 +317,8 @@ class ProfilePage extends StatelessWidget {
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 15.0),
+                                    horizontal: 15.0,
+                                  ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -316,26 +330,30 @@ class ProfilePage extends StatelessWidget {
                                             .headline5,
                                       ),
                                       const Icon(
-                                          Icons.arrow_drop_down_circle_outlined)
+                                        Icons.arrow_drop_down_circle_outlined,
+                                      )
                                     ],
                                   ),
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
-                                    Radius.circular(12.0)),
+                                  Radius.circular(12.0),
+                                ),
                                 borderSide: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                    width: 2),
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                  width: 2,
+                                ),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
-                                    Radius.circular(10.0)),
+                                  Radius.circular(10.0),
+                                ),
                                 borderSide: BorderSide(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary),
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
                               ),
                             ),
                           ),
@@ -344,26 +362,31 @@ class ProfilePage extends StatelessWidget {
                           height: SizeConfig.screenWidth! * 0.05,
                         ),
                         ElevatedButton(
-                            onPressed: model.donationAmount.text.isEmpty
-                                ? () => model
-                                    .showSnackBar('Select or enter an amount')
-                                : model.initiateDonation,
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(model
-                                        .donationAmount.text.isEmpty
-                                    ? Colors.grey
-                                    : Theme.of(context).colorScheme.primary)),
-                            child: Text(
-                              'DONATE',
-                              style: Theme.of(context).textTheme.button,
-                            ))
+                          onPressed: model.donationAmount.text.isEmpty
+                              ? () => model
+                                  .showSnackBar('Select or enter an amount')
+                              : model.initiateDonation,
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                              model.donationAmount.text.isEmpty
+                                  ? Colors.grey
+                                  : Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                          child: Text(
+                            'DONATE',
+                            style: Theme.of(context).textTheme.button,
+                          ),
+                        )
                       ],
                     ),
                   ),
                 ),
               ),
             );
-          });
-        }).then((value) => model.updateSheetHeight());
+          },
+        );
+      },
+    ).then((value) => model.updateSheetHeight());
   }
 }

@@ -13,12 +13,10 @@ class NewsPost extends StatelessWidget {
     Key? key,
     required this.post,
     this.function,
-    required this.isInView,
   }) : super(key: key);
 
   final Post post;
   final Function? function;
-  final bool isInView;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class NewsPost extends StatelessWidget {
         Container(
           height: 400,
           color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
-          child: PostContainer(isInView: isInView, id: post.sId),
+          child: PostContainer(id: post.sId),
         ),
         BaseView<LikeButtonViewModel>(
           onModelReady: (model) =>
@@ -62,14 +60,17 @@ class NewsPost extends StatelessWidget {
                       child: Text(
                         "${model.likedBy.length} ${AppLocalizations.of(context)!.strictTranslate("Likes")}",
                         style: const TextStyle(
-                            fontFamily: 'open-sans',
-                            fontWeight: FontWeight.w800),
+                          fontFamily: 'open-sans',
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
                     GestureDetector(
-                        onTap: () => function != null ? function!(post) : {},
-                        child: Text(
-                            "${post.comments!.length} ${AppLocalizations.of(context)!.strictTranslate("comments")}"))
+                      onTap: () => function != null ? function!(post) : {},
+                      child: Text(
+                        "${post.comments!.length} ${AppLocalizations.of(context)!.strictTranslate("comments")}",
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -94,14 +95,15 @@ class NewsPost extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                        onTap: () => function != null ? function!(post) : {},
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 18.0),
-                          child: Icon(
-                            Icons.comment,
-                            color: Color(0xff737373),
-                          ),
-                        )),
+                      onTap: () => function != null ? function!(post) : {},
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 18.0),
+                        child: Icon(
+                          Icons.comment,
+                          color: Color(0xff737373),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -115,11 +117,9 @@ class NewsPost extends StatelessWidget {
 
 class PostContainer extends StatefulWidget {
   const PostContainer({
-    required this.isInView,
     required this.id,
     Key? key,
   }) : super(key: key);
-  final bool isInView;
   final String id;
 
   @override
@@ -151,61 +151,69 @@ class PostContainerState extends State<PostContainer> {
         info.visibleFraction > 0.5 ? inView = true : inView = false;
         setState(() {});
       },
-      child: Stack(children: [
-        PageView(
-          scrollDirection: Axis.horizontal,
-          controller: controller,
-          onPageChanged: (index) {
-            setState(() {
-              pindex = index;
-              inView = pindex == 0;
-            });
-          },
-          children: List.generate(
-            4,
-            (index) => index == 0
-                ? Center(
-                    child: VideoWidget(
+      child: Stack(
+        children: [
+          PageView(
+            scrollDirection: Axis.horizontal,
+            controller: controller,
+            onPageChanged: (index) {
+              setState(() {
+                pindex = index;
+                inView = pindex == 0;
+              });
+            },
+            children: List.generate(
+              4,
+              (index) => index == 0
+                  ? Center(
+                      child: VideoWidget(
                         url:
                             'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-                        play: inView))
-                : const Image(
-                    image: NetworkImage(
-                        'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
+                        play: inView,
+                      ),
+                    )
+                  : const Image(
+                      image: NetworkImage(
+                        'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
+                      ),
+                    ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 100.0,
+                    vertical: 10.0,
                   ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 100.0, vertical: 10.0),
-                child: Row(
-                  children: [
-                    for (int i = 0; i < 4; i++)
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Divider(
-                            thickness: 3.0,
-                            color: pindex == i
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.grey,
+                  child: Row(
+                    children: [
+                      for (int i = 0; i < 4; i++)
+                        Expanded(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Divider(
+                              thickness: 3.0,
+                              color: pindex == i
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Colors.grey,
+                            ),
                           ),
-                        ),
-                      )
-                  ],
-                ),
-              )
-            ],
+                        )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }
