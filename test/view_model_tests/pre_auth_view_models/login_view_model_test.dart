@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -86,6 +87,32 @@ void main() {
       expect(model.validate, AutovalidateMode.disabled);
 
       verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
+    });
+    testWidgets('Check if login() is working fine when invalid credentials',
+        (tester) async {
+      reset(navigationService);
+      final model = LoginViewModel();
+
+      await tester.pumpWidget(
+        Form(
+          key: model.formKey,
+          child: Container(),
+        ),
+      );
+
+      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
+          .thenAnswer((_) async => null);
+
+      await model.login();
+
+      expect(model.validate, AutovalidateMode.disabled);
+
+      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
+
+      verifyNever(navigationService.removeAllAndPush(
+        Routes.waitingScreen,
+        Routes.splashScreen,
+      ));
     });
     testWidgets('Check if login() is working fine when throws error',
         (tester) async {
