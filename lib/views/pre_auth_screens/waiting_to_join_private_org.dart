@@ -87,7 +87,7 @@ class WaitingPage extends StatelessWidget {
                       .strictTranslate('Join Organisation'),
                   onTap: model.joinOrg,
                   showArrow: true,
-                  textColor: Theme.of(context).colorScheme.secondaryVariant,
+                  textColor: Theme.of(context).colorScheme.secondaryContainer,
                   backgroundColor: Theme.of(context)
                       .inputDecorationTheme
                       .focusedBorder!
@@ -108,7 +108,7 @@ class WaitingPage extends StatelessWidget {
                       .borderSide
                       .color,
                   backgroundColor:
-                      Theme.of(context).colorScheme.secondaryVariant,
+                      Theme.of(context).colorScheme.secondaryContainer,
                 ),
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.0215,

@@ -72,7 +72,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                   ? Container(
                       color: Theme.of(context)
                           .colorScheme
-                          .secondaryVariant
+                          .secondaryContainer
                           .withOpacity(0.2),
                       child: CustomListTile(
                         index: model.organizations
