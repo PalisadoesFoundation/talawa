@@ -7,7 +7,6 @@ import 'package:talawa/widgets/event_date_time_tile.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-
 class MockCallbackFunction extends Mock {
   call();
 }
@@ -15,7 +14,7 @@ class MockCallbackFunction extends Mock {
 final setDateCallback = MockCallbackFunction();
 final setTimeCallback = MockCallbackFunction();
 
-Widget createWidget(){
+Widget createWidget() {
   return MaterialApp(
     home: Scaffold(
       body: DateTimeTile(
@@ -28,7 +27,7 @@ Widget createWidget(){
   );
 }
 
-void main(){
+void main() {
   testSetupLocator();
   locator<SizeConfig>().test();
 
@@ -42,27 +41,23 @@ void main(){
   });
 
   group('Tests for DateTimeTile widget', () {
-
     testWidgets('Checking if the widget shows up', (tester) async {
       await tester.pumpWidget(createWidget());
       expect(find.byType(Container), findsWidgets);
     });
 
-    testWidgets("Checking padding" , (tester) async{
+    testWidgets("Checking padding", (tester) async {
       await tester.pumpWidget(createWidget());
 
       final paddingFinder = find.byType(Padding);
       final padding = tester.firstWidget(paddingFinder);
 
-      expect(paddingFinder , findsOneWidget);
-      expect(
-        (padding as Padding).padding,
-        EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth! * 0.083)
-      );
-
+      expect(paddingFinder, findsOneWidget);
+      expect((padding as Padding).padding,
+          EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth! * 0.083));
     });
 
-    testWidgets("Checking tap Inkwell for setDate", (tester) async{
+    testWidgets("Checking tap Inkwell for setDate", (tester) async {
       await tester.pumpWidget(createWidget());
 
       final inkwellFinder = find.byType(InkWell).first;
@@ -70,12 +65,12 @@ void main(){
       await tester.tap(inkwellFinder);
       await tester.pump();
 
-      expect(inkwellFinder , findsOneWidget);
+      expect(inkwellFinder, findsOneWidget);
 
       verify(setDateCallback());
     });
 
-    testWidgets("Checking tap Inkwell for setTime", (tester) async{
+    testWidgets("Checking tap Inkwell for setTime", (tester) async {
       await tester.pumpWidget(createWidget());
 
       final inkwellFinder = find.byType(InkWell).last;
@@ -83,20 +78,20 @@ void main(){
       await tester.tap(inkwellFinder);
       await tester.pump();
 
-      expect(inkwellFinder , findsOneWidget);
+      expect(inkwellFinder, findsOneWidget);
 
       verify(setTimeCallback());
     });
 
-    testWidgets("Testing the icons", (tester) async{
+    testWidgets("Testing the icons", (tester) async {
       await tester.pumpWidget(createWidget());
 
-      final iconFinder  = find.byType(Icon);
+      final iconFinder = find.byType(Icon);
       final icon = tester.firstWidget(iconFinder);
 
       expect(
-          (icon as Icon).color,
-          const Color(0xff524F4F),
+        (icon as Icon).color,
+        const Color(0xff524F4F),
       );
       expect(
         icon.size,
@@ -124,18 +119,18 @@ void main(){
       );
     });
 
-    testWidgets("Testing text widgets" , (tester) async{
+    testWidgets("Testing text widgets", (tester) async {
       await tester.pumpWidget(createWidget());
       final textFinder = find.byType(Text).first;
       final text = tester.firstWidget(textFinder);
 
       expect(
-          (text as Text).data,
-          "fakeDate",
+        (text as Text).data,
+        "fakeDate",
       );
       expect(
-          text.style,
-          const TextStyle(fontSize: 16),
+        text.style,
+        const TextStyle(fontSize: 16),
       );
 
       final textFinder2 = find.byType(Text).last;
@@ -149,9 +144,6 @@ void main(){
         text2.style,
         const TextStyle(fontSize: 16),
       );
-
     });
-
   });
-
 }
