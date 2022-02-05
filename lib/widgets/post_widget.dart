@@ -41,7 +41,8 @@ class NewsPost extends StatelessWidget {
         DescriptionTextWidget(text: post.description!),
         Container(
           height: 400,
-          color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
+          color:
+              Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
           child: PostContainer(id: post.sId),
         ),
         BaseView<LikeButtonViewModel>(

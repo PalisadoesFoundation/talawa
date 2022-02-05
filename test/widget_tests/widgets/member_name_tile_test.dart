@@ -44,7 +44,7 @@ void main() {
         (container as Container).decoration,
         BoxDecoration(
           borderRadius: BorderRadius.circular(SizeConfig.screenHeight! * 0.02),
-          color: TalawaTheme.darkTheme.colorScheme.primaryVariant,
+          color: TalawaTheme.darkTheme.colorScheme.primaryContainer,
         ),
       );
     });

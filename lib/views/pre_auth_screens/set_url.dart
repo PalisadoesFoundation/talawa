@@ -138,7 +138,7 @@ class _SetUrlState extends State<SetUrl> {
                           .borderSide
                           .color,
                       backgroundColor:
-                          Theme.of(context).colorScheme.secondaryVariant,
+                          Theme.of(context).colorScheme.secondaryContainer,
                     ),
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.0215,
@@ -152,7 +152,8 @@ class _SetUrlState extends State<SetUrl> {
                         model.orgId,
                       ),
                       showArrow: true,
-                      textColor: Theme.of(context).colorScheme.secondaryVariant,
+                      textColor:
+                          Theme.of(context).colorScheme.secondaryContainer,
                       backgroundColor: Theme.of(context)
                           .inputDecorationTheme
                           .focusedBorder!
