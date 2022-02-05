@@ -282,7 +282,7 @@ Future<void> main() async {
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
             .backgroundColor,
-        TalawaTheme.lightTheme.colorScheme.secondaryVariant,
+        TalawaTheme.lightTheme.colorScheme.secondaryContainer,
       );
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
@@ -316,7 +316,7 @@ Future<void> main() async {
       expect(
         (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
             .textColor,
-        TalawaTheme.lightTheme.colorScheme.secondaryVariant,
+        TalawaTheme.lightTheme.colorScheme.secondaryContainer,
       );
       expect(
         (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
@@ -519,7 +519,7 @@ Future<void> main() async {
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
             .backgroundColor,
-        TalawaTheme.darkTheme.colorScheme.secondaryVariant,
+        TalawaTheme.darkTheme.colorScheme.secondaryContainer,
       );
       expect(
         (tester.firstWidget(loginButtonWidget) as RaisedRoundedButton)
@@ -553,7 +553,7 @@ Future<void> main() async {
       expect(
         (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)
             .textColor,
-        TalawaTheme.darkTheme.colorScheme.secondaryVariant,
+        TalawaTheme.darkTheme.colorScheme.secondaryContainer,
       );
       expect(
         (tester.firstWidget(signupButtonWidget) as RaisedRoundedButton)

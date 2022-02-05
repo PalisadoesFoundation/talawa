@@ -212,7 +212,8 @@ class ProfilePage extends StatelessWidget {
               child: SizedBox(
                 height: model.bottomSheetHeight,
                 child: Scaffold(
-                  backgroundColor: Theme.of(context).colorScheme.primaryVariant,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.primaryContainer,
                   appBar: AppBar(
                     centerTitle: true,
                     automaticallyImplyLeading: false,
