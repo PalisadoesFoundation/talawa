@@ -21,7 +21,7 @@ void main() {
   });
 
   group('Language View Model Tests', () {
-    test("test change language", () {
+    test("test change language", () async {
       final model = AppLanguage(isTest: true);
       model.initialize();
 
@@ -48,7 +48,7 @@ void main() {
       expect(locale, const Locale('en'));
 
       // test changeLanguage function with same language as before
-      model.changeLanguage(const Locale('en'));
+      await model.changeLanguage(const Locale('en'));
       expect(model.appLocal, const Locale('en'));
 
       // test changeLanguage function with different languages
