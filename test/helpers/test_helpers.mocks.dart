@@ -28,6 +28,7 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_config.dart' as _i17;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart'
     as _i24;
+import 'package:talawa/utils/validators.dart' as _i24;
 import 'package:talawa/view_model/lang_view_model.dart' as _i18;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
     as _i22;
@@ -842,6 +843,14 @@ class MockExploreEventsViewModel extends _i2.Mock
   void notifyListeners() =>
       super.noSuchMethod(Invocation.method(#notifyListeners, []),
           returnValueForMissingStub: null);
+/// A class which mocks [Validator].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockValidator extends _i2.Mock implements _i24.Validator {
+  @override
+  _i4.Future<bool?> validateUrlExistence(String? url) =>
+      (super.noSuchMethod(Invocation.method(#validateUrlExistence, [url]),
+          returnValue: Future<bool?>.value()) as _i4.Future<bool?>);
   @override
   String toString() => super.toString();
 }

@@ -19,6 +19,7 @@ import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
@@ -49,6 +50,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: true),
     MockSpec<OrganizationService>(returnNullOnMissingStub: true),
     MockSpec<ExploreEventsViewModel>(returnNullOnMissingStub: true),
+    MockSpec<Validator>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -62,6 +64,8 @@ NavigationService getAndRegisterNavigationService() {
   final service = MockNavigationService();
   when(service.navigatorKey).thenReturn(GlobalKey<NavigatorState>());
   when(service.removeAllAndPush(any, any, arguments: anyNamed('arguments')))
+      .thenAnswer((_) async {});
+  when(service.pushScreen(any, arguments: anyNamed('arguments')))
       .thenAnswer((_) async {});
   locator.registerSingleton<NavigationService>(service);
   return service;
