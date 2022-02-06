@@ -7,7 +7,6 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
-import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/event_admin_fab.dart';
 
 import '../../helpers/test_helpers.dart';
