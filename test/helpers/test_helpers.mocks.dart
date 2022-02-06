@@ -21,6 +21,7 @@ import 'package:talawa/services/database_mutation_functions.dart' as _i8;
 import 'package:talawa/services/event_service.dart' as _i15;
 import 'package:talawa/services/graphql_config.dart' as _i10;
 import 'package:talawa/services/navigation_service.dart' as _i7;
+import 'package:talawa/services/org_service.dart' as _i23;
 import 'package:talawa/services/post_service.dart' as _i11;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
     as _i13;
@@ -743,6 +744,20 @@ class MockDataBaseMutationFunctions extends _i2.Mock
   _i4.Future<dynamic> fetchOrgById(String? id) =>
       (super.noSuchMethod(Invocation.method(#fetchOrgById, [id]),
           returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [OrganizationService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockOrganizationService extends _i2.Mock
+    implements _i23.OrganizationService {
+  @override
+  _i4.Future<List<_i6.User>> getOrgMembersList(String? orgId) =>
+      (super.noSuchMethod(Invocation.method(#getOrgMembersList, [orgId]),
+              returnValue: Future<List<_i6.User>>.value(<_i6.User>[]))
+          as _i4.Future<List<_i6.User>>);
   @override
   String toString() => super.toString();
 }

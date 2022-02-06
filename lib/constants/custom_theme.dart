@@ -32,10 +32,10 @@ class TalawaTheme {
     textTheme: _lightTextTheme,
     inputDecorationTheme: _lightInputDecor,
     colorScheme: const ColorScheme.light(
-      primaryVariant: _lightPrimaryVariantColor,
+      primaryContainer: _lightPrimaryVariantColor,
       primary: _lightColorSchemePrimary,
       secondary: Color(0xffF5F5F5),
-      secondaryVariant: _darkScaffoldColor,
+      secondaryContainer: _darkScaffoldColor,
     ).copyWith(secondary: _lightAccentColor),
   );
 
@@ -52,10 +52,10 @@ class TalawaTheme {
     textTheme: _darkTextTheme,
     inputDecorationTheme: _darkInputDecor,
     colorScheme: const ColorScheme.dark(
-      primaryVariant: _darkPrimaryVariantColor,
+      primaryContainer: _darkPrimaryVariantColor,
       primary: _darkColorSchemePrimary,
       secondary: Colors.black,
-      secondaryVariant: _lightScaffoldColor,
+      secondaryContainer: _lightScaffoldColor,
     ).copyWith(secondary: _darkAccentColor),
   );
 

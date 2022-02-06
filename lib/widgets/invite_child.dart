@@ -9,19 +9,25 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
+final _appLanguageService = locator<AppLanguage>();
 Widget invite(BuildContext context) {
+  _appLanguageService.initialize();
+
   final String url =
-      'https://cyberwake.github.io/applink/invite?selectLang=${AppLanguage().appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
+      'https://cyberwake.github.io/applink/invite?selectLang=${_appLanguageService.appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
   final String qrData =
       '${GraphqlConfig.orgURI}?orgid=${userConfig.currentOrg.id!}';
-  print(url);
-  print(qrData);
+
+  // print(url);
+  // print(qrData);
+
   return Column(
     mainAxisSize: MainAxisSize.max,
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       QrImage(
+        key: const Key("QRcode"),
         data: qrData,
         version: QrVersions.auto,
         size: 200.0,
@@ -42,6 +48,7 @@ Widget invite(BuildContext context) {
         mainAxisSize: MainAxisSize.min,
         children: [
           iconButton(
+            "Twitter",
             const FaIcon(
               FontAwesomeIcons.twitter,
               size: 35,
@@ -50,6 +57,7 @@ Widget invite(BuildContext context) {
             () async => SocialShare.shareTwitter('Join us', url: url),
           ),
           iconButton(
+            "WhatsApp",
             CustomPaint(
               size: Size(
                 50,
@@ -60,6 +68,7 @@ Widget invite(BuildContext context) {
             () async => SocialShare.shareWhatsapp(url),
           ),
           iconButton(
+            "Telegram",
             CustomPaint(
               size: Size(
                 45,
@@ -70,6 +79,7 @@ Widget invite(BuildContext context) {
             () async => SocialShare.shareTelegram(url),
           ),
           iconButton(
+            "Alt",
             const FaIcon(
               FontAwesomeIcons.shareAlt,
               size: 30,
@@ -83,10 +93,11 @@ Widget invite(BuildContext context) {
   );
 }
 
-Widget iconButton(Widget icon, Function onTap) {
+Widget iconButton(String key, Widget icon, Function onTap) {
   return Stack(
     children: [
       IconButton(
+        key: Key(key),
         onPressed: () {
           print('tapped');
           onTap();

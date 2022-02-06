@@ -42,6 +42,7 @@ final graphqlConfig = locator<GraphqlConfig>();
 final sizeConfig = locator<SizeConfig>();
 final queries = locator<Queries>();
 final connectivity = locator<Connectivity>();
+final organizationService = locator<OrganizationService>();
 
 void setupLocator() {
   //services
