@@ -42,6 +42,7 @@ final queries = locator<Queries>();
 final appLanguageService = locator<AppLanguage>();
 final multimediaPickerService = locator<MultiMediaPickerService>();
 final organizationService = locator<OrganizationService>();
+final eventService = locator<EventService>();
 
 void testSetupLocator() {
   //services
