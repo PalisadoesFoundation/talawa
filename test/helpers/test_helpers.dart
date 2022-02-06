@@ -48,6 +48,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<Post>(returnNullOnMissingStub: true),
     MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: true),
     MockSpec<OrganizationService>(returnNullOnMissingStub: true),
+    MockSpec<ExploreEventsViewModel>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
