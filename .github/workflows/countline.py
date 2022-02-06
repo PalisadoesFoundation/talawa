@@ -29,13 +29,14 @@ NOTE:
 import os
 import sys
 import argparse
+from collections import namedtuple
 
 
-def _excluded_filepaths(excludes):
+def _valid_exclusions(excludes):
     """Create a list of full file paths to exclude from the analysis.
 
     Args:
-        excludes: List of files to exclude
+        excludes: Excludes object
 
     Returns:
         result: A list of full file paths
@@ -44,18 +45,51 @@ def _excluded_filepaths(excludes):
     # Initialize key variables
     result = []
 
-    if bool(excludes) is True:
-        for filename in excludes:
-            # Ignore files that appear to be full paths because they start
-            # with a '/' or whatever the OS uses to distinguish directories
-            if filename.startswith(os.sep):
-                result.append(filename)
-                continue
+    # Create a list of files to ignore
+    filenames = [_ for _ in excludes.files if bool(excludes.files)]
+    more_filenames = _filepaths_in_directories(
+        [_ for _ in excludes.directories if bool(excludes.directories)]
+    )
+    filenames.extend(more_filenames)
 
-            # Create a file path
-            filepath = '{}{}{}'.format(os.getcwd(), os.sep, filename)
-            if os.path.isfile(filepath) is True:
-                result.append(filepath)
+    # Remove duplicates
+    filenames = list(set(filenames))
+
+    # Process files
+    for filename in filenames:
+        # Ignore files that appear to be full paths because they start
+        # with a '/' or whatever the OS uses to distinguish directories
+        if filename.startswith(os.sep):
+            continue
+
+        # Create a file path
+        filepath = '{}{}{}'.format(os.getcwd(), os.sep, filename)
+        if os.path.isfile(filepath) is True:
+            result.append(filepath)
+
+    # Return
+    return result
+
+
+def _filepaths_in_directories(directories):
+    """Create a list of full file paths based on input directories.
+
+    Args:
+        directories: A list of directories
+
+    Returns:
+        result: A list of full file paths
+
+    """
+    # Initialize key variables
+    result = []
+
+    # Iterate and analyze each directory
+    for directory in directories:
+        for root, _, files in os.walk(directory, topdown=False):
+            for name in files:
+                # Read each file and count the lines found
+                result.append(os.path.join(root, name))
     # Return
     return result
 
@@ -72,22 +106,30 @@ def _arg_parser_resolver():
     """
     # Initialize parser and add the CLI options we should expect
     parser = argparse.ArgumentParser()
-    parser.add_argument('--lines', type=int, required=False, default=300,
-                        help='The maximum number of lines of code to accept.')
-    parser.add_argument('--directory', type=str, required=False,
-                        default=os.getcwd(),
-                        help='The parent directory of files to analyze.')
-    parser.add_argument('--exclude', type=str, required=False,
-                        nargs='*',
-                        default=None,
-                        const=None,
-                        help='''\
-An optional list of files to exclude from the analysis separated by spaces.''')
+    parser.add_argument(
+        '--lines', type=int, required=False, default=300,
+        help='The maximum number of lines of code to accept.')
+    parser.add_argument(
+        '--directory', type=str, required=False,
+        default=os.getcwd(),
+        help='The parent directory of files to analyze.')
+    parser.add_argument(
+        '--exclude_files', type=str, required=False,
+        nargs='*',
+        default=None,
+        const=None,
+        help='''An optional space separated list of \
+files to exclude from the analysis.''')
+    parser.add_argument(
+        '--exclude_directories', type=str, required=False,
+        nargs='*',
+        default=None,
+        const=None,
+        help='''An optional space separated list of \
+directories to exclude from the analysis.''')
 
     # Return parser
     result = parser.parse_args()
-    # print(result.exclude)
-    # sys.exit(0)
     return result
 
 
@@ -108,7 +150,7 @@ def main():
     lookup = {}
     errors_found = False
     file_count = 0
-    excluded_filepaths = []
+    Excludes = namedtuple('Excludes', 'files directories')
 
     # Get the CLI arguments
     args = _arg_parser_resolver()
@@ -116,31 +158,32 @@ def main():
     # Define the directories of interest
     directories = [
         os.path.expanduser(os.path.join(args.directory, 'lib')),
+        os.path.expanduser(os.path.join(args.directory, 'src')),
         os.path.expanduser(os.path.join(args.directory, 'test'))
     ]
 
     # Get a corrected list of filenames to exclude
-    excluded_filepaths = _excluded_filepaths(args.exclude)
+    exclude_list = _valid_exclusions(
+        Excludes(
+            files=args.exclude_files, directories=args.exclude_directories)
+    )
+
+    # Get interesting filepaths
+    repo_filepath_list = _filepaths_in_directories(directories)
 
     # Iterate and analyze each directory
-    for directory in directories:
-        for root, _, files in os.walk(directory, topdown=False):
-            for name in files:
-                # Read each file and count the lines found
-                filepath = os.path.join(root, name)
+    for filepath in repo_filepath_list:
+        # Skip excluded files
+        if filepath in exclude_list:
+            continue
 
-                # Skip excluded files
-                if bool(args.exclude) is True:
-                    if filepath in excluded_filepaths:
-                        continue
-
-                # Process the rest
-                with open(filepath, encoding="latin-1") as code:
-                    line_count = sum(
-                        1 for line in code
-                        if line.strip() and not line.startswith('#')
-                    )
-                    lookup[filepath] = line_count
+        # Process the rest
+        with open(filepath, encoding='latin-1') as code:
+            line_count = sum(
+                1 for line in code
+                if line.strip() and not line.startswith('#')
+            )
+            lookup[filepath] = line_count
 
     # If the line rule is voilated then the value is changed to 1
     for filepath, line_count in lookup.items():
