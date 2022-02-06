@@ -1,10 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
@@ -12,7 +13,22 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 
+class TestWidget extends StatelessWidget {
+  const TestWidget(this.model, {Key? key}) : super(key: key);
+  final SetUrlViewModel model;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: FloatingActionButton(
+        onPressed: () => model.scanQR(context),
+      ),
+    );
+  }
+}
+
 Future<void> main() async {
+  SizeConfig().test();
+
   Hive.init('test/fixtures/core');
   await Hive.openBox('url');
 
@@ -71,6 +87,16 @@ Future<void> main() async {
 
       verify(navigationService
           .showSnackBar("URL doesn't exist/no connection please check"));
+    });
+
+    testWidgets('Check if scanQR() is working fine', (tester) async {
+      await tester.pumpWidget(MaterialApp(home: TestWidget(model)));
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      expect(find.byType(ClipRRect), findsOneWidget);
+      expect(find.byType(QRView), findsOneWidget);
     });
   });
 }
