@@ -32,6 +32,29 @@ import argparse
 from collections import namedtuple
 
 
+def _valid_extension(filepath):
+    """Determine whether filepath has the correct extension.
+
+    Args:
+        filepath: Filepath to check
+
+    Returns:
+        result: True if valid
+
+    """
+    # Initialize key variables
+    invalid_extensions = ['.css', '.jpg', '.png', '.jpeg']
+    result = True
+
+    # Test
+    for invalid_extension in invalid_extensions:
+        if filepath.lower().endswith(invalid_extension.lower()) is False:
+            continue
+        result = False
+
+    return result
+
+
 def _valid_exclusions(excludes):
     """Create a list of full file paths to exclude from the analysis.
 
@@ -44,12 +67,14 @@ def _valid_exclusions(excludes):
     """
     # Initialize key variables
     result = []
+    filenames = []
+    more_filenames = []
 
     # Create a list of files to ignore
-    filenames = [_ for _ in excludes.files if bool(excludes.files)]
-    more_filenames = _filepaths_in_directories(
-        [_ for _ in excludes.directories if bool(excludes.directories)]
-    )
+    if bool(excludes.files):
+        filenames = excludes.files
+    if bool(excludes.directories):
+        more_filenames = _filepaths_in_directories(excludes.directories)
     filenames.extend(more_filenames)
 
     # Remove duplicates
@@ -175,6 +200,14 @@ def main():
     for filepath in repo_filepath_list:
         # Skip excluded files
         if filepath in exclude_list:
+            continue
+
+        # Skip /node_modules/ sub directories
+        if '{0}node_modules{0}'.format(os.sep) in filepath:
+            continue
+
+        # Ignore invalid file extensions
+        if _valid_extension(filepath) is False:
             continue
 
         # Process the rest
