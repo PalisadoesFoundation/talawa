@@ -37,7 +37,6 @@ class MainScreenViewModel extends BaseModel {
   final GlobalKey keySPEditProfile = GlobalKey(debugLabel: "ProfileScreenEdit");
   final GlobalKey keySPAppSetting =
       GlobalKey(debugLabel: "ProfileScreenAppSetting");
-  final GlobalKey keySPHelp = GlobalKey(debugLabel: "ProfileScreenHelp");
   final GlobalKey keySPDonateUs =
       GlobalKey(debugLabel: "ProfileScreenDonateUs");
   final GlobalKey keySPInvite = GlobalKey(debugLabel: "ProfileScreenInvite");
@@ -53,6 +52,7 @@ class MainScreenViewModel extends BaseModel {
   final List<TargetFocus> targets = [];
 
   int currentIndex = 0;
+
   onTabTapped(int index) {
     currentIndex = index;
     notifyListeners();
@@ -329,13 +329,6 @@ class MainScreenViewModel extends BaseModel {
         keySPAppSetting,
         'keySPAppSetting',
         'You can edit application settings like language, theme etc from here',
-      ),
-    );
-    targets.add(
-      focusTarget(
-        keySPHelp,
-        'keySPHelp',
-        'For any help we are always there. You can reach us from here',
       ),
     );
     targets.add(

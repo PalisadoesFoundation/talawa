@@ -106,26 +106,8 @@ class ProfilePage extends StatelessWidget {
                               },
                             ),
                             CustomListTile(
-                              key: homeModel!.keySPHelp,
-                              index: 1,
-                              type: TileType.option,
-                              option: Options(
-                                icon: const Icon(
-                                  Icons.help_outline,
-                                  size: 30,
-                                ),
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('Help'),
-                                subtitle: AppLocalizations.of(context)!
-                                    .strictTranslate(
-                                  'Reach out to us for help',
-                                ),
-                              ),
-                              onTapOption: () {},
-                            ),
-                            CustomListTile(
                               key: homeModel!.keySPDonateUs,
-                              index: 2,
+                              index: 1,
                               type: TileType.option,
                               option: Options(
                                 icon: Icon(
@@ -144,7 +126,7 @@ class ProfilePage extends StatelessWidget {
                             ),
                             CustomListTile(
                               key: homeModel!.keySPInvite,
-                              index: 3,
+                              index: 2,
                               type: TileType.option,
                               option: Options(
                                 icon: Icon(

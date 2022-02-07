@@ -41,6 +41,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final quickActions = const QuickActions();
   late int mainScreenQuickActionindex = 0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -151,5 +152,6 @@ class DemoPageView extends StatelessWidget {
 
 class DemoViewModel extends BaseModel {
   final String _title = "Title from the viewMode GSoC branch";
+
   String get title => _title;
 }
