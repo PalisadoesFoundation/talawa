@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -28,6 +29,7 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
@@ -51,6 +53,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<OrganizationService>(returnNullOnMissingStub: true),
     MockSpec<ExploreEventsViewModel>(returnNullOnMissingStub: true),
     MockSpec<Validator>(returnNullOnMissingStub: true),
+    MockSpec<QRViewController>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -319,6 +322,7 @@ void registerViewModels() {
   locator.registerFactory(() => WaitingViewModel());
   locator.registerFactory(() => EventInfoViewModel());
   locator.registerFactory(() => ProgressDialogViewModel());
+  locator.registerFactory(() => SelectOrganizationViewModel());
 }
 
 void unregisterViewModels() {
@@ -333,4 +337,5 @@ void unregisterViewModels() {
   locator.unregister<WaitingViewModel>();
   locator.unregister<EventInfoViewModel>();
   locator.unregister<ProgressDialogViewModel>();
+  locator.unregister<SelectOrganizationViewModel>();
 }

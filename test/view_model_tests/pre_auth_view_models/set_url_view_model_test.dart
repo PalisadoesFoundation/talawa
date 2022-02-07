@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
@@ -36,7 +37,11 @@ Future<void> main() async {
 
   setUp(() async {
     registerServices();
+    registerViewModels();
     model = SetUrlViewModel();
+  });
+  tearDown(() async {
+    unregisterViewModels();
   });
 
   group('SetUrlViewModel Test -', () {
@@ -97,6 +102,51 @@ Future<void> main() async {
 
       expect(find.byType(ClipRRect), findsOneWidget);
       expect(find.byType(QRView), findsOneWidget);
+    });
+
+    testWidgets('Check if _onQRViewCreated() is working fine', (tester) async {
+      await locator.unregister<NavigationService>();
+      locator.registerSingleton(NavigationService());
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: locator<NavigationService>().navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
+      });
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+    });
+
+    testWidgets('Check if _onQRViewCreated() is working fine when throws',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: locator<NavigationService>().navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
+      });
+      when(controller.stopCamera()).thenThrow(Exception());
+
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
     });
   });
 }
