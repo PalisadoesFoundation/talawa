@@ -5,7 +5,6 @@ import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
@@ -105,13 +104,10 @@ Future<void> main() async {
     });
 
     testWidgets('Check if _onQRViewCreated() is working fine', (tester) async {
-      await locator.unregister<NavigationService>();
-      locator.registerSingleton(NavigationService());
-
       await tester.pumpWidget(
         MaterialApp(
           home: TestWidget(model),
-          navigatorKey: locator<NavigationService>().navigatorKey,
+          navigatorKey: navigationService.navigatorKey,
         ),
       );
 
@@ -132,7 +128,7 @@ Future<void> main() async {
       await tester.pumpWidget(
         MaterialApp(
           home: TestWidget(model),
-          navigatorKey: locator<NavigationService>().navigatorKey,
+          navigatorKey: navigationService.navigatorKey,
         ),
       );
 
