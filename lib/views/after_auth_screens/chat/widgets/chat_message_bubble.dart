@@ -13,7 +13,7 @@ class Message extends StatelessWidget {
       padding: EdgeInsets.only(top: SizeConfig.safeBlockVertical! * 2),
       child: Row(
         mainAxisAlignment:
-            message.sender!.name == userConfig.currentUser.firstName
+            message.sender!.firstName == userConfig.currentUser.firstName
                 ? MainAxisAlignment.end
                 : MainAxisAlignment.start,
         children: [
@@ -23,9 +23,10 @@ class Message extends StatelessWidget {
               vertical: SizeConfig.blockSizeVertical! * 1.2,
             ),
             decoration: BoxDecoration(
-              color: message.sender!.name == userConfig.currentUser.firstName
-                  ? Colors.white
-                  : Colors.green,
+              color:
+                  message.sender!.firstName == userConfig.currentUser.firstName
+                      ? Colors.white
+                      : Colors.green,
               borderRadius: const BorderRadius.only(
                 bottomRight: Radius.circular(15),
                 topRight: Radius.circular(15),
@@ -33,9 +34,10 @@ class Message extends StatelessWidget {
               ),
             ),
             child: Text(
-              message.text!,
+              message.messageContent!,
               style: TextStyle(
-                color: message.sender!.name == userConfig.currentUser.firstName
+                color: message.sender!.firstName ==
+                        userConfig.currentUser.firstName
                     ? Colors.black
                     : Theme.of(context).textTheme.bodyText1!.color,
               ),

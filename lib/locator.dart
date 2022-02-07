@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talawa/main.dart';
+import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
@@ -60,6 +61,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => OrganizationService());
   locator.registerLazySingleton(() => MultiMediaPickerService());
   locator.registerLazySingleton(() => Connectivity());
+  locator.registerLazySingleton(() => ChatService());
 
   //graphql
   locator.registerSingleton(GraphqlConfig());
