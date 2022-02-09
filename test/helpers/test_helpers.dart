@@ -11,6 +11,7 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/graphql_config.dart';
@@ -54,6 +55,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<ExploreEventsViewModel>(returnNullOnMissingStub: true),
     MockSpec<Validator>(returnNullOnMissingStub: true),
     MockSpec<QRViewController>(returnNullOnMissingStub: true),
+    MockSpec<CommentService>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -78,6 +80,13 @@ OrganizationService getAndRegisterOrganizationService() {
   _removeRegistrationIfExists<OrganizationService>();
   final service = MockOrganizationService();
   locator.registerSingleton<OrganizationService>(service);
+  return service;
+}
+
+CommentService getAndRegisterCommentService() {
+  _removeRegistrationIfExists<CommentService>();
+  final service = MockCommentService();
+  locator.registerSingleton<CommentService>(service);
   return service;
 }
 
@@ -296,6 +305,7 @@ void registerServices() {
   getAndRegisterConnectivityService();
   getAndRegisterDatabaseMutationFunctions();
   getAndRegisterOrganizationService();
+  getAndRegisterCommentService();
 }
 
 void unregisterServices() {
@@ -308,6 +318,7 @@ void unregisterServices() {
   locator.unregister<Connectivity>();
   locator.unregister<DataBaseMutationFunctions>();
   locator.unregister<OrganizationService>();
+  locator.unregister<CommentService>();
 }
 
 void registerViewModels() {
