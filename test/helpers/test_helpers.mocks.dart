@@ -21,6 +21,7 @@ import 'package:talawa/models/events/event_model.dart' as _i17;
 import 'package:talawa/models/organization/org_info.dart' as _i5;
 import 'package:talawa/models/post/post_model.dart' as _i14;
 import 'package:talawa/models/user/user_info.dart' as _i6;
+import 'package:talawa/services/comment_service.dart' as _i30;
 import 'package:talawa/services/database_mutation_functions.dart' as _i8;
 import 'package:talawa/services/event_service.dart' as _i10;
 import 'package:talawa/services/graphql_config.dart' as _i12;
@@ -920,6 +921,23 @@ class MockQRViewController extends _i2.Mock implements _i27.QRViewController {
   @override
   void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
       returnValueForMissingStub: null);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [CommentService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCommentService extends _i2.Mock implements _i30.CommentService {
+  @override
+  _i4.Future<void> createComments(String? postId, String? text) =>
+      (super.noSuchMethod(Invocation.method(#createComments, [postId, text]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<dynamic> getCommentsForPost(String? postId) =>
+      (super.noSuchMethod(Invocation.method(#getCommentsForPost, [postId]),
+          returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
   @override
   String toString() => super.toString();
 }
