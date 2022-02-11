@@ -73,7 +73,6 @@ void main() {
   group('Custom list tile (org) test', () {
     testWidgets('Checking if custom list tile shows up', (tester) async {
       await tester.pumpWidget(createCustomListTileOrg());
-
       expect(find.byType(InkWell), findsOneWidget);
     });
 
