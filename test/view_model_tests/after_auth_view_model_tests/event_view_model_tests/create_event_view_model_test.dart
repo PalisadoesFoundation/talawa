@@ -13,8 +13,8 @@ import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
-import '../helpers/test_helpers.dart';
-import '../helpers/test_locator.dart';
+import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
 
