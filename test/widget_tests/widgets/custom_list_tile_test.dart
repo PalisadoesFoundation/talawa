@@ -16,13 +16,36 @@ Widget createCustomListTileUser() {
           type: TileType.user,
           option: Options(
             icon: const Icon(Icons.add),
-            title: 'henlo',
-            subtitle: 'yesh',
+            title: 'Title',
+            subtitle: 'Sub-Title',
           ),
           showIcon: false,
           onTapOrgInfo: (org) => SelectOrganizationViewModel().selectOrg(org),
           onTapOption: () {},
-          userInfo: User(firstName: 'Ravidev', lastName: 'Pandey'),
+          userInfo: User(firstName: 'Ayush', lastName: 'Verma'),
+          orgInfo: SelectOrganizationViewModel().selectedOrganization,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget createCustomListTileOrg() {
+  return MaterialApp(
+    home: Scaffold(
+      body: Center(
+        child: CustomListTile(
+          key: const Key('ravidi'),
+          index: 0,
+          type: TileType.org,
+          option: Options(
+            icon: const Icon(Icons.add),
+            title: 'Title',
+            subtitle: 'Sub-Title',
+          ),
+          showIcon: false,
+          onTapOrgInfo: (org) => SelectOrganizationViewModel().selectOrg(org),
+          onTapOption: () {},
           orgInfo: SelectOrganizationViewModel().selectedOrganization,
         ),
       ),
@@ -43,8 +66,25 @@ void main() {
       await tester.pumpWidget(createCustomListTileUser());
 
       expect(find.byType(Text), findsNWidgets(2));
-      expect(find.textContaining('Ravidev'), findsOneWidget);
-      expect(find.textContaining('Pandey'), findsOneWidget);
+      expect(find.textContaining('Ayush'), findsOneWidget);
+      expect(find.textContaining('Verma'), findsOneWidget);
+    });
+  });
+  group('Custom list tile (org) test', () {
+    testWidgets('Checking if custom list tile shows up', (tester) async {
+      await tester.pumpWidget(createCustomListTileUser());
+
+      expect(find.byType(InkWell), findsOneWidget);
+    });
+
+    testWidgets('Check name of org', (tester) async {
+      await tester.pumpWidget(createCustomListTileOrg());
+
+      expect(find.byType(Text), findsNWidgets(2));
+      expect(
+          find.textContaining(
+              '${SelectOrganizationViewModel().selectedOrganization.name}'),
+          findsOneWidget);
     });
   });
 }
