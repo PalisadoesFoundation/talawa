@@ -11,7 +11,7 @@ Widget createCustomListTileUser() {
     home: Scaffold(
       body: Center(
         child: CustomListTile(
-          key: const Key('ravidi'),
+          key: const Key('oyus user'),
           index: 0,
           type: TileType.user,
           option: Options(
@@ -35,7 +35,7 @@ Widget createCustomListTileOrg() {
     home: Scaffold(
       body: Center(
         child: CustomListTile(
-          key: const Key('ravidi'),
+          key: const Key('oyus org'),
           index: 0,
           type: TileType.org,
           option: Options(
@@ -72,7 +72,7 @@ void main() {
   });
   group('Custom list tile (org) test', () {
     testWidgets('Checking if custom list tile shows up', (tester) async {
-      await tester.pumpWidget(createCustomListTileUser());
+      await tester.pumpWidget(createCustomListTileOrg());
 
       expect(find.byType(InkWell), findsOneWidget);
     });
