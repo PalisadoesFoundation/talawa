@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/options/options.dart';
+import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
@@ -44,15 +45,21 @@ Widget createCustomListTileOrg() {
             subtitle: 'Sub-Title',
           ),
           showIcon: false,
-          onTapOrgInfo: (org) => SelectOrganizationViewModel().selectOrg(org),
+          onTapOrgInfo: (org) => {},
           onTapOption: () {},
-          orgInfo: SelectOrganizationViewModel().selectedOrganization,
+          orgInfo: fakeOrg,
         ),
       ),
     ),
   );
 }
 
+final OrgInfo fakeOrg = OrgInfo(
+  id: '5',
+  name: 'fake org',
+  isPublic: false,
+  creatorInfo: User(firstName: 'fake', lastName: 'user'),
+);
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
   group('Custom list tile (user) test', () {
@@ -80,10 +87,7 @@ void main() {
       await tester.pumpWidget(createCustomListTileOrg());
 
       expect(find.byType(Text), findsNWidgets(2));
-      expect(
-          find.textContaining(
-              '${SelectOrganizationViewModel().selectedOrganization.name}'),
-          findsOneWidget);
+      expect(find.textContaining('fake org'), findsOneWidget);
     });
   });
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:social_share/social_share.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/custom_painters/telegram_logo.dart';
@@ -29,7 +28,6 @@ class ProfilePageViewModel extends BaseModel {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final FocusNode donationField = FocusNode();
   TextEditingController donationAmount = TextEditingController();
-  late Razorpay _razorpay;
   late final Box<User> user;
   late final Box<dynamic> url;
   late final Box<OrgInfo> organisation;
@@ -42,25 +40,9 @@ class ProfilePageViewModel extends BaseModel {
 
   initialize() {
     setState(ViewState.busy);
-    _razorpay = Razorpay();
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     currentOrg = _userConfig.currentOrg;
     currentUser = _userConfig.currentUser;
     setState(ViewState.idle);
-  }
-
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    showSnackBar("SUCCESS: ${response.paymentId!}");
-  }
-
-  void _handlePaymentError(PaymentFailureResponse response) {
-    showSnackBar("ERROR: ${response.code} - ${response.message!}");
-  }
-
-  void _handleExternalWallet(ExternalWalletResponse response) {
-    showSnackBar("EXTERNAL_WALLET: ${response.walletName!}");
   }
 
   Future<void> logout(BuildContext context) async {
@@ -282,26 +264,5 @@ class ProfilePageViewModel extends BaseModel {
 
   initiateDonation() {
     popBottomSheet();
-    final options = {
-      'key': 'rzp_test_KEXnTpuXnSlaNz',
-      'amount': int.parse(donationAmount.text) * 100,
-      'currency': donationCurrency,
-      'name': 'Donating to',
-      'description': currentOrg.name,
-      'notes': {
-        'userId': _userConfig.currentUser.id,
-        'message': 'thanks',
-        'orgId': currentOrg.id
-      },
-      'prefill': {'email': _userConfig.currentUser.email},
-      'external': {
-        'wallets': ['amazonpay', 'phonepe', 'paypal']
-      }
-    };
-    try {
-      _razorpay.open(options);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
   }
 }

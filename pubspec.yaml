@@ -17,12 +17,12 @@ dependencies:
   cached_network_image: ^3.1.0
   connectivity_plus: ^1.0.7
   cupertino_icons: ^1.0.3
-  currency_picker: 2.0.4
+  currency_picker: ^2.0.7
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_speed_dial: ^4.2.0
+  flutter_speed_dial: ^5.0.0+1
   font_awesome_flutter: ^9.1.0
   get_it: ^7.2.0
   graphql_flutter: ^5.0.0
@@ -36,11 +36,10 @@ dependencies:
   network_image_mock: ^2.0.1
   path_provider: ^2.0.2
   permission_handler: ^8.1.4+2
-  provider: ^5.0.0
-  qr_code_scanner: ^0.5.2
+  provider: ^6.0.2
+  qr_code_scanner: ^0.6.1
   qr_flutter: ^4.0.0
   quick_actions: ^0.6.0+5
-  razorpay_flutter: ^1.2.7
   shared_preferences: ^2.0.6
   shimmer: ^2.0.0
   social_share: ^2.2.1
@@ -59,7 +58,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator: ^1.1.0
-  json_serializable: ^4.1.3
+  json_serializable: ^6.1.4
   lint: ^1.6.0
 
 # For information on the generic Dart part of this file, see the
