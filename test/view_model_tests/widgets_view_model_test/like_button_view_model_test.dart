@@ -60,14 +60,14 @@ void main() {
         model.likedBy.add(likedBy);
       });
       model.toggleIsLiked();
-      expect(model.likedBy.length, 3);
+      expect(model.likesCount, 3);
       model.setIsLiked(val: true);
       when(postService.removeLike(post.sId)).thenAnswer((realInvocation) async {
         model.likedBy
             .removeWhere((element) => element.sId == userConfig.currentUser.id);
       });
       model.toggleIsLiked();
-      expect(model.likedBy.length, 2);
+      expect(model.likesCount, 2);
       expect(model.likedBy.contains(likedBy), false);
     });
 
@@ -78,13 +78,13 @@ void main() {
           sId: "new_post_id", creator: userConfig.currentUser, likedBy: []);
       // with different post
       model.updatePost(newPost);
-      expect(model.likedBy.length, 2);
+      expect(model.likesCount, 2);
 
       final LikedBy likedBy3 = LikedBy(sId: "Test user 3");
       post.likedBy!.add(likedBy3);
       // with same post
       model.updatePost(post);
-      expect(model.likedBy.length, 3);
+      expect(model.likesCount, 3);
       expect(model.likedBy.contains(likedBy3), true);
     });
   });
