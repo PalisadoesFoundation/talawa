@@ -44,7 +44,8 @@ void main() {
       model.initialize(_likedBy, 'Test post_id');
       model.checkAndSetTheIsLiked();
       expect(model.isLiked, true);
-      _likedBy.removeWhere((element) => element.sId == userConfig.currentUser.id);
+      _likedBy
+          .removeWhere((element) => element.sId == userConfig.currentUser.id);
     });
 
     test("testing toggleIsLiked", () {
