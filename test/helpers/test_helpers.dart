@@ -167,6 +167,8 @@ UserConfig getAndRegisterUserConfig() {
   //Mock Stream for currentOrgStream
   final StreamController<OrgInfo> _streamController = StreamController();
   final Stream<OrgInfo> _stream = _streamController.stream.asBroadcastStream();
+  when(service.currentOrgInfoController)
+      .thenAnswer((invocation) => _streamController);
   when(service.currentOrfInfoStream).thenAnswer((invocation) => _stream);
 
   //Mkock current user
