@@ -47,7 +47,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                       height: SizeConfig.screenHeight! * 0.07,
                       width: SizeConfig.screenWidth! * 0.36,
                       child: Card(
-                        color: Theme.of(context).colorScheme.primaryVariant,
+                        color: Theme.of(context).colorScheme.primaryContainer,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -86,7 +86,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                       height: SizeConfig.screenHeight! * 0.07,
                       width: SizeConfig.screenWidth! * 0.36,
                       child: Card(
-                        color: Theme.of(context).colorScheme.primaryVariant,
+                        color: Theme.of(context).colorScheme.primaryContainer,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [

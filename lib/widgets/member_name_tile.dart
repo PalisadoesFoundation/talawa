@@ -21,7 +21,7 @@ class MemberNameTile extends StatelessWidget {
         height: SizeConfig.screenHeight! * 0.04,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(SizeConfig.screenHeight! * 0.02),
-          color: Theme.of(context).colorScheme.primaryVariant,
+          color: Theme.of(context).colorScheme.primaryContainer,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

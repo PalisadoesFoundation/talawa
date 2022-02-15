@@ -101,7 +101,7 @@ class MainScreenViewModel extends BaseModel {
     tutorialCoachMark = TutorialCoachMark(
       context,
       targets: targets,
-      colorShadow: Theme.of(context).colorScheme.secondaryVariant,
+      colorShadow: Theme.of(context).colorScheme.secondaryContainer,
       textSkip: "SKIP",
       textStyleSkip:
           TextStyle(color: Theme.of(context).backgroundColor, fontSize: 20),

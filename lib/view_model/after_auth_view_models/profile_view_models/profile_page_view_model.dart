@@ -25,6 +25,7 @@ class ProfilePageViewModel extends BaseModel {
   // Services
   final _userConfig = locator<UserConfig>();
   final _navigationService = locator<NavigationService>();
+  final _appLanguageService = locator<AppLanguage>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final FocusNode donationField = FocusNode();
   TextEditingController donationAmount = TextEditingController();
@@ -107,8 +108,9 @@ class ProfilePageViewModel extends BaseModel {
   }
 
   invite(BuildContext context) {
+    _appLanguageService.initialize();
     final String url =
-        'https://cyberwake.github.io/applink/invite?selectLang=${AppLanguage().appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
+        'https://cyberwake.github.io/applink/invite?selectLang=${_appLanguageService.appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
     final String qrData =
         '${GraphqlConfig.orgURI}?orgid=${userConfig.currentOrg.id!}';
     print(url);

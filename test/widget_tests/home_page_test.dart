@@ -69,19 +69,17 @@ void main() {
     });
 
     testWidgets('Testing if Events Screen Shows up', (tester) async {
-      await tester.runAsync(() async {
-        mockNetworkImagesFor(() async {
-          await tester.pumpWidget(createHomePageScreen());
-          await tester.pumpAndSettle();
+      mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createHomePageScreen());
+        await tester.pumpAndSettle();
 
-          final eventIcon = find.byIcon(Icons.event_note);
-          //tapping the eventIcon
-          await tester.tap(eventIcon);
-          await tester.pump();
-          await tester.pumpAndSettle();
-          // Event Screen should be present
-          expect(find.byKey(const Key("ExploreEventsAppBar")), findsOneWidget);
-        });
+        final eventIcon = find.byIcon(Icons.event_note);
+        //tapping the eventIcon
+        await tester.tap(eventIcon);
+        await tester.pump();
+        await tester.pumpAndSettle();
+        // Event Screen should be present
+        expect(find.byKey(const Key("ExploreEventsAppBar")), findsOneWidget);
       });
     });
     testWidgets('Testing if Post Screen Shows up', (tester) async {

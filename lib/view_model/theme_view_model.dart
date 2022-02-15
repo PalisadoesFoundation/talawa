@@ -7,7 +7,6 @@ class AppTheme extends BaseModel {
   late SharedPreferences _pref;
   late bool _isDarkMode;
   bool get isdarkTheme => _isDarkMode;
-  SharedPreferences get themePrefs => _pref;
 
   initialize() {
     _isDarkMode = true;

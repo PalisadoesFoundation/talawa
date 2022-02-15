@@ -50,6 +50,9 @@ dependencies:
   vibration: ^1.7.4-nullsafety.0
   video_player: ^2.2.7
   visibility_detector: ^0.2.2
+  
+dependency_overrides:
+  platform: ^3.1.0
 
 dev_dependencies:
   build_runner: ^2.1.1

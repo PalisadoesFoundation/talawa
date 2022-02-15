@@ -2,20 +2,26 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/comment_service.dart';
+import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
+import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
@@ -24,9 +30,12 @@ import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organi
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
+import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks(
@@ -42,6 +51,13 @@ import 'test_helpers.mocks.dart';
     MockSpec<Connectivity>(returnNullOnMissingStub: true),
     MockSpec<SignupDetailsViewModel>(returnNullOnMissingStub: true),
     MockSpec<Post>(returnNullOnMissingStub: true),
+    MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: true),
+    MockSpec<OrganizationService>(returnNullOnMissingStub: true),
+    MockSpec<ExploreEventsViewModel>(returnNullOnMissingStub: true),
+    MockSpec<Validator>(returnNullOnMissingStub: true),
+    MockSpec<QRViewController>(returnNullOnMissingStub: true),
+    MockSpec<CommentService>(returnNullOnMissingStub: true),
+    MockSpec<AppTheme>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -54,7 +70,32 @@ NavigationService getAndRegisterNavigationService() {
   _removeRegistrationIfExists<NavigationService>();
   final service = MockNavigationService();
   when(service.navigatorKey).thenReturn(GlobalKey<NavigatorState>());
+  when(service.removeAllAndPush(any, any, arguments: anyNamed('arguments')))
+      .thenAnswer((_) async {});
+  when(service.pushScreen(any, arguments: anyNamed('arguments')))
+      .thenAnswer((_) async {});
   locator.registerSingleton<NavigationService>(service);
+  return service;
+}
+
+OrganizationService getAndRegisterOrganizationService() {
+  _removeRegistrationIfExists<OrganizationService>();
+  final service = MockOrganizationService();
+  locator.registerSingleton<OrganizationService>(service);
+  return service;
+}
+
+AppTheme getAndRegisterAppTheme() {
+  _removeRegistrationIfExists<AppTheme>();
+  final service = MockAppTheme();
+  locator.registerSingleton<AppTheme>(service);
+  return service;
+}
+
+CommentService getAndRegisterCommentService() {
+  _removeRegistrationIfExists<CommentService>();
+  final service = MockCommentService();
+  locator.registerSingleton<CommentService>(service);
   return service;
 }
 
@@ -68,7 +109,37 @@ AppLanguage getAndRegisterAppLanguage() {
 GraphqlConfig getAndRegisterGraphqlConfig() {
   _removeRegistrationIfExists<GraphqlConfig>();
   final service = MockGraphqlConfig();
+
+  when(service.httpLink).thenReturn(HttpLink(
+    'https://talawa-graphql-api.herokuapp.com/graphql',
+    httpClient: MockHttpClient(),
+  ));
+
+  when(service.clientToQuery()).thenAnswer((realInvocation) {
+    return GraphQLClient(
+      cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
+      link: service.httpLink,
+    );
+  });
+
+  when(service.authClient()).thenAnswer((realInvocation) {
+    final AuthLink authLink =
+        AuthLink(getToken: () async => 'Bearer ${GraphqlConfig.token}');
+    final Link finalAuthLink = authLink.concat(service.httpLink);
+    return GraphQLClient(
+      cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
+      link: finalAuthLink,
+    );
+  });
+
   locator.registerSingleton<GraphqlConfig>(service);
+  return service;
+}
+
+DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions() {
+  _removeRegistrationIfExists<DataBaseMutationFunctions>();
+  final service = MockDataBaseMutationFunctions();
+  locator.registerSingleton<DataBaseMutationFunctions>(service);
   return service;
 }
 
@@ -96,6 +167,8 @@ UserConfig getAndRegisterUserConfig() {
   //Mock Stream for currentOrgStream
   final StreamController<OrgInfo> _streamController = StreamController();
   final Stream<OrgInfo> _stream = _streamController.stream.asBroadcastStream();
+  when(service.currentOrgInfoController)
+      .thenAnswer((invocation) => _streamController);
   when(service.currentOrfInfoStream).thenAnswer((invocation) => _stream);
 
   //Mkock current user
@@ -241,6 +314,9 @@ void registerServices() {
   getAndRegisterEventService();
   getAndRegisterMultiMediaPickerService();
   getAndRegisterConnectivityService();
+  getAndRegisterDatabaseMutationFunctions();
+  getAndRegisterOrganizationService();
+  getAndRegisterCommentService();
 }
 
 void unregisterServices() {
@@ -251,6 +327,9 @@ void unregisterServices() {
   locator.unregister<EventService>();
   locator.unregister<MultiMediaPickerService>();
   locator.unregister<Connectivity>();
+  locator.unregister<DataBaseMutationFunctions>();
+  locator.unregister<OrganizationService>();
+  locator.unregister<CommentService>();
 }
 
 void registerViewModels() {
@@ -264,6 +343,8 @@ void registerViewModels() {
   locator.registerFactory(() => DirectChatViewModel());
   locator.registerFactory(() => WaitingViewModel());
   locator.registerFactory(() => EventInfoViewModel());
+  locator.registerFactory(() => ProgressDialogViewModel());
+  locator.registerFactory(() => SelectOrganizationViewModel());
 }
 
 void unregisterViewModels() {
@@ -277,4 +358,6 @@ void unregisterViewModels() {
   locator.unregister<DirectChatViewModel>();
   locator.unregister<WaitingViewModel>();
   locator.unregister<EventInfoViewModel>();
+  locator.unregister<ProgressDialogViewModel>();
+  locator.unregister<SelectOrganizationViewModel>();
 }
