@@ -20,42 +20,44 @@ class TalawaTheme {
   static const Color _darkColorSchemePrimary = Color(0xfffabc57);
 
   static final lightTheme = ThemeData(
-      scaffoldBackgroundColor: _lightScaffoldColor,
-      textSelectionTheme: const TextSelectionThemeData(
-        cursorColor: _lightCursorColor,
-      ),
-      primaryColor: _lightPrimaryColor,
-      iconTheme: const IconThemeData(
-        color: _lightIconColor,
-      ),
-      fontFamily: 'product-sans',
-      textTheme: _lightTextTheme,
-      inputDecorationTheme: _lightInputDecor,
-      colorScheme: const ColorScheme.light(
-              primaryVariant: _lightPrimaryVariantColor,
-              primary: _lightColorSchemePrimary,
-              secondary: Color(0xffF5F5F5),
-              secondaryVariant: _darkScaffoldColor)
-          .copyWith(secondary: _lightAccentColor));
+    scaffoldBackgroundColor: _lightScaffoldColor,
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: _lightCursorColor,
+    ),
+    primaryColor: _lightPrimaryColor,
+    iconTheme: const IconThemeData(
+      color: _lightIconColor,
+    ),
+    fontFamily: 'product-sans',
+    textTheme: _lightTextTheme,
+    inputDecorationTheme: _lightInputDecor,
+    colorScheme: const ColorScheme.light(
+      primaryContainer: _lightPrimaryVariantColor,
+      primary: _lightColorSchemePrimary,
+      secondary: Color(0xffF5F5F5),
+      secondaryContainer: _darkScaffoldColor,
+    ).copyWith(secondary: _lightAccentColor),
+  );
 
   static final darkTheme = ThemeData(
-      textSelectionTheme: const TextSelectionThemeData(
-        cursorColor: _darkCursorColor,
-      ),
-      scaffoldBackgroundColor: _darkScaffoldColor,
-      primaryColor: _darkPrimaryColor,
-      iconTheme: const IconThemeData(
-        color: _darkIconColor,
-      ),
-      fontFamily: 'product-sans',
-      textTheme: _darkTextTheme,
-      inputDecorationTheme: _darkInputDecor,
-      colorScheme: const ColorScheme.dark(
-              primaryVariant: _darkPrimaryVariantColor,
-              primary: _darkColorSchemePrimary,
-              secondary: Colors.black,
-              secondaryVariant: _lightScaffoldColor)
-          .copyWith(secondary: _darkAccentColor));
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: _darkCursorColor,
+    ),
+    scaffoldBackgroundColor: _darkScaffoldColor,
+    primaryColor: _darkPrimaryColor,
+    iconTheme: const IconThemeData(
+      color: _darkIconColor,
+    ),
+    fontFamily: 'product-sans',
+    textTheme: _darkTextTheme,
+    inputDecorationTheme: _darkInputDecor,
+    colorScheme: const ColorScheme.dark(
+      primaryContainer: _darkPrimaryVariantColor,
+      primary: _darkColorSchemePrimary,
+      secondary: Colors.black,
+      secondaryContainer: _lightScaffoldColor,
+    ).copyWith(secondary: _darkAccentColor),
+  );
 
   static const TextTheme _lightTextTheme = TextTheme(
     headline4: TextStyle(
@@ -77,7 +79,10 @@ class TalawaTheme {
       fontSize: 14,
     ),
     caption: TextStyle(
-        fontWeight: FontWeight.w400, color: Color(0xFF737373), fontSize: 12.0),
+      fontWeight: FontWeight.w400,
+      color: Color(0xFF737373),
+      fontSize: 12.0,
+    ),
   );
 
   static const TextTheme _darkTextTheme = TextTheme(
@@ -99,7 +104,10 @@ class TalawaTheme {
       color: Colors.white,
     ),
     caption: TextStyle(
-        fontWeight: FontWeight.w400, color: Color(0xFF737373), fontSize: 12.0),
+      fontWeight: FontWeight.w400,
+      color: Color(0xFF737373),
+      fontSize: 12.0,
+    ),
   );
 
   static const InputDecorationTheme _lightInputDecor = InputDecorationTheme(

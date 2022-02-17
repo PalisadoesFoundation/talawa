@@ -16,3 +16,47 @@ class DirectChats extends StatelessWidget {
     );
   }
 }
+<<<<<<< HEAD
+=======
+
+Widget chatTile(
+  BuildContext context,
+  ChatListTileDataModel chat,
+  Animation<double> animation,
+) {
+  return SizeTransition(
+    axis: Axis.vertical,
+    sizeFactor: animation,
+    child: ListTile(
+      leading: const CircleAvatar(
+        radius: 25,
+      ),
+      title: Text(chat.sender!.name!),
+      subtitle: Text(chat.lastMessage!.text!),
+      trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            "12:00 PM",
+            style:
+                Theme.of(context).textTheme.caption!.copyWith(fontSize: 10.0),
+          ),
+          chat.unreadCount != null && chat.unreadCount! > 0
+              ? CircleAvatar(
+                  backgroundColor: Theme.of(context).colorScheme.secondary,
+                  radius: 10,
+                  child: Text(
+                    chat.unreadCount!.toString(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              : Container(),
+        ],
+      ),
+    ),
+  );
+}
+>>>>>>> bdde5ab7900bc7023931f4421373e0e8b0645831

@@ -13,6 +13,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/queries.dart';
+import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
@@ -43,6 +44,7 @@ final graphqlConfig = locator<GraphqlConfig>();
 final sizeConfig = locator<SizeConfig>();
 final queries = locator<Queries>();
 final connectivity = locator<Connectivity>();
+final organizationService = locator<OrganizationService>();
 
 void setupLocator() {
   //services
@@ -50,6 +52,8 @@ void setupLocator() {
 
   //sizeConfig
   locator.registerSingleton(SizeConfig());
+
+  locator.registerSingleton(Validator());
 
   //userConfig
   locator.registerSingleton(UserConfig());

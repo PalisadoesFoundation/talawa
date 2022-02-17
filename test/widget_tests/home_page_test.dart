@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/size_config.dart';
@@ -12,21 +13,21 @@ import '../helpers/test_locator.dart';
 
 Widget createHomePageScreen() {
   return MaterialApp(
-      locale: const Locale('en'),
-      localizationsDelegates: [
-        const AppLocalizationsDelegate(isTest: true),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      themeMode: ThemeMode.light,
-      theme: TalawaTheme.lightTheme,
-      home: MainScreen(
-        key: const Key('MainScreen'),
-        mainScreenArgs: MainScreenArgs(mainScreenIndex: 0),
-      )
-      //navigatorKey: navigationService.navigatorKey,
-      //onGenerateRoute: router.generateRoute,
-      );
+    locale: const Locale('en'),
+    localizationsDelegates: [
+      const AppLocalizationsDelegate(isTest: true),
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    themeMode: ThemeMode.light,
+    theme: TalawaTheme.lightTheme,
+    home: MainScreen(
+      key: const Key('MainScreen'),
+      mainScreenArgs: MainScreenArgs(mainScreenIndex: 0),
+    ),
+    //navigatorKey: navigationService.navigatorKey,
+    //onGenerateRoute: router.generateRoute,
+  );
 }
 
 void main() {
@@ -68,7 +69,7 @@ void main() {
     });
 
     testWidgets('Testing if Events Screen Shows up', (tester) async {
-      await tester.runAsync(() async {
+      mockNetworkImagesFor(() async {
         await tester.pumpWidget(createHomePageScreen());
         await tester.pumpAndSettle();
 
@@ -103,8 +104,10 @@ void main() {
       await tester.tap(chatIcon);
       await tester.pump();
       await tester.pumpAndSettle();
-      expect(find.byKey(const PageStorageKey('Save-Direct-Chat-Page-Position')),
-          findsOneWidget);
+      expect(
+        find.byKey(const PageStorageKey('Save-Direct-Chat-Page-Position')),
+        findsOneWidget,
+      );
     });
 
     testWidgets('Testing if Profile Screen Shows up', (tester) async {

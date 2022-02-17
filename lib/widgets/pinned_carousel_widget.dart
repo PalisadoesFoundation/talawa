@@ -21,7 +21,8 @@ class PinnedPostCarousel extends StatelessWidget {
       children: [
         Container(
           height: 220,
-          color: Theme.of(context).colorScheme.primaryVariant.withOpacity(0.5),
+          color:
+              Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
           child: CustomCarouselScroller(
             pinnedPosts: pinnedPosts,
             key: const Key('Carousel'),
@@ -34,7 +35,7 @@ class PinnedPostCarousel extends StatelessWidget {
             height: 50,
             width: SizeConfig.screenWidth,
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            color: Theme.of(context).colorScheme.primaryVariant,
+            color: Theme.of(context).colorScheme.primaryContainer,
             child: Row(
               children: [
                 Expanded(
@@ -66,11 +67,11 @@ class PinnedPostCarousel extends StatelessWidget {
 }
 
 class CustomCarouselScroller extends StatefulWidget {
-  const CustomCarouselScroller(
-      {Key? key,
-      required this.pinnedPosts,
-      required this.navigateToIndividualPostPage})
-      : super(key: key);
+  const CustomCarouselScroller({
+    Key? key,
+    required this.pinnedPosts,
+    required this.navigateToIndividualPostPage,
+  }) : super(key: key);
   final List<Post> pinnedPosts;
   final Function navigateToIndividualPostPage;
 
@@ -84,70 +85,75 @@ class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            ListTile(
-              leading: const CircleAvatar(
-                radius: 15.0,
-                backgroundColor: Color(0xff737373),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ListTile(
+                leading: const CircleAvatar(
+                  radius: 15.0,
+                  backgroundColor: Color(0xff737373),
+                ),
+                title: Text(
+                  "${widget.pinnedPosts[pindex].creator!.firstName} ${widget.pinnedPosts[pindex].creator!.lastName}",
+                ),
               ),
-              title: Text(
-                  "${widget.pinnedPosts[pindex].creator!.firstName} ${widget.pinnedPosts[pindex].creator!.lastName}"),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                widget.pinnedPosts[pindex].description!.length > 90
-                    ? "${widget.pinnedPosts[pindex].description!.substring(0, 90)}..."
-                    : widget.pinnedPosts[pindex].description!,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(color: const Color(0xFF737373)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  widget.pinnedPosts[pindex].description!.length > 90
+                      ? "${widget.pinnedPosts[pindex].description!.substring(0, 90)}..."
+                      : widget.pinnedPosts[pindex].description!,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(color: const Color(0xFF737373)),
+                ),
               ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-              child: Row(
-                children: [
-                  for (int i = 0; i < 4; i++)
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: Divider(
-                          thickness: 3.0,
-                          color: pindex == i
-                              ? Theme.of(context).colorScheme.primary
-                              : Colors.grey,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 10.0,
+                ),
+                child: Row(
+                  children: [
+                    for (int i = 0; i < 4; i++)
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: Divider(
+                            thickness: 3.0,
+                            color: pindex == i
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.grey,
+                          ),
                         ),
-                      ),
-                    )
-                ],
-              ),
-            )
-          ],
+                      )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-      PageView(
-        scrollDirection: Axis.horizontal,
-        controller: controller,
-        onPageChanged: (index) {
-          setState(() {
-            pindex = index;
-          });
-        },
-        children: List.generate(
-          widget.pinnedPosts.length,
-          (index) => Container(),
+        PageView(
+          scrollDirection: Axis.horizontal,
+          controller: controller,
+          onPageChanged: (index) {
+            setState(() {
+              pindex = index;
+            });
+          },
+          children: List.generate(
+            widget.pinnedPosts.length,
+            (index) => Container(),
+          ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 }

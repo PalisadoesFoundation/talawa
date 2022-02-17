@@ -9,8 +9,10 @@ class Comment {
       createdAt: json['createdAt'] as String?,
       creator: json['creator'] == null
           ? null
-          : User.fromJson(json['creator'] as Map<String, dynamic>,
-              fromOrg: true),
+          : User.fromJson(
+              json['creator'] as Map<String, dynamic>,
+              fromOrg: true,
+            ),
       post: json['post'] as String?,
       likeCount: json['likeCount'] as String?,
     );

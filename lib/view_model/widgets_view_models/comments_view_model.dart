@@ -15,15 +15,16 @@ class CommentsViewModel extends BaseModel {
 
   // Getters
   List<Comment> get commentList => _commentlist;
+  String get postId => _postID;
 
-  void initialise(String postID) {
+  Future initialise(String postID) async {
     _commentlist = [];
     _postID = postID;
     _commentService = locator<CommentService>();
     _userConfig = locator<UserConfig>();
     _postService = locator<PostService>();
     notifyListeners();
-    getComments();
+    await getComments();
   }
 
   Future getComments() async {
@@ -47,7 +48,10 @@ class CommentsViewModel extends BaseModel {
     _postService.addCommentLocally(_postID);
     final _creator = _userConfig.currentUser;
     final Comment _localComment = Comment(
-        text: msg, createdAt: DateTime.now().toString(), creator: _creator);
+      text: msg,
+      createdAt: DateTime.now().toString(),
+      creator: _creator,
+    );
     _commentlist.insert(0, _localComment);
     notifyListeners();
   }

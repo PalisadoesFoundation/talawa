@@ -53,10 +53,11 @@ class _RecoverState extends State<Recover> {
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
           margin: EdgeInsets.fromLTRB(
-              SizeConfig.screenWidth! * 0.06,
-              SizeConfig.screenHeight! * 0.2,
-              SizeConfig.screenWidth! * 0.06,
-              0.0),
+            SizeConfig.screenWidth! * 0.06,
+            SizeConfig.screenHeight! * 0.2,
+            SizeConfig.screenWidth! * 0.06,
+            0.0,
+          ),
           width: SizeConfig.screenWidth,
           height: SizeConfig.screenHeight,
           child: Column(
@@ -73,20 +74,21 @@ class _RecoverState extends State<Recover> {
               Form(
                 key: formKey,
                 child: TextFormField(
-                    key: const Key('EmailInputField'),
-                    controller: email,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    autofillHints: const <String>[AutofillHints.email],
-                    enableSuggestions: true,
-                    validator: (email) => Validator.validateEmail(email!),
-                    decoration: InputDecoration(
-                      hintText:
-                          AppLocalizations.of(context)!.translate("Email Hint"),
-                      labelText:
-                          '${AppLocalizations.of(context)!.translate("Enter your registered Email")} *',
-                      labelStyle: Theme.of(context).textTheme.subtitle1,
-                    )),
+                  key: const Key('EmailInputField'),
+                  controller: email,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.emailAddress,
+                  autofillHints: const <String>[AutofillHints.email],
+                  enableSuggestions: true,
+                  validator: (email) => Validator.validateEmail(email!),
+                  decoration: InputDecoration(
+                    hintText:
+                        AppLocalizations.of(context)!.translate("Email Hint"),
+                    labelText:
+                        '${AppLocalizations.of(context)!.translate("Enter your registered Email")} *',
+                    labelStyle: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
               ),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.086,

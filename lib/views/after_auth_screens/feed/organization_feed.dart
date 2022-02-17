@@ -18,55 +18,56 @@ class OrganizationFeed extends StatelessWidget {
       onModelReady: (model) => model.initialise(),
       builder: (context, model, child) {
         return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Theme.of(context).primaryColor,
-              elevation: 0.0,
-              centerTitle: true,
-              title: Text(
-                model.currentOrgName,
-                key: homeModel?.keySHOrgName,
-                style: Theme.of(context).textTheme.headline6!.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                    ),
-              ),
-              leading: IconButton(
-                key: homeModel?.keySHMenuIcon,
-                icon: Icon(
-                  Icons.menu,
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                onPressed: () =>
-                    homeModel!.scaffoldKey.currentState!.openDrawer(),
-              ),
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
+            elevation: 0.0,
+            centerTitle: true,
+            title: Text(
+              model.currentOrgName,
+              key: homeModel?.keySHOrgName,
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                  ),
             ),
-            body: model.isBusy
-                ? const CircularProgressIndicator()
-                : RefreshIndicator(
-                    onRefresh: () async => model.fetchNewPosts(),
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                        model.pinnedPosts.isNotEmpty
-                            ? PinnedPostCarousel(
-                                key: homeModel?.keySHPinnedPost,
-                                pinnedPosts: model.pinnedPosts,
-                                navigateToPinnedPostPage:
-                                    model.navigateToPinnedPostPage,
-                                navigateToIndividualPostPage:
-                                    model.navigateToIndividualPage,
-                              )
-                            : Container(),
-                        model.posts.isNotEmpty
-                            ? PostListWidget(
-                                key: homeModel?.keySHPost,
-                                posts: model.posts,
-                                function: model.navigateToIndividualPage,
-                              )
-                            : Container(),
-                      ],
-                    ),
-                  ));
+            leading: IconButton(
+              key: homeModel?.keySHMenuIcon,
+              icon: Icon(
+                Icons.menu,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              onPressed: () =>
+                  homeModel!.scaffoldKey.currentState!.openDrawer(),
+            ),
+          ),
+          body: model.isBusy
+              ? const CircularProgressIndicator()
+              : RefreshIndicator(
+                  onRefresh: () async => model.fetchNewPosts(),
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      model.pinnedPosts.isNotEmpty
+                          ? PinnedPostCarousel(
+                              key: homeModel?.keySHPinnedPost,
+                              pinnedPosts: model.pinnedPosts,
+                              navigateToPinnedPostPage:
+                                  model.navigateToPinnedPostPage,
+                              navigateToIndividualPostPage:
+                                  model.navigateToIndividualPage,
+                            )
+                          : Container(),
+                      model.posts.isNotEmpty
+                          ? PostListWidget(
+                              key: homeModel?.keySHPost,
+                              posts: model.posts,
+                              function: model.navigateToIndividualPage,
+                            )
+                          : Container(),
+                    ],
+                  ),
+                ),
+        );
       },
     );
   }

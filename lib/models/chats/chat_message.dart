@@ -5,10 +5,19 @@ part 'chat_message.g.dart';
 @JsonSerializable()
 class ChatMessage {
   ChatMessage(
+<<<<<<< HEAD
     this.id,
     this.sender,
     this.receiver,
     this.messageContent,
+=======
+    this.messageID,
+    this.sender,
+    this.text,
+    this.sendTime,
+    // ignore: avoid_positional_boolean_parameters
+    this.readByReciever,
+>>>>>>> bdde5ab7900bc7023931f4421373e0e8b0645831
   );
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) =>

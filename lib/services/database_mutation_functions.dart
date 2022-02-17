@@ -24,13 +24,16 @@ class DataBaseMutationFunctions {
   GraphQLError organizationNotFound =
       const GraphQLError(message: 'Organization not found');
   GraphQLError refreshAccessTokenExpiredException = const GraphQLError(
-      message:
-          'Access Token has expired. Please refresh session.: Undefined location');
+    message:
+        'Access Token has expired. Please refresh session.: Undefined location',
+  );
   GraphQLError memberRequestExist =
       const GraphQLError(message: 'Membership Request already exists');
 
-  bool? encounteredExceptionOrError(OperationException exception,
-      {bool showSnackBar = true}) {
+  bool? encounteredExceptionOrError(
+    OperationException exception, {
+    bool showSnackBar = true,
+  }) {
     if (exception.linkException != null) {
       debugPrint(exception.linkException.toString());
       if (showSnackBar) {
@@ -44,18 +47,20 @@ class DataBaseMutationFunctions {
             refreshAccessTokenExpiredException.message) {
           print('token refreshed');
           refreshAccessToken(userConfig.currentUser.refreshToken!).then(
-              (value) => graphqlConfig
-                  .getToken()
-                  .then((value) => databaseFunctions.init()));
+            (value) => graphqlConfig
+                .getToken()
+                .then((value) => databaseFunctions.init()),
+          );
           print('client refreshed');
           return true;
         } else if (exception.graphqlErrors[i].message ==
             userNotAuthenticated.message) {
           print('client refreshed');
           refreshAccessToken(userConfig.currentUser.refreshToken!).then(
-              (value) => graphqlConfig
-                  .getToken()
-                  .then((value) => databaseFunctions.init()));
+            (value) => graphqlConfig
+                .getToken()
+                .then((value) => databaseFunctions.init()),
+          );
           //  graphqlConfig.getToken().then((value) => databaseFunctions.init());
           return true;
         } else if (exception.graphqlErrors[i].message == userNotFound.message) {
@@ -113,12 +118,16 @@ class DataBaseMutationFunctions {
     return null;
   }
 
-  Future<dynamic> gqlAuthMutation(String mutation,
-      {Map<String, dynamic>? variables}) async {
-    final QueryResult result = await clientAuth.mutate(MutationOptions(
-      document: gql(mutation),
-      variables: variables ?? <String, dynamic>{},
-    ));
+  Future<dynamic> gqlAuthMutation(
+    String mutation, {
+    Map<String, dynamic>? variables,
+  }) async {
+    final QueryResult result = await clientAuth.mutate(
+      MutationOptions(
+        document: gql(mutation),
+        variables: variables ?? <String, dynamic>{},
+      ),
+    );
     if (result.hasException) {
       final bool? exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {
@@ -130,10 +139,17 @@ class DataBaseMutationFunctions {
     return null;
   }
 
-  Future<dynamic> gqlNonAuthMutation(String mutation,
-      {Map<String, dynamic>? variables, bool reCall = true}) async {
-    final QueryResult result = await clientNonAuth.mutate(MutationOptions(
-        document: gql(mutation), variables: variables ?? <String, dynamic>{}));
+  Future<dynamic> gqlNonAuthMutation(
+    String mutation, {
+    Map<String, dynamic>? variables,
+    bool reCall = true,
+  }) async {
+    final QueryResult result = await clientNonAuth.mutate(
+      MutationOptions(
+        document: gql(mutation),
+        variables: variables ?? <String, dynamic>{},
+      ),
+    );
 
     if (result.hasException) {
       final bool? exception = encounteredExceptionOrError(result.exception!);
@@ -147,11 +163,13 @@ class DataBaseMutationFunctions {
   }
 
   Future<bool> refreshAccessToken(String refreshToken) async {
-    final QueryResult result = await clientNonAuth.mutate(MutationOptions(
-      document: gql(
-        _query.refreshToken(refreshToken),
+    final QueryResult result = await clientNonAuth.mutate(
+      MutationOptions(
+        document: gql(
+          _query.refreshToken(refreshToken),
+        ),
       ),
-    ));
+    );
 
     if (result.hasException) {
       final bool? exception = encounteredExceptionOrError(result.exception!);
@@ -162,8 +180,9 @@ class DataBaseMutationFunctions {
       }
     } else if (result.data != null && result.isConcrete) {
       userConfig.updateAccessToken(
-          refreshToken: result.data!['refreshToken']['refreshToken'].toString(),
-          accessToken: result.data!['refreshToken']['accessToken'].toString());
+        refreshToken: result.data!['refreshToken']['refreshToken'].toString(),
+        accessToken: result.data!['refreshToken']['accessToken'].toString(),
+      );
       databaseFunctions.init();
       return true;
     }
@@ -180,7 +199,8 @@ class DataBaseMutationFunctions {
       }
     } else if (result.data != null && result.isConcrete) {
       return OrgInfo.fromJson(
-          result.data!['organizations'][0] as Map<String, dynamic>);
+        result.data!['organizations'][0] as Map<String, dynamic>,
+      );
     }
     return false;
   }

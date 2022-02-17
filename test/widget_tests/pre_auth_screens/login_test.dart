@@ -66,10 +66,12 @@ void main() {
 
       expect(find.byType(Login), findsOneWidget);
 
-      await tester.tap(find.descendant(
-        of: find.byType(AppBar),
-        matching: find.byType(IconButton),
-      ));
+      await tester.tap(
+        find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byType(IconButton),
+        ),
+      );
       await tester.pumpAndSettle();
 
       expect(find.byType(Login), findsNothing);
@@ -91,7 +93,9 @@ void main() {
 
       // expect(find.text("We're Glad you're Back "), findsOneWidget);
       expect(
-          find.textContaining("Enter your registered Email"), findsOneWidget);
+        find.textContaining("Enter your registered Email"),
+        findsOneWidget,
+      );
       expect(find.textContaining("Enter your password"), findsOneWidget);
       expect(find.textContaining("Forgot password"), findsOneWidget);
     });

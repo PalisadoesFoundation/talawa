@@ -44,7 +44,7 @@ void main() {
         (container as Container).decoration,
         BoxDecoration(
           borderRadius: BorderRadius.circular(SizeConfig.screenHeight! * 0.02),
-          color: TalawaTheme.darkTheme.colorScheme.primaryVariant,
+          color: TalawaTheme.darkTheme.colorScheme.primaryContainer,
         ),
       );
     });
@@ -73,15 +73,23 @@ void main() {
 
       expect(circleAvatarFinder, findsOneWidget);
 
-      expect((circleAvatar as CircleAvatar).radius,
-          SizeConfig.screenHeight! * 0.0201);
-      expect(circleAvatar.backgroundColor,
-          TalawaTheme.darkTheme.colorScheme.secondary);
       expect(
-          circleAvatar.child,
-          isA<Text>()
-            ..having((text) => text.style, 'Checking text style',
-                const TextStyle(color: Colors.white)));
+        (circleAvatar as CircleAvatar).radius,
+        SizeConfig.screenHeight! * 0.0201,
+      );
+      expect(
+        circleAvatar.backgroundColor,
+        TalawaTheme.darkTheme.colorScheme.secondary,
+      );
+      expect(
+        circleAvatar.child,
+        isA<Text>()
+          ..having(
+            (text) => text.style,
+            'Checking text style',
+            const TextStyle(color: Colors.white),
+          ),
+      );
 
       expect(find.textContaining('R'), findsOneWidget);
     });
@@ -96,10 +104,11 @@ void main() {
 
       expect((iconButton as IconButton).padding, EdgeInsets.zero);
       expect(
-          iconButton.icon,
-          isA<Icon>()
-            ..having((icon) => icon.color, 'color', const Color(0xff524F4F))
-            ..having((icon) => icon.size, 'size', 19));
+        iconButton.icon,
+        isA<Icon>()
+          ..having((icon) => icon.color, 'color', const Color(0xff524F4F))
+          ..having((icon) => icon.size, 'size', 19),
+      );
 
       expect(isDeleted, false);
       await tester.tap(iconButtonFinder);
