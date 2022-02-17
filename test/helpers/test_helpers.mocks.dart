@@ -821,9 +821,10 @@ class MockExploreEventsViewModel extends _i2.Mock
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  void checkIfExistsAndAddNewEvent(_i17.Event? newEvent) => super.noSuchMethod(
-      Invocation.method(#checkIfExistsAndAddNewEvent, [newEvent]),
-      returnValueForMissingStub: null);
+  _i4.Future<void> checkIfExistsAndAddNewEvent(_i17.Event? newEvent) => (super
+      .noSuchMethod(Invocation.method(#checkIfExistsAndAddNewEvent, [newEvent]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
   _i4.Future<void> deleteEvent({String? eventId}) => (super.noSuchMethod(
       Invocation.method(#deleteEvent, [], {#eventId: eventId}),

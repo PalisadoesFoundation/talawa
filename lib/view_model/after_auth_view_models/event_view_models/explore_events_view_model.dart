@@ -51,7 +51,7 @@ class ExploreEventsViewModel extends BaseModel {
     setState(ViewState.idle);
   }
 
-  void checkIfExistsAndAddNewEvent(Event newEvent) {
+  Future<void> checkIfExistsAndAddNewEvent(Event newEvent) async {
     if ((!_uniqueEventIds.contains(newEvent.id)) &&
         (int.tryParse(newEvent.startTime!) != null ||
             int.tryParse(newEvent.endTime!) != null) &&
