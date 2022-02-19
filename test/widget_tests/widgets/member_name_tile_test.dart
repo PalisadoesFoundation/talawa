@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/member_name_tile.dart';
@@ -13,9 +14,10 @@ void onDelete() {
 Widget createMemberNameTile({String? userImage}) {
   return MaterialApp(
     theme: TalawaTheme.darkTheme,
-    home: const Material(
+    home: Material(
       child: MemberNameTile(
         userName: 'ravidev',
+        userImage: userImage,
         onDelete: onDelete,
       ),
     ),
@@ -92,6 +94,38 @@ void main() {
       );
 
       expect(find.textContaining('R'), findsOneWidget);
+    });
+
+    testWidgets('Checking for CircleAvatar (with image)', (tester) async {
+      const String userImage = 'https://example.org/nonexistent.png';
+
+      // Mock any required NetworkImages that may be needed
+      await mockNetworkImagesFor(
+          () => tester.pumpWidget(createMemberNameTile(userImage: userImage)));
+
+      final circleAvatarFinder = find.byType(CircleAvatar);
+      final circleAvatar = tester.firstWidget(circleAvatarFinder);
+
+      expect(circleAvatarFinder, findsOneWidget);
+
+      expect(
+        (circleAvatar as CircleAvatar).radius,
+        SizeConfig.screenHeight! * 0.0201,
+      );
+      expect(
+        circleAvatar.backgroundImage,
+        const NetworkImage(userImage),
+      );
+      expect(
+        circleAvatar.backgroundColor,
+        null,
+      );
+      expect(
+        circleAvatar.child,
+        null,
+      );
+
+      // expect(find.textContaining('R'), findsNWidgets(0));
     });
 
     testWidgets('Checking for the cancel button', (tester) async {
