@@ -97,11 +97,14 @@ void main() {
     });
 
     testWidgets('Checking for CircleAvatar (with image)', (tester) async {
-      const String userImage = 'https://example.org/nonexistent.png';
+      const String userImage = 'https://www.example.org/non-existent.png';
 
-      // Mock any required NetworkImages that may be needed
+      // Mock NetworkImages for CircularAvatar
       await mockNetworkImagesFor(
-          () => tester.pumpWidget(createMemberNameTile(userImage: userImage)));
+        () => tester.pumpWidget(
+          createMemberNameTile(userImage: userImage),
+        ),
+      );
 
       final circleAvatarFinder = find.byType(CircleAvatar);
       final circleAvatar = tester.firstWidget(circleAvatarFinder);
@@ -125,7 +128,7 @@ void main() {
         null,
       );
 
-      // expect(find.textContaining('R'), findsNWidgets(0));
+      expect(find.textContaining('R'), findsNWidgets(0));
     });
 
     testWidgets('Checking for the cancel button', (tester) async {
