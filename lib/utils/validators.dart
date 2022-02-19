@@ -92,7 +92,7 @@ class Validator {
     return null;
   }
 
-  static Future<bool?> validateUrlExistence(String url) async {
+  Future<bool?> validateUrlExistence(String url) async {
     try {
       await http.get(Uri.parse(url));
       return true;
