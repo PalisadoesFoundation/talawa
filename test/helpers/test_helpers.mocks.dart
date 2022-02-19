@@ -37,6 +37,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/explo
 import 'package:talawa/view_model/lang_view_model.dart' as _i19;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
     as _i23;
+import 'package:talawa/view_model/theme_view_model.dart' as _i31;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -820,9 +821,10 @@ class MockExploreEventsViewModel extends _i2.Mock
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  void checkIfExistsAndAddNewEvent(_i17.Event? newEvent) => super.noSuchMethod(
-      Invocation.method(#checkIfExistsAndAddNewEvent, [newEvent]),
-      returnValueForMissingStub: null);
+  _i4.Future<void> checkIfExistsAndAddNewEvent(_i17.Event? newEvent) => (super
+      .noSuchMethod(Invocation.method(#checkIfExistsAndAddNewEvent, [newEvent]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
   _i4.Future<void> deleteEvent({String? eventId}) => (super.noSuchMethod(
       Invocation.method(#deleteEvent, [], {#eventId: eventId}),
@@ -938,6 +940,54 @@ class MockCommentService extends _i2.Mock implements _i30.CommentService {
   _i4.Future<dynamic> getCommentsForPost(String? postId) =>
       (super.noSuchMethod(Invocation.method(#getCommentsForPost, [postId]),
           returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [AppTheme].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAppTheme extends _i2.Mock implements _i31.AppTheme {
+  @override
+  String get key =>
+      (super.noSuchMethod(Invocation.getter(#key), returnValue: '') as String);
+  @override
+  bool get isdarkTheme =>
+      (super.noSuchMethod(Invocation.getter(#isdarkTheme), returnValue: false)
+          as bool);
+  @override
+  _i20.ViewState get state => (super.noSuchMethod(Invocation.getter(#state),
+      returnValue: _i20.ViewState.idle) as _i20.ViewState);
+  @override
+  bool get isBusy =>
+      (super.noSuchMethod(Invocation.getter(#isBusy), returnValue: false)
+          as bool);
+  @override
+  bool get hasListeners =>
+      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
+          as bool);
+  @override
+  dynamic switchTheme({bool? isOn}) =>
+      super.noSuchMethod(Invocation.method(#switchTheme, [], {#isOn: isOn}));
+  @override
+  void setState(_i20.ViewState? viewState) =>
+      super.noSuchMethod(Invocation.method(#setState, [viewState]),
+          returnValueForMissingStub: null);
+  @override
+  void addListener(_i9.VoidCallback? listener) =>
+      super.noSuchMethod(Invocation.method(#addListener, [listener]),
+          returnValueForMissingStub: null);
+  @override
+  void removeListener(_i9.VoidCallback? listener) =>
+      super.noSuchMethod(Invocation.method(#removeListener, [listener]),
+          returnValueForMissingStub: null);
+  @override
+  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
+      returnValueForMissingStub: null);
+  @override
+  void notifyListeners() =>
+      super.noSuchMethod(Invocation.method(#notifyListeners, []),
+          returnValueForMissingStub: null);
   @override
   String toString() => super.toString();
 }

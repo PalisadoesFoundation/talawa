@@ -33,6 +33,7 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
+import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'test_helpers.mocks.dart';
@@ -56,6 +57,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<Validator>(returnNullOnMissingStub: true),
     MockSpec<QRViewController>(returnNullOnMissingStub: true),
     MockSpec<CommentService>(returnNullOnMissingStub: true),
+    MockSpec<AppTheme>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -80,6 +82,13 @@ OrganizationService getAndRegisterOrganizationService() {
   _removeRegistrationIfExists<OrganizationService>();
   final service = MockOrganizationService();
   locator.registerSingleton<OrganizationService>(service);
+  return service;
+}
+
+AppTheme getAndRegisterAppTheme() {
+  _removeRegistrationIfExists<AppTheme>();
+  final service = MockAppTheme();
+  locator.registerSingleton<AppTheme>(service);
   return service;
 }
 
@@ -158,6 +167,8 @@ UserConfig getAndRegisterUserConfig() {
   //Mock Stream for currentOrgStream
   final StreamController<OrgInfo> _streamController = StreamController();
   final Stream<OrgInfo> _stream = _streamController.stream.asBroadcastStream();
+  when(service.currentOrgInfoController)
+      .thenAnswer((invocation) => _streamController);
   when(service.currentOrfInfoStream).thenAnswer((invocation) => _stream);
 
   //Mkock current user
