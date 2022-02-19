@@ -11,6 +11,7 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/graphql_config.dart';
@@ -32,6 +33,7 @@ import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
+import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'test_helpers.mocks.dart';
@@ -54,6 +56,8 @@ import 'test_helpers.mocks.dart';
     MockSpec<ExploreEventsViewModel>(returnNullOnMissingStub: true),
     MockSpec<Validator>(returnNullOnMissingStub: true),
     MockSpec<QRViewController>(returnNullOnMissingStub: true),
+    MockSpec<CommentService>(returnNullOnMissingStub: true),
+    MockSpec<AppTheme>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -78,6 +82,20 @@ OrganizationService getAndRegisterOrganizationService() {
   _removeRegistrationIfExists<OrganizationService>();
   final service = MockOrganizationService();
   locator.registerSingleton<OrganizationService>(service);
+  return service;
+}
+
+AppTheme getAndRegisterAppTheme() {
+  _removeRegistrationIfExists<AppTheme>();
+  final service = MockAppTheme();
+  locator.registerSingleton<AppTheme>(service);
+  return service;
+}
+
+CommentService getAndRegisterCommentService() {
+  _removeRegistrationIfExists<CommentService>();
+  final service = MockCommentService();
+  locator.registerSingleton<CommentService>(service);
   return service;
 }
 
@@ -149,6 +167,8 @@ UserConfig getAndRegisterUserConfig() {
   //Mock Stream for currentOrgStream
   final StreamController<OrgInfo> _streamController = StreamController();
   final Stream<OrgInfo> _stream = _streamController.stream.asBroadcastStream();
+  when(service.currentOrgInfoController)
+      .thenAnswer((invocation) => _streamController);
   when(service.currentOrfInfoStream).thenAnswer((invocation) => _stream);
 
   //Mkock current user
@@ -296,6 +316,7 @@ void registerServices() {
   getAndRegisterConnectivityService();
   getAndRegisterDatabaseMutationFunctions();
   getAndRegisterOrganizationService();
+  getAndRegisterCommentService();
 }
 
 void unregisterServices() {
@@ -308,6 +329,7 @@ void unregisterServices() {
   locator.unregister<Connectivity>();
   locator.unregister<DataBaseMutationFunctions>();
   locator.unregister<OrganizationService>();
+  locator.unregister<CommentService>();
 }
 
 void registerViewModels() {
