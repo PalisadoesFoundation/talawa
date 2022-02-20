@@ -12,10 +12,10 @@ ChatMessage _$ChatMessageFromJson(Map<String, dynamic> json) {
     json['sender'] == null
         ? null
         : ChatUser.fromJson(json['sender'] as Map<String, dynamic>),
+    json['messageContent'] as String?,
     json['receiver'] == null
         ? null
         : ChatUser.fromJson(json['receiver'] as Map<String, dynamic>),
-    json['messageContent'] as String?,
   );
 }
 

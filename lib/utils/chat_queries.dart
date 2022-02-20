@@ -21,4 +21,18 @@ class ChatQueries {
       }
    ''';
   }
+
+  String fetchDirectChatMessagesByChatId(String chatId) {
+    return '''
+        query {
+          directChatsMessagesByChatID(id: $chatId) {
+            messageContent
+            sender {
+              _id
+              firstName
+            }
+          }
+        }
+    ''';
+  }
 }

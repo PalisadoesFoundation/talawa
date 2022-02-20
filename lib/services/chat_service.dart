@@ -31,9 +31,11 @@ class ChatService {
     final directMessageList =
         result.data['directChatsByUserID'][1]['messages'] as List;
 
-    directMessageList.forEach((element) {
-      final directChat = ChatMessage.fromJson(element as Map<String, dynamic>);
+    directMessageList.forEach((chat) {
+      final directChat = ChatMessage.fromJson(chat as Map<String, dynamic>);
       _chatController.add(directChat);
     });
+
+    print(directMessageList.length);
   }
 }
