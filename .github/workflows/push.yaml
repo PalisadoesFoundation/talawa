@@ -48,7 +48,7 @@ jobs:
         run: flutter pub get
       - name: Codebase testing
         run: flutter test --coverage
-      - name: Present current coverage in PR
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2.1.0     
 
   Android-Build:
