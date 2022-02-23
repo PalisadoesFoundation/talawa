@@ -8,7 +8,6 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/views/main_screen.dart';
-import 'package:talawa/widgets/custom_drawer.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
@@ -53,10 +52,19 @@ void main() {
           tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0));
       await tester.pumpAndSettle();
 
-      final whatsapp = find.byKey(const ValueKey("Drawer"));
+      final drawer = find.byKey(const ValueKey("Drawer"));
+      final customDrawer = find.byKey(const ValueKey("Custom Drawer"));
+      final fromPalisadoes = find.byKey(const ValueKey("From Palisadoes"));
 
-      print(whatsapp);
-      // expect(find.byType(BottomNavigationBar), findsOneWidget);
+      expect(drawer, findsOneWidget);
+      expect(customDrawer, findsOneWidget);
+
+      expect(find.text("Selected Organization"), findsOneWidget);
+      expect(find.text("Switch Organization"), findsOneWidget);
+
+      expect(find.text("Join new Organization"), findsOneWidget);
+      expect(find.text("Leave Current Organization"), findsOneWidget);
+      expect(fromPalisadoes, findsOneWidget);
     });
   });
 
