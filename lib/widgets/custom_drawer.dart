@@ -26,6 +26,7 @@ class CustomDrawer extends StatelessWidget {
           width: SizeConfig.screenWidth! * 0.6,
           alignment: Alignment.centerLeft,
           child: Drawer(
+            key: const Key("Drawer"),
             child: ListView(
               children: [
                 Column(
