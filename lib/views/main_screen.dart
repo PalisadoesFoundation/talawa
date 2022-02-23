@@ -25,7 +25,8 @@ class MainScreen extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           key: model.scaffoldKey,
-          drawer: CustomDrawer(homeModel: model, key: const Key("Custom Drawer")),
+          drawer:
+              CustomDrawer(homeModel: model, key: const Key("Custom Drawer")),
           body: IndexedStack(
             index: model.currentIndex,
             children: [
