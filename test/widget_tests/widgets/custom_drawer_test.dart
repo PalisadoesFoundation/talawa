@@ -8,7 +8,6 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
-import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/main_screen.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
