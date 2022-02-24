@@ -39,7 +39,7 @@ class CustomDrawer extends StatelessWidget {
                         firstAlphabet: model.selectedOrg.name!.substring(0, 1),
                       ),
                       accountName: Column(
-                        key: homeModel.keyDrawerCurOrg,
+                        key: MainScreenViewModel.keyDrawerCurOrg,
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -55,7 +55,7 @@ class CustomDrawer extends StatelessWidget {
                       accountEmail: const SizedBox(),
                     ),
                     Column(
-                      key: homeModel.keyDrawerSwitchableOrg,
+                      key: MainScreenViewModel.keyDrawerSwitchableOrg,
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -74,12 +74,14 @@ class CustomDrawer extends StatelessWidget {
                             controller: model.controller,
                             isAlwaysShown: true,
                             child: ListView.builder(
+                              key: const Key("Switching Org"),
                               controller: model.controller,
                               padding: EdgeInsets.zero,
                               itemCount: model.switchAbleOrg.length,
                               // itemCount: 3,
                               itemBuilder: (BuildContext context, int index) {
                                 return ListTile(
+                                  key: const Key("Org"),
                                   onTap: () => model
                                       .switchOrg(model.switchAbleOrg[index]),
                                   leading: CustomAvatar(
@@ -104,7 +106,7 @@ class CustomDrawer extends StatelessWidget {
                     ),
                     const Divider(),
                     ListTile(
-                      key: homeModel.keyDrawerJoinOrg,
+                      key: MainScreenViewModel.keyDrawerJoinOrg,
                       onTap: () => navigationService
                           .popAndPushScreen(Routes.joinOrg, arguments: '-1'),
                       leading: const Icon(
@@ -128,7 +130,7 @@ class CustomDrawer extends StatelessWidget {
                           },
                         ),
                       ),
-                      key: homeModel.keyDrawerLeaveCurrentOrg,
+                      key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
                       leading: const Icon(Icons.logout, size: 30),
                       title: Text(
                         AppLocalizations.of(context)!

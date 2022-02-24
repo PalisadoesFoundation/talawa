@@ -7,6 +7,8 @@ import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/views/main_screen.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
@@ -42,48 +44,46 @@ void main() {
   tearDown(() {
     unregisterServices();
   });
+  // MainScreenViewModel model = MainScreenViewModel();
+  // const MaterialApp temp = MaterialApp();
+  // temp.
 
-  group('Custom Drawer Test', () {
-    testWidgets("Testing if Custom Drawer Opens", (tester) async {
-      await tester.pumpWidget(createHomePageScreen());
-      await tester.pumpAndSettle();
+  // group('Custom Drawer Test', () {
+  testWidgets("Custom Drawer Test", (tester) async {
+    // pumping the Widget
+    await tester.pumpWidget(createHomePageScreen());
+    await tester.pumpAndSettle();
 
-      await tester.dragFrom(
-          tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0));
-      await tester.pumpAndSettle();
+    // Opening the Drawer so that it can be loaded in the widget tree and built() is called
+    await tester.dragFrom(
+        tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0));
+    await tester.pumpAndSettle();
 
-      final drawer = find.byKey(const ValueKey("Drawer"));
-      final customDrawer = find.byKey(const ValueKey("Custom Drawer"));
-      final fromPalisadoes = find.byKey(const ValueKey("From Palisadoes"));
+    // getting the Finders for Code Coverage
+    expect(find.byKey(const ValueKey("Drawer")), findsOneWidget);
+    expect(find.byKey(const ValueKey("Custom Drawer")), findsOneWidget);
+    expect(find.text("Selected Organization"), findsOneWidget);
+    expect(find.text("Switch Organization"), findsOneWidget);
 
-      expect(drawer, findsOneWidget);
-      expect(customDrawer, findsOneWidget);
+    final listOfOrgs = find.byKey(const ValueKey("Switching Org"));
+    final orgs = find.byKey(const ValueKey("Org"));
 
-      expect(find.text("Selected Organization"), findsOneWidget);
-      expect(find.text("Switch Organization"), findsOneWidget);
+    // Atleast One Org should be there
+    // ignore: invalid_use_of_protected_member
+    expect(orgs.allCandidates.isEmpty, false);
+    expect(listOfOrgs, findsOneWidget);
 
-      expect(find.text("Join new Organization"), findsOneWidget);
-      expect(find.text("Leave Current Organization"), findsOneWidget);
-      expect(fromPalisadoes, findsOneWidget);
-    });
+    expect(find.byKey(MainScreenViewModel.keyDrawerCurOrg), findsOneWidget);
+    expect(
+        find.byKey(MainScreenViewModel.keyDrawerSwitchableOrg), findsOneWidget);
+
+    expect(find.byType(UserAccountsDrawerHeader), findsOneWidget);
+
+    expect(find.text("Join new Organization"), findsOneWidget);
+    expect(find.text("Leave Current Organization"), findsOneWidget);
+
+    final fromPalisadoes = find.byKey(const ValueKey("From Palisadoes"));
+    expect(fromPalisadoes, findsOneWidget);
   });
-
-  // group('Custom Drawer Model testing -', () {
-  //   test('check if switchOrg is working with mock joined orgs', () async {
-  //     //Intializing a mock model with mockBuildContext
-  //     await model.initialize(mainscreenModel, mockBuildContext);
-  //     //Storing the first switchable org in mockOrgInfo
-  //     final OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
-
-  //     //Calling the switchOrg function
-  //     model.switchOrg(mockChangeOrgTo);
-
-  //     //expecting the selected org will be equal to the mockChangeOrgto returns true
-  //     expect(model.selectedOrg, mockChangeOrgTo);
-  //   });
   // });
-
-  // test('check if switchOrg is working with zero switchable orgs', () async {
-  //   print(userConfig.currentOrg);
-  // }
 }
