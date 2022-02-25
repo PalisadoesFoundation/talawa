@@ -61,7 +61,7 @@ class MultiMediaPickerService {
 
   Future<File?> cropImage({required File imageFile}) async {
     try {
-      final File? croppedImage = await ImageCropper.cropImage(
+      final File? croppedImage = await ImageCropper().cropImage(
         sourcePath: imageFile.path,
         aspectRatioPresets: [
           CropAspectRatioPreset.square,
