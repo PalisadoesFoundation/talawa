@@ -39,7 +39,7 @@ class ExploreEvents extends StatelessWidget {
               color: Theme.of(context).iconTheme.color,
               icon: const Icon(Icons.menu),
               onPressed: () =>
-                  homeModel!.scaffoldKey.currentState!.openDrawer(),
+                  MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
             ),
             actions: [
               Padding(

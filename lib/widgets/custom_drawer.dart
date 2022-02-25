@@ -119,8 +119,10 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                     ListTile(
+                      key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
                       onTap: () => navigationService.pushDialog(
                         CustomAlertDialog(
+                          key: const Key("Exit?"),
                           reverse: true,
                           dialogSubTitle:
                               'Are you sure you want to exit this organization?',
@@ -130,7 +132,6 @@ class CustomDrawer extends StatelessWidget {
                           },
                         ),
                       ),
-                      key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
                       leading: const Icon(Icons.logout, size: 30),
                       title: Text(
                         AppLocalizations.of(context)!
@@ -138,6 +139,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
+                      key: const Key("Sized Box Drawer"),
                       height: SizeConfig.screenHeight! * 0.05,
                     ),
                     const FromPalisadoes(key: Key("From Palisadoes"))
