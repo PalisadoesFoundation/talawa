@@ -39,6 +39,12 @@ final databaseFunctions = locator<DataBaseMutationFunctions>();
 final graphqlConfig = locator<GraphqlConfig>();
 final sizeConfig = locator<SizeConfig>();
 final queries = locator<Queries>();
+final appLanguageService = locator<AppLanguage>();
+final multimediaPickerService = locator<MultiMediaPickerService>();
+final organizationService = locator<OrganizationService>();
+final eventService = locator<EventService>();
+final commentsService = locator<CommentService>();
+final postService = locator<PostService>();
 
 void testSetupLocator() {
   //services
@@ -56,6 +62,7 @@ void testSetupLocator() {
   locator.registerLazySingleton(() => EventService());
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => MultiMediaPickerService());
+  locator.registerSingleton(() => OrganizationService());
 
   //graphql
   locator.registerSingleton(GraphqlConfig());

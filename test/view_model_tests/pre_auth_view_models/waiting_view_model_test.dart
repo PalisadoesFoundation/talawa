@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
@@ -90,6 +92,9 @@ void main() {
         expect(user.get('test'), null);
         expect(url.get('test'), null);
       });
+
+      File('test/fixtures/core/url.hive').delete();
+      File('test/fixtures/core/url.lock').delete();
     });
   });
 }
