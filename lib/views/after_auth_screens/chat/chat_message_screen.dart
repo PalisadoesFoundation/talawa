@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
+import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/chat_input_field.dart';
 import 'package:talawa/views/after_auth_screens/chat/widgets/chat_message_bubble.dart';
 
 class ChatMessageScreen extends StatelessWidget {
-  const ChatMessageScreen({Key? key, required this.chat}) : super(key: key);
+  const ChatMessageScreen({Key? key, required this.chatId, required this.model})
+      : super(key: key);
 
-  final ChatListTileDataModel chat;
+  final String chatId;
+  final DirectChatViewModel model;
 
   @override
   Widget build(BuildContext context) {
+    model.getChatMessages(chatId);
+    model.chatName(chatId);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -26,27 +34,33 @@ class ChatMessageScreen extends StatelessWidget {
               radius: SizeConfig.blockSizeVertical! * 2.3,
             ),
             SizedBox(width: SizeConfig.safeBlockHorizontal! * 3),
-            Text(chat.sender!.firstName!),
+            Text(model.name),
           ],
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.safeBlockHorizontal! * 3,
-              ),
-              child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (context, index) =>
-                    Message(message: chat.lastMessage!),
-              ),
+      body: (model.state == ViewState.idle)
+          ? Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.safeBlockHorizontal! * 3,
+                    ),
+                    child: ListView.builder(
+                      itemCount: model.chatMessagesByUser[chatId]!.length,
+                      itemBuilder: (context, index) {
+                        return Message(
+                            message: model.chatMessagesByUser[chatId]![index]);
+                      },
+                    ),
+                  ),
+                ),
+                const ChatInputField(),
+              ],
+            )
+          : const Center(
+              child: CircularProgressIndicator(),
             ),
-          ),
-          const ChatInputField(),
-        ],
-      ),
     );
   }
 }
