@@ -27,11 +27,18 @@ class Message extends StatelessWidget {
                   message.sender!.firstName == userConfig.currentUser.firstName
                       ? Colors.white
                       : Colors.green,
-              borderRadius: const BorderRadius.only(
-                bottomRight: Radius.circular(15),
-                topRight: Radius.circular(15),
-                bottomLeft: Radius.circular(15),
-              ),
+              borderRadius:
+                  message.sender!.firstName == userConfig.currentUser.firstName
+                      ? const BorderRadius.only(
+                          bottomRight: Radius.circular(15),
+                          topLeft: Radius.circular(15),
+                          bottomLeft: Radius.circular(15),
+                        )
+                      : const BorderRadius.only(
+                          bottomRight: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                          bottomLeft: Radius.circular(15),
+                        ),
             ),
             child: Text(
               message.messageContent!,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
-import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
@@ -12,12 +13,14 @@ class DirectChats extends StatelessWidget {
     return BaseView<DirectChatViewModel>(
       onModelReady: (model) => model.initialise(),
       builder: (context, model, child) {
-        model.printChats();
-        return AnimatedList(
-          key: model.listKey,
-          initialItemCount: model.chats.length,
-          itemBuilder: (context, index, animation) {
-            return ChatTile(chat: model.chats[index], animation: animation);
+        return ListView.builder(
+          // key: model.listKey,
+          itemCount: model.chats.length,
+          itemBuilder: (context, index) {
+            return ChatTile(
+              chat: model.chats[index],
+              model: model,
+            );
           },
         );
       },
@@ -26,23 +29,20 @@ class DirectChats extends StatelessWidget {
 }
 
 class ChatTile extends StatelessWidget {
-  const ChatTile({Key? key, required this.chat, required this.animation})
+  const ChatTile({Key? key, required this.chat, required this.model})
       : super(key: key);
 
-  final ChatMessage chat;
-  final Animation<double> animation;
+  final ChatListTileDataModel chat;
+  final DirectChatViewModel model;
   @override
   Widget build(BuildContext context) {
-    return SizeTransition(
-      axis: Axis.vertical,
-      sizeFactor: animation,
-      child: ListTile(
-        leading: const CircleAvatar(
-          radius: 25,
-        ),
-        title: Text(chat.sender!.firstName!),
-        subtitle: Text(chat.messageContent!),
+    return ListTile(
+      onTap: () => navigationService
+          .pushScreen(Routes.chatMessageScreen, arguments: [chat.id, model]),
+      leading: const CircleAvatar(
+        radius: 20,
       ),
+      title: Text(chat.users![0].firstName!),
     );
   }
 }

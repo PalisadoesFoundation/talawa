@@ -3,19 +3,28 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/chats/chat_message.dart';
+import 'package:talawa/models/chats/chat_user.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class DirectChatViewModel extends BaseModel {
   final ChatService _chatService = locator<ChatService>();
-  late StreamSubscription _chatSubscription;
+  late StreamSubscription<ChatListTileDataModel> _chatListSubscription;
+  late StreamSubscription<ChatMessage> _chatMessageSubscription;
 
   final listKey = GlobalKey<AnimatedListState>();
 
+  late String name;
+
   final Set<String> _uniqueChatIds = {};
-  List<ChatMessage> _chats = [];
-  List<ChatMessage> get chats => _chats;
+  final List<ChatListTileDataModel> _chats = [];
+  List<ChatListTileDataModel> get chats => _chats;
+
+  final Map<String, List<ChatMessage>> _chatMessagesByUser = {};
+
+  Map<String, List<ChatMessage>> get chatMessagesByUser => _chatMessagesByUser;
 
   void refreshChats() {
     _chats.clear();
@@ -26,7 +35,7 @@ class DirectChatViewModel extends BaseModel {
 
   void printChats() {
     _chats.forEach((chat) {
-      print(chat.id);
+      print(chat.users![0].firstName);
     });
   }
 
@@ -34,20 +43,40 @@ class DirectChatViewModel extends BaseModel {
     setState(ViewState.busy);
     await _chatService.getDirectChatsByUserId();
 
-    _chatSubscription = _chatService.chatStream.listen((newChat) {
-      _uniqueChatIds.add(newChat.id);
+    _chatListSubscription = _chatService.chatListStream.listen((newChat) {
+      _uniqueChatIds.add(newChat.id!);
       _chats.insert(0, newChat);
     });
     setState(ViewState.idle);
   }
 
-  Future<void> getDirectChatList() async {
-    await _chatService.getDirectChatsByUserId();
+  Future<void> getChatMessages(String chatId) async {
+    setState(ViewState.busy);
+    await _chatService.getDirectChatsByChatId(chatId);
+    final List<ChatMessage> _messages = [];
+    _chatMessageSubscription =
+        _chatService.chatMessagesStream.listen((newMessage) {
+      _messages.add(newMessage);
+      _chatMessagesByUser[chatId] = _messages;
+    });
+    setState(ViewState.idle);
   }
 
   @override
   void dispose() {
-    _chatSubscription.cancel();
+    _chatMessageSubscription.cancel();
+    _chatListSubscription.cancel();
     super.dispose();
+  }
+
+  void chatName(chatId) {
+    final List<ChatUser> users =
+        _chats.firstWhere((element) => element.id == chatId).users!;
+
+    users.forEach((element) {
+      if (element.id != userConfig.currentUser.id!) {
+        name = element.firstName!;
+      }
+    });
   }
 }

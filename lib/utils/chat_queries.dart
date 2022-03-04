@@ -2,9 +2,24 @@ class ChatQueries {
   String fetchDirectChatsByUserId(String userId) {
     return '''
       query {
-        directChatsByUserID(id: "$userId") {
-          messages {
+      directChatsByUserID(id: "$userId") {
+        _id
+        users{
+          _id
+          firstName
+          email
+        }
+      }
+    }
+   ''';
+  }
+
+  String fetchDirectChatMessagesByChatId(String chatId) {
+    return '''
+        query {
+          directChatsMessagesByChatID(id: "$chatId") {
             _id
+            messageContent
             sender {
               _id
               firstName
@@ -14,22 +29,6 @@ class ChatQueries {
               _id
               firstName
               image
-            }
-            messageContent
-          }
-        }
-      }
-   ''';
-  }
-
-  String fetchDirectChatMessagesByChatId(String chatId) {
-    return '''
-        query {
-          directChatsMessagesByChatID(id: $chatId) {
-            messageContent
-            sender {
-              _id
-              firstName
             }
           }
         }
