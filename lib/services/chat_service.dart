@@ -26,7 +26,6 @@ class ChatService {
       StreamController<ChatMessage>();
 
   Stream<ChatListTileDataModel> get chatListStream => _chatListStream;
-
   Stream<ChatMessage> get chatMessagesStream => _chatMessagesStream;
 
   Future<void> getDirectChatsByUserId() async {

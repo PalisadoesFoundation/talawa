@@ -16,6 +16,8 @@ class DirectChatViewModel extends BaseModel {
 
   final listKey = GlobalKey<AnimatedListState>();
 
+  ChatState chatState = ChatState.initial;
+
   late String name;
 
   final Set<String> _uniqueChatIds = {};
@@ -41,17 +43,20 @@ class DirectChatViewModel extends BaseModel {
 
   Future<void> initialise() async {
     setState(ViewState.busy);
+    chatState = ChatState.loading;
     await _chatService.getDirectChatsByUserId();
 
     _chatListSubscription = _chatService.chatListStream.listen((newChat) {
       _uniqueChatIds.add(newChat.id!);
       _chats.insert(0, newChat);
     });
+    chatState = ChatState.complete;
     setState(ViewState.idle);
   }
 
   Future<void> getChatMessages(String chatId) async {
-    setState(ViewState.busy);
+    _chatMessagesByUser.clear();
+    chatState = ChatState.loading;
     await _chatService.getDirectChatsByChatId(chatId);
     final List<ChatMessage> _messages = [];
     _chatMessageSubscription =
@@ -59,7 +64,8 @@ class DirectChatViewModel extends BaseModel {
       _messages.add(newMessage);
       _chatMessagesByUser[chatId] = _messages;
     });
-    setState(ViewState.idle);
+    chatState = ChatState.complete;
+    notifyListeners();
   }
 
   @override
