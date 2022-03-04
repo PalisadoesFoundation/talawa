@@ -48,10 +48,8 @@ jobs:
         run: flutter pub get
       - name: Codebase testing
         run: flutter test --coverage
-      - uses: codecov/codecov-action@v2
-        with:
-          token: ${{secrets.CODECOV}} 
-          file: ./coverage/lcov.info 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2.1.0     
 
   Android-Build:
     name: Testing build for android

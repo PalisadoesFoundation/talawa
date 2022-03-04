@@ -363,10 +363,8 @@ class ProfilePage extends StatelessWidget {
                           height: SizeConfig.screenWidth! * 0.05,
                         ),
                         ElevatedButton(
-                          onPressed: model.donationAmount.text.isEmpty
-                              ? () => model
-                                  .showSnackBar('Select or enter an amount')
-                              : model.initiateDonation,
+                          onPressed: () =>
+                              model.showSnackBar('Donation not supported yet'),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                               model.donationAmount.text.isEmpty
