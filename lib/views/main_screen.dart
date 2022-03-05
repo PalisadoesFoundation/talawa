@@ -24,8 +24,9 @@ class MainScreen extends StatelessWidget {
       ),
       builder: (context, model, child) {
         return Scaffold(
-          key: model.scaffoldKey,
-          drawer: CustomDrawer(homeModel: model),
+          key: MainScreenViewModel.scaffoldKey,
+          drawer:
+              CustomDrawer(homeModel: model, key: const Key("Custom Drawer")),
           body: IndexedStack(
             index: model.currentIndex,
             children: [
@@ -36,7 +37,7 @@ class MainScreen extends StatelessWidget {
               ),
               AddPost(
                 key: const Key('AddPost'),
-                drawerKey: model.scaffoldKey,
+                drawerKey: MainScreenViewModel.scaffoldKey,
               ),
               const ChatPage(),
               ProfilePage(key: model.keySPEditProfile, homeModel: model),
