@@ -101,17 +101,16 @@ class DataBaseMutationFunctions {
     }
   }
 
-  Future<dynamic> gqlAuthQuery(String query,
-      {Map<String, dynamic>? variables}) async {
+  Future<dynamic> gqlAuthQuery(String query) async {
     final QueryOptions options = QueryOptions(
       document: gql(query),
-      variables: variables ?? <String, dynamic>{},
+      variables: <String, dynamic>{},
     );
     final QueryResult result = await clientAuth.query(options);
     if (result.hasException) {
       final bool? exception = encounteredExceptionOrError(result.exception!);
       if (exception!) {
-        gqlAuthQuery(query, variables: variables);
+        gqlAuthQuery(query);
       }
     } else if (result.data != null && result.isConcrete) {
       return result;
