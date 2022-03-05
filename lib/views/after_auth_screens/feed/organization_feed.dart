@@ -37,7 +37,7 @@ class OrganizationFeed extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               onPressed: () =>
-                  homeModel!.scaffoldKey.currentState!.openDrawer(),
+                  MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
             ),
           ),
           body: model.isBusy
