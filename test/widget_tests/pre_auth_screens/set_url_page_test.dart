@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 // import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -365,6 +366,21 @@ Future<void> main() async {
       );
 
       expect((tester.firstWidget(iconButton) as Icon).size, 30);
+    });
+    testWidgets("Check if QR button works", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
+
+      final iconButton = find.byIcon(Icons.qr_code_scanner);
+      print('ICON BUTTON: $iconButton');
+
+      // tapping the qr button
+      await tester.tap(iconButton);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ClipRRect), findsOneWidget);
+      expect(find.byType(QRView), findsOneWidget);
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
