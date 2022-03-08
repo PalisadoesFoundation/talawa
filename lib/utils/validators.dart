@@ -73,7 +73,7 @@ class Validator {
     final RegExp noSpaceRegex = RegExp(noSpaces);
 
     if (!regExp.hasMatch(password)) {
-      return "Invalid Password";
+      return "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)";
     }
     if (!noSpaceRegex.hasMatch(password)) {
       return "Password must not contain spaces";
@@ -92,7 +92,7 @@ class Validator {
     return null;
   }
 
-  static Future<bool?> validateUrlExistence(String url) async {
+  Future<bool?> validateUrlExistence(String url) async {
     try {
       await http.get(Uri.parse(url));
       return true;

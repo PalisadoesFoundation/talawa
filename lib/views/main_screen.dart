@@ -17,113 +17,123 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<MainScreenViewModel>(
-        onModelReady: (model) => model.initialise(context,
-            fromSignUp: mainScreenArgs.fromSignUp,
-            mainScreenIndex: mainScreenArgs.mainScreenIndex),
-        builder: (context, model, child) {
-          return Scaffold(
-            key: model.scaffoldKey,
-            drawer: CustomDrawer(homeModel: model),
-            body: IndexedStack(
-              index: model.currentIndex,
-              children: [
-                OrganizationFeed(key: const Key("HomeView"), homeModel: model),
-                ExploreEvents(
-                    key: const Key('ExploreEvents'), homeModel: model),
-                AddPost(
-                    key: const Key('AddPost'), drawerKey: model.scaffoldKey),
-                const ChatPage(),
-                ProfilePage(key: model.keySPEditProfile, homeModel: model),
-              ],
-            ),
-            bottomNavigationBar: Stack(
-              children: [
-                SizedBox(
-                  height: 50,
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Center(
+      onModelReady: (model) => model.initialise(
+        context,
+        fromSignUp: mainScreenArgs.fromSignUp,
+        mainScreenIndex: mainScreenArgs.mainScreenIndex,
+      ),
+      builder: (context, model, child) {
+        return Scaffold(
+          key: MainScreenViewModel.scaffoldKey,
+          drawer:
+              CustomDrawer(homeModel: model, key: const Key("Custom Drawer")),
+          body: IndexedStack(
+            index: model.currentIndex,
+            children: [
+              OrganizationFeed(key: const Key("HomeView"), homeModel: model),
+              ExploreEvents(
+                key: const Key('ExploreEvents'),
+                homeModel: model,
+              ),
+              AddPost(
+                key: const Key('AddPost'),
+                drawerKey: MainScreenViewModel.scaffoldKey,
+              ),
+              const ChatPage(),
+              ProfilePage(key: model.keySPEditProfile, homeModel: model),
+            ],
+          ),
+          bottomNavigationBar: Stack(
+            children: [
+              SizedBox(
+                height: 50,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Center(
                         child: SizedBox(
                           key: model.keyBNHome,
                           height: 40,
                           width: 40,
                         ),
-                      )),
-                      Expanded(
-                          child: Center(
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
                         child: SizedBox(
                           key: model.keyBNEvents,
                           height: 40,
                           width: 40,
                         ),
-                      )),
-                      Expanded(
-                        child: Center(
-                          child: SizedBox(
-                            key: model.keyBNPost,
-                            height: 40,
-                            width: 40,
-                          ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: SizedBox(
+                          key: model.keyBNPost,
+                          height: 40,
+                          width: 40,
                         ),
                       ),
-                      Expanded(
-                        child: Center(
-                          child: SizedBox(
-                            key: model.keyBNChat,
-                            height: 40,
-                            width: 40,
-                          ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: SizedBox(
+                          key: model.keyBNChat,
+                          height: 40,
+                          width: 40,
                         ),
                       ),
-                      Expanded(
-                        child: Center(
-                          child: SizedBox(
-                            key: model.keyBNProfile,
-                            height: 40,
-                            width: 40,
-                          ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: SizedBox(
+                          key: model.keyBNProfile,
+                          height: 40,
+                          width: 40,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  currentIndex: model.currentIndex,
-                  onTap: model.onTabTapped,
-                  selectedItemColor: const Color(0xff34AD64),
-                  items: [
-                    BottomNavigationBarItem(
-                      icon: const Icon(Icons.home),
-                      label:
-                          AppLocalizations.of(context)!.strictTranslate('Home'),
                     ),
-                    BottomNavigationBarItem(
-                      icon: const Icon(Icons.event_note),
-                      label: AppLocalizations.of(context)!
-                          .strictTranslate('Events'),
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const Icon(Icons.add_box),
-                      label:
-                          AppLocalizations.of(context)!.strictTranslate('Post'),
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const Icon(Icons.chat_bubble_outline),
-                      label:
-                          AppLocalizations.of(context)!.strictTranslate('Chat'),
-                    ),
-                    BottomNavigationBarItem(
-                      icon: const Icon(Icons.account_circle),
-                      label: AppLocalizations.of(context)!
-                          .strictTranslate('Profile'),
-                    )
                   ],
                 ),
-              ],
-            ),
-          );
-        });
+              ),
+              BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                currentIndex: model.currentIndex,
+                onTap: model.onTabTapped,
+                selectedItemColor: const Color(0xff34AD64),
+                items: [
+                  BottomNavigationBarItem(
+                    icon: const Icon(Icons.home),
+                    label:
+                        AppLocalizations.of(context)!.strictTranslate('Home'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const Icon(Icons.event_note),
+                    label:
+                        AppLocalizations.of(context)!.strictTranslate('Events'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const Icon(Icons.add_box),
+                    label:
+                        AppLocalizations.of(context)!.strictTranslate('Post'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const Icon(Icons.chat_bubble_outline),
+                    label:
+                        AppLocalizations.of(context)!.strictTranslate('Chat'),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: const Icon(Icons.account_circle),
+                    label: AppLocalizations.of(context)!
+                        .strictTranslate('Profile'),
+                  )
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

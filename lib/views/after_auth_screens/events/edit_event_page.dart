@@ -30,10 +30,11 @@ class _EditEventPageState extends State<EditEventPage> {
             elevation: 1,
             centerTitle: true,
             leading: GestureDetector(
-                onTap: () {
-                  navigationService.pop();
-                },
-                child: const Icon(Icons.close)),
+              onTap: () {
+                navigationService.pop();
+              },
+              child: const Icon(Icons.close),
+            ),
             title: Text(
               'Edit Event',
               style: Theme.of(context).textTheme.headline6!.copyWith(
@@ -43,15 +44,17 @@ class _EditEventPageState extends State<EditEventPage> {
             ),
             actions: [
               TextButton(
-                  onPressed: () {
-                    model.updateEvent();
-                  },
-                  child: Text(
-                    'Done',
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                onPressed: () {
+                  model.updateEvent();
+                },
+                child: Text(
+                  'Done',
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         fontSize: 16,
-                        color: Theme.of(context).colorScheme.secondary),
-                  )),
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                ),
+              ),
             ],
           ),
           body: SingleChildScrollView(
@@ -87,23 +90,26 @@ class _EditEventPageState extends State<EditEventPage> {
                     height: SizeConfig.screenHeight! * 0.013,
                   ),
                   DateTimeTile(
-                      date: "${model.eventStartDate.toLocal()}".split(' ')[0],
-                      time: model.eventStartTime.format(context),
-                      setDate: () async {
-                        final _date = await customDatePicker(
-                            initialDate: model.eventStartDate);
-                        setState(() {
-                          model.eventStartDate = _date;
-                        });
-                      },
-                      setTime: () async {
-                        final _time = await customTimePicker(
-                            initialTime: model.eventStartTime);
+                    date: "${model.eventStartDate.toLocal()}".split(' ')[0],
+                    time: model.eventStartTime.format(context),
+                    setDate: () async {
+                      final _date = await customDatePicker(
+                        initialDate: model.eventStartDate,
+                      );
+                      setState(() {
+                        model.eventStartDate = _date;
+                      });
+                    },
+                    setTime: () async {
+                      final _time = await customTimePicker(
+                        initialTime: model.eventStartTime,
+                      );
 
-                        setState(() {
-                          model.eventStartTime = _time;
-                        });
-                      }),
+                      setState(() {
+                        model.eventStartTime = _time;
+                      });
+                    },
+                  ),
                   SizedBox(
                     height: SizeConfig.screenHeight! * 0.026,
                   ),
@@ -122,14 +128,16 @@ class _EditEventPageState extends State<EditEventPage> {
                     time: model.eventEndTime.format(context),
                     setDate: () async {
                       final _date = await customDatePicker(
-                          initialDate: model.eventEndDate);
+                        initialDate: model.eventEndDate,
+                      );
                       setState(() {
                         model.eventEndDate = _date;
                       });
                     },
                     setTime: () async {
                       final _time = await customTimePicker(
-                          initialTime: model.eventEndTime);
+                        initialTime: model.eventEndTime,
+                      );
 
                       setState(() {
                         model.eventEndTime = _time;

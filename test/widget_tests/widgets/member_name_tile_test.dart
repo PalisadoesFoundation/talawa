@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/member_name_tile.dart';
@@ -13,9 +14,10 @@ void onDelete() {
 Widget createMemberNameTile({String? userImage}) {
   return MaterialApp(
     theme: TalawaTheme.darkTheme,
-    home: const Material(
+    home: Material(
       child: MemberNameTile(
         userName: 'ravidev',
+        userImage: userImage,
         onDelete: onDelete,
       ),
     ),
@@ -44,7 +46,7 @@ void main() {
         (container as Container).decoration,
         BoxDecoration(
           borderRadius: BorderRadius.circular(SizeConfig.screenHeight! * 0.02),
-          color: TalawaTheme.darkTheme.colorScheme.primaryVariant,
+          color: TalawaTheme.darkTheme.colorScheme.primaryContainer,
         ),
       );
     });
@@ -73,17 +75,60 @@ void main() {
 
       expect(circleAvatarFinder, findsOneWidget);
 
-      expect((circleAvatar as CircleAvatar).radius,
-          SizeConfig.screenHeight! * 0.0201);
-      expect(circleAvatar.backgroundColor,
-          TalawaTheme.darkTheme.colorScheme.secondary);
       expect(
-          circleAvatar.child,
-          isA<Text>()
-            ..having((text) => text.style, 'Checking text style',
-                const TextStyle(color: Colors.white)));
+        (circleAvatar as CircleAvatar).radius,
+        SizeConfig.screenHeight! * 0.0201,
+      );
+      expect(
+        circleAvatar.backgroundColor,
+        TalawaTheme.darkTheme.colorScheme.secondary,
+      );
+      expect(
+        circleAvatar.child,
+        isA<Text>()
+          ..having(
+            (text) => text.style,
+            'Checking text style',
+            const TextStyle(color: Colors.white),
+          ),
+      );
 
       expect(find.textContaining('R'), findsOneWidget);
+    });
+
+    testWidgets('Checking for CircleAvatar (with image)', (tester) async {
+      const String userImage = 'https://www.example.org/non-existent.png';
+
+      // Mock NetworkImages for CircularAvatar
+      await mockNetworkImagesFor(
+        () => tester.pumpWidget(
+          createMemberNameTile(userImage: userImage),
+        ),
+      );
+
+      final circleAvatarFinder = find.byType(CircleAvatar);
+      final circleAvatar = tester.firstWidget(circleAvatarFinder);
+
+      expect(circleAvatarFinder, findsOneWidget);
+
+      expect(
+        (circleAvatar as CircleAvatar).radius,
+        SizeConfig.screenHeight! * 0.0201,
+      );
+      expect(
+        circleAvatar.backgroundImage,
+        const NetworkImage(userImage),
+      );
+      expect(
+        circleAvatar.backgroundColor,
+        null,
+      );
+      expect(
+        circleAvatar.child,
+        null,
+      );
+
+      expect(find.textContaining('R'), findsNWidgets(0));
     });
 
     testWidgets('Checking for the cancel button', (tester) async {
@@ -96,10 +141,11 @@ void main() {
 
       expect((iconButton as IconButton).padding, EdgeInsets.zero);
       expect(
-          iconButton.icon,
-          isA<Icon>()
-            ..having((icon) => icon.color, 'color', const Color(0xff524F4F))
-            ..having((icon) => icon.size, 'size', 19));
+        iconButton.icon,
+        isA<Icon>()
+          ..having((icon) => icon.color, 'color', const Color(0xff524F4F))
+          ..having((icon) => icon.size, 'size', 19),
+      );
 
       expect(isDeleted, false);
       await tester.tap(iconButtonFinder);

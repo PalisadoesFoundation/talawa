@@ -21,44 +21,50 @@ class _EventInfoPageState extends State<EventInfoPage> {
   @override
   Widget build(BuildContext context) {
     return BaseView<EventInfoViewModel>(
-        onModelReady: (model) => model.initialize(args: widget.args),
-        builder: (context, model, child) {
-          return Scaffold(
-            body: CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  title: Text(AppLocalizations.of(context)!
-                      .strictTranslate('Event Details')),
-                  pinned: true,
-                  expandedHeight: SizeConfig.screenWidth,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Image.network(
-                      'https://picsum.photos/id/26/200/300',
-                      fit: BoxFit.fill,
-                    ),
+      onModelReady: (model) => model.initialize(args: widget.args),
+      builder: (context, model, child) {
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                title: Text(
+                  AppLocalizations.of(context)!
+                      .strictTranslate('Event Details'),
+                ),
+                pinned: true,
+                expandedHeight: SizeConfig.screenWidth,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Image.network(
+                    'https://picsum.photos/id/26/200/300',
+                    fit: BoxFit.fill,
                   ),
                 ),
-                _eventInfoBody(model.event)
-              ],
-            ),
-            floatingActionButton: model.event.creator!.id !=
-                    userConfig.currentUser.id
-                ? FloatingActionButton.extended(
-                    onPressed: () {
-                      model.registerForEvent();
-                    },
-                    label: Text(
-                      model.fabTitle,
-                      style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          color: Theme.of(context).colorScheme.secondary),
-                    ))
-                : eventAdminFab(
-                    context: context,
-                    event: model.event,
-                    exploreEventsViewModel: widget.args["exploreEventViewModel"]
-                        as ExploreEventsViewModel),
-          );
-        });
+              ),
+              _eventInfoBody(model.event)
+            ],
+          ),
+          floatingActionButton: model.event.creator!.id !=
+                  userConfig.currentUser.id
+              ? FloatingActionButton.extended(
+                  onPressed: () {
+                    model.registerForEvent();
+                  },
+                  label: Text(
+                    model.fabTitle,
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                  ),
+                )
+              : eventAdminFab(
+                  context: context,
+                  event: model.event,
+                  exploreEventsViewModel: widget.args["exploreEventViewModel"]
+                      as ExploreEventsViewModel,
+                ),
+        );
+      },
+    );
   }
 
   Widget _eventInfoBody(Event event) {
@@ -202,11 +208,12 @@ class _EventInfoPageState extends State<EventInfoPage> {
               thickness: 2,
             ),
             CustomListTile(
-                index: 0,
-                key: const Key('Admins'),
-                type: TileType.user,
-                userInfo: userConfig.currentUser,
-                onTapUserInfo: () {}),
+              index: 0,
+              key: const Key('Admins'),
+              type: TileType.user,
+              userInfo: userConfig.currentUser,
+              onTapUserInfo: () {},
+            ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
             ),
@@ -236,19 +243,22 @@ class _EventInfoPageState extends State<EventInfoPage> {
 
             //  Needs to be replaced with event attendees
             ListView.builder(
-                padding: EdgeInsets.zero,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int index) {
-                  return CustomListTile(
-                      key: Key(
-                          '${AppLocalizations.of(context)!.strictTranslate("Attendee")}$index'),
-                      index: index,
-                      type: TileType.user,
-                      userInfo: userConfig.currentUser,
-                      onTapUserInfo: () {});
-                })
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) {
+                return CustomListTile(
+                  key: Key(
+                    '${AppLocalizations.of(context)!.strictTranslate("Attendee")}$index',
+                  ),
+                  index: index,
+                  type: TileType.user,
+                  userInfo: userConfig.currentUser,
+                  onTapUserInfo: () {},
+                );
+              },
+            )
           ],
         ),
       ),

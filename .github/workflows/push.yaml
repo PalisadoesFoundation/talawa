@@ -29,10 +29,6 @@ jobs:
         run: flutter pub get
       - name: Checking for correct formatting of code
         run: flutter format --set-exit-if-changed .
-      - name: Count lines of code in each file
-        run: chmod +x ./.github/workflows/countline.py
-      - name: Running count lines
-        run: ./.github/workflows/countline.py --exclude lib/custom_painters/talawa_logo.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart test/helpers/test_helpers.mocks.dart test/widget_tests/pre_auth_screens/set_url_page_test.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
 
@@ -52,10 +48,8 @@ jobs:
         run: flutter pub get
       - name: Codebase testing
         run: flutter test --coverage
-      - uses: codecov/codecov-action@v2
-        with:
-          token: ${{secrets.CODECOV}} 
-          file: ./coverage/lcov.info 
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2.1.0     
 
   Android-Build:
     name: Testing build for android

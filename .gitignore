@@ -15,7 +15,7 @@ docs/_build/
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
-#.vscode/
+.vscode/
 
 ###############################################################################
 # Generic JetBrains Exclusions (Provided by GitHub)
@@ -231,5 +231,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Hive database files
+test/fixtures/core
+
 # End of https://www.gitignore.io/api/python
-pubspec.lock
