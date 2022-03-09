@@ -7,7 +7,9 @@ import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
+import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
@@ -155,6 +157,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => const AppSettingsPage(key: Key('AppSettings')),
       );
 
+    case Routes.chatMessageScreen:
+      final List<dynamic> arguments = settings.arguments! as List<dynamic>;
+      final String chatId = arguments[0] as String;
+      final DirectChatViewModel model = arguments[1] as DirectChatViewModel;
+      return MaterialPageRoute(
+        builder: (context) => ChatMessageScreen(
+          key: const Key('ChatMessageScreen'),
+          chatId: chatId,
+          model: model,
+        ),
+      );
     default:
       return MaterialPageRoute(
         builder: (context) => const DemoPageView(
