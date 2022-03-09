@@ -9,20 +9,16 @@ part of 'chat_list_tile_data_model.dart';
 ChatListTileDataModel _$ChatListTileDataModelFromJson(
     Map<String, dynamic> json) {
   return ChatListTileDataModel(
-    json['sender'] == null
-        ? null
-        : ChatUser.fromJson(json['sender'] as Map<String, dynamic>),
-    json['lastMessage'] == null
-        ? null
-        : ChatMessage.fromJson(json['lastMessage'] as Map<String, dynamic>),
-    json['unreadCount'] as int?,
+    (json['users'] as List<dynamic>?)
+        ?.map((e) => ChatUser.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    json['_id'] as String?,
   );
 }
 
 Map<String, dynamic> _$ChatListTileDataModelToJson(
         ChatListTileDataModel instance) =>
     <String, dynamic>{
-      'sender': instance.sender,
-      'lastMessage': instance.lastMessage,
-      'unreadCount': instance.unreadCount,
+      'users': instance.users,
+      '_id': instance.id,
     };
