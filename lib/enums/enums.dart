@@ -4,6 +4,8 @@ enum ViewState {
   busy,
 }
 
+enum ChatState { initial, loading, complete }
+
 enum TileType { user, org, option }
 
 enum CallFor { login, signup, joinPublicOrg }
