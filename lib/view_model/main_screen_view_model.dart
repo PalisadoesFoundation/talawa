@@ -6,7 +6,8 @@ import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class MainScreenViewModel extends BaseModel {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  static final GlobalKey<ScaffoldState> scaffoldKey =
+      GlobalKey<ScaffoldState>();
   final GlobalKey keyBNHome = GlobalKey(debugLabel: "HomeTab");
   final GlobalKey keySHPinnedPost =
       GlobalKey(debugLabel: "HomeScreenPinnedPost");
@@ -14,11 +15,13 @@ class MainScreenViewModel extends BaseModel {
   final GlobalKey keySHOrgName = GlobalKey(debugLabel: "HomeScreenOrgName");
   final GlobalKey keySHMenuIcon = GlobalKey(debugLabel: "HomeScreenMenuIcon");
 
-  final GlobalKey keyDrawerCurOrg = GlobalKey(debugLabel: "DrawerCurrentOrg");
-  final GlobalKey keyDrawerSwitchableOrg =
+  static final GlobalKey keyDrawerCurOrg =
+      GlobalKey(debugLabel: "DrawerCurrentOrg");
+  static final GlobalKey keyDrawerSwitchableOrg =
       GlobalKey(debugLabel: "DrawerSwitchableOrg");
-  final GlobalKey keyDrawerJoinOrg = GlobalKey(debugLabel: "DrawerJoinOrg");
-  final GlobalKey keyDrawerLeaveCurrentOrg =
+  static final GlobalKey keyDrawerJoinOrg =
+      GlobalKey(debugLabel: "DrawerJoinOrg");
+  static final GlobalKey keyDrawerLeaveCurrentOrg =
       GlobalKey(debugLabel: "DrawerLeaveCurrentOr");
 
   final GlobalKey keyBNEvents = GlobalKey(debugLabel: "EventTab");
