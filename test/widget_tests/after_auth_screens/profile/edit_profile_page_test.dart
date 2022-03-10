@@ -28,14 +28,6 @@ class MockCallbackFunction extends Mock {
   call();
 }
 
-const String kTemporaryPath = 'temporaryPath';
-const String kApplicationSupportPath = 'applicationSupportPath';
-const String kDownloadsPath = 'downloadsPath';
-const String kLibraryPath = 'libraryPath';
-const String kApplicationDocumentsPath = 'applicationDocumentsPath';
-const String kExternalCachePath = 'externalCachePath';
-const String kExternalStoragePath = 'externalStoragePath';
-
 Widget createChangePassScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
     BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
