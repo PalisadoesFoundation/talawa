@@ -58,8 +58,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator: ^1.1.0
-  json_serializable: ^4.1.3
   lint: ^1.6.0
+  mocktail_image_network: ^0.3.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
