@@ -297,6 +297,21 @@ Future<void> main() async {
         'Login',
       );
     });
+
+    testWidgets("Check navigation to Login page when Login button is pressed.",
+        (tester) async {
+      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pump();
+      expect(find.byKey(const Key('SetUrlScreenScaffold')), findsOneWidget);
+
+      await tester.enterText(
+        find.byKey(const Key('UrlInputField')),
+        'https://talawa-graphql-api.herokuapp.com/graphql',
+      );
+      await tester.tap(find.byKey(const Key('LoginButton')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('UrlPageText')), findsOneWidget);
+    });
     testWidgets("Testing if signup button works", (tester) async {
       //pushing setUrlScreen
       await tester.pumpWidget(createSetUrlScreenLight());
