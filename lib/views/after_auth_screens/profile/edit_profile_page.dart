@@ -18,11 +18,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
         return Scaffold(
+          key: const Key('EditProfileScreenScaffold'),
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
             elevation: 0.0,
             title: Text(
               AppLocalizations.of(context)!.strictTranslate('Profile'),
+              key: const Key('ProfileText'),
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -48,11 +50,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             )
                           : model.user.image != null
                               ? CircleAvatar(
+                                  key: const Key('UserImageInDb'),
                                   radius: SizeConfig.screenHeight! * 0.082,
                                   backgroundImage:
                                       NetworkImage(model.user.image!),
                                 )
                               : CircleAvatar(
+                                  key: const Key('UserImageNotInDb'),
                                   radius: SizeConfig.screenHeight! * 0.082,
                                   backgroundColor: Colors.grey.withOpacity(0.2),
                                   child: Text(
@@ -72,6 +76,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         bottom: 0,
                         right: 0,
                         child: InkWell(
+                          key: const Key('AddRemoveImageButton'),
                           onTap: () {
                             model.imageFile == null
                                 ? model.getImageFromGallery()
