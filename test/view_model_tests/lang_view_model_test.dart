@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
+
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
@@ -54,7 +55,7 @@ void main() {
       // test changeLanguage function with different languages
       await model.changeLanguage(const Locale('es'));
       Locale changedLocale = model.appLocal;
-      expect(changedLocale, const Locale('es'));
+      expect(model.appLocal, const Locale('es'));
 
       await model.changeLanguage(const Locale('fr'));
       changedLocale = model.appLocal;
