@@ -32,4 +32,4 @@ Core features include:
  - The talawa documentation can be found [here](https://palisadoesfoundation.github.io/talawa-docs/).
  - Want to contribute? Look at [CONTRIBUTING.md](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md) to get started.
  - Visit the [Talawa GitHub](https://github.com/PalisadoesFoundation/talawa) to see the code.
- - Run on local machine: Installation guide can be found [here]()
+ - Run on local machine: Installation guide can be found [here](https://github.com/PalisadoesFoundation/talawa/blob/develop/INSTALLATION.md)
