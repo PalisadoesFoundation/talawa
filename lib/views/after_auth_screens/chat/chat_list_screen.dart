@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/views/after_auth_screens/chat/direct_chats.dart';
 import 'package:talawa/views/after_auth_screens/chat/event_chats.dart';
+import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -37,6 +38,13 @@ class ChatPage extends StatelessWidget {
             DirectChats(),
             EventChats(),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SelectContact()));
+          },
+          child: const Icon(Icons.add),
         ),
       ),
     );
