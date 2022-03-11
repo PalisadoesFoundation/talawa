@@ -53,7 +53,7 @@ class MultiMediaPickerService {
         );
       }
       print(
-        "MulitMediaPickerService : Exception occured while choosing photo from the gallery $e",
+        "MultiMediaPickerService : Exception occurred while choosing photo from the gallery $e",
       );
     }
     return null;
@@ -84,7 +84,8 @@ class MultiMediaPickerService {
         return File(croppedImage.path);
       }
     } catch (e) {
-      print("MulitMediaPickerService : Exception occured while cropping Image");
+      print(
+          "MultiMediaPickerService : Exception occurred while cropping Image");
     }
     return null;
   }
