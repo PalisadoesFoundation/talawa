@@ -1013,8 +1013,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.8"
-<<<<<<< HEAD
-=======
   test_core:
     dependency: transitive
     description:
@@ -1022,7 +1020,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
->>>>>>> 7dfed794263b9922ddc48f62491481d8d0eb4237
   timelines:
     dependency: "direct main"
     description:

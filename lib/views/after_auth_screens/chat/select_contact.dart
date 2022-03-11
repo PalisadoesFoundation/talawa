@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
-import 'package:talawa/models/chats/chat_user.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
-import 'package:talawa/views/after_auth_screens/add_post_page.dart';
-import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/base_view.dart';
 
 class SelectContact extends StatefulWidget {
@@ -23,7 +19,7 @@ class _SelectContactState extends State<SelectContact> {
           backgroundColor: Colors.black,
           centerTitle: true,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               navigationService.pop();
             },
