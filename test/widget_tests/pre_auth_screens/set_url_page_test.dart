@@ -127,6 +127,10 @@ Future<void> main() async {
       );
 
       expect((tester.firstWidget(iconButton) as Icon).size, 30);
+      print("Before Tap");
+      await tester.tap(iconButton);
+      print("After Tap");
+      await tester.pumpAndSettle();
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
@@ -504,6 +508,10 @@ Future<void> main() async {
       await tester.pumpAndSettle();
       //testing that the scaffold is no more visible
       expect(screenScaffoldWidget, findsNothing);
+      print("Before Tap");
+      await tester.tap(changeLanguageWidget);
+      print("After Tap");
+      await tester.pumpAndSettle();
     });
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
@@ -532,6 +540,10 @@ Future<void> main() async {
             .buttonLabel,
         'Login',
       );
+      print("Before Tap");
+      await tester.tap(loginButtonWidget);
+      print("After Tap");
+      await tester.pumpAndSettle();
     });
     testWidgets("Testing if signup button works", (tester) async {
       //pushing setUrlScreen
@@ -560,6 +572,10 @@ Future<void> main() async {
             .buttonLabel,
         'Sign Up',
       );
+      print("Before Tap");
+      await tester.tap(signupButtonWidget);
+      print("After Tap");
+      await tester.pumpAndSettle();
     });
   });
 }
