@@ -18,17 +18,30 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
+/// This is the main entry point of the application which starts the execution
+/// as soon as the dart vm gets initialised on the operating system
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// Getting application storage directory to save local data like authorisation
+  /// tokens, user information, user application preferences etc.
   final Directory dir = await path.getApplicationDocumentsDirectory();
+
+  /// Initialising the hive database and the TypeAdapters
   Hive
     ..init(dir.path)
     ..registerAdapter(UserAdapter())
     ..registerAdapter(OrgInfoAdapter());
+
+  /// Opening all the hive boxes
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
   await Hive.openBox('url');
+
+  /// Initialising the service locator
   setupLocator();
+
+  /// Launching the application
   runApp(MyApp());
 }
 
