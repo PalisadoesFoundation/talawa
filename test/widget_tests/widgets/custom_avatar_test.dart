@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:shimmer/shimmer.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 
@@ -34,9 +33,16 @@ void main() {
       await tester.pumpWidget(createCustomAvatar(isImageNull: false));
       await tester.pump();
 
+      // Test numbers of generic widgets created
       expect(find.byType(CachedNetworkImage), findsOneWidget);
-      // placeholder
       expect(find.byType(CircleAvatar), findsNWidgets(2));
+
+      // Test CircleAvatar theme
+      const CircleAvatar themeCircleAvatar =
+          CircleAvatar(backgroundColor: Colors.lightBlueAccent);
+      expect(find.byWidget(themeCircleAvatar), findsOneWidget);
+
+      // Test placeholder attribute
       expect(find.byType(Shimmer), findsOneWidget);
     });
   });

@@ -33,7 +33,7 @@ class ProfilePage extends StatelessWidget {
               color: Theme.of(context).iconTheme.color,
               icon: const Icon(Icons.menu),
               onPressed: () =>
-                  homeModel!.scaffoldKey.currentState!.openDrawer(),
+                  MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
             ),
             key: const Key("ProfilePageAppBar"),
             title: Text(
@@ -363,10 +363,8 @@ class ProfilePage extends StatelessWidget {
                           height: SizeConfig.screenWidth! * 0.05,
                         ),
                         ElevatedButton(
-                          onPressed: model.donationAmount.text.isEmpty
-                              ? () => model
-                                  .showSnackBar('Select or enter an amount')
-                              : model.initiateDonation,
+                          onPressed: () =>
+                              model.showSnackBar('Donation not supported yet'),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                               model.donationAmount.text.isEmpty

@@ -160,38 +160,54 @@ class _EditEventPageState extends State<EditEventPage> {
                     height: SizeConfig.screenHeight! * 0.026,
                   ),
                   const Divider(),
-                  Row(
-                    children: [
-                      Text('Keep Public', style: _subtitleTextStyle),
-                      SizedBox(
-                        width: SizeConfig.screenWidth! * 0.005,
-                      ),
-                      Switch(
-                        value: model.isPublicSwitch,
-                        onChanged: (value) {
-                          setState(() {
-                            model.isPublicSwitch = value;
-                            print(model.isPublicSwitch);
-                          });
-                        },
-                        activeColor: Theme.of(context).colorScheme.primary,
-                      ),
-                      const Spacer(),
-                      Text('Keep Registerable', style: _subtitleTextStyle),
-                      SizedBox(
-                        width: SizeConfig.screenWidth! * 0.005,
-                      ),
-                      Switch(
-                        value: model.isRegisterableSwitch,
-                        onChanged: (value) {
-                          setState(() {
-                            model.isRegisterableSwitch = value;
-                            print(model.isRegisterableSwitch);
-                          });
-                        },
-                        activeColor: Theme.of(context).colorScheme.primary,
-                      ),
-                    ],
+                  SizedBox(
+                    width: SizeConfig.screenWidth,
+                    child: Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('Keep Public', style: _subtitleTextStyle),
+                            SizedBox(
+                              width: SizeConfig.screenWidth! * 0.005,
+                            ),
+                            Switch(
+                              value: model.isPublicSwitch,
+                              onChanged: (value) {
+                                setState(() {
+                                  model.isPublicSwitch = value;
+                                  print(model.isPublicSwitch);
+                                });
+                              },
+                              activeColor:
+                                  Theme.of(context).colorScheme.primary,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('Keep Registerable',
+                                style: _subtitleTextStyle),
+                            SizedBox(
+                              width: SizeConfig.screenWidth! * 0.005,
+                            ),
+                            Switch(
+                              value: model.isRegisterableSwitch,
+                              onChanged: (value) {
+                                setState(() {
+                                  model.isRegisterableSwitch = value;
+                                  print(model.isRegisterableSwitch);
+                                });
+                              },
+                              activeColor:
+                                  Theme.of(context).colorScheme.primary,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

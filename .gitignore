@@ -74,6 +74,7 @@ fabric.properties
 .packages
 .pub-cache/
 .pub/
+temporaryPath/
 build/
 coverage/
 lib/generated_plugin_registrant.dart
