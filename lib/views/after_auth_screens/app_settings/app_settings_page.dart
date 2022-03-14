@@ -14,6 +14,7 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key('AppSettingScaffold'),
       appBar: AppBar(
         iconTheme: Theme.of(context).iconTheme,
         backgroundColor: Theme.of(context).primaryColor,

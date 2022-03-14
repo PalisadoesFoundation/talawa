@@ -53,7 +53,7 @@ class MultiMediaPickerService {
         );
       }
       print(
-        "MulitMediaPickerService : Exception occured while choosing photo from the gallery $e",
+        "MultiMediaPickerService : Exception occurred while choosing photo from the gallery $e",
       );
     }
     return null;
@@ -61,7 +61,7 @@ class MultiMediaPickerService {
 
   Future<File?> cropImage({required File imageFile}) async {
     try {
-      final File? croppedImage = await ImageCropper.cropImage(
+      final File? croppedImage = await ImageCropper().cropImage(
         sourcePath: imageFile.path,
         aspectRatioPresets: [
           CropAspectRatioPreset.square,
@@ -84,7 +84,8 @@ class MultiMediaPickerService {
         return File(croppedImage.path);
       }
     } catch (e) {
-      print("MulitMediaPickerService : Exception occured while cropping Image");
+      print(
+          "MultiMediaPickerService : Exception occurred while cropping Image");
     }
     return null;
   }
