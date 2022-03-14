@@ -1,4 +1,5 @@
 # Installation for Developers
+Welcome to our installation guide for developers. Jump in and contribute!
 
 ## Prerequisites
 
@@ -26,7 +27,15 @@ We have tried to make the process simple. Here's what you need to do.
     ```
 1. Start developing!
 
-## Developer Environment
+## Developer Environment Setup
+
+There are multiple ways to access the Talawa-API that the Talawa mobile app uses.
+
+### On Your Local Machine
+
+You can also setup your own local instance of [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api). The advantage is that you'll be working with the latest code.
+
+### Hosted API server
 
 We have a test API server for software developers contributing to the talawa projects.
 
@@ -34,3 +43,4 @@ We have a test API server for software developers contributing to the talawa pro
 1. The server runs the latest master branch version of the talawa-api code base
     - Use this URL in the Talawa App: https://talawa-graphql-api.herokuapp.com/graphql
 1. This is a development environment. The data stored on this server may be modified or deleted without warning.
+
