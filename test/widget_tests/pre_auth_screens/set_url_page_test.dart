@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 // import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -127,6 +128,10 @@ Future<void> main() async {
       );
 
       expect((tester.firstWidget(iconButton) as Icon).size, 30);
+      print("Before Tap");
+      await tester.tap(iconButton);
+      print("After Tap");
+      await tester.pumpAndSettle();
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
@@ -267,6 +272,10 @@ Future<void> main() async {
       await tester.pumpAndSettle();
       //testing that the scaffold is no more visible
       expect(screenScaffoldWidget, findsNothing);
+      print("Before Tap");
+      await tester.tap(changeLanguageWidget);
+      print("After Tap");
+      await tester.pumpAndSettle();
     });
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
@@ -295,6 +304,25 @@ Future<void> main() async {
             .buttonLabel,
         'Login',
       );
+      print("Before Tap");
+      await tester.tap(loginButtonWidget);
+      print("After Tap");
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets("Check navigation to Login page when Login button is pressed.",
+        (tester) async {
+      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pump();
+      expect(find.byKey(const Key('SetUrlScreenScaffold')), findsOneWidget);
+
+      await tester.enterText(
+        find.byKey(const Key('UrlInputField')),
+        'https://talawa-graphql-api.herokuapp.com/graphql',
+      );
+      await tester.tap(find.byKey(const Key('LoginButton')));
+      await tester.pumpAndSettle();
+      expect(find.byKey(const Key('UrlPageText')), findsOneWidget);
     });
     testWidgets("Testing if signup button works", (tester) async {
       //pushing setUrlScreen
@@ -323,6 +351,10 @@ Future<void> main() async {
             .buttonLabel,
         'Sign Up',
       );
+      print("Before Tap");
+      await tester.tap(signupButtonWidget);
+      print("After Tap");
+      await tester.pumpAndSettle();
     });
   });
 
@@ -365,6 +397,25 @@ Future<void> main() async {
       );
 
       expect((tester.firstWidget(iconButton) as Icon).size, 30);
+      print("Before Tap");
+      await tester.tap(iconButton);
+      print("After Tap");
+      await tester.pumpAndSettle();
+    });
+    testWidgets("Check if QR button works", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
+
+      final iconButton = find.byIcon(Icons.qr_code_scanner);
+      print('ICON BUTTON: $iconButton');
+
+      // tapping the qr button
+      await tester.tap(iconButton);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ClipRRect), findsOneWidget);
+      expect(find.byType(QRView), findsOneWidget);
     });
     testWidgets("Testing if app logo shows up", (tester) async {
       //pushing setUrlScreen
@@ -504,6 +555,10 @@ Future<void> main() async {
       await tester.pumpAndSettle();
       //testing that the scaffold is no more visible
       expect(screenScaffoldWidget, findsNothing);
+      print("Before Tap");
+      await tester.tap(changeLanguageWidget);
+      print("After Tap");
+      await tester.pumpAndSettle();
     });
     testWidgets("Testing if login button works", (tester) async {
       //pushing setUrlScreen
@@ -532,6 +587,10 @@ Future<void> main() async {
             .buttonLabel,
         'Login',
       );
+      print("Before Tap");
+      await tester.tap(loginButtonWidget);
+      print("After Tap");
+      await tester.pumpAndSettle();
     });
     testWidgets("Testing if signup button works", (tester) async {
       //pushing setUrlScreen
@@ -560,6 +619,10 @@ Future<void> main() async {
             .buttonLabel,
         'Sign Up',
       );
+      print("Before Tap");
+      await tester.tap(signupButtonWidget);
+      print("After Tap");
+      await tester.pumpAndSettle();
     });
   });
 }

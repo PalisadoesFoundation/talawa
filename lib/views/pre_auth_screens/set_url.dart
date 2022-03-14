@@ -94,8 +94,6 @@ class _SetUrlState extends State<SetUrl> {
                       onFieldSubmitted: (value) => AppLocalizations.of(context)!
                           .translate(Validator.validateURL(value)),
                       decoration: InputDecoration(
-                        hintText:
-                            'https://talawa-graphql-api.herokuapp.com/graphql',
                         labelText:
                             '${AppLocalizations.of(context)!.translate("Enter Organization URL")} *',
                         labelStyle: Theme.of(context).textTheme.subtitle1,
