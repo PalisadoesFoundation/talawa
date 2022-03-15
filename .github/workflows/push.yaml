@@ -35,6 +35,18 @@ jobs:
         run: flutter format --set-exit-if-changed .
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
+      - name: setup python
+        uses: actions/setup-python@v2
+      - name: Granting permission to documentationcheck.py
+        run: chmod +x ./.github/workflows/documentationcheck.py
+      - name: execute py script
+        run: |
+          git branch
+          pip install GitPython
+          python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
+        env:
+          directory: ${{ github.path }}
+          actor: ${{ github.actor }}
 
   Update-Documentation:
     runs-on: ubuntu-latest
@@ -57,9 +69,6 @@ jobs:
         with:
           name: docs
           path: doc/api
-      - name: rename docs folder
-        run: |
-          mv doc/api docs/talawa
       - name: Set commit_id in env
         run: |
           echo "commit_id=$(echo $(git rev-parse HEAD))" >> $GITHUB_ENV
