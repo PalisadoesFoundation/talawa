@@ -53,11 +53,11 @@ def _arg_parser_resolver():
     # getting merge branch name
     parser.add_argument(
         '--merge_branch_name', type=str, required=False, default='develop',
-        help='Latest commit SHA256 on the feature branch')
+        help='Name of the merging to branch')
     # Github actor name
     parser.add_argument(
-        '--actor', type=str, required=False, default='develop',
-        help='Latest commit SHA256 on the feature branch')
+        '--actor', type=str, required=False, default='palisadoes',
+        help='Name of the github actor running script')
     # getting root directory of repository
     parser.add_argument(
         '--directory', type=str, required=False,

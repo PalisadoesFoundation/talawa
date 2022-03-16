@@ -33,9 +33,45 @@ jobs:
       - name: Count lines of code in each file
         run: chmod +x ./.github/workflows/countline.py
       - name: Running count lines
-        run: ./.github/workflows/countline.py --exclude_directories test/ --exclude_files lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart 
+        run: ./.github/workflows/countline.py --exclude_directories test/ --exclude_files lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
+      - uses: actions/checkout@v2.1.0
+      - uses: jitterbit/get-changed-files@v1
+        id: abc
+        with:
+          format: space-delimited
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checking doc updated
+        run: |
+          echo "${{ steps.abc.outputs.added_modified }}"
+          IFS=' '
+          read -ra ADDR <<<"${{ steps.abc.outputs.added_modified }}"
+          doc=0
+          source=0
+          for i in "${ADDR[@]}"; #accessing each element of array
+          do
+          echo "$i"
+          if [[ $i == ./doc* ]]
+          then
+            doc=doc+1
+          elif [[ $i == ./lib* ]]
+          then
+            source=source+1
+          fi
+          done
+          Red='0;31'
+          Green='0;32'
+          NoColor='\033[0m'
+          if [[ $doc == 0 ]] && [[ $source == 0 ]]
+          then
+            echo "🚀${Green} Hurrah! no source editted${NoColor}"; exit 0;
+          fi
+          if [[ $doc == 0 ]] && [[ $source -ge 0 ]]
+          then
+            echo "🔍${Red} DOCUMENTATION NOT UPDATED: Files with missing or not updated documentation found please consider fixing to get the PR approved${NoColor}";exit 1;
+          fi
+          echo "🚀 ${Green}Hurrah! documentation was updated in all modified/added files${NoColor}"; exit 0;
 
   Flutter-Testing:
     name: Testing codebase
