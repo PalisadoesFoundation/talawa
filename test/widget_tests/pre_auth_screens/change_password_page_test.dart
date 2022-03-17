@@ -64,12 +64,12 @@ void main() {
     testWidgets("Testing if Change Password Screen shows up", (tester) async {
       await tester.pumpWidget(createChangePassScreenLight());
       await tester.pumpAndSettle();
-            final iconButton = find.byIcon(Icons.arrow_back);
+      final iconButton = find.byIcon(Icons.arrow_back);
 
       final screenScaffoldWidget = find.byKey(
         const Key('ChangePassScreenScaffold'),
       );
-       expect(iconButton, findsOneWidget);
+      expect(iconButton, findsOneWidget);
       expect(screenScaffoldWidget, findsOneWidget);
       expect(
         (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
@@ -77,7 +77,7 @@ void main() {
             .scaffoldBackgroundColor,
         TalawaTheme.lightTheme.scaffoldBackgroundColor,
       );
-       print("Before Tap");
+      print("Before Tap");
       await tester.tap(iconButton);
       print("After Tap");
       await tester.pumpAndSettle();
