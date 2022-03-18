@@ -18,6 +18,7 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
+/// This is the main function
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final Directory dir = await path.getApplicationDocumentsDirectory();
