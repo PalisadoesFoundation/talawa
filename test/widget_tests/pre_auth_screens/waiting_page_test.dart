@@ -173,6 +173,8 @@ Future<void> main() async {
 
       //testing greeting text
       expect(pendingItem, findsNWidgets(2));
+      await tester.tap(pendingRequestList);
+      await tester.pumpAndSettle();
     });
   });
   group('Testing for join org button', () {
