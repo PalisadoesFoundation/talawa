@@ -173,7 +173,7 @@ Future<void> main() async {
 
       //testing greeting text
       expect(pendingItem, findsNWidgets(2));
-      await tester.tap(pendingItem);
+      await tester.tap(pendingRequestList);
       await tester.pumpAndSettle();
     });
   });
