@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the appBarTheme method from the EventSearch class, for the Dart programming language.">
+  <title>appBarTheme method - EventSearch class - event_search_delegate library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../widgets_event_search_delegate/widgets_event_search_delegate-library.html">event_search_delegate</a></li>
+    <li><a href="../../widgets_event_search_delegate/EventSearch-class.html">EventSearch</a></li>
+    <li class="self-crumb">appBarTheme method</li>
+  </ol>
+  <div class="self-name">appBarTheme</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">appBarTheme</span> method 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype">ThemeData</span>
+<span class="name ">appBarTheme</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="appBarTheme-param-context"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+      <div class="features">inherited</div>
+
+    </section>
+    
+<section class="desc markdown">
+  <p>The theme used to configure the search page.</p>
+<p>The returned <code>ThemeData</code> will be used to wrap the entire search page,
+so it can be used to configure any of its components with the appropriate
+theme properties.</p>
+<p>Unless overridden, the default theme will configure the AppBar containing
+the search input text field with a white background and black text on light
+themes. For dark themes the default is a dark grey background with light
+color text.</p>
+<p>See also:</p>
+<ul>
+<li><code>AppBarTheme</code>, which configures the AppBar's appearance.</li>
+<li><code>InputDecorationTheme</code>, which configures the appearance of the search
+text field.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">ThemeData appBarTheme(BuildContext context) {
+  assert(context != null);
+  final ThemeData theme = Theme.of(context);
+  final ColorScheme colorScheme = theme.colorScheme;
+  assert(theme != null);
+  return theme.copyWith(
+    appBarTheme: AppBarTheme(
+      brightness: colorScheme.brightness,
+      backgroundColor: colorScheme.brightness == Brightness.dark ? Colors.grey[900] : Colors.white,
+      iconTheme: theme.primaryIconTheme.copyWith(color: Colors.grey),
+      textTheme: theme.textTheme,
+    ),
+    inputDecorationTheme: searchFieldDecorationTheme ??
+        InputDecorationTheme(
+          hintStyle: searchFieldStyle ?? theme.inputDecorationTheme.hintStyle,
+          border: InputBorder.none,
+        ),
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">talawa</a></li>
+  <li><a href="../../widgets_event_search_delegate/widgets_event_search_delegate-library.html">event_search_delegate</a></li>
+  <li><a href="../../widgets_event_search_delegate/EventSearch-class.html">EventSearch</a></li>
+  <li class="self-crumb">appBarTheme method</li>
+</ol>
+
+
+    <h5>EventSearch class</h5>
+    <ol>
+
+    <li class="section-title"><a href="../../widgets_event_search_delegate/EventSearch-class.html#constructors">Constructors</a></li>
+    <li><a href="../../widgets_event_search_delegate/EventSearch/EventSearch.html">EventSearch</a></li>
+
+
+    <li class="section-title">
+      <a href="../../widgets_event_search_delegate/EventSearch-class.html#instance-properties">Properties</a>
+    </li>
+    <li><a href="../../widgets_event_search_delegate/EventSearch/eventList.html">eventList</a></li>
+    <li><a href="../../widgets_event_search_delegate/EventSearch/exploreEventsViewModel.html">exploreEventsViewModel</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/keyboardType.html">keyboardType</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/query.html">query</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/searchFieldDecorationTheme.html">searchFieldDecorationTheme</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/searchFieldLabel.html">searchFieldLabel</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/searchFieldStyle.html">searchFieldStyle</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/textInputAction.html">textInputAction</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/transitionAnimation.html">transitionAnimation</a></li>
+
+    <li class="section-title"><a href="../../widgets_event_search_delegate/EventSearch-class.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/appBarTheme.html">appBarTheme</a></li>
+    <li><a href="../../widgets_event_search_delegate/EventSearch/buildActions.html">buildActions</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/buildBottom.html">buildBottom</a></li>
+    <li><a href="../../widgets_event_search_delegate/EventSearch/buildLeading.html">buildLeading</a></li>
+    <li><a href="../../widgets_event_search_delegate/EventSearch/buildResults.html">buildResults</a></li>
+    <li><a href="../../widgets_event_search_delegate/EventSearch/buildSuggestions.html">buildSuggestions</a></li>
+    <li><a href="../../widgets_event_search_delegate/EventSearch/buildSuggestionsSucess.html">buildSuggestionsSucess</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/close.html">close</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/showResults.html">showResults</a></li>
+    <li class="inherited"><a href="../../widgets_event_search_delegate/EventSearch/showSuggestions.html">showSuggestions</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../../widgets_event_search_delegate/EventSearch-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+

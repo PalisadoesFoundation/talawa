@@ -35,6 +35,18 @@ jobs:
         run: flutter format --set-exit-if-changed .
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
+      - name: setup python
+        uses: actions/setup-python@v2
+      - name: Granting permission to documentationcheck.py
+        run: chmod +x ./.github/workflows/documentationcheck.py
+      - name: execute py script
+        run: |
+          git branch
+          pip install GitPython
+          python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
+        env:
+          directory: ${{ github.path }}
+          actor: ${{ github.actor }}
 
   Update-Documentation:
     runs-on: ubuntu-latest
@@ -47,33 +59,42 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - run: flutter pub get
-      - run: flutter analyze
       - uses: dart-lang/setup-dart@v1
-      - run: dart analyze
-      - run: flutter pub global activate dartdoc
-      - run: flutter pub global run dartdoc .
+      - run: |
+          flutter pub get
+          flutter analyze
+          dart analyze
+          flutter pub global activate dartdoc
+          flutter pub global run dartdoc . --output docs/talawa
       - uses: actions/upload-artifact@v1
         with:
           name: docs
-          path: doc/api
-      - name: rename docs folder
+          path: docs/talawa
+      - name: Checking doc updated
+        id: DocUpdated
         run: |
-          mv doc/api docs/talawa
-      - name: Set commit_id in env
+          if [ -n "$(git status --porcelain)" ]; then
+            echo '::set-output name=updateDoc::true'
+          else
+            Green='0;32'
+            NoColor='\033[0m'
+            echo -e "${Green}No documentation updated${NoColor}"
+          fi
+      - name: Set env variables
+        if: steps.DocUpdated.updateDoc
         run: |
           echo "commit_id=$(echo $(git rev-parse HEAD))" >> $GITHUB_ENV
-      - name: Set email in env
-        run: |
           echo "email=$(echo $(git log --pretty=format:"%ae" $commit_id))" >> $GITHUB_ENV
-      - name: update commit
+      - name: Update Doc
+        if: steps.DocUpdated.updateDoc
         run: |
-          git config --global user.name "$GITHUB_ACTOR"
+          Green='0;32'
+          NoColor='\033[0m'
+          git config --global user.name "${{github.actor}}"
           git config --global user.email "${{env.email}}"
-
-          git add -A
-          git commit -m "Updated docs"
+          git commit -a -m "Updated docs"
           git push
+          echo -e "🚀${Green} Hurrah! doc updated${NoColor}"
 
   Flutter-Testing:
     name: Testing codebase
