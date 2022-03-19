@@ -77,9 +77,7 @@ void main() {
             .scaffoldBackgroundColor,
         TalawaTheme.lightTheme.scaffoldBackgroundColor,
       );
-      print("Before Tap");
       await tester.tap(iconButton);
-      print("After Tap");
       await tester.pumpAndSettle();
     });
     testWidgets("Testing if custom rich text shows up", (tester) async {
