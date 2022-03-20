@@ -100,19 +100,57 @@ void main() {
       expect(find.textContaining("Forgot password"), findsOneWidget);
     });
 
-    testWidgets('Check if entering text in TextField(s) works', (tester) async {
+    // testWidgets('Check if entering text in TextField(s) works', (tester) async {
+    //   await showLoginScreen(tester);
+
+    //   final emailField = tester.firstWidget(find.byType(TextFormField).first);
+    //   final passwordField =
+    //       tester.widgetList(find.byType(TextFormField).last).first;
+
+    //   await tester.enterText(find.byType(TextFormField).first, 'ravidi');
+    //   await tester.enterText(find.byType(TextFormField).last, 'shaikh');
+
+    //   expect((emailField as TextFormField).controller!.text, 'ravidi');
+    //   expect((passwordField as TextFormField).controller!.text, 'shaikh');
+    // });
+
+      testWidgets("Testing the email Input text form field", (tester) async {
+      //pushing setUrlScreen
       await showLoginScreen(tester);
+      await tester.pumpAndSettle();
 
-      final emailField = tester.firstWidget(find.byType(TextFormField).first);
-      final passwordField =
-          tester.widgetList(find.byType(TextFormField).last).first;
+      //initializing the url input field widget Finder
+      final emailInputFieldWidget = find.byKey(const Key('EmailInputField'));
+      //initializing the text field suffix button widget Finder
+      final findLoginButton = find.byKey(const Key('LoginButton'));
+      //initializing the nullUrlSubmission widget Finder
+      final nullEmailSubmission = find.text('Email must not be left blank');
+      //initializing the invalidUrlSubmission widget Finder
+      final invalidEmailSubmission =
+          find.text('Please enter a valid Email Address');
 
-      await tester.enterText(find.byType(TextFormField).first, 'ravidi');
-      await tester.enterText(find.byType(TextFormField).last, 'shaikh');
+      //finding the url input text field
+      expect(emailInputFieldWidget, findsOneWidget);
+      //finding the recover button
+      expect(findLoginButton, findsOneWidget);
 
-      expect((emailField as TextFormField).controller!.text, 'ravidi');
-      expect((passwordField as TextFormField).controller!.text, 'shaikh');
+      //inputting a non email text in the field
+      await tester.enterText(emailInputFieldWidget, 'non-url text');
+      //submitting the field with non url input
+      await tester.tap(findLoginButton);
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+      //testing the invalidUrlSubmission widget appears
+      expect(invalidEmailSubmission, findsOneWidget);
+
+      //without inputting text in the field
+      await tester.enterText(emailInputFieldWidget, '');
+      //submitting the field with non url input
+      await tester.tap(findLoginButton);
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+      //testing the nullEmailSubmission widget appears
+      expect(nullEmailSubmission, findsOneWidget);
     });
+
 
     // TODO: uncomment after implementing mock LoginViewModel
 
