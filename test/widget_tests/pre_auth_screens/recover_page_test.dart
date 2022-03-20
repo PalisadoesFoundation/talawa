@@ -67,13 +67,17 @@ void main() {
       final screenScaffoldWidget = find.byKey(
         const Key('RecoverScreenScaffold'),
       );
+      final iconButton = find.byIcon(Icons.arrow_back);
       expect(screenScaffoldWidget, findsOneWidget);
+      expect(iconButton, findsOneWidget);
       expect(
         (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
             .theme!
             .scaffoldBackgroundColor,
         TalawaTheme.lightTheme.scaffoldBackgroundColor,
       );
+      await tester.tap(iconButton);
+      await tester.pumpAndSettle();
     });
   });
   group('Select Language Screen Widget Test in dark mode', () {
