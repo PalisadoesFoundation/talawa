@@ -100,38 +100,23 @@ void main() {
       expect(find.textContaining("Forgot password"), findsOneWidget);
     });
 
-    // testWidgets('Check if entering text in TextField(s) works', (tester) async {
-    //   await showLoginScreen(tester);
-
-    //   final emailField = tester.firstWidget(find.byType(TextFormField).first);
-    //   final passwordField =
-    //       tester.widgetList(find.byType(TextFormField).last).first;
-
-    //   await tester.enterText(find.byType(TextFormField).first, 'ravidi');
-    //   await tester.enterText(find.byType(TextFormField).last, 'shaikh');
-
-    //   expect((emailField as TextFormField).controller!.text, 'ravidi');
-    //   expect((passwordField as TextFormField).controller!.text, 'shaikh');
-    // });
-
-      testWidgets("Testing the email Input text form field", (tester) async {
+    testWidgets("Testing the email Input text form field", (tester) async {
       //pushing setUrlScreen
       await showLoginScreen(tester);
-      await tester.pumpAndSettle();
 
-      //initializing the url input field widget Finder
+      //initializing the email input field widget Finder
       final emailInputFieldWidget = find.byKey(const Key('EmailInputField'));
       //initializing the text field suffix button widget Finder
       final findLoginButton = find.byKey(const Key('LoginButton'));
-      //initializing the nullUrlSubmission widget Finder
+      //initializing the nullEmailSubmission widget Finder
       final nullEmailSubmission = find.text('Email must not be left blank');
-      //initializing the invalidUrlSubmission widget Finder
+      //initializing the invalidEmailSubmission widget Finder
       final invalidEmailSubmission =
           find.text('Please enter a valid Email Address');
 
-      //finding the url input text field
+      //finding the email input text field
       expect(emailInputFieldWidget, findsOneWidget);
-      //finding the recover button
+      //finding the login button
       expect(findLoginButton, findsOneWidget);
 
       //inputting a non email text in the field
@@ -139,7 +124,7 @@ void main() {
       //submitting the field with non url input
       await tester.tap(findLoginButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      //testing the invalidUrlSubmission widget appears
+      //testing the invalidEmailSubmission widget appears
       expect(invalidEmailSubmission, findsOneWidget);
 
       //without inputting text in the field
@@ -151,51 +136,60 @@ void main() {
       expect(nullEmailSubmission, findsOneWidget);
     });
 
-testWidgets("Testing the password Input text form field", (tester) async {
+    testWidgets("Testing the password Input text form field", (tester) async {
       //pushing setUrlScreen
       await showLoginScreen(tester);
-      await tester.pumpAndSettle();
 
-      //initializing the url input field widget Finder
-      final passwordInputFieldWidget = find.byKey(const Key('PasswordInputField'));
+      //initializing the password input field widget Finder
+      final passwordInputFieldWidget =
+          find.byKey(const Key('PasswordInputField'));
+      //initializing the pa Finder
+      final iconButton = find.byIcon(Icons.visibility_off);
       //initializing the text field suffix button widget Finder
       final findLoginButton = find.byKey(const Key('LoginButton'));
-      //initializing the nullUrlSubmission widget Finder
-      final nullPasswordSubmission = find.text('Password must not be left blank');
-      //initializing the invalidUrlSubmission widget Finder
-      final invalidPasswordSubmission =
-          find.text('Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)');
-//initializing the nullUrlSubmission widget Finder
-      final spacePasswordSubmission = find.text('Password must not contain spaces');
+      //initializing the nullPasswordSubmission widget Finder
+      final nullPasswordSubmission =
+          find.text('Password must not be left blank');
+      //initializing the invalidPasswordSubmission widget Finder
+      final invalidPasswordSubmission = find.text(
+          'Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)');
+      //initializing the spacePasswordSubmission widget Finder
+      final spacePasswordSubmission =
+          find.text('Password must not contain spaces');
 
-      //finding the url input text field
+      //finding the password input text field
       expect(passwordInputFieldWidget, findsOneWidget);
-      //finding the recover button
+      //finding the  iconbutton
+      expect(iconButton, findsOneWidget);
+      //finding the login button
       expect(findLoginButton, findsOneWidget);
 
-      //inputting a non email text in the field
+      //inputting a invalid password text in the field
       await tester.enterText(passwordInputFieldWidget, 'test');
-      //submitting the field with non url input
+      //submitting the field with invalid password input
       await tester.tap(findLoginButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      //testing the invalidUrlSubmission widget appears
+      //testing the invalidPasswordSubmission widget appears
       expect(invalidPasswordSubmission, findsOneWidget);
 
       //without inputting text in the field
       await tester.enterText(passwordInputFieldWidget, '');
-      //submitting the field with non url input
+      //submitting the field without input
       await tester.tap(findLoginButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      //testing the nullEmailSubmission widget appears
+      //testing the nullPasswordSubmission widget appears
       expect(nullPasswordSubmission, findsOneWidget);
 
-      //without inputting text in the field
+      //inputting a password with spaces in the field
       await tester.enterText(passwordInputFieldWidget, 'testing spaces');
-      //submitting the field with non url input
+      //submitting the field with spaces input
       await tester.tap(findLoginButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
-      //testing the nullEmailSubmission widget appears
+      //testing the spacePasswordSubmission widget appears
       expect(spacePasswordSubmission, findsOneWidget);
+
+      await tester.tap(iconButton);
+      await tester.pumpAndSettle();
     });
 
     // TODO: uncomment after implementing mock LoginViewModel
@@ -219,6 +213,16 @@ testWidgets("Testing the password Input text form field", (tester) async {
 
     //   expect(find.byType(MainScreen), findsOneWidget);
     // });
+
+    testWidgets('Check if login button works', (tester) async {
+      await showLoginScreen(tester);
+
+      final loginButton = find.byKey(const Key('LoginButton'));
+      expect(loginButton, findsOneWidget);
+
+      await tester.tap(loginButton);
+      await tester.pumpAndSettle();
+    });
 
     testWidgets('Check if Recover button works', (tester) async {
       await showLoginScreen(tester);

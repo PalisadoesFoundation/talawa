@@ -78,7 +78,6 @@ class Validator {
     if (!regExp.hasMatch(password)) {
       return "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)";
     }
-    
 
     return null;
   }
