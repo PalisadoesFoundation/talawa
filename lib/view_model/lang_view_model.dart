@@ -80,7 +80,7 @@ class AppLanguage extends BaseModel {
       }
     }
 
-    print(_appLocale.languageCode);
+    /// notifying the consumers
     notifyListeners();
   }
 
