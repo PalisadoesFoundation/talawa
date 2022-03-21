@@ -126,7 +126,7 @@ class _SetUrlState extends State<SetUrl> {
                       buttonLabel: AppLocalizations.of(context)!
                           .strictTranslate('Login'),
                       onTap: () async {
-                        print("login");
+                        /// Checking url if valid than navigating to login route
                         await model.checkURLandNavigate('/login', '');
                       },
                       showArrow: true,

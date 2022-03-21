@@ -149,14 +149,11 @@ Future<void> main() async {
     });
     testWidgets("Testing to change language items", (tester) async {
       final int randomNumber = Random().nextInt(languages.length);
-      print(randomNumber);
       await tester.pumpWidget(createSelectLanguageScreenLight());
       await tester.pumpAndSettle();
 
       final findAppNameWidget = find.byKey(Key('LanguageItem$randomNumber'));
-      print("Before Tap");
       await tester.tap(findAppNameWidget);
-      print("After Tap");
       await tester.pumpAndSettle();
 
       expect(
