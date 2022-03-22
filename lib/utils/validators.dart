@@ -72,11 +72,11 @@ class Validator {
     const String noSpaces = r'^\S+$';
     final RegExp noSpaceRegex = RegExp(noSpaces);
 
-    if (!regExp.hasMatch(password)) {
-      return "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)";
-    }
     if (!noSpaceRegex.hasMatch(password)) {
       return "Password must not contain spaces";
+    }
+    if (!regExp.hasMatch(password)) {
+      return "Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)";
     }
 
     return null;
