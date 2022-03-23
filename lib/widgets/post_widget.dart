@@ -150,7 +150,7 @@ class PostContainerState extends State<PostContainer> {
       key: Key(widget.id),
       onVisibilityChanged: (info) {
         info.visibleFraction > 0.5 ? inView = true : inView = false;
-        setState(() {});
+        if (mounted) setState(() {});
       },
       child: Stack(
         children: [
