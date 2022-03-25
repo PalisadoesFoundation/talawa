@@ -11,7 +11,7 @@ In order to give everyone a chance to submit a pull request and contribute to th
 
 ## Testing
 1. All pull requests must have test units. If, for some reason, it is not possible to add tests, please let us know and explain why. In that case, you'll need to tell us what steps you followed to manually test your changes.
-1. Please read our [CONTRIBUTING.md](https://github.com/PalisadoesFoundation/talawa/blob/develop/CONTRIBUTING.md) document for details on our testing policy.
+1. Please read our [CONTRIBUTING.md](CONTRIBUTING.md) document for details on our testing policy.
 
 ## Pull Request Processing
 1. If you have not done so already, please read the `Pull Requests and Issues` and `Testing` sections above.
