@@ -32,6 +32,6 @@ Core features include:
 - Read our [Talawa Mobile App 
 er installation guide](INSTALLATION.md) to get setup quickly.
 - The complete talawa documentation set can be found [here](https://palisadoesfoundation.github.io/talawa-docs/).
-- Want to contribute? Look at [CONTRIBUTING.md](https://github.com/PalisadoesFoundation/talawa/blob/master/CONTRIBUTING.md) to get started.
+- Want to contribute? Look at [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
  - Visit the [Talawa GitHub](https://github.com/PalisadoesFoundation/talawa) to see the code.
 
