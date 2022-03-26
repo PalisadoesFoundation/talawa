@@ -60,6 +60,7 @@ class _LoginState extends State<Login> {
                       height: SizeConfig.screenHeight! * 0.05,
                     ),
                     TextFormField(
+                      key: const Key('EmailInputField'),
                       controller: model.email,
                       focusNode: model.emailFocus,
                       textInputAction: TextInputAction.next,
@@ -86,6 +87,7 @@ class _LoginState extends State<Login> {
                       height: SizeConfig.screenHeight! * 0.025,
                     ),
                     TextFormField(
+                      key: const Key('PasswordInputField'),
                       controller: model.password,
                       focusNode: model.passwordFocus,
                       textInputAction: TextInputAction.done,
