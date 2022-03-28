@@ -25,6 +25,7 @@ void main() {
   tearDown(() {
     unregisterServices();
   });
+
   group('Custom Drawer Model testing -', () {
     //final mockConnectivity = getAndRegisterConnectivityService();
     final mainscreenModel = MainScreenViewModel();
