@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
@@ -21,7 +22,7 @@ import '../../helpers/test_helpers.dart';
 const Key newsPostKey = Key("newsPostKey");
 const Key postContainerKey = Key("postContainerKey");
 
-Widget createNewsPostWidget([Function? function]) {
+Widget createNewsPostWidget([Function? function, Post? post]) {
   return MaterialApp(
     locale: const Locale('en'),
     localizationsDelegates: [
@@ -34,7 +35,7 @@ Widget createNewsPostWidget([Function? function]) {
     home: Scaffold(
       body: NewsPost(
         key: newsPostKey,
-        post: getPostMockModel(),
+        post: post ?? getPostMockModel(),
         function: function,
       ),
     ),
@@ -86,17 +87,46 @@ void main() {
     });
 
     group('Post Widget Test functionality-', () {
-      testWidgets("Test if onTap on likes is functional",
+      testWidgets("Test if like button changes colour if liked",
           (WidgetTester tester) async {
+        await tester.runAsync(() async {
+          final Post post = getPostMockModel();
+          when(post.likedBy).thenReturn([LikedBy(sId: "xzy1")]);
+          await tester.pumpWidget(createNewsPostWidget(
+            null,
+            post,
+          ));
+          await tester.pump();
+
+          final postFinder = find.byKey(newsPostKey);
+          final columnFinder =
+              find.descendant(of: postFinder, matching: find.byType(Column));
+          final column2Finder = columnFinder.at(2);
+          final secondColumnWidget =
+              tester.firstWidget(column2Finder) as Column;
+
+          final thirdPaddingWidget = secondColumnWidget.children[2] as Padding;
+
+          final first3GestureDetectorFinder = find.descendant(
+            of: find.byWidget(thirdPaddingWidget),
+            matching: find.byType(GestureDetector),
+          );
+          final first3GestureDetectorWidget = tester
+              .firstWidget(first3GestureDetectorFinder) as GestureDetector;
+
+          expect(
+            (first3GestureDetectorWidget.child! as Icon).color,
+            TalawaTheme.lightTheme.colorScheme.secondary,
+          );
+        });
+      });
+      testWidgets("Test if onTap is functional", (WidgetTester tester) async {
         await tester.runAsync(() async {
           int clicked = 0;
           void func(Post post) {
             clicked++;
           }
 
-          // when(func(getPostMockModel())).thenAnswer((realInvocation) {
-          //   clicked++;
-          // });
           await tester.pumpWidget(createNewsPostWidget(func));
           await tester.pump();
 
@@ -156,7 +186,7 @@ void main() {
               ..having(
                 (icon) => icon.color,
                 "color",
-                TalawaTheme.lightTheme.colorScheme.secondary,
+                equals(TalawaTheme.lightTheme.colorScheme.secondary),
               ),
           );
         });
@@ -624,13 +654,20 @@ void main() {
               ..having((video) => video.play, "play", true),
           );
 
-          await tester.flingFrom(
+          await tester.dragFrom(
             Offset(
                 SizeConfig.screenWidth!, tester.getCenter(pageViewFinder).dy),
-            Offset(-SizeConfig.screenWidth!, 0),
-            100,
+            Offset(-SizeConfig.screenWidth! * 2, 0),
+            // 100,
           );
           await tester.pump();
+          // await tester.dragFrom(
+          //   Offset(
+          //       SizeConfig.screenWidth!, tester.getCenter(pageViewFinder).dy),
+          //   Offset(-SizeConfig.screenWidth!, 0),
+          //   // 100,
+          // );
+          // await tester.pump();
           expect(centerFinder, findsOneWidget);
           expect(imageFinder, findsOneWidget);
           expect(
@@ -658,12 +695,14 @@ void main() {
           final padding2Widgets =
               tester.firstWidget(paddingFinders.at(3)) as Padding;
           await tester.pump();
-          expect((padding1Widgets.child! as Divider).color,
-              TalawaTheme.lightTheme.colorScheme.primary);
+          expect((padding1Widgets.child! as Divider).color, Colors.grey);
           expect(
             (padding2Widgets.child! as Divider).color,
-            Colors.grey,
+            TalawaTheme.lightTheme.colorScheme.primary,
           );
+          expect(
+              (tester.firstWidget(pageViewFinder) as PageView).controller.page,
+              0.9);
         });
       });
     });
