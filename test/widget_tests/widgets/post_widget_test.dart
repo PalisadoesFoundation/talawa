@@ -658,16 +658,9 @@ void main() {
             Offset(
                 SizeConfig.screenWidth!, tester.getCenter(pageViewFinder).dy),
             Offset(-SizeConfig.screenWidth! * 2, 0),
-            // 100,
           );
           await tester.pump();
-          // await tester.dragFrom(
-          //   Offset(
-          //       SizeConfig.screenWidth!, tester.getCenter(pageViewFinder).dy),
-          //   Offset(-SizeConfig.screenWidth!, 0),
-          //   // 100,
-          // );
-          // await tester.pump();
+
           expect(centerFinder, findsOneWidget);
           expect(imageFinder, findsOneWidget);
           expect(
