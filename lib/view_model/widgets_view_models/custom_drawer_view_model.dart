@@ -14,7 +14,7 @@ class CustomDrawerViewModel extends BaseModel {
   late User _currentUser;
   late List<OrgInfo> _switchAbleOrg;
   late OrgInfo _selectedOrg;
-  late StreamSubscription _currentOrganizationStreamSubscription;
+  StreamSubscription? _currentOrganizationStreamSubscription;
   OrgInfo get selectedOrg => _selectedOrg;
   // ignore: unnecessary_getters_setters
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
@@ -60,7 +60,7 @@ class CustomDrawerViewModel extends BaseModel {
 
   @override
   void dispose() {
-    _currentOrganizationStreamSubscription.cancel();
+    _currentOrganizationStreamSubscription?.cancel();
     super.dispose();
   }
 }
