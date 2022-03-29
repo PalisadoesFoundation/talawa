@@ -84,5 +84,35 @@ void main() {
       //expecting the selected org will be equal to the mockChangeOrgto returns true
       expect(model.selectedOrg, mockChangeOrgTo);
     });
+    test('check if switchOrg is working with already joined mock orgs',
+        () async {
+      //Intializing a mock model with mockBuildContext
+      await model.initialize(mainscreenModel, mockBuildContext);
+      //Storing the first switchable org in mockOrgInfo
+      final OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
+      //Calling the switchOrg function
+      model.switchOrg(mockChangeOrgTo);
+      model.switchOrg(mockChangeOrgTo);
+
+      //expecting the selected org will be equal to the mockChangeOrgto returns true
+      expect(model.selectedOrg, mockChangeOrgTo);
+    });
+
+    test('check if switchOrg is working with switching joined mock orgs',
+        () async {
+      //Intializing a mock model with mockBuildContext
+      await model.initialize(mainscreenModel, mockBuildContext);
+      //Storing the first switchable org in mockOrgInfo
+      final OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
+      final OrgInfo mockChangeOrgToLast = model.switchAbleOrg.last;
+      // print(mockChangeOrgToLast.id);
+      //Calling the switchOrg function
+      model.switchOrg(mockChangeOrgTo);
+      model.switchOrg(mockChangeOrgToLast);
+
+      //expecting the selected org will be equal to the mockChangeOrgto returns true
+      expect(model.selectedOrg, mockChangeOrgToLast);
+      model.dispose();
+    });
   });
 }
