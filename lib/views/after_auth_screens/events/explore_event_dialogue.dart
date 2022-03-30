@@ -51,12 +51,16 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Icon(
-                              Icons.calendar_today,
-                              size: 19,
+                            const Expanded(
+                              child: Icon(
+                                Icons.calendar_today,
+                                size: 19,
+                              ),
                             ),
-                            Text(
-                              "${_startDate.toLocal()}".split(' ')[0],
+                            Expanded(
+                              child: Text(
+                                "${_startDate.toLocal()}".split(' ')[0],
+                              ),
                             ),
                           ],
                         ),
@@ -90,12 +94,16 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Icon(
-                              Icons.calendar_today,
-                              size: 20,
+                            const Expanded(
+                              child: Icon(
+                                Icons.calendar_today,
+                                size: 20,
+                              ),
                             ),
-                            Text(
-                              "${_endDate.toLocal()}".split(' ')[0],
+                            Expanded(
+                              child: Text(
+                                "${_endDate.toLocal()}".split(' ')[0],
+                              ),
                             ),
                           ],
                         ),
@@ -116,23 +124,29 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(
-                  onPressed: () {
-                    navigationService.pop();
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.strictTranslate('Cancel'),
-                    style: Theme.of(context).textTheme.bodyText2,
+                Expanded(
+                  child: TextButton(
+                    key: const Key('CancelButton'),
+                    onPressed: () {
+                      navigationService.pop();
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.strictTranslate('Cancel'),
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    navigationService.pop();
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.strictTranslate('Done'),
-                    style:
-                        const TextStyle(fontSize: 14, color: Color(0xff4285F4)),
+                Expanded(
+                  child: TextButton(
+                    key: const Key('DoneButton'),
+                    onPressed: () {
+                      navigationService.pop();
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.strictTranslate('Done'),
+                      style: const TextStyle(
+                          fontSize: 14, color: Color(0xff4285F4)),
+                    ),
                   ),
                 )
               ],
