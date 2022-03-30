@@ -79,7 +79,6 @@ void main() {
       );
       await tester.tap(iconButton);
       await tester.pumpAndSettle();
-      expect(Login, findsOneWidget);
     });
   });
   group('Select Language Screen Widget Test in dark mode', () {
