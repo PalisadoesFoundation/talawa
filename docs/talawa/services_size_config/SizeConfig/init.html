@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the init method from the SizeConfig class, for the Dart programming language.">
+  <title>init method - SizeConfig class - size_config library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../services_size_config/services_size_config-library.html">size_config</a></li>
+    <li><a href="../../services_size_config/SizeConfig-class.html">SizeConfig</a></li>
+    <li class="self-crumb">init method</li>
+  </ol>
+  <div class="self-name">init</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">init</span> method 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype">void</span>
+<span class="name ">init</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="init-param-context"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">void init(BuildContext context) {
+  _mediaQueryData = MediaQuery.of(context);
+  screenWidth = _mediaQueryData.size.width;
+  screenHeight = _mediaQueryData.size.height;
+  blockSizeHorizontal = screenWidth! &#47; 100;
+  blockSizeVertical = screenHeight! &#47; 100;
+
+  _safeAreaHorizontal =
+      _mediaQueryData.padding.left + _mediaQueryData.padding.right;
+  _safeAreaVertical =
+      _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
+  safeBlockHorizontal = (screenWidth! - _safeAreaHorizontal) &#47; 100;
+  safeBlockVertical = (screenHeight! - _safeAreaVertical) &#47; 100;
+  debugPrint(&quot;safeBlockHorizontal: $safeBlockHorizontal&quot;);
+  debugPrint(&quot;safeBlockVertical: $safeBlockVertical&quot;);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">talawa</a></li>
+  <li><a href="../../services_size_config/services_size_config-library.html">size_config</a></li>
+  <li><a href="../../services_size_config/SizeConfig-class.html">SizeConfig</a></li>
+  <li class="self-crumb">init method</li>
+</ol>
+
+
+    <h5>SizeConfig class</h5>
+    <ol>
+
+    <li class="section-title"><a href="../../services_size_config/SizeConfig-class.html#constructors">Constructors</a></li>
+    <li><a href="../../services_size_config/SizeConfig/SizeConfig.html">SizeConfig</a></li>
+
+
+    <li class="section-title inherited">
+      <a href="../../services_size_config/SizeConfig-class.html#instance-properties">Properties</a>
+    </li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
+
+    <li class="section-title"><a href="../../services_size_config/SizeConfig-class.html#instance-methods">Methods</a></li>
+    <li><a href="../../services_size_config/SizeConfig/init.html">init</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li><a href="../../services_size_config/SizeConfig/test.html">test</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../../services_size_config/SizeConfig-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+    <li class="section-title"><a href="../../services_size_config/SizeConfig-class.html#static-properties">Static properties</a></li>
+    <li><a href="../../services_size_config/SizeConfig/blockSizeHorizontal.html">blockSizeHorizontal</a></li>
+    <li><a href="../../services_size_config/SizeConfig/blockSizeVertical.html">blockSizeVertical</a></li>
+    <li><a href="../../services_size_config/SizeConfig/paddingTop.html">paddingTop</a></li>
+    <li><a href="../../services_size_config/SizeConfig/safeBlockHorizontal.html">safeBlockHorizontal</a></li>
+    <li><a href="../../services_size_config/SizeConfig/safeBlockVertical.html">safeBlockVertical</a></li>
+    <li><a href="../../services_size_config/SizeConfig/screenHeight.html">screenHeight</a></li>
+    <li><a href="../../services_size_config/SizeConfig/screenWidth.html">screenWidth</a></li>
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+

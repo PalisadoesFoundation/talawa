@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the eventAdminFab function from the event_admin_fab library, for the Dart programming language.">
+  <title>eventAdminFab function - event_admin_fab library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">talawa</a></li>
+    <li><a href="../widgets_event_admin_fab/widgets_event_admin_fab-library.html">event_admin_fab</a></li>
+    <li class="self-crumb">eventAdminFab function</li>
+  </ol>
+  <div class="self-name">eventAdminFab</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-function">eventAdminFab</span> function 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype">Widget</span>
+<span class="name ">eventAdminFab</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="eventAdminFab-param-context">{<span>required</span> <span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span>, </span></li>
+<li><span class="parameter" id="eventAdminFab-param-event"><span>required</span> <span class="type-annotation"><a href="../models_events_event_model/Event-class.html">Event</a></span> <span class="parameter-name">event</span>, </span></li>
+<li><span class="parameter" id="eventAdminFab-param-exploreEventsViewModel"><span>required</span> <span class="type-annotation"><a href="../view_model_after_auth_view_models_event_view_models_explore_events_view_model/ExploreEventsViewModel-class.html">ExploreEventsViewModel</a></span> <span class="parameter-name">exploreEventsViewModel</span>}</span></li>
+</ol>)
+
+    </section>
+    
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Widget eventAdminFab({
+  required BuildContext context,
+  required Event event,
+  required ExploreEventsViewModel exploreEventsViewModel,
+}) {
+  return SpeedDial(
+    icon: Icons.menu,
+    activeIcon: Icons.close,
+    buttonSize: 55.0,
+    overlayColor: Theme.of(context).colorScheme.onBackground,
+    overlayOpacity: 0.5,
+    backgroundColor: Theme.of(context).primaryColor,
+    foregroundColor: Theme.of(context).colorScheme.secondary,
+    elevation: 8.0,
+    children: [
+      SpeedDialChild(
+        child: const Icon(
+          Icons.delete,
+        ),
+        label: &#39;Delete Event&#39;,
+        labelStyle: Theme.of(context)
+            .textTheme
+            .headline6!
+            .copyWith(color: Theme.of(context).colorScheme.secondary),
+        foregroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).primaryColor,
+        labelBackgroundColor: Theme.of(context).primaryColor,
+        onTap: () {
+          exploreEventsViewModel.deleteEvent(eventId: event.id!);
+        },
+      ),
+      SpeedDialChild(
+        child: const Icon(
+          Icons.edit,
+        ),
+        label: &#39;Edit Event&#39;,
+        labelStyle: Theme.of(context)
+            .textTheme
+            .headline6!
+            .copyWith(color: Theme.of(context).colorScheme.secondary),
+        foregroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).primaryColor,
+        labelBackgroundColor: Theme.of(context).primaryColor,
+        onTap: () {
+          navigationService.pushScreen(&quot;&#47;editEventPage&quot;, arguments: event);
+        },
+      ),
+    ],
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">talawa</a></li>
+  <li><a href="../widgets_event_admin_fab/widgets_event_admin_fab-library.html">event_admin_fab</a></li>
+  <li class="self-crumb">eventAdminFab function</li>
+</ol>
+
+
+    <h5>event_admin_fab library</h5>
+    <ol>
+
+
+
+
+
+  <li class="section-title"><a href="../widgets_event_admin_fab/widgets_event_admin_fab-library.html#functions">Functions</a></li>
+  <li><a href="../widgets_event_admin_fab/eventAdminFab.html">eventAdminFab</a></li>
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+

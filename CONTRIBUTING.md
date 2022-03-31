@@ -4,9 +4,29 @@ Thank you for your interest in contributing to Talawa. Regardless of the size of
 
 If you are new to contributing to open source, please read the Open Source Guides on [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
 
+## Table of Contents
+
+* [Code of Conduct](#code-of-conduct)
+* [Ways to Contribute](#ways-to-contribute)
+* [Our Development Process](#our-development-process)
+    * [Issues](#issues)
+    * [Pull Requests](#pull-requests)
+    * [Branching Strategy](#branching-strategy)
+* [Contributing Code](#contributing-code)
+* [General Guidelines](#general-guidelines)
+   * [Folder Definition](#folder-definition)
+   * [File Definition](#file-definition)
+   * [PR Preparation](#pr-preparation)
+   * [Project Structure](#project-structure)
+   * [Commit Guidelines](#commit-guidelines)
+* Internships
+    * [GSoC](#gsoc)
+    * [GitHub Externship](#github-externship)
+* [Community](#community)
+
 ## Code of Conduct
 
-A safe environment is required for everyone to contribute. Read our [Code of Conduct Guide](https://github.com/PalisadoesFoundation/talawa/blob/develop/CODE_OF_CONDUCT.md) to understand what this means. Let us know immediately if you have unacceptable experiences in this area.
+A safe environment is required for everyone to contribute. Read our [Code of Conduct Guide](CODE_OF_CONDUCT.md) to understand what this means. Let us know immediately if you have unacceptable experiences in this area.
 
 No one should fear voicing their opinion. Respones must be respectful.
 
@@ -32,11 +52,11 @@ We utilize GitHub issues and pull requests to keep track of issues and contribut
 
 #### Issues
 
-Make sure you are following [issue report guidelines](https://github.com/PalisadoesFoundation/talawa/blob/develop/issue-guidelines.md) available here before creating any new issues on Talawa project.
+Make sure you are following [issue report guidelines](issue-guidelines.md) available here before creating any new issues on Talawa project.
 
 #### Pull Requests
 
-[Pull Request guidelines](https://github.com/PalisadoesFoundation/talawa/blob/develop/PR-guidelines.md) is best resource to follow to start working on open issues.
+[Pull Request guidelines](PR-guidelines.md) is best resource to follow to start working on open issues.
 
 #### Branching Strategy
 
@@ -56,22 +76,36 @@ The process of proposing a change to Talawa can be summarized as:
 1. The repository can be cloned locally using `git clone <forked repo url>`.
 1. Make the desired changes to the Talawa source.
 1. Run the app and test your changes.
+1. Enter development URL `https://talawa-graphql-api.herokuapp.com/graphql` as the organization URL on the first screen as suggested [here](https://palisadoesfoundation.github.io/talawa-docs/docs/talawa/talawa-developer-environment/).
+1. While selecting organization, select organization named A as it contains some testable data.
 1. If you've added code, then test suites must be added. 
    1. **_General_:** 
       1. We need to get to 100% test coverage for the app. We periodically increase the desired test coverage for our pull requests to meet this goal.
       1. Pull requests that don't meet the minimum test coverage levels will not be accepted. This may mean that you will have to create tests for code you did not write. You can decide which part of the code base needs additional tests if this happens to you.
    1. **_Testing_:**
       1. Test using the `flutter test` command.
+      1. Here are some useful flutter test videos
+          1. [State Management With Provider](https://www.raywenderlich.com/6373413-state-management-with-provider)
+          1. [Unit Testing With Flutter: Getting Started](https://www.raywenderlich.com/6926998-unit-testing-with-flutter-getting-started)
+          1. [How to Unit Test in Flutter - Guide](https://www.youtube.com/watch?v=5BFlo9k3KNU) 
    1. **_Test Code Coverage_:**
-      1. The current code coverage of the repo is: [![codecov](https://codecov.io/gh/PalisadoesFoundation/talawa/branch/develop/graph/badge.svg?token=3PJXIKRS1S)](https://codecov.io/gh/PalisadoesFoundation/talawa)
-      2. You can determine the percentage test coverage of your code by running these two commands in sequence:
-         ```
-         flutter test --coverage
-         genhtml coverage/lcov.info -o coverage
-         ```
-      1. The coverage rate will be visible on the penultimate line of the `genhtml` command's output.
-      1. The `genhtml` command is part of the linux `lcov` package. Similar packages can be found for Windows and MacOS.
-      1. The currently acceptable coverage rate can be found in the [GitHub Pull Request file](https://github.com/PalisadoesFoundation/talawa/blob/develop/.github/workflows/pull-request.yml). Search for the value below the line containing `min_coverage`.
+      1. _General Information_
+         1. The current code coverage of the repo is: [![codecov](https://codecov.io/gh/PalisadoesFoundation/talawa/branch/develop/graph/badge.svg?token=3PJXIKRS1S)](https://codecov.io/gh/PalisadoesFoundation/talawa)
+         1. You can determine the percentage test coverage of your code by running these two commands in sequence:
+            ```
+            flutter test --coverage
+            genhtml coverage/lcov.info -o coverage
+            ```
+         1. The coverage rate will be visible on the penultimate line of the `genhtml` command's output.
+         1. The `genhtml` command is part of the linux `lcov` package. Similar packages can be found for Windows and MacOS.
+         1. The currently acceptable coverage rate can be found in the [GitHub Pull Request file](.github/workflows/pull-request.yml). Search for the value below the line containing `min_coverage`.
+      1. _Creating your code coverage account_
+          1. You can also see your code coverage online for your fork of the repo. This is provided by `codecov.io`
+              1. Go to this link: `https://app.codecov.io/gh/XXXX/YYYY` where XXXX is your GitHub account username and YYYY is the name of the repository
+              1. Login to `codecov.io` using your GitHub account, and add your **repo** and **branches** to the `codecov.io` dashboard. 
+              1. Remember to add the `Repository Upload Token` for your forked repo. This can be found under `Settings` of your `codecov.io` account. 
+              1. Use the value of this token to create a secret named CODE_COV for your forked repo. 
+              1. You will see your code coverage reports with every push to your repo after following these steps
 1. Ensure that your code is appropriately formatted before making your submission. Submissions that are not properly formatted will be rejected if they are not fixed by the contributor.
    1. **_In your IDE_:**
       1. _Visual Studio Code:_ There is a setting that allows your code to be formatted [automatically when you save](https://stackoverflow.com/a/66538607/15290492), or you may manually trigger it using `Ctrl + Shift + P` or `Cmd + Shift + P` and typing `Format Document`.
@@ -89,11 +123,11 @@ The process of proposing a change to Talawa can be summarized as:
 1. Ensure the test suite passes, either locally or on CI, once a PR has been created.
 1. Review and address comments on your pull request if requested.
 
-### General Guidelines
+## General Guidelines
 
 Please also follow these general rules.
 
-#### Folder Description
+### Folder Definition
 
 - `controllers`: The folder contains all the files responsible for managing the state.
   ```
@@ -123,7 +157,7 @@ Please also follow these general rules.
   2. Widgets: Folder that contains widget file for pages to avoid code duplication
   ```
 
-#### File Code Rules
+### File Definition
 
 - Filename should be created with lowercase and underscore letters
 - The business logic & UI-based files should be separated from each other.
@@ -157,13 +191,13 @@ SizedBox(height: SizeConfig.safeBlockVertical, width: SizeConfig.safeBlockHorizo
 
 The value of `safeBlockVertical` and `safeBlockHorizontal` will be displayed in your `console` and varies based on the device being used.
 
-#### Before making PR, ensure these:
+### PR Preparation:
 
     - All your file should contain at max `300` lines of code.
     - Follow proper code formatting and run `flutter format .` before your PR.
     - Run `flutter analyze` before your PR and make sure to resolve all the found issues.
 
-#### Project structure
+### Project Structure
 
 ```
 app
@@ -189,7 +223,7 @@ core
 - utils: utility classes
 ```
 
-#### Commit guidelines
+### Commit Guidelines
 
 ```
 feat: (addition of a new feature)
@@ -201,19 +235,19 @@ ptch: (patches - small changes in code, mainly UI, for example color of a button
 conf: (configurational settings - changing directory structure, updating gitignore, add libraries, changing manifest etc)
 ```
 
-### Internships
+## Internships
 
 We have internship partnerships with a number of organizations. See below for more details.
 
-#### GSoC
+### GSoC
 
 If you are participating in the Summer of Code, please read more about us and our processes [here](https://palisadoesfoundation.github.io/talawa-docs/docs/internships/gsoc/gsoc-introduction)
 
-#### GitHub Externship
+### GitHub Externship
 
 If you are participating in the GitHub Externship, please read more about us and our processes [here](https://palisadoesfoundation.github.io/talawa-docs/docs/internships/github/github-introduction)
 
-### Community
+## Community
 There are many ways to communicate with the community.
 
 1. The Palisadoes Foundation has a Slack channel where members can assist with support and clarification. Visit [slack.palisadoes.org](http://slack.palisadoes.org) to join our slack channel.

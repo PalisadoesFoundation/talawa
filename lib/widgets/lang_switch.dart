@@ -17,10 +17,12 @@ class LanguageTile extends StatelessWidget {
           (element) => element.langCode == appLang.appLocal.languageCode,
         );
         return ListTile(
+          key: const Key('LanguageTile'),
           contentPadding: EdgeInsets.zero,
           title:
               Text(AppLocalizations.of(context)!.strictTranslate("Language")),
           trailing: TextButton(
+            key: const Key('LanguageSelector'),
             onPressed: () {
               navigationService.pushReplacementScreen(
                 '/selectLang',

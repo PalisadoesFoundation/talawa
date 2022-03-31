@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the build method from the CustomListTile class, for the Dart programming language.">
+  <title>build method - CustomListTile class - custom_list_tile library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">talawa</a></li>
+    <li><a href="../../widgets_custom_list_tile/widgets_custom_list_tile-library.html">custom_list_tile</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile-class.html">CustomListTile</a></li>
+    <li class="self-crumb">build method</li>
+  </ol>
+  <div class="self-name">build</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">build</span> method 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<div>
+  <ol class="annotation-list">
+    <li>@<a href="https://api.dart.dev/stable/2.16.1/dart-core/override-constant.html">override</a></li>
+  </ol>
+</div>
+
+<span class="returntype">Widget</span>
+<span class="name ">build</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="build-param-context"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span></span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Describes the part of the user interface represented by this widget.</p>
+<p>The framework calls this method when this widget is inserted into the tree
+in a given <code>BuildContext</code> and when the dependencies of this widget change
+(e.g., an <code>InheritedWidget</code> referenced by this widget changes). This
+method can potentially be called in every frame and should not have any side
+effects beyond building a widget.</p>
+<p>The framework replaces the subtree below this widget with the widget
+returned by this method, either by updating the existing subtree or by
+removing the subtree and inflating a new subtree, depending on whether the
+widget returned by this method can update the root of the existing
+subtree, as determined by calling <code>Widget.canUpdate</code>.</p>
+<p>Typically implementations return a newly created constellation of widgets
+that are configured with information from this widget's constructor and
+from the given <code>BuildContext</code>.</p>
+<p>The given <code>BuildContext</code> contains information about the location in the
+tree at which this widget is being built. For example, the context
+provides the set of inherited widgets for this location in the tree. A
+given widget might be built with multiple different <code>BuildContext</code>
+arguments over time if the widget is moved around the tree or if the
+widget is inserted into the tree in multiple places at once.</p>
+<p>The implementation of this method must only depend on:</p>
+<ul>
+<li>the fields of the widget, which themselves must not change over time,
+and</li>
+<li>any ambient state obtained from the <code>context</code> using
+<code>BuildContext.dependOnInheritedWidgetOfExactType</code>.</li>
+</ul>
+<p>If a widget's <a href="../../widgets_custom_list_tile/CustomListTile/build.html">build</a> method is to depend on anything else, use a
+<code>StatefulWidget</code> instead.</p>
+<p>See also:</p>
+<ul>
+<li><code>StatelessWidget</code>, which contains the discussion on performance considerations.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@override
+Widget build(BuildContext context) {
+  return InkWell(
+    onTap: () =&gt; type == TileType.org
+        ? onTapOrgInfo!(orgInfo!)
+        : type == TileType.user
+            ? onTapUserInfo!()
+            : onTapOption!(),
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 2,
+            child: type == TileType.option
+                ? option!.icon
+                : CustomAvatar(
+                    isImageNull: type == TileType.org
+                        ? orgInfo!.image == null
+                        : userInfo!.image == null,
+                    imageUrl: type == TileType.org
+                        ? orgInfo!.image
+                        : userInfo!.image,
+                    firstAlphabet: type == TileType.org
+                        ? orgInfo!.name!.substring(0, 1)
+                        : userInfo!.firstName!.substring(0, 1),
+                    fontSize: 18,
+                  ),
+          ),
+          Expanded(
+            flex: 5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  type == TileType.org
+                      ? orgInfo!.name!
+                      : type == TileType.user
+                          ? &#39;${userInfo!.firstName!} ${userInfo!.lastName!}&#39;
+                          : option!.title,
+                  style: type == TileType.org
+                      ? Theme.of(context).textTheme.headline5
+                      : type == TileType.user
+                          ? Theme.of(context).textTheme.headline6
+                          : option!.trailingIconButton == null
+                              ? Theme.of(context).textTheme.bodyText2
+                              : Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(fontSize: 18),
+                ),
+                type != TileType.user
+                    ? Text(
+                        type == TileType.org
+                            ? &#39;${AppLocalizations.of(context)!.strictTranslate(&quot;Creator&quot;)}: ${orgInfo!.creatorInfo!.firstName!} ${orgInfo!.creatorInfo!.lastName!}&#39;
+                            : option!.subtitle,
+                        style: type == TileType.org
+                            ? Theme.of(context).textTheme.headline6
+                            : option!.trailingIconButton == null
+                                ? Theme.of(context).textTheme.caption
+                                : Theme.of(context).textTheme.headline6,
+                      )
+                    : const SizedBox(),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: type != TileType.user
+                ? type == TileType.org
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: SizeConfig.blockSizeHorizontal! * 15,
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    orgInfo!.isPublic!
+                                        ? AppLocalizations.of(context)!
+                                            .strictTranslate(&#39;Public&#39;)
+                                        : AppLocalizations.of(context)!
+                                            .strictTranslate(&#39;Private&#39;),
+                                  ),
+                                ),
+                              ),
+                              Icon(
+                                orgInfo!.isPublic!
+                                    ? Icons.lock_open
+                                    : Icons.lock,
+                                color: orgInfo!.isPublic!
+                                    ? const Color(0xFF34AD64)
+                                    : const Color(0xffFABC57),
+                              ),
+                            ],
+                          ),
+                          showIcon
+                              ? const Icon(
+                                  Icons.arrow_drop_down,
+                                  size: 25,
+                                )
+                              : const SizedBox(),
+                        ],
+                      )
+                    : option!.trailingIconButton ?? const SizedBox()
+                : const SizedBox(),
+          ),
+        ],
+      ),
+    ),
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">talawa</a></li>
+  <li><a href="../../widgets_custom_list_tile/widgets_custom_list_tile-library.html">custom_list_tile</a></li>
+  <li><a href="../../widgets_custom_list_tile/CustomListTile-class.html">CustomListTile</a></li>
+  <li class="self-crumb">build method</li>
+</ol>
+
+
+    <h5>CustomListTile class</h5>
+    <ol>
+
+    <li class="section-title"><a href="../../widgets_custom_list_tile/CustomListTile-class.html#constructors">Constructors</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile/CustomListTile.html">CustomListTile</a></li>
+
+
+    <li class="section-title">
+      <a href="../../widgets_custom_list_tile/CustomListTile-class.html#instance-properties">Properties</a>
+    </li>
+    <li class="inherited"><a href="../../widgets_custom_list_tile/CustomListTile/hashCode.html">hashCode</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile/index.html">index</a></li>
+    <li class="inherited"><a href="../../widgets_custom_list_tile/CustomListTile/key.html">key</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile/onTapOption.html">onTapOption</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile/onTapOrgInfo.html">onTapOrgInfo</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile/onTapUserInfo.html">onTapUserInfo</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile/option.html">option</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile/orgInfo.html">orgInfo</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile/showIcon.html">showIcon</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile/type.html">type</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile/userInfo.html">userInfo</a></li>
+
+    <li class="section-title"><a href="../../widgets_custom_list_tile/CustomListTile-class.html#instance-methods">Methods</a></li>
+    <li><a href="../../widgets_custom_list_tile/CustomListTile/build.html">build</a></li>
+    <li class="inherited"><a href="../../widgets_custom_list_tile/CustomListTile/createElement.html">createElement</a></li>
+    <li class="inherited"><a href="../../widgets_custom_list_tile/CustomListTile/debugDescribeChildren.html">debugDescribeChildren</a></li>
+    <li class="inherited"><a href="../../widgets_custom_list_tile/CustomListTile/debugFillProperties.html">debugFillProperties</a></li>
+    <li class="inherited"><a href="https://api.dart.dev/stable/2.16.1/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="../../widgets_custom_list_tile/CustomListTile/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
+    <li class="inherited"><a href="../../widgets_custom_list_tile/CustomListTile/toString.html">toString</a></li>
+    <li class="inherited"><a href="../../widgets_custom_list_tile/CustomListTile/toStringDeep.html">toStringDeep</a></li>
+    <li class="inherited"><a href="../../widgets_custom_list_tile/CustomListTile/toStringShallow.html">toStringShallow</a></li>
+    <li class="inherited"><a href="../../widgets_custom_list_tile/CustomListTile/toStringShort.html">toStringShort</a></li>
+
+    <li class="section-title inherited"><a href="../../widgets_custom_list_tile/CustomListTile-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="../../widgets_custom_list_tile/CustomListTile/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    talawa
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+

@@ -11,7 +11,11 @@
 
 
 name: PUSH Workflow
-on: [push]
+on:
+  push:
+    branches-ignore:
+      - 'master'
+      - 'develop'
 
 jobs:
   Flutter-Codebase-Check:
@@ -31,11 +35,71 @@ jobs:
         run: flutter format --set-exit-if-changed .
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
+      - name: setup python
+        uses: actions/setup-python@v2
+      - name: Granting permission to documentationcheck.py
+        run: chmod +x ./.github/workflows/documentationcheck.py
+      - name: execute py script
+        run: |
+          git branch
+          pip install GitPython
+          python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
+        env:
+          directory: ${{ github.path }}
+          actor: ${{ github.actor }}
+
+  Update-Documentation:
+    runs-on: ubuntu-latest
+    needs: Flutter-Codebase-Check
+    steps:
+      - uses: actions/checkout@v2.3.2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - uses: dart-lang/setup-dart@v1
+      - run: |
+          flutter pub get
+          flutter analyze
+          dart analyze
+          flutter pub global activate dartdoc
+          flutter pub global run dartdoc . --output docs/talawa
+      - uses: actions/upload-artifact@v1
+        with:
+          name: docs
+          path: docs/talawa
+      - name: Checking doc updated
+        id: DocUpdated
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo '::set-output name=updateDoc::true'
+          else
+            Green='0;32'
+            NoColor='\033[0m'
+            echo -e "${Green}No documentation updated${NoColor}"
+          fi
+      - name: Set env variables
+        if: steps.DocUpdated.updateDoc
+        run: |
+          echo "commit_id=$(echo $(git rev-parse HEAD))" >> $GITHUB_ENV
+          echo "email=$(echo $(git log --pretty=format:"%ae" $commit_id))" >> $GITHUB_ENV
+      - name: Update Doc
+        if: steps.DocUpdated.updateDoc
+        run: |
+          Green='0;32'
+          NoColor='\033[0m'
+          git config --global user.name "${{github.actor}}"
+          git config --global user.email "${{env.email}}"
+          git commit -a -m "Updated docs"
+          git push
+          echo -e "🚀${Green} Hurrah! doc updated${NoColor}"
 
   Flutter-Testing:
     name: Testing codebase
     runs-on: ubuntu-latest
-    needs: Flutter-Codebase-Check
+    needs: Update-Documentation
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
@@ -49,12 +113,19 @@ jobs:
       - name: Codebase testing
         run: flutter test --coverage
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2.1.0     
+        uses: codecov/codecov-action@v2.1.0
+        with:
+          verbose: true        
+      - name: Test acceptable level of code coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
+        with:
+          path: './coverage/lcov.info'
+          min_coverage: 60.02
 
   Android-Build:
     name: Testing build for android
     runs-on: ubuntu-latest
-    needs: Flutter-Codebase-Check
+    needs: Flutter-Testing
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
@@ -71,7 +142,7 @@ jobs:
   iOS-Build:
     name: Testing build for iOS
     runs-on: macos-latest
-    needs: Flutter-Codebase-Check
+    needs: Flutter-Testing
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1

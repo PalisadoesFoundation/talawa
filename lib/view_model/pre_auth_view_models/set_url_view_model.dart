@@ -23,8 +23,8 @@ class SetUrlViewModel extends BaseModel {
   initialise({String inviteUrl = ''}) {
     final uri = inviteUrl;
     if (uri.isNotEmpty) {
+      /// assigning the invite server url to the url text controller
       url.text = uri;
-      print(url.text);
       final box = Hive.box('url');
       box.put(urlKey, uri);
       box.put(imageUrlKey, "$uri/talawa/");

@@ -74,6 +74,7 @@ NavigationService getAndRegisterNavigationService() {
       .thenAnswer((_) async {});
   when(service.pushScreen(any, arguments: anyNamed('arguments')))
       .thenAnswer((_) async {});
+  when(service.popAndPushScreen(any, arguments: '-1')).thenAnswer((_) async {});
   locator.registerSingleton<NavigationService>(service);
   return service;
 }
