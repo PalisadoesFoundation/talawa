@@ -283,8 +283,8 @@ class MockEventService extends _i2.Mock implements _i10.EventService {
 /// See the documentation for Mockito's code generation for more information.
 class MockUserConfig extends _i2.Mock implements _i18.UserConfig {
   @override
-  _i4.Stream<_i5.OrgInfo> get currentOrfInfoStream =>
-      (super.noSuchMethod(Invocation.getter(#currentOrfInfoStream),
+  _i4.Stream<_i5.OrgInfo> get currentOrgInfoStream =>
+      (super.noSuchMethod(Invocation.getter(#currentOrgInfoStream),
           returnValue: Stream<_i5.OrgInfo>.empty()) as _i4.Stream<_i5.OrgInfo>);
   @override
   _i4.StreamController<_i5.OrgInfo> get currentOrgInfoController =>

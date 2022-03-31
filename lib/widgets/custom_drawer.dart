@@ -34,9 +34,9 @@ class CustomDrawer extends StatelessWidget {
                   children: [
                     UserAccountsDrawerHeader(
                       currentAccountPicture: CustomAvatar(
-                        isImageNull: model.selectedOrg.image == null,
-                        imageUrl: model.selectedOrg.image,
-                        firstAlphabet: model.selectedOrg.name!.substring(0, 1),
+                        isImageNull: model.selectedOrg?.image == null,
+                        imageUrl: model.selectedOrg?.image,
+                        firstAlphabet: model.selectedOrg?.name!.substring(0, 1),
                       ),
                       accountName: Column(
                         key: MainScreenViewModel.keyDrawerCurOrg,
@@ -44,7 +44,7 @@ class CustomDrawer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            model.selectedOrg.name!,
+                            model.selectedOrg?.name! ?? "NULL",
                           ),
                           Text(
                             AppLocalizations.of(context)!

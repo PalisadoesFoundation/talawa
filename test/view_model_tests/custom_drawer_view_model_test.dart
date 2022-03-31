@@ -13,6 +13,7 @@ import '../helpers/test_locator.dart';
 class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
+  int testCount = 0;
   testSetupLocator();
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
@@ -25,14 +26,21 @@ void main() {
   tearDown(() {
     unregisterServices();
   });
+
   group('Custom Drawer Model testing -', () {
     //final mockConnectivity = getAndRegisterConnectivityService();
     final mainscreenModel = MainScreenViewModel();
     final model = CustomDrawerViewModel();
     final MockBuildContext mockBuildContext = MockBuildContext();
     //final UserConfig mockus
+    tearDown(() {
+      if (testCount == 5) {
+        model.dispose();
+      }
+    });
 
-    test('check if switchOrg is working with zero switchable orgs', () async {
+    test('check if switchOrg is working with zero switchable orgs', () {
+      print("1");
       model.setSelectedOrganizationName(userConfig.currentOrg);
 
       //No switchable org are present in the model
@@ -44,10 +52,12 @@ void main() {
 
       //check if selected org is mocked joined org .Expectation-false.
       expect(model.selectedOrg, isNot(mockJoinedOrg));
+      testCount++;
     });
 
     test('check if switchOrg is working with wrong switchable org being passed',
-        () async {
+        () {
+      print("2");
       model.setSelectedOrganizationName(userConfig.currentOrg);
 
       //Mock switchable org are present in the model
@@ -70,9 +80,11 @@ void main() {
       expect(isPresent, false);
       //check if selected org is changed or not. Expected-Not changing
       expect(model.selectedOrg, isNot(fakeOrg));
+      testCount++;
     });
 
     test('check if switchOrg is working with mock joined orgs', () async {
+      print("3");
       //Intializing a mock model with mockBuildContext
       await model.initialize(mainscreenModel, mockBuildContext);
       //Storing the first switchable org in mockOrgInfo
@@ -83,6 +95,35 @@ void main() {
 
       //expecting the selected org will be equal to the mockChangeOrgto returns true
       expect(model.selectedOrg, mockChangeOrgTo);
+      testCount++;
+    });
+
+    test('check if switchOrg is working with already joined mock orgs',
+        () async {
+      print("4");
+      //Intializing a mock model with mockBuildContext
+      await model.initialize(mainscreenModel, mockBuildContext);
+      //Storing the first switchable org in mockOrgInfo
+      final OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
+      //Calling the switchOrg function
+      model.switchOrg(mockChangeOrgTo);
+      model.switchOrg(mockChangeOrgTo);
+
+      //expecting the selected org will be equal to the mockChangeOrgto returns true
+      expect(model.selectedOrg, mockChangeOrgTo);
+      testCount++;
+    });
+
+    test('check if switchOrg is working with switching joined mock orgs',
+        () async {
+      print("5");
+      await model.initialize(mainscreenModel, mockBuildContext);
+      final OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
+      final OrgInfo mockChangeOrgToLast = model.switchAbleOrg.last;
+      model.switchOrg(mockChangeOrgTo);
+      model.switchOrg(mockChangeOrgToLast);
+      expect(model.selectedOrg, mockChangeOrgToLast);
+      testCount++;
     });
   });
 }

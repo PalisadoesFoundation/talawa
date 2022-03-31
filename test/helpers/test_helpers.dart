@@ -170,7 +170,7 @@ UserConfig getAndRegisterUserConfig() {
   final Stream<OrgInfo> _stream = _streamController.stream.asBroadcastStream();
   when(service.currentOrgInfoController)
       .thenAnswer((invocation) => _streamController);
-  when(service.currentOrfInfoStream).thenAnswer((invocation) => _stream);
+  when(service.currentOrgInfoStream).thenAnswer((invocation) => _stream);
 
   //Mkock current user
   when(service.currentUser).thenReturn(

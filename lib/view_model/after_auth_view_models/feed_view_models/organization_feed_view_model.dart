@@ -54,7 +54,7 @@ class OrganizationFeedViewModel extends BaseModel {
     // ------
     // Attaching the stream subscription to rebuild the widgets automatically
     _currentOrganizationStreamSubscription =
-        _userConfig.currentOrfInfoStream.listen(
+        _userConfig.currentOrgInfoStream.listen(
       (updatedOrganization) =>
           setCurrentOrganizationName(updatedOrganization.name!),
     );
