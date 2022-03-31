@@ -39,7 +39,7 @@ class PostService {
 
   //Setters
   void setOrgStreamSubscription() {
-    _userConfig.currentOrfInfoStream.listen((updatedOrganization) {
+    _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
       if (updatedOrganization != _currentOrg) {
         print("org changes from post service");
         _renderedPostID.clear();
