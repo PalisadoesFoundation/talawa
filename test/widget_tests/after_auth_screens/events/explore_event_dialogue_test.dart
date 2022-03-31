@@ -9,20 +9,30 @@ import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.da
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
+import '../../../view_model_tests/after_auth_view_model_tests/event_view_model_tests/event_info_view_model_test.dart';
 
 Widget createExploreEventDialog() {
   return MaterialApp(
-    localizationsDelegates: [
-      const AppLocalizationsDelegate(isTest: true),
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-    ],
-    navigatorKey: locator<NavigationService>().navigatorKey,
-    onGenerateRoute: router.generateRoute,
-    home: const ExploreEventDialog(
-      key: Key('ExploreEventDialog'),
-    ),
-  );
+      localizationsDelegates: [
+        const AppLocalizationsDelegate(isTest: true),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      onGenerateRoute: router.generateRoute,
+      home: Builder(builder: (context) {
+        return Container(
+            child: TextButton(
+                key: const Key('TextButtonKey'),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => const ExploreEventDialog(
+                            key: Key('ExploreEventDialog'),
+                          ));
+                },
+                child: const Text('EventDialog')));
+      }));
 }
 
 main() {
@@ -34,8 +44,8 @@ main() {
     setUp(() {
       registerServices();
       locator<SizeConfig>().test();
-      _startDate = DateTime.now();
-      _endDate = DateTime.now().add(const Duration(days: 1));
+      _startDate = DateTime.now().toLocal();
+      _endDate = DateTime.now().add(const Duration(days: 1)).toLocal();
     });
 
     tearDown(() {
@@ -44,6 +54,11 @@ main() {
     testWidgets('Testing Explore Event dialog layout', (tester) async {
       await tester.pumpWidget(createExploreEventDialog());
       await tester.pumpAndSettle();
+
+      expect(find.byType(TextButton), findsOneWidget);
+      await tester.tap(find.byKey(const Key('TextButtonKey')));
+      await tester.pump();
+
       expect(find.byType(ExploreEventDialog), findsOneWidget);
 
       final startDateText = find.text('Start Date');
@@ -62,6 +77,8 @@ main() {
     testWidgets('Test for Cancel button', (tester) async {
       await tester.pumpWidget(createExploreEventDialog());
       await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('TextButtonKey')));
+      await tester.pump();
       expect(find.byType(ExploreEventDialog), findsOneWidget);
 
       final cancelButton = find.byKey(const Key('CancelButton'));
@@ -73,6 +90,9 @@ main() {
     testWidgets('Test for Done button', (tester) async {
       await tester.pumpWidget(createExploreEventDialog());
       await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('TextButtonKey')));
+      await tester.pump();
+
       expect(find.byType(ExploreEventDialog), findsOneWidget);
 
       final doneButton = find.byKey(const Key('DoneButton'));
@@ -82,32 +102,94 @@ main() {
     testWidgets('Test for selecting Start Date', (tester) async {
       await tester.pumpWidget(createExploreEventDialog());
       await tester.pumpAndSettle();
-      expect(find.byType(ExploreEventDialog), findsOneWidget);
+      await tester.tap(find.byKey(const Key('TextButtonKey')));
+      await tester.pump();
 
-      final startDateText = find.text('Start Date');
-      expect(startDateText, findsOneWidget);
-      expect(
-          find.text("${_startDate.toLocal()}".split(' ')[0]), findsOneWidget);
-      final startDateButton = find.text(
-        "${_startDate.toLocal()}".split(' ')[0],
-      );
-
+      final startDateButton = find.byKey(const Key('StartDateSelector'));
       expect(startDateButton, findsOneWidget);
     });
-
     testWidgets('Test for selecting End Date', (tester) async {
       await tester.pumpWidget(createExploreEventDialog());
       await tester.pumpAndSettle();
-      expect(find.byType(ExploreEventDialog), findsOneWidget);
+      await tester.tap(find.byKey(const Key('TextButtonKey')));
+      await tester.pump();
 
-      final endDateText = find.text('End Date');
-      expect(endDateText, findsOneWidget);
-      expect(find.text("${_endDate.toLocal()}".split(' ')[0]), findsOneWidget);
-      final endDateButton = find.text(
-        "${_endDate.toLocal()}".split(' ')[0],
-      );
-
+      final endDateButton = find.byKey(const Key('EndDateSelector'));
       expect(endDateButton, findsOneWidget);
+    });
+
+    testWidgets('Testing the Cancel button', (tester) async {
+      await tester.pumpWidget(createExploreEventDialog());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('TextButtonKey')));
+      await tester.pump();
+
+      // finding Cancel Button
+      final x = find.text('Cancel');
+      expect(x, findsOneWidget);
+
+      await tester.tap(x);
+      expect(find.byKey(const Key('TextButtonKey')), findsOneWidget);
+    });
+    testWidgets('Testing the Done button', (tester) async {
+      await tester.pumpWidget(createExploreEventDialog());
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key('TextButtonKey')));
+      await tester.pump();
+
+      // finding Cancel Button
+      final x = find.text('Done');
+      expect(x, findsOneWidget);
+
+      await tester.tap(x);
+      expect(find.byKey(const Key('TextButtonKey')), findsOneWidget);
     });
   });
 }
+
+
+
+
+
+
+//   Future<void> prepareDatePicker(
+    //       WidgetTester tester,
+    //       Future<void> callback(Future<DateTime?> date),
+    //       String dateString,
+    //       DatePickerMode? initialDatePickerMode) async {
+    //     BuildContext? buttonContext = MockBuildContext();
+    //     await tester.pumpWidget(MaterialApp(
+    //       localizationsDelegates: [
+    //         const AppLocalizationsDelegate(isTest: true),
+    //         GlobalMaterialLocalizations.delegate,
+    //         GlobalWidgetsLocalizations.delegate,
+    //       ],
+    //       navigatorKey: locator<NavigationService>().navigatorKey,
+    //       onGenerateRoute: router.generateRoute,
+    //       home: const Material(
+    //         child: ExploreEventDialog(
+    //           key: Key('ExploreEventDialog'),
+    //         ),
+    //       ),
+    //     ));
+    //     await tester.pump();
+    //     await tester.tap(find.byKey(const Key('StartDateSelector')));
+
+    //     final Future<DateTime?> date = showDatePicker(
+    //         context: buttonContext,
+    //         initialDate: DateTime.now(),
+    //         firstDate: _startDate,
+    //         lastDate: _endDate,
+    //         initialDatePickerMode: initialDatePickerMode!);
+
+    //     await tester.pumpAndSettle(const Duration(seconds: 1));
+    //     await callback(date);
+    //   }
+
+    //   testWidgets('Initial Start Date Calendar Test', (tester) async {
+    //     await prepareDatePicker(tester, (date) async {
+    //       await tester.tap(find.text('OK'));
+    //       expect((await date).toString().split(' ')[0],
+    //           equals(DateTime.now().toLocal().toString().split(' ')[0]));
+    //     }, _startDate.toLocal().toString().split(' ')[0], DatePickerMode.day);
+    //   });

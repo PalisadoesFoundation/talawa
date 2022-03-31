@@ -36,6 +36,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     height: 5,
                   ),
                   GestureDetector(
+                    key: const Key('StartDateSelector'),
                     onTap: () async {
                       final _date =
                           await customDatePicker(initialDate: _startDate);
@@ -79,6 +80,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     height: 5,
                   ),
                   GestureDetector(
+                    key: const Key('EndDateSelector'),
                     onTap: () async {
                       final _date =
                           await customDatePicker(initialDate: _endDate);
