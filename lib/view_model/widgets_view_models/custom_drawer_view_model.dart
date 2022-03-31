@@ -17,8 +17,6 @@ class CustomDrawerViewModel extends BaseModel {
   OrgInfo? _selectedOrg;
   StreamSubscription? _currentOrganizationStreamSubscription;
   OrgInfo? get selectedOrg => _selectedOrg;
-  Future<StreamSubscription?> get currentOrganizationStreamSubscription async =>
-      _currentOrganizationStreamSubscription;
   // ignore: unnecessary_getters_setters
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
   set switchAbleOrg(List<OrgInfo> switchableOrg) =>
@@ -26,7 +24,7 @@ class CustomDrawerViewModel extends BaseModel {
 
   initialize(MainScreenViewModel homeModel, BuildContext context) {
     _currentOrganizationStreamSubscription =
-        userConfig.currentOrfInfoStream.listen(
+        userConfig.currentOrgInfoStream.listen(
       (updatedOrganization) {
         setSelectedOrganizationName(updatedOrganization);
       },

@@ -27,23 +27,6 @@ void main() {
     unregisterServices();
   });
 
-  // group('Custom Drawer Model testing Dispose Function', () {
-  //   //final mockConnectivity = getAndRegisterConnectivityService();
-  //   final mainscreenModel = MainScreenViewModel();
-  //   final model = CustomDrawerViewModel();
-  //   final MockBuildContext mockBuildContext = MockBuildContext();
-  //   //final UserConfig mockus
-
-  //   test('check if dispose is working', () async {
-  //     await model.initialize(mainscreenModel, mockBuildContext);
-  //     await model.initialize(mainscreenModel, mockBuildContext);
-  //     final OrgInfo mockChangeOrgTo = model.switchAbleOrg.first;
-  //     model.switchOrg(mockChangeOrgTo);
-  //     expect(model.selectedOrg, mockChangeOrgTo);
-  //     model.dispose();
-  //   });
-  // });
-
   group('Custom Drawer Model testing -', () {
     //final mockConnectivity = getAndRegisterConnectivityService();
     final mainscreenModel = MainScreenViewModel();

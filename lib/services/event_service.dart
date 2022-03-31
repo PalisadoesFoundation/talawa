@@ -30,7 +30,7 @@ class EventService {
 
   void setOrgStreamSubscription() {
     _currentOrganizationStreamSubscription =
-        _userConfig.currentOrfInfoStream.listen((updatedOrganization) {
+        _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
       _currentOrg = updatedOrganization;
     });
   }
