@@ -533,16 +533,17 @@ void main() {
       await tester.pumpWidget(SelectOrganizationViewModelWidget(
         qrKey: selectOrganizationViewModel.qrKey,
       ));
+      org.isPublic = false;
 
       selectOrganizationViewModel.selectedOrganization = org;
 
-      when(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)))
+      when(databaseFunctions
+              .gqlAuthMutation(queries.sendMembershipRequest(org.id!)))
           .thenThrow(Exception());
 
       await selectOrganizationViewModel.onTapJoin();
 
       verify(navigationService.showSnackBar('SomeThing went wrong'));
-      verify(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)));
     });
     testWidgets('Test for organization list', (WidgetTester tester) async {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
@@ -552,12 +553,26 @@ void main() {
         qrKey: selectOrganizationViewModel.qrKey,
       ));
 
+      Map<String, dynamic>? expected;
+
       selectOrganizationViewModel.fetchMoreHelper(
         (FetchMoreOptions options) async {
+          expected = options.updateQuery(
+            <String, dynamic>{
+              "organizationsConnection": [1, 2]
+            },
+            <String, dynamic>{
+              "organizationsConnection": [3, 4]
+            },
+          );
           return Future.value(QueryResult(source: null));
         },
         [],
       );
+
+      expect(expected, {
+        'organizationsConnection': [1, 2, 3, 4]
+      });
     });
   });
 }
