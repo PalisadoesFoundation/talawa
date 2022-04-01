@@ -105,209 +105,207 @@ class _SelectOrganizationState extends State<SelectOrganization> {
   }
 }
 
- Widget showOrganizationList(SelectOrganizationViewModel model) {
-    model.organizations = [];
-    return GraphQLProvider(
-      client: ValueNotifier<GraphQLClient>(graphqlConfig.clientToQuery()),
-      child: Query(
-        options: QueryOptions(
-          document: gql(queries.fetchJoinInOrg),
-          variables: {
-            'first': 15,
-            'skip': 0,
-          },
-        ),
-        builder: (
-          QueryResult result, {
-          Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
-          Future<QueryResult?> Function()? refetch,
-        }) {
-          if (result.hasException) {
-            final bool? isException =
-                databaseFunctions.encounteredExceptionOrError(
-              result.exception!,
-              showSnackBar: false,
-            );
-            if (isException!) {
-              refetch!();
-            } else {
-              refetch!();
-            }
+Widget showOrganizationList(SelectOrganizationViewModel model) {
+  model.organizations = [];
+  return GraphQLProvider(
+    client: ValueNotifier<GraphQLClient>(graphqlConfig.clientToQuery()),
+    child: Query(
+      options: QueryOptions(
+        document: gql(queries.fetchJoinInOrg),
+        variables: {
+          'first': 15,
+          'skip': 0,
+        },
+      ),
+      builder: (
+        QueryResult result, {
+        Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
+        Future<QueryResult?> Function()? refetch,
+      }) {
+        if (result.hasException) {
+          final bool? isException =
+              databaseFunctions.encounteredExceptionOrError(
+            result.exception!,
+            showSnackBar: false,
+          );
+          if (isException!) {
+            refetch!();
           } else {
-            if (!result.isLoading) {
-              model.organizations = OrgInfo().fromJsonToList(
-                result.data!['organizationsConnection'] as List,
-              );
-            }
-            return Scrollbar(
-              isAlwaysShown: true,
-              interactive: true,
+            refetch!();
+          }
+        } else {
+          if (!result.isLoading) {
+            model.organizations = OrgInfo().fromJsonToList(
+              result.data!['organizationsConnection'] as List,
+            );
+          }
+          return Scrollbar(
+            isAlwaysShown: true,
+            interactive: true,
+            controller: model.allOrgController,
+            child: ListView.separated(
               controller: model.allOrgController,
-              child: ListView.separated(
-                controller: model.allOrgController,
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                itemCount: result.isLoading
-                    ? model.organizations.length + 1
-                    : model.organizations.length,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == model.organizations.length) {
-                    return ListTile(
-                      title: Center(
-                        child: CupertinoActivityIndicator(
-                          radius: SizeConfig.screenWidth! * 0.065,
-                        ),
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              itemCount: result.isLoading
+                  ? model.organizations.length + 1
+                  : model.organizations.length,
+              itemBuilder: (BuildContext context, int index) {
+                if (index == model.organizations.length) {
+                  return ListTile(
+                    title: Center(
+                      child: CupertinoActivityIndicator(
+                        radius: SizeConfig.screenWidth! * 0.065,
                       ),
-                    );
-                  }
-                  if (index == model.organizations.length - 3) {
-                    return VisibilityDetector(
-                      key: const Key('OrgSelItem'),
-                      onVisibilityChanged: (VisibilityInfo info) {
-                        if (info.visibleFraction > 0) {
-                          model.fetchMoreHelper(fetchMore!, model.organizations);
-                        }
-                      },
-                      child: CustomListTile(
-                        index: index,
-                        type: TileType.org,
-                        orgInfo: model.organizations[index],
-                        onTapOrgInfo: (item) => model.selectOrg(item),
-                        key: Key('OrgSelItem$index'),
-                      ),
-                    );
-                  }
-                  return CustomListTile(
-                    index: index,
-                    type: TileType.org,
-                    orgInfo: model.organizations[index],
-                    onTapOrgInfo: (item) => model.selectOrg(item),
-                    key: Key('OrgSelItem$index'),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      left: SizeConfig.screenWidth! * 0.2,
-                      right: 12,
-                    ),
-                    child: const Divider(
-                      color: Color(0xFFE5E5E5),
-                      thickness: 0.5,
                     ),
                   );
-                },
-              ),
-            );
-          }
-          return Container();
+                }
+                if (index == model.organizations.length - 3) {
+                  return VisibilityDetector(
+                    key: const Key('OrgSelItem'),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      if (info.visibleFraction > 0) {
+                        model.fetchMoreHelper(fetchMore!, model.organizations);
+                      }
+                    },
+                    child: CustomListTile(
+                      index: index,
+                      type: TileType.org,
+                      orgInfo: model.organizations[index],
+                      onTapOrgInfo: (item) => model.selectOrg(item),
+                      key: Key('OrgSelItem$index'),
+                    ),
+                  );
+                }
+                return CustomListTile(
+                  index: index,
+                  type: TileType.org,
+                  orgInfo: model.organizations[index],
+                  onTapOrgInfo: (item) => model.selectOrg(item),
+                  key: Key('OrgSelItem$index'),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    left: SizeConfig.screenWidth! * 0.2,
+                    right: 12,
+                  ),
+                  child: const Divider(
+                    color: Color(0xFFE5E5E5),
+                    thickness: 0.5,
+                  ),
+                );
+              },
+            ),
+          );
+        }
+        return Container();
+      },
+    ),
+  );
+}
+
+Widget showSearchList(SelectOrganizationViewModel model) {
+  print(model.searchController.text);
+  return GraphQLProvider(
+    client: ValueNotifier<GraphQLClient>(graphqlConfig.authClient()),
+    child: Query(
+      options: QueryOptions(
+        document: gql(Queries().fetchJoinInOrgByName),
+        variables: {
+          'nameStartsWith': model.searchController.text,
+          'first': 30,
+          'skip': 0,
         },
       ),
-    );
-  }
-
-   Widget showSearchList(SelectOrganizationViewModel model) {
-    print(model.searchController.text);
-    return GraphQLProvider(
-      client: ValueNotifier<GraphQLClient>(graphqlConfig.authClient()),
-      child: Query(
-        options: QueryOptions(
-          document: gql(Queries().fetchJoinInOrgByName),
-          variables: {
-            'nameStartsWith': model.searchController.text,
-            'first': 30,
-            'skip': 0,
-          },
-        ),
-        builder: (
-          QueryResult result, {
-          Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
-          Future<QueryResult?> Function()? refetch,
-        }) {
-          if (result.hasException) {
-            final bool? isException =
-                databaseFunctions.encounteredExceptionOrError(
-              result.exception!,
-              showSnackBar: false,
-            );
-            if (isException!) {
-              refetch!();
-            } else {
-              refetch!();
-            }
+      builder: (
+        QueryResult result, {
+        Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
+        Future<QueryResult?> Function()? refetch,
+      }) {
+        if (result.hasException) {
+          final bool? isException =
+              databaseFunctions.encounteredExceptionOrError(
+            result.exception!,
+            showSnackBar: false,
+          );
+          if (isException!) {
+            refetch!();
           } else {
-            if (!result.isLoading) {
-              model.organizations = OrgInfo().fromJsonToList(
-                result.data!['organizationsConnection'] as List,
-              );
-            }
-            return Scrollbar(
-              isAlwaysShown: true,
-              interactive: true,
-              controller: model.controller,
-              child: ListView.separated(
-                controller: model.controller,
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                itemCount: result.isLoading
-                    ? model.organizations.length + 1
-                    : model.organizations.length,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == model.organizations.length) {
-                    return ListTile(
-                      title: Center(
-                        child: CupertinoActivityIndicator(
-                          radius: SizeConfig.screenWidth! * 0.065,
-                        ),
-                      ),
-                    );
-                  }
-                  if (index == model.organizations.length - 3) {
-                    return VisibilityDetector(
-                      key: const Key('OrgSelItem'),
-                      onVisibilityChanged: (VisibilityInfo info) {
-                        if (info.visibleFraction > 0) {
-                          print(model.organizations.length);
-                          model.fetchMoreHelper(
-                              fetchMore!, model.organizations);
-                          print(model.organizations.length);
-                        }
-                      },
-                      child: CustomListTile(
-                        index: index,
-                        type: TileType.org,
-                        orgInfo: model.organizations[index],
-                        onTapOrgInfo: (item) => model.selectOrg(item),
-                        key: Key('OrgSelItem$index'),
-                      ),
-                    );
-                  }
-                  return CustomListTile(
-                    index: index,
-                    type: TileType.org,
-                    orgInfo: model.organizations[index],
-                    onTapOrgInfo: (item) => model.selectOrg(item),
-                    key: Key('OrgSelItem$index'),
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      left: SizeConfig.screenWidth! * 0.2,
-                      right: 12,
-                    ),
-                    child: const Divider(
-                      color: Color(0xFFE5E5E5),
-                      thickness: 0.5,
-                    ),
-                  );
-                },
-              ),
+            refetch!();
+          }
+        } else {
+          if (!result.isLoading) {
+            model.organizations = OrgInfo().fromJsonToList(
+              result.data!['organizationsConnection'] as List,
             );
           }
-          return Container();
-        },
-      ),
-    );
-  }
-
+          return Scrollbar(
+            isAlwaysShown: true,
+            interactive: true,
+            controller: model.controller,
+            child: ListView.separated(
+              controller: model.controller,
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              itemCount: result.isLoading
+                  ? model.organizations.length + 1
+                  : model.organizations.length,
+              itemBuilder: (BuildContext context, int index) {
+                if (index == model.organizations.length) {
+                  return ListTile(
+                    title: Center(
+                      child: CupertinoActivityIndicator(
+                        radius: SizeConfig.screenWidth! * 0.065,
+                      ),
+                    ),
+                  );
+                }
+                if (index == model.organizations.length - 3) {
+                  return VisibilityDetector(
+                    key: const Key('OrgSelItem'),
+                    onVisibilityChanged: (VisibilityInfo info) {
+                      if (info.visibleFraction > 0) {
+                        print(model.organizations.length);
+                        model.fetchMoreHelper(fetchMore!, model.organizations);
+                        print(model.organizations.length);
+                      }
+                    },
+                    child: CustomListTile(
+                      index: index,
+                      type: TileType.org,
+                      orgInfo: model.organizations[index],
+                      onTapOrgInfo: (item) => model.selectOrg(item),
+                      key: Key('OrgSelItem$index'),
+                    ),
+                  );
+                }
+                return CustomListTile(
+                  index: index,
+                  type: TileType.org,
+                  orgInfo: model.organizations[index],
+                  onTapOrgInfo: (item) => model.selectOrg(item),
+                  key: Key('OrgSelItem$index'),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: EdgeInsets.only(
+                    left: SizeConfig.screenWidth! * 0.2,
+                    right: 12,
+                  ),
+                  child: const Divider(
+                    color: Color(0xFFE5E5E5),
+                    thickness: 0.5,
+                  ),
+                );
+              },
+            ),
+          );
+        }
+        return Container();
+      },
+    ),
+  );
+}
