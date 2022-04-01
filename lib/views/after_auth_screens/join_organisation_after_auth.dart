@@ -8,8 +8,9 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/views/pre_auth_screens/select_organization.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
+import 'package:talawa/widgets/organization_list.dart';
+import 'package:talawa/widgets/organization_search_list.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:vibration/vibration.dart';
 
@@ -95,8 +96,8 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
               ),
               Expanded(
                 child: model.searching
-                    ? showSearchList(model)
-                    : showOrganizationList(model),
+                    ? OrganizationSearchList(model: model)
+                    : OrganizationList(model: model),
               ),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.0215,
