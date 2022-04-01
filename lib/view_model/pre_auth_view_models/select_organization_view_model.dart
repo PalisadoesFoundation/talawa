@@ -37,7 +37,6 @@ class SelectOrganizationViewModel extends BaseModel {
       final fetch = await databaseFunctions.fetchOrgById(initialData);
       if (fetch.runtimeType == OrgInfo) {
         selectedOrganization = fetch as OrgInfo;
-        debugPrint(userConfig.currentUser.refreshToken.toString());
         if (userConfig.currentUser.refreshToken?.isEmpty ?? true) {
           navigationService.pushScreen(
             Routes.signupDetailScreen,
