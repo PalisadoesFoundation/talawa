@@ -15,7 +15,7 @@ class LoginViewModel extends BaseModel {
   FocusNode emailFocus = FocusNode();
   AutovalidateMode validate = AutovalidateMode.disabled;
   bool hidePassword = true;
-
+ 
   initialize() {
     greeting = [
       {
