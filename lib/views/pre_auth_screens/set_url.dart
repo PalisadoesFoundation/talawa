@@ -164,10 +164,10 @@ class _SetUrlState extends State<SetUrl> {
                     GestureDetector(
                       key: const Key('ChangeLanguage'),
                       onTap: () {
-                        navigationService.pushReplacementScreen(
-                          '/selectLang',
-                          arguments: '0',
-                        );
+                        navigationService.pop(
+                            // '/selectLang',
+                            // arguments: '0',
+                            );
                       },
                       child: Padding(
                         padding: EdgeInsets.only(
