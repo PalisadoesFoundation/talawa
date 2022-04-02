@@ -76,10 +76,11 @@ class CustomCarouselScroller extends StatefulWidget {
   final Function navigateToIndividualPostPage;
 
   @override
-  _CustomCarouselScrollerState createState() => _CustomCarouselScrollerState();
+  CustomCarouselScrollerState createState() => CustomCarouselScrollerState();
 }
 
-class _CustomCarouselScrollerState extends State<CustomCarouselScroller> {
+@visibleForTesting
+class CustomCarouselScrollerState extends State<CustomCarouselScroller> {
   final PageController controller = PageController(initialPage: 0);
   int pindex = 0;
 
