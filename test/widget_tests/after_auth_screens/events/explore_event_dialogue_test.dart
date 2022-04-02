@@ -36,15 +36,13 @@ Widget createExploreEventDialog() {
 
 main() {
   group('Tests for Explore Event Dialogue', () {
-    late DateTime _startDate;
-    late DateTime _endDate;
     locator.registerSingleton(SizeConfig());
 
     setUp(() {
       registerServices();
       locator<SizeConfig>().test();
-      _startDate = DateTime.now().toLocal();
-      _endDate = DateTime.now().add(const Duration(days: 1)).toLocal();
+      // _startDate = DateTime.now().toLocal();
+      // _endDate = DateTime.now().add(const Duration(days: 1)).toLocal();
     });
 
     tearDown(() {
