@@ -32,7 +32,6 @@ Widget createExploreEventDialog() {
                 },
                 child: const Text('EventDialog')));
       }));
-
 }
 
 main() {
@@ -54,7 +53,6 @@ main() {
       expect(find.byType(TextButton), findsOneWidget);
       await tester.tap(find.byKey(const Key('TextButtonKey')));
       await tester.pump();
-
 
       expect(find.byType(ExploreEventDialog), findsOneWidget);
 
@@ -90,7 +88,6 @@ main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('TextButtonKey')));
       await tester.pump();
-
 
       expect(find.byType(ExploreEventDialog), findsOneWidget);
 
@@ -142,7 +139,6 @@ main() {
 
       await tester.tap(x);
       expect(find.byKey(const Key('TextButtonKey')), findsOneWidget);
-
     });
   });
 }
