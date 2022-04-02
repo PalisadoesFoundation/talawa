@@ -13,9 +13,8 @@
 name: PUSH Workflow
 on:
   push:
-    branches-ignore:
-      - 'master'
-      - 'develop'
+    branches:
+      - '**' 
 
 jobs:
   Flutter-Codebase-Check:
