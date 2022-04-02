@@ -9,7 +9,6 @@ import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.da
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
-import '../../../view_model_tests/after_auth_view_model_tests/event_view_model_tests/event_info_view_model_test.dart';
 
 Widget createExploreEventDialog() {
   return MaterialApp(
@@ -146,50 +145,3 @@ main() {
     });
   });
 }
-
-
-
-
-
-
-//   Future<void> prepareDatePicker(
-    //       WidgetTester tester,
-    //       Future<void> callback(Future<DateTime?> date),
-    //       String dateString,
-    //       DatePickerMode? initialDatePickerMode) async {
-    //     BuildContext? buttonContext = MockBuildContext();
-    //     await tester.pumpWidget(MaterialApp(
-    //       localizationsDelegates: [
-    //         const AppLocalizationsDelegate(isTest: true),
-    //         GlobalMaterialLocalizations.delegate,
-    //         GlobalWidgetsLocalizations.delegate,
-    //       ],
-    //       navigatorKey: locator<NavigationService>().navigatorKey,
-    //       onGenerateRoute: router.generateRoute,
-    //       home: const Material(
-    //         child: ExploreEventDialog(
-    //           key: Key('ExploreEventDialog'),
-    //         ),
-    //       ),
-    //     ));
-    //     await tester.pump();
-    //     await tester.tap(find.byKey(const Key('StartDateSelector')));
-
-    //     final Future<DateTime?> date = showDatePicker(
-    //         context: buttonContext,
-    //         initialDate: DateTime.now(),
-    //         firstDate: _startDate,
-    //         lastDate: _endDate,
-    //         initialDatePickerMode: initialDatePickerMode!);
-
-    //     await tester.pumpAndSettle(const Duration(seconds: 1));
-    //     await callback(date);
-    //   }
-
-    //   testWidgets('Initial Start Date Calendar Test', (tester) async {
-    //     await prepareDatePicker(tester, (date) async {
-    //       await tester.tap(find.text('OK'));
-    //       expect((await date).toString().split(' ')[0],
-    //           equals(DateTime.now().toLocal().toString().split(' ')[0]));
-    //     }, _startDate.toLocal().toString().split(' ')[0], DatePickerMode.day);
-    //   });
