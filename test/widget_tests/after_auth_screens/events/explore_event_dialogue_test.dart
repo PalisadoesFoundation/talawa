@@ -32,6 +32,7 @@ Widget createExploreEventDialog() {
                 },
                 child: const Text('EventDialog')));
       }));
+
 }
 
 main() {
@@ -41,8 +42,6 @@ main() {
     setUp(() {
       registerServices();
       locator<SizeConfig>().test();
-      // _startDate = DateTime.now().toLocal();
-      // _endDate = DateTime.now().add(const Duration(days: 1)).toLocal();
     });
 
     tearDown(() {
@@ -55,6 +54,7 @@ main() {
       expect(find.byType(TextButton), findsOneWidget);
       await tester.tap(find.byKey(const Key('TextButtonKey')));
       await tester.pump();
+
 
       expect(find.byType(ExploreEventDialog), findsOneWidget);
 
@@ -76,6 +76,7 @@ main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('TextButtonKey')));
       await tester.pump();
+
       expect(find.byType(ExploreEventDialog), findsOneWidget);
 
       final cancelButton = find.byKey(const Key('CancelButton'));
@@ -89,6 +90,7 @@ main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('TextButtonKey')));
       await tester.pump();
+
 
       expect(find.byType(ExploreEventDialog), findsOneWidget);
 
@@ -140,6 +142,7 @@ main() {
 
       await tester.tap(x);
       expect(find.byKey(const Key('TextButtonKey')), findsOneWidget);
+
     });
   });
 }

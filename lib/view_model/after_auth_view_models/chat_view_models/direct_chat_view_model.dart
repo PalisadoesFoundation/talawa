@@ -12,7 +12,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 class DirectChatViewModel extends BaseModel {
   final ChatService _chatService = locator<ChatService>();
   late StreamSubscription<ChatListTileDataModel> _chatListSubscription;
-  late StreamSubscription<ChatMessage> _chatMessageSubscription;
+  StreamSubscription<ChatMessage>? _chatMessageSubscription;
 
   final listKey = GlobalKey<AnimatedListState>();
 
@@ -70,7 +70,7 @@ class DirectChatViewModel extends BaseModel {
 
   @override
   void dispose() {
-    _chatMessageSubscription.cancel();
+    _chatMessageSubscription?.cancel();
     _chatListSubscription.cancel();
     super.dispose();
   }

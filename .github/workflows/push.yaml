@@ -13,9 +13,8 @@
 name: PUSH Workflow
 on:
   push:
-    branches-ignore:
-      - 'master'
-      - 'develop'
+    branches:
+      - '**' 
 
 jobs:
   Flutter-Codebase-Check:
@@ -114,11 +113,8 @@ jobs:
         run: flutter test --coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2.1.0
-      - name: Test acceptable level of code coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
         with:
-          path: './coverage/lcov.info'
-          min_coverage: 60.02
+          verbose: true        
 
   Android-Build:
     name: Testing build for android

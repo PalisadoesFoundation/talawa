@@ -14,7 +14,7 @@ class UserConfig {
   final StreamController<OrgInfo> _currentOrgInfoController =
       StreamController<OrgInfo>.broadcast();
 
-  Stream<OrgInfo> get currentOrfInfoStream => _currentOrgInfoStream;
+  Stream<OrgInfo> get currentOrgInfoStream => _currentOrgInfoStream;
   StreamController<OrgInfo> get currentOrgInfoController =>
       _currentOrgInfoController;
 
