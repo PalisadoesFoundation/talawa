@@ -6,6 +6,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
+import 'package:talawa/widgets/organization_list.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/signup_progress_indicator.dart';
 
@@ -76,7 +77,7 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                     thickness: 2.0,
                   ),
                 ),
-                Expanded(child: model.showOrganizationList()),
+                Expanded(child: OrganizationList(model: model)),
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.0215,
                 ),
