@@ -134,7 +134,6 @@ void main() {
         home: Scaffold(body: Container()),
       ));
       await tester.pumpAndSettle();
-
       await model.checkIfExistsAndAddNewEvent(newEvent);
       await model.deleteEvent(eventId: newEvent.id!);
       await tester.pumpAndSettle();
