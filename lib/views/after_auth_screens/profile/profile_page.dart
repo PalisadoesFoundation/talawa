@@ -105,24 +105,25 @@ class ProfilePage extends StatelessWidget {
                                     .pushScreen("/appSettingsPage");
                               },
                             ),
-                            CustomListTile(
-                              key: homeModel!.keySPHelp,
-                              index: 1,
-                              type: TileType.option,
-                              option: Options(
-                                icon: const Icon(
-                                  Icons.help_outline,
-                                  size: 30,
-                                ),
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('Help'),
-                                subtitle: AppLocalizations.of(context)!
-                                    .strictTranslate(
-                                  'Reach out to us for help',
-                                ),
-                              ),
-                              onTapOption: () {},
-                            ),
+                            // // Will be added later when we add the Help Section in Documentation.
+                            // CustomListTile(
+                            //   key: homeModel!.keySPHelp,
+                            //   index: 1,
+                            //   type: TileType.option,
+                            //   option: Options(
+                            //     icon: const Icon(
+                            //       Icons.help_outline,
+                            //       size: 30,
+                            //     ),
+                            //     title: AppLocalizations.of(context)!
+                            //         .strictTranslate('Help'),
+                            //     subtitle: AppLocalizations.of(context)!
+                            //         .strictTranslate(
+                            //       'Reach out to us for help',
+                            //     ),
+                            //   ),
+                            //   onTapOption: () {},
+                            // ),
                             CustomListTile(
                               key: homeModel!.keySPDonateUs,
                               index: 2,
