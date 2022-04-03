@@ -120,18 +120,7 @@ class CustomDrawer extends StatelessWidget {
                     ),
                     ListTile(
                       key: MainScreenViewModel.keyDrawerLeaveCurrentOrg,
-                      onTap: () => navigationService.pushDialog(
-                        CustomAlertDialog(
-                          key: const Key("Exit?"),
-                          reverse: true,
-                          dialogSubTitle:
-                              'Are you sure you want to exit this organization?',
-                          successText: 'Exit',
-                          success: () {
-                            //Exit org
-                          },
-                        ),
-                      ),
+                      onTap: () => exitButton(),
                       leading: const Icon(Icons.logout, size: 30),
                       title: Text(
                         AppLocalizations.of(context)!
@@ -150,6 +139,20 @@ class CustomDrawer extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  exitButton() {
+    return navigationService.pushDialog(
+      CustomAlertDialog(
+        key: const Key("Exit?"),
+        reverse: true,
+        dialogSubTitle: 'Are you sure you want to exit this organization?',
+        successText: 'Exit',
+        success: () {
+          //Exit org
+        },
+      ),
     );
   }
 }
