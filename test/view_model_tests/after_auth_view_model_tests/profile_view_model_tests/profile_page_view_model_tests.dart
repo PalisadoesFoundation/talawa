@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
-import 'package:talawa/widgets/custom_alert_dialog.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -46,15 +43,14 @@ void main() {
   });
 
   group('ProfilePageViewModel Tests -', () {
-
-    test("Test initialization" , (){
+    test("Test initialization", () {
       final model = ProfilePageViewModel();
       model.initialize();
-      expect(model.currentOrg , userConfig.currentOrg);
-      expect(model.currentUser , userConfig.currentUser);
+      expect(model.currentOrg, userConfig.currentOrg);
+      expect(model.currentUser, userConfig.currentUser);
     });
 
-    test("Test showSnackBar and popBottomSheet function" , (){
+    test("Test showSnackBar and popBottomSheet function", () {
       final model = ProfilePageViewModel();
       model.initialize();
 
@@ -65,35 +61,46 @@ void main() {
       verify(navigationService.pop());
     });
 
-    test("Test updateSheetHeight function" , (){
+    test("Test updateSheetHeight function", () {
       final model = ProfilePageViewModel();
       model.initialize();
       model.updateSheetHeight();
-      expect(model.bottomSheetHeight , SizeConfig.screenHeight!*0.65);
+      expect(model.bottomSheetHeight, SizeConfig.screenHeight! * 0.65);
     });
 
-    testWidgets("Test iconButton function" , (tester) async{
+    testWidgets("Test iconButton function", (tester) async {
       final model = ProfilePageViewModel();
       model.initialize();
       const Icon testIcon = Icon(Icons.cancel);
-      await tester.pumpWidget(MaterialApp(home: Scaffold(body: model.iconButton(testIcon , (){}),),));
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: model.iconButton(testIcon, () {}),
+        ),
+      ));
       final iconButtonFinder = find.byType(IconButton);
       final iconButton = tester.firstWidget(iconButtonFinder);
-      expect((iconButton as IconButton).icon , testIcon);
+      expect((iconButton as IconButton).icon, testIcon);
     });
 
-    testWidgets("Test dominationButton function" , (tester) async{
+    testWidgets("Test dominationButton function", (tester) async {
       final mockContext = MockBuildContext();
       final model = ProfilePageViewModel();
       model.initialize();
       const String amt = "test_amt";
-      await tester.pumpWidget(MaterialApp(home: Scaffold(body: model.dominationButton(amt, mockContext , (){})),));
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(body: model.dominationButton(amt, mockContext, () {})),
+      ));
       final containerFinder = find.byType(Container);
       final Container container = tester.firstWidget(containerFinder);
-      expect(container.padding , EdgeInsets.symmetric(vertical: SizeConfig.screenHeight! * 0.02, horizontal: SizeConfig.screenWidth! * 0.075,));
+      expect(
+          container.padding,
+          EdgeInsets.symmetric(
+            vertical: SizeConfig.screenHeight! * 0.02,
+            horizontal: SizeConfig.screenWidth! * 0.075,
+          ));
     });
 
-    testWidgets("Test logout function" , (tester) async{
+    testWidgets("Test logout function", (tester) async {
       final mockContext = MockBuildContext();
       final model = ProfilePageViewModel();
       final mocknav = getAndRegisterNavigationService();
