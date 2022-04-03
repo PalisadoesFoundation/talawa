@@ -404,18 +404,12 @@ Future<void> main() async {
       final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
 
       when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pushReplacementScreen(
-        '/selectLang',
-        arguments: '0',
-      )).thenAnswer((_) async => 1);
+      when(navigationService.pop()).thenAnswer((_) async => 1);
 
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();
 
-      verify(navigationService.pushReplacementScreen(
-        '/selectLang',
-        arguments: '0',
-      ));
+      verify(navigationService.pop());
     });
   });
 
@@ -727,18 +721,12 @@ Future<void> main() async {
       final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
 
       when(navigationService.navigatorKey).thenAnswer((_) => navigator);
-      when(navigationService.pushReplacementScreen(
-        '/selectLang',
-        arguments: '0',
-      )).thenAnswer((_) async => 1);
+      when(navigationService.pop()).thenAnswer((_) async => 1);
 
       await tester.tap(gestureDetectorFinder.first);
       await tester.pump();
 
-      verify(navigationService.pushReplacementScreen(
-        '/selectLang',
-        arguments: '0',
-      ));
+      verify(navigationService.pop());
     });
   });
 }
