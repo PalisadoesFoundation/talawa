@@ -7,10 +7,14 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
+import 'package:talawa/models/chats/chat_message.dart';
+import 'package:talawa/models/chats/chat_user.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
@@ -46,6 +50,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<PostService>(returnNullOnMissingStub: true),
     MockSpec<MultiMediaPickerService>(returnNullOnMissingStub: true),
     MockSpec<EventService>(returnNullOnMissingStub: true),
+    MockSpec<ChatService>(returnNullOnMissingStub: true),
     MockSpec<UserConfig>(returnNullOnMissingStub: true),
     MockSpec<AppLanguage>(returnNullOnMissingStub: true),
     MockSpec<Connectivity>(returnNullOnMissingStub: true),
@@ -97,6 +102,35 @@ CommentService getAndRegisterCommentService() {
   _removeRegistrationIfExists<CommentService>();
   final service = MockCommentService();
   locator.registerSingleton<CommentService>(service);
+  return service;
+}
+
+ChatService getAndRegisterChatService() {
+  _removeRegistrationIfExists<ChatService>();
+  final service = MockChatService();
+  final StreamController<ChatListTileDataModel> _streamController =
+      StreamController();
+  final Stream<ChatListTileDataModel> _stream =
+      _streamController.stream.asBroadcastStream();
+
+  final StreamController<ChatMessage> _chatMessageController =
+      StreamController<ChatMessage>();
+  final Stream<ChatMessage> _messagestream =
+      _chatMessageController.stream.asBroadcastStream();
+
+  when(service.chatListStream).thenAnswer((invocation) => _stream);
+  when(service.chatMessagesStream).thenAnswer((invocation) => _messagestream);
+  when(service.getDirectChatsByUserId())
+      .thenAnswer((invocation) async => _streamController.add(
+            ChatListTileDataModel([
+              ChatUser(
+                firstName: 'test',
+                id: '1',
+                image: 'fakeHttp',
+              )
+            ], '1'),
+          ));
+  locator.registerSingleton<ChatService>(service);
   return service;
 }
 
@@ -170,7 +204,7 @@ UserConfig getAndRegisterUserConfig() {
   final Stream<OrgInfo> _stream = _streamController.stream.asBroadcastStream();
   when(service.currentOrgInfoController)
       .thenAnswer((invocation) => _streamController);
-  when(service.currentOrfInfoStream).thenAnswer((invocation) => _stream);
+  when(service.currentOrgInfoStream).thenAnswer((invocation) => _stream);
 
   //Mkock current user
   when(service.currentUser).thenReturn(
@@ -318,6 +352,7 @@ void registerServices() {
   getAndRegisterDatabaseMutationFunctions();
   getAndRegisterOrganizationService();
   getAndRegisterCommentService();
+  getAndRegisterChatService();
 }
 
 void unregisterServices() {
