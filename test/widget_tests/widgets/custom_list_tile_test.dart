@@ -83,8 +83,7 @@ void main() {
     unregisterServices();
   });
   group('Custom list tile test', () {
-    testWidgets("Test onTap Inkwell when type is org ",
-        (WidgetTester tester) async {
+    testWidgets("Test type is org ", (WidgetTester tester) async {
       bool executed = false;
       _orgInfo = OrgInfo(
         name: 'Test Name',
@@ -243,8 +242,7 @@ void main() {
       // Test for icon when is public is false
       expect(find.byIcon(Icons.arrow_drop_down), findsOneWidget);
     });
-    testWidgets("Test onTap Inkwell when type is user ",
-        (WidgetTester tester) async {
+    testWidgets("Test when type is user ", (WidgetTester tester) async {
       bool executed = false;
       _tileType = TileType.user;
       _userInfo = User(
@@ -315,8 +313,7 @@ void main() {
 
       expect(userSizedBoxFallback1, findsOneWidget);
     });
-    testWidgets("Test onTap Inkwell when type is _ ",
-        (WidgetTester tester) async {
+    testWidgets("Test when type is option", (WidgetTester tester) async {
       bool executed = false;
       _tileType = TileType.option;
       _onTapOption = () => {executed = true};
