@@ -73,7 +73,6 @@ class CustomDrawerViewModel extends BaseModel {
 
   @override
   void dispose() {
-    print("temp");
     _disposed = true;
     _currentOrganizationStreamSubscription?.cancel();
     super.dispose();
