@@ -55,35 +55,35 @@ void main() {
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
 
+  late Event newEvent;
   setUp(() async {
     registerServices();
     await locator.unregister<NavigationService>();
     locator.registerSingleton<NavigationService>(_MockNavigationService());
     locator<SizeConfig>().test();
+    newEvent = Event(
+      id: "1",
+      title: "fake_event_title",
+      description: "fake_event_desc",
+      attendees: "20",
+      location: "fake_event_loc",
+      recurring: false,
+      startDate: DateTime.now().toString().substring(0, 10),
+      endDate: DateTime.now().toString().substring(0, 10),
+      startTime: "1900",
+      endTime: "2000",
+      recurrence: "none",
+      creator: User(id: 'Test Id'),
+      isPublic: true,
+      isRegistered: true,
+      isRegisterable: true,
+      organization: OrgInfo(id: 'XYZ'),
+    );
   });
 
   tearDown(() {
     unregisterServices();
   });
-
-  final Event newEvent = Event(
-    id: "1",
-    title: "fake_event_title",
-    description: "fake_event_desc",
-    attendees: "20",
-    location: "fake_event_loc",
-    recurring: false,
-    startDate: DateTime.now().toString().substring(0, 10),
-    endDate: DateTime.now().toString().substring(0, 10),
-    startTime: "1900",
-    endTime: "2000",
-    recurrence: "none",
-    creator: User(id: 'Test Id'),
-    isPublic: true,
-    isRegistered: true,
-    isRegisterable: true,
-    organization: OrgInfo(id: 'Test Id'),
-  );
 
   group('Explore Event Tests', () {
     test("Test fetchNewEvents and refreshEvents", () async {
@@ -105,26 +105,17 @@ void main() {
       expect(model.events.first.id, newEvent.id);
     });
 
-    testWidgets("Test deleteEvent function", (tester) async {
+    test(
+        "Test checkIfExistsAndAddNewEvent function when start time is not parsable",
+        () async {
       final model = ExploreEventsViewModel();
-      await tester.pumpWidget(MaterialApp(
-        locale: const Locale('en'),
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(isTest: true),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        navigatorKey: navigationService.navigatorKey,
-        home: Scaffold(body: Container()),
-      ));
-      await tester.pumpAndSettle();
-      await model.initialise();
+      newEvent.startTime = "09:00:00";
+      newEvent.organization!.id = 'Test Id 1';
       await model.checkIfExistsAndAddNewEvent(newEvent);
-      expect(model.events.first.id, newEvent.id);
-      await model.deleteEvent(eventId: newEvent.id!);
-      expect(model.events.contains(newEvent), false);
+      expect(model.events, isEmpty);
+      expect(model.events.length, 0);
+      // expect(model.events.first.id, '1');
     });
-
     testWidgets(
         "Test function of CustomAlertDialog when deleteEvent function is executed",
         (tester) async {
@@ -143,7 +134,6 @@ void main() {
         home: Scaffold(body: Container()),
       ));
       await tester.pumpAndSettle();
-
       await model.checkIfExistsAndAddNewEvent(newEvent);
       await model.deleteEvent(eventId: newEvent.id!);
       await tester.pumpAndSettle();
@@ -222,14 +212,14 @@ void main() {
         () async {
       final model = ExploreEventsViewModel();
       when(userConfig.currentOrg)
-          .thenAnswer((realInvocation) => OrgInfo(id: 'Test Id'));
+          .thenAnswer((realInvocation) => OrgInfo(id: '1'));
       when(userConfig.currentOrgInfoStream)
           .thenAnswer((realInvocation) => _MockStream<OrgInfo>());
       when(eventService.eventStream)
           .thenAnswer((realInvocation) => _MockStream<Event>());
 
-      await model.initialise();
       await model.checkIfExistsAndAddNewEvent(newEvent);
+      await model.initialise();
       await model.choseValueFromDropdown('Registered Events');
       expect(model.emptyListMessage, "No registered events are present");
     });
