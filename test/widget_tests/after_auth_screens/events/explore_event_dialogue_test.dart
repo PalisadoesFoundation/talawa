@@ -36,7 +36,7 @@ Widget createExploreEventDialog() {
 
 main() {
   DateTime _startDate = DateTime.now().toLocal();
-  DateTime _endDate = DateTime.now().add(const Duration(days: 1)).toLocal();
+  // DateTime _endDate = DateTime.now().add(const Duration(days: 1)).toLocal();
   setUp(() {
     registerServices();
     locator<SizeConfig>().test();
