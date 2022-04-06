@@ -101,5 +101,45 @@ void main() {
 
       expect(find.byType(AlertDialog), findsOneWidget);
     });
+
+    testWidgets('Testing for different lengths of description Strings',
+        (tester) async {
+      await tester.pumpWidget(createPinnedCarouselWidget());
+      await tester.pumpAndSettle();
+    });
+    testWidgets('PageView onPageChanged test', (tester) async {
+      await tester.pumpWidget(createPinnedCarouselWidget());
+      await tester.pumpAndSettle();
+      final customCarouselScroller = find.byType(CustomCarouselScroller);
+      final CustomCarouselScrollerState customCarouselScrollerState =
+          tester.state(customCarouselScroller);
+      expect(
+          pinnedPosts[customCarouselScrollerState.pindex].description!.length,
+          lessThanOrEqualTo(90));
+      customCarouselScrollerState.controller.jumpToPage(1);
+      expect(customCarouselScrollerState.pindex, 1);
+      expect(
+          pinnedPosts[customCarouselScrollerState.pindex].description!.length,
+          greaterThan(90));
+    });
+
+    testWidgets('Test the text displayed based on length of description',
+        (tester) async {
+      await tester.pumpWidget(createPinnedCarouselWidget());
+      await tester.pumpAndSettle();
+      final customCarouselScroller = find.byType(CustomCarouselScroller);
+      final CustomCarouselScrollerState customCarouselScrollerState =
+          tester.state(customCarouselScroller);
+      int currentPage = customCarouselScrollerState.pindex;
+
+      expect(find.text(pinnedPosts[currentPage].description!), findsOneWidget);
+      customCarouselScrollerState.controller.jumpToPage(1);
+      await tester.pump();
+      currentPage = customCarouselScrollerState.pindex;
+      expect(
+          find.text(
+              '${pinnedPosts[currentPage].description!.substring(0, 90)}...'),
+          findsOneWidget);
+    });
   });
 }
