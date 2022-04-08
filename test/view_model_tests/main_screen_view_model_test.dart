@@ -140,7 +140,6 @@ void main() {
           .captured;
       captured[0].success();
       captured[0].secondaryButtonTap();
-      // print(captured);
 
       //Ensures that naviagation service was called
       verifyInteraction(mocknav, mockName: "NavigationService");
@@ -153,6 +152,8 @@ void main() {
       mainTestModel.showTutorial(
           onClickTarget: (TargetFocus x) {}, onFinish: () {});
       expect(mainTestModel.tutorialCoachMark, isNotNull);
+
+      // mainTestModel.tutorialCoachMark.skip();
     });
   });
 
