@@ -32,10 +32,19 @@ class GraphqlConfig {
     authClient();
   }
 
+  static final WebSocketLink _webSocketLink = WebSocketLink(
+    'ws://sriram.dscnitrourkela.org/graphql',
+    config: const SocketClientConfig(
+      autoReconnect: true,
+    ),
+  );
+
   GraphQLClient clientToQuery() {
+    final link = Link.split(
+        (request) => request.isSubscription, _webSocketLink, httpLink);
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
-      link: httpLink,
+      link: link,
     );
   }
 

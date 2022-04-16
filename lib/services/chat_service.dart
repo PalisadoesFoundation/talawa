@@ -46,10 +46,9 @@ class ChatService {
         ChatQueries().sendMessageToDirectChat(),
         variables: {"chatId": chatId, "messageContent": messageContent});
 
-    // print(ChatQueries().sendMessageToDirectChat());
-
     final message = ChatMessage.fromJson(
-        result.data['sendMessageToDirectChat'] as Map<String, dynamic>);
+      result.data['sendMessageToDirectChat'] as Map<String, dynamic>,
+    );
 
     _chatMessageController.add(message);
 

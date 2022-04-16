@@ -15,7 +15,7 @@ class ChatMessage {
       _$ChatMessageFromJson(json);
   Map<String, dynamic> toJson() => _$ChatMessageToJson(this);
 
-  String id;
+  String? id;
   ChatUser? sender;
   ChatUser? receiver;
   String? messageContent;

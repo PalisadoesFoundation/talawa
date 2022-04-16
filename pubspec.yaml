@@ -54,7 +54,7 @@ dependency_overrides:
   platform: ^3.1.0
 
 dev_dependencies:
-  build_runner: ^2.1.1
+  build_runner: ^2.1.10
   flutter_test:
     sdk: flutter
   hive_generator: ^1.1.0

@@ -8,7 +8,7 @@ part of 'chat_message.dart';
 
 ChatMessage _$ChatMessageFromJson(Map<String, dynamic> json) {
   return ChatMessage(
-    json['_id'] as String,
+    json['_id'] as String?,
     json['sender'] == null
         ? null
         : ChatUser.fromJson(json['sender'] as Map<String, dynamic>),
