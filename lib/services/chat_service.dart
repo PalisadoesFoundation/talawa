@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
@@ -52,7 +53,7 @@ class ChatService {
 
     _chatMessageController.add(message);
 
-    print(result.data);
+    debugPrint(result.data.toString());
   }
 
   Future<void> getDirectChatsByUserId() async {
