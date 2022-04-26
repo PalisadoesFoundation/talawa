@@ -35,12 +35,17 @@ There are multiple ways to access the Talawa-API that the Talawa mobile app uses
 
 You can also setup your own local instance of [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api). The advantage is that you'll be working with the latest code.
 
-### Hosted API server
+1. If you have set up all the 3 projects locally ([talawa](https://github.com/PalisadoesFoundation/talawa), [talawa-api](https://github.com/PalisadoesFoundation/talawa-api), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)), then use the URL (Organization URL) in this form:
+    1. http://(localhost IP):4000/graphql (See the next item for the IP addresses to use for your environment)
+1. Every Emulator has a different localhost IP address. 
+    1. For the Android Studio emulator use: http://10.0.2.2:4000/graphql
+
+### Remote Hosted API Test Server
 
 We have a test API server for software developers contributing to the talawa projects.
 
 1. This is a good server to use to test your code prior to submitting a pull request
 1. The server runs the latest master branch version of the talawa-api code base
-    - Use this URL in the Talawa App: https://talawa-graphql-api.herokuapp.com/graphql
+    1. Use this URL in the Talawa App: https://talawa-graphql-api.herokuapp.com/graphql
 1. This is a development environment. The data stored on this server may be modified or deleted without warning.
 
