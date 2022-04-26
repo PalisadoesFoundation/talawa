@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 
-class ChatInputField extends StatelessWidget {
+class ChatInputField extends StatefulWidget {
   const ChatInputField({
+    required this.chatId,
+    required this.model,
     Key? key,
   }) : super(key: key);
+
+  final DirectChatViewModel model;
+  final String chatId;
+
+  @override
+  State<ChatInputField> createState() => _ChatInputFieldState();
+}
+
+class _ChatInputFieldState extends State<ChatInputField> {
+  final controller = TextEditingController();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +58,17 @@ class ChatInputField extends StatelessWidget {
                   SizedBox(width: SizeConfig.blockSizeHorizontal),
                   Expanded(
                     child: TextField(
+                      controller: controller,
                       decoration: InputDecoration(
                         enabledBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         suffixIcon: GestureDetector(
+                          onTap: () {
+                            widget.model.sendMessageToDirectChat(
+                                widget.chatId, controller.text);
+                            controller.clear();
+                          },
                           child: Icon(
                             Icons.send,
                             color: Theme.of(context)

@@ -286,6 +286,15 @@ class MockEventService extends _i2.Mock implements _i10.EventService {
 /// See the documentation for Mockito's code generation for more information.
 class MockChatService extends _i2.Mock implements _i18.ChatService {
   @override
+  _i4.Stream<_i3.QueryResult> get chatStream =>
+      (super.noSuchMethod(Invocation.getter(#chatStream),
+              returnValue: Stream<_i3.QueryResult>.empty())
+          as _i4.Stream<_i3.QueryResult>);
+  @override
+  set chatStream(_i4.Stream<_i3.QueryResult>? _chatStream) =>
+      super.noSuchMethod(Invocation.setter(#chatStream, _chatStream),
+          returnValueForMissingStub: null);
+  @override
   _i4.Stream<_i19.ChatListTileDataModel> get chatListStream =>
       (super.noSuchMethod(Invocation.getter(#chatListStream),
               returnValue: Stream<_i19.ChatListTileDataModel>.empty())
@@ -296,13 +305,20 @@ class MockChatService extends _i2.Mock implements _i18.ChatService {
               returnValue: Stream<_i20.ChatMessage>.empty())
           as _i4.Stream<_i20.ChatMessage>);
   @override
+  _i4.Future<void> sendMessageToDirectChat(
+          String? chatId, String? messageContent) =>
+      (super.noSuchMethod(
+          Invocation.method(#sendMessageToDirectChat, [chatId, messageContent]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
   _i4.Future<void> getDirectChatsByUserId() =>
       (super.noSuchMethod(Invocation.method(#getDirectChatsByUserId, []),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  _i4.Future<void> getDirectChatsByChatId(dynamic chatId) =>
-      (super.noSuchMethod(Invocation.method(#getDirectChatsByChatId, [chatId]),
+  _i4.Future<void> getDirectChatMessagesByChatId(dynamic chatId) => (super
+      .noSuchMethod(Invocation.method(#getDirectChatMessagesByChatId, [chatId]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
