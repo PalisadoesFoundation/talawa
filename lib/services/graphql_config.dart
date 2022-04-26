@@ -22,31 +22,24 @@ class GraphqlConfig {
     return true;
   }
 
-  void getOrgUrl() {
+  getOrgUrl() {
     final box = Hive.box('url');
     final String? url = box.get(urlKey) as String?;
     final String? imgUrl = box.get(imageUrlKey) as String?;
     orgURI = url ?? ' ';
     displayImgRoute = imgUrl ?? ' ';
     httpLink = HttpLink(orgURI!);
-    webSocketLink = WebSocketLink(
-      orgURI!,
-      config: const SocketClientConfig(
-        autoReconnect: true,
-      ),
-    );
     clientToQuery();
     authClient();
   }
 
-  // static final WebSocketLink _webSocketLink =
-
   GraphQLClient clientToQuery() {
-    final link = Link.split(
-        (request) => request.isSubscription, webSocketLink, httpLink);
+    //TODO: Implement websocket link from OrgUrl
+    // final link = Link.split(
+    //     (request) => request.isSubscription, webSocketLink, httpLink);
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
-      link: link,
+      link: httpLink,
     );
   }
 
