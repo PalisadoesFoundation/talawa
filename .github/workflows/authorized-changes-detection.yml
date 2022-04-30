@@ -11,15 +11,15 @@
 
 name: Checking workflow files
 on:
-pull_request:
-  paths:
-    - '.github/**'
+  pull_request:
+    paths:
+      - '.github/**'
 
 jobs:
-Checking-for-unauthorized-file-changes:
-  name: Checking for unauthorized file changes
-  runs-on: ubuntu-latest
+  Checking-for-unauthorized-file-changes:
+    name: Checking for unauthorized file changes
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Unauthorized file modification in PR
-      run: exit 1
+    steps:
+      - name: Unauthorized file modification in PR
+        run: exit 1

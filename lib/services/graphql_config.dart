@@ -10,6 +10,7 @@ class GraphqlConfig {
   static String? orgURI = ' ';
   static String? token;
   late HttpLink httpLink;
+  late WebSocketLink webSocketLink;
 
 //prefix route for showing images
   String? displayImgRoute;
@@ -33,6 +34,9 @@ class GraphqlConfig {
   }
 
   GraphQLClient clientToQuery() {
+    //TODO: Implement websocket link from OrgUrl
+    // final link = Link.split(
+    //     (request) => request.isSubscription, webSocketLink, httpLink);
     return GraphQLClient(
       cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
       link: httpLink,

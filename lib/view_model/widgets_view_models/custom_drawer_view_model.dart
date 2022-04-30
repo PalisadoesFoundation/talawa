@@ -13,9 +13,10 @@ class CustomDrawerViewModel extends BaseModel {
   late TutorialCoachMark tutorialCoachMark;
   late User _currentUser;
   late List<OrgInfo> _switchAbleOrg;
-  late OrgInfo _selectedOrg;
-  late StreamSubscription _currentOrganizationStreamSubscription;
-  OrgInfo get selectedOrg => _selectedOrg;
+  bool _disposed = false;
+  OrgInfo? _selectedOrg;
+  StreamSubscription? _currentOrganizationStreamSubscription;
+  OrgInfo? get selectedOrg => _selectedOrg;
   // ignore: unnecessary_getters_setters
   List<OrgInfo> get switchAbleOrg => _switchAbleOrg;
   set switchAbleOrg(List<OrgInfo> switchableOrg) =>
@@ -23,8 +24,10 @@ class CustomDrawerViewModel extends BaseModel {
 
   initialize(MainScreenViewModel homeModel, BuildContext context) {
     _currentOrganizationStreamSubscription =
-        userConfig.currentOrfInfoStream.listen(
-      (updatedOrganization) => setSelectedOrganizationName(updatedOrganization),
+        userConfig.currentOrgInfoStream.listen(
+      (updatedOrganization) {
+        setSelectedOrganizationName(updatedOrganization);
+      },
     );
     _currentUser = userConfig.currentUser;
     _selectedOrg = userConfig.currentOrg;
@@ -53,14 +56,25 @@ class CustomDrawerViewModel extends BaseModel {
     return isPresent;
   }
 
+  @override
+  void notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
+  }
+
   setSelectedOrganizationName(OrgInfo updatedOrganization) {
-    _selectedOrg = updatedOrganization;
-    notifyListeners();
+    if (_selectedOrg != updatedOrganization) {
+      _selectedOrg = updatedOrganization;
+      userConfig.currentOrgInfoController.add(_selectedOrg!);
+      notifyListeners();
+    }
   }
 
   @override
   void dispose() {
-    _currentOrganizationStreamSubscription.cancel();
+    _disposed = true;
+    _currentOrganizationStreamSubscription?.cancel();
     super.dispose();
   }
 }

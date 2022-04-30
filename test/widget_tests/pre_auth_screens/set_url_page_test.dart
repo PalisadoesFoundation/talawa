@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
+import 'package:mockito/mockito.dart';
 // import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -14,13 +15,14 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
+
+import '../../helpers/test_helpers.dart';
 
 Widget createSetUrlScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
     MultiProvider(
@@ -42,7 +44,7 @@ Widget createSetUrlScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
           key: Key('SetUrl'),
           uri: 'null',
         ),
-        navigatorKey: locator<NavigationService>().navigatorKey,
+        navigatorKey: navigationService.navigatorKey,
         onGenerateRoute: router.generateRoute,
       ),
     );
@@ -67,7 +69,7 @@ Widget createSetUrlScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
           key: Key('SetUrl'),
           uri: 'null',
         ),
-        navigatorKey: locator<NavigationService>().navigatorKey,
+        navigatorKey: navigationService.navigatorKey,
         onGenerateRoute: router.generateRoute,
       ),
     );
@@ -88,6 +90,9 @@ Future<void> main() async {
   //initializing test functions
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
+  setUp(() async {
+    registerServices();
+  });
 
   //Testing in light mode/normal mode
   group('Select Language Screen Widget Test in light mode', () {
@@ -348,6 +353,64 @@ Future<void> main() async {
       await tester.tap(signupButtonWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
     });
+    testWidgets(
+        "Testing onFieldSubmitted in TextFormField by simulating keyboard hits",
+        (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
+
+      final formFinder = find.ancestor(
+          of: find.byKey(const Key('UrlInputField')),
+          matching: find.byType(Form));
+      final formWidget = tester.firstWidget(formFinder) as Form;
+      (formWidget.key! as GlobalKey<FormState>).currentState!.save();
+
+      final textFinder = find.byKey(const Key('UrlInputField'));
+      await tester.tap(textFinder);
+      await tester.pump();
+      await tester.showKeyboard(textFinder);
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+    });
+    testWidgets("Testing onTap in sign up button", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
+
+      final btnFinder = find.byKey(const Key('SignUpButton'));
+
+      await tester.dragUntilVisible(
+        btnFinder.first,
+        find.byType(SingleChildScrollView).first,
+        const Offset(100, 0),
+      );
+      await tester.tap(btnFinder.first);
+      await tester.pump();
+    });
+    testWidgets("Testing onTap in Change Language Gesture Detector",
+        (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(createSetUrlScreenLight());
+      await tester.pumpAndSettle();
+
+      final gestureDetectorFinder = find.byKey(const Key('ChangeLanguage'));
+
+      await tester.dragUntilVisible(
+        gestureDetectorFinder.first,
+        find.byType(SingleChildScrollView).first,
+        const Offset(100, 0),
+      );
+
+      final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
+
+      when(navigationService.navigatorKey).thenAnswer((_) => navigator);
+      when(navigationService.pop()).thenAnswer((_) async => 1);
+
+      await tester.tap(gestureDetectorFinder.first);
+      await tester.pump();
+
+      verify(navigationService.pop());
+    });
   });
 
   //Testing in dark mode
@@ -606,6 +669,64 @@ Future<void> main() async {
       );
       await tester.tap(signupButtonWidget, warnIfMissed: false);
       await tester.pumpAndSettle();
+    });
+    testWidgets(
+        "Testing onFieldSubmitted in TextFormField by simulating keyboard hits",
+        (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
+
+      final formFinder = find.ancestor(
+          of: find.byKey(const Key('UrlInputField')),
+          matching: find.byType(Form));
+      final formWidget = tester.firstWidget(formFinder) as Form;
+      (formWidget.key! as GlobalKey<FormState>).currentState!.save();
+
+      final textFinder = find.byKey(const Key('UrlInputField'));
+      await tester.tap(textFinder);
+      await tester.pump();
+      await tester.showKeyboard(textFinder);
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+    });
+    testWidgets("Testing onTap in sign up button", (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
+
+      final btnFinder = find.byKey(const Key('SignUpButton'));
+
+      await tester.dragUntilVisible(
+        btnFinder.first,
+        find.byType(SingleChildScrollView).first,
+        const Offset(100, 0),
+      );
+      await tester.tap(btnFinder.first);
+      await tester.pump();
+    });
+    testWidgets("Testing onTap in Change Language Gesture Detector",
+        (tester) async {
+      //pushing setUrlScreen
+      await tester.pumpWidget(createSetUrlScreenDark());
+      await tester.pumpAndSettle();
+
+      final gestureDetectorFinder = find.byKey(const Key('ChangeLanguage'));
+
+      await tester.dragUntilVisible(
+        gestureDetectorFinder.first,
+        find.byType(SingleChildScrollView).first,
+        const Offset(100, 0),
+      );
+
+      final GlobalKey<NavigatorState> navigator = GlobalKey<NavigatorState>();
+
+      when(navigationService.navigatorKey).thenAnswer((_) => navigator);
+      when(navigationService.pop()).thenAnswer((_) async => 1);
+
+      await tester.tap(gestureDetectorFinder.first);
+      await tester.pump();
+
+      verify(navigationService.pop());
     });
   });
 }

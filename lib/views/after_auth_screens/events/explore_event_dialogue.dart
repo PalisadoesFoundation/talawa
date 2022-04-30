@@ -36,6 +36,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     height: 5,
                   ),
                   GestureDetector(
+                    key: const Key('StartDateSelector'),
                     onTap: () async {
                       final _date =
                           await customDatePicker(initialDate: _startDate);
@@ -51,12 +52,18 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const Icon(
-                              Icons.calendar_today,
-                              size: 19,
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Icon(
+                                Icons.calendar_today,
+                                size: 19,
+                              ),
                             ),
-                            Text(
-                              "${_startDate.toLocal()}".split(' ')[0],
+                            Expanded(
+                              child: Text(
+                                "${_startDate.toLocal()}".split(' ')[0],
+                                maxLines: 1,
+                              ),
                             ),
                           ],
                         ),
@@ -75,6 +82,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     height: 5,
                   ),
                   GestureDetector(
+                    key: const Key('EndDateSelector'),
                     onTap: () async {
                       final _date =
                           await customDatePicker(initialDate: _endDate);
@@ -88,14 +96,20 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                       child: Card(
                         color: Theme.of(context).colorScheme.primaryContainer,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            const Icon(
-                              Icons.calendar_today,
-                              size: 20,
+                            const Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Icon(
+                                Icons.calendar_today,
+                                size: 20,
+                              ),
                             ),
-                            Text(
-                              "${_endDate.toLocal()}".split(' ')[0],
+                            Expanded(
+                              child: Text(
+                                "${_endDate.toLocal()}".split(' ')[0],
+                                maxLines: 1,
+                              ),
                             ),
                           ],
                         ),
@@ -116,23 +130,29 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                TextButton(
-                  onPressed: () {
-                    navigationService.pop();
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.strictTranslate('Cancel'),
-                    style: Theme.of(context).textTheme.bodyText2,
+                Expanded(
+                  child: TextButton(
+                    key: const Key('CancelButton'),
+                    onPressed: () {
+                      navigationService.pop();
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.strictTranslate('Cancel'),
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    navigationService.pop();
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.strictTranslate('Done'),
-                    style:
-                        const TextStyle(fontSize: 14, color: Color(0xff4285F4)),
+                Expanded(
+                  child: TextButton(
+                    key: const Key('DoneButton'),
+                    onPressed: () {
+                      navigationService.pop();
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.strictTranslate('Done'),
+                      style: const TextStyle(
+                          fontSize: 14, color: Color(0xff4285F4)),
+                    ),
                   ),
                 )
               ],
