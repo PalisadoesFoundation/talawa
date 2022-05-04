@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/chats/chat_message.dart';
@@ -19,6 +21,8 @@ class ChatService {
 
   final _userConfig = locator<UserConfig>();
 
+  late Stream<QueryResult> chatStream;
+
   final StreamController<ChatListTileDataModel> _chatController =
       StreamController<ChatListTileDataModel>();
 
@@ -27,6 +31,30 @@ class ChatService {
 
   Stream<ChatListTileDataModel> get chatListStream => _chatListStream;
   Stream<ChatMessage> get chatMessagesStream => _chatMessagesStream;
+
+  // Stream<QueryResult> getMessagesFromDirectChat() async* {
+  //   final operation = SubscriptionOptions(
+  //       document: gql(ChatQueries().messageSentToDirectChatsubscription),
+  //       operationName: 'messageSentToDirectChat');
+  //   chatStream = graphqlConfig.clientToQuery().subscribe(operation);
+
+  //   _cha
+  // }
+
+  Future<void> sendMessageToDirectChat(
+      String chatId, String messageContent) async {
+    final result = await _dbFunctions.gqlAuthMutation(
+        ChatQueries().sendMessageToDirectChat(),
+        variables: {"chatId": chatId, "messageContent": messageContent});
+
+    final message = ChatMessage.fromJson(
+      result.data['sendMessageToDirectChat'] as Map<String, dynamic>,
+    );
+
+    _chatMessageController.add(message);
+
+    debugPrint(result.data.toString());
+  }
 
   Future<void> getDirectChatsByUserId() async {
     final userId = _userConfig.currentUser.id;
@@ -47,7 +75,7 @@ class ChatService {
     });
   }
 
-  Future<void> getDirectChatsByChatId(chatId) async {
+  Future<void> getDirectChatMessagesByChatId(chatId) async {
     final String query =
         ChatQueries().fetchDirectChatMessagesByChatId(chatId as String);
 

@@ -60,7 +60,7 @@ class ChatMessageScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const ChatInputField(),
+                      ChatInputField(chatId: chatId, model: model),
                     ],
                   )
                 : const Center(

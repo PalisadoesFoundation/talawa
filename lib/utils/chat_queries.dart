@@ -34,4 +34,45 @@ class ChatQueries {
         }
     ''';
   }
+
+  String get messageSentToDirectChatsubscription => '''
+      subscription{
+        messageSentToDirectChat{
+          _id
+          messageContent
+          sender {
+              _id
+              firstName
+              image
+            }
+            receiver {
+              _id
+              firstName
+              image
+            }
+        }
+      }
+  ''';
+
+  String sendMessageToDirectChat() {
+    return '''
+      mutation sendMessageToDirectChat(
+        \$chatId: ID!
+        \$messageContent: String!
+        ){
+        sendMessageToDirectChat(
+          chatId: \$chatId
+          messageContent: \$messageContent
+        ) {
+          messageContent
+            sender{
+              firstName
+            }
+            receiver{
+              firstName
+            }
+          }
+        }
+    ''';
+  }
 }
