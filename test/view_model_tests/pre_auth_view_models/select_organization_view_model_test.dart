@@ -350,7 +350,10 @@ void main() {
           },
         };
 
-        return QueryResult(source: null, data: data);
+        return QueryResult(
+            source: QueryResultSource.network,
+            data: data,
+            options: QueryOptions(document: gql(queries.joinOrgById(org.id!))));
       });
 
       _user = User(
@@ -391,7 +394,10 @@ void main() {
           },
         };
 
-        return QueryResult(source: null, data: data);
+        return QueryResult(
+            source: QueryResultSource.network,
+            data: data,
+            options: QueryOptions(document: gql(queries.joinOrgById(org.id!))));
       });
       _user = User(
         joinedOrganizations: [],
@@ -425,7 +431,10 @@ void main() {
           },
         };
 
-        return QueryResult(source: null, data: data);
+        return QueryResult(
+            source: QueryResultSource.network,
+            data: data,
+            options: QueryOptions(document: gql(queries.joinOrgById(org.id!))));
       });
 
       await selectOrganizationViewModel.onTapJoin();
@@ -460,7 +469,10 @@ void main() {
           },
         };
 
-        return QueryResult(source: null, data: data);
+        return QueryResult(
+            source: QueryResultSource.network,
+            data: data,
+            options: QueryOptions(document: gql(queries.joinOrgById(org.id!))));
       });
 
       await selectOrganizationViewModel.onTapJoin();
@@ -565,7 +577,9 @@ void main() {
               "organizationsConnection": [3, 4]
             },
           );
-          return Future.value(QueryResult(source: null));
+          return Future.value(QueryResult(
+              source: QueryResultSource.network,
+              options: QueryOptions(document: gql(queries.fetchJoinInOrg))));
         },
         [],
       );

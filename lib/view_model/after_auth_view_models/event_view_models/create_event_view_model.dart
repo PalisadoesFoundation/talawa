@@ -83,7 +83,7 @@ class CreateEventViewModel extends BaseModel {
       final Map<String, dynamic> variables = {
         'startDate': startDate.toString(),
         'endDate': endDate.toString(),
-        'organizationId': _currentOrg.id!,
+        'organizationId': _currentOrg.id,
         'title': eventTitleTextController.text,
         'description': eventDescriptionTextController.text,
         'location': eventLocationTextController.text,

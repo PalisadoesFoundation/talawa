@@ -15,7 +15,7 @@ environment:
 
 dependencies:
   cached_network_image: ^3.1.0
-  connectivity_plus: ^1.0.7
+  connectivity_plus: ^2.3.1
   cupertino_icons: ^1.0.3
   currency_picker: 2.0.4
   flutter:
@@ -25,7 +25,7 @@ dependencies:
   flutter_speed_dial: ^4.2.0
   font_awesome_flutter: ^9.1.0
   get_it: ^7.2.0
-  graphql_flutter: ^5.0.0
+  graphql_flutter: 5.1.1-beta.3
   hive: ^2.0.4
   http: ^0.13.3
   image_cropper: ^1.4.1
@@ -36,22 +36,19 @@ dependencies:
   network_image_mock: ^2.0.1
   path_provider: ^2.0.2
   permission_handler: ^8.1.4+2
-  provider: ^5.0.0
-  qr_code_scanner: ^0.5.2
+  provider: ^6.0.3
+  qr_code_scanner: ^1.0.0
   qr_flutter: ^4.0.0
   quick_actions: ^0.6.0+5
   shared_preferences: ^2.0.6
   shimmer: ^2.0.0
   social_share: ^2.2.1
   timelines: ^0.1.0
-  tutorial_coach_mark: ^1.1.1
+  tutorial_coach_mark: ^1.2.3
   uni_links: ^0.5.1
   vibration: ^1.7.4-nullsafety.0
   video_player: ^2.2.7
-  visibility_detector: ^0.2.2
-
-dependency_overrides:
-  platform: ^3.1.0
+  visibility_detector: ^0.3.3
 
 dev_dependencies:
   build_runner: ^2.1.10

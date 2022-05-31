@@ -149,10 +149,10 @@ class SetUrlViewModel extends BaseModel {
 
   void _onQRViewCreated(QRViewController controller) {
     controller.scannedDataStream.listen((scanData) {
-      if (scanData.code.isNotEmpty) {
+      if (scanData.code!.isNotEmpty) {
         print(scanData.code);
         try {
-          final List<String> data = scanData.code.split('?');
+          final List<String> data = scanData.code!.split('?');
           url.text = data[0];
           final List<String> queries = data[1].split('&');
           orgId = queries[0].split('=')[1];
