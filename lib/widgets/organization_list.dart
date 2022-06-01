@@ -49,7 +49,7 @@ class OrganizationList extends StatelessWidget {
               );
             }
             return Scrollbar(
-              isAlwaysShown: true,
+              thumbVisibility: true,
               interactive: true,
               controller: model.allOrgController,
               child: ListView.separated(

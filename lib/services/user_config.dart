@@ -49,7 +49,7 @@ class UserConfig {
       try {
         final QueryResult result = await databaseFunctions.gqlNonAuthMutation(
           queries.fetchUserInfo,
-          variables: {'id': currentUser.id!},
+          variables: {'id': currentUser.id},
         ) as QueryResult;
         final User userInfo = User.fromJson(
           result.data!['users'][0] as Map<String, dynamic>,

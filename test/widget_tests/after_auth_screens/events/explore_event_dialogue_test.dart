@@ -99,13 +99,17 @@ main() {
         await tester.pumpAndSettle(const Duration(seconds: 1));
         await tester.tap(find.text('OK'));
         await tester.pumpAndSettle(const Duration(seconds: 1));
-        expect((await date).toString().split(' ')[0],
-            DateTime(2022, DateTime.april, 10).toString().split(' ')[0]);
+        expect(
+            (await date).toString().split(' ')[0],
+            DateTime(DateTime.now().year, DateTime.now().month, 10)
+                .toString()
+                .split(' ')[0]);
         _startDate = await date;
         await tester.pumpAndSettle();
         expect(find.byKey(const Key('TextButtonKey')), findsOneWidget);
 
-        expect(_startDate, DateTime(2022, DateTime.april, 10));
+        expect(_startDate,
+            DateTime(DateTime.now().year, DateTime.now().month, 10));
       });
     });
   });

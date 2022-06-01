@@ -77,7 +77,11 @@ void main() {
 
       model.initialise(org);
 
-      final result = QueryResult(source: null, data: data);
+      final result = QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(
+              document: gql(queries.registerUser('', '', '', ''))));
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
@@ -92,7 +96,10 @@ void main() {
           },
         };
 
-        return QueryResult(source: null, data: data);
+        return QueryResult(
+            source: QueryResultSource.network,
+            data: data,
+            options: QueryOptions(document: gql(queries.joinOrgById(org.id!))));
       });
       empty = false;
 
@@ -177,7 +184,11 @@ void main() {
 
       model.initialise(org);
 
-      final result = QueryResult(source: null, data: data);
+      final result = QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(
+              document: gql(queries.registerUser('', '', '', ''))));
       when(graphqlConfig.getToken()).thenAnswer((_) async => false);
       when(
         databaseFunctions.gqlNonAuthMutation(
@@ -278,7 +289,11 @@ void main() {
 
       model.initialise(org);
 
-      final result = QueryResult(source: null, data: data);
+      final result = QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(
+              document: gql(queries.registerUser('', '', '', ''))));
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
@@ -294,7 +309,11 @@ void main() {
           },
         };
 
-        return QueryResult(source: null, data: data);
+        return QueryResult(
+            source: QueryResultSource.network,
+            data: data,
+            options: QueryOptions(
+                document: gql(queries.sendMembershipRequest(org.id!))));
       });
       empty = false;
 
@@ -378,7 +397,11 @@ void main() {
 
       model.initialise(org);
 
-      final result = QueryResult(source: null, data: data);
+      final result = QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(
+              document: gql(queries.registerUser('', '', '', ''))));
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
@@ -434,7 +457,11 @@ void main() {
 
       model.initialise(org);
 
-      final result = QueryResult(source: null, data: data);
+      final result = QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(
+              document: gql(queries.registerUser('', '', '', ''))));
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
