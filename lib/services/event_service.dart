@@ -42,9 +42,12 @@ class EventService {
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
     final result = await _dbFunctions.gqlAuthMutation(mutation);
     if (result == null) return;
-    final List eventsJson = result.data!["events"] as List;
+    final List eventsJson = result.data!["eventsByOrganization"] as List;
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
+      event.isRegistered = event.registrants?.any(
+              (registrant) => registrant.id == _userConfig.currentUser.id) ??
+          false;
       _eventStreamController.add(event);
     });
   }

@@ -60,7 +60,7 @@ class Event {
               )
               .toList(),
       registrants: (json['registrants'] as List<dynamic>?)
-          ?.map((e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true))
+          ?.map((e) => User.fromJson(e as Map<String, dynamic>, fromOrg: false))
           .toList(),
     );
   }

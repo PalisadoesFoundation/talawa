@@ -2,7 +2,7 @@ class EventQueries {
   String fetchOrgEvents(String orgId) {
     return """
       query {
-        events(id: "$orgId"){ 
+        eventsByOrganization(id: "$orgId"){ 
           _id
           organization {
             _id
@@ -20,11 +20,19 @@ class EventQueries {
           startTime
           endTime
           location
-          isRegistered
           creator{
             _id
             firstName
             lastName
+          }
+          admins {
+            firstName
+            lastName
+          }
+          registrants {
+            user {
+              _id
+            }
           }
         }
       }
