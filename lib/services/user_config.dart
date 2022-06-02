@@ -47,7 +47,7 @@ class UserConfig {
     graphqlConfig.getToken().then((value) async {
       databaseFunctions.init();
       try {
-        final QueryResult result = await databaseFunctions.gqlNonAuthMutation(
+        final QueryResult result = await databaseFunctions.gqlAuthQuery(
           queries.fetchUserInfo,
           variables: {'id': currentUser.id},
         ) as QueryResult;
