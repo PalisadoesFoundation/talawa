@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -10,13 +13,24 @@ class EventInfoViewModel extends BaseModel {
   late ExploreEventsViewModel exploreEventsInstance;
   late Event event;
   late String fabTitle;
+  late List<User> registrants;
 
-  initialize({required Map<String, dynamic> args}) {
+  initialize({required Map<String, dynamic> args}) async {
     event = args["event"] as Event;
     exploreEventsInstance =
         args["exploreEventViewModel"] as ExploreEventsViewModel;
     fabTitle = getFabTitle();
-    print(event.isRegistered);
+    setState(ViewState.busy);
+    final fetchRegistrantsByEventQueryResult = await locator<EventService>()
+        .fetchRegistrantsByEvent(event.id!) as QueryResult;
+    final registrantsJsonList = fetchRegistrantsByEventQueryResult
+        .data!['registrantsByEvent'] as List<Object?>;
+    registrants = registrantsJsonList
+        .map((registrantJson) => User.fromJson(
+            registrantJson! as Map<String, dynamic>,
+            fromOrg: true))
+        .toList();
+    setState(ViewState.idle);
   }
 
   registerForEvent() async {

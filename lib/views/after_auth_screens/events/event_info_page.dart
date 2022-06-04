@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
-import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
@@ -40,7 +40,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
                   ),
                 ),
               ),
-              _eventInfoBody(model.event)
+              const _EventInfoBody()
             ],
           ),
           floatingActionButton: model.event.creator!.id !=
@@ -49,12 +49,8 @@ class _EventInfoPageState extends State<EventInfoPage> {
                   onPressed: () {
                     model.registerForEvent();
                   },
-                  label: Text(
-                    model.fabTitle,
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                  ),
+                  label: Text(model.fabTitle,
+                      style: Theme.of(context).textTheme.bodyText2),
                 )
               : eventAdminFab(
                   context: context,
@@ -66,8 +62,15 @@ class _EventInfoPageState extends State<EventInfoPage> {
       },
     );
   }
+}
 
-  Widget _eventInfoBody(Event event) {
+class _EventInfoBody extends StatelessWidget {
+  const _EventInfoBody({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = Provider.of<EventInfoViewModel>(context);
+    final event = model.event;
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -182,7 +185,6 @@ class _EventInfoPageState extends State<EventInfoPage> {
                 ),
               ],
             ),
-
             const Divider(),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
@@ -207,12 +209,22 @@ class _EventInfoPageState extends State<EventInfoPage> {
               color: Theme.of(context).colorScheme.onBackground,
               thickness: 2,
             ),
-            CustomListTile(
-              index: 0,
-              key: const Key('Admins'),
-              type: TileType.user,
-              userInfo: userConfig.currentUser,
-              onTapUserInfo: () {},
+            ListView.builder(
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: event.admins!.length,
+              itemBuilder: (BuildContext context, int index) {
+                return CustomListTile(
+                  key: Key(
+                    '${AppLocalizations.of(context)!.strictTranslate("Admins")}$index',
+                  ),
+                  index: index,
+                  type: TileType.user,
+                  userInfo: event.admins![index],
+                  onTapUserInfo: () {},
+                );
+              },
             ),
             SizedBox(
               height: SizeConfig.screenHeight! * 0.013,
@@ -240,25 +252,29 @@ class _EventInfoPageState extends State<EventInfoPage> {
               color: Theme.of(context).colorScheme.onBackground,
               thickness: 2,
             ),
-
-            //  Needs to be replaced with event attendees
-            ListView.builder(
-              padding: EdgeInsets.zero,
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 10,
-              itemBuilder: (BuildContext context, int index) {
-                return CustomListTile(
-                  key: Key(
-                    '${AppLocalizations.of(context)!.strictTranslate("Attendee")}$index',
-                  ),
-                  index: index,
-                  type: TileType.user,
-                  userInfo: userConfig.currentUser,
-                  onTapUserInfo: () {},
-                );
-              },
-            )
+            if (model.isBusy)
+              const Padding(
+                padding: EdgeInsets.only(top: 12.0),
+                child: Center(child: CircularProgressIndicator()),
+              )
+            else
+              ListView.builder(
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: model.registrants.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return CustomListTile(
+                    key: Key(
+                      '${AppLocalizations.of(context)!.strictTranslate("Attendee")}$index',
+                    ),
+                    index: index,
+                    type: TileType.user,
+                    userInfo: model.registrants[index],
+                    onTapUserInfo: () {},
+                  );
+                },
+              )
           ],
         ),
       ),
