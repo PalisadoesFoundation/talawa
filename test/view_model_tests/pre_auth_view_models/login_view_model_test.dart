@@ -52,7 +52,10 @@ void main() {
         ),
       );
 
-      final result = QueryResult(source: null, data: data);
+      final result = QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.loginUser('', ''))));
 
       when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
           .thenAnswer((_) async => result);
@@ -77,7 +80,10 @@ void main() {
         ),
       );
 
-      final result = QueryResult(source: null, data: data);
+      final result = QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.loginUser('', ''))));
 
       when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
           .thenAnswer((_) async => result);

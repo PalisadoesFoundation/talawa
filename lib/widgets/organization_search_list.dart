@@ -51,7 +51,7 @@ class OrganizationSearchList extends StatelessWidget {
               );
             }
             return Scrollbar(
-              isAlwaysShown: true,
+              thumbVisibility: true,
               interactive: true,
               controller: model.controller,
               child: ListView.separated(

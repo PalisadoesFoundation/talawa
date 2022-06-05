@@ -72,7 +72,7 @@ class CustomDrawer extends StatelessWidget {
                           height: SizeConfig.screenHeight! * 0.41,
                           child: Scrollbar(
                             controller: model.controller,
-                            isAlwaysShown: true,
+                            thumbVisibility: true,
                             child: ListView.builder(
                               key: const Key("Switching Org"),
                               controller: model.controller,

@@ -230,7 +230,7 @@ class Queries {
 
   String fetchUserInfo = ''' 
        query Users(\$id: ID!){
-          users(id:\$id){
+          users(where: { id: \$id }) {
             _id
             firstName
             lastName
