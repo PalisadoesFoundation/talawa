@@ -5,6 +5,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/event_service.dart';
+import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
@@ -46,6 +47,7 @@ class EventInfoViewModel extends BaseModel {
       //final registerResult = await EventService().registerForAnEvent(event.id!);
       if (registerResult != null) {
         event.isRegistered = true;
+        registrants.add(locator<UserConfig>().currentUser);
       }
       print(registerResult);
       fabTitle = getFabTitle();
