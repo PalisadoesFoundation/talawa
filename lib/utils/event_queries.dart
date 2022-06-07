@@ -39,6 +39,19 @@ class EventQueries {
     """;
   }
 
+  String registrantsByEvent(String eventId) {
+    return '''
+      query {
+        registrantsByEvent(id: "$eventId") {
+          _id
+          firstName
+          lastName
+          image
+        }
+      }
+    ''';
+  }
+
   String addEvent() {
     return """
      mutation createEvent( \$organizationId: ID!,
@@ -86,7 +99,6 @@ class EventQueries {
         _id
         title
         description
-        isRegistered
       }
     }
   """;

@@ -25,6 +25,7 @@ import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
@@ -307,8 +308,35 @@ EventService getAndRegisterEventService() {
           refreshToken: "testtoken",
           authToken: 'testtoken',
         ),
+        admins: [
+          User(
+            id: "xzy1",
+            firstName: "Test",
+            lastName: "User",
+          )
+        ],
         isPublic: true,
         organization: OrgInfo(id: 'XYZ'),
+      ),
+    ),
+  );
+  const data = {
+    'registrantsByEvent': [
+      {
+        '_id': 'xzy1',
+        'firstName': 'Test',
+        'lastName': 'User',
+      }
+    ],
+  };
+  when(service.fetchRegistrantsByEvent('1')).thenAnswer(
+    (realInvocation) async => QueryResult(
+      source: QueryResultSource.network,
+      data: data,
+      options: QueryOptions(
+        document: gql(
+          EventQueries().registrantsByEvent('1'),
+        ),
       ),
     ),
   );

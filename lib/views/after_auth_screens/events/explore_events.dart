@@ -66,7 +66,7 @@ class ExploreEvents extends StatelessWidget {
           body: model.isBusy
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
-                  onRefresh: () async => model.fetchNewEvents(),
+                  onRefresh: () async => model.refreshEvents(),
                   child: Stack(
                     children: [
                       SingleChildScrollView(
