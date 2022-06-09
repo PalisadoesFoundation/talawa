@@ -8,6 +8,7 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
@@ -20,6 +21,7 @@ import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
 import 'package:talawa/views/after_auth_screens/join_organisation_after_auth.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
+import 'package:talawa/views/after_auth_screens/venue/map_screen.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
 import 'package:talawa/views/pre_auth_screens/login.dart';
@@ -167,6 +169,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           chatId: chatId,
           model: model,
         ),
+      );
+    case Routes.mapScreen:
+      return MaterialPageRoute(
+        builder: (context) => MapScreen(
+            settings.arguments! as CreateEventViewModel,
+            key: const Key('MapScreen')),
       );
     default:
       return MaterialPageRoute(
