@@ -61,7 +61,8 @@ class CreateEventForm extends StatelessWidget {
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
               suffix: GestureDetector(
-                onTap: () => navigationService.pushScreen(Routes.mapScreen, arguments: model),
+                onTap: () => navigationService.pushScreen(Routes.mapScreen,
+                    arguments: model),
                 child: Text(
                   AppLocalizations.of(context)!
                       .strictTranslate('Choose on map'),
