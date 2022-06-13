@@ -85,26 +85,6 @@ class CreateEventForm extends StatelessWidget {
               ),
             ),
           ),
-          // Row(
-          //   children: [
-          //     const Icon(
-          //       Icons.place,
-          //     ),
-          //     SizedBox(
-          //       width: SizeConfig.screenWidth! * 0.036,
-          //     ),
-          //     TextButton(
-          //       onPressed: () => navigationService.pushScreen(Routes.mapScreen),
-          //       child: Text(
-          //         AppLocalizations.of(context)!.strictTranslate('Add Location'),
-          //         style: Theme.of(context)
-          //             .textTheme
-          //             .headline5!
-          //             .copyWith(fontSize: 16),
-          //       ),
-          //     )
-          //   ],
-          // ),
           SizedBox(
             height: SizeConfig.screenHeight! * 0.013,
           ),
