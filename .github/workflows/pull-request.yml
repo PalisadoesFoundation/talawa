@@ -113,11 +113,6 @@ jobs:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
-      - name: Inject local.properties value
-          env:
-            VALUE: ${{ secrets.GOOGLE_API_KEY }}
-              run: echo GOOGLE_API_KEY="$VALUE" > ./local.properties
-
       - name: Building for android
         run: flutter build apk
 
