@@ -18,8 +18,11 @@ dependencies:
   connectivity_plus: ^2.3.1
   cupertino_icons: ^1.0.3
   currency_picker: 2.0.4
+  firebase_core: ^1.17.1
+  firebase_messaging: ^11.4.1
   flutter:
     sdk: flutter
+  flutter_local_notifications: ^9.6.0
   flutter_localizations:
     sdk: flutter
   flutter_speed_dial: ^4.2.0

@@ -68,10 +68,10 @@ class Queries {
   }
 
   //login the user
-  String loginUser(String email, String password) {
+  String loginUser(String email, String password, String? token) {
     return """
         mutation {
-          login(data: {email: "$email", password: "$password"}){
+          login(data: {email: "$email", password: "$password", token: "$token"}){
             accessToken
             user{
               _id
@@ -126,6 +126,14 @@ class Queries {
             }
             refreshToken
           }
+        }
+    """;
+  }
+
+  String logout() {
+    return """
+        mutation {
+          logout
         }
     """;
   }

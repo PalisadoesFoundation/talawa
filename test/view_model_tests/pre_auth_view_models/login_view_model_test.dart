@@ -55,16 +55,16 @@ void main() {
       final result = QueryResult(
           source: QueryResultSource.network,
           data: data,
-          options: QueryOptions(document: gql(queries.loginUser('', ''))));
+          options: QueryOptions(document: gql(queries.loginUser('', '', ''))));
 
-      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
+      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')))
           .thenAnswer((_) async => result);
 
       await model.login();
 
       expect(model.validate, AutovalidateMode.disabled);
 
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
+      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
     });
     testWidgets('Check if login() is working fine when organisation empty',
         (tester) async {
@@ -83,16 +83,16 @@ void main() {
       final result = QueryResult(
           source: QueryResultSource.network,
           data: data,
-          options: QueryOptions(document: gql(queries.loginUser('', ''))));
+          options: QueryOptions(document: gql(queries.loginUser('', '', ''))));
 
-      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
+      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')))
           .thenAnswer((_) async => result);
 
       await model.login();
 
       expect(model.validate, AutovalidateMode.disabled);
 
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
+      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
     });
     testWidgets('Check if login() is working fine when invalid credentials',
         (tester) async {
@@ -106,14 +106,14 @@ void main() {
         ),
       );
 
-      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
+      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')))
           .thenAnswer((_) async => null);
 
       await model.login();
 
       expect(model.validate, AutovalidateMode.disabled);
 
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
+      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
 
       verifyNever(navigationService.removeAllAndPush(
         Routes.waitingScreen,
@@ -131,14 +131,14 @@ void main() {
         ),
       );
 
-      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
+      when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')))
           .thenThrow(Exception());
 
       await model.login();
 
       expect(model.validate, AutovalidateMode.disabled);
 
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
+      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
     });
   });
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
@@ -57,8 +58,9 @@ class LoginViewModel extends BaseModel {
           .pushDialog(const CustomProgressDialog(key: Key('LoginProgress')));
       databaseFunctions.init();
       try {
-        final result = await databaseFunctions
-            .gqlNonAuthMutation(queries.loginUser(email.text, password.text));
+        final token = await FirebaseMessaging.instance.getToken();
+        final result = await databaseFunctions.gqlNonAuthMutation(
+            queries.loginUser(email.text, password.text, token));
         navigationService.pop();
         if (result != null) {
           final User loggedInUser =
