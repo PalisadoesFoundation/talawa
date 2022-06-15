@@ -64,7 +64,8 @@ void main() {
 
       expect(model.validate, AutovalidateMode.disabled);
 
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
+      verify(
+          databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
     });
     testWidgets('Check if login() is working fine when organisation empty',
         (tester) async {
@@ -92,7 +93,8 @@ void main() {
 
       expect(model.validate, AutovalidateMode.disabled);
 
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
+      verify(
+          databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
     });
     testWidgets('Check if login() is working fine when invalid credentials',
         (tester) async {
@@ -113,7 +115,8 @@ void main() {
 
       expect(model.validate, AutovalidateMode.disabled);
 
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
+      verify(
+          databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
 
       verifyNever(navigationService.removeAllAndPush(
         Routes.waitingScreen,
@@ -138,7 +141,8 @@ void main() {
 
       expect(model.validate, AutovalidateMode.disabled);
 
-      verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
+      verify(
+          databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '', '')));
     });
   });
 }

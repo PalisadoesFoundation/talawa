@@ -235,4 +235,3 @@ dmypy.json
 test/fixtures/core
 
 # End of https://www.gitignore.io/api/python
-lib/firebase_options.dart
