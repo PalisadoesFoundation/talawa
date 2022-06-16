@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -39,6 +40,28 @@ class OrganizationFeed extends StatelessWidget {
               onPressed: () =>
                   MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
             ),
+              actions: [
+              Padding(
+                  padding: EdgeInsets.only(
+                    right: SizeConfig.screenWidth! * 0.027,
+                  ),
+                  child: Row(
+                    children: [
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.person_add_alt,
+                          ),
+                          color: Theme.of(context).iconTheme.color),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.notifications_none_outlined,
+                          ),
+                          color: Theme.of(context).iconTheme.color),
+                    ],
+                  )),
+            ],
           ),
           body: model.isBusy
               ? const CircularProgressIndicator()
