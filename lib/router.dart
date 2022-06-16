@@ -21,6 +21,7 @@ import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
 import 'package:talawa/views/after_auth_screens/join_organisation_after_auth.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
+import 'package:talawa/views/after_auth_screens/requests/request_page.dart';
 import 'package:talawa/views/after_auth_screens/venue/map_screen.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
@@ -176,6 +177,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
             settings.arguments! as CreateEventViewModel,
             key: const Key('MapScreen')),
       );
+    case Routes.requestPage:
+      return MaterialPageRoute(
+        builder: (context) => const RequestPage(
+          key: Key('RequestPage'),
+        ),
+      );
+
     default:
       return MaterialPageRoute(
         builder: (context) => const DemoPageView(
