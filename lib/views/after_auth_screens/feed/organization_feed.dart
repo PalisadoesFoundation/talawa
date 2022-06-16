@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
@@ -40,7 +41,7 @@ class OrganizationFeed extends StatelessWidget {
               onPressed: () =>
                   MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
             ),
-              actions: [
+            actions: [
               Padding(
                   padding: EdgeInsets.only(
                     right: SizeConfig.screenWidth! * 0.027,
@@ -48,7 +49,9 @@ class OrganizationFeed extends StatelessWidget {
                   child: Row(
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            navigationService.pushScreen("/requestPage");
+                          },
                           icon: const Icon(
                             Icons.person_add_alt,
                           ),
