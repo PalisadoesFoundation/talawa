@@ -106,7 +106,7 @@ jobs:
       with:
         source_folder: 'docs/talawa'
         destination_repo: 'anwersayeed/talawa-docs'
-        destination_folder: 'static'
+        destination_folder: 'static/talawa'
         user_email: '${{env.email}}'
         user_name: '${{github.actor}}'
         commit_msg: 'Updated the doc website'
