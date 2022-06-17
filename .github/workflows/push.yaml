@@ -105,7 +105,7 @@ jobs:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
         source_folder: 'docs/talawa'
-        destination_repo: 'anwersayeed/talawa-docs'
+        destination_repo: 'PalisadoesFoundation/talawa-docs'
         destination_folder: 'static/talawa'
         user_email: '${{env.email}}'
         user_name: '${{github.actor}}'
