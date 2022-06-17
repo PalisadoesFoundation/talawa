@@ -15,6 +15,7 @@ on:
     branches-ignore:
       - 'master'
       - 'develop'
+      - 'talawa-automate'
 
 jobs:
   Flutter-Codebase-Check:
