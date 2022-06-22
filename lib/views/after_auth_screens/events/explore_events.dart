@@ -166,7 +166,8 @@ class ExploreEvents extends StatelessWidget {
                                             navigationService.pushScreen(
                                               "/eventInfo",
                                               arguments: {
-                                                "event": model.events[index],
+                                                "eventId":
+                                                    model.events[index].id,
                                                 "exploreEventViewModel": model
                                               },
                                             );
