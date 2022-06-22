@@ -62,7 +62,7 @@ class EventSearch extends SearchDelegate<Event> {
               navigationService.pushScreen(
                 "/eventInfo",
                 arguments: {
-                  "event": suggestions[index],
+                  "eventId": suggestions[index].id,
                   "exploreEventViewModel": exploreEventsViewModel
                 },
               );
