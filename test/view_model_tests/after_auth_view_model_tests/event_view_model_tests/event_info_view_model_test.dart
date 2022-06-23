@@ -29,10 +29,12 @@ void main() {
     final model = EventInfoViewModel();
 
     test("test initialization", () {
+      final Event event =
+          Event(id: "1", isRegisterable: true, isRegistered: false);
       final ExploreEventsViewModel exploreEventsViewModel =
           ExploreEventsViewModel();
       model.initialize(args: {
-        "eventId": "1",
+        "event": event,
         "exploreEventViewModel": exploreEventsViewModel,
       });
       expect(model.fabTitle, "Register");

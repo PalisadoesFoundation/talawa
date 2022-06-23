@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
@@ -68,8 +69,14 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _handleDeepLinks(bool userLoggedIn) async {
     final keys = _initialUri!.queryParameters.keys;
     final values = _initialUri!.queryParameters.values;
+
     final fromInviteLink = navigationService.fromInviteLink;
+    final showSnackBar = navigationService.showSnackBar;
+    final pushReplacementScreen = navigationService.pushReplacementScreen;
+
     final orgURI = GraphqlConfig.orgURI!;
+    final mainScreenArgs =
+        MainScreenArgs(mainScreenIndex: widget.mainScreenIndex);
 
     if (_initialUri!.pathSegments[1] == 'invite') {
       if (!userLoggedIn) {
@@ -80,14 +87,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
       final setUrl = values.toList(growable: false)[1];
       if (setUrl.compareTo(orgURI) != 0) {
-        navigationService.showSnackBar(
+        showSnackBar(
           'Organisation on different server! Logout and open link again',
         );
         return;
       }
 
       if (keys.last.compareTo('selectOrg') != 0) {
-        navigationService.showSnackBar('Invalid url');
+        showSnackBar('Invalid url');
         return;
       }
 
@@ -96,8 +103,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Routes.joinOrg.split('/').last
       ];
       final arguments = [
-        MainScreenArgs(
-            mainScreenIndex: widget.mainScreenIndex, fromSignUp: false),
+        mainScreenArgs,
         values.last,
       ];
       fromInviteLink(routeNames, arguments);
@@ -105,7 +111,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     if (_initialUri!.pathSegments[1] == 'eventInvite') {
       if (!userLoggedIn) {
-        navigationService.pushReplacementScreen(
+        pushReplacementScreen(
           Routes.languageSelectionRoute,
           arguments: 'en',
         );
@@ -115,23 +121,19 @@ class _SplashScreenState extends State<SplashScreen> {
       final setUrl = values.toList(growable: false)[0];
       if (setUrl.compareTo(orgURI) != 0) {
         Clipboard.setData(ClipboardData(text: setUrl));
-        navigationService.showSnackBar(
+        showSnackBar(
           'Organisation on different server! Url copied to clipboard.',
         );
-        navigationService.pushReplacementScreen(
+        pushReplacementScreen(
           Routes.mainScreen,
-          arguments: MainScreenArgs(
-            mainScreenIndex: 0,
-            fromSignUp: false,
-          ),
+          arguments: mainScreenArgs,
         );
         return;
       }
 
       final currentOrgId = userConfig.currentOrg.id!;
       if (values.toList()[1].compareTo(currentOrgId) != 0) {
-        navigationService.pushReplacementScreen(Routes.joinOrg,
-            arguments: values.toList()[1]);
+        pushReplacementScreen(Routes.joinOrg, arguments: values.toList()[1]);
         return;
       }
 
@@ -139,18 +141,33 @@ class _SplashScreenState extends State<SplashScreen> {
         Routes.mainScreen.split('/').last,
         Routes.eventInfoPage.split('/').last
       ];
+
       final model = locator<ExploreEventsViewModel>();
       await model.initialise();
+
+      await Future.delayed(Duration.zero);
+      Event? event;
+      for (final ele in model.events) {
+        if (ele.id == values.last) event = ele;
+      }
+
+      if (event == null) {
+        showSnackBar('Event not found');
+        pushReplacementScreen(
+          Routes.mainScreen,
+          arguments: mainScreenArgs,
+        );
+        return;
+      }
+
       final arguments = [
-        MainScreenArgs(
-          mainScreenIndex: 1,
-          fromSignUp: false,
-        ),
+        MainScreenArgs(mainScreenIndex: 1),
         {
-          "eventId": values.last,
+          "event": event,
           "exploreEventViewModel": model,
         },
       ];
+
       fromInviteLink(routeNames, arguments);
       return;
     }

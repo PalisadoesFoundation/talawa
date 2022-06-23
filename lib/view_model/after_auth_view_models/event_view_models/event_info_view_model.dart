@@ -17,42 +17,20 @@ class EventInfoViewModel extends BaseModel {
   late List<User> registrants;
 
   initialize({required Map<String, dynamic> args}) async {
+    event = args["event"] as Event;
     exploreEventsInstance =
         args["exploreEventViewModel"] as ExploreEventsViewModel;
-    event = exploreEventsInstance.events.firstWhere(
-      (e) => e.id == args["eventId"],
-      orElse: () => Event(
-        id: args["eventId"] as String,
-        title: 'Event Not Found',
-        description: '',
-        startDate: '',
-        endDate: '',
-        startTime: '',
-        endTime: '',
-        admins: [],
-        location: '',
-        isPublic: true,
-        creator: User(
-          id: '1',
-          firstName: '',
-          lastName: '',
-        ),
-      ),
-    );
     fabTitle = getFabTitle();
     setState(ViewState.busy);
     final fetchRegistrantsByEventQueryResult = await locator<EventService>()
-        .fetchRegistrantsByEvent(event.id!) as QueryResult?;
-    registrants = [];
-    if (fetchRegistrantsByEventQueryResult != null) {
-      final registrantsJsonList = fetchRegistrantsByEventQueryResult
-          .data!['registrantsByEvent'] as List<Object?>;
-      registrants = registrantsJsonList
-          .map((registrantJson) => User.fromJson(
-              registrantJson! as Map<String, dynamic>,
-              fromOrg: true))
-          .toList();
-    }
+        .fetchRegistrantsByEvent(event.id!) as QueryResult;
+    final registrantsJsonList = fetchRegistrantsByEventQueryResult
+        .data!['registrantsByEvent'] as List<Object?>;
+    registrants = registrantsJsonList
+        .map((registrantJson) => User.fromJson(
+            registrantJson! as Map<String, dynamic>,
+            fromOrg: true))
+        .toList();
     setState(ViewState.idle);
   }
 
