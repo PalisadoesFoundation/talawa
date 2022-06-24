@@ -30,7 +30,7 @@ class DataBaseMutationFunctions {
   GraphQLError memberRequestExist =
       const GraphQLError(message: 'Membership Request already exists');
 
-  bool? encounteredExceptionOrError(
+  bool encounteredExceptionOrError(
     OperationException exception, {
     bool showSnackBar = true,
   }) {
@@ -40,65 +40,65 @@ class DataBaseMutationFunctions {
         navigationService.showSnackBar("Server not running/wrong url");
       }
       return false;
-    } else {
-      debugPrint(exception.graphqlErrors.toString());
-      for (int i = 0; i < exception.graphqlErrors.length; i++) {
-        if (exception.graphqlErrors[i].message ==
-            refreshAccessTokenExpiredException.message) {
-          print('token refreshed');
-          refreshAccessToken(userConfig.currentUser.refreshToken!).then(
-            (value) => graphqlConfig
-                .getToken()
-                .then((value) => databaseFunctions.init()),
-          );
-          print('client refreshed');
-          return true;
-        } else if (exception.graphqlErrors[i].message ==
-            userNotAuthenticated.message) {
-          print('client refreshed');
-          refreshAccessToken(userConfig.currentUser.refreshToken!).then(
-            (value) => graphqlConfig
-                .getToken()
-                .then((value) => databaseFunctions.init()),
-          );
-          //  graphqlConfig.getToken().then((value) => databaseFunctions.init());
-          return true;
-        } else if (exception.graphqlErrors[i].message == userNotFound.message) {
-          if (showSnackBar) {
-            navigationService
-                .showSnackBar("No account registered with this email");
-          }
-          return false;
-        } else if (exception.graphqlErrors[i].message ==
-            memberRequestExist.message) {
-          if (showSnackBar) {
-            navigationService.showSnackBar("Membership request already exist");
-          }
-          return false;
-        } else if (exception.graphqlErrors[i].message ==
-            wrongCredentials.message) {
-          if (showSnackBar) {
-            navigationService.showSnackBar("Enter a valid password");
-          }
-          return false;
-        } else if (exception.graphqlErrors[i].message ==
-            organizationNotFound.message) {
-          if (showSnackBar) {
-            navigationService.showSnackBar("Organization Not Found");
-          }
-          return false;
-        } else if (exception.graphqlErrors[i].message ==
-            emailAccountPresent.message) {
-          if (showSnackBar) {
-            navigationService
-                .showSnackBar("Account with this email already registered");
-          }
-          return false;
-        }
-      }
-      navigationService.showSnackBar("Something went wrong");
-      return false;
     }
+
+    debugPrint(exception.graphqlErrors.toString());
+    for (int i = 0; i < exception.graphqlErrors.length; i++) {
+      if (exception.graphqlErrors[i].message ==
+          refreshAccessTokenExpiredException.message) {
+        print('token refreshed');
+        refreshAccessToken(userConfig.currentUser.refreshToken!).then(
+          (value) => graphqlConfig
+              .getToken()
+              .then((value) => databaseFunctions.init()),
+        );
+        print('client refreshed');
+        return true;
+      }
+      if (exception.graphqlErrors[i].message == userNotAuthenticated.message) {
+        print('client refreshed');
+        refreshAccessToken(userConfig.currentUser.refreshToken!).then(
+          (value) => graphqlConfig
+              .getToken()
+              .then((value) => databaseFunctions.init()),
+        );
+        return true;
+      }
+      if (exception.graphqlErrors[i].message == userNotFound.message) {
+        if (showSnackBar) {
+          navigationService
+              .showSnackBar("No account registered with this email");
+        }
+        return false;
+      }
+      if (exception.graphqlErrors[i].message == memberRequestExist.message) {
+        if (showSnackBar) {
+          navigationService.showSnackBar("Membership request already exist");
+        }
+        return false;
+      }
+      if (exception.graphqlErrors[i].message == wrongCredentials.message) {
+        if (showSnackBar) {
+          navigationService.showSnackBar("Enter a valid password");
+        }
+        return false;
+      }
+      if (exception.graphqlErrors[i].message == organizationNotFound.message) {
+        if (showSnackBar) {
+          navigationService.showSnackBar("Organization Not Found");
+        }
+        return false;
+      }
+      if (exception.graphqlErrors[i].message == emailAccountPresent.message) {
+        if (showSnackBar) {
+          navigationService
+              .showSnackBar("Account with this email already registered");
+        }
+        return false;
+      }
+    }
+    navigationService.showSnackBar("Something went wrong");
+    return false;
   }
 
   Future<dynamic> gqlAuthQuery(String query,
@@ -109,8 +109,8 @@ class DataBaseMutationFunctions {
     );
     final QueryResult result = await clientAuth.query(options);
     if (result.hasException) {
-      final bool? exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
+      final exception = encounteredExceptionOrError(result.exception!);
+      if (exception) {
         gqlAuthQuery(query, variables: variables);
       }
     } else if (result.data != null && result.isConcrete) {
@@ -130,8 +130,8 @@ class DataBaseMutationFunctions {
       ),
     );
     if (result.hasException) {
-      final bool? exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
+      final exception = encounteredExceptionOrError(result.exception!);
+      if (exception) {
         gqlAuthMutation(mutation, variables: variables);
       }
     } else if (result.data != null && result.isConcrete) {
@@ -153,14 +153,36 @@ class DataBaseMutationFunctions {
     );
 
     if (result.hasException) {
-      final bool? exception = encounteredExceptionOrError(result.exception!);
-      if (exception! && reCall) {
+      final exception = encounteredExceptionOrError(result.exception!);
+      if (exception && reCall) {
         gqlNonAuthMutation(mutation, variables: variables);
       }
     } else if (result.data != null && result.isConcrete) {
       return result;
     }
     return null;
+  }
+
+  Future<QueryResult?> gqlNonAuthQuery(
+    String query, {
+    Map<String, dynamic>? variables,
+  }) async {
+    final queryOptions = QueryOptions(
+      document: gql(query),
+      variables: variables ?? <String, dynamic>{},
+    );
+    final result = await clientNonAuth.query(queryOptions);
+    QueryResult? finalRes;
+
+    if (result.hasException) {
+      final exception = encounteredExceptionOrError(result.exception!);
+      if (exception) {
+        finalRes = await gqlNonAuthQuery(query, variables: variables);
+      }
+    } else if (result.data != null && result.isConcrete) {
+      return result;
+    }
+    return finalRes;
   }
 
   Future<bool> refreshAccessToken(String refreshToken) async {
@@ -173,8 +195,8 @@ class DataBaseMutationFunctions {
     );
 
     if (result.hasException) {
-      final bool? exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
+      final exception = encounteredExceptionOrError(result.exception!);
+      if (exception) {
         refreshAccessToken(refreshToken);
       } else {
         navigationService.pop();
@@ -194,8 +216,8 @@ class DataBaseMutationFunctions {
     final QueryResult result = await clientNonAuth
         .mutate(MutationOptions(document: gql(_query.fetchOrgById(id))));
     if (result.hasException) {
-      final bool? exception = encounteredExceptionOrError(result.exception!);
-      if (exception!) {
+      final exception = encounteredExceptionOrError(result.exception!);
+      if (exception) {
         fetchOrgById(id);
       }
     } else if (result.data != null && result.isConcrete) {
