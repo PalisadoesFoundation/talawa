@@ -83,25 +83,19 @@ class LoginViewModel extends BaseModel {
             );
           }
           final loginResult = result.data['login'] as Map<String, dynamic>;
-          final androidFirebaseOptions =
+          androidFirebaseOptions =
               loginResult['androidFirebaseOptions'] as Map<String, dynamic>;
-          final iosFirebaseOptions =
+          iosFirebaseOptions =
               loginResult['iosFirebaseOptions'] as Map<String, dynamic>;
 
-          await setUpFirebase(
-            androidFirebaseOptions,
-            iosFirebaseOptions,
-          );
+          await setUpFirebase();
 
           final token = await FirebaseMessaging.instance.getToken();
           await databaseFunctions.gqlAuthMutation(
             queries.saveFcmToken(token),
           );
 
-          setUpFirebaseMessaging(
-            androidFirebaseOptions,
-            iosFirebaseOptions,
-          );
+          await setUpFirebaseMessaging();
 
           final androidFirebaseOptionsBox =
               await Hive.openBox('androidFirebaseOptions');

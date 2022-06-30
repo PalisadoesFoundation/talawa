@@ -27,29 +27,25 @@ import 'package:talawa/views/base_view.dart';
 /// call.
 ///
 /// To verify things are working, check out the native platform logs.
-Future<void> _firebaseMessagingBackgroundHandler(
-  RemoteMessage message,
-  Map<String, dynamic> androidFirebaseOptions,
-  Map<String, dynamic> iosFirebaseOptions,
-) async {
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  await setUpFirebase(
-    androidFirebaseOptions,
-    iosFirebaseOptions,
-  );
+  final Directory dir = await path.getApplicationDocumentsDirectory();
+  Hive.init(dir.path);
+  await setUpFirebaseKeys();
+  await setUpFirebase();
 }
 
-Future<void> setUpFirebase(
-  Map<String, dynamic> androidFirebaseOptions,
-  Map<String, dynamic> iosFirebaseOptions,
-) async {
+Future<void> setUpFirebase() async {
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform(
     androidFirebaseOptions,
     iosFirebaseOptions,
   ));
 }
+
+late Map<String, dynamic> androidFirebaseOptions;
+late Map<String, dynamic> iosFirebaseOptions;
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
 late AndroidNotificationChannel channel;
@@ -92,27 +88,30 @@ Future<void> main() async {
   final urlBox = await Hive.openBox('url');
 
   if (urlBox.get('url') != null) {
-    final androidFirebaseOptionsBox =
-        await Hive.openBox('androidFirebaseOptions');
-    final androidFirebaseOptions = androidFirebaseOptionsBox
-        .get('androidFirebaseOptions') as Map<dynamic, dynamic>;
-    final androidFirebaseOptionsMap = androidFirebaseOptions.map((key, value) {
-      return MapEntry(key.toString(), value);
-    });
+    await setUpFirebaseKeys();
 
-    final iosFirebaseOptionsBox = await Hive.openBox('iosFirebaseOptions');
-    final iosFirebaseOptions = iosFirebaseOptionsBox.get('iosFirebaseOptions')
-        as Map<dynamic, dynamic>;
-    final iosFirebaseOptionsMap = iosFirebaseOptions.map((key, value) {
-      return MapEntry(key.toString(), value);
-    });
-
-    await setUpFirebase(androidFirebaseOptionsMap, iosFirebaseOptionsMap);
-    await setUpFirebaseMessaging(
-        androidFirebaseOptionsMap, iosFirebaseOptionsMap);
+    await setUpFirebase();
+    await setUpFirebaseMessaging();
   }
   setupLocator();
   runApp(MyApp());
+}
+
+Future<void> setUpFirebaseKeys() async {
+  final androidFirebaseOptionsBox =
+      await Hive.openBox('androidFirebaseOptions');
+  final androidFirebaseOptionsMap = androidFirebaseOptionsBox
+      .get('androidFirebaseOptions') as Map<dynamic, dynamic>;
+  androidFirebaseOptions = androidFirebaseOptionsMap.map((key, value) {
+    return MapEntry(key.toString(), value);
+  });
+
+  final iosFirebaseOptionsBox = await Hive.openBox('iosFirebaseOptions');
+  final iosFirebaseOptionsMap =
+      iosFirebaseOptionsBox.get('iosFirebaseOptions') as Map<dynamic, dynamic>;
+  iosFirebaseOptions = iosFirebaseOptionsMap.map((key, value) {
+    return MapEntry(key.toString(), value);
+  });
 }
 
 class MyApp extends StatefulWidget {
@@ -237,17 +236,9 @@ class DemoViewModel extends BaseModel {
   String get title => _title;
 }
 
-Future<void> setUpFirebaseMessaging(
-  Map<String, dynamic> androidFirebaseOptions,
-  Map<String, dynamic> iosFirebaseOptions,
-) async {
+Future<void> setUpFirebaseMessaging() async {
   /// Set the background messaging handler early on, as a named top-level function
-  FirebaseMessaging.onBackgroundMessage(
-      (_) async => _firebaseMessagingBackgroundHandler(
-            _,
-            androidFirebaseOptions,
-            iosFirebaseOptions,
-          ));
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   /// Update the iOS foreground notification presentation options to allow
   /// heads up notifications.
