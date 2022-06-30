@@ -104,6 +104,7 @@ class UserConfig {
     try {
       _currentUser = updatedUserDetails;
       saveUserInHive();
+      graphqlConfig.getToken();
       databaseFunctions.init();
       return true;
     } on Exception catch (e) {

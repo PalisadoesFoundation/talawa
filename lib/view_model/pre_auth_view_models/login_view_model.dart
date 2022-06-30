@@ -1,7 +1,9 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/main.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -58,9 +60,8 @@ class LoginViewModel extends BaseModel {
           .pushDialog(const CustomProgressDialog(key: Key('LoginProgress')));
       databaseFunctions.init();
       try {
-        final token = await FirebaseMessaging.instance.getToken();
         final result = await databaseFunctions.gqlNonAuthMutation(
-            queries.loginUser(email.text, password.text, token));
+            queries.loginUser(email.text, password.text, null));
         navigationService.pop();
         if (result != null) {
           final User loggedInUser =
@@ -81,6 +82,35 @@ class LoginViewModel extends BaseModel {
               arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
             );
           }
+          final loginResult = result.data['login'] as Map<String, dynamic>;
+          final androidFirebaseOptions =
+              loginResult['androidFirebaseOptions'] as Map<String, dynamic>;
+          final iosFirebaseOptions =
+              loginResult['iosFirebaseOptions'] as Map<String, dynamic>;
+
+          await setUpFirebase(
+            androidFirebaseOptions,
+            iosFirebaseOptions,
+          );
+
+          final token = await FirebaseMessaging.instance.getToken();
+          await databaseFunctions.gqlAuthMutation(
+            queries.saveFcmToken(token),
+          );
+
+          setUpFirebaseMessaging(
+            androidFirebaseOptions,
+            iosFirebaseOptions,
+          );
+
+          final androidFirebaseOptionsBox =
+              await Hive.openBox('androidFirebaseOptions');
+          androidFirebaseOptionsBox.put(
+              'androidFirebaseOptions', androidFirebaseOptions);
+
+          final iosFirebaseOptionsBox =
+              await Hive.openBox('iosFirebaseOptions');
+          iosFirebaseOptionsBox.put('iosFirebaseOptions', iosFirebaseOptions);
         }
       } on Exception catch (e) {
         print('here');

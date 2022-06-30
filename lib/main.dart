@@ -27,10 +27,28 @@ import 'package:talawa/views/base_view.dart';
 /// call.
 ///
 /// To verify things are working, check out the native platform logs.
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+Future<void> _firebaseMessagingBackgroundHandler(
+  RemoteMessage message,
+  Map<String, dynamic> androidFirebaseOptions,
+  Map<String, dynamic> iosFirebaseOptions,
+) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await setUpFirebase(
+    androidFirebaseOptions,
+    iosFirebaseOptions,
+  );
+}
+
+Future<void> setUpFirebase(
+  Map<String, dynamic> androidFirebaseOptions,
+  Map<String, dynamic> iosFirebaseOptions,
+) async {
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform(
+    androidFirebaseOptions,
+    iosFirebaseOptions,
+  ));
 }
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
@@ -42,13 +60,6 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 /// This is the main function
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  // Set the background messaging handler early on, as a named top-level function
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   if (!kIsWeb) {
     channel = const AndroidNotificationChannel(
@@ -69,15 +80,6 @@ Future<void> main() async {
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
-
-    /// Update the iOS foreground notification presentation options to allow
-    /// heads up notifications.
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
   }
 
   final Directory dir = await path.getApplicationDocumentsDirectory();
@@ -87,7 +89,28 @@ Future<void> main() async {
     ..registerAdapter(OrgInfoAdapter());
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox('url');
+  final urlBox = await Hive.openBox('url');
+
+  if (urlBox.get('url') != null) {
+    final androidFirebaseOptionsBox =
+        await Hive.openBox('androidFirebaseOptions');
+    final androidFirebaseOptions = androidFirebaseOptionsBox
+        .get('androidFirebaseOptions') as Map<dynamic, dynamic>;
+    final androidFirebaseOptionsMap = androidFirebaseOptions.map((key, value) {
+      return MapEntry(key.toString(), value);
+    });
+
+    final iosFirebaseOptionsBox = await Hive.openBox('iosFirebaseOptions');
+    final iosFirebaseOptions = iosFirebaseOptionsBox.get('iosFirebaseOptions')
+        as Map<dynamic, dynamic>;
+    final iosFirebaseOptionsMap = iosFirebaseOptions.map((key, value) {
+      return MapEntry(key.toString(), value);
+    });
+
+    await setUpFirebase(androidFirebaseOptionsMap, iosFirebaseOptionsMap);
+    await setUpFirebaseMessaging(
+        androidFirebaseOptionsMap, iosFirebaseOptionsMap);
+  }
   setupLocator();
   runApp(MyApp());
 }
@@ -212,4 +235,51 @@ class DemoPageView extends StatelessWidget {
 class DemoViewModel extends BaseModel {
   final String _title = "Title from the viewMode GSoC branch";
   String get title => _title;
+}
+
+Future<void> setUpFirebaseMessaging(
+  Map<String, dynamic> androidFirebaseOptions,
+  Map<String, dynamic> iosFirebaseOptions,
+) async {
+  /// Set the background messaging handler early on, as a named top-level function
+  FirebaseMessaging.onBackgroundMessage(
+      (_) async => _firebaseMessagingBackgroundHandler(
+            _,
+            androidFirebaseOptions,
+            iosFirebaseOptions,
+          ));
+
+  /// Update the iOS foreground notification presentation options to allow
+  /// heads up notifications.
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  FirebaseMessaging.instance
+      .getInitialMessage()
+      .then((RemoteMessage? message) {});
+
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    final RemoteNotification? notification = message.notification;
+    final AndroidNotification? android = message.notification?.android;
+    if (notification != null && android != null && !kIsWeb) {
+      flutterLocalNotificationsPlugin.show(
+        notification.hashCode,
+        notification.title,
+        notification.body,
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            channel.id,
+            channel.name,
+            channelDescription: channel.description,
+            icon: 'launch_background',
+          ),
+        ),
+      );
+    }
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
 }

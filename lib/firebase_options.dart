@@ -15,7 +15,10 @@ import 'package:flutter/foundation.dart'
 /// );
 /// ```
 class DefaultFirebaseOptions {
-  static FirebaseOptions get currentPlatform {
+  static FirebaseOptions currentPlatform(
+    Map<String, dynamic> androidFirebaseOptions,
+    Map<String, dynamic> iosFirebaseOptions,
+  ) {
     if (kIsWeb) {
       throw UnsupportedError(
         'DefaultFirebaseOptions have not been configured for web - '
@@ -25,9 +28,9 @@ class DefaultFirebaseOptions {
     // ignore: missing_enum_constant_in_switch
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        return android(androidFirebaseOptions);
       case TargetPlatform.iOS:
-        return ios;
+        return ios(iosFirebaseOptions);
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -40,22 +43,24 @@ class DefaultFirebaseOptions {
     );
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyZkqgTkg2yNRsl7jIx_EtCyF7YqiCAP7sk',
-    appId: '1:803598513727:android:20d58bd8c9aae2102c2a8a',
-    messagingSenderId: '803598513727',
-    projectId: 'talawa-352607',
-    storageBucket: 'talawa-352607.appspot.com',
-  );
+  static FirebaseOptions android(Map<String, dynamic> androidFirebaseOptions) =>
+      FirebaseOptions(
+        apiKey: androidFirebaseOptions['apiKey'] as String,
+        appId: androidFirebaseOptions['appId'] as String,
+        messagingSenderId:
+            androidFirebaseOptions['messagingSenderId'] as String,
+        projectId: androidFirebaseOptions['projectId'] as String,
+        storageBucket: androidFirebaseOptions['storageBucket'] as String,
+      );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSySw_AQsWnB6oqTq4CC11aDmFcPuLpLO6gc',
-    appId: '1:803598513727:ios:1f06f9c8eef964b42c2a8a',
-    messagingSenderId: '803598513727',
-    projectId: 'talawa-352607',
-    storageBucket: 'talawa-352607.appspot.com',
-    iosClientId:
-        '803598513727-2gt176dpe0ljn5ie967o4d0rm0vo8sm0.apps.googleusercontent.com',
-    iosBundleId: 'com.talawa.app',
-  );
+  static FirebaseOptions ios(Map<String, dynamic> iosFirebaseOptions) =>
+      FirebaseOptions(
+        apiKey: iosFirebaseOptions['apiKey'] as String,
+        appId: iosFirebaseOptions['appId'] as String,
+        messagingSenderId: iosFirebaseOptions['messagingSenderId'] as String,
+        projectId: iosFirebaseOptions['projectId'] as String,
+        storageBucket: iosFirebaseOptions['storageBucket'] as String,
+        iosClientId: iosFirebaseOptions['iosClientId'] as String,
+        iosBundleId: iosFirebaseOptions['iosBundleId'] as String,
+      );
 }
