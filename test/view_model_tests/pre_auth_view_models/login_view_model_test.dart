@@ -25,6 +25,22 @@ final data = {
     },
     'accessToken': 'testtoken',
     'refreshToken': 'testtoken',
+    'androidFirebaseOptions': {
+      'apiKey': 'test',
+      'appId': 'test',
+      'messagingSenderId': 'test',
+      'projectId': 'test',
+      'storageBucket': 'test',
+    },
+    'iosFirebaseOptions': {
+      'apiKey': 'test',
+      'appId': 'test',
+      'messagingSenderId': 'test',
+      'projectId': 'test',
+      'storageBucket': 'test',
+      'iosClientId': 'test',
+      'iosBundleId': 'test',
+    },
   },
 };
 

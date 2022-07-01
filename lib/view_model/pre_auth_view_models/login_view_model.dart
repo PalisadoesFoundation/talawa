@@ -61,7 +61,7 @@ class LoginViewModel extends BaseModel {
       databaseFunctions.init();
       try {
         final result = await databaseFunctions.gqlNonAuthMutation(
-            queries.loginUser(email.text, password.text, null));
+            queries.loginUser(email.text, password.text, ''));
         navigationService.pop();
         if (result != null) {
           final User loggedInUser =
