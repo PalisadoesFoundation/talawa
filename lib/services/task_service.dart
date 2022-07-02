@@ -21,4 +21,24 @@ class TaskService {
       });
     }
   }
+
+  Future<void> createTask({
+    required String title,
+    required String description,
+    required String deadline,
+    required String eventId,
+  }) async {
+    final res =
+        await _databaseMutationFunctions.gqlAuthMutation(TaskQueries.addTask(
+      title: title,
+      description: description,
+      deadline: deadline,
+      eventId: eventId,
+    ));
+
+    if (res != null) {
+      final task = res.data!['tasksByEvent'] as Map<String, dynamic>;
+      _tasks.add(Task.fromJson(task));
+    }
+  }
 }

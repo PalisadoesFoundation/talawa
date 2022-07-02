@@ -30,6 +30,7 @@ class Task {
       deadline: json['deadline'] as String?,
     );
   }
+
   final String id;
   final String title;
   final User creator;
