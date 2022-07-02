@@ -4,12 +4,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
+import 'package:talawa/widgets/event_card.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_locator.dart';
@@ -89,6 +91,28 @@ void main() {
         await tester.pumpAndSettle();
 
         verify(locator<ExploreEventsViewModel>().refreshEvents()).called(2);
+      });
+    });
+    testWidgets("Testing if tapping on add icon and EventCard works",
+        (tester) async {
+      await mockNetworkImages(() async {
+        final homeModel = locator<MainScreenViewModel>();
+
+        await tester.pumpWidget(createExploreEventsScreen(homeModel));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.byIcon(Icons.add));
+        await tester.pumpAndSettle();
+
+        verify(locator<NavigationService>().pushScreen("/createEventPage"))
+            .called(1);
+
+        await tester.tap(find.byType(EventCard));
+        await tester.pumpAndSettle();
+
+        verify(locator<NavigationService>()
+                .pushScreen("/eventInfo", arguments: anyNamed('arguments')))
+            .called(1);
       });
     });
     testWidgets("Testing if drop down button works", (tester) async {

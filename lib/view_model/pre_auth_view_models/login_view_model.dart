@@ -87,24 +87,26 @@ class LoginViewModel extends BaseModel {
               loginResult['androidFirebaseOptions'] as Map<String, dynamic>;
           iosFirebaseOptions =
               loginResult['iosFirebaseOptions'] as Map<String, dynamic>;
+          if (androidFirebaseOptions['apiKey'] != null ||
+              iosFirebaseOptions['apiKey'] != null) {
+            await setUpFirebase();
 
-          await setUpFirebase();
+            final token = await FirebaseMessaging.instance.getToken();
+            await databaseFunctions.gqlAuthMutation(
+              queries.saveFcmToken(token),
+            );
 
-          final token = await FirebaseMessaging.instance.getToken();
-          await databaseFunctions.gqlAuthMutation(
-            queries.saveFcmToken(token),
-          );
+            await setUpFirebaseMessaging();
 
-          await setUpFirebaseMessaging();
+            final androidFirebaseOptionsBox =
+                await Hive.openBox('androidFirebaseOptions');
+            androidFirebaseOptionsBox.put(
+                'androidFirebaseOptions', androidFirebaseOptions);
 
-          final androidFirebaseOptionsBox =
-              await Hive.openBox('androidFirebaseOptions');
-          androidFirebaseOptionsBox.put(
-              'androidFirebaseOptions', androidFirebaseOptions);
-
-          final iosFirebaseOptionsBox =
-              await Hive.openBox('iosFirebaseOptions');
-          iosFirebaseOptionsBox.put('iosFirebaseOptions', iosFirebaseOptions);
+            final iosFirebaseOptionsBox =
+                await Hive.openBox('iosFirebaseOptions');
+            iosFirebaseOptionsBox.put('iosFirebaseOptions', iosFirebaseOptions);
+          }
         }
       } on Exception catch (e) {
         print('here');

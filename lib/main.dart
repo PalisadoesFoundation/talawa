@@ -101,17 +101,21 @@ Future<void> setUpFirebaseKeys() async {
   final androidFirebaseOptionsBox =
       await Hive.openBox('androidFirebaseOptions');
   final androidFirebaseOptionsMap = androidFirebaseOptionsBox
-      .get('androidFirebaseOptions') as Map<dynamic, dynamic>;
-  androidFirebaseOptions = androidFirebaseOptionsMap.map((key, value) {
-    return MapEntry(key.toString(), value);
-  });
+      .get('androidFirebaseOptions') as Map<dynamic, dynamic>?;
 
   final iosFirebaseOptionsBox = await Hive.openBox('iosFirebaseOptions');
   final iosFirebaseOptionsMap =
-      iosFirebaseOptionsBox.get('iosFirebaseOptions') as Map<dynamic, dynamic>;
-  iosFirebaseOptions = iosFirebaseOptionsMap.map((key, value) {
-    return MapEntry(key.toString(), value);
-  });
+      iosFirebaseOptionsBox.get('iosFirebaseOptions') as Map<dynamic, dynamic>?;
+  if (androidFirebaseOptionsMap != null) {
+    androidFirebaseOptions = androidFirebaseOptionsMap.map((key, value) {
+      return MapEntry(key.toString(), value);
+    });
+  }
+  if (iosFirebaseOptionsMap != null) {
+    iosFirebaseOptions = iosFirebaseOptionsMap.map((key, value) {
+      return MapEntry(key.toString(), value);
+    });
+  }
 }
 
 class MyApp extends StatefulWidget {
