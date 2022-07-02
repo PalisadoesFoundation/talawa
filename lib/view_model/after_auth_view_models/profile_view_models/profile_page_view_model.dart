@@ -1,4 +1,5 @@
 import 'package:currency_picker/currency_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -66,9 +67,16 @@ class ProfilePageViewModel extends BaseModel {
               Future.delayed(const Duration(seconds: 1)).then((value) {
                 user = Hive.box<User>('currentUser');
                 url = Hive.box('url');
+                final androidFirebaseOptionsBox =
+                    Hive.box('androidFirebaseOptions');
+                final iosFirebaseOptionsBox = Hive.box('iosFirebaseOptions');
                 organisation = Hive.box<OrgInfo>('currentOrg');
                 user.clear();
                 url.clear();
+                androidFirebaseOptionsBox.clear();
+                iosFirebaseOptionsBox.clear();
+                Firebase.app()
+                    .delete(); // Deleting app will stop all Firebase plugins
                 organisation.clear();
                 navigationService.removeAllAndPush(
                   '/selectLang',
