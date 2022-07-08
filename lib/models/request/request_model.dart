@@ -1,40 +1,26 @@
-class RequestModel {
-
-
-
-  static List<Request> items=[];
-
-  //get item by id
-   Request getById(int id) =>
-      items.firstWhere((element) => element.id == id);
-
-  //get item by position
-   Request getByPosition(int pos) => items[pos];
-}
-
 class Request {
+  Request({
+    this.id,
+    this.name,
+    this.image,
+    this.description,
+    this.dateTime,
+  });
 
-  Request({ required this.id, required this.name, required this.desc, required this.image, required this.datetime});
-
-  factory Request.fromMap(Map<String, dynamic> map) {
+  factory Request.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return Request(
-      id: map["id"] as int,
-      name: map["name"] as String,
-      desc: map["desc"] as String,
-      image: map["image"] as String, 
-      datetime: map["datetime"] as DateTime,
+      id: json['_id'] as String,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
+      image: json['image'] as String?,
+      dateTime: json['dateTime'] as String?,
     );
   }
-  final int id;
-  final String name;
-  final String desc;
-  final DateTime datetime;
-  final String image;
-  toMap() => {
-        "id": id,
-        "name": name,
-        "desc": desc,
-        "image": image,
-        "datetime": datetime,
-      };
+  String? id;
+  String? name;
+  String? image;
+  String? description;
+  String? dateTime;
 }
