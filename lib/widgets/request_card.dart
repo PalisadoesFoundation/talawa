@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:talawa/models/request/request_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 class RequestCard extends StatelessWidget {
   const RequestCard({
     Key? key,
-    required this.name,
-    required this.description,
+     this.name,
+     this.description,
     // required this.longdesc,
-    // required this.request,
+     this.request,
     // required this.isSearchItem,
     // required this.onPressed,
   }) : super(key: key);
-  final String name;
-  final String description;
+  final String? name;
+  final String? description;
   // final String longdesc;
-  // final Request request;
+  final Request? request;
   // final bool isSearchItem;
   // final Function()? onPressed;
 
@@ -89,7 +90,7 @@ class RequestCard extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                          name,
+                          name!,
                           style: Theme.of(context).textTheme.headline5,
                         ),
                         const SizedBox(
@@ -174,14 +175,14 @@ class RequestCard extends StatelessWidget {
               height: 20,
             ),
             Text(
-              name,
+              name!,
               style: Theme.of(context).textTheme.bodyText1,
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
-              description,
+              description!,
               style: Theme.of(context).textTheme.caption,
             ),
           ],
