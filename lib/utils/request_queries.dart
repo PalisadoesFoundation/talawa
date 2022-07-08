@@ -1,4 +1,5 @@
 class RequestQueries {
+
   String getRequests(String orgId) {
     return """
  query{
@@ -19,20 +20,20 @@ class RequestQueries {
   }""";
   }
 
-  String acceptRequest() {
+  String acceptRequest(String requestId) {
     return """
-  mutation AcceptMembershipRequest(\$id: ID!){
-    acceptMembershipRequest(id: \$id){
+  mutation AcceptMembershipRequest(id: $requestId){
+    acceptMembershipRequest(id: $requestId){
       _id
       }
    }
   """;
   }
 
-   String rejectRequest() {
+   String rejectRequest(String requestId) {
     return """
-  mutation RejectMembershipRequest(\$id: ID!){
-    rejectMembershipRequest(id: \$id){
+  mutation RejectMembershipRequest(\$id: $requestId){
+    rejectMembershipRequest(id: $requestId){
       _id
       }
    }
