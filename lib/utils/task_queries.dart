@@ -11,6 +11,9 @@ class TaskQueries {
           _id
           firstName
         }
+        event {
+          _id
+        }
       }
     }
   ''';
@@ -35,6 +38,9 @@ class TaskQueries {
             creator {
               _id
               firstName
+            }
+            event {
+              _id
             }
           }
         }

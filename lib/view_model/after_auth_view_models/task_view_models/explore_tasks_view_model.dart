@@ -5,6 +5,10 @@ import 'package:talawa/services/task_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 class ExploreTasksViewModel extends BaseModel {
+  ExploreTasksViewModel() {
+    _taskService.callbackNotifyListeners = () => notifyListeners();
+  }
+
   final _taskService = locator<TaskService>();
 
   List<Task> get tasks => _taskService.tasks;
@@ -13,5 +17,10 @@ class ExploreTasksViewModel extends BaseModel {
     setState(ViewState.busy);
     await _taskService.getTasksForEvent(eventId);
     setState(ViewState.idle);
+  }
+
+  Future<void> deleteTask(String taskId, String creatorId) async {
+    await _taskService.deleteTask(taskId, creatorId);
+    notifyListeners();
   }
 }

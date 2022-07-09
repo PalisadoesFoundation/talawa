@@ -21,6 +21,8 @@ import 'package:talawa/views/after_auth_screens/feed/pinned_post_page.dart';
 import 'package:talawa/views/after_auth_screens/join_organisation_after_auth.dart';
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
+import 'package:talawa/views/after_auth_screens/tasks/create_task_page.dart';
+import 'package:talawa/views/after_auth_screens/tasks/event_tasks_page.dart';
 import 'package:talawa/views/after_auth_screens/venue/map_screen.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
@@ -175,6 +177,22 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => MapScreen(
             settings.arguments! as CreateEventViewModel,
             key: const Key('MapScreen')),
+      );
+    case Routes.eventTasks:
+      final eventId = settings.arguments! as String;
+      return MaterialPageRoute(
+        builder: (context) => EventTasksPage(
+          eventId: eventId,
+          key: const Key('EventTasks'),
+        ),
+      );
+    case Routes.addTask:
+      final eventId = settings.arguments! as String;
+      return MaterialPageRoute(
+        builder: (context) => CreateTaskPage(
+          key: const Key('AddTask'),
+          eventId: eventId,
+        ),
       );
     default:
       return MaterialPageRoute(

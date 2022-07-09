@@ -26,4 +26,6 @@ class Routes {
   static const String appSettings = '/appSettingsPage';
   static const String chatMessageScreen = '/chatMessageScreen';
   static const String mapScreen = '/mapScreen';
+  static const String eventTasks = '/event_tasks';
+  static const String addTask = '/addTask';
 }

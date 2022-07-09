@@ -6,24 +6,32 @@ import 'package:talawa/view_model/base_view_model.dart';
 class CreateTaskViewModel extends BaseModel {
   final _taskService = locator<TaskService>();
 
-  final _taskTitleTextController = TextEditingController();
-  final _taskDescriptionTextController = TextEditingController();
-  final _taskDeadlineTextController = TextEditingController();
+  final taskTitleTextController = TextEditingController();
+  final taskDescriptionTextController = TextEditingController();
 
-  Future<void> createTask(String eventId) async {
-    await _taskService.createTask(
-      title: _taskTitleTextController.text,
-      description: _taskDescriptionTextController.text,
-      deadline: _taskDeadlineTextController.text,
+  DateTime taskEndDate = DateTime.now();
+  TimeOfDay taskEndTime = TimeOfDay.now();
+
+  Future<bool> createTask(String eventId) async {
+    final deadline = DateTime(
+      taskEndDate.year,
+      taskEndDate.month,
+      taskEndDate.day,
+      taskEndTime.hour,
+      taskEndTime.minute,
+    );
+    return _taskService.createTask(
+      title: taskTitleTextController.text,
+      description: taskDescriptionTextController.text,
+      deadline: deadline.microsecondsSinceEpoch.toString(),
       eventId: eventId,
     );
   }
 
   @override
   void dispose() {
-    _taskTitleTextController.dispose();
-    _taskDescriptionTextController.dispose();
-    _taskDeadlineTextController.dispose();
+    taskTitleTextController.dispose();
+    taskDescriptionTextController.dispose();
     super.dispose();
   }
 }
