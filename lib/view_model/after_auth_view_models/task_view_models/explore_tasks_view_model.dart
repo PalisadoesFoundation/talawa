@@ -19,6 +19,12 @@ class ExploreTasksViewModel extends BaseModel {
     setState(ViewState.idle);
   }
 
+  Future<void> fetchTasksByUser() async {
+    setState(ViewState.busy);
+    await _taskService.getTasksByUser();
+    setState(ViewState.idle);
+  }
+
   Future<void> deleteTask(String taskId, String creatorId) async {
     await _taskService.deleteTask(taskId, creatorId);
     notifyListeners();

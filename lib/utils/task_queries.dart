@@ -18,6 +18,26 @@ class TaskQueries {
     }
   ''';
 
+  static String userTasks(String userId) => '''
+    query {
+      tasksByUser(id: "$userId") {
+        _id
+        title
+        description
+        createdAt
+        deadline
+        creator {
+          _id
+          firstName
+        }
+        event {
+          _id
+          title
+        }
+      }
+    }
+  ''';
+
   static String addTask({
     required String title,
     required String description,
@@ -38,6 +58,33 @@ class TaskQueries {
             creator {
               _id
               firstName
+            }
+            event {
+              _id
+            }
+          }
+        }
+      ''';
+
+  static String editTask({
+    required String title,
+    required String description,
+    required String deadline,
+    required String eventId,
+  }) =>
+      '''
+        mutation {
+          updateTask(
+            data: { title: "$title", description: "$description", deadline: "$deadline" }
+            id: "$eventId"
+          ) {
+            _id
+            title
+            description
+            createdAt
+            deadline
+            creator {
+              _id
             }
             event {
               _id

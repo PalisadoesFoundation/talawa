@@ -28,6 +28,48 @@ class TaskService {
     }
   }
 
+  Future<void> getTasksByUser() async {
+    await _databaseMutationFunctions
+        .refreshAccessToken(_userConfig.currentUser.refreshToken!);
+    final res = await _databaseMutationFunctions
+        .gqlNonAuthQuery(TaskQueries.userTasks(_userConfig.currentUser.id!));
+
+    if (res != null) {
+      _tasks.clear();
+      final tasksList = res.data!['tasksByUser'] as List;
+      tasksList.forEach((task) {
+        _tasks.add(Task.fromJson(task as Map<String, dynamic>));
+      });
+    }
+  }
+
+  Future<bool> editTask({
+    required String title,
+    required String description,
+    required String deadline,
+    required String taskId,
+  }) async {
+    _databaseMutationFunctions
+        .refreshAccessToken(_userConfig.currentUser.refreshToken!);
+    final res =
+        await _databaseMutationFunctions.gqlAuthMutation(TaskQueries.editTask(
+      title: title,
+      description: description,
+      deadline: deadline,
+      eventId: taskId,
+    ));
+
+    if (res != null) {
+      final task = res.data!['updateTask'] as Map<String, dynamic>;
+      final index = _tasks.indexWhere((task) => task.id == taskId);
+      if (index == -1) return false;
+      _tasks[index] = Task.fromJson(task);
+      callbackNotifyListeners();
+      return true;
+    }
+    return false;
+  }
+
   Future<bool> createTask({
     required String title,
     required String description,
@@ -46,7 +88,7 @@ class TaskService {
 
     if (res != null) {
       final task = res.data!['createTask'] as Map<String, dynamic>;
-      _tasks.add(Task.fromJson(task));
+      _tasks.insert(0, Task.fromJson(task));
       callbackNotifyListeners();
       return true;
     }

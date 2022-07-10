@@ -6,6 +6,7 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/models/task/task_model.dart';
 import 'package:talawa/splash_screen.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
@@ -22,7 +23,9 @@ import 'package:talawa/views/after_auth_screens/join_organisation_after_auth.dar
 import 'package:talawa/views/after_auth_screens/profile/edit_profile_page.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/create_task_page.dart';
+import 'package:talawa/views/after_auth_screens/tasks/edit_task_page.dart';
 import 'package:talawa/views/after_auth_screens/tasks/event_tasks_page.dart';
+import 'package:talawa/views/after_auth_screens/tasks/user_tasks_page.dart';
 import 'package:talawa/views/after_auth_screens/venue/map_screen.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/views/pre_auth_screens/change_password.dart';
@@ -186,12 +189,26 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           key: const Key('EventTasks'),
         ),
       );
+    case Routes.userTasks:
+      return MaterialPageRoute(
+        builder: (context) => const UserTasksPage(
+          key: Key('UserTasks'),
+        ),
+      );
     case Routes.addTask:
       final eventId = settings.arguments! as String;
       return MaterialPageRoute(
         builder: (context) => CreateTaskPage(
           key: const Key('AddTask'),
           eventId: eventId,
+        ),
+      );
+    case Routes.editTask:
+      final task = settings.arguments! as Task;
+      return MaterialPageRoute(
+        builder: (context) => EditTaskPage(
+          key: const Key('EditTask'),
+          task: task,
         ),
       );
     default:
