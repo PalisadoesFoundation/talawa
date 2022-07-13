@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
@@ -173,16 +174,31 @@ class _EventInfoBody extends StatelessWidget {
                 SizedBox(
                   width: SizeConfig.screenWidth! * 0.027,
                 ),
-                SizedBox(
-                  width: SizeConfig.screenWidth! * 0.88,
-                  child: Text(
-                    event.location!,
-                    style: Theme.of(context).textTheme.caption,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
-                    maxLines: 3,
-                  ),
+                Text(
+                  event.location!,
+                  style: Theme.of(context).textTheme.caption,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
+                  maxLines: 3,
                 ),
+                const Spacer(),
+                if (event.latitude != null && event.longitude != null)
+                  GestureDetector(
+                    onTap: () => navigationService
+                        .pushScreen(Routes.mapScreen, arguments: {
+                      "latitude": event.latitude,
+                      "longitude": event.longitude,
+                    }),
+                    child: Text(
+                      'View on map',
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      maxLines: 3,
+                    ),
+                  ),
               ],
             ),
             const Divider(),

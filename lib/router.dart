@@ -171,10 +171,17 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         ),
       );
     case Routes.mapScreen:
+      final arguments = settings.arguments! as Map<String, dynamic>;
+      final model = arguments['model'] as CreateEventViewModel?;
+      final latitude = arguments['latitude'] as double;
+      final longitude = arguments['longitude'] as double;
       return MaterialPageRoute(
         builder: (context) => MapScreen(
-            settings.arguments! as CreateEventViewModel,
-            key: const Key('MapScreen')),
+          model,
+          latitude,
+          longitude,
+          key: const Key('MapScreen'),
+        ),
       );
     default:
       return MaterialPageRoute(
