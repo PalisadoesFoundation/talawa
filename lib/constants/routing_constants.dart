@@ -26,4 +26,5 @@ class Routes {
   static const String appSettings = '/appSettingsPage';
   static const String chatMessageScreen = '/chatMessageScreen';
   static const String mapScreen = '/mapScreen';
+  static const String calendar = '/calendar';
 }
