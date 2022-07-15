@@ -57,7 +57,8 @@ void main() {
     test('Test dispose method', () async {
       final model = CreateTaskViewModel();
       model.dispose();
-      expect(() => model.taskTitleTextController.text = 'test', throwsFlutterError);
+      expect(() => model.taskTitleTextController.text = 'test',
+          throwsFlutterError);
     });
   });
 }

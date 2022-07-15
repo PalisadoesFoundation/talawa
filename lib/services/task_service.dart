@@ -60,10 +60,12 @@ class TaskService {
     ));
 
     if (res != null) {
-      final updatedtask = res.data!['updateTask'] as Map<String, dynamic>;
+      final updatedtaskJson = res.data!['updateTask'] as Map<String, dynamic>;
       final index = _tasks.indexWhere((task) => task.id == taskId);
       if (index == -1) return false;
-      _tasks[index] = Task.fromJson(updatedtask);
+      final updatedtask = Task.fromJson(updatedtaskJson);
+      updatedtask.event.title = _tasks[index].event.title;
+      _tasks[index] = updatedtask;
       callbackNotifyListeners();
       return true;
     }
@@ -88,7 +90,7 @@ class TaskService {
 
     if (res != null) {
       final task = res.data!['createTask'] as Map<String, dynamic>;
-      _tasks.insert(0, Task.fromJson(task));
+      _tasks.add(Task.fromJson(task));
       callbackNotifyListeners();
       return true;
     }

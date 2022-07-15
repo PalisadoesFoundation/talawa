@@ -13,6 +13,7 @@ class TaskQueries {
         }
         event {
           _id
+          title
         }
       }
     }
@@ -61,6 +62,7 @@ class TaskQueries {
             }
             event {
               _id
+              title
             }
           }
         }
