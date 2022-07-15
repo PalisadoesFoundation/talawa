@@ -56,14 +56,14 @@ class TaskService {
       title: title,
       description: description,
       deadline: deadline,
-      eventId: taskId,
+      taskId: taskId,
     ));
 
     if (res != null) {
-      final task = res.data!['updateTask'] as Map<String, dynamic>;
+      final updatedtask = res.data!['updateTask'] as Map<String, dynamic>;
       final index = _tasks.indexWhere((task) => task.id == taskId);
       if (index == -1) return false;
-      _tasks[index] = Task.fromJson(task);
+      _tasks[index] = Task.fromJson(updatedtask);
       callbackNotifyListeners();
       return true;
     }

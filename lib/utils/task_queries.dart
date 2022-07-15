@@ -70,13 +70,13 @@ class TaskQueries {
     required String title,
     required String description,
     required String deadline,
-    required String eventId,
+    required String taskId,
   }) =>
       '''
         mutation {
           updateTask(
             data: { title: "$title", description: "$description", deadline: "$deadline" }
-            id: "$eventId"
+            id: "$taskId"
           ) {
             _id
             title

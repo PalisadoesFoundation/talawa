@@ -177,6 +177,9 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
 DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions() {
   _removeRegistrationIfExists<DataBaseMutationFunctions>();
   final service = MockDataBaseMutationFunctions();
+  when(service.refreshAccessToken('testtoken')).thenAnswer((_) async {
+    return true;
+  });
   locator.registerSingleton<DataBaseMutationFunctions>(service);
   return service;
 }
