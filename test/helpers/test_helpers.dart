@@ -23,6 +23,7 @@ import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/task_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
@@ -64,6 +65,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<QRViewController>(returnNullOnMissingStub: true),
     MockSpec<CommentService>(returnNullOnMissingStub: true),
     MockSpec<AppTheme>(returnNullOnMissingStub: true),
+    MockSpec<TaskService>(returnNullOnMissingStub: false),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -283,6 +285,30 @@ MultiMediaPickerService getAndRegisterMultiMediaPickerService() {
   return service;
 }
 
+TaskService getAndRegisterTaskService() {
+  _removeRegistrationIfExists<TaskService>();
+  final service = MockTaskService();
+
+  when(service.tasks).thenReturn([]);
+
+  when(service.createTask(
+    title: anyNamed('title'),
+    description: anyNamed('description'),
+    deadline: anyNamed('deadline'),
+    eventId: anyNamed('eventId'),
+  )).thenAnswer((realInvocation) async => true);
+
+  when(service.editTask(
+    title: anyNamed('title'),
+    description: anyNamed('description'),
+    deadline: anyNamed('deadline'),
+    taskId: anyNamed('taskId'),
+  )).thenAnswer((realInvocation) async => true);
+
+  locator.registerSingleton<TaskService>(service);
+  return service;
+}
+
 EventService getAndRegisterEventService() {
   _removeRegistrationIfExists<EventService>();
   final service = MockEventService();
@@ -375,6 +401,7 @@ void registerServices() {
   getAndRegisterUserConfig();
   getAndRegisterPostService();
   getAndRegisterEventService();
+  getAndRegisterTaskService();
   getAndRegisterMultiMediaPickerService();
   getAndRegisterConnectivityService();
   getAndRegisterDatabaseMutationFunctions();
