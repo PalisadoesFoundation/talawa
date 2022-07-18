@@ -34,20 +34,22 @@ class RequestService {
     });
   }
 
- Future<void> getRequests() async {
+  Future<void> getRequests() async {
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
     _dbFunctions.init();
     final String currentOrgID = _currentOrg.id!;
     final String mutation = RequestQueries().getRequests(currentOrgID);
     final result = await _dbFunctions.gqlAuthMutation(mutation);
     if (result == null) return;
-    final List requestsJson = result.data!["membershipRequest"] as List;
+    final List requestsJson = result.data["organizations"][0]["membershipRequests"] as List;
     requestsJson.forEach((eventJsonData) {
-      final Request request = Request.fromJson(eventJsonData as Map<String, dynamic>);
+      final Request request =
+          Request.fromJson(eventJsonData as Map<String, dynamic>);
       _requestStreamController.add(request);
     });
   }
-Future<dynamic> rejectRequest(String requestId) async {
+
+  Future<dynamic> rejectRequest(String requestId) async {
     navigationService.pushDialog(
       const CustomProgressDialog(key: Key('RejectRequestProgress')),
     );
@@ -75,9 +77,7 @@ Future<dynamic> rejectRequest(String requestId) async {
     return result;
   }
 
-
-   void dispose() {
+  void dispose() {
     _currentOrganizationStreamSubscription.cancel();
   }
-
 }
