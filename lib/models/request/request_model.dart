@@ -12,9 +12,11 @@ class Request {
   ) {
     return Request(
       id: json['_id'] as String,
-      name: json['name'] as String?,
+      name: (json['user']['firstName'] ?? "").toString() +
+          ' ' +
+          (json['user']['lastName'] ?? "").toString(),
       description: json['description'] as String?,
-      image: json['image'] as String?,
+      image: json['user']['image'] as String?,
       dateTime: json['dateTime'] as String?,
     );
   }
