@@ -34,6 +34,8 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/event
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/task_view_models/create_task_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/task_view_models/explore_tasks_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
@@ -439,6 +441,8 @@ void registerViewModels() {
   locator.registerFactory(() => EventInfoViewModel());
   locator.registerFactory(() => ProgressDialogViewModel());
   locator.registerFactory(() => SelectOrganizationViewModel());
+  locator.registerFactory(() => CreateTaskViewModel());
+  locator.registerFactory(() => ExploreTasksViewModel());
 }
 
 void unregisterViewModels() {
@@ -454,4 +458,6 @@ void unregisterViewModels() {
   locator.unregister<EventInfoViewModel>();
   locator.unregister<ProgressDialogViewModel>();
   locator.unregister<SelectOrganizationViewModel>();
+  locator.unregister<CreateTaskViewModel>();
+  locator.unregister<ExploreTasksViewModel>();
 }
