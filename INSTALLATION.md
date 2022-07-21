@@ -12,6 +12,16 @@ You'll need to set up the IDE and mobile device emulator on your local system an
     1. *Your API Server:* Check the [Talawa API repository](https://github.com/PalisadoesFoundation/talawa-api) for information on how to set up the API on your local machine or a machine under your legitimate control. There is a section in the README.md file that discusses installation.
     2. *Our API Server for Talawa Contributors*: We also have a test environment that our open source contributors use. Try it if you are not inclined to set up or customize your own API server. This is a development environment. The data stored on this server may be modified or deleted without warning. Information about this server can be found on the [Talawa documentation site](https://palisadoesfoundation.github.io/talawa-docs/).
 
+(Optional) **Google APIs**: The app uses Google Maps API for venue selection. You will need to sign up for it if you want to test these features. Enter your API key in the
+- `android/local.properties` file for android.
+- `ios/Runner/AppDelegate.swift` file for iOS.
+
+Replace YOUR_KEY_HERE with your API key.
+
+**Remember** to remove the key before committing changes and replace again with YOUR_KEY_HERE.
+
+Read about how to set up the Google API here https://pub.dev/packages/google_maps_flutter#getting-started.
+
 ## Command Line Steps
 
 We have tried to make the process simple. Here's what you need to do.

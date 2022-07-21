@@ -24,7 +24,10 @@ dependencies:
     sdk: flutter
   flutter_speed_dial: ^4.2.0
   font_awesome_flutter: ^9.1.0
+  geocoding: ^2.0.4
+  geolocator: ^8.2.1
   get_it: ^7.2.0
+  google_maps_flutter: ^2.1.7
   graphql_flutter: 5.1.1-beta.3
   hive: ^2.0.4
   http: ^0.13.3
