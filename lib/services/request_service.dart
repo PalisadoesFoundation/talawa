@@ -41,7 +41,8 @@ class RequestService {
     final String mutation = RequestQueries().getRequests(currentOrgID);
     final result = await _dbFunctions.gqlAuthMutation(mutation);
     if (result == null) return;
-    final List requestsJson = result.data["organizations"][0]["membershipRequests"] as List;
+    final List requestsJson =
+        result.data["organizations"][0]["membershipRequests"] as List;
     requestsJson.forEach((eventJsonData) {
       final Request request =
           Request.fromJson(eventJsonData as Map<String, dynamic>);
@@ -56,9 +57,8 @@ class RequestService {
     final tokenResult = await _dbFunctions
         .refreshAccessToken(userConfig.currentUser.refreshToken!);
     debugPrint(tokenResult.toString());
-    final result = await _dbFunctions.gqlAuthMutation(
-      RequestQueries().rejectRequest(requestId),
-    );
+    final mutation = RequestQueries().rejectRequest(requestId);
+    final result = await _dbFunctions.gqlAuthMutation(mutation);
     navigationService.pop();
     return result;
   }
@@ -70,9 +70,8 @@ class RequestService {
     final tokenResult = await _dbFunctions
         .refreshAccessToken(userConfig.currentUser.refreshToken!);
     debugPrint(tokenResult.toString());
-    final result = await _dbFunctions.gqlAuthMutation(
-      RequestQueries().acceptRequest(requestId),
-    );
+    final mutation = RequestQueries().acceptRequest(requestId);
+    final result = await _dbFunctions.gqlAuthMutation(mutation);
     navigationService.pop();
     return result;
   }
