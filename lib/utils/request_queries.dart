@@ -21,7 +21,7 @@ class RequestQueries {
   String acceptRequest(String requestId) {
     return """
       mutation {
-        acceptMembershipRequest(id: "$requestId"){
+        acceptMembershipRequest(membershipRequestId: "$requestId"){
           _id
         }
       }
@@ -31,7 +31,7 @@ class RequestQueries {
   String rejectRequest(String requestId) {
     return """
       mutation {
-        rejectMembershipRequest(id: $requestId){
+        rejectMembershipRequest(membershipRequestId: "$requestId"){
           _id
         }
       }
