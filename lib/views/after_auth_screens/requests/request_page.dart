@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/request_view_model/request_view_model.dart';
+import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/request_card.dart';
 import 'package:talawa/widgets/request_search_delegate.dart';
@@ -8,9 +9,9 @@ import 'package:talawa/widgets/request_search_delegate.dart';
 class RequestPage extends StatelessWidget {
   const RequestPage({
     Key? key,
-    // required this.model,
+    this.homeModel,
   }) : super(key: key);
-  // final RequestModel? model;
+  final MainScreenViewModel? homeModel;
   @override
   Widget build(BuildContext context) {
     return BaseView<RequestViewModel>(
@@ -73,23 +74,30 @@ class RequestPage extends StatelessWidget {
                   SizedBox(
                     height: SizeConfig.screenHeight! * 0.0215,
                   ),
-                  GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: SizeConfig.screenWidth! * 0.027,
-                      crossAxisSpacing: SizeConfig.screenWidth! * 0.027,
-                    ),
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: model.requests.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return RequestCard(
-                        request: model.requests[index],
-                        //   name: "Noman",
-                        //   description: "Open-source Contributor",
-                      );
-                    },
-                  ),
+                  model.requests.isEmpty
+                      ? SizedBox(
+                          height: SizeConfig.screenHeight! * 0.5,
+                          child: Center(
+                            child: Text(model.emptyListMessage),
+                          ),
+                        )
+                      : GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: SizeConfig.screenWidth! * 0.027,
+                            crossAxisSpacing: SizeConfig.screenWidth! * 0.027,
+                          ),
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: model.requests.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return RequestCard(
+                              request: model.requests[index],
+                              requestViewModel: model,
+                            );
+                          },
+                        ),
                 ],
               ),
             ),
