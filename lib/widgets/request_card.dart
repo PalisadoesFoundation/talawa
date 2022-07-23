@@ -2,24 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/models/request/request_model.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/view_model/after_auth_view_models/request_view_model/request_view_model.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
 class RequestCard extends StatelessWidget {
   const RequestCard({
     Key? key,
-     this.name,
-     this.description,
-    // required this.longdesc,
-     this.request,
-    // required this.isSearchItem,
-    // required this.onPressed,
+    this.request,
+    required this.requestViewModel,
   }) : super(key: key);
-  final String? name;
-  final String? description;
-  // final String longdesc;
   final Request? request;
-  // final bool isSearchItem;
-  // final Function()? onPressed;
+  final RequestViewModel requestViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +64,6 @@ class RequestCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // const SizedBox(
-                        //   height: 40,
-                        // ),
                         Container(
                           width: 85,
                           height: 85,
@@ -90,7 +80,7 @@ class RequestCard extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                          name!,
+                          request!.name!,
                           style: Theme.of(context).textTheme.headline5,
                         ),
                         const SizedBox(
@@ -127,7 +117,11 @@ class RequestCard extends StatelessWidget {
                               .color,
                           textColor:
                               Theme.of(context).colorScheme.secondaryContainer,
-                          onTap: () {},
+                          onTap: () {
+                            requestViewModel.acceptRequest(
+                              requestId: request!.id!,
+                            );
+                          },
                         ),
                         SizedBox(
                           height: SizeConfig.screenHeight! * 0.0215,
@@ -138,7 +132,11 @@ class RequestCard extends StatelessWidget {
                           backgroundColor: Colors.red.shade400,
                           textColor:
                               Theme.of(context).colorScheme.secondaryContainer,
-                          onTap: () {},
+                          onTap: () {
+                            requestViewModel.rejectRequest(
+                              requestId: request!.id!,
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -175,14 +173,14 @@ class RequestCard extends StatelessWidget {
               height: 20,
             ),
             Text(
-              name!,
+              request!.name!,
               style: Theme.of(context).textTheme.bodyText1,
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
-              description!,
+              "Contributor",
               style: Theme.of(context).textTheme.caption,
             ),
           ],
