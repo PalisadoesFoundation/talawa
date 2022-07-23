@@ -368,4 +368,20 @@ class Queries {
     }
   ''';
   }
+
+  ///`getPluginList` queries all properties of  pluginList from the server
+  String getPluginsList() {
+    return '''
+query  {
+  getPlugins {
+    _id
+    pluginName
+    pluginCreatedBy
+    pluginDesc 
+    pluginInstallStatus
+    installedOrgs
+  }
+}
+  ''';
+  }
 }
