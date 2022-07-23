@@ -5,7 +5,6 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/request/request_model.dart';
 import 'package:talawa/services/request_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
-import 'package:talawa/widgets/custom_alert_dialog.dart';
 
 class RequestViewModel extends BaseModel {
   final _requestService = locator<RequestService>();
@@ -60,6 +59,7 @@ class RequestViewModel extends BaseModel {
     setState(ViewState.busy);
     notifyListeners();
     await _requestService.acceptRequest(requestId);
+    navigationService.pop();
     refreshRequests();
     setState(ViewState.idle);
   }
@@ -68,6 +68,7 @@ class RequestViewModel extends BaseModel {
     setState(ViewState.busy);
     notifyListeners();
     await _requestService.rejectRequest(requestId);
+    navigationService.pop();
     refreshRequests();
     setState(ViewState.idle);
   }
