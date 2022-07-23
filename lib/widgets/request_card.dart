@@ -148,8 +148,6 @@ class RequestCard extends StatelessWidget {
         );
       },
       child: Container(
-        // margin: const EdgeInsets.all(8),
-
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(10),
