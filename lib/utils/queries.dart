@@ -421,33 +421,4 @@ query  {
 }
   ''';
   }
-
-  /// `createDonation` creates a new donation transaction by taking the userId ,orgId ,nameOfOrg ,nameOfUser as parameters
-  String createDonation(
-    String userId,
-    String orgId,
-    String nameOfOrg,
-    String nameOfUser,
-    String payPalId,
-    double amount,
-  ) {
-    return '''
-      mutation createDonationMutation { createDonation(
-            userId :"$userId"
-            orgId :"$orgId",
-            nameOfOrg:"$nameOfOrg",
-            nameOfUser:"$nameOfUser",
-            payPalId:"$payPalId"
-            amount :$amount
-        ){
-            _id
-            payPalId
-            userId
-            orgId
-            payPalId
-            nameOfUser
-        }
-      }
-      ''';
-  }
 }
