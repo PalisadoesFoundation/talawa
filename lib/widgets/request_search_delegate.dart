@@ -53,6 +53,7 @@ class RequestSearch extends SearchDelegate<Request> {
   Widget buildSuggestionsSucess(List<Request> suggestions) {
     return SingleChildScrollView(
       child: GridView.builder(
+        padding: EdgeInsets.all(SizeConfig.screenWidth! * 0.027),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: SizeConfig.screenWidth! * 0.027,
@@ -62,11 +63,9 @@ class RequestSearch extends SearchDelegate<Request> {
         shrinkWrap: true,
         itemCount: suggestions.length,
         itemBuilder: (BuildContext context, int index) {
-          // final highlightedText =
-          //     suggestions[index].name!.substring(0, query.length);
-          // final normalText = suggestions[index].name!.substring(query.length);
           return RequestCard(
             request: suggestions[index],
+            requestViewModel: requestViewModel,
           );
         },
       ),
