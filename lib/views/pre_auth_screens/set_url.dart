@@ -95,7 +95,7 @@ class _SetUrlState extends State<SetUrl> {
                           .translate(Validator.validateURL(value)),
                       decoration: InputDecoration(
                         labelText:
-                            '${AppLocalizations.of(context)!.translate("Enter Organization URL")} *',
+                            '${AppLocalizations.of(context)!.translate("Enter Server URL")} *',
                         labelStyle: Theme.of(context).textTheme.subtitle1,
                         suffixIcon: InkWell(
                           key: const Key('VerifyButton'),
