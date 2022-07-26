@@ -43,27 +43,34 @@ class OrganizationFeed extends StatelessWidget {
             ),
             actions: [
               Padding(
-                  padding: EdgeInsets.only(
-                    right: SizeConfig.screenWidth! * 0.027,
-                  ),
-                  child: Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            navigationService.pushScreen("/requestPage");
-                          },
-                          icon: const Icon(
-                            Icons.person_add_alt,
-                          ),
-                          color: Theme.of(context).iconTheme.color),
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.notifications_none_outlined,
-                          ),
-                          color: Theme.of(context).iconTheme.color),
-                    ],
-                  )),
+                padding: EdgeInsets.only(
+                  right: SizeConfig.screenWidth! * 0.027,
+                ),
+                child: Row(
+                  children: [
+                    userConfig.currentOrg.isPublic == false
+                        // userConfig.currentUser.adminFor!
+                        //         .contains(userConfig.currentOrg.id)
+                        // userConfig.currentOrg.admins!.contains(
+                        //         userConfig.currentUser.id)
+                        ? IconButton(
+                            onPressed: () {
+                              navigationService.pushScreen("/requestPage");
+                            },
+                            icon: const Icon(
+                              Icons.person_add_alt,
+                            ),
+                            color: Theme.of(context).iconTheme.color)
+                        : Container(),
+                    IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.notifications_none_outlined,
+                        ),
+                        color: Theme.of(context).iconTheme.color),
+                  ],
+                ),
+              ),
             ],
           ),
           body: model.isBusy
