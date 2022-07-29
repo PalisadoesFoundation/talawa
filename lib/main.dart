@@ -45,7 +45,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-/// The _MyAppState class extends the State. So all the coding related to state updation is inside this class.
+/// The _MyAppState class extends the State. All the coding related to state updation is inside this class.
 class _MyAppState extends State<MyApp> {
   final quickActions = const QuickActions();
   late int mainScreenQuickActionindex = 0;
