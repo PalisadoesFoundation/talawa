@@ -68,10 +68,10 @@ class Queries {
   }
 
   //login the user
-  String loginUser(String email, String password, String? token) {
+  String loginUser(String email, String password) {
     return """
         mutation {
-          login(data: {email: "$email", password: "$password", token: "$token"}){
+          login(data: {email: "$email", password: "$password"}){
             accessToken
             user{
               _id

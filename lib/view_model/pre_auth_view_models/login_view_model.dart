@@ -60,8 +60,8 @@ class LoginViewModel extends BaseModel {
           .pushDialog(const CustomProgressDialog(key: Key('LoginProgress')));
       databaseFunctions.init();
       try {
-        final result = await databaseFunctions.gqlNonAuthMutation(
-            queries.loginUser(email.text, password.text, ''));
+        final result = await databaseFunctions
+            .gqlNonAuthMutation(queries.loginUser(email.text, password.text));
         navigationService.pop();
         if (result != null) {
           final User loggedInUser =
