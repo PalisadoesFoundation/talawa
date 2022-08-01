@@ -125,7 +125,39 @@ class Queries {
               }
             }
             refreshToken
+            androidFirebaseOptions {
+              apiKey
+              appId
+              messagingSenderId
+              projectId
+              storageBucket
+            }
+            iosFirebaseOptions {
+              apiKey
+              appId
+              messagingSenderId
+              projectId
+              storageBucket
+              iosClientId
+              iosBundleId
+            }
           }
+        }
+    """;
+  }
+
+  String saveFcmToken(String? token) {
+    return """
+        mutation {
+          saveFcmToken(token: "$token")
+        }
+    """;
+  }
+
+  String logout() {
+    return """
+        mutation {
+          logout
         }
     """;
   }

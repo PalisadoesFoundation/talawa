@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,6 +10,8 @@ import 'package:talawa/splash_screen.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+
+import '../../helpers/setup_firebase_mocks.dart';
 
 Widget createSplashScreenLight({ThemeMode themeMode = ThemeMode.light}) =>
     BaseView<AppLanguage>(
@@ -56,9 +59,13 @@ Widget createSplashScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
       },
     );
 
-void main() {
+Future<void> main() async {
   setupLocator();
   graphqlConfig.test();
+
+  setupFirebaseMocks();
+  await Firebase.initializeApp();
+
   group('Splash Screen Widget Test in light mode', () {
     testWidgets("Testing if Splash Screen shows up", (tester) async {
       await tester.pumpWidget(createSplashScreenLight());
