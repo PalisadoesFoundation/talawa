@@ -19,6 +19,8 @@ class OrganizationFeed extends StatelessWidget {
     return BaseView<OrganizationFeedViewModel>(
       onModelReady: (model) => model.initialise(),
       builder: (context, model, child) {
+        final isAdmin = userConfig.currentUser.adminFor!
+            .any((organization) => organization.id == userConfig.currentOrg.id);
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
@@ -48,11 +50,7 @@ class OrganizationFeed extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    userConfig.currentOrg.isPublic == false
-                        // userConfig.currentUser.adminFor!
-                        //         .contains(userConfig.currentOrg.id)
-                        // userConfig.currentOrg.admins!.contains(
-                        //         userConfig.currentUser.id)
+                    userConfig.currentOrg.isPublic == false && isAdmin
                         ? IconButton(
                             onPressed: () {
                               navigationService.pushScreen("/requestPage");
