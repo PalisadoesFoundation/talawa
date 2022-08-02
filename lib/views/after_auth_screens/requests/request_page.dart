@@ -53,55 +53,67 @@ class RequestPage extends StatelessWidget {
               )
             ],
           ),
-          body: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.screenWidth! * 0.027,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: SizeConfig.screenHeight! * 0.0215,
-                  ),
-                  Text(
-                    "Pending Requests: ${model.requests.length}",
-                    style: Theme.of(context).textTheme.headline5!.copyWith(
-                          fontSize: 20,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                  ),
-                  SizedBox(
-                    height: SizeConfig.screenHeight! * 0.0215,
-                  ),
-                  model.requests.isEmpty
-                      ? SizedBox(
-                          height: SizeConfig.screenHeight! * 0.5,
-                          child: Center(
-                            child: Text(model.emptyListMessage),
+          body: model.isBusy
+              ? const Center(child: CircularProgressIndicator())
+              : RefreshIndicator(
+                  onRefresh: () async => model.refreshRequests(),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.screenWidth! * 0.027,
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: SizeConfig.screenHeight! * 0.0215,
                           ),
-                        )
-                      : GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: SizeConfig.screenWidth! * 0.027,
-                            crossAxisSpacing: SizeConfig.screenWidth! * 0.027,
+                          Text(
+                            "Pending Requests: ${model.requests.length}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5!
+                                .copyWith(
+                                  fontSize: 20,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
+                                ),
                           ),
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: model.requests.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return RequestCard(
-                              request: model.requests[index],
-                              requestViewModel: model,
-                            );
-                          },
-                        ),
-                ],
-              ),
-            ),
-          ),
+                          SizedBox(
+                            height: SizeConfig.screenHeight! * 0.0215,
+                          ),
+                          model.requests.isEmpty
+                              ? SizedBox(
+                                  height: SizeConfig.screenHeight! * 0.5,
+                                  child: Center(
+                                    child: Text(model.emptyListMessage),
+                                  ),
+                                )
+                              : GridView.builder(
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing:
+                                        SizeConfig.screenWidth! * 0.027,
+                                    crossAxisSpacing:
+                                        SizeConfig.screenWidth! * 0.027,
+                                  ),
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: model.requests.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return RequestCard(
+                                      request: model.requests[index],
+                                      requestViewModel: model,
+                                    );
+                                  },
+                                ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
         );
       },
     );
