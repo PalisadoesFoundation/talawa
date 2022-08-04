@@ -1,6 +1,8 @@
 import 'package:currency_picker/currency_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:social_share/social_share.dart';
@@ -51,26 +53,41 @@ class ProfilePageViewModel extends BaseModel {
         reverse: true,
         dialogSubTitle: 'Are you sure you want to logout?',
         successText: 'Logout',
-        success: () {
-          navigationService.pop();
-          navigationService.pushDialog(
-            const CustomProgressDialog(
-              key: Key('LogoutProgress'),
-            ),
-          );
-          Future.delayed(const Duration(seconds: 1)).then((value) {
-            user = Hive.box<User>('currentUser');
-            url = Hive.box('url');
-            organisation = Hive.box<OrgInfo>('currentOrg');
-            user.clear();
-            url.clear();
-            organisation.clear();
-            navigationService.removeAllAndPush(
-              '/selectLang',
-              '/',
-              arguments: '0',
-            );
-          });
+        success: () async {
+          try {
+            final result = await databaseFunctions
+                .gqlAuthMutation(queries.logout()) as QueryResult?;
+            if (result != null && result.data!['logout'] == true) {
+              navigationService.pop();
+              navigationService.pushDialog(
+                const CustomProgressDialog(
+                  key: Key('LogoutProgress'),
+                ),
+              );
+              Future.delayed(const Duration(seconds: 1)).then((value) {
+                user = Hive.box<User>('currentUser');
+                url = Hive.box('url');
+                final androidFirebaseOptionsBox =
+                    Hive.box('androidFirebaseOptions');
+                final iosFirebaseOptionsBox = Hive.box('iosFirebaseOptions');
+                organisation = Hive.box<OrgInfo>('currentOrg');
+                user.clear();
+                url.clear();
+                androidFirebaseOptionsBox.clear();
+                iosFirebaseOptionsBox.clear();
+                Firebase.app()
+                    .delete(); // Deleting app will stop all Firebase plugins
+                organisation.clear();
+                navigationService.removeAllAndPush(
+                  '/selectLang',
+                  '/',
+                  arguments: '0',
+                );
+              });
+            }
+          } catch (e) {
+            print(e);
+          }
         },
       ),
     );
