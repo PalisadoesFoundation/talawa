@@ -36,7 +36,6 @@ import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.d
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
-// Creating an instance of GetIt and storing it in a global variable
 GetIt locator = GetIt.instance;
 final userConfig = locator<UserConfig>();
 final navigationService = locator<NavigationService>();
@@ -47,7 +46,6 @@ final queries = locator<Queries>();
 final connectivity = locator<Connectivity>();
 final organizationService = locator<OrganizationService>();
 
-/// This function registers the widgets/objects in "GetIt"
 void setupLocator() {
   //services
   locator.registerSingleton(NavigationService());
