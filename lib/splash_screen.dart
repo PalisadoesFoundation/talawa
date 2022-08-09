@@ -11,8 +11,8 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:uni_links/uni_links.dart';
 
-/// This widget return the SplashScreen. Splash Screen is the first screen that we see when we run our application. 
-/// It is also known as Launch Screen. 
+/// This widget return the SplashScreen. Splash Screen is the first screen that 
+/// we see when we run our application. It is also known as Launch Screen. 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({required Key key, this.mainScreenIndex = 0})
       : super(key: key);
@@ -30,12 +30,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   /// Flutter supports deep linking on iOS, Android, and web browsers. 
   /// Opening a URL displays that screen in your app. 
-  /// `_handleInitialUri` is an async function that is used to hanlde the initial uri of the application.
+  /// `_handleInitialUri` is an async function that is used to hanlde 
+  /// the initial uri of the application.
   Future<void> _handleInitialUri() async {
     _sub = uriLinkStream.listen(
       (Uri? uri) {
-        // After creating a State object and before calling initState, the framework "mounts" the State object by 
-        //associating it with a BuildContext.
+        // After creating a State object and before calling initState, the framework
+        // "mounts" the State object by associating it with a BuildContext.
         if (!mounted) return;
         setState(() {
           _latestUri = uri;
@@ -156,8 +157,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   /// Describes the part of the user interface represented by this widget. 
-  /// BuildContext is a locator that is used to track each widget in a tree and locate them and 
-  /// their position in the tree. 
+  /// BuildContext is a locator that is used to track each widget in a tree 
+  /// and locate them and their position in the tree. 
   @override
   Widget build(BuildContext context) {
     sizeConfig.init(context);
