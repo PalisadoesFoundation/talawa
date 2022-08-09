@@ -18,7 +18,10 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
-/// This is the main function. Future<Void> is a future result of an execution that returns no value. That would be typically the result of invoking the run method of a Runnable . A future represents the result of an asynchronous operation, and can have two states: uncompleted or completed.
+/// This is the main function. Future<Void> is a future result of an execution that returns no value. 
+/// That would be typically the result of invoking the run method of a Runnable . 
+/// A future represents the result of an asynchronous operation, and can have two states: 
+/// uncompleted or completed.
 Future<void> main() async {
   // Returns an instance of the binding that implements WidgetsBinding.
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +39,8 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-/// The name of the Stateful Widget is MyApp which is called from the runApp() and extends a stateful widget. Stateful Widgets are dynamic widgets. They can be updated during runtime based on user action or data change. 
+/// The name of the Stateful Widget is MyApp which is called from the runApp() and extends a stateful widget. 
+/// Stateful Widgets are dynamic widgets. They can be updated during runtime based on user action or data change. 
 /// 
 /// Learn more about Stateful widget [here](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html).
 class MyApp extends StatefulWidget {
@@ -51,7 +55,9 @@ class _MyAppState extends State<MyApp> {
   late int mainScreenQuickActionindex = 0;
   @override
   void initState() {
-    // initState() is a method that is called once when the Stateful Widget is inserted in the widget tree. We generally override this method if we need to do some sort of initialization work like registering a listener because, unlike build(), this method is called once.
+    // initState() is a method that is called once when the Stateful Widget is inserted in the widget tree. 
+    // We generally override this method if we need to do some sort of initialization work like 
+    // registering a listener because, unlike build(), this method is called once.
     initQuickActions();
     super.initState();
   }
@@ -74,7 +80,8 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  // The build method is called any time you call setState , your widget's dependencies update, or any of the parent widgets are rebuilt.
+  // The build method is called any time you call setState , your widget's dependencies update, 
+  // or any of the parent widgets are rebuilt.
   @override
   Widget build(BuildContext context) {
     return BaseView<AppLanguage>(
@@ -160,7 +167,8 @@ class DemoPageView extends StatelessWidget {
   }
 }
 
-/// ViewModel uses property-based data binding to establish a connection between the ViewModel and the View, and drives the View changes through the ViewModel. DemoViewModel is the ViewModel for DemoPageView.
+/// ViewModel uses property-based data binding to establish a connection between the ViewModel and the View, 
+/// and drives the View changes through the ViewModel. DemoViewModel is the ViewModel for DemoPageView.
 class DemoViewModel extends BaseModel {
   final String _title = "Title from the viewMode GSoC branch";
   String get title => _title;
