@@ -116,7 +116,6 @@ class _SplashScreenState extends State<SplashScreen> {
                   .toList(growable: false)[1]
                   .compareTo(GraphqlConfig.orgURI!) ==
               0) {
-                // if the Organization are 0 for the user.
             if (_initialUri!.queryParameters.keys.last.compareTo('selectOrg') ==
                 0) {
               print('here');
