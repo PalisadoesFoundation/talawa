@@ -16,6 +16,7 @@ import 'package:talawa/firebase_options.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/plugins/fetch_plugin_list.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
@@ -85,6 +86,10 @@ Future<void> main() async {
     ..registerAdapter(OrgInfoAdapter());
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
+
+  await Hive.openBox('pluginBox');
+  await Hive.openBox('url');
+
   final urlBox = await Hive.openBox('url');
 
   if (urlBox.get('url') != null) {
@@ -93,6 +98,7 @@ Future<void> main() async {
     await setUpFirebase();
     await setUpFirebaseMessaging();
   }
+
   setupLocator();
   runApp(MyApp());
 }
@@ -132,6 +138,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     initQuickActions();
     super.initState();
+    FetchPluginList();
   }
 
   initQuickActions() async {
@@ -221,6 +228,7 @@ class DemoPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FetchPluginList();
     return BaseView<DemoViewModel>(
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
