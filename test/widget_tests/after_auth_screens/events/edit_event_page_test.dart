@@ -105,7 +105,68 @@ Future<void> main() async {
       await tester.tap(find.text('Add Image'));
       await tester.pump();
     });
+    testWidgets('Tap on DataTimeTile date', (tester) async {
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).first);
+      await tester.pump();
+
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      await tester.tap(find.text('31'));
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('2021-01-31'), findsOneWidget);
+    });
+    testWidgets('Tap on DataTimeTile time', (tester) async {
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).first);
+      await tester.pump();
+
+      expect(find.byType(TimePickerDialog), findsOneWidget);
+
+      await tester.tap(find.text('PM'));
+      await tester.tap(find.text('OK'));
+      await tester.pump();
+
+      expect(find.text('12:00 PM'), findsOneWidget);
+    });
+    testWidgets('Tap on DataTimeTile date for end', (tester) async {
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).last);
+      await tester.pump();
+
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      await tester.tap(find.text('31'));
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('2022-01-31'), findsOneWidget);
+    });
+    testWidgets('Tap on DataTimeTile time for end', (tester) async {
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).last);
+      await tester.pump();
+
+      expect(find.byType(TimePickerDialog), findsOneWidget);
+
+      await tester.tap(find.text('PM'));
+      await tester.tap(find.text('OK'));
+      await tester.pump();
+
+      expect(find.text('12:00 PM'), findsOneWidget);
+    });
   });
+
   group("Edit Event Screen Widget Test in light mode", () {
     testWidgets("Testing if light mode is applied", (tester) async {
       await tester.pumpWidget(editEventScreen(
