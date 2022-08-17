@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -16,6 +18,8 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_date_time_tile.dart';
 
 import '../../../helpers/setup_firebase_mocks.dart';
+import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 
 Widget editEventScreen(
         {ThemeMode themeMode = ThemeMode.light, required ThemeData theme}) =>
@@ -35,6 +39,7 @@ Widget editEventScreen(
             home: EditEventPage(
               key: const Key('EditEventScreen'),
               event: Event(
+                id: '1',
                 admins: [],
                 startDate: DateFormat('yMd').format(
                   DateTime(2021, 1, 1),
@@ -78,6 +83,27 @@ Future<void> main() async {
             ?.scaffoldBackgroundColor,
         TalawaTheme.darkTheme.scaffoldBackgroundColor,
       );
+    });
+    testWidgets("Testing if tapping on Done works", (tester) async {
+      getAndRegisterUserConfig();
+      final service = getAndRegisterEventService();
+      locator<DataBaseMutationFunctions>().init();
+
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Done'));
+      await tester.pump();
+
+      verify((service as MockEventService)
+          .editEvent(eventId: '1', variables: anyNamed('variables')));
+    });
+    testWidgets('Tap on Add Image', (tester) async {
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Add Image'));
+      await tester.pump();
     });
   });
   group("Edit Event Screen Widget Test in light mode", () {
