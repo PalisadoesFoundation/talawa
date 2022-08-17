@@ -46,5 +46,12 @@ void main() {
 
       expect(model.descriptionFocus.hasFocus, true);
     });
+    testWidgets('Test descriptionFocus', (tester) async {
+      final model = EditEventViewModel();
+
+      await tester.pumpWidget(createEditEventForm(model));
+
+      expect(model.formKey.currentState!.validate(), false);
+    });
   });
 }
