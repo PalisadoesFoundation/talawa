@@ -132,11 +132,12 @@ Future<void> main() async {
       final center = tester
           .getCenter(find.byKey(const ValueKey<String>('time-picker-dial')));
       await tester.tapAt(Offset(center.dx - 10, center.dy));
-      await tester.tap(find.text('PM'));
+      await tester.pump();
+      await tester.tapAt(Offset(center.dx, center.dy + 10));
       await tester.tap(find.text('OK'));
       await tester.pump();
 
-      expect(find.text('9:00 PM'), findsOneWidget);
+      expect(find.text('9:30 AM'), findsOneWidget);
     });
     testWidgets('Tap on DataTimeTile date for end', (tester) async {
       await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));

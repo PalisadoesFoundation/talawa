@@ -37,10 +37,12 @@ class OrganizationList extends StatelessWidget {
               result.exception!,
               showSnackBar: false,
             );
-            if (isException!) {
-              refetch!();
-            } else {
-              refetch!();
+            if (isException != null) {
+              if (isException) {
+                refetch!();
+              } else {
+                refetch!();
+              }
             }
           } else {
             if (!result.isLoading) {
