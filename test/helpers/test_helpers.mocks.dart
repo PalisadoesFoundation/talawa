@@ -293,9 +293,9 @@ class MockEventService extends _i2.Mock implements _i10.EventService {
 
 class MockRequestService extends _i2.Mock implements _i35.RequestService {
   @override
-  _i4.Stream<_i36.Request> get requestStream =>
-      (super.noSuchMethod(Invocation.getter(#requestStream),
-          returnValue: Stream<_i36.Request>.empty()) as _i4.Stream<_i36.Request>);
+  _i4.Stream<_i36.Request> get requestStream => (super.noSuchMethod(
+      Invocation.getter(#requestStream),
+      returnValue: Stream<_i36.Request>.empty()) as _i4.Stream<_i36.Request>);
   @override
   void setOrgStreamSubscription() =>
       super.noSuchMethod(Invocation.method(#setOrgStreamSubscription, []),
@@ -309,7 +309,7 @@ class MockRequestService extends _i2.Mock implements _i35.RequestService {
   _i4.Future<dynamic> rejectRequest(String? requestId) =>
       (super.noSuchMethod(Invocation.method(#rejectRequest, [requestId]),
           returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
-   @override
+  @override
   _i4.Future<dynamic> acceptRequest(String? requestId) =>
       (super.noSuchMethod(Invocation.method(#acceptRequest, [requestId]),
           returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
@@ -317,7 +317,6 @@ class MockRequestService extends _i2.Mock implements _i35.RequestService {
   void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
       returnValueForMissingStub: null);
 }
-
 
 /// A class which mocks [ChatService].
 ///

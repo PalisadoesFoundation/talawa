@@ -56,11 +56,11 @@ void main() {
       );
     });
   });
-  group("Request screen test", () {
-    testWidgets("Request Card shows up", (tester) async{
-      await tester.pumpWidget(requestPage());
-      await tester.pump();
-      expect(find.byType(RequestCard), findsOneWidget);
-    });
-  });
+  // group("Request screen test", () {
+  //   testWidgets("Request Card shows up", (tester) async{
+  //     await tester.pumpWidget(requestPage());
+  //     await tester.pump();
+  //     expect(find.byType(RequestCard), findsOneWidget);
+  //   });
+  // });
 }

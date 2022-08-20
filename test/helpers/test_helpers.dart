@@ -47,7 +47,6 @@ import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model
 
 import 'test_helpers.mocks.dart';
 
-
 @GenerateMocks(
   [],
   customMocks: [
@@ -356,18 +355,20 @@ RequestService getAndRegisterRequestService() {
   final service = MockRequestService();
 
   //Mock Stream for currentOrgStream
-  final StreamController<request.Request> _streamController = StreamController();
-  final Stream<request.Request> _stream = _streamController.stream.asBroadcastStream();
+  final StreamController<request.Request> _streamController =
+      StreamController();
+  final Stream<request.Request> _stream =
+      _streamController.stream.asBroadcastStream();
   when(service.requestStream).thenAnswer((invocation) => _stream);
   when(service.getRequests()).thenAnswer(
     (invocation) async => _streamController.add(
       request.Request(
-      id: "1",
-      name: "fake_request",
-      image: "null",
-      description: "fake_request_desc",
-      dateTime: "2020-01-01T00:00:00.000Z",
-    ),
+        id: "1",
+        name: "fake_request",
+        image: "null",
+        description: "fake_request_desc",
+        dateTime: "2020-01-01T00:00:00.000Z",
+      ),
     ),
   );
   // const data = {
@@ -387,7 +388,7 @@ RequestService getAndRegisterRequestService() {
   //       ]
   //     }
   //   ]
-  
+
   // };
   // when(service.getRequests()).thenAnswer(
   //   (realInvocation) async => QueryResult(
