@@ -41,6 +41,8 @@ import 'package:talawa/view_model/lang_view_model.dart' as _i22;
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart'
     as _i26;
 import 'package:talawa/view_model/theme_view_model.dart' as _i34;
+import 'package:talawa/services/request_service.dart' as _i35;
+import 'package:talawa/models/request/request_model.dart' as _i36;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -286,6 +288,36 @@ class MockEventService extends _i2.Mock implements _i10.EventService {
   void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
       returnValueForMissingStub: null);
 }
+
+/// A class which mocks [RequestService].
+
+class MockRequestService extends _i2.Mock implements _i35.RequestService {
+  @override
+  _i4.Stream<_i36.Request> get requestStream =>
+      (super.noSuchMethod(Invocation.getter(#requestStream),
+          returnValue: Stream<_i36.Request>.empty()) as _i4.Stream<_i36.Request>);
+  @override
+  void setOrgStreamSubscription() =>
+      super.noSuchMethod(Invocation.method(#setOrgStreamSubscription, []),
+          returnValueForMissingStub: null);
+  @override
+  _i4.Future<void> getRequests() =>
+      (super.noSuchMethod(Invocation.method(#getRequests, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<dynamic> rejectRequest(String? requestId) =>
+      (super.noSuchMethod(Invocation.method(#rejectRequest, [requestId]),
+          returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
+   @override
+  _i4.Future<dynamic> acceptRequest(String? requestId) =>
+      (super.noSuchMethod(Invocation.method(#acceptRequest, [requestId]),
+          returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
+  @override
+  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
+      returnValueForMissingStub: null);
+}
+
 
 /// A class which mocks [ChatService].
 ///

@@ -11,10 +11,9 @@ class RequestViewModel extends BaseModel {
   late StreamSubscription _requestStreamSubscription;
 
   final String _emptyListMessage = "Looks like there aren't any requests.";
-  List<Request> _requests = [];
+  final List<Request> _requests = [];
   final Set<String> _uniqueRequestIds = {};
   late StreamSubscription _currentOrganizationStreamSubscription;
-  // late final List<Request> _bufferRequests;
   List<Request> get requests => _requests;
   RequestService get requestService => _requestService;
   String get emptyListMessage => _emptyListMessage;
@@ -43,7 +42,6 @@ class RequestViewModel extends BaseModel {
       (newRequest) => checkIfExistsAndAddNewRequest(newRequest),
     );
 
-    // _bufferRequests = _requests;
     setState(ViewState.idle);
   }
 

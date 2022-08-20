@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/request_view_model/request_view_model.dart';
-import 'package:talawa/view_model/main_screen_view_model.dart';
+// import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/request_card.dart';
 import 'package:talawa/widgets/request_search_delegate.dart';
@@ -9,9 +9,9 @@ import 'package:talawa/widgets/request_search_delegate.dart';
 class RequestPage extends StatelessWidget {
   const RequestPage({
     Key? key,
-    this.homeModel,
+    // this.homeModel,
   }) : super(key: key);
-  final MainScreenViewModel? homeModel;
+  // final MainScreenViewModel? homeModel;
   @override
   Widget build(BuildContext context) {
     return BaseView<RequestViewModel>(
@@ -70,6 +70,7 @@ class RequestPage extends StatelessWidget {
                           ),
                           Text(
                             "Pending Requests: ${model.requests.length}",
+                            key: const Key('pending_requests'),
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5!

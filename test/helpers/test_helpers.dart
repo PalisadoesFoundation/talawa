@@ -13,6 +13,7 @@ import 'package:talawa/models/chats/chat_user.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
+import 'package:talawa/models/request/request_model.dart' as request;
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
@@ -22,6 +23,7 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/request_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
@@ -33,6 +35,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/event
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/request_view_model/request_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
@@ -41,7 +44,9 @@ import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
+
 import 'test_helpers.mocks.dart';
+
 
 @GenerateMocks(
   [],
@@ -64,6 +69,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<QRViewController>(returnNullOnMissingStub: true),
     MockSpec<CommentService>(returnNullOnMissingStub: true),
     MockSpec<AppTheme>(returnNullOnMissingStub: true),
+    MockSpec<RequestViewModel>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -345,6 +351,60 @@ EventService getAndRegisterEventService() {
   return service;
 }
 
+RequestService getAndRegisterRequestService() {
+  _removeRegistrationIfExists<RequestService>();
+  final service = MockRequestService();
+
+  //Mock Stream for currentOrgStream
+  final StreamController<request.Request> _streamController = StreamController();
+  final Stream<request.Request> _stream = _streamController.stream.asBroadcastStream();
+  when(service.requestStream).thenAnswer((invocation) => _stream);
+  when(service.getRequests()).thenAnswer(
+    (invocation) async => _streamController.add(
+      request.Request(
+      id: "1",
+      name: "fake_request",
+      image: "null",
+      description: "fake_request_desc",
+      dateTime: "2020-01-01T00:00:00.000Z",
+    ),
+    ),
+  );
+  // const data = {
+  //   "organizations": [
+  //     {
+  //       "_id": "123",
+  //       "membershipRequests": [
+  //         {
+  //           "_id": "1",
+  //           "user": {
+  //             "_id": "2",
+  //             "firstName": "test",
+  //             "lastName": "user",
+  //             "image": null
+  //           }
+  //         }
+  //       ]
+  //     }
+  //   ]
+  
+  // };
+  // when(service.getRequests()).thenAnswer(
+  //   (realInvocation) async => QueryResult(
+  //     source: QueryResultSource.network,
+  //     data: data,
+  //     options: QueryOptions(
+  //       document: gql(
+  //         RequestQueries().getRequests('123'),
+  //       ),
+  //     ),
+  //   ),
+  // );
+
+  locator.registerSingleton<RequestService>(service);
+  return service;
+}
+
 Connectivity getAndRegisterConnectivityService() {
   _removeRegistrationIfExists<Connectivity>();
   final service = MockConnectivity();
@@ -381,6 +441,7 @@ void registerServices() {
   getAndRegisterOrganizationService();
   getAndRegisterCommentService();
   getAndRegisterChatService();
+  getAndRegisterRequestService();
 }
 
 void unregisterServices() {
@@ -394,6 +455,7 @@ void unregisterServices() {
   locator.unregister<DataBaseMutationFunctions>();
   locator.unregister<OrganizationService>();
   locator.unregister<CommentService>();
+  locator.unregister<RequestService>();
 }
 
 void registerViewModels() {
@@ -409,6 +471,7 @@ void registerViewModels() {
   locator.registerFactory(() => EventInfoViewModel());
   locator.registerFactory(() => ProgressDialogViewModel());
   locator.registerFactory(() => SelectOrganizationViewModel());
+  locator.registerFactory(() => RequestViewModel());
 }
 
 void unregisterViewModels() {
@@ -424,4 +487,5 @@ void unregisterViewModels() {
   locator.unregister<EventInfoViewModel>();
   locator.unregister<ProgressDialogViewModel>();
   locator.unregister<SelectOrganizationViewModel>();
+  locator.unregister<RequestViewModel>();
 }

@@ -7,6 +7,7 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/org_service.dart';
 import 'package:talawa/services/post_service.dart';
+import 'package:talawa/services/request_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
@@ -19,6 +20,7 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/explo
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/request_view_model/request_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
@@ -45,6 +47,7 @@ final organizationService = locator<OrganizationService>();
 final eventService = locator<EventService>();
 final commentsService = locator<CommentService>();
 final postService = locator<PostService>();
+final requestService = locator<RequestService>();
 
 void testSetupLocator() {
   //services
@@ -63,6 +66,7 @@ void testSetupLocator() {
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => MultiMediaPickerService());
   locator.registerSingleton(() => OrganizationService());
+  locator.registerLazySingleton(() => RequestService());
 
   //graphql
   locator.registerSingleton(GraphqlConfig());
@@ -90,6 +94,7 @@ void testSetupLocator() {
   locator.registerFactory(() => CreateEventViewModel());
   locator.registerFactory(() => EditEventViewModel());
   locator.registerFactory(() => AddPostViewModel());
+  locator.registerFactory(() => RequestViewModel());
 
   //Widgets viewModels
   locator.registerFactory(() => ProgressDialogViewModel());
