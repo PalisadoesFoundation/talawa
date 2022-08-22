@@ -11,11 +11,11 @@ class EventSearch extends SearchDelegate<Event> {
 
   final List<Event> eventList;
 
-  /// Returns an icon button which closes the search page and returns
-  /// to the underlying route if the query is empty. Otherwise it sets the
-  /// query empty.
   @override
   List<Widget> buildActions(BuildContext context) {
+    /// Returns an icon button which closes the search page and returns
+    /// to the underlying route if the query is empty. Otherwise it sets the
+    /// query empty.
     return [
       IconButton(
         onPressed: () {
@@ -26,10 +26,10 @@ class EventSearch extends SearchDelegate<Event> {
     ];
   }
 
-  /// Returns an icon button which closes the search page and returns
-  /// to the underlying route
   @override
   Widget buildLeading(BuildContext context) {
+    /// Returns an icon button which closes the search page and returns
+    /// to the underlying route
     return IconButton(
       onPressed: () {
         close(context, eventList.first);
@@ -43,12 +43,12 @@ class EventSearch extends SearchDelegate<Event> {
     return Container();
   }
 
-  /// Returns a scrollable list through "buildSuggestionsSuccess" function.
-  /// where() method Returns a new lazy Iterable with all elements that satisfy the predicate test.
-  /// toList( ) method is used to convert an Iterable to a List.
-  /// toLowerCase() converts all characters in a string to lower case.
   @override
   Widget buildSuggestions(BuildContext context) {
+    /// Returns a scrollable list through "buildSuggestionsSuccess" function.
+    /// where() method Returns a new lazy Iterable with all elements that satisfy the predicate test.
+    /// toList( ) method is used to convert an Iterable to a List.
+    /// toLowerCase() converts all characters in a string to lower case.
     final suggestions = eventList.where((event) {
       final eventLowerCase = event.title!.toLowerCase();
       final queryLowerCase = query.toLowerCase();
@@ -57,9 +57,9 @@ class EventSearch extends SearchDelegate<Event> {
     return buildSuggestionsSucess(suggestions);
   }
 
-  /// Takes a List of Events as parameter which is passed by the "buildSuggestions" function.
-  /// Returns a SingleChildScrollView of the events from the list.
   Widget buildSuggestionsSucess(List<Event> suggestions) {
+    /// Takes a List of Events as parameter which is passed by the "buildSuggestions" function.
+    /// Returns a SingleChildScrollView of the events from the list.
     /// SingleChildScrollView is box in which a single widget can be scrolled.
     return SingleChildScrollView(
       child: ListView.builder(
