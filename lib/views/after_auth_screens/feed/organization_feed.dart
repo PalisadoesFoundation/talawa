@@ -60,12 +60,6 @@ class OrganizationFeed extends StatelessWidget {
                             ),
                             color: Theme.of(context).iconTheme.color)
                         : Container(),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.notifications_none_outlined,
-                        ),
-                        color: Theme.of(context).iconTheme.color),
                   ],
                 ),
               ),
