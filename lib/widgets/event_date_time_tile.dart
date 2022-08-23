@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 
+/// Returns a widget tile(item) for displaying date and time.
 class DateTimeTile extends StatelessWidget {
   const DateTimeTile({
     Key? key,
