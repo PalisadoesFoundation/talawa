@@ -6,6 +6,7 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
+/// This class return the EventCard. The data of the resulting EventCard is made out of the passed parameters.
 class EventCard extends StatelessWidget {
   const EventCard({
     Key? key,
