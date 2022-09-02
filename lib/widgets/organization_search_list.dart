@@ -38,7 +38,7 @@ class OrganizationSearchList extends StatelessWidget {
               result.exception!,
               showSnackBar: false,
             );
-            if (isException) {
+            if (isException!) {
               refetch!();
             } else {
               refetch!();

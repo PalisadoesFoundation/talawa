@@ -30,7 +30,7 @@ class DataBaseMutationFunctions {
   GraphQLError memberRequestExist =
       const GraphQLError(message: 'Membership Request already exists');
 
-  bool encounteredExceptionOrError(
+  bool? encounteredExceptionOrError(
     OperationException exception, {
     bool showSnackBar = true,
   }) {
@@ -110,7 +110,7 @@ class DataBaseMutationFunctions {
     final QueryResult result = await clientAuth.query(options);
     if (result.hasException) {
       final exception = encounteredExceptionOrError(result.exception!);
-      if (exception) {
+      if (exception!) {
         gqlAuthQuery(query, variables: variables);
       }
     } else if (result.data != null && result.isConcrete) {
@@ -131,7 +131,7 @@ class DataBaseMutationFunctions {
     );
     if (result.hasException) {
       final exception = encounteredExceptionOrError(result.exception!);
-      if (exception) {
+      if (exception!) {
         gqlAuthMutation(mutation, variables: variables);
       }
     } else if (result.data != null && result.isConcrete) {
@@ -154,7 +154,7 @@ class DataBaseMutationFunctions {
 
     if (result.hasException) {
       final exception = encounteredExceptionOrError(result.exception!);
-      if (exception && reCall) {
+      if (exception! && reCall) {
         gqlNonAuthMutation(mutation, variables: variables);
       }
     } else if (result.data != null && result.isConcrete) {
@@ -176,7 +176,7 @@ class DataBaseMutationFunctions {
 
     if (result.hasException) {
       final exception = encounteredExceptionOrError(result.exception!);
-      if (exception) {
+      if (exception!) {
         finalRes = await gqlNonAuthQuery(query, variables: variables);
       }
     } else if (result.data != null && result.isConcrete) {
@@ -196,7 +196,7 @@ class DataBaseMutationFunctions {
 
     if (result.hasException) {
       final exception = encounteredExceptionOrError(result.exception!);
-      if (exception) {
+      if (exception!) {
         refreshAccessToken(refreshToken);
       } else {
         navigationService.pop();
@@ -217,7 +217,7 @@ class DataBaseMutationFunctions {
         .mutate(MutationOptions(document: gql(_query.fetchOrgById(id))));
     if (result.hasException) {
       final exception = encounteredExceptionOrError(result.exception!);
-      if (exception) {
+      if (exception!) {
         fetchOrgById(id);
       }
     } else if (result.data != null && result.isConcrete) {
