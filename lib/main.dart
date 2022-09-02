@@ -48,8 +48,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     initQuickActions();
-    super.initState();
     FetchPluginList();
+    super.initState();
   }
 
   initQuickActions() async {
