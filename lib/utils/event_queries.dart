@@ -64,8 +64,6 @@ class EventQueries {
         \$isPublic: Boolean!,
         \$isRegisterable: Boolean!,
         \$location: String,
-        \$latitude: Float,
-        \$longitude: Float,
         \$startDate : String!,
         \$endDate : String!,
       ) { 
@@ -83,8 +81,6 @@ class EventQueries {
            startDate: \$startDate,
            endDate: \$endDate,
            location: \$location,
-           latitude: \$latitude,
-           longitude: \$longitude
         }
       ){
         _id

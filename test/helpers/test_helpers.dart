@@ -42,6 +42,7 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import 'package:talawa/view_model/pre_auth_view_models/signup_details_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/waiting_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
+import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'test_helpers.mocks.dart';
@@ -443,6 +444,7 @@ void registerViewModels() {
   locator.registerFactory(() => SelectOrganizationViewModel());
   locator.registerFactory(() => CreateTaskViewModel());
   locator.registerFactory(() => ExploreTasksViewModel());
+  locator.registerFactory(() => CustomDrawerViewModel());
 }
 
 void unregisterViewModels() {
@@ -460,4 +462,5 @@ void unregisterViewModels() {
   locator.unregister<SelectOrganizationViewModel>();
   locator.unregister<CreateTaskViewModel>();
   locator.unregister<ExploreTasksViewModel>();
+  locator.unregister<CustomDrawerViewModel>();
 }

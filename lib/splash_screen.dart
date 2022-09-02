@@ -200,8 +200,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    _handleInitialUri();
     super.initState();
+    _handleInitialUri();
   }
 
   @override
