@@ -142,7 +142,6 @@ class _MainScreenState extends State<MainScreen> {
           "Events": Icon(Icons.event_note),
           "Posts": Icon(Icons.add_box),
           "Profile": Icon(Icons.account_circle),
-          
         };
 
         /// `NavNameClasses` Object maps the feature names with thier proper Icons and Widgets (named as `class`) used in navbar
