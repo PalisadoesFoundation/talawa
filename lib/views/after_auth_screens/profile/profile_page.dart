@@ -428,11 +428,11 @@ class ProfilePage extends StatelessWidget {
 
                             var request = BraintreeDropInRequest(
                                 tokenizationKey:
-                                    'sandbox_cs576nw3_ftmwj8p4c3vpwmkd',
+                                    '<YOUR_BRAINTREE_SANDBOX_API_KEY>',
                                 collectDeviceData: true,
                                 paypalRequest: BraintreePayPalRequest(
                                     amount: model.donationAmount.text,
-                                    displayName: "SIddhesh Raha"),
+                                    displayName: "Talawa"),
                                 cardEnabled: true);
 
                             BraintreeDropInResult? result =
