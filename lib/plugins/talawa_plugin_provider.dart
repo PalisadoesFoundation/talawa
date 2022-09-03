@@ -25,9 +25,12 @@ class TalawaPluginProvider extends StatelessWidget {
   bool checkFromPluginList() {
     final UserConfig _userConfig = locator<UserConfig>();
     final Box box;
+    var pluginList;
     bool res = false;
     box = Hive.box('pluginBox');
-    final pluginList = box.get('plugins');
+    pluginList = box.get('plugins');
+    if (pluginList == null)
+      pluginList = [];
 
     ///mapping over the list from the server
     pluginList
@@ -51,6 +54,6 @@ class TalawaPluginProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     var serverVisible = false;
     serverVisible = checkFromPluginList();
-    return Visibility(visible: serverVisible || visible, child: child!);
+    return serverVisible || visible ? child! : Container();
   }
 }
