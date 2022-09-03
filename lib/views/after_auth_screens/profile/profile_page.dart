@@ -144,7 +144,7 @@ class ProfilePage extends StatelessWidget {
                             //   onTapOption: () {},
                             // ),
                             /// `Donation` acts as plugin. If visible is true the it will be always visible.
-                            /// even if it's uninstalled by the admin (for development purposes)  
+                            /// even if it's uninstalled by the admin (for development purposes)
                             TalawaPluginProvider(
                               pluginName: "Donation",
                               visible: true,
@@ -419,7 +419,7 @@ class ProfilePage extends StatelessWidget {
                                 " " +
                                 model.currentUser.lastName!;
                             nameOfOrg = model.currentOrg.name!;
-                            
+
                             if (model.donationAmount.text != null) {
                               amount = double.parse(model.donationAmount.text);
                             } else {
@@ -434,29 +434,31 @@ class ProfilePage extends StatelessWidget {
                                     amount: model.donationAmount.text,
                                     displayName: "SIddhesh Raha"),
                                 cardEnabled: true);
-                            
+
                             BraintreeDropInResult? result =
                                 await BraintreeDropIn.start(request);
                             if (result != null) {
-                            ///saving the donation in server 
-                            late final GraphQLClient client =
-                                graphqlConfig.clientToQuery();
-                            ///getting transaction id from `brainTree` API
-                            payPalId = result!.paymentMethodNonce.nonce;
-                           
-                            final QueryResult donationResult =
-                                await client.mutate(MutationOptions(
-                                    document: gql(queries.createDonation(
-                                        userId,
-                                        orgId,
-                                        nameOfOrg,
-                                        nameOfUser,
-                                        payPalId,
-                                        amount))));
-                            /// hiding the donation UI once it is sucessful
-                            model.popBottomSheet;
-                            model.showSnackBar(
-                                'Donation Successful,Thanks for the support !');
+                              ///saving the donation in server
+                              late final GraphQLClient client =
+                                  graphqlConfig.clientToQuery();
+
+                              ///getting transaction id from `brainTree` API
+                              payPalId = result!.paymentMethodNonce.nonce;
+
+                              final QueryResult donationResult =
+                                  await client.mutate(MutationOptions(
+                                      document: gql(queries.createDonation(
+                                          userId,
+                                          orgId,
+                                          nameOfOrg,
+                                          nameOfUser,
+                                          payPalId,
+                                          amount))));
+
+                              /// hiding the donation UI once it is sucessful
+                              model.popBottomSheet;
+                              model.showSnackBar(
+                                  'Donation Successful,Thanks for the support !');
                             }
                           },
                           style: ButtonStyle(
