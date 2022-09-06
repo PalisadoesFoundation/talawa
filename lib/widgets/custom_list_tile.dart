@@ -7,7 +7,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 
-/// Returns a widget for rendering Customized tiles. 
+/// Returns a widget for rendering Customized tiles.
 /// A Tile shows the org info, user info, options that on tap user & org info.
 class CustomListTile extends StatelessWidget {
   const CustomListTile({
