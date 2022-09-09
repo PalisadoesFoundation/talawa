@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:talawa/utils/app_localization.dart';
 
+/// CustomRichText class returns a widget for customized rich/bold text.
+/// These rich text are being used in form for changing the password.
 class CustomRichText extends StatelessWidget {
   const CustomRichText({required Key key, required this.words})
       : super(key: key);
