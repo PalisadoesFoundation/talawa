@@ -21,11 +21,10 @@ class TalawaPluginProviderNav {
   bool checkFromPluginList() {
     final UserConfig _userConfig = locator<UserConfig>();
     final Box box;
-    var pluginList;
     bool res = false;
     box = Hive.box('pluginBox');
-    pluginList = box.get('plugins');
-    if (pluginList == null) pluginList = [];
+    var pluginList = box.get('plugins');
+    pluginList ??= [];
 
     ///mapping over the list from the server
     pluginList
@@ -45,7 +44,6 @@ class TalawaPluginProviderNav {
   }
 
   ///build the Plugin combining local `visibility` property and `serverVisible` property
-  @override
   BottomNavigationBarItem build(BuildContext context) {
     var serverVisible = false;
     serverVisible = checkFromPluginList();
@@ -53,7 +51,8 @@ class TalawaPluginProviderNav {
       // if one of them is true
       return child;
     } else {
-      return BottomNavigationBarItem(icon: Icon(Icons.home), label: "Default");
+      return const BottomNavigationBarItem(
+          icon: Icon(Icons.home), label: "Default");
     }
     // return Visibility(visible: serverVisible || visible, child: child!);
   }

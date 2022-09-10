@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/options/options.dart';
+import 'package:talawa/plugins/talawa_plugin_provider.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
@@ -12,8 +13,6 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
-
-import '../../../plugins/talawa_plugin_provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({
@@ -406,27 +405,21 @@ class ProfilePage extends StatelessWidget {
                         ),
                         ElevatedButton(
                           onPressed: () async {
-                            ///required fiels for donation transaction
-                            late final String userId,
-                                orgId,
-                                nameOfOrg,
-                                nameOfUser,
-                                payPalId;
+                            ///required fields for donation transaction
+                            late final String userId;
+                            late final String orgId;
+                            late final String nameOfOrg;
+                            late final String nameOfUser;
+                            late final String payPalId;
                             late final double amount;
                             orgId = model.currentOrg.id!;
                             userId = model.currentUser.id!;
-                            nameOfUser = model.currentUser.firstName! +
-                                " " +
-                                model.currentUser.lastName!;
+                            nameOfUser =
+                                "${model.currentUser.firstName!} ${model.currentUser.lastName!}";
                             nameOfOrg = model.currentOrg.name!;
 
-                            if (model.donationAmount.text != null) {
-                              amount = double.parse(model.donationAmount.text);
-                            } else {
-                              amount = 0;
-                            }
-
-                            var request = BraintreeDropInRequest(
+                            amount = double.parse(model.donationAmount.text);
+                            final request = BraintreeDropInRequest(
                                 tokenizationKey:
                                     '<YOUR_BRAINTREE_SANDBOX_API_KEY>',
                                 collectDeviceData: true,
@@ -435,7 +428,7 @@ class ProfilePage extends StatelessWidget {
                                     displayName: "Talawa"),
                                 cardEnabled: true);
 
-                            BraintreeDropInResult? result =
+                            final BraintreeDropInResult? result =
                                 await BraintreeDropIn.start(request);
                             if (result != null) {
                               ///saving the donation in server
@@ -443,7 +436,7 @@ class ProfilePage extends StatelessWidget {
                                   graphqlConfig.clientToQuery();
 
                               ///getting transaction id from `brainTree` API
-                              payPalId = result!.paymentMethodNonce.nonce;
+                              payPalId = result.paymentMethodNonce.nonce;
 
                               final QueryResult donationResult =
                                   await client.mutate(MutationOptions(
@@ -454,9 +447,13 @@ class ProfilePage extends StatelessWidget {
                                           nameOfUser,
                                           payPalId,
                                           amount))));
+                              if (donationResult.hasException) {
+                                model.showSnackBar(
+                                    "Error occurred while making a donation");
+                              }
 
-                              /// hiding the donation UI once it is sucessful
-                              model.popBottomSheet;
+                              /// hiding the donation UI once it is successful
+                              model.popBottomSheet();
                               model.showSnackBar(
                                   'Donation Successful,Thanks for the support !');
                             }
