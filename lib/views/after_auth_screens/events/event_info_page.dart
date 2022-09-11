@@ -27,18 +27,14 @@ class _EventInfoPageState extends State<EventInfoPage> {
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                title: Text(
-                  AppLocalizations.of(context)!
-                      .strictTranslate('Event Details'),
-                ),
+                title: Text(AppLocalizations.of(context)!
+                    .strictTranslate('Event Details')),
                 actions: [
                   IconButton(
                     icon: const Icon(Icons.share),
-                    onPressed: () {
-                      SocialShare.shareOptions(
-                        'https://cyberwake.github.io/applink/eventInvite?setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}&eventId=${model.event.id}',
-                      );
-                    },
+                    onPressed: () => SocialShare.shareOptions(
+                      'https://cyberwake.github.io/applink/eventInvite?setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}&eventId=${model.event.id}',
+                    ),
                   ),
                 ],
                 pinned: true,

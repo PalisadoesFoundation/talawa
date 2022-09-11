@@ -22,6 +22,7 @@ import 'package:talawa/models/chats/chat_message.dart' as _i20;
 import 'package:talawa/models/events/event_model.dart' as _i17;
 import 'package:talawa/models/organization/org_info.dart' as _i5;
 import 'package:talawa/models/post/post_model.dart' as _i14;
+import 'package:talawa/models/task/task_model.dart' as _i36;
 import 'package:talawa/models/user/user_info.dart' as _i6;
 import 'package:talawa/services/chat_service.dart' as _i18;
 import 'package:talawa/services/comment_service.dart' as _i33;
@@ -31,6 +32,7 @@ import 'package:talawa/services/graphql_config.dart' as _i12;
 import 'package:talawa/services/navigation_service.dart' as _i7;
 import 'package:talawa/services/org_service.dart' as _i27;
 import 'package:talawa/services/post_service.dart' as _i13;
+import 'package:talawa/services/task_service.dart' as _i35;
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart'
     as _i15;
 import 'package:talawa/services/user_config.dart' as _i21;
@@ -793,6 +795,14 @@ class MockDataBaseMutationFunctions extends _i2.Mock
               {#variables: variables, #reCall: reCall}),
           returnValue: Future<dynamic>.value()) as _i4.Future<dynamic>);
   @override
+  _i4.Future<_i3.QueryResult<Object?>?> gqlNonAuthQuery(String? query,
+          {Map<String, dynamic>? variables}) =>
+      (super.noSuchMethod(
+          Invocation.method(#gqlNonAuthQuery, [query], {#variables: variables}),
+          returnValue:
+              Future<_i3.QueryResult<Object?>?>.value()) as _i4
+          .Future<_i3.QueryResult<Object?>?>);
+  @override
   _i4.Future<bool> refreshAccessToken(String? refreshToken) => (super
       .noSuchMethod(Invocation.method(#refreshAccessToken, [refreshToken]),
           returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
@@ -1025,4 +1035,70 @@ class MockAppTheme extends _i2.Mock implements _i34.AppTheme {
   void notifyListeners() =>
       super.noSuchMethod(Invocation.method(#notifyListeners, []),
           returnValueForMissingStub: null);
+}
+
+/// A class which mocks [TaskService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTaskService extends _i2.Mock implements _i35.TaskService {
+  MockTaskService() {
+    _i2.throwOnMissingStub(this);
+  }
+
+  @override
+  _i9.VoidCallback get callbackNotifyListeners =>
+      (super.noSuchMethod(Invocation.getter(#callbackNotifyListeners),
+          returnValue: () {}) as _i9.VoidCallback);
+  @override
+  set callbackNotifyListeners(_i9.VoidCallback? _callbackNotifyListeners) =>
+      super.noSuchMethod(
+          Invocation.setter(#callbackNotifyListeners, _callbackNotifyListeners),
+          returnValueForMissingStub: null);
+  @override
+  List<_i36.Task> get tasks =>
+      (super.noSuchMethod(Invocation.getter(#tasks), returnValue: <_i36.Task>[])
+          as List<_i36.Task>);
+  @override
+  _i4.Future<void> getTasksForEvent(String? eventId) =>
+      (super.noSuchMethod(Invocation.method(#getTasksForEvent, [eventId]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<void> getTasksByUser() =>
+      (super.noSuchMethod(Invocation.method(#getTasksByUser, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<bool> editTask(
+          {String? title,
+          String? description,
+          String? deadline,
+          String? taskId}) =>
+      (super.noSuchMethod(
+          Invocation.method(#editTask, [], {
+            #title: title,
+            #description: description,
+            #deadline: deadline,
+            #taskId: taskId
+          }),
+          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
+  @override
+  _i4.Future<bool> createTask(
+          {String? title,
+          String? description,
+          String? deadline,
+          String? eventId}) =>
+      (super.noSuchMethod(
+          Invocation.method(#createTask, [], {
+            #title: title,
+            #description: description,
+            #deadline: deadline,
+            #eventId: eventId
+          }),
+          returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
+  @override
+  _i4.Future<void> deleteTask(String? taskId, String? creatorId) =>
+      (super.noSuchMethod(Invocation.method(#deleteTask, [taskId, creatorId]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
 }
