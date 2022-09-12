@@ -194,6 +194,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         builder: (context) => EventCalendar(
           settings.arguments! as List<Event>,
           key: const Key('Calendar'),
+        ),
+      );
     case Routes.eventTasks:
       final eventId = settings.arguments! as String;
       return MaterialPageRoute(
