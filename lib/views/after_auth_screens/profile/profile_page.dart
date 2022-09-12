@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/options/options.dart';
@@ -103,6 +104,25 @@ class ProfilePage extends StatelessWidget {
                               onTapOption: () {
                                 navigationService
                                     .pushScreen("/appSettingsPage");
+                              },
+                            ),
+                            CustomListTile(
+                              key: const Key('TasksByUser'),
+                              index: 1,
+                              type: TileType.option,
+                              option: Options(
+                                icon: const Icon(
+                                  Icons.task_outlined,
+                                  size: 30,
+                                ),
+                                title: AppLocalizations.of(context)!
+                                    .strictTranslate('My Tasks'),
+                                subtitle: AppLocalizations.of(context)!
+                                    .strictTranslate(
+                                        "View and edit all tasks created by you"),
+                              ),
+                              onTapOption: () {
+                                navigationService.pushScreen(Routes.userTasks);
                               },
                             ),
                             // // Will be added later when we add the Help Section in Documentation.

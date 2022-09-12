@@ -32,8 +32,7 @@ class OrganizationList extends StatelessWidget {
           Future<QueryResult?> Function()? refetch,
         }) {
           if (result.hasException) {
-            final bool? isException =
-                databaseFunctions.encounteredExceptionOrError(
+            final isException = databaseFunctions.encounteredExceptionOrError(
               result.exception!,
               showSnackBar: false,
             );

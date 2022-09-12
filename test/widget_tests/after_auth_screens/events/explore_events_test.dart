@@ -1,19 +1,25 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
+import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/event_service.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
+import 'package:talawa/views/after_auth_screens/events/explore_event_dialogue.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
 import 'package:talawa/widgets/event_card.dart';
 
 import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 import '../../../helpers/test_locator.dart';
 
 Widget createExploreEventsScreen(MainScreenViewModel model) => MaterialApp(
@@ -134,6 +140,40 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(model.chosenValue, 'Created Events');
+      });
+    });
+    testWidgets("Testing if tapping on calendar works", (tester) async {
+      await mockNetworkImages(() async {
+        final homeModel = locator<MainScreenViewModel>();
+
+        await tester.pumpWidget(createExploreEventsScreen(homeModel));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Add Date'));
+        await tester.pump();
+
+        expect(find.byType(ExploreEventDialog), findsOneWidget);
+      });
+    });
+    testWidgets("Testing if tapping on calendar works", (tester) async {
+      await mockNetworkImages(() async {
+        locator.unregister<EventService>();
+
+        final StreamController<Event> _streamController = StreamController();
+        final Stream<Event> _stream =
+            _streamController.stream.asBroadcastStream();
+
+        final service = MockEventService();
+        when(service.eventStream).thenAnswer((invocation) => _stream);
+        locator.registerSingleton<EventService>(service);
+
+        final homeModel = locator<MainScreenViewModel>();
+
+        await tester.pumpWidget(createExploreEventsScreen(homeModel));
+        await tester.pumpAndSettle();
+
+        expect(
+            find.text("Looks like there aren't any events."), findsOneWidget);
       });
     });
   });
