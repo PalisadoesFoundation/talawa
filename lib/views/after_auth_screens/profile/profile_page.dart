@@ -123,7 +123,7 @@ class ProfilePage extends StatelessWidget {
                             ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
-
+                            ),
                             CustomListTile(
                               key: const Key('TasksByUser'),
                               index: 1,
@@ -142,7 +142,6 @@ class ProfilePage extends StatelessWidget {
                               onTapOption: () {
                                 navigationService.pushScreen(Routes.userTasks);
                               },
-
                             ),
                             // // Will be added later when we add the Help Section in Documentation.
                             // CustomListTile(
