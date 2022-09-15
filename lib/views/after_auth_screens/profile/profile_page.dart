@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/options/options.dart';
@@ -122,6 +123,26 @@ class ProfilePage extends StatelessWidget {
                             ),
                             SizedBox(
                               height: SizeConfig.screenHeight! * 0.05,
+
+                            CustomListTile(
+                              key: const Key('TasksByUser'),
+                              index: 1,
+                              type: TileType.option,
+                              option: Options(
+                                icon: const Icon(
+                                  Icons.task_outlined,
+                                  size: 30,
+                                ),
+                                title: AppLocalizations.of(context)!
+                                    .strictTranslate('My Tasks'),
+                                subtitle: AppLocalizations.of(context)!
+                                    .strictTranslate(
+                                        "View and edit all tasks created by you"),
+                              ),
+                              onTapOption: () {
+                                navigationService.pushScreen(Routes.userTasks);
+                              },
+
                             ),
                             // // Will be added later when we add the Help Section in Documentation.
                             // CustomListTile(
