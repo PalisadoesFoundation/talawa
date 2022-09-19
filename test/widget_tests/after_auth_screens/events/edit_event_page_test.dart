@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/router.dart' as router;
+import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -16,6 +18,8 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_date_time_tile.dart';
 
 import '../../../helpers/setup_firebase_mocks.dart';
+import '../../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.mocks.dart';
 
 Widget editEventScreen(
         {ThemeMode themeMode = ThemeMode.light, required ThemeData theme}) =>
@@ -35,6 +39,7 @@ Widget editEventScreen(
             home: EditEventPage(
               key: const Key('EditEventScreen'),
               event: Event(
+                id: '1',
                 admins: [],
                 startDate: DateFormat('yMd').format(
                   DateTime(2021, 1, 1),
@@ -79,7 +84,93 @@ Future<void> main() async {
         TalawaTheme.darkTheme.scaffoldBackgroundColor,
       );
     });
+    testWidgets("Testing if tapping on Done works", (tester) async {
+      getAndRegisterUserConfig();
+      final service = getAndRegisterEventService();
+      locator<DataBaseMutationFunctions>().init();
+
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Done'));
+      await tester.pump();
+
+      verify((service as MockEventService)
+          .editEvent(eventId: '1', variables: anyNamed('variables')));
+    });
+    testWidgets('Tap on Add Image', (tester) async {
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Add Image'));
+      await tester.pump();
+    });
+    testWidgets('Tap on DataTimeTile date', (tester) async {
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).first);
+      await tester.pump();
+
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      await tester.tap(find.text('31'));
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('2021-01-31'), findsOneWidget);
+    });
+    testWidgets('Tap on DataTimeTile time', (tester) async {
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).first);
+      await tester.pump();
+
+      expect(find.byType(TimePickerDialog), findsOneWidget);
+
+      final center = tester
+          .getCenter(find.byKey(const ValueKey<String>('time-picker-dial')));
+      await tester.tapAt(Offset(center.dx - 10, center.dy));
+      await tester.pump();
+      await tester.tapAt(Offset(center.dx, center.dy + 10));
+      await tester.tap(find.text('OK'));
+      await tester.pump();
+
+      expect(find.text('9:30 AM'), findsOneWidget);
+    });
+    testWidgets('Tap on DataTimeTile date for end', (tester) async {
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).last);
+      await tester.pump();
+
+      expect(find.byType(DatePickerDialog), findsOneWidget);
+
+      await tester.tap(find.text('31'));
+      await tester.tap(find.text('OK'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('2022-01-31'), findsOneWidget);
+    });
+    testWidgets('Tap on DataTimeTile time for end', (tester) async {
+      await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).last);
+      await tester.pump();
+
+      expect(find.byType(TimePickerDialog), findsOneWidget);
+
+      await tester.tap(find.text('PM'));
+      await tester.tap(find.text('OK'));
+      await tester.pump();
+
+      expect(find.text('12:00 PM'), findsOneWidget);
+    });
   });
+
   group("Edit Event Screen Widget Test in light mode", () {
     testWidgets("Testing if light mode is applied", (tester) async {
       await tester.pumpWidget(editEventScreen(
