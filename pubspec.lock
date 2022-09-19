@@ -1140,7 +1140,7 @@ packages:
     source: hosted
     version: "20.2.38"
   syncfusion_flutter_datepicker:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: syncfusion_flutter_datepicker
       url: "https://pub.dartlang.org"
