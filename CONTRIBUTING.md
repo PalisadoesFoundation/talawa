@@ -34,7 +34,7 @@ No one should fear voicing their opinion. Respones must be respectful.
 
 If you are ready to start contributing code right away, get ready!
 
-1. Join our Slack and introduce yourself. See details on how to join below.
+1. Join our Slack and introduce yourself. See details on how to join below in the Community section.
    1. This repository has its own dedicated channel.
    1. There are many persons on the various channels, willing to assist you in getting started.
 1. Take a look at our issues (**_after reading our guidelines below_**):
