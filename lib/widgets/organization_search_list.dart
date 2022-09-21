@@ -38,8 +38,7 @@ class OrganizationSearchList extends StatelessWidget {
         }) {
           // checking for any errors, if true fetch again!
           if (result.hasException) {
-            final bool? isException =
-                databaseFunctions.encounteredExceptionOrError(
+            final isException = databaseFunctions.encounteredExceptionOrError(
               result.exception!,
               showSnackBar: false,
             );

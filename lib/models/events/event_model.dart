@@ -8,6 +8,8 @@ class Event {
     this.description,
     this.attendees,
     this.location,
+    this.latitude,
+    this.longitude,
     this.recurring,
     this.allDay,
     this.startDate,
@@ -33,6 +35,8 @@ class Event {
       description: json['description'] as String?,
       attendees: json['attendees'] as String?,
       location: json['location'] as String?,
+      longitude: json['longitude'] as double?,
+      latitude: json['latitude'] as double?,
       recurring: json['recurring'] as bool?,
       allDay: json['allDay'] as bool?,
       startDate: json['startDate'] as String?,
@@ -69,6 +73,8 @@ class Event {
   String? description;
   String? attendees;
   String? location;
+  double? latitude;
+  double? longitude;
   bool? recurring;
   bool? allDay;
   String? startDate;
