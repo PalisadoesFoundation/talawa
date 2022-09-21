@@ -24,4 +24,10 @@ class ShortCutMenu {
     localizedTitle: "Messages",
     icon: "chat_icon",
   );
+
+  static const testAction = ShortcutItem(
+    type: "test_type",
+    localizedTitle: "test_title",
+    icon: "test_icon",
+  );
 }
