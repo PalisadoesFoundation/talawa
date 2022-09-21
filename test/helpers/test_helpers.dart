@@ -46,24 +46,25 @@ import 'test_helpers.mocks.dart';
 @GenerateMocks(
   [],
   customMocks: [
-    MockSpec<NavigationService>(onMissingStub: true),
-    MockSpec<GraphqlConfig>(onMissingStub: true),
-    MockSpec<PostService>(onMissingStub: true),
-    MockSpec<MultiMediaPickerService>(onMissingStub: true),
-    MockSpec<EventService>(onMissingStub: true),
-    MockSpec<ChatService>(onMissingStub: true),
-    MockSpec<UserConfig>(onMissingStub: true),
-    MockSpec<AppLanguage>(onMissingStub: true),
-    MockSpec<Connectivity>(onMissingStub: true),
-    MockSpec<SignupDetailsViewModel>(onMissingStub: true),
-    MockSpec<Post>(onMissingStub: true),
-    MockSpec<DataBaseMutationFunctions>(onMissingStub: true),
-    MockSpec<OrganizationService>(onMissingStub: true),
-    MockSpec<ExploreEventsViewModel>(onMissingStub: true),
-    MockSpec<Validator>(onMissingStub: true),
-    MockSpec<QRViewController>(onMissingStub: true),
-    MockSpec<CommentService>(onMissingStub: true),
-    MockSpec<AppTheme>(onMissingStub: true),
+    MockSpec<NavigationService>(returnNullOnMissingStub: true),
+    MockSpec<GraphqlConfig>(returnNullOnMissingStub: true),
+    MockSpec<PostService>(returnNullOnMissingStub: true),
+    MockSpec<MultiMediaPickerService>(returnNullOnMissingStub: true),
+    MockSpec<EventService>(returnNullOnMissingStub: true),
+    MockSpec<ChatService>(returnNullOnMissingStub: true),
+    MockSpec<UserConfig>(returnNullOnMissingStub: true),
+    MockSpec<AppLanguage>(returnNullOnMissingStub: true),
+    MockSpec<Connectivity>(returnNullOnMissingStub: true),
+    MockSpec<SignupDetailsViewModel>(returnNullOnMissingStub: true),
+    MockSpec<Post>(returnNullOnMissingStub: true),
+    MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: true),
+    MockSpec<OrganizationService>(returnNullOnMissingStub: true),
+    MockSpec<ExploreEventsViewModel>(returnNullOnMissingStub: true),
+    MockSpec<Validator>(returnNullOnMissingStub: true),
+    MockSpec<QRViewController>(returnNullOnMissingStub: true),
+    MockSpec<CommentService>(returnNullOnMissingStub: true),
+    MockSpec<AppTheme>(returnNullOnMissingStub: true),
+    MockSpec<TaskService>(returnNullOnMissingStub: false),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -175,6 +176,9 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
 DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions() {
   _removeRegistrationIfExists<DataBaseMutationFunctions>();
   final service = MockDataBaseMutationFunctions();
+  when(service.refreshAccessToken('testtoken')).thenAnswer((_) async {
+    return true;
+  });
   locator.registerSingleton<DataBaseMutationFunctions>(service);
   return service;
 }
@@ -375,6 +379,7 @@ void registerServices() {
   getAndRegisterUserConfig();
   getAndRegisterPostService();
   getAndRegisterEventService();
+  getAndRegisterTaskService();
   getAndRegisterMultiMediaPickerService();
   getAndRegisterConnectivityService();
   getAndRegisterDatabaseMutationFunctions();
@@ -409,6 +414,9 @@ void registerViewModels() {
   locator.registerFactory(() => EventInfoViewModel());
   locator.registerFactory(() => ProgressDialogViewModel());
   locator.registerFactory(() => SelectOrganizationViewModel());
+  locator.registerFactory(() => CreateTaskViewModel());
+  locator.registerFactory(() => ExploreTasksViewModel());
+  locator.registerFactory(() => CustomDrawerViewModel());
 }
 
 void unregisterViewModels() {
@@ -424,4 +432,7 @@ void unregisterViewModels() {
   locator.unregister<EventInfoViewModel>();
   locator.unregister<ProgressDialogViewModel>();
   locator.unregister<SelectOrganizationViewModel>();
+  locator.unregister<CreateTaskViewModel>();
+  locator.unregister<ExploreTasksViewModel>();
+  locator.unregister<CustomDrawerViewModel>();
 }
