@@ -14,6 +14,7 @@ import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.d
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
+import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
 import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
 import 'package:talawa/views/after_auth_screens/feed/individual_post.dart';
@@ -186,6 +187,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           latitude,
           longitude,
           key: const Key('MapScreen'),
+        ),
+      );
+    case Routes.calendar:
+      return MaterialPageRoute(
+        builder: (context) => EventCalendar(
+          settings.arguments! as List<Event>,
+          key: const Key('Calendar'),
         ),
       );
     case Routes.eventTasks:
