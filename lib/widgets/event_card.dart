@@ -242,7 +242,7 @@ class EventCard extends StatelessWidget {
                                   style: Theme.of(context).textTheme.caption,
                                 )
                               : Text(
-                                  '10',
+                                  (event.registrants?.length ?? 0).toString(),
                                   style: Theme.of(context).textTheme.caption,
                                 )
                         ],

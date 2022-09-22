@@ -52,6 +52,14 @@ class EventService {
     });
   }
 
+  Future<dynamic> fetchRegistrantsByEvent(String eventId) async {
+    await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
+    final result = await _dbFunctions.gqlAuthQuery(
+      EventQueries().registrantsByEvent(eventId),
+    );
+    return result;
+  }
+
   Future<dynamic> registerForAnEvent(String eventId) async {
     final tokenResult = await _dbFunctions
         .refreshAccessToken(userConfig.currentUser.refreshToken!);

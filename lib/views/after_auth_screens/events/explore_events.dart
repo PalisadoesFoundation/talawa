@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -66,7 +67,7 @@ class ExploreEvents extends StatelessWidget {
           body: model.isBusy
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
-                  onRefresh: () async => model.fetchNewEvents(),
+                  onRefresh: () async => model.refreshEvents(),
                   child: Stack(
                     children: [
                       SingleChildScrollView(
@@ -89,7 +90,7 @@ class ExploreEvents extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: 20,
                                       ),
-                                      width: SizeConfig.screenWidth! * 0.55,
+                                      width: SizeConfig.screenWidth! * 0.45,
                                       child: DropdownButtonHideUnderline(
                                         child: dropDownList(model, context),
                                       ),
@@ -111,10 +112,12 @@ class ExploreEvents extends StatelessWidget {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onPrimary,
-                                      child: SizedBox(
-                                        height:
-                                            SizeConfig.screenHeight! * 0.068,
-                                        width: SizeConfig.screenWidth! * 0.27,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                          vertical: 12,
+                                        ),
+                                        // width: SizeConfig.screenWidth! * 0.30,
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
@@ -122,26 +125,36 @@ class ExploreEvents extends StatelessWidget {
                                             const Icon(
                                               Icons.calendar_today,
                                               color: Color(0xff524F4F),
-                                              size: 19,
                                             ),
-                                            SizedBox(
-                                              width: SizeConfig.screenWidth! *
-                                                  0.17,
-                                              child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .strictTranslate(
-                                                  "Add Date",
-                                                ),
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .strictTranslate(
+                                                "Add Date",
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
                                     ),
-                                  )
+                                  ),
+                                  Card(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        navigationService.pushScreen(
+                                          Routes.calendar,
+                                          arguments: model.events,
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        Icons.calendar_month,
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                               SizedBox(

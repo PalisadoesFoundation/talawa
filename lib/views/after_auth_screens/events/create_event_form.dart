@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
@@ -57,6 +60,25 @@ class CreateEventForm extends StatelessWidget {
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
+              suffix: GestureDetector(
+                onTap: () => navigationService.pushScreen(
+                  Routes.mapScreen,
+                  arguments: {
+                    'model': model,
+                    // initalize the map screen with a marker at this location
+                    'latitude': 37.42796133580664,
+                    'longitude': -122.085749655962,
+                  },
+                ),
+                child: Text(
+                  AppLocalizations.of(context)!
+                      .strictTranslate('Choose on map'),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(fontSize: 16),
+                ),
+              ),
               prefixIcon: Container(
                 transform: Matrix4.translationValues(
                   -SizeConfig.screenWidth! * 0.027,
