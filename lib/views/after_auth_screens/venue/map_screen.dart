@@ -6,9 +6,12 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
 class MapScreen extends StatefulWidget {
-  const MapScreen(this.model, {Key? key}) : super(key: key);
+  const MapScreen(this.model, this.latitude, this.longitude, {Key? key})
+      : super(key: key);
 
-  final CreateEventViewModel model;
+  final CreateEventViewModel? model;
+  final double latitude;
+  final double longitude;
 
   @override
   _MapScreenState createState() => _MapScreenState();
@@ -17,10 +20,16 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   late GoogleMapController googleMapController;
 
-  static const CameraPosition initialCameraPosition = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 10,
-  );
+  @override
+  void initState() {
+    super.initState();
+    markers.add(
+      Marker(
+        markerId: const MarkerId('pinned'),
+        position: LatLng(widget.latitude, widget.longitude),
+      ),
+    );
+  }
 
   Set<Marker> markers = {};
   String address = '';
@@ -29,57 +38,65 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final model = widget.model;
     return Scaffold(
       appBar: AppBar(
         title: const Text("User current location"),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.done),
-            onPressed: () async {
-              widget.model.eventLocationTextController.text = address;
-              widget.model.latitude = latitude;
-              widget.model.longitude = longitude;
-              navigationService.pop();
-            },
-          ),
+          model != null
+              ? IconButton(
+                  icon: const Icon(Icons.done),
+                  onPressed: () async {
+                    model.eventLocationTextController.text = address;
+                    model.latitude = latitude;
+                    model.longitude = longitude;
+                    navigationService.pop();
+                  },
+                )
+              : Container(),
         ],
       ),
       body: GoogleMap(
-        initialCameraPosition: initialCameraPosition,
-        markers: markers,
-        zoomControlsEnabled: false,
-        mapType: MapType.normal,
-        onMapCreated: (GoogleMapController controller) {
-          googleMapController = controller;
-        },
-        onTap: (LatLng latLng) async {
-          final placemarkList =
-              await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
-          final placemark = placemarkList[0];
-          final name = placemark.name == null ? '' : '${placemark.name}, ';
-          final subLocality =
-              placemark.subLocality == null ? '' : '${placemark.subLocality}, ';
-          final locality =
-              placemark.locality == null ? '' : '${placemark.locality}, ';
-          final administrativeArea = placemark.administrativeArea == null
-              ? ''
-              : '${placemark.administrativeArea}, ';
-          final country =
-              placemark.country == null ? '' : '${placemark.country}';
-          address =
-              name + subLocality + locality + administrativeArea + country;
-          latitude = latLng.latitude;
-          longitude = latLng.longitude;
-          setState(() {
-            markers.clear();
-            markers.add(Marker(
-              markerId: const MarkerId('pinned'),
-              position: latLng,
-            ));
-          });
-        },
-      ),
+          initialCameraPosition: CameraPosition(
+            target: LatLng(widget.latitude, widget.longitude),
+            zoom: 14,
+          ),
+          markers: markers,
+          zoomControlsEnabled: false,
+          mapType: MapType.normal,
+          onMapCreated: (GoogleMapController controller) {
+            googleMapController = controller;
+          },
+          onTap: (LatLng latLng) async {
+            if (model != null) {
+              final placemarkList = await placemarkFromCoordinates(
+                  latLng.latitude, latLng.longitude);
+              final placemark = placemarkList[0];
+              final name = placemark.name == null ? '' : '${placemark.name}, ';
+              final subLocality = placemark.subLocality == null
+                  ? ''
+                  : '${placemark.subLocality}, ';
+              final locality =
+                  placemark.locality == null ? '' : '${placemark.locality}, ';
+              final administrativeArea = placemark.administrativeArea == null
+                  ? ''
+                  : '${placemark.administrativeArea}, ';
+              final country =
+                  placemark.country == null ? '' : '${placemark.country}';
+              address =
+                  name + subLocality + locality + administrativeArea + country;
+              latitude = latLng.latitude;
+              longitude = latLng.longitude;
+              setState(() {
+                markers.clear();
+                markers.add(Marker(
+                  markerId: const MarkerId('pinned'),
+                  position: latLng,
+                ));
+              });
+            }
+          }),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           final Position position = await _determinePosition();

@@ -34,6 +34,7 @@ class DateTimeTile extends StatelessWidget {
               width: SizeConfig.screenWidth! * 0.045,
             ),
             InkWell(
+              key: const Key('EventDateTimeTileDate'),
               onTap: () async {
                 setDate();
               },
@@ -52,6 +53,7 @@ class DateTimeTile extends StatelessWidget {
               width: SizeConfig.screenWidth! * 0.045,
             ),
             InkWell(
+              key: const Key('EventDateTimeTileTime'),
               onTap: () async {
                 setTime();
               },
