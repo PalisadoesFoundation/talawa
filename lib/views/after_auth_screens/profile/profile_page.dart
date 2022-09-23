@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_braintree/flutter_braintree.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/options/options.dart';
+import 'package:talawa/plugins/talawa_plugin_provider.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart';
@@ -81,12 +84,24 @@ class ProfilePage extends StatelessWidget {
                         ),
                         onTapOption: () {},
                       ),
-                      const Divider(),
+                      const Divider(
+                        thickness: 1, // thickness of the line
+                        indent:
+                            20, // empty space to the leading edge of divider.
+                        endIndent:
+                            20, // empty space to the trailing edge of the divider.
+                        color: Colors
+                            .black26, // The color to use when painting the line.
+                        height: 20, //
+                      ),
                       SizedBox(
                         height: SizeConfig.screenHeight! * 0.63,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            SizedBox(
+                              height: SizeConfig.screenHeight! * 0.05,
+                            ),
                             CustomListTile(
                               key: homeModel!.keySPAppSetting,
                               index: 0,
@@ -105,6 +120,9 @@ class ProfilePage extends StatelessWidget {
                                 navigationService
                                     .pushScreen("/appSettingsPage");
                               },
+                            ),
+                            SizedBox(
+                              height: SizeConfig.screenHeight! * 0.05,
                             ),
                             CustomListTile(
                               key: const Key('TasksByUser'),
@@ -144,25 +162,41 @@ class ProfilePage extends StatelessWidget {
                             //   ),
                             //   onTapOption: () {},
                             // ),
-                            CustomListTile(
-                              key: homeModel!.keySPDonateUs,
-                              index: 2,
-                              type: TileType.option,
-                              option: Options(
-                                icon: Icon(
-                                  Icons.monetization_on,
-                                  color: Theme.of(context).colorScheme.primary,
-                                  size: 30,
-                                ),
-                                title: AppLocalizations.of(context)!
-                                    .strictTranslate('Donate Us'),
-                                subtitle: AppLocalizations.of(context)!
-                                    .strictTranslate(
-                                  'Help us to develop for you',
-                                ),
+                            /// `Donation` acts as plugin. If visible is true the it will be always visible.
+                            /// even if it's uninstalled by the admin (for development purposes)
+                            TalawaPluginProvider(
+                              pluginName: "Donation",
+                              visible: true,
+                              child: Column(
+                                children: [
+                                  CustomListTile(
+                                    key: homeModel!.keySPDonateUs,
+                                    index: 2,
+                                    type: TileType.option,
+                                    option: Options(
+                                      icon: Icon(
+                                        Icons.monetization_on,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        size: 30,
+                                      ),
+                                      title: AppLocalizations.of(context)!
+                                          .strictTranslate('Donate  Us'),
+                                      subtitle: AppLocalizations.of(context)!
+                                          .strictTranslate(
+                                        'Help us to develop for you',
+                                      ),
+                                    ),
+                                    onTapOption: () => donate(context, model),
+                                  ),
+                                  SizedBox(
+                                    height: SizeConfig.screenHeight! * 0.05,
+                                  ),
+                                ],
                               ),
-                              onTapOption: () => donate(context, model),
                             ),
+
                             CustomListTile(
                               key: homeModel!.keySPInvite,
                               index: 3,
@@ -181,6 +215,9 @@ class ProfilePage extends StatelessWidget {
                               ),
                               onTapOption: () => model.invite(context),
                             ),
+                            SizedBox(
+                              height: SizeConfig.screenHeight! * 0.05,
+                            ),
                             CustomListTile(
                               key: homeModel!.keySPLogout,
                               index: 3,
@@ -198,6 +235,9 @@ class ProfilePage extends StatelessWidget {
                                     .strictTranslate('Log out from Talawa'),
                               ),
                               onTapOption: () => model.logout(context),
+                            ),
+                            SizedBox(
+                              height: SizeConfig.screenHeight! * 0.05,
                             ),
                             FromPalisadoes(key: homeModel!.keySPPalisadoes),
                           ],
@@ -384,8 +424,60 @@ class ProfilePage extends StatelessWidget {
                           height: SizeConfig.screenWidth! * 0.05,
                         ),
                         ElevatedButton(
-                          onPressed: () =>
-                              model.showSnackBar('Donation not supported yet'),
+                          onPressed: () async {
+                            ///required fields for donation transaction
+                            late final String userId;
+                            late final String orgId;
+                            late final String nameOfOrg;
+                            late final String nameOfUser;
+                            late final String payPalId;
+                            late final double amount;
+                            orgId = model.currentOrg.id!;
+                            userId = model.currentUser.id!;
+                            nameOfUser =
+                                "${model.currentUser.firstName!} ${model.currentUser.lastName!}";
+                            nameOfOrg = model.currentOrg.name!;
+
+                            amount = double.parse(model.donationAmount.text);
+                            final request = BraintreeDropInRequest(
+                                tokenizationKey:
+                                    '<YOUR_BRAINTREE_SANDBOX_API_KEY>',
+                                collectDeviceData: true,
+                                paypalRequest: BraintreePayPalRequest(
+                                    amount: model.donationAmount.text,
+                                    displayName: "Talawa"),
+                                cardEnabled: true);
+
+                            final BraintreeDropInResult? result =
+                                await BraintreeDropIn.start(request);
+                            if (result != null) {
+                              ///saving the donation in server
+                              late final GraphQLClient client =
+                                  graphqlConfig.clientToQuery();
+
+                              ///getting transaction id from `brainTree` API
+                              payPalId = result.paymentMethodNonce.nonce;
+
+                              final QueryResult donationResult =
+                                  await client.mutate(MutationOptions(
+                                      document: gql(queries.createDonation(
+                                          userId,
+                                          orgId,
+                                          nameOfOrg,
+                                          nameOfUser,
+                                          payPalId,
+                                          amount))));
+                              if (donationResult.hasException) {
+                                model.showSnackBar(
+                                    "Error occurred while making a donation");
+                              }
+
+                              /// hiding the donation UI once it is successful
+                              model.popBottomSheet();
+                              model.showSnackBar(
+                                  'Donation Successful,Thanks for the support !');
+                            }
+                          },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                               model.donationAmount.text.isEmpty
