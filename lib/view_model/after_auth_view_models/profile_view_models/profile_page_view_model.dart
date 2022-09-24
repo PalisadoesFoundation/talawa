@@ -64,13 +64,14 @@ class ProfilePageViewModel extends BaseModel {
                   key: Key('LogoutProgress'),
                 ),
               );
-              Future.delayed(const Duration(seconds: 1)).then((value) {
-                user = Hive.box<User>('currentUser');
-                url = Hive.box('url');
+              Future.delayed(const Duration(seconds: 1)).then((value) async {
+                user = await Hive.openBox<User>('currentUser');
+                url = await Hive.openBox('url');
                 final androidFirebaseOptionsBox =
-                    Hive.box('androidFirebaseOptions');
-                final iosFirebaseOptionsBox = Hive.box('iosFirebaseOptions');
-                organisation = Hive.box<OrgInfo>('currentOrg');
+                    await Hive.openBox('androidFirebaseOptions');
+                final iosFirebaseOptionsBox =
+                    await Hive.openBox('iosFirebaseOptions');
+                organisation = await Hive.openBox<OrgInfo>('currentOrg');
                 user.clear();
                 url.clear();
                 androidFirebaseOptionsBox.clear();
