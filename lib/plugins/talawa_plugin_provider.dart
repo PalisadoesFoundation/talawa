@@ -26,6 +26,7 @@ class TalawaPluginProvider extends StatelessWidget {
     final UserConfig _userConfig = locator<UserConfig>();
     final Box box;
     bool res = false;
+    Hive.openBox('pluginBox');
     box = Hive.box('pluginBox');
     var pluginList = box.get('plugins');
     pluginList ??= []; // if null then make it  []

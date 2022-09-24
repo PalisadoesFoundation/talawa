@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
@@ -72,6 +73,7 @@ void main() {
   group('Custom Drawer Test', () {
     testWidgets("Widget Testing", (tester) async {
       // pumping the Widget
+      await Hive.openBox('pluginBox');
       await tester.pumpWidget(createHomePageScreen());
       await tester.pumpAndSettle();
 
@@ -102,6 +104,7 @@ void main() {
       expect(fromPalisadoes, findsOneWidget);
     });
     testWidgets("Tapping Tests for Org", (tester) async {
+      await Hive.openBox('pluginBox');
       await tester.pumpWidget(createHomePageScreen());
       await tester.pumpAndSettle();
 
@@ -125,6 +128,7 @@ void main() {
     });
 
     testWidgets("Tapping Tests for Join", (tester) async {
+      await Hive.openBox('pluginBox');
       await tester.pumpWidget(createHomePageScreen());
       await tester.pumpAndSettle();
 
