@@ -46,17 +46,17 @@ void main() {
   group('Exit Button', () {
     testWidgets("Tapping Tests for Exit", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
-      // await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
       tester.binding.window.physicalSizeTestValue = const Size(4000, 4000);
 
       MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
 
-      // await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
       final leaveOrg = find.byKey(MainScreenViewModel.keyDrawerLeaveCurrentOrg);
       await tester.tap(leaveOrg);
-      // await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
       final dialogPopUP = verify(
               (locator<NavigationService>() as MockNavigationService)
@@ -73,12 +73,12 @@ void main() {
     testWidgets("Widget Testing", (tester) async {
       // pumping the Widget
       await tester.pumpWidget(createHomePageScreen());
-      // await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
       // Opening the Drawer so that it can be loaded in the widget tree and built() is called
       await tester.dragFrom(
           tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0));
-      // await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
       // getting the Finders for Code Coverage
       expect(find.byKey(const ValueKey("Drawer")), findsOneWidget);
@@ -103,18 +103,18 @@ void main() {
     });
     testWidgets("Tapping Tests for Org", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
-      // await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
       // Opening the Drawer so that it can be loaded in the widget tree and built() is called
       await tester.dragFrom(
           tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0));
-      // await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
       final orgs = find.byKey(const ValueKey("Org"));
       // Atleast One Org should be there
       // ignore: invalid_use_of_protected_member
       expect(orgs.allCandidates.isEmpty, false);
-      // await tester.tap(orgs.first);
+      await tester.tap(orgs.first);
 
       // Was not required but done for code Coverage
       // Sized
@@ -126,13 +126,13 @@ void main() {
 
     testWidgets("Tapping Tests for Join", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
-      // await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
       tester.binding.window.physicalSizeTestValue = const Size(800, 4000);
 
       MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
 
-      // await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
       final joinOrg = find.byKey(MainScreenViewModel.keyDrawerJoinOrg);
       await tester.tap(joinOrg);
