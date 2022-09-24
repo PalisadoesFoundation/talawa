@@ -52,11 +52,11 @@ void main() {
 
       MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
 
-      await tester.pumpAndSettle();
+      // await tester.pumpAndSettle();
 
       final leaveOrg = find.byKey(MainScreenViewModel.keyDrawerLeaveCurrentOrg);
       await tester.tap(leaveOrg);
-      await tester.pumpAndSettle();
+      // await tester.pumpAndSettle();
 
       final dialogPopUP = verify(
               (locator<NavigationService>() as MockNavigationService)
@@ -78,7 +78,7 @@ void main() {
       // Opening the Drawer so that it can be loaded in the widget tree and built() is called
       await tester.dragFrom(
           tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0));
-      await tester.pumpAndSettle();
+      // await tester.pumpAndSettle();
 
       // getting the Finders for Code Coverage
       expect(find.byKey(const ValueKey("Drawer")), findsOneWidget);
@@ -108,7 +108,7 @@ void main() {
       // Opening the Drawer so that it can be loaded in the widget tree and built() is called
       await tester.dragFrom(
           tester.getTopLeft(find.byType(MaterialApp)), const Offset(300, 0));
-      await tester.pumpAndSettle();
+      // await tester.pumpAndSettle();
 
       final orgs = find.byKey(const ValueKey("Org"));
       // Atleast One Org should be there
@@ -132,7 +132,7 @@ void main() {
 
       MainScreenViewModel.scaffoldKey.currentState?.openDrawer();
 
-      await tester.pumpAndSettle();
+      // await tester.pumpAndSettle();
 
       final joinOrg = find.byKey(MainScreenViewModel.keyDrawerJoinOrg);
       await tester.tap(joinOrg);
