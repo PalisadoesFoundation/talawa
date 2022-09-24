@@ -84,6 +84,7 @@ Future<void> main() async {
     ..init(dir.path)
     ..registerAdapter(UserAdapter())
     ..registerAdapter(OrgInfoAdapter());
+
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
 
