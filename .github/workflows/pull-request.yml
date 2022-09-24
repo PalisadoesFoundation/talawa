@@ -11,7 +11,7 @@
 
 name: PR Workflow
 on:
-  pull_request_target:
+  pull_request:
 
 jobs:
   Flutter-Codebase-Check:
