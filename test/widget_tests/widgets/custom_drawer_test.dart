@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:path_provider/path_provider.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -40,7 +42,13 @@ Widget createHomePageScreen() {
 void main() {
   testSetupLocator();
 
-  setUp(() {
+  setUp(() async {
+    final Directory dir = await path.getApplicationDocumentsDirectory();
+    Hive.init(dir.path);
+    Hive
+      ..init(dir.path)
+      ..registerAdapter(UserAdapter())
+      ..registerAdapter(OrgInfoAdapter());
     registerServices();
     locator<SizeConfig>().test();
     locator<GraphqlConfig>().test();
