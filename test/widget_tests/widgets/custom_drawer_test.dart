@@ -5,6 +5,8 @@ import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
+import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
@@ -46,6 +48,11 @@ void main() {
 
   group('Exit Button', () {
     testWidgets("Tapping Tests for Exit", (tester) async {
+      await Hive.openBox<User>('currentUser');
+      await Hive.openBox<OrgInfo>('currentOrg');
+
+      await Hive.openBox('pluginBox');
+      await Hive.openBox('url');
       await tester.pumpWidget(createHomePageScreen());
       await tester.pumpAndSettle();
 
@@ -73,6 +80,10 @@ void main() {
   group('Custom Drawer Test', () {
     testWidgets("Widget Testing", (tester) async {
       // pumping the Widget
+      await Hive.openBox<User>('currentUser');
+      await Hive.openBox<OrgInfo>('currentOrg');
+
+      await Hive.openBox('url');
       await Hive.openBox('pluginBox');
       await tester.pumpWidget(createHomePageScreen());
       await tester.pumpAndSettle();
@@ -105,6 +116,11 @@ void main() {
     });
     testWidgets("Tapping Tests for Org", (tester) async {
       await Hive.openBox('pluginBox');
+      await Hive.openBox<User>('currentUser');
+      await Hive.openBox<OrgInfo>('currentOrg');
+
+      await Hive.openBox('pluginBox');
+      await Hive.openBox('url');
       await tester.pumpWidget(createHomePageScreen());
       await tester.pumpAndSettle();
 
@@ -128,6 +144,10 @@ void main() {
     });
 
     testWidgets("Tapping Tests for Join", (tester) async {
+      await Hive.openBox<User>('currentUser');
+      await Hive.openBox<OrgInfo>('currentOrg');
+
+      await Hive.openBox('url');
       await Hive.openBox('pluginBox');
       await tester.pumpWidget(createHomePageScreen());
       await tester.pumpAndSettle();
