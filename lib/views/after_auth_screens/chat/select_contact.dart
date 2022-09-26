@@ -3,6 +3,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
+/// SelectContact returns a widget that has mutable state _SelectContactState.
 class SelectContact extends StatefulWidget {
   const SelectContact({Key? key}) : super(key: key);
 
@@ -10,6 +11,7 @@ class SelectContact extends StatefulWidget {
   _SelectContactState createState() => _SelectContactState();
 }
 
+/// _SelectContactState returns a widget that renders the list of the users that current user can chat with.
 class _SelectContactState extends State<SelectContact> {
   @override
   Widget build(BuildContext context) {
