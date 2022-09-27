@@ -12,6 +12,7 @@ import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
 
+/// ProfilePage returns a widget that renders a page of user's profile.
 class ProfilePage extends StatelessWidget {
   const ProfilePage({
     required Key key,
@@ -26,6 +27,7 @@ class ProfilePage extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           key: model.scaffoldKey,
+          // header of the page.
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
             elevation: 0.0,
@@ -45,6 +47,8 @@ class ProfilePage extends StatelessWidget {
                   ),
             ),
           ),
+          // if data fetching is under process then renders Circular Progress Icon
+          // else renders the widget.
           body: model.isBusy
               ? const CircularProgressIndicator()
               : SingleChildScrollView(
@@ -58,6 +62,7 @@ class ProfilePage extends StatelessWidget {
                         index: 0,
                         type: TileType.option,
                         option: Options(
+                          // Avatar
                           icon: CustomAvatar(
                             isImageNull: model.currentUser.image == null,
                             firstAlphabet:
@@ -66,9 +71,12 @@ class ProfilePage extends StatelessWidget {
                             fontSize:
                                 Theme.of(context).textTheme.headline6!.fontSize,
                           ),
+                          // display first and last name.
                           title:
                               '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
+                          // display email address
                           subtitle: model.currentUser.email!,
+                          // button to edit the profile which redirects to edit profile page.
                           trailingIconButton: IconButton(
                             icon: Icon(
                               Icons.drive_file_rename_outline,
@@ -96,11 +104,14 @@ class ProfilePage extends StatelessWidget {
                                   Icons.phonelink_setup,
                                   size: 30,
                                 ),
+                                // title for App Settings.
                                 title: AppLocalizations.of(context)!
                                     .strictTranslate('App Settings'),
+                                // display language of the app.
                                 subtitle:
                                     '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
                               ),
+                              // button for the app setting which redirects to app setting page.
                               onTapOption: () {
                                 navigationService
                                     .pushScreen("/appSettingsPage");
@@ -115,12 +126,15 @@ class ProfilePage extends StatelessWidget {
                                   Icons.task_outlined,
                                   size: 30,
                                 ),
+                                // title for My Tasks tile
                                 title: AppLocalizations.of(context)!
                                     .strictTranslate('My Tasks'),
+                                // display subtitle
                                 subtitle: AppLocalizations.of(context)!
                                     .strictTranslate(
                                         "View and edit all tasks created by you"),
                               ),
+                              // on tag redirects to the user Tasks page.
                               onTapOption: () {
                                 navigationService.pushScreen(Routes.userTasks);
                               },
@@ -144,6 +158,7 @@ class ProfilePage extends StatelessWidget {
                             //   ),
                             //   onTapOption: () {},
                             // ),
+                            // Custom Tile for Donate Us.
                             CustomListTile(
                               key: homeModel!.keySPDonateUs,
                               index: 2,
@@ -154,15 +169,19 @@ class ProfilePage extends StatelessWidget {
                                   color: Theme.of(context).colorScheme.primary,
                                   size: 30,
                                 ),
+                                // display title as Donate Us.
                                 title: AppLocalizations.of(context)!
                                     .strictTranslate('Donate Us'),
+                                // subtitle
                                 subtitle: AppLocalizations.of(context)!
                                     .strictTranslate(
                                   'Help us to develop for you',
                                 ),
                               ),
+                              // on tap open the donate widget.
                               onTapOption: () => donate(context, model),
                             ),
+                            // custom tile for Invitation.
                             CustomListTile(
                               key: homeModel!.keySPInvite,
                               index: 3,
@@ -174,13 +193,17 @@ class ProfilePage extends StatelessWidget {
                                       Theme.of(context).colorScheme.secondary,
                                   size: 30,
                                 ),
+                                // title
                                 title: AppLocalizations.of(context)!
                                     .strictTranslate('Invite'),
+                                // subtitle
                                 subtitle: AppLocalizations.of(context)!
                                     .strictTranslate('Invite to org'),
                               ),
+                              // on tap call the invite function
                               onTapOption: () => model.invite(context),
                             ),
+                            // Custom tile for Logout option.
                             CustomListTile(
                               key: homeModel!.keySPLogout,
                               index: 3,
@@ -197,6 +220,7 @@ class ProfilePage extends StatelessWidget {
                                 subtitle: AppLocalizations.of(context)!
                                     .strictTranslate('Log out from Talawa'),
                               ),
+                              // on tap calls the logout function
                               onTapOption: () => model.logout(context),
                             ),
                             FromPalisadoes(key: homeModel!.keySPPalisadoes),
@@ -211,6 +235,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
+  // donate widget, this widget is used in donate custom tile.
   donate(BuildContext context, ProfilePageViewModel model) {
     showModalBottomSheet(
       context: context,
@@ -233,8 +258,10 @@ class ProfilePage extends StatelessWidget {
               child: SizedBox(
                 height: model.bottomSheetHeight,
                 child: Scaffold(
+                  // background color set to Primary
                   backgroundColor:
                       Theme.of(context).colorScheme.primaryContainer,
+                  // header
                   appBar: AppBar(
                     centerTitle: true,
                     automaticallyImplyLeading: false,
@@ -243,6 +270,7 @@ class ProfilePage extends StatelessWidget {
                     toolbarHeight: SizeConfig.screenHeight! * 0.15,
                     title: Padding(
                       padding: const EdgeInsets.only(top: 8.0),
+                      // display title
                       child: Text(
                         'Donating to \n${model.currentOrg.name}',
                         style: Theme.of(context)
@@ -271,6 +299,7 @@ class ProfilePage extends StatelessWidget {
                     ],
                   ),
                   body: SingleChildScrollView(
+                    // SingleChildScrollView is a box in which a single widget can be scrolled.
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
@@ -288,6 +317,7 @@ class ProfilePage extends StatelessWidget {
                         Container(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            // looping through and renders button for donation amounts.
                             children: List.generate(
                               3,
                               (index) => model.dominationButton(
@@ -312,6 +342,7 @@ class ProfilePage extends StatelessWidget {
                         SizedBox(
                           height: SizeConfig.screenWidth! * 0.05,
                         ),
+                        // containers for custom amount
                         Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: SizeConfig.screenWidth! * 0.05,
@@ -388,6 +419,8 @@ class ProfilePage extends StatelessWidget {
                               model.showSnackBar('Donation not supported yet'),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
+                              // if the donation amount entered or selected is empty then renders grey color
+                              // else render primary color
                               model.donationAmount.text.isEmpty
                                   ? Colors.grey
                                   : Theme.of(context).colorScheme.primary,
