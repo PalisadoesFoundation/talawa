@@ -8,6 +8,12 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
+/// This is the login widget.
+/// There are two input fiels. The first one takes in the email and
+/// the second one takes in the password of the user.
+/// There is also a "Forgot Password" text button, which directs to
+/// the "recover password" screen when pressed.
+/// At the bottom, there is a login button to initiate the login.
 class Login extends StatefulWidget {
   const Login({required Key key}) : super(key: key);
 
@@ -52,6 +58,7 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    //Custom greeting text.
                     CustomRichText(
                       key: const Key('UrlPageText'),
                       words: model.greeting,
@@ -59,6 +66,7 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.05,
                     ),
+                    //Input form for the email of the user.
                     TextFormField(
                       key: const Key('EmailInputField'),
                       controller: model.email,
@@ -86,6 +94,7 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.025,
                     ),
+                    //Input form for the password of the user.
                     TextFormField(
                       key: const Key('PasswordInputField'),
                       controller: model.password,
@@ -123,6 +132,7 @@ class _LoginState extends State<Login> {
                         labelStyle: Theme.of(context).textTheme.subtitle1,
                       ),
                     ),
+                    //Option to recover the password if the user forgets his/her password.
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -146,6 +156,7 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.086,
                     ),
+                    //Button to initiate the login.
                     RaisedRoundedButton(
                       buttonLabel: AppLocalizations.of(context)!
                           .strictTranslate('Login'),
