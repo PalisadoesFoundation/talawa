@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
+/// MapScreen returns a widget that has mutable state _MapScreenState.
 class MapScreen extends StatefulWidget {
   const MapScreen(this.model, this.latitude, this.longitude, {Key? key})
       : super(key: key);
@@ -17,6 +18,7 @@ class MapScreen extends StatefulWidget {
   _MapScreenState createState() => _MapScreenState();
 }
 
+/// _MapScreenState returns a widget that renders map screen. The parameters needed are latitude and longitude.
 class _MapScreenState extends State<MapScreen> {
   late GoogleMapController googleMapController;
 
@@ -40,7 +42,9 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     final model = widget.model;
     return Scaffold(
+      // header of the widget
       appBar: AppBar(
+        // title
         title: const Text("User current location"),
         centerTitle: true,
         actions: [
@@ -57,7 +61,10 @@ class _MapScreenState extends State<MapScreen> {
               : Container(),
         ],
       ),
+      // GoogleMap is widget imported from google_maps_flutter that is a
+      // Flutter plugin that provides a Google Maps widget.
       body: GoogleMap(
+          // initial position with the reference of latitute and longitude passed.
           initialCameraPosition: CameraPosition(
             target: LatLng(widget.latitude, widget.longitude),
             zoom: 14,
@@ -130,14 +137,18 @@ class _MapScreenState extends State<MapScreen> {
     bool serviceEnabled;
     LocationPermission permission;
 
+    // Check if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
+    // if location services are not enabled
     if (!serviceEnabled) {
       return Future.error('Location services are disabled');
     }
 
+    // check for the permission.
     permission = await Geolocator.checkPermission();
 
+    // if permission denied
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
 
@@ -146,12 +157,15 @@ class _MapScreenState extends State<MapScreen> {
       }
     }
 
+    // if permission denied for permanently
     if (permission == LocationPermission.deniedForever) {
       return Future.error('Location permissions are permanently denied');
     }
 
+    // if the permission is enabled.
     final Position position = await Geolocator.getCurrentPosition();
 
+    // return the position.
     return position;
   }
 }
