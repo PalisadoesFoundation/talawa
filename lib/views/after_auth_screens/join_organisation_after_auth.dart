@@ -55,8 +55,8 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
-                // Cupertino search textfield in flutter is ios style (like) searchTextfield. 
-                // A cupertinoSearchTextField widget lets us create a searchTextField in ios style. 
+                // Cupertino search textfield in flutter is ios style (like) searchTextfield.
+                // A cupertinoSearchTextField widget lets us create a searchTextField in ios style.
                 // It is used to display a text field where the user can type his search query.
                 child: CupertinoSearchTextField(
                   focusNode: model.searchFocus,
@@ -103,7 +103,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                 ),
               ),
               Expanded(
-                // if model searching is under process then renders OrganizationSearchList widget 
+                // if model searching is under process then renders OrganizationSearchList widget
                 // else renders OrganizationList widget.
                 child: model.searching
                     ? OrganizationSearchList(model: model)
