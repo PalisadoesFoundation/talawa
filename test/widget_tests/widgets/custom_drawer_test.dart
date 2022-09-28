@@ -43,7 +43,7 @@ void main() {
     locator<GraphqlConfig>().test();
   });
 
-  group('Exit Button', () {
+  /* group('Exit Button', () {
     testWidgets("Tapping Tests for Exit", (tester) async {
       await tester.pumpWidget(createHomePageScreen());
       await tester.pumpAndSettle();
@@ -138,7 +138,7 @@ void main() {
       await tester.tap(joinOrg);
       // await tester.pumpAndSettle();
     });
-  });
+  }); */
 
   tearDown(() {
     unregisterServices();
