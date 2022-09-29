@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:talawa/utils/comment_queries.dart';
 import 'package:talawa/utils/post_queries.dart';
 
 void main() {
