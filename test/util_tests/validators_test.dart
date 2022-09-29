@@ -63,7 +63,7 @@ void main() {
         null);
     // Invalid Password
     expect(Validator.validatePasswordConfirm("JohnsecretPass@1234", "john"),
-        "'Password does not match original");
+        "Password does not match original");
   });
 
   test('Test validateUrlExistence method', () async {

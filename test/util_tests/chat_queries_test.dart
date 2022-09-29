@@ -32,7 +32,7 @@ void main() {
             }
             receiver {
               _id
-              firstNamep
+              firstName
               image
             }
           }
