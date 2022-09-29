@@ -140,7 +140,6 @@ class _MyAppState extends State<MyApp> {
     initQuickActions();
     FetchPluginList();
     super.initState();
-    FetchPluginList();
   }
 
   initQuickActions() async {
