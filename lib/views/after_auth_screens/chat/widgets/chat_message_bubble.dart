@@ -25,7 +25,7 @@ class Message extends StatelessWidget {
               vertical: SizeConfig.blockSizeVertical! * 1.2,
             ),
             decoration: BoxDecoration(
-              // if the message is sent by current user, the background color will white else green
+              // if the message is sent by current user, then the background color will be white else green
               color:
                   message.sender!.firstName == userConfig.currentUser.firstName
                       ? Colors.white
@@ -45,7 +45,7 @@ class Message extends StatelessWidget {
             ),
             child: Text(
               message.messageContent!,
-              // if the message is sent by current user, the text color will black else theme bodyText color
+              // if the message is sent by current user, then the text color will be black else theme bodyText color
               style: TextStyle(
                 color: message.sender!.firstName ==
                         userConfig.currentUser.firstName

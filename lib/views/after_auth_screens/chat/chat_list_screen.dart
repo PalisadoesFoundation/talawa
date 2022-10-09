@@ -35,7 +35,7 @@ class ChatPage extends StatelessWidget {
             ],
           ),
         ),
-        // returns a tabs in the top for current user to switch between DirectChats and EventChats.
+        // returns a tabs on the top for current user to switch between DirectChats and EventChats.
         body: const TabBarView(
           children: [
             DirectChats(),
