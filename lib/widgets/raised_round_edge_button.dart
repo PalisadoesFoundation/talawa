@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 
+/// This class returns a widget for a raised rounded button,
+/// for example: login button in login screen.
 class RaisedRoundedButton extends StatefulWidget {
+  // variables
   const RaisedRoundedButton({
     required Key key,
     required this.buttonLabel,
@@ -27,6 +30,7 @@ class RaisedRoundedButton extends StatefulWidget {
 class _RaisedRoundedButtonState extends State<RaisedRoundedButton> {
   @override
   Widget build(BuildContext context) {
+    // Gesture Detector in Flutter is used to detect the user's gestures on the application.
     return GestureDetector(
       onTap: () {
         widget.onTap();
@@ -47,6 +51,9 @@ class _RaisedRoundedButtonState extends State<RaisedRoundedButton> {
             )
           ],
         ),
+        // If the widget.showArrow is true then show Row wrapper else FittedBox wrapper.
+        // By default it is false. The showArrow are true for some buttons like login & Sign up button in
+        // Organization URL Screen.
         child: widget.showArrow
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -78,6 +85,7 @@ class _RaisedRoundedButtonState extends State<RaisedRoundedButton> {
                 ],
               )
             : FittedBox(
+                // FittedBox restricts its child widgets from growing its size beyond a certain limit
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: Text(

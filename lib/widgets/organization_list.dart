@@ -9,6 +9,9 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+/// This class returns the OrganizationList widget
+/// which shows the list of all organizations exists in the URL.
+/// This widget is used after the authentication.
 class OrganizationList extends StatelessWidget {
   const OrganizationList({required this.model, Key? key}) : super(key: key);
   final SelectOrganizationViewModel model;
@@ -22,6 +25,7 @@ class OrganizationList extends StatelessWidget {
         options: QueryOptions(
           document: gql(queries.fetchJoinInOrg),
           variables: {
+            // fetch 15 items only, will fetch more when scrolling index is at the 3rd last item!
             'first': 15,
             'skip': 0,
           },
@@ -31,6 +35,7 @@ class OrganizationList extends StatelessWidget {
           Future<QueryResult> Function(FetchMoreOptions)? fetchMore,
           Future<QueryResult?> Function()? refetch,
         }) {
+          // checking for any errors, if true fetch again!
           if (result.hasException) {
             final isException = databaseFunctions.encounteredExceptionOrError(
               result.exception!,
@@ -44,15 +49,18 @@ class OrganizationList extends StatelessWidget {
               }
             }
           } else {
+            // If the result is still loading!
             if (!result.isLoading) {
               model.organizations = OrgInfo().fromJsonToList(
                 result.data!['organizationsConnection'] as List,
               );
             }
+            // return the Scroll bar widget for scrolling down the organizations.
             return Scrollbar(
               thumbVisibility: true,
               interactive: true,
               controller: model.allOrgController,
+              // Listview is a scrollable list of widgets arranged linearly.
               child: ListView.separated(
                 controller: model.allOrgController,
                 padding: EdgeInsets.zero,
@@ -61,7 +69,9 @@ class OrganizationList extends StatelessWidget {
                     ? model.organizations.length + 1
                     : model.organizations.length,
                 itemBuilder: (BuildContext context, int index) {
+                  // If the index is at the end of the list!
                   if (index == model.organizations.length) {
+                    // return the ListTile showing the loading icon!
                     return ListTile(
                       title: Center(
                         child: CupertinoActivityIndicator(
@@ -70,7 +80,9 @@ class OrganizationList extends StatelessWidget {
                       ),
                     );
                   }
+                  // If the index is at the 3rd last item in the organization list.
                   if (index == model.organizations.length - 3) {
+                    // return VisibilityDetector and fetch more items in the list to show up!
                     return VisibilityDetector(
                       key: const Key('OrgSelItem'),
                       onVisibilityChanged: (VisibilityInfo info) {
@@ -88,6 +100,7 @@ class OrganizationList extends StatelessWidget {
                       ),
                     );
                   }
+                  // return CustomeTile that shows a particular item in the list!
                   return CustomListTile(
                     index: index,
                     type: TileType.org,
