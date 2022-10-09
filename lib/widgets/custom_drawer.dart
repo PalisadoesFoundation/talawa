@@ -10,6 +10,8 @@ import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
 
+/// Creates a custom drawer for switching organizations,
+/// joining new organizations, or leaving an organization.
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
     Key? key,
@@ -32,6 +34,7 @@ class CustomDrawer extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    //A material design Drawer header that identifies the app's user.
                     UserAccountsDrawerHeader(
                       currentAccountPicture: CustomAvatar(
                         isImageNull: model.selectedOrg?.image == null,
@@ -54,6 +57,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       accountEmail: const SizedBox(),
                     ),
+                    //Tile to Switch organizations
                     Column(
                       key: MainScreenViewModel.keyDrawerSwitchableOrg,
                       children: [
@@ -105,6 +109,7 @@ class CustomDrawer extends StatelessWidget {
                       ],
                     ),
                     const Divider(),
+                    // A Tile to join a new organization
                     ListTile(
                       key: MainScreenViewModel.keyDrawerJoinOrg,
                       onTap: () => navigationService
@@ -142,6 +147,7 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
+  /// Button to exit the organization
   exitButton() {
     return navigationService.pushDialog(
       CustomAlertDialog(
