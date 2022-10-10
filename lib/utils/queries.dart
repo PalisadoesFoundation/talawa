@@ -1,4 +1,6 @@
+//This class returns some queries for the application.
 class Queries {
+  //Returns a query to register a user.
   String registerUser(
     String firstName,
     String lastName,
@@ -67,7 +69,7 @@ class Queries {
     """;
   }
 
-  //login the user
+  //Returns a query to login the user
   String loginUser(String email, String password) {
     return """
         mutation {
