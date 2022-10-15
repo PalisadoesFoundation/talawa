@@ -10,14 +10,11 @@ class FetchPluginList {
 
   ///fetches plugins from server and stores them in Hive `pluginBox`
   Future<void> fetchList() async {
-    // print(
-    //     "----------Feting the list--------------------------------------------------");
     late final GraphQLClient client = graphqlConfig.clientToQuery();
     final QueryResult result = await client.query(QueryOptions(
       document: gql(queries.getPluginsList()),
     ));
     box = Hive.box('pluginBox');
-    // print(result.data);
     box.put('plugins', result.data!["getPlugins"]);
   }
 }
