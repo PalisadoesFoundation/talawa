@@ -15,6 +15,8 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 
+/// MultiMediaPickerService is a third party service which provide the service
+/// to select the image from gallery and then image can be cropped as well.
 class MultiMediaPickerService {
   MultiMediaPickerService() {
     _picker = ImagePicker();
@@ -29,16 +31,23 @@ class MultiMediaPickerService {
   //Getters
   Stream get fileStream => _fileStream;
 
+  // getPhotoFromGallery function returns a File type for which `camera` variable is false by default.
+  // This function used to pick the image from gallery or to click the image from user's camera.
   Future<File?> getPhotoFromGallery({bool camera = false}) async {
+    // asking for user's camera access permission.
     try {
+      // checking for the image source, it could be camera or gallery.
       final _image = await _picker.pickImage(
         source: camera ? ImageSource.camera : ImageSource.gallery,
       );
+      // if image is selected or not null, call the cropImage function that provide service to crop the selected image.
       if (_image != null) {
         return await cropImage(imageFile: File(_image.path));
       }
     } catch (e) {
+      // if the permission denied or error occurs.
       if (e is PlatformException && e.code == 'camera_access_denied') {
+        // push the dialog alert with the message.
         locator<NavigationService>().pushDialog(
           CustomAlertDialog(
             success: () {
@@ -59,7 +68,10 @@ class MultiMediaPickerService {
     return null;
   }
 
+  // cropImage functions returns a file type and is used to crop the selected image from picker.
+  // This function required the imageFile.
   Future<File?> cropImage({required File imageFile}) async {
+    // try, to crop the image and returns a File with cropped image path.
     try {
       final File? croppedImage = await ImageCropper().cropImage(
         sourcePath: imageFile.path,
