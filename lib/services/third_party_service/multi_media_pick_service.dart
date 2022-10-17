@@ -15,8 +15,12 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 
-/// MultiMediaPickerService is a third party service which provide the service
-/// to select the image from gallery and then image can be cropped as well.
+/// This is a third party service which provide the service to select the image from
+/// gallery and then image can be cropped as well.
+///
+/// Services include:
+/// * `getPhotoFromGallery` - Used to select photo from gallery.
+/// * `cropImage` - Used to crop the selected image.
 class MultiMediaPickerService {
   MultiMediaPickerService() {
     _picker = ImagePicker();
@@ -31,8 +35,9 @@ class MultiMediaPickerService {
   //Getters
   Stream get fileStream => _fileStream;
 
-  // getPhotoFromGallery function returns a File type for which `camera` variable is false by default.
-  // This function used to pick the image from gallery or to click the image from user's camera.
+  /// This function is used to pick the image from gallery or to click the image from user's camera.
+  /// The function first ask for the permission to access the camera, if denied then returns a message in
+  /// custom Dialog Box. This function returns a File type for which `camera` variable is false by default.
   Future<File?> getPhotoFromGallery({bool camera = false}) async {
     // asking for user's camera access permission.
     try {
@@ -68,8 +73,8 @@ class MultiMediaPickerService {
     return null;
   }
 
-  // cropImage functions returns a file type and is used to crop the selected image from picker.
-  // This function required the imageFile.
+  /// This function is used to crop the image selected by the user.
+  /// The function accepts a `File` type image and returns `File` type of cropped image.
   Future<File?> cropImage({required File imageFile}) async {
     // try, to crop the image and returns a File with cropped image path.
     try {
