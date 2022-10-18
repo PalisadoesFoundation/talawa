@@ -1124,11 +1124,7 @@ packages:
       name: string_scanner
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "1.1.0"
-=======
     version: "1.1.1"
->>>>>>> 75861f79ed2638dfa3bb3146119f0b12b0738bf5
   syncfusion_flutter_calendar:
     dependency: "direct main"
     description:
@@ -1170,11 +1166,7 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "1.21.1"
-=======
     version: "1.21.4"
->>>>>>> 75861f79ed2638dfa3bb3146119f0b12b0738bf5
   test_api:
     dependency: transitive
     description:
@@ -1188,11 +1180,7 @@ packages:
       name: test_core
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "0.4.13"
-=======
     version: "0.4.16"
->>>>>>> 75861f79ed2638dfa3bb3146119f0b12b0738bf5
   timelines:
     dependency: "direct main"
     description:
