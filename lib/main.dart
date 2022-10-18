@@ -84,6 +84,7 @@ Future<void> main() async {
     ..init(dir.path)
     ..registerAdapter(UserAdapter())
     ..registerAdapter(OrgInfoAdapter());
+
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
 
@@ -137,8 +138,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     initQuickActions();
-    super.initState();
     FetchPluginList();
+    super.initState();
   }
 
   initQuickActions() async {
