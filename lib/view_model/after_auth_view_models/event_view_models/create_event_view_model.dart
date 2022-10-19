@@ -29,6 +29,9 @@ class CreateEventViewModel extends BaseModel {
   FocusNode locationFocus = FocusNode();
   FocusNode descriptionFocus = FocusNode();
 
+  double? latitude;
+  double? longitude;
+
   //late OrganizationService _organizationService;
   late final Map<String, bool> _adminCheckedMap = {};
   late final List<User> _selectedAdmins = [];
@@ -83,7 +86,7 @@ class CreateEventViewModel extends BaseModel {
       final Map<String, dynamic> variables = {
         'startDate': startDate.toString(),
         'endDate': endDate.toString(),
-        'organizationId': _currentOrg.id!,
+        'organizationId': _currentOrg.id,
         'title': eventTitleTextController.text,
         'description': eventDescriptionTextController.text,
         'location': eventLocationTextController.text,
@@ -93,6 +96,8 @@ class CreateEventViewModel extends BaseModel {
         'allDay': false,
         'startTime': startTime.microsecondsSinceEpoch.toString(),
         'endTime': endTime.microsecondsSinceEpoch.toString(),
+        if (latitude != null) 'latitude': latitude,
+        if (longitude != null) 'longitude': longitude,
       };
 
       navigationService.pushDialog(

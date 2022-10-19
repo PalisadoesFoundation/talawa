@@ -34,8 +34,7 @@ class OrganizationSearchList extends StatelessWidget {
           Future<QueryResult?> Function()? refetch,
         }) {
           if (result.hasException) {
-            final bool? isException =
-                databaseFunctions.encounteredExceptionOrError(
+            final isException = databaseFunctions.encounteredExceptionOrError(
               result.exception!,
               showSnackBar: false,
             );
@@ -51,7 +50,7 @@ class OrganizationSearchList extends StatelessWidget {
               );
             }
             return Scrollbar(
-              isAlwaysShown: true,
+              thumbVisibility: true,
               interactive: true,
               controller: model.controller,
               child: ListView.separated(

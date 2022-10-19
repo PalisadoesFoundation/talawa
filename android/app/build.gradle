@@ -30,7 +30,7 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
     
-    compileSdkVersion 31
+    compileSdkVersion 32
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'

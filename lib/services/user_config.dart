@@ -47,9 +47,9 @@ class UserConfig {
     graphqlConfig.getToken().then((value) async {
       databaseFunctions.init();
       try {
-        final QueryResult result = await databaseFunctions.gqlNonAuthMutation(
+        final QueryResult result = await databaseFunctions.gqlAuthQuery(
           queries.fetchUserInfo,
-          variables: {'id': currentUser.id!},
+          variables: {'id': currentUser.id},
         ) as QueryResult;
         final User userInfo = User.fromJson(
           result.data!['users'][0] as Map<String, dynamic>,
@@ -104,6 +104,7 @@ class UserConfig {
     try {
       _currentUser = updatedUserDetails;
       saveUserInHive();
+      graphqlConfig.getToken();
       databaseFunctions.init();
       return true;
     } on Exception catch (e) {

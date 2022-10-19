@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging_platform_interface/firebase_messaging_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -10,6 +12,7 @@ import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/queries.dart';
 import 'package:talawa/view_model/pre_auth_view_models/login_view_model.dart';
 
+import '../../helpers/setup_firebase_mocks.dart';
 import '../../helpers/test_helpers.dart';
 
 final data = {
@@ -22,12 +25,32 @@ final data = {
     },
     'accessToken': 'testtoken',
     'refreshToken': 'testtoken',
+    'androidFirebaseOptions': {
+      'apiKey': 'test',
+      'appId': 'test',
+      'messagingSenderId': 'test',
+      'projectId': 'test',
+      'storageBucket': 'test',
+    },
+    'iosFirebaseOptions': {
+      'apiKey': 'test',
+      'appId': 'test',
+      'messagingSenderId': 'test',
+      'projectId': 'test',
+      'storageBucket': 'test',
+      'iosClientId': 'test',
+      'iosBundleId': 'test',
+    },
   },
 };
 
 bool empty = false;
 
-void main() {
+Future<void> main() async {
+  setupFirebaseMocks();
+  await Firebase.initializeApp();
+  FirebaseMessagingPlatform.instance = kMockMessagingPlatform;
+
   setUp(() async {
     locator.registerSingleton(Queries());
     registerServices();
@@ -52,7 +75,10 @@ void main() {
         ),
       );
 
-      final result = QueryResult(source: null, data: data);
+      final result = QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.loginUser('', ''))));
 
       when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
           .thenAnswer((_) async => result);
@@ -77,7 +103,10 @@ void main() {
         ),
       );
 
-      final result = QueryResult(source: null, data: data);
+      final result = QueryResult(
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.loginUser('', ''))));
 
       when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
           .thenAnswer((_) async => result);

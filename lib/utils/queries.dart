@@ -125,7 +125,39 @@ class Queries {
               }
             }
             refreshToken
+            androidFirebaseOptions {
+              apiKey
+              appId
+              messagingSenderId
+              projectId
+              storageBucket
+            }
+            iosFirebaseOptions {
+              apiKey
+              appId
+              messagingSenderId
+              projectId
+              storageBucket
+              iosClientId
+              iosBundleId
+            }
           }
+        }
+    """;
+  }
+
+  String saveFcmToken(String? token) {
+    return """
+        mutation {
+          saveFcmToken(token: "$token")
+        }
+    """;
+  }
+
+  String logout() {
+    return """
+        mutation {
+          logout
         }
     """;
   }
@@ -230,7 +262,7 @@ class Queries {
 
   String fetchUserInfo = ''' 
        query Users(\$id: ID!){
-          users(id:\$id){
+          users(where: { id: \$id }) {
             _id
             firstName
             lastName
@@ -367,5 +399,44 @@ class Queries {
       }
     }
   ''';
+  }
+
+  ///`getPluginList` queries all properties of  pluginList from the server
+  String getPluginsList() {
+    return '''
+query  {
+  getPlugins {
+    _id
+    pluginName
+    pluginCreatedBy
+    pluginDesc 
+    pluginInstallStatus
+    installedOrgs
+  }
+}
+  ''';
+  }
+
+  /// `createDonation` creates a new donation transaction by taking the userId ,orgId ,nameOfOrg ,nameOfUser as parameters
+  String createDonation(String userId, String orgId, String nameOfOrg,
+      String nameOfUser, String payPalId, double amount) {
+    return '''
+      mutation createDonationMutation { createDonation(
+            userId :"$userId"
+            orgId :"$orgId",
+            nameOfOrg:"$nameOfOrg",
+            nameOfUser:"$nameOfUser",
+            payPalId:"$payPalId"
+            amount :$amount
+        ){
+            _id
+            payPalId
+            userId
+            orgId
+            payPalId
+            nameOfUser
+        }
+      }
+      ''';
   }
 }

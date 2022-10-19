@@ -72,7 +72,6 @@ void main() {
 
       final circleAvatarFinder = find.byType(CircleAvatar);
       final circleAvatar = tester.firstWidget(circleAvatarFinder);
-
       expect(circleAvatarFinder, findsOneWidget);
 
       expect(

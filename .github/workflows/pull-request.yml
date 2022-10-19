@@ -97,7 +97,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v1.2.0
         with:
             path: './coverage/lcov.info'
-            min_coverage: 71.1
+            min_coverage: 68
             
   Android-Build:
     name: Testing build for android
@@ -121,12 +121,10 @@ jobs:
     runs-on: macos-latest
     needs: Flutter-Codebase-Check
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
         with:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
+          architecture: x64
       - name: Building for ios
         run: flutter build ios --release --no-codesign

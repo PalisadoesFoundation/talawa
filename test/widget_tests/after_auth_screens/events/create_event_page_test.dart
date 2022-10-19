@@ -411,6 +411,15 @@ void main() {
             find.byKey(const Key('CreateEventScreen'));
         expect(createEventScreenPage, findsNothing);
       });
+      testWidgets("Testing if mapScreen opens up", (tester) async {
+        await tester.pumpWidget(createEventScreen(
+          theme: TalawaTheme.lightTheme,
+        ));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.text('Choose on map'));
+        await tester.pumpAndSettle();
+      });
     });
   });
 }

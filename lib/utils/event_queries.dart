@@ -2,7 +2,7 @@ class EventQueries {
   String fetchOrgEvents(String orgId) {
     return """
       query {
-        events(id: "$orgId"){ 
+        eventsByOrganization(id: "$orgId"){ 
           _id
           organization {
             _id
@@ -20,15 +20,36 @@ class EventQueries {
           startTime
           endTime
           location
-          isRegistered
           creator{
             _id
             firstName
             lastName
           }
+          admins {
+            firstName
+            lastName
+          }
+          registrants {
+            user {
+              _id
+            }
+          }
         }
       }
     """;
+  }
+
+  String registrantsByEvent(String eventId) {
+    return '''
+      query {
+        registrantsByEvent(id: "$eventId") {
+          _id
+          firstName
+          lastName
+          image
+        }
+      }
+    ''';
   }
 
   String addEvent() {
@@ -59,7 +80,7 @@ class EventQueries {
            endTime: \$endTime,
            startDate: \$startDate,
            endDate: \$endDate,
-           location: \$location
+           location: \$location,
         }
       ){
         _id
@@ -78,7 +99,6 @@ class EventQueries {
         _id
         title
         description
-        isRegistered
       }
     }
   """;

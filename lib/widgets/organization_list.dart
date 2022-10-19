@@ -32,15 +32,16 @@ class OrganizationList extends StatelessWidget {
           Future<QueryResult?> Function()? refetch,
         }) {
           if (result.hasException) {
-            final bool? isException =
-                databaseFunctions.encounteredExceptionOrError(
+            final isException = databaseFunctions.encounteredExceptionOrError(
               result.exception!,
               showSnackBar: false,
             );
-            if (isException!) {
-              refetch!();
-            } else {
-              refetch!();
+            if (isException != null) {
+              if (isException) {
+                refetch!();
+              } else {
+                refetch!();
+              }
             }
           } else {
             if (!result.isLoading) {
@@ -49,7 +50,7 @@ class OrganizationList extends StatelessWidget {
               );
             }
             return Scrollbar(
-              isAlwaysShown: true,
+              thumbVisibility: true,
               interactive: true,
               controller: model.allOrgController,
               child: ListView.separated(

@@ -31,11 +31,12 @@ class ExploreEventsViewModel extends BaseModel {
     setState(ViewState.idle);
   }
 
-  void refreshEvents() {
+  Future<void> refreshEvents() async {
+    setState(ViewState.busy);
     _events.clear();
     _uniqueEventIds.clear();
-    notifyListeners();
-    _eventService.getEvents();
+    await _eventService.getEvents();
+    setState(ViewState.idle);
   }
 
   Future<void> initialise() async {
