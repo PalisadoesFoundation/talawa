@@ -6,6 +6,11 @@ import 'package:talawa/view_model/base_view_model.dart';
 
 /// ExploreTasksViewModel class helps to interact with model to serve data
 /// and react to user's input in Explore Task section.
+/// 
+/// Methods include:
+/// * `fetchTasks`
+/// * `fetchTasksByUser
+/// * `deleteTask`
 class ExploreTasksViewModel extends BaseModel {
   ExploreTasksViewModel() {
     _taskService.callbackNotifyListeners = () => notifyListeners();

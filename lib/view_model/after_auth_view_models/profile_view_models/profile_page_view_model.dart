@@ -24,6 +24,9 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// ProfilePageViewModel class helps to interact with model to serve data
 /// and react to user's input in Profile Page view.
+/// 
+/// Methods include:
+/// * `logout`
 class ProfilePageViewModel extends BaseModel {
   // Services
   final _userConfig = locator<UserConfig>();

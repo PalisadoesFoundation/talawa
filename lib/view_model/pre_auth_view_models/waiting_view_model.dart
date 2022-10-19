@@ -6,14 +6,21 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
+/// WaitingViewModel class helps to interact with model to serve data
+/// and react to user's input for Waiting section.
+/// 
+/// Methods include:
+/// * `logout`
 class WaitingViewModel extends BaseModel {
   late List<Map<String, dynamic>> greeting;
   late List<OrgInfo> pendingRequestOrg;
   late User currentUser;
 
+  // initialiser
   initialise(BuildContext context) {
     currentUser = userConfig.currentUser;
     pendingRequestOrg = currentUser.membershipRequests!;
+    // greetings
     greeting = [
       {
         'text': "Please wait",
@@ -31,6 +38,7 @@ class WaitingViewModel extends BaseModel {
     ];
   }
 
+  /// This function ends the session for the user or logout the user from the application.
   logout() {
     final user = Hive.box<User>('currentUser');
     final url = Hive.box('url');

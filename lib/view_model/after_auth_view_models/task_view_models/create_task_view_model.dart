@@ -6,6 +6,11 @@ import 'package:talawa/view_model/base_view_model.dart';
 
 /// CreateTaskViewModel class helps to interact with model to serve data
 /// and react to user's input in Create Task view.
+/// 
+/// Methods include:
+/// * `fillTask`
+/// * `editTask
+/// * `createTask`
 class CreateTaskViewModel extends BaseModel {
   final _taskService = locator<TaskService>();
 

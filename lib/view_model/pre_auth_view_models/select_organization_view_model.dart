@@ -9,7 +9,14 @@ import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
+/// SelectOrganizationViewModel class helps to interact with model to serve data
+/// and react to user's input in Select Organization View.
+/// 
+/// Methods include:
+/// * `selectOrg`
+/// * `onTapJoin`
 class SelectOrganizationViewModel extends BaseModel {
+  // variables
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   late Barcode result;
   final ScrollController allOrgController = ScrollController();
@@ -22,6 +29,7 @@ class SelectOrganizationViewModel extends BaseModel {
   late Widget showSearchOrgList = Container();
   late String orgId;
 
+  // if the search box is on tap
   searchActive() {
     if (searchFocus.hasFocus) {
       organizations = [];
@@ -30,6 +38,7 @@ class SelectOrganizationViewModel extends BaseModel {
     }
   }
 
+  // initialiser
   initialise(String initialData) async {
     searchFocus.addListener(searchActive);
     if (!initialData.contains('-1')) {
@@ -50,22 +59,30 @@ class SelectOrganizationViewModel extends BaseModel {
     }
   }
 
+  /// This function select the organization.
+  /// 
+  /// params:
+  /// * [item] : Selected organization data.
   selectOrg(OrgInfo item) async {
     print(item.id);
     bool orgAlreadyJoined = false;
     bool orgRequestAlreadyPresent = false;
     final bool userLoggedIn = await userConfig.userLoggedIn();
+    // if user session not expirec
     if (userLoggedIn) {
+      // check if user has already joined the selected organization.
       userConfig.currentUser.joinedOrganizations!.forEach((element) {
         if (element.id! == item.id) {
           orgAlreadyJoined = true;
         }
       });
+      // check if user has already send the membership request to the selected organization.
       userConfig.currentUser.membershipRequests!.forEach((element) {
         if (element.id! == item.id) {
           orgRequestAlreadyPresent = true;
         }
       });
+      // if not already joined and not memebrship request.
       if (!orgAlreadyJoined && !orgRequestAlreadyPresent) {
         selectedOrganization = item;
         notifyListeners();
@@ -81,7 +98,9 @@ class SelectOrganizationViewModel extends BaseModel {
     }
   }
 
+  // Helper for listener to check if user can tap on continue option or not.
   onTapContinue() {
+    // if user selected any organization.
     if (selectedOrganization.id != '-1') {
       navigationService.pushScreen(
         Routes.signupDetailScreen,
@@ -95,9 +114,13 @@ class SelectOrganizationViewModel extends BaseModel {
     }
   }
 
+  /// This function make user to join the selected organization.
+  /// The function uses `joinOrgById` graph QL query.
   onTapJoin() async {
+    // if `selectedOrganization` is public.
     if (selectedOrganization.isPublic == true) {
       try {
+        // run the graph QL mutation
         final QueryResult result = await databaseFunctions.gqlAuthMutation(
           queries.joinOrgById(selectedOrganization.id!),
         ) as QueryResult;
@@ -107,6 +130,7 @@ class SelectOrganizationViewModel extends BaseModel {
             ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
             .toList();
         userConfig.updateUserJoinedOrg(joinedOrg!);
+        // if user joined organization length is 1
         if (userConfig.currentUser.joinedOrganizations!.length == 1) {
           userConfig.saveCurrentOrgInHive(
             userConfig.currentUser.joinedOrganizations![0],
@@ -155,6 +179,7 @@ class SelectOrganizationViewModel extends BaseModel {
     }
   }
 
+  /// This function fetch more option.
   void fetchMoreHelper(FetchMore fetchMore, List organizations) {
     fetchMore(
       FetchMoreOptions(
