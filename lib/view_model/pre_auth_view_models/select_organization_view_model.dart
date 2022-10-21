@@ -11,7 +11,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 
 /// SelectOrganizationViewModel class helps to interact with model to serve data
 /// and react to user's input in Select Organization View.
-/// 
+///
 /// Methods include:
 /// * `selectOrg`
 /// * `onTapJoin`
@@ -60,7 +60,7 @@ class SelectOrganizationViewModel extends BaseModel {
   }
 
   /// This function select the organization.
-  /// 
+  ///
   /// params:
   /// * [item] : Selected organization data.
   selectOrg(OrgInfo item) async {

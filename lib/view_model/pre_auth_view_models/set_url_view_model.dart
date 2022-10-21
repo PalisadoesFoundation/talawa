@@ -10,7 +10,7 @@ import 'package:vibration/vibration.dart';
 
 /// SetUrlViewModel class helps to interact with model to serve data
 /// and react to user's input for Set Url Section.
-/// 
+///
 /// Methods include:
 /// * `checkURLandNavigate`
 /// * `scanQR`
@@ -78,7 +78,7 @@ class SetUrlViewModel extends BaseModel {
   }
 
   /// This function check the URL and navigate to the respective URL.
-  /// 
+  ///
   /// params:
   /// * [navigateTo] : url.
   /// * [argument] : more information.

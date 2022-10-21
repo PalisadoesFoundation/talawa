@@ -11,7 +11,7 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// LoginViewModel class helps to interact with model to serve data
 /// and react to user's input in Login View.
-/// 
+///
 /// Methods include:
 /// * `login`
 class LoginViewModel extends BaseModel {
