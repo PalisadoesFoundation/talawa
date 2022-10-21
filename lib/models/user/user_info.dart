@@ -5,6 +5,8 @@ import 'package:talawa/models/organization/org_info.dart';
 part 'user_info.g.dart';
 
 @HiveType(typeId: 1)
+
+///This class creates a User model and returns a user instance.
 class User extends HiveObject {
   User({
     this.adminFor,
@@ -63,7 +65,7 @@ class User extends HiveObject {
           : null,
     );
   }
-
+  //Method to print the User details.
   print() {
     debugPrint('authToken: ${this.authToken}');
     debugPrint('refreshToken: ${this.refreshToken}');
@@ -117,6 +119,7 @@ class User extends HiveObject {
     this.adminFor = orgList;
   }
 
+  //Method to update the user details.
   update(User details) {
     this.firstName = details.firstName;
     this.lastName = details.firstName;
