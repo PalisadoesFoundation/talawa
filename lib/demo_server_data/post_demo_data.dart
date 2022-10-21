@@ -1,3 +1,5 @@
+///This file contains demo data for posts. It contains a list of type Map<String, Object>
+/// and sample data of posts.
 const postsDemoData = [
   {
     "_id": "asdasdasd",
