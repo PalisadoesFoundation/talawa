@@ -1,6 +1,7 @@
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+///This class creates an event model and returns an Event instance.
 class Event {
   Event({
     this.id,
@@ -25,7 +26,7 @@ class Event {
     this.admins,
     this.registrants,
   });
-
+  //Creating a new Event instance from a map structure.
   factory Event.fromJson(
     Map<String, dynamic> json,
   ) {
@@ -49,12 +50,14 @@ class Event {
       isRegisterable: json['isRegisterable'] as bool?,
       creator: json['creator'] == null
           ? null
+          //Creating a new User instance from a map structure.
           : User.fromJson(
               json['creator'] as Map<String, dynamic>,
               fromOrg: true,
             ),
       organization: json['organization'] == null
           ? null
+          //Creating a new OrgInfo instance from a map structure.
           : OrgInfo.fromJson(json['organization'] as Map<String, dynamic>),
       admins: json['admins'] == null
           ? null
