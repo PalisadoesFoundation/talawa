@@ -7,7 +7,14 @@ import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 
+/// PostService class provides functions in the context of a Post.
+///
+/// Services include:
+/// * `getPosts` : to get all posts of the organization.
+/// * `addLike` : to add like to the post.
+/// * `removeLike` : to remove the like from the post.
 class PostService {
+  // constructor
   PostService() {
     _postStream = _postStreamController.stream.asBroadcastStream();
     _updatedPostStream =
@@ -49,8 +56,10 @@ class PostService {
     });
   }
 
-  //Function to get all posts
+  /// This function used to get all posts of an organization.
+  /// The function reference the organization Id from `_currentOrg`.
   Future<void> getPosts() async {
+    // variables
     final String currentOrgID = _currentOrg.id!;
     final String query = PostQueries().getPostsById(currentOrgID);
     final result = await _dbFunctions.gqlAuthQuery(query);
@@ -70,13 +79,18 @@ class PostService {
     _postStreamController.add(_posts);
   }
 
-  // --- Functions related to Likes --- //
+  /// This function is used to add Like to the Post.
+  ///
+  /// params:
+  /// * [postId] : id of the post where like need to be added.
   Future<void> addLike(String postID) async {
     _localAddLike(postID);
     final String mutation = PostQueries().addLike();
+    // run the graphQl mutation.
     final result = await _dbFunctions
         .gqlAuthMutation(mutation, variables: {"postID": postID});
     print(result);
+    // return result
     return result;
   }
 
@@ -89,6 +103,10 @@ class PostService {
     });
   }
 
+  /// This function is used to remove like from the Post.
+  ///
+  /// params:
+  /// * [postId] : id of the post where like need to be removed.
   Future<void> removeLike(String postID) async {
     _removeLocal(postID);
     final String mutation = PostQueries().removeLike();
@@ -109,7 +127,7 @@ class PostService {
     });
   }
 
-  // --- Functions related to comments --- //
+  // Functions related to comments
   void addCommentLocally(String postID) {
     for (int i = 0; i < _posts.length; i++) {
       if (_posts[i].sId == postID) {
