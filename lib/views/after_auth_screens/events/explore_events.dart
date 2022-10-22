@@ -10,6 +10,7 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_card.dart';
 import 'package:talawa/widgets/event_search_delegate.dart';
 
+/// ExploreEvents returns a widget that renders the list for events that are visible to be explored.
 class ExploreEvents extends StatelessWidget {
   const ExploreEvents({
     required Key key,
@@ -24,6 +25,7 @@ class ExploreEvents extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
+            // AppBar returns widget for the header.
             backgroundColor: Theme.of(context).primaryColor,
             key: const Key("ExploreEventsAppBar"),
             elevation: 0.0,
@@ -37,6 +39,7 @@ class ExploreEvents extends StatelessWidget {
                   ),
             ),
             leading: IconButton(
+              // returns a button of menu icon to redirect to home.
               color: Theme.of(context).iconTheme.color,
               icon: const Icon(Icons.menu),
               onPressed: () =>
@@ -47,6 +50,7 @@ class ExploreEvents extends StatelessWidget {
                 padding: EdgeInsets.only(
                   right: SizeConfig.screenWidth! * 0.027,
                 ),
+                // if the events is not empty then renders button for searching the events else renders just a box.
                 child: model.events.isNotEmpty
                     ? IconButton(
                         onPressed: () {
@@ -64,6 +68,8 @@ class ExploreEvents extends StatelessWidget {
               )
             ],
           ),
+          // if the model is still fetching the events list then renders the Circular Progress Indicator
+          // else render refresh icon along with the list of searched events for exploration.
           body: model.isBusy
               ? const Center(child: CircularProgressIndicator())
               : RefreshIndicator(
@@ -99,6 +105,7 @@ class ExploreEvents extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () {
                                       showDialog(
+                                        // on tap open the Explore Event Dialog.
                                         context: context,
                                         builder: (_) {
                                           return const ExploreEventDialog(
@@ -160,6 +167,8 @@ class ExploreEvents extends StatelessWidget {
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.027,
                               ),
+                              // if the events model is empty then renders a box with text as "Empty List"
+                              // else renders lists of the all event tile.
                               model.events.isEmpty
                                   ? SizedBox(
                                       height: SizeConfig.screenHeight! * 0.5,
@@ -223,6 +232,7 @@ class ExploreEvents extends StatelessWidget {
     );
   }
 
+  // dropDownList returns a widget of a drop down list of events type.
   Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
     return DropdownButton<String>(
       key: homeModel?.keySECategoryMenu,
