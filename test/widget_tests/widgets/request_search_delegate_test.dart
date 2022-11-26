@@ -101,8 +101,6 @@ void main() {
         await tester.enterText(textfield, 'te');
         await tester.pumpAndSettle();
 
-        // expect(find.byType(RequestCard), findsOneWidget);
-
         await tester.enterText(textfield, 'teste');
         await tester.pumpAndSettle();
 
@@ -133,28 +131,6 @@ void main() {
         await tester.tap(x.last);
         await tester.pumpAndSettle();
         expect(find.byIcon(Icons.clear), findsNothing);
-      });
-    });
-
-    testWidgets('Check if tapping on request card works', (tester) async {
-      mockNetworkImagesFor(() async {
-        locator.unregister<NavigationService>();
-        locator.registerSingleton(NavigationService());
-
-        await tester.pumpWidget(createRequestSearch());
-        await tester.pump();
-        await tester.tap(find.byIcon(Icons.search));
-        await tester.pumpAndSettle();
-
-        final textfield = find.byType(TextField);
-        await tester.enterText(textfield, 'te');
-        await tester.pumpAndSettle();
-
-        final requestCardFinder = find.byType(RequestCard);
-        await tester.tap(requestCardFinder);
-        await tester.pumpAndSettle();
-
-        expect(find.byType(BottomSheet), findsOneWidget);
       });
     });
   });
