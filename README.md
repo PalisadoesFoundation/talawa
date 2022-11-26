@@ -1,4 +1,7 @@
 # Talawa
+
+[💬 Join the community on Slack](https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-1kfm8w8z4-BuUedrjueelmBowfW9~v6A)
+
 [![N|Solid](assets/images/talawa-logo-lite-200x200.png)](https://github.com/PalisadoesFoundation/talawa)
 
 [![Build Status](https://travis-ci.org/PalisadoesFoundation/talawa.svg?branch=master)](http://www.palisadoes.org/) 
