@@ -90,7 +90,7 @@ jobs:
       - name: Codebase testing
         run: flutter test --coverage
       - name: Present current coverage in PR
-        uses: codecov/codecov-action@v2.1.0      
+        uses: codecov/codecov-action@v3.1.1     
         with:
           verbose: true
       - name: Test acceptable level of code coverage
