@@ -18,6 +18,7 @@ class LoginViewModel extends BaseModel {
   FocusNode emailFocus = FocusNode();
   AutovalidateMode validate = AutovalidateMode.disabled;
   bool hidePassword = true;
+  bool isTextFieldsFocused = false;
 
   initialize() {
     greeting = [
@@ -48,6 +49,23 @@ class LoginViewModel extends BaseModel {
             .copyWith(fontSize: 24)
       },
     ];
+
+    emailFocus.addListener(() {
+      textFieldFocusCheck();
+    });
+    passwordFocus.addListener(() {
+      textFieldFocusCheck();
+    });
+  }
+
+  textFieldFocusCheck() {
+    if (emailFocus.hasFocus || passwordFocus.hasFocus) {
+      isTextFieldsFocused = true;
+      notifyListeners();
+    } else {
+      isTextFieldsFocused = false;
+      notifyListeners();
+    }
   }
 
   login() async {
