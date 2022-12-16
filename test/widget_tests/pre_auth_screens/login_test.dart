@@ -262,7 +262,7 @@ void main() {
     await tester.tap(emailInputFieldWidget);
     await tester.pumpAndSettle();
 
-    // When the email textfield is focused, the top margin is 0.01% of the screen height
+    // When the Email TextField is focused, top margin becomes 10% of the screen height.
     expect(
       find.byWidgetPredicate((Widget widget) {
         if (widget is AnimatedContainer) {
@@ -279,7 +279,7 @@ void main() {
     await tester.tap(passwordInputFieldWidget);
     await tester.pumpAndSettle();
 
-    // When the password textfield is focused, the top margin is 0.01% of the screen height
+    //  When the password TextField is focused, top margin becomes 10% of the screen height.
     expect(
       find.byWidgetPredicate((Widget widget) {
         if (widget is AnimatedContainer) {
