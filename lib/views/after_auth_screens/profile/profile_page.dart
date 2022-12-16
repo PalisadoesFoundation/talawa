@@ -115,8 +115,7 @@ class ProfilePage extends StatelessWidget {
                                   '${AppLocalizations.of(context)!.strictTranslate("Language")}, ${AppLocalizations.of(context)!.strictTranslate("dark mode")}, ${AppLocalizations.of(context)!.strictTranslate("font size")}',
                             ),
                             onTapOption: () {
-                              navigationService
-                                  .pushScreen("/appSettingsPage");
+                              navigationService.pushScreen("/appSettingsPage");
                             },
                           ),
                           SizedBox(
@@ -175,9 +174,7 @@ class ProfilePage extends StatelessWidget {
                               option: Options(
                                 icon: Icon(
                                   Icons.monetization_on,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary,
+                                  color: Theme.of(context).colorScheme.primary,
                                   size: 30,
                                 ),
                                 title: AppLocalizations.of(context)!
@@ -200,8 +197,7 @@ class ProfilePage extends StatelessWidget {
                             option: Options(
                               icon: Icon(
                                 Icons.share,
-                                color:
-                                    Theme.of(context).colorScheme.secondary,
+                                color: Theme.of(context).colorScheme.secondary,
                                 size: 30,
                               ),
                               title: AppLocalizations.of(context)!
@@ -221,8 +217,7 @@ class ProfilePage extends StatelessWidget {
                             option: Options(
                               icon: Icon(
                                 Icons.logout,
-                                color:
-                                    Theme.of(context).colorScheme.secondary,
+                                color: Theme.of(context).colorScheme.secondary,
                                 size: 30,
                               ),
                               title: AppLocalizations.of(context)!
