@@ -41,7 +41,8 @@ class _LoginState extends State<Login> {
               curve: Curves.fastOutSlowIn,
               margin: EdgeInsets.fromLTRB(
                 SizeConfig.screenWidth! * 0.06,
-                SizeConfig.screenHeight! * (model.isTextFieldsFocused ? 0.01 : 0.2),
+                SizeConfig.screenHeight! *
+                    (model.isTextFieldsFocused ? 0.01 : 0.2),
                 SizeConfig.screenWidth! * 0.06,
                 0.0,
               ),
