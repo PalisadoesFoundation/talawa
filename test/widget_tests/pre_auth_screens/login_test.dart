@@ -236,19 +236,21 @@ void main() {
     });
   });
 
-  testWidgets('Check if textfields are visible while opening keyboard', (tester)async{
+  testWidgets('Check if textfields are visible while opening keyboard',
+      (tester) async {
     await showLoginScreen(tester);
 
     final screenHeight = SizeConfig.screenHeight!;
     final emailInputFieldWidget = find.byKey(const Key('EmailInputField'));
-    final passwordInputFieldWidget = find.byKey(const Key('PasswordInputField'));
+    final passwordInputFieldWidget =
+        find.byKey(const Key('PasswordInputField'));
 
     // When the textfields is not focused, the top margin is 0.2% of the screen height
     expect(
       find.byWidgetPredicate((Widget widget) {
         if (widget is AnimatedContainer) {
           final double topMargin = widget.margin!.vertical;
-          return topMargin == screenHeight*0.2;
+          return topMargin == screenHeight * 0.2;
         } else {
           return false;
         }
@@ -265,7 +267,7 @@ void main() {
       find.byWidgetPredicate((Widget widget) {
         if (widget is AnimatedContainer) {
           final double topMargin = widget.margin!.vertical;
-          return topMargin == screenHeight*0.01;
+          return topMargin == screenHeight * 0.01;
         } else {
           return false;
         }
@@ -282,7 +284,7 @@ void main() {
       find.byWidgetPredicate((Widget widget) {
         if (widget is AnimatedContainer) {
           final double topMargin = widget.margin!.vertical;
-          return topMargin == screenHeight*0.01;
+          return topMargin == screenHeight * 0.01;
         } else {
           return false;
         }
