@@ -245,7 +245,7 @@ void main() {
     final passwordInputFieldWidget =
         find.byKey(const Key('PasswordInputField'));
 
-    // When the textfields is not focused, the top margin is 0.2% of the screen height
+    // When the TextField are not focused, the top margin is 20% of the screen height.
     expect(
       find.byWidgetPredicate((Widget widget) {
         if (widget is AnimatedContainer) {
