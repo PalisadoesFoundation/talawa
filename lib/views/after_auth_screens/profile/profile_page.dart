@@ -67,8 +67,10 @@ class ProfilePage extends StatelessWidget {
                               firstAlphabet:
                                   model.currentUser.firstName!.substring(0, 1),
                               imageUrl: model.currentUser.image,
-                              fontSize:
-                                  Theme.of(context).textTheme.headline6!.fontSize,
+                              fontSize: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .fontSize,
                             ),
                             title:
                                 '${model.currentUser.firstName!} ${model.currentUser.lastName!}',
@@ -79,7 +81,8 @@ class ProfilePage extends StatelessWidget {
                                 color: Theme.of(context).colorScheme.secondary,
                               ),
                               onPressed: () {
-                                navigationService.pushScreen("/editProfilePage");
+                                navigationService
+                                    .pushScreen("/editProfilePage");
                               },
                             ),
                           ),
@@ -179,8 +182,9 @@ class ProfilePage extends StatelessWidget {
                                     option: Options(
                                       icon: Icon(
                                         Icons.monetization_on,
-                                        color:
-                                            Theme.of(context).colorScheme.primary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                         size: 30,
                                       ),
                                       title: AppLocalizations.of(context)!
@@ -203,8 +207,9 @@ class ProfilePage extends StatelessWidget {
                                   option: Options(
                                     icon: Icon(
                                       Icons.share,
-                                      color:
-                                          Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       size: 30,
                                     ),
                                     title: AppLocalizations.of(context)!
@@ -224,8 +229,9 @@ class ProfilePage extends StatelessWidget {
                                   option: Options(
                                     icon: Icon(
                                       Icons.logout,
-                                      color:
-                                          Theme.of(context).colorScheme.secondary,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
                                       size: 30,
                                     ),
                                     title: AppLocalizations.of(context)!
