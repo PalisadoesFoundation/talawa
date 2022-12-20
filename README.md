@@ -1,6 +1,6 @@
 # Talawa
 
-[💬 Join the community on Slack](https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-1kfm8w8z4-BuUedrjueelmBowfW9~v6A)
+[💬 Join the community on Slack](https://join.slack.com/t/thepalisadoes-dyb6419/shared_invite/zt-1ltxcqtbb-vGQr9Tvb2LGiU9bpzWmqcA)
 
 [![N|Solid](assets/images/talawa-logo-lite-200x200.png)](https://github.com/PalisadoesFoundation/talawa)
 
