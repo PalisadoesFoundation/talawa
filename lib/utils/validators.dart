@@ -2,14 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class Validator {
-  static String? validateURL(
+  static Future<String?> validateURL(
     String value,
-  ) {
+  ) async {
     if (value.isEmpty) {
       return 'Please verify URL first';
     }
-    final bool validURL = Uri.parse(value).isAbsolute;
-    if (!validURL) {
+    Uri uri = Uri.parse(value);
+    // final bool validURL = uri.isAbsolute;
+    final response = await http.get(uri);
+    if (response.statusCode != 200) {
       return 'Enter a valid URL';
     }
     return null;

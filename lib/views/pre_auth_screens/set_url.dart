@@ -84,7 +84,8 @@ class _SetUrlState extends State<SetUrl> {
                       keyboardType: TextInputType.text,
                       enableSuggestions: true,
                       validator: (value) {
-                        final String? msg = Validator.validateURL(value!);
+                        final String? msg =
+                            Validator.validateURL(value!) as String?;
                         if (msg == null) {
                           return null;
                         }

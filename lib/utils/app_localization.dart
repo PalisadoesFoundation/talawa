@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -41,13 +42,15 @@ class AppLocalizations {
   }
 
   // This method will be called from every widget which needs a localized text
-  String? translate(String? key) {
-    if (isTest) return key;
+  String? translate(FutureOr<String?> key) {
+    // if (isTest) return key;
 
     // ignore: unnecessary_null_comparison
     if (key == null) {
       return '...';
+      // return Future.value('...');
     }
+    // return Future.value(_localizedStrings[key]);
     return _localizedStrings[key];
   }
 
