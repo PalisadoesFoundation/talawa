@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -32,17 +34,10 @@ class OrganizationList extends StatelessWidget {
           Future<QueryResult?> Function()? refetch,
         }) {
           if (result.hasException) {
-            final isException = databaseFunctions.encounteredExceptionOrError(
+            databaseFunctions.encounteredExceptionOrError(
               result.exception!,
-              showSnackBar: false,
+              showSnackBar: true,
             );
-            if (isException != null) {
-              if (isException) {
-                refetch!();
-              } else {
-                refetch!();
-              }
-            }
           } else {
             if (!result.isLoading) {
               model.organizations = OrgInfo().fromJsonToList(
