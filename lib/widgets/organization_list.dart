@@ -18,6 +18,7 @@ class OrganizationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     model.organizations = [];
+    int noOfRefetch = 0;
     return GraphQLProvider(
       client: ValueNotifier<GraphQLClient>(graphqlConfig.clientToQuery()),
       child: Query(
@@ -34,10 +35,19 @@ class OrganizationList extends StatelessWidget {
           Future<QueryResult?> Function()? refetch,
         }) {
           if (result.hasException) {
-            databaseFunctions.encounteredExceptionOrError(
+            final isException = databaseFunctions.encounteredExceptionOrError(
               result.exception!,
-              showSnackBar: true,
+              showSnackBar: noOfRefetch == 0,
             );
+            if (isException != null) {
+              if (isException) {
+                refetch!();
+                noOfRefetch++;
+              } else {
+                refetch!();
+                noOfRefetch++;
+              }
+            }
           } else {
             if (!result.isLoading) {
               model.organizations = OrgInfo().fromJsonToList(
