@@ -94,6 +94,8 @@ class SetUrlViewModel extends BaseModel {
   }
 
   scanQR(BuildContext context) {
+    // final screenHeight = MediaQuery.of(context).size.height;
+    // final screenWidth = MediaQuery.of(context).size.width;
     showModalBottomSheet(
       context: context,
       barrierColor: Colors.transparent,
@@ -118,8 +120,8 @@ class SetUrlViewModel extends BaseModel {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 250,
-                  width: 250,
+                  height: MediaQuery.of(context).size.height * 0.39,
+                  width: MediaQuery.of(context).size.width / 2,
                   child: QRView(
                     key: qrKey,
                     onQRViewCreated: _onQRViewCreated,
@@ -132,10 +134,13 @@ class SetUrlViewModel extends BaseModel {
                     /*overlayMargin: EdgeInsets.all(50)*/
                   ),
                 ),
-                SizedBox(
-                  height: SizeConfig.safeBlockVertical! * 4,
-                ),
+                // SizedBox(
+                //   height: SizeConfig.safeBlockVertical! * 4,
+                // ),
                 const Text('Scan QR'),
+                // MediaQuery.of(context).orientation == Orientation.portrait
+                //     ? const Text('Scan QR')
+                //     : Container(),
                 SizedBox(
                   height: SizeConfig.safeBlockVertical! * 4,
                 )
