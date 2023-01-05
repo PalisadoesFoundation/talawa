@@ -114,36 +114,40 @@ class SetUrlViewModel extends BaseModel {
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height:
-                      MediaQuery.of(context).orientation == Orientation.portrait
-                          ? MediaQuery.of(context).size.width / 2
-                          : MediaQuery.of(context).size.height * 0.39,
-                  width:
-                      MediaQuery.of(context).orientation == Orientation.portrait
-                          ? MediaQuery.of(context).size.width / 2
-                          : MediaQuery.of(context).size.height * 0.39,
-                  child: QRView(
-                    key: qrKey,
-                    onQRViewCreated: _onQRViewCreated,
-                    overlay: QrScannerOverlayShape(
-                      borderRadius: 10,
-                      borderLength: 20,
-                      borderWidth: 10,
-                      cutOutSize: 1000,
+            child: LayoutBuilder(builder: (context, constraints) {
+              return SizedBox(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? constraints.maxWidth / 2
+                          : constraints.maxHeight * .8,
+                      width: MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? constraints.maxWidth / 2
+                          : constraints.maxHeight * .8,
+                      child: QRView(
+                        key: qrKey,
+                        onQRViewCreated: _onQRViewCreated,
+                        overlay: QrScannerOverlayShape(
+                          borderRadius: 10,
+                          borderLength: 20,
+                          borderWidth: 10,
+                          cutOutSize: 1000,
+                        ),
+                        /*overlayMargin: EdgeInsets.all(50)*/
+                      ),
                     ),
-                    /*overlayMargin: EdgeInsets.all(50)*/
-                  ),
+                    SizedBox(
+                      height: SizeConfig.safeBlockVertical,
+                    ),
+                    const Text('Scan QR'),
+                  ],
                 ),
-                SizedBox(
-                  height: SizeConfig.safeBlockVertical! * 4,
-                ),
-                const Text('Scan QR'),
-              ],
-            ),
+              );
+            }),
           ),
         );
       },
