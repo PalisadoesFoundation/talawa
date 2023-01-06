@@ -41,7 +41,7 @@ class DataBaseMutationFunctions {
       debugPrint(exception.linkException.toString());
       if (showSnackBar) {
         Timer(const Duration(seconds: 2), () {
-          // navigationService.showSnackBar("Server not running/wrong url");
+          navigationService.showSnackBar("Server not running/wrong url");
           // SnackBarUtils.showLight("Hey", "message");
         });
       }
