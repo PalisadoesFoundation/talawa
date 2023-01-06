@@ -6,7 +6,6 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
-import 'package:talawa/widgets/talawa_error_dialogue.dart';
 import 'package:vibration/vibration.dart';
 
 class SetUrlViewModel extends BaseModel {
@@ -88,10 +87,8 @@ class SetUrlViewModel extends BaseModel {
         graphqlConfig.getOrgUrl();
         navigationService.pushScreen(navigateTo, arguments: argument);
       } else {
-        // navigationService
-        //     .showSnackBar("URL doesn't exist/no connection please check");
-        SnackBarUtils.showDark(
-            "error", "URL doesn't exist/no connection please check");
+        navigationService
+            .showSnackBar("URL doesn't exist/no connection please check");
       }
     }
   }

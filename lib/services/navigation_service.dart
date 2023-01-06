@@ -62,6 +62,41 @@ class NavigationService {
     );
   }
 
+  void showTalawaErrorWidget(
+    String message, {
+    Duration duration = const Duration(seconds: 2),
+  }) {
+    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(SnackBar(
+      padding: EdgeInsets.only(left: 0),
+      content: Row(
+        children: [
+          Container(
+            width: 20,
+            height: 75,
+            decoration: const BoxDecoration(color: Colors.red),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          const Icon(
+            Icons.error,
+            color: Colors.red,
+            size: 35,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            message,
+            style: const TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
+      // backgroundColor: Colors.grey,
+      backgroundColor: Color.fromRGBO(65, 65, 66, 1),
+    ));
+  }
+
   void pop() {
     return navigatorKey.currentState!.pop();
   }
