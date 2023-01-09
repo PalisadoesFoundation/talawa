@@ -23,6 +23,7 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
+import 'package:flutter/services.dart' as fs;
 
 /// Define a top-level named handler which background/terminated messages will
 /// call.
@@ -140,6 +141,12 @@ class _MyAppState extends State<MyApp> {
     initQuickActions();
     FetchPluginList();
     super.initState();
+    fs.SystemChrome.setPreferredOrientations(
+      [
+        fs.DeviceOrientation.portraitUp,
+        fs.DeviceOrientation.portraitDown,
+      ],
+    );
   }
 
   initQuickActions() async {
