@@ -67,12 +67,12 @@ class NavigationService {
     Duration duration = const Duration(seconds: 2),
   }) {
     ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(SnackBar(
-      padding: EdgeInsets.only(left: 0),
+      padding: EdgeInsets.zero,
       content: Row(
         children: [
           Container(
             width: 20,
-            height: 75,
+            height: 80,
             decoration: const BoxDecoration(color: Colors.red),
           ),
           const SizedBox(
@@ -86,14 +86,20 @@ class NavigationService {
           const SizedBox(
             width: 10,
           ),
-          Text(
-            message,
-            style: const TextStyle(color: Colors.white),
-          ),
+          Expanded(
+            flex: 1,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Text(
+                message,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+          )
         ],
       ),
       // backgroundColor: Colors.grey,
-      backgroundColor: Color.fromRGBO(65, 65, 66, 1),
+      backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
     ));
   }
 
