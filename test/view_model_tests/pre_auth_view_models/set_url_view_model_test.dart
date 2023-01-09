@@ -28,10 +28,6 @@ class TestWidget extends StatelessWidget {
 
 Future<void> main() async {
   SizeConfig().test();
-  const double PORTRAIT_WIDTH = 400.0;
-  const double PORTRAIT_HEIGHT = 800.0;
-  const double LANDSCAPE_WIDTH = PORTRAIT_HEIGHT;
-  const double LANDSCAPE_HEIGHT = PORTRAIT_WIDTH;
   Hive.init('test/fixtures/core');
   await Hive.openBox('url');
 
@@ -95,13 +91,10 @@ Future<void> main() async {
       verify(navigationService
           .showSnackBar("URL doesn't exist/no connection please check"));
     });
+
     group("Check if scanQr() is working", () {
       testWidgets('Check if scanQR() is working fine in portrait mode',
           (tester) async {
-        final TestWidgetsFlutterBinding binding =
-            TestWidgetsFlutterBinding.ensureInitialized();
-        await binding
-            .setSurfaceSize(const Size(PORTRAIT_WIDTH, PORTRAIT_HEIGHT));
         await tester.pumpWidget(MaterialApp(home: TestWidget(model)));
         await tester.tap(find.byType(FloatingActionButton));
         await tester.pump();
@@ -111,12 +104,6 @@ Future<void> main() async {
       });
       testWidgets("Check if scanQR() is working fine in landscape mode",
           (tester) async {
-        final TestWidgetsFlutterBinding binding =
-            TestWidgetsFlutterBinding.ensureInitialized();
-
-        await binding
-            .setSurfaceSize(const Size(LANDSCAPE_WIDTH, LANDSCAPE_HEIGHT));
-
         await tester.pumpWidget(MaterialApp(home: TestWidget(model)));
         await tester.tap(find.byType(FloatingActionButton));
         await tester.pump();

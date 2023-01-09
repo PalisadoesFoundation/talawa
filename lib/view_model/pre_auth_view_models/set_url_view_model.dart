@@ -114,34 +114,33 @@ class SetUrlViewModel extends BaseModel {
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondary,
             ),
-            child: LayoutBuilder(builder: (context, constraints) {
-              return SizedBox(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: constraints.maxWidth / 2,
-                      width: constraints.maxWidth / 2,
-                      child: QRView(
-                        key: qrKey,
-                        onQRViewCreated: _onQRViewCreated,
-                        overlay: QrScannerOverlayShape(
-                          borderRadius: 10,
-                          borderLength: 20,
-                          borderWidth: 10,
-                          cutOutSize: 1000,
-                        ),
-                        /*overlayMargin: EdgeInsets.all(50)*/
-                      ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 250,
+                  width: 250,
+                  child: QRView(
+                    key: qrKey,
+                    onQRViewCreated: _onQRViewCreated,
+                    overlay: QrScannerOverlayShape(
+                      borderRadius: 10,
+                      borderLength: 20,
+                      borderWidth: 10,
+                      cutOutSize: 250,
                     ),
-                    SizedBox(
-                      height: SizeConfig.safeBlockVertical,
-                    ),
-                    const Text('Scan QR'),
-                  ],
+                    /*overlayMargin: EdgeInsets.all(50)*/
+                  ),
                 ),
-              );
-            }),
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical! * 4,
+                ),
+                const Text('Scan QR'),
+                SizedBox(
+                  height: SizeConfig.safeBlockVertical! * 4,
+                )
+              ],
+            ),
           ),
         );
       },
