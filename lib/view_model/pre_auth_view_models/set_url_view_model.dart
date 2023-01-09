@@ -120,14 +120,8 @@ class SetUrlViewModel extends BaseModel {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: MediaQuery.of(context).orientation ==
-                              Orientation.portrait
-                          ? constraints.maxWidth / 2
-                          : constraints.maxHeight * .8,
-                      width: MediaQuery.of(context).orientation ==
-                              Orientation.portrait
-                          ? constraints.maxWidth / 2
-                          : constraints.maxHeight * .8,
+                      height: constraints.maxWidth / 2,
+                      width: constraints.maxWidth / 2,
                       child: QRView(
                         key: qrKey,
                         onQRViewCreated: _onQRViewCreated,
