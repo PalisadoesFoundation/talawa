@@ -58,7 +58,6 @@ dependencies:
   vibration: ^1.7.4-nullsafety.0
   video_player: ^2.2.7
   visibility_detector: ^0.3.3
-  get: ^4.6.5
 
 dev_dependencies:
   build_runner: ^2.1.10
