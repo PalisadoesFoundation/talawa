@@ -28,6 +28,7 @@ class TestWidget extends StatelessWidget {
 
 Future<void> main() async {
   SizeConfig().test();
+
   Hive.init('test/fixtures/core');
   await Hive.openBox('url');
 
@@ -92,26 +93,16 @@ Future<void> main() async {
           .showSnackBar("URL doesn't exist/no connection please check"));
     });
 
-    group("Check if scanQr() is working", () {
-      testWidgets('Check if scanQR() is working fine in portrait mode',
-          (tester) async {
-        await tester.pumpWidget(MaterialApp(home: TestWidget(model)));
-        await tester.tap(find.byType(FloatingActionButton));
-        await tester.pump();
+    testWidgets('Check if scanQR() is working fine', (tester) async {
+      await tester.pumpWidget(MaterialApp(home: TestWidget(model)));
 
-        expect(find.byType(ClipRRect), findsOneWidget);
-        expect(find.byType(QRView), findsOneWidget);
-      });
-      testWidgets("Check if scanQR() is working fine in landscape mode",
-          (tester) async {
-        await tester.pumpWidget(MaterialApp(home: TestWidget(model)));
-        await tester.tap(find.byType(FloatingActionButton));
-        await tester.pump();
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
 
-        expect(find.byType(ClipRRect), findsOneWidget);
-        expect(find.byType(QRView), findsOneWidget);
-      });
+      expect(find.byType(ClipRRect), findsOneWidget);
+      expect(find.byType(QRView), findsOneWidget);
     });
+
     testWidgets('Check if _onQRViewCreated() is working fine', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
@@ -119,6 +110,7 @@ Future<void> main() async {
           navigatorKey: navigationService.navigatorKey,
         ),
       );
+
       final controller = MockQRViewController();
       when(controller.scannedDataStream).thenAnswer((_) async* {
         yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
