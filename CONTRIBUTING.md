@@ -76,8 +76,8 @@ The process of proposing a change to Talawa can be summarized as:
 1. The repository can be cloned locally using `git clone <forked repo url>`.
 1. Make the desired changes to the Talawa source.
 1. Run the app and test your changes.
-1. Setup [Talawa API](https://github.com/AntoTomAbraham/talawa-api) and [Talawa Admin](https://github.com/AntoTomAbraham/talawa-admin) in your local system and give http://localhost:4000/graphql(talawa api url) as the organization URL on the first screen. more details about setup available [here](https://palisadoesfoundation.github.io/talawa-docs/docs/talawa/talawa-introduction).
-1. After setting up the talawa admin and talawa api create organisation in talawa admin portal and select this organisation in mobile app.
+1. Setup [Talawa API](https://github.com/AntoTomAbraham/talawa-api) and [Talawa Admin](https://github.com/AntoTomAbraham/talawa-admin) in your local system and give http://localhost:4000/graphql (talawa api url) as the organization URL on the first screen. more details regarding setup available [here](https://palisadoesfoundation.github.io/talawa-docs/docs/talawa/talawa-introduction).
+1. After setting up the talawa admin and talawa api create organisation in talawa admin portal and select that organisation in the mobile app.
 1. If you've added code, then test suites must be added. 
    1. **_General_:** 
       1. We need to get to 100% test coverage for the app. We periodically increase the desired test coverage for our pull requests to meet this goal.
