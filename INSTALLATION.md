@@ -50,13 +50,16 @@ There are multiple ways to access the Talawa-API that the Talawa mobile app uses
 You need to setup your own local instance of [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api). The advantage is that you'll be working with the latest code.
 
 1. You need to setup all the 3 projects locally ([talawa](https://github.com/PalisadoesFoundation/talawa), [talawa-api](https://github.com/PalisadoesFoundation/talawa-api), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)),
-1.Ater setting up ([talawa-api](https://github.com/PalisadoesFoundation/talawa-api), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)) create an account in talawa admin.
-1.After creating an account in talawa admin edit data in mongodb document under user collection by changing userTYPE from ADMIN to SUPERADMIN and adminApproved from false to true
+2. Ater setting up ([talawa-api](https://github.com/PalisadoesFoundation/talawa-api), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)) create an account in talawa admin.
+3. After creating an account in talawa admin edit data in mongodb document under user collection by changing userTYPE from ADMIN to SUPERADMIN and adminApproved from false to true
+
 <p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212376827-970ce7ca-d8fa-419b-ba90-691c93a25649.png"></p>
 <p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212393122-d1715819-31d0-4dd0-b072-9bb24622f8e5.png"></p>
-1.After creating account create an organisation in talawa-admin
+
+4. After creating account create an organisation in talawa-admin
 <p align="center"><img width="946" alt="create" src="https://user-images.githubusercontent.com/64683098/212369627-bc4e49fc-bf84-4ee2-b99b-12720c996308.PNG"></p> 
-3. Then use the URL (Organization URL) in this form:
+
+5. Then use the URL (Organization URL) in this form:
     1. http://(localhost IP):4000/graphql (See the next item for the IP addresses to use for your environment)
-4. Every Emulator has a different localhost IP address. 
+6. Every Emulator has a different localhost IP address. 
     1. For the Android Studio emulator use: http://10.0.2.2:4000/graphql
