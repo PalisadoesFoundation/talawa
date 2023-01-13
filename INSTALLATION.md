@@ -50,7 +50,7 @@ There are multiple ways to access the Talawa-API that the Talawa mobile app uses
 You need to setup your own local instance of [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api). The advantage is that you'll be working with the latest code.
 
 1. You need to setup all the 3 projects locally ([talawa](https://github.com/PalisadoesFoundation/talawa), [talawa-api](https://github.com/PalisadoesFoundation/talawa-api), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)),
-2. Ater setting up ([talawa-api](https://github.com/PalisadoesFoundation/talawa-api), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)) create an account in talawa admin.
+2. Ater setting up [talawa-api](https://github.com/PalisadoesFoundation/talawa-api) and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin) create an account in talawa admin.
 3. After creating an account in talawa admin edit data in mongodb document under user collection by changing userTYPE from ADMIN to SUPERADMIN and adminApproved from false to true
 
 <p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212376827-970ce7ca-d8fa-419b-ba90-691c93a25649.png"></p>
