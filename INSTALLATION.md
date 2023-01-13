@@ -56,7 +56,7 @@ You need to setup your own local instance of [Talawa-API](https://github.com/Pal
 <p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212376827-970ce7ca-d8fa-419b-ba90-691c93a25649.png"></p>
 <p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212393122-d1715819-31d0-4dd0-b072-9bb24622f8e5.png"></p>
 
-4. After creating account create an organisation in talawa-admin
+4. After creating account, login and create an organisation in talawa-admin
 <p align="center"><img width="946" alt="create" src="https://user-images.githubusercontent.com/64683098/212369627-bc4e49fc-bf84-4ee2-b99b-12720c996308.PNG"></p> 
 
 5. Then use the URL (Organization URL) in this form:
