@@ -49,8 +49,8 @@ Talawa mobile app requires [talawa-api](https://github.com/PalisadoesFoundation/
 
 You need to setup your own local instance of [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api) and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin). The advantage is that you'll be working with the latest code.
 
-1. You need to setup all the 3 projects locally ([talawa](https://github.com/PalisadoesFoundation/talawa), [talawa-api](https://github.com/PalisadoesFoundation/talawa-api), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)),
-2. After setting up [talawa-api](https://github.com/PalisadoesFoundation/talawa-api) and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin) create an account in talawa admin.
+1. You need to setup all the 3 projects locally ([talawa](https://github.com/PalisadoesFoundation/talawa), [talawa-api](https://github.com/PalisadoesFoundation/talawa-api), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)) - follow INSTALLATION.md of respective project for further guide,
+2. After setting up [talawa-api](https://github.com/PalisadoesFoundation/talawa-api/blob/develop/INSTALLATION.md) and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin/blob/develop/INSTALLATION.md) create an account in talawa admin.
 3. After creating an account in talawa admin edit data in mongodb document under user collection by changing userType from ADMIN to SUPERADMIN and adminApproved from false to true
 
 <p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212376827-970ce7ca-d8fa-419b-ba90-691c93a25649.png"></p>
