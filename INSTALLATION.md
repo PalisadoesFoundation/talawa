@@ -43,11 +43,11 @@ We have tried to make the process simple. Here's what you need to do.
 
 ## Developer Environment Setup
 
-Talawa mobile app requires [talawa-api](https://github.com/PalisadoesFoundation/talawa-api) running locally or remotely, which will be used as an organisation url. an organisation should be created in [talawa-api](https://github.com/PalisadoesFoundation/talawa-api), inorder to create an organisation in talawa-api, [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin) needs to be used.
+Talawa mobile app requires [talawa-api](https://github.com/PalisadoesFoundation/talawa-api) running locally or remotely, which will be used as an organisation url. 
 
 ### On Your Local Machine
 
-You need to setup your own local instance of [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api). The advantage is that you'll be working with the latest code.
+You need to setup your own local instance of [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api) and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin). The advantage is that you'll be working with the latest code.
 
 1. You need to setup all the 3 projects locally ([talawa](https://github.com/PalisadoesFoundation/talawa), [talawa-api](https://github.com/PalisadoesFoundation/talawa-api), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)),
 2. After setting up [talawa-api](https://github.com/PalisadoesFoundation/talawa-api) and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin) create an account in talawa admin.
@@ -60,6 +60,5 @@ You need to setup your own local instance of [Talawa-API](https://github.com/Pal
 <p align="center"><img width="946" alt="create" src="https://user-images.githubusercontent.com/64683098/212369627-bc4e49fc-bf84-4ee2-b99b-12720c996308.PNG"></p> 
 
 5. Then use the URL (Organization URL) in this form:
-    1. http://(localhost IP):4000/graphql (See the next item for the IP addresses to use for your environment)
-6. Every Emulator has a different localhost IP address. 
-    1. For the Android Studio emulator use: http://10.0.2.2:4000/graphql
+    1. http://(IP-address):4000/graphql (See the below example) 
+    1. For emulators use: http://10.0.2.2:4000/graphql
