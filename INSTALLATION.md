@@ -50,13 +50,13 @@ Talawa mobile app requires [talawa-api](https://github.com/PalisadoesFoundation/
 You need to setup your own local instance of [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api) and [Talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin). The advantage is that you'll be working with the latest code.
 
 1. You need to setup all the 3 projects locally ([talawa](https://github.com/PalisadoesFoundation/talawa/blob/develop/INSTALLATION.md), [talawa-api](https://github.com/PalisadoesFoundation/talawa-api/blob/develop/INSTALLATION.md), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin/blob/develop/INSTALLATION.md)).
-2. After setting up [talawa-api](https://github.com/PalisadoesFoundation/talawa-api/blob/develop/INSTALLATION.md) and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin/blob/develop/INSTALLATION.md) create an account in talawa admin.
-3. After creating an account in talawa admin edit data in mongodb document under user collection by changing userType from ADMIN to SUPERADMIN and adminApproved from false to true
+2. After setting up [talawa-api](https://github.com/PalisadoesFoundation/talawa-api/blob/develop/INSTALLATION.md) and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin/blob/develop/INSTALLATION.md) create a user account in talawa admin. user account is necessary for creating organisation which is needed during development time.
+3. After creating an account in talawa admin edit data in MongoDB document under users collection by changing userType from ADMIN to SUPERADMIN and adminApproved from false to true. For that go to your MongoDB dashboard -> select your project -> click Browse collection -> select users collection and make the changes. This is done that so you will get enough authorization to create a organization and manage a organization. 
 
 <p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212376827-970ce7ca-d8fa-419b-ba90-691c93a25649.png"></p>
 <p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212393122-d1715819-31d0-4dd0-b072-9bb24622f8e5.png"></p>
 
-4. After creating account, login and create an organisation in talawa-admin
+4. After user account creation, login and create an organisation in talawa-admin
 <p align="center"><img width="946" alt="create" src="https://user-images.githubusercontent.com/64683098/212369627-bc4e49fc-bf84-4ee2-b99b-12720c996308.PNG"></p> 
 
 5. Then use the URL (Organization URL) in this form:
