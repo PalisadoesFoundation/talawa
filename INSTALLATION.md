@@ -61,4 +61,4 @@ You need to setup your own local instance of [Talawa-API](https://github.com/Pal
 
 5. Then use the URL (Organization URL) in this form:
     1. http://(IP-address):4000/graphql (See the below example) 
-    1. For emulators use: http://10.0.2.2:4000/graphql
+    1. Example : http://10.0.2.2:4000/graphql
