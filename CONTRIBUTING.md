@@ -75,9 +75,11 @@ The process of proposing a change to Talawa can be summarized as:
 1. Fork the Talawa repository and branch off `develop`.
 1. The repository can be cloned locally using `git clone <forked repo url>`.
 1. Make the desired changes to the Talawa source.
-1. Run the app and test your changes.
-1. Enter development URL `https://talawa-graphql-api.herokuapp.com/graphql` as the organization URL on the first screen as suggested [here](https://palisadoesfoundation.github.io/talawa-docs/docs/talawa/talawa-developer-environment/).
+1. Setup a local instance of Talawa-API on your local machine using the steps outlined in our [INSTALLATION.md](INSTALLATION.md) file.
+1. Run the app:
+   1. Enter Talawa-API URL for your local instance oulined in the [INSTALLATION.md](INSTALLATION.md) file. This is also the URL you should use for your Talawa-Admin configuration.
 1. While selecting organization, select organization named A as it contains some testable data.
+1. Test your changes.
 1. If you've added code, then test suites must be added. 
    1. **_General_:** 
       1. We need to get to 100% test coverage for the app. We periodically increase the desired test coverage for our pull requests to meet this goal.
