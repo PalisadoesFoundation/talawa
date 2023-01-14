@@ -53,8 +53,6 @@ You need to setup your own local instance of [Talawa-API](https://github.com/Pal
 2. After setting up [talawa-api](https://github.com/PalisadoesFoundation/talawa-api/blob/develop/INSTALLATION.md) and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin/blob/develop/INSTALLATION.md) create a user account in talawa admin. user account is necessary for creating organisation which is needed during development time.
 3. After creating an account in talawa admin edit data in `MongoDB document` under users collection by changing `userType` from ADMIN to SUPERADMIN and `adminApproved` from false to true. For that go to your `MongoDB` dashboard -> select your project -> click Browse `collection` -> select `users` collection and make the changes. This is done so that you will get authorized to create and manage an organization. 
 
-<p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212376827-970ce7ca-d8fa-419b-ba90-691c93a25649.png"></p>
-<p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212393122-d1715819-31d0-4dd0-b072-9bb24622f8e5.png"></p>
 <p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212492204-8497e0ff-2d8d-4759-b192-1a0202c270c7.png"></p>
 
 4. After user account creation, login and create an organisation in talawa-admin
