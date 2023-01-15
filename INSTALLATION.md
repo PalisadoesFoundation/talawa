@@ -43,20 +43,20 @@ We have tried to make the process simple. Here's what you need to do.
 
 ## Developer Environment Setup
 
-Talawa mobile app requires [talawa-api](https://github.com/PalisadoesFoundation/talawa-api) running locally or remotely, which will be used as an organisation url. 
+Talawa mobile app requires [talawa-api](https://github.com/PalisadoesFoundation/talawa-api) running locally or remotely, which will be used as an `organisation url`. 
 
 #### On Your Local Machine
 
 You need to setup your own local instance of [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api) and [Talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin). The advantage is that you'll be working with the latest code.
 
 1. You need to setup all the 3 projects locally ([talawa](https://github.com/PalisadoesFoundation/talawa), [talawa-api](https://github.com/PalisadoesFoundation/talawa-api), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)), refer the INSTALLATION.md of the respective repository for further guide.
-2. After setting up [talawa-api](https://github.com/PalisadoesFoundation/talawa-api) and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin) create a user account in talawa admin. user account is necessary for creating organisation which is needed during development time.
-3. After creating an account in talawa admin edit data in `MongoDB document` under users collection by changing `userType` from ADMIN to SUPERADMIN and `adminApproved` from false to true. For that go to your `MongoDB` dashboard -> select your project -> click Browse `collection` -> select `users` collection and make the changes. This is done so that you will get authorized to create and manage an organization. 
+2. After setting up [talawa-api](https://github.com/PalisadoesFoundation/talawa-api) and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin) create a user account in talawa admin. user account is necessary for creating organization which will be needed during development time.
+3. After creating an user account in talawa admin, edit data in `MongoDB document` under users collection by changing `userType` from ADMIN to SUPERADMIN and `adminApproved` from false to true. For that go to your `MongoDB` dashboard -> select your project -> click Browse `collection` -> select `users` collection and make the changes. This is done so that you will get authorized to create and manage an organization. refer the image below.
 
-<p align="center"><img width="946" alt="createO" src="https://user-images.githubusercontent.com/64683098/212492204-8497e0ff-2d8d-4759-b192-1a0202c270c7.png"></p>
+<p align="center"><img width="400" alt="createO" src="https://user-images.githubusercontent.com/64683098/212524445-d2f59670-1ffd-462f-b6fe-09c10065976c.jpg"></p>
 
-4. After user account creation, login and create an organisation in talawa-admin
-<p align="center"><img width="946" alt="create" src="https://user-images.githubusercontent.com/64683098/212369627-bc4e49fc-bf84-4ee2-b99b-12720c996308.PNG"></p> 
+4. After user account creation, login to your account and create an `organization` in talawa-admin by clicking create organization button on the top corner
+<p align="center"><img width="400" alt="create" src="https://user-images.githubusercontent.com/64683098/212369627-bc4e49fc-bf84-4ee2-b99b-12720c996308.PNG"></p> 
 
 5. Then use the URL (Organization URL) in this form:
     1. http://(IP-address):4000/graphql (See the below example) 
