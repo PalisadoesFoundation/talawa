@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/custom_alert_dialog.dart';
+
 class NavigationService {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -101,6 +103,37 @@ class NavigationService {
       // backgroundColor: Colors.grey,
       backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
     ));
+  }
+
+  void showTalawaErrorDialog(String errorMessage) {
+    showDialog(
+      context: navigatorKey.currentContext!,
+      barrierColor: Colors.transparent,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return SizedBox(
+          child: AlertDialog(
+            title: const Text(
+              "Error",
+              style: TextStyle(color: Colors.red),
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[Text(errorMessage)],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Close'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   void pop() {
