@@ -10,7 +10,7 @@ You'll need to set up the IDE and mobile device emulator on your local system an
     1. [Android Studio](https://developer.android.com/studio)
 1. **API Environment**: You will need to enter the URL of the API server in the Talawa app when it first starts up. The URL could be active on a system you control or in our test environment.
     1. *Your API Server:* Check the [Talawa API repository](https://github.com/PalisadoesFoundation/talawa-api) for information on how to set up the API on your local machine or a machine under your legitimate control. There is a section in the README.md file that discusses installation.
-    2. *Our API Server for Talawa Contributors*: We also have a test environment that our open source contributors use. Try it if you are not inclined to set up or customize your own API server. This is a development environment. The data stored on this server may be modified or deleted without warning. Information about this server can be found on the [Talawa documentation site](https://palisadoesfoundation.github.io/talawa-docs/).
+    2. *Our API Server for Talawa Contributors*: We also have a test environment that our open source contributors use. Try it if you are not inclined to set up or customize your own API server. This is a development environment. The data stored on this server may be modified or deleted without warning. Information about this server can be found on the [Talawa documentation site](https://docs.talawa.io).
     
 (Optional) **Google APIs**: The app uses Google Maps API for venue selection. You will need to sign up for it if you want to test these features. Enter your API key in the
 - `android/app/src/main/AndroidManifest.xml` file for android.
@@ -43,23 +43,29 @@ We have tried to make the process simple. Here's what you need to do.
 
 ## Developer Environment Setup
 
-There are multiple ways to access the Talawa-API that the Talawa mobile app uses.
+Talawa mobile app requires [talawa-api](https://github.com/PalisadoesFoundation/talawa-api) running locally or remotely, which will be used as an `organisation url`. 
 
 ### On Your Local Machine
 
-You can also setup your own local instance of [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api). The advantage is that you'll be working with the latest code.
+You need to setup your own local instance of [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api) and [Talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin). The advantage is that you'll be working with the latest code.
 
-1. If you have set up all the 3 projects locally ([talawa](https://github.com/PalisadoesFoundation/talawa), [talawa-api](https://github.com/PalisadoesFoundation/talawa-api), and [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)), then use the URL (Organization URL) in this form:
-    1. http://(localhost IP):4000/graphql (See the next item for the IP addresses to use for your environment)
-1. Every Emulator has a different localhost IP address. 
-    1. For the Android Studio emulator use: http://10.0.2.2:4000/graphql
-
-### Remote Hosted API Test Server
-
-We have a test API server for software developers contributing to the talawa projects.
-
-1. This is a good server to use to test your code prior to submitting a pull request
-1. The server runs the latest master branch version of the talawa-api code base
-    1. Use this URL in the Talawa App: https://talawa-graphql-api.herokuapp.com/graphql
-1. This is a development environment. The data stored on this server may be modified or deleted without warning.
-
+1. You need to first setup the 2 supporting projects locally. Please refer the INSTALLATION.md of the respective repository for further guidance.
+    1. [talawa-api](https://github.com/PalisadoesFoundation/talawa-api)
+    1. [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin)
+1. Create a user account in [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin). The user account is necessary for creating the first organization which will be needed during your development time.
+    1. Enter your MongoDB dashboard to start the process of editing the `users` collection. This is done so that you will get authorized to create and manage an organization. Refer the images below as needed.
+        1. Go to your `MongoDB` dashboard
+        1. Select your project
+        1. Click Browse `collection` 
+        1. Select `users` collection and edit the data. Change:
+            1. `userType` from ADMIN to SUPERADMIN
+            1. `adminApproved` from `false` to `true`. 
+            1. ![User Collection Modification](https://user-images.githubusercontent.com/64683098/212524445-d2f59670-1ffd-462f-b6fe-09c10065976c.jpg)
+1. After you have created the [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin) user account, you'll need to create an organization.
+    1.  Login to your [talawa-admin](https://github.com/PalisadoesFoundation/talawa-admin) account and create an `organization`
+    1.  Click the `Create Organization` button on the top corner
+    1.  ![Organization Creation](https://user-images.githubusercontent.com/64683098/212369627-bc4e49fc-bf84-4ee2-b99b-12720c996308.PNG)
+1. Install [talawa](https://github.com/PalisadoesFoundation/talawa) Please refer the INSTALLATION.md of the respective repository for further guidance.
+    1. Then use the URL (Organization URL) in this form:
+        1. http://(IP-address):4000/graphql (See the below example) 
+        1. Example : http://10.0.2.2:4000/graphql
