@@ -14,7 +14,6 @@ on:
   push:
     branches-ignore:
       - 'master'
-      - 'develop'
 
 jobs:
   Flutter-Codebase-Check:
