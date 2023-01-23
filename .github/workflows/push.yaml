@@ -34,7 +34,7 @@ jobs:
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
       - name: setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
       - name: Granting permission to documentationcheck.py
         run: chmod +x ./.github/workflows/documentationcheck.py
       - name: execute py script
