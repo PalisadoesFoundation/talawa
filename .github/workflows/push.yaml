@@ -38,6 +38,7 @@ jobs:
       - name: Granting permission to documentationcheck.py
         run: chmod +x ./.github/workflows/documentationcheck.py
 <<<<<<< HEAD
+<<<<<<< HEAD
       # - name: execute py script
       #   run: |
       #     git branch
@@ -56,6 +57,16 @@ jobs:
 #           directory: ${{ github.path }}
 #           actor: ${{ github.actor }}
 >>>>>>> ffab7380 (Uncommenting v1)
+=======
+      - name: execute py script
+        run: |
+          git branch
+          pip install GitPython
+          python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
+        env:
+          directory: ${{ github.path }}
+          actor: ${{ github.actor }}
+>>>>>>> d9530bb9 (Uncomment v2)
 
   Update-Documentation:
     runs-on: ubuntu-latest
