@@ -44,7 +44,7 @@ jobs:
           python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
         env:
           directory: ${{ github.path }}
-#           actor: ${{ github.actor }}
+          actor: ${{ github.actor }}
 
   Update-Documentation:
     runs-on: ubuntu-latest
