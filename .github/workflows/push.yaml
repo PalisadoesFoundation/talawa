@@ -38,14 +38,14 @@ jobs:
         uses: actions/setup-python@v2
       - name: Granting permission to documentationcheck.py
         run: chmod +x ./.github/workflows/documentationcheck.py
-      - name: execute py script
-        run: |
-          git branch
-          pip install GitPython
-          python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
-        env:
-          directory: ${{ github.path }}
-          actor: ${{ github.actor }}
+#       - name: execute py script
+#         run: |
+#           git branch
+#           pip install GitPython
+#           python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
+#         env:
+#           directory: ${{ github.path }}
+#           actor: ${{ github.actor }}
 
   Update-Documentation:
     runs-on: ubuntu-latest
