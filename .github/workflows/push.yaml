@@ -4,7 +4,7 @@
 # NOTE!
 #
 # Please read the README.md file in this directory that defines what should 
-# be placed in this file.
+# be placed in this file
 #
 ##############################################################################
 ##############################################################################
@@ -20,7 +20,7 @@ jobs:
     name: Checking codebase
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -37,20 +37,20 @@ jobs:
         uses: actions/setup-python@v2
       - name: Granting permission to documentationcheck.py
         run: chmod +x ./.github/workflows/documentationcheck.py
-#       - name: execute py script
-#         run: |
-#           git branch
-#           pip install GitPython
-#           python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
-#         env:
-#           directory: ${{ github.path }}
+      - name: execute py script
+        run: |
+          git branch
+          pip install GitPython
+          python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
+        env:
+          directory: ${{ github.path }}
 #           actor: ${{ github.actor }}
 
   Update-Documentation:
     runs-on: ubuntu-latest
     needs: Flutter-Codebase-Check
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2.3.2
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -93,13 +93,30 @@ jobs:
           git commit -a -m "Updated docs"
           git push
           echo -e "🚀${Green} Hurrah! doc updated${NoColor}"
+          
+  Copy-docs-to-talawa-docs:
+    runs-on: ubuntu-latest
+    needs: Update-Documentation
+    steps:
+    - uses: actions/checkout@v2
+    - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: 'docs/talawa/'
+        destination_repo: 'PalisadoesFoundation/talawa-docs'
+        destination_branch: 'develop'
+        destination_folder: 'static/talawa'
+        user_email: '${{env.email}}'
+        user_name: '${{github.actor}}'
+        commit_message: 'Updating talawa documentation as new PR merged into talawa:automated-docs'
 
   Flutter-Testing:
     name: Testing codebase
     runs-on: ubuntu-latest
     needs: Update-Documentation
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -111,7 +128,7 @@ jobs:
       - name: Codebase testing
         run: flutter test --coverage
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v3.1.1
         with:
           verbose: true        
 
@@ -120,7 +137,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: Flutter-Testing
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
