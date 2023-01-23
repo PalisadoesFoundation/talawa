@@ -33,11 +33,7 @@ Core features include:
 
 # Documentation
 
-<<<<<<< HEAD
-Get familiar with `talawa`:
-=======
 Get familiar with the `talawa` project:
->>>>>>> upstream/develop
 
 1. Read our [Talawa Mobile App installation guide](INSTALLATION.md) to get setup quickly.
 1. The complete talawa documentation set can be found [here](https://docs.talawa.io).
