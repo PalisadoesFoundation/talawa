@@ -106,7 +106,7 @@ jobs:
       with:
         source_file: 'docs/talawa/'
         destination_repo: 'PalisadoesFoundation/talawa-docs'
-        destination_branch: 'talawa-docs-develop'
+        destination_branch: 'develop'
         destination_folder: 'static/talawa'
         user_email: '${{env.email}}'
         user_name: '${{github.actor}}'
