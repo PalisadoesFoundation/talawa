@@ -15,6 +15,9 @@ on:
     branches-ignore:
       - 'master'
 
+env:
+    CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
+    
 jobs:
   Flutter-Codebase-Check:
     name: Checking codebase
@@ -130,10 +133,12 @@ jobs:
         run: flutter pub get
       - name: Codebase testing
         run: flutter test --coverage
-      - name: Upload coverage to Codecov
+      - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
         uses: codecov/codecov-action@v3
         with:
-          verbose: true        
+          verbose: true
+          fail_ci_if_error: true
+          name: '${{env.CODECOV_UNIQUE_NAME}}'     
 
   Android-Build:
     name: Testing build for android
