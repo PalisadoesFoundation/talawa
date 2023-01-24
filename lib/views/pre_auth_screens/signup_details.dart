@@ -24,6 +24,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
       onModelReady: (model) => model.initialise(widget.selectedOrg),
       builder: (context, model, child) {
         return Scaffold(
+          resizeToAvoidBottomInset: true,
           extendBodyBehindAppBar: true,
           appBar: AppBar(
             elevation: 0.0,
