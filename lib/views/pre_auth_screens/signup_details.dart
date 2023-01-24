@@ -24,7 +24,8 @@ class _SignUpDetailsState extends State<SignUpDetails> {
       onModelReady: (model) => model.initialise(widget.selectedOrg),
       builder: (context, model, child) {
         return Scaffold(
-          resizeToAvoidBottomInset: true,
+          resizeToAvoidBottomInset:
+              true, // To allow the keyboard to not overlap the form
           extendBodyBehindAppBar: true,
           appBar: AppBar(
             elevation: 0.0,
