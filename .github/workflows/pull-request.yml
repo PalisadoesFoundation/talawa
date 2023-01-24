@@ -13,6 +13,9 @@ name: PR Workflow
 on:
   pull_request:
 
+env:
+    CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
+   
 jobs:
   Flutter-Codebase-Check:
     name: Checking codebase
@@ -91,10 +94,12 @@ jobs:
         run: flutter pub get
       - name: Codebase testing
         run: flutter test --coverage
-      - name: Present current coverage in PR
+      - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
         uses: codecov/codecov-action@v3
         with:
           verbose: true
+          fail_ci_if_error: true
+          name: '${{env.CODECOV_UNIQUE_NAME}}'  
       - name: Test acceptable level of code coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
