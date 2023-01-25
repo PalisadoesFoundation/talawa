@@ -65,6 +65,8 @@ jobs:
           flutter-version: '3.0.0'
           channel: 'stable'
       - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '2.18.0'
       - run: |
           flutter pub get
           flutter analyze
