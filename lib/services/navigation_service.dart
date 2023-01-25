@@ -1,6 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/custom_alert_dialog.dart';
+import '../widgets/talawa_error_dialog.dart';
+import '../widgets/talawa_error_widget.dart';
 
 class NavigationService {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -65,40 +68,13 @@ class NavigationService {
   }
 
   void showTalawaErrorWidget(
-    String message, {
+    String errorMessage, {
     Duration duration = const Duration(seconds: 2),
   }) {
     ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(SnackBar(
       padding: EdgeInsets.zero,
-      content: Row(
-        children: [
-          Container(
-            width: 20,
-            height: 80,
-            decoration: const BoxDecoration(color: Colors.red),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          const Icon(
-            Icons.error,
-            color: Colors.red,
-            size: 35,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            flex: 1,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Text(
-                message,
-                style: const TextStyle(color: Colors.white),
-              ),
-            ),
-          )
-        ],
+      content: TalawaErrorWidget(
+        errorMessage: errorMessage,
       ),
       // backgroundColor: Colors.grey,
       backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
@@ -111,27 +87,7 @@ class NavigationService {
       barrierColor: Colors.transparent,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return SizedBox(
-          child: AlertDialog(
-            title: const Text(
-              "Error",
-              style: TextStyle(color: Colors.red),
-            ),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[Text(errorMessage)],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Close'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          ),
-        );
+        return TalawaErrorDialog(errorMessage);
       },
     );
   }

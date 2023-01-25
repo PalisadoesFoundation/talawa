@@ -41,9 +41,8 @@ class DataBaseMutationFunctions {
       debugPrint(exception.linkException.toString());
       if (showSnackBar) {
         Timer(const Duration(seconds: 2), () {
-          // navigationService
-          //     .showTalawaErrorDialog("Server not running/wrong url");
-          const TalawaErrorWidget("servernot running");
+          navigationService
+              .showTalawaErrorDialog("Server not running/wrong url");
         });
       }
       return false;
