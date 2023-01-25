@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "4863530994",
+    "project_id": "talawa-18dee",
+    "storage_bucket": "talawa-18dee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4863530994:android:ea34e135e69492753b3d6b",
+        "android_client_info": {
+          "package_name": "com.example.talawa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4863530994-ciqpblme3jfuvujl3rovvemk4hei3ose.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYDQsmQtwWW2B36pXKafh8WZIupE8fu_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4863530994-ciqpblme3jfuvujl3rovvemk4hei3ose.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "4863530994-k1jt9kt3a199i0miatc9tm7n1vvh7ucc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.talawa"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

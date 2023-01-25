@@ -5,6 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/utils/queries.dart';
+import 'package:talawa/widgets/talawa_error_dialog.dart';
 
 class DataBaseMutationFunctions {
   late GraphQLClient clientNonAuth;
@@ -40,8 +41,9 @@ class DataBaseMutationFunctions {
       debugPrint(exception.linkException.toString());
       if (showSnackBar) {
         Timer(const Duration(seconds: 2), () {
-          navigationService
-              .showTalawaErrorDialog("Server not running/wrong url");
+          // navigationService
+          //     .showTalawaErrorDialog("Server not running/wrong url");
+          const TalawaErrorWidget("servernot running");
         });
       }
       return false;
