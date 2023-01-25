@@ -5,7 +5,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/utils/queries.dart';
-import 'package:talawa/widgets/talawa_error_dialog.dart';
 
 class DataBaseMutationFunctions {
   late GraphQLClient clientNonAuth;

@@ -1,9 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/custom_alert_dialog.dart';
-import '../widgets/talawa_error_dialog.dart';
-import '../widgets/talawa_error_widget.dart';
+import 'package:talawa/widgets/talawa_error_dialog.dart';
+import 'package:talawa/widgets/talawa_error_widget.dart';
 
 class NavigationService {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
