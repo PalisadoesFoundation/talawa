@@ -34,8 +34,8 @@ jobs:
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
-#       - name: Checking for correct formatting of code
-#         run: flutter format --set-exit-if-changed .
+      - name: Checking for correct formatting of code
+        run: flutter format --set-exit-if-changed .
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
       - name: setup python
