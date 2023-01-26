@@ -90,14 +90,14 @@ Future<void> main() async {
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
 
-  final Directory dir = Directory('temporaryPath');
-  Hive
-    ..init(dir.path)
-    ..registerAdapter(UserAdapter())
-    ..registerAdapter(OrgInfoAdapter());
-  await Hive.openBox<User>('currentUser');
-  await Hive.openBox<OrgInfo>('currentOrg');
-  await Hive.openBox('url');
+  // final Directory dir = Directory('temporaryPath');
+  // Hive
+  //   ..init(dir.path)
+  //   ..registerAdapter(UserAdapter())
+  //   ..registerAdapter(OrgInfoAdapter());
+  // await Hive.openBox<User>('currentUser');
+  // await Hive.openBox<OrgInfo>('currentOrg');
+  // await Hive.openBox('url');
   group('Setting Page Screen Widget Test in dark mode', () {
     testWidgets("Testing if Settings Screen shows up", (tester) async {
       await tester.pumpWidget(createChangePassScreenDark());
