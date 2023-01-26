@@ -64,6 +64,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 height: SizeConfig.screenHeight! * 0.05,
                               ),
                               TextFormField(
+                                key: const Key('FirstNameInputField'),
                                 controller: model.firstName,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
@@ -102,6 +103,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 height: SizeConfig.screenHeight! * 0.015,
                               ),
                               TextFormField(
+                                key: const Key('LastNameInputField'),
                                 controller: model.lastName,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
@@ -138,6 +140,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 height: SizeConfig.screenHeight! * 0.015,
                               ),
                               TextFormField(
+                                key: const Key('signUpEmailField'),
                                 controller: model.email,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.emailAddress,
@@ -169,6 +172,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                 height: SizeConfig.screenHeight! * 0.015,
                               ),
                               TextFormField(
+                                key: const Key('signuppassword'),
                                 controller: model.password,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.visiblePassword,
