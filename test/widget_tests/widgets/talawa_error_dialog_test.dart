@@ -7,7 +7,6 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/talawa_error_dialog.dart';
 
 import '../../helpers/test_locator.dart';
-import 'custom_alert_dialog_test.dart';
 
 Widget createTalawaErrorWidget({
   bool reverse = false,

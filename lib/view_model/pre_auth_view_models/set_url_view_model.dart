@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -171,13 +169,17 @@ class SetUrlViewModel extends BaseModel {
           Navigator.pop(navigationService.navigatorKey.currentContext!);
           navigationService.pushScreen('/selectOrg', arguments: orgId);
         } on CameraException catch (e) {
+          debugPrint(e.toString());
           navigationService.showTalawaErrorWidget("The Camera is not working");
         } on QrEmbeddedImageException catch (e) {
+          debugPrint(e.toString());
           navigationService.showTalawaErrorDialog("The QR is not Working");
         } on QrUnsupportedVersionException catch (e) {
+          debugPrint(e.toString());
           navigationService
               .showTalawaErrorDialog("This QR version is not Supported.");
         } on Exception catch (e) {
+          debugPrint(e.toString());
           navigationService.showTalawaErrorWidget("This QR is not for the App");
         }
       }
