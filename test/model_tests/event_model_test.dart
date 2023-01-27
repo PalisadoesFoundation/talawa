@@ -110,10 +110,10 @@ void main() {
       expect(event.isRegistered, eventFromJson.isRegistered);
       expect(event.isRegisterable, eventFromJson.isRegisterable);
       expect(event.latitude, eventFromJson.latitude);
-      expect(event.creator!.id, eventFromJson.creator!.id);
-      expect(event.organization!.id, eventFromJson.organization!.id);
-      expect(event.admins![0].id, eventFromJson.admins![0].id);
-      expect(event.registrants![0].id, eventFromJson.registrants![0].id);
+      expect(event.creator?.id, eventFromJson.creator?.id);
+      expect(event.organization?.id, eventFromJson.organization?.id);
+      expect(event.admins?[0].id, eventFromJson.admins?[0].id);
+      expect(event.registrants?[0].id, eventFromJson.registrants?[0].id);
     });
   });
 }
