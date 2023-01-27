@@ -31,13 +31,17 @@ void main() {
         }),
       };
 
-      final ChatListTileDataModel chatListTileDataModelFromJson = ChatListTileDataModel.fromJson(json);
+      final ChatListTileDataModel chatListTileDataModelFromJson =
+          ChatListTileDataModel.fromJson(json);
 
       expect(chatListTileDataModel.id, chatListTileDataModelFromJson.id);
       for (int index = 0; index < listLength; index++) {
-        expect(chatListTileDataModel.users?[index].id, chatListTileDataModelFromJson.users?[index].id);
-        expect(chatListTileDataModel.users?[index].firstName, chatListTileDataModelFromJson.users?[index].firstName);
-        expect(chatListTileDataModel.users?[index].image, chatListTileDataModelFromJson.users?[index].image);
+        expect(chatListTileDataModel.users?[index].id,
+            chatListTileDataModelFromJson.users?[index].id);
+        expect(chatListTileDataModel.users?[index].firstName,
+            chatListTileDataModelFromJson.users?[index].firstName);
+        expect(chatListTileDataModel.users?[index].image,
+            chatListTileDataModelFromJson.users?[index].image);
       }
     });
   });
