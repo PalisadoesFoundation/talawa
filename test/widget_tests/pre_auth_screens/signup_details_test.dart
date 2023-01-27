@@ -63,7 +63,6 @@ void main() {
 
     testWidgets("Testing if input field and signup button appear",
         (tester) async {
-      //pushing setUrlScreen
       await showSignUpScreen(tester);
 
       final firstNameInputFieldWidget =
@@ -73,11 +72,6 @@ void main() {
       expect(firstNameInputFieldWidget, findsOneWidget);
 
       expect(findSignUpButton, findsOneWidget);
-
-      // final hh = await tester.allWidgets;
-      // hh.forEach((element) {
-      //   print(element);
-      // });
     });
 //....................................................................
     testWidgets('Testing validator for first name input form invalid',
@@ -100,29 +94,6 @@ void main() {
       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
 
       expect(invalidFirstNameSubmission, findsOneWidget);
-      // await showSignUpScreen(tester);
-      // final firstNameInputFieldWidget =
-      //     find.byKey(const Key('FirstNameInputField'));
-      // final lastNameInputFieldWidget =
-      //     find.byKey(const Key('LastNameInputField'));
-      // final emailInputFieldWidget = find.byKey(const Key('signUpEmailField'));
-      // final findSignUpButton =
-      //     find.byKey(const Key('SignUpLoginDetailsButton'));
-      // final passwordInputFieldWidget = find.byKey(const Key('signuppassword'));
-      // final nullSubmission = find.text('Lastname must not be left blank.');
-      // final invalidFirstNameSubmission = find.text('Invalid Firstname');
-      // await tester.enterText(firstNameInputFieldWidget, '[]');
-      //
-      // await tester.enterText(
-      //     lastNameInputFieldWidget, 'hgcgfchgfygjhgghvjhghg');
-      // await tester.enterText(
-      //     passwordInputFieldWidget, 'igguyfytfguytguyyuytuygu78t7fughjg');
-      // await tester.enterText(emailInputFieldWidget, 'ayush0000ayush@gmail.com');
-      //
-      // await tester.tap(findSignUpButton);
-      //
-      // await tester.pumpAndSettle(const Duration(milliseconds: 1000));
-      // expect(nullSubmission, findsOneWidget);
     });
     testWidgets('Testing validator for first name input form null',
         (tester) async {
@@ -167,29 +138,6 @@ void main() {
       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
 
       expect(invalidLastNameSubmission, findsOneWidget);
-      // await showSignUpScreen(tester);
-      // final firstNameInputFieldWidget =
-      //     find.byKey(const Key('FirstNameInputField'));
-      // final lastNameInputFieldWidget =
-      //     find.byKey(const Key('LastNameInputField'));
-      // final emailInputFieldWidget = find.byKey(const Key('signUpEmailField'));
-      // final findSignUpButton =
-      //     find.byKey(const Key('SignUpLoginDetailsButton'));
-      // final passwordInputFieldWidget = find.byKey(const Key('signuppassword'));
-      // final nullSubmission = find.text('Lastname must not be left blank.');
-      // final invalidFirstNameSubmission = find.text('Invalid Firstname');
-      // await tester.enterText(firstNameInputFieldWidget, '[]');
-      //
-      // await tester.enterText(
-      //     lastNameInputFieldWidget, 'hgcgfchgfygjhgghvjhghg');
-      // await tester.enterText(
-      //     passwordInputFieldWidget, 'igguyfytfguytguyyuytuygu78t7fughjg');
-      // await tester.enterText(emailInputFieldWidget, 'ayush0000ayush@gmail.com');
-      //
-      // await tester.tap(findSignUpButton);
-      //
-      // await tester.pumpAndSettle(const Duration(milliseconds: 1000));
-      // expect(nullSubmission, findsOneWidget);
     });
     testWidgets('Testing validator for last name input form null',
         (tester) async {
