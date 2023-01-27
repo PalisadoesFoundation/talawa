@@ -51,9 +51,8 @@ class CustomAvatar extends StatelessWidget {
                 child: const CircleAvatar(),
               ),
             ),
-            errorWidget: (context, url, error) => const CircleAvatar(
-              child: Icon(Icons.error),
-            ),
+            errorWidget: (context, url, error) =>
+                const CircleAvatar(child: Icon(Icons.error)),
           );
   }
 }
