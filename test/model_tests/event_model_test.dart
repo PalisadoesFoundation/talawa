@@ -90,7 +90,6 @@ void main() {
         ],
       };
 
-      
       final eventFromJson = Event.fromJson(eventJson);
       expect(event.id, eventFromJson.id);
       expect(event.title, eventFromJson.title);
