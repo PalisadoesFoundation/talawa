@@ -45,14 +45,15 @@ class CustomAvatar extends StatelessWidget {
             },
             imageUrl: imageUrl!,
             placeholder: (context, url) => CircleAvatar(
-                  child: Shimmer.fromColors(
-                    baseColor: Colors.transparent,
-                    highlightColor: Colors.white30,
-                    child: const CircleAvatar(),
-                  ),
-                ),
+              child: Shimmer.fromColors(
+                baseColor: Colors.transparent,
+                highlightColor: Colors.white30,
+                child: const CircleAvatar(),
+              ),
+            ),
             errorWidget: (context, url, error) => const CircleAvatar(
-                  child: Icon(Icons.error),
-                ));
+              child: Icon(Icons.error),
+            ),
+          );
   }
 }
