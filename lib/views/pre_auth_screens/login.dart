@@ -22,6 +22,7 @@ class _LoginState extends State<Login> {
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
         return Scaffold(
+          resizeToAvoidBottomInset: true,
           appBar: AppBar(
             elevation: 0.0,
             backgroundColor: Colors.transparent,

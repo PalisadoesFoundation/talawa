@@ -1,16 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/constants.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/models/language/language_model.dart';
-import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/navigation_service.dart';
@@ -97,6 +92,7 @@ Future<void> main() async {
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
   await Hive.openBox('url');
+
   group('Setting Page Screen Widget Test in dark mode', () {
     testWidgets("Testing if Settings Screen shows up", (tester) async {
       await tester.pumpWidget(createChangePassScreenDark());

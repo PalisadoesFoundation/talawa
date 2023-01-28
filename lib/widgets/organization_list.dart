@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -16,6 +18,7 @@ class OrganizationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     model.organizations = [];
+    int noOfRefetch = 0;
     return GraphQLProvider(
       client: ValueNotifier<GraphQLClient>(graphqlConfig.clientToQuery()),
       child: Query(
@@ -34,13 +37,15 @@ class OrganizationList extends StatelessWidget {
           if (result.hasException) {
             final isException = databaseFunctions.encounteredExceptionOrError(
               result.exception!,
-              showSnackBar: false,
+              showSnackBar: noOfRefetch == 0,
             );
             if (isException != null) {
               if (isException) {
                 refetch!();
+                noOfRefetch++;
               } else {
                 refetch!();
+                noOfRefetch++;
               }
             }
           } else {
