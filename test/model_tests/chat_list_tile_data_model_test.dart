@@ -53,13 +53,12 @@ void main() {
           ChatListTileDataModel.fromJson(json);
 
       expect(chatListTileDataModel.id, chatListTileDataModelFromJson.id);
-      checkUsers(chatListTileDataModel.users, chatListTileDataModelFromJson.users);
+      checkUsers(
+          chatListTileDataModel.users, chatListTileDataModelFromJson.users);
     });
 
     test('Test toJson', () {
       final Map<String, dynamic> json = chatListTileDataModel.toJson();
-
-      expect(json['users'], isA<List<ChatUser>>());
 
       expect(json['_id'], chatListTileDataModel.id);
       checkUsers(json['users'] as List<ChatUser>, chatListTileDataModel.users);
