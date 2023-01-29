@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
@@ -89,8 +90,8 @@ Future<void> main() async {
 
       await model.checkURLandNavigate('/', 'arguments');
 
-      verify(navigationService
-          .showSnackBar("URL doesn't exist/no connection please check"));
+      verify(navigationService.showTalawaErrorWidget(
+          "URL doesn't exist/no connection please check"));
     });
 
     testWidgets('Check if scanQR() is working fine', (tester) async {
@@ -123,7 +124,8 @@ Future<void> main() async {
           .onQRViewCreated(controller);
     });
 
-    testWidgets('Check if _onQRViewCreated() is working fine when throws',
+    testWidgets(
+        'Check if _onQRViewCreated() is working fine when throws CameraException',
         (tester) async {
       await tester.pumpWidget(
         MaterialApp(
@@ -136,8 +138,84 @@ Future<void> main() async {
       when(controller.scannedDataStream).thenAnswer((_) async* {
         yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
       });
-      when(controller.stopCamera()).thenThrow(Exception());
+      // when(controller.stopCamera())
+      //     .thenThrow(Exception({"errorType": "error"}));
 
+      when(controller.stopCamera())
+          .thenThrow(CameraException("200", "cameraException"));
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+    });
+    testWidgets(
+        'Check if _onQRViewCreated() is working fine when throws QrEmbeddedImageException',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
+      });
+      // when(controller.stopCamera())
+      //     .thenThrow(Exception({"errorType": "error"}));
+
+      when(controller.stopCamera())
+          .thenThrow(QrEmbeddedImageException("error"));
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+    });
+    testWidgets(
+        'Check if _onQRViewCreated() is working fine when throws QrUnsupportedVersionException',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
+      });
+      // when(controller.stopCamera())
+      //     .thenThrow(Exception({"errorType": "error"}));
+
+      when(controller.stopCamera()).thenThrow(QrUnsupportedVersionException(0));
+      await tester.tap(find.byType(FloatingActionButton));
+      await tester.pump();
+
+      (tester.widget(find.byType(QRView)) as QRView)
+          .onQRViewCreated(controller);
+    });
+    testWidgets(
+        'Check if _onQRViewCreated() is working fine when throws Exception',
+        (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: TestWidget(model),
+          navigatorKey: navigationService.navigatorKey,
+        ),
+      );
+
+      final controller = MockQRViewController();
+      when(controller.scannedDataStream).thenAnswer((_) async* {
+        yield Barcode('qr?orgId=1&scan', BarcodeFormat.qrcode, null);
+      });
+      // when(controller.stopCamera())
+      //     .thenThrow(Exception({"errorType": "error"}));
+
+      when(controller.stopCamera()).thenThrow(Exception(0));
       await tester.tap(find.byType(FloatingActionButton));
       await tester.pump();
 

@@ -9,6 +9,11 @@
 .history
 .svn/
 
+# Ignore Google services configuration files
+google-services.json
+GoogleService-Info.plist
+firebase_app_id_file.json
+
 # Sphinx documentation
 docs/_build/
 

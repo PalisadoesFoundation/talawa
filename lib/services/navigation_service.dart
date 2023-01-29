@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:talawa/widgets/talawa_error_dialog.dart';
+import 'package:talawa/widgets/talawa_error_widget.dart';
+
 class NavigationService {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -59,6 +62,31 @@ class NavigationService {
         duration: duration,
         content: Text(message),
       ),
+    );
+  }
+
+  void showTalawaErrorWidget(
+    String errorMessage, {
+    Duration duration = const Duration(seconds: 2),
+  }) {
+    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(SnackBar(
+      padding: EdgeInsets.zero,
+      content: TalawaErrorWidget(
+        errorMessage: errorMessage,
+      ),
+      // backgroundColor: Colors.grey,
+      backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
+    ));
+  }
+
+  void showTalawaErrorDialog(String errorMessage) {
+    showDialog(
+      context: navigatorKey.currentContext!,
+      barrierColor: Colors.transparent,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return TalawaErrorDialog(errorMessage);
+      },
     );
   }
 
