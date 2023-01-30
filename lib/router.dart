@@ -12,6 +12,7 @@ import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/views/after_auth_screens/app_settings/app_settings_page.dart';
 import 'package:talawa/views/after_auth_screens/chat/chat_message_screen.dart';
+import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_event_page.dart';
 import 'package:talawa/views/after_auth_screens/events/event_calendar.dart';
@@ -226,6 +227,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           task: task,
         ),
       );
+    case Routes.selectContact:
+      return MaterialPageRoute(
+          builder: (context) => const SelectContact(key: Key('selectContact')));
     default:
       return MaterialPageRoute(
         builder: (context) => const DemoPageView(
