@@ -22,6 +22,7 @@ class DirectChatViewModel extends BaseModel {
 
   final Set<String> _uniqueChatIds = {};
   final List<ChatListTileDataModel> _chats = [];
+
   List<ChatListTileDataModel> get chats => _chats;
 
   final Map<String, List<ChatMessage>> _chatMessagesByUser = {};
@@ -90,8 +91,7 @@ class DirectChatViewModel extends BaseModel {
   void chatName(chatId) {
     late final List<ChatUser> users;
     try {
-      users =
-      _chats.firstWhere((element) => element.id == chatId).users!;
+      users = _chats.firstWhere((element) => element.id == chatId).users!;
     } on StateError {
       users = [];
     }

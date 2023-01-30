@@ -62,7 +62,8 @@ void main() {
     });
 
     test('Test sendMessageToDirectChat', () async {
-      final future = directChatViewModel.sendMessageToDirectChat('123', 'content');
+      final future =
+          directChatViewModel.sendMessageToDirectChat('123', 'content');
       expect(directChatViewModel.chatState, ChatState.loading);
       await future;
       expect(directChatViewModel.chatMessagesByUser, {});
