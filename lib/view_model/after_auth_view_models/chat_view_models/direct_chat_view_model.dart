@@ -86,9 +86,15 @@ class DirectChatViewModel extends BaseModel {
     super.dispose();
   }
 
+  // ignore_for_file: avoid_catching_errors
   void chatName(chatId) {
-    final List<ChatUser> users =
-        _chats.firstWhere((element) => element.id == chatId).users!;
+    late final List<ChatUser> users;
+    try {
+      users =
+      _chats.firstWhere((element) => element.id == chatId).users!;
+    } on StateError {
+      users = [];
+    }
 
     users.forEach((element) {
       if (element.id != userConfig.currentUser.id!) {
