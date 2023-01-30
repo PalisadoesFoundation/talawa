@@ -70,6 +70,11 @@ void main() {
       expect(directChatViewModel.chatState, ChatState.complete);
     });
 
+    test('Test dispose', () async {
+      await directChatViewModel.initialise();
+      directChatViewModel.dispose();
+    });
+
     test('Test chatName', () {
       final chats = directChatViewModel.chats;
       directChatViewModel.chatName('123');
