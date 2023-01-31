@@ -3,9 +3,19 @@ import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+// late String sId;
+// String? description;
+// DateTime? createdAt;
+// String? imageUrl;
+// String? videoUrl;
+// User? creator;
+// OrgInfo? organization;
+// List<LikedBy>? likedBy;
+// List<Comments>? comments;
+
 void main() {
   group('Test Post model', () {
-    final ayushBirthday = DateTime.utc(2004, DateTime.june, 16);
+    final myBirthday = DateTime.utc(2004, DateTime.june, 16);
     test('Test Post model', () {
       final comment = Post(
         creator: User(
@@ -15,10 +25,8 @@ void main() {
           email: 'test@test.com',
         ),
         sId: "sid",
-        createdAt: ayushBirthday,
-        text: 'test text',
-        post: 'test post',
-        likeCount: 'test count',
+        createdAt: myBirthday,
+        description: 'test description',
       );
       final commentJson = {
         'creator': {
