@@ -185,7 +185,7 @@ void main() {
 
     test('Check if Hive storage works', () async {
       Hive
-        ..init("./data")
+        ..init("./temporaryPath")
         ..registerAdapter(UserAdapter())
         ..registerAdapter(OrgInfoAdapter());
 
