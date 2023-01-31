@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -42,7 +41,7 @@ void main() {
 
       final eventJson = {
         'creator': {
-          'id': '123',
+          '_id': '123',
           'firstName': 'Ayush',
           'lastName': 'Chaudhary',
           'email': 'test@test.com',
@@ -64,15 +63,22 @@ void main() {
         'isPublic': true,
         'isRegistered': true,
         'isRegisterable': true,
-        'organization': {'admin': {}},
-        'admins': [
-          {
+        'organization': {
+          'admin': {
             'id': '123',
             'firstName': 'Ayush',
             'lastName': 'Chaudhary',
             'email': 'test@test.com',
           },
-          {
+        },
+        'admins': [
+          <String, dynamic>{
+            'id': '123',
+            'firstName': 'Ayush',
+            'lastName': 'Chaudhary',
+            'email': 'test@test.com',
+          },
+          <String, dynamic>{
             'id': '123',
             'firstName': 'Aykkush',
             'lastName': 'Chaudhary',
@@ -80,23 +86,46 @@ void main() {
           },
         ],
         'registrants': [
-          {
-            {'id': "fakeUser1"},
-            {'id': "fakeUser2"}
-          }
-        ]
+          <String, dynamic>{
+            'user': {
+              'id': '123',
+              'firstName': 'Ayush',
+              'lastName': 'Chaudhary',
+              'email': 'test@test.com',
+            }
+          },
+          <String, dynamic>{
+            'user': {
+              'id': '123',
+              'firstName': 'Aykkush',
+              'lastName': 'Chaudhary',
+              'email': 'test@test.com',
+            }
+          },
+        ],
       };
       final eventFromJson = Event.fromJson(eventJson);
 
-      // final commentFromJson = Comment.fromJson(commentJson);
-      // expect(comment.creator?.id, commentFromJson.creator?.id);
-      // expect(comment.creator?.firstName, commentFromJson.creator?.firstName);
-      // expect(comment.creator?.lastName, commentFromJson.creator?.lastName);
-      // expect(comment.creator?.email, commentFromJson.creator?.email);
-      // expect(comment.createdAt, commentFromJson.createdAt);
-      // expect(comment.text, commentFromJson.text);
-      // expect(comment.post, commentFromJson.post);
-      // expect(comment.likeCount, commentFromJson.likeCount);
+      expect(event.creator?.id, eventFromJson.creator?.id);
+      expect(event.creator?.firstName, eventFromJson.creator?.firstName);
+      expect(event.creator?.lastName, eventFromJson.creator?.lastName);
+      expect(event.creator?.email, eventFromJson.creator?.email);
+      expect(event.title, eventFromJson.title);
+      expect(event.id, eventFromJson.id);
+      expect(event.description, eventFromJson.description);
+      expect(event.attendees, eventFromJson.attendees);
+      expect(event.location, eventFromJson.location);
+      expect(event.latitude, eventFromJson.latitude);
+      expect(event.longitude, eventFromJson.longitude);
+      expect(event.recurring, eventFromJson.recurring);
+      expect(event.allDay, eventFromJson.allDay);
+      expect(event.startDate, eventFromJson.startDate);
+      expect(event.startTime, eventFromJson.startTime);
+      expect(event.endTime, eventFromJson.endTime);
+      expect(event.recurrence, eventFromJson.recurrence);
+      expect(event.isPublic, eventFromJson.isPublic);
+      expect(event.isRegistered, eventFromJson.isRegistered);
+      expect(event.isRegisterable, eventFromJson.isRegisterable);
     });
   });
 }
