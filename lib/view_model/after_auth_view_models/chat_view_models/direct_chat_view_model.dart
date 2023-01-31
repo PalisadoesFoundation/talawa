@@ -18,7 +18,7 @@ class DirectChatViewModel extends BaseModel {
 
   ChatState chatState = ChatState.initial;
 
-  late String name;
+  String? name;
 
   final Set<String> _uniqueChatIds = {};
   final List<ChatListTileDataModel> _chats = [];
@@ -36,12 +36,6 @@ class DirectChatViewModel extends BaseModel {
     _chatService.getDirectChatsByUserId();
   }
 
-  void printChats() {
-    _chats.forEach((chat) {
-      print(chat.users![0].firstName);
-    });
-  }
-
   Future<void> initialise() async {
     setState(ViewState.busy);
     chatState = ChatState.loading;
@@ -55,15 +49,20 @@ class DirectChatViewModel extends BaseModel {
     setState(ViewState.idle);
   }
 
+  @visibleForTesting
+  late final List<ChatMessage> messages;
+
   Future<void> getChatMessages(String chatId) async {
     _chatMessagesByUser.clear();
     chatState = ChatState.loading;
     // await _chatService.getMessagesFromDirectChat();
     await _chatService.getDirectChatMessagesByChatId(chatId);
     final List<ChatMessage> _messages = [];
+    messages = _messages;
     _chatMessageSubscription =
         _chatService.chatMessagesStream.listen((newMessage) {
       _messages.add(newMessage);
+      messages = _messages;
       _chatMessagesByUser[chatId] = _messages;
     });
     chatState = ChatState.complete;
@@ -98,7 +97,7 @@ class DirectChatViewModel extends BaseModel {
 
     users.forEach((element) {
       if (element.id != userConfig.currentUser.id!) {
-        name = element.firstName!;
+        name = element.firstName;
       }
     });
   }

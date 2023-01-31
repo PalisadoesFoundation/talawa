@@ -37,12 +37,6 @@ void main() {
       expect(directChatViewModel.chats, []);
     });
 
-    test('Test printChats', () {
-      final chats = directChatViewModel.chats;
-      directChatViewModel.printChats();
-      expect(directChatViewModel.chats, equals(chats));
-    });
-
     test('Test initialise', () async {
       final chats = directChatViewModel.chats;
       final future = directChatViewModel.initialise();
@@ -57,7 +51,9 @@ void main() {
       expect(directChatViewModel.chatMessagesByUser, {});
       expect(directChatViewModel.chatState, ChatState.loading);
       await future;
+      expect(directChatViewModel.messages, []);
       expect(directChatViewModel.chatMessagesByUser, {});
+      expect(directChatViewModel.chatMessagesByUser['123'], null);
       expect(directChatViewModel.chatState, ChatState.complete);
     });
 
@@ -67,6 +63,7 @@ void main() {
       expect(directChatViewModel.chatState, ChatState.loading);
       await future;
       expect(directChatViewModel.chatMessagesByUser, {});
+      expect(directChatViewModel.chatMessagesByUser['123'], null);
       expect(directChatViewModel.chatState, ChatState.complete);
     });
 
@@ -79,6 +76,7 @@ void main() {
       final chats = directChatViewModel.chats;
       directChatViewModel.chatName('123');
       expect(directChatViewModel.chats, chats);
+      expect(directChatViewModel.name, null);
     });
   });
 }
