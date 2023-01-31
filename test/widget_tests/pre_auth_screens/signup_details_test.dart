@@ -46,6 +46,7 @@ Future<void> showSignUpScreen(tester) async {
 
 void main() {
   SizeConfig().test();
+
   testSetupLocator();
 
   group('Test For SignUp Screen', () {
