@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -203,6 +205,9 @@ void main() {
       expect(loadedUserInfo.email, "ravidisheikh@test.com");
       expect(loadedUserInfo.image, "https://testimg.com");
       expect(loadedUserInfo.authToken, " ");
+
+      File('temporaryPath/userinfo.hive').delete();
+      File('temporaryPath/userinfo.lock').delete();
     });
   });
 }
