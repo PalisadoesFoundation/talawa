@@ -13,6 +13,9 @@ name: PR Workflow
 on:
   pull_request:
 
+env:
+    CODECOV_UNIQUE_NAME: CODECOV_UNIQUE_NAME-${{ github.run_id }}-${{ github.run_number }}
+   
 jobs:
   Flutter-Codebase-Check:
     name: Checking codebase
@@ -20,11 +23,13 @@ jobs:
     #needs: PR-Greeting
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-java@v3
         with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '12.0'          
+      - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.0.0'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
@@ -79,25 +84,29 @@ jobs:
     needs: Flutter-Codebase-Check
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-java@v3
         with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '12.0'          
+      - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.0.0'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
         run: flutter test --coverage
-      - name: Present current coverage in PR
+      - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
         uses: codecov/codecov-action@v3
         with:
           verbose: true
+          fail_ci_if_error: true
+          name: '${{env.CODECOV_UNIQUE_NAME}}'  
       - name: Test acceptable level of code coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
             path: './coverage/lcov.info'
-            min_coverage: 68.4
+            min_coverage: 71.8
             
   Android-Build:
     name: Testing build for android
@@ -105,11 +114,13 @@ jobs:
     needs: Flutter-Codebase-Check
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-java@v3
         with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '12.0'          
+      - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.0.0'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
@@ -124,6 +135,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.0.0'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
           architecture: x64
       - name: Building for ios

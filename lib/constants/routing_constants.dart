@@ -31,4 +31,5 @@ class Routes {
   static const String userTasks = '/user_tasks';
   static const String addTask = '/addTask';
   static const String editTask = '/editTask';
+  static const String selectContact = '/selectContact';
 }
