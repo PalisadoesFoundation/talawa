@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/locator.dart';
@@ -50,7 +52,10 @@ class DataBaseMutationFunctions {
     if (exception.linkException != null) {
       debugPrint(exception.linkException.toString());
       if (showSnackBar) {
-        navigationService.showSnackBar("Server not running/wrong url");
+        Timer(const Duration(seconds: 2), () {
+          navigationService
+              .showTalawaErrorDialog("Server not running/wrong url");
+        });
       }
       return false;
     }

@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  auto_size_text:
+    dependency: "direct main"
+    description:
+      name: auto_size_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -342,6 +349,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.0"
+  flutter_braintree:
+    dependency: "direct main"
+    description:
+      name: flutter_braintree
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.1"
   flutter_cache_manager:
     dependency: transitive
     description:

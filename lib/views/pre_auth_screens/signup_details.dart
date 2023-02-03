@@ -26,6 +26,8 @@ class _SignUpDetailsState extends State<SignUpDetails> {
       onModelReady: (model) => model.initialise(widget.selectedOrg),
       builder: (context, model, child) {
         return Scaffold(
+          resizeToAvoidBottomInset:
+              true, // To allow the keyboard to not overlap the form
           extendBodyBehindAppBar: true,
           appBar: AppBar(
             elevation: 0.0,
@@ -67,6 +69,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               ),
                               //Input field for the first name of the user.
                               TextFormField(
+                                key: const Key('FirstNameInputField'),
                                 controller: model.firstName,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
@@ -106,6 +109,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               ),
                               //Input field for the last name of the user.
                               TextFormField(
+                                key: const Key('LastNameInputField'),
                                 controller: model.lastName,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.text,
@@ -143,6 +147,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               ),
                               //Input field for the email of the user.
                               TextFormField(
+                                key: const Key('signUpEmailField'),
                                 controller: model.email,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.emailAddress,
@@ -175,6 +180,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               ),
                               //Input field for the password of the user.
                               TextFormField(
+                                key: const Key('signuppassword'),
                                 controller: model.password,
                                 textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.visiblePassword,

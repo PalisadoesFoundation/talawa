@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
@@ -102,8 +103,10 @@ class SetUrlViewModel extends BaseModel {
         graphqlConfig.getOrgUrl();
         navigationService.pushScreen(navigateTo, arguments: argument);
       } else {
-        navigationService
-            .showSnackBar("URL doesn't exist/no connection please check");
+        // navigationService
+        //     .showSnackBar("URL doesn't exist/no connection please check");
+        navigationService.showTalawaErrorWidget(
+            "URL doesn't exist/no connection please check");
       }
     }
   }
@@ -183,9 +186,19 @@ class SetUrlViewModel extends BaseModel {
           graphqlConfig.getOrgUrl();
           Navigator.pop(navigationService.navigatorKey.currentContext!);
           navigationService.pushScreen('/selectOrg', arguments: orgId);
+        } on CameraException catch (e) {
+          debugPrint(e.toString());
+          navigationService.showTalawaErrorWidget("The Camera is not working");
+        } on QrEmbeddedImageException catch (e) {
+          debugPrint(e.toString());
+          navigationService.showTalawaErrorDialog("The QR is not Working");
+        } on QrUnsupportedVersionException catch (e) {
+          debugPrint(e.toString());
+          navigationService
+              .showTalawaErrorDialog("This QR version is not Supported.");
         } on Exception catch (e) {
-          print(e);
-          print('invalid app qr');
+          debugPrint(e.toString());
+          navigationService.showTalawaErrorWidget("This QR is not for the App");
         }
       }
     });

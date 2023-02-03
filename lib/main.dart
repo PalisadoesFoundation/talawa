@@ -85,6 +85,7 @@ Future<void> main() async {
     ..init(dir.path)
     ..registerAdapter(UserAdapter())
     ..registerAdapter(OrgInfoAdapter());
+
   await Hive.openBox<User>('currentUser');
   await Hive.openBox<OrgInfo>('currentOrg');
 
@@ -144,8 +145,8 @@ class _MyAppState extends State<MyApp> {
     // we need to do some sort of initialization work like
     // registering a listener because, unlike build(), this method is called once.
     initQuickActions();
-    super.initState();
     FetchPluginList();
+    super.initState();
   }
 
   // It allows to manage and interact with the application’s home screen quick actions.

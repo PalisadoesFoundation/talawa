@@ -18,7 +18,7 @@ class TalawaPluginProvider extends StatelessWidget {
   ///visible is the property that decides visibility of the UI.
   final bool visible;
 
-  ///name of plugin preferred with underscores(_) insted of spaces
+  ///name of plugin preferred with underscores(_) instead of spaces
   final String pluginName;
 
   ///return `bool` decides the final visibility of the verifying from database and current OrgId
@@ -27,7 +27,8 @@ class TalawaPluginProvider extends StatelessWidget {
     final Box box;
     bool res = false;
     box = Hive.box('pluginBox');
-    final pluginList = box.get('plugins');
+    var pluginList = box.get('plugins');
+    pluginList ??= []; // if null then make it  []
 
     ///mapping over the list from the server
     pluginList
@@ -51,6 +52,6 @@ class TalawaPluginProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     var serverVisible = false;
     serverVisible = checkFromPluginList();
-    return Visibility(visible: serverVisible || visible, child: child!);
+    return serverVisible || visible ? child! : Container();
   }
 }
