@@ -4,7 +4,7 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/edit_event_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/edit_events_form.dart';
 
-import '../../helpers/test_helpers.dart';
+import '../../../helpers/test_helpers.dart';
 
 Widget createEditEventForm(EditEventViewModel model) =>
     MaterialApp(home: Scaffold(body: EditEventForm(model: model)));

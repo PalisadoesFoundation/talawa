@@ -236,6 +236,12 @@ Future<void> main() async {
             .scaffoldBackgroundColor,
         TalawaTheme.darkTheme.scaffoldBackgroundColor,
       );
+      File('temporaryPath/currentorg.hive').delete();
+      File('temporaryPath/currentorg.lock').delete();
+      File('temporaryPath/currentuser.hive').delete();
+      File('temporaryPath/currentuser.lock').delete();
+      File('temporaryPath/url.hive').delete();
+      File('temporaryPath/url.lock').delete();
     });
   });
 }
