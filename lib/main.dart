@@ -56,6 +56,7 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 /// This is the main function
 Future<void> main() async {
+  // Returns an instance of the binding that implements WidgetsBinding.
   WidgetsFlutterBinding.ensureInitialized();
 
   if (!kIsWeb) {
@@ -101,6 +102,7 @@ Future<void> main() async {
   }
 
   setupLocator();
+  // The runApp() function takes the given Widget and makes it the root of the widget tree.
   runApp(MyApp());
 }
 
@@ -131,17 +133,23 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
+/// The _MyAppState class extends the State.
+/// All the coding related to state updation is inside this class.
 class _MyAppState extends State<MyApp> {
   final quickActions = const QuickActions();
   late int mainScreenQuickActionindex = 0;
   @override
   void initState() {
-    // TODO: implement initState
+    // initState() is a method that is called once when the Stateful Widget
+    // is inserted in the widget tree. We generally override this method if
+    // we need to do some sort of initialization work like
+    // registering a listener because, unlike build(), this method is called once.
     initQuickActions();
     FetchPluginList();
     super.initState();
   }
 
+  // It allows to manage and interact with the application’s home screen quick actions.
   initQuickActions() async {
     final bool userLoggedIn = await userConfig.userLoggedIn();
     if (userLoggedIn &&
@@ -159,6 +167,8 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  // The build method is called any time you call setState ,your widget's
+  // dependencies update, or any of the parent widgets are rebuilt.
   @override
   Widget build(BuildContext context) {
     return BaseView<AppLanguage>(
@@ -224,6 +234,8 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
+/// PageView is a scrollable list that works page by page.
+/// DemoPageView is demo PageView of Talawa Mobile App.
 class DemoPageView extends StatelessWidget {
   const DemoPageView({required Key key}) : super(key: key);
 
@@ -244,6 +256,9 @@ class DemoPageView extends StatelessWidget {
   }
 }
 
+/// ViewModel uses property-based data binding to establish a connection
+/// between the ViewModel and the View, and drives the View changes
+/// through the ViewModel. DemoViewModel is the ViewModel for DemoPageView.
 class DemoViewModel extends BaseModel {
   final String _title = "Title from the viewMode GSoC branch";
   String get title => _title;

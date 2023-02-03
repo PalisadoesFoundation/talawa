@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 
+/// SizeConfig class is used to initialise the height and width of the media.
 class SizeConfig {
+  // variables
   static late MediaQueryData _mediaQueryData;
   static double? screenWidth;
   static double? screenHeight;
@@ -13,6 +15,7 @@ class SizeConfig {
   static double? safeBlockHorizontal;
   static double? safeBlockVertical;
 
+  // function to initialise the width and height.
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
     screenWidth = _mediaQueryData.size.width;

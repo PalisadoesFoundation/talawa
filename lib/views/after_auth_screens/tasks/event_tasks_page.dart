@@ -5,6 +5,7 @@ import 'package:talawa/view_model/after_auth_view_models/task_view_models/explor
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/task_schedule.dart';
 
+/// EventTasksPage return a widget for Event Task Page that is created by event creator.
 class EventTasksPage extends StatelessWidget {
   const EventTasksPage({Key? key, required this.eventId}) : super(key: key);
 
@@ -22,6 +23,7 @@ class EventTasksPage extends StatelessWidget {
             appBar: AppBar(
               title: const Text('Event Tasks'),
             ),
+            // TaskSchedule is custom widget.
             body: TaskSchedule(tasks: tasks),
             floatingActionButton: FloatingActionButton(
               onPressed: () async {

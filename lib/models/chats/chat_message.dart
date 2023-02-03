@@ -3,6 +3,8 @@ import 'package:talawa/models/chats/chat_user.dart';
 part 'chat_message.g.dart';
 
 @JsonSerializable()
+
+/// This class creates JSON code for chat message using the JsonSerializable package.
 class ChatMessage {
   ChatMessage(
     this.id,
@@ -10,9 +12,12 @@ class ChatMessage {
     this.messageContent,
     this.receiver,
   );
-
+  // Connect the generated [_$ChatMessageFromJson] function to the `fromJson`
+  // factory.
   factory ChatMessage.fromJson(Map<String, dynamic> json) =>
       _$ChatMessageFromJson(json);
+
+  // Connect the generated [_$ChatMessageToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$ChatMessageToJson(this);
 
   String? id;

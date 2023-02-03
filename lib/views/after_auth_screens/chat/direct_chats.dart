@@ -5,6 +5,8 @@ import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
+/// DirectChats return a statelessWidget for rendering all the directs
+/// chats of the current user in the Chat List Screen
 class DirectChats extends StatelessWidget {
   const DirectChats({Key? key}) : super(key: key);
 
@@ -28,6 +30,7 @@ class DirectChats extends StatelessWidget {
   }
 }
 
+/// ChatTile return a widget for a tile in the list of Direct Chats in the Chat List Screen.
 class ChatTile extends StatelessWidget {
   const ChatTile({Key? key, required this.chat, required this.model})
       : super(key: key);

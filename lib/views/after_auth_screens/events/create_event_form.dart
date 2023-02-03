@@ -6,16 +6,20 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
+/// CreateEventForm returns a widget of a Form for creating events in the organization.
+/// This widget is used in CreateEventPage widget.
 class CreateEventForm extends StatelessWidget {
   const CreateEventForm({Key? key, required this.model}) : super(key: key);
   final CreateEventViewModel model;
   @override
   Widget build(BuildContext context) {
+    // Form class is a container for grouping together multiple form field widgets.
     return Form(
       key: model.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Text field for event title.
           TextFormField(
             textInputAction: TextInputAction.next,
             controller: model.eventTitleTextController,
@@ -24,6 +28,7 @@ class CreateEventForm extends StatelessWidget {
             focusNode: model.titleFocus,
             validator: (value) => Validator.validateEventForm(value!, 'Title'),
             decoration: InputDecoration(
+              // placeholder of the text field
               labelText: 'Add Event Title',
               isDense: true,
               labelStyle: Theme.of(context).textTheme.subtitle1,
@@ -46,6 +51,7 @@ class CreateEventForm extends StatelessWidget {
           SizedBox(
             height: SizeConfig.screenHeight! * 0.013,
           ),
+          // Text field for the location.
           TextFormField(
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.streetAddress,
@@ -95,6 +101,7 @@ class CreateEventForm extends StatelessWidget {
           SizedBox(
             height: SizeConfig.screenHeight! * 0.013,
           ),
+          // Text field for event description.
           TextFormField(
             keyboardType: TextInputType.multiline,
             controller: model.eventDescriptionTextController,

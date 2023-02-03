@@ -1,3 +1,4 @@
+///This class creates an langauge model.
 class Language {
   Language({
     required this.countryCode,
