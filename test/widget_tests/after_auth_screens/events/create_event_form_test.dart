@@ -2,25 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
-import 'package:talawa/views/after_auth_screens/events/create_event_form.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/locator.dart';
-import 'package:talawa/router.dart' as router;
-import 'package:talawa/services/size_config.dart';
-import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_form.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/event_date_time_tile.dart';
-import 'package:talawa/widgets/member_name_tile.dart';
 
 import '../../../helpers/test_helpers.dart';
 
@@ -30,7 +20,7 @@ var createEventViewModel = CreateEventViewModel();
 // createEventViewModel.eventTitleTextController = eventTitleTextController;
 
 Widget createCreateEventForm() {
-  var createEventViewModel = CreateEventViewModel();
+  final createEventViewModel = CreateEventViewModel();
   return MaterialApp(
     navigatorKey: locator<NavigationService>().navigatorKey,
     navigatorObservers: [],
@@ -171,114 +161,3 @@ void main() {
     });
   });
 }
-//
-// import 'package:flutter/material.dart';
-// import 'package:flutter_localizations/flutter_localizations.dart';
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:talawa/constants/custom_theme.dart';
-// import 'package:talawa/locator.dart';
-// import 'package:talawa/router.dart' as router;
-// import 'package:talawa/services/navigation_service.dart';
-// import 'package:talawa/services/size_config.dart';
-// import 'package:talawa/utils/app_localization.dart';
-// import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
-// import 'package:talawa/view_model/lang_view_model.dart';
-// import 'package:talawa/views/after_auth_screens/events/create_event_form.dart';
-// import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
-// import 'package:talawa/views/base_view.dart';
-// import 'package:talawa/widgets/event_date_time_tile.dart';
-// import 'package:talawa/widgets/member_name_tile.dart';
-//
-// Widget createEventScreen(
-//         {ThemeMode themeMode = ThemeMode.light, required ThemeData theme}) =>
-//     BaseView<AppLanguage>(
-//         onModelReady: (model) => model.initialize(),
-//         builder: (context, langModel, child) {
-//           return MaterialApp(
-//             locale: const Locale('en'),
-//             localizationsDelegates: [
-//               const AppLocalizationsDelegate(isTest: true),
-//               GlobalMaterialLocalizations.delegate,
-//               GlobalWidgetsLocalizations.delegate,
-//             ],
-//             key: const Key('Root'),
-//             themeMode: themeMode,
-//             theme: theme,
-//             home: const CreateEventPage(
-//               key: Key('CreateEventScreen'),
-//             ),
-//             navigatorKey: navigationService.navigatorKey,
-//             onGenerateRoute: router.generateRoute,
-//           );
-//         });
-// Widget createCreateEventForm() {
-//   var createEventViewModel = CreateEventViewModel();
-//   return MaterialApp(
-//     navigatorKey: locator<NavigationService>().navigatorKey,
-//     navigatorObservers: [],
-//     locale: const Locale('en'),
-//     supportedLocales: [
-//       const Locale('en', 'US'),
-//       const Locale('es', 'ES'),
-//       const Locale('fr', 'FR'),
-//       const Locale('hi', 'IN'),
-//       const Locale('zh', 'CN'),
-//       const Locale('de', 'DE'),
-//       const Locale('ja', 'JP'),
-//       const Locale('pt', 'PT'),
-//     ],
-//     localizationsDelegates: [
-//       const AppLocalizationsDelegate(isTest: true),
-//       GlobalMaterialLocalizations.delegate,
-//       GlobalWidgetsLocalizations.delegate,
-//     ],
-//     home: Scaffold(body: CreateEventForm(model: createEventViewModel)),
-//   );
-// }
-//
-// void main() {
-//   SizeConfig().test();
-//   setupLocator();
-//   graphqlConfig.test();
-//   testWidgets("Testing add button in app bar", (tester) async {
-//     await tester.pumpWidget(createEventScreen(
-//       theme: TalawaTheme.lightTheme,
-//     ));
-//     await tester.pumpAndSettle();
-//     final appBar = find.byType(AppBar);
-//     final addBtn = find.descendant(
-//       of: find.byType(AppBar),
-//       matching: find.byType(TextButton),
-//     );
-//     await tester.tap(addBtn);
-//   });
-//
-//   testWidgets("Test if create event form shows up",
-//       (WidgetTester tester) async {
-//     await tester.runAsync(() async {
-//       await tester.pumpWidget(createCreateEventForm());
-//       await tester.pump();
-//       expect(find.byType(TextFormField), findsNWidgets(3));
-//       expect(
-//           find.descendant(
-//               of: find.byType(Form), matching: find.byType(TextFormField)),
-//           findsNWidgets(3));
-//     });
-//   });
-//
-//   testWidgets("Test if gesture detector is working",
-//       (WidgetTester tester) async {
-//     await tester.runAsync(() async {
-//       await tester.pumpWidget(createCreateEventForm());
-//       await tester.pump();
-//
-//       final gestureDetector = find.byKey(const Key('gesture_cef_test'));
-//       await tester.dragUntilVisible(
-//           gestureDetector, gestureDetector, const Offset(0, 50));
-//       await tester.tap(gestureDetector);
-//       await tester.pump();
-//       expect(find.byKey(const Key('gesture_cef_test')), findsOneWidget);
-//       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
-//     });
-//   });
-// }
