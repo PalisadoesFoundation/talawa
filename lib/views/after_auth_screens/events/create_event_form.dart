@@ -17,6 +17,7 @@ class CreateEventForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
+            key: const Key('create_event_form_tff1'),
             textInputAction: TextInputAction.next,
             controller: model.eventTitleTextController,
             keyboardType: TextInputType.name,
@@ -47,6 +48,7 @@ class CreateEventForm extends StatelessWidget {
             height: SizeConfig.screenHeight! * 0.013,
           ),
           TextFormField(
+            key: const Key('create_event_form_tff2'),
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.streetAddress,
             controller: model.eventLocationTextController,
@@ -61,6 +63,7 @@ class CreateEventForm extends StatelessWidget {
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
               suffix: GestureDetector(
+                key: const Key('gesture_cef_test'),
                 onTap: () => navigationService.pushScreen(
                   Routes.mapScreen,
                   arguments: {
@@ -96,6 +99,7 @@ class CreateEventForm extends StatelessWidget {
             height: SizeConfig.screenHeight! * 0.013,
           ),
           TextFormField(
+            key: const Key('create_event_form_tff3'),
             keyboardType: TextInputType.multiline,
             controller: model.eventDescriptionTextController,
             focusNode: model.descriptionFocus,
