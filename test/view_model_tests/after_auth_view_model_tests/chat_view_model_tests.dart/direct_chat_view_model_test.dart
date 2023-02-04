@@ -51,7 +51,6 @@ void main() {
       expect(directChatViewModel.chatMessagesByUser, {});
       expect(directChatViewModel.chatState, ChatState.loading);
       await future;
-      expect(directChatViewModel.messages, []);
       expect(directChatViewModel.chatMessagesByUser, {});
       expect(directChatViewModel.chatMessagesByUser['123'], null);
       expect(directChatViewModel.chatState, ChatState.complete);

@@ -49,20 +49,15 @@ class DirectChatViewModel extends BaseModel {
     setState(ViewState.idle);
   }
 
-  @visibleForTesting
-  late final List<ChatMessage> messages;
-
   Future<void> getChatMessages(String chatId) async {
     _chatMessagesByUser.clear();
     chatState = ChatState.loading;
     // await _chatService.getMessagesFromDirectChat();
     await _chatService.getDirectChatMessagesByChatId(chatId);
     final List<ChatMessage> _messages = [];
-    messages = _messages;
     _chatMessageSubscription =
         _chatService.chatMessagesStream.listen((newMessage) {
       _messages.add(newMessage);
-      messages = _messages;
       _chatMessagesByUser[chatId] = _messages;
     });
     chatState = ChatState.complete;
