@@ -49,7 +49,7 @@ jobs:
         run: chmod +x ./.github/workflows/documentationcheck.py
       - name: execute py script
         run: |
-          echo ${{GITHUB_REPOSITORY}}
+          echo "${{GITHUB_REPOSITORY}}"
           git branch
           pip install GitPython
           python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
