@@ -53,7 +53,7 @@ jobs:
         run: |
           git branch
           pip install GitPython
-          python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
+          python ./.github/workflows/documentationcheck.py --repository ${{github.repository}}
         env:
           directory: ${{ github.path }}
           actor: ${{ github.actor }}
