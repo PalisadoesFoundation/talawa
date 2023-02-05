@@ -38,7 +38,7 @@ jobs:
           flutter-version: '3.0.0'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Dump github context
-        run:  echo "$GITHUB_CONTEXT"
+        run:  echo "${{ toJson(github) }}"
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Checking for correct formatting of code
