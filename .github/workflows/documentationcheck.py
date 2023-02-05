@@ -136,7 +136,9 @@ def main():
     args = _arg_parser_resolver()
     # Getting the git repo
     repo_feature = git.Repo(args.directory)
-    repo_merge = git.Repo.clone_from("https://github.com/"+args.actor+"/talawa.git", args.directory+"/talawa")
+    #repo_merge = git.Repo.clone_from("https://github.com/"+args.actor+"/talawa.git", args.directory+"/talawa")
+    repo_merge = git.Repo.clone_from("https://github.com/PalisadoesFoundation/talawa.git", args.directory+"/talawa")
+
     # Getting latest commit on latest branch
     commit_dev = repo_merge.commit(args.merge_branch_name)
     # Getting latest commit on feature branch
