@@ -50,6 +50,7 @@ class _TaskFormState extends State<TaskForm> {
         ),
         actions: [
           TextButton(
+            key: const Key('task_form_text_button'),
             onPressed: () async {
               if (!_formKey.currentState!.validate()) return;
               FocusManager.instance.primaryFocus?.unfocus();

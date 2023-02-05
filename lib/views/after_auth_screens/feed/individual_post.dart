@@ -19,6 +19,7 @@ class IndividualPostView extends StatefulWidget {
 
 class _IndividualPostViewState extends State<IndividualPostView> {
   final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +33,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
           children: [
             Expanded(
               child: TextField(
+                key: const Key('indi_post_tf_key'),
                 controller: _controller,
                 textInputAction: TextInputAction.send,
                 onSubmitted: (msg) {
@@ -134,8 +136,9 @@ class IndividualPostCommentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<CommentsViewModel>(
-      onModelReady: (model) {
-        model.initialise(postID);
+      onModelReady: (model) async {
+        await model.initialise(postID);
+        // print(model.commentList.first.creator);
         _commentViewModel = model;
       },
       builder: (context, model, child) => Column(
