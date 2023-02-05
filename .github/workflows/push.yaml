@@ -48,6 +48,8 @@ jobs:
       - name: Granting permission to documentationcheck.py
         run: chmod +x ./.github/workflows/documentationcheck.py
       - name: execute py script
+        # For more information on the GitHub context used for the "--repository" flag used by this script visit:
+        # https://docs.github.com/en/actions/learn-github-actions/contexts
         run: |
           git branch
           pip install GitPython
