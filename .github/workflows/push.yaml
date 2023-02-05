@@ -37,6 +37,8 @@ jobs:
         with:
           flutter-version: '3.0.0'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - name: Dump github context
+        run:  echo "$GITHUB_CONTEXT"
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Checking for correct formatting of code
@@ -49,7 +51,6 @@ jobs:
         run: chmod +x ./.github/workflows/documentationcheck.py
       - name: execute py script
         run: |
-          echo "REPO_NAME=${{ github.event.repository.name }}"
           git branch
           pip install GitPython
           python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
