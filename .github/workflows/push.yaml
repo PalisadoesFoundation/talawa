@@ -54,9 +54,6 @@ jobs:
           git branch
           pip install GitPython
           python ./.github/workflows/documentationcheck.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
-        env:
-          directory: ${{ github.path }}
-          actor: ${{ github.actor }}
 
   Update-Documentation:
     runs-on: ubuntu-latest
