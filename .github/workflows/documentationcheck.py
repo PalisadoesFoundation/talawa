@@ -56,7 +56,7 @@ def _arg_parser_resolver():
         help='Name of the merging to branch')
     # Github repository
     parser.add_argument(
-        '--repository', type=str, required=True',
+        '--repository', type=str, required=True,
         help='Name of the GitHub repository in the format "<USERNAME>/<REPO_NAME>"')
     # getting root directory of repository
     parser.add_argument(
