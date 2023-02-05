@@ -52,7 +52,7 @@ def _arg_parser_resolver():
     parser = argparse.ArgumentParser()
     # getting merge branch name
     parser.add_argument(
-        '--merge_branch_name', type=str, required=False, default='develop',
+        '--merge_branch_name', type=str, required=True,
         help='Name of the merging to branch')
     # Github repository
     parser.add_argument(
