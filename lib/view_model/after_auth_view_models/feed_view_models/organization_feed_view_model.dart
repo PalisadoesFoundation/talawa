@@ -49,7 +49,7 @@ class OrganizationFeedViewModel extends BaseModel {
   }
 
   void initialise() {
-    // For caching/initalizing the current organization after the stream subsciption has canceled and the stream is updated
+    // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
     _currentOrgName = _userConfig.currentOrg.name!;
     // ------
     // Attaching the stream subscription to rebuild the widgets automatically
