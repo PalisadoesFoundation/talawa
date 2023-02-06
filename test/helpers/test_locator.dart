@@ -34,8 +34,6 @@ import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.d
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 
-import '../views/after_auth_screens/events/event_info_body_test.dart';
-
 GetIt locator = GetIt.instance;
 final userConfig = locator<UserConfig>();
 final navigationService = locator<NavigationService>();
