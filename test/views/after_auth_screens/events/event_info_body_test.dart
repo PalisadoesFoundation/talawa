@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -106,7 +105,6 @@ Widget createEventInfoBody({
   );
 }
 
-@GenerateMocks([EventInfoViewModel])
 void main() {
   testSetupLocator();
   // locator<GraphqlConfig>().test();
