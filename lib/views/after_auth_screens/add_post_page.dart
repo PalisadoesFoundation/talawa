@@ -26,12 +26,15 @@ class AddPost extends StatelessWidget {
               ),
         ),
         leading: IconButton(
+          //TODO: showing the null pointer exception
+          key: const Key('add_post_icon_button1'),
           color: Theme.of(context).iconTheme.color,
           icon: const Icon(Icons.menu),
           onPressed: () => drawerKey!.currentState!.openDrawer(),
         ),
         actions: [
           TextButton(
+            key: const Key('add_post_text_btn1'),
             onPressed: () => model.uploadPost(),
             child: Text(
               AppLocalizations.of(context)!.strictTranslate("Post"),
@@ -61,21 +64,25 @@ class AddPost extends StatelessWidget {
               Row(
                 children: <Widget>[
                   IconButton(
+                    key: const Key('add_post_icon_button2'),
                     onPressed: () => model.getImageFromGallery(),
                     icon: const Icon(Icons.photo),
                   ),
                   IconButton(
+                    key: const Key('add_post_icon_button3'),
                     onPressed: () => model.getImageFromGallery(camera: true),
                     icon: const Icon(Icons.camera_alt),
                   ),
                   IconButton(
+                    key: const Key('add_post_icon_button4'),
                     onPressed: () {},
                     icon: const Icon(Icons.file_upload),
                   ),
                   TextButton(
+                    key: const Key('add_post_text_btn2'),
                     onPressed: () {},
                     child: Text(
-                      '# ${AppLocalizations.of(context)!.strictTranslate("Add hasthtag")}',
+                      '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
                       style: Theme.of(context).textTheme.headline6,
                     ),
                   ),
