@@ -42,11 +42,6 @@ jobs:
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
       - uses: actions/checkout@v3
-      - uses: jitterbit/get-changed-files@v1
-        id: abc
-        with:
-          format: space-delimited
-          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Checking doc updated
         run: |
           echo "${{ steps.abc.outputs.added_modified }}"
