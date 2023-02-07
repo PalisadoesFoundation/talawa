@@ -20,6 +20,7 @@ import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/views/main_screen.dart';
 
+import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
@@ -79,6 +80,15 @@ void main() async {
 
   await Hive.openBox('pluginBox');
   await Hive.openBox('url');
+
+  setUp(() {
+    registerServices();
+    locator<SizeConfig>().test();
+  });
+
+  tearDown(() {
+    unregisterServices();
+  });
 
   group("Test for main_screen.dart", () {
     testWidgets("Check if MainScreen shows up", (tester) async {
