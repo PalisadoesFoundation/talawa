@@ -52,12 +52,12 @@ def _arg_parser_resolver():
     parser = argparse.ArgumentParser()
     # getting merge branch name
     parser.add_argument(
-        '--merge_branch_name', type=str, required=False, default='develop',
+        '--merge_branch_name', type=str, required=True,
         help='Name of the merging to branch')
-    # Github actor name
+    # Github repository
     parser.add_argument(
-        '--actor', type=str, required=False, default='palisadoes',
-        help='Name of the github actor running script')
+        '--repository', type=str, required=True,
+        help='Name of the GitHub repository in the format "<USERNAME>/<REPO_NAME>"')
     # getting root directory of repository
     parser.add_argument(
         '--directory', type=str, required=False,
@@ -136,7 +136,9 @@ def main():
     args = _arg_parser_resolver()
     # Getting the git repo
     repo_feature = git.Repo(args.directory)
-    repo_merge = git.Repo.clone_from("https://github.com/"+args.actor+"/talawa.git", args.directory+"/talawa")
+    (_, repository_directory) = args.repository.split("/")
+    repo_merge = git.Repo.clone_from("https://github.com/{}.git".format(args.repository), "{}/{}".format(args.directory, repository_directory))
+
     # Getting latest commit on latest branch
     commit_dev = repo_merge.commit(args.merge_branch_name)
     # Getting latest commit on feature branch
