@@ -75,6 +75,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           width: SizeConfig.screenWidth! * 0.036,
                         ),
                         TextButton(
+                          key: const Key('create_evt_add_img'),
                           onPressed: () => model.getImageFromGallery(),
                           child: Text(
                             AppLocalizations.of(context)!

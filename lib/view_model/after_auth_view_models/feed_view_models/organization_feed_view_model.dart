@@ -59,11 +59,14 @@ class OrganizationFeedViewModel extends BaseModel {
           setCurrentOrganizationName(updatedOrganization.name!),
     );
 
-    _postsSubscription =
-        _postService.postStream.listen((newPosts) => buildNewPosts(newPosts));
+    _postsSubscription = _postService.postStream.listen((newPosts) {
+      print('listener working');
+      return buildNewPosts(newPosts);
+    });
 
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
+    print('initialize working');
   }
 
   void initializeWithDemoData() {
@@ -82,6 +85,8 @@ class OrganizationFeedViewModel extends BaseModel {
 
   void buildNewPosts(List<Post> newPosts) {
     _posts = newPosts;
+    print(newPosts);
+    print('ffffffffffffffffffffffff');
     notifyListeners();
   }
 

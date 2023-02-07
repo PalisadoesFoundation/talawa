@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_form.dart';
@@ -41,6 +45,58 @@ void main() {
   setupLocator();
   graphqlConfig.test();
   group("Create Event Screen Widget Test in dark mode", () {
+    group('Check if the validator of the create_event_form is working', () {
+      testWidgets("Testing if text field validator are working",
+          (tester) async {
+        await tester.pumpWidget(createEventScreen(
+          theme: TalawaTheme.lightTheme,
+        ));
+        await tester.pumpAndSettle();
+        final addBtn = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byType(TextButton),
+        );
+        await tester.tap(addBtn);
+      });
+    });
+
+    testWidgets(
+        'checks if the upload photo from gallery button ad other process are working properly',
+        (tester) async {
+      await tester.pumpWidget(createEventScreen(
+        theme: TalawaTheme.lightTheme,
+      ));
+      await tester.pump();
+
+      /// using the key of icon button
+      /// because their are many icon button
+
+      final finder = find.byKey(const Key('create_evt_add_img'));
+
+      expect(finder, findsOneWidget);
+
+      ///returning the file variable to the
+      ///result of function multimediaPickerService.getPhotoFromGallery
+      ///when this function is called in the
+      ///view model of add_post_page.
+      final file = File('fakePath');
+
+      /// using the new instance of multimediaPickerService
+      /// so that when statement can be used again,
+      /// else it gives null point exception
+      final multimediaPickerService = locator<MultiMediaPickerService>();
+
+      /// when is function provided by mockito lib
+      when(multimediaPickerService.getPhotoFromGallery(camera: false))
+          .thenAnswer((_) async {
+        return file;
+      });
+
+      /// taping the button
+      await tester.tap(finder);
+      await tester.pump();
+    });
+
     testWidgets("Testing if dark mode is applied", (tester) async {
       await tester.pumpWidget(createEventScreen(
         themeMode: ThemeMode.dark,
@@ -421,19 +477,6 @@ void main() {
         await tester.tap(find.text('Choose on map'));
         await tester.pumpAndSettle();
       });
-    });
-  });
-  group('Check if the validator of the create_event_form is working', () {
-    testWidgets("Testing if text field validator are working", (tester) async {
-      await tester.pumpWidget(createEventScreen(
-        theme: TalawaTheme.lightTheme,
-      ));
-      await tester.pumpAndSettle();
-      final addBtn = find.descendant(
-        of: find.byType(AppBar),
-        matching: find.byType(TextButton),
-      );
-      await tester.tap(addBtn);
     });
   });
 }

@@ -123,6 +123,7 @@ class CreateEventViewModel extends BaseModel {
   Future<void> getImageFromGallery({bool camera = false}) async {
     final _image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
+    print(_image);
     if (_image != null) {
       _imageFile = _image;
       notifyListeners();
