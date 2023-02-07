@@ -3,6 +3,9 @@ import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
+/// PinnedPostCarousel class returns a widget for pinned posts in
+/// the slider/carousel on the top of the Home Screen.
+/// Tapping on a post will redirect you to the respective post screen.
 class PinnedPostCarousel extends StatelessWidget {
   const PinnedPostCarousel({
     Key? key,
@@ -11,6 +14,7 @@ class PinnedPostCarousel extends StatelessWidget {
     required this.navigateToIndividualPostPage,
   }) : super(key: key);
 
+  // variables
   final List<Post> pinnedPosts;
   final Function navigateToPinnedPostPage;
   final Function navigateToIndividualPostPage;
@@ -29,6 +33,9 @@ class PinnedPostCarousel extends StatelessWidget {
             navigateToIndividualPostPage: navigateToIndividualPostPage,
           ),
         ),
+        // Gesture Detector in Flutter is used to detect the user's gestures on the application.
+        // It is a non-visual widget. Inside the gesture detector, another widget is placed and
+        // the gesture detector will capture all these events (gestures) and execute the tasks accordingly.
         GestureDetector(
           onTap: () => navigateToPinnedPostPage(),
           child: Container(
@@ -80,13 +87,17 @@ class CustomCarouselScroller extends StatefulWidget {
   CustomCarouselScrollerState createState() => CustomCarouselScrollerState();
 }
 
+/// CustomCarouselScrollerState class return a widget that is
+/// used to generate slider for pinned post on the top of the Home Screen.
 @visibleForTesting
 class CustomCarouselScrollerState extends State<CustomCarouselScroller> {
+  // variables
   final PageController controller = PageController(initialPage: 0);
   int pindex = 0;
 
   @override
   Widget build(BuildContext context) {
+    // Stack is a widget that positions its children relative to the edges of its box.
     return Stack(
       children: [
         Padding(

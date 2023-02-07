@@ -5,6 +5,11 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
+/// EditEventViewModel class have methods to interact with model in
+/// the context of editing the event in the organization.
+///
+/// Methods include:
+/// * `updateEvent` : to update an event.
 class EditEventViewModel extends BaseModel {
   late Event _event;
   TextEditingController eventTitleTextController = TextEditingController();
@@ -26,11 +31,13 @@ class EditEventViewModel extends BaseModel {
   final _eventService = locator<EventService>();
   AutovalidateMode validate = AutovalidateMode.disabled;
 
+  // initialiser, invoke `_fillEditForm` function.
   initialize(Event event) {
     _event = event;
     _fillEditForm();
   }
 
+  /// This function initialises the controller with the data.
   void _fillEditForm() {
     eventTitleTextController.text = _event.title!;
     eventLocationTextController.text = _event.location!;
@@ -45,6 +52,8 @@ class EditEventViewModel extends BaseModel {
         TimeOfDay.fromDateTime(DateFormat("h:mm a").parse(_event.endTime!));
   }
 
+  /// This function is used to update an event.
+  /// The function uses `editEvent` function provided by `eventService` service.
   Future<void> updateEvent() async {
     titleFocus.unfocus();
     locationFocus.unfocus();
@@ -66,6 +75,7 @@ class EditEventViewModel extends BaseModel {
         eventEndTime.hour,
         eventEndTime.minute,
       );
+      // map for the required data to update an event.
       final Map<String, dynamic> variables = {
         'title': eventTitleTextController.text,
         'description': eventDescriptionTextController.text,

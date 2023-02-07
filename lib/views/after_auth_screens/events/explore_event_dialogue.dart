@@ -4,12 +4,14 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/date_time_picker.dart';
 
+/// ExploreEventDialog returns a widget that has mutable state _ExploreEventDialogState.
 class ExploreEventDialog extends StatefulWidget {
   const ExploreEventDialog({required Key key}) : super(key: key);
   @override
   _ExploreEventDialogState createState() => _ExploreEventDialogState();
 }
 
+/// _ExploreEventDialogState returns a widget that show explored dialog of the event.
 class _ExploreEventDialogState extends State<ExploreEventDialog> {
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now().add(const Duration(days: 1));
@@ -45,6 +47,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                       });
                     },
                     child: SizedBox(
+                      // SizedBox is a box with a specified size.
                       height: SizeConfig.screenHeight! * 0.07,
                       width: SizeConfig.screenWidth! * 0.36,
                       child: Card(
@@ -60,6 +63,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                               ),
                             ),
                             Expanded(
+                              // shows the start date of the event
                               child: Text(
                                 "${_startDate.toLocal()}".split(' ')[0],
                                 maxLines: 1,
@@ -106,6 +110,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                               ),
                             ),
                             Expanded(
+                              // shows the end date of the event
                               child: Text(
                                 "${_endDate.toLocal()}".split(' ')[0],
                                 maxLines: 1,
@@ -131,6 +136,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
+                  // returns a button to cancel the event dialog
                   child: TextButton(
                     key: const Key('CancelButton'),
                     onPressed: () {
@@ -143,6 +149,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                   ),
                 ),
                 Expanded(
+                  // returns a button to mark the event dialog as done.
                   child: TextButton(
                     key: const Key('DoneButton'),
                     onPressed: () {

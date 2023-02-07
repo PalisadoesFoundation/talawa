@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+/// Creates a custom avatar.
+/// The avatar is created using the image provided,
+/// or the first alphabet with a standard background color.
 class CustomAvatar extends StatelessWidget {
   const CustomAvatar({
     Key? key,
@@ -18,6 +21,7 @@ class CustomAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isImageNull
+        //creating the avatar with the icon-theme color when the image is null
         ? CircleAvatar(
             backgroundColor:
                 Theme.of(context).iconTheme.color!.withOpacity(0.2),
@@ -31,6 +35,7 @@ class CustomAvatar extends StatelessWidget {
               ),
             ),
           )
+        //creating the avatar with the provided image
         : CachedNetworkImage(
             imageBuilder: (context, imageProvider) {
               return CircleAvatar(

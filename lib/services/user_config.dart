@@ -7,7 +7,18 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+/// UserConfig class provides different services in the context of the User.
+///
+/// Services include:
+/// * `userLoggedIn` : helps to make user logged in to the application.
+/// * `updateUserJoinedOrg` : helps to update the user joined organization.
+/// * `updateUserCreatedOrg` : helps to update the user created organization.
+/// * `updateUserMemberRequestOrg` : helps to update the User membership request for the organization.
+/// * `updateUserAdminOrg` : helps to update the Admin of the Organization.
+/// * `updateAccessToken` : helps to update the access token of an user.
+/// * `updateUser` : helps to update the user.
 class UserConfig {
+  // variables
   late User? _currentUser = User(id: 'null', authToken: 'null');
   late OrgInfo? _currentOrg = OrgInfo(name: 'Organization Name', id: 'null');
   late Stream<OrgInfo> _currentOrgInfoStream;
@@ -31,6 +42,7 @@ class UserConfig {
         _currentOrgInfoController.stream.asBroadcastStream();
   }
 
+  /// This function is used to log in the user.
   Future<bool> userLoggedIn() async {
     initialiseStream();
     final boxUser = Hive.box<User>('currentUser');
@@ -40,10 +52,12 @@ class UserConfig {
     _currentOrgInfoController.add(_currentOrg!);
 
     _currentUser = boxUser.get('user');
+    // if there is not currentUser then returns false.
     if (_currentUser == null) {
       _currentUser = User(id: 'null', authToken: 'null');
       return false;
     }
+    // generate access token
     graphqlConfig.getToken().then((value) async {
       databaseFunctions.init();
       try {
@@ -71,26 +85,47 @@ class UserConfig {
     return true;
   }
 
+  /// This function is used to update the user joined organization.
+  ///
+  /// params:
+  /// * [orgDetails] : details of the organization that user joined.
   Future updateUserJoinedOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateJoinedOrg(orgDetails);
     saveUserInHive();
   }
 
+  /// This function is used to update the user created organization.
+  ///
+  /// params:
+  /// * [orgDetails] : details of the organization that user created.
   Future updateUserCreatedOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateCreatedOrg(orgDetails);
     saveUserInHive();
   }
 
+  /// This function is used to update the user request to join the organization.
+  ///
+  /// params:
+  /// * [orgDetails] : details of the organization that user requested to join.
   Future updateUserMemberRequestOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateMemberRequestOrg(orgDetails);
     saveUserInHive();
   }
 
+  /// This function is used to update the organization admin.
+  ///
+  /// params:
+  /// * [orgDetails] : details of the organization.
   Future updateUserAdminOrg(List<OrgInfo> orgDetails) async {
     _currentUser!.updateAdminFor(orgDetails);
     saveUserInHive();
   }
 
+  /// This function is used to updated the access token of the user.
+  ///
+  /// params:
+  /// * [accessToken]
+  /// * [refreshToken]
   Future updateAccessToken({
     required String accessToken,
     required String refreshToken,
@@ -100,6 +135,10 @@ class UserConfig {
     saveUserInHive();
   }
 
+  /// This function is used to update the user details.
+  ///
+  /// params:
+  /// * [updatedUserDetails] : `User` type variable containing all the details of an user need to be updated.
   Future<bool> updateUser(User updatedUserDetails) async {
     try {
       _currentUser = updatedUserDetails;
@@ -113,6 +152,7 @@ class UserConfig {
     }
   }
 
+  // save user in hive.
   saveUserInHive() {
     final box = Hive.box<User>('currentUser');
     if (box.get('user') == null) {
@@ -122,6 +162,7 @@ class UserConfig {
     }
   }
 
+  // save current organization details in hive.
   saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {
     _currentOrg = saveOrgAsCurrent;
     _currentOrgInfoController.add(_currentOrg!);

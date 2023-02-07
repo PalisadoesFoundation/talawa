@@ -4,6 +4,7 @@ import 'package:talawa/view_model/after_auth_view_models/task_view_models/create
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/task_form.dart';
 
+/// EditTaskPage returns a widget for page to edit the task for the user.
 class EditTaskPage extends StatelessWidget {
   const EditTaskPage({required this.task, Key? key}) : super(key: key);
 
@@ -14,6 +15,7 @@ class EditTaskPage extends StatelessWidget {
     return BaseView<CreateTaskViewModel>(
       onModelReady: (model) => model.fillTask(task),
       builder: (context, model, _) {
+        // renders custom widget TaskForm, you can explore TaskForm widget [here](/widgets/task_form.dart).
         return TaskForm(
           onSave: () => model.editTask(task.id),
           title: 'Edit Task',

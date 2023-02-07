@@ -38,8 +38,17 @@ import 'package:talawa/views/pre_auth_screens/set_url.dart';
 import 'package:talawa/views/pre_auth_screens/signup_details.dart';
 import 'package:talawa/views/pre_auth_screens/waiting_to_join_private_org.dart';
 
+/// The MaterialApp provides us with a property called generateRoute where
+/// we can pass in a Function that returns a Route<dynamic> and takes in RouteSettings
+///
+/// Thus for this purpose, we create a function named generateRoute
 Route<dynamic> generateRoute(RouteSettings settings) {
+  // The settings contains the route information of the requested route.
+  // It provides two key things to us: the name, and the arguments.
+  // We use the name to determine which view to return.
   switch (settings.name) {
+
+    // Returns the SplashScreen
     case Routes.splashScreen:
       final int mainScreenIndex = settings.arguments! as int;
       return MaterialPageRoute(
@@ -48,10 +57,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           mainScreenIndex: mainScreenIndex,
         ),
       );
+
+    // Returns the SelectLanguage Widget
     case Routes.languageSelectionRoute:
       return MaterialPageRoute(
         builder: (context) => const SelectLanguage(key: Key('SelectLanguage')),
       );
+
+    // Returns the SetUrl Widget
     case Routes.setUrlScreen:
       final String uri = settings.arguments!.toString();
       return MaterialPageRoute(
@@ -60,10 +73,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           uri: uri,
         ),
       );
+
+    // Returns the Login Widget
     case Routes.loginScreen:
       return MaterialPageRoute(
         builder: (context) => const Login(key: Key('Login')),
       );
+
+    // Returns the SelectOrganization Widget
     case Routes.selectOrgScreen:
       final String id = settings.arguments!.toString();
       return CupertinoPageRoute(
@@ -72,6 +89,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           selectedOrgId: id,
         ),
       );
+
+    // Returns the SignUpDetails Widget
     case Routes.signupDetailScreen:
       final OrgInfo org = settings.arguments! as OrgInfo;
       return CupertinoPageRoute(
@@ -80,22 +99,32 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           selectedOrg: org,
         ),
       );
+
+    // Returns the WaitingPge Widget
     case Routes.waitingScreen:
       return CupertinoPageRoute(
         builder: (context) => const WaitingPage(key: Key('Waiting')),
       );
+
+    // Returns the Recover Widget
     case Routes.recoverScreen:
       return MaterialPageRoute(
         builder: (context) => const Recover(key: Key('Recover')),
       );
+
+    // Returns the ChangePass Widget
     case Routes.updateScreen:
       return MaterialPageRoute(
         builder: (context) => const ChangePass(key: Key('Update')),
       );
+
+    // Returns the OrganizationFeed Widget
     case Routes.homeScreen:
       return MaterialPageRoute(
         builder: (context) => const OrganizationFeed(key: Key('HomeScreen')),
       );
+
+    // Returns the MainScreen Widget
     case Routes.mainScreen:
       final MainScreenArgs mainScreenArgs =
           settings.arguments! as MainScreenArgs;
@@ -106,6 +135,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           mainScreenArgs: mainScreenArgs,
         ),
       );
+
+    // Returns the IndividualPostView Widget
     case Routes.individualPost:
       final Post post = settings.arguments! as Post;
       return MaterialPageRoute(
@@ -114,15 +145,21 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           post: post,
         ),
       );
+
+    // Returns the PinnedPostPgae Widget
     case Routes.pinnedPostPage:
       final List<Post> pinnedPosts = settings.arguments! as List<Post>;
       return MaterialPageRoute(
         builder: (context) => PinnedPostPage(pinnedPosts: pinnedPosts),
       );
+
+    // Returns the ExploreEvents Widget
     case Routes.exploreEventsScreen:
       return MaterialPageRoute(
         builder: (context) => const ExploreEvents(key: Key('ExploreEvents')),
       );
+
+    // Returns the EventInfoPage Widget
     case Routes.eventInfoPage:
       final Map<String, dynamic> args =
           settings.arguments! as Map<String, dynamic>;
@@ -132,18 +169,26 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           args: args,
         ),
       );
+
+    // Returns the CreateEventPage Widget
     case Routes.createEventPage:
       return MaterialPageRoute(
         builder: (context) => const CreateEventPage(key: Key('CreateEvent')),
       );
+
+    // Returns the ProfilePage Widget
     case Routes.profilePage:
       return MaterialPageRoute(
         builder: (context) => const ProfilePage(key: Key('Profile')),
       );
+
+    // Returns the EditProfilePage Widget
     case Routes.editProfilePage:
       return MaterialPageRoute(
         builder: (context) => const EditProfilePage(key: Key('EditProfile')),
       );
+
+    // Returns the JoinOrganizationAfterAuth Widget
     case Routes.joinOrg:
       final String id = settings.arguments!.toString();
       return MaterialPageRoute(
@@ -152,6 +197,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           orgId: id,
         ),
       );
+
+    // Returns the EditEventPage Widget
     case Routes.editEventPage:
       final Event event = settings.arguments! as Event;
       return MaterialPageRoute(
@@ -160,11 +207,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           event: event,
         ),
       );
+
+    // Returns the AppSettingsPage Widget
     case Routes.appSettings:
       return MaterialPageRoute(
         builder: (context) => const AppSettingsPage(key: Key('AppSettings')),
       );
 
+    // Returns the ChatMessageScreen Widget
     case Routes.chatMessageScreen:
       final List<dynamic> arguments = settings.arguments! as List<dynamic>;
       final String chatId = arguments[0] as String;
@@ -176,6 +226,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           model: model,
         ),
       );
+
+    // Returns the MapScreen Widget
     case Routes.mapScreen:
       final arguments = settings.arguments! as Map<String, dynamic>;
       final model = arguments['model'] as CreateEventViewModel?;
@@ -226,6 +278,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           task: task,
         ),
       );
+
+    // Returns the DemoPageView Widget by default
     default:
       return MaterialPageRoute(
         builder: (context) => const DemoPageView(
