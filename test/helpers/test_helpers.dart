@@ -62,7 +62,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<Connectivity>(returnNullOnMissingStub: true),
     MockSpec<SignupDetailsViewModel>(returnNullOnMissingStub: true),
     MockSpec<Post>(returnNullOnMissingStub: true),
-    MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: true),
+    MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: false),
     MockSpec<OrganizationService>(returnNullOnMissingStub: true),
     MockSpec<ExploreEventsViewModel>(returnNullOnMissingStub: true),
     MockSpec<Validator>(returnNullOnMissingStub: true),
@@ -183,6 +183,9 @@ DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions() {
   final service = MockDataBaseMutationFunctions();
   when(service.refreshAccessToken('testtoken')).thenAnswer((_) async {
     return true;
+  });
+  when(service.fetchOrgById('fake_id')).thenAnswer((_) async {
+    return OrgInfo();
   });
   locator.registerSingleton<DataBaseMutationFunctions>(service);
   return service;
