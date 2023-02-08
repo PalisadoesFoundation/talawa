@@ -62,7 +62,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<Connectivity>(returnNullOnMissingStub: true),
     MockSpec<SignupDetailsViewModel>(returnNullOnMissingStub: true),
     MockSpec<Post>(returnNullOnMissingStub: true),
-    MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: false),
+    MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: true),
     MockSpec<OrganizationService>(returnNullOnMissingStub: true),
     MockSpec<ExploreEventsViewModel>(returnNullOnMissingStub: true),
     MockSpec<Validator>(returnNullOnMissingStub: true),
@@ -72,6 +72,25 @@ import 'test_helpers.mocks.dart';
     MockSpec<TaskService>(returnNullOnMissingStub: false),
   ],
 )
+final User member1 = User(id: "testMem1");
+final User member2 = User(id: "testMem2");
+final User admin1 = User(id: "testAdmin1");
+final User admin2 = User(id: "testAdmin2");
+final List<User> members = [member1, member2];
+final List<User> admins = [admin1, admin2];
+
+final fakeOrgInfo = OrgInfo(
+  id: "XYZ",
+  name: "Organization Name",
+  members: members,
+  admins: admins,
+  creatorInfo: User(
+    firstName: "ravidi",
+    lastName: "shaikh",
+  ),
+  isPublic: false,
+);
+
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
     locator.unregister<T>();
@@ -185,7 +204,7 @@ DataBaseMutationFunctions getAndRegisterDatabaseMutationFunctions() {
     return true;
   });
   when(service.fetchOrgById('fake_id')).thenAnswer((_) async {
-    return OrgInfo();
+    return fakeOrgInfo;
   });
   locator.registerSingleton<DataBaseMutationFunctions>(service);
   return service;
@@ -195,12 +214,9 @@ UserConfig getAndRegisterUserConfig() {
   _removeRegistrationIfExists<UserConfig>();
   final service = MockUserConfig();
 
-  final User member1 = User(id: "testMem1");
-  final User member2 = User(id: "testMem2");
-  final User admin1 = User(id: "testAdmin1");
-  final User admin2 = User(id: "testAdmin2");
-  final List<User> members = [member1, member2];
-  final List<User> admins = [admin1, admin2];
+  when(service.userLoggedIn()).thenAnswer(
+    (realInvocation) => Future<bool>.value(false),
+  );
 
   //Mock Data for current organizaiton.
   when(service.currentOrg).thenReturn(

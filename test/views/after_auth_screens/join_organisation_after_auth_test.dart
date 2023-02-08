@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
@@ -43,7 +44,7 @@ void main() {
     unregisterServices();
   });
 
-  group("Tests for JoinOrganizationAfterAuth", () {
+  group("Tests for JoinOrganizationAfterAuth - widgets", () {
     testWidgets(
       "Check if JoinOrganizationsAfterAuth shows up",
       (tester) async {
@@ -51,6 +52,21 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.byType(JoinOrganisationAfterAuth), findsOneWidget);
+      },
+    );
+  });
+
+  group("Tests for JoinOrganizationAfterAuth - methods", () {
+    testWidgets(
+      "Check if scanQR method works",
+      (tester) async {
+        await tester.pumpWidget(createJoinOrgAfterAuth());
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.byIcon(Icons.qr_code_scanner));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(QRView), findsOneWidget);
       },
     );
   });
