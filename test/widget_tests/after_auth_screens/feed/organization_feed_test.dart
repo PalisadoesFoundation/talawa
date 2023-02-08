@@ -13,6 +13,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
+import 'package:talawa/widgets/custom_drawer.dart';
 
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
@@ -146,7 +147,7 @@ void main() {
 
     // final service = MockEventService();
     final service = MockPostService();
-    when(postservice.postStream).thenAnswer((invocation) => _stream);
+    when(postService.postStream).thenAnswer((invocation) => _stream);
     postservice.postStream.listen((event) {
       print(11);
     });
