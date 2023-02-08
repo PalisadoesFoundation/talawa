@@ -88,7 +88,7 @@ void main() {
 
       /// when is function provided by mockito lib
       when(multimediaPickerService.getPhotoFromGallery(camera: false))
-          .thenAnswer((_) async {
+          .qthenAnswer((_) async {
         return file;
       });
 

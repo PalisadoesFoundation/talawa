@@ -146,9 +146,12 @@ void main() {
 
     // final service = MockEventService();
     final service = MockPostService();
-    when(service.postStream).thenAnswer((invocation) => _stream);
-
-    // when(postservice.postStream).thenAnswer((realInvocation) => Stream.of);
+    when(postservice.postStream).thenAnswer((invocation) => _stream);
+    postservice.postStream.listen((event) {
+      print(11);
+    });
+    _streamController.add(posts);
+    // when(postservice.postStream).thenAnswer((realInvocation) => Stream.of<Stream<List<Post>>>(posts));
     await tester.drag(
       find.byType(RefreshIndicator),
       const Offset(0, 200),

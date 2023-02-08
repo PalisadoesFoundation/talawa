@@ -61,6 +61,7 @@ class OrganizationFeedViewModel extends BaseModel {
 
     _postsSubscription = _postService.postStream.listen((newPosts) {
       print('listener working');
+      print(newPosts);
       return buildNewPosts(newPosts);
     });
 
