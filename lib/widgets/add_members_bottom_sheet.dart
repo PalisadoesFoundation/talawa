@@ -39,6 +39,7 @@ class EventBottomSheet {
                         style: const TextStyle(fontSize: 16),
                       ),
                       TextButton(
+                        key: const Key('text_btn_ambs1'),
                         onPressed: () {
                           model.buildUserList(isAdmin: isAdmin);
                           Navigator.pop(context);

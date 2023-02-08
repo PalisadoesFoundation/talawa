@@ -75,6 +75,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           width: SizeConfig.screenWidth! * 0.036,
                         ),
                         TextButton(
+                          key: const Key('txt_btn_cep'),
                           onPressed: () => model.getImageFromGallery(),
                           child: Text(
                             AppLocalizations.of(context)!
@@ -162,6 +163,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       height: SizeConfig.screenHeight! * 0.013,
                     ),
                     DateTimeTile(
+                      key: const Key('key for test cep'),
                       date: "${model.eventEndDate.toLocal()}".split(' ')[0],
                       time: model.eventEndTime.format(context),
                       setDate: () async {
@@ -259,6 +261,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     SizedBox(height: SizeConfig.screenHeight! * 0.026),
                     const Divider(),
                     InkWell(
+                      key: const Key('inwell_cep1'),
                       onTap: () {
                         EventBottomSheet().addUserBottomSheet(
                           context: context,
@@ -297,6 +300,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     SizedBox(height: SizeConfig.screenHeight! * 0.026),
                     const Divider(),
                     InkWell(
+                      key: const Key('inwell_cep2'),
                       onTap: () {
                         EventBottomSheet().addUserBottomSheet(
                           context: context,

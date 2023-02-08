@@ -95,6 +95,23 @@ OrganizationService getAndRegisterOrganizationService() {
   _removeRegistrationIfExists<OrganizationService>();
   final service = MockOrganizationService();
   locator.registerSingleton<OrganizationService>(service);
+
+  final User user1 = User(
+    id: "fakeUser1",
+    firstName: 'ayush',
+    lastName: 'chaudhary',
+    image: 'www.image.com',
+  );
+  final User user2 = User(
+    id: "fakeUser2",
+    firstName: 'ayush',
+    lastName: 'chaudhary',
+    image: 'www.image.com',
+  );
+  final List<User> users = [user1, user2];
+  when(service.getOrgMembersList('XYZ')).thenAnswer((realInvocation) async {
+    return users;
+  });
   return service;
 }
 
