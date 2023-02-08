@@ -105,6 +105,7 @@ class CreateEventViewModel extends BaseModel {
       );
       final tokenResult = await databaseFunctions
           .refreshAccessToken(userConfig.currentUser.refreshToken!);
+      print(tokenResult);
       final result = await databaseFunctions.gqlAuthMutation(
         EventQueries().addEvent(),
         variables: variables,
