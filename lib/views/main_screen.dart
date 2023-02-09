@@ -11,6 +11,7 @@ import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
 import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
+import 'package:talawa/widgets/theme_switch.dart';
 
 late List<StatelessWidget> navBarClasses;
 late List<BottomNavigationBarItem> navBarItems;
@@ -25,6 +26,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final Map<String, bool> addedToNav = {
+    "Chats": true,
+    "Posts": true,
+    "Events": true,
+  };
+
   List<List<Object>> renderBottomNavBarPlugins(
       List<BottomNavigationBarItem> navBarItems,
       List<StatelessWidget> navBarClasses,
@@ -98,21 +105,29 @@ class _MainScreenState extends State<MainScreen> {
       }
     ];
 
-    /// Here we are dynamically adding BottomNavigationBarItems in navbar by mapping over the data received from the server.
-    pluginList.forEach((plugin) => {
-          if (navNameClasses.containsKey(plugin["pluginName"] as String) &&
-              plugin["pluginInstallStatus"] as bool)
-            {
-              navBarItems.add(BottomNavigationBarItem(
-                icon: navNameIcons[plugin["pluginName"]] ??
-                    const Icon(Icons.home),
-                label: AppLocalizations.of(context)!
-                    .strictTranslate(plugin["pluginName"] as String),
-              )),
-              navBarClasses.add(navNameClasses[plugin["pluginName"]]["class"]
-                  as StatelessWidget),
-            },
-        });
+    /// Here we are dynamically adding BottomNavigationBarItems in navbar
+    /// by mapping over the data received from the server.
+    pluginList.forEach((plugin) {
+      if (navNameClasses.containsKey(plugin["pluginName"] as String) &&
+          plugin["pluginInstallStatus"] as bool &&
+          !addedToNav.containsKey(plugin["pluginName"])) {
+        navBarItems.add(
+          BottomNavigationBarItem(
+            icon: navNameIcons[plugin["pluginName"]] ?? const Icon(Icons.home),
+            label: AppLocalizations.of(context)!
+                .strictTranslate(plugin["pluginName"] as String),
+          ),
+        );
+        navBarClasses.add(
+          navNameClasses[plugin["pluginName"]]["class"] as StatelessWidget,
+        );
+        // addedToNav[plugin["pluginName"] as String] = true;
+        addedToNav.putIfAbsent(
+          plugin["pluginName"] as String,
+          () => true,
+        );
+      }
+    });
 
     /// updating the state to re-render the navbar widget.
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -152,11 +167,13 @@ class _MainScreenState extends State<MainScreen> {
     ];
 
     return BaseView<MainScreenViewModel>(
-      onModelReady: (model) => model.initialise(
-        context,
-        fromSignUp: widget.mainScreenArgs.fromSignUp,
-        mainScreenIndex: widget.mainScreenArgs.mainScreenIndex,
-      ),
+      onModelReady: (model) {
+        model.initialise(
+          context,
+          fromSignUp: widget.mainScreenArgs.fromSignUp,
+          mainScreenIndex: widget.mainScreenArgs.mainScreenIndex,
+        );
+      },
       builder: (context, model, child) {
         /// `navNameIcon` Object maps Icons to proper features according to their names used in navbar.
         /// CAUTION : Name of the feature in talwa app must match with the name that is provided by the admin.
@@ -165,6 +182,7 @@ class _MainScreenState extends State<MainScreen> {
           "Posts": const Icon(Icons.add_box),
           "Profile": const Icon(Icons.account_circle),
           "Chats": const Icon(Icons.chat_outlined),
+          "Donation": const Icon(Icons.attach_money_outlined),
         };
 
         /// `navNameClasses` Object maps the feature names with thier proper Icons and Widgets (named as `class`) used in navbar
@@ -187,6 +205,9 @@ class _MainScreenState extends State<MainScreen> {
             "class": const ChatPage(
               key: Key('Chats'),
             ),
+          },
+          "Donation": {
+            "class": const ChangeThemeTile(),
           }
         };
 
@@ -194,23 +215,41 @@ class _MainScreenState extends State<MainScreen> {
         /// Features that should be implemented as plugins like Home, Profile,etc. should be kept here
         /// When talawa app receives the plugins data is will dynamically render more components from the construtor.
         navBarClasses = [
-          OrganizationFeed(key: const Key("HomeView"), homeModel: model),
-          ExploreEvents(key: const Key('ExploreEvents'), homeModel: model),
+          OrganizationFeed(
+            key: const Key("HomeView"),
+            homeModel: model,
+          ),
+          ExploreEvents(
+            key: const Key('ExploreEvents'),
+            homeModel: model,
+          ),
           AddPost(
-              key: const Key('AddPost'),
-              drawerKey: MainScreenViewModel.scaffoldKey),
+            key: const Key('AddPost'),
+            drawerKey: MainScreenViewModel.scaffoldKey,
+          ),
           const ChatPage(
             key: Key('Chats'),
           ),
-          ProfilePage(key: model.keySPEditProfile, homeModel: model),
+          ProfilePage(
+            key: model.keySPEditProfile,
+            homeModel: model,
+          ),
         ];
         // ignore_for_file:  unused_local_variable
         final res = renderBottomNavBarPlugins(
-            navBarItems, navBarClasses, navNameClasses, navNameIcon, context);
+          navBarItems,
+          navBarClasses,
+          navNameClasses,
+          navNameIcon,
+          context,
+        );
+
         return Scaffold(
           key: MainScreenViewModel.scaffoldKey,
-          drawer:
-              CustomDrawer(homeModel: model, key: const Key("Custom Drawer")),
+          drawer: CustomDrawer(
+            homeModel: model,
+            key: const Key("Custom Drawer"),
+          ),
           body: IndexedStack(
             index: model.currentIndex,
             children: navBarClasses,
