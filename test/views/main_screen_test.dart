@@ -120,7 +120,6 @@ void main() async {
         document: gql(queries.getPluginsList()),
       ))).thenAnswer(
         (realInvocation) async {
-          print("bro called");
           return QueryResult.internal(
             source: QueryResultSource.network,
             parserFn: (data) => {},
