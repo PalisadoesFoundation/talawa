@@ -93,6 +93,19 @@ void main() async {
     locator<SizeConfig>().test();
 
     _graphQLClient = locator<GraphQLClient>();
+    when(_graphQLClient.query(QueryOptions(
+      document: gql(queries.getPluginsList()),
+    ))).thenAnswer(
+      (realInvocation) async {
+        return QueryResult.internal(
+          source: QueryResultSource.network,
+          parserFn: (data) => {},
+          data: {
+            "getPlugins": [],
+          },
+        );
+      },
+    );
   });
 
   tearDown(() {

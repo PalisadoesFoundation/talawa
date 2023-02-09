@@ -206,18 +206,28 @@ GraphQLClient getAndRegisterGraphQLClient() {
   // Either fill this with mock data or override this stub
   // and return null
 
-  when(service.query(QueryOptions(
-    document: gql(queries.getPluginsList()),
-  ))).thenAnswer(
-    (realInvocation) async {
-      return QueryResult.internal(
-        source: QueryResultSource.network,
-        parserFn: (data) => {},
-        data: {
-          "getPlugins": [],
-        },
-      );
-    },
+  // when(service.query(QueryOptions(
+  //   document: gql(queries.getPluginsList()),
+  // ))).thenAnswer(
+  //   (realInvocation) async {
+  //     return QueryResult.internal(
+  //       source: QueryResultSource.network,
+  //       parserFn: (data) => {},
+  //       data: {
+  //         "getPlugins": [],
+  //       },
+  //     );
+  //   },
+  // );
+
+  when(service.defaultPolicies).thenAnswer(
+    (realInvocation) => DefaultPolicies(),
+  );
+  when(service.queryManager).thenAnswer(
+    (realInvocation) => QueryManager(
+      link: HttpLink("testurl"),
+      cache: GraphQLCache(),
+    ),
   );
 
   locator.registerSingleton<GraphQLClient>(service);
