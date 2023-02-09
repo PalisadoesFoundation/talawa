@@ -49,9 +49,12 @@ class NewsPost extends StatelessWidget {
           child: PostContainer(id: post.sId),
         ),
         BaseView<LikeButtonViewModel>(
+
           // Returns Like Button.
-          onModelReady: (model) =>
-              model.initialize(post.likedBy ?? [], post.sId),
+          onModelReady: (model) {
+            model.initialize(post.likedBy ?? [], post.sId);
+          },
+
           builder: (context, model, child) => Column(
             children: [
               Padding(

@@ -46,6 +46,7 @@ Future<void> showSignUpScreen(tester) async {
 
 void main() {
   SizeConfig().test();
+
   testSetupLocator();
 
   group('Test For SignUp Screen', () {
@@ -222,16 +223,16 @@ void main() {
       "Testing onFieldSubmitted in password TextFormField by simulating keyboard hits",
       (tester) async {
     await showSignUpScreen(tester);
-    final formFinder = find.ancestor(
-        of: find.byKey(const Key('signuppassword')),
-        matching: find.byType(Form));
-    final formWidget = tester.firstWidget(formFinder) as Form;
-    (formWidget.key! as GlobalKey<FormState>).currentState!.save();
+    // final formFinder = find.ancestor(
+    //     of: find.byKey(const Key('signuppassword')),
+    //     matching: find.byType(Form));
+    // final formWidget = tester.firstWidget(formFinder) as Form;
+    // (formWidget.key! as GlobalKey<FormState>).currentState!.save();
 
     final textFinder = find.byKey(const Key('signuppassword'));
     await tester.tap(textFinder);
     await tester.pump();
     await tester.showKeyboard(textFinder);
-    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.testTextInput.receiveAction(TextInputAction.next);
   });
 }

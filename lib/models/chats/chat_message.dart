@@ -2,9 +2,10 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 part 'chat_message.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 
 /// This class creates JSON code for chat message using the JsonSerializable package.
+
 class ChatMessage {
   ChatMessage(
     this.id,

@@ -148,6 +148,17 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
           Invocation.method(#showSnackBar, [message], {#duration: duration}),
           returnValueForMissingStub: null);
   @override
+  void showTalawaErrorWidget(String? errorMessage,
+          {Duration? duration = const Duration(seconds: 2)}) =>
+      super.noSuchMethod(
+          Invocation.method(
+              #showTalawaErrorWidget, [errorMessage], {#duration: duration}),
+          returnValueForMissingStub: null);
+  @override
+  void showTalawaErrorDialog(String? errorMessage) => super.noSuchMethod(
+      Invocation.method(#showTalawaErrorDialog, [errorMessage]),
+      returnValueForMissingStub: null);
+  @override
   void pop() => super.noSuchMethod(Invocation.method(#pop, []),
       returnValueForMissingStub: null);
 }

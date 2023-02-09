@@ -30,6 +30,7 @@ import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
@@ -94,6 +95,23 @@ OrganizationService getAndRegisterOrganizationService() {
   _removeRegistrationIfExists<OrganizationService>();
   final service = MockOrganizationService();
   locator.registerSingleton<OrganizationService>(service);
+
+  final User user1 = User(
+    id: "fakeUser1",
+    firstName: 'ayush',
+    lastName: 'chaudhary',
+    image: 'www.image.com',
+  );
+  final User user2 = User(
+    id: "fakeUser2",
+    firstName: 'ayush',
+    lastName: 'chaudhary',
+    image: 'www.image.com',
+  );
+  final List<User> users = [user1, user2];
+  when(service.getOrgMembersList('XYZ')).thenAnswer((realInvocation) async {
+    return users;
+  });
   return service;
 }
 
@@ -445,6 +463,7 @@ void registerViewModels() {
   locator.registerFactory(() => CreateTaskViewModel());
   locator.registerFactory(() => ExploreTasksViewModel());
   locator.registerFactory(() => CustomDrawerViewModel());
+  locator.registerFactory(() => SelectContactViewModel());
 }
 
 void unregisterViewModels() {
@@ -463,4 +482,5 @@ void unregisterViewModels() {
   locator.unregister<CreateTaskViewModel>();
   locator.unregister<ExploreTasksViewModel>();
   locator.unregister<CustomDrawerViewModel>();
+  locator.unregister<SelectContactViewModel>();
 }

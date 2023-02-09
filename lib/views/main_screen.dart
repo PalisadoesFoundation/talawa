@@ -134,6 +134,18 @@ class _MainScreenState extends State<MainScreen> {
         label: AppLocalizations.of(context)!.strictTranslate('Home'),
       ),
       BottomNavigationBarItem(
+        icon: const Icon(Icons.event_note),
+        label: AppLocalizations.of(context)!.strictTranslate('Events'),
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.add_box),
+        label: AppLocalizations.of(context)!.strictTranslate('Add'),
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.chat_outlined),
+        label: AppLocalizations.of(context)!.strictTranslate('Chat'),
+      ),
+      BottomNavigationBarItem(
         icon: const Icon(Icons.account_circle),
         label: AppLocalizations.of(context)!.strictTranslate('Profile'),
       )
@@ -183,6 +195,13 @@ class _MainScreenState extends State<MainScreen> {
         /// When talawa app receives the plugins data is will dynamically render more components from the construtor.
         navBarClasses = [
           OrganizationFeed(key: const Key("HomeView"), homeModel: model),
+          ExploreEvents(key: const Key('ExploreEvents'), homeModel: model),
+          AddPost(
+              key: const Key('AddPost'),
+              drawerKey: MainScreenViewModel.scaffoldKey),
+          const ChatPage(
+            key: Key('Chats'),
+          ),
           ProfilePage(key: model.keySPEditProfile, homeModel: model),
         ];
         // ignore_for_file:  unused_local_variable

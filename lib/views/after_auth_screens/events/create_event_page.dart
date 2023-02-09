@@ -80,7 +80,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           width: SizeConfig.screenWidth! * 0.036,
                         ),
                         TextButton(
-                          // Button to add image for the Event
+                          key: const Key('txt_btn_cep'),
                           onPressed: () => model.getImageFromGallery(),
                           child: Text(
                             AppLocalizations.of(context)!
@@ -176,6 +176,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       height: SizeConfig.screenHeight! * 0.013,
                     ),
                     DateTimeTile(
+                      key: const Key('key for test cep'),
                       date: "${model.eventEndDate.toLocal()}".split(' ')[0],
                       time: model.eventEndTime.format(context),
                       setDate: () async {
@@ -276,6 +277,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     InkWell(
                       // InkWell class in Flutter is a rectangular area in Flutter
                       // of a material that responds to touch in an application.
+                      key: const Key('inwell_cep1'),
+
                       onTap: () {
                         // EventBottomSheet is custom widget that is used to add users to the event.
                         EventBottomSheet().addUserBottomSheet(
@@ -315,6 +318,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     SizedBox(height: SizeConfig.screenHeight! * 0.026),
                     const Divider(),
                     InkWell(
+                      key: const Key('inwell_cep2'),
                       onTap: () {
                         EventBottomSheet().addUserBottomSheet(
                           context: context,

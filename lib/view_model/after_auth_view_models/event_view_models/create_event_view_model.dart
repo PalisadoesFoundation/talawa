@@ -127,7 +127,6 @@ class CreateEventViewModel extends BaseModel {
         variables: variables,
       );
       navigationService.pop();
-      print('Result is : $result');
       if (result != null) {
         navigationService.pop();
 
@@ -188,6 +187,7 @@ class CreateEventViewModel extends BaseModel {
     isAdmin ? _selectedAdmins.clear() : _selectedMembers.clear();
 
     // loop through the organization member list
+
     orgMembersList.forEach((orgMember) {
       // if admin
       if (_adminCheckedMap[orgMember.id] == true && isAdmin) {

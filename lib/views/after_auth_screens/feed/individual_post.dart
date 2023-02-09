@@ -22,6 +22,7 @@ class IndividualPostView extends StatefulWidget {
 /// includes to send the  comment on the post, shows list of all users liked and commented on the post.
 class _IndividualPostViewState extends State<IndividualPostView> {
   final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +37,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
             Expanded(
               // TextField to send the comment on the post.
               child: TextField(
+                key: const Key('indi_post_tf_key'),
                 controller: _controller,
                 textInputAction: TextInputAction.send,
                 onSubmitted: (msg) {
@@ -146,8 +148,9 @@ class IndividualPostCommentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<CommentsViewModel>(
-      onModelReady: (model) {
-        model.initialise(postID);
+      onModelReady: (model) async {
+        await model.initialise(postID);
+        // print(model.commentList.first.creator);
         _commentViewModel = model;
       },
       builder: (context, model, child) => Column(

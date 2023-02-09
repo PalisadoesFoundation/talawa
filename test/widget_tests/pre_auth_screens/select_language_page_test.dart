@@ -1,4 +1,4 @@
-// import 'dart:io';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -80,6 +80,7 @@ Future<void> main() async {
   testSetupLocator();
   locator<GraphqlConfig>().test();
   locator<SizeConfig>().test();
+
   group('Select Language Screen Widget Test in light mode', () {
     testWidgets("Testing if Select Language Screen shows up", (tester) async {
       await tester.pumpWidget(createSelectLanguageScreenLight());
@@ -289,4 +290,8 @@ Future<void> main() async {
       expect(findAppNameWidget, findsNothing);
     });
   });
+  File('test/fixtures/core/currentorg.hive').delete();
+  File('test/fixtures/core/currentorg.lock').delete();
+  File('test/fixtures/core/currentuser.hive').delete();
+  File('test/fixtures/core/currentuser.lock').delete();
 }
