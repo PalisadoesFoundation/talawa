@@ -8,7 +8,6 @@ import 'package:talawa/widgets/post_detailed_page.dart';
 import 'package:talawa/widgets/video_widget.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-/// NewsPost class returns a widget for News Post.
 class NewsPost extends StatelessWidget {
   const NewsPost({
     Key? key,
@@ -16,7 +15,6 @@ class NewsPost extends StatelessWidget {
     this.function,
   }) : super(key: key);
 
-  // variables
   final Post post;
   final Function? function;
 
@@ -25,9 +23,8 @@ class NewsPost extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // returns a ListTile showig the Avatar of the Post.
+        // const PinnedPostCarousel(),
         ListTile(
-          // Returs Avatar or profile picture of the post author.
           leading: CustomAvatar(
             isImageNull: post.creator!.image == null,
             firstAlphabet:
@@ -49,12 +46,9 @@ class NewsPost extends StatelessWidget {
           child: PostContainer(id: post.sId),
         ),
         BaseView<LikeButtonViewModel>(
-
-          // Returns Like Button.
           onModelReady: (model) {
             model.initialize(post.likedBy ?? [], post.sId);
           },
-
           builder: (context, model, child) => Column(
             children: [
               Padding(
@@ -74,7 +68,6 @@ class NewsPost extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      // On clicking the like button.
                       onTap: () => function != null ? function!(post) : {},
                       child: Text(
                         "${post.comments!.length} ${AppLocalizations.of(context)!.strictTranslate("comments")}",
@@ -98,7 +91,6 @@ class NewsPost extends StatelessWidget {
                       },
                       child: Icon(
                         Icons.thumb_up,
-                        // If the post is not liked shows fade color else shows the filled color.
                         color: model.isLiked
                             ? Theme.of(context).colorScheme.secondary
                             : const Color(0xff737373),
@@ -109,7 +101,6 @@ class NewsPost extends StatelessWidget {
                       child: const Padding(
                         padding: EdgeInsets.only(left: 18.0),
                         child: Icon(
-                          // return comment button.
                           Icons.comment,
                           color: Color(0xff737373),
                         ),
