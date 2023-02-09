@@ -171,7 +171,7 @@ void main() async {
         expect(find.byType(ExploreEvents), findsOneWidget);
         expect(find.byType(AddPost), findsOneWidget);
         expect(find.byType(ProfilePage), findsOneWidget);
-        
+
         // If MainScreen finds the saved plugin to be nil,
         // it will add some by itself
 
