@@ -7,7 +7,15 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
+/// CustomDrawerViewModel class helps to serve the data and
+/// to react to user's input for Custom Dialog Widget.
+///
+/// Functions include:
+/// * `switchOrg`
+/// * `isPresentinSwitchableOrg`
+/// * `setSelectedOrganizationName`
 class CustomDrawerViewModel extends BaseModel {
+  // getters
   final ScrollController controller = ScrollController();
   final List<TargetFocus> targets = [];
   late TutorialCoachMark tutorialCoachMark;
@@ -22,6 +30,7 @@ class CustomDrawerViewModel extends BaseModel {
   set switchAbleOrg(List<OrgInfo> switchableOrg) =>
       _switchAbleOrg = switchableOrg;
 
+  // initializer
   initialize(MainScreenViewModel homeModel, BuildContext context) {
     _currentOrganizationStreamSubscription =
         userConfig.currentOrgInfoStream.listen(
@@ -34,7 +43,10 @@ class CustomDrawerViewModel extends BaseModel {
     _switchAbleOrg = _currentUser.joinedOrganizations!;
   }
 
+  /// This function switch the current organization to another organization,
+  /// if the organization(want switch to) is present.
   switchOrg(OrgInfo switchToOrg) {
+    // if `selectedOrg` is equal to `switchOrg` and `switchToOrg` present or not.
     if (selectedOrg == switchToOrg && isPresentinSwitchableOrg(switchToOrg)) {
       // _navigationService.pop();
       navigationService.showSnackBar('${switchToOrg.name} already selected');
@@ -46,6 +58,10 @@ class CustomDrawerViewModel extends BaseModel {
     navigationService.pop();
   }
 
+  /// This function checks `switchOrg` is present in the `switchAbleOrg`.
+  ///
+  /// params:
+  /// * [switchToOrg] : `OrgInfo` type of organization want to switch into.
   bool isPresentinSwitchableOrg(OrgInfo switchToOrg) {
     var isPresent = false;
     for (final OrgInfo orgs in switchAbleOrg) {
@@ -63,9 +79,15 @@ class CustomDrawerViewModel extends BaseModel {
     }
   }
 
+  /// This function switches the current organization to new organization.
+  ///
+  /// params:
+  /// * [updatedOrganization] : `OrgInfo` type, new organization.
   setSelectedOrganizationName(OrgInfo updatedOrganization) {
+    // if current and updated organization are not same.
     if (_selectedOrg != updatedOrganization) {
       _selectedOrg = updatedOrganization;
+      // update in `UserConfig` variable.
       userConfig.currentOrgInfoController.add(_selectedOrg!);
       notifyListeners();
     }

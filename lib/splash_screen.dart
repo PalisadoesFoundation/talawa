@@ -13,6 +13,8 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:uni_links/uni_links.dart';
 
+/// This widget return the SplashScreen. Splash Screen is the first screen that
+/// we see when we run our application. It is also known as Launch Screen.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({required Key key, this.mainScreenIndex = 0})
       : super(key: key);
@@ -22,14 +24,21 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
+/// This return state for the SplashScreen Widget.
 class _SplashScreenState extends State<SplashScreen> {
   Uri? _initialUri;
   Uri? _latestUri;
   late StreamSubscription _sub;
 
+  /// Flutter supports deep linking on iOS, Android, and web browsers.
+  /// Opening a URL displays that screen in your app.
+  /// `_handleInitialUri` is an async function that is used to hanlde
+  /// the initial uri of the application.
   Future<void> _handleInitialUri() async {
     _sub = uriLinkStream.listen(
       (Uri? uri) {
+        // After creating a State object and before calling initState, the framework
+        // "mounts" the State object by associating it with a BuildContext.
         if (!mounted) return;
         setState(() {
           _latestUri = uri;
@@ -43,6 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
       },
     );
     try {
+      // Retrieving the initial URI from getIntitialUri function.
       final uri = await getInitialUri();
       if (!mounted) return;
       setState(() => _initialUri = uri);
@@ -210,6 +220,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.dispose();
   }
 
+  /// Describes the part of the user interface represented by this widget.
+  /// BuildContext is a locator that is used to track each widget in a tree
+  /// and locate them and their position in the tree.
   @override
   Widget build(BuildContext context) {
     sizeConfig.init(context);

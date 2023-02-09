@@ -1,3 +1,4 @@
+///This class creates queries for the tasks in the application.
 class TaskQueries {
   static String eventTasks(String eventId) => '''
     query {

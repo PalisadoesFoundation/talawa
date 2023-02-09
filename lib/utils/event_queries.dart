@@ -1,4 +1,6 @@
+///This class creates queries related to the events.
 class EventQueries {
+  //Returns a query to fetch an organization's events
   String fetchOrgEvents(String orgId) {
     return """
       query {
@@ -39,6 +41,7 @@ class EventQueries {
     """;
   }
 
+  //returns a query to get the registrants of a particular event.
   String registrantsByEvent(String eventId) {
     return '''
       query {
@@ -52,6 +55,7 @@ class EventQueries {
     ''';
   }
 
+  //returns a query to add an event.
   String addEvent() {
     return """
      mutation createEvent( \$organizationId: ID!,
@@ -91,6 +95,7 @@ class EventQueries {
   """;
   }
 
+  //returns a query to register for an event
   String registerForEvent() {
     return """
      mutation registerForEvent(\$eventId: ID!) { 
@@ -104,6 +109,7 @@ class EventQueries {
   """;
   }
 
+  //returns a query to delete an event
   String deleteEvent(String id) {
     return """
       mutation {
@@ -116,6 +122,7 @@ class EventQueries {
     """;
   }
 
+  //returns a query to update an event
   String updateEvent({
     eventId,
   }) {

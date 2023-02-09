@@ -9,6 +9,12 @@ import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/chat_queries.dart';
 
+/// ChatService class provides different services for direct chats of the user.
+///
+/// Services include:
+/// * `sendMessageToDirectChat` - used to send messages.
+/// * `getDirectChatsByUserId` - used to get all chats by the user.
+/// * `getDirectChatMessagesByChatId` - used to get all chats of a user with another user.
 class ChatService {
   ChatService() {
     _dbFunctions = locator<DataBaseMutationFunctions>();
@@ -41,8 +47,14 @@ class ChatService {
   //   _cha
   // }
 
+  /// This function is used to send the message in the direct chats.
+  ///
+  /// parameters required:
+  /// * [chatId] - id of the direct chat where message need to be send.
+  /// * [messageContent] - the text that need to be send.
   Future<void> sendMessageToDirectChat(
       String chatId, String messageContent) async {
+    // trigger graphQL mutation to push the message in the Database.
     final result = await _dbFunctions.gqlAuthMutation(
         ChatQueries().sendMessageToDirectChat(),
         variables: {"chatId": chatId, "messageContent": messageContent});
@@ -56,15 +68,21 @@ class ChatService {
     debugPrint(result.data.toString());
   }
 
+  /// This function is used to get all the chats by the user.
+  ///
+  /// parameters required:
+  /// * [usedId] - current user id, to get all the direct chats associated with this id.
   Future<void> getDirectChatsByUserId() async {
     final userId = _userConfig.currentUser.id;
 
+    // trigger graphQL query to get all the chats of the user using [userId].
     final String query = ChatQueries().fetchDirectChatsByUserId(userId!);
 
     final result = await _dbFunctions.gqlAuthQuery(query);
 
     final directMessageList = result.data['directChatsByUserID'] as List;
 
+    // loop through the result [directMessageList] and append the element to the directChat.
     directMessageList.forEach((chat) {
       final directChat =
           ChatListTileDataModel.fromJson(chat as Map<String, dynamic>);
@@ -75,7 +93,12 @@ class ChatService {
     });
   }
 
+  /// This function is used to get all the chat messages of a particular chat by the user.
+  ///
+  /// parameters required:
+  /// * [chatId] - id of the direct chat.
   Future<void> getDirectChatMessagesByChatId(chatId) async {
+    // trigger graphQL query to get all the chat messages of a particular chat using [chatId].
     final String query =
         ChatQueries().fetchDirectChatMessagesByChatId(chatId as String);
 

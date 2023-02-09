@@ -10,6 +10,7 @@ import 'package:talawa/widgets/date_time_picker.dart';
 import 'package:talawa/widgets/event_date_time_tile.dart';
 import 'package:talawa/widgets/member_name_tile.dart';
 
+/// CreateEventPage returns a widget that has mutable state _CreateEventPageState.
 class CreateEventPage extends StatefulWidget {
   const CreateEventPage({Key? key}) : super(key: key);
 
@@ -17,6 +18,7 @@ class CreateEventPage extends StatefulWidget {
   _CreateEventPageState createState() => _CreateEventPageState();
 }
 
+/// _CreateEventPageState returns a widget for a Page to Create the Event in the Organization.
 class _CreateEventPageState extends State<CreateEventPage> {
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
         return Scaffold(
+          // AppBar is the header of the page
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
             elevation: 1,
@@ -37,6 +40,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
               child: const Icon(Icons.close),
             ),
             title: Text(
+              // text translation to the app language.
               AppLocalizations.of(context)!.strictTranslate('Add Event'),
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontWeight: FontWeight.w600,
@@ -61,6 +65,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
           body: Scrollbar(
             thickness: 2,
             child: SingleChildScrollView(
+              // SingleChildScrollView is a box in which a single widget can be scrolled.
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Column(
@@ -85,8 +90,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         )
                       ],
                     ),
+                    // If the image for the event is selected or not null.
                     model.imageFile != null
                         ? Container(
+                            // Container for rendering the selected image
                             height: 300,
                             padding: const EdgeInsets.all(8.0),
                             child: Stack(
@@ -113,6 +120,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         : Container(),
                     const Divider(),
                     CreateEventForm(
+                      // CreateEventForm returns a widget of a Form for creating events.
+                      // This widget is exported from `lib/views/after_auth_screens/events/create_event_form.dart`.
                       model: model,
                     ),
                     SizedBox(
@@ -120,6 +129,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     ),
                     const Divider(),
                     Text(
+                      // translation of the text to app language.
                       AppLocalizations.of(context)!
                           .strictTranslate('Select Start Date and Time'),
                       style: _subtitleTextStyle,
@@ -127,7 +137,10 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.013,
                     ),
+                    // DateTimeTile is custom widget that returns a tile to select date and time.
+                    // You can learn more about DateTimeTile from [here](lib/widgets/date_time_picker.dart).
                     DateTimeTile(
+                      // variables and member functions initialisation.
                       date: "${model.eventStartDate.toLocal()}".split(' ')[0],
                       time: model.eventStartTime.format(context),
                       setDate: () async {
@@ -219,6 +232,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                                 width: SizeConfig.screenWidth! * 0.005,
                               ),
                               Switch(
+                                // Switch to select the visibility of the event.
                                 value: model.isPublicSwitch,
                                 onChanged: (value) {
                                   setState(() {
@@ -261,8 +275,12 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     SizedBox(height: SizeConfig.screenHeight! * 0.026),
                     const Divider(),
                     InkWell(
+                      // InkWell class in Flutter is a rectangular area in Flutter
+                      // of a material that responds to touch in an application.
                       key: const Key('inwell_cep1'),
+
                       onTap: () {
+                        // EventBottomSheet is custom widget that is used to add users to the event.
                         EventBottomSheet().addUserBottomSheet(
                           context: context,
                           model: model,

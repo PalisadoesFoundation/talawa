@@ -1,5 +1,7 @@
 import 'package:quick_actions/quick_actions.dart';
 
+///This file contains the shortcuts by which user can manage and interact with the
+///application. quick_actions package is used for this purpose.
 class ShortCutMenu {
   static final quickActionsList = <ShortcutItem>[
     eventAction,

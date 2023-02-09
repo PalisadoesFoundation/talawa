@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
+/// This class receives a List of all the Post widgets and returns a ListView.
 class PostListWidget extends StatelessWidget {
   const PostListWidget({
     Key? key,

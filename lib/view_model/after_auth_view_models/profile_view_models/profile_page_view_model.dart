@@ -22,6 +22,11 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
+/// ProfilePageViewModel class helps to interact with model to serve data
+/// and react to user's input in Profile Page view.
+///
+/// Methods include:
+/// * `logout`
 class ProfilePageViewModel extends BaseModel {
   // Services
   final _userConfig = locator<UserConfig>();
@@ -40,6 +45,7 @@ class ProfilePageViewModel extends BaseModel {
   String donationCurrencySymbol = "\$";
   final List<String> denomination = ['1', '5', '10'];
 
+  // initializer
   initialize() {
     setState(ViewState.busy);
     currentOrg = _userConfig.currentOrg;
@@ -47,7 +53,10 @@ class ProfilePageViewModel extends BaseModel {
     setState(ViewState.idle);
   }
 
+  /// This method destroys the user's session or sign out the user from app.
+  /// The function asks for the confimation in Custom Alert Dialog.
   Future<void> logout(BuildContext context) async {
+    // push custom alert dialog with the confirmation message.
     navigationService.pushDialog(
       CustomAlertDialog(
         reverse: true,
@@ -93,6 +102,7 @@ class ProfilePageViewModel extends BaseModel {
     );
   }
 
+  /// This method changes the currency of the user for donation purpose.
   changeCurrency(BuildContext context, Function setter) {
     showCurrencyPicker(
       context: context,
@@ -106,10 +116,14 @@ class ProfilePageViewModel extends BaseModel {
     );
   }
 
+  /// This function generates the organization invitation link in a Dialog Box.
+  /// Dialog box contains the QR-code of organization invite link and social media sharing options.
   invite(BuildContext context) {
     _appLanguageService.initialize();
+    // organization url
     final String url =
         'https://cyberwake.github.io/applink/invite?selectLang=${_appLanguageService.appLocal.languageCode}&setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}';
+    // QR
     final String qrData =
         '${GraphqlConfig.orgURI}?orgid=${userConfig.currentOrg.id!}';
     print(url);
@@ -204,6 +218,11 @@ class ProfilePageViewModel extends BaseModel {
     );
   }
 
+  /// This widget returns the button for social media sharing option.
+  ///
+  /// params:
+  /// * [icon] : This is `Widget` type with icon details.
+  /// * [onTap] : This is `Function`, which invoke on tap.
   Widget iconButton(Widget icon, Function onTap) {
     return Stack(
       children: [
@@ -218,6 +237,11 @@ class ProfilePageViewModel extends BaseModel {
     );
   }
 
+  /// This widget returns button for domination.
+  ///
+  /// params:
+  /// * [amount] : donation Amount.
+  /// * [setter] : `Function` type, which on tap set the amount to `donationAmount`.
   Widget dominationButton(
     String amount,
     BuildContext context,
@@ -248,6 +272,7 @@ class ProfilePageViewModel extends BaseModel {
     );
   }
 
+  // Listener on `donationField` widget focus.
   attachListener(Function setter) {
     donationField.addListener(() {
       if (donationField.hasFocus) {
@@ -266,15 +291,18 @@ class ProfilePageViewModel extends BaseModel {
     });
   }
 
+  // pop the route from `navigationService`.
   popBottomSheet() {
     _navigationService.pop();
   }
 
+  // to update the bottom sheet height.
   updateSheetHeight() {
     bottomSheetHeight = SizeConfig.screenHeight! * 0.65;
     notifyListeners();
   }
 
+  // show message on Snack Bar.
   showSnackBar(String message) {
     _navigationService.showSnackBar(message);
   }

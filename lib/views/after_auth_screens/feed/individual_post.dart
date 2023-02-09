@@ -6,9 +6,10 @@ import 'package:talawa/view_model/widgets_view_models/comments_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/post_widget.dart';
 
-//Global Stete, should be removed in next few iterations
+// Global State, should be removed in next few iterations
 late CommentsViewModel _commentViewModel;
 
+/// IndividualPostView returns a widget that has mutable state _IndividualPostViewState.
 class IndividualPostView extends StatefulWidget {
   const IndividualPostView({Key? key, required this.post}) : super(key: key);
   final Post post;
@@ -17,6 +18,8 @@ class IndividualPostView extends StatefulWidget {
   _IndividualPostViewState createState() => _IndividualPostViewState();
 }
 
+/// _IndividualPostViewState returns a widget to show Individual Post View state. This widget
+/// includes to send the  comment on the post, shows list of all users liked and commented on the post.
 class _IndividualPostViewState extends State<IndividualPostView> {
   final TextEditingController _controller = TextEditingController();
 
@@ -32,6 +35,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
         child: Row(
           children: [
             Expanded(
+              // TextField to send the comment on the post.
               child: TextField(
                 key: const Key('indi_post_tf_key'),
                 controller: _controller,
@@ -50,6 +54,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
                 keyboardType: TextInputType.text,
               ),
             ),
+            // Button to send the comment.
             TextButton(
               onPressed: () {
                 _commentViewModel.createComment(_controller.text);
@@ -62,6 +67,7 @@ class _IndividualPostViewState extends State<IndividualPostView> {
       ),
       body: ListView(
         children: [
+          // Post
           NewsPost(
             post: widget.post,
           ),
@@ -70,9 +76,11 @@ class _IndividualPostViewState extends State<IndividualPostView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // renders the number of users liked the post.
                 IndividualPageLikeSection(
                   usersLiked: widget.post.likedBy!,
                 ),
+                // renders the number of users commented on the post.
                 IndividualPostCommentSection(
                   comments: widget.post.comments!,
                   postID: widget.post.sId,
@@ -99,6 +107,7 @@ Padding buildPadding(BuildContext context, String text) {
   );
 }
 
+/// IndividualPageLikeSection returns a widget that show the list of all the users liked the post.
 class IndividualPageLikeSection extends StatelessWidget {
   const IndividualPageLikeSection({
     Key? key,
@@ -115,7 +124,9 @@ class IndividualPageLikeSection extends StatelessWidget {
         buildPadding(context, "Liked by"),
         Row(
           children: [
+            // Looping through the usersLiked list,
             for (int i = 0; i < usersLiked.length; i++)
+              // renders the custom widget for invidual user.
               likedUserCircleAvatar(usersLiked[i])
           ],
         ),
@@ -124,6 +135,7 @@ class IndividualPageLikeSection extends StatelessWidget {
   }
 }
 
+/// IndividualPostCommentSection returns a widget that show the list of all the users commented on the post.
 class IndividualPostCommentSection extends StatelessWidget {
   const IndividualPostCommentSection({
     Key? key,
@@ -145,7 +157,9 @@ class IndividualPostCommentSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           buildPadding(context, "Comments"),
+          // Looping through the commentList list,
           for (int i = 0; i < model.commentList.length; i++)
+            // renders the custom widget for invidual user.
             CommentTemplate(comment: model.commentList[i])
         ],
       ),
@@ -153,6 +167,7 @@ class IndividualPostCommentSection extends StatelessWidget {
   }
 }
 
+/// CommentTemplate returns a widget of the individual user commented on the post.
 class CommentTemplate extends StatelessWidget {
   const CommentTemplate({
     Key? key,
@@ -201,6 +216,7 @@ class CommentTemplate extends StatelessWidget {
   }
 }
 
+/// likedUserCircleAvatar returns a widget of the individual user liked the post.
 Widget likedUserCircleAvatar(LikedBy user) {
   return Padding(
     padding: const EdgeInsets.only(right: 10.0, bottom: 16.0),

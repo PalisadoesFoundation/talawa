@@ -9,6 +9,8 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 import 'package:talawa/widgets/signup_progress_indicator.dart';
 
+/// This widget takes the user details for signup.
+/// The form includes first name, last name, email, password, and password confirmation inputs.
 class SignUpDetails extends StatefulWidget {
   const SignUpDetails({required Key key, required this.selectedOrg})
       : super(key: key);
@@ -65,6 +67,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.05,
                               ),
+                              //Input field for the first name of the user.
                               TextFormField(
                                 key: const Key('FirstNameInputField'),
                                 controller: model.firstName,
@@ -104,6 +107,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.015,
                               ),
+                              //Input field for the last name of the user.
                               TextFormField(
                                 key: const Key('LastNameInputField'),
                                 controller: model.lastName,
@@ -141,6 +145,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.015,
                               ),
+                              //Input field for the email of the user.
                               TextFormField(
                                 key: const Key('signUpEmailField'),
                                 controller: model.email,
@@ -173,6 +178,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.015,
                               ),
+                              //Input field for the password of the user.
                               TextFormField(
                                 key: const Key('signuppassword'),
                                 controller: model.password,
@@ -227,6 +233,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                               SizedBox(
                                 height: SizeConfig.screenHeight! * 0.015,
                               ),
+                              //Input field for the confirmation of the password of the user.
                               TextFormField(
                                 controller: model.confirmPassword,
                                 focusNode: model.confirmFocus,
@@ -270,6 +277,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                             ],
                           ),
                         ),
+                        //Sign up button.
                         RaisedRoundedButton(
                           buttonLabel: AppLocalizations.of(context)!
                               .strictTranslate('Next'),

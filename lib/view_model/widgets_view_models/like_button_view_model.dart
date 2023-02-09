@@ -7,6 +7,13 @@ import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
+/// LikeButtonViewModel class helps to serve the data and
+/// to react to user's input for Like Button Widget.
+///
+/// Methods include:
+/// * `toggleIsLiked`
+/// * `setIsLiked`
+/// * `updatePost`
 class LikeButtonViewModel extends BaseModel {
   // Services
   final _userConfig = locator<UserConfig>();
@@ -36,6 +43,8 @@ class LikeButtonViewModel extends BaseModel {
         _postService.updatedPostStream.listen((post) => updatePost(post));
   }
 
+  /// This function add like to the post if not liked and
+  /// remove the like from the post if liked.
   void toggleIsLiked() {
     if (!_isLiked) {
       _postService.addLike(_postID);
@@ -44,6 +53,7 @@ class LikeButtonViewModel extends BaseModel {
     }
   }
 
+  /// This function set `_isLike` to true.
   void setIsLiked({bool val = true}) {
     _isLiked = val;
     notifyListeners();
@@ -61,6 +71,10 @@ class LikeButtonViewModel extends BaseModel {
     }
   }
 
+  /// This function updates the Post.
+  ///
+  /// params:
+  /// `post` : `Post` type, the post that need to be updated.
   updatePost(Post post) {
     if (_postID == post.sId) {
       _likedBy = post.likedBy!;
