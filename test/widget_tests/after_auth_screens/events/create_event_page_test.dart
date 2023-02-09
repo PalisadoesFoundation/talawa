@@ -71,7 +71,7 @@ void main() {
       /// using the key of icon button
       /// because their are many icon button
 
-      final finder = find.byKey(const Key('create_evt_add_img'));
+      final finder = find.byKey(const Key('txt_btn_cep'));
 
       expect(finder, findsOneWidget);
 
