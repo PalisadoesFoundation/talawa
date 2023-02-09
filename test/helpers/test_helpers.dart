@@ -53,6 +53,7 @@ import 'test_helpers.mocks.dart';
   customMocks: [
     MockSpec<NavigationService>(returnNullOnMissingStub: true),
     MockSpec<GraphqlConfig>(returnNullOnMissingStub: true),
+    MockSpec<GraphQLClient>(returnNullOnMissingStub: true),
     MockSpec<PostService>(returnNullOnMissingStub: true),
     MockSpec<MultiMediaPickerService>(returnNullOnMissingStub: true),
     MockSpec<EventService>(returnNullOnMissingStub: true),
@@ -175,10 +176,12 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
   ));
 
   when(service.clientToQuery()).thenAnswer((realInvocation) {
-    return GraphQLClient(
-      cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
-      link: service.httpLink,
-    );
+    // return GraphQLClient(
+    //   cache: GraphQLCache(partialDataPolicy: PartialDataCachePolicy.accept),
+    //   link: service.httpLink,
+    // );
+
+    return locator<GraphQLClient>();
   });
 
   when(service.authClient()).thenAnswer((realInvocation) {
@@ -192,6 +195,43 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
   });
 
   locator.registerSingleton<GraphqlConfig>(service);
+  return service;
+}
+
+GraphQLClient getAndRegisterGraphQLClient() {
+  _removeRegistrationIfExists<GraphQLClient>();
+
+  final service = MockGraphQLClient();
+
+  // Either fill this with mock data or override this stub
+  // and return null
+
+  // when(service.query(QueryOptions(
+  //   document: gql(queries.getPluginsList()),
+  // ))).thenAnswer(
+  //   (realInvocation) async {
+  //     return QueryResult.internal(
+  //       source: QueryResultSource.network,
+  //       parserFn: (data) => {},
+  //       data: {
+  //         "getPlugins": [],
+  //       },
+  //     );
+  //   },
+  // );
+
+  when(service.defaultPolicies).thenAnswer(
+    (realInvocation) => DefaultPolicies(),
+  );
+  when(service.queryManager).thenAnswer(
+    (realInvocation) => QueryManager(
+      link: HttpLink("testurl"),
+      cache: GraphQLCache(),
+    ),
+  );
+
+  locator.registerSingleton<GraphQLClient>(service);
+
   return service;
 }
 
@@ -421,6 +461,7 @@ Post getPostMockModel({
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterAppLanguage();
+  getAndRegisterGraphQLClient();
   getAndRegisterGraphqlConfig();
   getAndRegisterUserConfig();
   getAndRegisterPostService();
