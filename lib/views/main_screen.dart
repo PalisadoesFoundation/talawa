@@ -18,7 +18,6 @@ late List<BottomNavigationBarItem> navBarItems;
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key, required this.mainScreenArgs}) : super(key: key);
-  //final bool fromSignUp;
   final MainScreenArgs mainScreenArgs;
 
   @override
@@ -60,11 +59,7 @@ class _MainScreenState extends State<MainScreen> {
         "pluginCreatedBy": " Mr. Siddhesh Bhupendra  Kukade",
         "pluginDesc":
             "Presenting the Events Plugin by Siddhesh Bhupendra Kuakde that implements the plugin features as a component here members can create and manage events and on top of it everything is controlled by the Organization Admins . Install and use right away.",
-        "installedOrgs": [
-          "62ccfccd3eb7fd2a30f41601",
-          "62ccfccd3eb7fd2a30f41601",
-          "<YOUR_ORG_ID_FOR_DEVELOPMENT>"
-        ]
+        "installedOrgs": ["<YOUR_ORG_ID_FOR_DEVELOPMENT>"]
       },
       {
         "_id": "62cfcd6233bbe266f59644db",
@@ -73,11 +68,7 @@ class _MainScreenState extends State<MainScreen> {
         "pluginCreatedBy": "Mr.Johnathan Doe ",
         "pluginDesc":
             "Presenting the Donation plugin for the talawa app that enables members of the organization to  do One time or Reccurinng donations to an  organization",
-        "installedOrgs": [
-          "62ccfccd3eb7fd2a30f41601",
-          "62ccfccd3eb7fd2a30f41601",
-          "<YOUR_ORG_ID_FOR_DEVELOPMENT>"
-        ]
+        "installedOrgs": ["<YOUR_ORG_ID_FOR_DEVELOPMENT>"]
       },
       {
         "_id": "62cfcf71824dc26e1fbeed46",
@@ -86,10 +77,7 @@ class _MainScreenState extends State<MainScreen> {
         "pluginCreatedBy": "Kimia",
         "pluginDesc":
             "See all available organizations in entire world using this plugins",
-        "installedOrgs": [
-          "62ccfccd3eb7fd2a30f41601",
-          "<YOUR_ORG_ID_FOR_DEVELOPMENT>"
-        ]
+        "installedOrgs": ["<YOUR_ORG_ID_FOR_DEVELOPMENT>"]
       },
       {
         "_id": "62cfcf71824dc26e1fbeed46",
@@ -98,10 +86,7 @@ class _MainScreenState extends State<MainScreen> {
         "pluginCreatedBy": "Kimia",
         "pluginDesc":
             "See all available organizations in entire world using this plugins",
-        "installedOrgs": [
-          "62ccfccd3eb7fd2a30f41601",
-          "<YOUR_ORG_ID_FOR_DEVELOPMENT>"
-        ]
+        "installedOrgs": ["<YOUR_ORG_ID_FOR_DEVELOPMENT>"]
       }
     ];
 
@@ -260,51 +245,11 @@ class _MainScreenState extends State<MainScreen> {
                 height: 50,
                 child: Row(
                   children: [
-                    Expanded(
-                      child: Center(
-                        child: SizedBox(
-                          key: model.keyBNHome,
-                          height: 40,
-                          width: 40,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: SizedBox(
-                          key: model.keyBNEvents,
-                          height: 40,
-                          width: 40,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: SizedBox(
-                          key: model.keyBNPost,
-                          height: 40,
-                          width: 40,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: SizedBox(
-                          key: model.keyBNChat,
-                          height: 40,
-                          width: 40,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Center(
-                        child: SizedBox(
-                          key: model.keyBNProfile,
-                          height: 40,
-                          width: 40,
-                        ),
-                      ),
-                    ),
+                    getBNBItem(model.keyBNHome),
+                    getBNBItem(model.keyBNEvents),
+                    getBNBItem(model.keyBNPost),
+                    getBNBItem(model.keyBNChat),
+                    getBNBItem(model.keyBNProfile),
                   ],
                 ),
               ),
@@ -319,6 +264,18 @@ class _MainScreenState extends State<MainScreen> {
           ),
         );
       },
+    );
+  }
+
+  Widget getBNBItem(GlobalKey<State<StatefulWidget>> key) {
+    return Expanded(
+      child: Center(
+        child: SizedBox(
+          key: key,
+          height: 40,
+          width: 40,
+        ),
+      ),
     );
   }
 }
