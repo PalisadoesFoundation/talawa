@@ -60,14 +60,11 @@ class OrganizationFeedViewModel extends BaseModel {
     );
 
     _postsSubscription = _postService.postStream.listen((newPosts) {
-      print('listener working');
-      print(newPosts);
       return buildNewPosts(newPosts);
     });
 
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
-    print('initialize working');
   }
 
   void initializeWithDemoData() {
@@ -86,8 +83,6 @@ class OrganizationFeedViewModel extends BaseModel {
 
   void buildNewPosts(List<Post> newPosts) {
     _posts = newPosts;
-    print(newPosts);
-    print('ffffffffffffffffffffffff');
     notifyListeners();
   }
 

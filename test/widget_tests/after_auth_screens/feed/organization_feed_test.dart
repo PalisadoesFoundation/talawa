@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/post/post_model.dart';
@@ -69,6 +70,37 @@ void main() {
 
     expect(finder, findsNWidgets(2));
   });
+  testWidgets('check if orgname is displayed shows up', (tester) async {
+    final model = locator<MainScreenViewModel>();
+    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+    await tester.pump();
+
+    final finder = find.byType(Text);
+    expect(finder, findsNWidgets(4));
+    // expect(text, findsOneWidget);
+  });
+  testWidgets('check if pinned post is displayed shows up', (tester) async {
+    final model = locator<MainScreenViewModel>();
+    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+    await tester.pump();
+
+    final finder = find.byType(Text);
+
+    final text1 = find.text('Rutvik Chandla');
+
+    final text2 = find.text(
+        'Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS...');
+
+    final text3 = find.text('See all Pinned news');
+
+    expect(text1, findsOneWidget);
+
+    expect(text2, findsOneWidget);
+
+    expect(text3, findsOneWidget);
+
+    expect(finder, findsNWidgets(4));
+  });
   testWidgets('check if side drawer shows up', (tester) async {
     final model = locator<MainScreenViewModel>();
     await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
@@ -89,6 +121,26 @@ void main() {
 
     await tester.tap(finder);
     await tester.pump();
+  });
+  testWidgets('check if refresh indicator is launched on dragging',
+      (tester) async {
+    final model = locator<MainScreenViewModel>();
+    await tester.pumpWidget(createOrganizationFeedScreen(homeModel: model));
+    await tester.pump();
+    final postservice = locator<PostService>();
+    bool refreshed = false;
+
+    when(postservice.getPosts()).thenAnswer((_) async {
+      refreshed = true;
+    });
+
+    await tester.drag(
+      find.byType(RefreshIndicator),
+      const Offset(0, 200),
+    );
+    await tester.pumpAndSettle();
+
+    expect(refreshed, true);
   });
   testWidgets('check if post shows up when  model.posts.isNotEmpty is true',
       (tester) async {
@@ -147,12 +199,13 @@ void main() {
 
     // final service = MockEventService();
     final service = MockPostService();
-    when(postService.postStream).thenAnswer((invocation) => _stream);
+    when(postService.postStream).thenAnswer((invocation) {
+      return _stream;
+    });
     postservice.postStream.listen((event) {
       print(11);
     });
     _streamController.add(posts);
-    // when(postservice.postStream).thenAnswer((realInvocation) => Stream.of<Stream<List<Post>>>(posts));
     await tester.drag(
       find.byType(RefreshIndicator),
       const Offset(0, 200),
