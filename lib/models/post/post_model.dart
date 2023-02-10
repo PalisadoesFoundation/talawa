@@ -1,6 +1,7 @@
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+///This class creates a Post model.
 class Post {
   Post({
     required this.sId,
@@ -13,7 +14,7 @@ class Post {
     this.likedBy,
     this.comments,
   });
-
+  //Creating a new Post instance from a map structure.
   Post.fromJson(Map<String, dynamic> json) {
     sId = json['_id'] as String;
     description = json['text'] as String?;
@@ -51,7 +52,8 @@ class Post {
   OrgInfo? organization;
   List<LikedBy>? likedBy;
   List<Comments>? comments;
-
+  //Returns a string of the duration when the post was created. The duration can be metioned in
+  //seconds, minutes, hours, days, months or years accordigly.
   String getPostCreatedDuration() {
     if (DateTime.now().difference(this.createdAt!).inSeconds < 60) {
       return '${DateTime.now().difference(this.createdAt!).inSeconds} Seconds Ago';

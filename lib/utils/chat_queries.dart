@@ -1,4 +1,7 @@
+///This class creates the queries dealing with chats.
+
 class ChatQueries {
+  //Returns a query to fetch direct chat using userId
   String fetchDirectChatsByUserId(String userId) {
     return '''
       query {
@@ -14,6 +17,7 @@ class ChatQueries {
    ''';
   }
 
+  //Returns query to fetch direct chat messages using chatId
   String fetchDirectChatMessagesByChatId(String chatId) {
     return '''
         query {
@@ -35,6 +39,7 @@ class ChatQueries {
     ''';
   }
 
+  //Gets messages sent to direct chat subscription
   String get messageSentToDirectChatsubscription => '''
       subscription{
         messageSentToDirectChat{
@@ -54,6 +59,7 @@ class ChatQueries {
       }
   ''';
 
+  //Send message to direct chat.
   String sendMessageToDirectChat() {
     return '''
       mutation sendMessageToDirectChat(

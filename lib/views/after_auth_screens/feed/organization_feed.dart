@@ -5,6 +5,7 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/pinned_carousel_widget.dart';
 import 'package:talawa/widgets/post_list_widget.dart';
 
+/// OrganizationFeed returns a widget that shows the feed of the organization.
 class OrganizationFeed extends StatelessWidget {
   const OrganizationFeed({
     required Key key,
@@ -21,6 +22,7 @@ class OrganizationFeed extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
+            // AppBar returns a widget for the header of the page.
             backgroundColor: Theme.of(context).primaryColor,
             elevation: 0.0,
             centerTitle: true,
@@ -42,6 +44,7 @@ class OrganizationFeed extends StatelessWidget {
                   MainScreenViewModel.scaffoldKey.currentState!.openDrawer(),
             ),
           ),
+          // if the model is fetching the data then renders Circular Progress Indicator else renders the result.
           body: model.isBusy
               ? const CircularProgressIndicator()
               : RefreshIndicator(
@@ -49,6 +52,7 @@ class OrganizationFeed extends StatelessWidget {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
+                      // If the organization has pinned posts then renders PinnedPostCarousel widget else Container.
                       model.pinnedPosts.isNotEmpty
                           ? PinnedPostCarousel(
                               key: homeModel?.keySHPinnedPost,
@@ -59,6 +63,7 @@ class OrganizationFeed extends StatelessWidget {
                                   model.navigateToIndividualPage,
                             )
                           : Container(),
+                      // If the organization has posts then renders PostListWidget widget else Container.
                       model.posts.isNotEmpty
                           ? PostListWidget(
                               key: homeModel?.keySHPost,

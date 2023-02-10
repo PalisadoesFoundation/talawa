@@ -1,4 +1,4 @@
-//routes
+///This file contains the routes.
 
 class Routes {
   static const String demoPageViewRoute = "/demoPageViewRoute";

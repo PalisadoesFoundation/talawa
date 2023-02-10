@@ -9,6 +9,15 @@ import 'package:talawa/services/post_service.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
+/// OrganizationFeedViewModel class helps to interact with model to serve data to view for organization feed section.
+///
+/// Methods include:
+/// * `setCurrentOrganizationName` : to set current organization name.
+/// * `fetchNewPosts` : to fetch new posts in the organization.
+/// * `navigateToIndividualPage` : to navigate to individual page.
+/// * `navigateToPinnedPostPage` : to navigate to pinned post page.
+/// * `addNewPost` : to add new post in the organization.
+/// * `updatedPost` : to update a post in the organization.
 class OrganizationFeedViewModel extends BaseModel {
   // Local caching variables for a session.
   // ignore: prefer_final_fields
@@ -48,8 +57,12 @@ class OrganizationFeedViewModel extends BaseModel {
 
   String get currentOrgName => _currentOrgName;
 
-  // Setters
+  /// This function sets the organization name after update.
+  ///
+  /// params:
+  /// * [updatedOrganization] : updated organization name.
   void setCurrentOrganizationName(String updatedOrganization) {
+    // if `updatedOrganization` is not same to `_currentOrgName`.
     if (updatedOrganization != _currentOrgName) {
       _posts.clear();
       _renderedPostID.clear();
@@ -59,6 +72,7 @@ class OrganizationFeedViewModel extends BaseModel {
     // _postService.getPosts();
   }
 
+  /// This function fetches new posts in the organization.
   void fetchNewPosts() {
     _postService.getPosts();
   }
@@ -67,6 +81,7 @@ class OrganizationFeedViewModel extends BaseModel {
       // bool forTest,
       {bool isTest = false}) {
     // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
+
     _currentOrgName = _userConfig.currentOrg.name!;
     // ------
     // Attaching the stream subscription to rebuild the widgets automatically
@@ -101,16 +116,24 @@ class OrganizationFeedViewModel extends BaseModel {
     // });
   }
 
+  /// This function initialise `_posts` with `newPosts`.
+  ///
+  /// params:
+  /// * [newPosts]
   void buildNewPosts(List<Post> newPosts) {
     _posts = newPosts;
     notifyListeners();
   }
 
+  /// This function navigate to individual post page.
   void navigateToIndividualPage(Post post) {
+    // uses `pushScreen` method by `navigationService` service.
     _navigationService.pushScreen(Routes.individualPost, arguments: post);
   }
 
+  /// This function navigate to pinned post page.
   void navigateToPinnedPostPage() {
+    // uses `pushScreen` method by `navigationService` service.
     _navigationService.pushScreen(
       Routes.pinnedPostPage,
       arguments: _pinnedPosts,
@@ -126,11 +149,19 @@ class OrganizationFeedViewModel extends BaseModel {
     super.dispose();
   }
 
+  /// This function adds new Post.
+  ///
+  /// params:
+  /// * [newPost]
   addNewPost(Post newPost) {
     _posts.insert(0, newPost);
     notifyListeners();
   }
 
+  /// This function updates the post.
+  ///
+  /// params:
+  /// * [post]
   updatedPost(Post post) {
     for (int i = 0; i < _posts.length; i++) {
       if (_posts[i].sId == post.sId) {

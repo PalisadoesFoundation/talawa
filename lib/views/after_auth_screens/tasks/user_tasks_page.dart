@@ -3,6 +3,7 @@ import 'package:talawa/view_model/after_auth_view_models/task_view_models/explor
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/task_schedule.dart';
 
+/// UserTasksPage returns a widget for page of User Tasks.
 class UserTasksPage extends StatelessWidget {
   const UserTasksPage({Key? key}) : super(key: key);
 
@@ -18,6 +19,7 @@ class UserTasksPage extends StatelessWidget {
             appBar: AppBar(
               title: const Text('User Tasks'),
             ),
+            // TaskSchedule is custom widget.
             body: TaskSchedule(tasks: tasks, showMoreOptions: true),
           ),
         );

@@ -5,6 +5,8 @@ import 'package:talawa/models/user/user_info.dart';
 part 'org_info.g.dart';
 
 @HiveType(typeId: 2)
+
+///This class creates an organization-information model and returns an OrgInfo instance.
 class OrgInfo {
   OrgInfo({
     this.admins,
@@ -82,7 +84,7 @@ class OrgInfo {
   bool? isPublic;
   @HiveField(7)
   User? creatorInfo;
-
+  //Method to print the organization's information.
   printOrgInfo() {
     debugPrint('_id: ${this.id}');
     debugPrint('name: ${this.name}');

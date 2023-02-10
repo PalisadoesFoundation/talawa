@@ -4,6 +4,7 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/profile_view_models/edit_profile_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
+/// EditProfilePage returns a widget that has mutable state _EditProfilePageState.
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({Key? key}) : super(key: key);
 
@@ -11,6 +12,7 @@ class EditProfilePage extends StatefulWidget {
   _EditProfilePageState createState() => _EditProfilePageState();
 }
 
+/// _EditProfilePageState returns a widget for a Page to edit the user profile.
 class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
         return Scaffold(
           key: const Key('EditProfileScreenScaffold'),
           appBar: AppBar(
+            // returns a header for the page.
             backgroundColor: Theme.of(context).primaryColor,
             elevation: 0.0,
             title: Text(
+              // Title of the app bar(header).
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               key: const Key('ProfileText'),
               style: Theme.of(context).textTheme.headline6!.copyWith(
@@ -32,6 +36,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
           ),
           body: SingleChildScrollView(
+            // SingleChildScrollView is a box in which a single widget can be scrolled.
             child: Column(
               children: [
                 SizedBox(
@@ -40,6 +45,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 Center(
                   child: Stack(
                     children: [
+                      // if the profile pic is not empty then render Circle Avatar with image as background image
+                      // else render Circle Avatar with grey background color.
                       model.imageFile != null
                           ? CircleAvatar(
                               radius: SizeConfig.screenHeight! * 0.082,
@@ -76,8 +83,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         bottom: 0,
                         right: 0,
                         child: InkWell(
+                          // button to remove or set the profile image.
                           key: const Key('AddRemoveImageButton'),
                           onTap: () {
+                            // if image is null the function will be get getImageFromGallery()
+                            // else removeImage()
                             model.imageFile == null
                                 ? model.getImageFromGallery()
                                 : model.removeImage();
@@ -116,7 +126,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     children: [
                       Row(
                         children: [
+                          // Flexible is a widget that controls how a child of a Row, Column, or Flex flexes.
                           Flexible(
+                            // Text field for first name with value text of user's first name.
                             child: TextFormField(
                               controller: model.firstNameTextController
                                 ..text = model.user.firstName!,
@@ -146,6 +158,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       Row(
                         children: [
                           Flexible(
+                            // Text field for first name with value text of user's last name.
                             child: TextFormField(
                               controller: model.lastNameTextController
                                 ..text = model.user.lastName!,
@@ -201,6 +214,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           .onBackground,
                                     ),
                           ),
+                          // Text for first name with value text of user's first name.
                           Text(
                             model.user.email!,
                             style: Theme.of(context)
@@ -214,6 +228,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ),
                 const Divider(),
+                // button to update the profile.
                 TextButton(
                   onPressed: () async {},
                   child: Text(

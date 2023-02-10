@@ -8,6 +8,7 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/date_time_picker.dart';
 import 'package:talawa/widgets/event_date_time_tile.dart';
 
+/// EditEventPage returns a widget that has mutable state _EditEventPageState.
 class EditEventPage extends StatefulWidget {
   const EditEventPage({Key? key, required this.event}) : super(key: key);
   final Event event;
@@ -16,6 +17,8 @@ class EditEventPage extends StatefulWidget {
   _EditEventPageState createState() => _EditEventPageState();
 }
 
+/// _EditEventPageState returns a widget to edit the
+/// event that is being posted by the current user.
 class _EditEventPageState extends State<EditEventPage> {
   @override
   Widget build(BuildContext context) {
@@ -26,6 +29,7 @@ class _EditEventPageState extends State<EditEventPage> {
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
+            // returns a header for the page.
             backgroundColor: Theme.of(context).primaryColor,
             elevation: 1,
             centerTitle: true,
@@ -35,6 +39,7 @@ class _EditEventPageState extends State<EditEventPage> {
               },
               child: const Icon(Icons.close),
             ),
+            // Title of the app bar(header).
             title: Text(
               'Edit Event',
               style: Theme.of(context).textTheme.headline6!.copyWith(
@@ -43,6 +48,7 @@ class _EditEventPageState extends State<EditEventPage> {
                   ),
             ),
             actions: [
+              // Button for "Done".
               TextButton(
                 onPressed: () {
                   model.updateEvent();
@@ -58,6 +64,7 @@ class _EditEventPageState extends State<EditEventPage> {
             ],
           ),
           body: SingleChildScrollView(
+            // SingleChildScrollView is a box in which a single widget can be scrolled.
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Column(
@@ -79,6 +86,8 @@ class _EditEventPageState extends State<EditEventPage> {
                   ),
                   const Divider(),
                   EditEventForm(
+                    // EditEventForm returns a widget of a Form for editing the event.
+                    // This widget is exported from `lib/views/after_auth_screens/events/edit_events_form.dart`.
                     model: model,
                   ),
                   SizedBox(
@@ -89,7 +98,10 @@ class _EditEventPageState extends State<EditEventPage> {
                   SizedBox(
                     height: SizeConfig.screenHeight! * 0.013,
                   ),
+                  // DateTimeTile is custom widget that returns a tile to select date and time.
+                  // You can learn more about DateTimeTile from [here](lib/widgets/date_time_picker.dart).
                   DateTimeTile(
+                    // variables and member functions initialisation.
                     date: "${model.eventStartDate.toLocal()}".split(' ')[0],
                     time: model.eventStartTime.format(context),
                     setDate: () async {

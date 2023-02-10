@@ -1,6 +1,7 @@
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+//This class creates a Task model and returns a Task instance.
 class Task {
   const Task({
     required this.id,
@@ -11,7 +12,7 @@ class Task {
     this.description,
     this.deadline,
   });
-
+  ////Creating a new Task instance from a map structure.
   factory Task.fromJson(
     Map<String, dynamic> json,
   ) {
