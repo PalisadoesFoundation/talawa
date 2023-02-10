@@ -13,7 +13,8 @@ class OrganizationFeedViewModel extends BaseModel {
   // Local caching variables for a session.
   // ignore: prefer_final_fields
   List<Post> _posts = [];
-  final List<Post> _pinnedPosts =
+  bool istest = false;
+  List<Post> _pinnedPosts =
       pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
   final Set<String> _renderedPostID = {};
   late String _currentOrgName = "";
@@ -29,8 +30,22 @@ class OrganizationFeedViewModel extends BaseModel {
   late StreamSubscription _updatePostSubscription;
 
   // Getters
-  List<Post> get posts => _posts;
-  List<Post> get pinnedPosts => _pinnedPosts;
+  List<Post> get posts {
+    // if (istest) {
+    //   _posts = pinnedPostsDemoData.map((e) => Post.fromJson(e)).toList();
+    //   return _posts;
+    // }
+    return _posts;
+  }
+
+  List<Post> get pinnedPosts {
+    if (istest) {
+      _pinnedPosts = [];
+      return _pinnedPosts;
+    }
+    return _pinnedPosts;
+  }
+
   String get currentOrgName => _currentOrgName;
 
   // Setters
@@ -48,7 +63,9 @@ class OrganizationFeedViewModel extends BaseModel {
     _postService.getPosts();
   }
 
-  void initialise() {
+  void initialise(
+      // bool forTest,
+      {bool isTest = false}) {
     // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
     _currentOrgName = _userConfig.currentOrg.name!;
     // ------
@@ -58,22 +75,25 @@ class OrganizationFeedViewModel extends BaseModel {
       (updatedOrganization) =>
           setCurrentOrganizationName(updatedOrganization.name!),
     );
-
     _postsSubscription = _postService.postStream.listen((newPosts) {
       return buildNewPosts(newPosts);
     });
 
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
+    print(_posts);
+    if (isTest) {
+      istest = true;
+    }
   }
 
   void initializeWithDemoData() {
     // final postJsonResult = postsDemoData;
-
+    //
     // ------
-    // Calling function to ge the post for the only 1st time.
+    // // Calling function to ge the post for the only 1st time.
     // _postService.getPosts();
-
+    //
     // //fetching pinnedPosts
     // final pinnedPostJsonResult = pinnedPostsDemoData;
     // pinnedPostJsonResult.forEach((pinnedPostJsonData) {

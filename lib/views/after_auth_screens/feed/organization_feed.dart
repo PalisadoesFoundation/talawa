@@ -9,13 +9,15 @@ class OrganizationFeed extends StatelessWidget {
   const OrganizationFeed({
     required Key key,
     this.homeModel,
+    this.forTest = false,
   }) : super(key: key);
   final MainScreenViewModel? homeModel;
+  final bool forTest;
 
   @override
   Widget build(BuildContext context) {
     return BaseView<OrganizationFeedViewModel>(
-      onModelReady: (model) => model.initialise(),
+      onModelReady: (model) => model.initialise(isTest: forTest),
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBar(
