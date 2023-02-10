@@ -47,7 +47,6 @@ import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/custom_drawer_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dart';
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
-import '../widget_tests/after_auth_screens/feed/individual_post_test.dart';
 import 'test_helpers.mocks.dart';
 
 @GenerateMocks(
