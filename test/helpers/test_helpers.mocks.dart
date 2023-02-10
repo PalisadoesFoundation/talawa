@@ -37,6 +37,8 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
     as _i15;
 import 'package:talawa/services/user_config.dart' as _i21;
 import 'package:talawa/utils/validators.dart' as _i29;
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart'
+    as _i37;
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart'
     as _i28;
 import 'package:talawa/view_model/lang_view_model.dart' as _i22;
@@ -106,6 +108,10 @@ class _FakeGraphQLError_18 extends _i2.Fake implements _i3.GraphQLError {}
 class _FakeEventService_19 extends _i2.Fake implements _i10.EventService {}
 
 class _FakeSystemFeatures_20 extends _i2.Fake implements _i11.SystemFeatures {}
+
+class _FakeTimeOfDay_21 extends _i2.Fake implements _i1.TimeOfDay {}
+
+class _FakeDateTime_22 extends _i2.Fake implements DateTime {}
 
 /// A class which mocks [NavigationService].
 ///
@@ -1248,4 +1254,224 @@ class MockTaskService extends _i2.Mock implements _i35.TaskService {
       (super.noSuchMethod(Invocation.method(#deleteTask, [taskId, creatorId]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+}
+
+/// A class which mocks [CreateEventViewModel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCreateEventViewModel extends _i2.Mock
+    implements _i37.CreateEventViewModel {
+  @override
+  _i1.TextEditingController get eventTitleTextController =>
+      (super.noSuchMethod(Invocation.getter(#eventTitleTextController),
+              returnValue: _FakeTextEditingController_16())
+          as _i1.TextEditingController);
+  @override
+  set eventTitleTextController(
+          _i1.TextEditingController? _eventTitleTextController) =>
+      super.noSuchMethod(
+          Invocation.setter(
+              #eventTitleTextController, _eventTitleTextController),
+          returnValueForMissingStub: null);
+  @override
+  _i1.TextEditingController get eventLocationTextController =>
+      (super.noSuchMethod(Invocation.getter(#eventLocationTextController),
+              returnValue: _FakeTextEditingController_16())
+          as _i1.TextEditingController);
+  @override
+  set eventLocationTextController(
+          _i1.TextEditingController? _eventLocationTextController) =>
+      super.noSuchMethod(
+          Invocation.setter(
+              #eventLocationTextController, _eventLocationTextController),
+          returnValueForMissingStub: null);
+  @override
+  _i1.TextEditingController get eventDescriptionTextController =>
+      (super.noSuchMethod(Invocation.getter(#eventDescriptionTextController),
+              returnValue: _FakeTextEditingController_16())
+          as _i1.TextEditingController);
+  @override
+  set eventDescriptionTextController(
+          _i1.TextEditingController? _eventDescriptionTextController) =>
+      super.noSuchMethod(
+          Invocation.setter(
+              #eventDescriptionTextController, _eventDescriptionTextController),
+          returnValueForMissingStub: null);
+  @override
+  _i1.TimeOfDay get eventStartTime =>
+      (super.noSuchMethod(Invocation.getter(#eventStartTime),
+          returnValue: _FakeTimeOfDay_21()) as _i1.TimeOfDay);
+  @override
+  set eventStartTime(_i1.TimeOfDay? _eventStartTime) =>
+      super.noSuchMethod(Invocation.setter(#eventStartTime, _eventStartTime),
+          returnValueForMissingStub: null);
+  @override
+  _i1.TimeOfDay get eventEndTime =>
+      (super.noSuchMethod(Invocation.getter(#eventEndTime),
+          returnValue: _FakeTimeOfDay_21()) as _i1.TimeOfDay);
+  @override
+  set eventEndTime(_i1.TimeOfDay? _eventEndTime) =>
+      super.noSuchMethod(Invocation.setter(#eventEndTime, _eventEndTime),
+          returnValueForMissingStub: null);
+  @override
+  DateTime get eventStartDate =>
+      (super.noSuchMethod(Invocation.getter(#eventStartDate),
+          returnValue: _FakeDateTime_22()) as DateTime);
+  @override
+  set eventStartDate(DateTime? _eventStartDate) =>
+      super.noSuchMethod(Invocation.setter(#eventStartDate, _eventStartDate),
+          returnValueForMissingStub: null);
+  @override
+  DateTime get eventEndDate =>
+      (super.noSuchMethod(Invocation.getter(#eventEndDate),
+          returnValue: _FakeDateTime_22()) as DateTime);
+  @override
+  set eventEndDate(DateTime? _eventEndDate) =>
+      super.noSuchMethod(Invocation.setter(#eventEndDate, _eventEndDate),
+          returnValueForMissingStub: null);
+  @override
+  bool get isPublicSwitch => (super
+          .noSuchMethod(Invocation.getter(#isPublicSwitch), returnValue: false)
+      as bool);
+  @override
+  set isPublicSwitch(bool? _isPublicSwitch) =>
+      super.noSuchMethod(Invocation.setter(#isPublicSwitch, _isPublicSwitch),
+          returnValueForMissingStub: null);
+  @override
+  bool get isRegisterableSwitch =>
+      (super.noSuchMethod(Invocation.getter(#isRegisterableSwitch),
+          returnValue: false) as bool);
+  @override
+  set isRegisterableSwitch(bool? _isRegisterableSwitch) => super.noSuchMethod(
+      Invocation.setter(#isRegisterableSwitch, _isRegisterableSwitch),
+      returnValueForMissingStub: null);
+  @override
+  _i1.FocusNode get titleFocus =>
+      (super.noSuchMethod(Invocation.getter(#titleFocus),
+          returnValue: _FakeFocusNode_17()) as _i1.FocusNode);
+  @override
+  set titleFocus(_i1.FocusNode? _titleFocus) =>
+      super.noSuchMethod(Invocation.setter(#titleFocus, _titleFocus),
+          returnValueForMissingStub: null);
+  @override
+  _i1.FocusNode get locationFocus =>
+      (super.noSuchMethod(Invocation.getter(#locationFocus),
+          returnValue: _FakeFocusNode_17()) as _i1.FocusNode);
+  @override
+  set locationFocus(_i1.FocusNode? _locationFocus) =>
+      super.noSuchMethod(Invocation.setter(#locationFocus, _locationFocus),
+          returnValueForMissingStub: null);
+  @override
+  _i1.FocusNode get descriptionFocus =>
+      (super.noSuchMethod(Invocation.getter(#descriptionFocus),
+          returnValue: _FakeFocusNode_17()) as _i1.FocusNode);
+  @override
+  set descriptionFocus(_i1.FocusNode? _descriptionFocus) => super.noSuchMethod(
+      Invocation.setter(#descriptionFocus, _descriptionFocus),
+      returnValueForMissingStub: null);
+  @override
+  set latitude(double? _latitude) =>
+      super.noSuchMethod(Invocation.setter(#latitude, _latitude),
+          returnValueForMissingStub: null);
+  @override
+  set longitude(double? _longitude) =>
+      super.noSuchMethod(Invocation.setter(#longitude, _longitude),
+          returnValueForMissingStub: null);
+  @override
+  List<_i6.User> get orgMembersList =>
+      (super.noSuchMethod(Invocation.getter(#orgMembersList),
+          returnValue: <_i6.User>[]) as List<_i6.User>);
+  @override
+  set orgMembersList(List<_i6.User>? _orgMembersList) =>
+      super.noSuchMethod(Invocation.setter(#orgMembersList, _orgMembersList),
+          returnValueForMissingStub: null);
+  @override
+  _i1.GlobalKey<_i1.FormState> get formKey =>
+      (super.noSuchMethod(Invocation.getter(#formKey),
+              returnValue: _FakeGlobalKey_0<_i1.FormState>())
+          as _i1.GlobalKey<_i1.FormState>);
+  @override
+  _i1.AutovalidateMode get validate =>
+      (super.noSuchMethod(Invocation.getter(#validate),
+          returnValue: _i1.AutovalidateMode.disabled) as _i1.AutovalidateMode);
+  @override
+  set validate(_i1.AutovalidateMode? _validate) =>
+      super.noSuchMethod(Invocation.setter(#validate, _validate),
+          returnValueForMissingStub: null);
+  @override
+  List<_i6.User> get selectedAdmins =>
+      (super.noSuchMethod(Invocation.getter(#selectedAdmins),
+          returnValue: <_i6.User>[]) as List<_i6.User>);
+  @override
+  List<_i6.User> get selectedMembers =>
+      (super.noSuchMethod(Invocation.getter(#selectedMembers),
+          returnValue: <_i6.User>[]) as List<_i6.User>);
+  @override
+  Map<String, bool> get adminCheckedMap =>
+      (super.noSuchMethod(Invocation.getter(#adminCheckedMap),
+          returnValue: <String, bool>{}) as Map<String, bool>);
+  @override
+  Map<String, bool> get memberCheckedMap =>
+      (super.noSuchMethod(Invocation.getter(#memberCheckedMap),
+          returnValue: <String, bool>{}) as Map<String, bool>);
+  @override
+  _i23.ViewState get state => (super.noSuchMethod(Invocation.getter(#state),
+      returnValue: _i23.ViewState.idle) as _i23.ViewState);
+  @override
+  bool get isBusy =>
+      (super.noSuchMethod(Invocation.getter(#isBusy), returnValue: false)
+          as bool);
+  @override
+  bool get hasListeners =>
+      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
+          as bool);
+  @override
+  _i4.Future<void> createEvent() =>
+      (super.noSuchMethod(Invocation.method(#createEvent, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<void> getImageFromGallery({bool? camera = false}) =>
+      (super.noSuchMethod(
+          Invocation.method(#getImageFromGallery, [], {#camera: camera}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  void removeImage() => super.noSuchMethod(Invocation.method(#removeImage, []),
+      returnValueForMissingStub: null);
+  @override
+  _i4.Future<List<_i6.User>> getCurrentOrgUsersList({bool? isAdmin}) => (super
+      .noSuchMethod(
+          Invocation.method(#getCurrentOrgUsersList, [], {#isAdmin: isAdmin}),
+          returnValue: Future<List<_i6.User>>.value(<_i6.User>[])) as _i4
+      .Future<List<_i6.User>>);
+  @override
+  void buildUserList({bool? isAdmin}) => super.noSuchMethod(
+      Invocation.method(#buildUserList, [], {#isAdmin: isAdmin}),
+      returnValueForMissingStub: null);
+  @override
+  void removeUserFromList({bool? isAdmin, String? userId}) =>
+      super.noSuchMethod(
+          Invocation.method(
+              #removeUserFromList, [], {#isAdmin: isAdmin, #userId: userId}),
+          returnValueForMissingStub: null);
+  @override
+  void setState(_i23.ViewState? viewState) =>
+      super.noSuchMethod(Invocation.method(#setState, [viewState]),
+          returnValueForMissingStub: null);
+  @override
+  void addListener(_i9.VoidCallback? listener) =>
+      super.noSuchMethod(Invocation.method(#addListener, [listener]),
+          returnValueForMissingStub: null);
+  @override
+  void removeListener(_i9.VoidCallback? listener) =>
+      super.noSuchMethod(Invocation.method(#removeListener, [listener]),
+          returnValueForMissingStub: null);
+  @override
+  void dispose() => super.noSuchMethod(Invocation.method(#dispose, []),
+      returnValueForMissingStub: null);
+  @override
+  void notifyListeners() =>
+      super.noSuchMethod(Invocation.method(#notifyListeners, []),
+          returnValueForMissingStub: null);
 }

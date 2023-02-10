@@ -123,6 +123,7 @@ class NavigationService {
 
   /// This function pops the current state.
   void pop() {
+    print("pop");
     return navigatorKey.currentState!.pop();
   }
 }
