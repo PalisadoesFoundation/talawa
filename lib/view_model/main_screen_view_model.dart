@@ -5,7 +5,19 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
+/// MainScreenViewModel class provide methods to interact with the modal to
+/// serve data in user's action in Main Screen Views. The functions in this class are
+/// mainly in the context of Tutorials for different componenets of the App.
+///
+/// Functions include:
+/// * `showTutorial`
+/// * `showHome`
+/// * `tourEventTargets`
+/// * `tourAddPost`
+/// * `tourChat`
+/// * `tourProfile`
 class MainScreenViewModel extends BaseModel {
+  // getters
   static final GlobalKey<ScaffoldState> scaffoldKey =
       GlobalKey<ScaffoldState>();
   final GlobalKey keyBNHome = GlobalKey(debugLabel: "HomeTab");
@@ -15,6 +27,7 @@ class MainScreenViewModel extends BaseModel {
   final GlobalKey keySHOrgName = GlobalKey(debugLabel: "HomeScreenOrgName");
   final GlobalKey keySHMenuIcon = GlobalKey(debugLabel: "HomeScreenMenuIcon");
 
+  // variables
   static final GlobalKey keyDrawerCurOrg =
       GlobalKey(debugLabel: "DrawerCurrentOrg");
   static final GlobalKey keyDrawerSwitchableOrg =
@@ -61,6 +74,7 @@ class MainScreenViewModel extends BaseModel {
     notifyListeners();
   }
 
+  // initialiser.
   initialise(
     BuildContext ctx, {
     required bool fromSignUp,
@@ -97,6 +111,7 @@ class MainScreenViewModel extends BaseModel {
     }
   }
 
+  /// This function show tutorial to user.
   void showTutorial({
     required dynamic Function(TargetFocus) onClickTarget,
     required dynamic Function() onFinish,
@@ -210,6 +225,7 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
+  /// This function shows the Home screen.
   showHome(TargetFocus clickedTarget) {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
@@ -220,6 +236,7 @@ class MainScreenViewModel extends BaseModel {
     }
   }
 
+  /// This function show the tutorial for Events.
   tourEventTargets() {
     targets.clear();
     targets.add(
@@ -271,6 +288,7 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
+  /// This function show the tutorial to add Post in the organization.
   tourAddPost() {
     targets.clear();
     targets.add(
@@ -293,6 +311,7 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
+  /// This function show the tour of chats.
   tourChat() {
     targets.clear();
     targets.add(
@@ -315,6 +334,7 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
+  /// This function show the tutorial for the profile page.
   tourProfile() {
     targets.clear();
     targets.add(
@@ -374,6 +394,14 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
+  /// This returns a widget for a step in a tutorial.
+  ///
+  /// params:
+  /// * [keyName] : key where the widget shows.
+  /// * [description] : description of the step.
+  /// * [isCircle]
+  /// * [next] : `Function` type, this show the next step or `key` to show the tour of.
+  /// * [isEnd] : true if last step of the tour.
   TargetFocus focusTarget(
     GlobalKey key,
     String keyName,

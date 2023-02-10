@@ -4,6 +4,8 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 
+/// eventAdminFab widget returns the SpeedDial widget which which allows
+/// numbers to be entered into a memory and dialled with the push of a single button.
 Widget eventAdminFab({
   required BuildContext context,
   required Event event,

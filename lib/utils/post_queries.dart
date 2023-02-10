@@ -1,4 +1,6 @@
+///This class creates queries related to posts.
 class PostQueries {
+  //Returns a query to get posts by ID.
   String getPostsById(String orgId) {
     return """
       query {
@@ -32,6 +34,7 @@ class PostQueries {
 """;
   }
 
+  //Returns a query to add a like to a post.
   String addLike() {
     return """
      mutation likePost(\$postID: ID!) { 
@@ -43,6 +46,7 @@ class PostQueries {
   """;
   }
 
+  //Returns a query to remove a like from a post.
   String removeLike() {
     return """
      mutation unlikePost(\$postID: ID!) { 

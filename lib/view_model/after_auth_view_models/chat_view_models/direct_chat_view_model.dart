@@ -9,6 +9,12 @@ import 'package:talawa/models/chats/chat_user.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
+/// This ViewModel class have different functions that are used interact with model in the context of Direct Chat.
+///
+/// Functions include:
+/// * `initialise` : Initialise the states.
+/// * `getChatMessages` : to get all the messages of a chat.
+/// * `sendMessageToDirectChat` : to send the message to chat.
 class DirectChatViewModel extends BaseModel {
   final ChatService _chatService = locator<ChatService>();
   late StreamSubscription<ChatListTileDataModel> _chatListSubscription;
@@ -29,6 +35,7 @@ class DirectChatViewModel extends BaseModel {
 
   Map<String, List<ChatMessage>> get chatMessagesByUser => _chatMessagesByUser;
 
+  /// This function refresh the chats.
   void refreshChats() {
     _chats.clear();
     _uniqueChatIds.clear();
@@ -36,6 +43,14 @@ class DirectChatViewModel extends BaseModel {
     _chatService.getDirectChatsByUserId();
   }
 
+  /// This function prints the chats.
+  void printChats() {
+    _chats.forEach((chat) {
+      print(chat.users![0].firstName);
+    });
+  }
+
+  // initialise
   Future<void> initialise() async {
     setState(ViewState.busy);
     chatState = ChatState.loading;
@@ -49,11 +64,17 @@ class DirectChatViewModel extends BaseModel {
     setState(ViewState.idle);
   }
 
+  /// This function get all messages for a chat.
+  ///
+  /// params:
+  /// * [chatId] : id of a chat for which messages need to be fetched.
   Future<void> getChatMessages(String chatId) async {
     _chatMessagesByUser.clear();
     chatState = ChatState.loading;
     // await _chatService.getMessagesFromDirectChat();
+    // use `chatService` services
     await _chatService.getDirectChatMessagesByChatId(chatId);
+    // variable
     final List<ChatMessage> _messages = [];
     _chatMessageSubscription =
         _chatService.chatMessagesStream.listen((newMessage) {
@@ -64,6 +85,11 @@ class DirectChatViewModel extends BaseModel {
     notifyListeners();
   }
 
+  /// This function send the message to Direct Chat.
+  ///
+  /// params:
+  /// * [chatId] : id of a chat where message need to be send.
+  /// * [messageContent] : content of a message.
   Future<void> sendMessageToDirectChat(
       String chatId, String messageContent) async {
     chatState = ChatState.loading;
@@ -81,7 +107,7 @@ class DirectChatViewModel extends BaseModel {
     super.dispose();
   }
 
-  // ignore_for_file: avoid_catching_errors
+  // return chat name.
   void chatName(chatId) {
     late final List<ChatUser> users;
     try {

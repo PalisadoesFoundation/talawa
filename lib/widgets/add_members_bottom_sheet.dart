@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
+/// Adds admins and members to an organization
 class EventBottomSheet {
+  /// This function creates a modal material design bottom sheet
+  /// to let the user add admin or members to an organization.
   void addUserBottomSheet({
     required BuildContext context,
     required CreateEventViewModel model,
     required bool isAdmin,
   }) {
+    // Returns a Future that resolves to the value ("context") passed
+    // to Navigator.pop
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -35,10 +40,13 @@ class EventBottomSheet {
                   child: Column(
                     children: [
                       Text(
+                        // Set "isAdmin" "true" if the user wants to add admins,
+                        // else "false"
                         isAdmin ? "Add Admins" : "Add Members",
                         style: const TextStyle(fontSize: 16),
                       ),
                       TextButton(
+                        key: const Key('text_btn_ambs1'),
                         onPressed: () {
                           model.buildUserList(isAdmin: isAdmin);
                           Navigator.pop(context);
@@ -47,6 +55,7 @@ class EventBottomSheet {
                       ),
                       const Divider(),
                       FutureBuilder(
+                        // an admin can access the list of the members in an organization
                         future: model.getCurrentOrgUsersList(isAdmin: isAdmin),
                         builder: (
                           BuildContext context,
@@ -63,6 +72,7 @@ class EventBottomSheet {
                                       "There aren't any members in this organization.",
                                     ),
                                   )
+                                // Displaying the list of the members
                                 : Flexible(
                                     child: ListView.builder(
                                       shrinkWrap: true,

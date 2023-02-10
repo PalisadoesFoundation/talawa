@@ -110,6 +110,32 @@ void main() {
         expect(find.byType(EventCard), findsNothing);
       });
     });
+
+    testWidgets('Check if buildResult works', (tester) async {
+      mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createEventSearch());
+        await tester.pump();
+        await tester.tap(find.byIcon(Icons.search));
+        await tester.pumpAndSettle();
+
+        final textfield = find.byType(TextField);
+        await tester.enterText(textfield, 'te');
+        await tester.pumpAndSettle();
+
+        await tester.showKeyboard(textfield);
+        await tester.pump();
+
+        await tester.testTextInput.receiveAction(TextInputAction.send);
+        await tester.pump();
+
+        expect(find.byType(EventCard), findsOneWidget);
+
+        await tester.enterText(textfield, 'teste');
+        await tester.pumpAndSettle();
+
+        expect(find.byType(EventCard), findsNothing);
+      });
+    });
     testWidgets('Check if clear button works fine', (tester) async {
       mockNetworkImagesFor(() async {
         await tester.pumpWidget(createEventSearch());

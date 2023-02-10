@@ -1,5 +1,6 @@
 import 'package:talawa/models/language/language_model.dart';
 
+/// This file contains the prototypes of all the languages available and supported currencies.
 List<Language> languages = [
   Language(
     countryCode: 'US',
