@@ -9,7 +9,14 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 import 'package:vibration/vibration.dart';
 
+/// SetUrlViewModel class helps to interact with model to serve data
+/// and react to user's input for Set Url Section.
+///
+/// Methods include:
+/// * `checkURLandNavigate`
+/// * `scanQR`
 class SetUrlViewModel extends BaseModel {
+  // variables
   final formKey = GlobalKey<FormState>();
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   late Barcode result;
@@ -21,6 +28,7 @@ class SetUrlViewModel extends BaseModel {
   late List<Map<String, dynamic>> greeting;
   AutovalidateMode validate = AutovalidateMode.disabled;
 
+  // initialiser
   initialise({String inviteUrl = ''}) {
     final uri = inviteUrl;
     if (uri.isNotEmpty) {
@@ -31,6 +39,7 @@ class SetUrlViewModel extends BaseModel {
       box.put(imageUrlKey, "$uri/talawa/");
       graphqlConfig.getOrgUrl();
     }
+    // greeting message
     greeting = [
       {
         'text': 'Join ',
@@ -69,9 +78,15 @@ class SetUrlViewModel extends BaseModel {
     notifyListeners();
   }
 
+  /// This function check the URL and navigate to the respective URL.
+  ///
+  /// params:
+  /// * [navigateTo] : url.
+  /// * [argument] : more information.
   checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
+    // if the url is valid.
     if (formKey.currentState!.validate()) {
       navigationService
           .pushDialog(const CustomProgressDialog(key: Key('UrlCheckProgress')));
@@ -96,6 +111,7 @@ class SetUrlViewModel extends BaseModel {
     }
   }
 
+  /// This function returns a widget which is used to scan the QR-code.
   scanQR(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -150,8 +166,10 @@ class SetUrlViewModel extends BaseModel {
     );
   }
 
+  // This is the helper function which execute when the on QR view created.
   void _onQRViewCreated(QRViewController controller) {
     controller.scannedDataStream.listen((scanData) {
+      // if the scanData is not empty.
       if (scanData.code!.isNotEmpty) {
         print(scanData.code);
         try {

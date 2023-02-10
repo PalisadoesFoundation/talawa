@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
+///This class creats various validator methods for the application.
+///They are used to validate information given by the users.
 class Validator {
+  //Method to validate an organization's URL.
   static String? validateURL(
     String value,
   ) {
@@ -15,6 +18,7 @@ class Validator {
     return null;
   }
 
+  //Method to validate a user's first name
   static String? validateFirstName(String value) {
     if (value.isEmpty) {
       return 'Firstname must not be left blank.';
@@ -28,6 +32,7 @@ class Validator {
     return null;
   }
 
+  //Method to validate a user's last name
   static String? validateLastName(String value) {
     if (value.isEmpty) {
       return 'Lastname must not be left blank.';
@@ -41,6 +46,7 @@ class Validator {
     return null;
   }
 
+  //Method to validate a user's email
   static String? validateEmail(
     String email,
   ) {
@@ -57,6 +63,7 @@ class Validator {
     return null;
   }
 
+  //Method to validate password
   static String? validatePassword(
     String password,
   ) {
@@ -82,6 +89,7 @@ class Validator {
     return null;
   }
 
+  //Method to valid password re-entered for confirmation
   static String? validatePasswordConfirm(
     String value,
     String comparator,
@@ -92,6 +100,7 @@ class Validator {
     return null;
   }
 
+  //Method to validate already exisiting URL
   Future<bool?> validateUrlExistence(String url) async {
     try {
       await http.get(Uri.parse(url));
@@ -102,6 +111,7 @@ class Validator {
     }
   }
 
+  //Method to validate event form
   static String? validateEventForm(String value, String? label) {
     if (value.isEmpty) {
       return '$label must not be left blank.';

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+///This file contains various custom themes.
+///For instance, lightTheme, darkTheme, _lightTextTheme, _darkTextTheme, etc.
+///These are imported to other files/widgets to apply the required themes.
 class TalawaTheme {
   static const Color _lightCursorColor = Color(0xff34AD64);
   static const Color _lightAccentColor = Color(0xff34AD64);

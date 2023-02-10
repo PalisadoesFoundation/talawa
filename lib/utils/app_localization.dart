@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+///This class provides methods to localize the application so that it can be available
+///to users with different languages.
 class AppLocalizations {
   AppLocalizations(
     this.locale, {

@@ -6,6 +6,7 @@ import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
+/// This class returns the EventCard widget.
 class EventCard extends StatelessWidget {
   const EventCard({
     Key? key,
@@ -14,6 +15,7 @@ class EventCard extends StatelessWidget {
     this.eventTitleNormalText,
     required this.isSearchItem,
   }) : super(key: key);
+  // variables
   final Event event;
   final String? eventTitleHighlightedText;
   final String? eventTitleNormalText;

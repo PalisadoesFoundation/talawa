@@ -48,6 +48,7 @@ final organizationService = locator<OrganizationService>();
 final eventService = locator<EventService>();
 final commentsService = locator<CommentService>();
 final postService = locator<PostService>();
+final mainScreenViewModel = locator<MainScreenViewModel>();
 
 void testSetupLocator() {
   //services

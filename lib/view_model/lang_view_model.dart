@@ -5,6 +5,16 @@ import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
+/// AppLanguage view model class interact with modal in the context of the App Language.
+/// The class provides methods that set's the language, change the language in the modal.
+///
+/// Methods include:
+/// * `fetchLocale`
+/// * `changeLanguage`
+/// * `selectLanguagePress`
+/// * `dbLanguageUpdate`
+/// * `appLanguageQuery`
+/// * `userLanguageQuery`
 class AppLanguage extends BaseModel {
   AppLanguage({this.isTest = false});
 
@@ -15,11 +25,13 @@ class AppLanguage extends BaseModel {
   late Locale _appLocale;
   Locale get appLocal => _appLocale;
 
+  // initialiser
   Future<void> initialize() async {
     _appLocale = const Locale('en');
     await fetchLocale();
   }
 
+  /// This function fetch the language of the user's app.
   Future<void> fetchLocale() async {
     final prefs = await SharedPreferences.getInstance();
     final String langCode = prefs.getString('language_code') ?? 'en';
@@ -28,7 +40,12 @@ class AppLanguage extends BaseModel {
     notifyListeners();
   }
 
+  /// This function change the app default language.
+  ///
+  /// params:
+  /// * [type] : `Locale` type, the language need to be updated with.
   Future<void> changeLanguage(Locale type) async {
+    // if the app language is of same [type].
     if (_appLocale == type) {
       return;
     }
@@ -84,6 +101,8 @@ class AppLanguage extends BaseModel {
     notifyListeners();
   }
 
+  /// This function navigate user to `/appSettingsPage` route if the user is authenticated
+  /// else navigate to `/setUrl` route.
   selectLanguagePress() async {
     final bool userLoggedIn = await userConfig.userLoggedIn();
     if (userLoggedIn) {
@@ -94,6 +113,7 @@ class AppLanguage extends BaseModel {
     }
   }
 
+  /// This function updates the Database Language by running the graphQL `mutations`.
   Future<void> dbLanguageUpdate() async {
     try {
       await databaseFunctions
@@ -104,6 +124,8 @@ class AppLanguage extends BaseModel {
     }
   }
 
+  /// This function perform graphQL query to check the app language.
+  /// The function uses `gqlAuthQuery` method provided by Database Functions Services.
   Future<void> appLanguageQuery() async {
     try {
       await databaseFunctions.gqlAuthQuery(queries.userLanguage());
@@ -112,6 +134,11 @@ class AppLanguage extends BaseModel {
     }
   }
 
+  /// This function perform graphQL query to check the user's language in the database.
+  /// The function uses `gqlAuthQuery` method provided by Database Functions Services.
+  ///
+  /// params:
+  /// * [userId] : user for which language need to be fetch.
   Future<void> userLanguageQuery(String userId) async {
     try {
       await databaseFunctions.gqlAuthQuery(queries.newUserLanguage(userId));

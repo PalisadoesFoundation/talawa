@@ -10,6 +10,12 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
+/// This widget lets a user sign in/up with the organization url.
+/// The user can enter an organization through the QR code scanner,
+/// or enter the organization URL and then login.
+/// There is also a signup option which navigates to a screen for the user
+/// to select an organization.
+/// At the bottom, there is also a gesture detector for changing the language.
 class SetUrl extends StatefulWidget {
   const SetUrl({required Key key, required this.uri}) : super(key: key);
   final String uri;
@@ -50,6 +56,7 @@ class _SetUrlState extends State<SetUrl> {
                       margin: EdgeInsets.only(
                         top: SizeConfig.safeBlockVertical! * 2,
                       ),
+                      // QR code scanner for joining the organization.
                       child: IconButton(
                         icon: const Icon(
                           Icons.qr_code_scanner,
@@ -76,6 +83,7 @@ class _SetUrlState extends State<SetUrl> {
                       key: const Key('UrlPageText'),
                       words: model.greeting,
                     ),
+                    //Form input for entering the organization URL
                     TextFormField(
                       key: const Key('UrlInputField'),
                       controller: model.url,
@@ -121,12 +129,13 @@ class _SetUrlState extends State<SetUrl> {
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.086,
                     ),
+                    //Login button.
                     RaisedRoundedButton(
                       key: const Key('LoginButton'),
                       buttonLabel: AppLocalizations.of(context)!
                           .strictTranslate('Login'),
                       onTap: () async {
-                        /// Checking url if valid than navigating to login route
+                        /// Checking url. If valid, than navigating to login route
                         await model.checkURLandNavigate('/login', '');
                       },
                       showArrow: true,
@@ -141,6 +150,7 @@ class _SetUrlState extends State<SetUrl> {
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.0215,
                     ),
+                    //Sign up button.
                     RaisedRoundedButton(
                       key: const Key('SignUpButton'),
                       buttonLabel: AppLocalizations.of(context)!
@@ -161,6 +171,7 @@ class _SetUrlState extends State<SetUrl> {
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.06,
                     ),
+                    //Gesture Detector which navigates to a different screen for changing the language.
                     GestureDetector(
                       key: const Key('ChangeLanguage'),
                       onTap: () {
