@@ -151,7 +151,7 @@ void main() async {
               widget is Scaffold &&
               widget.drawer is CustomDrawer &&
               widget.body is IndexedStack &&
-              widget.bottomNavigationBar is Stack,
+              widget.bottomNavigationBar is BottomNavigationBar,
         ),
         findsOneWidget,
       );
