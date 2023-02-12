@@ -96,7 +96,6 @@ class OrganizationFeedViewModel extends BaseModel {
 
     _updatePostSubscription =
         _postService.updatedPostStream.listen((post) => updatedPost(post));
-    print(_posts);
     if (isTest) {
       istest = true;
     }
