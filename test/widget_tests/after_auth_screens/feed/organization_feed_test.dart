@@ -113,6 +113,7 @@ void main() {
 
     final finder = find.byType(Text);
     expect(finder, findsNWidgets(4));
+    // expect(text, findsOneWidget);
   });
   testWidgets('check if pinned post is displayed shows up', (tester) async {
     final model = locator<MainScreenViewModel>();
@@ -183,6 +184,5 @@ void main() {
     final model = locator<MainScreenViewModel>();
     await tester.pumpWidget(createOrganizationFeedScreen2(homeModel: model));
     await tester.pumpAndSettle(const Duration(seconds: 1));
-
   });
 }
