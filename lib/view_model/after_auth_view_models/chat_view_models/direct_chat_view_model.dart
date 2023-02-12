@@ -43,13 +43,6 @@ class DirectChatViewModel extends BaseModel {
     _chatService.getDirectChatsByUserId();
   }
 
-  /// This function prints the chats.
-  void printChats() {
-    _chats.forEach((chat) {
-      print(chat.users![0].firstName);
-    });
-  }
-
   // initialise
   Future<void> initialise() async {
     setState(ViewState.busy);
