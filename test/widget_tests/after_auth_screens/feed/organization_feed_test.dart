@@ -113,7 +113,6 @@ void main() {
 
     final finder = find.byType(Text);
     expect(finder, findsNWidgets(4));
-    // expect(text, findsOneWidget);
   });
   testWidgets('check if pinned post is displayed shows up', (tester) async {
     final model = locator<MainScreenViewModel>();
@@ -181,76 +180,9 @@ void main() {
   testWidgets(
       'check if post shows up when  model.posts.isNotEmpty is true and post',
       (tester) async {
-    // _organizationFeedViewModel.setValueForTest();
     final model = locator<MainScreenViewModel>();
     await tester.pumpWidget(createOrganizationFeedScreen2(homeModel: model));
     await tester.pumpAndSettle(const Duration(seconds: 1));
-    // tester.allElements.forEach((element) {
-    //   print(element);
-    // });
 
-    // _organizationFeedViewModel.setValueForTest();
-
-    // final u1 = User(
-    //   id: '123',
-    //   firstName: 'John',
-    //   lastName: 'Doe',
-    //   email: 'test@test.com',
-    // );
-    // final u2 = User(
-    //   id: '123',
-    //   firstName: 'Ayush',
-    //   lastName: 'Chaudhary',
-    //   email: 'test@test.com',
-    // );
-    // final List<User> users = [u1, u2];
-    //
-    // final LikedBy l1 = LikedBy(sId: 'test1');
-    // final LikedBy l2 = LikedBy(sId: 'test2');
-    // final List<LikedBy> likeby = [l1, l2];
-    //
-    // final comment1 = Comments(sId: 'comment1');
-    // final comment2 = Comments(sId: 'comment2');
-    // final comment3 = Comments(sId: 'comment3');
-    // final List<Comments> comments = [comment1, comment2, comment3];
-    //
-    // final myBirthday = DateTime.utc(2004, DateTime.june, 16, 5, 30, 0, 0, 0);
-    // final post = Post(
-    //   creator: User(
-    //     id: '123',
-    //     firstName: 'John',
-    //     lastName: 'Doe',
-    //     email: 'test@test.com',
-    //   ),
-    //   sId: "sid",
-    //   createdAt: myBirthday,
-    //   description: 'test description',
-    //   imageUrl: 'https://image.com',
-    //   videoUrl: 'https://image.com',
-    //   organization: OrgInfo(admins: users),
-    //   likedBy: likeby,
-    //   comments: comments,
-    // );
-    // final List<Post> posts = [post];
-    // when(postservice.postStream).
-    // final StreamController<List<Post>> _streamController = StreamController();
-    // final Stream<List<Post>> _stream =
-    //     _streamController.stream.asBroadcastStream();
-
-    // final service = MockPostService();
-    // when(service.postStream).thenAnswer((invocation) {
-    //   return _stream;
-    // });
-    // postservice.postStream.listen((event) {
-    //   print(11);
-    // });
-    // getAndRegisterPostService();
-    // _streamController.add(posts);
-    // await tester.drag(
-    //   find.byType(RefreshIndicator),
-    //   const Offset(0, 200),
-    // );
-
-    // await tester.pumpAndSettle(Duration(milliseconds: 100));
   });
 }
