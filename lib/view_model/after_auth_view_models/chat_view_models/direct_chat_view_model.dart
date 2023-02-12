@@ -54,12 +54,14 @@ class DirectChatViewModel extends BaseModel {
   Future<void> initialise() async {
     setState(ViewState.busy);
     chatState = ChatState.loading;
-    await _chatService.getDirectChatsByUserId();
 
     _chatListSubscription = _chatService.chatListStream.listen((newChat) {
       _uniqueChatIds.add(newChat.id!);
       _chats.insert(0, newChat);
     });
+
+    await _chatService.getDirectChatsByUserId();
+
     chatState = ChatState.complete;
     setState(ViewState.idle);
   }
@@ -72,8 +74,6 @@ class DirectChatViewModel extends BaseModel {
     _chatMessagesByUser.clear();
     chatState = ChatState.loading;
     // await _chatService.getMessagesFromDirectChat();
-    // use `chatService` services
-    await _chatService.getDirectChatMessagesByChatId(chatId);
     // variable
     final List<ChatMessage> _messages = [];
     _chatMessageSubscription =
@@ -81,6 +81,8 @@ class DirectChatViewModel extends BaseModel {
       _messages.add(newMessage);
       _chatMessagesByUser[chatId] = _messages;
     });
+    // use `chatService` services
+    await _chatService.getDirectChatMessagesByChatId(chatId);
     chatState = ChatState.complete;
     notifyListeners();
   }
@@ -93,10 +95,10 @@ class DirectChatViewModel extends BaseModel {
   Future<void> sendMessageToDirectChat(
       String chatId, String messageContent) async {
     chatState = ChatState.loading;
-    await _chatService.sendMessageToDirectChat(chatId, messageContent);
     _chatService.chatMessagesStream.listen((newMessage) {
       _chatMessagesByUser[chatId]!.add(newMessage);
     });
+    await _chatService.sendMessageToDirectChat(chatId, messageContent);
     chatState = ChatState.complete;
   }
 
@@ -109,12 +111,8 @@ class DirectChatViewModel extends BaseModel {
 
   // return chat name.
   void chatName(chatId) {
-    late final List<ChatUser> users;
-    try {
-      users = _chats.firstWhere((element) => element.id == chatId).users!;
-    } on StateError {
-      users = [];
-    }
+    final List<ChatUser> users =
+        _chats.firstWhere((element) => element.id == chatId).users!;
 
     users.forEach((element) {
       if (element.id != userConfig.currentUser.id!) {
