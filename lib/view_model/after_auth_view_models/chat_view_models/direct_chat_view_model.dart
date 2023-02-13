@@ -24,10 +24,11 @@ class DirectChatViewModel extends BaseModel {
 
   ChatState chatState = ChatState.initial;
 
-  late String name;
+  String? name;
 
   final Set<String> _uniqueChatIds = {};
   final List<ChatListTileDataModel> _chats = [];
+
   List<ChatListTileDataModel> get chats => _chats;
 
   final Map<String, List<ChatMessage>> _chatMessagesByUser = {};
@@ -42,23 +43,18 @@ class DirectChatViewModel extends BaseModel {
     _chatService.getDirectChatsByUserId();
   }
 
-  /// This function prints the chats.
-  void printChats() {
-    _chats.forEach((chat) {
-      print(chat.users![0].firstName);
-    });
-  }
-
   // initialise
   Future<void> initialise() async {
     setState(ViewState.busy);
     chatState = ChatState.loading;
-    await _chatService.getDirectChatsByUserId();
 
     _chatListSubscription = _chatService.chatListStream.listen((newChat) {
       _uniqueChatIds.add(newChat.id!);
       _chats.insert(0, newChat);
     });
+
+    await _chatService.getDirectChatsByUserId();
+
     chatState = ChatState.complete;
     setState(ViewState.idle);
   }
@@ -71,8 +67,6 @@ class DirectChatViewModel extends BaseModel {
     _chatMessagesByUser.clear();
     chatState = ChatState.loading;
     // await _chatService.getMessagesFromDirectChat();
-    // use `chatService` services
-    await _chatService.getDirectChatMessagesByChatId(chatId);
     // variable
     final List<ChatMessage> _messages = [];
     _chatMessageSubscription =
@@ -80,6 +74,8 @@ class DirectChatViewModel extends BaseModel {
       _messages.add(newMessage);
       _chatMessagesByUser[chatId] = _messages;
     });
+    // use `chatService` services
+    await _chatService.getDirectChatMessagesByChatId(chatId);
     chatState = ChatState.complete;
     notifyListeners();
   }
@@ -92,10 +88,10 @@ class DirectChatViewModel extends BaseModel {
   Future<void> sendMessageToDirectChat(
       String chatId, String messageContent) async {
     chatState = ChatState.loading;
-    await _chatService.sendMessageToDirectChat(chatId, messageContent);
     _chatService.chatMessagesStream.listen((newMessage) {
       _chatMessagesByUser[chatId]!.add(newMessage);
     });
+    await _chatService.sendMessageToDirectChat(chatId, messageContent);
     chatState = ChatState.complete;
   }
 
@@ -113,7 +109,7 @@ class DirectChatViewModel extends BaseModel {
 
     users.forEach((element) {
       if (element.id != userConfig.currentUser.id!) {
-        name = element.firstName!;
+        name = element.firstName;
       }
     });
   }

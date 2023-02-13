@@ -34,7 +34,7 @@ class ChatMessageScreen extends StatelessWidget {
               radius: SizeConfig.blockSizeVertical! * 2.3,
             ),
             SizedBox(width: SizeConfig.safeBlockHorizontal! * 3),
-            Text(model.name),
+            Text('${model.name}'),
           ],
         ),
       ),
