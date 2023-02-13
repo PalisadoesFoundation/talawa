@@ -1,8 +1,18 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/plugins/fetch_plugin_list.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/views/after_auth_screens/add_post_page.dart';
+import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
+import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
+import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
+import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
+import 'package:talawa/widgets/theme_switch.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 /// MainScreenViewModel class provide methods to interact with the modal to
@@ -68,20 +78,21 @@ class MainScreenViewModel extends BaseModel {
   late TutorialCoachMark tutorialCoachMark;
   final List<TargetFocus> targets = [];
 
-  int currentIndex = 0;
-  onTabTapped(int index) {
-    currentIndex = index;
-    notifyListeners();
-  }
-
-  // initialiser.
-  initialise(
+  void initialise(
     BuildContext ctx, {
     required bool fromSignUp,
     required int mainScreenIndex,
   }) {
-    currentIndex = mainScreenIndex;
+    currentPageIndex = mainScreenIndex;
     showAppTour = fromSignUp;
+
+    pluginPrototypeData = {
+      "Donation": {
+        "icon": Icons.attach_money_outlined,
+        "page": const ChangeThemeTile(),
+      }
+    };
+
     notifyListeners();
     if (!showAppTour) {
       tourComplete = true;
@@ -109,6 +120,131 @@ class MainScreenViewModel extends BaseModel {
         ),
       );
     }
+  }
+
+  /// Contains the Widgets to be rendered for corresponding navbar items.
+  /// Features that should be implemented as plugins should be kept here.
+  List<StatelessWidget> pages = [];
+
+  /// Actual [BottomNavigationBarItem]s that show up on the screen
+  List<BottomNavigationBarItem> navBarItems = [];
+
+  /// Maps the feature names with their proper Icon and Page.
+  /// `icon` contains the [IconData] corresponding to plugin's icon.
+  /// `page` contains the corresponding page to be displayed
+  /// Name of the feature provided by the admin must [exactly] match with the
+  /// name stored here.
+  Map<dynamic, dynamic> pluginPrototypeData = {};
+
+  /// Contains plugin data fetched from the server
+  List<dynamic> pluginList = [];
+
+  /// Dynamically adds [BottomNavigationBarItems] in `BottomNavigationBar`
+  /// by mapping over the data received from the server.
+  void fetchAndAddPlugins(
+    BuildContext context,
+  ) {
+    navBarItems = [
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.home,
+          key: keyBNHome,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Home'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.event_note,
+          key: keyBNEvents,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Events'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.add_box,
+          key: keyBNPost,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Add'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.chat_outlined,
+          key: keyBNChat,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Chat'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.account_circle,
+          key: keyBNProfile,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Profile'),
+      )
+    ];
+
+    pages = [
+      OrganizationFeed(
+        key: const Key("HomeView"),
+        homeModel: this,
+      ),
+      ExploreEvents(
+        key: const Key('ExploreEvents'),
+        homeModel: this,
+      ),
+      AddPost(
+        key: const Key('AddPost'),
+        drawerKey: MainScreenViewModel.scaffoldKey,
+      ),
+      const ChatPage(
+        key: Key('Chats'),
+      ),
+      ProfilePage(
+        key: keySPEditProfile,
+        homeModel: this,
+      ),
+    ];
+
+    pluginList = (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
+
+    pluginList.forEach((plugin) {
+      if (pluginPrototypeData.containsKey(plugin["pluginName"] as String) &&
+          plugin["pluginInstallStatus"] as bool) {
+        navBarItems.add(
+          BottomNavigationBarItem(
+            icon: Icon(
+              pluginPrototypeData[plugin["pluginName"]]["icon"] as IconData,
+            ),
+            label: AppLocalizations.of(context)!.strictTranslate(
+              plugin["pluginName"] as String,
+            ),
+          ),
+        );
+        pages.add(
+          pluginPrototypeData[plugin["pluginName"]]["class"] as StatelessWidget,
+        );
+      }
+    });
+
+    /// Causes the app to continously check for plugins if they are
+    /// updated and re-render the navbar
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FetchPluginList();
+      final newPluginList =
+          (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
+
+      if (listEquals(pluginList, newPluginList)) {
+        notifyListeners();
+      }
+    });
+  }
+
+  /// Currently selected page
+  int currentPageIndex = 0;
+
+  /// Handles click on [BottomNavigationBarItem]
+  void onTabTapped(int index) {
+    currentPageIndex = index;
+    notifyListeners();
   }
 
   /// This function show tutorial to user.
@@ -217,7 +353,7 @@ class MainScreenViewModel extends BaseModel {
     showTutorial(
       onClickTarget: showHome,
       onFinish: () {
-        onTabTapped(currentIndex + 1);
+        onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
           tourEventTargets();
         }
@@ -279,7 +415,7 @@ class MainScreenViewModel extends BaseModel {
     );
     showTutorial(
       onFinish: () {
-        onTabTapped(currentIndex + 1);
+        onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
           tourAddPost();
         }
@@ -302,7 +438,7 @@ class MainScreenViewModel extends BaseModel {
     );
     showTutorial(
       onFinish: () {
-        onTabTapped(currentIndex + 1);
+        onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
           tourChat();
         }
@@ -325,7 +461,7 @@ class MainScreenViewModel extends BaseModel {
     );
     showTutorial(
       onFinish: () {
-        onTabTapped(currentIndex + 1);
+        onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
           tourProfile();
         }
