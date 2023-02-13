@@ -31,6 +31,7 @@ import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/event_info_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/feed_view_models/organization_feed_view_model.dart';
@@ -71,6 +72,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<CommentService>(returnNullOnMissingStub: true),
     MockSpec<AppTheme>(returnNullOnMissingStub: true),
     MockSpec<TaskService>(returnNullOnMissingStub: false),
+    MockSpec<CreateEventViewModel>(returnNullOnMissingStub: true),
   ],
 )
 void _removeRegistrationIfExists<T extends Object>() {
@@ -459,6 +461,67 @@ Post getPostMockModel({
   return postMock;
 }
 
+CreateEventViewModel getAndRegisterCreateEventModel() {
+  _removeRegistrationIfExists<CreateEventViewModel>();
+  final cachedViewModel = MockCreateEventViewModel();
+
+  final formKey = GlobalKey<FormState>();
+  final textEditingController = TextEditingController();
+  final focusNode = FocusNode();
+
+  when(cachedViewModel.formKey).thenReturn(formKey);
+  when(cachedViewModel.titleFocus).thenReturn(focusNode);
+  when(cachedViewModel.locationFocus).thenReturn(focusNode);
+  when(cachedViewModel.descriptionFocus).thenReturn(focusNode);
+  when(cachedViewModel.eventLocationTextController)
+      .thenReturn(textEditingController);
+  when(cachedViewModel.eventTitleTextController)
+      .thenReturn(textEditingController);
+  when(cachedViewModel.eventDescriptionTextController)
+      .thenReturn(textEditingController);
+  when(cachedViewModel.eventStartDate).thenReturn(DateTime.now());
+  when(cachedViewModel.eventEndDate).thenReturn(DateTime.now());
+  when(cachedViewModel.eventStartTime).thenReturn(TimeOfDay.now());
+  when(cachedViewModel.eventEndTime).thenReturn(TimeOfDay.now());
+  when(cachedViewModel.isPublicSwitch).thenReturn(true);
+  when(cachedViewModel.isRegisterableSwitch).thenReturn(true);
+
+  final User user1 = User(
+    id: "fakeUser1",
+    firstName: 'r',
+    lastName: 'p',
+    image: 'www.image.com',
+  );
+  final User user2 = User(
+    id: "fakeUser2",
+    firstName: 'p',
+    lastName: 's',
+    image: 'www.image.com',
+  );
+
+  when(cachedViewModel.getCurrentOrgUsersList(isAdmin: true))
+      .thenAnswer((realInvocation) async {
+    return [user1];
+  });
+
+  when(cachedViewModel.selectedAdmins).thenReturn([user2]);
+  when(cachedViewModel.selectedMembers).thenReturn([user1]);
+  when(cachedViewModel.orgMembersList).thenReturn([user1]);
+
+  when(cachedViewModel.removeUserFromList(isAdmin: false, userId: "fakeUser1"))
+      .thenAnswer((realInvocation) async {
+    when(cachedViewModel.selectedMembers).thenReturn([]);
+  });
+
+  when(cachedViewModel.removeUserFromList(isAdmin: true, userId: "fakeUser2"))
+      .thenAnswer((realInvocation) async {
+    when(cachedViewModel.selectedAdmins).thenReturn([]);
+  });
+
+  locator.registerSingleton<CreateEventViewModel>(cachedViewModel);
+  return cachedViewModel;
+}
+
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterAppLanguage();
@@ -493,6 +556,8 @@ void registerViewModels() {
   locator.registerFactory(() => MainScreenViewModel());
   locator.registerFactory(() => OrganizationFeedViewModel());
   locator.registerFactory(() => ExploreEventsViewModel());
+  locator
+      .registerFactory<CreateEventViewModel>(() => MockCreateEventViewModel());
   locator.registerFactory(() => AddPostViewModel());
   locator.registerFactory(() => ProfilePageViewModel());
   locator.registerFactory(() => LikeButtonViewModel());
@@ -512,6 +577,7 @@ void unregisterViewModels() {
   locator.unregister<MainScreenViewModel>();
   locator.unregister<OrganizationFeedViewModel>();
   locator.unregister<ExploreEventsViewModel>();
+  locator.unregister<CreateEventViewModel>();
   locator.unregister<AddPostViewModel>();
   locator.unregister<ProfilePageViewModel>();
   locator.unregister<LikeButtonViewModel>();
