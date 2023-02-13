@@ -331,6 +331,7 @@ PostService getAndRegisterPostService() {
   final StreamController<List<Post>> _streamController = StreamController();
   final Stream<List<Post>> _stream =
       _streamController.stream.asBroadcastStream();
+  // _streamController.add(posts);
   when(service.postStream).thenAnswer((invocation) => _stream);
 
   final StreamController<Post> _updateStreamController = StreamController();

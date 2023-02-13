@@ -41,6 +41,21 @@ void main() {
   setupLocator();
   graphqlConfig.test();
   group("Create Event Screen Widget Test in dark mode", () {
+    group('Check if the validator of the create_event_form is working', () {
+      testWidgets("Testing if text field validator are working",
+          (tester) async {
+        await tester.pumpWidget(createEventScreen(
+          theme: TalawaTheme.lightTheme,
+        ));
+        await tester.pumpAndSettle();
+        final addBtn = find.descendant(
+          of: find.byType(AppBar),
+          matching: find.byType(TextButton),
+        );
+        await tester.tap(addBtn);
+      });
+    });
+
     testWidgets("Testing if dark mode is applied", (tester) async {
       await tester.pumpWidget(createEventScreen(
         themeMode: ThemeMode.dark,
@@ -421,19 +436,6 @@ void main() {
         await tester.tap(find.text('Choose on map'));
         await tester.pumpAndSettle();
       });
-    });
-  });
-  group('Check if the validator of the create_event_form is working', () {
-    testWidgets("Testing if text field validator are working", (tester) async {
-      await tester.pumpWidget(createEventScreen(
-        theme: TalawaTheme.lightTheme,
-      ));
-      await tester.pumpAndSettle();
-      final addBtn = find.descendant(
-        of: find.byType(AppBar),
-        matching: find.byType(TextButton),
-      );
-      await tester.tap(addBtn);
     });
   });
 }
