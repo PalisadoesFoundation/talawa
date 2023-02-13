@@ -75,7 +75,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           verbose: true
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           name: '${{env.CODECOV_UNIQUE_NAME}}'  
       - name: Test acceptable level of code coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
