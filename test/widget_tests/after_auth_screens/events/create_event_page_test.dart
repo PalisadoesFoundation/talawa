@@ -134,7 +134,7 @@ void main() {
         );
         expect(
           (appBarWidget.title as Text?)?.style!.fontFamily,
-          TalawaTheme.lightTheme.textTheme.headline6!.fontFamily,
+          TalawaTheme.lightTheme.textTheme.titleLarge!.fontFamily,
         );
         expect(
           (appBarWidget.title as Text?)?.style!.fontSize,

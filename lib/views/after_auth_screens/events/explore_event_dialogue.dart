@@ -144,7 +144,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     },
                     child: Text(
                       AppLocalizations.of(context)!.strictTranslate('Cancel'),
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
                 ),

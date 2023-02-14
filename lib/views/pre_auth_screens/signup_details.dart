@@ -101,7 +101,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   labelText:
                                       '${AppLocalizations.of(context)!.translate("Enter your first name")}*',
                                   labelStyle:
-                                      Theme.of(context).textTheme.subtitle1,
+                                      Theme.of(context).textTheme.titleMedium,
                                 ),
                               ),
                               SizedBox(
@@ -139,7 +139,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   labelText:
                                       '${AppLocalizations.of(context)!.translate("Enter your last name")}*',
                                   labelStyle:
-                                      Theme.of(context).textTheme.subtitle1,
+                                      Theme.of(context).textTheme.titleMedium,
                                 ),
                               ),
                               SizedBox(
@@ -172,7 +172,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   labelText:
                                       '${AppLocalizations.of(context)!.translate("Enter your registered Email")}*',
                                   labelStyle:
-                                      Theme.of(context).textTheme.subtitle1,
+                                      Theme.of(context).textTheme.titleMedium,
                                 ),
                               ),
                               SizedBox(
@@ -227,7 +227,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   labelText:
                                       '${AppLocalizations.of(context)!.translate("Enter your password")}*',
                                   labelStyle:
-                                      Theme.of(context).textTheme.subtitle1,
+                                      Theme.of(context).textTheme.titleMedium,
                                 ),
                               ),
                               SizedBox(
@@ -268,7 +268,7 @@ class _SignUpDetailsState extends State<SignUpDetails> {
                                   labelText:
                                       '${AppLocalizations.of(context)!.translate("Confirm your password")}*',
                                   labelStyle:
-                                      Theme.of(context).textTheme.subtitle1,
+                                      Theme.of(context).textTheme.titleMedium,
                                 ),
                               ),
                               SizedBox(

@@ -28,7 +28,7 @@ Widget eventAdminFab({
         label: 'Delete Event',
         labelStyle: Theme.of(context)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(color: Theme.of(context).colorScheme.secondary),
         foregroundColor: Theme.of(context).colorScheme.secondary,
         backgroundColor: Theme.of(context).primaryColor,
@@ -44,7 +44,7 @@ Widget eventAdminFab({
         label: 'Edit Event',
         labelStyle: Theme.of(context)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(color: Theme.of(context).colorScheme.secondary),
         foregroundColor: Theme.of(context).colorScheme.secondary,
         backgroundColor: Theme.of(context).primaryColor,

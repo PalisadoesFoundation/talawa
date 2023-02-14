@@ -63,7 +63,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
                     model.registerForEvent();
                   },
                   label: Text(model.fabTitle,
-                      style: Theme.of(context).textTheme.bodyText2),
+                      style: Theme.of(context).textTheme.bodyMedium),
                 )
               : eventAdminFab(
                   context: context,

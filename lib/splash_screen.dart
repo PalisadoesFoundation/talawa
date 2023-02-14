@@ -250,7 +250,7 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Text(
                   'TALAWA',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ],
             ),
@@ -265,7 +265,7 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Text(
                   AppLocalizations.of(context)!.strictTranslate('from'),
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
@@ -282,7 +282,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   'PALISADOES',
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle2!
+                      .titleSmall!
                       .copyWith(fontWeight: FontWeight.w700),
                 ),
               ],

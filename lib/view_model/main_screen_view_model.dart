@@ -122,7 +122,7 @@ class MainScreenViewModel extends BaseModel {
       colorShadow: Theme.of(context).colorScheme.secondaryContainer,
       textSkip: "SKIP",
       textStyleSkip:
-          TextStyle(color: Theme.of(context).backgroundColor, fontSize: 20),
+          TextStyle(color: Theme.of(context).colorScheme.background, fontSize: 20),
       paddingFocus: 10,
       opacityShadow: 1.0,
       onFinish: onFinish,
@@ -433,7 +433,7 @@ class MainScreenViewModel extends BaseModel {
                   Text(
                     description,
                     style: TextStyle(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).colorScheme.background,
                       fontSize: 20,
                     ),
                   ),
@@ -462,7 +462,7 @@ class MainScreenViewModel extends BaseModel {
                   Text(
                     isEnd ? 'COMPLETE' : 'NEXT',
                     style: TextStyle(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).colorScheme.background,
                       fontSize: 20,
                     ),
                   ),

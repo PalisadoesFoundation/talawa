@@ -41,7 +41,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                   child: Text(
                     AppLocalizations.of(context)!
                         .strictTranslate('Select Language'),
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headlineSmall,
                     key: const Key('Select Language'),
                   ),
                 ),
@@ -101,14 +101,14 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                     Text(
                                       languages[index].langName,
                                       style:
-                                          Theme.of(context).textTheme.headline6,
+                                          Theme.of(context).textTheme.titleLarge,
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!
                                           .strictTranslate('Default'),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText2!
+                                          .bodyMedium!
                                           .copyWith(
                                             color: const Color(0xFF4285F4),
                                           ),
@@ -117,7 +117,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                 )
                               : Text(
                                   languages[index].langName,
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: Theme.of(context).textTheme.titleLarge,
                                   key: const Key('LanguageItem'),
                                 ),
                         );
@@ -142,7 +142,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                 },
                 child: Text(
                   AppLocalizations.of(context)!.strictTranslate('Select'),
-                  style: Theme.of(context).textTheme.headline5!.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         fontSize: 18,
                         color: const Color(0xFF008A37),
                       ),

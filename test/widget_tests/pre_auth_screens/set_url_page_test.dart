@@ -169,33 +169,33 @@ Future<void> main() async {
           'text': 'Join ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
         },
         {
           'text': 'and ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text': 'Collaborate ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
         },
         {
           'text': 'with your ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text': 'Organizations',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5!
+              .headlineSmall!
               .copyWith(fontSize: 24, color: const Color(0xFF4285F4))
         },
       ];
@@ -501,33 +501,33 @@ Future<void> main() async {
           'text': 'Join ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
         },
         {
           'text': 'and ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text': 'Collaborate ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
         },
         {
           'text': 'with your ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text': 'Organizations',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5!
+              .headlineSmall!
               .copyWith(fontSize: 24, color: const Color(0xFF4285F4))
         },
       ];

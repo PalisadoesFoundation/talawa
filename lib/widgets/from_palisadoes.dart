@@ -18,7 +18,7 @@ class FromPalisadoes extends StatelessWidget {
             Text(
               // This method is called for localized text.
               AppLocalizations.of(context)!.strictTranslate('from'),
-              style: Theme.of(context).textTheme.caption,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         ),
@@ -34,7 +34,7 @@ class FromPalisadoes extends StatelessWidget {
               'PALISADOES',
               style: Theme.of(context)
                   .textTheme
-                  .subtitle2!
+                  .titleSmall!
                   .copyWith(fontWeight: FontWeight.w700),
             ),
           ],

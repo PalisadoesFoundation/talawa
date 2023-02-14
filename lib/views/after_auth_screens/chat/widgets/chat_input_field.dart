@@ -84,7 +84,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                             Icons.send,
                             color: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .color!
                                 .withOpacity(0.64),
                           ),

@@ -43,7 +43,7 @@ class ProfilePage extends StatelessWidget {
             key: const Key("ProfilePageAppBar"),
             title: Text(
               AppLocalizations.of(context)!.strictTranslate('Profile'),
-              style: Theme.of(context).textTheme.headline6!.copyWith(
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
@@ -71,7 +71,7 @@ class ProfilePage extends StatelessWidget {
                                 model.currentUser.firstName!.substring(0, 1),
                             imageUrl: model.currentUser.image,
                             fontSize:
-                                Theme.of(context).textTheme.headline6!.fontSize,
+                                Theme.of(context).textTheme.titleLarge!.fontSize,
                           ),
                           // display first and last name.
                           title:
@@ -309,7 +309,7 @@ class ProfilePage extends StatelessWidget {
                         'Donating to \n${model.currentOrg.name}',
                         style: Theme.of(context)
                             .textTheme
-                            .headline4!
+                            .headlineMedium!
                             .copyWith(fontSize: 24),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -343,7 +343,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         Text(
                           'Please Select and amount',
-                          style: Theme.of(context).textTheme.headline5,
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         SizedBox(
                           height: SizeConfig.screenWidth! * 0.05,
@@ -367,11 +367,11 @@ class ProfilePage extends StatelessWidget {
                         ),
                         Text(
                           'Or',
-                          style: Theme.of(context).textTheme.headline5,
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         Text(
                           'Input custom amount',
-                          style: Theme.of(context).textTheme.headline5,
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         SizedBox(
                           height: SizeConfig.screenWidth! * 0.05,
@@ -388,7 +388,7 @@ class ProfilePage extends StatelessWidget {
                             keyboardType: TextInputType.number,
                             autofillHints: const <String>[AutofillHints.email],
                             enableSuggestions: true,
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                             onChanged: (text) {
                               setState(() {});
                             },
@@ -397,7 +397,7 @@ class ProfilePage extends StatelessWidget {
                                   .translate("Enter donation amount"),
                               labelText: AppLocalizations.of(context)!
                                   .translate("Enter custom donation amount"),
-                              labelStyle: Theme.of(context).textTheme.subtitle1,
+                              labelStyle: Theme.of(context).textTheme.titleMedium,
                               prefixIcon: GestureDetector(
                                 onTap: () {
                                   model.changeCurrency(context, setState);
@@ -414,7 +414,7 @@ class ProfilePage extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline5,
+                                            .headlineSmall,
                                       ),
                                       const Icon(
                                         Icons.arrow_drop_down_circle_outlined,
@@ -514,7 +514,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                           child: Text(
                             'DONATE',
-                            style: Theme.of(context).textTheme.button,
+                            style: Theme.of(context).textTheme.labelLarge,
                           ),
                         )
                       ],

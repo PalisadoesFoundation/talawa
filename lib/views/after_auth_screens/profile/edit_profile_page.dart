@@ -29,7 +29,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               // Title of the app bar(header).
               AppLocalizations.of(context)!.strictTranslate('Profile'),
               key: const Key('ProfileText'),
-              style: Theme.of(context).textTheme.headline6!.copyWith(
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
@@ -76,7 +76,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             .substring(0, 1)
                                             .toUpperCase(),
                                     style:
-                                        Theme.of(context).textTheme.headline4,
+                                        Theme.of(context).textTheme.headlineMedium,
                                   ),
                                 ),
                       Positioned(
@@ -138,7 +138,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 labelText: AppLocalizations.of(context)!
                                     .strictTranslate('First Name'),
                                 labelStyle:
-                                    Theme.of(context).textTheme.subtitle1,
+                                    Theme.of(context).textTheme.titleMedium,
                                 focusedBorder: InputBorder.none,
                                 enabledBorder: InputBorder.none,
                                 prefixIcon: const Icon(Icons.person),
@@ -168,7 +168,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 labelText: AppLocalizations.of(context)!
                                     .strictTranslate('Last Name'),
                                 labelStyle:
-                                    Theme.of(context).textTheme.subtitle1,
+                                    Theme.of(context).textTheme.titleMedium,
                                 focusedBorder: InputBorder.none,
                                 enabledBorder: InputBorder.none,
                                 prefixIcon: const Icon(Icons.person),
@@ -208,7 +208,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             AppLocalizations.of(context)!
                                 .strictTranslate('Email'),
                             style:
-                                Theme.of(context).textTheme.caption!.copyWith(
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onBackground,
@@ -219,7 +219,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             model.user.email!,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText2!
+                                .bodyMedium!
                                 .copyWith(fontSize: 18),
                           )
                         ],

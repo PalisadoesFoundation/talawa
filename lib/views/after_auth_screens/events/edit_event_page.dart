@@ -23,7 +23,7 @@ class _EditEventPageState extends State<EditEventPage> {
   @override
   Widget build(BuildContext context) {
     final TextStyle _subtitleTextStyle =
-        Theme.of(context).textTheme.headline5!.copyWith(fontSize: 16);
+        Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16);
     return BaseView<EditEventViewModel>(
       onModelReady: (model) => model.initialize(widget.event),
       builder: (context, model, child) {
@@ -42,7 +42,7 @@ class _EditEventPageState extends State<EditEventPage> {
             // Title of the app bar(header).
             title: Text(
               'Edit Event',
-              style: Theme.of(context).textTheme.headline6!.copyWith(
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
@@ -55,7 +55,7 @@ class _EditEventPageState extends State<EditEventPage> {
                 },
                 child: Text(
                   'Done',
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 16,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
@@ -129,7 +129,7 @@ class _EditEventPageState extends State<EditEventPage> {
                     'Select End Date and Time',
                     style: Theme.of(context)
                         .textTheme
-                        .headline5!
+                        .headlineSmall!
                         .copyWith(fontSize: 16),
                   ),
                   SizedBox(

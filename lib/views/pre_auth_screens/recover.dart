@@ -25,16 +25,16 @@ class _RecoverState extends State<Recover> {
       {
         'text':
             "${AppLocalizations.of(context)!.translate("Sit back relax, we'll")} ",
-        'textStyle': Theme.of(context).textTheme.headline5
+        'textStyle': Theme.of(context).textTheme.headlineSmall
       },
       {
         'text': '${AppLocalizations.of(context)!.translate("Recover")} ',
         'textStyle':
-            Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
+            Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24)
       },
       {
         'text': AppLocalizations.of(context)!.translate("your password"),
-        'textStyle': Theme.of(context).textTheme.headline5
+        'textStyle': Theme.of(context).textTheme.headlineSmall
       },
     ];
     return Scaffold(
@@ -90,7 +90,7 @@ class _RecoverState extends State<Recover> {
                         AppLocalizations.of(context)!.translate("Email Hint"),
                     labelText:
                         '${AppLocalizations.of(context)!.translate("Enter your registered Email")} *',
-                    labelStyle: Theme.of(context).textTheme.subtitle1,
+                    labelStyle: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
               ),

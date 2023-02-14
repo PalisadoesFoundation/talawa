@@ -104,7 +104,7 @@ class _SetUrlState extends State<SetUrl> {
                       decoration: InputDecoration(
                         labelText:
                             '${AppLocalizations.of(context)!.translate("Enter Organization URL")} *',
-                        labelStyle: Theme.of(context).textTheme.subtitle1,
+                        labelStyle: Theme.of(context).textTheme.titleMedium,
                         suffixIcon: InkWell(
                           key: const Key('VerifyButton'),
                           onTap: () {
@@ -119,7 +119,7 @@ class _SetUrlState extends State<SetUrl> {
                             child: Text(
                               AppLocalizations.of(context)!
                                   .strictTranslate("Verify"),
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.bodyLarge,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -200,7 +200,7 @@ class _SetUrlState extends State<SetUrl> {
                                   .strictTranslate('Change language'),
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6!
+                                  .titleLarge!
                                   .copyWith(
                                     color: Theme.of(context)
                                         .colorScheme

@@ -42,7 +42,7 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
               firstHalf,
               style: Theme.of(context)
                   .textTheme
-                  .bodyText2!
+                  .bodyMedium!
                   .copyWith(fontFamily: 'open-sans'),
             )
           : Column(
@@ -53,7 +53,7 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
                   flag ? ("$firstHalf...") : (firstHalf + secondHalf),
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText2!
+                      .bodyMedium!
                       .copyWith(fontFamily: 'open-sans'),
                 ),
                 Row(

@@ -82,7 +82,7 @@ class EventCard extends StatelessWidget {
                                       text: eventTitleHighlightedText,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline5!
+                                          .headlineSmall!
                                           .copyWith(
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -91,7 +91,7 @@ class EventCard extends StatelessWidget {
                                           text: eventTitleNormalText,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5!
+                                              .headlineSmall!
                                               .copyWith(
                                                 color: Colors.grey,
                                               ),
@@ -104,7 +104,7 @@ class EventCard extends StatelessWidget {
                                 : Text(
                                     event.title!,
                                     style:
-                                        Theme.of(context).textTheme.headline5,
+                                        Theme.of(context).textTheme.headlineSmall,
                                   ),
                           ),
                           const Spacer(),
@@ -115,7 +115,7 @@ class EventCard extends StatelessWidget {
                           const Spacer(),
                           Text(
                             "${event.startDate!} - ${event.endDate!}",
-                            style: Theme.of(context).textTheme.caption,
+                            style: Theme.of(context).textTheme.bodySmall,
                           )
                         ],
                       ),
@@ -133,7 +133,7 @@ class EventCard extends StatelessWidget {
                           ),
                           Text(
                             "${event.startTime!} - ${event.endTime!}",
-                            style: Theme.of(context).textTheme.caption,
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                           const Spacer(),
                           const Icon(
@@ -146,7 +146,7 @@ class EventCard extends StatelessWidget {
                                 0,
                                 min(event.location!.length, 20),
                               ),
-                              style: Theme.of(context).textTheme.caption,
+                              style: Theme.of(context).textTheme.bodySmall,
                             ),
                           )
                         ],
@@ -162,7 +162,7 @@ class EventCard extends StatelessWidget {
                             width: SizeConfig.screenWidth! * 0.55,
                             child: Text(
                               event.description!,
-                              style: Theme.of(context).textTheme.caption,
+                              style: Theme.of(context).textTheme.bodySmall,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               maxLines: 3,
@@ -196,7 +196,7 @@ class EventCard extends StatelessWidget {
                                       AppLocalizations.of(context)!
                                           .strictTranslate('Created'),
                                       style:
-                                          Theme.of(context).textTheme.caption,
+                                          Theme.of(context).textTheme.bodySmall,
                                     ),
                                   ],
                                 )
@@ -220,12 +220,12 @@ class EventCard extends StatelessWidget {
                               ? Text(
                                   AppLocalizations.of(context)!
                                       .strictTranslate('public'),
-                                  style: Theme.of(context).textTheme.caption,
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 )
                               : Text(
                                   AppLocalizations.of(context)!
                                       .strictTranslate('private'),
-                                  style: Theme.of(context).textTheme.caption,
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 ),
                           SizedBox(
                             width: SizeConfig.screenWidth! * 0.027,
@@ -241,11 +241,11 @@ class EventCard extends StatelessWidget {
                           event.attendees != null
                               ? Text(
                                   event.attendees!,
-                                  style: Theme.of(context).textTheme.caption,
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 )
                               : Text(
                                   (event.registrants?.length ?? 0).toString(),
-                                  style: Theme.of(context).textTheme.caption,
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 )
                         ],
                       ),
@@ -274,7 +274,7 @@ class EventCard extends StatelessWidget {
                           AppLocalizations.of(context)!
                               .strictTranslate("Registered"),
                           style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
+                              Theme.of(context).textTheme.titleLarge!.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w700,
                                   ),

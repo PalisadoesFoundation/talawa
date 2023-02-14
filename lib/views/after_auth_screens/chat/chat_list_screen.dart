@@ -19,7 +19,7 @@ class ChatPage extends StatelessWidget {
           centerTitle: true,
           title: Text(
             "Chats",
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
                 ),

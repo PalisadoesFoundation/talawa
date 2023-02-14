@@ -137,7 +137,7 @@ void main() {
         orgNameWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5,
+            .headlineSmall,
       );
 
       // Testing Text for that contains org's creator name
@@ -158,7 +158,7 @@ void main() {
         orgCreatorWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6,
+            .titleLarge,
       );
 
       // Test for is public display
@@ -290,7 +290,7 @@ void main() {
         userNameWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6,
+            .titleLarge,
       );
 
       // Testing SizedBox for users fallback for creater info
@@ -349,7 +349,7 @@ void main() {
         optionTitleWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .bodyText2,
+            .bodyMedium,
       );
 
       // Testing Text that contains option's subtitle
@@ -368,7 +368,7 @@ void main() {
         optionSubtitleWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .caption,
+            .bodySmall,
       );
 
       // Testing SizedBox for option when trailing icon button is null (fallback for creater info)
@@ -409,7 +409,7 @@ void main() {
         optionTitleWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5!
+            .headlineSmall!
             .copyWith(fontSize: 18),
       );
 
@@ -428,7 +428,7 @@ void main() {
         optionSubtitleWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6,
+            .titleLarge,
       );
 
       // Test for checking if trailing icon button is shown

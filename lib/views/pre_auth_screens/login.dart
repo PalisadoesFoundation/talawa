@@ -89,7 +89,7 @@ class _LoginState extends State<Login> {
                             .translate("Email Hint"),
                         labelText:
                             '${AppLocalizations.of(context)!.translate("Enter your registered Email")} *',
-                        labelStyle: Theme.of(context).textTheme.subtitle1,
+                        labelStyle: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                     SizedBox(
@@ -130,7 +130,7 @@ class _LoginState extends State<Login> {
                             AppLocalizations.of(context)!.translate('password'),
                         labelText:
                             '${AppLocalizations.of(context)!.translate("Enter your password")} *',
-                        labelStyle: Theme.of(context).textTheme.subtitle1,
+                        labelStyle: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                     //Option to recover the password if the user forgets his/her password.
@@ -146,7 +146,7 @@ class _LoginState extends State<Login> {
                           child: Text(
                             '${AppLocalizations.of(context)!.translate("Forgot password")}?',
                             style:
-                                Theme.of(context).textTheme.bodyText2!.copyWith(
+                                Theme.of(context).textTheme.bodyMedium!.copyWith(
                                       fontSize: 14,
                                       color: const Color(0xFF4285F4),
                                     ),

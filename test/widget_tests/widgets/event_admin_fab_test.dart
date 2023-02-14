@@ -103,7 +103,7 @@ void main() {
         speedDialChild.labelStyle,
         Theme.of(mockBuildContext)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(color: Theme.of(mockBuildContext).colorScheme.secondary),
       );
       expect(speedDialChild.foregroundColor,
@@ -126,7 +126,7 @@ void main() {
         speedDialChild2.labelStyle,
         Theme.of(mockBuildContext)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(color: Theme.of(mockBuildContext).colorScheme.secondary),
       );
       expect(speedDialChild2.foregroundColor,

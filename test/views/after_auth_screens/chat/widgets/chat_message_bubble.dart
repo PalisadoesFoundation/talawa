@@ -65,7 +65,7 @@ void main() {
             widget is Text &&
             widget.data == "fake_chat" &&
             widget.style!.color ==
-                TalawaTheme.darkTheme.textTheme.bodyText1!.color,
+                TalawaTheme.darkTheme.textTheme.bodyLarge!.color,
         description: 'Text widget with color as black',
       );
 

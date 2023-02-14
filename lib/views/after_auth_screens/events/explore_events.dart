@@ -33,7 +33,7 @@ class ExploreEvents extends StatelessWidget {
             centerTitle: true,
             title: Text(
               AppLocalizations.of(context)!.strictTranslate('Explore Events'),
-              style: Theme.of(context).textTheme.headline6!.copyWith(
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
@@ -223,7 +223,7 @@ class ExploreEvents extends StatelessWidget {
               AppLocalizations.of(context)!.strictTranslate("Event"),
               style: Theme.of(context)
                   .textTheme
-                  .headline5!
+                  .headlineSmall!
                   .copyWith(color: Theme.of(context).colorScheme.secondary),
             ),
           ),
@@ -251,7 +251,7 @@ class ExploreEvents extends StatelessWidget {
             AppLocalizations.of(context)!.strictTranslate(value),
             style: Theme.of(context)
                 .textTheme
-                .headline6!
+                .titleLarge!
                 .copyWith(color: Theme.of(context).colorScheme.secondary),
           ),
         );
