@@ -61,7 +61,7 @@ dependencies:
   visibility_detector: ^0.3.3
 
 dev_dependencies:
-  build_runner: ^2.1.10
+  build_runner: ^2.3.3
   flutter_test:
     sdk: flutter
   hive_generator: ^1.1.0
