@@ -139,6 +139,10 @@ def main():
     (_, repository_directory) = args.repository.split("/")
     repo_merge = git.Repo.clone_from("https://github.com/{}.git".format(args.repository), "{}/{}".format(args.directory, repository_directory))
 
+    # Do nothing if the branch has a "/" in it
+    if '/' in args.merge_branch_name:
+        return
+    
     # Getting latest commit on latest branch
     commit_dev = repo_merge.commit(args.merge_branch_name)
     # Getting latest commit on feature branch
