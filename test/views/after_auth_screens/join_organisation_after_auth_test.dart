@@ -120,7 +120,7 @@ void main() {
     // If you happen to add more tests below this one, make sure to
     // re-register SelectOrganizationViewModel in that test as it will
     // be disposed once this test ends, or better, write any new tests
-    //before this one.
+    // before this one.
     testWidgets("Check if model related functions work", (tester) async {
       // Registers a singleton, which means that every instance of
       // SelectOrganizationViewModel will be the same.
