@@ -699,7 +699,7 @@ packages:
       name: lint
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.0"
+    version: "2.0.1"
   logging:
     dependency: transitive
     description:
