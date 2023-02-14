@@ -75,8 +75,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             .toString()
                                             .substring(0, 1)
                                             .toUpperCase(),
-                                    style:
-                                        Theme.of(context).textTheme.headlineMedium,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium,
                                   ),
                                 ),
                       Positioned(

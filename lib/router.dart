@@ -48,7 +48,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   // It provides two key things to us: the name, and the arguments.
   // We use the name to determine which view to return.
   switch (settings.name) {
-
     // Returns the SplashScreen
     case Routes.splashScreen:
       final int mainScreenIndex = settings.arguments! as int;

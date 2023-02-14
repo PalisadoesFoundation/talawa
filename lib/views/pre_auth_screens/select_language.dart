@@ -100,8 +100,9 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                   children: [
                                     Text(
                                       languages[index].langName,
-                                      style:
-                                          Theme.of(context).textTheme.titleLarge,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!

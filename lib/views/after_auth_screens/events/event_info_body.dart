@@ -164,8 +164,10 @@ class EventInfoBody extends StatelessWidget {
             ),
             Text(
               AppLocalizations.of(context)!.strictTranslate("Description"),
-              style:
-                  Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(fontSize: 16),
             ),
             SizedBox(width: SizeConfig.screenWidth! * 0.013),
             Text(
@@ -176,8 +178,10 @@ class EventInfoBody extends StatelessWidget {
             SizedBox(height: SizeConfig.screenHeight! * 0.013),
             Text(
               AppLocalizations.of(context)!.strictTranslate("Admins"),
-              style:
-                  Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(fontSize: 16),
             ),
             Divider(
               color: Theme.of(context).colorScheme.onBackground,

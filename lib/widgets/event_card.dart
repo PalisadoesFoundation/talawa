@@ -103,8 +103,9 @@ class EventCard extends StatelessWidget {
                                   )
                                 : Text(
                                     event.title!,
-                                    style:
-                                        Theme.of(context).textTheme.headlineSmall,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall,
                                   ),
                           ),
                           const Spacer(),

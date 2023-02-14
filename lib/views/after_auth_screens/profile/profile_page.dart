@@ -70,8 +70,10 @@ class ProfilePage extends StatelessWidget {
                             firstAlphabet:
                                 model.currentUser.firstName!.substring(0, 1),
                             imageUrl: model.currentUser.image,
-                            fontSize:
-                                Theme.of(context).textTheme.titleLarge!.fontSize,
+                            fontSize: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .fontSize,
                           ),
                           // display first and last name.
                           title:
@@ -397,7 +399,8 @@ class ProfilePage extends StatelessWidget {
                                   .translate("Enter donation amount"),
                               labelText: AppLocalizations.of(context)!
                                   .translate("Enter custom donation amount"),
-                              labelStyle: Theme.of(context).textTheme.titleMedium,
+                              labelStyle:
+                                  Theme.of(context).textTheme.titleMedium,
                               prefixIcon: GestureDetector(
                                 onTap: () {
                                   model.changeCurrency(context, setState);

@@ -145,11 +145,13 @@ class _LoginState extends State<Login> {
                           },
                           child: Text(
                             '${AppLocalizations.of(context)!.translate("Forgot password")}?',
-                            style:
-                                Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                      fontSize: 14,
-                                      color: const Color(0xFF4285F4),
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontSize: 14,
+                                  color: const Color(0xFF4285F4),
+                                ),
                           ),
                         ),
                       ],
