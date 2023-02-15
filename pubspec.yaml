@@ -41,7 +41,7 @@ dependencies:
   intl: ^0.17.0
   json_annotation: ^4.7.0
   mockito: ^5.2.0
-  network_image_mock: ^2.0.1
+  network_image_mock: ^2.1.1
   path_provider: ^2.0.2
   permission_handler: ^8.1.4+2
   provider: ^6.0.3
