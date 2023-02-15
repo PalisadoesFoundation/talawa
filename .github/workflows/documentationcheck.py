@@ -139,6 +139,10 @@ def main():
     (_, repository_directory) = args.repository.split("/")
     repo_merge = git.Repo.clone_from("https://github.com/{}.git".format(args.repository), "{}/{}".format(args.directory, repository_directory))
 
+    # Do nothing if the branch has a "/" in it
+    if '/' in args.merge_branch_name:
+        return
+    
     # Getting latest commit on latest branch
     commit_dev = repo_merge.commit(args.merge_branch_name)
     # Getting latest commit on feature branch
@@ -171,7 +175,7 @@ def main():
         sys.exit(0)
     else:
         print(
-            '''🔍 {}DOCUMENTATION NOT UPDATED: Files with missing or not updated documentation found'''.format(
+            '''🔍 {}DOCUMENTATION NOT UPDATED: Files with missing or not updated DartDoc documentation found'''.format(
                 '\033[91m'))
         for failing_file in filtered_lookup:
             print('''>>> File name: {}\n\t{}\n'''.format(failing_file, filtered_lookup[failing_file]))

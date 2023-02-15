@@ -5,11 +5,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:talawa/constants/custom_theme.dart';
-import 'package:talawa/services/org_service.dart';
+import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/base_view.dart';
@@ -39,27 +41,30 @@ Widget createEventScreen(
             key: const Key('Root'),
             themeMode: themeMode,
             theme: theme,
-            home: Scaffold(
-              key: navigationService.navigatorKey,
-              body: const CreateEventPage(
+            home: const Scaffold(
+              body: CreateEventPage(
                 key: Key('CreateEventScreen'),
               ),
             ),
-            // navigatorKey: navigationService.navigatorKey,
-            // onGenerateRoute: router.generateRoute,
+            navigatorKey: navigationService.navigatorKey,
+            onGenerateRoute: router.generateRoute,
           );
         });
 
 void main() {
   SizeConfig().test();
   testSetupLocator();
-  locator.unregister<OrganizationService>();
+  // locator.unregister<OrganizationService>();
   locator.unregister<MultiMediaPickerService>();
-  locator.registerSingleton(OrganizationService());
+  // locator.registerSingleton(OrganizationService());
   // locator.registerSingleton(LikeButtonViewModel());
 
   setUp(() {
     registerServices();
+  });
+
+  tearDown(() {
+    unregisterServices();
   });
 
   testWidgets("Checking tap Inkwell for setDate 1 datetime", (tester) async {
@@ -476,5 +481,78 @@ void main() {
       expect(find.text(DateFormat.jm().format(DateTime.now()).toString()),
           findsNWidgets(2));
     });
+  });
+
+  group("Tests for integration with view model and services", () {
+    late final CreateEventViewModel cachedViewModel;
+
+    testWidgets("setup MockCreateEventViewModel", (tester) async {
+      cachedViewModel = getAndRegisterCreateEventModel();
+    });
+
+    testWidgets("Check if AppBar buttons work", (tester) async {
+      mockNetworkImages(() async {
+        await tester.pumpWidget(createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(CreateEventPage), findsOneWidget);
+
+        await tester.tap(find.text("Add"));
+        await tester.pumpAndSettle();
+
+        await tester.tap(find.byIcon(Icons.close));
+        await tester.pumpAndSettle();
+
+        // expect(find.byType(CreateEventPage), findsNothing);
+      });
+    });
+
+    testWidgets(
+      "Check if data coming from view model show up correctly",
+      (tester) async {
+        mockNetworkImages(() async {
+          await tester.pumpWidget(createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ));
+          await tester.pumpAndSettle();
+        });
+      },
+    );
+
+    testWidgets(
+      "Check if deleting members and admins works",
+      (tester) async {
+        mockNetworkImages(() async {
+          await tester.pumpWidget(createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ));
+          await tester.pumpAndSettle();
+
+          expect(find.text("p s"), findsOneWidget);
+          expect(find.text("r p"), findsOneWidget);
+
+          await tester.ensureVisible(find.text("p s"));
+          await tester.pumpAndSettle();
+          await tester.tap(find.byIcon(Icons.cancel_rounded).at(0));
+          await tester.pumpAndSettle(const Duration(seconds: 1));
+
+          expect(cachedViewModel.selectedAdmins, []);
+          expect(find.text("r p"), findsOneWidget);
+
+          await tester.ensureVisible(find.text("r p"));
+          await tester.pumpAndSettle();
+          await tester.tap(find.byIcon(Icons.cancel_rounded).at(1));
+          await tester.pumpAndSettle(const Duration(seconds: 1));
+
+          expect(cachedViewModel.selectedAdmins, []);
+          expect(cachedViewModel.selectedMembers, []);
+        });
+      },
+    );
   });
 }

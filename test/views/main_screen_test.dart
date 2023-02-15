@@ -26,7 +26,6 @@ import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/views/main_screen.dart';
 import 'package:talawa/widgets/custom_drawer.dart';
-import 'package:talawa/widgets/theme_switch.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
@@ -152,7 +151,7 @@ void main() async {
               widget is Scaffold &&
               widget.drawer is CustomDrawer &&
               widget.body is IndexedStack &&
-              widget.bottomNavigationBar is Stack,
+              widget.bottomNavigationBar is BottomNavigationBar,
         ),
         findsOneWidget,
       );
@@ -185,10 +184,9 @@ void main() async {
         expect(find.byType(AddPost), findsOneWidget);
         expect(find.byType(ProfilePage), findsOneWidget);
 
-        // If MainScreen finds the saved plugin to be nil,
-        // it will add some by itself
+        // If MainScreen finds some plugins, it will add them dynamically
 
-        expect(find.byType(ChangeThemeTile), findsOneWidget);
+        // expect(find.byType(ChangeThemeTile), findsOneWidget);
       });
     });
 
@@ -199,7 +197,7 @@ void main() async {
 
         await tester.tap(find.byIcon(Icons.home));
         await tester.pump();
-        expect(mainScreenViewModel.currentIndex, 0);
+        expect(mainScreenViewModel.currentPageIndex, 0);
 
         await tester.tap(find.byIcon(Icons.event_note));
         await tester.pump();

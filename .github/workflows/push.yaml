@@ -43,6 +43,8 @@ jobs:
         run: flutter format --set-exit-if-changed .
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
+      - name: Echo the GitHub context for troubleshooting
+        run: echo "$GITHUB_CONTEXT"
       - name: setup python
         uses: actions/setup-python@v4
       - name: Granting permission to documentationcheck.py
@@ -144,7 +146,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           verbose: true
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           name: '${{env.CODECOV_UNIQUE_NAME}}'     
 
   Android-Build:

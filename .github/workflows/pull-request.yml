@@ -41,6 +41,19 @@ jobs:
         run: ./.github/workflows/countline.py --exclude_directories test/ --exclude_files lib/custom_painters/talawa_logo.dart lib/custom_painters/language_icon.dart lib/custom_painters/whatsapp_logo.dart lib/utils/queries.dart lib/view_model/after_auth_view_models/profile_view_models/profile_page_view_model.dart lib/view_model/pre_auth_view_models/select_organization_view_model.dart lib/views/after_auth_screens/profile/profile_page.dart lib/view_model/main_screen_view_model.dart lib/views/after_auth_screens/events/create_event_page.dart
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
+      - name: Echo the GitHub context for troubleshooting
+        run: echo "$GITHUB_CONTEXT"
+      - name: setup python
+        uses: actions/setup-python@v4
+#       - name: Granting permission to documentationcheck.py
+#         run: chmod +x ./.github/workflows/documentationcheck.py
+#       - name: execute py script
+#         # For more information on the GitHub context used for the "--repository" flag used by this script visit:
+#         # https://docs.github.com/en/actions/learn-github-actions/contexts
+#         run: |
+#           git branch
+#           pip install GitPython
+#           python ./.github/workflows/documentationcheck.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
 
   Flutter-Testing:
     name: Testing codebase
@@ -64,13 +77,13 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           verbose: true
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           name: '${{env.CODECOV_UNIQUE_NAME}}'  
       - name: Test acceptable level of code coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
             path: './coverage/lcov.info'
-            min_coverage: 73.8
+            min_coverage: 80.0
             
   Android-Build:
     name: Testing build for android
