@@ -1292,14 +1292,7 @@ packages:
       name: vibration
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.4-nullsafety.0"
-  vibration_web:
-    dependency: transitive
-    description:
-      name: vibration_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.6.3-nullsafety.0"
+    version: "1.7.6"
   video_player:
     dependency: "direct main"
     description:
