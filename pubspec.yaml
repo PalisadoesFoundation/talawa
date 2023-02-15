@@ -47,7 +47,7 @@ dependencies:
   provider: ^6.0.3
   qr_code_scanner: ^1.0.0
   qr_flutter: ^4.0.0
-  quick_actions: ^0.6.0+5
+  quick_actions: ^1.0.1
   shared_preferences: ^2.0.6
   shimmer: ^2.0.0
   social_share: ^2.2.1
