@@ -769,7 +769,7 @@ packages:
       name: network_image_mock
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "2.1.1"
   nm:
     dependency: transitive
     description:
@@ -965,7 +965,21 @@ packages:
       name: quick_actions
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.0+6"
+    version: "1.0.1"
+  quick_actions_android:
+    dependency: transitive
+    description:
+      name: quick_actions_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  quick_actions_ios:
+    dependency: transitive
+    description:
+      name: quick_actions_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   quick_actions_platform_interface:
     dependency: transitive
     description:
@@ -1278,14 +1292,7 @@ packages:
       name: vibration
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.4-nullsafety.0"
-  vibration_web:
-    dependency: transitive
-    description:
-      name: vibration_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.6.3-nullsafety.0"
+    version: "1.7.6"
   video_player:
     dependency: "direct main"
     description:

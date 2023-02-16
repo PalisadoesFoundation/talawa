@@ -41,13 +41,13 @@ dependencies:
   intl: ^0.17.0
   json_annotation: ^4.7.0
   mockito: ^5.2.0
-  network_image_mock: ^2.0.1
+  network_image_mock: ^2.1.1
   path_provider: ^2.0.2
   permission_handler: ^8.1.4+2
   provider: ^6.0.3
   qr_code_scanner: ^1.0.0
   qr_flutter: ^4.0.0
-  quick_actions: ^0.6.0+5
+  quick_actions: ^1.0.1
   shared_preferences: ^2.0.6
   shimmer: ^2.0.0
   social_share: ^2.2.1
@@ -56,7 +56,7 @@ dependencies:
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.3
   uni_links: ^0.5.1
-  vibration: ^1.7.4-nullsafety.0
+  vibration: ^1.7.6
   video_player: ^2.2.7
   visibility_detector: ^0.3.3
 
