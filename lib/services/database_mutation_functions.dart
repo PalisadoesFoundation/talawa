@@ -127,7 +127,7 @@ class DataBaseMutationFunctions {
     }
     // if the error is unknown
     WidgetsBinding.instance.addPostFrameCallback((_) =>
-        navigationService.showTalawaErrorDialog("Something went wrong!"));
+        navigationService.showTalawaErrorDialog("Something went wrong! "));
     return false;
   }
 
