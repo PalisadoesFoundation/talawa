@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:firebase_messaging_platform_interface/firebase_messaging_platform_interface.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
@@ -19,7 +20,11 @@ Future<T> neverEndingFuture<T>() async {
 void setupFirebaseMocks() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  MethodChannelFirebase.channel.setMockMethodCallHandler((call) async {
+  const firebaseChannel = MethodChannel(
+    'plugins.flutter.io/firebase_core',
+  );
+
+  firebaseChannel.setMockMethodCallHandler((call) async {
     if (call.method == 'Firebase#initializeCore') {
       return [
         {
