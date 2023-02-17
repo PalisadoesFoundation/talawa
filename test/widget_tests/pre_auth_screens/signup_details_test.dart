@@ -89,7 +89,10 @@ void main() {
       await tester.enterText(firstNameInputFieldWidget, '<>');
 
       await tester.dragUntilVisible(
-          findSignUpButton, findSignUpButton, const Offset(0, 50));
+        findSignUpButton,
+        findSignUpButton,
+        const Offset(0, 50),
+      );
 
       await tester.tap(findSignUpButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
@@ -110,7 +113,10 @@ void main() {
       await tester.enterText(firstNameInputFieldWidget, '');
 
       await tester.dragUntilVisible(
-          findSignUpButton, findSignUpButton, const Offset(0, 50));
+        findSignUpButton,
+        findSignUpButton,
+        const Offset(0, 50),
+      );
 
       await tester.tap(findSignUpButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
@@ -133,7 +139,10 @@ void main() {
       await tester.enterText(lastNameInputFieldWidget, '<>');
 
       await tester.dragUntilVisible(
-          findSignUpButton, findSignUpButton, const Offset(0, 50));
+        findSignUpButton,
+        findSignUpButton,
+        const Offset(0, 50),
+      );
 
       await tester.tap(findSignUpButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
@@ -154,7 +163,10 @@ void main() {
       await tester.enterText(lastNameInputFieldWidget, '');
 
       await tester.dragUntilVisible(
-          findSignUpButton, findSignUpButton, const Offset(0, 50));
+        findSignUpButton,
+        findSignUpButton,
+        const Offset(0, 50),
+      );
 
       await tester.tap(findSignUpButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
@@ -177,13 +189,17 @@ void main() {
     final nullPasswordSubmission = find.text('Password must not be left blank');
     //initializing the invalidPasswordSubmission widget Finder
     final invalidPasswordSubmission = find.text(
-        'Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)');
+      'Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)',
+    );
     //initializing the spacePasswordSubmission widget Finder
     final spacePasswordSubmission =
         find.text('Password must not contain spaces');
 
     await tester.dragUntilVisible(
-        findSignUpButton, findSignUpButton, const Offset(0, 50));
+      findSignUpButton,
+      findSignUpButton,
+      const Offset(0, 50),
+    );
     //finding the password input text field
     expect(passwordInputFieldWidget, findsOneWidget);
     //finding the  iconbutton

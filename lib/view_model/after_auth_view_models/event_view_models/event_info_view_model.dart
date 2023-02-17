@@ -33,9 +33,12 @@ class EventInfoViewModel extends BaseModel {
     final registrantsJsonList = fetchRegistrantsByEventQueryResult
         .data!['registrantsByEvent'] as List<Object?>;
     registrants = registrantsJsonList
-        .map((registrantJson) => User.fromJson(
+        .map(
+          (registrantJson) => User.fromJson(
             registrantJson! as Map<String, dynamic>,
-            fromOrg: true))
+            fromOrg: true,
+          ),
+        )
         .toList();
     setState(ViewState.idle);
   }

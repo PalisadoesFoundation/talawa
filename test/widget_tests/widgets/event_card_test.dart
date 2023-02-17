@@ -27,8 +27,11 @@ Event getEvent({bool? isRegistered, bool isPublic = false}) {
   );
 }
 
-Widget createCustomEventCard(Event event,
-    {bool isSearchItem = false, String? eventTitleHighlightedText}) {
+Widget createCustomEventCard(
+  Event event, {
+  bool isSearchItem = false,
+  String? eventTitleHighlightedText,
+}) {
   return MaterialApp(
     locale: const Locale('en'),
     supportedLocales: [
@@ -112,11 +115,13 @@ void main() {
         const eventTitleHighlightedText = "ravidi";
         const eventTitle = "Testing";
 
-        await tester.pumpWidget(createCustomEventCard(
-          getEvent(),
-          isSearchItem: false,
-          eventTitleHighlightedText: eventTitleHighlightedText,
-        ));
+        await tester.pumpWidget(
+          createCustomEventCard(
+            getEvent(),
+            isSearchItem: false,
+            eventTitleHighlightedText: eventTitleHighlightedText,
+          ),
+        );
         await tester.pump();
 
         expect(
@@ -143,11 +148,13 @@ void main() {
         const eventTitleHighlightedText = "ravidi";
         const eventTitle = "Testing";
 
-        await tester.pumpWidget(createCustomEventCard(
-          getEvent(isRegistered: true, isPublic: true),
-          isSearchItem: true,
-          eventTitleHighlightedText: eventTitleHighlightedText,
-        ));
+        await tester.pumpWidget(
+          createCustomEventCard(
+            getEvent(isRegistered: true, isPublic: true),
+            isSearchItem: true,
+            eventTitleHighlightedText: eventTitleHighlightedText,
+          ),
+        );
         await tester.pump();
 
         expect(

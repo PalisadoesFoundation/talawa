@@ -96,13 +96,15 @@ void main() {
       expect(userInfo.image, "https://testimg.com");
       expect(userInfo.authToken, " ");
 
-      userInfo.update(User(
-        firstName: "ravidi_updated",
-        lastName: "sheikh_updated",
-        email: "updatedemail@test.com",
-        image: "https://testimgupdated.com",
-        authToken: "randomAuthToken_updated",
-      ));
+      userInfo.update(
+        User(
+          firstName: "ravidi_updated",
+          lastName: "sheikh_updated",
+          email: "updatedemail@test.com",
+          image: "https://testimgupdated.com",
+          authToken: "randomAuthToken_updated",
+        ),
+      );
 
       expect(userInfo.firstName, "ravidi_updated");
       expect(userInfo.lastName, "sheikh_updated");
@@ -130,8 +132,10 @@ void main() {
 
       expect(userInfo.joinedOrganizations!.length, 3);
       expect(userInfo.joinedOrganizations![0].name, 'test_org_updated');
-      expect(userInfo.joinedOrganizations![0].image,
-          'https://testimg_updated.com');
+      expect(
+        userInfo.joinedOrganizations![0].image,
+        'https://testimg_updated.com',
+      );
       expect(userInfo.joinedOrganizations![0].isPublic, true);
     });
 
@@ -147,8 +151,10 @@ void main() {
 
       expect(userInfo.createdOrganizations!.length, 3);
       expect(userInfo.createdOrganizations![0].name, 'test_org_updated');
-      expect(userInfo.createdOrganizations![0].image,
-          'https://testimg_updated.com');
+      expect(
+        userInfo.createdOrganizations![0].image,
+        'https://testimg_updated.com',
+      );
       expect(userInfo.createdOrganizations![0].isPublic, true);
     });
 
@@ -165,7 +171,9 @@ void main() {
       expect(userInfo.membershipRequests!.length, 5);
       expect(userInfo.membershipRequests![3].name, 'test_org_updated');
       expect(
-          userInfo.membershipRequests![3].image, 'https://testimg_updated.com');
+        userInfo.membershipRequests![3].image,
+        'https://testimg_updated.com',
+      );
       expect(userInfo.membershipRequests![3].isPublic, true);
     });
 

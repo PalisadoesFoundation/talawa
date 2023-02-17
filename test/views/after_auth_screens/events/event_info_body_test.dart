@@ -71,13 +71,15 @@ Widget createEventInfoBody({
     builder: (context, langModel, child) {
       return BaseView<EventInfoViewModel>(
         onModelReady: (model) {
-          model.initialize(args: {
-            "event": getTestEvent(
-              isPublic: isPublic,
-              viewOnMap: viewOnMap,
-            ),
-            "exploreEventViewModel": exploreEventsViewModel,
-          });
+          model.initialize(
+            args: {
+              "event": getTestEvent(
+                isPublic: isPublic,
+                viewOnMap: viewOnMap,
+              ),
+              "exploreEventViewModel": exploreEventsViewModel,
+            },
+          );
 
           _eventInfoViewModel = model;
         },

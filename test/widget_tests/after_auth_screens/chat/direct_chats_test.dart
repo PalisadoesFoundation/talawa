@@ -18,18 +18,22 @@ Widget createDirectChats() {
 final model = locator<DirectChatViewModel>();
 Widget createChatTile() {
   return MaterialApp(
-      home: Scaffold(
-    body: ChatTile(
-      chat: ChatListTileDataModel([
-        ChatUser(
-          firstName: 'test',
-          id: '1',
-          image: 'fakeHttp',
-        )
-      ], '1'),
-      model: model,
+    home: Scaffold(
+      body: ChatTile(
+        chat: ChatListTileDataModel(
+          [
+            ChatUser(
+              firstName: 'test',
+              id: '1',
+              image: 'fakeHttp',
+            )
+          ],
+          '1',
+        ),
+        model: model,
+      ),
     ),
-  ));
+  );
 }
 
 void main() {
@@ -58,10 +62,12 @@ void main() {
       expect(find.byType(ChatTile), findsOneWidget);
 
       await tester.tap(find.byType(ListTile));
-      verify(locator<NavigationService>().pushScreen(
-        Routes.chatMessageScreen,
-        arguments: ['1', model],
-      ));
+      verify(
+        locator<NavigationService>().pushScreen(
+          Routes.chatMessageScreen,
+          arguments: ['1', model],
+        ),
+      );
     });
   });
 }

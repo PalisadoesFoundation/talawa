@@ -87,7 +87,8 @@ Future<void> main() async {
   group('Edit Profile Screen Widget Test in light mode', () {
     testWidgets("Testing if Edit Profile Screen shows up", (tester) async {
       userConfig.updateUser(
-          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'));
+        User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+      );
       await tester.pumpWidget(createChangePassScreenLight());
       await tester.pumpAndSettle();
       final screenScaffoldWidget = find.byKey(
@@ -110,7 +111,8 @@ Future<void> main() async {
       await mockNetworkImages(() async {
         userConfig.updateUser(User());
         userConfig.updateUser(
-            User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'));
+          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+        );
         await tester.pumpWidget(createChangePassScreenLight());
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
@@ -134,11 +136,14 @@ Future<void> main() async {
         (tester) async {
       await mockNetworkImages(() async {
         userConfig.updateUser(User());
-        userConfig.updateUser(User(
+        userConfig.updateUser(
+          User(
             firstName: 'Test',
             lastName: 'Test',
             email: 'test@test.com',
-            image: 'https://via.placeholder.com/150'));
+            image: 'https://via.placeholder.com/150',
+          ),
+        );
         await tester.pumpWidget(createChangePassScreenLight());
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
@@ -161,7 +166,8 @@ Future<void> main() async {
       await mockNetworkImages(() async {
         userConfig.updateUser(User());
         userConfig.updateUser(
-            User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'));
+          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+        );
         await tester.pumpWidget(createChangePassScreenLight());
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
@@ -185,7 +191,8 @@ Future<void> main() async {
   group('Edit Profile Screen Widget Test in dark mode', () {
     testWidgets("Testing if Edit Profile Screen shows up", (tester) async {
       userConfig.updateUser(
-          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'));
+        User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+      );
       await tester.pumpWidget(createChangePassScreenDark());
       await tester.pumpAndSettle();
       final screenScaffoldWidget = find.byKey(
@@ -208,7 +215,8 @@ Future<void> main() async {
       await mockNetworkImages(() async {
         userConfig.updateUser(User());
         userConfig.updateUser(
-            User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'));
+          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+        );
         await tester.pumpWidget(createChangePassScreenDark());
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
@@ -233,11 +241,14 @@ Future<void> main() async {
       await mockNetworkImages(() async {
         userConfig.updateUser(User());
 
-        userConfig.updateUser(User(
+        userConfig.updateUser(
+          User(
             firstName: 'Test',
             lastName: 'Test',
             email: 'test@test.com',
-            image: 'https://via.placeholder.com/150'));
+            image: 'https://via.placeholder.com/150',
+          ),
+        );
         await tester.pumpWidget(createChangePassScreenDark());
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(
@@ -260,7 +271,8 @@ Future<void> main() async {
       await mockNetworkImages(() async {
         userConfig.updateUser(User());
         userConfig.updateUser(
-            User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'));
+          User(firstName: 'Test', lastName: 'Test', email: 'test@test.com'),
+        );
         await tester.pumpWidget(createChangePassScreenDark());
         await tester.pumpAndSettle();
         final screenScaffoldWidget = find.byKey(

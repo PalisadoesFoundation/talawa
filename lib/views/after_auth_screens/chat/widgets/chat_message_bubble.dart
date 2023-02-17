@@ -50,7 +50,7 @@ class Message extends StatelessWidget {
                 color: message.sender!.firstName ==
                         userConfig.currentUser.firstName
                     ? Colors.black
-                    : Theme.of(context).textTheme.bodyText1!.color,
+                    : Theme.of(context).textTheme.bodyLarge!.color,
               ),
             ),
           ),

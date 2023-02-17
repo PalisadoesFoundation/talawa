@@ -5,12 +5,12 @@ import 'package:talawa/services/user_config.dart';
 
 /// TalwaPluginProvider provides ability to implement features as plugins
 class TalawaPluginProvider extends StatelessWidget {
-  const TalawaPluginProvider(
-      {Key? key,
-      @required this.child,
-      required this.visible,
-      required this.pluginName})
-      : super(key: key);
+  const TalawaPluginProvider({
+    Key? key,
+    @required this.child,
+    required this.visible,
+    required this.pluginName,
+  }) : super(key: key);
 
   ///child contains the widget for the plugin UI.
   final Widget? child;

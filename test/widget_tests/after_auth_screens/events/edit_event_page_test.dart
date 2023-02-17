@@ -21,46 +21,49 @@ import '../../../helpers/setup_firebase_mocks.dart';
 import '../../../helpers/test_helpers.dart';
 import '../../../helpers/test_helpers.mocks.dart';
 
-Widget editEventScreen(
-        {ThemeMode themeMode = ThemeMode.light, required ThemeData theme}) =>
+Widget editEventScreen({
+  ThemeMode themeMode = ThemeMode.light,
+  required ThemeData theme,
+}) =>
     BaseView<AppLanguage>(
-        onModelReady: (model) => model.initialize(),
-        builder: (context, langModel, child) {
-          return MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(isTest: true),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            key: const Key('Root'),
-            themeMode: themeMode,
-            theme: theme,
-            home: EditEventPage(
-              key: const Key('EditEventScreen'),
-              event: Event(
-                id: '1',
-                admins: [],
-                startDate: DateFormat('yMd').format(
-                  DateTime(2021, 1, 1),
-                ),
-                endDate: DateFormat('yMd').format(
-                  DateTime(2022, 1, 1),
-                ),
-                startTime: DateFormat('h:mm a').format(DateTime(2021, 1, 1)),
-                endTime: DateFormat('h:mm a').format(DateTime(2022, 1, 1)),
-                isRegisterable: true,
-                isPublic: true,
-                isRegistered: true,
-                title: "Test Title",
-                description: "Description Title",
-                location: "Buea",
+      onModelReady: (model) => model.initialize(),
+      builder: (context, langModel, child) {
+        return MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          key: const Key('Root'),
+          themeMode: themeMode,
+          theme: theme,
+          home: EditEventPage(
+            key: const Key('EditEventScreen'),
+            event: Event(
+              id: '1',
+              admins: [],
+              startDate: DateFormat('yMd').format(
+                DateTime(2021, 1, 1),
               ),
+              endDate: DateFormat('yMd').format(
+                DateTime(2022, 1, 1),
+              ),
+              startTime: DateFormat('h:mm a').format(DateTime(2021, 1, 1)),
+              endTime: DateFormat('h:mm a').format(DateTime(2022, 1, 1)),
+              isRegisterable: true,
+              isPublic: true,
+              isRegistered: true,
+              title: "Test Title",
+              description: "Description Title",
+              location: "Buea",
             ),
-            navigatorKey: navigationService.navigatorKey,
-            onGenerateRoute: router.generateRoute,
-          );
-        });
+          ),
+          navigatorKey: navigationService.navigatorKey,
+          onGenerateRoute: router.generateRoute,
+        );
+      },
+    );
 
 Future<void> main() async {
   SizeConfig().test();
@@ -72,10 +75,12 @@ Future<void> main() async {
 
   group("Edit Event Screen Widget Test in dark mode", () {
     testWidgets("Testing if dark mode is applied", (tester) async {
-      await tester.pumpWidget(editEventScreen(
-        themeMode: ThemeMode.dark,
-        theme: TalawaTheme.darkTheme,
-      ));
+      await tester.pumpWidget(
+        editEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
       expect(
         (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
@@ -95,8 +100,10 @@ Future<void> main() async {
       await tester.tap(find.text('Done'));
       await tester.pump();
 
-      verify((service as MockEventService)
-          .editEvent(eventId: '1', variables: anyNamed('variables')));
+      verify(
+        (service as MockEventService)
+            .editEvent(eventId: '1', variables: anyNamed('variables')),
+      );
     });
     testWidgets('Tap on Add Image', (tester) async {
       await tester.pumpWidget(editEventScreen(theme: TalawaTheme.darkTheme));
@@ -173,10 +180,12 @@ Future<void> main() async {
 
   group("Edit Event Screen Widget Test in light mode", () {
     testWidgets("Testing if light mode is applied", (tester) async {
-      await tester.pumpWidget(editEventScreen(
-        themeMode: ThemeMode.light,
-        theme: TalawaTheme.lightTheme,
-      ));
+      await tester.pumpWidget(
+        editEventScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
       expect(
         (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
@@ -188,9 +197,11 @@ Future<void> main() async {
   });
   group('Edit Event Screen Widget Test', () {
     testWidgets("Testing if Edit Event Screen shows up", (tester) async {
-      await tester.pumpWidget(editEventScreen(
-        theme: TalawaTheme.lightTheme,
-      ));
+      await tester.pumpWidget(
+        editEventScreen(
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
       final screenScaffoldWidget = find.byKey(const Key('EditEventScreen'));
       expect(screenScaffoldWidget, findsOneWidget);
@@ -198,9 +209,11 @@ Future<void> main() async {
 
     group("Testing app bar properties and contents", () {
       testWidgets("Testing if app bar shows up", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appBar = find.byType(AppBar);
         final appBarWidget = tester.firstWidget(appBar) as AppBar;
@@ -208,9 +221,11 @@ Future<void> main() async {
         expect(appBarWidget.elevation, 1);
       });
       testWidgets("Testing close button in app bar", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appBar = find.byType(AppBar);
         final appBarWidget = tester.firstWidget(appBar) as AppBar;
@@ -229,9 +244,11 @@ Future<void> main() async {
         );
       });
       testWidgets("Testing title in app bar", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appBar = find.byType(AppBar);
         final appBarWidget = tester.firstWidget(appBar) as AppBar;
@@ -247,7 +264,7 @@ Future<void> main() async {
         );
         expect(
           (appBarWidget.title as Text?)?.style!.fontFamily,
-          TalawaTheme.lightTheme.textTheme.headline6!.fontFamily,
+          TalawaTheme.lightTheme.textTheme.titleLarge!.fontFamily,
         );
         expect(
           (appBarWidget.title as Text?)?.style!.fontSize,
@@ -255,9 +272,11 @@ Future<void> main() async {
         );
       });
       testWidgets("Testing done button in app bar", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appBar = find.byType(AppBar);
         final appBarWidget = tester.firstWidget(appBar) as AppBar;
@@ -294,9 +313,11 @@ Future<void> main() async {
 
     group("Testing body properties and contents", () {
       testWidgets("Testing Add Image section", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -327,17 +348,21 @@ Future<void> main() async {
         expect(imageShowWidget, findsNothing);
       });
       testWidgets("Testing if Edit Event Form widget shows", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final editEventForm = find.byType(EditEventForm);
         expect(editEventForm, findsOneWidget);
       });
       testWidgets("Testing Select Start Date and Time section", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -364,9 +389,11 @@ Future<void> main() async {
         );
       });
       testWidgets("Testing Select End Date and Time section", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -399,9 +426,11 @@ Future<void> main() async {
         );
       });
       testWidgets("Testing Does not repeat section", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -424,9 +453,11 @@ Future<void> main() async {
         );
       });
       testWidgets("Testing Keep public section", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -453,9 +484,11 @@ Future<void> main() async {
         expect((tester.firstWidget(switches) as Switch).value, false);
       });
       testWidgets("Testing Keep Registerable section", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -482,12 +515,16 @@ Future<void> main() async {
         await tester.tap(switches.at(1));
         await tester.pumpAndSettle();
         expect(
-            (tester.widgetList(switches).toList()[1] as Switch).value, false);
+          (tester.widgetList(switches).toList()[1] as Switch).value,
+          false,
+        );
       });
       testWidgets("Testing if cancel button in app bar works", (tester) async {
-        await tester.pumpWidget(editEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          editEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appBar = find.byType(AppBar);
         final closeBtn = find.descendant(

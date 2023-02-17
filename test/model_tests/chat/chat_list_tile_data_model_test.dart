@@ -54,7 +54,9 @@ void main() {
 
       expect(chatListTileDataModel.id, chatListTileDataModelFromJson.id);
       checkUsers(
-          chatListTileDataModel.users, chatListTileDataModelFromJson.users);
+        chatListTileDataModel.users,
+        chatListTileDataModelFromJson.users,
+      );
     });
 
     test('Test toJson', () {

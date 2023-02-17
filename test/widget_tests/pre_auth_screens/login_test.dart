@@ -152,7 +152,8 @@ void main() {
           find.text('Password must not be left blank');
       //initializing the invalidPasswordSubmission widget Finder
       final invalidPasswordSubmission = find.text(
-          'Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)');
+        'Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)',
+      );
       //initializing the spacePasswordSubmission widget Finder
       final spacePasswordSubmission =
           find.text('Password must not contain spaces');

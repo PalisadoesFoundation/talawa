@@ -43,7 +43,7 @@ class _TaskFormState extends State<TaskForm> {
         ),
         title: Text(
           AppLocalizations.of(context)!.strictTranslate(widget.title),
-          style: Theme.of(context).textTheme.headline6!.copyWith(
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
@@ -65,7 +65,7 @@ class _TaskFormState extends State<TaskForm> {
             },
             child: Text(
               AppLocalizations.of(context)!.strictTranslate(widget.actionText),
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontSize: 16,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
@@ -100,7 +100,7 @@ class _TaskFormState extends State<TaskForm> {
                       .strictTranslate('Select End Date and Time'),
                   style: Theme.of(context)
                       .textTheme
-                      .headline5!
+                      .headlineSmall!
                       .copyWith(fontSize: 16),
                 ),
                 SizedBox(height: SizeConfig.screenHeight! * 0.013),
@@ -108,14 +108,14 @@ class _TaskFormState extends State<TaskForm> {
                   date: "${model.taskEndDate.toLocal()}".split(' ')[0],
                   time: model.taskEndTime.format(context),
                   setDate: () async {
-                    final _date =
+                    final date =
                         await customDatePicker(initialDate: model.taskEndDate);
-                    setState(() => model.taskEndDate = _date);
+                    setState(() => model.taskEndDate = date);
                   },
                   setTime: () async {
-                    final _time =
+                    final time =
                         await customTimePicker(initialTime: model.taskEndTime);
-                    setState(() => model.taskEndTime = _time);
+                    setState(() => model.taskEndTime = time);
                   },
                 ),
               ],
@@ -143,7 +143,7 @@ class TitleField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: 'Add Task Title',
         isDense: true,
-        labelStyle: Theme.of(context).textTheme.subtitle1,
+        labelStyle: Theme.of(context).textTheme.titleMedium,
         focusedBorder: InputBorder.none,
         counterText: "",
         enabledBorder: InputBorder.none,
@@ -180,7 +180,7 @@ class DescriptionField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: 'Describe the task',
         labelText: 'Add Description',
-        labelStyle: Theme.of(context).textTheme.subtitle1,
+        labelStyle: Theme.of(context).textTheme.titleMedium,
         border: InputBorder.none,
         focusedBorder: InputBorder.none,
         enabledBorder: InputBorder.none,

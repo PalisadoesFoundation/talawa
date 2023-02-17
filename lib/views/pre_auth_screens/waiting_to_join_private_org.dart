@@ -58,7 +58,7 @@ class WaitingPage extends StatelessWidget {
                       Text(
                         AppLocalizations.of(context)!
                             .strictTranslate('Request Sent to'),
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],
                   ),

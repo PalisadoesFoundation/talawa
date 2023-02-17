@@ -84,12 +84,11 @@ void main() {
       );
       expect(
         circleAvatar.child,
-        isA<Text>()
-          ..having(
-            (text) => text.style,
-            'Checking text style',
-            const TextStyle(color: Colors.white),
-          ),
+        isA<Text>().having(
+          (text) => text.style,
+          'Checking text style',
+          const TextStyle(color: Colors.white),
+        ),
       );
 
       expect(find.textContaining('R'), findsOneWidget);
@@ -142,8 +141,8 @@ void main() {
       expect(
         iconButton.icon,
         isA<Icon>()
-          ..having((icon) => icon.color, 'color', const Color(0xff524F4F))
-          ..having((icon) => icon.size, 'size', 19),
+            .having((icon) => icon.color, 'color', const Color(0xff524F4F))
+            .having((icon) => icon.size, 'size', 19),
       );
 
       expect(isDeleted, false);

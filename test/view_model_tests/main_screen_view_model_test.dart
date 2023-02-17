@@ -77,11 +77,12 @@ void main() {
     setUp(() => registerServices());
     tearDown(() => unregisterServices());
 
-    void runIntialize(
-        {required bool fSignUp,
-        int mainIndex = 1,
-        required MainScreenViewModel model,
-        BuildContext? pcontext}) {
+    void runIntialize({
+      required bool fSignUp,
+      int mainIndex = 1,
+      required MainScreenViewModel model,
+      BuildContext? pcontext,
+    }) {
       model.initialise(
         pcontext ?? context,
         fromSignUp: fSignUp,
@@ -96,7 +97,10 @@ void main() {
       const int mainIndex = 1;
       final mainTestModel = getModel();
       runIntialize(
-          fSignUp: fSignup, mainIndex: mainIndex, model: mainTestModel);
+        fSignUp: fSignup,
+        mainIndex: mainIndex,
+        model: mainTestModel,
+      );
 
       expect(mainTestModel.showAppTour, fSignup);
       expect(mainTestModel.currentPageIndex, mainIndex);
@@ -117,8 +121,11 @@ void main() {
       final mocknav = getAndRegisterNavigationService();
       final mainTestModel = getModel();
 
-      mainTestModel.initialise(MockBuildContext(),
-          fromSignUp: false, mainScreenIndex: 0);
+      mainTestModel.initialise(
+        MockBuildContext(),
+        fromSignUp: false,
+        mainScreenIndex: 0,
+      );
 
       // Ensures that navigation service was not called
       verifyZeroInteractions(mocknav);
@@ -130,14 +137,17 @@ void main() {
       final mainTestModel = getModel();
 
       //Waits for any delay in navigation being called
-      mainTestModel.initialise(MockBuildContext(),
-          fromSignUp: true, mainScreenIndex: 0);
+      mainTestModel.initialise(
+        MockBuildContext(),
+        fromSignUp: true,
+        mainScreenIndex: 0,
+      );
 
       await Future.delayed(const Duration(seconds: 2));
 
-      final captured = verify((navigationService as MockNavigationService)
-              .pushDialog(captureAny))
-          .captured;
+      final captured = verify(
+        (navigationService as MockNavigationService).pushDialog(captureAny),
+      ).captured;
       captured[0].success();
       captured[0].secondaryButtonTap();
 
@@ -150,7 +160,9 @@ void main() {
     final mainTestModel = getModel();
     test("When called tutorial coach should be assigned a value", () {
       mainTestModel.showTutorial(
-          onClickTarget: (TargetFocus x) {}, onFinish: () {});
+        onClickTarget: (TargetFocus x) {},
+        onFinish: () {},
+      );
       expect(mainTestModel.tutorialCoachMark, isNotNull);
 
       // mainTestModel.tutorialCoachMark.skip();
@@ -175,7 +187,9 @@ void main() {
     final mainTestModel = getModel();
     test("target list should be cleared before adding new targets", () {
       final TargetFocus testTarget = TargetFocus(
-          identify: "TestTarget", keyTarget: mainTestModel.keyBNChat);
+        identify: "TestTarget",
+        keyTarget: mainTestModel.keyBNChat,
+      );
       //Adding a target before method is called
       mainTestModel.targets.add(testTarget);
 
@@ -189,7 +203,9 @@ void main() {
     final mainTestModel = getModel();
     test("target list should be cleared before adding new targets", () {
       final TargetFocus testTarget = TargetFocus(
-          identify: "TestTarget", keyTarget: mainTestModel.keyBNChat);
+        identify: "TestTarget",
+        keyTarget: mainTestModel.keyBNChat,
+      );
       //Adding a target before method is called
       mainTestModel.targets.add(testTarget);
 
@@ -202,7 +218,9 @@ void main() {
     final mainTestModel = getModel();
     test("target list should be cleared before adding new targets", () {
       final TargetFocus testTarget = TargetFocus(
-          identify: "TestTarget", keyTarget: mainTestModel.keyBNChat);
+        identify: "TestTarget",
+        keyTarget: mainTestModel.keyBNChat,
+      );
       //Adding a target before method is called
       mainTestModel.targets.add(testTarget);
 
@@ -216,7 +234,9 @@ void main() {
     final mainTestModel = getModel();
     test("target list should be cleared before adding new targets", () {
       final TargetFocus testTarget = TargetFocus(
-          identify: "TestTarget", keyTarget: mainTestModel.keyBNChat);
+        identify: "TestTarget",
+        keyTarget: mainTestModel.keyBNChat,
+      );
       //Adding a target before method is called
       mainTestModel.targets.add(testTarget);
 

@@ -19,11 +19,7 @@ class _BaseViewState<T extends ChangeNotifier> extends State<BaseView<T>> {
 
   @override
   void initState() {
-    if (widget.onModelReady != null) {
-      widget.onModelReady!(
-        model,
-      );
-    }
+    widget.onModelReady?.call(model);
     super.initState();
   }
 

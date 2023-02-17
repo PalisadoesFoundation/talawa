@@ -107,22 +107,34 @@ void main() {
         return true;
       });
 
-      when(navigationService.popAndPushScreen('/appSettingsPage',
-              arguments: ''))
-          .thenAnswer((_) async {});
+      when(
+        navigationService.popAndPushScreen(
+          '/appSettingsPage',
+          arguments: '',
+        ),
+      ).thenAnswer((_) async {});
 
       databaseFunctions.init();
 
-      when(databaseFunctions.gqlAuthMutation(
-              queries.updateLanguage(model.appLocal.languageCode)))
-          .thenAnswer((_) async {});
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.updateLanguage(model.appLocal.languageCode),
+        ),
+      ).thenAnswer((_) async {});
 
       await model.selectLanguagePress();
 
-      verify(databaseFunctions.gqlAuthMutation(
-          queries.updateLanguage(model.appLocal.languageCode)));
-      verify(navigationService.popAndPushScreen('/appSettingsPage',
-          arguments: ''));
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          queries.updateLanguage(model.appLocal.languageCode),
+        ),
+      );
+      verify(
+        navigationService.popAndPushScreen(
+          '/appSettingsPage',
+          arguments: '',
+        ),
+      );
 
       // testing userLanguageQuery function
       const userId = "xyz1";
@@ -148,9 +160,11 @@ void main() {
       await model.appLanguageQuery();
 
       //testing catch block in dbLanguageUpdate
-      when(databaseFunctions.gqlAuthMutation(
-              queries.updateLanguage(model.appLocal.languageCode)))
-          .thenThrow(Error());
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.updateLanguage(model.appLocal.languageCode),
+        ),
+      ).thenThrow(Error());
       await model.dbLanguageUpdate();
     });
   });

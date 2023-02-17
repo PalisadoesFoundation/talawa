@@ -182,9 +182,9 @@ class ProfilePageViewModel extends BaseModel {
                     ),
                     iconButton(
                       CustomPaint(
-                        size: Size(
+                        size: const Size(
                           50,
-                          (50 * 1.004).toDouble(),
+                          50 * 1.004,
                         ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
                         painter: WhatsappLogo(),
                       ),
@@ -266,7 +266,7 @@ class ProfilePageViewModel extends BaseModel {
         ),
         child: Text(
           '$donationCurrencySymbol $amount',
-          style: Theme.of(context).textTheme.subtitle1,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
     );

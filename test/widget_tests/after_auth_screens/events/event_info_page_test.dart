@@ -106,8 +106,12 @@ void main() {
         expect(find.byIcon(Icons.lock), findsOneWidget);
 
         await tester.tap(find.text('View on map'));
-        verify(navigationService.pushScreen(Routes.mapScreen,
-            arguments: {'latitude': 23.45, 'longitude': -23.45}));
+        verify(
+          navigationService.pushScreen(
+            Routes.mapScreen,
+            arguments: {'latitude': 23.45, 'longitude': -23.45},
+          ),
+        );
       });
     });
   });

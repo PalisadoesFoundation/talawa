@@ -76,9 +76,10 @@ Future<void> main() async {
       );
 
       final result = QueryResult(
-          source: QueryResultSource.network,
-          data: data,
-          options: QueryOptions(document: gql(queries.loginUser('', ''))));
+        source: QueryResultSource.network,
+        data: data,
+        options: QueryOptions(document: gql(queries.loginUser('', ''))),
+      );
 
       when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
           .thenAnswer((_) async => result);
@@ -104,9 +105,10 @@ Future<void> main() async {
       );
 
       final result = QueryResult(
-          source: QueryResultSource.network,
-          data: data,
-          options: QueryOptions(document: gql(queries.loginUser('', ''))));
+        source: QueryResultSource.network,
+        data: data,
+        options: QueryOptions(document: gql(queries.loginUser('', ''))),
+      );
 
       when(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')))
           .thenAnswer((_) async => result);
@@ -138,10 +140,12 @@ Future<void> main() async {
 
       verify(databaseFunctions.gqlNonAuthMutation(queries.loginUser('', '')));
 
-      verifyNever(navigationService.removeAllAndPush(
-        Routes.waitingScreen,
-        Routes.splashScreen,
-      ));
+      verifyNever(
+        navigationService.removeAllAndPush(
+          Routes.waitingScreen,
+          Routes.splashScreen,
+        ),
+      );
     });
     testWidgets('Check if login() is working fine when throws error',
         (tester) async {

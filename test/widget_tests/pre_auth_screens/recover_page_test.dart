@@ -113,14 +113,14 @@ void main() {
               "${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("Sit back relax, we'll")} ",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text':
               '${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("Recover")} ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(fontSize: 24)
         },
         {
@@ -130,7 +130,7 @@ void main() {
               .translate("your password"),
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
       ];
 
