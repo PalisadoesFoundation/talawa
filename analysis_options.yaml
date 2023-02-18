@@ -53,6 +53,38 @@ linter:
     ############# removed in future PRs ################
     ####################################################
 
+    # Advises to explicitly install any plugin which you are using
+    # in your codebase. At many places in our codebase we have used
+    # things of a plugin which is not in our pubspec.yaml. Say we have
+    # installed plugin A, which in turn internally installs plugin B, as
+    # A depends on B, and then we are using functionalities of B, even
+    # though we never installed them explicitly; they just got installed.
+    #
+    # To fix: Uncomment below lint and check for warnings it creates. Then
+    # install the dependencies one by one.
+
     depend_on_referenced_packages: false
+    
+    # This new lint rule advises to use methods on dynamic objects
+    # only after properly type casting. It's quite good and will avoid
+    # null errors. 
+    # For now, it affects the whole code base; wherever we have done 
+    # something like 
+    # 
+    # ``` 
+    # var obj = json_data['obj'];
+    # obj.fun_call(param);
+    # ```
+    #
+    # To fix: Turn on this lint and type cast the object of your file as 
+    #
+    # ```
+    # MyObj obj = json_data['obj'] as MyObj;
+    # ```
+    
     avoid_dynamic_calls: false
+
     # deprecated_member_use is turned off for file - test/helpers/test_helpers.dart
+    # to suppress returnNullOnMissingStub deprecation. 
+    # To fix: Remove the lint suppress directive and update to latest API
+    
