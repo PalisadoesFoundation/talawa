@@ -71,13 +71,14 @@ class TaskService {
   }) async {
     _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
-    final res =
-        await _databaseMutationFunctions.gqlAuthMutation(TaskQueries.editTask(
-      title: title,
-      description: description,
-      deadline: deadline,
-      taskId: taskId,
-    ));
+    final res = await _databaseMutationFunctions.gqlAuthMutation(
+      TaskQueries.editTask(
+        title: title,
+        description: description,
+        deadline: deadline,
+        taskId: taskId,
+      ),
+    );
 
     // if res is not null.
     if (res != null) {

@@ -91,7 +91,9 @@ class _SplashScreenState extends State<SplashScreen> {
     if (_initialUri!.pathSegments[1] == 'invite') {
       if (!userLoggedIn) {
         fromInviteLink(
-            keys.toList(growable: false), values.toList(growable: false));
+          keys.toList(growable: false),
+          values.toList(growable: false),
+        );
         return;
       }
 
@@ -194,7 +196,9 @@ class _SplashScreenState extends State<SplashScreen> {
       final currentUser = userConfig.currentUser;
       if (currentUser.joinedOrganizations!.isNotEmpty) {
         final mainScreenArgs = MainScreenArgs(
-            mainScreenIndex: widget.mainScreenIndex, fromSignUp: false);
+          mainScreenIndex: widget.mainScreenIndex,
+          fromSignUp: false,
+        );
         pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
         return;
       }
@@ -235,7 +239,7 @@ class _SplashScreenState extends State<SplashScreen> {
               key: const Key('LogoPainter'),
               size: Size(
                 SizeConfig.screenWidth! * 0.6,
-                (SizeConfig.screenWidth! * 0.6).toDouble(),
+                SizeConfig.screenWidth! * 0.6,
               ),
               painter: AppLogo(),
             ),

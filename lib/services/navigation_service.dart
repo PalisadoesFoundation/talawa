@@ -100,14 +100,16 @@ class NavigationService {
     String errorMessage, {
     Duration duration = const Duration(seconds: 2),
   }) {
-    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(SnackBar(
-      padding: EdgeInsets.zero,
-      content: TalawaErrorWidget(
-        errorMessage: errorMessage,
+    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+      SnackBar(
+        padding: EdgeInsets.zero,
+        content: TalawaErrorWidget(
+          errorMessage: errorMessage,
+        ),
+        // backgroundColor: Colors.grey,
+        backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
       ),
-      // backgroundColor: Colors.grey,
-      backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
-    ));
+    );
   }
 
   void showTalawaErrorDialog(String errorMessage) {

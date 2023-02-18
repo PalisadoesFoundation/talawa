@@ -202,7 +202,7 @@ class ProfilePageViewModel extends BaseModel {
                     ),
                     iconButton(
                       const FaIcon(
-                        FontAwesomeIcons.shareAlt,
+                        FontAwesomeIcons.shareNodes,
                         size: 30,
                         color: Color(0xff40c351),
                       ),
