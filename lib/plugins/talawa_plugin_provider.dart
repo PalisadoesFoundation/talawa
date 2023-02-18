@@ -32,17 +32,19 @@ class TalawaPluginProvider extends StatelessWidget {
 
     ///mapping over the list from the server
     pluginList
-        .map((plugin) => {
-              if (plugin["pluginName"] == pluginName)
-                {
-                  if (plugin["pluginInstallStatus"] as bool)
-                    {
-                      res = plugin["pluginInstallStatus"] as bool ||
-                          plugin["installedOrgs"]
-                              .contains(userConfig.currentOrg.id) as bool
-                    }
-                }
-            })
+        .map(
+          (plugin) => {
+            if (plugin["pluginName"] == pluginName)
+              {
+                if (plugin["pluginInstallStatus"] as bool)
+                  {
+                    res = plugin["pluginInstallStatus"] as bool ||
+                        plugin["installedOrgs"]
+                            .contains(userConfig.currentOrg.id) as bool
+                  }
+              }
+          },
+        )
         .toList();
     return res;
   }

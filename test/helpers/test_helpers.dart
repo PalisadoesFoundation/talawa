@@ -52,7 +52,7 @@ import 'test_helpers.mocks.dart';
 @GenerateMocks(
   [],
   customMocks: [
-    MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<NavigationService>(returnNullOnMissingStub: true),
     MockSpec<GraphqlConfig>(returnNullOnMissingStub: true),
     MockSpec<GraphQLClient>(returnNullOnMissingStub: true),
     MockSpec<PostService>(returnNullOnMissingStub: true),

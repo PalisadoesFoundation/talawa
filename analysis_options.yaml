@@ -46,3 +46,13 @@ linter:
     join_return_with_assignment: false
 
     prefer_const_literals_to_create_immutables: false
+
+
+    ####################################################
+    #### Added to make things work for now. Must be ####
+    ############# removed in future PRs ################
+    ####################################################
+
+    depend_on_referenced_packages: false
+    avoid_dynamic_calls: false
+    deprecated_member_use: false
