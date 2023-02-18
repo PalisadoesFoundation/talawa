@@ -84,15 +84,4 @@ class OrgInfo {
   bool? isPublic;
   @HiveField(7)
   User? creatorInfo;
-  //Method to print the organization's information.
-  printOrgInfo() {
-    debugPrint('_id: ${this.id}');
-    debugPrint('name: ${this.name}');
-    debugPrint('image: ${this.image}');
-    debugPrint('description: ${this.description}');
-    debugPrint('isPublic: ${this.isPublic}');
-    debugPrint('creatorInfo: ${this.creatorInfo}');
-    debugPrint('admins: ${this.admins}');
-    debugPrint('members: ${this.members}');
-  }
 }
