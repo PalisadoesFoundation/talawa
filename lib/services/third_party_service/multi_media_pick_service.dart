@@ -42,12 +42,12 @@ class MultiMediaPickerService {
     // asking for user's camera access permission.
     try {
       // checking for the image source, it could be camera or gallery.
-      final _image = await _picker.pickImage(
+      final image = await _picker.pickImage(
         source: camera ? ImageSource.camera : ImageSource.gallery,
       );
       // if image is selected or not null, call the cropImage function that provide service to crop the selected image.
-      if (_image != null) {
-        return await cropImage(imageFile: File(_image.path));
+      if (image != null) {
+        return await cropImage(imageFile: File(image.path));
       }
     } catch (e) {
       // if the permission denied or error occurs.
@@ -102,7 +102,8 @@ class MultiMediaPickerService {
       }
     } catch (e) {
       print(
-          "MultiMediaPickerService : Exception occurred while cropping Image");
+        "MultiMediaPickerService : Exception occurred while cropping Image",
+      );
     }
     return null;
   }

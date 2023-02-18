@@ -9,6 +9,8 @@ import '../helpers/test_locator.dart';
 class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.setMockInitialValues({});
   testSetupLocator();
 
   setUp(() {

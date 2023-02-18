@@ -206,7 +206,7 @@ void main() {
       userBox.put('user', userInfo);
 
       final newUserBox = await Hive.openBox('userInfo');
-      final loadedUserInfo = newUserBox.get('user');
+      final loadedUserInfo = newUserBox.get('user') as User;
 
       expect(loadedUserInfo.firstName, "ravidi");
       expect(loadedUserInfo.lastName, "sheikh");

@@ -54,14 +54,14 @@ Widget createChatListScreen() {
   );
 }
 
-Future<void> showSelectContactScreen(tester) async {
+Future<void> showSelectContactScreen(WidgetTester tester) async {
   await tester.pumpWidget(createApp());
   await tester.pump();
   await tester.tap(find.textContaining('Ayush'));
   await tester.pumpAndSettle();
 }
 
-Future<void> showSelectContactScreenByChatPage(tester) async {
+Future<void> showSelectContactScreenByChatPage(WidgetTester tester) async {
   await tester.pumpWidget(createChatListScreen());
   await tester.pump();
   await tester.tap(find.byIcon(Icons.add));

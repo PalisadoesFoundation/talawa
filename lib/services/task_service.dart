@@ -109,13 +109,14 @@ class TaskService {
   }) async {
     _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
-    final res =
-        await _databaseMutationFunctions.gqlAuthMutation(TaskQueries.addTask(
-      title: title,
-      description: description,
-      deadline: deadline,
-      eventId: eventId,
-    ));
+    final res = await _databaseMutationFunctions.gqlAuthMutation(
+      TaskQueries.addTask(
+        title: title,
+        description: description,
+        deadline: deadline,
+        eventId: eventId,
+      ),
+    );
 
     if (res != null) {
       final task = res.data!['createTask'] as Map<String, dynamic>;

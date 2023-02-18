@@ -22,7 +22,7 @@ import '../../helpers/test_helpers.dart';
 const Key newsPostKey = Key("newsPostKey");
 const Key postContainerKey = Key("postContainerKey");
 
-Widget createNewsPostWidget([Function? function, Post? post]) {
+Widget createNewsPostWidget([Function(Post)? function, Post? post]) {
   return MaterialApp(
     locale: const Locale('en'),
     localizationsDelegates: [

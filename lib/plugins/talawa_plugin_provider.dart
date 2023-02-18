@@ -23,7 +23,7 @@ class TalawaPluginProvider extends StatelessWidget {
 
   ///return `bool` decides the final visibility of the verifying from database and current OrgId
   bool checkFromPluginList() {
-    final UserConfig _userConfig = locator<UserConfig>();
+    final UserConfig userConfig = locator<UserConfig>();
     final Box box;
     bool res = false;
     box = Hive.box('pluginBox');
@@ -39,7 +39,7 @@ class TalawaPluginProvider extends StatelessWidget {
                     {
                       res = plugin["pluginInstallStatus"] as bool ||
                           plugin["installedOrgs"]
-                              .contains(_userConfig.currentOrg.id) as bool
+                              .contains(userConfig.currentOrg.id) as bool
                     }
                 }
             })

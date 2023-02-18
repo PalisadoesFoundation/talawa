@@ -114,11 +114,16 @@ class LoginViewModel extends BaseModel {
             final androidFirebaseOptionsBox =
                 await Hive.openBox('androidFirebaseOptions');
             androidFirebaseOptionsBox.put(
-                'androidFirebaseOptions', androidFirebaseOptions);
+              'androidFirebaseOptions',
+              androidFirebaseOptions,
+            );
 
             final iosFirebaseOptionsBox =
                 await Hive.openBox('iosFirebaseOptions');
-            iosFirebaseOptionsBox.put('iosFirebaseOptions', iosFirebaseOptions);
+            iosFirebaseOptionsBox.put(
+              'iosFirebaseOptions',
+              iosFirebaseOptions,
+            );
           }
         }
       } on Exception catch (e) {

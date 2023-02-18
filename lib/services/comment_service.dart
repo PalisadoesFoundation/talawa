@@ -20,9 +20,9 @@ class CommentService {
   /// * [text] - content of the comment.
   Future<void> createComments(String postId, String text) async {
     print("comment service called");
-    final String _createCommentQuery = CommentQueries().createComment();
+    final String createCommentQuery = CommentQueries().createComment();
     final result = await _dbFunctions.gqlAuthMutation(
-      _createCommentQuery,
+      createCommentQuery,
       variables: {
         'postId': postId, //Add your variables here
         'text': text
@@ -38,8 +38,8 @@ class CommentService {
   /// parameters:
   /// * [postId] - Post id for which comments need to be fetched.
   Future getCommentsForPost(String postId) async {
-    final String _getCommmentQuery = CommentQueries().getPostsComments(postId);
-    final result = await _dbFunctions.gqlAuthMutation(_getCommmentQuery);
+    final String getCommmentQuery = CommentQueries().getPostsComments(postId);
+    final result = await _dbFunctions.gqlAuthMutation(getCommmentQuery);
     if (result.data != null) {
       return result.data["commentsByPost"] as List;
     }

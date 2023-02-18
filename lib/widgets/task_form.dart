@@ -169,7 +169,8 @@ class DescriptionField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskDescriptionTextController = context.select(
-        (CreateTaskViewModel model) => model.taskDescriptionTextController);
+      (CreateTaskViewModel model) => model.taskDescriptionTextController,
+    );
 
     return TextFormField(
       keyboardType: TextInputType.multiline,

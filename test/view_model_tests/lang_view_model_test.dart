@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
@@ -10,6 +11,9 @@ import '../helpers/test_locator.dart';
 class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.setMockInitialValues({});
+  
   testSetupLocator();
   locator<GraphqlConfig>().test();
 

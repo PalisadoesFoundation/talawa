@@ -80,7 +80,7 @@ void main() {
             (widget) =>
                 widget is Column &&
                 widget.children[0] is Padding &&
-                widget.children[1] is Container &&
+                widget.children[1] is ColoredBox &&
                 widget.children[2] is Padding &&
                 widget.children[3] is Expanded &&
                 widget.children[4] is SizedBox &&

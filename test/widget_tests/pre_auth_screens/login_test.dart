@@ -32,7 +32,7 @@ Widget createApp() {
   );
 }
 
-Future<void> showLoginScreen(tester) async {
+Future<void> showLoginScreen(WidgetTester tester) async {
   await tester.pumpWidget(createApp());
   await tester.pump();
   await tester.tap(find.textContaining('ravidi'));

@@ -37,7 +37,7 @@ Widget createApp() {
   );
 }
 
-Future<void> showSignUpScreen(tester) async {
+Future<void> showSignUpScreen(WidgetTester tester) async {
   await tester.pumpWidget(createApp());
   await tester.pump();
   await tester.tap(find.textContaining('Ayush'));

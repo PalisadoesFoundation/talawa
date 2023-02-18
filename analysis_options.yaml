@@ -22,7 +22,7 @@ linter:
     unnecessary_this: false
 
     # source files name using lowercase_with_underscores
-    lowercase_with_underscores: true
+    # lowercase_with_underscores: true
 
     leading_newlines_in_multiline_strings: false
 

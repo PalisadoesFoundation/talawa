@@ -26,7 +26,7 @@ bool _showIcon = false;
 User _userInfo = User();
 
 // ignore: prefer_function_declarations_over_variables
-dynamic Function(OrgInfo)? _onTapOrgInfo = (OrgInfo _orgInfo) => true;
+dynamic Function(OrgInfo)? _onTapOrgInfo = (OrgInfo orgInfo) => true;
 
 // ignore: prefer_function_declarations_over_variables
 void Function()? _onTapOption = () => {};
