@@ -55,4 +55,4 @@ linter:
 
     depend_on_referenced_packages: false
     avoid_dynamic_calls: false
-    deprecated_member_use: false
+    # deprecated_member_use is turned off for file - test/helpers/test_helpers.dart
