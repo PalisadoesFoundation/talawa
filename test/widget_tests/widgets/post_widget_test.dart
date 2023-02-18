@@ -188,7 +188,9 @@ void main() {
                 .having(
                   (icon) => icon.color,
                   "color",
-                  equals(TalawaTheme.lightTheme.colorScheme.secondary),
+                  equals(
+                    const Color(0xff737373),
+                  ),
                 ),
           );
         });

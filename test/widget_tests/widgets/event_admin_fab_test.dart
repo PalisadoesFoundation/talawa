@@ -87,7 +87,7 @@ void main() {
       expect(speedDialFinder, findsOneWidget);
       expect((speedDial as SpeedDial).icon, Icons.menu);
       expect(speedDial.activeIcon, Icons.close);
-      expect(speedDial.buttonSize, 55.0);
+      expect(speedDial.buttonSize, const Size(55.0, 55.0));
       expect(
         speedDial.overlayColor,
         Theme.of(mockBuildContext).colorScheme.onBackground,

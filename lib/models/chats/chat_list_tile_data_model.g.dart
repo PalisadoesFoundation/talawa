@@ -13,7 +13,7 @@ ChatListTileDataModel _$ChatListTileDataModelFromJson(
       (json['users'] as List<dynamic>?)
           ?.map((e) => ChatUser.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['id'] as String?,
+      json['_id'] as String?,
     );
 
 Map<String, dynamic> _$ChatListTileDataModelToJson(
@@ -21,5 +21,5 @@ Map<String, dynamic> _$ChatListTileDataModelToJson(
 ) =>
     <String, dynamic>{
       'users': instance.users,
-      'id': instance.id,
+      '_id': instance.id,
     };

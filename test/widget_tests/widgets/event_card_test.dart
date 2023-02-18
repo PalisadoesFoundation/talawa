@@ -127,7 +127,7 @@ void main() {
         expect(
           find.descendant(
             of: find.byType(Positioned),
-            matching: find.byType(Container),
+            matching: find.byType(DecoratedBox),
           ),
           findsNothing,
         );
@@ -160,7 +160,7 @@ void main() {
         expect(
           find.descendant(
             of: find.byType(Positioned),
-            matching: find.byType(Container),
+            matching: find.byType(DecoratedBox),
           ),
           findsOneWidget,
         );
