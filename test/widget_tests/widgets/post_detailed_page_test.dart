@@ -33,9 +33,10 @@ Widget createDescriptionTextWidgetWithShortText() {
       GlobalWidgetsLocalizations.delegate,
     ],
     home: const Scaffold(
-        body: DescriptionTextWidget(
-      text: shortString,
-    )),
+      body: DescriptionTextWidget(
+        text: shortString,
+      ),
+    ),
   );
 }
 
@@ -60,9 +61,10 @@ Widget createDescriptionTextWidgetWithLongText() {
       GlobalWidgetsLocalizations.delegate,
     ],
     home: const Scaffold(
-        body: DescriptionTextWidget(
-      text: longString,
-    )),
+      body: DescriptionTextWidget(
+        text: longString,
+      ),
+    ),
   );
 }
 

@@ -19,29 +19,30 @@ void main() {
     test('Test getTasksForEvent method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final query = TaskQueries.eventTasks('eventId');
-      when(dataBaseMutationFunctions.gqlNonAuthQuery(query))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql(query)),
-                data: {
-                  'tasksByEvent': [
-                    {
-                      '_id': '123',
-                      'title': 'Test task',
-                      'creator': {
-                        '_id': '123',
-                        'firstName': 'John',
-                        'lastName': 'Doe',
-                        'email': 'test@test.com',
-                      },
-                      'createdAt': '123456',
-                      'event': {
-                        '_id': '123',
-                      },
-                    }
-                  ]
+      when(dataBaseMutationFunctions.gqlNonAuthQuery(query)).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'tasksByEvent': [
+              {
+                '_id': '123',
+                'title': 'Test task',
+                'creator': {
+                  '_id': '123',
+                  'firstName': 'John',
+                  'lastName': 'Doe',
+                  'email': 'test@test.com',
                 },
-                source: QueryResultSource.network,
-              ));
+                'createdAt': '123456',
+                'event': {
+                  '_id': '123',
+                },
+              }
+            ]
+          },
+          source: QueryResultSource.network,
+        ),
+      );
 
       final service = TaskService();
       await service.getTasksForEvent('eventId');
@@ -51,29 +52,30 @@ void main() {
     test('Test getTasksByUser method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final query = TaskQueries.userTasks('xzy1');
-      when(dataBaseMutationFunctions.gqlNonAuthQuery(query))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql(query)),
-                data: {
-                  'tasksByUser': [
-                    {
-                      '_id': '123',
-                      'title': 'Test task',
-                      'creator': {
-                        '_id': '123',
-                        'firstName': 'John',
-                        'lastName': 'Doe',
-                        'email': 'test@test.com',
-                      },
-                      'createdAt': '123456',
-                      'event': {
-                        '_id': '123',
-                      },
-                    }
-                  ]
+      when(dataBaseMutationFunctions.gqlNonAuthQuery(query)).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'tasksByUser': [
+              {
+                '_id': '123',
+                'title': 'Test task',
+                'creator': {
+                  '_id': '123',
+                  'firstName': 'John',
+                  'lastName': 'Doe',
+                  'email': 'test@test.com',
                 },
-                source: QueryResultSource.network,
-              ));
+                'createdAt': '123456',
+                'event': {
+                  '_id': '123',
+                },
+              }
+            ]
+          },
+          source: QueryResultSource.network,
+        ),
+      );
 
       final service = TaskService();
       await service.getTasksByUser();
@@ -88,27 +90,28 @@ void main() {
         deadline: '123456',
         eventId: 'eventId',
       );
-      when(dataBaseMutationFunctions.gqlAuthMutation(query))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql(query)),
-                data: {
-                  'createTask': {
-                    '_id': '123',
-                    'title': 'Test task',
-                    'creator': {
-                      '_id': '123',
-                      'firstName': 'John',
-                      'lastName': 'Doe',
-                      'email': 'test@test.com',
-                    },
-                    'createdAt': '123456',
-                    'event': {
-                      '_id': '123',
-                    },
-                  }
-                },
-                source: QueryResultSource.network,
-              ));
+      when(dataBaseMutationFunctions.gqlAuthMutation(query)).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'createTask': {
+              '_id': '123',
+              'title': 'Test task',
+              'creator': {
+                '_id': '123',
+                'firstName': 'John',
+                'lastName': 'Doe',
+                'email': 'test@test.com',
+              },
+              'createdAt': '123456',
+              'event': {
+                '_id': '123',
+              },
+            }
+          },
+          source: QueryResultSource.network,
+        ),
+      );
 
       final service = TaskService();
       int index = 0;
@@ -126,22 +129,25 @@ void main() {
     test('Test deleteTask method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final query = TaskQueries.deleteTask('taskId');
-      when(dataBaseMutationFunctions.gqlAuthMutation(query))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql(query)),
-                source: QueryResultSource.network,
-              ));
+      when(dataBaseMutationFunctions.gqlAuthMutation(query)).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          source: QueryResultSource.network,
+        ),
+      );
 
       final service = TaskService();
-      service.tasks.add(Task(
-        id: 'taskId',
-        title: 'Test task',
-        description: 'Test description',
-        deadline: '123456',
-        createdAt: '123456',
-        event: Event(),
-        creator: User(),
-      ));
+      service.tasks.add(
+        Task(
+          id: 'taskId',
+          title: 'Test task',
+          description: 'Test description',
+          deadline: '123456',
+          createdAt: '123456',
+          event: Event(),
+          creator: User(),
+        ),
+      );
       await service.deleteTask('taskId', 'xzy1');
 
       expect(service.tasks.length, 0);
@@ -149,22 +155,25 @@ void main() {
     test('Test deleteTask method', () async {
       final dataBaseMutationFunctions = locator<DataBaseMutationFunctions>();
       final query = TaskQueries.deleteTask('taskId');
-      when(dataBaseMutationFunctions.gqlAuthMutation(query))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql(query)),
-                source: QueryResultSource.network,
-              ));
+      when(dataBaseMutationFunctions.gqlAuthMutation(query)).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          source: QueryResultSource.network,
+        ),
+      );
 
       final service = TaskService();
-      service.tasks.add(Task(
-        id: 'taskId',
-        title: 'Test task',
-        description: 'Test description',
-        deadline: '123456',
-        createdAt: '123456',
-        event: Event(),
-        creator: User(),
-      ));
+      service.tasks.add(
+        Task(
+          id: 'taskId',
+          title: 'Test task',
+          description: 'Test description',
+          deadline: '123456',
+          createdAt: '123456',
+          event: Event(),
+          creator: User(),
+        ),
+      );
       await service.deleteTask('taskId', 'xzy1');
 
       expect(service.tasks.length, 0);
@@ -177,38 +186,41 @@ void main() {
         deadline: '123456',
         taskId: 'taskId',
       );
-      when(dataBaseMutationFunctions.gqlAuthMutation(query))
-          .thenAnswer((_) async => QueryResult(
-                options: QueryOptions(document: gql(query)),
-                data: {
-                  'updateTask': {
-                    '_id': 'taskId',
-                    'title': 'new',
-                    'creator': {
-                      '_id': '123',
-                    },
-                    'createdAt': '123456',
-                    'description': 'Test description',
-                    'deadline': '123456',
-                    'event': {
-                      '_id': '123',
-                    },
-                  }
-                },
-                source: QueryResultSource.network,
-              ));
+      when(dataBaseMutationFunctions.gqlAuthMutation(query)).thenAnswer(
+        (_) async => QueryResult(
+          options: QueryOptions(document: gql(query)),
+          data: {
+            'updateTask': {
+              '_id': 'taskId',
+              'title': 'new',
+              'creator': {
+                '_id': '123',
+              },
+              'createdAt': '123456',
+              'description': 'Test description',
+              'deadline': '123456',
+              'event': {
+                '_id': '123',
+              },
+            }
+          },
+          source: QueryResultSource.network,
+        ),
+      );
 
       final service = TaskService();
       service.callbackNotifyListeners = () {};
-      service.tasks.add(Task(
-        id: 'taskId',
-        title: 'Test task',
-        creator: User(id: '123'),
-        createdAt: '123456',
-        description: 'Test description',
-        deadline: '123456',
-        event: Event(id: '123'),
-      ));
+      service.tasks.add(
+        Task(
+          id: 'taskId',
+          title: 'Test task',
+          creator: User(id: '123'),
+          createdAt: '123456',
+          description: 'Test description',
+          deadline: '123456',
+          event: Event(id: '123'),
+        ),
+      );
       await service.editTask(
         title: 'new',
         description: 'Test description',

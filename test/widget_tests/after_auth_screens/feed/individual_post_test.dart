@@ -237,9 +237,10 @@ Widget createIndividualPostViewWidget({
       GlobalWidgetsLocalizations.delegate,
     ],
     home: Scaffold(
-        body: IndividualPostView(
-      post: post1,
-    )),
+      body: IndividualPostView(
+        post: post1,
+      ),
+    ),
   );
 }
 

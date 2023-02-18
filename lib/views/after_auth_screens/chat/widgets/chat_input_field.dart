@@ -77,14 +77,16 @@ class _ChatInputFieldState extends State<ChatInputField> {
                         suffixIcon: GestureDetector(
                           onTap: () {
                             widget.model.sendMessageToDirectChat(
-                                widget.chatId, controller.text);
+                              widget.chatId,
+                              controller.text,
+                            );
                             controller.clear();
                           },
                           child: Icon(
                             Icons.send,
                             color: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .color!
                                 .withOpacity(0.64),
                           ),

@@ -53,11 +53,14 @@ class ChatService {
   /// * [chatId] - id of the direct chat where message need to be send.
   /// * [messageContent] - the text that need to be send.
   Future<void> sendMessageToDirectChat(
-      String chatId, String messageContent) async {
+    String chatId,
+    String messageContent,
+  ) async {
     // trigger graphQL mutation to push the message in the Database.
     final result = await _dbFunctions.gqlAuthMutation(
-        ChatQueries().sendMessageToDirectChat(),
-        variables: {"chatId": chatId, "messageContent": messageContent});
+      ChatQueries().sendMessageToDirectChat(),
+      variables: {"chatId": chatId, "messageContent": messageContent},
+    );
 
     final message = ChatMessage.fromJson(
       result.data['sendMessageToDirectChat'] as Map<String, dynamic>,

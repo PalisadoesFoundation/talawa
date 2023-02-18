@@ -16,7 +16,7 @@ class NewsPost extends StatelessWidget {
   }) : super(key: key);
 
   final Post post;
-  final Function? function;
+  final Function(Post)? function;
 
   @override
   Widget build(BuildContext context) {

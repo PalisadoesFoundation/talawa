@@ -33,26 +33,26 @@ class LoginViewModel extends BaseModel {
         'text': "We're ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': 'Glad ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(fontSize: 24)
       },
       {
         'text': "you're ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': 'Back ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(fontSize: 24)
       },
     ];
@@ -114,11 +114,16 @@ class LoginViewModel extends BaseModel {
             final androidFirebaseOptionsBox =
                 await Hive.openBox('androidFirebaseOptions');
             androidFirebaseOptionsBox.put(
-                'androidFirebaseOptions', androidFirebaseOptions);
+              'androidFirebaseOptions',
+              androidFirebaseOptions,
+            );
 
             final iosFirebaseOptionsBox =
                 await Hive.openBox('iosFirebaseOptions');
-            iosFirebaseOptionsBox.put('iosFirebaseOptions', iosFirebaseOptions);
+            iosFirebaseOptionsBox.put(
+              'iosFirebaseOptions',
+              iosFirebaseOptions,
+            );
           }
         }
       } on Exception catch (e) {

@@ -21,31 +21,32 @@ Widget createAddPostScreen({
   bool passSecondaryFunc = true,
 }) {
   return MaterialApp(
-      navigatorObservers: [],
-      locale: const Locale('en'),
-      supportedLocales: [
-        const Locale('en', 'US'),
-        const Locale('es', 'ES'),
-        const Locale('fr', 'FR'),
-        const Locale('hi', 'IN'),
-        const Locale('zh', 'CN'),
-        const Locale('de', 'DE'),
-        const Locale('ja', 'JP'),
-        const Locale('pt', 'PT'),
-      ],
-      localizationsDelegates: [
-        const AppLocalizationsDelegate(isTest: true),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      home: Scaffold(
-        /// MainScreenViewModel.scaffoldKey.currentState will return null
-        /// until and unless their is another widget with the same global key
-        key: MainScreenViewModel.scaffoldKey,
-        body: AddPost(
-          drawerKey: MainScreenViewModel.scaffoldKey,
-        ),
-      ));
+    navigatorObservers: [],
+    locale: const Locale('en'),
+    supportedLocales: [
+      const Locale('en', 'US'),
+      const Locale('es', 'ES'),
+      const Locale('fr', 'FR'),
+      const Locale('hi', 'IN'),
+      const Locale('zh', 'CN'),
+      const Locale('de', 'DE'),
+      const Locale('ja', 'JP'),
+      const Locale('pt', 'PT'),
+    ],
+    localizationsDelegates: [
+      const AppLocalizationsDelegate(isTest: true),
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    home: Scaffold(
+      /// MainScreenViewModel.scaffoldKey.currentState will return null
+      /// until and unless their is another widget with the same global key
+      key: MainScreenViewModel.scaffoldKey,
+      body: AddPost(
+        drawerKey: MainScreenViewModel.scaffoldKey,
+      ),
+    ),
+  );
 }
 
 void main() {
@@ -251,7 +252,9 @@ void main() {
         final finder = find.byKey(const Key('add_post_icon_button3'));
 
         final icon = find.descendant(
-            of: finder, matching: find.byIcon(Icons.camera_alt));
+          of: finder,
+          matching: find.byIcon(Icons.camera_alt),
+        );
 
         expect(finder, findsOneWidget);
         expect(icon, findsOneWidget);
@@ -304,7 +307,9 @@ void main() {
         final finder = find.byKey(const Key('add_post_icon_button4'));
 
         final icon = find.descendant(
-            of: finder, matching: find.byIcon(Icons.file_upload));
+          of: finder,
+          matching: find.byIcon(Icons.file_upload),
+        );
 
         expect(finder, findsOneWidget);
         expect(icon, findsOneWidget);

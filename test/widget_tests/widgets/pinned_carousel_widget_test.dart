@@ -114,13 +114,15 @@ void main() {
       final CustomCarouselScrollerState customCarouselScrollerState =
           tester.state(customCarouselScroller);
       expect(
-          pinnedPosts[customCarouselScrollerState.pindex].description!.length,
-          lessThanOrEqualTo(90));
+        pinnedPosts[customCarouselScrollerState.pindex].description!.length,
+        lessThanOrEqualTo(90),
+      );
       customCarouselScrollerState.controller.jumpToPage(1);
       expect(customCarouselScrollerState.pindex, 1);
       expect(
-          pinnedPosts[customCarouselScrollerState.pindex].description!.length,
-          greaterThan(90));
+        pinnedPosts[customCarouselScrollerState.pindex].description!.length,
+        greaterThan(90),
+      );
     });
 
     testWidgets('Test the text displayed based on length of description',
@@ -137,9 +139,11 @@ void main() {
       await tester.pump();
       currentPage = customCarouselScrollerState.pindex;
       expect(
-          find.text(
-              '${pinnedPosts[currentPage].description!.substring(0, 90)}...'),
-          findsOneWidget);
+        find.text(
+          '${pinnedPosts[currentPage].description!.substring(0, 90)}...',
+        ),
+        findsOneWidget,
+      );
     });
   });
 }

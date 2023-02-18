@@ -57,7 +57,7 @@ class CustomAlertDialog extends StatelessWidget {
             AppLocalizations.of(context)!.strictTranslate('Confirmation'),
         style: Theme.of(context)
             .textTheme
-            .headline5!
+            .headlineSmall!
             .copyWith(fontWeight: FontWeight.w800),
       ),
       content: Text(dialogSubTitle),

@@ -19,19 +19,19 @@ class OrganizationService {
   /// params:
   /// * [orgId] : id of the organization for which members list need be fetched.
   Future<List<User>> getOrgMembersList(String orgId) async {
-    final String _query = Queries().fetchOrgDetailsById(orgId);
+    final String query = Queries().fetchOrgDetailsById(orgId);
     // fetching from database using graphQL mutations.
-    final result = await _dbFunctions.gqlAuthMutation(_query);
-    final List _orgMembersResult =
+    final result = await _dbFunctions.gqlAuthMutation(query);
+    final List orgMembersResult =
         result.data['organizations'][0]['members'] as List;
-    final List<User> _orgMembersList = [];
-    _orgMembersResult.forEach((jsonElement) {
+    final List<User> orgMembersList = [];
+    orgMembersResult.forEach((jsonElement) {
       final User member =
           User.fromJson(jsonElement as Map<String, dynamic>, fromOrg: true);
-      _orgMembersList.add(member);
+      orgMembersList.add(member);
     });
 
     // return list
-    return _orgMembersList;
+    return orgMembersList;
   }
 }

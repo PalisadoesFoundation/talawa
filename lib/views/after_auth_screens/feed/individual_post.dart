@@ -102,7 +102,7 @@ Padding buildPadding(BuildContext context, String text) {
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Text(
       AppLocalizations.of(context)!.strictTranslate(text),
-      style: Theme.of(context).textTheme.headline6,
+      style: Theme.of(context).textTheme.titleLarge,
     ),
   );
 }
@@ -197,14 +197,14 @@ class CommentTemplate extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Text(
                     "${comment.creator!.firstName!} ${comment.creator!.lastName!}",
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
                 Text(
                   comment.text!,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(fontSize: 16.0),
                 ),
               ],

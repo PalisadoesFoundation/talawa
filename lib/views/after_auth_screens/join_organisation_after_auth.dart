@@ -34,7 +34,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
             title: Text(
               AppLocalizations.of(context)!
                   .strictTranslate('Join Organisation'),
-              style: Theme.of(context).textTheme.headline6!.copyWith(
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
@@ -63,7 +63,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                   controller: model.searchController,
                   onChanged: (value) => model.setState(ViewState.idle),
                   suffixMode: OverlayVisibilityMode.always,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                   suffixIcon: const Icon(
                     CupertinoIcons.xmark_circle_fill,
                     size: 25,
@@ -79,7 +79,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
               ),
               // if organization selected then renders the organization info in CustomListTile.
               model.selectedOrganization.id != '-1'
-                  ? Container(
+                  ? ColoredBox(
                       color: Theme.of(context)
                           .colorScheme
                           .secondaryContainer

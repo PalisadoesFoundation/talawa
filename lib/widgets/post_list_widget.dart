@@ -10,7 +10,7 @@ class PostListWidget extends StatelessWidget {
     this.function,
   }) : super(key: key);
   final List<Post> posts;
-  final Function? function;
+  final Function(Post)? function;
 
   @override
   Widget build(BuildContext context) {

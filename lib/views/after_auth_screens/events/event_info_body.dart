@@ -34,7 +34,7 @@ class EventInfoBody extends StatelessWidget {
                   event.title!,
                   style: Theme.of(context)
                       .textTheme
-                      .headline4!
+                      .headlineMedium!
                       .copyWith(fontSize: 26),
                 ),
                 const Icon(Icons.chat_bubble_outline)
@@ -45,7 +45,7 @@ class EventInfoBody extends StatelessWidget {
               "${AppLocalizations.of(context)!.strictTranslate("Created by")}: ${event.creator!.firstName} ${event.creator!.lastName}",
               style: Theme.of(context)
                   .textTheme
-                  .bodyText2!
+                  .bodyMedium!
                   .copyWith(fontWeight: FontWeight.w600),
             ),
             SizedBox(
@@ -64,7 +64,7 @@ class EventInfoBody extends StatelessWidget {
                 Text(
                   // Display start and end date of the Event.
                   "${event.startDate!} - ${event.endDate!}",
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const Spacer(),
                 // If event type is public then renders lock_open icon else renders lock icon.
@@ -87,12 +87,12 @@ class EventInfoBody extends StatelessWidget {
                 event.isPublic!
                     ? Text(
                         AppLocalizations.of(context)!.strictTranslate('public'),
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodySmall,
                       )
                     : Text(
                         AppLocalizations.of(context)!
                             .strictTranslate('private'),
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
               ],
             ),
@@ -112,7 +112,7 @@ class EventInfoBody extends StatelessWidget {
                 ),
                 Text(
                   "${event.startTime!} - ${event.endTime!}",
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
@@ -131,7 +131,7 @@ class EventInfoBody extends StatelessWidget {
                 ),
                 Text(
                   event.location!,
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   maxLines: 3,
@@ -141,14 +141,16 @@ class EventInfoBody extends StatelessWidget {
                 //on the map with the reference of latitude and longitude provided for the event.
                 if (event.latitude != null && event.longitude != null)
                   GestureDetector(
-                    onTap: () => navigationService
-                        .pushScreen(Routes.mapScreen, arguments: {
-                      "latitude": event.latitude,
-                      "longitude": event.longitude,
-                    }),
+                    onTap: () => navigationService.pushScreen(
+                      Routes.mapScreen,
+                      arguments: {
+                        "latitude": event.latitude,
+                        "longitude": event.longitude,
+                      },
+                    ),
                     child: Text(
                       'View on map',
-                      style: Theme.of(context).textTheme.caption!.copyWith(
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                       overflow: TextOverflow.ellipsis,
@@ -164,20 +166,24 @@ class EventInfoBody extends StatelessWidget {
             ),
             Text(
               AppLocalizations.of(context)!.strictTranslate("Description"),
-              style:
-                  Theme.of(context).textTheme.headline5!.copyWith(fontSize: 16),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(fontSize: 16),
             ),
             SizedBox(width: SizeConfig.screenWidth! * 0.013),
             Text(
               // Display the Description of the event if not null.
               event.description!,
-              style: Theme.of(context).textTheme.caption,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             SizedBox(height: SizeConfig.screenHeight! * 0.013),
             Text(
               AppLocalizations.of(context)!.strictTranslate("Admins"),
-              style:
-                  Theme.of(context).textTheme.headline5!.copyWith(fontSize: 16),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(fontSize: 16),
             ),
             Divider(
               color: Theme.of(context).colorScheme.onBackground,
@@ -210,14 +216,14 @@ class EventInfoBody extends StatelessWidget {
                   AppLocalizations.of(context)!.strictTranslate("Attendees"),
                   style: Theme.of(context)
                       .textTheme
-                      .headline5!
+                      .headlineSmall!
                       .copyWith(fontSize: 16),
                 ),
                 Text(
                   AppLocalizations.of(context)!.strictTranslate('See all'),
                   style: Theme.of(context)
                       .textTheme
-                      .caption!
+                      .bodySmall!
                       .copyWith(color: const Color(0xff4285F4)),
                 ),
               ],

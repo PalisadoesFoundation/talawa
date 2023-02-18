@@ -29,7 +29,7 @@ class OrganizationFeed extends StatelessWidget {
             title: Text(
               model.currentOrgName,
               key: homeModel?.keySHOrgName,
-              style: Theme.of(context).textTheme.headline6!.copyWith(
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
