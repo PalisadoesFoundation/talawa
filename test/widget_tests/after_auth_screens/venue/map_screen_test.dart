@@ -50,21 +50,21 @@ class _MapScreenState extends State<MapScreen> {
         actions: [
           model != null
               ? IconButton(
-                  icon: const Icon(Icons.done),
-                  onPressed: () async {
-                    model.eventLocationTextController.text = address;
-                    model.latitude = latitude;
-                    model.longitude = longitude;
-                    navigationService.pop();
-                  },
-                )
+            icon: const Icon(Icons.done),
+            onPressed: () async {
+              model.eventLocationTextController.text = address;
+              model.latitude = latitude;
+              model.longitude = longitude;
+              navigationService.pop();
+            },
+          )
               : Container()
         ],
       ),
       // GoogleMap is widget imported from google_maps_flutter that is a
       // Flutter plugin that provides a Google Maps widget.
       body: GoogleMap(
-          // initial position with the reference of latitute and longitude passed.
+        // initial position with the reference of latitute and longitude passed.
           initialCameraPosition: CameraPosition(
             target: LatLng(widget.latitude, widget.longitude),
             zoom: 14,
@@ -85,12 +85,12 @@ class _MapScreenState extends State<MapScreen> {
                   ? ''
                   : '${placemark.subLocality}, ';
               final locality =
-                  placemark.locality == null ? '' : '${placemark.locality}, ';
+              placemark.locality == null ? '' : '${placemark.locality}, ';
               final administrativeArea = placemark.administrativeArea == null
                   ? ''
                   : '${placemark.administrativeArea}, ';
               final country =
-                  placemark.country == null ? '' : '${placemark.country}';
+              placemark.country == null ? '' : '${placemark.country}';
               address =
                   name + subLocality + locality + administrativeArea + country;
               latitude = latLng.latitude;
