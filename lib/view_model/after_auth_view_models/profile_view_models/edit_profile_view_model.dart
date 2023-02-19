@@ -31,10 +31,10 @@ class EditProfilePageViewModel extends BaseModel {
   /// params:
   /// * [camera] : if true then open camera for image, else open gallery to select image.
   Future<void> getImageFromGallery({bool camera = false}) async {
-    final _image =
+    final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
-    if (_image != null) {
-      imageFile = _image;
+    if (image != null) {
+      imageFile = image;
       notifyListeners();
     }
   }

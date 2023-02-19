@@ -24,16 +24,16 @@ class WaitingViewModel extends BaseModel {
     greeting = [
       {
         'text': "Please wait",
-        'textStyle': Theme.of(context).textTheme.headline5
+        'textStyle': Theme.of(context).textTheme.headlineSmall
       },
       {
         'text': " ${currentUser.firstName} ",
         'textStyle':
-            Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
+            Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24)
       },
       {
         'text': "for organisation(s) to accept your invitation.",
-        'textStyle': Theme.of(context).textTheme.headline5
+        'textStyle': Theme.of(context).textTheme.headlineSmall
       },
     ];
   }

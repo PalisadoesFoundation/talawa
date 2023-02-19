@@ -31,8 +31,10 @@ class _EventInfoPageState extends State<EventInfoPage> {
               // SliverAppBar is a Material Design app bar that integrates with a CustomScrollView.
               SliverAppBar(
                 // Translated title of the App bar.
-                title: Text(AppLocalizations.of(context)!
-                    .strictTranslate('Event Details')),
+                title: Text(
+                  AppLocalizations.of(context)!
+                      .strictTranslate('Event Details'),
+                ),
                 actions: [
                   IconButton(
                     // Button to share the event in the social medias.
@@ -62,8 +64,10 @@ class _EventInfoPageState extends State<EventInfoPage> {
                   onPressed: () {
                     model.registerForEvent();
                   },
-                  label: Text(model.fabTitle,
-                      style: Theme.of(context).textTheme.bodyText2),
+                  label: Text(
+                    model.fabTitle,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 )
               : eventAdminFab(
                   context: context,

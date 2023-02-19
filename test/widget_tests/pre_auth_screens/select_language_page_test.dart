@@ -104,17 +104,17 @@ Future<void> main() async {
 
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.color,
-        TalawaTheme.lightTheme.textTheme.headline5!.color,
+        TalawaTheme.lightTheme.textTheme.headlineSmall!.color,
       );
 
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
-        TalawaTheme.lightTheme.textTheme.headline5!.fontFamily,
+        TalawaTheme.lightTheme.textTheme.headlineSmall!.fontFamily,
       );
 
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
-        TalawaTheme.lightTheme.textTheme.headline5!.fontSize,
+        TalawaTheme.lightTheme.textTheme.headlineSmall!.fontSize,
       );
     });
     //This will be added once we implement the search box
@@ -210,15 +210,15 @@ Future<void> main() async {
       expect(findAppNameWidget, findsOneWidget);
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.color,
-        TalawaTheme.darkTheme.textTheme.headline5!.color,
+        TalawaTheme.darkTheme.textTheme.headlineSmall!.color,
       );
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
-        TalawaTheme.darkTheme.textTheme.headline5!.fontFamily,
+        TalawaTheme.darkTheme.textTheme.headlineSmall!.fontFamily,
       );
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
-        TalawaTheme.darkTheme.textTheme.headline5!.fontSize,
+        TalawaTheme.darkTheme.textTheme.headlineSmall!.fontSize,
       );
     });
     // This is not needed now will be added when required

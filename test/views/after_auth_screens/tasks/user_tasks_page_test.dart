@@ -73,10 +73,10 @@ void main() {
       await tester.pumpWidget(createUserTasksPage());
       await tester.pumpAndSettle();
 
-      bool _isRefreshed = false;
+      bool isRefreshed = false;
 
       when(locator<TaskService>().getTasksByUser()).thenAnswer((_) async {
-        _isRefreshed = true;
+        isRefreshed = true;
       });
 
       await tester.drag(
@@ -85,7 +85,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(_isRefreshed, true);
+      expect(isRefreshed, true);
     });
   });
 }

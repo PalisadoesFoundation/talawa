@@ -67,20 +67,23 @@ void main() {
 
       model.navigateToIndividualPage(post);
 
-      verify(locator<NavigationService>().pushScreen(
-        Routes.individualPost,
-        arguments: post,
-      ));
+      verify(
+        locator<NavigationService>().pushScreen(
+          Routes.individualPost,
+          arguments: post,
+        ),
+      );
     });
 
     test('Test navigateToPinnedPostPage function', () {
       model.navigateToPinnedPostPage();
 
       final captured = verify(
-          (locator<NavigationService>() as MockNavigationService).pushScreen(
-        Routes.pinnedPostPage,
-        arguments: captureAnyNamed('arguments'),
-      )).captured;
+        (locator<NavigationService>() as MockNavigationService).pushScreen(
+          Routes.pinnedPostPage,
+          arguments: captureAnyNamed('arguments'),
+        ),
+      ).captured;
 
       expect(captured[0].length, 4);
     });

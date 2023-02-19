@@ -93,7 +93,9 @@ class OrganizationList extends StatelessWidget {
                       onVisibilityChanged: (VisibilityInfo info) {
                         if (info.visibleFraction > 0) {
                           model.fetchMoreHelper(
-                              fetchMore!, model.organizations);
+                            fetchMore!,
+                            model.organizations,
+                          );
                         }
                       },
                       child: CustomListTile(

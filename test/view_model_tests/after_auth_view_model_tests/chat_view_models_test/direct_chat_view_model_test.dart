@@ -54,15 +54,16 @@ void main() {
     test('Test getChatMessages', () async {
       final ChatMessage chatMessage =
           ChatMessage('11', null, 'message11', null);
-      final StreamController<ChatMessage> _chatMessageController =
+      final StreamController<ChatMessage> chatMessageController =
           StreamController<ChatMessage>();
-      final Stream<ChatMessage> _messagestream =
-          _chatMessageController.stream.asBroadcastStream();
+      final Stream<ChatMessage> messagestream =
+          chatMessageController.stream.asBroadcastStream();
 
       when(chatService.chatMessagesStream)
-          .thenAnswer((realInvocation) => _messagestream);
+          .thenAnswer((realInvocation) => messagestream);
       when(chatService.getDirectChatMessagesByChatId('1')).thenAnswer(
-          (realInvocation) async => _chatMessageController.add(chatMessage));
+        (realInvocation) async => chatMessageController.add(chatMessage),
+      );
 
       final future = directChatViewModel.getChatMessages('1');
 
@@ -80,19 +81,19 @@ void main() {
         ChatMessage('11', null, 'message11', null),
         ChatMessage('22', null, 'message22', null),
       ];
-      final StreamController<ChatMessage> _chatMessageController =
+      final StreamController<ChatMessage> chatMessageController =
           StreamController<ChatMessage>();
-      final Stream<ChatMessage> _messagestream =
-          _chatMessageController.stream.asBroadcastStream();
+      final Stream<ChatMessage> messagestream =
+          chatMessageController.stream.asBroadcastStream();
 
       when(chatService.chatMessagesStream)
-          .thenAnswer((realInvocation) => _messagestream);
+          .thenAnswer((realInvocation) => messagestream);
       when(chatService.getDirectChatMessagesByChatId('1')).thenAnswer(
-          (realInvocation) async =>
-              _chatMessageController.add(chatMessages[0]));
+        (realInvocation) async => chatMessageController.add(chatMessages[0]),
+      );
       when(chatService.sendMessageToDirectChat('1', 'content')).thenAnswer(
-          (realInvocation) async =>
-              _chatMessageController.add(chatMessages[1]));
+        (realInvocation) async => chatMessageController.add(chatMessages[1]),
+      );
 
       await directChatViewModel.getChatMessages('1');
       final future =
@@ -128,7 +129,8 @@ void main() {
         return stream;
       });
       when(chatService.getDirectChatsByUserId()).thenAnswer(
-          (realInvocation) async => controller.add(chatListTileDataModel));
+        (realInvocation) async => controller.add(chatListTileDataModel),
+      );
       when(userConfig.currentUser).thenAnswer((realInvocation) => currentUser);
 
       await directChatViewModel.initialise();

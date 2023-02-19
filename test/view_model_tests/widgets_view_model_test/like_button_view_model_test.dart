@@ -9,7 +9,7 @@ import '../../helpers/test_locator.dart';
 void main() {
   registerServices();
 
-  final List<LikedBy> _likedBy = [
+  final List<LikedBy> likedBy0 = [
     LikedBy(sId: 'Test user 1'),
     LikedBy(sId: 'Test user 2')
   ];
@@ -17,13 +17,13 @@ void main() {
   final post = Post(
     sId: "test_post_id",
     creator: userConfig.currentUser,
-    likedBy: _likedBy,
+    likedBy: likedBy0,
   );
 
   group("Tests for login_button_view_model", () {
     test("Testing setIsLiked", () {
       final model = LikeButtonViewModel();
-      model.initialize(_likedBy, 'Test post_id');
+      model.initialize(likedBy0, 'Test post_id');
       model.setIsLiked();
       expect(model.isLiked, true);
     });
@@ -31,7 +31,7 @@ void main() {
         'Testing checkAndSetTheIsLiked function when user is not present in likedby',
         () {
       final model = LikeButtonViewModel();
-      model.initialize(_likedBy, 'Test post_id');
+      model.initialize(likedBy0, 'Test post_id');
       model.checkAndSetTheIsLiked();
       expect(model.isLiked, false);
     });
@@ -40,17 +40,17 @@ void main() {
         'Testing checkAndSetTheIsLiked function when user is present in likedby',
         () {
       final model = LikeButtonViewModel();
-      _likedBy.add(LikedBy(sId: userConfig.currentUser.id));
-      model.initialize(_likedBy, 'Test post_id');
+      likedBy0.add(LikedBy(sId: userConfig.currentUser.id));
+      model.initialize(likedBy0, 'Test post_id');
       model.checkAndSetTheIsLiked();
       expect(model.isLiked, true);
-      _likedBy
+      likedBy0
           .removeWhere((element) => element.sId == userConfig.currentUser.id);
     });
 
     test("testing toggleIsLiked", () {
       final model = LikeButtonViewModel();
-      model.initialize(_likedBy, post.sId);
+      model.initialize(likedBy0, post.sId);
       model.setIsLiked(val: false);
       expect(model.isLiked, false);
       final LikedBy likedBy = LikedBy(
@@ -73,9 +73,12 @@ void main() {
 
     test("Testing updatePost", () {
       final model = LikeButtonViewModel();
-      model.initialize(_likedBy, post.sId);
+      model.initialize(likedBy0, post.sId);
       final Post newPost = Post(
-          sId: "new_post_id", creator: userConfig.currentUser, likedBy: []);
+        sId: "new_post_id",
+        creator: userConfig.currentUser,
+        likedBy: [],
+      );
       // with different post
       model.updatePost(newPost);
       expect(model.likesCount, 2);

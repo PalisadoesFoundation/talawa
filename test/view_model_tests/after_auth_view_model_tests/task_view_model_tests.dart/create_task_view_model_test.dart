@@ -43,22 +43,26 @@ void main() {
     });
     test('Test fillTask method', () async {
       final model = CreateTaskViewModel();
-      model.fillTask(Task(
-        title: 'title',
-        id: 'id',
-        event: Event(),
-        creator: User(),
-        createdAt: '123456',
-        deadline: '123458',
-      ));
+      model.fillTask(
+        Task(
+          title: 'title',
+          id: 'id',
+          event: Event(),
+          creator: User(),
+          createdAt: '123456',
+          deadline: '123458',
+        ),
+      );
 
       expect(model.taskTitleTextController.text, 'title');
     });
     test('Test dispose method', () async {
       final model = CreateTaskViewModel();
       model.dispose();
-      expect(() => model.taskTitleTextController.text = 'test',
-          throwsFlutterError);
+      expect(
+        () => model.taskTitleTextController.text = 'test',
+        throwsFlutterError,
+      );
     });
   });
 }

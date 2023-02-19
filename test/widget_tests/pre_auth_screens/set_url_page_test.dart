@@ -151,7 +151,7 @@ Future<void> main() async {
         (tester.firstWidget(logoWidget) as CustomPaint).size,
         Size(
           SizeConfig.screenWidth! * 0.6,
-          (SizeConfig.screenWidth! * 0.6).toDouble(),
+          SizeConfig.screenWidth! * 0.6,
         ),
       );
     });
@@ -169,33 +169,33 @@ Future<void> main() async {
           'text': 'Join ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
         },
         {
           'text': 'and ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text': 'Collaborate ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
         },
         {
           'text': 'with your ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text': 'Organizations',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5!
+              .headlineSmall!
               .copyWith(fontSize: 24, color: const Color(0xFF4285F4))
         },
       ];
@@ -361,8 +361,9 @@ Future<void> main() async {
       await tester.pumpAndSettle();
 
       final formFinder = find.ancestor(
-          of: find.byKey(const Key('UrlInputField')),
-          matching: find.byType(Form));
+        of: find.byKey(const Key('UrlInputField')),
+        matching: find.byType(Form),
+      );
       final formWidget = tester.firstWidget(formFinder) as Form;
       (formWidget.key! as GlobalKey<FormState>).currentState!.save();
 
@@ -484,7 +485,7 @@ Future<void> main() async {
         (tester.firstWidget(logoWidget) as CustomPaint).size,
         Size(
           SizeConfig.screenWidth! * 0.6,
-          (SizeConfig.screenWidth! * 0.6).toDouble(),
+          SizeConfig.screenWidth! * 0.6,
         ),
       );
     });
@@ -501,33 +502,33 @@ Future<void> main() async {
           'text': 'Join ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
         },
         {
           'text': 'and ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text': 'Collaborate ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
         },
         {
           'text': 'with your ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text': 'Organizations',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5!
+              .headlineSmall!
               .copyWith(fontSize: 24, color: const Color(0xFF4285F4))
         },
       ];
@@ -678,8 +679,9 @@ Future<void> main() async {
       await tester.pumpAndSettle();
 
       final formFinder = find.ancestor(
-          of: find.byKey(const Key('UrlInputField')),
-          matching: find.byType(Form));
+        of: find.byKey(const Key('UrlInputField')),
+        matching: find.byType(Form),
+      );
       final formWidget = tester.firstWidget(formFinder) as Form;
       (formWidget.key! as GlobalKey<FormState>).currentState!.save();
 

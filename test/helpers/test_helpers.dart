@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -154,28 +156,32 @@ CommentService getAndRegisterCommentService() {
 ChatService getAndRegisterChatService() {
   _removeRegistrationIfExists<ChatService>();
   final service = MockChatService();
-  final StreamController<ChatListTileDataModel> _streamController =
+  final StreamController<ChatListTileDataModel> streamController =
       StreamController();
-  final Stream<ChatListTileDataModel> _stream =
-      _streamController.stream.asBroadcastStream();
+  final Stream<ChatListTileDataModel> stream =
+      streamController.stream.asBroadcastStream();
 
-  final StreamController<ChatMessage> _chatMessageController =
+  final StreamController<ChatMessage> chatMessageController =
       StreamController<ChatMessage>();
-  final Stream<ChatMessage> _messagestream =
-      _chatMessageController.stream.asBroadcastStream();
+  final Stream<ChatMessage> messagestream =
+      chatMessageController.stream.asBroadcastStream();
 
-  when(service.chatListStream).thenAnswer((invocation) => _stream);
-  when(service.chatMessagesStream).thenAnswer((invocation) => _messagestream);
-  when(service.getDirectChatsByUserId())
-      .thenAnswer((invocation) async => _streamController.add(
-            ChatListTileDataModel([
-              ChatUser(
-                firstName: 'test',
-                id: '1',
-                image: 'fakeHttp',
-              )
-            ], '1'),
-          ));
+  when(service.chatListStream).thenAnswer((invocation) => stream);
+  when(service.chatMessagesStream).thenAnswer((invocation) => messagestream);
+  when(service.getDirectChatsByUserId()).thenAnswer(
+    (invocation) async => streamController.add(
+      ChatListTileDataModel(
+        [
+          ChatUser(
+            firstName: 'test',
+            id: '1',
+            image: 'fakeHttp',
+          )
+        ],
+        '1',
+      ),
+    ),
+  );
   locator.registerSingleton<ChatService>(service);
   return service;
 }
@@ -191,10 +197,12 @@ GraphqlConfig getAndRegisterGraphqlConfig() {
   _removeRegistrationIfExists<GraphqlConfig>();
   final service = MockGraphqlConfig();
 
-  when(service.httpLink).thenReturn(HttpLink(
-    'https://talawa-graphql-api.herokuapp.com/graphql',
-    httpClient: MockHttpClient(),
-  ));
+  when(service.httpLink).thenReturn(
+    HttpLink(
+      'https://talawa-graphql-api.herokuapp.com/graphql',
+      httpClient: MockHttpClient(),
+    ),
+  );
 
   when(service.clientToQuery()).thenAnswer((realInvocation) {
     // return GraphQLClient(
@@ -288,11 +296,11 @@ UserConfig getAndRegisterUserConfig() {
   );
 
   //Mock Stream for currentOrgStream
-  final StreamController<OrgInfo> _streamController = StreamController();
-  final Stream<OrgInfo> _stream = _streamController.stream.asBroadcastStream();
+  final StreamController<OrgInfo> streamController = StreamController();
+  final Stream<OrgInfo> stream = streamController.stream.asBroadcastStream();
   when(service.currentOrgInfoController)
-      .thenAnswer((invocation) => _streamController);
-  when(service.currentOrgInfoStream).thenAnswer((invocation) => _stream);
+      .thenAnswer((invocation) => streamController);
+  when(service.currentOrgInfoStream).thenAnswer((invocation) => stream);
 
   //Mkock current user
   when(service.currentUser).thenReturn(
@@ -349,16 +357,15 @@ PostService getAndRegisterPostService() {
   final service = MockPostService();
 
   //Mock Stream for currentOrgStream
-  final StreamController<List<Post>> _streamController = StreamController();
-  final Stream<List<Post>> _stream =
-      _streamController.stream.asBroadcastStream();
+  final StreamController<List<Post>> streamController = StreamController();
+  final Stream<List<Post>> stream = streamController.stream.asBroadcastStream();
   // _streamController.add(posts);
-  when(service.postStream).thenAnswer((invocation) => _stream);
+  when(service.postStream).thenAnswer((invocation) => stream);
 
-  final StreamController<Post> _updateStreamController = StreamController();
-  final Stream<Post> _updateStream =
-      _updateStreamController.stream.asBroadcastStream();
-  when(service.updatedPostStream).thenAnswer((invocation) => _updateStream);
+  final StreamController<Post> updateStreamController = StreamController();
+  final Stream<Post> updateStream =
+      updateStreamController.stream.asBroadcastStream();
+  when(service.updatedPostStream).thenAnswer((invocation) => updateStream);
 
   locator.registerSingleton<PostService>(service);
   return service;
@@ -377,19 +384,23 @@ TaskService getAndRegisterTaskService() {
 
   when(service.tasks).thenReturn([]);
 
-  when(service.createTask(
-    title: anyNamed('title'),
-    description: anyNamed('description'),
-    deadline: anyNamed('deadline'),
-    eventId: anyNamed('eventId'),
-  )).thenAnswer((realInvocation) async => true);
+  when(
+    service.createTask(
+      title: anyNamed('title'),
+      description: anyNamed('description'),
+      deadline: anyNamed('deadline'),
+      eventId: anyNamed('eventId'),
+    ),
+  ).thenAnswer((realInvocation) async => true);
 
-  when(service.editTask(
-    title: anyNamed('title'),
-    description: anyNamed('description'),
-    deadline: anyNamed('deadline'),
-    taskId: anyNamed('taskId'),
-  )).thenAnswer((realInvocation) async => true);
+  when(
+    service.editTask(
+      title: anyNamed('title'),
+      description: anyNamed('description'),
+      deadline: anyNamed('deadline'),
+      taskId: anyNamed('taskId'),
+    ),
+  ).thenAnswer((realInvocation) async => true);
 
   locator.registerSingleton<TaskService>(service);
   return service;
@@ -400,11 +411,11 @@ EventService getAndRegisterEventService() {
   final service = MockEventService();
 
   //Mock Stream for currentOrgStream
-  final StreamController<Event> _streamController = StreamController();
-  final Stream<Event> _stream = _streamController.stream.asBroadcastStream();
-  when(service.eventStream).thenAnswer((invocation) => _stream);
+  final StreamController<Event> streamController = StreamController();
+  final Stream<Event> stream = streamController.stream.asBroadcastStream();
+  when(service.eventStream).thenAnswer((invocation) => stream);
   when(service.getEvents()).thenAnswer(
-    (invocation) async => _streamController.add(
+    (invocation) async => streamController.add(
       Event(
         id: '1',
         title: 'test',
@@ -471,9 +482,11 @@ Post getPostMockModel({
 }) {
   final postMock = MockPost();
   when(postMock.sId).thenReturn(sId);
-  when(postMock.creator).thenReturn(User(
-    firstName: "TestName",
-  ));
+  when(postMock.creator).thenReturn(
+    User(
+      firstName: "TestName",
+    ),
+  );
   when(postMock.description).thenReturn(description);
   when(postMock.comments).thenReturn([]);
   when(postMock.getPostCreatedDuration()).thenReturn(duration);

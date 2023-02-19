@@ -22,8 +22,8 @@ class GraphqlConfig {
 
   /// This function is used to get user the access token.
   Future getToken() async {
-    final _token = userConfig.currentUser.authToken;
-    token = _token;
+    final authToken = userConfig.currentUser.authToken;
+    token = authToken;
     getOrgUrl();
     return true;
   }
