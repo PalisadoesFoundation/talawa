@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -6,7 +5,8 @@ part 'org_info.g.dart';
 
 @HiveType(typeId: 2)
 
-///This class creates an organization-information model and returns an OrgInfo instance.
+///This class creates an organization-information model and
+///returns an OrgInfo instance.
 class OrgInfo {
   OrgInfo({
     this.admins,
@@ -19,8 +19,7 @@ class OrgInfo {
     this.name,
   });
 
-  factory OrgInfo.fromJson(
-    Map<String, dynamic> json1, {
+  factory OrgInfo.fromJson(Map<String, dynamic> json1, {
     bool memberRequest = false,
   }) {
     Map<String, dynamic> json;
@@ -34,27 +33,27 @@ class OrgInfo {
       image: json['image'] != null ? json['image'] as String? : null,
       name: json['name'] != null ? json['name'] as String? : null,
       description:
-          json['description'] != null ? json['description'] as String? : null,
+      json['description'] != null ? json['description'] as String? : null,
       isPublic: json['isPublic'] != null ? json['isPublic'] as bool? : null,
       creatorInfo: json['creator'] != null
           ? User.fromJson(
-              json['creator'] as Map<String, dynamic>,
-              fromOrg: true,
-            )
+        json['creator'] as Map<String, dynamic>,
+        fromOrg: true,
+      )
           : null,
       members: json['members'] != null
           ? (json['members'] as List<dynamic>?)
-              ?.map(
-                (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
-              )
-              .toList()
+          ?.map(
+            (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
+      )
+          .toList()
           : null,
       admins: json['admins'] != null
           ? (json['admins'] as List<dynamic>?)
-              ?.map(
-                (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
-              )
-              .toList()
+          ?.map(
+            (e) => User.fromJson(e as Map<String, dynamic>, fromOrg: true),
+      )
+          .toList()
           : null,
     );
   }
