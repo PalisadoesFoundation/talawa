@@ -65,7 +65,7 @@ void main() {
             widget is Text &&
             widget.data == "fake_chat" &&
             widget.style!.color ==
-                TalawaTheme.darkTheme.textTheme.bodyText1!.color,
+                TalawaTheme.darkTheme.textTheme.bodyLarge!.color,
         description: 'Text widget with color as black',
       );
 
@@ -102,14 +102,17 @@ void main() {
 
       expect(chat, findsOneWidget);
 
-      find.byWidgetPredicate((widget) {
-        final chatContainer =
-            ((widget as Padding).child! as Row).children[0] as Container;
-        final chatDecoration = chatContainer.decoration! as BoxDecoration;
+      find.byWidgetPredicate(
+        (widget) {
+          final chatContainer =
+              ((widget as Padding).child! as Row).children[0] as Container;
+          final chatDecoration = chatContainer.decoration! as BoxDecoration;
 
-        return chatDecoration.color == Colors.green &&
-            chatDecoration.borderRadius == remoteMessageBorderRadius;
-      }, description: "Check if chat container is properly decorated");
+          return chatDecoration.color == Colors.green &&
+              chatDecoration.borderRadius == remoteMessageBorderRadius;
+        },
+        description: "Check if chat container is properly decorated",
+      );
     });
 
     testWidgets("Check if local chat shows correctly", (tester) async {
@@ -130,14 +133,17 @@ void main() {
         findsOneWidget,
       );
 
-      find.byWidgetPredicate((widget) {
-        final chatContainer =
-            ((widget as Padding).child! as Row).children[0] as Container;
-        final chatDecoration = chatContainer.decoration! as BoxDecoration;
+      find.byWidgetPredicate(
+        (widget) {
+          final chatContainer =
+              ((widget as Padding).child! as Row).children[0] as Container;
+          final chatDecoration = chatContainer.decoration! as BoxDecoration;
 
-        return chatDecoration.color == Colors.white &&
-            chatDecoration.borderRadius == localMessageBorderRadius;
-      }, description: "Check if chat container is properly decorated");
+          return chatDecoration.color == Colors.white &&
+              chatDecoration.borderRadius == localMessageBorderRadius;
+        },
+        description: "Check if chat container is properly decorated",
+      );
     });
   });
 }

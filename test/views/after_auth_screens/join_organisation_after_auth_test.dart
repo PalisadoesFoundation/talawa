@@ -76,24 +76,28 @@ void main() {
         );
 
         expect(
-          find.byWidgetPredicate((widget) =>
-              widget is Column &&
-              widget.children[0] is Padding &&
-              widget.children[1] is Container &&
-              widget.children[2] is Padding &&
-              widget.children[3] is Expanded &&
-              widget.children[4] is SizedBox &&
-              widget.children[5] is Column),
+          find.byWidgetPredicate(
+            (widget) =>
+                widget is Column &&
+                widget.children[0] is Padding &&
+                widget.children[1] is ColoredBox &&
+                widget.children[2] is Padding &&
+                widget.children[3] is Expanded &&
+                widget.children[4] is SizedBox &&
+                widget.children[5] is Column,
+          ),
           findsOneWidget,
         );
 
         expect(
-          find.byWidgetPredicate((widget) =>
-              widget is Column &&
-              widget.children[0] is RaisedRoundedButton &&
-              (widget.children[0] as RaisedRoundedButton).buttonLabel ==
-                  "Join selected organisation" &&
-              widget.children[1] is SizedBox),
+          find.byWidgetPredicate(
+            (widget) =>
+                widget is Column &&
+                widget.children[0] is RaisedRoundedButton &&
+                (widget.children[0] as RaisedRoundedButton).buttonLabel ==
+                    "Join selected organisation" &&
+                widget.children[1] is SizedBox,
+          ),
           findsOneWidget,
         );
       },
@@ -109,10 +113,12 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-        find.byWidgetPredicate((widget) =>
-            widget is ClipRRect &&
-            widget.child is Container &&
-            (widget.child! as Container).child is Column),
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is ClipRRect &&
+              widget.child is Container &&
+              (widget.child! as Container).child is Column,
+        ),
         findsOneWidget,
       );
     });
@@ -126,9 +132,10 @@ void main() {
       // SelectOrganizationViewModel will be the same.
       locator.unregister<SelectOrganizationViewModel>();
       locator.registerSingleton<SelectOrganizationViewModel>(
-          SelectOrganizationViewModel());
+        SelectOrganizationViewModel(),
+      );
 
-      final _orgOne = OrgInfo(
+      final orgOne = OrgInfo(
         name: "org_one",
         creatorInfo: User(
           firstName: "ravidi",
@@ -136,7 +143,7 @@ void main() {
         ),
         isPublic: false,
       );
-      final _orgTwo = OrgInfo(
+      final orgTwo = OrgInfo(
         name: "org_two",
         creatorInfo: User(
           firstName: "ravidi",
@@ -145,7 +152,7 @@ void main() {
         isPublic: false,
       );
 
-      final _selectOrgInfoVM = locator.get<SelectOrganizationViewModel>();
+      final selectOrgInfoVM = locator.get<SelectOrganizationViewModel>();
 
       await tester.pumpWidget(createJoinOrgAfterAuth());
       await tester.pumpAndSettle();
@@ -155,28 +162,28 @@ void main() {
       await tester.pumpAndSettle();
 
       // Checking for text change
-      _selectOrgInfoVM.setState(ViewState.busy);
-      _selectOrgInfoVM.searchController.text = "tmmmext";
+      selectOrgInfoVM.setState(ViewState.busy);
+      selectOrgInfoVM.searchController.text = "tmmmext";
       await tester.pumpAndSettle();
 
       expect(find.text("tmmmext"), findsOneWidget);
 
       // Checking for Org selection
 
-      expect(_selectOrgInfoVM.organizations, []);
+      expect(selectOrgInfoVM.organizations, []);
 
-      _selectOrgInfoVM.organizations = [
-        _orgOne,
-        _orgTwo,
+      selectOrgInfoVM.organizations = [
+        orgOne,
+        orgTwo,
       ];
 
-      _selectOrgInfoVM.selectedOrganization = _orgOne;
+      selectOrgInfoVM.selectedOrganization = orgOne;
 
-      _selectOrgInfoVM.notifyListeners();
+      selectOrgInfoVM.notifyListeners();
       await tester.pumpAndSettle();
 
-      _selectOrgInfoVM.searching = true;
-      _selectOrgInfoVM.notifyListeners();
+      selectOrgInfoVM.searching = true;
+      selectOrgInfoVM.notifyListeners();
 
       expect(find.byType(OrganizationSearchList), findsNothing);
     });

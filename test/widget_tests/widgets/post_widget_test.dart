@@ -22,7 +22,7 @@ import '../../helpers/test_helpers.dart';
 const Key newsPostKey = Key("newsPostKey");
 const Key postContainerKey = Key("postContainerKey");
 
-Widget createNewsPostWidget([Function? function, Post? post]) {
+Widget createNewsPostWidget([Function(Post)? function, Post? post]) {
   return MaterialApp(
     locale: const Locale('en'),
     localizationsDelegates: [
@@ -92,10 +92,12 @@ void main() {
         await tester.runAsync(() async {
           final Post post = getPostMockModel();
           when(post.likedBy).thenReturn([LikedBy(sId: "xzy1")]);
-          await tester.pumpWidget(createNewsPostWidget(
-            null,
-            post,
-          ));
+          await tester.pumpWidget(
+            createNewsPostWidget(
+              null,
+              post,
+            ),
+          );
           await tester.pump();
 
           final postFinder = find.byKey(newsPostKey);
@@ -182,12 +184,14 @@ void main() {
           expect(
             first3GestureDetectorWidget.child,
             isA<Icon>()
-              ..having((icon) => icon.icon, "icon", Icons.thumb_up)
-              ..having(
-                (icon) => icon.color,
-                "color",
-                equals(TalawaTheme.lightTheme.colorScheme.secondary),
-              ),
+                .having((icon) => icon.icon, "icon", Icons.thumb_up)
+                .having(
+                  (icon) => icon.color,
+                  "color",
+                  equals(
+                    const Color(0xff737373),
+                  ),
+                ),
           );
         });
       });
@@ -211,14 +215,18 @@ void main() {
 
           // Test if first column has cross axis alignment of start
           expect(
-              firstColumnWidget.crossAxisAlignment, CrossAxisAlignment.start);
+            firstColumnWidget.crossAxisAlignment,
+            CrossAxisAlignment.start,
+          );
 
           // Testing if all direct children of column are there
           expect(firstColumnWidget.children[0], isA<ListTile>());
           expect(firstColumnWidget.children[1], isA<DescriptionTextWidget>());
           expect(firstColumnWidget.children[2], isA<Container>());
-          expect(firstColumnWidget.children[3],
-              isA<BaseView<LikeButtonViewModel>>());
+          expect(
+            firstColumnWidget.children[3],
+            isA<BaseView<LikeButtonViewModel>>(),
+          );
         });
       });
       testWidgets('Test Props of List Tile', (WidgetTester tester) async {
@@ -231,7 +239,9 @@ void main() {
               .first;
 
           final listTileFinder = find.descendant(
-              of: columnFinder, matching: find.byType(ListTile));
+            of: columnFinder,
+            matching: find.byType(ListTile),
+          );
 
           // Tests if List Tile is a child of the first Column
           expect(listTileFinder, findsOneWidget);
@@ -339,8 +349,10 @@ void main() {
             matching: find.byType(PostContainer),
           );
           expect(postContainerFinder, findsOneWidget);
-          expect((tester.firstWidget(postContainerFinder) as PostContainer).id,
-              "PostID");
+          expect(
+            (tester.firstWidget(postContainerFinder) as PostContainer).id,
+            "PostID",
+          );
         });
       });
       testWidgets("Test props of Base view", (WidgetTester tester) async {
@@ -391,19 +403,19 @@ void main() {
             expect(
               firstPaddingWidget.child,
               isA<Row>()
-                ..having(
-                  (row) => row.mainAxisAlignment,
-                  'mainAxisAlignment',
-                  MainAxisAlignment.spaceBetween,
-                )
-                ..having(
-                  (row) => row.children,
-                  "children",
-                  [
-                    isA<GestureDetector>(),
-                    isA<GestureDetector>(),
-                  ],
-                ),
+                  .having(
+                (row) => row.mainAxisAlignment,
+                'mainAxisAlignment',
+                MainAxisAlignment.spaceBetween,
+              )
+                  .having(
+                (row) => row.children,
+                "children",
+                [
+                  isA<GestureDetector>(),
+                  isA<GestureDetector>(),
+                ],
+              ),
             );
             final firstGestureDetectorFinder = find.descendant(
               of: find.byWidget(firstPaddingWidget),
@@ -415,16 +427,14 @@ void main() {
             expect(firstGestureDetectorWidget.onTap, isA<Function>());
             expect(
               firstGestureDetectorWidget.child,
-              isA<Text>()
-                ..having((text) => text.data, "data", "0 Likes")
-                ..having(
-                  (text) => text.style,
-                  "style",
-                  const TextStyle(
-                    fontFamily: 'open-sans',
-                    fontWeight: FontWeight.w800,
+              isA<Text>().having((text) => text.data, "data", "0 Likes").having(
+                    (text) => text.style,
+                    "style",
+                    const TextStyle(
+                      fontFamily: 'open-sans',
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
-                ),
             );
 
             final secondGestureDetectorFinder = find.descendant(
@@ -438,7 +448,7 @@ void main() {
             expect(secondGestureDetectorWidget.onTap, isA<Function>());
             expect(
               secondGestureDetectorWidget.child,
-              isA<Text>()..having((text) => text.data, "data", "0 comments"),
+              isA<Text>().having((text) => text.data, "data", "0 comments"),
             );
           });
         });
@@ -488,15 +498,14 @@ void main() {
             );
             expect(
               thirdPaddingWidget.child,
-              isA<Row>()
-                ..having(
-                  (row) => row.children,
-                  "children",
-                  [
-                    isA<GestureDetector>(),
-                    isA<GestureDetector>(),
-                  ],
-                ),
+              isA<Row>().having(
+                (row) => row.children,
+                "children",
+                [
+                  isA<GestureDetector>(),
+                  isA<GestureDetector>(),
+                ],
+              ),
             );
             final first3GestureDetectorFinder = find.descendant(
               of: find.byWidget(thirdPaddingWidget),
@@ -509,12 +518,12 @@ void main() {
             expect(
               first3GestureDetectorWidget.child,
               isA<Icon>()
-                ..having((icon) => icon.icon, "icon", Icons.thumb_up)
-                ..having(
-                  (icon) => icon.color,
-                  "color",
-                  const Color(0xff737373),
-                ),
+                  .having((icon) => icon.icon, "icon", Icons.thumb_up)
+                  .having(
+                    (icon) => icon.color,
+                    "color",
+                    const Color(0xff737373),
+                  ),
             );
 
             final second3GestureDetectorFinder = find.descendant(
@@ -529,22 +538,22 @@ void main() {
             expect(
               second3GestureDetectorWidget.child,
               isA<Padding>()
-                ..having(
-                  (padding) => padding.padding,
-                  "padding",
-                  const EdgeInsets.only(left: 18.0),
-                )
-                ..having(
-                  (padding) => padding.child,
-                  "child",
-                  isA<Icon>()
-                    ..having((icon) => icon.icon, "icon", Icons.comment)
-                    ..having(
-                      (icon) => icon.color,
-                      "color",
-                      const Color(0xff737373),
-                    ),
-                ),
+                  .having(
+                    (padding) => padding.padding,
+                    "padding",
+                    const EdgeInsets.only(left: 18.0),
+                  )
+                  .having(
+                    (padding) => padding.child,
+                    "child",
+                    isA<Icon>()
+                        .having((icon) => icon.icon, "icon", Icons.comment)
+                        .having(
+                          (icon) => icon.color,
+                          "color",
+                          const Color(0xff737373),
+                        ),
+                  ),
             );
           });
         });
@@ -581,15 +590,14 @@ void main() {
         expect(visibilityDetectorWidget.onVisibilityChanged, isA<Function>());
         expect(
           visibilityDetectorWidget.child,
-          isA<Stack>()
-            ..having(
-              (stack) => stack.children,
-              "children",
-              [
-                isA<PageView>(),
-                isA<Padding>(),
-              ],
-            ),
+          isA<Stack>().having(
+            (stack) => stack.children,
+            "children",
+            [
+              isA<PageView>(),
+              isA<Padding>(),
+            ],
+          ),
         );
       });
     });
@@ -607,12 +615,11 @@ void main() {
         expect(pageViewWidget.scrollDirection, Axis.horizontal);
         expect(
           pageViewWidget.controller,
-          isA<PageController>()
-            ..having(
-              (pageController) => pageController.initialPage,
-              "initial page",
-              0,
-            ),
+          isA<PageController>().having(
+            (pageController) => pageController.initialPage,
+            "initial page",
+            0,
+          ),
         );
         expect(pageViewWidget.onPageChanged, isA<Function>());
       });
@@ -646,17 +653,19 @@ void main() {
           expect(
             centerWidget.child,
             isA<VideoWidget>()
-              ..having(
-                (video) => video.url,
-                "url",
-                'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-              )
-              ..having((video) => video.play, "play", true),
+                .having(
+                  (video) => video.url,
+                  "url",
+                  'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+                )
+                .having((video) => video.play, "play", true),
           );
 
           await tester.dragFrom(
             Offset(
-                SizeConfig.screenWidth!, tester.getCenter(pageViewFinder).dy),
+              SizeConfig.screenWidth!,
+              tester.getCenter(pageViewFinder).dy,
+            ),
             Offset(-SizeConfig.screenWidth! * 2, 0),
           );
           await tester.pump();
@@ -665,14 +674,13 @@ void main() {
           expect(imageFinder, findsOneWidget);
           expect(
             tester.firstWidget(imageFinder),
-            isA<Image>()
-              ..having(
-                (image) => image.image,
-                "image",
-                const NetworkImage(
-                  'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
-                ),
+            isA<Image>().having(
+              (image) => image.image,
+              "image",
+              const NetworkImage(
+                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg',
               ),
+            ),
           );
 
           final paddingFinder = find.descendant(
@@ -694,8 +702,9 @@ void main() {
             TalawaTheme.lightTheme.colorScheme.primary,
           );
           expect(
-              (tester.firstWidget(pageViewFinder) as PageView).controller.page,
-              0.9);
+            (tester.firstWidget(pageViewFinder) as PageView).controller.page,
+            0.9,
+          );
         });
       });
     });
@@ -710,30 +719,32 @@ void main() {
         );
         final paddingWidget = tester.firstWidget(paddingFinder) as Padding;
         expect(
-            paddingWidget.padding, const EdgeInsets.symmetric(horizontal: 8.0));
+          paddingWidget.padding,
+          const EdgeInsets.symmetric(horizontal: 8.0),
+        );
         expect(
           paddingWidget.child,
           isA<Column>()
-            ..having(
-              (column) => column.crossAxisAlignment,
-              "cross axis alignment",
-              CrossAxisAlignment.center,
-            )
-            ..having(
-              (column) => column.mainAxisAlignment,
-              "main axis alignment",
-              MainAxisAlignment.end,
-            )
-            ..having(
-              (column) => column.mainAxisSize,
-              "main axis size",
-              MainAxisSize.max,
-            )
-            ..having(
-              (column) => column.children,
-              "children",
-              [isA<Padding>()],
-            ),
+              .having(
+                (column) => column.crossAxisAlignment,
+                "cross axis alignment",
+                CrossAxisAlignment.center,
+              )
+              .having(
+                (column) => column.mainAxisAlignment,
+                "main axis alignment",
+                MainAxisAlignment.end,
+              )
+              .having(
+                (column) => column.mainAxisSize,
+                "main axis size",
+                MainAxisSize.max,
+              )
+              .having(
+            (column) => column.children,
+            "children",
+            [isA<Padding>()],
+          ),
         );
       });
     });
@@ -757,25 +768,32 @@ void main() {
         );
         expect(
           paddingWidget.child,
-          isA<Row>()
-            ..having(
-              (row) => row.children,
-              "children",
-              [
-                isA<Expanded>()
-                  ..having(
-                      (expanded) => expanded.child, "child", isA<Padding>()),
-                isA<Expanded>()
-                  ..having(
-                      (expanded) => expanded.child, "child", isA<Padding>()),
-                isA<Expanded>()
-                  ..having(
-                      (expanded) => expanded.child, "child", isA<Padding>()),
-                isA<Expanded>()
-                  ..having(
-                      (expanded) => expanded.child, "child", isA<Padding>()),
-              ],
-            ),
+          isA<Row>().having(
+            (row) => row.children,
+            "children",
+            [
+              isA<Expanded>().having(
+                (expanded) => expanded.child,
+                "child",
+                isA<Padding>(),
+              ),
+              isA<Expanded>().having(
+                (expanded) => expanded.child,
+                "child",
+                isA<Padding>(),
+              ),
+              isA<Expanded>().having(
+                (expanded) => expanded.child,
+                "child",
+                isA<Padding>(),
+              ),
+              isA<Expanded>().having(
+                (expanded) => expanded.child,
+                "child",
+                isA<Padding>(),
+              ),
+            ],
+          ),
         );
         final paddingFinders = find.descendant(
           of: paddingFinder.at(1),
@@ -793,16 +811,16 @@ void main() {
         expect(
           padding1Widgets.child,
           isA<Divider>()
-            ..having(
-              (divider) => divider.thickness,
-              "thickness",
-              3.0,
-            )
-            ..having(
-              (divider) => divider.color,
-              "color",
-              TalawaTheme.lightTheme.colorScheme.primary,
-            ),
+              .having(
+                (divider) => divider.thickness,
+                "thickness",
+                3.0,
+              )
+              .having(
+                (divider) => divider.color,
+                "color",
+                TalawaTheme.lightTheme.colorScheme.primary,
+              ),
         );
 
         expect(
@@ -812,16 +830,16 @@ void main() {
         expect(
           padding2Widgets.child,
           isA<Divider>()
-            ..having(
-              (divider) => divider.thickness,
-              "thickness",
-              3.0,
-            )
-            ..having(
-              (divider) => divider.color,
-              "color",
-              Colors.grey,
-            ),
+              .having(
+                (divider) => divider.thickness,
+                "thickness",
+                3.0,
+              )
+              .having(
+                (divider) => divider.color,
+                "color",
+                Colors.grey,
+              ),
         );
       });
     });

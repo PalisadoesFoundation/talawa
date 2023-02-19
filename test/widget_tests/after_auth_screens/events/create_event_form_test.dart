@@ -44,28 +44,31 @@ Widget createCreateEventForm() {
   );
 }
 
-Widget createEventScreen(
-        {ThemeMode themeMode = ThemeMode.light, required ThemeData theme}) =>
+Widget createEventScreen({
+  ThemeMode themeMode = ThemeMode.light,
+  required ThemeData theme,
+}) =>
     BaseView<AppLanguage>(
-        onModelReady: (model) => model.initialize(),
-        builder: (context, langModel, child) {
-          return MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(isTest: true),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            key: const Key('Root'),
-            themeMode: themeMode,
-            theme: theme,
-            home: const CreateEventPage(
-              key: Key('CreateEventScreen'),
-            ),
-            navigatorKey: navigationService.navigatorKey,
-            onGenerateRoute: router.generateRoute,
-          );
-        });
+      onModelReady: (model) => model.initialize(),
+      builder: (context, langModel, child) {
+        return MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          key: const Key('Root'),
+          themeMode: themeMode,
+          theme: theme,
+          home: const CreateEventPage(
+            key: Key('CreateEventScreen'),
+          ),
+          navigatorKey: navigationService.navigatorKey,
+          onGenerateRoute: router.generateRoute,
+        );
+      },
+    );
 
 void main() {
   SizeConfig().test();
@@ -87,9 +90,12 @@ void main() {
       await tester.pump();
       expect(find.byType(TextFormField), findsNWidgets(3));
       expect(
-          find.descendant(
-              of: find.byType(Form), matching: find.byType(TextFormField)),
-          findsNWidgets(3));
+        find.descendant(
+          of: find.byType(Form),
+          matching: find.byType(TextFormField),
+        ),
+        findsNWidgets(3),
+      );
     });
   });
 
@@ -126,7 +132,9 @@ void main() {
       await tester.pump();
 
       await tester.enterText(
-          find.byKey(const Key('create_event_form_tff1')), 'fakeEventTitle');
+        find.byKey(const Key('create_event_form_tff1')),
+        'fakeEventTitle',
+      );
       await tester.pump();
       await tester.testTextInput.receiveAction(TextInputAction.next);
       await tester.pump();
@@ -140,7 +148,9 @@ void main() {
       await tester.pump();
 
       await tester.enterText(
-          find.byKey(const Key('create_event_form_tff2')), 'fakeEventTitle');
+        find.byKey(const Key('create_event_form_tff2')),
+        'fakeEventTitle',
+      );
       await tester.pump();
       await tester.testTextInput.receiveAction(TextInputAction.next);
       await tester.pump();
@@ -154,7 +164,9 @@ void main() {
       await tester.pump();
 
       await tester.enterText(
-          find.byKey(const Key('create_event_form_tff3')), 'fakeEventTitle');
+        find.byKey(const Key('create_event_form_tff3')),
+        'fakeEventTitle',
+      );
       await tester.pump();
       await tester.testTextInput.receiveAction(TextInputAction.next);
       await tester.pump();

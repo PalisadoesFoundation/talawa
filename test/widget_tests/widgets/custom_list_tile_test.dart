@@ -26,7 +26,7 @@ bool _showIcon = false;
 User _userInfo = User();
 
 // ignore: prefer_function_declarations_over_variables
-dynamic Function(OrgInfo)? _onTapOrgInfo = (OrgInfo _orgInfo) => true;
+dynamic Function(OrgInfo)? _onTapOrgInfo = (OrgInfo orgInfo) => true;
 
 // ignore: prefer_function_declarations_over_variables
 void Function()? _onTapOption = () => {};
@@ -72,7 +72,7 @@ void main() {
       subtitle: 'Just a test',
     );
     _showIcon = false;
-    _onTapOrgInfo = (OrgInfo _orgInfo) => true;
+    _onTapOrgInfo = (OrgInfo orgInfo) => true;
 
     _userInfo = User();
     _onTapOption = () => {};
@@ -93,7 +93,7 @@ void main() {
           lastName: 'Test lastname',
         ),
       );
-      _onTapOrgInfo = (OrgInfo _orgInfo) {
+      _onTapOrgInfo = (OrgInfo orgInfo) {
         executed = true;
       };
       _tileType = TileType.org;
@@ -137,7 +137,7 @@ void main() {
         orgNameWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5,
+            .headlineSmall,
       );
 
       // Testing Text for that contains org's creator name
@@ -158,14 +158,15 @@ void main() {
         orgCreatorWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6,
+            .titleLarge,
       );
 
       // Test for is public display
       expect(
         find.text(
-            AppLocalizations.of(navigationService.navigatorKey.currentContext!)!
-                .strictTranslate('Public')),
+          AppLocalizations.of(navigationService.navigatorKey.currentContext!)!
+              .strictTranslate('Public'),
+        ),
         findsOneWidget,
       );
 
@@ -207,8 +208,9 @@ void main() {
       // Test for is public display
       expect(
         find.text(
-            AppLocalizations.of(navigationService.navigatorKey.currentContext!)!
-                .strictTranslate('Private')),
+          AppLocalizations.of(navigationService.navigatorKey.currentContext!)!
+              .strictTranslate('Private'),
+        ),
         findsOneWidget,
       );
 
@@ -290,7 +292,7 @@ void main() {
         userNameWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6,
+            .titleLarge,
       );
 
       // Testing SizedBox for users fallback for creater info
@@ -349,7 +351,7 @@ void main() {
         optionTitleWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .bodyText2,
+            .bodyMedium,
       );
 
       // Testing Text that contains option's subtitle
@@ -368,7 +370,7 @@ void main() {
         optionSubtitleWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .caption,
+            .bodySmall,
       );
 
       // Testing SizedBox for option when trailing icon button is null (fallback for creater info)
@@ -385,13 +387,14 @@ void main() {
         (WidgetTester tester) async {
       _tileType = TileType.option;
       _option = Options(
-          icon: const Icon(Icons.add),
-          title: 'Test',
-          subtitle: 'Just a test',
-          trailingIconButton: IconButton(
-            icon: const Icon(Icons.send),
-            onPressed: () {},
-          ));
+        icon: const Icon(Icons.add),
+        title: 'Test',
+        subtitle: 'Just a test',
+        trailingIconButton: IconButton(
+          icon: const Icon(Icons.send),
+          onPressed: () {},
+        ),
+      );
       await tester.pumpWidget(_createCustomListTile());
       await tester.pumpAndSettle();
 
@@ -409,7 +412,7 @@ void main() {
         optionTitleWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5!
+            .headlineSmall!
             .copyWith(fontSize: 18),
       );
 
@@ -428,7 +431,7 @@ void main() {
         optionSubtitleWidget.style,
         Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6,
+            .titleLarge,
       );
 
       // Test for checking if trailing icon button is shown

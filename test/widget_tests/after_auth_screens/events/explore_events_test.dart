@@ -93,7 +93,9 @@ void main() {
         await tester.pumpAndSettle();
 
         await tester.drag(
-            find.byKey(const Key('ExploreEvents')), const Offset(0, 500));
+          find.byKey(const Key('ExploreEvents')),
+          const Offset(0, 500),
+        );
         await tester.pumpAndSettle();
 
         verify(locator<ExploreEventsViewModel>().refreshEvents()).called(2);
@@ -116,9 +118,10 @@ void main() {
         await tester.tap(find.byType(EventCard));
         await tester.pumpAndSettle();
 
-        verify(locator<NavigationService>()
-                .pushScreen("/eventInfo", arguments: anyNamed('arguments')))
-            .called(1);
+        verify(
+          locator<NavigationService>()
+              .pushScreen("/eventInfo", arguments: anyNamed('arguments')),
+        ).called(1);
       });
     });
     testWidgets("Testing if drop down button works", (tester) async {
@@ -159,12 +162,12 @@ void main() {
       await mockNetworkImages(() async {
         locator.unregister<EventService>();
 
-        final StreamController<Event> _streamController = StreamController();
-        final Stream<Event> _stream =
-            _streamController.stream.asBroadcastStream();
+        final StreamController<Event> streamController = StreamController();
+        final Stream<Event> stream =
+            streamController.stream.asBroadcastStream();
 
         final service = MockEventService();
-        when(service.eventStream).thenAnswer((invocation) => _stream);
+        when(service.eventStream).thenAnswer((invocation) => stream);
         locator.registerSingleton<EventService>(service);
 
         final homeModel = locator<MainScreenViewModel>();
@@ -173,7 +176,9 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(
-            find.text("Looks like there aren't any events."), findsOneWidget);
+          find.text("Looks like there aren't any events."),
+          findsOneWidget,
+        );
       });
     });
   });

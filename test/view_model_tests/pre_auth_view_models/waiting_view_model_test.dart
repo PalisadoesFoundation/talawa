@@ -34,16 +34,16 @@ void main() {
         [
           {
             'text': "Please wait",
-            'textStyle': Theme.of(context).textTheme.headline5
+            'textStyle': Theme.of(context).textTheme.headlineSmall
           },
           {
             'text': " ${model.currentUser.firstName} ",
             'textStyle':
-                Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
+                Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24)
           },
           {
             'text': "for organisation(s) to accept your invitation.",
-            'textStyle': Theme.of(context).textTheme.headline5
+            'textStyle': Theme.of(context).textTheme.headlineSmall
           },
         ],
       );
@@ -64,11 +64,13 @@ void main() {
       final context = MockBuildContext();
       model.initialise(context);
 
-      when(navigationService.removeAllAndPush(
-        Routes.languageSelectionRoute,
-        Routes.splashScreen,
-        arguments: '0',
-      )).thenAnswer((_) async {});
+      when(
+        navigationService.removeAllAndPush(
+          Routes.languageSelectionRoute,
+          Routes.splashScreen,
+          arguments: '0',
+        ),
+      ).thenAnswer((_) async {});
 
       Hive
         ..init('test/fixtures/core')
@@ -82,11 +84,13 @@ void main() {
 
       model.logout();
 
-      verify(navigationService.removeAllAndPush(
-        Routes.languageSelectionRoute,
-        Routes.splashScreen,
-        arguments: '0',
-      ));
+      verify(
+        navigationService.removeAllAndPush(
+          Routes.languageSelectionRoute,
+          Routes.splashScreen,
+          arguments: '0',
+        ),
+      );
 
       Future.delayed(Duration.zero).then((_) {
         expect(user.get('test'), null);

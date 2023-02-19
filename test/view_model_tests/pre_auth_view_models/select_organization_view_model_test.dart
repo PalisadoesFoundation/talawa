@@ -16,13 +16,13 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import '../../helpers/test_helpers.dart';
 
 class SelectOrganizationViewModelWidget extends StatelessWidget {
-  const SelectOrganizationViewModelWidget(
-      {required this.qrKey,
-      this.child,
-      this.focusNode,
-      this.autoFocus,
-      Key? key})
-      : super(key: key);
+  const SelectOrganizationViewModelWidget({
+    required this.qrKey,
+    this.child,
+    this.focusNode,
+    this.autoFocus,
+    Key? key,
+  }) : super(key: key);
   final GlobalKey qrKey;
   final FocusNode? focusNode;
   final bool? autoFocus;
@@ -95,11 +95,13 @@ void main() {
         (WidgetTester tester) async {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-        focusNode: selectOrganizationViewModel.searchFocus,
-        autoFocus: true,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+          focusNode: selectOrganizationViewModel.searchFocus,
+          autoFocus: true,
+        ),
+      );
       selectOrganizationViewModel.searchFocus.requestFocus();
       expect(selectOrganizationViewModel.searchFocus.hasFocus, true);
       selectOrganizationViewModel.searchActive();
@@ -114,10 +116,12 @@ void main() {
         (WidgetTester tester) async {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-        focusNode: selectOrganizationViewModel.searchFocus,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+          focusNode: selectOrganizationViewModel.searchFocus,
+        ),
+      );
       expect(selectOrganizationViewModel.searchFocus.hasFocus, false);
       selectOrganizationViewModel.searchActive();
 
@@ -131,18 +135,22 @@ void main() {
       final selectOrganizationViewModel = SelectOrganizationViewModel();
       _user = User(refreshToken: '');
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       when(databaseFunctions.fetchOrgById(initialiseString))
           .thenAnswer((realInvocation) async => org);
 
       await selectOrganizationViewModel.initialise(initialiseString);
-      verify(navigationService.pushScreen(
-        Routes.signupDetailScreen,
-        arguments: org,
-      ));
+      verify(
+        navigationService.pushScreen(
+          Routes.signupDetailScreen,
+          arguments: org,
+        ),
+      );
 
       expect(selectOrganizationViewModel.isBusy, false);
     });
@@ -152,10 +160,12 @@ void main() {
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
       await selectOrganizationViewModel.initialise('-1 $initialiseString');
-      verifyNever(navigationService.pushScreen(
-        Routes.signupDetailScreen,
-        arguments: org,
-      ));
+      verifyNever(
+        navigationService.pushScreen(
+          Routes.signupDetailScreen,
+          arguments: org,
+        ),
+      );
 
       expect(selectOrganizationViewModel.isBusy, false);
     });
@@ -165,19 +175,23 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       when(databaseFunctions.fetchOrgById(initialiseString))
           .thenAnswer((realInvocation) async => 'hey');
 
       await selectOrganizationViewModel.initialise(initialiseString);
 
-      verifyNever(navigationService.pushScreen(
-        Routes.signupDetailScreen,
-        arguments: org,
-      ));
+      verifyNever(
+        navigationService.pushScreen(
+          Routes.signupDetailScreen,
+          arguments: org,
+        ),
+      );
 
       expect(selectOrganizationViewModel.isBusy, false);
     });
@@ -188,19 +202,23 @@ void main() {
       _user = User(refreshToken: 'testtoken');
       _userLoggedIn = false;
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       when(databaseFunctions.fetchOrgById(initialiseString))
           .thenAnswer((realInvocation) async => org);
 
       await selectOrganizationViewModel.initialise(initialiseString);
 
-      verifyNever(navigationService.pushScreen(
-        Routes.signupDetailScreen,
-        arguments: org,
-      ));
+      verifyNever(
+        navigationService.pushScreen(
+          Routes.signupDetailScreen,
+          arguments: org,
+        ),
+      );
 
       expect(selectOrganizationViewModel.isBusy, false);
     });
@@ -222,9 +240,11 @@ void main() {
         ],
       );
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       await selectOrganizationViewModel.selectOrg(org);
 
@@ -235,9 +255,11 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
       _userLoggedIn = false;
 
       await selectOrganizationViewModel.selectOrg(org);
@@ -250,9 +272,11 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
       _user = User(
         joinedOrganizations: [org],
         membershipRequests: [
@@ -275,9 +299,11 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
       _userLoggedIn = true;
       _user = User(
         joinedOrganizations: [
@@ -299,18 +325,22 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       selectOrganizationViewModel.selectedOrganization = org;
 
       await selectOrganizationViewModel.onTapContinue();
 
-      verify(navigationService.pushScreen(
-        Routes.signupDetailScreen,
-        arguments: org,
-      ));
+      verify(
+        navigationService.pushScreen(
+          Routes.signupDetailScreen,
+          arguments: org,
+        ),
+      );
     });
     testWidgets(
         'Test for successful onTapContinue function when selected organization id is -1',
@@ -318,27 +348,33 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       selectOrganizationViewModel.selectedOrganization = OrgInfo(id: '-1');
 
       await selectOrganizationViewModel.onTapContinue();
 
-      verify(navigationService.showSnackBar(
-        'Select one organization to continue',
-        duration: const Duration(milliseconds: 750),
-      ));
+      verify(
+        navigationService.showSnackBar(
+          'Select one organization to continue',
+          duration: const Duration(milliseconds: 750),
+        ),
+      );
     });
     testWidgets('Test for successful onTapJoin function',
         (WidgetTester tester) async {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       selectOrganizationViewModel.selectedOrganization = org;
 
@@ -351,9 +387,10 @@ void main() {
         };
 
         return QueryResult(
-            source: QueryResultSource.network,
-            data: data,
-            options: QueryOptions(document: gql(queries.joinOrgById(org.id!))));
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.joinOrgById(org.id!))),
+        );
       });
 
       _user = User(
@@ -363,16 +400,17 @@ void main() {
       await selectOrganizationViewModel.onTapJoin();
 
       verify(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)));
-      verify(navigationService.removeAllAndPush(
-        Routes.mainScreen,
-        Routes.splashScreen,
-        arguments: isA<MainScreenArgs>()
-          ..having(
+      verify(
+        navigationService.removeAllAndPush(
+          Routes.mainScreen,
+          Routes.splashScreen,
+          arguments: isA<MainScreenArgs>().having(
             (main) => main.mainScreenIndex,
             "main screen index",
             0,
           ),
-      ));
+        ),
+      );
     });
     testWidgets(
         'Test for onTapJoin function when joined organization length is not 1',
@@ -380,9 +418,11 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       selectOrganizationViewModel.selectedOrganization = org;
 
@@ -395,9 +435,10 @@ void main() {
         };
 
         return QueryResult(
-            source: QueryResultSource.network,
-            data: data,
-            options: QueryOptions(document: gql(queries.joinOrgById(org.id!))));
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.joinOrgById(org.id!))),
+        );
       });
       _user = User(
         joinedOrganizations: [],
@@ -414,17 +455,20 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       org.isPublic = false;
       selectOrganizationViewModel.selectedOrganization = org;
       _user = User(joinedOrganizations: []);
 
-      when(databaseFunctions
-              .gqlAuthMutation(queries.sendMembershipRequest(org.id!)))
-          .thenAnswer((realInvocation) async {
+      when(
+        databaseFunctions
+            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
+      ).thenAnswer((realInvocation) async {
         final data = {
           'sendMembershipRequest': {
             'organization': <String, dynamic>{},
@@ -432,19 +476,24 @@ void main() {
         };
 
         return QueryResult(
-            source: QueryResultSource.network,
-            data: data,
-            options: QueryOptions(document: gql(queries.joinOrgById(org.id!))));
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.joinOrgById(org.id!))),
+        );
       });
 
       await selectOrganizationViewModel.onTapJoin();
 
-      verify(databaseFunctions
-          .gqlAuthMutation(queries.sendMembershipRequest(org.id!)));
-      verify(navigationService.removeAllAndPush(
-        Routes.waitingScreen,
-        Routes.splashScreen,
-      ));
+      verify(
+        databaseFunctions
+            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
+      );
+      verify(
+        navigationService.removeAllAndPush(
+          Routes.waitingScreen,
+          Routes.splashScreen,
+        ),
+      );
     });
     testWidgets(
         'Test for successful onTapJoin function when isPublic is false and joined orgnazation is not empty',
@@ -452,17 +501,20 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       org.isPublic = false;
       selectOrganizationViewModel.selectedOrganization = org;
       _user = User(joinedOrganizations: [org]);
 
-      when(databaseFunctions
-              .gqlAuthMutation(queries.sendMembershipRequest(org.id!)))
-          .thenAnswer((realInvocation) async {
+      when(
+        databaseFunctions
+            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
+      ).thenAnswer((realInvocation) async {
         final data = {
           'sendMembershipRequest': {
             'organization': <String, dynamic>{},
@@ -470,19 +522,24 @@ void main() {
         };
 
         return QueryResult(
-            source: QueryResultSource.network,
-            data: data,
-            options: QueryOptions(document: gql(queries.joinOrgById(org.id!))));
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.joinOrgById(org.id!))),
+        );
       });
 
       await selectOrganizationViewModel.onTapJoin();
 
-      verify(databaseFunctions
-          .gqlAuthMutation(queries.sendMembershipRequest(org.id!)));
+      verify(
+        databaseFunctions
+            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
+      );
       verify(navigationService.pop());
-      verify(navigationService.showSnackBar(
-        'Join in request sent to ${org.name} successfully',
-      ));
+      verify(
+        navigationService.showSnackBar(
+          'Join in request sent to ${org.name} successfully',
+        ),
+      );
     });
     testWidgets(
         'Test for successful onTapJoin function when isPublic is false and result is null',
@@ -490,31 +547,40 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       org.isPublic = false;
       selectOrganizationViewModel.selectedOrganization = org;
 
-      when(databaseFunctions
-              .gqlAuthMutation(queries.sendMembershipRequest(org.id!)))
-          .thenAnswer((realInvocation) async {
+      when(
+        databaseFunctions
+            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
+      ).thenAnswer((realInvocation) async {
         return null;
       });
 
       await selectOrganizationViewModel.onTapJoin();
 
-      verify(databaseFunctions
-          .gqlAuthMutation(queries.sendMembershipRequest(org.id!)));
+      verify(
+        databaseFunctions
+            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
+      );
       verifyNever(navigationService.pop());
-      verifyNever(navigationService.showSnackBar(
-        'Join in request sent to ${org.name} successfully',
-      ));
-      verifyNever(navigationService.removeAllAndPush(
-        Routes.waitingScreen,
-        Routes.splashScreen,
-      ));
+      verifyNever(
+        navigationService.showSnackBar(
+          'Join in request sent to ${org.name} successfully',
+        ),
+      );
+      verifyNever(
+        navigationService.removeAllAndPush(
+          Routes.waitingScreen,
+          Routes.splashScreen,
+        ),
+      );
     });
     testWidgets(
         'Test for successful onTapJoin function when isPublic is true and throws exception',
@@ -522,9 +588,11 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       selectOrganizationViewModel.selectedOrganization = org;
 
@@ -542,16 +610,19 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
       org.isPublic = false;
 
       selectOrganizationViewModel.selectedOrganization = org;
 
-      when(databaseFunctions
-              .gqlAuthMutation(queries.sendMembershipRequest(org.id!)))
-          .thenThrow(Exception());
+      when(
+        databaseFunctions
+            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
+      ).thenThrow(Exception());
 
       await selectOrganizationViewModel.onTapJoin();
 
@@ -561,9 +632,11 @@ void main() {
       locator.registerSingleton<UserConfig>(_MockUserConfig());
       final selectOrganizationViewModel = SelectOrganizationViewModel();
 
-      await tester.pumpWidget(SelectOrganizationViewModelWidget(
-        qrKey: selectOrganizationViewModel.qrKey,
-      ));
+      await tester.pumpWidget(
+        SelectOrganizationViewModelWidget(
+          qrKey: selectOrganizationViewModel.qrKey,
+        ),
+      );
 
       Map<String, dynamic>? expected;
 
@@ -577,9 +650,12 @@ void main() {
               "organizationsConnection": [3, 4]
             },
           );
-          return Future.value(QueryResult(
+          return Future.value(
+            QueryResult(
               source: QueryResultSource.network,
-              options: QueryOptions(document: gql(queries.fetchJoinInOrg))));
+              options: QueryOptions(document: gql(queries.fetchJoinInOrg)),
+            ),
+          );
         },
         [],
       );

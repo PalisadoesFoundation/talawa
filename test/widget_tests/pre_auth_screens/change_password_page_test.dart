@@ -97,14 +97,14 @@ void main() {
               "${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("Hello")}, ",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text':
               '${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("User Name")} ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(fontSize: 24)
         },
         {
@@ -112,14 +112,14 @@ void main() {
               "${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("we've")} ",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text':
               '${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("got you covered")} ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
       ];
 
@@ -221,14 +221,14 @@ void main() {
               "${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("Hello")}, ",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text':
               '${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("User Name")} ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline6!
+              .titleLarge!
               .copyWith(fontSize: 24)
         },
         {
@@ -236,14 +236,14 @@ void main() {
               "${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("we've")} ",
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
         {
           'text':
               '${AppLocalizations.of(navigationService.navigatorKey.currentContext!)!.translate("got you covered")} ',
           'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
               .textTheme
-              .headline5
+              .headlineSmall
         },
       ];
 

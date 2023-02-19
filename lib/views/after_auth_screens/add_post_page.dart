@@ -23,7 +23,7 @@ class AddPost extends StatelessWidget {
         // header title
         title: Text(
           AppLocalizations.of(context)!.strictTranslate('Share News'),
-          style: Theme.of(context).textTheme.headline6!.copyWith(
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
@@ -42,7 +42,7 @@ class AddPost extends StatelessWidget {
             onPressed: () => model.uploadPost(),
             child: Text(
               AppLocalizations.of(context)!.strictTranslate("Post"),
-              style: Theme.of(context).textTheme.headline5!.copyWith(
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
@@ -92,7 +92,7 @@ class AddPost extends StatelessWidget {
                     onPressed: () {},
                     child: Text(
                       '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                 ],

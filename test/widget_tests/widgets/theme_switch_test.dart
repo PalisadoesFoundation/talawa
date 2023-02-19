@@ -59,13 +59,16 @@ void main() {
 
       when(mockAppTheme.isdarkTheme).thenReturn(true);
 
-      await tester.pumpWidget(ChangeNotifierProvider<AppTheme>.value(
-        value: mockAppTheme,
-        child: const LocalizationsInj(
+      await tester.pumpWidget(
+        ChangeNotifierProvider<AppTheme>.value(
+          value: mockAppTheme,
+          child: const LocalizationsInj(
             child: Scaffold(
-          body: ChangeThemeTile(),
-        )),
-      ));
+              body: ChangeThemeTile(),
+            ),
+          ),
+        ),
+      );
       await tester.pumpAndSettle();
       expect(find.byType(ListTile), findsOneWidget);
       expect(find.byType(Text), findsOneWidget);

@@ -60,12 +60,12 @@ class OrgInfo {
   }
 
   List<OrgInfo> fromJsonToList(List<dynamic> json) {
-    final List<OrgInfo> _orgList = [];
+    final List<OrgInfo> orgList = [];
     json.forEach((element) {
       final OrgInfo org = OrgInfo.fromJson(element as Map<String, dynamic>);
-      _orgList.add(org);
+      orgList.add(org);
     });
-    return _orgList;
+    return orgList;
   }
 
   @HiveField(0)

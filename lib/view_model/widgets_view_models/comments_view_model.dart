@@ -38,10 +38,10 @@ class CommentsViewModel extends BaseModel {
   /// The function uses `getCommentsForPost` method by Comment Service.
   Future getComments() async {
     setState(ViewState.busy);
-    final List _commentsJSON =
+    final List commentsJSON =
         await _commentService.getCommentsForPost(_postID) as List;
-    print(_commentsJSON);
-    _commentsJSON.forEach((commentJson) {
+    print(commentsJSON);
+    commentsJSON.forEach((commentJson) {
       _commentlist.add(Comment.fromJson(commentJson as Map<String, dynamic>));
     });
     setState(ViewState.idle);
@@ -61,13 +61,13 @@ class CommentsViewModel extends BaseModel {
   // This function add comment locally.
   void addCommentLocally(String msg) {
     _postService.addCommentLocally(_postID);
-    final _creator = _userConfig.currentUser;
-    final Comment _localComment = Comment(
+    final creator = _userConfig.currentUser;
+    final Comment localComment = Comment(
       text: msg,
       createdAt: DateTime.now().toString(),
-      creator: _creator,
+      creator: creator,
     );
-    _commentlist.insert(0, _localComment);
+    _commentlist.insert(0, localComment);
     notifyListeners();
   }
 }

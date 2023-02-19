@@ -22,7 +22,7 @@ class CustomProgressDialog extends StatelessWidget {
             vertical: SizeConfig.screenHeight! * 0.35,
           ),
           decoration: BoxDecoration(
-            color: Theme.of(context).textTheme.headline6!.color,
+            color: Theme.of(context).textTheme.titleLarge!.color,
             borderRadius: BorderRadius.circular(15),
           ),
           child: model.connectivityPresent
@@ -50,7 +50,7 @@ class CustomProgressDialog extends StatelessWidget {
                     ),
                     Text(
                       '${AppLocalizations.of(context)!.strictTranslate("No Internet")}!',
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ],
                 ),
