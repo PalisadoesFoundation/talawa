@@ -159,8 +159,8 @@ void main() {
         'Test validateUrlExistence',
         () {
           test('Test validateUrlExistence when url is not present', () async {
-            final result =
-                await Validator().validateUrlExistence('https://nnnoootttaaasssiiittteee.com');
+            final result = await Validator()
+                .validateUrlExistence('https://nnnoootttaaasssiiittteee.com');
 
             expect(result, false);
           });
