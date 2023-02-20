@@ -3,6 +3,8 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:timelines/timelines.dart';
 
+/// This class returns a widget for showing the
+/// progress indicator/flow while Signing Up/ Registration.
 class SignupProgressIndicator extends StatelessWidget {
   SignupProgressIndicator({required Key key, required this.currentPageIndex})
       : super(key: key);
@@ -26,7 +28,9 @@ class SignupProgressIndicator extends StatelessWidget {
         builder: TimelineTileBuilder.connected(
           contentsBuilder: (_, index) => Text(
             AppLocalizations.of(context)!.strictTranslate(progressLabel[index]),
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  // If the flow index is greater than currentPageIndex then
+                  // show green(visited) color else show fade(not visited) color.
                   color: index <= currentPageIndex
                       ? const Color(0xFF008A37)
                       : const Color(0xFF737373),
@@ -36,6 +40,8 @@ class SignupProgressIndicator extends StatelessWidget {
           connectorBuilder: (_, index, __) {
             return SolidLineConnector(
               space: 30,
+              // If the flow index is greater than currentPageIndex then
+              // show green(visited) color else show fade(not visited) color.
               color: index < currentPageIndex
                   ? const Color(0xFF008A37)
                   : const Color(0xFF737373),

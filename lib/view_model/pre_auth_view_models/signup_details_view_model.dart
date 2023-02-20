@@ -9,7 +9,13 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
+/// SignupDetailsViewModel class helps to interact with model to serve data
+/// and react to user's input for Sign Up Details section.
+///
+/// Methods include:
+/// * `signUp`
 class SignupDetailsViewModel extends BaseModel {
+  // variables
   final formKey = GlobalKey<FormState>();
   late List<Map<String, dynamic>> greeting;
   late OrgInfo selectedOrganization;
@@ -22,37 +28,41 @@ class SignupDetailsViewModel extends BaseModel {
   FocusNode confirmFocus = FocusNode();
   bool hidePassword = true;
 
+  // initialiser
   initialise(OrgInfo org) {
     selectedOrganization = org;
+    // greeting message
     greeting = [
       {
         'text': "Let's ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': 'get ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': "you ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': 'SignUp ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(fontSize: 24)
       },
     ];
   }
 
+  /// This function is used to sign up the user into the application by passing the data to database query.
+  /// The function uses `gqlNonAuthMutation` method provided by `databaseFunctions` services.
   signUp() async {
     FocusScope.of(navigationService.navigatorKey.currentContext!).unfocus();
     setState(ViewState.busy);
@@ -78,7 +88,9 @@ class SignupDetailsViewModel extends BaseModel {
               User.fromJson(result.data!['signUp'] as Map<String, dynamic>);
           final bool userSaved = await userConfig.updateUser(signedInUser);
           final bool tokenRefreshed = await graphqlConfig.getToken() as bool;
+          // if user successfully saved and access token is also generated.
           if (userSaved && tokenRefreshed) {
+            // if the selected organization is public.
             if (selectedOrganization.isPublic!) {
               try {
                 final QueryResult result =

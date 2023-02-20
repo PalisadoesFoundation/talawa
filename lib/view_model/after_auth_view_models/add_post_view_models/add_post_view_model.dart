@@ -9,6 +9,8 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
+/// AddPostViewModel class have different functions that are used
+/// to interact with the model to add a new post in the organization.
 class AddPostViewModel extends BaseModel {
   //Services
   late MultiMediaPickerService _multiMediaPickerService;
@@ -26,6 +28,7 @@ class AddPostViewModel extends BaseModel {
   String get orgName => _selectedOrg.name!;
   TextEditingController get controller => _controller;
 
+  // initialisation
   void initialise() {
     _currentUser = locator<UserConfig>().currentUser;
     _navigationService = locator<NavigationService>();
@@ -34,22 +37,28 @@ class AddPostViewModel extends BaseModel {
     _multiMediaPickerService = locator<MultiMediaPickerService>();
   }
 
+  /// This function is used to get the image from gallery.
+  /// The function uses the `_multiMediaPickerService` services.
+  ///
+  /// params:
+  /// * [camera] : if true then open camera for image, else open gallery to select image.
   Future<void> getImageFromGallery({bool camera = false}) async {
-    final _image =
+    final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
-    if (_image != null) {
-      _imageFile = _image;
+    if (image != null) {
+      _imageFile = image;
       notifyListeners();
     }
   }
 
-  // Demo function that behaves of sending post to the backend, should be replaced when the backend is ready
+  /// This function uploads the post finally, and navigate the success message in Snack Bar.
   void uploadPost() {
     removeImage();
     _controller.text = "";
     _navigationService.showSnackBar("Post is uploaded");
   }
 
+  /// This function removes the image selected.
   void removeImage() {
     _imageFile = null;
     notifyListeners();

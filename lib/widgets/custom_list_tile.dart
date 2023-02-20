@@ -7,6 +7,8 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 
+/// Returns a widget for rendering Customized tiles.
+/// A Tile shows the org info, user info, options that on tap user & org info.
 class CustomListTile extends StatelessWidget {
   const CustomListTile({
     required Key key,
@@ -33,6 +35,7 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      // checking wheather the tapped tile is of user or org.
       onTap: () => type == TileType.org
           ? onTapOrgInfo!(orgInfo!)
           : type == TileType.user
@@ -71,14 +74,14 @@ class CustomListTile extends StatelessWidget {
                             ? '${userInfo!.firstName!} ${userInfo!.lastName!}'
                             : option!.title,
                     style: type == TileType.org
-                        ? Theme.of(context).textTheme.headline5
+                        ? Theme.of(context).textTheme.headlineSmall
                         : type == TileType.user
-                            ? Theme.of(context).textTheme.headline6
+                            ? Theme.of(context).textTheme.titleLarge
                             : option!.trailingIconButton == null
-                                ? Theme.of(context).textTheme.bodyText2
+                                ? Theme.of(context).textTheme.bodyMedium
                                 : Theme.of(context)
                                     .textTheme
-                                    .headline5!
+                                    .headlineSmall!
                                     .copyWith(fontSize: 18),
                   ),
                   type != TileType.user
@@ -87,10 +90,10 @@ class CustomListTile extends StatelessWidget {
                               ? '${AppLocalizations.of(context)!.strictTranslate("Creator")}: ${orgInfo!.creatorInfo!.firstName!} ${orgInfo!.creatorInfo!.lastName!}'
                               : option!.subtitle,
                           style: type == TileType.org
-                              ? Theme.of(context).textTheme.headline6
+                              ? Theme.of(context).textTheme.titleLarge
                               : option!.trailingIconButton == null
-                                  ? Theme.of(context).textTheme.caption
-                                  : Theme.of(context).textTheme.headline6,
+                                  ? Theme.of(context).textTheme.bodySmall
+                                  : Theme.of(context).textTheme.titleLarge,
                         )
                       : const SizedBox(),
                 ],

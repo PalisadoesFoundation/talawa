@@ -6,6 +6,7 @@ import 'package:talawa/views/base_view.dart';
 // Global model state, should be removed soon
 late AddPostViewModel model;
 
+/// AddPost returns a widget to add(upload) the post.
 class AddPost extends StatelessWidget {
   const AddPost({Key? key, this.drawerKey}) : super(key: key);
   final GlobalKey<ScaffoldState>? drawerKey;
@@ -14,28 +15,34 @@ class AddPost extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      // header for the widget
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         elevation: 0.9,
         centerTitle: true,
+        // header title
         title: Text(
           AppLocalizations.of(context)!.strictTranslate('Share News'),
-          style: Theme.of(context).textTheme.headline6!.copyWith(
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),
         ),
         leading: IconButton(
+          //TODO: showing the null pointer exception
+          key: const Key('add_post_icon_button1'),
           color: Theme.of(context).iconTheme.color,
           icon: const Icon(Icons.menu),
           onPressed: () => drawerKey!.currentState!.openDrawer(),
         ),
+        // button to upload the post.
         actions: [
           TextButton(
+            key: const Key('add_post_text_btn1'),
             onPressed: () => model.uploadPost(),
             child: Text(
               AppLocalizations.of(context)!.strictTranslate("Post"),
-              style: Theme.of(context).textTheme.headline5!.copyWith(
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
@@ -58,25 +65,34 @@ class AddPost extends StatelessWidget {
                   AppLocalizations.of(context)!.strictTranslate(model.orgName),
                 ),
               ),
+              // renders icon button to upload post files.
               Row(
                 children: <Widget>[
+                  // button to select the photo from gallery.
                   IconButton(
+                    key: const Key('add_post_icon_button2'),
                     onPressed: () => model.getImageFromGallery(),
                     icon: const Icon(Icons.photo),
                   ),
+                  // button to capture the image.
                   IconButton(
+                    key: const Key('add_post_icon_button3'),
                     onPressed: () => model.getImageFromGallery(camera: true),
                     icon: const Icon(Icons.camera_alt),
                   ),
+                  // button to select file
                   IconButton(
+                    key: const Key('add_post_icon_button4'),
                     onPressed: () {},
                     icon: const Icon(Icons.file_upload),
                   ),
+                  // button to add hastags to the post.
                   TextButton(
+                    key: const Key('add_post_text_btn2'),
                     onPressed: () {},
                     child: Text(
-                      '# ${AppLocalizations.of(context)!.strictTranslate("Add hasthtag")}',
-                      style: Theme.of(context).textTheme.headline6,
+                      '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                 ],
@@ -87,6 +103,7 @@ class AddPost extends StatelessWidget {
                 child: TextField(
                   controller: model.controller,
                   maxLines: null,
+                  // input field to write the description of the post.
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
@@ -99,6 +116,7 @@ class AddPost extends StatelessWidget {
                   ),
                 ),
               ),
+              // if the image for the post is added then render button to remove it.
               model.imageFile != null
                   // ignore: sized_box_for_whitespace
                   ? Container(

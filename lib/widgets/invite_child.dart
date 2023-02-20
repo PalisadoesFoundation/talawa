@@ -9,7 +9,11 @@ import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
+/// Creating an instance of AppLangauge() to set up localized values for each locale that our app supports.
 final _appLanguageService = locator<AppLanguage>();
+
+/// This widget gives us various options to invite someone to an organization.
+/// We can use QR code scanner, social media platforms like twitter, whatsapp, telegram and many more.
 Widget invite(BuildContext context) {
   _appLanguageService.initialize();
 
@@ -26,6 +30,7 @@ Widget invite(BuildContext context) {
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
+      //Scan the below given QR code to join the organization.
       QrImage(
         key: const Key("QRcode"),
         data: qrData,
@@ -43,6 +48,7 @@ Widget invite(BuildContext context) {
       SizedBox(
         height: SizeConfig.screenHeight! * 0.02,
       ),
+      //Tap on the Twitter icon to join the organization through Twitter.
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.min,
@@ -56,12 +62,13 @@ Widget invite(BuildContext context) {
             ),
             () async => SocialShare.shareTwitter('Join us', url: url),
           ),
+          //Tap on the Whatsapp icon to join the organization through Whatsapp.
           iconButton(
             "WhatsApp",
             CustomPaint(
-              size: Size(
+              size: const Size(
                 50,
-                (50 * 1.004).toDouble(),
+                50 * 1.004,
               ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
               painter: WhatsappLogo(),
             ),
@@ -81,7 +88,7 @@ Widget invite(BuildContext context) {
           iconButton(
             "Alt",
             const FaIcon(
-              FontAwesomeIcons.shareAlt,
+              FontAwesomeIcons.shareNodes,
               size: 30,
               color: Color(0xff40c351),
             ),
@@ -93,6 +100,8 @@ Widget invite(BuildContext context) {
   );
 }
 
+/// This function is for debugging purposes.
+/// It prints "tapped" in the console for the developer to know that the button was tapped.
 Widget iconButton(String key, Widget icon, Function onTap) {
   return Stack(
     children: [

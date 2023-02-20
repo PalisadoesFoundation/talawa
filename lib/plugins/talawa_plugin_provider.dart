@@ -5,12 +5,12 @@ import 'package:talawa/services/user_config.dart';
 
 /// TalwaPluginProvider provides ability to implement features as plugins
 class TalawaPluginProvider extends StatelessWidget {
-  const TalawaPluginProvider(
-      {Key? key,
-      @required this.child,
-      required this.visible,
-      required this.pluginName})
-      : super(key: key);
+  const TalawaPluginProvider({
+    Key? key,
+    @required this.child,
+    required this.visible,
+    required this.pluginName,
+  }) : super(key: key);
 
   ///child contains the widget for the plugin UI.
   final Widget? child;
@@ -23,7 +23,7 @@ class TalawaPluginProvider extends StatelessWidget {
 
   ///return `bool` decides the final visibility of the verifying from database and current OrgId
   bool checkFromPluginList() {
-    final UserConfig _userConfig = locator<UserConfig>();
+    final UserConfig userConfig = locator<UserConfig>();
     final Box box;
     bool res = false;
     box = Hive.box('pluginBox');
@@ -32,17 +32,19 @@ class TalawaPluginProvider extends StatelessWidget {
 
     ///mapping over the list from the server
     pluginList
-        .map((plugin) => {
-              if (plugin["pluginName"] == pluginName)
-                {
-                  if (plugin["pluginInstallStatus"] as bool)
-                    {
-                      res = plugin["pluginInstallStatus"] as bool ||
-                          plugin["installedOrgs"]
-                              .contains(_userConfig.currentOrg.id) as bool
-                    }
-                }
-            })
+        .map(
+          (plugin) => {
+            if (plugin["pluginName"] == pluginName)
+              {
+                if (plugin["pluginInstallStatus"] as bool)
+                  {
+                    res = plugin["pluginInstallStatus"] as bool ||
+                        plugin["installedOrgs"]
+                            .contains(userConfig.currentOrg.id) as bool
+                  }
+              }
+          },
+        )
         .toList();
     return res;
   }

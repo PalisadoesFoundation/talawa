@@ -10,6 +10,9 @@ import 'package:talawa/widgets/organization_list.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/signup_progress_indicator.dart';
 
+/// This widget lets the user select new organizations.
+/// There is a list tile which displays the organization selected by the user.
+/// He/she needs to press the "continue" button to proceed.
 class SelectOrganization extends StatefulWidget {
   const SelectOrganization({required Key key, required this.selectedOrgId})
       : super(key: key);
@@ -55,11 +58,12 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                         child: Text(
                           AppLocalizations.of(context)!
                               .strictTranslate('Selected Organization'),
-                          style: Theme.of(context).textTheme.headline5,
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       )
                     : const SizedBox(),
                 model.selectedOrganization.id != '-1'
+                    //List tile displaying the organization selected by the user.
                     ? CustomListTile(
                         index: model.organizations
                             .indexOf(model.selectedOrganization),
@@ -81,6 +85,7 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.0215,
                 ),
+                //"Continue" button.
                 RaisedRoundedButton(
                   buttonLabel:
                       AppLocalizations.of(context)!.strictTranslate('Continue'),

@@ -62,25 +62,26 @@ Widget createChangePassScreenDark({ThemeMode themeMode = ThemeMode.dark}) =>
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
         return BaseView<AppTheme>(
-            onModelReady: (model) => model.initialize(),
-            builder: (context, themeModel, child) {
-              return MaterialApp(
-                locale: const Locale('en'),
-                localizationsDelegates: [
-                  const AppLocalizationsDelegate(isTest: true),
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                key: const Key('Root'),
-                themeMode: themeMode,
-                theme: Provider.of<AppTheme>(context, listen: true).isdarkTheme
-                    ? TalawaTheme.darkTheme
-                    : TalawaTheme.lightTheme,
-                home: const AppSettingsPage(),
-                navigatorKey: locator<NavigationService>().navigatorKey,
-                onGenerateRoute: router.generateRoute,
-              );
-            });
+          onModelReady: (model) => model.initialize(),
+          builder: (context, themeModel, child) {
+            return MaterialApp(
+              locale: const Locale('en'),
+              localizationsDelegates: [
+                const AppLocalizationsDelegate(isTest: true),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              key: const Key('Root'),
+              themeMode: themeMode,
+              theme: Provider.of<AppTheme>(context, listen: true).isdarkTheme
+                  ? TalawaTheme.darkTheme
+                  : TalawaTheme.lightTheme,
+              home: const AppSettingsPage(),
+              navigatorKey: locator<NavigationService>().navigatorKey,
+              onGenerateRoute: router.generateRoute,
+            );
+          },
+        );
       },
     );
 
@@ -157,16 +158,16 @@ Future<void> main() async {
         (element) =>
             element.langCode ==
             Provider.of<AppLanguage>(
-                    locator<NavigationService>().navigatorKey.currentContext!,
-                    listen: false)
-                .appLocal
-                .languageCode,
+              locator<NavigationService>().navigatorKey.currentContext!,
+              listen: false,
+            ).appLocal.languageCode,
       );
       expect(
-          ((tester.firstWidget(languageSelectionButton) as TextButton).child!
-                  as Text)
-              .data,
-          userLanguage.langName);
+        ((tester.firstWidget(languageSelectionButton) as TextButton).child!
+                as Text)
+            .data,
+        userLanguage.langName,
+      );
       await tester.tap(languageSelectionButton);
       await tester.pumpAndSettle(const Duration(seconds: 1));
     });
@@ -236,6 +237,12 @@ Future<void> main() async {
             .scaffoldBackgroundColor,
         TalawaTheme.darkTheme.scaffoldBackgroundColor,
       );
+      File('temporaryPath/currentorg.hive').delete();
+      File('temporaryPath/currentorg.lock').delete();
+      File('temporaryPath/currentuser.hive').delete();
+      File('temporaryPath/currentuser.lock').delete();
+      File('temporaryPath/url.hive').delete();
+      File('temporaryPath/url.lock').delete();
     });
   });
 }

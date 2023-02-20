@@ -9,7 +9,13 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
+/// LoginViewModel class helps to interact with model to serve data
+/// and react to user's input in Login View.
+///
+/// Methods include:
+/// * `login`
 class LoginViewModel extends BaseModel {
+  // variables
   final formKey = GlobalKey<FormState>();
   late List<Map<String, dynamic>> greeting;
   TextEditingController password = TextEditingController();
@@ -19,54 +25,61 @@ class LoginViewModel extends BaseModel {
   AutovalidateMode validate = AutovalidateMode.disabled;
   bool hidePassword = true;
 
+  // initialiser
   initialize() {
+    // greating message
     greeting = [
       {
         'text': "We're ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': 'Glad ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(fontSize: 24)
       },
       {
         'text': "you're ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': 'Back ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(fontSize: 24)
       },
     ];
   }
 
+  /// This function is used to sign-in the user into application.
   login() async {
     emailFocus.unfocus();
     passwordFocus.unfocus();
     validate = AutovalidateMode.always;
+    // if the email and password are not empty.
     if (formKey.currentState!.validate()) {
       validate = AutovalidateMode.disabled;
       navigationService
           .pushDialog(const CustomProgressDialog(key: Key('LoginProgress')));
       databaseFunctions.init();
       try {
+        // run the graph QL query to login the user, passing `email` and `password`.
         final result = await databaseFunctions
             .gqlNonAuthMutation(queries.loginUser(email.text, password.text));
         navigationService.pop();
+        // if user found.
         if (result != null) {
           final User loggedInUser =
               User.fromJson(result.data!['login'] as Map<String, dynamic>);
           userConfig.updateUser(loggedInUser);
+          // if user has not already joined any organization.
           if (userConfig.currentUser.joinedOrganizations!.isEmpty) {
             navigationService.removeAllAndPush(
               Routes.waitingScreen,
@@ -101,11 +114,16 @@ class LoginViewModel extends BaseModel {
             final androidFirebaseOptionsBox =
                 await Hive.openBox('androidFirebaseOptions');
             androidFirebaseOptionsBox.put(
-                'androidFirebaseOptions', androidFirebaseOptions);
+              'androidFirebaseOptions',
+              androidFirebaseOptions,
+            );
 
             final iosFirebaseOptionsBox =
                 await Hive.openBox('iosFirebaseOptions');
-            iosFirebaseOptionsBox.put('iosFirebaseOptions', iosFirebaseOptions);
+            iosFirebaseOptionsBox.put(
+              'iosFirebaseOptions',
+              iosFirebaseOptions,
+            );
           }
         }
       } on Exception catch (e) {

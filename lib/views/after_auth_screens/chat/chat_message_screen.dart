@@ -7,6 +7,7 @@ import 'package:talawa/views/after_auth_screens/chat/widgets/chat_input_field.da
 import 'package:talawa/views/after_auth_screens/chat/widgets/chat_message_bubble.dart';
 import 'package:talawa/views/base_view.dart';
 
+/// ChatMessageScreen returns a StatelessWidget for showing the chat message screen.
 class ChatMessageScreen extends StatelessWidget {
   const ChatMessageScreen({Key? key, required this.chatId, required this.model})
       : super(key: key);
@@ -33,7 +34,7 @@ class ChatMessageScreen extends StatelessWidget {
               radius: SizeConfig.blockSizeVertical! * 2.3,
             ),
             SizedBox(width: SizeConfig.safeBlockHorizontal! * 3),
-            Text(model.name),
+            Text('${model.name}'),
           ],
         ),
       ),

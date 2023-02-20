@@ -14,6 +14,7 @@ import 'package:talawa/widgets/organization_search_list.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:vibration/vibration.dart';
 
+/// JoinOrganisationAfterAuth returns a widget for page to join the organization just after user authentication.
 class JoinOrganisationAfterAuth extends StatelessWidget {
   const JoinOrganisationAfterAuth({Key? key, required this.orgId})
       : super(key: key);
@@ -26,16 +27,19 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
       builder: (context, model, child) {
         return Scaffold(
           key: const Key('JoinOrgScreen'),
+          // header for the widget
           appBar: AppBar(
             centerTitle: true,
+            // title of the header.
             title: Text(
               AppLocalizations.of(context)!
                   .strictTranslate('Join Organisation'),
-              style: Theme.of(context).textTheme.headline6!.copyWith(
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
             ),
+            // action button for the option to join the organization using QR code.
             actions: [
               IconButton(
                 icon: const Icon(
@@ -51,12 +55,15 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
+                // Cupertino search textfield in flutter is ios style (like) searchTextfield.
+                // A cupertinoSearchTextField widget lets us create a searchTextField in ios style.
+                // It is used to display a text field where the user can type his search query.
                 child: CupertinoSearchTextField(
                   focusNode: model.searchFocus,
                   controller: model.searchController,
                   onChanged: (value) => model.setState(ViewState.idle),
                   suffixMode: OverlayVisibilityMode.always,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                   suffixIcon: const Icon(
                     CupertinoIcons.xmark_circle_fill,
                     size: 25,
@@ -70,8 +77,9 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                   },
                 ),
               ),
+              // if organization selected then renders the organization info in CustomListTile.
               model.selectedOrganization.id != '-1'
-                  ? Container(
+                  ? ColoredBox(
                       color: Theme.of(context)
                           .colorScheme
                           .secondaryContainer
@@ -95,6 +103,8 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
                 ),
               ),
               Expanded(
+                // if model searching is under process then renders OrganizationSearchList widget
+                // else renders OrganizationList widget.
                 child: model.searching
                     ? OrganizationSearchList(model: model)
                     : OrganizationList(model: model),
@@ -102,6 +112,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.0215,
               ),
+              // if user selected the organization then renders the button to join the organization.
               model.selectedOrganization.id != '-1'
                   ? Column(
                       children: [
@@ -126,6 +137,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
     );
   }
 
+  /// scanQR returns a widget that is use in joining the organization via the QR code.
   scanQR(BuildContext context, SelectOrganizationViewModel model) {
     showModalBottomSheet(
       context: context,

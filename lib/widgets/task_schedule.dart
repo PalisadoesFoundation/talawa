@@ -22,18 +22,17 @@ class TaskSchedule extends StatelessWidget {
         details.targetElement == CalendarElement.agenda) {
       final Appointment appointmentDetails =
           details.appointments![0] as Appointment;
-      final _subjectText = appointmentDetails.subject;
-      final _dateText = DateFormat('MMMM dd, yyyy')
-          .format(appointmentDetails.startTime)
-          .toString();
-      final _endTimeText =
-          DateFormat('hh:mm a').format(appointmentDetails.endTime).toString();
-      final _timeDetails = _endTimeText;
+      final subjectText = appointmentDetails.subject;
+      final dateText =
+          DateFormat('MMMM dd, yyyy').format(appointmentDetails.startTime);
+      final endTimeText =
+          DateFormat('hh:mm a').format(appointmentDetails.endTime);
+      final timeDetails = endTimeText;
 
       navigationService.pushDialog(
         AlertDialog(
           title: Text(
-            _subjectText,
+            subjectText,
             style: TextStyle(
               color: Theme.of(navigationService.navigatorKey.currentContext!)
                   .primaryColorLight,
@@ -47,13 +46,14 @@ class TaskSchedule extends StatelessWidget {
             children: [
               Text(appointmentDetails.notes!),
               const SizedBox(height: 10),
-              Text('$_dateText $_timeDetails')
+              Text('$dateText $timeDetails')
             ],
           ),
           actions: [
             TextButton(
-                onPressed: () => navigationService.pop(),
-                child: const Text('Close'))
+              onPressed: () => navigationService.pop(),
+              child: const Text('Close'),
+            )
           ],
         ),
       );
@@ -177,7 +177,8 @@ class TaskCard extends StatelessWidget {
                       ),
                     );
                   },
-                  icon: const Icon(Icons.more_vert))
+                  icon: const Icon(Icons.more_vert),
+                )
               : Container(),
         ],
       ),
@@ -207,14 +208,16 @@ _AppointmentDataSource _getCalendarDataSource(List<Task> tasksList) {
     final creator =
         task.creator.firstName ?? userConfig.currentUser.firstName ?? '';
 
-    appointments.add(Appointment(
-      startTime: endTime,
-      endTime: endTime,
-      subject: task.title,
-      notes: '$description\n- $creator (${task.event.title})',
-      color: colors[index % colors.length],
-      id: task.id,
-    ));
+    appointments.add(
+      Appointment(
+        startTime: endTime,
+        endTime: endTime,
+        subject: task.title,
+        notes: '$description\n- $creator (${task.event.title})',
+        color: colors[index % colors.length],
+        id: task.id,
+      ),
+    );
     index++;
   });
 

@@ -87,14 +87,20 @@ void main() {
       expect(speedDialFinder, findsOneWidget);
       expect((speedDial as SpeedDial).icon, Icons.menu);
       expect(speedDial.activeIcon, Icons.close);
-      expect(speedDial.buttonSize, 55.0);
-      expect(speedDial.overlayColor,
-          Theme.of(mockBuildContext).colorScheme.onBackground);
+      expect(speedDial.buttonSize, const Size(55.0, 55.0));
+      expect(
+        speedDial.overlayColor,
+        Theme.of(mockBuildContext).colorScheme.onBackground,
+      );
       expect(speedDial.overlayOpacity, 0.5);
       expect(
-          speedDial.backgroundColor, Theme.of(mockBuildContext).primaryColor);
-      expect(speedDial.foregroundColor,
-          Theme.of(mockBuildContext).colorScheme.secondary);
+        speedDial.backgroundColor,
+        Theme.of(mockBuildContext).primaryColor,
+      );
+      expect(
+        speedDial.foregroundColor,
+        Theme.of(mockBuildContext).colorScheme.secondary,
+      );
 
       final speedDialChild = speedDial.children.first;
 
@@ -103,15 +109,21 @@ void main() {
         speedDialChild.labelStyle,
         Theme.of(mockBuildContext)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(color: Theme.of(mockBuildContext).colorScheme.secondary),
       );
-      expect(speedDialChild.foregroundColor,
-          Theme.of(mockBuildContext).colorScheme.secondary);
-      expect(speedDialChild.backgroundColor,
-          Theme.of(mockBuildContext).primaryColor);
-      expect(speedDialChild.labelBackgroundColor,
-          Theme.of(mockBuildContext).primaryColor);
+      expect(
+        speedDialChild.foregroundColor,
+        Theme.of(mockBuildContext).colorScheme.secondary,
+      );
+      expect(
+        speedDialChild.backgroundColor,
+        Theme.of(mockBuildContext).primaryColor,
+      );
+      expect(
+        speedDialChild.labelBackgroundColor,
+        Theme.of(mockBuildContext).primaryColor,
+      );
 
       //onTap for first speedDialChild
       // on tap for second speedDialChild
@@ -126,15 +138,21 @@ void main() {
         speedDialChild2.labelStyle,
         Theme.of(mockBuildContext)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(color: Theme.of(mockBuildContext).colorScheme.secondary),
       );
-      expect(speedDialChild2.foregroundColor,
-          Theme.of(mockBuildContext).colorScheme.secondary);
-      expect(speedDialChild2.backgroundColor,
-          Theme.of(mockBuildContext).primaryColor);
-      expect(speedDialChild2.labelBackgroundColor,
-          Theme.of(mockBuildContext).primaryColor);
+      expect(
+        speedDialChild2.foregroundColor,
+        Theme.of(mockBuildContext).colorScheme.secondary,
+      );
+      expect(
+        speedDialChild2.backgroundColor,
+        Theme.of(mockBuildContext).primaryColor,
+      );
+      expect(
+        speedDialChild2.labelBackgroundColor,
+        Theme.of(mockBuildContext).primaryColor,
+      );
 
       when(navigationService.pushScreen("/editEventPage", arguments: mockEvent))
           .thenAnswer((_) async {});
@@ -142,7 +160,8 @@ void main() {
       // on tap for second speedDialChild
       speedDialChild2.onTap!.call();
       verify(
-          navigationService.pushScreen("/editEventPage", arguments: mockEvent));
+        navigationService.pushScreen("/editEventPage", arguments: mockEvent),
+      );
     });
   });
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/direct_chat_view_model.dart';
 
+/// ChatInputField returns a widget that has mutable state _ChatInputFieldState.
 class ChatInputField extends StatefulWidget {
   const ChatInputField({
     required this.chatId,
@@ -16,10 +17,13 @@ class ChatInputField extends StatefulWidget {
   State<ChatInputField> createState() => _ChatInputFieldState();
 }
 
+/// _ChatInputFieldState is a mutable state which return a widget for Input Field in Chat section.
 class _ChatInputFieldState extends State<ChatInputField> {
+  // controllers are a means to give control to the parent widget over its child state
   final controller = TextEditingController();
 
   @override
+  // dispose function declaration
   void dispose() {
     controller.dispose();
     super.dispose();
@@ -27,13 +31,18 @@ class _ChatInputFieldState extends State<ChatInputField> {
 
   @override
   Widget build(BuildContext context) {
+    // return a container
     return Container(
+      // styling
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.blockSizeHorizontal! * 2,
         vertical: SizeConfig.blockSizeVertical!,
       ),
+      // input field decoration
       decoration: BoxDecoration(
+        // background theme for text field
         color: Theme.of(context).scaffoldBackgroundColor,
+        // box shadow
         boxShadow: [
           BoxShadow(
             offset: const Offset(0, 4),
@@ -57,6 +66,8 @@ class _ChatInputFieldState extends State<ChatInputField> {
                 children: [
                   SizedBox(width: SizeConfig.blockSizeHorizontal),
                   Expanded(
+                    // TextField is commonly used text input widget that
+                    //allows users to collect inputs from the keyboard into an app.
                     child: TextField(
                       controller: controller,
                       decoration: InputDecoration(
@@ -66,18 +77,21 @@ class _ChatInputFieldState extends State<ChatInputField> {
                         suffixIcon: GestureDetector(
                           onTap: () {
                             widget.model.sendMessageToDirectChat(
-                                widget.chatId, controller.text);
+                              widget.chatId,
+                              controller.text,
+                            );
                             controller.clear();
                           },
                           child: Icon(
                             Icons.send,
                             color: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyLarge!
                                 .color!
                                 .withOpacity(0.64),
                           ),
                         ),
+                        // Placeholder text for the text field
                         hintText: "Type a message",
                         border: InputBorder.none,
                       ),

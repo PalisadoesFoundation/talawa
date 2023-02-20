@@ -9,6 +9,16 @@ import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
+/// EventService class provides different services in the context of Event.
+///
+/// Services include:
+/// * `setOrgStreamSubscription` : to set organization stream subscription for user.
+/// * `getEvents` : to get all events of the organization.
+/// * `fetchRegistrantsByEvent` : to fetch all registrants of an event.
+/// * `registerForAnEvent` : to register for an event.
+/// * `deleteEvent` : to delete an event.
+/// * `editEvent` : to edit the event.
+/// * `dispose` : to cancel the stream subscription of an organization.
 class EventService {
   EventService() {
     _eventStream = _eventStreamController.stream.asBroadcastStream();
@@ -17,6 +27,7 @@ class EventService {
     setOrgStreamSubscription();
   }
 
+  // variables declaration
   final _userConfig = locator<UserConfig>();
   final _dbFunctions = locator<DataBaseMutationFunctions>();
 
@@ -28,6 +39,7 @@ class EventService {
       StreamController<Event>();
   Stream<Event> get eventStream => _eventStream;
 
+  /// This function is used to set stream subscription for an organization.
   void setOrgStreamSubscription() {
     _currentOrganizationStreamSubscription =
         _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
@@ -35,10 +47,14 @@ class EventService {
     });
   }
 
+  /// This function is used to fetch all the events of an organization.
   Future<void> getEvents() async {
+    // refresh user's access token
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
     _dbFunctions.init();
+    // get current organization id
     final String currentOrgID = _currentOrg.id!;
+    // mutation to fetch the events
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
     final result = await _dbFunctions.gqlAuthMutation(mutation);
     if (result == null) return;
@@ -46,12 +62,17 @@ class EventService {
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
       event.isRegistered = event.registrants?.any(
-              (registrant) => registrant.id == _userConfig.currentUser.id) ??
+            (registrant) => registrant.id == _userConfig.currentUser.id,
+          ) ??
           false;
       _eventStreamController.add(event);
     });
   }
 
+  /// This function is used to fetch all registrants of an event.
+  ///
+  /// params:
+  /// * [eventId] : id of an event
   Future<dynamic> fetchRegistrantsByEvent(String eventId) async {
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
     final result = await _dbFunctions.gqlAuthQuery(
@@ -60,6 +81,10 @@ class EventService {
     return result;
   }
 
+  /// This function is used to register user for an event.
+  ///
+  /// params:
+  /// * [eventId] : id of an event
   Future<dynamic> registerForAnEvent(String eventId) async {
     final tokenResult = await _dbFunctions
         .refreshAccessToken(userConfig.currentUser.refreshToken!);
@@ -72,6 +97,10 @@ class EventService {
     return result;
   }
 
+  /// This function is used to delete the event.
+  ///
+  /// params:
+  /// * [eventId] : id of an event
   Future<dynamic> deleteEvent(String eventId) async {
     navigationService.pushDialog(
       const CustomProgressDialog(key: Key('DeleteEventProgress')),
@@ -86,6 +115,11 @@ class EventService {
     return result;
   }
 
+  /// This function is used to edit an event.
+  ///
+  /// params:
+  /// * [eventId] : id of an event
+  /// * [variables] : this will be `map` type and contain all the event details need to be update.
   Future<void> editEvent({
     required String eventId,
     required Map<String, dynamic> variables,
@@ -108,6 +142,7 @@ class EventService {
     }
   }
 
+  /// This function is used to cancel the stream subscription of an organization.
   void dispose() {
     _currentOrganizationStreamSubscription.cancel();
   }

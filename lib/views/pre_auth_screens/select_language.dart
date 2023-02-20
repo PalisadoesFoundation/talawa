@@ -5,6 +5,10 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
+/// This widget enables us to select a different language.
+/// The default language is English. We can choose among the options to switch the language.
+/// There is a text button at the right bottom of the screen which changes the language when tapped.
+/// The user finally gets redirected to the previous screen.
 class SelectLanguage extends StatefulWidget {
   const SelectLanguage({required Key key}) : super(key: key);
 
@@ -33,10 +37,11 @@ class _SelectLanguageState extends State<SelectLanguage> {
               child: SizedBox(
                 height: SizeConfig.screenHeight! * 0.045,
                 child: FittedBox(
+                  // Heading of the screen: "Select Language"
                   child: Text(
                     AppLocalizations.of(context)!
                         .strictTranslate('Select Language'),
-                    style: Theme.of(context).textTheme.headline5,
+                    style: Theme.of(context).textTheme.headlineSmall,
                     key: const Key('Select Language'),
                   ),
                 ),
@@ -56,6 +61,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                 key: const Key('LanguagesList'),
                 itemCount: languages.length,
                 itemBuilder: (BuildContext context, int index) {
+                  // Returns a list of all the languages available
                   return InkWell(
                     key: Key(
                       Provider.of<AppLanguage>(context).appLocal.languageCode ==
@@ -94,15 +100,16 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                   children: [
                                     Text(
                                       languages[index].langName,
-                                      style:
-                                          Theme.of(context).textTheme.headline6,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!
                                           .strictTranslate('Default'),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText2!
+                                          .bodyMedium!
                                           .copyWith(
                                             color: const Color(0xFF4285F4),
                                           ),
@@ -111,7 +118,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                 )
                               : Text(
                                   languages[index].langName,
-                                  style: Theme.of(context).textTheme.headline6,
+                                  style: Theme.of(context).textTheme.titleLarge,
                                   key: const Key('LanguageItem'),
                                 ),
                         );
@@ -124,6 +131,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
             const Divider(
               color: Color(0xffe5e5e5),
             ),
+            // Text Button which changes the language when tapped.
             Container(
               height: SizeConfig.screenHeight! * 0.08,
               alignment: Alignment.centerRight,
@@ -135,7 +143,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                 },
                 child: Text(
                   AppLocalizations.of(context)!.strictTranslate('Select'),
-                  style: Theme.of(context).textTheme.headline5!.copyWith(
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                         fontSize: 18,
                         color: const Color(0xFF008A37),
                       ),

@@ -1,4 +1,6 @@
+///This class returns some queries for the application.
 class Queries {
+  //Returns a query to register a user.
   String registerUser(
     String firstName,
     String lastName,
@@ -67,7 +69,7 @@ class Queries {
     """;
   }
 
-  //login the user
+  //Returns a query to login the user
   String loginUser(String email, String password) {
     return """
         mutation {
@@ -418,8 +420,14 @@ query  {
   }
 
   /// `createDonation` creates a new donation transaction by taking the userId ,orgId ,nameOfOrg ,nameOfUser as parameters
-  String createDonation(String userId, String orgId, String nameOfOrg,
-      String nameOfUser, String payPalId, double amount) {
+  String createDonation(
+    String userId,
+    String orgId,
+    String nameOfOrg,
+    String nameOfUser,
+    String payPalId,
+    double amount,
+  ) {
     return '''
       mutation createDonationMutation { createDonation(
             userId :"$userId"

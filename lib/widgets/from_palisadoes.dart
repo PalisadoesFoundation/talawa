@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 
+/// This class generates the text "From Palisadoes" in a custom way.
 class FromPalisadoes extends StatelessWidget {
   const FromPalisadoes({Key? key}) : super(key: key);
 
@@ -9,19 +10,22 @@ class FromPalisadoes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        // Customizing the word "from".
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
+              // This method is called for localized text.
               AppLocalizations.of(context)!.strictTranslate('from'),
-              style: Theme.of(context).textTheme.caption,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         ),
         SizedBox(
           height: SizeConfig.blockSizeHorizontal,
         ),
+        // Customizing the word "Palisadoes".
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -30,7 +34,7 @@ class FromPalisadoes extends StatelessWidget {
               'PALISADOES',
               style: Theme.of(context)
                   .textTheme
-                  .subtitle2!
+                  .titleSmall!
                   .copyWith(fontWeight: FontWeight.w700),
             ),
           ],

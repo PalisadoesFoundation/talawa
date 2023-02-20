@@ -3,6 +3,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
+/// SelectContact returns a widget that has mutable state _SelectContactState.
 class SelectContact extends StatefulWidget {
   const SelectContact({Key? key}) : super(key: key);
 
@@ -10,32 +11,35 @@ class SelectContact extends StatefulWidget {
   _SelectContactState createState() => _SelectContactState();
 }
 
+/// _SelectContactState returns a widget that renders the list of the users that current user can chat with.
 class _SelectContactState extends State<SelectContact> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.black,
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              navigationService.pop();
-            },
-          ),
-          title: Text(
-            "Select Contacts",
-            style: Theme.of(context).textTheme.headline6!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                ),
-          ),
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            navigationService.pop();
+          },
         ),
-        body: BaseView<SelectContactViewModel>(onModelReady: (model) {
+        title: Text(
+          "Select Contacts",
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                fontWeight: FontWeight.w600,
+                fontSize: 20,
+              ),
+        ),
+      ),
+      body: BaseView<SelectContactViewModel>(
+        onModelReady: (model) {
           model.initialise();
           model.getCurrentOrgUsersList();
-        }, builder: (context, model, child) {
+        },
+        builder: (context, model, child) {
           return ListView.builder(
             itemCount: model.orgMembersList.length,
             itemBuilder: (context, index) {
@@ -51,13 +55,16 @@ class _SelectContactState extends State<SelectContact> {
                         radius: 25,
                       ),
                       title: Text(
-                          model.orgMembersList[index].firstName.toString()),
+                        model.orgMembersList[index].firstName.toString(),
+                      ),
                     ),
                   ),
                 ),
               );
             },
           );
-        }));
+        },
+      ),
+    );
   }
 }

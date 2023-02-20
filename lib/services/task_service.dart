@@ -5,6 +5,14 @@ import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/task_queries.dart';
 
+/// PostService class provides functions in the context of a Task.
+///
+/// Services include:
+/// * `getTasksForEvent` : to get the task for the event.
+/// * `getTasksByUser` : to get the task added by the user.
+/// * `editTask` : to edit the task added by the user.
+/// * `createTask` : to create the task for the event.
+/// * `deleteTask` : to delete the task added by the user.
 class TaskService {
   final _databaseMutationFunctions = locator<DataBaseMutationFunctions>();
   final _userConfig = locator<UserConfig>();
@@ -13,6 +21,10 @@ class TaskService {
   final _tasks = <Task>[];
   List<Task> get tasks => _tasks;
 
+  /// This function is used to get all the tasks for the event.
+  ///
+  /// params:
+  /// * [eventId] : id of an event for which tasks need to fetched,
   Future<void> getTasksForEvent(String eventId) async {
     await _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
@@ -28,6 +40,7 @@ class TaskService {
     }
   }
 
+  /// This function is used to fetch and return all tasks added by the current user.
   Future<void> getTasksByUser() async {
     await _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
@@ -43,6 +56,13 @@ class TaskService {
     }
   }
 
+  /// This function is used to edit the task created by the user.
+  ///
+  /// params:
+  /// * [title] : task title.
+  /// * [description] : task description.
+  /// * [deadline] : task deadline.
+  /// * [taskId] : task Id.
   Future<bool> editTask({
     required String title,
     required String description,
@@ -51,14 +71,16 @@ class TaskService {
   }) async {
     _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
-    final res =
-        await _databaseMutationFunctions.gqlAuthMutation(TaskQueries.editTask(
-      title: title,
-      description: description,
-      deadline: deadline,
-      taskId: taskId,
-    ));
+    final res = await _databaseMutationFunctions.gqlAuthMutation(
+      TaskQueries.editTask(
+        title: title,
+        description: description,
+        deadline: deadline,
+        taskId: taskId,
+      ),
+    );
 
+    // if res is not null.
     if (res != null) {
       final updatedtaskJson = res.data!['updateTask'] as Map<String, dynamic>;
       final index = _tasks.indexWhere((task) => task.id == taskId);
@@ -67,11 +89,19 @@ class TaskService {
       updatedtask.event.title = _tasks[index].event.title;
       _tasks[index] = updatedtask;
       callbackNotifyListeners();
+      // if successfully updated then return true.
       return true;
     }
     return false;
   }
 
+  /// This function is used to create a new task for the event.
+  ///
+  /// params:
+  /// * [title] : task title.
+  /// * [description] : task description.
+  /// * [deadline] : task deadline.
+  /// * [eventId] : Event for which task need to be create.
   Future<bool> createTask({
     required String title,
     required String description,
@@ -80,13 +110,14 @@ class TaskService {
   }) async {
     _databaseMutationFunctions
         .refreshAccessToken(_userConfig.currentUser.refreshToken!);
-    final res =
-        await _databaseMutationFunctions.gqlAuthMutation(TaskQueries.addTask(
-      title: title,
-      description: description,
-      deadline: deadline,
-      eventId: eventId,
-    ));
+    final res = await _databaseMutationFunctions.gqlAuthMutation(
+      TaskQueries.addTask(
+        title: title,
+        description: description,
+        deadline: deadline,
+        eventId: eventId,
+      ),
+    );
 
     if (res != null) {
       final task = res.data!['createTask'] as Map<String, dynamic>;
@@ -97,6 +128,11 @@ class TaskService {
     return false;
   }
 
+  /// This function is used to delete a task.
+  ///
+  /// params:
+  /// * [taskId] : id of a task need to be deleted.
+  /// * [creatorId] : id of the task creator.
   Future<void> deleteTask(String taskId, String creatorId) async {
     if (creatorId == _userConfig.currentUser.id) {
       await _databaseMutationFunctions

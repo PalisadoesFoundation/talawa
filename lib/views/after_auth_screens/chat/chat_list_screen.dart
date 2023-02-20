@@ -3,6 +3,8 @@ import 'package:talawa/views/after_auth_screens/chat/direct_chats.dart';
 import 'package:talawa/views/after_auth_screens/chat/event_chats.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 
+/// ChatPage returns a stateless widget for current user Chat Page which renders
+/// the list of all the users that the current user has chat with.
 class ChatPage extends StatelessWidget {
   const ChatPage({Key? key}) : super(key: key);
 
@@ -17,7 +19,7 @@ class ChatPage extends StatelessWidget {
           centerTitle: true,
           title: Text(
             "Chats",
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
                 ),
@@ -33,6 +35,7 @@ class ChatPage extends StatelessWidget {
             ],
           ),
         ),
+        // returns a tabs on the top for current user to switch between DirectChats and EventChats.
         body: const TabBarView(
           children: [
             DirectChats(),
@@ -40,9 +43,12 @@ class ChatPage extends StatelessWidget {
           ],
         ),
         floatingActionButton: FloatingActionButton(
+          // onPressed to FloatingActionButton renders SelectContact Widget to chat with other users in the connection.
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SelectContact()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SelectContact()),
+            );
           },
           child: const Icon(Icons.add),
         ),

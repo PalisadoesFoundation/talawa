@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+///This file contains various custom themes.
+///For instance, lightTheme, darkTheme, _lightTextTheme, _darkTextTheme, etc.
+///These are imported to other files/widgets to apply the required themes.
 class TalawaTheme {
   static const Color _lightCursorColor = Color(0xff34AD64);
   static const Color _lightAccentColor = Color(0xff34AD64);
@@ -60,25 +63,25 @@ class TalawaTheme {
   );
 
   static const TextTheme _lightTextTheme = TextTheme(
-    headline4: TextStyle(
+    headlineMedium: TextStyle(
       fontWeight: FontWeight.w700,
       fontSize: 34,
     ),
-    headline5: TextStyle(
+    headlineSmall: TextStyle(
       color: _lightInBlack,
       fontSize: 20,
     ),
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       fontSize: 16,
       color: Color(0xFF737373),
     ),
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       fontSize: 14,
     ),
-    bodyText2: TextStyle(
+    bodyMedium: TextStyle(
       fontSize: 14,
     ),
-    caption: TextStyle(
+    bodySmall: TextStyle(
       fontWeight: FontWeight.w400,
       color: Color(0xFF737373),
       fontSize: 12.0,
@@ -86,24 +89,24 @@ class TalawaTheme {
   );
 
   static const TextTheme _darkTextTheme = TextTheme(
-    headline4: TextStyle(
+    headlineMedium: TextStyle(
       fontWeight: FontWeight.w700,
       fontSize: 34,
     ),
-    headline5: TextStyle(color: _darkInWhite, fontSize: 20),
-    headline6: TextStyle(
+    headlineSmall: TextStyle(color: _darkInWhite, fontSize: 20),
+    titleLarge: TextStyle(
       fontSize: 16,
       color: Color(0xFF737373),
     ),
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       fontSize: 14,
       color: Colors.white,
     ),
-    bodyText2: TextStyle(
+    bodyMedium: TextStyle(
       fontSize: 14,
       color: Colors.white,
     ),
-    caption: TextStyle(
+    bodySmall: TextStyle(
       fontWeight: FontWeight.w400,
       color: Color(0xFF737373),
       fontSize: 12.0,

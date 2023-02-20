@@ -1,11 +1,33 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/plugins/fetch_plugin_list.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/base_view_model.dart';
+import 'package:talawa/views/after_auth_screens/add_post_page.dart';
+import 'package:talawa/views/after_auth_screens/chat/chat_list_screen.dart';
+import 'package:talawa/views/after_auth_screens/events/explore_events.dart';
+import 'package:talawa/views/after_auth_screens/feed/organization_feed.dart';
+import 'package:talawa/views/after_auth_screens/profile/profile_page.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
+import 'package:talawa/widgets/theme_switch.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
+/// MainScreenViewModel class provide methods to interact with the modal to
+/// serve data in user's action in Main Screen Views. The functions in this class are
+/// mainly in the context of Tutorials for different componenets of the App.
+///
+/// Functions include:
+/// * `showTutorial`
+/// * `showHome`
+/// * `tourEventTargets`
+/// * `tourAddPost`
+/// * `tourChat`
+/// * `tourProfile`
 class MainScreenViewModel extends BaseModel {
+  // getters
   static final GlobalKey<ScaffoldState> scaffoldKey =
       GlobalKey<ScaffoldState>();
   final GlobalKey keyBNHome = GlobalKey(debugLabel: "HomeTab");
@@ -15,6 +37,7 @@ class MainScreenViewModel extends BaseModel {
   final GlobalKey keySHOrgName = GlobalKey(debugLabel: "HomeScreenOrgName");
   final GlobalKey keySHMenuIcon = GlobalKey(debugLabel: "HomeScreenMenuIcon");
 
+  // variables
   static final GlobalKey keyDrawerCurOrg =
       GlobalKey(debugLabel: "DrawerCurrentOrg");
   static final GlobalKey keyDrawerSwitchableOrg =
@@ -55,19 +78,21 @@ class MainScreenViewModel extends BaseModel {
   late TutorialCoachMark tutorialCoachMark;
   final List<TargetFocus> targets = [];
 
-  int currentIndex = 0;
-  onTabTapped(int index) {
-    currentIndex = index;
-    notifyListeners();
-  }
-
-  initialise(
+  void initialise(
     BuildContext ctx, {
     required bool fromSignUp,
     required int mainScreenIndex,
   }) {
-    currentIndex = mainScreenIndex;
+    currentPageIndex = mainScreenIndex;
     showAppTour = fromSignUp;
+
+    pluginPrototypeData = {
+      "Donation": {
+        "icon": Icons.attach_money_outlined,
+        "page": const ChangeThemeTile(),
+      }
+    };
+
     notifyListeners();
     if (!showAppTour) {
       tourComplete = true;
@@ -97,17 +122,144 @@ class MainScreenViewModel extends BaseModel {
     }
   }
 
+  /// Contains the Widgets to be rendered for corresponding navbar items.
+  /// Features that should be implemented as plugins should be kept here.
+  List<StatelessWidget> pages = [];
+
+  /// Actual [BottomNavigationBarItem]s that show up on the screen
+  List<BottomNavigationBarItem> navBarItems = [];
+
+  /// Maps the feature names with their proper Icon and Page.
+  /// `icon` contains the [IconData] corresponding to plugin's icon.
+  /// `page` contains the corresponding page to be displayed
+  /// Name of the feature provided by the admin must [exactly] match with the
+  /// name stored here.
+  Map<dynamic, dynamic> pluginPrototypeData = {};
+
+  /// Contains plugin data fetched from the server
+  List<dynamic> pluginList = [];
+
+  /// Dynamically adds [BottomNavigationBarItems] in `BottomNavigationBar`
+  /// by mapping over the data received from the server.
+  void fetchAndAddPlugins(
+    BuildContext context,
+  ) {
+    navBarItems = [
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.home,
+          key: keyBNHome,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Home'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.event_note,
+          key: keyBNEvents,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Events'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.add_box,
+          key: keyBNPost,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Add'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.chat_outlined,
+          key: keyBNChat,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Chat'),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.account_circle,
+          key: keyBNProfile,
+        ),
+        label: AppLocalizations.of(context)!.strictTranslate('Profile'),
+      )
+    ];
+
+    pages = [
+      OrganizationFeed(
+        key: const Key("HomeView"),
+        homeModel: this,
+      ),
+      ExploreEvents(
+        key: const Key('ExploreEvents'),
+        homeModel: this,
+      ),
+      AddPost(
+        key: const Key('AddPost'),
+        drawerKey: MainScreenViewModel.scaffoldKey,
+      ),
+      const ChatPage(
+        key: Key('Chats'),
+      ),
+      ProfilePage(
+        key: keySPEditProfile,
+        homeModel: this,
+      ),
+    ];
+
+    pluginList = (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
+
+    pluginList.forEach((plugin) {
+      if (pluginPrototypeData.containsKey(plugin["pluginName"] as String) &&
+          plugin["pluginInstallStatus"] as bool) {
+        navBarItems.add(
+          BottomNavigationBarItem(
+            icon: Icon(
+              pluginPrototypeData[plugin["pluginName"]]["icon"] as IconData,
+            ),
+            label: AppLocalizations.of(context)!.strictTranslate(
+              plugin["pluginName"] as String,
+            ),
+          ),
+        );
+        pages.add(
+          pluginPrototypeData[plugin["pluginName"]]["class"] as StatelessWidget,
+        );
+      }
+    });
+
+    /// Causes the app to continously check for plugins if they are
+    /// updated and re-render the navbar
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FetchPluginList();
+      final newPluginList =
+          (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
+
+      if (listEquals(pluginList, newPluginList)) {
+        notifyListeners();
+      }
+    });
+  }
+
+  /// Currently selected page
+  int currentPageIndex = 0;
+
+  /// Handles click on [BottomNavigationBarItem]
+  void onTabTapped(int index) {
+    currentPageIndex = index;
+    notifyListeners();
+  }
+
+  /// This function show tutorial to user.
   void showTutorial({
     required dynamic Function(TargetFocus) onClickTarget,
     required dynamic Function() onFinish,
   }) {
     tutorialCoachMark = TutorialCoachMark(
-      context,
       targets: targets,
       colorShadow: Theme.of(context).colorScheme.secondaryContainer,
       textSkip: "SKIP",
-      textStyleSkip:
-          TextStyle(color: Theme.of(context).backgroundColor, fontSize: 20),
+      textStyleSkip: TextStyle(
+        color: Theme.of(context).colorScheme.background,
+        fontSize: 20,
+      ),
       paddingFocus: 10,
       opacityShadow: 1.0,
       onFinish: onFinish,
@@ -122,7 +274,7 @@ class MainScreenViewModel extends BaseModel {
       onClickOverlay: (target) {
         onClickTarget(target);
       },
-    )..show();
+    )..show(context: context);
   }
 
   tourHomeTargets() {
@@ -202,7 +354,7 @@ class MainScreenViewModel extends BaseModel {
     showTutorial(
       onClickTarget: showHome,
       onFinish: () {
-        onTabTapped(currentIndex + 1);
+        onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
           tourEventTargets();
         }
@@ -210,6 +362,7 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
+  /// This function shows the Home screen.
   showHome(TargetFocus clickedTarget) {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
@@ -220,6 +373,7 @@ class MainScreenViewModel extends BaseModel {
     }
   }
 
+  /// This function show the tutorial for Events.
   tourEventTargets() {
     targets.clear();
     targets.add(
@@ -262,7 +416,7 @@ class MainScreenViewModel extends BaseModel {
     );
     showTutorial(
       onFinish: () {
-        onTabTapped(currentIndex + 1);
+        onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
           tourAddPost();
         }
@@ -271,6 +425,7 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
+  /// This function show the tutorial to add Post in the organization.
   tourAddPost() {
     targets.clear();
     targets.add(
@@ -284,7 +439,7 @@ class MainScreenViewModel extends BaseModel {
     );
     showTutorial(
       onFinish: () {
-        onTabTapped(currentIndex + 1);
+        onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
           tourChat();
         }
@@ -293,6 +448,7 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
+  /// This function show the tour of chats.
   tourChat() {
     targets.clear();
     targets.add(
@@ -306,7 +462,7 @@ class MainScreenViewModel extends BaseModel {
     );
     showTutorial(
       onFinish: () {
-        onTabTapped(currentIndex + 1);
+        onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
           tourProfile();
         }
@@ -315,6 +471,7 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
+  /// This function show the tutorial for the profile page.
   tourProfile() {
     targets.clear();
     targets.add(
@@ -374,6 +531,14 @@ class MainScreenViewModel extends BaseModel {
     );
   }
 
+  /// This returns a widget for a step in a tutorial.
+  ///
+  /// params:
+  /// * [keyName] : key where the widget shows.
+  /// * [description] : description of the step.
+  /// * [isCircle]
+  /// * [next] : `Function` type, this show the next step or `key` to show the tour of.
+  /// * [isEnd] : true if last step of the tour.
   TargetFocus focusTarget(
     GlobalKey key,
     String keyName,
@@ -405,7 +570,7 @@ class MainScreenViewModel extends BaseModel {
                   Text(
                     description,
                     style: TextStyle(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).colorScheme.background,
                       fontSize: 20,
                     ),
                   ),
@@ -434,7 +599,7 @@ class MainScreenViewModel extends BaseModel {
                   Text(
                     isEnd ? 'COMPLETE' : 'NEXT',
                     style: TextStyle(
-                      color: Theme.of(context).backgroundColor,
+                      color: Theme.of(context).colorScheme.background,
                       fontSize: 20,
                     ),
                   ),

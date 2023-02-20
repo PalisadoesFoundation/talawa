@@ -4,12 +4,14 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/date_time_picker.dart';
 
+/// ExploreEventDialog returns a widget that has mutable state _ExploreEventDialogState.
 class ExploreEventDialog extends StatefulWidget {
   const ExploreEventDialog({required Key key}) : super(key: key);
   @override
   _ExploreEventDialogState createState() => _ExploreEventDialogState();
 }
 
+/// _ExploreEventDialogState returns a widget that show explored dialog of the event.
 class _ExploreEventDialogState extends State<ExploreEventDialog> {
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now().add(const Duration(days: 1));
@@ -38,13 +40,14 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                   GestureDetector(
                     key: const Key('StartDateSelector'),
                     onTap: () async {
-                      final _date =
+                      final date =
                           await customDatePicker(initialDate: _startDate);
                       setState(() {
-                        _startDate = _date;
+                        _startDate = date;
                       });
                     },
                     child: SizedBox(
+                      // SizedBox is a box with a specified size.
                       height: SizeConfig.screenHeight! * 0.07,
                       width: SizeConfig.screenWidth! * 0.36,
                       child: Card(
@@ -60,6 +63,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                               ),
                             ),
                             Expanded(
+                              // shows the start date of the event
                               child: Text(
                                 "${_startDate.toLocal()}".split(' ')[0],
                                 maxLines: 1,
@@ -84,10 +88,10 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                   GestureDetector(
                     key: const Key('EndDateSelector'),
                     onTap: () async {
-                      final _date =
+                      final date =
                           await customDatePicker(initialDate: _endDate);
                       setState(() {
-                        _endDate = _date;
+                        _endDate = date;
                       });
                     },
                     child: SizedBox(
@@ -106,6 +110,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                               ),
                             ),
                             Expanded(
+                              // shows the end date of the event
                               child: Text(
                                 "${_endDate.toLocal()}".split(' ')[0],
                                 maxLines: 1,
@@ -131,6 +136,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
+                  // returns a button to cancel the event dialog
                   child: TextButton(
                     key: const Key('CancelButton'),
                     onPressed: () {
@@ -138,11 +144,12 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     },
                     child: Text(
                       AppLocalizations.of(context)!.strictTranslate('Cancel'),
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
                 ),
                 Expanded(
+                  // returns a button to mark the event dialog as done.
                   child: TextButton(
                     key: const Key('DoneButton'),
                     onPressed: () {
@@ -151,7 +158,9 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     child: Text(
                       AppLocalizations.of(context)!.strictTranslate('Done'),
                       style: const TextStyle(
-                          fontSize: 14, color: Color(0xff4285F4)),
+                        fontSize: 14,
+                        color: Color(0xff4285F4),
+                      ),
                     ),
                   ),
                 )

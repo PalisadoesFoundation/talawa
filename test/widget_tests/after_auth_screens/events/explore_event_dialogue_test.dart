@@ -12,30 +12,36 @@ import '../../../helpers/test_locator.dart';
 
 Widget createExploreEventDialog() {
   return MaterialApp(
-      localizationsDelegates: [
-        const AppLocalizationsDelegate(isTest: true),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      navigatorKey: navigationService.navigatorKey,
-      onGenerateRoute: router.generateRoute,
-      home: Builder(builder: (context) {
+    localizationsDelegates: [
+      const AppLocalizationsDelegate(isTest: true),
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    navigatorKey: navigationService.navigatorKey,
+    onGenerateRoute: router.generateRoute,
+    home: Builder(
+      builder: (context) {
         return Container(
-            child: TextButton(
-                key: const Key('TextButtonKey'),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (_) => const ExploreEventDialog(
-                            key: Key('ExploreEventDialog'),
-                          ));
-                },
-                child: const Text('EventDialog')));
-      }));
+          child: TextButton(
+            key: const Key('TextButtonKey'),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => const ExploreEventDialog(
+                  key: Key('ExploreEventDialog'),
+                ),
+              );
+            },
+            child: const Text('EventDialog'),
+          ),
+        );
+      },
+    ),
+  );
 }
 
 main() {
-  DateTime _startDate = DateTime.now().toLocal();
+  DateTime startDate = DateTime.now().toLocal();
   // DateTime _endDate = DateTime.now().add(const Duration(days: 1)).toLocal();
   setUp(() {
     registerServices();
@@ -46,16 +52,18 @@ main() {
     unregisterServices();
   });
 
-  Future<void> prepareDatePicker(WidgetTester tester,
-      Future<void> Function(Future<DateTime> date) callback) async {
+  Future<void> prepareDatePicker(
+    WidgetTester tester,
+    Future<void> Function(Future<DateTime> date) callback,
+  ) async {
     await tester.pumpWidget(createExploreEventDialog());
     await tester.pumpAndSettle();
 
     await tester.tap(find.byKey(const Key('TextButtonKey')));
-    final date = customDatePicker(initialDate: _startDate);
+    final date = customDatePicker(initialDate: startDate);
 
     await tester.pumpAndSettle();
-    expect(find.text(_startDate.toString().split(' ')[0]), findsOneWidget);
+    expect(find.text(startDate.toString().split(' ')[0]), findsOneWidget);
     await tester.ensureVisible(find.byKey(const Key('StartDateSelector')));
     await tester.tap(find.byKey(const Key('StartDateSelector')));
     await tester.pumpAndSettle(const Duration(seconds: 1));
@@ -76,9 +84,11 @@ main() {
         );
 
         expect(
-            find.textContaining(
-                (await date).toLocal().toString().split(' ')[0]),
-            findsOneWidget);
+          find.textContaining(
+            (await date).toLocal().toString().split(' ')[0],
+          ),
+          findsOneWidget,
+        );
       });
     });
     testWidgets('Testing the Cancel button', (tester) async {
@@ -87,9 +97,11 @@ main() {
         await tester.tap(find.text('CANCEL'));
         await tester.pumpAndSettle();
         expect(
-            find.textContaining(
-                (await date).toLocal().toString().split(' ')[0]),
-            findsOneWidget);
+          find.textContaining(
+            (await date).toLocal().toString().split(' ')[0],
+          ),
+          findsOneWidget,
+        );
       });
     });
 
@@ -100,16 +112,19 @@ main() {
         await tester.tap(find.text('OK'));
         await tester.pumpAndSettle(const Duration(seconds: 1));
         expect(
-            (await date).toString().split(' ')[0],
-            DateTime(DateTime.now().year, DateTime.now().month, 10)
-                .toString()
-                .split(' ')[0]);
-        _startDate = await date;
+          (await date).toString().split(' ')[0],
+          DateTime(DateTime.now().year, DateTime.now().month, 10)
+              .toString()
+              .split(' ')[0],
+        );
+        startDate = await date;
         await tester.pumpAndSettle();
         expect(find.byKey(const Key('TextButtonKey')), findsOneWidget);
 
-        expect(_startDate,
-            DateTime(DateTime.now().year, DateTime.now().month, 10));
+        expect(
+          startDate,
+          DateTime(DateTime.now().year, DateTime.now().month, 10),
+        );
       });
     });
   });

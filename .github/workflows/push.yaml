@@ -24,13 +24,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          # This is important to fetch all history for all branches and tags.
+          # This could be important for our documentation generation process.
+          # See: https://github.com/actions/checkout
+          fetch-depth: 0      
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '12.0'          
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.0'
+          flutter-version: '3.7.3'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
@@ -38,18 +43,21 @@ jobs:
         run: flutter format --set-exit-if-changed .
       - name: Analysing codebase for linting
         run: flutter analyze --no-pub
+#       - name: Echo the GitHub environment for troubleshooting
+#         run: echo "$GITHUB_CONTEXT"
+#       - name: Echo the GitHub context for troubleshooting
+#         run: echo "${{ toJSON(github) }}"
       - name: setup python
         uses: actions/setup-python@v4
       - name: Granting permission to documentationcheck.py
         run: chmod +x ./.github/workflows/documentationcheck.py
-#       - name: execute py script
-#         run: |
-#           git branch
-#           pip install GitPython
-#           python ./.github/workflows/documentationcheck.py --actor ${{env.actor}}
-#         env:
-#           directory: ${{ github.path }}
-#           actor: ${{ github.actor }}
+      - name: execute py script
+        # For more information on the GitHub context used for the "--repository" flag used by this script visit:
+        # https://docs.github.com/en/actions/learn-github-actions/contexts
+        run: |
+          git branch
+          pip install GitPython
+          python ./.github/workflows/documentationcheck.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
 
   Update-Documentation:
     runs-on: ubuntu-latest
@@ -62,7 +70,7 @@ jobs:
           java-version: '12.0'          
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.0'
+          flutter-version: '3.7.3'
           channel: 'stable'
       - uses: dart-lang/setup-dart@v1
         with:
@@ -109,8 +117,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
         source_file: 'docs/talawa/'
         destination_repo: 'PalisadoesFoundation/talawa-docs'
@@ -132,7 +138,7 @@ jobs:
           java-version: '12.0'          
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.0'
+          flutter-version: '3.7.3'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
@@ -142,7 +148,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           verbose: true
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           name: '${{env.CODECOV_UNIQUE_NAME}}'     
 
   Android-Build:
@@ -157,7 +163,7 @@ jobs:
           java-version: '12.0'          
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.0'
+          flutter-version: '3.7.3'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
       - name: Running pub get to fetch dependencies
         run: flutter pub get
@@ -172,7 +178,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.0.0'
+          flutter-version: '3.7.3'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
           architecture: x64
       - name: Building for ios

@@ -3,12 +3,14 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat_message.dart';
 import 'package:talawa/services/size_config.dart';
 
+/// Message returns a widget for chat message in the bubble form.
 class Message extends StatelessWidget {
   const Message({Key? key, required this.message}) : super(key: key);
 
   final ChatMessage message;
   @override
   Widget build(BuildContext context) {
+    // styling
     return Padding(
       padding: EdgeInsets.only(top: SizeConfig.safeBlockVertical! * 2),
       child: Row(
@@ -23,6 +25,7 @@ class Message extends StatelessWidget {
               vertical: SizeConfig.blockSizeVertical! * 1.2,
             ),
             decoration: BoxDecoration(
+              // if the message is sent by current user, then the background color will be white else green
               color:
                   message.sender!.firstName == userConfig.currentUser.firstName
                       ? Colors.white
@@ -42,11 +45,12 @@ class Message extends StatelessWidget {
             ),
             child: Text(
               message.messageContent!,
+              // if the message is sent by current user, then the text color will be black else theme bodyText color
               style: TextStyle(
                 color: message.sender!.firstName ==
                         userConfig.currentUser.firstName
                     ? Colors.black
-                    : Theme.of(context).textTheme.bodyText1!.color,
+                    : Theme.of(context).textTheme.bodyLarge!.color,
               ),
             ),
           ),

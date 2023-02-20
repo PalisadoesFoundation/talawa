@@ -6,6 +6,8 @@ import 'package:talawa/utils/validators.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
+/// This class recovers the users password.
+/// The users needs to enter his/her email and press on the button at the bottom to recover his/her password.
 class Recover extends StatefulWidget {
   const Recover({required Key key}) : super(key: key);
 
@@ -23,16 +25,16 @@ class _RecoverState extends State<Recover> {
       {
         'text':
             "${AppLocalizations.of(context)!.translate("Sit back relax, we'll")} ",
-        'textStyle': Theme.of(context).textTheme.headline5
+        'textStyle': Theme.of(context).textTheme.headlineSmall
       },
       {
         'text': '${AppLocalizations.of(context)!.translate("Recover")} ',
         'textStyle':
-            Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
+            Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24)
       },
       {
         'text': AppLocalizations.of(context)!.translate("your password"),
-        'textStyle': Theme.of(context).textTheme.headline5
+        'textStyle': Theme.of(context).textTheme.headlineSmall
       },
     ];
     return Scaffold(
@@ -60,6 +62,7 @@ class _RecoverState extends State<Recover> {
           ),
           width: SizeConfig.screenWidth,
           height: SizeConfig.screenHeight,
+          //custom text at the top of the screen
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,6 +74,7 @@ class _RecoverState extends State<Recover> {
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.05,
               ),
+              //This form takes the email of the user as an input
               Form(
                 key: formKey,
                 child: TextFormField(
@@ -86,13 +90,14 @@ class _RecoverState extends State<Recover> {
                         AppLocalizations.of(context)!.translate("Email Hint"),
                     labelText:
                         '${AppLocalizations.of(context)!.translate("Enter your registered Email")} *',
-                    labelStyle: Theme.of(context).textTheme.subtitle1,
+                    labelStyle: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
               ),
               SizedBox(
                 height: SizeConfig.screenHeight! * 0.086,
               ),
+              //Button to initiate the process of recovering password.
               RaisedRoundedButton(
                 buttonLabel: AppLocalizations.of(context)!
                     .strictTranslate('Recover Password'),

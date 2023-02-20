@@ -13,6 +13,8 @@ import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:uni_links/uni_links.dart';
 
+/// This widget return the SplashScreen. Splash Screen is the first screen that
+/// we see when we run our application. It is also known as Launch Screen.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({required Key key, this.mainScreenIndex = 0})
       : super(key: key);
@@ -22,14 +24,21 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
+/// This return state for the SplashScreen Widget.
 class _SplashScreenState extends State<SplashScreen> {
   Uri? _initialUri;
   Uri? _latestUri;
   late StreamSubscription _sub;
 
+  /// Flutter supports deep linking on iOS, Android, and web browsers.
+  /// Opening a URL displays that screen in your app.
+  /// `_handleInitialUri` is an async function that is used to hanlde
+  /// the initial uri of the application.
   Future<void> _handleInitialUri() async {
     _sub = uriLinkStream.listen(
       (Uri? uri) {
+        // After creating a State object and before calling initState, the framework
+        // "mounts" the State object by associating it with a BuildContext.
         if (!mounted) return;
         setState(() {
           _latestUri = uri;
@@ -43,6 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
       },
     );
     try {
+      // Retrieving the initial URI from getIntitialUri function.
       final uri = await getInitialUri();
       if (!mounted) return;
       setState(() => _initialUri = uri);
@@ -81,7 +91,9 @@ class _SplashScreenState extends State<SplashScreen> {
     if (_initialUri!.pathSegments[1] == 'invite') {
       if (!userLoggedIn) {
         fromInviteLink(
-            keys.toList(growable: false), values.toList(growable: false));
+          keys.toList(growable: false),
+          values.toList(growable: false),
+        );
         return;
       }
 
@@ -184,7 +196,9 @@ class _SplashScreenState extends State<SplashScreen> {
       final currentUser = userConfig.currentUser;
       if (currentUser.joinedOrganizations!.isNotEmpty) {
         final mainScreenArgs = MainScreenArgs(
-            mainScreenIndex: widget.mainScreenIndex, fromSignUp: false);
+          mainScreenIndex: widget.mainScreenIndex,
+          fromSignUp: false,
+        );
         pushReplacementScreen(Routes.mainScreen, arguments: mainScreenArgs);
         return;
       }
@@ -210,6 +224,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.dispose();
   }
 
+  /// Describes the part of the user interface represented by this widget.
+  /// BuildContext is a locator that is used to track each widget in a tree
+  /// and locate them and their position in the tree.
   @override
   Widget build(BuildContext context) {
     sizeConfig.init(context);
@@ -222,7 +239,7 @@ class _SplashScreenState extends State<SplashScreen> {
               key: const Key('LogoPainter'),
               size: Size(
                 SizeConfig.screenWidth! * 0.6,
-                (SizeConfig.screenWidth! * 0.6).toDouble(),
+                SizeConfig.screenWidth! * 0.6,
               ),
               painter: AppLogo(),
             ),
@@ -237,7 +254,7 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Text(
                   'TALAWA',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ],
             ),
@@ -252,7 +269,7 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Text(
                   AppLocalizations.of(context)!.strictTranslate('from'),
-                  style: Theme.of(context).textTheme.caption,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
             ),
@@ -269,7 +286,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   'PALISADOES',
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle2!
+                      .titleSmall!
                       .copyWith(fontWeight: FontWeight.w700),
                 ),
               ],

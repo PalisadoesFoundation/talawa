@@ -10,6 +10,7 @@ import 'package:talawa/views/after_auth_screens/events/event_info_body.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_admin_fab.dart';
 
+/// EventInfoPage returns a widget that has mutable state _EventInfoPageState.
 class EventInfoPage extends StatefulWidget {
   const EventInfoPage({Key? key, required this.args}) : super(key: key);
   final Map<String, dynamic> args;
@@ -17,6 +18,7 @@ class EventInfoPage extends StatefulWidget {
   _EventInfoPageState createState() => _EventInfoPageState();
 }
 
+/// _EventInfoPageState returns a widget of a Page for particular event.
 class _EventInfoPageState extends State<EventInfoPage> {
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,16 @@ class _EventInfoPageState extends State<EventInfoPage> {
         return Scaffold(
           body: CustomScrollView(
             slivers: [
+              // SliverAppBar is a Material Design app bar that integrates with a CustomScrollView.
               SliverAppBar(
-                title: Text(AppLocalizations.of(context)!
-                    .strictTranslate('Event Details')),
+                // Translated title of the App bar.
+                title: Text(
+                  AppLocalizations.of(context)!
+                      .strictTranslate('Event Details'),
+                ),
                 actions: [
                   IconButton(
+                    // Button to share the event in the social medias.
                     icon: const Icon(Icons.share),
                     onPressed: () => SocialShare.shareOptions(
                       'https://cyberwake.github.io/applink/eventInvite?setUrl=${GraphqlConfig.orgURI}&selectOrg=${userConfig.currentOrg.id!}&eventId=${model.event.id}',
@@ -49,14 +56,18 @@ class _EventInfoPageState extends State<EventInfoPage> {
               const EventInfoBody()
             ],
           ),
+          // if the event is created by current user then renders explore
+          // button in the event page else renders register button.
           floatingActionButton: model.event.creator!.id !=
                   userConfig.currentUser.id
               ? FloatingActionButton.extended(
                   onPressed: () {
                     model.registerForEvent();
                   },
-                  label: Text(model.fabTitle,
-                      style: Theme.of(context).textTheme.bodyText2),
+                  label: Text(
+                    model.fabTitle,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 )
               : eventAdminFab(
                   context: context,

@@ -5,6 +5,10 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
+/// EditProfilePageViewModel class helps to interact with model to serve data to edit profile views.
+///
+/// Methods include:
+/// * `getImageFromGallery`
 class EditProfilePageViewModel extends BaseModel {
   final user = userConfig.currentUser;
   late MultiMediaPickerService _multiMediaPickerService;
@@ -15,20 +19,27 @@ class EditProfilePageViewModel extends BaseModel {
   FocusNode lastNameFocus = FocusNode();
   final databaseService = databaseFunctions;
 
+  // initialiser
   initialize() {
     imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
   }
 
+  /// This function is used to get the image from gallery.
+  /// The function uses the `_multiMediaPickerService` services.
+  ///
+  /// params:
+  /// * [camera] : if true then open camera for image, else open gallery to select image.
   Future<void> getImageFromGallery({bool camera = false}) async {
-    final _image =
+    final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
-    if (_image != null) {
-      imageFile = _image;
+    if (image != null) {
+      imageFile = image;
       notifyListeners();
     }
   }
 
+  /// This function remove the selected image.
   void removeImage() {
     imageFile = null;
     notifyListeners();

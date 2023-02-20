@@ -6,6 +6,10 @@ import 'package:talawa/utils/validators.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
+/// This widget lets the user change his/her password.
+/// There are two input fields. The first one is for entering the new password, and the
+/// second one is for re-entering the password for verification.
+/// There is a raised button which finally updates the password when pressed.
 class ChangePass extends StatefulWidget {
   const ChangePass({required Key key}) : super(key: key);
 
@@ -22,24 +26,25 @@ class _ChangePassState extends State<ChangePass> {
 
   @override
   Widget build(BuildContext context) {
+    //custom text variable (List).
     final text = [
       {
         'text': "${AppLocalizations.of(context)!.translate("Hello")}, ",
-        'textStyle': Theme.of(context).textTheme.headline5
+        'textStyle': Theme.of(context).textTheme.headlineSmall
       },
       {
         'text': '${AppLocalizations.of(context)!.translate("User Name")} ',
         'textStyle':
-            Theme.of(context).textTheme.headline6!.copyWith(fontSize: 24)
+            Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 24)
       },
       {
         'text': "${AppLocalizations.of(context)!.translate("we've")} ",
-        'textStyle': Theme.of(context).textTheme.headline5
+        'textStyle': Theme.of(context).textTheme.headlineSmall
       },
       {
         'text':
             '${AppLocalizations.of(context)!.translate("got you covered")} ',
-        'textStyle': Theme.of(context).textTheme.headline5
+        'textStyle': Theme.of(context).textTheme.headlineSmall
       },
     ];
     return Scaffold(
@@ -81,6 +86,7 @@ class _ChangePassState extends State<ChangePass> {
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.05,
                 ),
+                // Text field taking the input of the password
                 TextFormField(
                   key: const Key('PassInputField'),
                   controller: newPassword,
@@ -101,6 +107,7 @@ class _ChangePassState extends State<ChangePass> {
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.025,
                 ),
+                // Text field taking the input of the password again for verification
                 TextFormField(
                   key: const Key('PassRepeatInputField'),
                   controller: reNewPassword,
@@ -124,6 +131,7 @@ class _ChangePassState extends State<ChangePass> {
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.086,
                 ),
+                // Button for changing the password
                 RaisedRoundedButton(
                   buttonLabel:
                       '${AppLocalizations.of(context)!.translate("Change Password")} ',

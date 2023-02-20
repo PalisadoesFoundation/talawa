@@ -6,13 +6,11 @@ part of 'chat_user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChatUser _$ChatUserFromJson(Map<String, dynamic> json) {
-  return ChatUser(
-    firstName: json['firstName'] as String?,
-    id: json['_id'] as String?,
-    image: json['image'] as String?,
-  );
-}
+ChatUser _$ChatUserFromJson(Map<String, dynamic> json) => ChatUser(
+      firstName: json['firstName'] as String?,
+      id: json['_id'] as String?,
+      image: json['image'] as String?,
+    );
 
 Map<String, dynamic> _$ChatUserToJson(ChatUser instance) => <String, dynamic>{
       'firstName': instance.firstName,

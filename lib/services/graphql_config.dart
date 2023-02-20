@@ -4,7 +4,12 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:talawa/locator.dart';
 
+/// GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data.
+/// Talawa uses graphQL for the integrating with the API's.
+/// You can go through talawa-api, [here](https://github.com/PalisadoesFoundation/talawa-api).
+/// GraphqlConfig class provides service to configure graph ql API with talawa mobile-app.
 class GraphqlConfig {
+  // variable declaration
   static const imageUrlKey = "imageUrl";
   static const urlKey = "url";
   static String? orgURI = ' ';
@@ -15,13 +20,15 @@ class GraphqlConfig {
 //prefix route for showing images
   String? displayImgRoute;
 
+  /// This function is used to get user the access token.
   Future getToken() async {
-    final _token = userConfig.currentUser.authToken;
-    token = _token;
+    final authToken = userConfig.currentUser.authToken;
+    token = authToken;
     getOrgUrl();
     return true;
   }
 
+  /// This function is used to get the organization URL.
   getOrgUrl() {
     final box = Hive.box('url');
     final String? url = box.get(urlKey) as String?;
@@ -60,6 +67,7 @@ class GraphqlConfig {
   }
 }
 
+/// A mock HTTP client designed for use when testing code that uses BaseClient.
 class MockHttpClient extends Mock implements http.Client {
   @override
   Future<http.StreamedResponse> send(http.BaseRequest? request) =>

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+///This class draws the language icon using custom paint.
+///CustomPaint is a widget from the Flutter SDK, which enables
+/// you to use a canvas to draw different shapes.
 class LanguageIcon extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

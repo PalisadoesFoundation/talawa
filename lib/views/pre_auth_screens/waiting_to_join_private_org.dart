@@ -9,6 +9,7 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 import 'package:talawa/widgets/signup_progress_indicator.dart';
 
+/// This class returns a widget which shows the request sent by the user to join a private organization.
 class WaitingPage extends StatelessWidget {
   const WaitingPage({Key? key}) : super(key: key);
 
@@ -46,6 +47,7 @@ class WaitingPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      //Greeting text
                       CustomRichText(
                         key: const Key('WaitingPageText'),
                         words: model.greeting,
@@ -56,11 +58,12 @@ class WaitingPage extends StatelessWidget {
                       Text(
                         AppLocalizations.of(context)!
                             .strictTranslate('Request Sent to'),
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ],
                   ),
                 ),
+                //Information of the organization to which the request is sent.
                 Expanded(
                   child: ListView.builder(
                     key: const Key('PendingRequestList'),
@@ -81,6 +84,7 @@ class WaitingPage extends StatelessWidget {
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.0215,
                 ),
+                //Join organization button
                 RaisedRoundedButton(
                   key: const Key('JoinOrg'),
                   buttonLabel: AppLocalizations.of(context)!
@@ -97,6 +101,7 @@ class WaitingPage extends StatelessWidget {
                 SizedBox(
                   height: SizeConfig.screenHeight! * 0.0215,
                 ),
+                //Logout button
                 RaisedRoundedButton(
                   key: const Key('Logout'),
                   buttonLabel:

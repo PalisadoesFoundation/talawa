@@ -37,7 +37,7 @@ Widget createApp() {
   );
 }
 
-Future<void> showSignUpScreen(tester) async {
+Future<void> showSignUpScreen(WidgetTester tester) async {
   await tester.pumpWidget(createApp());
   await tester.pump();
   await tester.tap(find.textContaining('Ayush'));
@@ -89,7 +89,10 @@ void main() {
       await tester.enterText(firstNameInputFieldWidget, '<>');
 
       await tester.dragUntilVisible(
-          findSignUpButton, findSignUpButton, const Offset(0, 50));
+        findSignUpButton,
+        findSignUpButton,
+        const Offset(0, 50),
+      );
 
       await tester.tap(findSignUpButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
@@ -110,7 +113,10 @@ void main() {
       await tester.enterText(firstNameInputFieldWidget, '');
 
       await tester.dragUntilVisible(
-          findSignUpButton, findSignUpButton, const Offset(0, 50));
+        findSignUpButton,
+        findSignUpButton,
+        const Offset(0, 50),
+      );
 
       await tester.tap(findSignUpButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
@@ -133,7 +139,10 @@ void main() {
       await tester.enterText(lastNameInputFieldWidget, '<>');
 
       await tester.dragUntilVisible(
-          findSignUpButton, findSignUpButton, const Offset(0, 50));
+        findSignUpButton,
+        findSignUpButton,
+        const Offset(0, 50),
+      );
 
       await tester.tap(findSignUpButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
@@ -154,7 +163,10 @@ void main() {
       await tester.enterText(lastNameInputFieldWidget, '');
 
       await tester.dragUntilVisible(
-          findSignUpButton, findSignUpButton, const Offset(0, 50));
+        findSignUpButton,
+        findSignUpButton,
+        const Offset(0, 50),
+      );
 
       await tester.tap(findSignUpButton);
       await tester.pumpAndSettle(const Duration(milliseconds: 1000));
@@ -177,13 +189,17 @@ void main() {
     final nullPasswordSubmission = find.text('Password must not be left blank');
     //initializing the invalidPasswordSubmission widget Finder
     final invalidPasswordSubmission = find.text(
-        'Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)');
+      'Your password must be at least 8 characters long, contain at least one numeric, one uppercase and one lowercase letters and one special character (@,#,\$,etc.)',
+    );
     //initializing the spacePasswordSubmission widget Finder
     final spacePasswordSubmission =
         find.text('Password must not contain spaces');
 
     await tester.dragUntilVisible(
-        findSignUpButton, findSignUpButton, const Offset(0, 50));
+      findSignUpButton,
+      findSignUpButton,
+      const Offset(0, 50),
+    );
     //finding the password input text field
     expect(passwordInputFieldWidget, findsOneWidget);
     //finding the  iconbutton
@@ -223,16 +239,16 @@ void main() {
       "Testing onFieldSubmitted in password TextFormField by simulating keyboard hits",
       (tester) async {
     await showSignUpScreen(tester);
-    final formFinder = find.ancestor(
-        of: find.byKey(const Key('signuppassword')),
-        matching: find.byType(Form));
-    final formWidget = tester.firstWidget(formFinder) as Form;
-    (formWidget.key! as GlobalKey<FormState>).currentState!.save();
+    // final formFinder = find.ancestor(
+    //     of: find.byKey(const Key('signuppassword')),
+    //     matching: find.byType(Form));
+    // final formWidget = tester.firstWidget(formFinder) as Form;
+    // (formWidget.key! as GlobalKey<FormState>).currentState!.save();
 
     final textFinder = find.byKey(const Key('signuppassword'));
     await tester.tap(textFinder);
     await tester.pump();
     await tester.showKeyboard(textFinder);
-    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.testTextInput.receiveAction(TextInputAction.next);
   });
 }

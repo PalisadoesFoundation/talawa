@@ -21,3 +21,6 @@ A clear and concise description of approach to be followed.
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
+
+**Potential internship candidates**
+Please read this if you are planning to apply for a Palisadoes Foundation internship https://github.com/PalisadoesFoundation/talawa/issues/359

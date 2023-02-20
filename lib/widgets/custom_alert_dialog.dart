@@ -4,6 +4,10 @@ import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/widgets/raised_round_edge_button.dart';
 
+/// This Class returns CustomAlertDialog widget. Custom Alert Dialog is a popup
+/// that appeared in the screen showing Alert message along with the event buttons.
+/// This extends stateless widget that means it cannot change its state during the
+/// runtime of a application.
 class CustomAlertDialog extends StatelessWidget {
   const CustomAlertDialog({
     Key? key,
@@ -53,7 +57,7 @@ class CustomAlertDialog extends StatelessWidget {
             AppLocalizations.of(context)!.strictTranslate('Confirmation'),
         style: Theme.of(context)
             .textTheme
-            .headline5!
+            .headlineSmall!
             .copyWith(fontWeight: FontWeight.w800),
       ),
       content: Text(dialogSubTitle),
