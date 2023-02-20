@@ -22,29 +22,31 @@ Widget createOrganizationFeedScreen({
   required MainScreenViewModel homeModel,
 }) {
   return MaterialApp(
-      navigatorObservers: [],
-      locale: const Locale('en'),
-      supportedLocales: [
-        const Locale('en', 'US'),
-        const Locale('es', 'ES'),
-        const Locale('fr', 'FR'),
-        const Locale('hi', 'IN'),
-        const Locale('zh', 'CN'),
-        const Locale('de', 'DE'),
-        const Locale('ja', 'JP'),
-        const Locale('pt', 'PT'),
-      ],
-      localizationsDelegates: [
-        const AppLocalizationsDelegate(isTest: true),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      home: Scaffold(
-          key: MainScreenViewModel.scaffoldKey,
-          body: OrganizationFeed(
-            homeModel: homeModel,
-            key: const Key('test_key'),
-          )));
+    navigatorObservers: [],
+    locale: const Locale('en'),
+    supportedLocales: [
+      const Locale('en', 'US'),
+      const Locale('es', 'ES'),
+      const Locale('fr', 'FR'),
+      const Locale('hi', 'IN'),
+      const Locale('zh', 'CN'),
+      const Locale('de', 'DE'),
+      const Locale('ja', 'JP'),
+      const Locale('pt', 'PT'),
+    ],
+    localizationsDelegates: [
+      const AppLocalizationsDelegate(isTest: true),
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+    ],
+    home: Scaffold(
+      key: MainScreenViewModel.scaffoldKey,
+      body: OrganizationFeed(
+        homeModel: homeModel,
+        key: const Key('test_key'),
+      ),
+    ),
+  );
 }
 
 // late OrganizationFeedViewModel _organizationFeedViewModel;
@@ -125,7 +127,8 @@ void main() {
     final text1 = find.text('Rutvik Chandla');
 
     final text2 = find.text(
-        'Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS...');
+      'Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS...',
+    );
 
     final text3 = find.text('See all Pinned news');
 

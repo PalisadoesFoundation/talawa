@@ -14,7 +14,7 @@ Widget eventAdminFab({
   return SpeedDial(
     icon: Icons.menu,
     activeIcon: Icons.close,
-    buttonSize: 55.0,
+    buttonSize: const Size(55.0, 55.0),
     overlayColor: Theme.of(context).colorScheme.onBackground,
     overlayOpacity: 0.5,
     backgroundColor: Theme.of(context).primaryColor,
@@ -28,7 +28,7 @@ Widget eventAdminFab({
         label: 'Delete Event',
         labelStyle: Theme.of(context)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(color: Theme.of(context).colorScheme.secondary),
         foregroundColor: Theme.of(context).colorScheme.secondary,
         backgroundColor: Theme.of(context).primaryColor,
@@ -44,7 +44,7 @@ Widget eventAdminFab({
         label: 'Edit Event',
         labelStyle: Theme.of(context)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(color: Theme.of(context).colorScheme.secondary),
         foregroundColor: Theme.of(context).colorScheme.secondary,
         backgroundColor: Theme.of(context).primaryColor,

@@ -85,16 +85,20 @@ void main() async {
   await Hive.openBox('pluginBox');
   await Hive.openBox('url');
 
-  late GraphQLClient _graphQLClient;
+  late GraphQLClient graphQLClient;
 
   setUp(() {
     registerServices();
     locator<SizeConfig>().test();
 
-    _graphQLClient = locator<GraphQLClient>();
-    when(_graphQLClient.query(QueryOptions(
-      document: gql(queries.getPluginsList()),
-    ))).thenAnswer(
+    graphQLClient = locator<GraphQLClient>();
+    when(
+      graphQLClient.query(
+        QueryOptions(
+          document: gql(queries.getPluginsList()),
+        ),
+      ),
+    ).thenAnswer(
       (realInvocation) async {
         return QueryResult.internal(
           source: QueryResultSource.network,
@@ -128,9 +132,13 @@ void main() async {
     testWidgets("Check if all children shows up", (tester) async {
       // This stub shows its effect in the next test
 
-      when(_graphQLClient.query(QueryOptions(
-        document: gql(queries.getPluginsList()),
-      ))).thenAnswer(
+      when(
+        graphQLClient.query(
+          QueryOptions(
+            document: gql(queries.getPluginsList()),
+          ),
+        ),
+      ).thenAnswer(
         (realInvocation) async {
           return QueryResult.internal(
             source: QueryResultSource.network,

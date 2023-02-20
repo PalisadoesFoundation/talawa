@@ -24,13 +24,17 @@ class MockCallbackFunction extends Mock {
   call();
 }
 
-class _MockStreamSubscription<T> extends Mock implements StreamSubscription<T> {
-}
+class _MockStreamSubscription<T> extends Mock
+    implements StreamSubscription<T> {}
 
 class _MockStream<T> extends Mock implements Stream<T> {
   @override
-  StreamSubscription<T> listen(void Function(T event)? onData,
-          {Function? onError, void Function()? onDone, bool? cancelOnError}) =>
+  StreamSubscription<T> listen(
+    void Function(T event)? onData, {
+    Function? onError,
+    void Function()? onDone,
+    bool? cancelOnError,
+  }) =>
       _MockStreamSubscription<T>();
 }
 
@@ -123,16 +127,18 @@ void main() {
       when(model.eventService.deleteEvent(newEvent.id!))
           .thenAnswer((realInvocation) async => 1);
 
-      await tester.pumpWidget(MaterialApp(
-        locale: const Locale('en'),
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(isTest: true),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        navigatorKey: navigationService.navigatorKey,
-        home: Scaffold(body: Container()),
-      ));
+      await tester.pumpWidget(
+        MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          navigatorKey: navigationService.navigatorKey,
+          home: Scaffold(body: Container()),
+        ),
+      );
       await tester.pumpAndSettle();
       await model.checkIfExistsAndAddNewEvent(newEvent);
       await model.deleteEvent(eventId: newEvent.id!);

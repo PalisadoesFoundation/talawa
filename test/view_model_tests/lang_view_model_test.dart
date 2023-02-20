@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 
@@ -10,6 +11,9 @@ import '../helpers/test_locator.dart';
 class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.setMockInitialValues({});
+
   testSetupLocator();
   locator<GraphqlConfig>().test();
 
@@ -107,22 +111,34 @@ void main() {
         return true;
       });
 
-      when(navigationService.popAndPushScreen('/appSettingsPage',
-              arguments: ''))
-          .thenAnswer((_) async {});
+      when(
+        navigationService.popAndPushScreen(
+          '/appSettingsPage',
+          arguments: '',
+        ),
+      ).thenAnswer((_) async {});
 
       databaseFunctions.init();
 
-      when(databaseFunctions.gqlAuthMutation(
-              queries.updateLanguage(model.appLocal.languageCode)))
-          .thenAnswer((_) async {});
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.updateLanguage(model.appLocal.languageCode),
+        ),
+      ).thenAnswer((_) async {});
 
       await model.selectLanguagePress();
 
-      verify(databaseFunctions.gqlAuthMutation(
-          queries.updateLanguage(model.appLocal.languageCode)));
-      verify(navigationService.popAndPushScreen('/appSettingsPage',
-          arguments: ''));
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          queries.updateLanguage(model.appLocal.languageCode),
+        ),
+      );
+      verify(
+        navigationService.popAndPushScreen(
+          '/appSettingsPage',
+          arguments: '',
+        ),
+      );
 
       // testing userLanguageQuery function
       const userId = "xyz1";
@@ -148,9 +164,11 @@ void main() {
       await model.appLanguageQuery();
 
       //testing catch block in dbLanguageUpdate
-      when(databaseFunctions.gqlAuthMutation(
-              queries.updateLanguage(model.appLocal.languageCode)))
-          .thenThrow(Error());
+      when(
+        databaseFunctions.gqlAuthMutation(
+          queries.updateLanguage(model.appLocal.languageCode),
+        ),
+      ).thenThrow(Error());
       await model.dbLanguageUpdate();
     });
   });

@@ -18,48 +18,50 @@ import '../../../helpers/test_locator.dart';
 
 Widget createApp() {
   return BaseView<AppLanguage>(
-      onModelReady: (model) => model.initialize(),
-      builder: (context, langModel, child) {
-        return MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          home: const SelectContact(),
-          navigatorKey: locator<NavigationService>().navigatorKey,
-          onGenerateRoute: router.generateRoute,
-        );
-      });
+    onModelReady: (model) => model.initialize(),
+    builder: (context, langModel, child) {
+      return MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        home: const SelectContact(),
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
+      );
+    },
+  );
 }
 
 Widget createChatListScreen() {
   return BaseView<AppLanguage>(
-      onModelReady: (model) => model.initialize(),
-      builder: (context, langModel, child) {
-        return MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: [
-            const AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          home: const ChatPage(),
-          navigatorKey: locator<NavigationService>().navigatorKey,
-          onGenerateRoute: router.generateRoute,
-        );
-      });
+    onModelReady: (model) => model.initialize(),
+    builder: (context, langModel, child) {
+      return MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          const AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        home: const ChatPage(),
+        navigatorKey: locator<NavigationService>().navigatorKey,
+        onGenerateRoute: router.generateRoute,
+      );
+    },
+  );
 }
 
-Future<void> showSelectContactScreen(tester) async {
+Future<void> showSelectContactScreen(WidgetTester tester) async {
   await tester.pumpWidget(createApp());
   await tester.pump();
   await tester.tap(find.textContaining('Ayush'));
   await tester.pumpAndSettle();
 }
 
-Future<void> showSelectContactScreenByChatPage(tester) async {
+Future<void> showSelectContactScreenByChatPage(WidgetTester tester) async {
   await tester.pumpWidget(createChatListScreen());
   await tester.pump();
   await tester.tap(find.byIcon(Icons.add));

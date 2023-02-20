@@ -22,8 +22,8 @@ class CreateEventPage extends StatefulWidget {
 class _CreateEventPageState extends State<CreateEventPage> {
   @override
   Widget build(BuildContext context) {
-    final TextStyle _subtitleTextStyle =
-        Theme.of(context).textTheme.headline5!.copyWith(fontSize: 16);
+    final TextStyle subtitleTextStyle =
+        Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16);
     return BaseView<CreateEventViewModel>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
@@ -42,7 +42,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
             title: Text(
               // text translation to the app language.
               AppLocalizations.of(context)!.strictTranslate('Add Event'),
-              style: Theme.of(context).textTheme.headline6!.copyWith(
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                   ),
@@ -54,7 +54,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                 },
                 child: Text(
                   AppLocalizations.of(context)!.strictTranslate('Add'),
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 16,
                         color: Theme.of(context).colorScheme.secondary,
                       ),
@@ -85,7 +85,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           child: Text(
                             AppLocalizations.of(context)!
                                 .strictTranslate("Add Image"),
-                            style: _subtitleTextStyle,
+                            style: subtitleTextStyle,
                           ),
                         )
                       ],
@@ -132,7 +132,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       // translation of the text to app language.
                       AppLocalizations.of(context)!
                           .strictTranslate('Select Start Date and Time'),
-                      style: _subtitleTextStyle,
+                      style: subtitleTextStyle,
                     ),
                     SizedBox(
                       height: SizeConfig.screenHeight! * 0.013,
@@ -144,20 +144,20 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       date: "${model.eventStartDate.toLocal()}".split(' ')[0],
                       time: model.eventStartTime.format(context),
                       setDate: () async {
-                        final _date = await customDatePicker(
+                        final date = await customDatePicker(
                           initialDate: model.eventStartDate,
                         );
                         setState(() {
-                          model.eventStartDate = _date;
+                          model.eventStartDate = date;
                         });
                       },
                       setTime: () async {
-                        final _time = await customTimePicker(
+                        final time = await customTimePicker(
                           initialTime: model.eventStartTime,
                         );
 
                         setState(() {
-                          model.eventStartTime = _time;
+                          model.eventStartTime = time;
                         });
                       },
                     ),
@@ -169,7 +169,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           .strictTranslate('Select End Date and Time'),
                       style: Theme.of(context)
                           .textTheme
-                          .headline5!
+                          .headlineSmall!
                           .copyWith(fontSize: 16),
                     ),
                     SizedBox(
@@ -180,20 +180,20 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       date: "${model.eventEndDate.toLocal()}".split(' ')[0],
                       time: model.eventEndTime.format(context),
                       setDate: () async {
-                        final _date = await customDatePicker(
+                        final date = await customDatePicker(
                           initialDate: model.eventEndDate,
                         );
                         setState(() {
-                          model.eventEndDate = _date;
+                          model.eventEndDate = date;
                         });
                       },
                       setTime: () async {
-                        final _time = await customTimePicker(
+                        final time = await customTimePicker(
                           initialTime: model.eventEndTime,
                         );
 
                         setState(() {
-                          model.eventEndTime = _time;
+                          model.eventEndTime = time;
                         });
                       },
                     ),
@@ -209,7 +209,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         Text(
                           AppLocalizations.of(context)!
                               .strictTranslate('Does not repeat'),
-                          style: _subtitleTextStyle,
+                          style: subtitleTextStyle,
                         )
                       ],
                     ),
@@ -226,7 +226,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                               Text(
                                 AppLocalizations.of(context)!
                                     .strictTranslate('Keep Public'),
-                                style: _subtitleTextStyle,
+                                style: subtitleTextStyle,
                               ),
                               SizedBox(
                                 width: SizeConfig.screenWidth! * 0.005,
@@ -251,7 +251,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                               Text(
                                 AppLocalizations.of(context)!
                                     .strictTranslate('Keep Registerable'),
-                                style: _subtitleTextStyle,
+                                style: subtitleTextStyle,
                               ),
                               SizedBox(
                                 width: SizeConfig.screenWidth! * 0.005,
@@ -290,7 +290,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Add Admins", style: _subtitleTextStyle),
+                          Text("Add Admins", style: subtitleTextStyle),
                           Icon(
                             Icons.add,
                             color: Theme.of(context).colorScheme.secondary,
@@ -329,7 +329,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Add Members", style: _subtitleTextStyle),
+                          Text("Add Members", style: subtitleTextStyle),
                           Icon(
                             Icons.add,
                             color: Theme.of(context).colorScheme.secondary,

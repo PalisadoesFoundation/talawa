@@ -20,6 +20,7 @@ class DataBaseMutationFunctions {
   late GraphQLClient clientNonAuth;
   late GraphQLClient clientAuth;
   late Queries _query;
+
   init() {
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
@@ -52,10 +53,10 @@ class DataBaseMutationFunctions {
     if (exception.linkException != null) {
       debugPrint(exception.linkException.toString());
       if (showSnackBar) {
-        Timer(const Duration(seconds: 2), () {
-          navigationService
-              .showTalawaErrorDialog("Server not running/wrong url");
-        });
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => navigationService
+              .showTalawaErrorDialog("Server not running/wrong url"),
+        );
       }
       return false;
     }
@@ -88,49 +89,67 @@ class DataBaseMutationFunctions {
       // if the error message is "User not found"
       if (exception.graphqlErrors[i].message == userNotFound.message) {
         if (showSnackBar) {
-          navigationService
-              .showSnackBar("No account registered with this email");
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService
+                .showTalawaErrorDialog("No account registered with this email"),
+          );
         }
         return false;
       }
       // if the error message is "Membership Request already exists"
       if (exception.graphqlErrors[i].message == memberRequestExist.message) {
         if (showSnackBar) {
-          navigationService.showSnackBar("Membership request already exist");
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService
+                .showTalawaErrorDialog("Membership request already exist"),
+          );
         }
         return false;
       }
       // if the error message is "Invalid credentials"
       if (exception.graphqlErrors[i].message == wrongCredentials.message) {
         if (showSnackBar) {
-          navigationService.showSnackBar("Enter a valid password");
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService
+                .showTalawaErrorDialog("Enter a valid password"),
+          );
         }
         return false;
       }
       // if the error message is "Organization not found"
       if (exception.graphqlErrors[i].message == organizationNotFound.message) {
         if (showSnackBar) {
-          navigationService.showSnackBar("Organization Not Found");
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService
+                .showTalawaErrorDialog("Organization Not Found"),
+          );
         }
         return false;
       }
       // if the error message is "Email address already exists"
       if (exception.graphqlErrors[i].message == emailAccountPresent.message) {
         if (showSnackBar) {
-          navigationService
-              .showSnackBar("Account with this email already registered");
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService.showTalawaErrorDialog(
+              "Account with this email already registered",
+            ),
+          );
         }
         return false;
       }
     }
     // if the error is unknown
-    navigationService.showSnackBar("Something went wrong");
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => navigationService.showTalawaErrorDialog("Something went wrong!"),
+    );
     return false;
   }
 
   /// This function is used to run the graph-ql query for authentication.
-  Future<dynamic> gqlAuthQuery(String query,
-      {Map<String, dynamic>? variables}) async {
+  Future<dynamic> gqlAuthQuery(
+    String query, {
+    Map<String, dynamic>? variables,
+  }) async {
     final QueryOptions options = QueryOptions(
       document: gql(query),
       variables: variables ?? <String, dynamic>{},

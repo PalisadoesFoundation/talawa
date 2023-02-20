@@ -7,14 +7,14 @@ import 'package:talawa/locator.dart';
 /// If the user cancels the dialog, null is returned.
 Future<DateTime> customDatePicker({required DateTime initialDate}) async {
   // showDatePicker which shows a material design date range picker used to select a range of dates.
-  final DateTime? _picked = await showDatePicker(
+  final DateTime? picked = await showDatePicker(
     context: navigationService.navigatorKey.currentContext!,
     initialDate: initialDate,
     firstDate: DateTime(2015, 8),
     lastDate: DateTime(2101),
   );
-  if (_picked != null && _picked != initialDate) {
-    return _picked;
+  if (picked != null && picked != initialDate) {
+    return picked;
   }
   return initialDate;
 }
@@ -26,13 +26,13 @@ Future<DateTime> customDatePicker({required DateTime initialDate}) async {
 Future<TimeOfDay> customTimePicker({required TimeOfDay initialTime}) async {
   // showTimePicker which shows a material design time range picker used to select a range of times.
   // Click ![here](https://api.flutter.dev/flutter/material/showTimePicker.html) to know more.
-  final TimeOfDay? _pickedTime = await showTimePicker(
+  final TimeOfDay? pickedTime = await showTimePicker(
     context: navigationService.navigatorKey.currentContext!,
     initialTime: initialTime,
   );
 
-  if (_pickedTime != null && _pickedTime != initialTime) {
-    return _pickedTime;
+  if (pickedTime != null && pickedTime != initialTime) {
+    return pickedTime;
   }
   return initialTime;
 }

@@ -110,31 +110,31 @@ void main() {
       expect(
         iconOne,
         isA<Icon>()
-          ..having(
-            (icon) => icon.icon,
-            'icon',
-            Icons.arrow_forward,
-          )
-          ..having(
-            (icon) => icon.color,
-            'color',
-            Colors.transparent,
-          ),
+            .having(
+              (icon) => icon.icon,
+              'icon',
+              Icons.arrow_forward,
+            )
+            .having(
+              (icon) => icon.color,
+              'color',
+              Colors.transparent,
+            ),
       );
 
       expect(
         iconTwo,
         isA<Icon>()
-          ..having(
-            (icon) => icon.icon,
-            'icon',
-            Icons.arrow_forward,
-          )
-          ..having(
-            (icon) => icon.color,
-            'color',
-            foregroundColor,
-          ),
+            .having(
+              (icon) => icon.icon,
+              'icon',
+              Icons.arrow_forward,
+            )
+            .having(
+              (icon) => icon.color,
+              'color',
+              foregroundColor,
+            ),
       );
 
       expect(find.byType(Text), findsOneWidget);

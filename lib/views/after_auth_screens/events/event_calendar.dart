@@ -106,16 +106,18 @@ _AppointmentDataSource _getCalendarDataSource(List<Event> eventsList) {
     final endTime = DateFormat.jm().parse(event.endTime!);
 
     // adding appointments on the calender for event[index] date time.
-    appointments.add(Appointment(
-      startTime: startDate
-          .add(Duration(hours: startTime.hour, minutes: startTime.minute)),
-      endTime:
-          endDate.add(Duration(hours: endTime.hour, minutes: endTime.minute)),
-      subject: event.title!,
-      color: colors[index % colors.length],
-      location: event.location,
-      id: event.id,
-    ));
+    appointments.add(
+      Appointment(
+        startTime: startDate
+            .add(Duration(hours: startTime.hour, minutes: startTime.minute)),
+        endTime:
+            endDate.add(Duration(hours: endTime.hour, minutes: endTime.minute)),
+        subject: event.title!,
+        color: colors[index % colors.length],
+        location: event.location,
+        id: event.id,
+      ),
+    );
     index++;
   });
 

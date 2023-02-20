@@ -27,7 +27,7 @@ class EditEventForm extends StatelessWidget {
             decoration: InputDecoration(
               labelText: 'Add Event Title',
               isDense: true,
-              labelStyle: Theme.of(context).textTheme.subtitle1,
+              labelStyle: Theme.of(context).textTheme.titleMedium,
               focusedBorder: InputBorder.none,
               counterText: "",
               enabledBorder: InputBorder.none,
@@ -64,7 +64,7 @@ class EditEventForm extends StatelessWidget {
             decoration: InputDecoration(
               hintText: 'Where is the event?',
               labelText: 'Add Location',
-              labelStyle: Theme.of(context).textTheme.subtitle1,
+              labelStyle: Theme.of(context).textTheme.titleMedium,
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
@@ -102,7 +102,7 @@ class EditEventForm extends StatelessWidget {
             decoration: InputDecoration(
               hintText: 'Describe the event',
               labelText: 'Add Description',
-              labelStyle: Theme.of(context).textTheme.subtitle1,
+              labelStyle: Theme.of(context).textTheme.titleMedium,
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,

@@ -19,7 +19,7 @@ class ChatPage extends StatelessWidget {
           centerTitle: true,
           title: Text(
             "Chats",
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.w600,
                   fontSize: 20,
                 ),
@@ -45,8 +45,10 @@ class ChatPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           // onPressed to FloatingActionButton renders SelectContact Widget to chat with other users in the connection.
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SelectContact()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SelectContact()),
+            );
           },
           child: const Icon(Icons.add),
         ),

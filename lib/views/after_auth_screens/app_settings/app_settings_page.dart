@@ -30,7 +30,7 @@ class _AppSettingsPageState extends State<AppSettingsPage> {
         title: Text(
           // title text translation according to the app language.
           AppLocalizations.of(context)!.strictTranslate('Settings'),
-          style: Theme.of(context).textTheme.headline6!.copyWith(
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
               ),

@@ -40,10 +40,10 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                   GestureDetector(
                     key: const Key('StartDateSelector'),
                     onTap: () async {
-                      final _date =
+                      final date =
                           await customDatePicker(initialDate: _startDate);
                       setState(() {
-                        _startDate = _date;
+                        _startDate = date;
                       });
                     },
                     child: SizedBox(
@@ -88,10 +88,10 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                   GestureDetector(
                     key: const Key('EndDateSelector'),
                     onTap: () async {
-                      final _date =
+                      final date =
                           await customDatePicker(initialDate: _endDate);
                       setState(() {
-                        _endDate = _date;
+                        _endDate = date;
                       });
                     },
                     child: SizedBox(
@@ -144,7 +144,7 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     },
                     child: Text(
                       AppLocalizations.of(context)!.strictTranslate('Cancel'),
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),
                 ),
@@ -158,7 +158,9 @@ class _ExploreEventDialogState extends State<ExploreEventDialog> {
                     child: Text(
                       AppLocalizations.of(context)!.strictTranslate('Done'),
                       style: const TextStyle(
-                          fontSize: 14, color: Color(0xff4285F4)),
+                        fontSize: 14,
+                        color: Color(0xff4285F4),
+                      ),
                     ),
                   ),
                 )

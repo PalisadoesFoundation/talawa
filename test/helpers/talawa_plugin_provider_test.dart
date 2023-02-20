@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/plugins/talawa_plugin_provider.dart';
-import 'package:test/test.dart';
 
 void main() {
   test('TalwaPluginProvider Test', () async {

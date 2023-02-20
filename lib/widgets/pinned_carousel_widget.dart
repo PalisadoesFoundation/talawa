@@ -60,7 +60,7 @@ class PinnedPostCarousel extends StatelessWidget {
                   child: Text(
                     AppLocalizations.of(context)!
                         .strictTranslate("See all Pinned news"),
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),
                 const Expanded(flex: 1, child: Icon(Icons.arrow_forward_ios))
@@ -124,7 +124,7 @@ class CustomCarouselScrollerState extends State<CustomCarouselScroller> {
                       : widget.pinnedPosts[pindex].description!,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyText1!
+                      .bodyLarge!
                       .copyWith(color: const Color(0xFF737373)),
                 ),
               ),
