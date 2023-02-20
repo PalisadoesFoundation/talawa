@@ -93,35 +93,40 @@ Widget createTaskCardWidget({
   bool showMoreOptions = false,
 }) {
   return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ExploreTasksViewModel>(
-          create: (_) => ExploreTasksViewModel(),
-        ),
+    providers: [
+      ChangeNotifierProvider<ExploreTasksViewModel>(
+        create: (_) => ExploreTasksViewModel(),
+      ),
+    ],
+    child: MaterialApp(
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      navigatorObservers: [],
+      locale: const Locale('en'),
+      supportedLocales: [
+        const Locale('en', 'US'),
+        const Locale('es', 'ES'),
+        const Locale('fr', 'FR'),
+        const Locale('hi', 'IN'),
+        const Locale('zh', 'CN'),
+        const Locale('de', 'DE'),
+        const Locale('ja', 'JP'),
+        const Locale('pt', 'PT'),
       ],
-      child: MaterialApp(
-        navigatorKey: locator<NavigationService>().navigatorKey,
-        navigatorObservers: [],
-        locale: const Locale('en'),
-        supportedLocales: [
-          const Locale('en', 'US'),
-          const Locale('es', 'ES'),
-          const Locale('fr', 'FR'),
-          const Locale('hi', 'IN'),
-          const Locale('zh', 'CN'),
-          const Locale('de', 'DE'),
-          const Locale('ja', 'JP'),
-          const Locale('pt', 'PT'),
-        ],
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(isTest: true),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        onGenerateRoute: router.generateRoute,
-        home: Scaffold(
-            body: TaskCard(
-                appointment: appointment, showMoreOptions: true, task: task1)),
-      ));
+      localizationsDelegates: [
+        const AppLocalizationsDelegate(isTest: true),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      onGenerateRoute: router.generateRoute,
+      home: Scaffold(
+        body: TaskCard(
+          appointment: appointment,
+          showMoreOptions: true,
+          task: task1,
+        ),
+      ),
+    ),
+  );
 }
 
 Widget createJoinOrgAfterAuth({String orgId = "fake_id"}) {
@@ -129,21 +134,27 @@ Widget createJoinOrgAfterAuth({String orgId = "fake_id"}) {
     onModelReady: (model) => model.initialize(),
     builder: (context, langModel, child) {
       return MaterialApp(
-          locale: const Locale('en'),
-          localizationsDelegates: const [
-            AppLocalizationsDelegate(isTest: true),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          home: TaskCard(
-              appointment: appointment, showMoreOptions: true, task: task1));
+        locale: const Locale('en'),
+        localizationsDelegates: const [
+          AppLocalizationsDelegate(isTest: true),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        home: TaskCard(
+          appointment: appointment,
+          showMoreOptions: true,
+          task: task1,
+        ),
+      );
     },
   );
 }
 
 final Appointment appointment = Appointment(
-    startTime: DateTime.now(),
-    endTime: DateTime.now().add(const Duration(seconds: 5)));
+  startTime: DateTime.now(),
+  endTime: DateTime.now().add(const Duration(seconds: 5)),
+);
+
 void main() {
   testSetupLocator();
   getAndRegisterTaskService();
