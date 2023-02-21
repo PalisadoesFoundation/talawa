@@ -35,10 +35,10 @@ void main() {
       expect(mutation, true);
     });
     test("Check if logout works correctly", () {
-      var mutation = false;
+      const mutation = false;
       expect(mutation, false);
 
-      var data = """
+      const data = """
         mutation {
           logout
         }
@@ -51,7 +51,7 @@ void main() {
       expect(mutation, false);
 
       final fnData = Queries();
-      var ff = fnData.fetchJoinInOrg;
+      final ff = fnData.fetchJoinInOrg;
       if (ff.contains('query organizationsConnection')) {
         mutation = true;
       }
@@ -72,7 +72,7 @@ void main() {
       expect(mutation, false);
 
       final fnData = Queries();
-      var ff = fnData.fetchJoinInOrgByName;
+      final ff = fnData.fetchJoinInOrgByName;
       if (ff.contains('query organizationsConnection')) {
         mutation = true;
       }
@@ -156,7 +156,7 @@ void main() {
       expect(mutation, false);
 
       final fnData = Queries();
-      var ff = fnData.fetchJoinInOrgByName;
+      final ff = fnData.fetchJoinInOrgByName;
       if (ff.contains('query organizationsConnection')) {
         mutation = true;
       }
