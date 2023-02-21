@@ -51,7 +51,7 @@ We utilize GitHub issues and pull requests to keep track of issues and contribut
 
 #### Issues
 
-Make sure you are following [issue report guidelines](issue-guidelines.md) available here before creating any new issues on Talawa project.
+Make sure you are following [issue report guidelines](ISSUE_GUIDELINES.md) available here before creating any new issues on Talawa project.
 
 #### Pull Requests
 
