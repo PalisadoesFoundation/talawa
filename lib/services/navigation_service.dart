@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:talawa/widgets/talawa_error_dialog.dart';
 import 'package:talawa/widgets/talawa_error_widget.dart';
 
+import '../enums/enums.dart';
+
 /// NavigationService class provides different functions as service in the context of navigation.
 ///
 /// Services include:
@@ -110,13 +112,19 @@ class NavigationService {
     ));
   }
 
-  void showTalawaErrorDialog(String errorMessage) {
+  void showTalawaErrorDialog(
+    String errorMessage,
+    // MessageType messageType
+  ) {
     showDialog(
       context: navigatorKey.currentContext!,
       barrierColor: Colors.transparent,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return TalawaErrorDialog(errorMessage);
+        return TalawaErrorDialog(
+          errorMessage,
+          messageType: MessageType.info,
+        );
       },
     );
   }
