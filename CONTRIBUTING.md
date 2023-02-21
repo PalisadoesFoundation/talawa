@@ -55,7 +55,7 @@ Make sure you are following [issue report guidelines](ISSUE_GUIDELINES.md) avail
 
 #### Pull Requests
 
-[Pull Request guidelines](PR-guidelines.md) is best resource to follow to start working on open issues.
+[Pull Request guidelines](PR_GUIDELINES.md) is best resource to follow to start working on open issues.
 
 #### Branching Strategy
 
