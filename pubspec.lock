@@ -16,7 +16,7 @@ packages:
       sha256: "953f097772b5fd095e0ee6eeeab34e3a42de91d5f43fa86b5de8485a57494f96"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.15"
+    version: "1.0.16"
   analyzer:
     dependency: transitive
     description:
@@ -304,7 +304,7 @@ packages:
       sha256: "46b80acfb472d8abc500c2cb6ce65c4b5237d825e4c23bfc3efc70df9eec1a6e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.1"
+    version: "2.7.0"
   firebase_core_platform_interface:
     dependency: "direct main"
     description:
@@ -328,7 +328,7 @@ packages:
       sha256: "0f540f162af6f92b1de00d9c05367afdbe974625d025d8c58a8458aec7fd1dcf"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.4"
+    version: "14.2.5"
   firebase_messaging_platform_interface:
     dependency: transitive
     description:
@@ -336,7 +336,7 @@ packages:
       sha256: ffcb3c0de14213d54453fc827972214eb8f25d887c88e19b513bdd6741378db0
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.13"
+    version: "4.2.14"
   firebase_messaging_web:
     dependency: transitive
     description:
@@ -344,7 +344,7 @@ packages:
       sha256: "79be85713f0e76557c91a96d470fd8dfa89cbbc427edb2299d7d7ff35113380b"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.14"
+    version: "3.2.15"
   fixnum:
     dependency: transitive
     description:
@@ -1385,7 +1385,7 @@ packages:
       sha256: c1decff0781e39660cf8ccc33bc4f7d502625c5f428d7b26469825accc791bf7
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.50"
+    version: "20.4.51"
   syncfusion_flutter_core:
     dependency: transitive
     description:
@@ -1393,7 +1393,7 @@ packages:
       sha256: "33141f9073c607bd113898d241aa6a03ccc1856a314bd061015180c35d47012f"
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.50"
+    version: "20.4.51"
   syncfusion_flutter_datepicker:
     dependency: "direct main"
     description:
@@ -1401,7 +1401,7 @@ packages:
       sha256: "19f90a9e70c9edf5c23f900af224dea1e12fd9b2108ab528098c3cfd7508c57a"
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.50"
+    version: "20.4.51"
   synchronized:
     dependency: transitive
     description:
