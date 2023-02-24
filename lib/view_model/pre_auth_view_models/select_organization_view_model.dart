@@ -90,12 +90,12 @@ class SelectOrganizationViewModel extends BaseModel {
         selectedOrganization = OrgInfo(id: '-1');
         navigationService.showTalawaErrorSnackBar(
           'Organisation already joined',
-          MessageType.error,
+          MessageType.warning,
         );
       } else {
         navigationService.showTalawaErrorSnackBar(
           'Membership request already sent',
-          MessageType.error,
+          MessageType.warning,
         );
       }
     } else {
@@ -115,7 +115,7 @@ class SelectOrganizationViewModel extends BaseModel {
     } else {
       navigationService.showTalawaErrorSnackBar(
         'Select one organization to continue',
-        MessageType.error,
+        MessageType.warning,
         duration: const Duration(milliseconds: 750),
       );
     }
@@ -151,7 +151,7 @@ class SelectOrganizationViewModel extends BaseModel {
           navigationService.pop();
           navigationService.showTalawaErrorSnackBar(
             'Joined ${selectedOrganization.name} successfully',
-            MessageType.error,
+            MessageType.info,
           );
         }
       } on Exception catch (e) {

@@ -58,7 +58,7 @@ class AddPostViewModel extends BaseModel {
     _controller.text = "";
     _navigationService.showTalawaErrorSnackBar(
       "Post is uploaded",
-      MessageType.error,
+      MessageType.info,
     );
   }
 
