@@ -15,7 +15,7 @@ enum ChatState { initial, loading, complete }
 enum TileType { user, org, option }
 
 /// Represents the type of the Message
-enum MessageType { error, warning, info }
+enum MessageType { error, warning, info, random }
 
 enum CallFor { login, signup, joinPublicOrg }
 

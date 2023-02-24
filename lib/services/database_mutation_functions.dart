@@ -54,9 +54,9 @@ class DataBaseMutationFunctions {
       // debugPrint(exception.linkException.toString());
       if (showSnackBar) {
         WidgetsBinding.instance.addPostFrameCallback(
-          (_) => navigationService.showTalawaErrorDialog(
+          (_) => navigationService.showTalawaErrorSnackBar(
             "Server not running/wrong url",
-            MessageType.error,
+            MessageType.info,
           ),
         );
       }

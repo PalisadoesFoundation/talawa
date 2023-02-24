@@ -108,6 +108,7 @@ class NavigationService {
           messageType: messageType,
           errorMessage: errorMessage,
         ),
+        backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
       ),
     );
   }

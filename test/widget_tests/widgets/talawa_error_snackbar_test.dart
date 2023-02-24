@@ -131,23 +131,110 @@ void main() {
         (tester) async {
       await tester.pumpWidget(createTalawaErrorWidget());
       await tester.pump();
+
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
+
       expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
     });
     testWidgets('Check if the Snackbar shows up in error form', (tester) async {
-      await tester.pumpWidget(createTalawaErrorWidget());
+      await tester.pumpWidget(createTalawaErrorWidget2());
       await tester.pump();
+
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
+
       expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
     });
     testWidgets('Check if the Snackbar shows up in info form', (tester) async {
+      await tester.pumpWidget(createTalawaErrorWidget3());
+      await tester.pump();
+
+      await tester.tap(find.textContaining('Open'));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+    });
+    testWidgets("Check if the Snackbar's text shows up in warning form",
+        (tester) async {
       await tester.pumpWidget(createTalawaErrorWidget());
+      await tester.pump();
+
+      await tester.tap(find.textContaining('Open'));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+
+      final errorMesgFinder = find.text('Test Error');
+
+      expect(errorMesgFinder, findsOneWidget);
+    });
+    testWidgets('Check if the Snackbar"s text shows up in error form',
+        (tester) async {
+      await tester.pumpWidget(createTalawaErrorWidget2());
+      await tester.pump();
+
+      await tester.tap(find.textContaining('Open'));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+
+      final errorMesgFinder = find.text('Test Error');
+
+      expect(errorMesgFinder, findsOneWidget);
+    });
+    testWidgets('Check if the Snackbar"s text shows up in info form',
+        (tester) async {
+      await tester.pumpWidget(createTalawaErrorWidget3());
+      await tester.pump();
+
+      await tester.tap(find.textContaining('Open'));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+
+      final errorMesgFinder = find.text('Test Error');
+
+      expect(errorMesgFinder, findsOneWidget);
+    });
+
+    testWidgets('Check if the Snackbar icon shows up in info form',
+        (tester) async {
+      await tester.pumpWidget(createTalawaErrorWidget3());
+      await tester.pump();
+      await tester.tap(find.textContaining('Open'));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+
+      final iconFinder = find.byIcon(Icons.info_outline);
+
+      expect(iconFinder, findsOneWidget);
+    });
+
+    testWidgets('Check if the Snackbar shows up in error form', (tester) async {
+      await tester.pumpWidget(createTalawaErrorWidget2());
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
       expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+
+      final iconFinder = find.byIcon(Icons.error);
+
+      expect(iconFinder, findsOneWidget);
+    });
+    testWidgets('Check if the Snackbar shows up in warning form',
+        (tester) async {
+      await tester.pumpWidget(createTalawaErrorWidget());
+      await tester.pump();
+      await tester.tap(find.textContaining('Open'));
+      await tester.pump(const Duration(seconds: 1));
+
+      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+
+      final iconFinder = find.byIcon(Icons.error);
+
+      expect(iconFinder, findsOneWidget);
     });
   });
 }
