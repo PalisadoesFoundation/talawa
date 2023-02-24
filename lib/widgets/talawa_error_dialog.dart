@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:talawa/enums/enums.dart';
+import 'package:talawa/utils/app_localization.dart';
 
 class TalawaErrorDialog extends StatelessWidget {
   const TalawaErrorDialog(this.errorMessage,
@@ -53,12 +54,14 @@ class TalawaErrorDialog extends StatelessWidget {
             ),
             Text(
               messageType == MessageType.error
-                  ? 'Error'
+                  ? AppLocalizations.of(context)!.strictTranslate('Error')
                   : messageType == MessageType.warning
-                      ? 'Warning'
+                      ? AppLocalizations.of(context)!.strictTranslate('Warning')
                       : messageType == MessageType.info
-                          ? 'Information'
-                          : 'Error',
+                          ? AppLocalizations.of(context)!
+                              .strictTranslate('Information')
+                          : AppLocalizations.of(context)!
+                              .strictTranslate('Error'),
               style: TextStyle(
                   color: messageType == MessageType.error
                       ? Colors.red
@@ -74,7 +77,9 @@ class TalawaErrorDialog extends StatelessWidget {
               height: 5,
             ),
             AutoSizeText(
-              errorMessage,
+              AppLocalizations.of(context)!
+                  .strictTranslate(errorMessage)
+                  .toString(),
               style: TextStyle(fontSize: 16),
               maxLines: 3,
             ),

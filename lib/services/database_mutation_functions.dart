@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/queries.dart';
 
 /// DataBaseMutationFunctions class provides different services that are under the context of graphQL mutations and queries.
@@ -53,7 +55,10 @@ class DataBaseMutationFunctions {
       if (showSnackBar) {
         Timer(const Duration(seconds: 2), () {
           navigationService
-              .showTalawaErrorDialog("Server not running/wrong url");
+              // .showTalawaErrorSnackBar(
+              //     "Server not running/wrong url", MessageType.error);
+              .showTalawaErrorDialog(
+                  "Server not running/wrong url", MessageType.error);
         });
       }
       return false;
@@ -87,8 +92,8 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == userNotFound.message) {
         if (showSnackBar) {
           Timer(const Duration(seconds: 2), () {
-            navigationService
-                .showTalawaErrorDialog("No account registered with this email");
+            navigationService.showTalawaErrorDialog(
+                "No account registered with this email", MessageType.error);
           });
         }
         return false;
@@ -97,8 +102,8 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == memberRequestExist.message) {
         if (showSnackBar) {
           Timer(const Duration(seconds: 2), () {
-            navigationService
-                .showTalawaErrorDialog("Membership request already exist");
+            navigationService.showTalawaErrorDialog(
+                "Membership request already exist", MessageType.error);
           });
         }
         return false;
@@ -107,7 +112,8 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == wrongCredentials.message) {
         if (showSnackBar) {
           Timer(const Duration(seconds: 2), () {
-            navigationService.showTalawaErrorDialog("Enter a valid password");
+            navigationService.showTalawaErrorDialog(
+                "Enter a valid password", MessageType.error);
           });
         }
         return false;
@@ -116,7 +122,8 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == organizationNotFound.message) {
         if (showSnackBar) {
           Timer(const Duration(seconds: 2), () {
-            navigationService.showTalawaErrorDialog("Organization Not Found");
+            navigationService.showTalawaErrorDialog(
+                "Organization Not Found", MessageType.error);
           });
         }
         return false;
@@ -126,7 +133,8 @@ class DataBaseMutationFunctions {
         if (showSnackBar) {
           Timer(const Duration(seconds: 2), () {
             navigationService.showTalawaErrorDialog(
-                "Account with this email already registered");
+                "Account with this email already registered",
+                MessageType.error);
           });
         }
         return false;
@@ -134,7 +142,8 @@ class DataBaseMutationFunctions {
     }
     // if the error is unknown
     Timer(const Duration(seconds: 2), () {
-      navigationService.showTalawaErrorDialog("Something went wrong!");
+      navigationService.showTalawaErrorDialog(
+          "Something went wrong!", MessageType.error);
     });
     return false;
   }

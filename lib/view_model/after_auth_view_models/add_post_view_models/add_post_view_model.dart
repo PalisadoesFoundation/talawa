@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -55,7 +56,8 @@ class AddPostViewModel extends BaseModel {
   void uploadPost() {
     removeImage();
     _controller.text = "";
-    _navigationService.showSnackBar("Post is uploaded");
+    _navigationService.showTalawaErrorSnackBar(
+        "Post is uploaded", MessageType.error);
   }
 
   /// This function removes the image selected.

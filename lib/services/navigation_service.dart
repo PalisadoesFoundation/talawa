@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:talawa/widgets/talawa_error_dialog.dart';
-import 'package:talawa/widgets/talawa_error_widget.dart';
+import 'package:talawa/widgets/talawa_error_snackbar.dart';
 
 import '../enums/enums.dart';
 
@@ -98,13 +98,15 @@ class NavigationService {
     );
   }
 
-  void showTalawaErrorWidget(
-    String errorMessage, {
+  void showTalawaErrorSnackBar(
+    String errorMessage,
+    MessageType messageType, {
     Duration duration = const Duration(seconds: 2),
   }) {
     ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(SnackBar(
       padding: EdgeInsets.zero,
-      content: TalawaErrorWidget(
+      content: TalawaErrorSnackBar(
+        messageType: messageType,
         errorMessage: errorMessage,
       ),
       // backgroundColor: Colors.grey,
@@ -112,10 +114,7 @@ class NavigationService {
     ));
   }
 
-  void showTalawaErrorDialog(
-    String errorMessage,
-    // MessageType messageType
-  ) {
+  void showTalawaErrorDialog(String errorMessage, MessageType messageType) {
     showDialog(
       context: navigatorKey.currentContext!,
       barrierColor: Colors.transparent,
@@ -123,7 +122,7 @@ class NavigationService {
       builder: (BuildContext context) {
         return TalawaErrorDialog(
           errorMessage,
-          messageType: MessageType.info,
+          messageType: messageType,
         );
       },
     );

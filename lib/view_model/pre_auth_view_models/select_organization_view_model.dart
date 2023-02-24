@@ -88,9 +88,11 @@ class SelectOrganizationViewModel extends BaseModel {
         notifyListeners();
       } else if (orgAlreadyJoined) {
         selectedOrganization = OrgInfo(id: '-1');
-        navigationService.showSnackBar('Organisation already joined');
+        navigationService.showTalawaErrorSnackBar(
+            'Organisation already joined', MessageType.error);
       } else {
-        navigationService.showSnackBar('Membership request already sent');
+        navigationService.showTalawaErrorSnackBar(
+            'Membership request already sent', MessageType.error);
       }
     } else {
       selectedOrganization = item;
@@ -107,8 +109,9 @@ class SelectOrganizationViewModel extends BaseModel {
         arguments: selectedOrganization,
       );
     } else {
-      navigationService.showSnackBar(
+      navigationService.showTalawaErrorSnackBar(
         'Select one organization to continue',
+        MessageType.error,
         duration: const Duration(milliseconds: 750),
       );
     }
@@ -142,12 +145,14 @@ class SelectOrganizationViewModel extends BaseModel {
           );
         } else {
           navigationService.pop();
-          navigationService
-              .showSnackBar('Joined ${selectedOrganization.name} successfully');
+          navigationService.showTalawaErrorSnackBar(
+              'Joined ${selectedOrganization.name} successfully',
+              MessageType.error);
         }
       } on Exception catch (e) {
         print(e);
-        navigationService.showSnackBar('SomeThing went wrong');
+        navigationService.showTalawaErrorSnackBar(
+            'SomeThing went wrong', MessageType.error);
       }
     } else {
       try {
@@ -167,14 +172,15 @@ class SelectOrganizationViewModel extends BaseModel {
             );
           } else {
             navigationService.pop();
-            navigationService.showSnackBar(
-              'Join in request sent to ${selectedOrganization.name} successfully',
-            );
+            navigationService.showTalawaErrorSnackBar(
+                'Join in request sent to ${selectedOrganization.name} successfully',
+                MessageType.info);
           }
         }
       } on Exception catch (e) {
         print(e);
-        navigationService.showSnackBar('SomeThing went wrong');
+        navigationService.showTalawaErrorSnackBar(
+            'SomeThing went wrong', MessageType.error);
       }
     }
   }

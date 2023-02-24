@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/widgets/talawa_error_widget.dart';
+import 'package:talawa/widgets/talawa_error_snackbar.dart';
 
 import '../../helpers/test_locator.dart';
 
@@ -36,7 +37,8 @@ Widget createTalawaErrorWidget({
       body: TextButton(
         child: const Text('Open'),
         onPressed: () {
-          navigationService.showTalawaErrorWidget("Test Error");
+          navigationService.showTalawaErrorSnackBar(
+              "Test Error", MessageType.warning);
         },
       ),
     ),
@@ -52,7 +54,7 @@ void main() {
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
-      expect(find.byType(TalawaErrorWidget), findsOneWidget);
+      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
     });
   });
 }

@@ -9,6 +9,8 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 import 'package:vibration/vibration.dart';
 
+import '../../enums/enums.dart';
+
 /// SetUrlViewModel class helps to interact with model to serve data
 /// and react to user's input for Set Url Section.
 ///
@@ -105,8 +107,8 @@ class SetUrlViewModel extends BaseModel {
       } else {
         // navigationService
         //     .showSnackBar("URL doesn't exist/no connection please check");
-        navigationService.showTalawaErrorWidget(
-            "URL doesn't exist/no connection please check");
+        navigationService.showTalawaErrorSnackBar(
+            "URL doesn't exist/no connection please check", MessageType.error);
       }
     }
   }
@@ -188,17 +190,20 @@ class SetUrlViewModel extends BaseModel {
           navigationService.pushScreen('/selectOrg', arguments: orgId);
         } on CameraException catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorWidget("The Camera is not working");
+          navigationService.showTalawaErrorSnackBar(
+              "The Camera is not working", MessageType.error);
         } on QrEmbeddedImageException catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorDialog("The QR is not Working");
+          navigationService.showTalawaErrorDialog(
+              "The QR is not Working", MessageType.error);
         } on QrUnsupportedVersionException catch (e) {
           debugPrint(e.toString());
-          navigationService
-              .showTalawaErrorDialog("This QR version is not Supported.");
+          navigationService.showTalawaErrorDialog(
+              "This QR version is not Supported.", MessageType.error);
         } on Exception catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorWidget("This QR is not for the App");
+          navigationService.showTalawaErrorSnackBar(
+              "This QR is not for the App", MessageType.error);
         }
       }
     });
