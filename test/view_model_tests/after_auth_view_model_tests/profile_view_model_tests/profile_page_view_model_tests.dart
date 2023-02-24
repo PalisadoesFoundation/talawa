@@ -72,11 +72,13 @@ void main() {
       final model = ProfilePageViewModel();
       model.initialize();
       const Icon testIcon = Icon(Icons.cancel);
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: model.iconButton(testIcon, () {}),
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: model.iconButton(testIcon, () {}),
+          ),
         ),
-      ));
+      );
       final iconButtonFinder = find.byType(IconButton);
       final iconButton = tester.firstWidget(iconButtonFinder);
       expect((iconButton as IconButton).icon, testIcon);
@@ -87,17 +89,20 @@ void main() {
       final model = ProfilePageViewModel();
       model.initialize();
       const String amt = "test_amt";
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(body: model.dominationButton(amt, mockContext, () {})),
-      ));
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(body: model.dominationButton(amt, mockContext, () {})),
+        ),
+      );
       final containerFinder = find.byType(Container);
       final Container container = tester.firstWidget(containerFinder);
       expect(
-          container.padding,
-          EdgeInsets.symmetric(
-            vertical: SizeConfig.screenHeight! * 0.02,
-            horizontal: SizeConfig.screenWidth! * 0.075,
-          ));
+        container.padding,
+        EdgeInsets.symmetric(
+          vertical: SizeConfig.screenHeight! * 0.02,
+          horizontal: SizeConfig.screenWidth! * 0.075,
+        ),
+      );
     });
 
     testWidgets("Test logout function", (tester) async {

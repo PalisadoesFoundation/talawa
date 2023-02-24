@@ -13,28 +13,31 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_date_time_tile.dart';
 import 'package:talawa/widgets/member_name_tile.dart';
 
-Widget createEventScreen(
-        {ThemeMode themeMode = ThemeMode.light, required ThemeData theme}) =>
+Widget createEventScreen({
+  ThemeMode themeMode = ThemeMode.light,
+  required ThemeData theme,
+}) =>
     BaseView<AppLanguage>(
-        onModelReady: (model) => model.initialize(),
-        builder: (context, langModel, child) {
-          return MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(isTest: true),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            key: const Key('Root'),
-            themeMode: themeMode,
-            theme: theme,
-            home: const CreateEventPage(
-              key: Key('CreateEventScreen'),
-            ),
-            navigatorKey: navigationService.navigatorKey,
-            onGenerateRoute: router.generateRoute,
-          );
-        });
+      onModelReady: (model) => model.initialize(),
+      builder: (context, langModel, child) {
+        return MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          key: const Key('Root'),
+          themeMode: themeMode,
+          theme: theme,
+          home: const CreateEventPage(
+            key: Key('CreateEventScreen'),
+          ),
+          navigatorKey: navigationService.navigatorKey,
+          onGenerateRoute: router.generateRoute,
+        );
+      },
+    );
 
 void main() {
   SizeConfig().test();
@@ -44,9 +47,11 @@ void main() {
     group('Check if the validator of the create_event_form is working', () {
       testWidgets("Testing if text field validator are working",
           (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final addBtn = find.descendant(
           of: find.byType(AppBar),
@@ -57,10 +62,12 @@ void main() {
     });
 
     testWidgets("Testing if dark mode is applied", (tester) async {
-      await tester.pumpWidget(createEventScreen(
-        themeMode: ThemeMode.dark,
-        theme: TalawaTheme.darkTheme,
-      ));
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
       expect(
         (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
@@ -72,10 +79,12 @@ void main() {
   });
   group("Create Event Screen Widget Test in light mode", () {
     testWidgets("Testing if light mode is applied", (tester) async {
-      await tester.pumpWidget(createEventScreen(
-        themeMode: ThemeMode.light,
-        theme: TalawaTheme.lightTheme,
-      ));
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.light,
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
       expect(
         (tester.firstWidget(find.byKey(const Key('Root'))) as MaterialApp)
@@ -87,9 +96,11 @@ void main() {
   });
   group('Create Event Screen Widget Test', () {
     testWidgets("Testing if Create Event Screen shows up", (tester) async {
-      await tester.pumpWidget(createEventScreen(
-        theme: TalawaTheme.lightTheme,
-      ));
+      await tester.pumpWidget(
+        createEventScreen(
+          theme: TalawaTheme.lightTheme,
+        ),
+      );
       await tester.pumpAndSettle();
       final screenScaffoldWidget = find.byKey(const Key('CreateEventScreen'));
       expect(screenScaffoldWidget, findsOneWidget);
@@ -97,9 +108,11 @@ void main() {
 
     group("Testing app bar properties and contents", () {
       testWidgets("Testing if app bar shows up", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appBar = find.byType(AppBar);
         final appBarWidget = tester.firstWidget(appBar) as AppBar;
@@ -107,9 +120,11 @@ void main() {
         expect(appBarWidget.elevation, 1);
       });
       testWidgets("Testing close button in app bar", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appBar = find.byType(AppBar);
         final appBarWidget = tester.firstWidget(appBar) as AppBar;
@@ -128,9 +143,11 @@ void main() {
         );
       });
       testWidgets("Testing title in app bar", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appBar = find.byType(AppBar);
         final appBarWidget = tester.firstWidget(appBar) as AppBar;
@@ -149,7 +166,7 @@ void main() {
         );
         expect(
           (appBarWidget.title as Text?)?.style!.fontFamily,
-          TalawaTheme.lightTheme.textTheme.headline6!.fontFamily,
+          TalawaTheme.lightTheme.textTheme.titleLarge!.fontFamily,
         );
         expect(
           (appBarWidget.title as Text?)?.style!.fontSize,
@@ -157,9 +174,11 @@ void main() {
         );
       });
       testWidgets("Testing add button in app bar", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appBar = find.byType(AppBar);
         final appBarWidget = tester.firstWidget(appBar) as AppBar;
@@ -200,9 +219,11 @@ void main() {
 
     group("Testing body properties and contents", () {
       testWidgets("Testing Add Image section", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -233,17 +254,21 @@ void main() {
         expect(imageShowWidget, findsNothing);
       });
       testWidgets("Testing if Create Event Form widget shows", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final createEventForm = find.byType(CreateEventForm);
         expect(createEventForm, findsOneWidget);
       });
       testWidgets("Testing Select Start Date and Time section", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -261,9 +286,11 @@ void main() {
         );
       });
       testWidgets("Testing Select End Date and Time section", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -281,9 +308,11 @@ void main() {
         );
       });
       testWidgets("Testing Does not repeat section", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -306,9 +335,11 @@ void main() {
         );
       });
       testWidgets("Testing Keep public section", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -335,9 +366,11 @@ void main() {
         expect((tester.firstWidget(switches) as Switch).value, false);
       });
       testWidgets("Testing Keep Registerable section", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appLocalization = AppLocalizations.of(
           navigationService.navigatorKey.currentContext!,
@@ -363,12 +396,16 @@ void main() {
         await tester.tap(switches.at(1));
         await tester.pumpAndSettle();
         expect(
-            (tester.widgetList(switches).toList()[1] as Switch).value, false);
+          (tester.widgetList(switches).toList()[1] as Switch).value,
+          false,
+        );
       });
       testWidgets("Testing Add Admins section", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final addAdminsText = find.descendant(
           of: find.byType(Row),
@@ -389,9 +426,11 @@ void main() {
         expect(find.byType(BottomSheet), findsOneWidget);
       });
       testWidgets("Testing Add Members section", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final addMembersText = find.descendant(
           of: find.byType(Row),
@@ -412,9 +451,11 @@ void main() {
         expect(find.byType(BottomSheet), findsOneWidget);
       });
       testWidgets("Testing if cancel button in app bar works", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
         final appBar = find.byType(AppBar);
         final closeBtn = find.descendant(
@@ -428,9 +469,11 @@ void main() {
         expect(createEventScreenPage, findsNothing);
       });
       testWidgets("Testing if mapScreen opens up", (tester) async {
-        await tester.pumpWidget(createEventScreen(
-          theme: TalawaTheme.lightTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            theme: TalawaTheme.lightTheme,
+          ),
+        );
         await tester.pumpAndSettle();
 
         await tester.tap(find.text('Choose on map'));

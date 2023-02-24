@@ -55,9 +55,9 @@ Future<void> main() async {
 
       await model.checkURLandNavigate('/', 'arguments');
 
-      final captured = verify((navigationService as MockNavigationService)
-              .pushDialog(captureAny))
-          .captured;
+      final captured = verify(
+        (navigationService as MockNavigationService).pushDialog(captureAny),
+      ).captured;
       expect(
         captured[0],
         isA<CustomProgressDialog>().having(
@@ -91,8 +91,12 @@ Future<void> main() async {
 
       await model.checkURLandNavigate('/', 'arguments');
 
-      verify(navigationService.showTalawaErrorSnackBar(
-          "URL doesn't exist/no connection please check", MessageType.error));
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          "URL doesn't exist/no connection please check",
+          MessageType.error,
+        ),
+      );
     });
 
     testWidgets('Check if scanQR() is working fine', (tester) async {

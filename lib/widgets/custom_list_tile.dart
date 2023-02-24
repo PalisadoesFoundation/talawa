@@ -74,14 +74,14 @@ class CustomListTile extends StatelessWidget {
                             ? '${userInfo!.firstName!} ${userInfo!.lastName!}'
                             : option!.title,
                     style: type == TileType.org
-                        ? Theme.of(context).textTheme.headline5
+                        ? Theme.of(context).textTheme.headlineSmall
                         : type == TileType.user
-                            ? Theme.of(context).textTheme.headline6
+                            ? Theme.of(context).textTheme.titleLarge
                             : option!.trailingIconButton == null
-                                ? Theme.of(context).textTheme.bodyText2
+                                ? Theme.of(context).textTheme.bodyMedium
                                 : Theme.of(context)
                                     .textTheme
-                                    .headline5!
+                                    .headlineSmall!
                                     .copyWith(fontSize: 18),
                   ),
                   type != TileType.user
@@ -90,10 +90,10 @@ class CustomListTile extends StatelessWidget {
                               ? '${AppLocalizations.of(context)!.strictTranslate("Creator")}: ${orgInfo!.creatorInfo!.firstName!} ${orgInfo!.creatorInfo!.lastName!}'
                               : option!.subtitle,
                           style: type == TileType.org
-                              ? Theme.of(context).textTheme.headline6
+                              ? Theme.of(context).textTheme.titleLarge
                               : option!.trailingIconButton == null
-                                  ? Theme.of(context).textTheme.caption
-                                  : Theme.of(context).textTheme.headline6,
+                                  ? Theme.of(context).textTheme.bodySmall
+                                  : Theme.of(context).textTheme.titleLarge,
                         )
                       : const SizedBox(),
                 ],

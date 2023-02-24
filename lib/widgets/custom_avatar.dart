@@ -33,7 +33,7 @@ class CustomAvatar extends StatelessWidget {
                 firstAlphabet!,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText2!
+                    .bodyMedium!
                     .copyWith(fontSize: fontSize),
               ),
             ),

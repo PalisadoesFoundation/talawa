@@ -14,6 +14,10 @@ on:
   pull_request:
     paths:
       - '.github/**'
+      - 'analysis_options.yaml'
+      - 'pubspec.yaml'
+      - 'CODEOWNERS'
+      - 'LICENSE'
 
 jobs:
   Checking-for-unauthorized-file-changes:

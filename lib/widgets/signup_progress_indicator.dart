@@ -28,7 +28,7 @@ class SignupProgressIndicator extends StatelessWidget {
         builder: TimelineTileBuilder.connected(
           contentsBuilder: (_, index) => Text(
             AppLocalizations.of(context)!.strictTranslate(progressLabel[index]),
-            style: Theme.of(context).textTheme.bodyText2!.copyWith(
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   // If the flow index is greater than currentPageIndex then
                   // show green(visited) color else show fade(not visited) color.
                   color: index <= currentPageIndex

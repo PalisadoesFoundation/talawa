@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 import 'package:vibration/vibration.dart';
-
-import '../../enums/enums.dart';
 
 /// SetUrlViewModel class helps to interact with model to serve data
 /// and react to user's input for Set Url Section.
@@ -47,33 +46,33 @@ class SetUrlViewModel extends BaseModel {
         'text': 'Join ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
       },
       {
         'text': 'and ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': 'Collaborate ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(fontSize: 24, fontWeight: FontWeight.w700)
       },
       {
         'text': 'with your ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': 'Organizations',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5!
+            .headlineSmall!
             .copyWith(fontSize: 24, color: const Color(0xFF4285F4))
       },
     ];
@@ -107,8 +106,11 @@ class SetUrlViewModel extends BaseModel {
       } else {
         // navigationService
         //     .showSnackBar("URL doesn't exist/no connection please check");
+
         navigationService.showTalawaErrorSnackBar(
-            "URL doesn't exist/no connection please check", MessageType.error);
+          "URL doesn't exist/no connection please check",
+          MessageType.error,
+        );
       }
     }
   }
@@ -191,19 +193,27 @@ class SetUrlViewModel extends BaseModel {
         } on CameraException catch (e) {
           debugPrint(e.toString());
           navigationService.showTalawaErrorSnackBar(
-              "The Camera is not working", MessageType.error);
+            "The Camera is not working",
+            MessageType.error,
+          );
         } on QrEmbeddedImageException catch (e) {
           debugPrint(e.toString());
           navigationService.showTalawaErrorDialog(
-              "The QR is not Working", MessageType.error);
+            "The QR is not Working",
+            MessageType.error,
+          );
         } on QrUnsupportedVersionException catch (e) {
           debugPrint(e.toString());
           navigationService.showTalawaErrorDialog(
-              "This QR version is not Supported.", MessageType.error);
+            "This QR version is not Supported.",
+            MessageType.error,
+          );
         } on Exception catch (e) {
           debugPrint(e.toString());
           navigationService.showTalawaErrorSnackBar(
-              "This QR is not for the App", MessageType.error);
+            "This QR is not for the App",
+            MessageType.error,
+          );
         }
       }
     });

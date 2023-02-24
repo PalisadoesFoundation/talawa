@@ -26,30 +26,33 @@ class MockCallbackFunction extends Mock {
 final setDateCallback = MockCallbackFunction();
 final setTimeCallback = MockCallbackFunction();
 
-Widget createEventScreen(
-        {ThemeMode themeMode = ThemeMode.light, required ThemeData theme}) =>
+Widget createEventScreen({
+  ThemeMode themeMode = ThemeMode.light,
+  required ThemeData theme,
+}) =>
     BaseView<AppLanguage>(
-        onModelReady: (model) => model.initialize(),
-        builder: (context, langModel, child) {
-          return MaterialApp(
-            locale: const Locale('en'),
-            localizationsDelegates: [
-              const AppLocalizationsDelegate(isTest: true),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-            ],
-            key: const Key('Root'),
-            themeMode: themeMode,
-            theme: theme,
-            home: const Scaffold(
-              body: CreateEventPage(
-                key: Key('CreateEventScreen'),
-              ),
+      onModelReady: (model) => model.initialize(),
+      builder: (context, langModel, child) {
+        return MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          key: const Key('Root'),
+          themeMode: themeMode,
+          theme: theme,
+          home: const Scaffold(
+            body: CreateEventPage(
+              key: Key('CreateEventScreen'),
             ),
-            navigatorKey: navigationService.navigatorKey,
-            onGenerateRoute: router.generateRoute,
-          );
-        });
+          ),
+          navigatorKey: navigationService.navigatorKey,
+          onGenerateRoute: router.generateRoute,
+        );
+      },
+    );
 
 void main() {
   SizeConfig().test();
@@ -68,10 +71,12 @@ void main() {
   });
 
   testWidgets("Checking tap Inkwell for setDate 1 datetime", (tester) async {
-    await tester.pumpWidget(createEventScreen(
-      themeMode: ThemeMode.dark,
-      theme: TalawaTheme.darkTheme,
-    ));
+    await tester.pumpWidget(
+      createEventScreen(
+        themeMode: ThemeMode.dark,
+        theme: TalawaTheme.darkTheme,
+      ),
+    );
     await tester.pump();
     final inkwellFinder = find.byType(InkWell);
     expect(inkwellFinder, findsNWidgets(8));
@@ -101,10 +106,12 @@ void main() {
   });
 
   testWidgets("Checking tap Inkwell for setTime 1 datetime", (tester) async {
-    await tester.pumpWidget(createEventScreen(
-      themeMode: ThemeMode.dark,
-      theme: TalawaTheme.darkTheme,
-    ));
+    await tester.pumpWidget(
+      createEventScreen(
+        themeMode: ThemeMode.dark,
+        theme: TalawaTheme.darkTheme,
+      ),
+    );
     await tester.pump();
     final inkwellFinder = find.byType(InkWell);
     expect(inkwellFinder, findsNWidgets(8));
@@ -130,10 +137,12 @@ void main() {
     await tester.pump();
   });
   testWidgets("Checking tap Inkwell for setDate 2 datetime", (tester) async {
-    await tester.pumpWidget(createEventScreen(
-      themeMode: ThemeMode.dark,
-      theme: TalawaTheme.darkTheme,
-    ));
+    await tester.pumpWidget(
+      createEventScreen(
+        themeMode: ThemeMode.dark,
+        theme: TalawaTheme.darkTheme,
+      ),
+    );
     await tester.pump();
     final inkwellFinder = find.byType(InkWell);
     expect(inkwellFinder, findsNWidgets(8));
@@ -160,10 +169,12 @@ void main() {
   });
 
   testWidgets("Checking tap Inkwell for set time 2 datetime", (tester) async {
-    await tester.pumpWidget(createEventScreen(
-      themeMode: ThemeMode.dark,
-      theme: TalawaTheme.darkTheme,
-    ));
+    await tester.pumpWidget(
+      createEventScreen(
+        themeMode: ThemeMode.dark,
+        theme: TalawaTheme.darkTheme,
+      ),
+    );
     await tester.pump();
     final inkwellFinder = find.byType(InkWell);
     expect(inkwellFinder, findsNWidgets(8));
@@ -194,10 +205,12 @@ void main() {
 
   testWidgets('checks if the upload photo from  button shows correct icon',
       (tester) async {
-    await tester.pumpWidget(createEventScreen(
-      themeMode: ThemeMode.dark,
-      theme: TalawaTheme.darkTheme,
-    ));
+    await tester.pumpWidget(
+      createEventScreen(
+        themeMode: ThemeMode.dark,
+        theme: TalawaTheme.darkTheme,
+      ),
+    );
     await tester.pump();
 
     /// using the key of icon button
@@ -232,10 +245,12 @@ void main() {
   testWidgets(
       'checks if the uploaded photo from gallery button is removed after pressing remove button',
       (tester) async {
-    await tester.pumpWidget(createEventScreen(
-      themeMode: ThemeMode.dark,
-      theme: TalawaTheme.darkTheme,
-    ));
+    await tester.pumpWidget(
+      createEventScreen(
+        themeMode: ThemeMode.dark,
+        theme: TalawaTheme.darkTheme,
+      ),
+    );
     await tester.pump();
 
     /// using the key of icon button
@@ -272,9 +287,11 @@ void main() {
   });
 
   testWidgets("Testing Keep public section", (tester) async {
-    await tester.pumpWidget(createEventScreen(
-      theme: TalawaTheme.lightTheme,
-    ));
+    await tester.pumpWidget(
+      createEventScreen(
+        theme: TalawaTheme.lightTheme,
+      ),
+    );
     await tester.pumpAndSettle();
     final appLocalization = AppLocalizations.of(
       navigationService.navigatorKey.currentContext!,
@@ -302,9 +319,11 @@ void main() {
   });
 
   testWidgets("Testing Keep Registerable section", (tester) async {
-    await tester.pumpWidget(createEventScreen(
-      theme: TalawaTheme.lightTheme,
-    ));
+    await tester.pumpWidget(
+      createEventScreen(
+        theme: TalawaTheme.lightTheme,
+      ),
+    );
     await tester.pumpAndSettle();
     final appLocalization = AppLocalizations.of(
       navigationService.navigatorKey.currentContext!,
@@ -333,10 +352,12 @@ void main() {
   });
 
   testWidgets("Checking tap Inkwell work for admin list", (tester) async {
-    await tester.pumpWidget(createEventScreen(
-      themeMode: ThemeMode.dark,
-      theme: TalawaTheme.darkTheme,
-    ));
+    await tester.pumpWidget(
+      createEventScreen(
+        themeMode: ThemeMode.dark,
+        theme: TalawaTheme.darkTheme,
+      ),
+    );
     await tester.pump();
     final inkwellFinder = find.byType(InkWell);
     expect(inkwellFinder, findsNWidgets(8));
@@ -379,10 +400,12 @@ void main() {
 
   testWidgets("Checking tap Inkwell for second add to bottom sheet",
       (tester) async {
-    await tester.pumpWidget(createEventScreen(
-      themeMode: ThemeMode.dark,
-      theme: TalawaTheme.darkTheme,
-    ));
+    await tester.pumpWidget(
+      createEventScreen(
+        themeMode: ThemeMode.dark,
+        theme: TalawaTheme.darkTheme,
+      ),
+    );
     await tester.pump();
     final inkwellFinder = find.byType(InkWell);
     expect(inkwellFinder, findsNWidgets(8));
@@ -391,9 +414,11 @@ void main() {
     await tester.pump();
 
     // await tester.tap(find.byKey(const Key('text_btn_ambs')));
-    await tester.tap(find.byKey(
-      const Key('inwell_cep2'),
-    ));
+    await tester.tap(
+      find.byKey(
+        const Key('inwell_cep2'),
+      ),
+    );
     await tester.pump();
 
     await tester.pump();
@@ -405,10 +430,12 @@ void main() {
   });
   group('setState Coverage completion', () {
     testWidgets('Tap on DataTimeTile date', (tester) async {
-      await tester.pumpWidget(createEventScreen(
-        themeMode: ThemeMode.dark,
-        theme: TalawaTheme.darkTheme,
-      ));
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pump();
 
       await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).first);
@@ -423,14 +450,18 @@ void main() {
       await tester.tap(find.text('OK'));
       await tester.pumpAndSettle();
 
-      expect(find.text(DateTime.now().toString().split(' ').first),
-          findsNWidgets(2));
+      expect(
+        find.text(DateTime.now().toString().split(' ').first),
+        findsNWidgets(2),
+      );
     });
     testWidgets('Tap on DataTimeTile time', (tester) async {
-      await tester.pumpWidget(createEventScreen(
-        themeMode: ThemeMode.dark,
-        theme: TalawaTheme.darkTheme,
-      ));
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).first);
@@ -440,14 +471,18 @@ void main() {
 
       await tester.tap(find.text('OK'));
       await tester.pump();
-      expect(find.text(DateFormat.jm().format(DateTime.now()).toString()),
-          findsNWidgets(2));
+      expect(
+        find.text(DateFormat.jm().format(DateTime.now())),
+        findsNWidgets(2),
+      );
     });
     testWidgets('Tap on DataTimeTile date', (tester) async {
-      await tester.pumpWidget(createEventScreen(
-        themeMode: ThemeMode.dark,
-        theme: TalawaTheme.darkTheme,
-      ));
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pump();
 
       await tester.tap(find.byKey(const Key('EventDateTimeTileDate')).last);
@@ -461,14 +496,18 @@ void main() {
 
       await tester.tap(find.text('OK'));
       await tester.pumpAndSettle();
-      expect(find.text(DateTime.now().toString().split(' ').first),
-          findsNWidgets(2));
+      expect(
+        find.text(DateTime.now().toString().split(' ').first),
+        findsNWidgets(2),
+      );
     });
     testWidgets('Tap on DataTimeTile time', (tester) async {
-      await tester.pumpWidget(createEventScreen(
-        themeMode: ThemeMode.dark,
-        theme: TalawaTheme.darkTheme,
-      ));
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key('EventDateTimeTileTime')).last);
@@ -478,8 +517,10 @@ void main() {
 
       await tester.tap(find.text('OK'));
       await tester.pump();
-      expect(find.text(DateFormat.jm().format(DateTime.now()).toString()),
-          findsNWidgets(2));
+      expect(
+        find.text(DateFormat.jm().format(DateTime.now())),
+        findsNWidgets(2),
+      );
     });
   });
 
@@ -492,10 +533,12 @@ void main() {
 
     testWidgets("Check if AppBar buttons work", (tester) async {
       mockNetworkImages(() async {
-        await tester.pumpWidget(createEventScreen(
-          themeMode: ThemeMode.dark,
-          theme: TalawaTheme.darkTheme,
-        ));
+        await tester.pumpWidget(
+          createEventScreen(
+            themeMode: ThemeMode.dark,
+            theme: TalawaTheme.darkTheme,
+          ),
+        );
         await tester.pumpAndSettle();
 
         expect(find.byType(CreateEventPage), findsOneWidget);
@@ -514,10 +557,12 @@ void main() {
       "Check if data coming from view model show up correctly",
       (tester) async {
         mockNetworkImages(() async {
-          await tester.pumpWidget(createEventScreen(
-            themeMode: ThemeMode.dark,
-            theme: TalawaTheme.darkTheme,
-          ));
+          await tester.pumpWidget(
+            createEventScreen(
+              themeMode: ThemeMode.dark,
+              theme: TalawaTheme.darkTheme,
+            ),
+          );
           await tester.pumpAndSettle();
         });
       },
@@ -527,10 +572,12 @@ void main() {
       "Check if deleting members and admins works",
       (tester) async {
         mockNetworkImages(() async {
-          await tester.pumpWidget(createEventScreen(
-            themeMode: ThemeMode.dark,
-            theme: TalawaTheme.darkTheme,
-          ));
+          await tester.pumpWidget(
+            createEventScreen(
+              themeMode: ThemeMode.dark,
+              theme: TalawaTheme.darkTheme,
+            ),
+          );
           await tester.pumpAndSettle();
 
           expect(find.text("p s"), findsOneWidget);

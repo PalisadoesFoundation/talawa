@@ -72,8 +72,8 @@ void main() {
       expect(
         (tester.firstWidget(find.byType(RichText)) as RichText).text.style,
         isA<TextStyle>()
-          ..having((style) => style.color, 'Color', Colors.red)
-          ..having((style) => style.fontSize, 'Font size', 20.0),
+            .having((style) => style.color, 'Color', Colors.red)
+            .having((style) => style.fontSize, 'Font size', 20.0),
       );
 
       // Second
@@ -83,8 +83,8 @@ void main() {
                 .children![0])
             .style,
         isA<TextStyle>()
-          ..having((style) => style.color, 'Color', Colors.black)
-          ..having((style) => style.fontSize, 'Font size', 10.0),
+            .having((style) => style.color, 'Color', Colors.black)
+            .having((style) => style.fontSize, 'Font size', 10.0),
       );
     });
   });

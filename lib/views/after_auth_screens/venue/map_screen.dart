@@ -64,46 +64,51 @@ class _MapScreenState extends State<MapScreen> {
       // GoogleMap is widget imported from google_maps_flutter that is a
       // Flutter plugin that provides a Google Maps widget.
       body: GoogleMap(
-          // initial position with the reference of latitute and longitude passed.
-          initialCameraPosition: CameraPosition(
-            target: LatLng(widget.latitude, widget.longitude),
-            zoom: 14,
-          ),
-          markers: markers,
-          zoomControlsEnabled: false,
-          mapType: MapType.normal,
-          onMapCreated: (GoogleMapController controller) {
-            googleMapController = controller;
-          },
-          onTap: (LatLng latLng) async {
-            if (model != null) {
-              final placemarkList = await placemarkFromCoordinates(
-                  latLng.latitude, latLng.longitude);
-              final placemark = placemarkList[0];
-              final name = placemark.name == null ? '' : '${placemark.name}, ';
-              final subLocality = placemark.subLocality == null
-                  ? ''
-                  : '${placemark.subLocality}, ';
-              final locality =
-                  placemark.locality == null ? '' : '${placemark.locality}, ';
-              final administrativeArea = placemark.administrativeArea == null
-                  ? ''
-                  : '${placemark.administrativeArea}, ';
-              final country =
-                  placemark.country == null ? '' : '${placemark.country}';
-              address =
-                  name + subLocality + locality + administrativeArea + country;
-              latitude = latLng.latitude;
-              longitude = latLng.longitude;
-              setState(() {
-                markers.clear();
-                markers.add(Marker(
+        // initial position with the reference of latitute and longitude passed.
+        initialCameraPosition: CameraPosition(
+          target: LatLng(widget.latitude, widget.longitude),
+          zoom: 14,
+        ),
+        markers: markers,
+        zoomControlsEnabled: false,
+        mapType: MapType.normal,
+        onMapCreated: (GoogleMapController controller) {
+          googleMapController = controller;
+        },
+        onTap: (LatLng latLng) async {
+          if (model != null) {
+            final placemarkList = await placemarkFromCoordinates(
+              latLng.latitude,
+              latLng.longitude,
+            );
+            final placemark = placemarkList[0];
+            final name = placemark.name == null ? '' : '${placemark.name}, ';
+            final subLocality = placemark.subLocality == null
+                ? ''
+                : '${placemark.subLocality}, ';
+            final locality =
+                placemark.locality == null ? '' : '${placemark.locality}, ';
+            final administrativeArea = placemark.administrativeArea == null
+                ? ''
+                : '${placemark.administrativeArea}, ';
+            final country =
+                placemark.country == null ? '' : '${placemark.country}';
+            address =
+                name + subLocality + locality + administrativeArea + country;
+            latitude = latLng.latitude;
+            longitude = latLng.longitude;
+            setState(() {
+              markers.clear();
+              markers.add(
+                Marker(
                   markerId: const MarkerId('pinned'),
                   position: latLng,
-                ));
-              });
-            }
-          }),
+                ),
+              );
+            });
+          }
+        },
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           final Position position = await _determinePosition();

@@ -83,16 +83,16 @@ class ExploreEventsViewModel extends BaseModel {
 
   /// The helper function that used to parse the date and time.
   void _parseEventDateTime(Event newEvent) {
-    final DateTime _startDate = DateTime.fromMicrosecondsSinceEpoch(
+    final DateTime startDate = DateTime.fromMicrosecondsSinceEpoch(
       int.parse(newEvent.startTime!),
     ).toLocal();
-    final DateTime _endDate = DateTime.fromMicrosecondsSinceEpoch(
+    final DateTime endDate = DateTime.fromMicrosecondsSinceEpoch(
       int.parse(newEvent.endTime!),
     ).toLocal();
-    newEvent.startDate = DateFormat('yMd').format(_startDate);
-    newEvent.endDate = DateFormat('yMd').format(_endDate);
-    newEvent.startTime = DateFormat.jm().format(_startDate);
-    newEvent.endTime = DateFormat.jm().format(_endDate);
+    newEvent.startDate = DateFormat('yMd').format(startDate);
+    newEvent.endDate = DateFormat('yMd').format(endDate);
+    newEvent.startTime = DateFormat.jm().format(startDate);
+    newEvent.endTime = DateFormat.jm().format(endDate);
     _events.insert(0, newEvent);
   }
 

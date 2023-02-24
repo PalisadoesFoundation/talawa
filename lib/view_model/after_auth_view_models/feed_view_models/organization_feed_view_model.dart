@@ -79,7 +79,9 @@ class OrganizationFeedViewModel extends BaseModel {
 
   void initialise(
       // bool forTest,
-      {bool isTest = false}) {
+      {
+    bool isTest = false,
+  }) {
     // For caching/initializing the current organization after the stream subscription has canceled and the stream is updated
 
     _currentOrgName = _userConfig.currentOrg.name!;

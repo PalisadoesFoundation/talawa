@@ -4,7 +4,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
-import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/queries.dart';
 
 /// DataBaseMutationFunctions class provides different services that are under the context of graphQL mutations and queries.
@@ -21,6 +20,7 @@ class DataBaseMutationFunctions {
   late GraphQLClient clientNonAuth;
   late GraphQLClient clientAuth;
   late Queries _query;
+
   init() {
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
@@ -53,13 +53,12 @@ class DataBaseMutationFunctions {
     if (exception.linkException != null) {
       // debugPrint(exception.linkException.toString());
       if (showSnackBar) {
-        Timer(const Duration(seconds: 2), () {
-          navigationService
-              // .showTalawaErrorSnackBar(
-              //     "Server not running/wrong url", MessageType.error);
-              .showTalawaErrorDialog(
-                  "Server not running/wrong url", MessageType.error);
-        });
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => navigationService.showTalawaErrorDialog(
+            "Server not running/wrong url",
+            MessageType.error,
+          ),
+        );
       }
       return false;
     }
@@ -91,66 +90,80 @@ class DataBaseMutationFunctions {
       // if the error message is "User not found"
       if (exception.graphqlErrors[i].message == userNotFound.message) {
         if (showSnackBar) {
-          Timer(const Duration(seconds: 2), () {
-            navigationService.showTalawaErrorDialog(
-                "No account registered with this email", MessageType.error);
-          });
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService.showTalawaErrorDialog(
+              "No account registered with this email",
+              MessageType.error,
+            ),
+          );
         }
         return false;
       }
       // if the error message is "Membership Request already exists"
       if (exception.graphqlErrors[i].message == memberRequestExist.message) {
         if (showSnackBar) {
-          Timer(const Duration(seconds: 2), () {
-            navigationService.showTalawaErrorDialog(
-                "Membership request already exist", MessageType.error);
-          });
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService.showTalawaErrorDialog(
+              "Membership request already exist",
+              MessageType.error,
+            ),
+          );
         }
         return false;
       }
       // if the error message is "Invalid credentials"
       if (exception.graphqlErrors[i].message == wrongCredentials.message) {
         if (showSnackBar) {
-          Timer(const Duration(seconds: 2), () {
-            navigationService.showTalawaErrorDialog(
-                "Enter a valid password", MessageType.error);
-          });
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService.showTalawaErrorDialog(
+              "Enter a valid password",
+              MessageType.error,
+            ),
+          );
         }
         return false;
       }
       // if the error message is "Organization not found"
       if (exception.graphqlErrors[i].message == organizationNotFound.message) {
         if (showSnackBar) {
-          Timer(const Duration(seconds: 2), () {
-            navigationService.showTalawaErrorDialog(
-                "Organization Not Found", MessageType.error);
-          });
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService.showTalawaErrorDialog(
+              "Organization Not Found",
+              MessageType.error,
+            ),
+          );
         }
         return false;
       }
       // if the error message is "Email address already exists"
       if (exception.graphqlErrors[i].message == emailAccountPresent.message) {
         if (showSnackBar) {
-          Timer(const Duration(seconds: 2), () {
-            navigationService.showTalawaErrorDialog(
-                "Account with this email already registered",
-                MessageType.error);
-          });
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => navigationService.showTalawaErrorDialog(
+              "Account with this email already registered",
+              MessageType.error,
+            ),
+          );
         }
         return false;
       }
     }
     // if the error is unknown
-    Timer(const Duration(seconds: 2), () {
-      navigationService.showTalawaErrorDialog(
-          "Something went wrong!", MessageType.error);
-    });
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => navigationService.showTalawaErrorDialog(
+        "Something went wrong!",
+        MessageType.error,
+      ),
+    );
     return false;
   }
 
   /// This function is used to run the graph-ql query for authentication.
-  Future<dynamic> gqlAuthQuery(String query,
-      {Map<String, dynamic>? variables}) async {
+  Future<dynamic> gqlAuthQuery(
+    String query, {
+    Map<String, dynamic>? variables,
+  }) async {
     final QueryOptions options = QueryOptions(
       document: gql(query),
       variables: variables ?? <String, dynamic>{},

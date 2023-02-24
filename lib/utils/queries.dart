@@ -420,8 +420,14 @@ query  {
   }
 
   /// `createDonation` creates a new donation transaction by taking the userId ,orgId ,nameOfOrg ,nameOfUser as parameters
-  String createDonation(String userId, String orgId, String nameOfOrg,
-      String nameOfUser, String payPalId, double amount) {
+  String createDonation(
+    String userId,
+    String orgId,
+    String nameOfOrg,
+    String nameOfUser,
+    String payPalId,
+    double amount,
+  ) {
     return '''
       mutation createDonationMutation { createDonation(
             userId :"$userId"

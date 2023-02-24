@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/widgets/talawa_error_dialog.dart';
 import 'package:talawa/widgets/talawa_error_snackbar.dart';
-
-import '../enums/enums.dart';
 
 /// NavigationService class provides different functions as service in the context of navigation.
 ///
@@ -103,15 +101,15 @@ class NavigationService {
     MessageType messageType, {
     Duration duration = const Duration(seconds: 2),
   }) {
-    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(SnackBar(
-      padding: EdgeInsets.zero,
-      content: TalawaErrorSnackBar(
-        messageType: messageType,
-        errorMessage: errorMessage,
+    ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
+      SnackBar(
+        padding: EdgeInsets.zero,
+        content: TalawaErrorSnackBar(
+          messageType: messageType,
+          errorMessage: errorMessage,
+        ),
       ),
-      // backgroundColor: Colors.grey,
-      backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
-    ));
+    );
   }
 
   void showTalawaErrorDialog(String errorMessage, MessageType messageType) {

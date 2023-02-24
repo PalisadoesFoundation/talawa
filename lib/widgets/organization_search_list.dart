@@ -88,7 +88,9 @@ class OrganizationSearchList extends StatelessWidget {
                         if (info.visibleFraction > 0) {
                           print(model.organizations.length);
                           model.fetchMoreHelper(
-                              fetchMore!, model.organizations);
+                            fetchMore!,
+                            model.organizations,
+                          );
                           print(model.organizations.length);
                         }
                       },

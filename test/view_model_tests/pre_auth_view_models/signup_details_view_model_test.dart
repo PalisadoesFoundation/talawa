@@ -78,10 +78,12 @@ void main() {
       model.initialise(org);
 
       final result = QueryResult(
-          source: QueryResultSource.network,
-          data: data,
-          options: QueryOptions(
-              document: gql(queries.registerUser('', '', '', ''))));
+        source: QueryResultSource.network,
+        data: data,
+        options: QueryOptions(
+          document: gql(queries.registerUser('', '', '', '')),
+        ),
+      );
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
@@ -97,9 +99,10 @@ void main() {
         };
 
         return QueryResult(
-            source: QueryResultSource.network,
-            data: data,
-            options: QueryOptions(document: gql(queries.joinOrgById(org.id!))));
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(document: gql(queries.joinOrgById(org.id!))),
+        );
       });
       empty = false;
 
@@ -118,16 +121,16 @@ void main() {
           Routes.mainScreen,
           Routes.splashScreen,
           arguments: isA<MainScreenArgs>()
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-              "main screen index",
-              0,
-            )
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.fromSignUp,
-              "from sign up",
-              true,
-            ),
+              .having(
+                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
+                "main screen index",
+                0,
+              )
+              .having(
+                (mainScreenArgs) => mainScreenArgs.fromSignUp,
+                "from sign up",
+                true,
+              ),
         ),
       );
     });
@@ -159,16 +162,16 @@ void main() {
           Routes.mainScreen,
           Routes.splashScreen,
           arguments: isA<MainScreenArgs>()
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-              "main screen index",
-              0,
-            )
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.fromSignUp,
-              "from sign up",
-              true,
-            ),
+              .having(
+                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
+                "main screen index",
+                0,
+              )
+              .having(
+                (mainScreenArgs) => mainScreenArgs.fromSignUp,
+                "from sign up",
+                true,
+              ),
         ),
       );
     });
@@ -185,10 +188,12 @@ void main() {
       model.initialise(org);
 
       final result = QueryResult(
-          source: QueryResultSource.network,
-          data: data,
-          options: QueryOptions(
-              document: gql(queries.registerUser('', '', '', ''))));
+        source: QueryResultSource.network,
+        data: data,
+        options: QueryOptions(
+          document: gql(queries.registerUser('', '', '', '')),
+        ),
+      );
       when(graphqlConfig.getToken()).thenAnswer((_) async => false);
       when(
         databaseFunctions.gqlNonAuthMutation(
@@ -209,16 +214,16 @@ void main() {
           Routes.mainScreen,
           Routes.splashScreen,
           arguments: isA<MainScreenArgs>()
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-              "main screen index",
-              0,
-            )
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.fromSignUp,
-              "from sign up",
-              true,
-            ),
+              .having(
+                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
+                "main screen index",
+                0,
+              )
+              .having(
+                (mainScreenArgs) => mainScreenArgs.fromSignUp,
+                "from sign up",
+                true,
+              ),
         ),
       );
 
@@ -236,16 +241,16 @@ void main() {
           Routes.mainScreen,
           Routes.splashScreen,
           arguments: isA<MainScreenArgs>()
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-              "main screen index",
-              0,
-            )
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.fromSignUp,
-              "from sign up",
-              true,
-            ),
+              .having(
+                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
+                "main screen index",
+                0,
+              )
+              .having(
+                (mainScreenArgs) => mainScreenArgs.fromSignUp,
+                "from sign up",
+                true,
+              ),
         ),
       );
 
@@ -264,16 +269,16 @@ void main() {
           Routes.mainScreen,
           Routes.splashScreen,
           arguments: isA<MainScreenArgs>()
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-              "main screen index",
-              0,
-            )
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.fromSignUp,
-              "from sign up",
-              true,
-            ),
+              .having(
+                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
+                "main screen index",
+                0,
+              )
+              .having(
+                (mainScreenArgs) => mainScreenArgs.fromSignUp,
+                "from sign up",
+                true,
+              ),
         ),
       );
     });
@@ -290,19 +295,22 @@ void main() {
       model.initialise(org);
 
       final result = QueryResult(
-          source: QueryResultSource.network,
-          data: data,
-          options: QueryOptions(
-              document: gql(queries.registerUser('', '', '', ''))));
+        source: QueryResultSource.network,
+        data: data,
+        options: QueryOptions(
+          document: gql(queries.registerUser('', '', '', '')),
+        ),
+      );
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
           queries.registerUser('', '', '', ''),
         ),
       ).thenAnswer((_) async => result);
-      when(databaseFunctions
-              .gqlAuthMutation(queries.sendMembershipRequest(org.id!)))
-          .thenAnswer((realInvocation) async {
+      when(
+        databaseFunctions
+            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
+      ).thenAnswer((realInvocation) async {
         final data = {
           'sendMembershipRequest': {
             'organization': <String, dynamic>{},
@@ -310,10 +318,12 @@ void main() {
         };
 
         return QueryResult(
-            source: QueryResultSource.network,
-            data: data,
-            options: QueryOptions(
-                document: gql(queries.sendMembershipRequest(org.id!))));
+          source: QueryResultSource.network,
+          data: data,
+          options: QueryOptions(
+            document: gql(queries.sendMembershipRequest(org.id!)),
+          ),
+        );
       });
       empty = false;
 
@@ -321,8 +331,10 @@ void main() {
 
       expect(model.validate, AutovalidateMode.disabled);
 
-      verify(databaseFunctions
-          .gqlAuthMutation(queries.sendMembershipRequest(org.id!)));
+      verify(
+        databaseFunctions
+            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
+      );
       verify(
         databaseFunctions.gqlNonAuthMutation(
           queries.registerUser('', '', '', ''),
@@ -373,16 +385,16 @@ void main() {
           Routes.mainScreen,
           Routes.splashScreen,
           arguments: isA<MainScreenArgs>()
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-              "main screen index",
-              0,
-            )
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.fromSignUp,
-              "from sign up",
-              true,
-            ),
+              .having(
+                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
+                "main screen index",
+                0,
+              )
+              .having(
+                (mainScreenArgs) => mainScreenArgs.fromSignUp,
+                "from sign up",
+                true,
+              ),
         ),
       );
     });
@@ -398,10 +410,12 @@ void main() {
       model.initialise(org);
 
       final result = QueryResult(
-          source: QueryResultSource.network,
-          data: data,
-          options: QueryOptions(
-              document: gql(queries.registerUser('', '', '', ''))));
+        source: QueryResultSource.network,
+        data: data,
+        options: QueryOptions(
+          document: gql(queries.registerUser('', '', '', '')),
+        ),
+      );
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
@@ -432,16 +446,16 @@ void main() {
           Routes.mainScreen,
           Routes.splashScreen,
           arguments: isA<MainScreenArgs>()
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-              "main screen index",
-              0,
-            )
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.fromSignUp,
-              "from sign up",
-              true,
-            ),
+              .having(
+                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
+                "main screen index",
+                0,
+              )
+              .having(
+                (mainScreenArgs) => mainScreenArgs.fromSignUp,
+                "from sign up",
+                true,
+              ),
         ),
       );
     });
@@ -458,27 +472,32 @@ void main() {
       model.initialise(org);
 
       final result = QueryResult(
-          source: QueryResultSource.network,
-          data: data,
-          options: QueryOptions(
-              document: gql(queries.registerUser('', '', '', ''))));
+        source: QueryResultSource.network,
+        data: data,
+        options: QueryOptions(
+          document: gql(queries.registerUser('', '', '', '')),
+        ),
+      );
       when(graphqlConfig.getToken()).thenAnswer((_) async => true);
       when(
         databaseFunctions.gqlNonAuthMutation(
           queries.registerUser('', '', '', ''),
         ),
       ).thenAnswer((_) async => result);
-      when(databaseFunctions
-              .gqlAuthMutation(queries.sendMembershipRequest(org.id!)))
-          .thenThrow(Exception());
+      when(
+        databaseFunctions
+            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
+      ).thenThrow(Exception());
       empty = false;
 
       await model.signUp();
 
       expect(model.validate, AutovalidateMode.disabled);
 
-      verify(databaseFunctions
-          .gqlAuthMutation(queries.sendMembershipRequest(org.id!)));
+      verify(
+        databaseFunctions
+            .gqlAuthMutation(queries.sendMembershipRequest(org.id!)),
+      );
       verify(
         databaseFunctions.gqlNonAuthMutation(
           queries.registerUser('', '', '', ''),
@@ -495,16 +514,16 @@ void main() {
           Routes.mainScreen,
           Routes.splashScreen,
           arguments: isA<MainScreenArgs>()
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
-              "main screen index",
-              0,
-            )
-            ..having(
-              (mainScreenArgs) => mainScreenArgs.fromSignUp,
-              "from sign up",
-              true,
-            ),
+              .having(
+                (mainScreenArgs) => mainScreenArgs.mainScreenIndex,
+                "main screen index",
+                0,
+              )
+              .having(
+                (mainScreenArgs) => mainScreenArgs.fromSignUp,
+                "from sign up",
+                true,
+              ),
         ),
       );
     });

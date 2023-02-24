@@ -66,9 +66,9 @@ Widget invite(BuildContext context) {
           iconButton(
             "WhatsApp",
             CustomPaint(
-              size: Size(
+              size: const Size(
                 50,
-                (50 * 1.004).toDouble(),
+                50 * 1.004,
               ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
               painter: WhatsappLogo(),
             ),
@@ -88,7 +88,7 @@ Widget invite(BuildContext context) {
           iconButton(
             "Alt",
             const FaIcon(
-              FontAwesomeIcons.shareAlt,
+              FontAwesomeIcons.shareNodes,
               size: 30,
               color: Color(0xff40c351),
             ),

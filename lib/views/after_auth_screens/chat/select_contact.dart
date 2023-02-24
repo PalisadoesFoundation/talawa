@@ -16,28 +16,30 @@ class _SelectContactState extends State<SelectContact> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.black,
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              navigationService.pop();
-            },
-          ),
-          title: Text(
-            "Select Contacts",
-            style: Theme.of(context).textTheme.headline6!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                ),
-          ),
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            navigationService.pop();
+          },
         ),
-        body: BaseView<SelectContactViewModel>(onModelReady: (model) {
+        title: Text(
+          "Select Contacts",
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                fontWeight: FontWeight.w600,
+                fontSize: 20,
+              ),
+        ),
+      ),
+      body: BaseView<SelectContactViewModel>(
+        onModelReady: (model) {
           model.initialise();
           model.getCurrentOrgUsersList();
-        }, builder: (context, model, child) {
+        },
+        builder: (context, model, child) {
           return ListView.builder(
             itemCount: model.orgMembersList.length,
             itemBuilder: (context, index) {
@@ -53,13 +55,16 @@ class _SelectContactState extends State<SelectContact> {
                         radius: 25,
                       ),
                       title: Text(
-                          model.orgMembersList[index].firstName.toString()),
+                        model.orgMembersList[index].firstName.toString(),
+                      ),
                     ),
                   ),
                 ),
               );
             },
           );
-        }));
+        },
+      ),
+    );
   }
 }

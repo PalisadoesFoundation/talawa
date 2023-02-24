@@ -40,10 +40,11 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 Future<void> setUpFirebase() async {
   await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform(
-    androidFirebaseOptions,
-    iosFirebaseOptions,
-  ));
+    options: DefaultFirebaseOptions.currentPlatform(
+      androidFirebaseOptions,
+      iosFirebaseOptions,
+    ),
+  );
 }
 
 late Map<String, dynamic> androidFirebaseOptions;

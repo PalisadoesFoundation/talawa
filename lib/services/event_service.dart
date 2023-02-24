@@ -62,7 +62,8 @@ class EventService {
     eventsJson.forEach((eventJsonData) {
       final Event event = Event.fromJson(eventJsonData as Map<String, dynamic>);
       event.isRegistered = event.registrants?.any(
-              (registrant) => registrant.id == _userConfig.currentUser.id) ??
+            (registrant) => registrant.id == _userConfig.currentUser.id,
+          ) ??
           false;
       _eventStreamController.add(event);
     });

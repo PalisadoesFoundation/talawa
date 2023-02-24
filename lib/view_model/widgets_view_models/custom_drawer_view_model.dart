@@ -51,12 +51,16 @@ class CustomDrawerViewModel extends BaseModel {
     if (selectedOrg == switchToOrg && isPresentinSwitchableOrg(switchToOrg)) {
       // _navigationService.pop();
       navigationService.showTalawaErrorSnackBar(
-          '${switchToOrg.name} already selected', MessageType.warning);
+        '${switchToOrg.name} already selected',
+        MessageType.warning,
+      );
     } else {
       userConfig.saveCurrentOrgInHive(switchToOrg);
       setSelectedOrganizationName(switchToOrg);
       navigationService.showTalawaErrorSnackBar(
-          'Switched to ${switchToOrg.name}', MessageType.info);
+        'Switched to ${switchToOrg.name}',
+        MessageType.info,
+      );
     }
     navigationService.pop();
   }

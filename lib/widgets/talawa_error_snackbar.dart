@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 
-import '../utils/app_localization.dart';
+import 'package:talawa/utils/app_localization.dart';
 
 class TalawaErrorSnackBar extends StatelessWidget {
-  const TalawaErrorSnackBar(
-      {Key? key, required this.errorMessage, required this.messageType})
-      : super(key: key);
+  const TalawaErrorSnackBar({
+    Key? key,
+    required this.errorMessage,
+    required this.messageType,
+  }) : super(key: key);
   final String errorMessage;
   final MessageType messageType;
   @override
@@ -17,13 +19,14 @@ class TalawaErrorSnackBar extends StatelessWidget {
           width: 20,
           height: 80,
           decoration: BoxDecoration(
-              color: messageType == MessageType.error
-                  ? Colors.red
-                  : messageType == MessageType.warning
-                      ? Colors.yellow
-                      : messageType == MessageType.info
-                          ? Colors.green
-                          : Colors.red),
+            color: messageType == MessageType.error
+                ? Colors.red
+                : messageType == MessageType.warning
+                    ? Colors.yellow
+                    : messageType == MessageType.info
+                        ? Colors.green
+                        : Colors.red,
+          ),
         ),
         const SizedBox(
           width: 10,
@@ -54,9 +57,7 @@ class TalawaErrorSnackBar extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Text(
-              AppLocalizations.of(context)!
-                  .strictTranslate(errorMessage)
-                  .toString(),
+              AppLocalizations.of(context)!.strictTranslate(errorMessage),
               style: const TextStyle(color: Colors.white),
             ),
           ),

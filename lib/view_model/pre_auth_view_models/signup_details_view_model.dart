@@ -37,25 +37,25 @@ class SignupDetailsViewModel extends BaseModel {
         'text': "Let's ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': 'get ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': "you ",
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline5
+            .headlineSmall
       },
       {
         'text': 'SignUp ',
         'textStyle': Theme.of(navigationService.navigatorKey.currentContext!)
             .textTheme
-            .headline6!
+            .titleLarge!
             .copyWith(fontSize: 24)
       },
     ];
@@ -116,7 +116,9 @@ class SignupDetailsViewModel extends BaseModel {
               } on Exception catch (e) {
                 print(e);
                 navigationService.showTalawaErrorSnackBar(
-                    'SomeThing went wrong', MessageType.error);
+                  'SomeThing went wrong',
+                  MessageType.error,
+                );
               }
             } else {
               try {
@@ -138,7 +140,9 @@ class SignupDetailsViewModel extends BaseModel {
               } on Exception catch (e) {
                 print(e);
                 navigationService.showTalawaErrorSnackBar(
-                    'SomeThing went wrong', MessageType.error);
+                  'SomeThing went wrong',
+                  MessageType.error,
+                );
               }
             }
           }
@@ -146,7 +150,9 @@ class SignupDetailsViewModel extends BaseModel {
       } on Exception catch (e) {
         print(e);
         navigationService.showTalawaErrorSnackBar(
-            'SomeThing went wrong', MessageType.error);
+          'SomeThing went wrong',
+          MessageType.error,
+        );
       }
     }
   }

@@ -19,7 +19,7 @@ class RaisedRoundedButton extends StatefulWidget {
   final Color textColor;
   final bool showArrow;
   final String buttonLabel;
-  final Function onTap;
+  final Function() onTap;
   final double? height;
   final double? width;
 

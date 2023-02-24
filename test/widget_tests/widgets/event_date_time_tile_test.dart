@@ -53,8 +53,10 @@ void main() {
       final padding = tester.firstWidget(paddingFinder);
 
       expect(paddingFinder, findsOneWidget);
-      expect((padding as Padding).padding,
-          EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth! * 0.083));
+      expect(
+        (padding as Padding).padding,
+        EdgeInsets.symmetric(horizontal: SizeConfig.screenWidth! * 0.083),
+      );
     });
 
     testWidgets("Checking tap Inkwell for setDate", (tester) async {

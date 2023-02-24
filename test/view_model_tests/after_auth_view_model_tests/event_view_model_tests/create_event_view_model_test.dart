@@ -132,11 +132,14 @@ void main() {
     testWidgets("testing createEvent function", (tester) async {
       final model = CreateEventViewModel();
       model.initialize();
-      await tester.pumpWidget(createApp(
+      await tester.pumpWidget(
+        createApp(
           model.formKey,
           model.eventTitleTextController,
           model.eventLocationTextController,
-          model.eventDescriptionTextController));
+          model.eventDescriptionTextController,
+        ),
+      );
 
       final DateTime startTime = DateTime(
         model.eventStartDate.year,
@@ -157,11 +160,17 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.enterText(
-          find.byType(TextFormField).first, 'fakeEventTitle');
+        find.byType(TextFormField).first,
+        'fakeEventTitle',
+      );
       await tester.enterText(
-          find.byType(TextFormField).last, 'fakeEventDescription');
+        find.byType(TextFormField).last,
+        'fakeEventDescription',
+      );
       await tester.enterText(
-          find.byType(TextFormField).at(1), 'fakeEventLocation');
+        find.byType(TextFormField).at(1),
+        'fakeEventLocation',
+      );
       databaseFunctions.init();
 
       when(databaseFunctions.refreshAccessToken("testtoken"))
@@ -169,45 +178,49 @@ void main() {
         return true;
       });
 
-      when(databaseFunctions.gqlAuthMutation(
-        EventQueries().addEvent(),
-        variables: {
-          'startDate': model.eventStartDate.toString(),
-          'endDate': model.eventEndDate.toString(),
-          'organizationId': "XYZ",
-          'title': model.eventTitleTextController.text,
-          'description': model.eventDescriptionTextController.text,
-          'location': model.eventLocationTextController.text,
-          'isPublic': model.isPublicSwitch,
-          'isRegisterable': model.isRegisterableSwitch,
-          'recurring': false,
-          'allDay': false,
-          'startTime': startTime.microsecondsSinceEpoch.toString(),
-          'endTime': endTime.microsecondsSinceEpoch.toString(),
-        },
-      )).thenAnswer((_) async {
+      when(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().addEvent(),
+          variables: {
+            'startDate': model.eventStartDate.toString(),
+            'endDate': model.eventEndDate.toString(),
+            'organizationId': "XYZ",
+            'title': model.eventTitleTextController.text,
+            'description': model.eventDescriptionTextController.text,
+            'location': model.eventLocationTextController.text,
+            'isPublic': model.isPublicSwitch,
+            'isRegisterable': model.isRegisterableSwitch,
+            'recurring': false,
+            'allDay': false,
+            'startTime': startTime.microsecondsSinceEpoch.toString(),
+            'endTime': endTime.microsecondsSinceEpoch.toString(),
+          },
+        ),
+      ).thenAnswer((_) async {
         return true;
       });
 
       await model.createEvent();
 
-      verify(databaseFunctions.gqlAuthMutation(
-        EventQueries().addEvent(),
-        variables: {
-          'startDate': model.eventStartDate.toString(),
-          'endDate': model.eventEndDate.toString(),
-          'organizationId': "XYZ",
-          'title': model.eventTitleTextController.text,
-          'description': model.eventDescriptionTextController.text,
-          'location': model.eventLocationTextController.text,
-          'isPublic': model.isPublicSwitch,
-          'isRegisterable': model.isRegisterableSwitch,
-          'recurring': false,
-          'allDay': false,
-          'startTime': startTime.microsecondsSinceEpoch.toString(),
-          'endTime': endTime.microsecondsSinceEpoch.toString(),
-        },
-      ));
+      verify(
+        databaseFunctions.gqlAuthMutation(
+          EventQueries().addEvent(),
+          variables: {
+            'startDate': model.eventStartDate.toString(),
+            'endDate': model.eventEndDate.toString(),
+            'organizationId': "XYZ",
+            'title': model.eventTitleTextController.text,
+            'description': model.eventDescriptionTextController.text,
+            'location': model.eventLocationTextController.text,
+            'isPublic': model.isPublicSwitch,
+            'isRegisterable': model.isRegisterableSwitch,
+            'recurring': false,
+            'allDay': false,
+            'startTime': startTime.microsecondsSinceEpoch.toString(),
+            'endTime': endTime.microsecondsSinceEpoch.toString(),
+          },
+        ),
+      );
 
       verify(navigationService.pop());
     });

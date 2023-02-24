@@ -68,11 +68,11 @@ class DirectChatViewModel extends BaseModel {
     chatState = ChatState.loading;
     // await _chatService.getMessagesFromDirectChat();
     // variable
-    final List<ChatMessage> _messages = [];
+    final List<ChatMessage> messages = [];
     _chatMessageSubscription =
         _chatService.chatMessagesStream.listen((newMessage) {
-      _messages.add(newMessage);
-      _chatMessagesByUser[chatId] = _messages;
+      messages.add(newMessage);
+      _chatMessagesByUser[chatId] = messages;
     });
     // use `chatService` services
     await _chatService.getDirectChatMessagesByChatId(chatId);
@@ -86,7 +86,9 @@ class DirectChatViewModel extends BaseModel {
   /// * [chatId] : id of a chat where message need to be send.
   /// * [messageContent] : content of a message.
   Future<void> sendMessageToDirectChat(
-      String chatId, String messageContent) async {
+    String chatId,
+    String messageContent,
+  ) async {
     chatState = ChatState.loading;
     _chatService.chatMessagesStream.listen((newMessage) {
       _chatMessagesByUser[chatId]!.add(newMessage);

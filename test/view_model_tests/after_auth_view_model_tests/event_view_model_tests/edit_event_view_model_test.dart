@@ -46,10 +46,14 @@ void main() {
       expect(model.isRegisterableSwitch, true);
       expect(model.eventStartDate, DateFormat().add_yMd().parse('01/30/2022'));
       expect(model.eventEndDate, DateFormat().add_yMd().parse('01/30/2022'));
-      expect(model.eventStartTime,
-          TimeOfDay.fromDateTime(DateFormat('h:mm a').parse('06:40 PM')));
-      expect(model.eventEndTime,
-          TimeOfDay.fromDateTime(DateFormat('h:mm a').parse('07:40 PM')));
+      expect(
+        model.eventStartTime,
+        TimeOfDay.fromDateTime(DateFormat('h:mm a').parse('06:40 PM')),
+      );
+      expect(
+        model.eventEndTime,
+        TimeOfDay.fromDateTime(DateFormat('h:mm a').parse('07:40 PM')),
+      );
     });
     testWidgets('Check if updateEvent() is working fine', (tester) async {
       final model = EditEventViewModel();

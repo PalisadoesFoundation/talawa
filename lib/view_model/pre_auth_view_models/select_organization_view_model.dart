@@ -89,10 +89,14 @@ class SelectOrganizationViewModel extends BaseModel {
       } else if (orgAlreadyJoined) {
         selectedOrganization = OrgInfo(id: '-1');
         navigationService.showTalawaErrorSnackBar(
-            'Organisation already joined', MessageType.error);
+          'Organisation already joined',
+          MessageType.error,
+        );
       } else {
         navigationService.showTalawaErrorSnackBar(
-            'Membership request already sent', MessageType.error);
+          'Membership request already sent',
+          MessageType.error,
+        );
       }
     } else {
       selectedOrganization = item;
@@ -146,13 +150,16 @@ class SelectOrganizationViewModel extends BaseModel {
         } else {
           navigationService.pop();
           navigationService.showTalawaErrorSnackBar(
-              'Joined ${selectedOrganization.name} successfully',
-              MessageType.error);
+            'Joined ${selectedOrganization.name} successfully',
+            MessageType.error,
+          );
         }
       } on Exception catch (e) {
         print(e);
         navigationService.showTalawaErrorSnackBar(
-            'SomeThing went wrong', MessageType.error);
+          'SomeThing went wrong',
+          MessageType.error,
+        );
       }
     } else {
       try {
@@ -173,14 +180,17 @@ class SelectOrganizationViewModel extends BaseModel {
           } else {
             navigationService.pop();
             navigationService.showTalawaErrorSnackBar(
-                'Join in request sent to ${selectedOrganization.name} successfully',
-                MessageType.info);
+              'Join in request sent to ${selectedOrganization.name} successfully',
+              MessageType.info,
+            );
           }
         }
       } on Exception catch (e) {
         print(e);
         navigationService.showTalawaErrorSnackBar(
-            'SomeThing went wrong', MessageType.error);
+          'SomeThing went wrong',
+          MessageType.error,
+        );
       }
     }
   }

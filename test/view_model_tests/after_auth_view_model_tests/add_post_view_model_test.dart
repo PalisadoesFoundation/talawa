@@ -56,7 +56,8 @@ void main() {
       await model.getImageFromGallery(camera: true);
 
       verify(
-          locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true));
+        locator<MultiMediaPickerService>().getPhotoFromGallery(camera: true),
+      );
 
       expect(model.imageFile, file);
 

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mocktail/mocktail.dart';
+import 'package:mockito/mockito.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 
@@ -36,15 +36,18 @@ class MockCacheManager extends Mock implements DefaultCacheManager {
   }
 }
 
-Widget createCustomAvatar(
-    {required bool isImageNull, required String imageUrl}) {
+Widget createCustomAvatar({
+  required bool isImageNull,
+  required String imageUrl,
+}) {
   return MaterialApp(
     home: Scaffold(
       body: CustomAvatar(
-          isImageNull: isImageNull,
-          imageUrl: imageUrl,
-          firstAlphabet: 'A',
-          cacheManager: GetIt.instance.get<BaseCacheManager>()),
+        isImageNull: isImageNull,
+        imageUrl: imageUrl,
+        firstAlphabet: 'A',
+        cacheManager: GetIt.instance.get<BaseCacheManager>(),
+      ),
     ),
   );
 }
@@ -60,7 +63,8 @@ void main() {
     testWidgets('Check if CustomAvatar widget shows up if image is null',
         (tester) async {
       await tester.pumpWidget(
-          createCustomAvatar(isImageNull: true, imageUrl: 'random_url'));
+        createCustomAvatar(isImageNull: true, imageUrl: 'random_url'),
+      );
       await tester.pump();
       // await tester.pumpAndSettle();
 
@@ -75,8 +79,11 @@ void main() {
       final pngFile = File('test_img.png'); // Creating a dummy image
       pngFile.openWrite();
       // Writing a 1x1 png data to it
-      pngFile.writeAsBytesSync(base64Decode(
-          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="));
+      pngFile.writeAsBytesSync(
+        base64Decode(
+          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==",
+        ),
+      );
       // print(pngFile.absolute);
       // print(pngFile.existsSync());
 
@@ -101,7 +108,8 @@ void main() {
     testWidgets('Check if CustomAvatar shows up with error widget on wrong url',
         (tester) async {
       await tester.pumpWidget(
-          createCustomAvatar(isImageNull: false, imageUrl: 'wrong_url'));
+        createCustomAvatar(isImageNull: false, imageUrl: 'wrong_url'),
+      );
       await tester.pump();
 
       expect(find.byType(CachedNetworkImage), findsOneWidget);

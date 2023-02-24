@@ -69,7 +69,7 @@ class CustomDrawer extends StatelessWidget {
                           child: Text(
                             AppLocalizations.of(context)!
                                 .strictTranslate("Switch Organization"),
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ),
                         SizedBox(

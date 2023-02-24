@@ -38,7 +38,9 @@ Widget createTalawaErrorWidget({
         child: const Text('Open'),
         onPressed: () {
           navigationService.showTalawaErrorDialog(
-              "Test Error", MessageType.warning);
+            "Test Error",
+            MessageType.warning,
+          );
         },
       ),
     ),

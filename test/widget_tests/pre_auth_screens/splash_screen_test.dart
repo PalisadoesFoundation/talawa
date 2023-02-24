@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -63,8 +65,8 @@ Future<void> main() async {
   setupLocator();
   graphqlConfig.test();
 
-  setupFirebaseMocks();
-  await Firebase.initializeApp();
+  // setupFirebaseMocks();
+  // await Firebase.initializeApp();
 
   group('Splash Screen Widget Test in light mode', () {
     testWidgets("Testing if Splash Screen shows up", (tester) async {
@@ -89,7 +91,7 @@ Future<void> main() async {
         (tester.firstWidget(logoWidget) as CustomPaint).size,
         Size(
           SizeConfig.screenWidth! * 0.6,
-          (SizeConfig.screenWidth! * 0.6).toDouble(),
+          SizeConfig.screenWidth! * 0.6,
         ),
       );
     });
@@ -100,15 +102,15 @@ Future<void> main() async {
       expect(findAppNameWidget, findsOneWidget);
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.color,
-        TalawaTheme.lightTheme.textTheme.headline4!.color,
+        TalawaTheme.lightTheme.textTheme.headlineMedium!.color,
       );
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
-        TalawaTheme.lightTheme.textTheme.headline4!.fontFamily,
+        TalawaTheme.lightTheme.textTheme.headlineMedium!.fontFamily,
       );
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
-        TalawaTheme.lightTheme.textTheme.headline4!.fontSize,
+        TalawaTheme.lightTheme.textTheme.headlineMedium!.fontSize,
       );
     });
     testWidgets("Testing if provider text shows up", (tester) async {
@@ -118,15 +120,15 @@ Future<void> main() async {
       expect(findProviderTextWidget, findsOneWidget);
       expect(
         (tester.firstWidget(findProviderTextWidget) as Text).style!.color,
-        TalawaTheme.lightTheme.textTheme.caption!.color,
+        TalawaTheme.lightTheme.textTheme.bodySmall!.color,
       );
       expect(
         (tester.firstWidget(findProviderTextWidget) as Text).style!.fontFamily,
-        TalawaTheme.lightTheme.textTheme.caption!.fontFamily,
+        TalawaTheme.lightTheme.textTheme.bodySmall!.fontFamily,
       );
       expect(
         (tester.firstWidget(findProviderTextWidget) as Text).style!.fontSize,
-        TalawaTheme.lightTheme.textTheme.caption!.fontSize,
+        TalawaTheme.lightTheme.textTheme.bodySmall!.fontSize,
       );
     });
     testWidgets("Testing if provider name shows up", (tester) async {
@@ -136,11 +138,11 @@ Future<void> main() async {
       expect(findProviderNameWidget, findsOneWidget);
       expect(
         (tester.firstWidget(findProviderNameWidget) as Text).style!.color,
-        TalawaTheme.lightTheme.textTheme.subtitle2!.color,
+        TalawaTheme.lightTheme.textTheme.titleSmall!.color,
       );
       expect(
         (tester.firstWidget(findProviderNameWidget) as Text).style!.fontFamily,
-        TalawaTheme.lightTheme.textTheme.subtitle2!.fontFamily,
+        TalawaTheme.lightTheme.textTheme.titleSmall!.fontFamily,
       );
     });
   });
@@ -167,7 +169,7 @@ Future<void> main() async {
         (tester.firstWidget(logoWidget) as CustomPaint).size,
         Size(
           SizeConfig.screenWidth! * 0.6,
-          (SizeConfig.screenWidth! * 0.6).toDouble(),
+          SizeConfig.screenWidth! * 0.6,
         ),
       );
     });
@@ -178,15 +180,15 @@ Future<void> main() async {
       expect(findAppNameWidget, findsOneWidget);
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.color,
-        TalawaTheme.darkTheme.textTheme.headline4!.color,
+        TalawaTheme.darkTheme.textTheme.headlineMedium!.color,
       );
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.fontFamily,
-        TalawaTheme.darkTheme.textTheme.headline4!.fontFamily,
+        TalawaTheme.darkTheme.textTheme.headlineMedium!.fontFamily,
       );
       expect(
         (tester.firstWidget(findAppNameWidget) as Text).style!.fontSize,
-        TalawaTheme.darkTheme.textTheme.headline4!.fontSize,
+        TalawaTheme.darkTheme.textTheme.headlineMedium!.fontSize,
       );
     });
     testWidgets("Testing if provider text shows up", (tester) async {
@@ -196,15 +198,15 @@ Future<void> main() async {
       expect(findProviderTextWidget, findsOneWidget);
       expect(
         (tester.firstWidget(findProviderTextWidget) as Text).style!.color,
-        TalawaTheme.darkTheme.textTheme.caption!.color,
+        TalawaTheme.darkTheme.textTheme.bodySmall!.color,
       );
       expect(
         (tester.firstWidget(findProviderTextWidget) as Text).style!.fontFamily,
-        TalawaTheme.darkTheme.textTheme.caption!.fontFamily,
+        TalawaTheme.darkTheme.textTheme.bodySmall!.fontFamily,
       );
       expect(
         (tester.firstWidget(findProviderTextWidget) as Text).style!.fontSize,
-        TalawaTheme.darkTheme.textTheme.caption!.fontSize,
+        TalawaTheme.darkTheme.textTheme.bodySmall!.fontSize,
       );
     });
     testWidgets("Testing if provider name shows up", (tester) async {
@@ -214,11 +216,11 @@ Future<void> main() async {
       expect(findProviderNameWidget, findsOneWidget);
       expect(
         (tester.firstWidget(findProviderNameWidget) as Text).style!.color,
-        TalawaTheme.darkTheme.textTheme.subtitle2!.color,
+        TalawaTheme.darkTheme.textTheme.titleSmall!.color,
       );
       expect(
         (tester.firstWidget(findProviderNameWidget) as Text).style!.fontFamily,
-        TalawaTheme.darkTheme.textTheme.subtitle2!.fontFamily,
+        TalawaTheme.darkTheme.textTheme.titleSmall!.fontFamily,
       );
     });
   });
