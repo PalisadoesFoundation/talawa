@@ -53,6 +53,18 @@ void main() {
     unregisterViewModels();
   });
   group("Test Explore Events Screen Widget:", () {
+    testWidgets("Testing if the top bar overflows", (tester) async {
+              final homeModel = locator<MainScreenViewModel>();
+
+              await mockNetworkImages(() async {
+        final homeModel = locator<MainScreenViewModel>();
+        final topBar =find.byKey(const Key('ExploreEventsTopBar'));
+        await tester.pumpWidget(createExploreEventsScreen(homeModel));
+        await tester.pumpAndSettle();
+        expect(topBar, findsOneWidget);
+        expect(tester.getSize(topBar).width, lessThan(tester.binding.window.physicalSize.width));
+      });
+    });
     testWidgets("Testing if drawer opens up", (tester) async {
       await mockNetworkImages(() async {
         final homeModel = locator<MainScreenViewModel>();

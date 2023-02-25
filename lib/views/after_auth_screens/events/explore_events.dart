@@ -83,6 +83,7 @@ class ExploreEvents extends StatelessWidget {
                             horizontal: SizeConfig.screenWidth! * 0.027,
                           ),
                           child: Column(
+                            key: const Key('ExploreEventsTopBar'),
                             children: [
                               Row(
                                 mainAxisAlignment:
@@ -121,7 +122,7 @@ class ExploreEvents extends StatelessWidget {
                                           .onPrimary,
                                       child: Container(
                                         padding: const EdgeInsets.symmetric(
-                                          horizontal: 20,
+                                          horizontal: 16,
                                           vertical: 12,
                                         ),
                                         // width: SizeConfig.screenWidth! * 0.30,
