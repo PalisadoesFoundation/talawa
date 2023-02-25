@@ -153,5 +153,10 @@
     "Are you sure you want to logout?": "ログアウトしてもよろしいですか?",
     "Logout": "ログアウト",
     "Settings": "設定",
-    "Dark Theme": "暗いテーマ"
+    "Dark Theme": "暗いテーマ",
+    "Error": "エラー",
+    "Warning": "警告",
+    "Information": "情報",
+    "No account registered with this email":"サーバーが実行されていない/間違った URL",
+    "Dismiss": "解散"
 }

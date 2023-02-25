@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -49,11 +50,17 @@ class CustomDrawerViewModel extends BaseModel {
     // if `selectedOrg` is equal to `switchOrg` and `switchToOrg` present or not.
     if (selectedOrg == switchToOrg && isPresentinSwitchableOrg(switchToOrg)) {
       // _navigationService.pop();
-      navigationService.showSnackBar('${switchToOrg.name} already selected');
+      navigationService.showTalawaErrorSnackBar(
+        '${switchToOrg.name} already selected',
+        MessageType.warning,
+      );
     } else {
       userConfig.saveCurrentOrgInHive(switchToOrg);
       setSelectedOrganizationName(switchToOrg);
-      navigationService.showSnackBar('Switched to ${switchToOrg.name}');
+      navigationService.showTalawaErrorSnackBar(
+        'Switched to ${switchToOrg.name}',
+        MessageType.info,
+      );
     }
     navigationService.pop();
   }

@@ -21,14 +21,16 @@ dependencies:
   currency_picker: ^2.0.15
   firebase_core: ^2.6.1
   firebase_core_platform_interface: ^4.5.3
-  firebase_messaging: ^14.2.4
+  firebase_messaging: ^14.2.5
   flutter:
     sdk: flutter
+
   flutter_braintree: ^3.0.0
   flutter_local_notifications: ^13.0.0
   flutter_localizations:
     sdk: flutter
   flutter_speed_dial: ^6.2.0
+  flutter_svg: ^2.0.2
   font_awesome_flutter: ^10.4.0
   geocoding: ^2.0.4
   geolocator: ^9.0.2
@@ -53,7 +55,7 @@ dependencies:
   shared_preferences: ^2.0.17
   shimmer: ^2.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: ^20.2.38
+  syncfusion_flutter_calendar: ^20.4.51
   syncfusion_flutter_datepicker: ^20.2.38
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.6
@@ -61,6 +63,7 @@ dependencies:
   vibration: ^1.7.6
   video_player: ^2.2.7
   visibility_detector: ^0.3.3
+
 
 dev_dependencies:
   build_runner: ^2.3.3
@@ -82,6 +85,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/icons/
     - lang/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
