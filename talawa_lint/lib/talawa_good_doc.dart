@@ -9,7 +9,7 @@ import 'package:talawa_lint/helpers.dart';
 import 'package:talawa_lint/talawa_lint_rules.dart';
 
 class TalawaGoodDocComments extends DartLintRule {
-  TalawaGoodDocComments() : super(code: _code);
+  const TalawaGoodDocComments() : super(code: _code);
 
   /// Metadata about the warning that will show-up in the IDE.
   /// This is used for `// ignore: code` and enabling/disabling the lint

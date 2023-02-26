@@ -10,7 +10,7 @@ class _ExampleLinter extends PluginBase {
   /// We list all the custom warnings/infos/errors
   @override
   List<LintRule> getLintRules(CustomLintConfigs configs) => [
-        TalawaApiDocLintRule(),
-        TalawaGoodDocComments(),
+        const TalawaApiDocLintRule(),
+        const TalawaGoodDocComments(),
       ];
 }

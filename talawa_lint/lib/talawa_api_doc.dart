@@ -6,7 +6,7 @@ import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:talawa_lint/helpers.dart';
 
 class TalawaApiDocLintRule extends DartLintRule {
-  TalawaApiDocLintRule() : super(code: _code);
+  const TalawaApiDocLintRule() : super(code: _code);
 
   /// Metadata about the warning that will show-up in the IDE.
   /// This is used for `// ignore: code` and enabling/disabling the lint
