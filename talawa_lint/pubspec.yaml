@@ -1,0 +1,16 @@
+# pubspec.yaml
+name: talawa_lint
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dev_dependencies:
+  lint: ^2.0.1
+
+dependencies:
+  # we will use analyzer for inspecting Dart files
+  _fe_analyzer_shared: ^52.0.0
+  analyzer:
+  analyzer_plugin:
+  # custom_lint_builder will give us tools for writing lints
+  custom_lint_builder: ^0.2.10
+  
