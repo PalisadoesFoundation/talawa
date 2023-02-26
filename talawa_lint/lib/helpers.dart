@@ -136,4 +136,5 @@ bool isMethod(ClassMember m) => m is MethodDeclaration;
 
 /// Check if the given identifier has a private name.
 bool isPrivate(Token? name) =>
+    // ignore: avoid_bool_literals_in_conditional_expressions
     name != null ? Identifier.isPrivateName(name.lexeme) : false;
