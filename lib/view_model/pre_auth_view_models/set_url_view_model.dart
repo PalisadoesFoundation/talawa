@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
@@ -105,8 +106,10 @@ class SetUrlViewModel extends BaseModel {
       } else {
         // navigationService
         //     .showSnackBar("URL doesn't exist/no connection please check");
-        navigationService.showTalawaErrorWidget(
+
+        navigationService.showTalawaErrorSnackBar(
           "URL doesn't exist/no connection please check",
+          MessageType.error,
         );
       }
     }
@@ -189,17 +192,28 @@ class SetUrlViewModel extends BaseModel {
           navigationService.pushScreen('/selectOrg', arguments: orgId);
         } on CameraException catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorWidget("The Camera is not working");
+          navigationService.showTalawaErrorSnackBar(
+            "The Camera is not working",
+            MessageType.error,
+          );
         } on QrEmbeddedImageException catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorDialog("The QR is not Working");
+          navigationService.showTalawaErrorDialog(
+            "The QR is not Working",
+            MessageType.error,
+          );
         } on QrUnsupportedVersionException catch (e) {
           debugPrint(e.toString());
-          navigationService
-              .showTalawaErrorDialog("This QR version is not Supported.");
+          navigationService.showTalawaErrorDialog(
+            "This QR version is not Supported.",
+            MessageType.error,
+          );
         } on Exception catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorWidget("This QR is not for the App");
+          navigationService.showTalawaErrorSnackBar(
+            "This QR is not for the App",
+            MessageType.error,
+          );
         }
       }
     });

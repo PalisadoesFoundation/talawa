@@ -191,5 +191,41 @@ void main() {
         expect(columnWidget.children[7], isA<SizedBox>());
       });
     });
+
+    testWidgets("Test onTapOrgInfo for CustomListTile",
+        (WidgetTester tester) async {
+      final SelectOrganizationViewModel customViewModel =
+          SelectOrganizationViewModel();
+      locator.unregister<SelectOrganizationViewModel>();
+      locator.registerLazySingleton(() => customViewModel);
+
+      final OrgInfo orgInfo = OrgInfo(
+        name: "JamRock",
+        creatorInfo: User(firstName: "Patrick", lastName: "Witter"),
+        isPublic: true,
+      );
+
+      await tester.runAsync(() async {
+        await tester.pumpWidget(createSelectOrgPage(customorgID: "-1"));
+        await tester.pump();
+        customViewModel.selectedOrganization.id = "3";
+        customViewModel.selectedOrganization = orgInfo;
+        customViewModel.notifyListeners();
+        await tester.pump();
+        final selectOrgfinder = find.byKey(selectOrgKey);
+
+        final columnFinder = find
+            .descendant(of: selectOrgfinder, matching: find.byType(Column))
+            .first;
+
+        final columnWidget = tester.firstWidget(columnFinder) as Column;
+
+        await tester.tap(find.byWidget(columnWidget.children[2]));
+
+        verify(
+          locator<SelectOrganizationViewModel>().selectOrg(orgInfo),
+        );
+      });
+    });
   });
 }

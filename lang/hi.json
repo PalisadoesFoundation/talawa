@@ -151,5 +151,10 @@
     "Are you sure you want to logout?": "क्या आप वाकई लॉगआउट करना चाहते हैं?",
     "Logout": "लॉगआउट",
     "Settings": "अपनी सेटिंग्स बदलें",
-    "Dark Theme": "डार्क थीम"
+    "Dark Theme": "डार्क थीम",
+    "Error": "गलती",
+    "Warning": "चेतावनी",
+    "Information": "जानकारी",
+    "No account registered with this email":"सर्वर नहीं चल रहा/गलत url",
+    "Dismiss": "नकार"
 }

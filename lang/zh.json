@@ -151,5 +151,10 @@
     "Are you sure you want to logout?": "您确定要退出吗？",
     "Logout": "登出",
     "Settings": "设置",
-    "Dark Theme": "黑暗主题"
+    "Dark Theme": "黑暗主题",
+    "Error": "错误",
+    "Warning": "警告",
+    "Information": "信息",
+    "No account registered with this email":"服务器未运行/网址错误",
+    "Dismiss": "解雇"
 }
