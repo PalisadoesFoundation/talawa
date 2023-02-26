@@ -8,7 +8,6 @@ packages:
       sha256: e440ac42679dfc04bbbefb58ed225c994bc7e07fccc8a68ec7d3631a127e5da9
       url: "https://pub.dev"
     source: hosted
-    version: "52.0.0"
     version: "54.0.0"
   _flutterfire_internals:
     dependency: transitive
