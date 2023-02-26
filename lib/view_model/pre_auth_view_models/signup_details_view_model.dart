@@ -115,7 +115,10 @@ class SignupDetailsViewModel extends BaseModel {
                 );
               } on Exception catch (e) {
                 print(e);
-                navigationService.showSnackBar('SomeThing went wrong');
+                navigationService.showTalawaErrorSnackBar(
+                  'SomeThing went wrong',
+                  MessageType.error,
+                );
               }
             } else {
               try {
@@ -136,14 +139,20 @@ class SignupDetailsViewModel extends BaseModel {
                 );
               } on Exception catch (e) {
                 print(e);
-                navigationService.showSnackBar('SomeThing went wrong');
+                navigationService.showTalawaErrorSnackBar(
+                  'SomeThing went wrong',
+                  MessageType.error,
+                );
               }
             }
           }
         }
       } on Exception catch (e) {
         print(e);
-        navigationService.showSnackBar('SomeThing went wrong');
+        navigationService.showTalawaErrorSnackBar(
+          'SomeThing went wrong',
+          MessageType.error,
+        );
       }
     }
   }

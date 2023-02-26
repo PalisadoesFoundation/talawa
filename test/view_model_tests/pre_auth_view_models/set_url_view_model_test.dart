@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
@@ -91,8 +92,9 @@ Future<void> main() async {
       await model.checkURLandNavigate('/', 'arguments');
 
       verify(
-        navigationService.showTalawaErrorWidget(
+        navigationService.showTalawaErrorSnackBar(
           "URL doesn't exist/no connection please check",
+          MessageType.error,
         ),
       );
     });

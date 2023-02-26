@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -79,7 +80,10 @@ class UserConfig {
         return true;
       } on Exception catch (e) {
         print(e);
-        navigationService.showSnackBar("Couldn't update User details");
+        navigationService.showTalawaErrorSnackBar(
+          "Couldn't update User details",
+          MessageType.error,
+        );
       }
     });
     return true;

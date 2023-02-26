@@ -151,5 +151,11 @@
     "Are you sure you want to logout?": "Möchten Sie sich wirklich abmelden?",
     "Logout": "Ausloggen",
     "Settings": "Einstellungen",
-    "Dark Theme": "Dunkles Thema"
+    "Dark Theme": "Dunkles Thema",
+
+    "Error": "Fout",
+    "Warning": "Waarschuwing",
+    "Information": "Informatie",
+    "No account registered with this email":"Server werkt niet/verkeerde url",
+    "Dismiss": "afwijzen"
 }

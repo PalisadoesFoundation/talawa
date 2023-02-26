@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/constants/routing_constants.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -291,7 +292,12 @@ void main() {
 
       final orgTest = selectOrganizationViewModel.selectedOrganization;
       expect(orgTest.id, '-1');
-      verify(navigationService.showSnackBar('Organisation already joined'));
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Organisation already joined',
+          MessageType.warning,
+        ),
+      );
     });
     testWidgets(
         'Test for selectOrg function when orgAlreadyJoined is false and orgRequestAlreadyPresent is true',
@@ -318,7 +324,12 @@ void main() {
 
       final orgTest = selectOrganizationViewModel.selectedOrganization;
       expect(orgTest.id, '-1');
-      verify(navigationService.showSnackBar('Membership request already sent'));
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Membership request already sent',
+          MessageType.warning,
+        ),
+      );
     });
     testWidgets('Test for successful onTapContinue function',
         (WidgetTester tester) async {
@@ -359,8 +370,9 @@ void main() {
       await selectOrganizationViewModel.onTapContinue();
 
       verify(
-        navigationService.showSnackBar(
+        navigationService.showTalawaErrorSnackBar(
           'Select one organization to continue',
+          MessageType.warning,
           duration: const Duration(milliseconds: 750),
         ),
       );
@@ -448,7 +460,12 @@ void main() {
 
       verify(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)));
       verify(navigationService.pop());
-      verify(navigationService.showSnackBar('Joined ${org.name} successfully'));
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'Joined ${org.name} successfully',
+          MessageType.info,
+        ),
+      );
     });
     testWidgets('Test for successful onTapJoin function when isPublic is false',
         (WidgetTester tester) async {
@@ -536,8 +553,9 @@ void main() {
       );
       verify(navigationService.pop());
       verify(
-        navigationService.showSnackBar(
+        navigationService.showTalawaErrorSnackBar(
           'Join in request sent to ${org.name} successfully',
+          MessageType.info,
         ),
       );
     });
@@ -571,8 +589,9 @@ void main() {
       );
       verifyNever(navigationService.pop());
       verifyNever(
-        navigationService.showSnackBar(
+        navigationService.showTalawaErrorSnackBar(
           'Join in request sent to ${org.name} successfully',
+          MessageType.info,
         ),
       );
       verifyNever(
@@ -601,7 +620,12 @@ void main() {
 
       await selectOrganizationViewModel.onTapJoin();
 
-      verify(navigationService.showSnackBar('SomeThing went wrong'));
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'SomeThing went wrong',
+          MessageType.error,
+        ),
+      );
       verify(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)));
     });
     testWidgets(
@@ -626,7 +650,12 @@ void main() {
 
       await selectOrganizationViewModel.onTapJoin();
 
-      verify(navigationService.showSnackBar('SomeThing went wrong'));
+      verify(
+        navigationService.showTalawaErrorSnackBar(
+          'SomeThing went wrong',
+          MessageType.error,
+        ),
+      );
     });
     testWidgets('Test for organization list', (WidgetTester tester) async {
       locator.registerSingleton<UserConfig>(_MockUserConfig());

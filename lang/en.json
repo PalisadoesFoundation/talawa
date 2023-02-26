@@ -34,6 +34,12 @@
     "Request Sent to": "Request Sent to",
     "Log out": "Log out",
 
+
+    "Error": "Error",
+    "Warning": "Warning",
+    "Information": "Information",
+    "No account registered with this email":"No account registered with this email",
+    "Dismiss": "Dismiss",
     "Join": "Join",
     "and": "and",
     "Collaborate": "Collaborate",

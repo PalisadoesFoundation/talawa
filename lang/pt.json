@@ -151,5 +151,10 @@
     "Are you sure you want to logout?": "Tem certeza que deseja sair?",
     "Logout": "Sair",
     "Settings": "Definições",
-    "Dark Theme": "Tema escuro"
+    "Dark Theme": "Tema escuro",
+    "Error": "Erro",
+    "Warning": "Aviso",
+    "Information": "Informação",
+    "No account registered with this email":"Servidor não está em execução/url errado",
+    "Dismiss": "liberar"
 }
