@@ -232,8 +232,7 @@ class _Visitor extends SimpleAstVisitor {
       );
     }
 
-    if (node is FunctionDeclaration &&
-        node.declaredElement?.name == "someFunc") {
+    if (node is FunctionDeclaration) {
       checkContainsParams(doc, node);
       checkContainsReturn(doc, node);
     }
