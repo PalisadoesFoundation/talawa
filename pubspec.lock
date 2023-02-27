@@ -2,7 +2,7 @@
 # See https://dart.dev/tools/pub/glossary#lockfile
 packages:
   _fe_analyzer_shared:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: _fe_analyzer_shared
       sha256: "0c80aeab9bc807ab10022cd3b2f4cf2ecdf231949dc1ddd9442406a003f19201"
@@ -281,6 +281,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.5"
+  custom_lint_builder:
+    dependency: "direct main"
+    description:
+      name: custom_lint_builder
+      sha256: b58a4d9a80c4b7460fb22afcb3ceb4a6470e79a7321f107e8ca756c050caa8bf
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.10"
+  custom_lint_core:
+    dependency: transitive
+    description:
+      name: custom_lint_core
+      sha256: "4592ac37e7cf4c9410268765f1c8ca3520309bbd0a340f3dfd047d18e5351962"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.10"
   dart_style:
     dependency: transitive
     description:
@@ -717,6 +733,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  hotreloader:
+    dependency: transitive
+    description:
+      name: hotreloader
+      sha256: "66b78edf340352fcdd2043ab6116e58ec018c5968cab6485cde0f1769d28e0b8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.5"
   html:
     dependency: transitive
     description:
