@@ -31,6 +31,8 @@ jobs:
         with:
           flutter-version: '3.7.3'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - name: Running pub get in talawa_lint
+        run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Checking for correct formatting of code
