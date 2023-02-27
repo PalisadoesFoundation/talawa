@@ -76,7 +76,7 @@ jobs:
           channel: 'stable'
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: '2.18.0'
+          sdk: '2.19.2'
       - run: |
           cd talawa_lint && flutter pub get && cd ..
           flutter pub get
