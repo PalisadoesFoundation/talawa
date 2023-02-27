@@ -8,12 +8,13 @@ import 'package:talawa/services/org_service.dart';
 
 import '../helpers/test_helpers.dart';
 
+/// Tests org_service.dart.
 void main() {
   registerServices();
 
   group('Test OrganizationService', () {
     final OrganizationService organizationService = OrganizationService();
-    final _dbFunctions = locator<DataBaseMutationFunctions>();
+    final dbFunctions = locator<DataBaseMutationFunctions>();
 
     test('Test getOrgMembersList', () async {
       const String orgId = '123';
@@ -71,7 +72,7 @@ void main() {
           ],
         },
       );
-      when(_dbFunctions.gqlAuthMutation(query))
+      when(dbFunctions.gqlAuthMutation(query))
           .thenAnswer((realInvocation) async => queryResult);
 
       final result = await organizationService.getOrgMembersList(orgId);
