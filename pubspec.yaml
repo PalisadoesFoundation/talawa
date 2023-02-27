@@ -85,8 +85,8 @@ dev_dependencies:
   json_serializable: ^6.6.1
   lint: ^2.0.1
   mocktail_image_network: ^0.3.1
-  # talawa_lint:
-  #   path: talawa_lint/
+  talawa_lint:
+    path: talawa_lint/
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
