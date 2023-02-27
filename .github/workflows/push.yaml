@@ -43,8 +43,10 @@ jobs:
         run: flutter pub get
       - name: Checking for correct formatting of code
         run: flutter format --set-exit-if-changed .
-      - name: Analysing codebase for linting
+      - name: Analysing codebase for default linting
         run: flutter analyze --no-pub
+      - name: Analysing codebase for custom linting
+        run: flutter pub run custom_lint
 #       - name: Echo the GitHub environment for troubleshooting
 #         run: echo "$GITHUB_CONTEXT"
 #       - name: Echo the GitHub context for troubleshooting
