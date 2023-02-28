@@ -49,7 +49,7 @@ void main() {
           id: 'id',
           event: Event(),
           creator: User(),
-          createdAt: '123456',
+          createdAt: '2023-02-24T21:14:58.577+00:00',
           deadline: '123458',
         ),
       );
