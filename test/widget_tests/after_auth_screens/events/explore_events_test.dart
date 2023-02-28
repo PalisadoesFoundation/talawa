@@ -102,16 +102,16 @@ void main() {
       });
     });
     testWidgets("Testing if the top bar overflows", (tester) async {
-      final homeModel = locator<MainScreenViewModel>();
-
       await mockNetworkImages(() async {
         final homeModel = locator<MainScreenViewModel>();
         final topBar = find.byKey(const Key('ExploreEventsTopBar'));
         await tester.pumpWidget(createExploreEventsScreen(homeModel));
         await tester.pumpAndSettle();
         expect(topBar, findsOneWidget);
-        expect(tester.getSize(topBar).width,
-            lessThan(tester.binding.window.physicalSize.width));
+        expect(
+          tester.getSize(topBar).width,
+          lessThan(tester.binding.window.physicalSize.width),
+        );
       });
     });
     testWidgets("Testing if tapping on add icon and EventCard works",
