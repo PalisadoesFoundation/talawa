@@ -27,7 +27,7 @@ dependencies:
   currency_picker: ^2.0.15
 
   ############## Remove ##########
-  custom_lint_builder: ^0.2.10
+  custom_lint_builder: ^0.2.11
   ################################
   
   firebase_core: ^2.6.1
