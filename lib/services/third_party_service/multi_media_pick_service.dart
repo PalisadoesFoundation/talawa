@@ -78,7 +78,7 @@ class MultiMediaPickerService {
   Future<File?> cropImage({required File imageFile}) async {
     // try, to crop the image and returns a File with cropped image path.
     try {
-      final File? croppedImage = await ImageCropper().cropImage(
+      final CroppedFile? croppedImage = await ImageCropper().cropImage(
         sourcePath: imageFile.path,
         aspectRatioPresets: [
           CropAspectRatioPreset.square,
@@ -98,7 +98,7 @@ class MultiMediaPickerService {
             minimumAspectRatio: 1.0,
           )
         ],
-      ) as File?;
+      );
       if (croppedImage != null) {
         return File(croppedImage.path);
       }

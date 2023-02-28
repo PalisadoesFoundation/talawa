@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/add_post_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -66,37 +67,38 @@ class AddPost extends StatelessWidget {
                 ),
               ),
               // renders icon button to upload post files.
-              Row(
-                children: <Widget>[
-                  // button to select the photo from gallery.
-                  IconButton(
-                    key: const Key('add_post_icon_button2'),
-                    onPressed: () => model.getImageFromGallery(),
-                    icon: const Icon(Icons.photo),
-                  ),
-                  // button to capture the image.
-                  IconButton(
-                    key: const Key('add_post_icon_button3'),
-                    onPressed: () => model.getImageFromGallery(camera: true),
-                    icon: const Icon(Icons.camera_alt),
-                  ),
-                  // button to select file
-                  IconButton(
-                    key: const Key('add_post_icon_button4'),
-                    onPressed: () {},
-                    icon: const Icon(Icons.file_upload),
-                  ),
-                  // button to add hastags to the post.
-                  TextButton(
-                    key: const Key('add_post_text_btn2'),
-                    onPressed: () {},
-                    child: Text(
-                      '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
-                      style: Theme.of(context).textTheme.titleLarge,
+              if(model.imageFile==null)Row(
+                      children: <Widget>[
+                        // button to select the photo from gallery.
+                        IconButton(
+                          key: const Key('add_post_icon_button2'),
+                          onPressed: () => model.getImageFromGallery(),
+                          icon: const Icon(Icons.photo),
+                        ),
+                        // button to capture the image.
+                        IconButton(
+                          key: const Key('add_post_icon_button3'),
+                          onPressed: () =>
+                              model.getImageFromGallery(camera: true),
+                          icon: const Icon(Icons.camera_alt),
+                        ),
+                        // button to select file
+                        IconButton(
+                          key: const Key('add_post_icon_button4'),
+                          onPressed: () {},
+                          icon: const Icon(Icons.file_upload),
+                        ),
+                        // button to add hastags to the post.
+                        TextButton(
+                          key: const Key('add_post_text_btn2'),
+                          onPressed: () {},
+                          child: Text(
+                            '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
               const Divider(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
