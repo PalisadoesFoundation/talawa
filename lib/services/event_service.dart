@@ -52,11 +52,17 @@ class EventService {
     // refresh user's access token
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
     _dbFunctions.init();
+
+    print("\n\n\n\n\ninit\n\n\n\n\n");
+
     // get current organization id
     final String currentOrgID = _currentOrg.id!;
     // mutation to fetch the events
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
     final result = await _dbFunctions.gqlAuthMutation(mutation);
+
+    print("\n\n\n\n\nresult $result\n\n\n\n\n");
+
     if (result == null) return;
     final List eventsJson = result.data!["eventsByOrganization"] as List;
     eventsJson.forEach((eventJsonData) {
@@ -67,6 +73,8 @@ class EventService {
           false;
       _eventStreamController.add(event);
     });
+
+    print("\n\n\n\n\nreturn\n\n\n\n\n");
   }
 
   /// This function is used to fetch all registrants of an event.

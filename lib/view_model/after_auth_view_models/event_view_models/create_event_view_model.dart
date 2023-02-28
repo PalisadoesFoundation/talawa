@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:intl/intl.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -96,10 +98,14 @@ class CreateEventViewModel extends BaseModel {
         eventEndTime.hour,
         eventEndTime.minute,
       );
+
+      print(DateFormat('yyyy-MM-dd').format(startDate));
+      print('${DateFormat('HH:mm:ss').format(endDate)}Z');
+
       // all required data for creating an event
       final Map<String, dynamic> variables = {
-        'startDate': startDate.toString(),
-        'endDate': endDate.toString(),
+        'startDate': DateFormat('yyyy-MM-dd').format(startDate),
+        'endDate': DateFormat('yyyy-MM-dd').format(endDate),
         'organizationId': _currentOrg.id,
         'title': eventTitleTextController.text,
         'description': eventDescriptionTextController.text,
@@ -108,8 +114,8 @@ class CreateEventViewModel extends BaseModel {
         'isRegisterable': isRegisterableSwitch,
         'recurring': false,
         'allDay': false,
-        'startTime': startTime.microsecondsSinceEpoch.toString(),
-        'endTime': endTime.microsecondsSinceEpoch.toString(),
+        'startTime': '${DateFormat('HH:mm:ss').format(startDate)}Z',
+        'endTime': '${DateFormat('HH:mm:ss').format(endDate)}Z',
         if (latitude != null) 'latitude': latitude,
         if (longitude != null) 'longitude': longitude,
       };
@@ -130,7 +136,9 @@ class CreateEventViewModel extends BaseModel {
       if (result != null) {
         navigationService.pop();
 
+        // print("\n\n\n\n\nbro started\n\n\n\n\n");
         await _eventService.getEvents();
+        // print("\n\n\n\n\nbro ended\n\n\n\n\n");
       }
     }
   }
