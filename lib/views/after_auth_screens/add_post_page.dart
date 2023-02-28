@@ -135,8 +135,10 @@ class AddPost extends StatelessWidget {
                             right: 5,
                             top: 5,
                             child: IconButton(
+                              key: const Key('remove_image_post_page'),
                               onPressed: () => model.removeImage(),
                               icon: const Icon(
+
                                 Icons.cancel,
                                 color: Colors.black,
                               ),
