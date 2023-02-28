@@ -67,38 +67,38 @@ class AddPost extends StatelessWidget {
                 ),
               ),
               // renders icon button to upload post files.
-              if(model.imageFile==null)Row(
-                      children: <Widget>[
-                        // button to select the photo from gallery.
-                        IconButton(
-                          key: const Key('add_post_icon_button2'),
-                          onPressed: () => model.getImageFromGallery(),
-                          icon: const Icon(Icons.photo),
-                        ),
-                        // button to capture the image.
-                        IconButton(
-                          key: const Key('add_post_icon_button3'),
-                          onPressed: () =>
-                              model.getImageFromGallery(camera: true),
-                          icon: const Icon(Icons.camera_alt),
-                        ),
-                        // button to select file
-                        IconButton(
-                          key: const Key('add_post_icon_button4'),
-                          onPressed: () {},
-                          icon: const Icon(Icons.file_upload),
-                        ),
-                        // button to add hastags to the post.
-                        TextButton(
-                          key: const Key('add_post_text_btn2'),
-                          onPressed: () {},
-                          child: Text(
-                            '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ),
-                      ],
+              if (model.imageFile == null)
+                Row(
+                  children: <Widget>[
+                    // button to select the photo from gallery.
+                    IconButton(
+                      key: const Key('add_post_icon_button2'),
+                      onPressed: () => model.getImageFromGallery(),
+                      icon: const Icon(Icons.photo),
                     ),
+                    // button to capture the image.
+                    IconButton(
+                      key: const Key('add_post_icon_button3'),
+                      onPressed: () => model.getImageFromGallery(camera: true),
+                      icon: const Icon(Icons.camera_alt),
+                    ),
+                    // button to select file
+                    IconButton(
+                      key: const Key('add_post_icon_button4'),
+                      onPressed: () {},
+                      icon: const Icon(Icons.file_upload),
+                    ),
+                    // button to add hastags to the post.
+                    TextButton(
+                      key: const Key('add_post_text_btn2'),
+                      onPressed: () {},
+                      child: Text(
+                        '# ${AppLocalizations.of(context)!.strictTranslate("Add hashtag")}',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                  ],
+                ),
               const Divider(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -138,7 +138,6 @@ class AddPost extends StatelessWidget {
                               key: const Key('remove_image_post_page'),
                               onPressed: () => model.removeImage(),
                               icon: const Icon(
-
                                 Icons.cancel,
                                 color: Colors.black,
                               ),
