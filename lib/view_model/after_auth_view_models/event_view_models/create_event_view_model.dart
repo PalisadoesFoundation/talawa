@@ -132,9 +132,7 @@ class CreateEventViewModel extends BaseModel {
       if (result != null) {
         navigationService.pop();
 
-        // print("\n\n\n\n\nbro started\n\n\n\n\n");
         await _eventService.getEvents();
-        // print("\n\n\n\n\nbro ended\n\n\n\n\n");
       }
     }
   }
