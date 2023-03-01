@@ -8,6 +8,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/chats/chat_list_tile_data_model.dart';
 import 'package:talawa/models/chats/chat_message.dart';
@@ -75,6 +76,7 @@ import 'test_helpers.mocks.dart';
     MockSpec<AppTheme>(returnNullOnMissingStub: true),
     MockSpec<TaskService>(returnNullOnMissingStub: false),
     MockSpec<CreateEventViewModel>(returnNullOnMissingStub: true),
+    MockSpec<DirectChatViewModel>(returnNullOnMissingStub: true),
   ],
 )
 final User member1 = User(id: "testMem1");
@@ -551,6 +553,37 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
   });
 
   locator.registerSingleton<CreateEventViewModel>(cachedViewModel);
+  return cachedViewModel;
+}
+
+DirectChatViewModel getAndRegisterDirectChatViewModel() {
+  _removeRegistrationIfExists<DirectChatViewModel>();
+  final cachedViewModel = MockDirectChatViewModel();
+  final formKey = GlobalKey<AnimatedListState>();
+  final ChatUser chatUser1 =
+      ChatUser(firstName: "XYZ", id: "XYZ", image: "XYZ");
+  final ChatUser chatUser2 =
+      ChatUser(firstName: "ABC", id: "ABC", image: "ABC");
+  final ChatMessage chatMessage1 =
+      ChatMessage("XYZ", chatUser1, "XYZ", chatUser2);
+  final Map<String, List<ChatMessage>> messages = {
+    "XYZ": [chatMessage1]
+  };
+  final ChatListTileDataModel chatListTileDataModel1 =
+      ChatListTileDataModel([chatUser1, chatUser2], "XYZ");
+
+  when(cachedViewModel.listKey).thenReturn(formKey);
+  when(cachedViewModel.chatState).thenReturn(ChatState.complete);
+  when(cachedViewModel.name).thenReturn("XYZ");
+  when(cachedViewModel.chats).thenReturn([chatListTileDataModel1]);
+  when(cachedViewModel.chatMessagesByUser).thenReturn(messages);
+
+  when(cachedViewModel.initialise()).thenAnswer((realInvocation) async {});
+  when(cachedViewModel.getChatMessages("XYZ"))
+      .thenAnswer((realInvocation) async {});
+  when(cachedViewModel.chatName("XYZ")).thenAnswer((realInvocation) {});
+
+  locator.registerSingleton<DirectChatViewModel>(cachedViewModel);
   return cachedViewModel;
 }
 
