@@ -573,6 +573,7 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
       ChatListTileDataModel([chatUser1, chatUser2], "XYZ");
 
   when(cachedViewModel.listKey).thenReturn(formKey);
+  // Default is the loaded state
   when(cachedViewModel.chatState).thenReturn(ChatState.complete);
   when(cachedViewModel.name).thenReturn("XYZ");
   when(cachedViewModel.chats).thenReturn([chatListTileDataModel1]);
