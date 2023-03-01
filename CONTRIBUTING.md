@@ -12,6 +12,7 @@ If you are new to contributing to open source, please read the Open Source Guide
     * [Issues](#issues)
     * [Pull Requests](#pull-requests)
     * [Branching Strategy](#branching-strategy)
+    * [Conflict Resolution](#conflict-resolution)
 * [Contributing Code](#contributing-code)
 * [General Guidelines](#general-guidelines)
    * [Folder Definition](#folder-definition)
@@ -64,6 +65,15 @@ For Talawa, we had employed the following branching strategy to simplify the dev
 - `develop`: For unstable code and bug fixing
 - `alpha-x.x.x`: For stability testing
 - `master`: Where the stable production ready code lies
+
+#### Conflict Resolution
+
+When multiple developers are working on issues there is bound to be a conflict of interest (not to be confused with git conflicts) among issues, PRs or even ideas. Usually these conflicts are resolved in a **First Come First Serve** basis however there are certain exceptions to it.
+
+- In the cases where you feel your potential issues could be an extension or in conflict with other PRs it is important to ask the author of the PR in the slack channel or in their PRs or issues themselves why he/she did not write code for something that would require minimal effort on their part.
+- Based on basic courtesy, it is good practice to let the person who created a function apply and test that function when needed.
+- Last but not the least, communication is important make sure to talk to other contributors, in these cases, in slack channel or in a issue/PR thread.
+- As a last resort the Admins would be responsible for deciding how to resolve this conflict. 
 
 ### Contributing Code
 
