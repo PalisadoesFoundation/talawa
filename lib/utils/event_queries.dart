@@ -16,8 +16,8 @@ class EventQueries {
           isRegisterable
           recurring
           recurrance
-          startTime
-          endTime
+          startDate
+          endDate
           allDay
           startTime
           endTime

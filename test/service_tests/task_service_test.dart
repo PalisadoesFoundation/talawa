@@ -33,7 +33,7 @@ void main() {
                   'lastName': 'Doe',
                   'email': 'test@test.com',
                 },
-                'createdAt': '2023-02-24T21:14:58.577+00:00',
+                'createdAt': '123456',
                 'event': {
                   '_id': '123',
                 },
@@ -66,7 +66,7 @@ void main() {
                   'lastName': 'Doe',
                   'email': 'test@test.com',
                 },
-                'createdAt': '2023-02-24T21:14:58.577+00:00',
+                'createdAt': '123456',
                 'event': {
                   '_id': '123',
                 },
@@ -103,7 +103,7 @@ void main() {
                 'lastName': 'Doe',
                 'email': 'test@test.com',
               },
-              'createdAt': '2023-02-24T21:14:58.577+00:00',
+              'createdAt': '123456',
               'event': {
                 '_id': '123',
               },
@@ -143,7 +143,7 @@ void main() {
           title: 'Test task',
           description: 'Test description',
           deadline: '123456',
-          createdAt: '2023-02-24T21:14:58.577+00:00',
+          createdAt: '123456',
           event: Event(),
           creator: User(),
         ),
@@ -169,7 +169,7 @@ void main() {
           title: 'Test task',
           description: 'Test description',
           deadline: '123456',
-          createdAt: '2023-02-24T21:14:58.577+00:00',
+          createdAt: '123456',
           event: Event(),
           creator: User(),
         ),
@@ -196,7 +196,7 @@ void main() {
               'creator': {
                 '_id': '123',
               },
-              'createdAt': '2023-02-24T21:14:58.577+00:00',
+              'createdAt': '123456',
               'description': 'Test description',
               'deadline': '123456',
               'event': {
@@ -215,7 +215,7 @@ void main() {
           id: 'taskId',
           title: 'Test task',
           creator: User(id: '123'),
-          createdAt: '2023-02-24T21:14:58.577+00:00',
+          createdAt: '123456',
           description: 'Test description',
           deadline: '123456',
           event: Event(id: '123'),

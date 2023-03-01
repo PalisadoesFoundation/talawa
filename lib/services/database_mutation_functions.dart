@@ -51,7 +51,6 @@ class DataBaseMutationFunctions {
   }) {
     // if server link is wrong.
     if (exception.linkException != null) {
-      print('link error: ${exception.linkException}');
       // debugPrint(exception.linkException.toString());
       if (showSnackBar) {
         WidgetsBinding.instance.addPostFrameCallback(

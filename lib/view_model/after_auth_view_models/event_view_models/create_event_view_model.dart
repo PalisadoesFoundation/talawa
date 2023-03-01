@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
@@ -99,9 +98,6 @@ class CreateEventViewModel extends BaseModel {
         eventEndTime.minute,
       );
 
-      print(DateFormat('yyyy-MM-dd').format(startDate));
-      print('${DateFormat('HH:mm:ss').format(endDate)}Z');
-
       // all required data for creating an event
       final Map<String, dynamic> variables = {
         'startDate': DateFormat('yyyy-MM-dd').format(startDate),
@@ -114,8 +110,8 @@ class CreateEventViewModel extends BaseModel {
         'isRegisterable': isRegisterableSwitch,
         'recurring': false,
         'allDay': false,
-        'startTime': '${DateFormat('HH:mm:ss').format(startDate)}Z',
-        'endTime': '${DateFormat('HH:mm:ss').format(endDate)}Z',
+        'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
+        'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
         if (latitude != null) 'latitude': latitude,
         if (longitude != null) 'longitude': longitude,
       };

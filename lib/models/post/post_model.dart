@@ -18,8 +18,8 @@ class Post {
   Post.fromJson(Map<String, dynamic> json) {
     sId = json['_id'] as String;
     description = json['text'] as String?;
-    createdAt = DateTime.parse(
-      json['createdAt'] as String,
+    createdAt = DateTime.fromMillisecondsSinceEpoch(
+      int.parse(json['createdAt'] as String),
     );
     imageUrl = json['imageUrl'] as String?;
     videoUrl = json['videoUrl'] as String?;

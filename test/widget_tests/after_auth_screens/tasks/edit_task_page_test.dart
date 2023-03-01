@@ -22,7 +22,7 @@ Widget createEditTaskPage() => MaterialApp(
           title: 'title',
           event: Event(),
           creator: User(),
-          createdAt: '2023-02-24T21:14:58.577+00:00',
+          createdAt: '123456',
         ),
       ),
     );

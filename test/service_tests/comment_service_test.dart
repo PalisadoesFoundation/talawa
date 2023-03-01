@@ -62,7 +62,7 @@ void main() {
                   'lastName': 'Doe',
                   'email': 'test@test.com',
                 },
-                'createdAt': '2023-02-24T21:14:58.577+00:00',
+                'createdAt': '123456',
                 'text': 'test text',
                 'post': 'test post',
                 'likeCount': 'test count',
@@ -74,7 +74,7 @@ void main() {
                   'lastName': 'Doe',
                   'email': 'test@test.com',
                 },
-                'createdAt': '2023-02-24T21:14:58.577+00:00',
+                'createdAt': '123456',
                 'text': 'test text',
                 'post': 'test post',
                 'likeCount': 'test count',
@@ -86,7 +86,7 @@ void main() {
                   'lastName': 'chauhdary',
                   'email': 'test@test.com',
                 },
-                'createdAt': '2023-02-24T21:14:58.577+00:00',
+                'createdAt': '123456',
                 'text': 'test text',
                 'post': 'test post',
                 'likeCount': 'test count',
@@ -108,7 +108,7 @@ void main() {
           'firstName: John, '
           'lastName: Doe, '
           'email: test@test.com},'
-          ' createdAt: 2023-02-24T21:14:58.577+00:00, '
+          ' createdAt: 123456, '
           'text: test text, '
           'post: test post, '
           'likeCount: test count}, '
@@ -117,7 +117,7 @@ void main() {
           'firstName: Ayush, '
           'lastName: Doe, '
           'email: test@test.com}, '
-          'createdAt: 2023-02-24T21:14:58.577+00:00, '
+          'createdAt: 123456, '
           'text: test text, '
           'post: test post, '
           'likeCount: test count}, '
@@ -125,7 +125,7 @@ void main() {
           ' firstName: john, '
           'lastName: chauhdary, '
           'email: test@test.com}, '
-          'createdAt: 2023-02-24T21:14:58.577+00:00, '
+          'createdAt: 123456, '
           'text: test text, '
           'post: test post, '
           'likeCount: test count}]')) {
@@ -160,7 +160,7 @@ void main() {
           'firstName: John, '
           'lastName: Doe, '
           'email: test@test.com},'
-          ' createdAt: 2023-02-24T21:14:58.577+00:00, '
+          ' createdAt: 123456, '
           'text: test text, '
           'post: test post, '
           'likeCount: test count}, '
@@ -169,7 +169,7 @@ void main() {
           'firstName: Ayush, '
           'lastName: Doe, '
           'email: test@test.com}, '
-          'createdAt: 2023-02-24T21:14:58.577+00:00, '
+          'createdAt: 123456, '
           'text: test text, '
           'post: test post, '
           'likeCount: test count}, '
@@ -177,7 +177,7 @@ void main() {
           ' firstName: john, '
           'lastName: chauhdary, '
           'email: test@test.com}, '
-          'createdAt: 2023-02-24T21:14:58.577+00:00, '
+          'createdAt: 123456, '
           'text: test text, '
           'post: test post, '
           'likeCount: test count}]')) {

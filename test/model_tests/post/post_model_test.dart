@@ -54,7 +54,7 @@ void main() {
           'email': 'test@test.com',
         },
         '_id': '1222',
-        'createdAt': '2023-02-24T21:14:58.577+00:00',
+        'createdAt': '1087344000000',
         'description': 'test description',
         'imageUrl': 'https://image.com',
         'videoUrl': 'https://image.com',

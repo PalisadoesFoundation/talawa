@@ -15,7 +15,7 @@ void main() {
           lastName: 'Doe',
           email: 'test@test.com',
         ),
-        createdAt: '2023-02-24T21:14:58.577+00:00',
+        createdAt: '123456',
         event: Event(
           id: '123',
         ),
@@ -29,7 +29,7 @@ void main() {
           'lastName': 'Doe',
           'email': 'test@test.com',
         },
-        'createdAt': '2023-02-24T21:14:58.577+00:00',
+        'createdAt': '123456',
         'event': {
           '_id': '123',
         },
