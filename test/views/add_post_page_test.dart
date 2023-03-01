@@ -60,7 +60,7 @@ void main() {
     unregisterServices();
   });
 
-  testWidgets('checks if the upload photo from  gallery works', (tester) async {
+  testWidgets("checks if the upload photo from  gallery works", (tester) async {
     await tester.pumpWidget(
       createAddPostPage(
         themeMode: ThemeMode.dark,
@@ -71,7 +71,6 @@ void main() {
 
     /// using the key of icon button
     /// because their are many icon button
-
     final finder = find.byKey(const Key('add_post_icon_button2'));
 
     expect(finder, findsOneWidget);
@@ -113,7 +112,6 @@ void main() {
 
     /// using the key of icon button
     /// because their are many icon button
-
     final finder = find.byKey(const Key('add_post_icon_button3'));
 
     expect(finder, findsOneWidget);
