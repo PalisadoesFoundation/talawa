@@ -60,7 +60,8 @@ void main() {
     unregisterServices();
   });
 
-  testWidgets("checks if the upload photo from  gallery works", (tester) async {
+  testWidgets("Checks if the upload photo from  gallery works.",
+      (tester) async {
     await tester.pumpWidget(
       createAddPostPage(
         themeMode: ThemeMode.dark,
@@ -100,7 +101,7 @@ void main() {
   });
 
   testWidgets(
-      "checks if the upload photo from  camera works & check if image shows on screen, Check if image is removed",
+      "Checks if the upload photo from  camera works & check if image shows on screen, Check if image is removed.",
       (tester) async {
     await tester.pumpWidget(
       createAddPostPage(
