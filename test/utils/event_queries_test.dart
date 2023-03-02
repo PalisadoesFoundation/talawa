@@ -18,8 +18,8 @@ void main() {
           isRegisterable
           recurring
           recurrance
-          startTime
-          endTime
+          startDate
+          endDate
           allDay
           startTime
           endTime
@@ -67,15 +67,15 @@ void main() {
      mutation createEvent( \$organizationId: ID!,
         \$title:String!,
         \$description: String!,
-        \$startTime: String,
-        \$endTime: String,
+        \$startTime: Time,
+        \$endTime: Time,
         \$allDay: Boolean!,
         \$recurring: Boolean!,
         \$isPublic: Boolean!,
         \$isRegisterable: Boolean!,
         \$location: String,
-        \$startDate : String!,
-        \$endDate : String!,
+        \$startDate : Date!,
+        \$endDate : Date!,
       ) { 
       createEvent(
         data:{
@@ -139,8 +139,8 @@ void main() {
       const data = """mutation updateEvent( 
         \$title:String!,
         \$description: String!,
-        \$startTime: String,
-        \$endTime: String,
+        \$startTime: Time,
+        \$endTime: Time,
         \$allDay: Boolean!,
         \$recurring: Boolean!,
         \$isPublic: Boolean!,

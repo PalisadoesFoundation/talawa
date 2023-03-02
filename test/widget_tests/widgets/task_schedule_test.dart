@@ -218,9 +218,7 @@ void main() {
     final finder = find.byType(SfCalendar);
     await tester.tap(finder);
     await tester.pump();
-    tester.allElements.forEach((element) {
-      print(element);
-    });
+
     await tester.tap(find.text(DateFormat("MMMM y").format(DateTime.now())));
     await tester.pump();
     verifyNever(mockNavigationService.pushDialog(const AlertDialog()));
