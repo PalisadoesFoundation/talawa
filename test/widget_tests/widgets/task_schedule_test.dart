@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
+import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:talawa/models/events/event_model.dart';
@@ -17,7 +19,10 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/task_schedule.dart';
 
 import '../../helpers/test_helpers.dart';
+import '../../helpers/test_helpers.mocks.dart';
 import '../../helpers/test_locator.dart';
+
+final mockNavigationService = MockNavigationService();
 
 final task1 = Task(
   id: '123',
@@ -204,7 +209,9 @@ void main() {
     expect(find.byType(AlertDialog), findsOneWidget);
   });
 
-  testWidgets("Check if the Task Card's agenda is tapped", (tester) async {
+  testWidgets(
+      "Check calendarTapped when targetElement is CalendarElement.header",
+      (tester) async {
     await tester.pumpWidget(createTaskScheduleWidget());
     await tester.pump();
 
@@ -212,9 +219,9 @@ void main() {
     await tester.tap(finder);
     await tester.pump();
 
-    // TODO: Make this work again
-    // await tester.tap(find.text('February 2023'));
+    await tester.tap(find.text(DateFormat("MMMM y").format(DateTime.now())));
     await tester.pump();
+    verifyNever(mockNavigationService.pushDialog(const AlertDialog()));
   });
   testWidgets(
       'Check when the Task Card is pressed the close button is available',
