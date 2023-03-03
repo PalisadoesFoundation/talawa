@@ -27,7 +27,7 @@ Event getEvent(bool isPublic, bool isCreator) {
     location: 'ABC',
     description: 'test',
     creator: User(
-      id: isCreator ? "xyz1" : "abc1",
+      id: isCreator ? "xzy1" : "abc1",
       firstName: "Test",
       lastName: "User",
       email: "testuser@gmail.com",
@@ -40,7 +40,7 @@ Event getEvent(bool isPublic, bool isCreator) {
     longitude: -23.45,
     admins: [
       User(
-        id: isCreator ? "xyz1" : "abc1",
+        id: isCreator ? "xzy1" : "abc1",
         firstName: "Test",
         lastName: "User",
       )
