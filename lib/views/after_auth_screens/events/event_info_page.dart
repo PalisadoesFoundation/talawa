@@ -8,7 +8,6 @@ import 'package:talawa/view_model/after_auth_view_models/event_view_models/event
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/explore_events_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/event_info_body.dart';
 import 'package:talawa/views/base_view.dart';
-import 'package:talawa/widgets/event_admin_fab.dart';
 
 /// EventInfoPage returns a widget that has mutable state _EventInfoPageState.
 class EventInfoPage extends StatefulWidget {
@@ -58,23 +57,29 @@ class _EventInfoPageState extends State<EventInfoPage> {
           ),
           // if the event is created by current user then renders explore
           // button in the event page else renders register button.
-          floatingActionButton: model.event.creator!.id !=
-                  userConfig.currentUser.id
-              ? FloatingActionButton.extended(
-                  onPressed: () {
-                    model.registerForEvent();
-                  },
-                  label: Text(
-                    model.fabTitle,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                )
-              : eventAdminFab(
-                  context: context,
-                  event: model.event,
-                  exploreEventsViewModel: widget.args["exploreEventViewModel"]
-                      as ExploreEventsViewModel,
-                ),
+          floatingActionButton:
+              model.event.creator!.id != userConfig.currentUser.id
+                  ? FloatingActionButton.extended(
+                      onPressed: () {
+                        model.registerForEvent();
+                      },
+                      label: Text(
+                        model.fabTitle,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    )
+                  : FloatingActionButton(
+                      onPressed: () {
+                        (widget.args["exploreEventViewModel"]
+                                as ExploreEventsViewModel)
+                            .deleteEvent(eventId: model.event.id!);
+                      },
+                      foregroundColor: Theme.of(context).colorScheme.secondary,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      child: const Icon(
+                        Icons.edit,
+                      ),
+                    ),
         );
       },
     );
