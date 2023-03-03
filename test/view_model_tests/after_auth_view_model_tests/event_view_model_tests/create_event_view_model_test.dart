@@ -103,33 +103,6 @@ void main() {
       expect(isListCorrect, true);
     });
 
-    // test("test getCurrentOrgUsersList with isAdmin true", () async {
-    //   final model = CreateEventViewModel();
-    //   model.initialize();
-
-    //   final User user1 = User(id: "fakeUser1");
-    //   final User user2 = User(id: "fakeUser2");
-    //   final List<User> users = [user1, user2];
-
-    //   when(organizationService.getOrgMembersList("XYZ"))
-    //       .thenAnswer((realInvocation) async {
-    //     return users;
-    //   });
-
-    //   await model.getCurrentOrgUsersList();
-
-    //   bool isListCorrect = true;
-
-    //   users.forEach((user) {
-    //     final bool x = model.adminCheckedMap.containsKey(user.id);
-    //     if (!x) {
-    //       isListCorrect = false;
-    //     }
-    //   });
-
-    //   expect(isListCorrect, true);
-    // });
-
     testWidgets("testing createEvent function", (tester) async {
       final model = CreateEventViewModel();
       model.initialize();

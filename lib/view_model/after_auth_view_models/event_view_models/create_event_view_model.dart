@@ -136,6 +136,7 @@ class CreateEventViewModel extends BaseModel {
   }
 
   /// This function is used to get the image from gallery.
+  ///
   /// The function uses the `_multiMediaPickerService` services.
   ///
   /// params:
@@ -157,8 +158,6 @@ class CreateEventViewModel extends BaseModel {
 
   /// This function fetch all the users in the current organization and return `List`.
   ///
-  /// params:
-  /// * [isAdmin]
   Future<List<User>> getCurrentOrgUsersList() async {
     if (orgMembersList.isEmpty) {
       orgMembersList = await organizationService
@@ -167,7 +166,6 @@ class CreateEventViewModel extends BaseModel {
 
     // loop through list
     orgMembersList.forEach((orgMember) {
-      // if `orgMember` is admin
       _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
       _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
     });
@@ -175,17 +173,13 @@ class CreateEventViewModel extends BaseModel {
     return orgMembersList;
   }
 
-  /// This function build the user list. `_selectedAdmins` for admins and `_selectedMembers` for members.
-  ///
-  /// params:
-  /// * [isAdmin]
+  /// This function build the user list.
   void buildUserList() {
     _selectedMembers.clear();
 
     // loop through the organization member list
 
     orgMembersList.forEach((orgMember) {
-      // if admin
       if (_memberCheckedMap[orgMember.id] == true) {
         _selectedMembers.add(orgMember);
       }
@@ -195,11 +189,8 @@ class CreateEventViewModel extends BaseModel {
 
   /// This function is used to remove a user from user's list.
   ///
-  /// params:
-  /// * [isAdmin] : true if the user that need to be removed is admin else false.
   /// * [userId] : id of the user that need to be removed.
   void removeUserFromList({required String userId}) {
-    // if the user is admin.
     _selectedMembers.removeWhere((user) => user.id == userId);
     _memberCheckedMap[userId] = false;
 
