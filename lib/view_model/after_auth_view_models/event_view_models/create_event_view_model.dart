@@ -43,8 +43,6 @@ class CreateEventViewModel extends BaseModel {
   double? longitude;
 
   //late OrganizationService _organizationService;
-  late final Map<String, bool> _adminCheckedMap = {};
-  late final List<User> _selectedAdmins = [];
   late final Map<String, bool> _memberCheckedMap = {};
   late final List<User> _selectedMembers = [];
   late List<User> orgMembersList = [];
@@ -182,7 +180,6 @@ class CreateEventViewModel extends BaseModel {
   /// params:
   /// * [isAdmin]
   void buildUserList() {
-    _selectedAdmins.clear();
     _selectedMembers.clear();
 
     // loop through the organization member list
