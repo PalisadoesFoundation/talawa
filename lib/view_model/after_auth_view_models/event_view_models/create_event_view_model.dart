@@ -55,9 +55,9 @@ class CreateEventViewModel extends BaseModel {
 
   late OrgInfo _currentOrg;
   final _userConfig = locator<UserConfig>();
-  List<User> get selectedAdmins => _selectedAdmins;
+
   List<User> get selectedMembers => _selectedMembers;
-  Map<String, bool> get adminCheckedMap => _adminCheckedMap;
+
   Map<String, bool> get memberCheckedMap => _memberCheckedMap;
   File? get imageFile => _imageFile;
 
@@ -161,7 +161,7 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// params:
   /// * [isAdmin]
-  Future<List<User>> getCurrentOrgUsersList({required bool isAdmin}) async {
+  Future<List<User>> getCurrentOrgUsersList() async {
     if (orgMembersList.isEmpty) {
       orgMembersList = await organizationService
           .getOrgMembersList(userConfig.currentOrg.id!);
@@ -170,11 +170,7 @@ class CreateEventViewModel extends BaseModel {
     // loop through list
     orgMembersList.forEach((orgMember) {
       // if `orgMember` is admin
-      if (isAdmin) {
-        _adminCheckedMap.putIfAbsent(orgMember.id!, () => false);
-      } else {
-        _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
-      }
+      _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
       _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
     });
     // return list
@@ -185,16 +181,15 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// params:
   /// * [isAdmin]
-  void buildUserList({required bool isAdmin}) {
-    isAdmin ? _selectedAdmins.clear() : _selectedMembers.clear();
+  void buildUserList() {
+    _selectedAdmins.clear();
+    _selectedMembers.clear();
 
     // loop through the organization member list
 
     orgMembersList.forEach((orgMember) {
       // if admin
-      if (_adminCheckedMap[orgMember.id] == true && isAdmin) {
-        _selectedAdmins.add(orgMember);
-      } else if (_memberCheckedMap[orgMember.id] == true && !isAdmin) {
+      if (_memberCheckedMap[orgMember.id] == true) {
         _selectedMembers.add(orgMember);
       }
     });
@@ -206,15 +201,10 @@ class CreateEventViewModel extends BaseModel {
   /// params:
   /// * [isAdmin] : true if the user that need to be removed is admin else false.
   /// * [userId] : id of the user that need to be removed.
-  void removeUserFromList({required bool isAdmin, required String userId}) {
+  void removeUserFromList({required String userId}) {
     // if the user is admin.
-    if (isAdmin) {
-      _selectedAdmins.removeWhere((user) => user.id == userId);
-      _adminCheckedMap[userId] = false;
-    } else {
-      _selectedMembers.removeWhere((user) => user.id == userId);
-      _memberCheckedMap[userId] = false;
-    }
+    _selectedMembers.removeWhere((user) => user.id == userId);
+    _memberCheckedMap[userId] = false;
 
     notifyListeners();
   }
