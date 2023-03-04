@@ -201,7 +201,7 @@ class ProfilePage extends StatelessWidget {
                                         Icons.monetization_on,
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .primary,
+                                            .secondary,
                                         size: 30,
                                       ),
                                       title: AppLocalizations.of(context)!
