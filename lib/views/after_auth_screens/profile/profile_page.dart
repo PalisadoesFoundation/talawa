@@ -104,20 +104,22 @@ class ProfilePage extends StatelessWidget {
                         height: 20, //
                       ),
                       SizedBox(
-                        height: SizeConfig.screenHeight! * 0.63,
+                        height: SizeConfig.screenHeight! * 0.67,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: SizeConfig.screenHeight! * 0.05,
+                              height: SizeConfig.screenHeight! * 0.01,
                             ),
                             CustomListTile(
                               key: homeModel!.keySPAppSetting,
                               index: 0,
                               type: TileType.option,
                               option: Options(
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.phonelink_setup,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   size: 30,
                                 ),
                                 // title for App Settings.
@@ -141,8 +143,10 @@ class ProfilePage extends StatelessWidget {
                               index: 1,
                               type: TileType.option,
                               option: Options(
-                                icon: const Icon(
+                                icon: Icon(
                                   Icons.task_outlined,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   size: 30,
                                 ),
                                 // title for My Tasks tile
@@ -158,6 +162,9 @@ class ProfilePage extends StatelessWidget {
                               onTapOption: () {
                                 navigationService.pushScreen(Routes.userTasks);
                               },
+                            ),
+                            SizedBox(
+                              height: SizeConfig.screenHeight! * 0.05,
                             ),
                             // // Will be added later when we add the Help Section in Documentation.
                             // CustomListTile(
