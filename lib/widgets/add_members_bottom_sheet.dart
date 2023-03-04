@@ -38,7 +38,7 @@ class EventBottomSheet {
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         "Add Members",
                         style: const TextStyle(fontSize: 16),
                       ),
