@@ -1,10 +1,12 @@
-///This class creates queries related to the events.
-class EventQueries {
-  //Returns a query to fetch an organization's events
-  String fetchOrgEvents(String orgId) {
-    return """
+import 'package:flutter_test/flutter_test.dart';
+import 'package:talawa/utils/event_queries.dart';
+
+void main() {
+  group("Tests for event_queries.dart", () {
+    test("Check if fetchOrgEvents works correctly", () {
+      const data = """
       query {
-        eventsByOrganization(id: "$orgId"){ 
+        eventsByOrganization(id: "sampleID"){ 
           _id
           organization {
             _id
@@ -39,13 +41,15 @@ class EventQueries {
         }
       }
     """;
-  }
 
-  //returns a query to get the registrants of a particular event.
-  String registrantsByEvent(String eventId) {
-    return '''
+      final fnData = EventQueries().fetchOrgEvents("sampleID");
+      expect(fnData, data);
+    });
+
+    test("Check if registrantsByEvents works correctly", () {
+      const data = '''
       query {
-        registrantsByEvent(id: "$eventId") {
+        registrantsByEvent(id: "sampleID") {
           _id
           firstName
           lastName
@@ -53,11 +57,13 @@ class EventQueries {
         }
       }
     ''';
-  }
 
-  //returns a query to add an event.
-  String addEvent() {
-    return """
+      final fnData = EventQueries().registrantsByEvent("sampleID");
+      expect(fnData, data);
+    });
+
+    test("Check if addEvent works correctly", () {
+      const data = """
      mutation createEvent( \$organizationId: ID!,
         \$title:String!,
         \$description: String!,
@@ -93,11 +99,13 @@ class EventQueries {
       }
     }
   """;
-  }
 
-  //returns a query to register for an event
-  String registerForEvent() {
-    return """
+      final fnData = EventQueries().addEvent();
+      expect(fnData, data);
+    });
+
+    test("Check if registerForEvent works correctly", () {
+      const data = """
      mutation registerForEvent(\$eventId: ID!) { 
       registerForEvent(id: \$eventId)
         {
@@ -107,26 +115,28 @@ class EventQueries {
       }
     }
   """;
-  }
 
-  //returns a query to delete an event
-  String deleteEvent(String id) {
-    return """
+      final fnData = EventQueries().registerForEvent();
+      expect(fnData, data);
+    });
+
+    test("Check if deleteEvent works correctly", () {
+      const data = """
       mutation {
         removeEvent(
-          id: "$id",
+          id: "sampleID",
           ){
             _id
           }
         }
     """;
-  }
 
-  //returns a query to update an event
-  String updateEvent({
-    eventId,
-  }) {
-    return """mutation updateEvent( 
+      final fnData = EventQueries().deleteEvent("sampleID");
+      expect(fnData, data);
+    });
+
+    test("Check if updateEvent works correctly", () {
+      const data = """mutation updateEvent( 
         \$title:String!,
         \$description: String!,
         \$startTime: Time,
@@ -138,7 +148,7 @@ class EventQueries {
         \$location: String,
       ) {
       updateEvent(
-         id: "$eventId"
+         id: "sampleID"
          data:{
            title: \$title,
            description: \$description,
@@ -156,5 +166,9 @@ class EventQueries {
             description
           }
       }""";
-  }
+
+      final fnData = EventQueries().updateEvent(eventId: "sampleID");
+      expect(fnData, data);
+    });
+  });
 }
