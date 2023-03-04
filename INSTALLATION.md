@@ -8,9 +8,9 @@ Welcome to our installation guide for developers. Jump in and contribute!
     - [Talawa Mobile App](#talawa-mobile-app) 
 1. [Installation](#installation)
 
-## Prerequisites for Developers
+# Prerequisites for Developers
 We recommend that you follow these steps before beginning development work on the Talawa mobile app.
-### Talawa-API and Talawa-Admin
+## Talawa-API and Talawa-Admin
 
 For best results you should setup your own **_local instances_** of:
 1. [Talawa-API](https://github.com/PalisadoesFoundation/talawa-api): The API system that the mobile app uses for accessing data.
@@ -40,7 +40,7 @@ You'll need to set up the IDE and mobile device emulator on your local system an
             1. Replace YOUR_KEY_HERE with your API key.
         1. **Remember** to remove the key before committing changes and replace again with YOUR_KEY_HERE.
 
-## Installation
+# Installation
 
 We have tried to make the process simple. Here's what you need to do.
 
