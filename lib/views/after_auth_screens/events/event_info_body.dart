@@ -87,7 +87,8 @@ class EventInfoBody extends StatelessWidget {
                   // else renders 'private' text translated into the app language.
                   event.isPublic!
                       ? Text(
-                          AppLocalizations.of(context)!.strictTranslate('public'),
+                          AppLocalizations.of(context)!
+                              .strictTranslate('public'),
                           style: Theme.of(context).textTheme.bodySmall,
                         )
                       : Text(
@@ -220,7 +221,6 @@ class EventInfoBody extends StatelessWidget {
                         .headlineSmall!
                         .copyWith(fontSize: 16),
                   ),
-                  
                 ],
               ),
               Divider(

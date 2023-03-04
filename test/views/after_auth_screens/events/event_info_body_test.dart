@@ -236,9 +236,11 @@ void main() {
           (widget) =>
               widget is SliverToBoxAdapter &&
               widget.child is Padding &&
-              (widget.child! as Padding).child is Column &&
-              ((widget.child! as Padding).child! as Column).children.last
-                  is ListView,
+              (widget.child! as Padding).child is SingleChildScrollView &&
+              (((widget.child! as Padding).child! as SingleChildScrollView)
+                      .child! as Column)
+                  .children
+                  .last is ListView,
         ),
         findsOneWidget,
       );
@@ -252,9 +254,11 @@ void main() {
           (widget) =>
               widget is SliverToBoxAdapter &&
               widget.child is Padding &&
-              (widget.child! as Padding).child is Column &&
-              ((widget.child! as Padding).child! as Column).children.last
-                  is Padding,
+              (widget.child! as Padding).child is SingleChildScrollView &&
+              (((widget.child! as Padding).child! as SingleChildScrollView)
+                      .child! as Column)
+                  .children
+                  .last is Padding,
         ),
         findsOneWidget,
       );
