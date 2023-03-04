@@ -36,6 +36,7 @@ class EventInfoBody extends StatelessWidget {
                       .headlineMedium!
                       .copyWith(fontSize: 26),
                 ),
+                const Spacer(),
                 (model.event.creator!.id == userConfig.currentUser.id)
                     ? IconButton(
                         onPressed: () => navigationService.pushScreen(
@@ -45,7 +46,6 @@ class EventInfoBody extends StatelessWidget {
                         icon: const Icon(Icons.edit),
                       )
                     : Container(),
-                const Spacer(),
                 const Icon(Icons.chat_bubble_outline)
               ],
             ),
