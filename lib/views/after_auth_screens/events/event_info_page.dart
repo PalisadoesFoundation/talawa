@@ -77,7 +77,7 @@ class _EventInfoPageState extends State<EventInfoPage> {
                       foregroundColor: Theme.of(context).colorScheme.secondary,
                       backgroundColor: Theme.of(context).primaryColor,
                       child: const Icon(
-                        Icons.edit,
+                        Icons.delete,
                       ),
                     ),
         );
