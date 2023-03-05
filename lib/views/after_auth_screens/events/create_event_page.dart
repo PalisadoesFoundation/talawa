@@ -35,6 +35,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
             centerTitle: true,
             leading: GestureDetector(
               onTap: () {
+                // ignore: undefined_method
                 navigationService.pop();
               },
               child: const Icon(Icons.close),
@@ -189,6 +190,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             model.eventEndDate = date;
                           });
                         } else {
+                          // ignore: undefined_method
                           navigationService.showTalawaErrorWidget(
                             "End Date cannot be after start date ",
                           );
@@ -207,6 +209,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             model.eventEndTime = time;
                           });
                         } else {
+                          // ignore: undefined_method
                           navigationService.showTalawaErrorWidget(
                             "End time cannot be before the start time. ",
                           );
