@@ -3,6 +3,7 @@ import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
+import 'package:talawa/views/after_auth_screens/events/create_event_form.dart';
 import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/add_members_bottom_sheet.dart';
 import 'package:talawa/widgets/date_time_picker.dart';
@@ -182,34 +183,18 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         final date = await customDatePicker(
                           initialDate: model.eventEndDate,
                         );
-                        final startDate = model.eventStartDate;
-                        if (startDate.compareTo(date) < 0) {
-                          setState(() {
-                            model.eventEndDate = date;
-                          });
-                        } else {
-                          navigationService.showTalawaErrorWidget(
-                            "End Date cannot be after start date ",
-                          );
-                        }
+                        setState(() {
+                          model.eventEndDate = date;
+                        });
                       },
                       setTime: () async {
                         final time = await customTimePicker(
                           initialTime: model.eventEndTime,
                         );
-                        final currTimeToInt = time.hour + time.minute / 60.0;
-                        final startTime = model.eventStartTime;
-                        final startTimeToInt =
-                            startTime.hour + startTime.minute / 60;
-                        if (startTimeToInt.compareTo(currTimeToInt) < 0) {
-                          setState(() {
-                            model.eventEndTime = time;
-                          });
-                        } else {
-                          navigationService.showTalawaErrorWidget(
-                            "End time cannot be before the start time. ",
-                          );
-                        }
+
+                        setState(() {
+                          model.eventEndTime = time;
+                        });
                       },
                     ),
                     SizedBox(
