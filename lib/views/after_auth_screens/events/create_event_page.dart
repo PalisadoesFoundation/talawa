@@ -211,6 +211,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             model.eventEndTime = time;
                           });
                         } else {
+                          // ignore: undefined_method
                           navigationServiceLocal.showTalawaErrorWidget(
                             "End time cannot be before the start time. ",
                           );
