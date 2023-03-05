@@ -20,8 +20,7 @@ import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/widgets/custom_alert_dialog.dart';
-
-import '../../../widgets/custom_progress_dialog.dart';
+import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 /// ProfilePageViewModel class helps to interact with model to serve data
 /// and react to user's input in Profile Page view.
@@ -89,10 +88,8 @@ class ProfilePageViewModel extends BaseModel {
                   Firebase.app()
                       .delete(); // Deleting app will stop all Firebase plugins
                 } catch (e) {
-                  debugPrint(
-                      "ERROR: Unable to delete firebase app" + e.toString());
+                  debugPrint("ERROR: Unable to delete firebase app $e");
                 }
-
                 organisation.clear();
                 navigationService.pop();
                 navigationService.removeAllAndPush(
