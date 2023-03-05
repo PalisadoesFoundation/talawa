@@ -183,18 +183,34 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         final date = await customDatePicker(
                           initialDate: model.eventEndDate,
                         );
-                        setState(() {
-                          model.eventEndDate = date;
-                        });
+                        final startDate = model.eventStartDate;
+                        if (startDate.compareTo(date) < 0) {
+                          setState(() {
+                            model.eventEndDate = date;
+                          });
+                        } else {
+                          navigationService.showTalawaErrorWidget(
+                            "End Date cannot be after start date ",
+                          );
+                        }
                       },
                       setTime: () async {
                         final time = await customTimePicker(
                           initialTime: model.eventEndTime,
                         );
-
-                        setState(() {
-                          model.eventEndTime = time;
-                        });
+                        final currTimeToInt = time.hour + time.minute / 60.0;
+                        final startTime = model.eventStartTime;
+                        final startTimeToInt =
+                            startTime.hour + startTime.minute / 60;
+                        if (startTimeToInt.compareTo(currTimeToInt) < 0) {
+                          setState(() {
+                            model.eventEndTime = time;
+                          });
+                        } else {
+                          navigationService.showTalawaErrorWidget(
+                            "End time cannot be before the start time. ",
+                          );
+                        }
                       },
                     ),
                     SizedBox(
