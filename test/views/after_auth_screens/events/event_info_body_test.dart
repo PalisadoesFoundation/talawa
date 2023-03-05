@@ -21,11 +21,13 @@ import '../../../helpers/test_locator.dart';
 Event getTestEvent({
   bool isPublic = false,
   bool viewOnMap = true,
+  bool asAdmin = false,
 }) {
   return Event(
     id: "1",
     title: "test_event",
     creator: User(
+      id: asAdmin ? "xzy1" : "acb1",
       firstName: "ravidi",
       lastName: "shaikh",
     ),
@@ -65,6 +67,7 @@ late EventInfoViewModel _eventInfoViewModel;
 Widget createEventInfoBody({
   bool isPublic = true,
   bool viewOnMap = true,
+  bool asAdmin = false,
 }) {
   return BaseView<AppLanguage>(
     onModelReady: (model) => model.initialize(),
@@ -76,6 +79,7 @@ Widget createEventInfoBody({
               "event": getTestEvent(
                 isPublic: isPublic,
                 viewOnMap: viewOnMap,
+                asAdmin: asAdmin,
               ),
               "exploreEventViewModel": exploreEventsViewModel,
             },
@@ -170,6 +174,25 @@ void main() {
       await tester.pumpAndSettle();
 
       // expect(find.byType(MapScreen), findsOneWidget);
+    });
+
+    testWidgets("Check if edit button appears for creator", (tester) async {
+      await tester.pumpWidget(createEventInfoBody(asAdmin: true));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(IconButton), findsOneWidget);
+      await tester.tap(find.byType(IconButton));
+      // verify(navigationService.pushScreen("/editEventPage",
+      //     arguments: getTestEvent()),);
+    });
+
+    testWidgets("Check if edit button doesn't appear for non creator",
+        (tester) async {
+      await tester.pumpWidget(createEventInfoBody(asAdmin: false));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(IconButton), findsNothing);
+      // verify(navigationService.pushScreen("/editEventPage", arguments: getTestEvent()));
     });
   });
 
