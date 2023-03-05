@@ -11,6 +11,10 @@ import 'package:talawa/widgets/talawa_error_widget.dart';
 /// * `pushReplacementScreen`
 /// * `removeAllAndPush`
 /// * `showSnackBar`
+/// * `pushDialog`
+/// * `showTalawaErrorWidget`
+/// * `showTalawaErrorDialog`
+/// * `pop`
 class NavigationService {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
