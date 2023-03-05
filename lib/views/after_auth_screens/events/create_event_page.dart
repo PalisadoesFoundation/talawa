@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
@@ -24,6 +25,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
   Widget build(BuildContext context) {
     final TextStyle subtitleTextStyle =
         Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16);
+    final _navigationService = locator<NavigationService>();
     return BaseView<CreateEventViewModel>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
@@ -36,7 +38,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
             leading: GestureDetector(
               onTap: () {
                 // ignore: undefined_method
-                navigationService.pop();
+                _navigationService.pop();
               },
               child: const Icon(Icons.close),
             ),
@@ -191,7 +193,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           });
                         } else {
                           // ignore: undefined_method
-                          navigationService.showTalawaErrorWidget(
+                          _navigationService.showTalawaErrorWidget(
                             "End Date cannot be after start date ",
                           );
                         }
@@ -209,8 +211,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             model.eventEndTime = time;
                           });
                         } else {
-                          // ignore: undefined_method
-                          navigationService.showTalawaErrorWidget(
+                          _navigationService.showTalawaErrorWidget(
                             "End time cannot be before the start time. ",
                           );
                         }
