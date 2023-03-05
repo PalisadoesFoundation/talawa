@@ -294,7 +294,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                       // InkWell class in Flutter is a rectangular area in Flutter
                       // of a material that responds to touch in an application.
                       key: const Key('inwell_cep1'),
-
                       onTap: () {
                         // EventBottomSheet is custom widget that is used to add users to the event.
                         EventBottomSheet().addUserBottomSheet(
