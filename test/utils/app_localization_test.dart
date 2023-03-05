@@ -12,7 +12,7 @@ void main() {
       expect(result, true);
     });
 
-    test("test mode working properly", () async {
+    test("Test mode working properly", () async {
       final appLocalizations =
           AppLocalizations(const Locale('hi'), isTest: true);
       final result = await appLocalizations.load();
@@ -70,6 +70,13 @@ void main() {
       // In prod mode
       testAppLocalization.isTest = false;
       expect(testAppLocalization.strictTranslate("Recover"), "रिकवर कर लेंगे");
+    });
+
+    test("App Localization Delegate should not reload", () async {
+      expect(
+        appLocalizationsDelgate.shouldReload(appLocalizationsDelgate),
+        false,
+      );
     });
   });
 }
