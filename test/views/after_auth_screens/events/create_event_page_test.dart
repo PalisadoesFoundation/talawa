@@ -525,11 +525,11 @@ void main() {
   });
 
   group("Tests for integration with view model and services", () {
-    late final CreateEventViewModel cachedViewModel;
+    // late final CreateEventViewModel cachedViewModel;
 
-    testWidgets("setup MockCreateEventViewModel", (tester) async {
-      cachedViewModel = getAndRegisterCreateEventModel();
-    });
+    // testWidgets("setup MockCreateEventViewModel", (tester) async {
+    //   cachedViewModel = getAndRegisterCreateEventModel();
+    // });
 
     testWidgets("Check if AppBar buttons work", (tester) async {
       mockNetworkImages(() async {

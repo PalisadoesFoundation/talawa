@@ -40,7 +40,7 @@ class EventBottomSheet {
                     children: [
                       const Text(
                         "Add Members",
-                        style: const TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 16),
                       ),
                       TextButton(
                         key: const Key('text_btn_ambs1'),
