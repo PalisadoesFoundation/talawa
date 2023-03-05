@@ -25,7 +25,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
   Widget build(BuildContext context) {
     final TextStyle subtitleTextStyle =
         Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16);
-    final _navigationService = locator<NavigationService>();
+    final navigationServiceLocal = locator<NavigationService>();
     return BaseView<CreateEventViewModel>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
@@ -38,7 +38,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
             leading: GestureDetector(
               onTap: () {
                 // ignore: undefined_method
-                _navigationService.pop();
+                navigationServiceLocal.pop();
               },
               child: const Icon(Icons.close),
             ),
@@ -193,7 +193,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           });
                         } else {
                           // ignore: undefined_method
-                          _navigationService.showTalawaErrorWidget(
+                          navigationServiceLocal.showTalawaErrorWidget(
                             "End Date cannot be after start date ",
                           );
                         }
@@ -211,7 +211,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                             model.eventEndTime = time;
                           });
                         } else {
-                          _navigationService.showTalawaErrorWidget(
+                          navigationServiceLocal.showTalawaErrorWidget(
                             "End time cannot be before the start time. ",
                           );
                         }
