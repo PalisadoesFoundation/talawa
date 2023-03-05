@@ -84,9 +84,14 @@ class ProfilePageViewModel extends BaseModel {
                 url.clear();
                 androidFirebaseOptionsBox.clear();
                 iosFirebaseOptionsBox.clear();
-                Firebase.app()
-                    .delete(); // Deleting app will stop all Firebase plugins
+                try {
+                  Firebase.app()
+                      .delete(); // Deleting app will stop all Firebase plugins
+                } catch (e) {
+                  debugPrint("ERROR: Unable to delete firebase app $e");
+                }
                 organisation.clear();
+                navigationService.pop();
                 navigationService.removeAllAndPush(
                   '/selectLang',
                   '/',
