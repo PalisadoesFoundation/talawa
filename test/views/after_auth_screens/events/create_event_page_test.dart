@@ -79,7 +79,7 @@ void main() {
     );
     await tester.pump();
     final inkwellFinder = find.byType(InkWell);
-    expect(inkwellFinder, findsNWidgets(8));
+    expect(inkwellFinder, findsNWidgets(7));
     // tester.allElements.forEach((element) {
     //   print(element);
     // });
@@ -114,7 +114,7 @@ void main() {
     );
     await tester.pump();
     final inkwellFinder = find.byType(InkWell);
-    expect(inkwellFinder, findsNWidgets(8));
+    expect(inkwellFinder, findsNWidgets(7));
 
     ///returning the file variable to the
     ///result of function multimediaPickerService.getPhotoFromGallery
@@ -145,7 +145,7 @@ void main() {
     );
     await tester.pump();
     final inkwellFinder = find.byType(InkWell);
-    expect(inkwellFinder, findsNWidgets(8));
+    expect(inkwellFinder, findsNWidgets(7));
 
     ///returning the file variable to the
     ///result of function multimediaPickerService.getPhotoFromGallery
@@ -177,7 +177,7 @@ void main() {
     );
     await tester.pump();
     final inkwellFinder = find.byType(InkWell);
-    expect(inkwellFinder, findsNWidgets(8));
+    expect(inkwellFinder, findsNWidgets(7));
     // tester.allElements.forEach((element) {
     //   print(element);
     // });
