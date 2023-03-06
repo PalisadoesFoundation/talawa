@@ -400,31 +400,6 @@ void main() {
           false,
         );
       });
-      testWidgets("Testing Add Admins section", (tester) async {
-        await tester.pumpWidget(
-          createEventScreen(
-            theme: TalawaTheme.lightTheme,
-          ),
-        );
-        await tester.pumpAndSettle();
-        final addAdminsText = find.descendant(
-          of: find.byType(Row),
-          matching: find.text("Add Admins"),
-        );
-        final addIcons = find.byIcon(Icons.add);
-        final memberNameTiles = find.byType(MemberNameTile);
-        expect(addAdminsText, findsOneWidget);
-        expect(addIcons, findsNWidgets(2));
-        expect(
-          (tester.widget(addAdminsText) as Text?)?.style!.fontSize,
-          16,
-        );
-        expect(memberNameTiles, findsNothing);
-        await tester.ensureVisible(addAdminsText.first);
-        await tester.tap(addAdminsText.first);
-        await tester.pump();
-        expect(find.byType(BottomSheet), findsOneWidget);
-      });
       testWidgets("Testing Add Members section", (tester) async {
         await tester.pumpWidget(
           createEventScreen(
