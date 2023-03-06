@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:quick_actions/quick_actions.dart';
 
 ///This file contains the shortcuts by which user can manage and interact with the
