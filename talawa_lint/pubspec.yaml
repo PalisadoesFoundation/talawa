@@ -12,5 +12,5 @@ dependencies:
   analyzer:
   analyzer_plugin:
   # custom_lint_builder will give us tools for writing lints
-  custom_lint_builder: ^0.2.10
+  custom_lint_builder: ^0.2.12
   
