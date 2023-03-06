@@ -526,28 +526,22 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     lastName: 'p',
     image: 'www.image.com',
   );
-  final User user2 = User(
-    id: "fakeUser2",
-    firstName: 'p',
-    lastName: 's',
-    image: 'www.image.com',
-  );
 
-  when(cachedViewModel.getCurrentOrgUsersList(isAdmin: true))
+  when(cachedViewModel.getCurrentOrgUsersList())
       .thenAnswer((realInvocation) async {
     return [user1];
   });
 
-  when(cachedViewModel.selectedAdmins).thenReturn([user2]);
+  //when(cachedViewModel.selectedAdmins).thenReturn([user2]);
   when(cachedViewModel.selectedMembers).thenReturn([user1]);
   when(cachedViewModel.orgMembersList).thenReturn([user1]);
 
-  when(cachedViewModel.removeUserFromList(isAdmin: false, userId: "fakeUser1"))
+  when(cachedViewModel.removeUserFromList(userId: "fakeUser1"))
       .thenAnswer((realInvocation) async {
     when(cachedViewModel.selectedMembers).thenReturn([]);
   });
 
-  when(cachedViewModel.removeUserFromList(isAdmin: true, userId: "fakeUser2"))
+  when(cachedViewModel.removeUserFromList(userId: "fakeUser2"))
       .thenAnswer((realInvocation) async {
     when(cachedViewModel.selectedAdmins).thenReturn([]);
   });

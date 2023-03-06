@@ -11,7 +11,7 @@ import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/utils/app_localization.dart';
-// import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
+import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/after_auth_screens/events/create_event_page.dart';
 import 'package:talawa/views/base_view.dart';
@@ -525,11 +525,11 @@ void main() {
   });
 
   group("Tests for integration with view model and services", () {
-    // late final CreateEventViewModel cachedViewModel;
+    late final CreateEventViewModel cachedViewModel;
 
-    // testWidgets("setup MockCreateEventViewModel", (tester) async {
-    //   cachedViewModel = getAndRegisterCreateEventModel();
-    // });
+    testWidgets("setup MockCreateEventViewModel", (tester) async {
+      cachedViewModel = getAndRegisterCreateEventModel();
+    });
 
     testWidgets("Check if AppBar buttons work", (tester) async {
       mockNetworkImages(() async {
@@ -568,38 +568,38 @@ void main() {
       },
     );
 
-    // testWidgets(
-    //   "Check if deleting members and admins works",
-    //   (tester) async {
-    //     mockNetworkImages(() async {
-    //       await tester.pumpWidget(
-    //         createEventScreen(
-    //           themeMode: ThemeMode.dark,
-    //           theme: TalawaTheme.darkTheme,
-    //         ),
-    //       );
-    //       await tester.pumpAndSettle();
+    testWidgets(
+      "Check if deleting members and admins works",
+      (tester) async {
+        mockNetworkImages(() async {
+          await tester.pumpWidget(
+            createEventScreen(
+              themeMode: ThemeMode.dark,
+              theme: TalawaTheme.darkTheme,
+            ),
+          );
+          await tester.pumpAndSettle();
 
-    //       expect(find.text("p s"), findsOneWidget);
-    //       expect(find.text("r p"), findsOneWidget);
+          //expect(find.text("p s"), findsOneWidget);
+          expect(find.text("r p"), findsOneWidget);
 
-    //       await tester.ensureVisible(find.text("p s"));
-    //       await tester.pumpAndSettle();
-    //       await tester.tap(find.byIcon(Icons.cancel_rounded).at(0));
-    //       await tester.pumpAndSettle(const Duration(seconds: 1));
+          //await tester.ensureVisible(find.text("p s"));
+          // await tester.pumpAndSettle();
+          // await tester.tap(find.byIcon(Icons.cancel_rounded).at(0));
+          // await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    //       //expect(cachedViewModel.selectedAdmins, []);
-    //       expect(find.text("r p"), findsOneWidget);
+          //expect(cachedViewModel.selectedAdmins, []);
+          expect(find.text("r p"), findsOneWidget);
 
-    //       await tester.ensureVisible(find.text("r p"));
-    //       await tester.pumpAndSettle();
-    //       await tester.tap(find.byIcon(Icons.cancel_rounded).at(1));
-    //       await tester.pumpAndSettle(const Duration(seconds: 1));
+          await tester.ensureVisible(find.text("r p"));
+          await tester.pumpAndSettle();
+          await tester.tap(find.byIcon(Icons.cancel_rounded).at(0));
+          await tester.pumpAndSettle(const Duration(seconds: 1));
 
-    //       //expect(cachedViewModel.selectedAdmins, []);
-    //       expect(cachedViewModel.selectedMembers, []);
-    //     });
-    //   },
-    // );
+          //expect(cachedViewModel.selectedAdmins, []);
+          expect(cachedViewModel.selectedMembers, []);
+        });
+      },
+    );
   });
 }
