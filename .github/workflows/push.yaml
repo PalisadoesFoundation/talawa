@@ -37,12 +37,16 @@ jobs:
         with:
           flutter-version: '3.7.3'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - name: Running pub get in talawa_lint
+        run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Checking for correct formatting of code
         run: flutter format --set-exit-if-changed .
-      - name: Analysing codebase for linting
+      - name: Analysing codebase for default linting
         run: flutter analyze --no-pub
+      #- name: Analysing codebase for custom linting
+        #run: flutter pub run custom_lint
 #       - name: Echo the GitHub environment for troubleshooting
 #         run: echo "$GITHUB_CONTEXT"
 #       - name: Echo the GitHub context for troubleshooting
@@ -74,8 +78,9 @@ jobs:
           channel: 'stable'
       - uses: dart-lang/setup-dart@v1
         with:
-          sdk: '2.18.0'
+          sdk: '2.19.2'
       - run: |
+          cd talawa_lint && flutter pub get && cd ..
           flutter pub get
           flutter analyze
           dart analyze
@@ -140,6 +145,8 @@ jobs:
         with:
           flutter-version: '3.7.3'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - name: Running pub get in talawa_lint
+        run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Codebase testing
@@ -165,6 +172,8 @@ jobs:
         with:
           flutter-version: '3.7.3'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - name: Running pub get in talawa_lint
+        run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
         run: flutter pub get
       - name: Building for android

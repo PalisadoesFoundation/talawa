@@ -61,6 +61,24 @@ void main() {
 
       expect(find.byType(SignUpDetails), findsOneWidget);
     });
+    testWidgets('Check if arrow back works', (tester) async {
+      await tester.pumpWidget(createApp());
+      await tester.pump();
+
+      expect(find.byType(SignUpDetails), findsNothing);
+
+      await tester.tap(find.textContaining('Ayush'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(SignUpDetails), findsOneWidget);
+
+      final finder = find.byIcon(Icons.arrow_back);
+
+      await tester.tap(finder);
+      await tester.pump();
+
+      expect(find.text('Ayush'), findsOneWidget);
+    });
 
     testWidgets("Testing if input field and signup button appear",
         (tester) async {
