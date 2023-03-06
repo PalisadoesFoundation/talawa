@@ -59,8 +59,8 @@ void main() {
       expect(appLocalizationsDelgate.isSupported(const Locale('or')), false);
     });
 
-    test("Localization loaded properly", () async {
-      final testAppLocalization =
+    test("Localization loaded and changed properly", () async {
+      var testAppLocalization =
           await appLocalizationsDelgate.load(const Locale('hi'));
 
       // In test mode
@@ -70,6 +70,17 @@ void main() {
       // In prod mode
       testAppLocalization.isTest = false;
       expect(testAppLocalization.strictTranslate("Recover"), "रिकवर कर लेंगे");
+
+      testAppLocalization =
+          await appLocalizationsDelgate.load(const Locale('fr'));
+
+      // In test mode
+      testAppLocalization.isTest = true;
+      expect(testAppLocalization.strictTranslate("Recover"), "Recover");
+
+      // In prod mode
+      testAppLocalization.isTest = false;
+      expect(testAppLocalization.strictTranslate("Recover"), "votre mot");
     });
 
     test("App Localization Delegate should not reload", () async {
