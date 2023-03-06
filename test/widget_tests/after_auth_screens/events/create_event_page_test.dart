@@ -439,7 +439,7 @@ void main() {
         final addIcons = find.byIcon(Icons.add);
         final memberNameTiles = find.byType(MemberNameTile);
         expect(addMembersText, findsOneWidget);
-        expect(addIcons, findsNWidgets(2));
+        expect(addIcons, findsNWidgets(1));
         expect(
           (tester.widget(addMembersText) as Text?)?.style!.fontSize,
           16,
