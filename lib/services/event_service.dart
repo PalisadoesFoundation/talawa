@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
@@ -140,7 +142,11 @@ class EventService {
     );
     navigationService.pop();
     if (result != null) {
-      navigationService.removeAllAndPush('/mainScreen', '/');
+      navigationService.removeAllAndPush(
+        Routes.exploreEventsScreen,
+        Routes.mainScreen,
+        arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
+      );
     }
   }
 
