@@ -20,8 +20,7 @@ If you are new to contributing to open source, please read the Open Source Guide
    * [PR Preparation](#pr-preparation)
    * [Project Structure](#project-structure)
    * [Commit Guidelines](#commit-guidelines)
-* Internships
-    * [GSoC](#gsoc)
+* [Internships](#internships)
 * [Community](#community)
 
 ## Code of Conduct
@@ -248,11 +247,7 @@ conf: (configurational settings - changing directory structure, updating gitigno
 
 ## Internships
 
-We have internship partnerships with a number of organizations. See below for more details.
-
-### GSoC
-
-If you are participating in the Summer of Code, please read more about us and our processes [here](https://docs.talawa.io/docs/internships/gsoc/gsoc-introduction)
+If you are participating in any of the various internship programs we ar members of then please read the [introduction guides on our documentation website](https://docs.talawa.io/docs/).
 
 ## Community
 There are many ways to communicate with the community.
