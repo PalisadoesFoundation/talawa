@@ -137,8 +137,6 @@ class SetUrlViewModel extends BaseModel {
         graphqlConfig.getOrgUrl();
         navigationService.showSnackBar("Url is valid", {Duration: 2});
       } else {
-        // navigationService
-        //     .showSnackBar("URL doesn't exist/no connection please check");
         navigationService.pop();
         navigationService.showTalawaErrorDialog(
           "URL doesn't exist/no connection please check",
