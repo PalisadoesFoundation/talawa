@@ -1,14 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
-import 'package:talawa/constants/routing_constants.dart';
-import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/event_service.dart';
 import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/utils/task_queries.dart';
-import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
