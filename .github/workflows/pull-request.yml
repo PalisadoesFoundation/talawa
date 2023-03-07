@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          # ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0  
       # - uses: actions/setup-java@v3
       #   with:
@@ -55,10 +55,14 @@ jobs:
         run: chmod +x ./.github/workflows/check_ignore.py
       - name: Run check_ignore
         run: |
-          git remote update
-          git fetch
+          git branch
+          git checkout -b temp_branch
+          git branch
+          git checkout develop
+          git pull
           git branch
           git diff --name-only develop..HEAD
+          git checkout temp_branch
           pip install GitPython
           python ./.github/workflows/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.head_ref}}
       - name: Analysing codebase for default linting
