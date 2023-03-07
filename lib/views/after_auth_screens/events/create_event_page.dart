@@ -19,7 +19,7 @@ class CreateEventPage extends StatefulWidget {
   _CreateEventPageState createState() => _CreateEventPageState();
 }
 
-/// _CreateEventPageState returns a widget for a Page to Create the Event in the Organization.
+/// _CreateEventPageState returns a widget for a Page to Creatxe the Event in the Organization.
 class _CreateEventPageState extends State<CreateEventPage> {
   @override
   Widget build(BuildContext context) {
@@ -150,6 +150,11 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         final date = await customDatePicker(
                           initialDate: model.eventStartDate,
                         );
+                        if (date.isBefore(DateTime.now())) {
+                          navigationServiceLocal.showSnackBar(
+                            "Cannot create events having date prior than today ",
+                          );
+                        }
                         setState(() {
                           model.eventStartDate = date;
                         });
@@ -193,7 +198,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           });
                         } else {
                           // ignore: undefined_method
-                          navigationServiceLocal.showTalawaErrorWidget(
+                          navigationServiceLocal.showSnackBar(
                             "End Date cannot be after start date ",
                           );
                         }
@@ -206,13 +211,16 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         final startTime = model.eventStartTime;
                         final startTimeToInt =
                             startTime.hour + startTime.minute / 60;
-                        if (startTimeToInt.compareTo(currTimeToInt) < 0) {
+                        final eventStartDate = model.eventStartDate;
+                        final eventEndDate = model.eventEndDate;
+                        if (startTimeToInt.compareTo(currTimeToInt) < 0 &&
+                            eventStartDate.compareTo(eventEndDate) < 0) {
                           setState(() {
                             model.eventEndTime = time;
                           });
                         } else {
                           // ignore: undefined_method
-                          navigationServiceLocal.showTalawaErrorWidget(
+                          navigationServiceLocal.showSnackBar(
                             "End time cannot be before the start time. ",
                           );
                         }
