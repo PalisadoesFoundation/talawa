@@ -315,7 +315,6 @@ void main() {
     expect(find.byType(AlertDialog), findsNothing);
   });
   testWidgets('Check AlertDialog edit button iss working', (tester) async {
-    locator.registerFactory(() => CreateTaskViewModel());
     await tester.pumpWidget(createTaskCardWidget());
     // await tester
     await tester.pump();
