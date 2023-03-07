@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:talawa/models/post/post_model.dart';
 import 'package:talawa/widgets/post_widget.dart';
