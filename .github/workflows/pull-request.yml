@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
+          # ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0  
       - uses: actions/setup-java@v3
         with:
@@ -58,7 +58,6 @@ jobs:
           git fetch
           git branch
           git diff --name-only develop..HEAD
-          git diff --name-only develop..${{github.head_ref}}
           pip install GitPython
           python ./.github/workflows/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.head_ref}}
       - name: Analysing codebase for default linting
