@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 // import 'package:firebase_core/firebase_core.dart';
 // import 'package:firebase_messaging_platform_interface/firebase_messaging_platform_interface.dart';
 // import 'package:flutter/material.dart';

@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 ///This class creates queries for the tasks in the application.
 class TaskQueries {
   static String eventTasks(String eventId) => '''
