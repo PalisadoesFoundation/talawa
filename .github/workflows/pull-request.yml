@@ -58,7 +58,7 @@ jobs:
           git checkout develop
           git pull
           git branch
-          git checkout -
+          git switch -
           pip install GitPython
           python ./.github/workflows/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
       - name: Analysing codebase for default linting
