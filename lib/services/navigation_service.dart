@@ -84,7 +84,7 @@ class NavigationService {
 
   /// This is used for the quick alert of `duration: 2 seconds` with text message(passed).
   void showSnackBar(
-    String message, {
+    String message, Map<Type, int> map, {
     Duration duration = const Duration(seconds: 2),
   }) {
     ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(

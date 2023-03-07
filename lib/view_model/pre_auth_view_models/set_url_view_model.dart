@@ -115,6 +115,37 @@ class SetUrlViewModel extends BaseModel {
     }
   }
 
+  checkURLandShowPopUp(String argument) async {
+    urlFocus.unfocus();
+    validate = AutovalidateMode.always;
+    // if the url is valid.
+    if (formKey.currentState!.validate()) {
+      navigationService
+          .pushDialog(const CustomProgressDialog(key: Key('UrlCheckProgress')));
+      validate = AutovalidateMode.disabled;
+      final String uri = url.text.trim();
+      final bool? urlPresent =
+          await locator<Validator>().validateUrlExistence(uri);
+      if (urlPresent! == true) {
+        final box = Hive.box('url');
+        box.put(urlKey, uri);
+        box.put(imageUrlKey, "$uri/talawa/");
+        navigationService.pop();
+        graphqlConfig.getOrgUrl();
+        navigationService.showSnackBar("Url is valid", {Duration: 2});
+      } else {
+        
+        // navigationService
+        //     .showSnackBar("URL doesn't exist/no connection please check");
+        navigationService.pop();
+        navigationService.showTalawaErrorDialog(
+          "URL doesn't exist/no connection please check",
+          MessageType.error,
+        );
+      }
+    }
+  }
+
   /// This function returns a widget which is used to scan the QR-code.
   scanQR(BuildContext context) {
     showModalBottomSheet(

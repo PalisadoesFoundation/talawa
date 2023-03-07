@@ -107,10 +107,11 @@ class _SetUrlState extends State<SetUrl> {
                         labelStyle: Theme.of(context).textTheme.titleMedium,
                         suffixIcon: InkWell(
                           key: const Key('VerifyButton'),
-                          onTap: () {
+                          onTap: () async {
                             model.urlFocus.unfocus();
                             model.validate = AutovalidateMode.always;
                             model.formKey.currentState!.validate();
+                            await model.checkURLandShowPopUp('');
                           },
                           child: Container(
                             height: 48,
