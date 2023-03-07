@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:talawa/views/after_auth_screens/chat/direct_chats.dart';
 import 'package:talawa/views/after_auth_screens/chat/event_chats.dart';
