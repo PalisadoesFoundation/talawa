@@ -26,7 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0  
       - uses: actions/setup-java@v3
         with:
@@ -36,6 +35,9 @@ jobs:
         with:
           flutter-version: '3.7.3'
           channel: 'stable' # or: 'beta', 'dev' or 'master'
+      - name: Set default branch.
+        run: git remote set-head origin --auto
+        shell: bash
       - name: Running pub get in talawa_lint
         run: cd talawa_lint && flutter pub get && cd ..
       - name: Running pub get to fetch dependencies
