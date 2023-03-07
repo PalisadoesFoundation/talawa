@@ -59,7 +59,8 @@ jobs:
           git branch
           git checkout develop
           git pull
-          git branch
+          git checkout 
+          git branch ${{github.head_ref}}
           git diff --name-only develop..HEAD
           pip install GitPython
           python ./.github/workflows/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.head_ref}}
