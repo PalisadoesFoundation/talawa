@@ -57,9 +57,8 @@ jobs:
         run: |
           git fetch
           git branch
-          git pull
-          git branch 
           git diff --name-only develop..HEAD
+          git diff --name-only develop..${{github.head_ref}}
           pip install GitPython
           python ./.github/workflows/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.head_ref}}
       - name: Analysing codebase for default linting
