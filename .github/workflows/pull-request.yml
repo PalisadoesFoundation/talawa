@@ -55,11 +55,9 @@ jobs:
         run: chmod +x ./.github/workflows/check_ignore.py
       - name: Run check_ignore
         run: |
-          echo ${{ github.head_ref }}
+          git fetch
           git branch
-          git checkout develop
           git pull
-          git checkout ${{github.head_ref}}
           git branch 
           git diff --name-only develop..HEAD
           pip install GitPython
