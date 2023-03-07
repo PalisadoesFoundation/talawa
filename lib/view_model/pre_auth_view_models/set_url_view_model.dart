@@ -135,7 +135,7 @@ class SetUrlViewModel extends BaseModel {
         box.put(imageUrlKey, "$uri/talawa/");
         navigationService.pop();
         graphqlConfig.getOrgUrl();
-        navigationService.showSnackBar("Url is valid", {Duration: 2});
+        navigationService.showSnackBar("Url is valid");
       } else {
         navigationService.pop();
         navigationService.showTalawaErrorDialog(
