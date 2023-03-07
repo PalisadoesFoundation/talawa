@@ -56,11 +56,13 @@ jobs:
       - name: Run check_ignore
         run: |
           git branch
+          git checkout -b temp_branch
+          git branch
           git checkout develop
           git pull
           git branch
           git diff --name-only develop..HEAD
-          git checkout ${{ github.ref }}
+          git checkout temp_branch
           pip install GitPython
           python ./.github/workflows/check_ignore.py --repository ${{github.repository}} --merge_branch_name ${{github.ref_name}}
       - name: Analysing codebase for default linting
