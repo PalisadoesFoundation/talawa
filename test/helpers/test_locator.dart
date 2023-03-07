@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:get_it/get_it.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/services/comment_service.dart';

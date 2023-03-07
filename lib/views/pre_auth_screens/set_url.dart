@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:talawa/custom_painters/language_icon.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
