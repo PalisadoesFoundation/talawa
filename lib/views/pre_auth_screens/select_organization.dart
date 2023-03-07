@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_api_doc, prefer_const_constructors
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
@@ -31,79 +31,110 @@ class _SelectOrganizationState extends State<SelectOrganization> {
     return BaseView<SelectOrganizationViewModel>(
       onModelReady: (model) => model.initialise(widget.selectedOrgId),
       builder: (context, model, child) {
-        return Scaffold(
-          extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            elevation: 0.0,
-            backgroundColor: Colors.transparent,
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back,
-              ),
-              onPressed: () {
-                navigationService.pop();
-              },
-            ),
-          ),
-          body: Padding(
-            padding: EdgeInsets.only(top: SizeConfig.safeBlockVertical! * 6),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SignupProgressIndicator(
-                  key: const Key('SelectOrg'),
-                  currentPageIndex: 0,
+        //This if will check if organizations are null or not.
+        //If its null then display the popup.
+        if (model.organizations.isEmpty) {
+          return Scaffold(
+            body: Center(
+              child: AlertDialog(
+                title: Text(
+                  AppLocalizations.of(context)!
+                      .strictTranslate('No Organization Found'),
                 ),
-                model.selectedOrganization.id != '-1'
-                    ? Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Text(
-                          AppLocalizations.of(context)!
-                              .strictTranslate('Selected Organization'),
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                      )
-                    : const SizedBox(),
-                model.selectedOrganization.id != '-1'
-                    //List tile displaying the organization selected by the user.
-                    ? CustomListTile(
-                        index: model.organizations
-                            .indexOf(model.selectedOrganization),
-                        type: TileType.org,
-                        orgInfo: model.selectedOrganization,
-                        onTapOrgInfo: (item) => model.selectOrg(item),
-                        key: const Key('OrgSelItem'),
-                        showIcon: false,
-                      )
-                    : const SizedBox(),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Divider(
-                    color: Colors.grey,
-                    thickness: 2.0,
+                content: Text(
+                  AppLocalizations.of(context)!
+                      .strictTranslate('Please Create One Using Talawa Admin.'),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(
+                      AppLocalizations.of(context)!.strictTranslate('OK'),
+                    ),
                   ),
-                ),
-                Expanded(child: OrganizationList(model: model)),
-                SizedBox(
-                  height: SizeConfig.screenHeight! * 0.0215,
-                ),
-                //"Continue" button.
-                RaisedRoundedButton(
-                  buttonLabel:
-                      AppLocalizations.of(context)!.strictTranslate('Continue'),
-                  onTap: model.onTapContinue,
-                  textColor: const Color(0xFF008A37),
-                  key: const Key('SignUpLoginDetailsButton'),
-                  backgroundColor: Colors.white,
-                ),
-                SizedBox(
-                  height: SizeConfig.screenHeight! * 0.0215,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          //This will show all the number of oragnizations.
+          //With a continue button at the bottom of the screen.
+          return Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              elevation: 0.0,
+              backgroundColor: Colors.transparent,
+              leading: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                ),
+                onPressed: () {
+                  navigationService.pop();
+                },
+              ),
+            ),
+            body: Padding(
+              padding: EdgeInsets.only(top: SizeConfig.safeBlockVertical! * 6),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SignupProgressIndicator(
+                    key: const Key('SelectOrg'),
+                    currentPageIndex: 0,
+                  ),
+                  model.selectedOrganization.id != '-1'
+                      ? Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .strictTranslate('Selected Organization'),
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
+                        )
+                      : const SizedBox(),
+                  model.selectedOrganization.id != '-1'
+                      //List tile displaying the organization selected by the user.
+                      ? CustomListTile(
+                          index: model.organizations
+                              .indexOf(model.selectedOrganization),
+                          type: TileType.org,
+                          orgInfo: model.selectedOrganization,
+                          onTapOrgInfo: (item) => model.selectOrg(item),
+                          key: const Key('OrgSelItem'),
+                          showIcon: false,
+                        )
+                      : const SizedBox(),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Divider(
+                      color: Colors.grey,
+                      thickness: 2.0,
+                    ),
+                  ),
+                  Expanded(
+                    child: OrganizationList(model: model),
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.0215,
+                  ),
+                  //"Continue" button.
+                  RaisedRoundedButton(
+                    buttonLabel: AppLocalizations.of(context)!
+                        .strictTranslate('Continue'),
+                    onTap: model.onTapContinue,
+                    textColor: const Color(0xFF008A37),
+                    key: const Key('SignUpLoginDetailsButton'),
+                    backgroundColor: Colors.white,
+                  ),
+                  SizedBox(
+                    height: SizeConfig.screenHeight! * 0.0215,
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
       },
     );
   }
