@@ -274,48 +274,6 @@ class _CreateEventPageState extends State<CreateEventPage> {
                     ),
                     SizedBox(height: SizeConfig.screenHeight! * 0.026),
                     const Divider(),
-                    // InkWell(
-                    //   // InkWell class in Flutter is a rectangular area in Flutter
-                    //   // of a material that responds to touch in an application.
-                    //   key: const Key('inwell_cep1'),
-                    //   onTap: () {
-                    //     // EventBottomSheet is custom widget that is used to add users to the event.
-                    //     EventBottomSheet().addUserBottomSheet(
-                    //       context: context,
-                    //       model: model,
-                    //       isAdmin: true,
-                    //     );
-                    //   },
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       Text("Add Admins", style: subtitleTextStyle),
-                    //       Icon(
-                    //         Icons.add,
-                    //         color: Theme.of(context).colorScheme.secondary,
-                    //       )
-                    //     ],
-                    //   ),
-                    // ),
-                    // Wrap(
-                    //   children: model.selectedAdmins
-                    //       .map(
-                    //         (user) => MemberNameTile(
-                    //           userName: "${user.firstName!} ${user.lastName!}",
-                    //           userImage: user.image,
-                    //           onDelete: () {
-                    //             model.removeUserFromList(
-                    //               isAdmin: true,
-                    //               userId: user.id!,
-                    //             );
-                    //           },
-                    //         ),
-                    //       )
-                    //       .toList()
-                    //       .cast<Widget>(),
-                    // ),
-                    SizedBox(height: SizeConfig.screenHeight! * 0.026),
-                    const Divider(),
                     InkWell(
                       key: const Key('inwell_cep2'),
                       onTap: () {
