@@ -151,7 +151,7 @@ Future<void> main() async {
       verify(
         navigationService.showTalawaErrorSnackBar(
           "URL doesn't exist/no connection please check",
-          MessageType.error,
+          MessageType.info,
         ),
       );
     });
