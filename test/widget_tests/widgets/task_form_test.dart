@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,13 +14,32 @@ import 'package:talawa/widgets/task_form.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
+/// This is the callback class for the TaskForm widget.
 class OnSaveCallback {
+  /// This is the callback function for the TaskForm widget.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// None
   void call() {}
 }
 
+/// This is the Mock callback Class.
 class MockOnSaveCallback extends Mock implements OnSaveCallback {}
 
+/// This is the object of MockOnSaveCallback.
 MockOnSaveCallback mockOnSaveCallback = MockOnSaveCallback();
+
+/// This is function to create widget.
+///
+/// params:
+/// None
+///
+/// returns:
+/// * `Widget`: widget
+///
 
 Widget createTaskFormWidget() {
   return BaseView<CreateTaskViewModel>(
@@ -58,8 +74,20 @@ Widget createTaskFormWidget() {
   );
 }
 
+/// callback is again executed here.
+///
+/// params:
+/// None
+
 void callback() {}
 
+/// This is the main function for the test.
+///
+/// params:
+/// None
+///
+/// returns:
+/// None
 void main() {
   testSetupLocator();
   setUp(() {
