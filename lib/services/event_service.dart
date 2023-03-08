@@ -28,7 +28,7 @@ class EventService {
   }
 
   // variables declaration
-  final _userConfig = locator<UserConfig>();
+   final _userConfig = locator<UserConfig>();
   final _dbFunctions = locator<DataBaseMutationFunctions>();
 
   late OrgInfo _currentOrg;
