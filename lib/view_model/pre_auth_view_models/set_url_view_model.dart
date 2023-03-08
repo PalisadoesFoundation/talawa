@@ -50,9 +50,14 @@ class SetUrlViewModel extends BaseModel {
   /// qrValidator.
   AutovalidateMode validate = AutovalidateMode.disabled;
 
-  // initialiser.
-
   /// This function initialises the variables.
+  ///
+  /// params:
+  /// * `inviteUrl`: url
+  ///
+  /// returns:
+  /// * `String`: message
+
   initialise({String inviteUrl = ''}) {
     final uri = inviteUrl;
     if (uri.isNotEmpty) {
@@ -105,12 +110,11 @@ class SetUrlViewModel extends BaseModel {
   /// This function check the URL and navigate to the respective URL.
   ///
   /// params:
-  /// * `navigateTo` : url
+  /// * `navigateTo`: url
   /// * `argument`: message
   ///
   /// returns:
-  /// * `String` : message
-  /// * `navigateTo` : url
+  /// None
 
   checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
@@ -149,7 +153,7 @@ class SetUrlViewModel extends BaseModel {
   /// * `argument`: message
   ///
   /// returns:
-  /// * `String` : message
+  /// None
 
   checkURLandShowPopUp(String argument) async {
     urlFocus.unfocus();
@@ -183,6 +187,13 @@ class SetUrlViewModel extends BaseModel {
   }
 
   /// This function returns a widget which is used to scan the QR-code.
+  ///
+  /// params:
+  /// * `context`: BuildContext
+  ///
+  /// returns:
+  /// None
+
   scanQR(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -237,9 +248,14 @@ class SetUrlViewModel extends BaseModel {
     );
   }
 
-  // This is the helper function which execute when the on QR view created.
+  /// This is the helper function which execute when the on QR view created.
+  ///
+  /// params:
+  /// * `controller`: controller
+  ///
+  /// returns:
+  /// None
 
-  /// This function returns a widget which is used to scan the QR-code.
   void _onQRViewCreated(QRViewController controller) {
     controller.scannedDataStream.listen((scanData) {
       // if the scanData is not empty.

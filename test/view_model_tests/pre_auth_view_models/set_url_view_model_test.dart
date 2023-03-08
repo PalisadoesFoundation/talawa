@@ -38,11 +38,11 @@ class TestWidget extends StatelessWidget {
   }
 }
 
-
 /// This is a class for mock url for testing.
 class SetUrlMock extends StatelessWidget {
   const SetUrlMock({required this.formKey, Key? key}) : super(key: key);
 
+  /// formKey.
   final GlobalKey<FormState> formKey;
   @override
   Widget build(BuildContext context) {
@@ -55,6 +55,14 @@ class SetUrlMock extends StatelessWidget {
     );
   }
 }
+
+/// This is a class for mock url for testing.
+///
+/// params:
+/// * `themeMode`: dark
+///
+/// returns:
+/// * `Widget`: widget
 
 Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
@@ -80,6 +88,14 @@ Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
         );
       },
     );
+
+/// This is a main function for testing.
+///
+/// params:
+/// None
+///
+/// returns:
+/// * `Future<void>`: void
 
 Future<void> main() async {
   SizeConfig().test();
