@@ -96,11 +96,15 @@ Future<void> main() async {
 
   final urlBox = await Hive.openBox('url');
 
-  if (urlBox.get('url') != null) {
-    await setUpFirebaseKeys();
+  try {
+    if (urlBox.get('url') != null) {
+      await setUpFirebaseKeys();
 
-    await setUpFirebase();
-    await setUpFirebaseMessaging();
+      await setUpFirebase();
+      await setUpFirebaseMessaging();
+    }
+  } catch (e) {
+    print("Firebase not working");
   }
 
   setupLocator();
