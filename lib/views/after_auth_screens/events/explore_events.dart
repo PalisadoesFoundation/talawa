@@ -16,9 +16,13 @@ class ExploreEvents extends StatelessWidget {
     required Key key,
     this.homeModel,
   }) : super(key: key);
+
+  /// [homeModal] is a type of [MainScreenViewModel] which provides methods to handle the data for this component
   final MainScreenViewModel? homeModel;
 
   /// build() method contains all the user interface related code for this widget.
+  ///
+  /// takes [context] which is of type [BuildContext] is a locator that is used to track each widget in a tree and locate them and their position in the tree.
   @override
   Widget build(BuildContext context) {
     return BaseView<ExploreEventsViewModel>(
@@ -233,7 +237,11 @@ class ExploreEvents extends StatelessWidget {
     );
   }
 
-  /// dropDownList returns a widget of a drop down list of events type.
+  /// [dropDownList] returns a [Widget] of a drop down list of events type.
+  ///
+  /// takes [model] type of  [ExploreEventsViewModel] to handle the state of dropdown.
+  ///
+  /// takes [context] of type [BuildContext] to handle i8n and Theme color
   Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
     return DropdownButton<String>(
       key: homeModel?.keySECategoryMenu,
