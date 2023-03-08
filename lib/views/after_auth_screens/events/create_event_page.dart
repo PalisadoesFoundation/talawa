@@ -1,5 +1,9 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
@@ -18,12 +22,13 @@ class CreateEventPage extends StatefulWidget {
   _CreateEventPageState createState() => _CreateEventPageState();
 }
 
-/// _CreateEventPageState returns a widget for a Page to Create the Event in the Organization.
+/// _CreateEventPageState returns a widget for a Page to Creatxe the Event in the Organization.
 class _CreateEventPageState extends State<CreateEventPage> {
   @override
   Widget build(BuildContext context) {
     final TextStyle subtitleTextStyle =
         Theme.of(context).textTheme.headlineSmall!.copyWith(fontSize: 16);
+    final navigationServiceLocal = locator<NavigationService>();
     return BaseView<CreateEventViewModel>(
       onModelReady: (model) => model.initialize(),
       builder: (context, model, child) {
@@ -35,7 +40,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
             centerTitle: true,
             leading: GestureDetector(
               onTap: () {
-                navigationService.pop();
+                // ignore: undefined_method
+                navigationServiceLocal.pop();
               },
               child: const Icon(Icons.close),
             ),
@@ -147,6 +153,11 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         final date = await customDatePicker(
                           initialDate: model.eventStartDate,
                         );
+                        if (date.isBefore(DateTime.now())) {
+                          navigationServiceLocal.showSnackBar(
+                            "Cannot create events having date prior than today ",
+                          );
+                        }
                         setState(() {
                           model.eventStartDate = date;
                         });
@@ -183,18 +194,39 @@ class _CreateEventPageState extends State<CreateEventPage> {
                         final date = await customDatePicker(
                           initialDate: model.eventEndDate,
                         );
-                        setState(() {
-                          model.eventEndDate = date;
-                        });
+                        final startDate = model.eventStartDate;
+                        if (startDate.compareTo(date) < 0) {
+                          setState(() {
+                            model.eventEndDate = date;
+                          });
+                        } else {
+                          // ignore: undefined_method
+                          navigationServiceLocal.showSnackBar(
+                            "End Date cannot be after start date ",
+                          );
+                        }
                       },
                       setTime: () async {
                         final time = await customTimePicker(
                           initialTime: model.eventEndTime,
                         );
-
-                        setState(() {
-                          model.eventEndTime = time;
-                        });
+                        final currTimeToInt = time.hour + time.minute / 60.0;
+                        final startTime = model.eventStartTime;
+                        final startTimeToInt =
+                            startTime.hour + startTime.minute / 60;
+                        final eventStartDate = model.eventStartDate;
+                        final eventEndDate = model.eventEndDate;
+                        if (startTimeToInt.compareTo(currTimeToInt) < 0 &&
+                            eventStartDate.compareTo(eventEndDate) < 0) {
+                          setState(() {
+                            model.eventEndTime = time;
+                          });
+                        } else {
+                          // ignore: undefined_method
+                          navigationServiceLocal.showSnackBar(
+                            "End time cannot be before the start time. ",
+                          );
+                        }
                       },
                     ),
                     SizedBox(

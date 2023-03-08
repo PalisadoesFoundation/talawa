@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 // ignore_for_file: avoid_positional_boolean_parameters
 
 import 'package:flutter/material.dart';

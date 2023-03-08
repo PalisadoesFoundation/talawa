@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 // ignore_for_file: deprecated_member_use
 
 import 'dart:async';
