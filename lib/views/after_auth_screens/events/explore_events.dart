@@ -83,7 +83,7 @@ class ExploreEvents extends StatelessWidget {
                         physics: const AlwaysScrollableScrollPhysics(),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.screenWidth! * 0.027,
+                            horizontal: SizeConfig.screenWidth! * 0.010,
                           ),
                           child: Column(
                             children: [
