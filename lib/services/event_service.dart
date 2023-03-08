@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -52,11 +55,13 @@ class EventService {
     // refresh user's access token
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
     _dbFunctions.init();
+
     // get current organization id
     final String currentOrgID = _currentOrg.id!;
     // mutation to fetch the events
     final String mutation = EventQueries().fetchOrgEvents(currentOrgID);
     final result = await _dbFunctions.gqlAuthMutation(mutation);
+
     if (result == null) return;
     final List eventsJson = result.data!["eventsByOrganization"] as List;
     eventsJson.forEach((eventJsonData) {
@@ -88,7 +93,7 @@ class EventService {
   Future<dynamic> registerForAnEvent(String eventId) async {
     final tokenResult = await _dbFunctions
         .refreshAccessToken(userConfig.currentUser.refreshToken!);
-    print(tokenResult);
+    debugPrint(tokenResult.toString());
     final Map<String, dynamic> variables = {'eventId': eventId};
     final result = await _dbFunctions.gqlAuthMutation(
       EventQueries().registerForEvent(),

@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 ///This class creates queries related to the events.
 class EventQueries {
   //Returns a query to fetch an organization's events
@@ -16,8 +19,8 @@ class EventQueries {
           isRegisterable
           recurring
           recurrance
-          startTime
-          endTime
+          startDate
+          endDate
           allDay
           startTime
           endTime
@@ -61,15 +64,15 @@ class EventQueries {
      mutation createEvent( \$organizationId: ID!,
         \$title:String!,
         \$description: String!,
-        \$startTime: String,
-        \$endTime: String,
+        \$startTime: Time,
+        \$endTime: Time,
         \$allDay: Boolean!,
         \$recurring: Boolean!,
         \$isPublic: Boolean!,
         \$isRegisterable: Boolean!,
         \$location: String,
-        \$startDate : String!,
-        \$endDate : String!,
+        \$startDate : Date!,
+        \$endDate : Date!,
       ) { 
       createEvent(
         data:{
@@ -129,8 +132,8 @@ class EventQueries {
     return """mutation updateEvent( 
         \$title:String!,
         \$description: String!,
-        \$startTime: String,
-        \$endTime: String,
+        \$startTime: Time,
+        \$endTime: Time,
         \$allDay: Boolean!,
         \$recurring: Boolean!,
         \$isPublic: Boolean!,

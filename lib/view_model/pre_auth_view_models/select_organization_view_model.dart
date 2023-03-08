@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -88,9 +91,15 @@ class SelectOrganizationViewModel extends BaseModel {
         notifyListeners();
       } else if (orgAlreadyJoined) {
         selectedOrganization = OrgInfo(id: '-1');
-        navigationService.showSnackBar('Organisation already joined');
+        navigationService.showTalawaErrorSnackBar(
+          'Organisation already joined',
+          MessageType.warning,
+        );
       } else {
-        navigationService.showSnackBar('Membership request already sent');
+        navigationService.showTalawaErrorSnackBar(
+          'Membership request already sent',
+          MessageType.warning,
+        );
       }
     } else {
       selectedOrganization = item;
@@ -107,8 +116,9 @@ class SelectOrganizationViewModel extends BaseModel {
         arguments: selectedOrganization,
       );
     } else {
-      navigationService.showSnackBar(
+      navigationService.showTalawaErrorSnackBar(
         'Select one organization to continue',
+        MessageType.warning,
         duration: const Duration(milliseconds: 750),
       );
     }
@@ -142,12 +152,17 @@ class SelectOrganizationViewModel extends BaseModel {
           );
         } else {
           navigationService.pop();
-          navigationService
-              .showSnackBar('Joined ${selectedOrganization.name} successfully');
+          navigationService.showTalawaErrorSnackBar(
+            'Joined ${selectedOrganization.name} successfully',
+            MessageType.info,
+          );
         }
       } on Exception catch (e) {
         print(e);
-        navigationService.showSnackBar('SomeThing went wrong');
+        navigationService.showTalawaErrorSnackBar(
+          'SomeThing went wrong',
+          MessageType.error,
+        );
       }
     } else {
       try {
@@ -167,14 +182,18 @@ class SelectOrganizationViewModel extends BaseModel {
             );
           } else {
             navigationService.pop();
-            navigationService.showSnackBar(
+            navigationService.showTalawaErrorSnackBar(
               'Join in request sent to ${selectedOrganization.name} successfully',
+              MessageType.info,
             );
           }
         }
       } on Exception catch (e) {
         print(e);
-        navigationService.showSnackBar('SomeThing went wrong');
+        navigationService.showTalawaErrorSnackBar(
+          'SomeThing went wrong',
+          MessageType.error,
+        );
       }
     }
   }

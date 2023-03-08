@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/locator.dart';
@@ -69,9 +72,9 @@ class EditEventViewModel extends BaseModel {
         eventStartTime.minute,
       );
       final DateTime endTime = DateTime(
-        eventStartDate.year,
-        eventStartDate.month,
-        eventStartDate.day,
+        eventEndDate.year,
+        eventEndDate.month,
+        eventEndDate.day,
         eventEndTime.hour,
         eventEndTime.minute,
       );
@@ -84,8 +87,10 @@ class EditEventViewModel extends BaseModel {
         'isRegisterable': isRegisterableSwitch,
         'recurring': false,
         'allDay': false,
-        'startTime': startTime.microsecondsSinceEpoch.toString(),
-        'endTime': endTime.microsecondsSinceEpoch.toString(),
+        'startDate': DateFormat('yyyy-MM-dd').format(eventStartDate),
+        'endDate': DateFormat('yyyy-MM-dd').format(eventEndDate),
+        'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
+        'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
       };
       _eventService.editEvent(eventId: _event.id!, variables: variables);
     }

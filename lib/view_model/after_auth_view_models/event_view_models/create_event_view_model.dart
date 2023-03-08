@@ -1,6 +1,10 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -96,10 +100,11 @@ class CreateEventViewModel extends BaseModel {
         eventEndTime.hour,
         eventEndTime.minute,
       );
+
       // all required data for creating an event
       final Map<String, dynamic> variables = {
-        'startDate': startDate.toString(),
-        'endDate': endDate.toString(),
+        'startDate': DateFormat('yyyy-MM-dd').format(startDate),
+        'endDate': DateFormat('yyyy-MM-dd').format(endDate),
         'organizationId': _currentOrg.id,
         'title': eventTitleTextController.text,
         'description': eventDescriptionTextController.text,
@@ -108,8 +113,8 @@ class CreateEventViewModel extends BaseModel {
         'isRegisterable': isRegisterableSwitch,
         'recurring': false,
         'allDay': false,
-        'startTime': startTime.microsecondsSinceEpoch.toString(),
-        'endTime': endTime.microsecondsSinceEpoch.toString(),
+        'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
+        'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
         if (latitude != null) 'latitude': latitude,
         if (longitude != null) 'longitude': longitude,
       };

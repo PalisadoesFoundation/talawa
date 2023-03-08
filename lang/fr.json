@@ -40,7 +40,11 @@
     "Collaborate": "collaborez",
     "with your": "avec vos",
     "Organizations": "organisations",
-
+    "Error": "Erreur",
+    "Warning": "Avertissement",
+    "Information": "Information",
+    "No account registered with this email":"Le serveur ne fonctionne pas/mauvaise URL",
+    "Dismiss": "Rejeter",
     "Title from the viewMode GSoC branch": "Titre de la branche viewMode GSoC",
     "Please verify URL first": "Veuillez d'abord vérifier l'URL",
     "Enter a valid URL": "Saisissez une URL valide",

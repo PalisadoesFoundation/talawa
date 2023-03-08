@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/constants/routing_constants.dart';
@@ -27,7 +30,6 @@ class EventInfoBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   // event title
@@ -37,6 +39,16 @@ class EventInfoBody extends StatelessWidget {
                       .headlineMedium!
                       .copyWith(fontSize: 26),
                 ),
+                const Spacer(),
+                (model.event.creator!.id == userConfig.currentUser.id)
+                    ? IconButton(
+                        onPressed: () => navigationService.pushScreen(
+                          "/editEventPage",
+                          arguments: model.event,
+                        ),
+                        icon: const Icon(Icons.edit),
+                      )
+                    : Container(),
                 const Icon(Icons.chat_bubble_outline)
               ],
             ),
