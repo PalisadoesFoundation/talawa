@@ -527,6 +527,8 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     image: 'www.image.com',
   );
 
+  final mapType = {user1.id!: true};
+
   when(cachedViewModel.getCurrentOrgUsersList())
       .thenAnswer((realInvocation) async {
     return [user1];
@@ -535,6 +537,8 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
   //when(cachedViewModel.selectedAdmins).thenReturn([user2]);
   when(cachedViewModel.selectedMembers).thenReturn([user1]);
   when(cachedViewModel.orgMembersList).thenReturn([user1]);
+
+  when(cachedViewModel.memberCheckedMap).thenReturn(mapType);
 
   when(cachedViewModel.removeUserFromList(userId: "fakeUser1"))
       .thenAnswer((realInvocation) async {

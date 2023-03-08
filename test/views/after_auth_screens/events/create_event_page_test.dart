@@ -568,6 +568,38 @@ void main() {
       },
     );
 
+    testWidgets("Check if bottom sheet unticking works", (tester) async {
+      await tester.pumpWidget(
+        createEventScreen(
+          themeMode: ThemeMode.dark,
+          theme: TalawaTheme.darkTheme,
+        ),
+      );
+      await tester.pump();
+
+      await tester.ensureVisible(find.byKey(const Key('inwell_cep2')));
+      await tester.pump();
+
+      // await tester.tap(find.byKey(const Key('text_btn_ambs')));
+      await tester.tap(
+        find.byKey(
+          const Key('inwell_cep2'),
+        ),
+      );
+      await tester.pump();
+
+      await tester.pump();
+      await tester.ensureVisible(find.byKey(const Key('text_btn_ambs1')));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byType(CheckboxListTile));
+      expect(cachedViewModel.memberCheckedMap['fakeUser1'], false);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(CheckboxListTile));
+      expect(cachedViewModel.memberCheckedMap['fakeUser1'], true);
+      await tester.pump();
+    });
+
     testWidgets(
       "Check if deleting members and admins works",
       (tester) async {
