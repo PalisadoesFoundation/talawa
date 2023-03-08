@@ -10,6 +10,11 @@ import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 /// Tests event_service.dart.
+///
+/// params:
+/// None
+/// returns:
+/// None
 void main() {
   testSetupLocator();
 

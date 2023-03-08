@@ -39,9 +39,16 @@ class EventService {
 
   final StreamController<Event> _eventStreamController =
       StreamController<Event>();
+
+  /// The event stream.
   Stream<Event> get eventStream => _eventStream;
 
   /// This function is used to set stream subscription for an organization.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// None
   void setOrgStreamSubscription() {
     _currentOrganizationStreamSubscription =
         _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
@@ -50,6 +57,10 @@ class EventService {
   }
 
   /// This function is used to fetch all the events of an organization.
+  /// params:
+  /// None
+  /// returns:
+  /// * `Future` : void
   Future<void> getEvents() async {
     // refresh user's access token
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
@@ -76,7 +87,9 @@ class EventService {
   /// This function is used to fetch all registrants of an event.
   ///
   /// params:
-  /// * [eventId] : id of an event
+  /// * `eventId` : id of an event.
+  /// returns:
+  /// * `Future` : Information about event registrants.
   Future<dynamic> fetchRegistrantsByEvent(String eventId) async {
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
     final result = await _dbFunctions.gqlAuthQuery(
@@ -88,7 +101,9 @@ class EventService {
   /// This function is used to register user for an event.
   ///
   /// params:
-  /// * [eventId] : id of an event
+  /// * `eventId`: id of an event.
+  /// returns:
+  /// * `Future`: Information about the event registration.
   Future<dynamic> registerForAnEvent(String eventId) async {
     final tokenResult = await _dbFunctions
         .refreshAccessToken(userConfig.currentUser.refreshToken!);
@@ -104,7 +119,9 @@ class EventService {
   /// This function is used to delete the event.
   ///
   /// params:
-  /// * [eventId] : id of an event
+  /// * `eventId`: id of an event
+  /// returns:
+  /// * `Future`: Information about the event deletion
   Future<dynamic> deleteEvent(String eventId) async {
     navigationService.pushDialog(
       const CustomProgressDialog(key: Key('DeleteEventProgress')),
@@ -122,8 +139,10 @@ class EventService {
   /// This function is used to edit an event.
   ///
   /// params:
-  /// * [eventId] : id of an event
-  /// * [variables] : this will be `map` type and contain all the event details need to be update.
+  /// * `eventId` : id of an event
+  /// * `variables` : this will be `map` type and contain all the event details need to be update.
+  /// returns:
+  /// * `Future` : void
   Future<void> editEvent({
     required String eventId,
     required Map<String, dynamic> variables,
@@ -151,6 +170,11 @@ class EventService {
   }
 
   /// This function is used to cancel the stream subscription of an organization.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// None
   void dispose() {
     _currentOrganizationStreamSubscription.cancel();
   }
