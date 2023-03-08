@@ -41,6 +41,11 @@ class EventService {
       StreamController<Event>();
 
   /// The event stream.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// `Stream<Event>`: returns the event stream
   Stream<Event> get eventStream => _eventStream;
 
   /// This function is used to set stream subscription for an organization.
@@ -60,7 +65,7 @@ class EventService {
   /// params:
   /// None
   /// returns:
-  /// * `Future<void>` : void
+  /// * `Future<void>`: void
   Future<void> getEvents() async {
     // refresh user's access token
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
@@ -87,9 +92,9 @@ class EventService {
   /// This function is used to fetch all registrants of an event.
   ///
   /// params:
-  /// * `eventId` : id of an event.
+  /// * `eventId`: id of an event.
   /// returns:
-  /// * `Future<dynamic>` : Information about event registrants.
+  /// * `Future<dynamic>`: Information about event registrants.
   Future<dynamic> fetchRegistrantsByEvent(String eventId) async {
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
     final result = await _dbFunctions.gqlAuthQuery(
@@ -139,10 +144,10 @@ class EventService {
   /// This function is used to edit an event.
   ///
   /// params:
-  /// * `eventId` : id of an event
-  /// * `variables` : this will be `map` type and contain all the event details need to be update.
+  /// * `eventId`: id of an event
+  /// * `variables`: this will be `map` type and contain all the event details need to be update.
   /// returns:
-  /// * `Future<void>` : void return
+  /// * `Future<void>`: void return
   Future<void> editEvent({
     required String eventId,
     required Map<String, dynamic> variables,
