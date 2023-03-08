@@ -18,6 +18,7 @@ class ExploreEvents extends StatelessWidget {
   }) : super(key: key);
   final MainScreenViewModel? homeModel;
 
+  /// build() method contains all the user interface related code for this widget.
   @override
   Widget build(BuildContext context) {
     return BaseView<ExploreEventsViewModel>(
@@ -232,7 +233,7 @@ class ExploreEvents extends StatelessWidget {
     );
   }
 
-  // dropDownList returns a widget of a drop down list of events type.
+  /// dropDownList returns a widget of a drop down list of events type.
   Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
     return DropdownButton<String>(
       key: homeModel?.keySECategoryMenu,
