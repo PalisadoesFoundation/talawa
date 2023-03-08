@@ -52,6 +52,9 @@ We have tried to make the process simple. Here's what you need to do.
     ```
 1. Install packages.
     ```sh
+    $ cd talawa_lint
+    $ flutter pub get
+    $ cd ..
     $ flutter pub get
     ```
 1. Start developing!
