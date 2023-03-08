@@ -80,7 +80,7 @@ Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
           theme: TalawaTheme.darkTheme,
           home: FloatingActionButton(
             onPressed: () async {
-              await model1.initialise();
+              model1.initialise();
             },
           ),
           navigatorKey: locator<NavigationService>().navigatorKey,

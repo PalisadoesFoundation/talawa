@@ -21,7 +21,7 @@ import 'package:vibration/vibration.dart';
 /// * `checkURLandShowPopUp`
 /// * `scanQR`
 /// * `_onQRViewCreated`
-///
+
 class SetUrlViewModel extends BaseModel {
   // variables
 
@@ -63,7 +63,7 @@ class SetUrlViewModel extends BaseModel {
   /// returns:
   /// None
 
-  initialise({String inviteUrl = ''}) {
+  void initialise({String inviteUrl = ''}) {
     final uri = inviteUrl;
     if (uri.isNotEmpty) {
       /// assigning the invite server url to the url text controller.
@@ -122,7 +122,7 @@ class SetUrlViewModel extends BaseModel {
   /// returns:
   /// * `Future<void>`: void
 
-  checkURLandNavigate(String navigateTo, String argument) async {
+  Future<void> checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
 
@@ -158,16 +158,19 @@ class SetUrlViewModel extends BaseModel {
   /// * `argument`: message
   ///
   /// returns:
-  /// None
+  /// * `Future<void>`: sdf
 
-  checkURLandShowPopUp(String argument) async {
+  Future<void> checkURLandShowPopUp(String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
 
-    /// if the url is valid.
+    // if the url is valid.
     if (formKey.currentState!.validate()) {
-      navigationService
-          .pushDialog(const CustomProgressDialog(key: Key('UrlCheckProgress')));
+      navigationService.pushDialog(
+        const CustomProgressDialog(
+          key: Key('UrlCheckProgress'),
+        ),
+      );
       validate = AutovalidateMode.disabled;
       final String uri = url.text.trim();
       final bool? urlPresent =
@@ -197,7 +200,7 @@ class SetUrlViewModel extends BaseModel {
   /// returns:
   /// None
 
-  scanQR(BuildContext context) {
+  void scanQR(BuildContext context) {
     showModalBottomSheet(
       context: context,
       barrierColor: Colors.transparent,
