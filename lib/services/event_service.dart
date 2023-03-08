@@ -1,11 +1,10 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
+import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/user_config.dart';
@@ -40,9 +39,16 @@ class EventService {
 
   final StreamController<Event> _eventStreamController =
       StreamController<Event>();
+
+  /// The event stream.
   Stream<Event> get eventStream => _eventStream;
 
   /// This function is used to set stream subscription for an organization.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// None
   void setOrgStreamSubscription() {
     _currentOrganizationStreamSubscription =
         _userConfig.currentOrgInfoStream.listen((updatedOrganization) {
@@ -51,6 +57,10 @@ class EventService {
   }
 
   /// This function is used to fetch all the events of an organization.
+  /// params:
+  /// None
+  /// returns:
+  /// * `Future<void>` : void
   Future<void> getEvents() async {
     // refresh user's access token
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
@@ -77,7 +87,9 @@ class EventService {
   /// This function is used to fetch all registrants of an event.
   ///
   /// params:
-  /// * [eventId] : id of an event
+  /// * `eventId` : id of an event.
+  /// returns:
+  /// * `Future<dynamic>` : Information about event registrants.
   Future<dynamic> fetchRegistrantsByEvent(String eventId) async {
     await _dbFunctions.refreshAccessToken(userConfig.currentUser.refreshToken!);
     final result = await _dbFunctions.gqlAuthQuery(
@@ -89,7 +101,9 @@ class EventService {
   /// This function is used to register user for an event.
   ///
   /// params:
-  /// * [eventId] : id of an event
+  /// * `eventId`: id of an event.
+  /// returns:
+  /// * `Future<dynamic>`: Information about the event registration.
   Future<dynamic> registerForAnEvent(String eventId) async {
     final tokenResult = await _dbFunctions
         .refreshAccessToken(userConfig.currentUser.refreshToken!);
@@ -105,7 +119,9 @@ class EventService {
   /// This function is used to delete the event.
   ///
   /// params:
-  /// * [eventId] : id of an event
+  /// * `eventId`: id of an event
+  /// returns:
+  /// * `Future<dynamic>`: Information about the event deletion
   Future<dynamic> deleteEvent(String eventId) async {
     navigationService.pushDialog(
       const CustomProgressDialog(key: Key('DeleteEventProgress')),
@@ -123,8 +139,10 @@ class EventService {
   /// This function is used to edit an event.
   ///
   /// params:
-  /// * [eventId] : id of an event
-  /// * [variables] : this will be `map` type and contain all the event details need to be update.
+  /// * `eventId` : id of an event
+  /// * `variables` : this will be `map` type and contain all the event details need to be update.
+  /// returns:
+  /// * `Future<void>` : void return
   Future<void> editEvent({
     required String eventId,
     required Map<String, dynamic> variables,
@@ -143,11 +161,20 @@ class EventService {
     );
     navigationService.pop();
     if (result != null) {
-      navigationService.removeAllAndPush('/mainScreen', '/');
+      navigationService.removeAllAndPush(
+        Routes.exploreEventsScreen,
+        Routes.mainScreen,
+        arguments: MainScreenArgs(mainScreenIndex: 0, fromSignUp: false),
+      );
     }
   }
 
   /// This function is used to cancel the stream subscription of an organization.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// None
   void dispose() {
     _currentOrganizationStreamSubscription.cancel();
   }
