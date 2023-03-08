@@ -13,10 +13,15 @@ import 'package:vibration/vibration.dart';
 /// SetUrlViewModel class helps to interact with model to serve data.
 ///
 /// and react to user's input for Set Url Section.
-///
 /// Methods include:
 /// * `checkURLandNavigate`
 /// * `scanQR`
+/// * `initialise`
+/// * `checkURLandNavigate`
+/// * `checkURLandShowPopUp`
+/// * `scanQR`
+/// * `_onQRViewCreated`
+///
 class SetUrlViewModel extends BaseModel {
   // variables
 
@@ -56,7 +61,7 @@ class SetUrlViewModel extends BaseModel {
   /// * `inviteUrl`: url
   ///
   /// returns:
-  /// * `String`: message
+  /// None
 
   initialise({String inviteUrl = ''}) {
     final uri = inviteUrl;
@@ -115,7 +120,7 @@ class SetUrlViewModel extends BaseModel {
   /// * `argument`: message
   ///
   /// returns:
-  /// None
+  /// * `Future<void>`: void
 
   checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
@@ -138,8 +143,6 @@ class SetUrlViewModel extends BaseModel {
         graphqlConfig.getOrgUrl();
         navigationService.pushScreen(navigateTo, arguments: argument);
       } else {
-        /// navigationService.
-        ///     .showSnackBar("URL doesn't exist/no connection please check");
         navigationService.pop();
         navigationService.showTalawaErrorSnackBar(
           "URL doesn't exist/no connection please check",
@@ -177,9 +180,6 @@ class SetUrlViewModel extends BaseModel {
         graphqlConfig.getOrgUrl();
         navigationService.showSnackBar("Url is valid");
       } else {
-        /// navigationService.
-        ///     .showSnackBar("URL doesn't exist/no connection please check");
-
         navigationService.pop();
         navigationService.showTalawaErrorDialog(
           "URL doesn't exist/no connection please check",
@@ -189,7 +189,7 @@ class SetUrlViewModel extends BaseModel {
     }
   }
 
-  /// This function returns a widget which is used to scan the QR-code.
+  /// This function create a widget which is used to scan the QR-code.
   ///
   /// params:
   /// * `context`: BuildContext
@@ -254,7 +254,7 @@ class SetUrlViewModel extends BaseModel {
   /// This is the helper function which execute when the on QR view created.
   ///
   /// params:
-  /// * `controller`: controller
+  /// * `controller`: QRViewController
   ///
   /// returns:
   /// None
