@@ -134,7 +134,7 @@ class SetUrlViewModel extends BaseModel {
       } else {
         // navigationService
         //     .showSnackBar("URL doesn't exist/no connection please check");
-
+        navigationService.pop();
         navigationService.showTalawaErrorSnackBar(
           "URL doesn't exist/no connection please check",
           MessageType.info,

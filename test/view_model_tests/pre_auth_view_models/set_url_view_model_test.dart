@@ -1,15 +1,22 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:talawa/constants/custom_theme.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
+import 'package:talawa/router.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
+import 'package:talawa/utils/app_localization.dart';
 import 'package:talawa/utils/validators.dart';
+import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/pre_auth_view_models/set_url_view_model.dart';
+import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
 import '../../helpers/test_helpers.dart';
@@ -31,7 +38,49 @@ class TestWidget extends StatelessWidget {
   }
 }
 
-/// This is a main function for testing.
+
+/// This is a class for mock url for testing.
+class SetUrlMock extends StatelessWidget {
+  const SetUrlMock({required this.formKey, Key? key}) : super(key: key);
+
+  final GlobalKey<FormState> formKey;
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Form(
+        key: formKey,
+        child: Container(),
+      ),
+      navigatorKey: navigationService.navigatorKey,
+    );
+  }
+}
+
+Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
+      onModelReady: (model) => model.initialize(),
+      builder: (context, model, child) {
+        final model1 = SetUrlViewModel();
+        return MaterialApp(
+          locale: const Locale('en'),
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(isTest: true),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          key: const Key('Root'),
+          themeMode: themeMode,
+          theme: TalawaTheme.darkTheme,
+          home: FloatingActionButton(
+            onPressed: () async {
+              await model1.initialise();
+            },
+          ),
+          navigatorKey: locator<NavigationService>().navigatorKey,
+          onGenerateRoute: generateRoute,
+        );
+      },
+    );
+
 Future<void> main() async {
   SizeConfig().test();
 
@@ -80,6 +129,21 @@ Future<void> main() async {
 
       File('test/fixtures/core/url.hive').delete();
       File('test/fixtures/core/url.lock').delete();
+    });
+    testWidgets('Check if initialize is working fine ', (tester) async {
+      final model = SetUrlViewModel();
+
+      await tester.pumpWidget(SetUrlMock(formKey: model.formKey));
+
+      model.initialise();
+    });
+    testWidgets('Check if initialize is working fine when we give url',
+        (tester) async {
+      final model = SetUrlViewModel();
+
+      await tester.pumpWidget(SetUrlMock(formKey: model.formKey));
+
+      model.initialise(inviteUrl: "http://www.youtube.com");
     });
 
     testWidgets(
