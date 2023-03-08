@@ -112,12 +112,16 @@ class SetUrlViewModel extends BaseModel {
 
         navigationService.showTalawaErrorSnackBar(
           "URL doesn't exist/no connection please check",
-          MessageType.error,
+          MessageType.info,
         );
       }
     }
   }
 
+  /// This function check the URL and show pop-up that the URL is valid or not.
+  ///
+  /// params:
+  /// * [argument] : more information.
   checkURLandShowPopUp(String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
@@ -140,7 +144,7 @@ class SetUrlViewModel extends BaseModel {
         navigationService.pop();
         navigationService.showTalawaErrorDialog(
           "URL doesn't exist/no connection please check",
-          MessageType.error,
+          MessageType.info,
         );
       }
     }
