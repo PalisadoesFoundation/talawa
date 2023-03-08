@@ -15,8 +15,11 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 
+/// This is a TestWidget class.
 class TestWidget extends StatelessWidget {
   const TestWidget(this.model, {Key? key}) : super(key: key);
+
+  /// State.
   final SetUrlViewModel model;
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class TestWidget extends StatelessWidget {
   }
 }
 
+/// This is a main function for testing.
 Future<void> main() async {
   SizeConfig().test();
 

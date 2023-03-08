@@ -10,7 +10,8 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 import 'package:vibration/vibration.dart';
 
-/// SetUrlViewModel class helps to interact with model to serve data
+/// SetUrlViewModel class helps to interact with model to serve data.
+///
 /// and react to user's input for Set Url Section.
 ///
 /// Methods include:
@@ -18,18 +19,40 @@ import 'package:vibration/vibration.dart';
 /// * `scanQR`
 class SetUrlViewModel extends BaseModel {
   // variables
+
+  /// formKey.
   final formKey = GlobalKey<FormState>();
+
+  /// qrKey.
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
+  /// qrText.
   late Barcode result;
+
+  /// organizationID.
   String orgId = '-1';
+
+  /// imageUrlKey.
   static const imageUrlKey = "imageUrl";
+
+  /// urlKey.
   static const urlKey = "url";
+
+  /// url.
   TextEditingController url = TextEditingController();
+
+  /// urlFocus.
   FocusNode urlFocus = FocusNode();
+
+  /// qrController.
   late List<Map<String, dynamic>> greeting;
+
+  /// qrValidator.
   AutovalidateMode validate = AutovalidateMode.disabled;
 
-  // initialiser
+  // initialiser.
+
+  /// This function initialises the variables.
   initialise({String inviteUrl = ''}) {
     final uri = inviteUrl;
     if (uri.isNotEmpty) {
@@ -82,8 +105,13 @@ class SetUrlViewModel extends BaseModel {
   /// This function check the URL and navigate to the respective URL.
   ///
   /// params:
-  /// * [navigateTo] : url.
-  /// * [argument] : more information.
+  /// * `navigateTo` : url
+  /// * `argument`: message
+  ///
+  /// returns:
+  /// * `String` : message
+  /// * `navigateTo` : url
+
   checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
@@ -115,10 +143,14 @@ class SetUrlViewModel extends BaseModel {
     }
   }
 
-  /// This function check the URL and show pop-up that the URL is valid or not.
+  /// This function check the URL and navigate to the respective URL.
   ///
   /// params:
-  /// * [argument] : more information.
+  /// * `argument`: message
+  ///
+  /// returns:
+  /// * `String` : message
+
   checkURLandShowPopUp(String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
@@ -206,6 +238,8 @@ class SetUrlViewModel extends BaseModel {
   }
 
   // This is the helper function which execute when the on QR view created.
+
+  /// This function returns a widget which is used to scan the QR-code.
   void _onQRViewCreated(QRViewController controller) {
     controller.scannedDataStream.listen((scanData) {
       // if the scanData is not empty.
