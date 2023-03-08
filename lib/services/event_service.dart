@@ -45,7 +45,7 @@ class EventService {
   /// params:
   /// None
   /// returns:
-  /// None
+  /// `Stream<Event>`: returns the event stream
   Stream<Event> get eventStream => _eventStream;
 
   /// This function is used to set stream subscription for an organization.
