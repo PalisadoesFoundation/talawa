@@ -9,6 +9,7 @@ import 'package:talawa/utils/task_queries.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
+/// Tests event_service.dart.
 void main() {
   testSetupLocator();
 
