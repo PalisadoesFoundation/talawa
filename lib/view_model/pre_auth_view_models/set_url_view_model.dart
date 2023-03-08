@@ -61,14 +61,15 @@ class SetUrlViewModel extends BaseModel {
   initialise({String inviteUrl = ''}) {
     final uri = inviteUrl;
     if (uri.isNotEmpty) {
-      /// assigning the invite server url to the url text controller
+      /// assigning the invite server url to the url text controller.
       url.text = uri;
       final box = Hive.box('url');
       box.put(urlKey, uri);
       box.put(imageUrlKey, "$uri/talawa/");
       graphqlConfig.getOrgUrl();
     }
-    // greeting message
+
+    /// greeting message.
     greeting = [
       {
         'text': 'Join ',
@@ -119,7 +120,8 @@ class SetUrlViewModel extends BaseModel {
   checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
-    // if the url is valid.
+
+    /// if the url is valid.
     if (formKey.currentState!.validate()) {
       navigationService
           .pushDialog(const CustomProgressDialog(key: Key('UrlCheckProgress')));
@@ -136,8 +138,8 @@ class SetUrlViewModel extends BaseModel {
         graphqlConfig.getOrgUrl();
         navigationService.pushScreen(navigateTo, arguments: argument);
       } else {
-        // navigationService
-        //     .showSnackBar("URL doesn't exist/no connection please check");
+        /// navigationService.
+        ///     .showSnackBar("URL doesn't exist/no connection please check");
         navigationService.pop();
         navigationService.showTalawaErrorSnackBar(
           "URL doesn't exist/no connection please check",
@@ -158,7 +160,8 @@ class SetUrlViewModel extends BaseModel {
   checkURLandShowPopUp(String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
-    // if the url is valid.
+
+    /// if the url is valid.
     if (formKey.currentState!.validate()) {
       navigationService
           .pushDialog(const CustomProgressDialog(key: Key('UrlCheckProgress')));
@@ -174,8 +177,8 @@ class SetUrlViewModel extends BaseModel {
         graphqlConfig.getOrgUrl();
         navigationService.showSnackBar("Url is valid");
       } else {
-        // navigationService
-        //     .showSnackBar("URL doesn't exist/no connection please check");
+        /// navigationService.
+        ///     .showSnackBar("URL doesn't exist/no connection please check");
 
         navigationService.pop();
         navigationService.showTalawaErrorDialog(
@@ -258,7 +261,7 @@ class SetUrlViewModel extends BaseModel {
 
   void _onQRViewCreated(QRViewController controller) {
     controller.scannedDataStream.listen((scanData) {
-      // if the scanData is not empty.
+      /// if the scanData is not empty.
       if (scanData.code!.isNotEmpty) {
         print(scanData.code);
         try {
