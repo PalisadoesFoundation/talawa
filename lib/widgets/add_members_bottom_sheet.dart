@@ -1,14 +1,15 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
-/// Adds admins and members to an organization
+/// Adds members to an event.
 class EventBottomSheet {
-  /// This function creates a modal material design bottom sheet
+  /// This function creates a modal material design bottom sheet.
+  ///
   /// to let the user add admin or members to an organization.
+  /// params:
+  /// * `context`: BuildContext
+  /// * `model`: CreateEventViewModel
   void addUserBottomSheet({
     required BuildContext context,
     required CreateEventViewModel model,

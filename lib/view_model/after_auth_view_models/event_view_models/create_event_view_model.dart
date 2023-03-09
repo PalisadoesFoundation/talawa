@@ -1,8 +1,4 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:talawa/locator.dart';
@@ -15,7 +11,8 @@ import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
-/// CreateEventViewModel class have methods to interact with model in
+/// CreateEventViewModel class have methods to interact with model in.
+///
 /// the context of creating the event in the organization.
 ///
 /// Methods include:
@@ -28,40 +25,98 @@ class CreateEventViewModel extends BaseModel {
   late MultiMediaPickerService _multiMediaPickerService;
   late File? _imageFile;
 
+  /// Event Title Text Controller.
   TextEditingController eventTitleTextController = TextEditingController();
+
+  /// Event Location Text Controller.
   TextEditingController eventLocationTextController = TextEditingController();
+
+  /// Event Description Text Controller.
   TextEditingController eventDescriptionTextController =
       TextEditingController();
+
+  /// Event Start Time.
   TimeOfDay eventStartTime = TimeOfDay.now();
+
+  /// Event End Time.
   TimeOfDay eventEndTime = TimeOfDay.now();
+
+  /// Event Start Date.
   DateTime eventStartDate = DateTime.now();
+
+  /// Event End Date.
   DateTime eventEndDate = DateTime.now();
+
+  /// Public Event or Not.
   bool isPublicSwitch = true;
+
+  /// If event is registerable after creation.
   bool isRegisterableSwitch = true;
+
+  /// TitleFocus FocusNode.
   FocusNode titleFocus = FocusNode();
+
+  /// LocationFocus FocusNode.
   FocusNode locationFocus = FocusNode();
+
+  /// DescriptionFocus FocusNode.
   FocusNode descriptionFocus = FocusNode();
 
+  /// Latitude store.
   double? latitude;
+
+  /// Longitude store.
   double? longitude;
 
   //late OrganizationService _organizationService;
   late final Map<String, bool> _memberCheckedMap = {};
   late final List<User> _selectedMembers = [];
+
+  /// Organisation Members List.
   late List<User> orgMembersList = [];
 
+  /// Global FormKey.
   final formKey = GlobalKey<FormState>();
   final _eventService = locator<EventService>();
+
+  /// AutoValidateMode default to disabled.
   AutovalidateMode validate = AutovalidateMode.disabled;
 
   late OrgInfo _currentOrg;
   final _userConfig = locator<UserConfig>();
 
+  /// Getter to return selected members.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `List<User>`: Returns a list of selectedMembers for events
   List<User> get selectedMembers => _selectedMembers;
 
+  /// Getter to return members map.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `Map<String, bool>`: Returns a map of entries with id and boolean if they are
+  /// selected for events or not in bottom sheet.
   Map<String, bool> get memberCheckedMap => _memberCheckedMap;
+
+  /// Getter to return imageFile.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `File?`: Returns imageFile.
   File? get imageFile => _imageFile;
 
+  /// Function To Initialize.
+  ///
+  /// params:
+  /// None
   initialize() {
     _currentOrg = _userConfig.currentOrg;
     //_organizationService = locator<OrganizationService>();
