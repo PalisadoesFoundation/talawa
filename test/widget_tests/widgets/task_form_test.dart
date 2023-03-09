@@ -14,10 +14,6 @@ import 'package:talawa/widgets/task_form.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
-
-/// This is the callback class for the TaskForm widget.
-class OnSaveCallback {
-
 /// OnSaveCallback class provides a simple call function to test callbacks.
 ///
 /// Services include:
@@ -32,13 +28,6 @@ class OnSaveCallback {
   /// None
   void call() {}
 }
-
-
-/// This is the Mock callback Class.
-class MockOnSaveCallback extends Mock implements OnSaveCallback {}
-
-/// This is the object of MockOnSaveCallback.
-MockOnSaveCallback mockOnSaveCallback = MockOnSaveCallback();
 
 /// MockOnSaveCallback class is the mocked version of OnSaveCallback.
 ///
@@ -88,7 +77,6 @@ Widget createTaskFormWidget() {
   );
 }
 
-
 /// callback is again executed here.
 ///
 /// params:
@@ -98,7 +86,6 @@ Widget createTaskFormWidget() {
 /// None
 
 void callback() {}
-
 
 /// Tests task_form.dart.
 ///
