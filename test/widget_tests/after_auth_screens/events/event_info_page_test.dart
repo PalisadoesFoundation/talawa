@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 // ignore_for_file: avoid_positional_boolean_parameters
 
 import 'package:flutter/material.dart';
@@ -18,7 +21,39 @@ import 'package:talawa/views/after_auth_screens/events/event_info_page.dart';
 
 import '../../../helpers/test_helpers.dart';
 
-Widget createEventInfoPage(bool isPublic) {
+Event getEvent(bool isPublic, bool isCreator) {
+  return Event(
+    id: '1',
+    title: 'test',
+    startTime: '10000',
+    endTime: '20000',
+    location: 'ABC',
+    description: 'test',
+    creator: User(
+      id: isCreator ? "xzy1" : "abc1",
+      firstName: "Test",
+      lastName: "User",
+      email: "testuser@gmail.com",
+      refreshToken: "testtoken",
+      authToken: 'testtoken',
+    ),
+    startDate: '10000',
+    endDate: '20000',
+    latitude: 23.45,
+    longitude: -23.45,
+    admins: [
+      User(
+        id: isCreator ? "xzy1" : "abc1",
+        firstName: "Test",
+        lastName: "User",
+      )
+    ],
+    isPublic: isPublic,
+    organization: OrgInfo(id: 'XYZ'),
+  );
+}
+
+Widget createEventInfoPage(bool isPublic, bool isCreator) {
   return MaterialApp(
     localizationsDelegates: [
       GlobalMaterialLocalizations.delegate,
@@ -29,35 +64,7 @@ Widget createEventInfoPage(bool isPublic) {
     onGenerateRoute: router.generateRoute,
     home: EventInfoPage(
       args: {
-        'event': Event(
-          id: '1',
-          title: 'test',
-          startTime: '10000',
-          endTime: '20000',
-          location: 'ABC',
-          description: 'test',
-          creator: User(
-            id: "xyz1",
-            firstName: "Test",
-            lastName: "User",
-            email: "testuser@gmail.com",
-            refreshToken: "testtoken",
-            authToken: 'testtoken',
-          ),
-          startDate: '10000',
-          endDate: '20000',
-          latitude: 23.45,
-          longitude: -23.45,
-          admins: [
-            User(
-              id: "xzy1",
-              firstName: "Test",
-              lastName: "User",
-            )
-          ],
-          isPublic: isPublic,
-          organization: OrgInfo(id: 'XYZ'),
-        ),
+        'event': getEvent(isPublic, isCreator),
         'exploreEventViewModel': ExploreEventsViewModel(),
       },
     ),
@@ -76,7 +83,7 @@ void main() {
   group('Test EventInfoPage', () {
     testWidgets('Test Share button', (tester) async {
       mockNetworkImages(() async {
-        await tester.pumpWidget(createEventInfoPage(true));
+        await tester.pumpWidget(createEventInfoPage(true, true));
         await tester.pumpAndSettle();
 
         final shareButton = find.byIcon(Icons.share);
@@ -89,7 +96,18 @@ void main() {
 
     testWidgets('Test FloatingActionButton', (tester) async {
       mockNetworkImages(() async {
-        await tester.pumpWidget(createEventInfoPage(true));
+        await tester.pumpWidget(createEventInfoPage(true, true));
+        await tester.pumpAndSettle();
+
+        expect(find.byType(FloatingActionButton), findsOneWidget);
+
+        await tester.tap(find.byType(FloatingActionButton));
+      });
+    });
+
+    testWidgets('Test Delete FloatingActionButton', (tester) async {
+      mockNetworkImages(() async {
+        await tester.pumpWidget(createEventInfoPage(true, false));
         await tester.pumpAndSettle();
 
         expect(find.byType(FloatingActionButton), findsOneWidget);
@@ -100,7 +118,7 @@ void main() {
 
     testWidgets('Test EventInfoPage', (tester) async {
       mockNetworkImages(() async {
-        await tester.pumpWidget(createEventInfoPage(false));
+        await tester.pumpWidget(createEventInfoPage(false, true));
         await tester.pumpAndSettle();
 
         expect(find.byIcon(Icons.lock), findsOneWidget);

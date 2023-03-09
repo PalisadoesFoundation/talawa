@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,7 +15,6 @@ import 'package:talawa/router.dart' as router;
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/app_localization.dart';
-import 'package:talawa/view_model/after_auth_view_models/task_view_models/create_task_view_model.dart';
 import 'package:talawa/view_model/after_auth_view_models/task_view_models/explore_tasks_view_model.dart';
 import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/views/base_view.dart';
@@ -315,7 +317,6 @@ void main() {
     expect(find.byType(AlertDialog), findsNothing);
   });
   testWidgets('Check AlertDialog edit button iss working', (tester) async {
-    locator.registerFactory(() => CreateTaskViewModel());
     await tester.pumpWidget(createTaskCardWidget());
     // await tester
     await tester.pump();

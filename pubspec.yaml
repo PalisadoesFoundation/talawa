@@ -24,10 +24,10 @@ dependencies:
   cached_network_image: ^3.1.0
   connectivity_plus: ^3.0.0
   cupertino_icons: ^1.0.3
-  currency_picker: ^2.0.15
+  currency_picker: ^2.0.16
 
   ############## Remove ##########
-  custom_lint_builder: ^0.2.10
+  custom_lint_builder: ^0.2.12
   ################################
   
   firebase_core: ^2.6.1
