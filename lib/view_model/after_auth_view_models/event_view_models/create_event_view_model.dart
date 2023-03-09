@@ -117,7 +117,10 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// params:
   /// None
-  initialize() {
+  ///
+  /// returns:
+  /// None
+  void initialize() {
     _currentOrg = _userConfig.currentOrg;
     //_organizationService = locator<OrganizationService>();
 
