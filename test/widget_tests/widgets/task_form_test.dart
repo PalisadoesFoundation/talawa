@@ -14,9 +14,16 @@ import 'package:talawa/widgets/task_form.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
+
 /// This is the callback class for the TaskForm widget.
 class OnSaveCallback {
-  /// This is the callback function for the TaskForm widget.
+
+/// OnSaveCallback class provides a simple call function to test callbacks.
+///
+/// Services include:
+/// * `call` : mock function to test callback
+class OnSaveCallback {
+  /// This is a mock function to test callback.
   ///
   /// params:
   /// None
@@ -26,20 +33,27 @@ class OnSaveCallback {
   void call() {}
 }
 
+
 /// This is the Mock callback Class.
 class MockOnSaveCallback extends Mock implements OnSaveCallback {}
 
 /// This is the object of MockOnSaveCallback.
 MockOnSaveCallback mockOnSaveCallback = MockOnSaveCallback();
 
-/// This is function to create widget.
+/// MockOnSaveCallback class is the mocked version of OnSaveCallback.
+///
+/// Services include:
+class MockOnSaveCallback extends Mock implements OnSaveCallback {}
+
+/// The object created for MockOnSaveCallback.
+MockOnSaveCallback mockOnSaveCallback = MockOnSaveCallback();
+
+/// This function is used to return TaskFormWidget for testing.
 ///
 /// params:
 /// None
-///
 /// returns:
-/// * `Widget`: widget
-///
+/// * `Widget`: TaskForm Widget for testing.
 
 Widget createTaskFormWidget() {
   return BaseView<CreateTaskViewModel>(
@@ -74,14 +88,19 @@ Widget createTaskFormWidget() {
   );
 }
 
+
 /// callback is again executed here.
 ///
 /// params:
 /// None
+///
+/// returns:
+/// None
 
 void callback() {}
 
-/// This is the main function for the test.
+
+/// Tests task_form.dart.
 ///
 /// params:
 /// None
