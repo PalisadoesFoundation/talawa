@@ -5,6 +5,7 @@ import 'package:talawa/utils/app_localization.dart';
 /// The entry of the test function.
 ///
 /// params:
+/// None
 ///
 void main() {
   group("Test for App Localization Class", () {
