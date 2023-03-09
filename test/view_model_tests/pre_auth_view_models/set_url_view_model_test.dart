@@ -206,6 +206,13 @@ Future<void> main() async {
       verify(navigationService.pop());
       verify(graphqlConfig.getOrgUrl());
       verify(navigationService.showSnackBar("Url is valid"));
+
+      final box = Hive.box('url');
+      expect(box.get(SetUrlViewModel.urlKey), '');
+      expect(box.get(SetUrlViewModel.imageUrlKey), '/talawa/');
+
+      File('test/fixtures/core/url.hive').delete();
+      File('test/fixtures/core/url.lock').delete();
     });
 
     testWidgets(
