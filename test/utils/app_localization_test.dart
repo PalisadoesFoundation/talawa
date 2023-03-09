@@ -6,7 +6,6 @@ import 'package:talawa/utils/app_localization.dart';
 ///
 /// params:
 /// None
-///
 void main() {
   group("Test for App Localization Class", () {
     WidgetsFlutterBinding.ensureInitialized();
