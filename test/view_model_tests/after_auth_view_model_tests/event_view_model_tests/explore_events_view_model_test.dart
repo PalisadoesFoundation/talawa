@@ -24,8 +24,8 @@ class MockCallbackFunction extends Mock {
   call();
 }
 
-class _MockStreamSubscription<T> extends Mock implements StreamSubscription<T> {
-}
+class _MockStreamSubscription<T> extends Mock
+    implements StreamSubscription<T> {}
 
 class _MockStream<T> extends Mock implements Stream<T> {
   @override
