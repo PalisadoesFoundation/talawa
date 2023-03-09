@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/utils/app_localization.dart';
 
+/// The entry of the test function.
+///
+/// params:
+///
 void main() {
   group("Test for App Localization Class", () {
     WidgetsFlutterBinding.ensureInitialized();
