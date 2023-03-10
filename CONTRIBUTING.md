@@ -20,8 +20,7 @@ If you are new to contributing to open source, please read the Open Source Guide
    * [PR Preparation](#pr-preparation)
    * [Project Structure](#project-structure)
    * [Commit Guidelines](#commit-guidelines)
-* Internships
-    * [GSoC](#gsoc)
+* [Internships](#internships)
 * [Community](#community)
 
 ## Code of Conduct
@@ -82,13 +81,20 @@ Code contributions to Talawa come in the form of pull requests. These are done b
 The process of proposing a change to Talawa can be summarized as:
 
 1. Fork the Talawa repository and branch off `develop`.
+
 1. The repository can be cloned locally using `git clone <forked repo url>`.
+
 1. Make the desired changes to the Talawa source.
+
 1. Setup a local instance of Talawa-API on your local machine using the steps outlined in our [INSTALLATION.md](INSTALLATION.md) file.
+
 1. Run the app:
    1. Enter Talawa-API URL for your local instance oulined in the [INSTALLATION.md](INSTALLATION.md) file. This is also the URL you should use for your Talawa-Admin configuration.
+
 1. While selecting organization, select organization named A as it contains some testable data.
+
 1. Test your changes.
+
 1. If you've added code, then test suites must be added. 
    1. **_General_:** 
       1. We need to get to 100% test coverage for the app. We periodically increase the desired test coverage for our pull requests to meet this goal.
@@ -117,21 +123,60 @@ The process of proposing a change to Talawa can be summarized as:
               1. Remember to add the `Repository Upload Token` for your forked repo. This can be found under `Settings` of your `codecov.io` account. 
               1. Use the value of this token to create a secret named CODE_COV for your forked repo. 
               1. You will see your code coverage reports with every push to your repo after following these steps
+
+1. Author is required to write complete documentation for any file(s) changed in the respective PR
+
+   1. **General:**
+
+      1. Every field, i.e., `class`, `method`, `attribute`, `variable` should be documentation with some logical exceptions being `A class that extends State<T>`, `class methods that override the respective base method`, etc as they don't necessarily need their own documentation.
+      1. The documentation written should follow [Dart's official documentation guidelines](https://dart.dev/guides/language/effective-dart/documentation).
+      1. For now, the non-documented files are marked with `// ignore_for_file: talawa_api_doc` and`
+         // ignore_for_file: talawa_good_doc_comments` directives to suppress these lint warning. It is expected from the author to remove these two lines from the files they have modified and add corresponding documentation in the expected format.
+
+   1. **In your IDE:**
+
+      1. If you followed [INSTALLATION.md](INSTALLATION.md) carefully, you should see lint errors/warnings in your IDE itself, after removing the ignore directives on the top of the file.
+      1. Use the lint warnings your IDE states and write documentation accordingly. It will make the process easier.
+
+   1. **On the command line:**
+
+      1. Run `.github/workflows/check_ignore.py` and it will report if you have removed the ignore directives from changed files or not.
+         ```bash
+         python .github/workflows/check_ignore.py
+         ```
+
+      1. If it states any error, remove ignore directives from the files it states, and write proper documentation.
+
+      1. When done writing documentation, run
+         ```
+         flutter pub run custom_lint
+         ```
+
+         to check whether you documentation follows the format we expect, though you will get warnings in your IDE itself if it doesn't.
+
 1. Ensure that your code is appropriately formatted before making your submission. Submissions that are not properly formatted will be rejected if they are not fixed by the contributor.
    1. **_In your IDE_:**
+      
       1. _Visual Studio Code:_ There is a setting that allows your code to be formatted [automatically when you save](https://stackoverflow.com/a/66538607/15290492), or you may manually trigger it using `Ctrl + Shift + P` or `Cmd + Shift + P` and typing `Format Document`.
       1. _IntelliJ_, _Android Studio_, and other _Jetbrains_-based IDEs. Use the `Ctrl + Alt + L` or `Cmd + Opt + L` to trigger code formatting.
    1. **_On the command line before committing_**: Run this command from the root of your repository directory tree.
       ```
       flutter format --set-exit-if-changed .
       ```
+
 1. Ensure that your code should not be more than **_300 lines_**. It is there to make the code more modular and readable. Submissions that are not properly maintained will be rejected if the contributor does not fix them. Otherwise, the contributor will have to explain the need for it.
+
 1. After making changes, you can add them to git locally using `git add <file_name>`(to add changes only in a particular file) or `git add .` (to add all changes).
+
 1. After adding the changes, you need to commit them using `git commit -m '<commit message>'`(look at the commit guidelines below for commit messages).
-   1. You can link and automatically close the issue tied to your pull request by [using a supported keyword in either the pull request's description or in a commit message.](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue) This is a very useful feature that helps to prevent zombie issues that never die.
+    1. You can link and automatically close the issue tied to your pull request by [using a supported keyword in either the pull request's description or in a commit message.](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue) This is a very useful feature that helps to prevent zombie issues that never die.
+
 1. Once you have successfully committed your changes, you need to push the changes to the forked repo on GitHub using: `git push origin <branch_name>`.(Here, the branch name must be the name of the branch you want to push the changes to.)
+
 1. Now create a pull request to the Talawa repository from your forked repo. Open an issue regarding the same and link your PR to it.
+
 1. Ensure the test suite passes, either locally or on CI, once a PR has been created.
+
 1. Review and address comments on your pull request if requested.
 
 ## General Guidelines
@@ -248,11 +293,7 @@ conf: (configurational settings - changing directory structure, updating gitigno
 
 ## Internships
 
-We have internship partnerships with a number of organizations. See below for more details.
-
-### GSoC
-
-If you are participating in the Summer of Code, please read more about us and our processes [here](https://docs.talawa.io/docs/internships/gsoc/gsoc-introduction)
+If you are participating in any of the various internship programs we ar members of then please read the [introduction guides on our documentation website](https://docs.talawa.io/docs/).
 
 ## Community
 There are many ways to communicate with the community.

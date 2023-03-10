@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 ///This class creates queries related to the events.
 class EventQueries {
   //Returns a query to fetch an organization's events

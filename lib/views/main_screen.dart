@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
 import 'package:talawa/view_model/main_screen_view_model.dart';
