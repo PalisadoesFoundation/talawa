@@ -569,6 +569,8 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
       ChatUser(firstName: "ABC", id: "ABC", image: "ABC");
   final ChatMessage chatMessage1 =
       ChatMessage("XYZ", chatUser1, "XYZ", chatUser2);
+  final ChatMessage chatMessage2 =
+      ChatMessage("XYZ", chatUser1, "Something", chatUser2);
   final Map<String, List<ChatMessage>> messages = {
     "XYZ": [chatMessage1]
   };
@@ -583,6 +585,10 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
   when(cachedViewModel.chatMessagesByUser).thenReturn(messages);
 
   when(cachedViewModel.initialise()).thenAnswer((realInvocation) async {});
+  when(cachedViewModel.sendMessageToDirectChat("XYZ", "Something"))
+      .thenAnswer((realInvocation) async {
+    messages['XYZ']?.add(chatMessage2);
+  });
   when(cachedViewModel.getChatMessages("XYZ"))
       .thenAnswer((realInvocation) async {});
   when(cachedViewModel.chatName("XYZ")).thenAnswer((realInvocation) {});
