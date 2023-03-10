@@ -17,6 +17,14 @@ import 'package:talawa/views/base_view.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
+/// Base Widget to mock AddPostPage screen.
+///
+/// params:
+/// * `themeMode`:
+/// * `theme`:
+///
+/// returns:
+/// * `Widget`: a mock widget.
 Widget createAddPostPage({
   ThemeMode themeMode = ThemeMode.light,
   required ThemeData theme,
@@ -46,6 +54,13 @@ Widget createAddPostPage({
       },
     );
 
+/// main function to start the test file.
+///
+/// params:
+/// None
+///
+/// returns:
+/// None
 void main() {
   SizeConfig().test();
   testSetupLocator();

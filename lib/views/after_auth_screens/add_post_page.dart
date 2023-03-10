@@ -11,6 +11,12 @@ import 'package:talawa/views/base_view.dart';
 late AddPostViewModel model;
 
 /// AddPost returns a widget to add(upload) the post.
+///
+/// params:
+/// * `drawerKey`: globalKey of drawer.
+///
+/// returns:
+/// None
 class AddPost extends StatelessWidget {
   const AddPost({Key? key, this.drawerKey}) : super(key: key);
   final GlobalKey<ScaffoldState>? drawerKey;
