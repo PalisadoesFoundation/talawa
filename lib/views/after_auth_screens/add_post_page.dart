@@ -12,11 +12,7 @@ late AddPostViewModel model;
 
 /// AddPost returns a widget to add(upload) the post.
 ///
-/// params:
-/// * `drawerKey`: globalKey of drawer.
-///
-/// returns:
-/// None
+/// This Widget takes a globalKey
 class AddPost extends StatelessWidget {
   const AddPost({Key? key, this.drawerKey}) : super(key: key);
   final GlobalKey<ScaffoldState>? drawerKey;
