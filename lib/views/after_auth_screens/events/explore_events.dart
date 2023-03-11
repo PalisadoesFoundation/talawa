@@ -18,8 +18,6 @@ class ExploreEvents extends StatelessWidget {
   }) : super(key: key);
 
   /// [homeModal] is a type of [MainScreenViewModel] which provides methods to handle the data for this component.
-  ///
-  /// [@var		final	MainScreenViewModel]
   final MainScreenViewModel? homeModel;
 
   @override
@@ -236,14 +234,14 @@ class ExploreEvents extends StatelessWidget {
     );
   }
 
-  ///  Shows a list of dropdown taken from  `model` and `context`.
+  /// Shows a list of dropdown taken from  `model` and `context`.
   ///
   /// params:
   /// * [model] contains the events data
   /// * [context] the overall context of UI
   ///
   /// returns:
-  /// * `int`: Answer of life.
+  /// None
   Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
     return DropdownButton<String>(
       key: homeModel?.keySECategoryMenu,
