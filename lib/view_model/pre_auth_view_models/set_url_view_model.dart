@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -106,7 +109,7 @@ class SetUrlViewModel extends BaseModel {
       } else {
         // navigationService
         //     .showSnackBar("URL doesn't exist/no connection please check");
-
+        navigationService.pop();
         navigationService.showTalawaErrorSnackBar(
           "URL doesn't exist/no connection please check",
           MessageType.error,

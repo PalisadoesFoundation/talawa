@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:currency_picker/currency_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -84,9 +87,14 @@ class ProfilePageViewModel extends BaseModel {
                 url.clear();
                 androidFirebaseOptionsBox.clear();
                 iosFirebaseOptionsBox.clear();
-                Firebase.app()
-                    .delete(); // Deleting app will stop all Firebase plugins
+                try {
+                  Firebase.app()
+                      .delete(); // Deleting app will stop all Firebase plugins
+                } catch (e) {
+                  debugPrint("ERROR: Unable to delete firebase app $e");
+                }
                 organisation.clear();
+                navigationService.pop();
                 navigationService.removeAllAndPush(
                   '/selectLang',
                   '/',

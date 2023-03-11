@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:talawa/models/language/language_model.dart';
 
 /// This file contains the prototypes of all the languages available and supported currencies.
