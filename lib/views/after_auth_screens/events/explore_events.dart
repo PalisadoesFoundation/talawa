@@ -241,7 +241,7 @@ class ExploreEvents extends StatelessWidget {
   /// * [context] the overall context of UI
   ///
   /// returns:
-  /// None
+  /// * [Widget]: the dropdown
   Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
     return DropdownButton<String>(
       key: homeModel?.keySECategoryMenu,
