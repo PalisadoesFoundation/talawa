@@ -220,5 +220,18 @@ void main() {
       File('temporaryPath/userinfo.hive').delete();
       File('temporaryPath/userinfo.lock').delete();
     });
+
+    test('Test hashCode', () {
+      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
+
+      final int hashCode = userInfo.hashCode;
+      expect(userInfo.hashCode, hashCode);
+    });
+
+    test('Test ==', () {
+      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
+
+      expect(userInfo == userInfo, true);
+    });
   });
 }
