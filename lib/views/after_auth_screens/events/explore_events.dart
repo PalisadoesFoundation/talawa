@@ -10,7 +10,15 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_card.dart';
 import 'package:talawa/widgets/event_search_delegate.dart';
 
-/// ExploreEvents returns a widget that renders the list for events that are visible to be explored.
+/// Shows the list of events with options to categorize them.
+
+/// [ExploreEvents]
+///
+/// [@author	@sumitrasaksham]
+/// [ @since	v0.0.1 ]
+/// [@version	v1.0.0	Friday, March 10th, 2023]
+/// [@see		StatelessWidget]
+/// [@global]
 class ExploreEvents extends StatelessWidget {
   const ExploreEvents({
     required Key key,
@@ -18,11 +26,10 @@ class ExploreEvents extends StatelessWidget {
   }) : super(key: key);
 
   /// [homeModal] is a type of [MainScreenViewModel] which provides methods to handle the data for this component.
+  ///
+  /// [@var		final	MainScreenViewModel]
   final MainScreenViewModel? homeModel;
 
-  /// build() method contains all the user interface related code for this widget.
-  ///
-  /// params: takes [context] which is of type [BuildContext] is a locator that is used to track each widget in a tree and locate them and their position in the tree.
   @override
   Widget build(BuildContext context) {
     return BaseView<ExploreEventsViewModel>(
@@ -237,10 +244,14 @@ class ExploreEvents extends StatelessWidget {
     );
   }
 
-  /// [dropDownList] returns a [Widget] of a drop down list of events type.
+  ///  Shows a list of dropdown taken from  `model` and `context`.
   ///
-  /// takes [model] type of  [ExploreEventsViewModel] to handle the state of dropdown.
-  /// takes [context] of type [BuildContext] to handle i8n and Theme color.
+  /// params:
+  /// * [model] contains the events data
+  /// * [context] the overall context of UI
+  ///
+  /// returns:
+  /// None
   Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
     return DropdownButton<String>(
       key: homeModel?.keySECategoryMenu,
