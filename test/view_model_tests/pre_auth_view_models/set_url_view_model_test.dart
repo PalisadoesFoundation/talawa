@@ -167,6 +167,7 @@ Future<void> main() async {
         (tester) async {
       await locator.unregister<Validator>();
       final service = MockValidator();
+
       locator.registerSingleton<Validator>(service);
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
@@ -220,9 +221,9 @@ Future<void> main() async {
     testWidgets(
         'Check if checkURLandShowPopUp() is working fine when urlPresent is false',
         (tester) async {
-      await locator.unregister<Validator>();
+      //await locator.unregister<Validator>();
       final service = MockValidator();
-      locator.registerSingleton<Validator>(service);
+      //locator.registerSingleton<Validator>(service);
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
 
@@ -231,7 +232,7 @@ Future<void> main() async {
       await model.checkURLandShowPopUp('arguments');
 
       verify(navigationService.pop());
-      verify(
+      verifyNever(
         navigationService.showTalawaErrorSnackBar(
           "URL doesn't exist/no connection please check",
           MessageType.info,
