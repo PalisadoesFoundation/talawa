@@ -231,16 +231,17 @@ void main() {
     });
 
     test('Test hashCode', () {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
+      final userAdapter = UserAdapter();
 
-      final int hashCode = userInfo.hashCode;
-      expect(userInfo.hashCode, hashCode);
+      final int hashCode = userAdapter.hashCode;
+      expect(userAdapter.hashCode, hashCode);
     });
 
     test('Test ==', () {
-      final userInfo = User.fromJson(testDataFromOrg, fromOrg: true);
+      final userAdapter1 = UserAdapter();
+      final userAdapter2 = UserAdapter();
 
-      expect(userInfo == userInfo, true);
+      expect(userAdapter1 == userAdapter2, true);
     });
   });
 }
