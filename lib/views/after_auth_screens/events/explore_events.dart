@@ -11,14 +11,6 @@ import 'package:talawa/widgets/event_card.dart';
 import 'package:talawa/widgets/event_search_delegate.dart';
 
 /// Shows the list of events with options to categorize them.
-
-/// [ExploreEvents]
-///
-/// [@author	@sumitrasaksham]
-/// [ @since	v0.0.1 ]
-/// [@version	v1.0.0	Friday, March 10th, 2023]
-/// [@see		StatelessWidget]
-/// [@global]
 class ExploreEvents extends StatelessWidget {
   const ExploreEvents({
     required Key key,
@@ -251,7 +243,7 @@ class ExploreEvents extends StatelessWidget {
   /// * [context] the overall context of UI
   ///
   /// returns:
-  /// None
+  /// * `int`: Answer of life.
   Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
     return DropdownButton<String>(
       key: homeModel?.keySECategoryMenu,
