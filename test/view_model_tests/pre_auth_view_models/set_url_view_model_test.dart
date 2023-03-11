@@ -181,6 +181,8 @@ Future<void> main() async {
           MessageType.error,
         ),
       );
+
+      locator.unregister<Validator>();
     });
 
     testWidgets(
