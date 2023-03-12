@@ -173,7 +173,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   /// Initializing the Quickactions to enable them on long press of app icon in device.
   final quickActions = const QuickActions();
-  // Initializing the mainScreen window to 1 to show the events by default after app in opened.
+
+  /// Initializing the mainScreen window to 1 to show the events by default after app in opened.
   late int mainScreenQuickActionindex = 0;
   @override
   void initState() {
