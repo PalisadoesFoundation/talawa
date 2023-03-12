@@ -199,7 +199,7 @@ class _MyAppState extends State<MyApp> {
   /// None
   /// returns:
   /// None
-  initQuickActions() async {
+  void initQuickActions() async {
     final bool userLoggedIn = await userConfig.userLoggedIn();
     if (userLoggedIn &&
         userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
@@ -218,13 +218,6 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  /// The build method is upon calling `setState` on any widget.
-  ///
-  /// performs dependencies update, or any of the parent widgets are rebuilt.
-  /// params:
-  /// * `context`: contains the UI data.
-  /// returns:
-  /// * `Widget` : UI of the  MyApp Widget
   @override
   Widget build(BuildContext context) {
     return BaseView<AppLanguage>(
@@ -337,7 +330,7 @@ class DemoViewModel extends BaseModel {
   /// params:
   /// None
   /// returns:
-  /// None
+  /// * `String`: title  of the model
   String get title => _title;
 }
 
@@ -352,9 +345,7 @@ Future<void> setUpFirebaseMessaging() async {
   /// Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  /// Update the iOS foreground notification presentation options to allow
-  ///
-  /// heads up notifications.
+  // Update the iOS foreground notification presentation options to allow heads up notifications.
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
