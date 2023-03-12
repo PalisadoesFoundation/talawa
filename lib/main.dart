@@ -100,10 +100,10 @@ Future<void> main() async {
   final urlBox = await Hive.openBox('url');
 
   if (urlBox.get('url') != null) {
-    await setUpFirebaseKeys();
+    // await setUpFirebaseKeys();
 
-    await setUpFirebase();
-    await setUpFirebaseMessaging();
+    // await setUpFirebase();
+    // await setUpFirebaseMessaging();
   }
 
   setupLocator();

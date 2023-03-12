@@ -8,9 +8,11 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
+import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
+import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 /// AddPostViewModel class have different functions that are used
@@ -31,6 +33,7 @@ class AddPostViewModel extends BaseModel {
   String get userName => _currentUser.firstName! + _currentUser.lastName!;
   String get orgName => _selectedOrg.name!;
   TextEditingController get controller => _controller;
+  late DataBaseMutationFunctions _dbFunctions;
 
   // initialisation
   void initialise() {
@@ -39,6 +42,7 @@ class AddPostViewModel extends BaseModel {
     _selectedOrg = locator<UserConfig>().currentOrg;
     _imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
+    _dbFunctions = locator<DataBaseMutationFunctions>();
   }
 
   /// This function is used to get the image from gallery.
@@ -56,7 +60,19 @@ class AddPostViewModel extends BaseModel {
   }
 
   /// This function uploads the post finally, and navigate the success message in Snack Bar.
-  void uploadPost() {
+  Future<void> uploadPost() async {
+    // {TODO: }
+    if (_imageFile == null) {
+      final result = await _dbFunctions.gqlAuthMutation(
+        PostQueries().uploadPost(),
+        variables: {
+          "text": _controller.text,
+          "organizationId": _selectedOrg.id,
+          "title": "New"
+        },
+      );
+      print(result);
+    }
     removeImage();
     _controller.text = "";
     _navigationService.showTalawaErrorSnackBar(

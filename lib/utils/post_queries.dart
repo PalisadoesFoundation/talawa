@@ -63,4 +63,47 @@ class PostQueries {
     }
   """;
   }
+
+  String uploadPost() {
+    return '''
+    mutation CreatePost(
+    \$text: String!
+    \$title: String!
+    \$imageUrl: URL
+    \$videoUrl: URL
+    \$organizationId: ID!
+  ) {
+    createPost(
+      data: {
+        text: \$text
+        title: \$title
+        imageUrl: \$imageUrl
+        videoUrl: \$videoUrl
+        organizationId: \$organizationId
+      }
+    ) {
+      _id
+    }
+  }
+    ''';
+    // return r'''
+    //   mutation createPostMutation($postInput: PostInput!) { createPost(
+    //     data: $postInput
+    //   ){
+    //     _id
+    //     title
+    //     text
+    //     createdAt
+    //     imageUrl
+    //     videoUrl
+    //     creator
+    //     organization
+    //     likedBy
+    //     comments
+    //     likeCount
+    //     commentCount
+    //   }
+    //   }
+    // ''';
+  }
 }
