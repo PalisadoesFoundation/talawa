@@ -197,7 +197,6 @@ class _MyAppState extends State<MyApp> {
   ///
   /// params:
   /// None
-  ///
   /// returns:
   /// None
   initQuickActions() async {
@@ -222,6 +221,10 @@ class _MyAppState extends State<MyApp> {
   /// The build method is upon calling `setState` on any widget.
   ///
   /// performs dependencies update, or any of the parent widgets are rebuilt.
+  /// params:
+  /// * `context`: contains the UI data.
+  /// returns:
+  /// * `Widget` : UI of the  MyApp Widget
   @override
   Widget build(BuildContext context) {
     return BaseView<AppLanguage>(
@@ -293,10 +296,10 @@ class _MyAppState extends State<MyApp> {
 class DemoPageView extends StatelessWidget {
   const DemoPageView({required Key key}) : super(key: key);
 
-  /// builds the UI enabling plugins. localization.
+  /// Builds the UI enabling plugins and localization.
   ///
   /// params:
-  /// `context`: object containing data of the entire UI of the app.
+  /// * `context`: object containing data of the entire UI of the app.
   ///
   /// returns:
   /// * `Widget`: UI of the app.
@@ -317,15 +320,24 @@ class DemoPageView extends StatelessWidget {
   }
 }
 
-/// ViewModel uses property-based data binding to establish a connection
+/// ViewModel uses property-based data binding to establish a connection.
 ///
 /// between the ViewModel and the View, and drives the View changes
 /// through the ViewModel. DemoViewModel is the ViewModel for DemoPageView.
+/// params:
+/// None
+/// returns:
+/// None
 class DemoViewModel extends BaseModel {
   /// Demo title to be used.
   final String _title = "Title from the viewMode GSoC branch";
 
   /// Getter function of the title.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// None
   String get title => _title;
 }
 
