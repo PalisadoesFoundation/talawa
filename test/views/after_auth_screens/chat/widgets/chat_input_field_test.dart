@@ -23,7 +23,7 @@ final directChatViewModel = getAndRegisterDirectChatViewModel();
 /// None
 ///
 /// returns:
-/// * `Widget`: The actual chatInputField
+/// * `Widget`: The actual chatInputField to test
 Widget createChatInputField() {
   return BaseView<AppLanguage>(
     onModelReady: (model) => model.initialize(),
