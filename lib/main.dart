@@ -199,6 +199,8 @@ class _MyAppState extends State<MyApp> {
   /// None
   /// returns:
   /// None
+
+// ignore: avoid_void_async
   void initQuickActions() async {
     final bool userLoggedIn = await userConfig.userLoggedIn();
     if (userLoggedIn &&
