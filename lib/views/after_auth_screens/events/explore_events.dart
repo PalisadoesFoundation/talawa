@@ -211,7 +211,7 @@ class ExploreEvents extends StatelessWidget {
                 ),
           floatingActionButton: FloatingActionButton.extended(
             key: homeModel?.keySEAdd,
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             onPressed: () {
               navigationService.pushScreen(
                 "/createEventPage",
