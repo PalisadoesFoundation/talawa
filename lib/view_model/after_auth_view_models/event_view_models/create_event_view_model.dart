@@ -129,8 +129,13 @@ class CreateEventViewModel extends BaseModel {
   }
 
   /// This function is used to create the event for the organization.
+  ///
   /// The function uses `database_mutation_functions` services to call the graphQL mutation
   /// for creating an event and passes the required variables for the event.
+  /// params:
+  /// None
+  /// returns:
+  /// * `Future<void>`: Asynchronous function for creating event
   Future<void> createEvent() async {
     titleFocus.unfocus();
     locationFocus.unfocus();
@@ -201,7 +206,9 @@ class CreateEventViewModel extends BaseModel {
   /// The function uses the `_multiMediaPickerService` services.
   ///
   /// params:
-  /// * [camera] : if true then open camera for image, else open gallery to select image.
+  /// * `camera`: if true then open camera for image, else open gallery to select image.
+  /// returns:
+  /// * `Future<void>`: Asynchronous function for getting image from gallery
   Future<void> getImageFromGallery({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
@@ -212,6 +219,9 @@ class CreateEventViewModel extends BaseModel {
   }
 
   /// This function remove the selected image.
+  ///
+  /// params:
+  /// None
   void removeImage() {
     _imageFile = null;
     notifyListeners();
@@ -219,6 +229,10 @@ class CreateEventViewModel extends BaseModel {
 
   /// This function fetch all the users in the current organization and return `List`.
   ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `Future<List<User>>`: Current Organization Users List
   Future<List<User>> getCurrentOrgUsersList() async {
     if (orgMembersList.isEmpty) {
       orgMembersList = await organizationService
@@ -235,6 +249,11 @@ class CreateEventViewModel extends BaseModel {
   }
 
   /// This function build the user list.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// None
   void buildUserList() {
     _selectedMembers.clear();
 
@@ -250,7 +269,10 @@ class CreateEventViewModel extends BaseModel {
 
   /// This function is used to remove a user from user's list.
   ///
-  /// * [userId] : id of the user that need to be removed.
+  /// params:
+  /// * `userId`: id of the user that need to be removed.
+  /// returns:
+  /// None
   void removeUserFromList({required String userId}) {
     _selectedMembers.removeWhere((user) => user.id == userId);
     _memberCheckedMap[userId] = false;
