@@ -425,11 +425,10 @@ class _Visitor extends SimpleAstVisitor {
 
     if (node is FunctionDeclaration) {
       final nodeReturnTypeLocal = node.returnType;
-
-      returnType = nodeReturnTypeLocal!.type;
+      returnType = nodeReturnTypeLocal?.type;
     } else if (node is MethodDeclaration) {
       final nodeReturnTypeLocal = node.returnType;
-      returnType = nodeReturnTypeLocal!.type;
+      returnType = nodeReturnTypeLocal?.type;
     }
 
     // If return type is not [void] and doc doesn't end with [return_type] or
