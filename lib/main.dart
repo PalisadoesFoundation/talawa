@@ -321,7 +321,10 @@ class DemoPageView extends StatelessWidget {
 /// between the ViewModel and the View, and drives the View changes
 /// through the ViewModel. DemoViewModel is the ViewModel for DemoPageView.
 class DemoViewModel extends BaseModel {
+  /// Demo title to be used.
   final String _title = "Title from the viewMode GSoC branch";
+
+  /// Getter function of the title.
   String get title => _title;
 }
 
