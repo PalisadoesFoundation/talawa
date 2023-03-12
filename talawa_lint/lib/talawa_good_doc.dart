@@ -353,9 +353,11 @@ class _Visitor extends SimpleAstVisitor {
     bool isVoid = false;
 
     if (node is FunctionDeclaration) {
-      isVoid = node.returnType!.type!.isVoid ?? false;
+      final nodeReturnTypeLocal = node.returnType;
+      isVoid = nodeReturnTypeLocal?.type!.isVoid == true;
     } else if (node is MethodDeclaration) {
-      isVoid = node.returnType?.type!.isVoid ?? false;
+      final nodeReturnTypeLocal = node.returnType;
+      isVoid = nodeReturnTypeLocal?.type!.isVoid == true;
     }
 
     if (!containsReturn && !isVoid) {
