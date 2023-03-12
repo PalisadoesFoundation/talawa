@@ -1,9 +1,13 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/custom_painters/talawa_logo.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/events/event_model.dart';
 import 'package:talawa/models/mainscreen_navigation_args.dart';
@@ -81,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final values = _initialUri!.queryParameters.values;
 
     final fromInviteLink = navigationService.fromInviteLink;
-    final showSnackBar = navigationService.showSnackBar;
+    final showSnackBar = navigationService.showTalawaErrorSnackBar;
     final pushReplacementScreen = navigationService.pushReplacementScreen;
 
     final orgURI = GraphqlConfig.orgURI!;
@@ -101,12 +105,13 @@ class _SplashScreenState extends State<SplashScreen> {
       if (setUrl.compareTo(orgURI) != 0) {
         showSnackBar(
           'Organisation on different server! Logout and open link again',
+          MessageType.error,
         );
         return;
       }
 
       if (keys.last.compareTo('selectOrg') != 0) {
-        showSnackBar('Invalid url');
+        showSnackBar('Invalid url', MessageType.error);
         return;
       }
 
@@ -135,6 +140,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Clipboard.setData(ClipboardData(text: setUrl));
         showSnackBar(
           'Organisation on different server! Url copied to clipboard.',
+          MessageType.error,
         );
         pushReplacementScreen(
           Routes.mainScreen,
@@ -164,7 +170,7 @@ class _SplashScreenState extends State<SplashScreen> {
       }
 
       if (event == null) {
-        showSnackBar('Event not found');
+        showSnackBar('Event not found', MessageType.error);
         pushReplacementScreen(
           Routes.mainScreen,
           arguments: mainScreenArgs,

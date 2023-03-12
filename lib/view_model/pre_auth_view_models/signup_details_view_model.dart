@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/constants/routing_constants.dart';
@@ -115,7 +118,10 @@ class SignupDetailsViewModel extends BaseModel {
                 );
               } on Exception catch (e) {
                 print(e);
-                navigationService.showSnackBar('SomeThing went wrong');
+                navigationService.showTalawaErrorSnackBar(
+                  'SomeThing went wrong',
+                  MessageType.error,
+                );
               }
             } else {
               try {
@@ -136,14 +142,20 @@ class SignupDetailsViewModel extends BaseModel {
                 );
               } on Exception catch (e) {
                 print(e);
-                navigationService.showSnackBar('SomeThing went wrong');
+                navigationService.showTalawaErrorSnackBar(
+                  'SomeThing went wrong',
+                  MessageType.error,
+                );
               }
             }
           }
         }
       } on Exception catch (e) {
         print(e);
-        navigationService.showSnackBar('SomeThing went wrong');
+        navigationService.showTalawaErrorSnackBar(
+          'SomeThing went wrong',
+          MessageType.error,
+        );
       }
     }
   }

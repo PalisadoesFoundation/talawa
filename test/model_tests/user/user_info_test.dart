@@ -5,36 +5,43 @@ import 'package:hive/hive.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
+/// Encoded Organization.
 final encodedOrg = {
   "name": 'test_org',
   "image": 'https://testimg.com',
   "isPublic": false,
 };
 
+/// Updated Organization.
 final updatedOrg = OrgInfo.fromJson({
   "name": 'test_org_updated',
   "image": 'https://testimg_updated.com',
   "isPublic": true,
 });
 
+/// Membership Request Organization.
 final membershipRequestOrg = {
   "organization": encodedOrg,
 };
 
+/// Updated Membership Request Organization.
 final updatedMembershipRequestOrg = {
   "organization": updatedOrg,
 };
 
+/// Test Organization List.
 final testOrgList = [
   encodedOrg,
   encodedOrg,
 ];
 
+/// Membership Request Organization List.
 final membershipRequestOrgList = [
   membershipRequestOrg,
   membershipRequestOrg,
 ];
 
+/// Test Data From Organization.
 final testDataFromOrg = <String, dynamic>{
   "firstName": "ravidi",
   "lastName": "sheikh",
@@ -49,6 +56,7 @@ final testDataFromOrg = <String, dynamic>{
   'membershipRequests': membershipRequestOrgList,
 };
 
+/// Test Data Not From Organization.
 final testDataNotFromOrg = {
   "user": {
     "firstName": "ravidi",
@@ -65,6 +73,10 @@ final testDataNotFromOrg = {
   }
 };
 
+/// Test for user_info.dart.
+///
+/// params:
+/// None
 void main() {
   group("Tests for UserInfo.dart", () {
     test('Check if UserInfo.fromJson works with fromOrg', () async {
@@ -216,6 +228,20 @@ void main() {
 
       File('temporaryPath/userinfo.hive').delete();
       File('temporaryPath/userinfo.lock').delete();
+    });
+
+    test('Test hashCode', () {
+      final userAdapter = UserAdapter();
+
+      final int hashCode = userAdapter.hashCode;
+      expect(userAdapter.hashCode, hashCode);
+    });
+
+    test('Test ==', () {
+      final userAdapter1 = UserAdapter();
+      final userAdapter2 = UserAdapter();
+
+      expect(userAdapter1 == userAdapter2, true);
     });
   });
 }

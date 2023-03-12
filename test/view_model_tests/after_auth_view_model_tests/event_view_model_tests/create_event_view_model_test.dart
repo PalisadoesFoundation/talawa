@@ -1,8 +1,12 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
@@ -141,14 +145,14 @@ void main() {
         ),
       );
 
-      final DateTime startTime = DateTime(
+      final DateTime startMoment = DateTime(
         model.eventStartDate.year,
         model.eventStartDate.month,
         model.eventStartDate.day,
         model.eventStartTime.hour,
         model.eventStartTime.minute,
       );
-      final DateTime endTime = DateTime(
+      final DateTime endMoment = DateTime(
         model.eventEndDate.year,
         model.eventEndDate.month,
         model.eventEndDate.day,
@@ -182,8 +186,8 @@ void main() {
         databaseFunctions.gqlAuthMutation(
           EventQueries().addEvent(),
           variables: {
-            'startDate': model.eventStartDate.toString(),
-            'endDate': model.eventEndDate.toString(),
+            'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+            'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
             'organizationId': "XYZ",
             'title': model.eventTitleTextController.text,
             'description': model.eventDescriptionTextController.text,
@@ -192,8 +196,8 @@ void main() {
             'isRegisterable': model.isRegisterableSwitch,
             'recurring': false,
             'allDay': false,
-            'startTime': startTime.microsecondsSinceEpoch.toString(),
-            'endTime': endTime.microsecondsSinceEpoch.toString(),
+            'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+            'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
           },
         ),
       ).thenAnswer((_) async {
@@ -206,8 +210,8 @@ void main() {
         databaseFunctions.gqlAuthMutation(
           EventQueries().addEvent(),
           variables: {
-            'startDate': model.eventStartDate.toString(),
-            'endDate': model.eventEndDate.toString(),
+            'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+            'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
             'organizationId': "XYZ",
             'title': model.eventTitleTextController.text,
             'description': model.eventDescriptionTextController.text,
@@ -216,8 +220,8 @@ void main() {
             'isRegisterable': model.isRegisterableSwitch,
             'recurring': false,
             'allDay': false,
-            'startTime': startTime.microsecondsSinceEpoch.toString(),
-            'endTime': endTime.microsecondsSinceEpoch.toString(),
+            'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+            'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
           },
         ),
       );

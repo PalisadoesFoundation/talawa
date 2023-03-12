@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -213,8 +216,9 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
             Navigator.pop(navigationService.navigatorKey.currentContext!);
             model.initialise(model.orgId);
           } else {
-            navigationService.showSnackBar(
+            navigationService.showTalawaErrorSnackBar(
               "Organisation on different server, logout and scan qr again",
+              MessageType.error,
             );
           }
         } on Exception catch (e) {
