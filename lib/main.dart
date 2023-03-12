@@ -64,7 +64,7 @@ late Map<String, dynamic> androidFirebaseOptions;
 /// HashMap of Firebase options for android.
 late Map<String, dynamic> iosFirebaseOptions;
 
-/// Create a [AndroidNotificationChannel] for heads up notifications
+/// Create a [AndroidNotificationChannel] for heads up notifications.
 late AndroidNotificationChannel channel;
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
@@ -171,7 +171,9 @@ class MyApp extends StatefulWidget {
 ///
 /// All the coding related to state updation is inside this class.
 class _MyAppState extends State<MyApp> {
+  /// Initializing the Quickactions to enable them on long press of app icon in device.
   final quickActions = const QuickActions();
+  // Initializing the mainScreen window to 1 to show the events by default after app in opened.
   late int mainScreenQuickActionindex = 0;
   @override
   void initState() {
@@ -191,6 +193,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   /// It allows to manage and interact with the application’s home screen quick actions.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// None
   initQuickActions() async {
     final bool userLoggedIn = await userConfig.userLoggedIn();
     if (userLoggedIn &&
@@ -204,13 +212,15 @@ class _MyAppState extends State<MyApp> {
           mainScreenQuickActionindex = 3;
         }
       });
+
+      /// Registering quick action list in the app.zx
       quickActions.setShortcutItems(ShortCutMenu.quickActionsList);
     }
   }
 
-  /// The build method is called any time you call setState ,your widget's
+  /// The build method is upon calling `setState` on any widget.
   ///
-  /// dependencies update, or any of the parent widgets are rebuilt.
+  /// performs dependencies update, or any of the parent widgets are rebuilt.
   @override
   Widget build(BuildContext context) {
     return BaseView<AppLanguage>(
@@ -282,6 +292,13 @@ class _MyAppState extends State<MyApp> {
 class DemoPageView extends StatelessWidget {
   const DemoPageView({required Key key}) : super(key: key);
 
+  /// builds the UI enabling plugins. localization.
+  ///
+  /// params:
+  /// `context`: object containing data of the entire UI of the app.
+  ///
+  /// returns:
+  /// * `Widget`: UI of the app.
   @override
   Widget build(BuildContext context) {
     FetchPluginList();
@@ -308,6 +325,13 @@ class DemoViewModel extends BaseModel {
   String get title => _title;
 }
 
+/// Set up firebase instance, enbables messaging,listens to icoming messages.
+///
+/// params:
+/// None
+///
+/// returns:
+/// * `Future<void>`: promise that will be fulfilled Firebase is setted up.
 Future<void> setUpFirebaseMessaging() async {
   /// Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
