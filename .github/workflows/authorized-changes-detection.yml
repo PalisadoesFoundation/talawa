@@ -16,6 +16,8 @@ on:
       - '.github/**'
       - 'analysis_options.yaml'
       - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - 'lib/main.dart'
       - 'CODEOWNERS'
       - 'LICENSE'
 

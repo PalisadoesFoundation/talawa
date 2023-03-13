@@ -11,6 +11,7 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/rich_text.dart';
 
 /// This widget lets a user sign in/up with the organization url.
+///
 /// The user can enter an organization through the QR code scanner,
 /// or enter the organization URL and then login.
 /// There is also a signup option which navigates to a screen for the user
@@ -18,6 +19,8 @@ import 'package:talawa/widgets/rich_text.dart';
 /// At the bottom, there is also a gesture detector for changing the language.
 class SetUrl extends StatefulWidget {
   const SetUrl({required Key key, required this.uri}) : super(key: key);
+
+  /// Variable.
   final String uri;
 
   @override
@@ -107,10 +110,13 @@ class _SetUrlState extends State<SetUrl> {
                         labelStyle: Theme.of(context).textTheme.titleMedium,
                         suffixIcon: InkWell(
                           key: const Key('VerifyButton'),
-                          onTap: () {
+                          onTap: () async {
                             model.urlFocus.unfocus();
                             model.validate = AutovalidateMode.always;
                             model.formKey.currentState!.validate();
+
+                            /// Checking url. If valid, than show the pop-up
+                            await model.checkURLandShowPopUp('');
                           },
                           child: Container(
                             height: 48,

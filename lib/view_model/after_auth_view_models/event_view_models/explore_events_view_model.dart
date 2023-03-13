@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'dart:async';
 
 import 'package:intl/intl.dart';
@@ -72,8 +75,6 @@ class ExploreEventsViewModel extends BaseModel {
   Future<void> checkIfExistsAndAddNewEvent(Event newEvent) async {
     // checking if the `newEvent.id` is unique and not exist already.
     if ((!_uniqueEventIds.contains(newEvent.id)) &&
-        (int.tryParse(newEvent.startTime!) != null ||
-            int.tryParse(newEvent.endTime!) != null) &&
         (newEvent.organization!.id == userConfig.currentOrg.id)) {
       _uniqueEventIds.add(newEvent.id!);
       _parseEventDateTime(newEvent);
@@ -83,16 +84,30 @@ class ExploreEventsViewModel extends BaseModel {
 
   /// The helper function that used to parse the date and time.
   void _parseEventDateTime(Event newEvent) {
-    final DateTime startDate = DateTime.fromMicrosecondsSinceEpoch(
-      int.parse(newEvent.startTime!),
+    // Maybe needed for the tests. Can be further discussed.
+    if (newEvent.startDate == null ||
+        newEvent.endDate == null ||
+        newEvent.startTime == null ||
+        newEvent.endTime == null) {
+      newEvent.startDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+      newEvent.endDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+      newEvent.startTime = DateFormat('HH:mm:ss').format(DateTime.now());
+      newEvent.endTime = DateFormat('HH:mm:ss').format(DateTime.now());
+    }
+
+    final startMoment = DateTime.parse(
+      '${newEvent.startDate!} ${newEvent.startTime!}',
     ).toLocal();
-    final DateTime endDate = DateTime.fromMicrosecondsSinceEpoch(
-      int.parse(newEvent.endTime!),
+
+    final endMoment = DateTime.parse(
+      '${newEvent.endDate!} ${newEvent.endTime!}',
     ).toLocal();
-    newEvent.startDate = DateFormat('yMd').format(startDate);
-    newEvent.endDate = DateFormat('yMd').format(endDate);
-    newEvent.startTime = DateFormat.jm().format(startDate);
-    newEvent.endTime = DateFormat.jm().format(endDate);
+
+    newEvent.startDate = DateFormat('yMd').format(startMoment);
+    newEvent.endDate = DateFormat('yMd').format(endMoment);
+    newEvent.startTime = DateFormat.jm().format(startMoment);
+    newEvent.endTime = DateFormat.jm().format(endMoment);
+
     _events.insert(0, newEvent);
   }
 

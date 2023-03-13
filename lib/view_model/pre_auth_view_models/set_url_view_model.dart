@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
@@ -9,37 +10,71 @@ import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 import 'package:vibration/vibration.dart';
 
-/// SetUrlViewModel class helps to interact with model to serve data
-/// and react to user's input for Set Url Section.
+/// SetUrlViewModel class helps to interact with model to serve data.
 ///
+/// and react to user's input for Set Url Section.
 /// Methods include:
 /// * `checkURLandNavigate`
 /// * `scanQR`
+/// * `initialise`
+/// * `checkURLandNavigate`
+/// * `checkURLandShowPopUp`
+/// * `scanQR`
+/// * `_onQRViewCreated`
+
 class SetUrlViewModel extends BaseModel {
   // variables
+
+  /// formKey.
   final formKey = GlobalKey<FormState>();
+
+  /// qrKey.
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
+  /// qrText.
   late Barcode result;
+
+  /// organizationID.
   String orgId = '-1';
+
+  /// imageUrlKey.
   static const imageUrlKey = "imageUrl";
+
+  /// urlKey.
   static const urlKey = "url";
+
+  /// url.
   TextEditingController url = TextEditingController();
+
+  /// urlFocus.
   FocusNode urlFocus = FocusNode();
+
+  /// qrController.
   late List<Map<String, dynamic>> greeting;
+
+  /// qrValidator.
   AutovalidateMode validate = AutovalidateMode.disabled;
 
-  // initialiser
-  initialise({String inviteUrl = ''}) {
+  /// This function initialises the variables.
+  ///
+  /// params:
+  /// * `inviteUrl`: url
+  ///
+  /// returns:
+  /// None
+
+  void initialise({String inviteUrl = ''}) {
     final uri = inviteUrl;
     if (uri.isNotEmpty) {
-      /// assigning the invite server url to the url text controller
+      /// assigning the invite server url to the url text controller.
       url.text = uri;
       final box = Hive.box('url');
       box.put(urlKey, uri);
       box.put(imageUrlKey, "$uri/talawa/");
       graphqlConfig.getOrgUrl();
     }
-    // greeting message
+
+    /// greeting message.
     greeting = [
       {
         'text': 'Join ',
@@ -81,12 +116,17 @@ class SetUrlViewModel extends BaseModel {
   /// This function check the URL and navigate to the respective URL.
   ///
   /// params:
-  /// * [navigateTo] : url.
-  /// * [argument] : more information.
-  checkURLandNavigate(String navigateTo, String argument) async {
+  /// * `navigateTo`: url
+  /// * `argument`: message
+  ///
+  /// returns:
+  /// * `Future<void>`: void
+
+  Future<void> checkURLandNavigate(String navigateTo, String argument) async {
     urlFocus.unfocus();
     validate = AutovalidateMode.always;
-    // if the url is valid.
+
+    /// if the url is valid.
     if (formKey.currentState!.validate()) {
       navigationService
           .pushDialog(const CustomProgressDialog(key: Key('UrlCheckProgress')));
@@ -103,17 +143,64 @@ class SetUrlViewModel extends BaseModel {
         graphqlConfig.getOrgUrl();
         navigationService.pushScreen(navigateTo, arguments: argument);
       } else {
-        // navigationService
-        //     .showSnackBar("URL doesn't exist/no connection please check");
-        navigationService.showTalawaErrorWidget(
+        navigationService.pop();
+        navigationService.showTalawaErrorSnackBar(
           "URL doesn't exist/no connection please check",
+          MessageType.error,
         );
       }
     }
   }
 
-  /// This function returns a widget which is used to scan the QR-code.
-  scanQR(BuildContext context) {
+  /// This function check the URL and navigate to the respective URL.
+  ///
+  /// params:
+  /// * `argument`: message
+  ///
+  /// returns:
+  /// * `Future<void>`: sdf
+
+  Future<void> checkURLandShowPopUp(String argument) async {
+    urlFocus.unfocus();
+    validate = AutovalidateMode.always;
+
+    // if the url is valid.
+    if (formKey.currentState!.validate()) {
+      navigationService.pushDialog(
+        const CustomProgressDialog(
+          key: Key('UrlCheckProgress'),
+        ),
+      );
+      validate = AutovalidateMode.disabled;
+      final String uri = url.text.trim();
+      final bool? urlPresent =
+          await locator<Validator>().validateUrlExistence(uri);
+      if (urlPresent! == true) {
+        final box = Hive.box('url');
+        box.put(urlKey, uri);
+        box.put(imageUrlKey, "$uri/talawa/");
+        navigationService.pop();
+        graphqlConfig.getOrgUrl();
+        navigationService.showSnackBar("Url is valid");
+      } else {
+        navigationService.pop();
+        navigationService.showTalawaErrorDialog(
+          "URL doesn't exist/no connection please check",
+          MessageType.info,
+        );
+      }
+    }
+  }
+
+  /// This function create a widget which is used to scan the QR-code.
+  ///
+  /// params:
+  /// * `context`: BuildContext
+  ///
+  /// returns:
+  /// None
+
+  void scanQR(BuildContext context) {
     showModalBottomSheet(
       context: context,
       barrierColor: Colors.transparent,
@@ -167,10 +254,17 @@ class SetUrlViewModel extends BaseModel {
     );
   }
 
-  // This is the helper function which execute when the on QR view created.
+  /// This is the helper function which execute when the on QR view created.
+  ///
+  /// params:
+  /// * `controller`: QRViewController
+  ///
+  /// returns:
+  /// None
+
   void _onQRViewCreated(QRViewController controller) {
     controller.scannedDataStream.listen((scanData) {
-      // if the scanData is not empty.
+      /// if the scanData is not empty.
       if (scanData.code!.isNotEmpty) {
         print(scanData.code);
         try {
@@ -189,17 +283,28 @@ class SetUrlViewModel extends BaseModel {
           navigationService.pushScreen('/selectOrg', arguments: orgId);
         } on CameraException catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorWidget("The Camera is not working");
+          navigationService.showTalawaErrorSnackBar(
+            "The Camera is not working",
+            MessageType.error,
+          );
         } on QrEmbeddedImageException catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorDialog("The QR is not Working");
+          navigationService.showTalawaErrorDialog(
+            "The QR is not Working",
+            MessageType.error,
+          );
         } on QrUnsupportedVersionException catch (e) {
           debugPrint(e.toString());
-          navigationService
-              .showTalawaErrorDialog("This QR version is not Supported.");
+          navigationService.showTalawaErrorDialog(
+            "This QR version is not Supported.",
+            MessageType.error,
+          );
         } on Exception catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorWidget("This QR is not for the App");
+          navigationService.showTalawaErrorSnackBar(
+            "This QR is not for the App",
+            MessageType.error,
+          );
         }
       }
     });

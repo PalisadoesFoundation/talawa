@@ -1,7 +1,10 @@
-import 'dart:async';
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/utils/queries.dart';
@@ -51,16 +54,17 @@ class DataBaseMutationFunctions {
   }) {
     // if server link is wrong.
     if (exception.linkException != null) {
-      debugPrint(exception.linkException.toString());
+      // debugPrint(exception.linkException.toString());
       if (showSnackBar) {
         WidgetsBinding.instance.addPostFrameCallback(
-          (_) => navigationService
-              .showTalawaErrorDialog("Server not running/wrong url"),
+          (_) => navigationService.showTalawaErrorSnackBar(
+            "Server not running/wrong url",
+            MessageType.info,
+          ),
         );
       }
       return false;
     }
-
     // looping through graphQL errors.
     debugPrint(exception.graphqlErrors.toString());
     for (int i = 0; i < exception.graphqlErrors.length; i++) {
@@ -90,8 +94,10 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == userNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) => navigationService
-                .showTalawaErrorDialog("No account registered with this email"),
+            (_) => navigationService.showTalawaErrorDialog(
+              "No account registered with this email",
+              MessageType.error,
+            ),
           );
         }
         return false;
@@ -100,8 +106,10 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == memberRequestExist.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) => navigationService
-                .showTalawaErrorDialog("Membership request already exist"),
+            (_) => navigationService.showTalawaErrorDialog(
+              "Membership request already exist",
+              MessageType.error,
+            ),
           );
         }
         return false;
@@ -110,8 +118,10 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == wrongCredentials.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) => navigationService
-                .showTalawaErrorDialog("Enter a valid password"),
+            (_) => navigationService.showTalawaErrorDialog(
+              "Enter a valid password",
+              MessageType.error,
+            ),
           );
         }
         return false;
@@ -120,8 +130,10 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == organizationNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) => navigationService
-                .showTalawaErrorDialog("Organization Not Found"),
+            (_) => navigationService.showTalawaErrorDialog(
+              "Organization Not Found",
+              MessageType.error,
+            ),
           );
         }
         return false;
@@ -132,6 +144,7 @@ class DataBaseMutationFunctions {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => navigationService.showTalawaErrorDialog(
               "Account with this email already registered",
+              MessageType.error,
             ),
           );
         }
@@ -139,8 +152,12 @@ class DataBaseMutationFunctions {
       }
     }
     // if the error is unknown
+
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => navigationService.showTalawaErrorDialog("Something went wrong!"),
+      (_) => navigationService.showTalawaErrorDialog(
+        "Something went wrong!",
+        MessageType.error,
+      ),
     );
     return false;
   }

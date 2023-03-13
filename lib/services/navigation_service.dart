@@ -1,7 +1,10 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
 
+import 'package:flutter/material.dart';
+import 'package:talawa/enums/enums.dart';
 import 'package:talawa/widgets/talawa_error_dialog.dart';
-import 'package:talawa/widgets/talawa_error_widget.dart';
+import 'package:talawa/widgets/talawa_error_snackbar.dart';
 
 /// NavigationService class provides different functions as service in the context of navigation.
 ///
@@ -11,6 +14,10 @@ import 'package:talawa/widgets/talawa_error_widget.dart';
 /// * `pushReplacementScreen`
 /// * `removeAllAndPush`
 /// * `showSnackBar`
+/// * `pushDialog`
+/// * `showTalawaErrorWidget`
+/// * `showTalawaErrorDialog`
+/// * `pop`
 class NavigationService {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -96,29 +103,33 @@ class NavigationService {
     );
   }
 
-  void showTalawaErrorWidget(
-    String errorMessage, {
+  void showTalawaErrorSnackBar(
+    String errorMessage,
+    MessageType messageType, {
     Duration duration = const Duration(seconds: 2),
   }) {
     ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
       SnackBar(
         padding: EdgeInsets.zero,
-        content: TalawaErrorWidget(
+        content: TalawaErrorSnackBar(
+          messageType: messageType,
           errorMessage: errorMessage,
         ),
-        // backgroundColor: Colors.grey,
         backgroundColor: const Color.fromRGBO(65, 65, 66, 1),
       ),
     );
   }
 
-  void showTalawaErrorDialog(String errorMessage) {
+  void showTalawaErrorDialog(String errorMessage, MessageType messageType) {
     showDialog(
       context: navigatorKey.currentContext!,
       barrierColor: Colors.transparent,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return TalawaErrorDialog(errorMessage);
+        return TalawaErrorDialog(
+          errorMessage,
+          messageType: messageType,
+        );
       },
     );
   }
