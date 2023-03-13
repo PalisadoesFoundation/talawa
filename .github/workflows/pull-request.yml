@@ -69,6 +69,8 @@ jobs:
         run: flutter analyze --no-pub
       - name: Analysing codebase for custom linting
         run: flutter pub run custom_lint
+      - uses: actions/checkout@v3
+      - uses: tj-actions/changed-files@v35
 #       - name: Echo the GitHub environment for troubleshooting
 #         run: echo "$GITHUB_CONTEXT"
 #       - name: Echo the GitHub context for troubleshooting
