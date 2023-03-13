@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:talawa/utils/app_localization.dart';
@@ -12,7 +9,7 @@ late AddPostViewModel model;
 
 /// AddPost returns a widget to add(upload) the post.
 ///
-/// This Widget takes a globalKey
+/// * `drawerKey` - This widget takes Global key of drawer as a parameter.
 class AddPost extends StatelessWidget {
   const AddPost({Key? key, this.drawerKey}) : super(key: key);
   final GlobalKey<ScaffoldState>? drawerKey;
