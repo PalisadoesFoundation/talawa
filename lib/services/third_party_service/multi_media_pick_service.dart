@@ -84,20 +84,19 @@ class MultiMediaPickerService {
           CropAspectRatioPreset.square,
           CropAspectRatioPreset.original,
         ],
-        uiSettings: [
-          AndroidUiSettings(
-            toolbarTitle: 'Crop Image',
-            toolbarColor: const Color(0xff18191A),
-            toolbarWidgetColor: Colors.white,
-            backgroundColor: Colors.black,
-            cropGridColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false,
-          ),
-          IOSUiSettings(
-            minimumAspectRatio: 1.0,
-          )
-        ],
+        cropStyle: CropStyle.rectangle, // replace uiSettings with cropStyle
+        androidUiSettings: AndroidUiSettings(
+          toolbarTitle: 'Crop Image',
+          toolbarColor: const Color(0xff18191A),
+          toolbarWidgetColor: Colors.white,
+          backgroundColor: Colors.black,
+          cropGridColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        iosUiSettings: IOSUiSettings(
+          minimumAspectRatio: 1.0,
+        ),
       ) as File?;
       if (croppedImage != null) {
         return File(croppedImage.path);

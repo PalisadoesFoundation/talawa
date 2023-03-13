@@ -87,8 +87,8 @@ Widget invite(BuildContext context) {
           ),
           iconButton(
             "Alt",
-            const FaIcon(
-              FontAwesomeIcons.shareNodes,
+            FaIcon(
+              FontAwesomeIcons.shareAlt,
               size: 30,
               color: Color(0xff40c351),
             ),

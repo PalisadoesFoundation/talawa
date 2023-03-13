@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class TalawaErrorDialog extends StatelessWidget {
@@ -8,14 +7,14 @@ class TalawaErrorDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: AlertDialog(
-        title: const Text(
+        title: Text(
           "Error",
           style: TextStyle(color: Colors.red),
         ),
         content: SizedBox(
           width: 200,
           height: 75,
-          child: AutoSizeText(
+          child: Text(
             errorMessage,
             style: const TextStyle(fontSize: 20),
             maxLines: 3,

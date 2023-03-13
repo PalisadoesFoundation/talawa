@@ -201,8 +201,8 @@ class ProfilePageViewModel extends BaseModel {
                       () async => SocialShare.shareTelegram(url),
                     ),
                     iconButton(
-                      const FaIcon(
-                        FontAwesomeIcons.shareNodes,
+                      FaIcon(
+                        FontAwesomeIcons.facebook,
                         size: 30,
                         color: Color(0xff40c351),
                       ),

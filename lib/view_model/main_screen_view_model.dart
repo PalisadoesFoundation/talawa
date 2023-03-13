@@ -249,10 +249,12 @@ class MainScreenViewModel extends BaseModel {
 
   /// This function show tutorial to user.
   void showTutorial({
+    required BuildContext context,
     required dynamic Function(TargetFocus) onClickTarget,
     required dynamic Function() onFinish,
   }) {
     tutorialCoachMark = TutorialCoachMark(
+      context,
       targets: targets,
       colorShadow: Theme.of(context).colorScheme.secondaryContainer,
       textSkip: "SKIP",
@@ -274,7 +276,7 @@ class MainScreenViewModel extends BaseModel {
       onClickOverlay: (target) {
         onClickTarget(target);
       },
-    )..show(context: context);
+    )..show();
   }
 
   tourHomeTargets() {
@@ -352,6 +354,7 @@ class MainScreenViewModel extends BaseModel {
       ),
     );
     showTutorial(
+      context: context,
       onClickTarget: showHome,
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
@@ -415,6 +418,7 @@ class MainScreenViewModel extends BaseModel {
       ),
     );
     showTutorial(
+      context: context,
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
@@ -438,6 +442,7 @@ class MainScreenViewModel extends BaseModel {
       ),
     );
     showTutorial(
+      context: context,
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
@@ -461,6 +466,7 @@ class MainScreenViewModel extends BaseModel {
       ),
     );
     showTutorial(
+      context: context,
       onFinish: () {
         onTabTapped(currentPageIndex + 1);
         if (!tourComplete && !tourSkipped) {
@@ -521,6 +527,7 @@ class MainScreenViewModel extends BaseModel {
       ),
     );
     showTutorial(
+      context: context,
       onFinish: () {
         if (!tourComplete && !tourSkipped) {
           tourComplete = true;

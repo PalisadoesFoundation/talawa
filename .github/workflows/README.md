@@ -11,10 +11,12 @@ Any changes to files in this directory are flagged when pull requests are run. M
 The YAML files in this directory have very specific roles depending on the type of workflow.
 
 Whenever possible you must ensure that:
+
 1. The file roles below are maintained
-1. The sequence of the jobs in the workflows are maintained using [GitHub Action dependencies](https://docs.github.com/en/actions/learn-github-actions/managing-complex-workflows). 
+1. The sequence of the jobs in the workflows are maintained using [GitHub Action dependencies](https://docs.github.com/en/actions/learn-github-actions/managing-complex-workflows).
 
 ### File Roles
+
 Follow these guidelines when creating new YAML defined GitHub actions. This is done to make troubleshooting easier.
 
 1. `Issue` Workflows:
@@ -30,7 +32,8 @@ Follow these guidelines when creating new YAML defined GitHub actions. This is d
 #### File Role Exceptions
 
 There are some exceptions to these rules in which jobs can be placed in dedicated separate files:
-1. Jobs that require unique `cron:` schedules 
+
+1. Jobs that require unique `cron:` schedules
 1. Jobs that require unique `paths:` statements that operate only when files in a specific path are updated.
 1. Jobs only work correctly if they have a dedicated file (eg. `CodeQL`)
 

@@ -1,0 +1,27 @@
+name: Test user_config_test.dart
+
+on: [push, pull_request]
+
+jobs:
+build:
+runs-on: ubuntu-latest
+name: Test user_config_test.dart
+steps:
+- uses: actions/checkout@v2
+- name: Setup Dart
+uses: subosito/dart-ubuntu-setup@v1
+with:
+dart-version: stable
+- name: Install dependencies
+run: dart pub get
+- name: Run tests
+run: dart test --coverage=coverage
+- name: Upload coverage reports to Codecov
+uses: codecov/codecov-action@v3
+with:
+token: ${{ secrets.CODECOV_TOKEN }}
+file: ./coverage/lcov.info
+
+secrets:
+CODECOV_TOKEN:
+value: ${{ secrets.f26b6fce-6d15-4d4a-a6dc-c6cc2e77dff0 }}
