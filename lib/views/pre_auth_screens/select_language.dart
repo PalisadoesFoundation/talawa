@@ -109,7 +109,7 @@ class _SelectLanguageState extends State<SelectLanguage> {
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!
-                                          .strictTranslate('Default  '),
+                                          .strictTranslate('Default'),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
