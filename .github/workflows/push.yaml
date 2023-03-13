@@ -62,6 +62,11 @@ jobs:
       - name: Analysing codebase for default linting
         run: flutter analyze --no-pub
       - uses: tj-actions/changed-files@v35
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+
       - name: Analysing codebase for custom linting
         run: flutter pub run custom_lint
       - uses: tj-actions/changed-files@v35
