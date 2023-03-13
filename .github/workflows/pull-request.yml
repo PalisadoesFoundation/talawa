@@ -69,8 +69,15 @@ jobs:
         run: flutter analyze --no-pub
       - name: Analysing codebase for custom linting
         run: flutter pub run custom_lint
-      - uses: actions/checkout@v3
-      - uses: tj-actions/changed-files@v35
+      - name : Changed Files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+
 #       - name: Echo the GitHub environment for troubleshooting
 #         run: echo "$GITHUB_CONTEXT"
 #       - name: Echo the GitHub context for troubleshooting
