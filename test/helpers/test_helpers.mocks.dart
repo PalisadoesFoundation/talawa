@@ -2703,27 +2703,23 @@ class MockCreateEventViewModel extends _i2.Mock
         returnValueForMissingStub: null,
       );
   @override
-  _i4.Future<List<_i6.User>> getCurrentOrgUsersList({required bool? isAdmin}) =>
-      (super.noSuchMethod(
+  _i4.Future<List<_i6.User>> getCurrentOrgUsersList() => (super.noSuchMethod(
         Invocation.method(
           #getCurrentOrgUsersList,
           [],
-          {#isAdmin: isAdmin},
         ),
         returnValue: _i4.Future<List<_i6.User>>.value(<_i6.User>[]),
       ) as _i4.Future<List<_i6.User>>);
   @override
-  void buildUserList({required bool? isAdmin}) => super.noSuchMethod(
+  void buildUserList() => super.noSuchMethod(
         Invocation.method(
           #buildUserList,
           [],
-          {#isAdmin: isAdmin},
         ),
         returnValueForMissingStub: null,
       );
   @override
   void removeUserFromList({
-    required bool? isAdmin,
     required String? userId,
   }) =>
       super.noSuchMethod(
@@ -2731,7 +2727,6 @@ class MockCreateEventViewModel extends _i2.Mock
           #removeUserFromList,
           [],
           {
-            #isAdmin: isAdmin,
             #userId: userId,
           },
         ),
