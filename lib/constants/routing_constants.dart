@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 ///This file contains the routes.
 
 class Routes {

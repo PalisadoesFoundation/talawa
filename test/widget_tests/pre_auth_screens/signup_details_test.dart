@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -60,6 +63,24 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(SignUpDetails), findsOneWidget);
+    });
+    testWidgets('Check if arrow back works', (tester) async {
+      await tester.pumpWidget(createApp());
+      await tester.pump();
+
+      expect(find.byType(SignUpDetails), findsNothing);
+
+      await tester.tap(find.textContaining('Ayush'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(SignUpDetails), findsOneWidget);
+
+      final finder = find.byIcon(Icons.arrow_back);
+
+      await tester.tap(finder);
+      await tester.pump();
+
+      expect(find.text('Ayush'), findsOneWidget);
     });
 
     testWidgets("Testing if input field and signup button appear",

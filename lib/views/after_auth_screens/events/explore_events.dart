@@ -10,12 +10,14 @@ import 'package:talawa/views/base_view.dart';
 import 'package:talawa/widgets/event_card.dart';
 import 'package:talawa/widgets/event_search_delegate.dart';
 
-/// ExploreEvents returns a widget that renders the list for events that are visible to be explored.
+/// Shows the list of events with options to categorize them.
 class ExploreEvents extends StatelessWidget {
   const ExploreEvents({
     required Key key,
     this.homeModel,
   }) : super(key: key);
+
+  /// [homeModal] is a type of [MainScreenViewModel] which provides methods to handle the data for this component.
   final MainScreenViewModel? homeModel;
 
   @override
@@ -80,7 +82,7 @@ class ExploreEvents extends StatelessWidget {
                         physics: const AlwaysScrollableScrollPhysics(),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.screenWidth! * 0.027,
+                            horizontal: SizeConfig.screenWidth! * 0.010,
                           ),
                           child: Column(
                             children: [
@@ -209,7 +211,7 @@ class ExploreEvents extends StatelessWidget {
                 ),
           floatingActionButton: FloatingActionButton.extended(
             key: homeModel?.keySEAdd,
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             onPressed: () {
               navigationService.pushScreen(
                 "/createEventPage",
@@ -232,7 +234,14 @@ class ExploreEvents extends StatelessWidget {
     );
   }
 
-  // dropDownList returns a widget of a drop down list of events type.
+  /// Shows a list of dropdown taken from  `model` and `context`.
+  ///
+  /// params:
+  /// * `model`: contains the events data
+  /// * `context`: the overall context of UI
+  ///
+  /// returns:
+  /// * `Widget`: the dropdown
   Widget dropDownList(ExploreEventsViewModel model, BuildContext context) {
     return DropdownButton<String>(
       key: homeModel?.keySECategoryMenu,

@@ -240,3 +240,7 @@ dmypy.json
 test/fixtures/core
 
 # End of https://www.gitignore.io/api/python
+
+# Ignoring file that are generated during talawa testing and firebase initialization
+genhtml.perl
+test_img.png

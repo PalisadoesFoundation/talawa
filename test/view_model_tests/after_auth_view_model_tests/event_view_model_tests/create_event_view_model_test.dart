@@ -1,8 +1,12 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/router.dart' as router;
@@ -88,39 +92,12 @@ void main() {
         return users;
       });
 
-      await model.getCurrentOrgUsersList(isAdmin: false);
+      await model.getCurrentOrgUsersList();
 
       bool isListCorrect = true;
 
       users.forEach((user) {
         final bool x = model.memberCheckedMap.containsKey(user.id);
-        if (!x) {
-          isListCorrect = false;
-        }
-      });
-
-      expect(isListCorrect, true);
-    });
-
-    test("test getCurrentOrgUsersList with isAdmin true", () async {
-      final model = CreateEventViewModel();
-      model.initialize();
-
-      final User user1 = User(id: "fakeUser1");
-      final User user2 = User(id: "fakeUser2");
-      final List<User> users = [user1, user2];
-
-      when(organizationService.getOrgMembersList("XYZ"))
-          .thenAnswer((realInvocation) async {
-        return users;
-      });
-
-      await model.getCurrentOrgUsersList(isAdmin: true);
-
-      bool isListCorrect = true;
-
-      users.forEach((user) {
-        final bool x = model.adminCheckedMap.containsKey(user.id);
         if (!x) {
           isListCorrect = false;
         }
@@ -141,14 +118,14 @@ void main() {
         ),
       );
 
-      final DateTime startTime = DateTime(
+      final DateTime startMoment = DateTime(
         model.eventStartDate.year,
         model.eventStartDate.month,
         model.eventStartDate.day,
         model.eventStartTime.hour,
         model.eventStartTime.minute,
       );
-      final DateTime endTime = DateTime(
+      final DateTime endMoment = DateTime(
         model.eventEndDate.year,
         model.eventEndDate.month,
         model.eventEndDate.day,
@@ -182,8 +159,8 @@ void main() {
         databaseFunctions.gqlAuthMutation(
           EventQueries().addEvent(),
           variables: {
-            'startDate': model.eventStartDate.toString(),
-            'endDate': model.eventEndDate.toString(),
+            'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+            'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
             'organizationId': "XYZ",
             'title': model.eventTitleTextController.text,
             'description': model.eventDescriptionTextController.text,
@@ -192,8 +169,8 @@ void main() {
             'isRegisterable': model.isRegisterableSwitch,
             'recurring': false,
             'allDay': false,
-            'startTime': startTime.microsecondsSinceEpoch.toString(),
-            'endTime': endTime.microsecondsSinceEpoch.toString(),
+            'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+            'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
           },
         ),
       ).thenAnswer((_) async {
@@ -206,8 +183,8 @@ void main() {
         databaseFunctions.gqlAuthMutation(
           EventQueries().addEvent(),
           variables: {
-            'startDate': model.eventStartDate.toString(),
-            'endDate': model.eventEndDate.toString(),
+            'startDate': DateFormat('yyyy-MM-dd').format(startMoment),
+            'endDate': DateFormat('yyyy-MM-dd').format(endMoment),
             'organizationId': "XYZ",
             'title': model.eventTitleTextController.text,
             'description': model.eventDescriptionTextController.text,
@@ -216,8 +193,8 @@ void main() {
             'isRegisterable': model.isRegisterableSwitch,
             'recurring': false,
             'allDay': false,
-            'startTime': startTime.microsecondsSinceEpoch.toString(),
-            'endTime': endTime.microsecondsSinceEpoch.toString(),
+            'startTime': '${DateFormat('HH:mm:ss').format(startMoment)}Z',
+            'endTime': '${DateFormat('HH:mm:ss').format(endMoment)}Z',
           },
         ),
       );
@@ -295,18 +272,10 @@ void main() {
       // non admins (normal members)
       final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
       model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
-      model.buildUserList(isAdmin: false);
+      model.buildUserList();
       final bool isMemberFound =
           model.selectedMembers.contains(usersInCurrentOrg.first);
       expect(isMemberFound, true);
-
-      // admins
-      final List<User> adminsInCurrentOrg = userConfig.currentOrg.admins!;
-      model.adminCheckedMap[adminsInCurrentOrg.first.id!] = true;
-      model.buildUserList(isAdmin: true);
-      final bool isAdminFound =
-          model.selectedAdmins.contains(adminsInCurrentOrg.first);
-      expect(isAdminFound, true);
     });
 
     test('Removing of members from event', () {
@@ -320,27 +289,13 @@ void main() {
       // to remove, first we need to add a member
       final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
       model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
-      model.buildUserList(isAdmin: false);
+      model.buildUserList();
       model.removeUserFromList(
-        isAdmin: false,
         userId: usersInCurrentOrg.first.id!,
       );
       final bool isMemberFound =
           model.selectedMembers.contains(usersInCurrentOrg.first);
       expect(isMemberFound, false);
-
-      // admins
-      // to remove, first we need to add an admin
-      final List<User> adminsInCurrentOrg = userConfig.currentOrg.admins!;
-      model.adminCheckedMap[adminsInCurrentOrg.first.id!] = true;
-      model.buildUserList(isAdmin: true);
-      model.removeUserFromList(
-        isAdmin: true,
-        userId: adminsInCurrentOrg.first.id!,
-      );
-      final bool isAdminFound =
-          model.selectedAdmins.contains(adminsInCurrentOrg.first);
-      expect(isAdminFound, false);
     });
   });
 }

@@ -215,7 +215,18 @@ class _Visitor extends SimpleAstVisitor {
       );
     }
 
-    if (doc.length == 1) return true;
+    if (doc.length == 1) {
+      if (node is FunctionDeclaration || node is MethodDeclaration) {
+        reporter.reportErrorForNode(
+          TalawaGoodDocLintRules.includeParamsKeywordCode,
+          node.documentationComment!,
+        );
+
+        return false;
+      } else {
+        return true;
+      }
+    }
 
     // NOTE: The reason why we are checking for both '///' and '///<a lot of spaces>'
     // is because -
@@ -232,7 +243,7 @@ class _Visitor extends SimpleAstVisitor {
       );
     }
 
-    if (node is FunctionDeclaration) {
+    if (node is FunctionDeclaration || node is MethodDeclaration) {
       checkContainsParams(doc, node);
       checkContainsReturn(doc, node);
     }
@@ -240,13 +251,18 @@ class _Visitor extends SimpleAstVisitor {
     return true;
   }
 
-  void checkContainsParams(List<Token> doc, FunctionDeclaration node) {
-    final params = node.functionExpression.parameters;
+  void checkContainsParams(List<Token> doc, Declaration rawNode) {
+    final node =
+        rawNode is FunctionDeclaration ? rawNode : rawNode as MethodDeclaration;
+
+    final params = rawNode is FunctionDeclaration
+        ? (node as FunctionDeclaration).functionExpression.parameters
+        : (node as MethodDeclaration).parameters;
 
     // If params is null or it is just '()'
-    if (params == null || params.length == 2) {
-      return;
-    }
+    // if (params == null || params.length == 2) {
+    //   return;
+    // }
 
     bool containsParamsKeyword = false;
 
@@ -273,7 +289,7 @@ class _Visitor extends SimpleAstVisitor {
 
     // The currentParam we are checking for
     int currentParam = 0;
-    final paramList = params.parameterElements;
+    final paramList = params?.parameterElements ?? [];
 
     for (; currentDocLine < doc.length; currentDocLine++) {
       final line = doc[currentDocLine];
@@ -319,10 +335,13 @@ class _Visitor extends SimpleAstVisitor {
 
   void checkContainsReturn(
     List<Token> doc,
-    FunctionDeclaration node,
+    Declaration rawNode,
   ) {
     int currentDocLine = 0;
     bool containsReturn = false;
+
+    final node =
+        rawNode is FunctionDeclaration ? rawNode : rawNode as MethodDeclaration;
 
     for (; currentDocLine < doc.length; currentDocLine++) {
       if (doc[currentDocLine].lexeme.startsWith('/// returns:')) {
@@ -331,7 +350,17 @@ class _Visitor extends SimpleAstVisitor {
       }
     }
 
-    if (!containsReturn && !node.returnType!.type!.isVoid) {
+    bool isVoid = false;
+
+    if (node is FunctionDeclaration) {
+      final nodeReturnTypeLocal = node.returnType;
+      isVoid = nodeReturnTypeLocal?.type!.isVoid == true;
+    } else if (node is MethodDeclaration) {
+      final nodeReturnTypeLocal = node.returnType;
+      isVoid = nodeReturnTypeLocal?.type!.isVoid == true;
+    }
+
+    if (!containsReturn && !isVoid) {
       reporter.reportErrorForNode(
         TalawaGoodDocLintRules.doesNotContainReturn,
         node.documentationComment!,
@@ -340,7 +369,7 @@ class _Visitor extends SimpleAstVisitor {
       return;
     }
 
-    if (node.returnType!.type!.isVoid && currentDocLine == doc.length) return;
+    if (isVoid && currentDocLine == doc.length) return;
 
     // if (node.returnType!.type!.isVoid &&
     //     doc[currentDocLine].lexeme != '/// returns: None') {
@@ -380,7 +409,7 @@ class _Visitor extends SimpleAstVisitor {
 
     // If return type is [void] and doc doesn't end with [None] or
     // there are more lines to the doc
-    if (node.returnType!.type!.isVoid &&
+    if (isVoid &&
         (doc[currentDocLine - 1].lexeme != '/// None' ||
             currentDocLine != doc.length)) {
       reporter.reportErrorForNode(
@@ -391,13 +420,24 @@ class _Visitor extends SimpleAstVisitor {
       return;
     }
 
+    // ignore: prefer_typing_uninitialized_variables
+    late final returnType;
+
+    if (node is FunctionDeclaration) {
+      final nodeReturnTypeLocal = node.returnType;
+      returnType = nodeReturnTypeLocal?.type;
+    } else if (node is MethodDeclaration) {
+      final nodeReturnTypeLocal = node.returnType;
+      returnType = nodeReturnTypeLocal?.type;
+    }
+
     // If return type is not [void] and doc doesn't end with [return_type] or
     // there are more lines to the doc
     final returnTypeDocPattern = RegExp(
-      '/// * `${node.returnType!.type}`:',
+      '/// * `$returnType`:',
     );
 
-    if (!node.returnType!.type!.isVoid &&
+    if (!isVoid &&
         !doc[currentDocLine - 1].lexeme.startsWith(
               returnTypeDocPattern.pattern,
             )) {

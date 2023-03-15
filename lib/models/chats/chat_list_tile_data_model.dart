@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:talawa/models/chats/chat_user.dart';
 

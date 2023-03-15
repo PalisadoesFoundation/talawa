@@ -10,7 +10,10 @@ class ChatInputField extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
+  /// DirectChatViewModel instance.
   final DirectChatViewModel model;
+
+  /// ChatId.
   final String chatId;
 
   @override
@@ -20,6 +23,7 @@ class ChatInputField extends StatefulWidget {
 /// _ChatInputFieldState is a mutable state which return a widget for Input Field in Chat section.
 class _ChatInputFieldState extends State<ChatInputField> {
   // controllers are a means to give control to the parent widget over its child state
+  /// TextEditingController for input field.
   final controller = TextEditingController();
 
   @override
@@ -69,12 +73,14 @@ class _ChatInputFieldState extends State<ChatInputField> {
                     // TextField is commonly used text input widget that
                     //allows users to collect inputs from the keyboard into an app.
                     child: TextField(
+                      key: const Key('InputFieldKey'),
                       controller: controller,
                       decoration: InputDecoration(
                         enabledBorder: InputBorder.none,
                         disabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         suffixIcon: GestureDetector(
+                          key: const Key('InputFieldGestureKey'),
                           onTap: () {
                             widget.model.sendMessageToDirectChat(
                               widget.chatId,

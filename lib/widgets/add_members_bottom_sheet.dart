@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/after_auth_view_models/event_view_models/create_event_view_model.dart';
 
-/// Adds admins and members to an organization
+/// Adds members to an event.
 class EventBottomSheet {
-  /// This function creates a modal material design bottom sheet
+  /// This function creates a modal material design bottom sheet.
+  ///
   /// to let the user add admin or members to an organization.
+  /// params:
+  /// * `context`: BuildContext
+  /// * `model`: CreateEventViewModel
   void addUserBottomSheet({
     required BuildContext context,
     required CreateEventViewModel model,
-    required bool isAdmin,
   }) {
     // Returns a Future that resolves to the value ("context") passed
     // to Navigator.pop
@@ -39,16 +42,14 @@ class EventBottomSheet {
                   padding: const EdgeInsets.all(10),
                   child: Column(
                     children: [
-                      Text(
-                        // Set "isAdmin" "true" if the user wants to add admins,
-                        // else "false"
-                        isAdmin ? "Add Admins" : "Add Members",
-                        style: const TextStyle(fontSize: 16),
+                      const Text(
+                        "Add Members",
+                        style: TextStyle(fontSize: 16),
                       ),
                       TextButton(
                         key: const Key('text_btn_ambs1'),
                         onPressed: () {
-                          model.buildUserList(isAdmin: isAdmin);
+                          model.buildUserList();
                           Navigator.pop(context);
                         },
                         child: const Text("Done"),
@@ -56,7 +57,7 @@ class EventBottomSheet {
                       const Divider(),
                       FutureBuilder(
                         // an admin can access the list of the members in an organization
-                        future: model.getCurrentOrgUsersList(isAdmin: isAdmin),
+                        future: model.getCurrentOrgUsersList(),
                         builder: (
                           BuildContext context,
                           AsyncSnapshot<List<User>> snapshot,
@@ -88,22 +89,13 @@ class EventBottomSheet {
                                           title: Text(
                                             "${snapshot.data![index].firstName!} ${snapshot.data![index].lastName!}",
                                           ),
-                                          value: isAdmin
-                                              ? model.adminCheckedMap[
-                                                  snapshot.data![index].id]
-                                              : model.memberCheckedMap[
-                                                  snapshot.data![index].id],
+                                          value: model.memberCheckedMap[
+                                              snapshot.data![index].id],
                                           onChanged: (val) {
                                             setState(
                                               () {
-                                                if (isAdmin) {
-                                                  model.adminCheckedMap[snapshot
-                                                      .data![index].id!] = val!;
-                                                } else {
-                                                  model.memberCheckedMap[
-                                                      snapshot.data![index]
-                                                          .id!] = val!;
-                                                }
+                                                model.memberCheckedMap[snapshot
+                                                    .data![index].id!] = val!;
                                               },
                                             );
                                           },

@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -400,31 +403,6 @@ void main() {
           false,
         );
       });
-      testWidgets("Testing Add Admins section", (tester) async {
-        await tester.pumpWidget(
-          createEventScreen(
-            theme: TalawaTheme.lightTheme,
-          ),
-        );
-        await tester.pumpAndSettle();
-        final addAdminsText = find.descendant(
-          of: find.byType(Row),
-          matching: find.text("Add Admins"),
-        );
-        final addIcons = find.byIcon(Icons.add);
-        final memberNameTiles = find.byType(MemberNameTile);
-        expect(addAdminsText, findsOneWidget);
-        expect(addIcons, findsNWidgets(2));
-        expect(
-          (tester.widget(addAdminsText) as Text?)?.style!.fontSize,
-          16,
-        );
-        expect(memberNameTiles, findsNothing);
-        await tester.ensureVisible(addAdminsText.first);
-        await tester.tap(addAdminsText.first);
-        await tester.pump();
-        expect(find.byType(BottomSheet), findsOneWidget);
-      });
       testWidgets("Testing Add Members section", (tester) async {
         await tester.pumpWidget(
           createEventScreen(
@@ -439,7 +417,7 @@ void main() {
         final addIcons = find.byIcon(Icons.add);
         final memberNameTiles = find.byType(MemberNameTile);
         expect(addMembersText, findsOneWidget);
-        expect(addIcons, findsNWidgets(2));
+        expect(addIcons, findsNWidgets(1));
         expect(
           (tester.widget(addMembersText) as Text?)?.style!.fontSize,
           16,

@@ -25,10 +25,14 @@ import 'package:talawa/view_model/lang_view_model.dart';
 import 'package:talawa/view_model/theme_view_model.dart';
 import 'package:talawa/views/base_view.dart';
 
-/// Define a top-level named handler which background/terminated messages will
-/// call.
+/// Define a top-level named handler which background/terminated messages will call.
 ///
 /// To verify things are working, check out the native platform logs.
+/// params:
+/// * `message`: incoming messsage.
+///
+/// returns:
+/// * `Future<void>`: promise that will be fulfilled message background activities are successful.
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
@@ -38,6 +42,13 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await setUpFirebase();
 }
 
+/// Initializes the firebase in the app according to the userplatform (android/iOS).
+///
+/// params:
+/// None
+///
+/// returns:
+/// * `Future<void>`: promise that will be fulfilled Firebase is setted up in app.
 Future<void> setUpFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform(
@@ -47,16 +58,25 @@ Future<void> setUpFirebase() async {
   );
 }
 
+/// HashMap of Firebase options for android.
 late Map<String, dynamic> androidFirebaseOptions;
+
+/// HashMap of Firebase options for android.
 late Map<String, dynamic> iosFirebaseOptions;
 
-/// Create a [AndroidNotificationChannel] for heads up notifications
+/// Create a [AndroidNotificationChannel] for heads up notifications.
 late AndroidNotificationChannel channel;
 
 /// Initialize the [FlutterLocalNotificationsPlugin] package.
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-/// This is the main function
+/// First function to initialize the application, invoked automatically.
+///
+/// params:
+/// None
+///
+/// returns:
+/// * `Future<void>`: resolves if the application was successfully initialized.
 Future<void> main() async {
   // Returns an instance of the binding that implements WidgetsBinding.
   WidgetsFlutterBinding.ensureInitialized();
@@ -96,11 +116,15 @@ Future<void> main() async {
 
   final urlBox = await Hive.openBox('url');
 
-  if (urlBox.get('url') != null) {
-    await setUpFirebaseKeys();
+  try {
+    if (urlBox.get('url') != null) {
+      await setUpFirebaseKeys();
 
-    await setUpFirebase();
-    await setUpFirebaseMessaging();
+      await setUpFirebase();
+      await setUpFirebaseMessaging();
+    }
+  } catch (e) {
+    print("Firebase not working");
   }
 
   setupLocator();
@@ -108,6 +132,13 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
+/// Initializes the firebase keys in the app according to the userplatform (android/iOS).
+///
+/// params:
+/// None
+///
+/// returns:
+/// * `Future<void>`: promise that will be fulfilled Firebase keys are setted up.
 Future<void> setUpFirebaseKeys() async {
   final androidFirebaseOptionsBox =
       await Hive.openBox('androidFirebaseOptions');
@@ -129,6 +160,7 @@ Future<void> setUpFirebaseKeys() async {
   }
 }
 
+/// Main widget that sets up the quick actions, internationalization, routing , notifications.
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
   @override
@@ -136,9 +168,13 @@ class MyApp extends StatefulWidget {
 }
 
 /// The _MyAppState class extends the State.
+///
 /// All the coding related to state updation is inside this class.
 class _MyAppState extends State<MyApp> {
+  /// Initializing the Quickactions to enable them on long press of app icon in device.
   final quickActions = const QuickActions();
+
+  /// Initializing the mainScreen window to 1 to show the events by default after app in opened.
   late int mainScreenQuickActionindex = 0;
   @override
   void initState() {
@@ -157,8 +193,15 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  // It allows to manage and interact with the application’s home screen quick actions.
-  initQuickActions() async {
+  /// It allows to manage and interact with the application’s home screen quick actions.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// None
+
+// ignore: avoid_void_async
+  void initQuickActions() async {
     final bool userLoggedIn = await userConfig.userLoggedIn();
     if (userLoggedIn &&
         userConfig.currentUser.joinedOrganizations!.isNotEmpty) {
@@ -171,12 +214,12 @@ class _MyAppState extends State<MyApp> {
           mainScreenQuickActionindex = 3;
         }
       });
+
+      /// Registering quick action list in the app.zx
       quickActions.setShortcutItems(ShortCutMenu.quickActionsList);
     }
   }
 
-  // The build method is called any time you call setState ,your widget's
-  // dependencies update, or any of the parent widgets are rebuilt.
   @override
   Widget build(BuildContext context) {
     return BaseView<AppLanguage>(
@@ -243,10 +286,18 @@ class _MyAppState extends State<MyApp> {
 }
 
 /// PageView is a scrollable list that works page by page.
+///
 /// DemoPageView is demo PageView of Talawa Mobile App.
 class DemoPageView extends StatelessWidget {
   const DemoPageView({required Key key}) : super(key: key);
 
+  /// Builds the UI enabling plugins and localization.
+  ///
+  /// params:
+  /// * `context`: object containing data of the entire UI of the app.
+  ///
+  /// returns:
+  /// * `Widget`: UI of the app.
   @override
   Widget build(BuildContext context) {
     FetchPluginList();
@@ -264,20 +315,39 @@ class DemoPageView extends StatelessWidget {
   }
 }
 
-/// ViewModel uses property-based data binding to establish a connection
+/// ViewModel uses property-based data binding to establish a connection.
+///
 /// between the ViewModel and the View, and drives the View changes
 /// through the ViewModel. DemoViewModel is the ViewModel for DemoPageView.
+/// params:
+/// None
+/// returns:
+/// None
 class DemoViewModel extends BaseModel {
+  /// Demo title to be used.
   final String _title = "Title from the viewMode GSoC branch";
+
+  /// Getter function of the title.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `String`: title  of the model
   String get title => _title;
 }
 
+/// Set up firebase instance, enbables messaging,listens to icoming messages.
+///
+/// params:
+/// None
+///
+/// returns:
+/// * `Future<void>`: promise that will be fulfilled Firebase is setted up.
 Future<void> setUpFirebaseMessaging() async {
   /// Set the background messaging handler early on, as a named top-level function
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  /// Update the iOS foreground notification presentation options to allow
-  /// heads up notifications.
+  // Update the iOS foreground notification presentation options to allow heads up notifications.
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,

@@ -24,10 +24,10 @@ dependencies:
   cached_network_image: ^3.1.0
   connectivity_plus: ^3.0.0
   cupertino_icons: ^1.0.3
-  currency_picker: ^2.0.15
+  currency_picker: ^2.0.16
 
   ############## Remove ##########
-  custom_lint_builder: ^0.2.10
+  custom_lint_builder: ^0.2.12
   ################################
   
   firebase_core: ^2.6.1
@@ -46,7 +46,7 @@ dependencies:
   geocoding: ^2.0.4
   geolocator: ^9.0.2
   get_it: ^7.2.0
-  google_maps_flutter: ^2.1.7
+  google_maps_flutter: ^2.2.5
   graphql_flutter: ^5.1.2
   hive: ^2.2.3
   http: ^0.13.3
@@ -66,13 +66,13 @@ dependencies:
   shared_preferences: ^2.0.17
   shimmer: ^2.0.0
   social_share: ^2.2.1
-  syncfusion_flutter_calendar: ^20.4.51
+  syncfusion_flutter_calendar: ^20.4.52
   syncfusion_flutter_datepicker: ^20.2.38
   timelines: ^0.1.0
   tutorial_coach_mark: ^1.2.6
   uni_links: ^0.5.1
   vibration: ^1.7.6
-  video_player: ^2.2.7
+  video_player: ^2.5.3
   visibility_detector: ^0.3.3
 
 

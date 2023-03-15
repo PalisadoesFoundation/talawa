@@ -269,42 +269,42 @@ packages:
     dependency: "direct main"
     description:
       name: currency_picker
-      sha256: "498ec56e4b1cc1027695938c4177dfccc61982d9e41099a1beb3139b00b89439"
+      sha256: "4d5a3f0d13a62908c7d00d9c18a6356d0a14bddabdff86e6751aa105e2ad79e2"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.15"
+    version: "2.0.16"
   custom_lint:
     dependency: "direct dev"
     description:
       name: custom_lint
-      sha256: "29b7e51b5e75fcd5ffce8fc12af87b71cbde7a59d080467b187630231aeb42c0"
+      sha256: "324e7026902f34e180d8d27e08a89dbbe3dd8a54e0c3852a0df0db0f4046120b"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.5"
+    version: "0.2.12"
   custom_lint_builder:
     dependency: "direct main"
     description:
       name: custom_lint_builder
-      sha256: b58a4d9a80c4b7460fb22afcb3ceb4a6470e79a7321f107e8ca756c050caa8bf
+      sha256: "4f4d640f86a4d8b938e27840a1c712f79c33c47e7ce373e0b9b9abe30451a61c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.10"
+    version: "0.2.12"
   custom_lint_core:
     dependency: transitive
     description:
       name: custom_lint_core
-      sha256: "4592ac37e7cf4c9410268765f1c8ca3520309bbd0a340f3dfd047d18e5351962"
+      sha256: "34a9447102de5741d6dc464c4824a4173b20b91d5685589ea652b051dda1f461"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.10"
+    version: "0.2.12"
   dart_style:
     dependency: transitive
     description:
       name: dart_style
-      sha256: "7a03456c3490394c8e7665890333e91ae8a49be43542b616e414449ac358acd4"
+      sha256: "5be16bf1707658e4c03078d4a9b90208ded217fb02c163e207d334082412f2fb"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.4"
+    version: "2.2.5"
   dbus:
     dependency: transitive
     description:
@@ -471,10 +471,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_plugin_android_lifecycle
-      sha256: "4bef634684b2c7f3468c77c766c831229af829a0cd2d4ee6c1b99558bd14e5d2"
+      sha256: c224ac897bed083dabf11f238dd11a239809b446740be0c2044608c50029ffdf
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.8"
+    version: "2.0.9"
   flutter_speed_dial:
     dependency: "direct main"
     description:
@@ -609,26 +609,26 @@ packages:
     dependency: "direct main"
     description:
       name: google_maps_flutter
-      sha256: e4f117747e210e68fe34196c93040e0712ba8aa91f8813fe8cb3f52ad667e70b
+      sha256: "24392ef192f3b00bcd93151375676805a9933574423a5bd5509a0ead2e8a4215"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.4"
+    version: "2.2.5"
   google_maps_flutter_android:
     dependency: transitive
     description:
       name: google_maps_flutter_android
-      sha256: "69bac3fd18db5638763b06e04c2f2ff2e65e0a76fe93e0e211d8a77afaca033f"
+      sha256: "7829c13b90edb8b31861bf496616cf8582618f617951d16cb1e191699c586dfc"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.6"
+    version: "2.4.7"
   google_maps_flutter_ios:
     dependency: transitive
     description:
       name: google_maps_flutter_ios
-      sha256: "7ed57e6f1351aebf1442dea0028f2c880989ead866eaf25e9121237c622d4af0"
+      sha256: "3a69e04df77afb60587b5270baf43dc51f1c254c79f69ddf1d9546f758d9f709"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.14"
+    version: "2.2.0"
   google_maps_flutter_platform_interface:
     dependency: transitive
     description:
@@ -745,10 +745,10 @@ packages:
     dependency: transitive
     description:
       name: html
-      sha256: d9793e10dbe0e6c364f4c59bf3e01fb33a9b2a674bc7a1081693dba0614b6269
+      sha256: "79d498e6d6761925a34ee5ea8fa6dfef38607781d2fa91e37523474282af55cb"
       url: "https://pub.dev"
     source: hosted
-    version: "0.15.1"
+    version: "0.15.2"
   http:
     dependency: "direct main"
     description:
@@ -801,18 +801,18 @@ packages:
     dependency: "direct main"
     description:
       name: image_picker
-      sha256: "22207768556b82d55ec70166824350fee32298732d5efa4d6e756f848f51f66a"
+      sha256: "715d68a53d6bcc2eae26005097dc74c375a04c0d7c0e657da84deebbbbbf51ed"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.6+3"
+    version: "0.8.6+4"
   image_picker_android:
     dependency: transitive
     description:
       name: image_picker_android
-      sha256: "68d067baf7f6e401b1124ee83dd6967e67847314250fd68012aab34a69beb344"
+      sha256: "845f793834d5d3af887ce39e3c97186996928cd43c8350a23e5499268398cc16"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.5+7"
+    version: "0.8.5+8"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -825,10 +825,10 @@ packages:
     dependency: transitive
     description:
       name: image_picker_ios
-      sha256: "39aa70b5f1e5e7c94585b9738632d5fdb764a5655e40cd9e7b95fbd2fc50c519"
+      sha256: "93b4403350b54f45a5061632721ee29a563c8b45b1e22feda9049b8329bd1337"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.6+9"
+    version: "0.8.7"
   image_picker_platform_interface:
     dependency: transitive
     description:
@@ -985,10 +985,10 @@ packages:
     dependency: transitive
     description:
       name: node_preamble
-      sha256: "8ebdbaa3b96d5285d068f80772390d27c21e1fa10fb2df6627b1b9415043608d"
+      sha256: "6e7eac89047ab8a8d26cf16127b5ed26de65209847630400f9aefd7cd5c730db"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.0.2"
   normalize:
     dependency: transitive
     description:
@@ -1185,10 +1185,10 @@ packages:
     dependency: transitive
     description:
       name: pubspec_parse
-      sha256: "75f6614d6dde2dc68948dffbaa4fe5dae32cd700eb9fb763fe11dfb45a3c4d0a"
+      sha256: ec85d7d55339d85f44ec2b682a82fea340071e8978257e5a43e69f79e98ef50c
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.2"
   qr:
     dependency: transitive
     description:
@@ -1257,10 +1257,10 @@ packages:
     dependency: transitive
     description:
       name: riverpod
-      sha256: "59a48de9c757aa61aa28e9fd625ffb360d43b6b54606f12536622c55be9e8c4b"
+      sha256: c5aea6c3fed340707f013a023a37ab388bf45611a8a4f7e76b5e9007eb76cd25
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   rxdart:
     dependency: transitive
     description:
@@ -1422,10 +1422,10 @@ packages:
     dependency: transitive
     description:
       name: sqflite
-      sha256: "78324387dc81df14f78df06019175a86a2ee0437624166c382e145d0a7fd9a4f"
+      sha256: "851d5040552cf911f4cabda08d003eca76b27da3ed0002978272e27c8fbf8ecc"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.4+1"
+    version: "2.2.5"
   sqflite_common:
     dependency: transitive
     description:
@@ -1478,26 +1478,26 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_calendar
-      sha256: f748cbb5285027fe7044c4839037a1441606c217d76a02bcf411677d9bdecc27
+      sha256: a14ab64b5b69c196826a3d337d57c4ab22767d1d6bbce8d4f9c8a5891758e893
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.51"
+    version: "20.4.52"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: "5f7dae40707df507325ee045d1a172aea9f449ac4244d7c52391dd97208eeef8"
+      sha256: "4319454a92fe5aea1e90ff68c17703a39517ab05dd3074c34c9553e5f7cbf414"
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.51"
+    version: "20.4.52"
   syncfusion_flutter_datepicker:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datepicker
-      sha256: "5e7bfe47437c1a106f8c4502a13ab7d57ed8195c1578b40ffa50dea1120e26e3"
+      sha256: c4808641b635b7485e2fae0ee79db9eb6e46ca99d87a9259b2fc8694b2972a5d
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.51"
+    version: "20.4.52"
   synchronized:
     dependency: transitive
     description:
@@ -1661,10 +1661,10 @@ packages:
     dependency: "direct main"
     description:
       name: video_player
-      sha256: "6cec15c21974282994577ffcfb5b42e64a699d38583138ec8dcb3d0a6902a41c"
+      sha256: "58dc3d6ceb199b82e652ec27f16485e33167ef021fe4221a954ff1aa12b1a5c0"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.2"
+    version: "2.5.3"
   video_player_android:
     dependency: transitive
     description:
@@ -1677,10 +1677,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_avfoundation
-      sha256: "5df5411ff9d316f1dcbfee284e9838aa686e314f2a722b15c02cb7ce40ef9446"
+      sha256: c29bdae387091ee988a29bbb6f94341e2134a337d0bf7f6b8a087b4ba49d4d2f
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.9"
+    version: "2.4.0"
   video_player_platform_interface:
     dependency: transitive
     description:

@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
@@ -11,7 +11,8 @@ import 'package:talawa/utils/event_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 import 'package:talawa/widgets/custom_progress_dialog.dart';
 
-/// CreateEventViewModel class have methods to interact with model in
+/// CreateEventViewModel class have methods to interact with model in.
+///
 /// the context of creating the event in the organization.
 ///
 /// Methods include:
@@ -24,43 +25,102 @@ class CreateEventViewModel extends BaseModel {
   late MultiMediaPickerService _multiMediaPickerService;
   late File? _imageFile;
 
+  /// Event Title Text Controller.
   TextEditingController eventTitleTextController = TextEditingController();
+
+  /// Event Location Text Controller.
   TextEditingController eventLocationTextController = TextEditingController();
+
+  /// Event Description Text Controller.
   TextEditingController eventDescriptionTextController =
       TextEditingController();
+
+  /// Event Start Time.
   TimeOfDay eventStartTime = TimeOfDay.now();
+
+  /// Event End Time.
   TimeOfDay eventEndTime = TimeOfDay.now();
+
+  /// Event Start Date.
   DateTime eventStartDate = DateTime.now();
+
+  /// Event End Date.
   DateTime eventEndDate = DateTime.now();
+
+  /// Public Event or Not.
   bool isPublicSwitch = true;
+
+  /// If event is registerable after creation.
   bool isRegisterableSwitch = true;
+
+  /// TitleFocus FocusNode.
   FocusNode titleFocus = FocusNode();
+
+  /// LocationFocus FocusNode.
   FocusNode locationFocus = FocusNode();
+
+  /// DescriptionFocus FocusNode.
   FocusNode descriptionFocus = FocusNode();
 
+  /// Latitude store.
   double? latitude;
+
+  /// Longitude store.
   double? longitude;
 
   //late OrganizationService _organizationService;
-  late final Map<String, bool> _adminCheckedMap = {};
-  late final List<User> _selectedAdmins = [];
   late final Map<String, bool> _memberCheckedMap = {};
   late final List<User> _selectedMembers = [];
+
+  /// Organisation Members List.
   late List<User> orgMembersList = [];
 
+  /// Global FormKey.
   final formKey = GlobalKey<FormState>();
   final _eventService = locator<EventService>();
+
+  /// AutoValidateMode default to disabled.
   AutovalidateMode validate = AutovalidateMode.disabled;
 
   late OrgInfo _currentOrg;
   final _userConfig = locator<UserConfig>();
-  List<User> get selectedAdmins => _selectedAdmins;
+
+  /// Getter to return selected members.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `List<User>`: Returns a list of selectedMembers for events
   List<User> get selectedMembers => _selectedMembers;
-  Map<String, bool> get adminCheckedMap => _adminCheckedMap;
+
+  /// Getter to return members map.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `Map<String, bool>`: Returns a map of entries with id and boolean if they are
+  /// selected for events or not in bottom sheet.
   Map<String, bool> get memberCheckedMap => _memberCheckedMap;
+
+  /// Getter to return imageFile.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `File?`: Returns imageFile.
   File? get imageFile => _imageFile;
 
-  initialize() {
+  /// Function To Initialize.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// None
+  void initialize() {
     _currentOrg = _userConfig.currentOrg;
     //_organizationService = locator<OrganizationService>();
 
@@ -69,8 +129,13 @@ class CreateEventViewModel extends BaseModel {
   }
 
   /// This function is used to create the event for the organization.
+  ///
   /// The function uses `database_mutation_functions` services to call the graphQL mutation
   /// for creating an event and passes the required variables for the event.
+  /// params:
+  /// None
+  /// returns:
+  /// * `Future<void>`: Asynchronous function for creating event
   Future<void> createEvent() async {
     titleFocus.unfocus();
     locationFocus.unfocus();
@@ -96,10 +161,11 @@ class CreateEventViewModel extends BaseModel {
         eventEndTime.hour,
         eventEndTime.minute,
       );
+
       // all required data for creating an event
       final Map<String, dynamic> variables = {
-        'startDate': startDate.toString(),
-        'endDate': endDate.toString(),
+        'startDate': DateFormat('yyyy-MM-dd').format(startDate),
+        'endDate': DateFormat('yyyy-MM-dd').format(endDate),
         'organizationId': _currentOrg.id,
         'title': eventTitleTextController.text,
         'description': eventDescriptionTextController.text,
@@ -108,8 +174,8 @@ class CreateEventViewModel extends BaseModel {
         'isRegisterable': isRegisterableSwitch,
         'recurring': false,
         'allDay': false,
-        'startTime': startTime.microsecondsSinceEpoch.toString(),
-        'endTime': endTime.microsecondsSinceEpoch.toString(),
+        'startTime': '${DateFormat('HH:mm:ss').format(startTime)}Z',
+        'endTime': '${DateFormat('HH:mm:ss').format(endTime)}Z',
         if (latitude != null) 'latitude': latitude,
         if (longitude != null) 'longitude': longitude,
       };
@@ -136,10 +202,13 @@ class CreateEventViewModel extends BaseModel {
   }
 
   /// This function is used to get the image from gallery.
+  ///
   /// The function uses the `_multiMediaPickerService` services.
   ///
   /// params:
-  /// * [camera] : if true then open camera for image, else open gallery to select image.
+  /// * `camera`: if true then open camera for image, else open gallery to select image.
+  /// returns:
+  /// * `Future<void>`: Asynchronous function for getting image from gallery
   Future<void> getImageFromGallery({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
@@ -150,6 +219,9 @@ class CreateEventViewModel extends BaseModel {
   }
 
   /// This function remove the selected image.
+  ///
+  /// params:
+  /// None
   void removeImage() {
     _imageFile = null;
     notifyListeners();
@@ -158,8 +230,10 @@ class CreateEventViewModel extends BaseModel {
   /// This function fetch all the users in the current organization and return `List`.
   ///
   /// params:
-  /// * [isAdmin]
-  Future<List<User>> getCurrentOrgUsersList({required bool isAdmin}) async {
+  /// None
+  /// returns:
+  /// * `Future<List<User>>`: Current Organization Users List
+  Future<List<User>> getCurrentOrgUsersList() async {
     if (orgMembersList.isEmpty) {
       orgMembersList = await organizationService
           .getOrgMembersList(userConfig.currentOrg.id!);
@@ -167,32 +241,26 @@ class CreateEventViewModel extends BaseModel {
 
     // loop through list
     orgMembersList.forEach((orgMember) {
-      // if `orgMember` is admin
-      if (isAdmin) {
-        _adminCheckedMap.putIfAbsent(orgMember.id!, () => false);
-      } else {
-        _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
-      }
+      _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
       _memberCheckedMap.putIfAbsent(orgMember.id!, () => false);
     });
     // return list
     return orgMembersList;
   }
 
-  /// This function build the user list. `_selectedAdmins` for admins and `_selectedMembers` for members.
+  /// This function build the user list.
   ///
   /// params:
-  /// * [isAdmin]
-  void buildUserList({required bool isAdmin}) {
-    isAdmin ? _selectedAdmins.clear() : _selectedMembers.clear();
+  /// None
+  /// returns:
+  /// None
+  void buildUserList() {
+    _selectedMembers.clear();
 
     // loop through the organization member list
 
     orgMembersList.forEach((orgMember) {
-      // if admin
-      if (_adminCheckedMap[orgMember.id] == true && isAdmin) {
-        _selectedAdmins.add(orgMember);
-      } else if (_memberCheckedMap[orgMember.id] == true && !isAdmin) {
+      if (_memberCheckedMap[orgMember.id] == true) {
         _selectedMembers.add(orgMember);
       }
     });
@@ -202,17 +270,12 @@ class CreateEventViewModel extends BaseModel {
   /// This function is used to remove a user from user's list.
   ///
   /// params:
-  /// * [isAdmin] : true if the user that need to be removed is admin else false.
-  /// * [userId] : id of the user that need to be removed.
-  void removeUserFromList({required bool isAdmin, required String userId}) {
-    // if the user is admin.
-    if (isAdmin) {
-      _selectedAdmins.removeWhere((user) => user.id == userId);
-      _adminCheckedMap[userId] = false;
-    } else {
-      _selectedMembers.removeWhere((user) => user.id == userId);
-      _memberCheckedMap[userId] = false;
-    }
+  /// * `userId`: id of the user that need to be removed.
+  /// returns:
+  /// None
+  void removeUserFromList({required String userId}) {
+    _selectedMembers.removeWhere((user) => user.id == userId);
+    _memberCheckedMap[userId] = false;
 
     notifyListeners();
   }
