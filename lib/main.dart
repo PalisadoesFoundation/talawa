@@ -182,9 +182,15 @@ class _MyAppState extends State<MyApp> {
     // is inserted in the widget tree. We generally override this method if
     // we need to do some sort of initialization work like
     // registering a listener because, unlike build(), this method is called once.
-    initQuickActions();
-    FetchPluginList();
     super.initState();
+
+    initQuickActions();
+
+    final urlBox = Hive.box('url');
+    if (urlBox.get('url') != null) {
+      FetchPluginList();
+    }
+
     fs.SystemChrome.setPreferredOrientations(
       [
         fs.DeviceOrientation.portraitUp,
