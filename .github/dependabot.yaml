@@ -1,4 +1,5 @@
 version: 2
+enable-beta-ecosystems: true
 updates:
   # Enable version updates for flutter's pub package manager
   - package-ecosystem: "pub"
