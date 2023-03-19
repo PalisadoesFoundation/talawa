@@ -65,7 +65,7 @@ class MultiMediaPickerService {
             dialogTitle: 'Permission Denied',
             successText: 'SETTINGS',
             dialogSubTitle:
-                "Camera permission is required, to use this feature, give permission from app settings",
+            "Camera permission is required, to use this feature, give permission from app settings",
           ),
         );
       }
@@ -77,7 +77,7 @@ class MultiMediaPickerService {
   }
 
   /// This function is used to crop the image selected by the user.
-  /// This function accepts a `File` type image and returns `File` type of cropped image.
+  /// The function accepts a `File` type image and returns `File` type of cropped image.
   Future<File?> cropImage({required File imageFile}) async {
     // try, to crop the image and returns a File with cropped image path.
     try {
