@@ -123,7 +123,7 @@ class AddPostViewModel extends BaseModel {
           "Post is uploaded",
           MessageType.info,
         );
-      } on Exception catch (e) {
+      } on Exception catch (_) {
         _navigationService.showTalawaErrorSnackBar(
           "Something went wrong",
           MessageType.error,
