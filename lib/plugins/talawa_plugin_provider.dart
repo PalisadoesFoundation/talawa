@@ -20,7 +20,6 @@ class TalawaPluginProvider extends StatelessWidget {
   final Widget? child;
 
   ///visible is the property that decides visibility of the UI.
-
   ///visible is the property that decides visibility of the UI.
   final bool visible;
 
