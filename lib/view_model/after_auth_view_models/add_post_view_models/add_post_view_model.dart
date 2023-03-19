@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -15,7 +12,8 @@ import 'package:talawa/services/user_config.dart';
 import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
-/// AddPostViewModel class have different functions that are used
+/// AddPostViewModel class have different functions that are used.
+///
 /// to interact with the model to add a new post in the organization.
 class AddPostViewModel extends BaseModel {
   //Services
@@ -30,15 +28,53 @@ class AddPostViewModel extends BaseModel {
 
   final TextEditingController _titleController = TextEditingController();
 
-  // Getters
+  /// The image file that is to be uploaded.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `File?`: The image file
   File? get imageFile => _imageFile;
+
+  /// The Username.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `String`: The username of the currentUser
   String get userName => _currentUser.firstName! + _currentUser.lastName!;
+
+  /// The organisation name.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `String`: The organisation name
   String get orgName => _selectedOrg.name!;
+
+  /// Post body text controller.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `TextEditingController`: The main text controller of the post body
   TextEditingController get controller => _controller;
+
+  /// Post title text controller.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `TextEditingController`: The text controller of the title body
   TextEditingController get titleController => _titleController;
   late DataBaseMutationFunctions _dbFunctions;
 
-  // initialisation
+  /// This function is usedto do initialisation of stuff in the view model.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// None
   void initialise() {
     _currentUser = locator<UserConfig>().currentUser;
     _navigationService = locator<NavigationService>();
@@ -49,10 +85,13 @@ class AddPostViewModel extends BaseModel {
   }
 
   /// This function is used to get the image from gallery.
+  ///
   /// The function uses the `_multiMediaPickerService` services.
   ///
   /// params:
-  /// * [camera] : if true then open camera for image, else open gallery to select image.
+  /// * `camera`: if true then open camera for image, else open gallery to select image.
+  /// returns:
+  /// * `Future<void>`: Getting image from gallery returns future
   Future<void> getImageFromGallery({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
@@ -62,12 +101,17 @@ class AddPostViewModel extends BaseModel {
     }
   }
 
-  /// This function uploads the post finally, and navigate the success message in Snack Bar.
+  /// This function uploads the post finally, and navigate the success message or error message in Snack Bar.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `Future<void>`: Uploading post by contacting queries
   Future<void> uploadPost() async {
     // {TODO: }
     if (_imageFile == null) {
       try {
-        final result = await _dbFunctions.gqlAuthMutation(
+        await _dbFunctions.gqlAuthMutation(
           PostQueries().uploadPost(),
           variables: {
             "text": _controller.text,
@@ -93,6 +137,11 @@ class AddPostViewModel extends BaseModel {
   }
 
   /// This function removes the image selected.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// None
   void removeImage() {
     _imageFile = null;
     notifyListeners();

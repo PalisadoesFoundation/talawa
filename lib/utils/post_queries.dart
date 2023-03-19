@@ -1,9 +1,11 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 ///This class creates queries related to posts.
 class PostQueries {
-  //Returns a query to get posts by ID.
+  /// Getting Posts by Id.
+  ///
+  /// params:
+  /// * `orgId`: The organisation id
+  /// returns:
+  /// * `String`: The query related to gettingPostsbyId
   String getPostsById(String orgId) {
     return """
       query {
@@ -37,7 +39,12 @@ class PostQueries {
 """;
   }
 
-  //Returns a query to add a like to a post.
+  /// Add Like to a post.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `String`: The query related to addingLike
   String addLike() {
     return """
      mutation likePost(\$postID: ID!) { 
@@ -49,7 +56,12 @@ class PostQueries {
   """;
   }
 
-  //Returns a query to remove a like from a post.
+  /// Remove Like from a post.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `String`: The query related to removingLike
   String removeLike() {
     return """
      mutation unlikePost(\$postID: ID!) { 
@@ -64,6 +76,12 @@ class PostQueries {
   """;
   }
 
+  /// Upload a post to database.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `String`: The query related to uploadingPost.
   String uploadPost() {
     return '''
     mutation CreatePost(
@@ -86,24 +104,5 @@ class PostQueries {
     }
   }
     ''';
-    // return r'''
-    //   mutation createPostMutation($postInput: PostInput!) { createPost(
-    //     data: $postInput
-    //   ){
-    //     _id
-    //     title
-    //     text
-    //     createdAt
-    //     imageUrl
-    //     videoUrl
-    //     creator
-    //     organization
-    //     likedBy
-    //     comments
-    //     likeCount
-    //     commentCount
-    //   }
-    //   }
-    // ''';
   }
 }
