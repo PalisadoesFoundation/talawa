@@ -23,7 +23,7 @@ class TalawaPluginProvider extends StatelessWidget {
   ///visible is the property that decides visibility of the UI.
   final bool visible;
 
-  ///name of plugin preferred with underscores(_) insted of spaces
+  ///name of plugin preferred with underscores(_) instead of spaces
   final String pluginName;
 
   ///return `bool` decides the final visibility of the verifying from database and current OrgId
