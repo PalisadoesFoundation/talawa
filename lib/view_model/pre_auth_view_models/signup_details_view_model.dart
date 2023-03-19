@@ -100,25 +100,29 @@ class SignupDetailsViewModel extends BaseModel {
                     await databaseFunctions.gqlAuthMutation(
                   queries.joinOrgById(selectedOrganization.id!),
                 ) as QueryResult;
-
-                final List<OrgInfo>? joinedOrg = (result
-                            .data!['joinPublicOrganization']
-                        ['joinedOrganizations'] as List<dynamic>?)
-                    ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
-                    .toList();
-                userConfig.updateUserJoinedOrg(joinedOrg!);
-                userConfig.saveCurrentOrgInHive(
-                  userConfig.currentUser.joinedOrganizations![0],
-                );
-                navigationService.removeAllAndPush(
-                  Routes.mainScreen,
-                  Routes.splashScreen,
-                  arguments:
-                      MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
-                );
+                if (result.data!.isNotEmpty) {
+                  final QueryResult result =
+                      await databaseFunctions.gqlAuthMutation(
+                    queries.fetchOrgsJoinedByUser(signedInUser.id),
+                  ) as QueryResult;
+                  final List<OrgInfo>? joinedOrg = (result
+                          .data!['getOrganizationWithUserID'] as List<dynamic>?)
+                      ?.map((e) => OrgInfo.fromJson(e as Map<String, dynamic>))
+                      .toList();
+                  userConfig.updateUserJoinedOrg(joinedOrg!);
+                  userConfig.saveCurrentOrgInHive(
+                    userConfig.currentUser.joinedOrganizations![0],
+                  );
+                  navigationService.removeAllAndPush(
+                    Routes.mainScreen,
+                    Routes.splashScreen,
+                    arguments:
+                        MainScreenArgs(mainScreenIndex: 0, fromSignUp: true),
+                  );
+                }
               } on Exception catch (e) {
                 print(e);
-                navigationService.showTalawaErrorSnackBar(
+                navigationService.showTalawaSnackBar(
                   'SomeThing went wrong',
                   MessageType.error,
                 );
@@ -142,7 +146,7 @@ class SignupDetailsViewModel extends BaseModel {
                 );
               } on Exception catch (e) {
                 print(e);
-                navigationService.showTalawaErrorSnackBar(
+                navigationService.showTalawaSnackBar(
                   'SomeThing went wrong',
                   MessageType.error,
                 );
@@ -152,7 +156,7 @@ class SignupDetailsViewModel extends BaseModel {
         }
       } on Exception catch (e) {
         print(e);
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'SomeThing went wrong',
           MessageType.error,
         );

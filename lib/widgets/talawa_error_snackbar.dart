@@ -6,8 +6,8 @@ import 'package:talawa/enums/enums.dart';
 
 import 'package:talawa/utils/app_localization.dart';
 
-class TalawaErrorSnackBar extends StatelessWidget {
-  const TalawaErrorSnackBar({
+class TalawaSnackBar extends StatelessWidget {
+  const TalawaSnackBar({
     Key? key,
     required this.errorMessage,
     required this.messageType,

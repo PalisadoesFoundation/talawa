@@ -83,7 +83,7 @@ class UserConfig {
         return true;
       } on Exception catch (e) {
         print(e);
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           "Couldn't update User details",
           MessageType.error,
         );

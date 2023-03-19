@@ -81,7 +81,7 @@ void main() {
       verify(notifyListenerCallback());
       expect(model.controller.text, "");
       verify(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           "Post is uploaded",
           MessageType.info,
         ),

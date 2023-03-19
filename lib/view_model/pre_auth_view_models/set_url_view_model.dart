@@ -144,7 +144,7 @@ class SetUrlViewModel extends BaseModel {
         navigationService.pushScreen(navigateTo, arguments: argument);
       } else {
         navigationService.pop();
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           "URL doesn't exist/no connection please check",
           MessageType.error,
         );
@@ -181,10 +181,10 @@ class SetUrlViewModel extends BaseModel {
         box.put(imageUrlKey, "$uri/talawa/");
         navigationService.pop();
         graphqlConfig.getOrgUrl();
-        navigationService.showSnackBar("Url is valid");
+        navigationService.showTalawaSnackBar('Url is Valid', MessageType.info);
       } else {
         navigationService.pop();
-        navigationService.showTalawaErrorDialog(
+        navigationService.showTalawaDialog(
           "URL doesn't exist/no connection please check",
           MessageType.info,
         );
@@ -283,25 +283,25 @@ class SetUrlViewModel extends BaseModel {
           navigationService.pushScreen('/selectOrg', arguments: orgId);
         } on CameraException catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorSnackBar(
+          navigationService.showTalawaSnackBar(
             "The Camera is not working",
             MessageType.error,
           );
         } on QrEmbeddedImageException catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorDialog(
+          navigationService.showTalawaDialog(
             "The QR is not Working",
             MessageType.error,
           );
         } on QrUnsupportedVersionException catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorDialog(
+          navigationService.showTalawaDialog(
             "This QR version is not Supported.",
             MessageType.error,
           );
         } on Exception catch (e) {
           debugPrint(e.toString());
-          navigationService.showTalawaErrorSnackBar(
+          navigationService.showTalawaSnackBar(
             "This QR is not for the App",
             MessageType.error,
           );

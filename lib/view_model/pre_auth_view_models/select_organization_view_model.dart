@@ -91,12 +91,12 @@ class SelectOrganizationViewModel extends BaseModel {
         notifyListeners();
       } else if (orgAlreadyJoined) {
         selectedOrganization = OrgInfo(id: '-1');
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'Organisation already joined',
           MessageType.warning,
         );
       } else {
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'Membership request already sent',
           MessageType.warning,
         );
@@ -116,7 +116,7 @@ class SelectOrganizationViewModel extends BaseModel {
         arguments: selectedOrganization,
       );
     } else {
-      navigationService.showTalawaErrorSnackBar(
+      navigationService.showTalawaSnackBar(
         'Select one organization to continue',
         MessageType.warning,
         duration: const Duration(milliseconds: 750),
@@ -152,14 +152,14 @@ class SelectOrganizationViewModel extends BaseModel {
           );
         } else {
           navigationService.pop();
-          navigationService.showTalawaErrorSnackBar(
+          navigationService.showTalawaSnackBar(
             'Joined ${selectedOrganization.name} successfully',
             MessageType.info,
           );
         }
       } on Exception catch (e) {
         print(e);
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'SomeThing went wrong',
           MessageType.error,
         );
@@ -182,7 +182,7 @@ class SelectOrganizationViewModel extends BaseModel {
             );
           } else {
             navigationService.pop();
-            navigationService.showTalawaErrorSnackBar(
+            navigationService.showTalawaSnackBar(
               'Join in request sent to ${selectedOrganization.name} successfully',
               MessageType.info,
             );
@@ -190,7 +190,7 @@ class SelectOrganizationViewModel extends BaseModel {
         }
       } on Exception catch (e) {
         print(e);
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'SomeThing went wrong',
           MessageType.error,
         );

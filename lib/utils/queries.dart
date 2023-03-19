@@ -226,18 +226,7 @@ class Queries {
       joinPublicOrganization(organizationId: "$orgId") {
           joinedOrganizations{
             _id
-            name
-            image
-            description
-            isPublic
-            creator{
-              _id
-              firstName
-              lastName
-              image
             }
-            
-          }
       }
 	}
   ''';
@@ -359,6 +348,26 @@ class Queries {
         }
       }
     }
+  ''';
+  }
+
+  String fetchOrgsJoinedByUser(String? userId) {
+    return '''
+      query {
+        getOrganizationWithUserID(id: "$userId"){
+          _id
+          name
+          image
+          description
+          isPublic
+          creator{
+            _id
+            firstName
+            lastName
+            image
+          }
+        }
+      }
   ''';
   }
 

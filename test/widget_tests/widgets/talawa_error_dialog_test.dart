@@ -41,7 +41,7 @@ Widget createTalawaErrorWidget1({
       body: TextButton(
         child: const Text('Open'),
         onPressed: () {
-          navigationService.showTalawaErrorDialog(
+          navigationService.showTalawaDialog(
             "Test Error",
             MessageType.error,
           );
@@ -79,7 +79,7 @@ Widget createTalawaErrorWidget2({
       body: TextButton(
         child: const Text('Open'),
         onPressed: () {
-          navigationService.showTalawaErrorDialog(
+          navigationService.showTalawaDialog(
             "Test Error",
             MessageType.warning,
           );
@@ -117,7 +117,7 @@ Widget createTalawaErrorWidget3({
       body: TextButton(
         child: const Text('Open'),
         onPressed: () {
-          navigationService.showTalawaErrorDialog(
+          navigationService.showTalawaDialog(
             "Test Error",
             MessageType.info,
           );
@@ -155,7 +155,7 @@ Widget createTalawaErrorWidget4({
       body: TextButton(
         child: const Text('Open'),
         onPressed: () {
-          navigationService.showTalawaErrorDialog(
+          navigationService.showTalawaDialog(
             "Test Error",
             MessageType.random,
           );
@@ -175,7 +175,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
     });
     testWidgets('Check if the Error Widget shows up(random)', (tester) async {
       await tester.pumpWidget(createTalawaErrorWidget4());
@@ -183,7 +183,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
     });
     testWidgets('Check if the Error title shows up(error)', (tester) async {
       await tester.pumpWidget(createTalawaErrorWidget1());
@@ -191,7 +191,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
 
       final finder = find.text('Error');
       expect(finder, findsOneWidget);
@@ -204,7 +204,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
 
       final finder = find.text('Test Error');
       expect(finder, findsOneWidget);
@@ -217,7 +217,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
 
       final finder = find.byType(SvgPicture);
       expect(finder, findsOneWidget);
@@ -233,7 +233,7 @@ void main() {
       await tester.tap(find.textContaining('Dismiss'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsNothing);
+      expect(find.byType(TalawaDialog), findsNothing);
     });
     testWidgets('Check if the Error text shows up(warning)', (tester) async {
       await tester.pumpWidget(createTalawaErrorWidget2());
@@ -241,7 +241,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
     });
     testWidgets('Check if the Error text shows up(warning)', (tester) async {
       await tester.pumpWidget(createTalawaErrorWidget2());
@@ -249,7 +249,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
 
       final finder = find.text('Warning');
       expect(finder, findsOneWidget);
@@ -261,7 +261,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
 
       final finder = find.text('Test Error');
       expect(finder, findsOneWidget);
@@ -273,7 +273,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
 
       final finder = find.byType(SvgPicture);
       expect(finder, findsOneWidget);
@@ -289,7 +289,7 @@ void main() {
       await tester.tap(find.textContaining('Dismiss'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsNothing);
+      expect(find.byType(TalawaDialog), findsNothing);
     });
     testWidgets('Check if the Error Widget shows up (info)', (tester) async {
       await tester.pumpWidget(createTalawaErrorWidget3());
@@ -297,7 +297,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
     });
     testWidgets('Check if the Error Widget shows up (info)', (tester) async {
       await tester.pumpWidget(createTalawaErrorWidget3());
@@ -305,7 +305,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
       final finder = find.text('Information');
       expect(finder, findsOneWidget);
     });
@@ -315,7 +315,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
 
       final finder = find.text('Test Error');
 
@@ -329,7 +329,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsOneWidget);
+      expect(find.byType(TalawaDialog), findsOneWidget);
 
       final finder = find.byType(SvgPicture);
       expect(finder, findsOneWidget);
@@ -345,7 +345,7 @@ void main() {
       await tester.tap(find.textContaining('Close'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorDialog), findsNothing);
+      expect(find.byType(TalawaDialog), findsNothing);
     });
   });
 }

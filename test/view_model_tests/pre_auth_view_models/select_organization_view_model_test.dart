@@ -296,7 +296,7 @@ void main() {
       final orgTest = selectOrganizationViewModel.selectedOrganization;
       expect(orgTest.id, '-1');
       verify(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'Organisation already joined',
           MessageType.warning,
         ),
@@ -328,7 +328,7 @@ void main() {
       final orgTest = selectOrganizationViewModel.selectedOrganization;
       expect(orgTest.id, '-1');
       verify(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'Membership request already sent',
           MessageType.warning,
         ),
@@ -373,7 +373,7 @@ void main() {
       await selectOrganizationViewModel.onTapContinue();
 
       verify(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'Select one organization to continue',
           MessageType.warning,
           duration: const Duration(milliseconds: 750),
@@ -464,7 +464,7 @@ void main() {
       verify(databaseFunctions.gqlAuthMutation(queries.joinOrgById(org.id!)));
       verify(navigationService.pop());
       verify(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'Joined ${org.name} successfully',
           MessageType.info,
         ),
@@ -556,7 +556,7 @@ void main() {
       );
       verify(navigationService.pop());
       verify(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'Join in request sent to ${org.name} successfully',
           MessageType.info,
         ),
@@ -592,7 +592,7 @@ void main() {
       );
       verifyNever(navigationService.pop());
       verifyNever(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'Join in request sent to ${org.name} successfully',
           MessageType.info,
         ),
@@ -624,7 +624,7 @@ void main() {
       await selectOrganizationViewModel.onTapJoin();
 
       verify(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'SomeThing went wrong',
           MessageType.error,
         ),
@@ -654,7 +654,7 @@ void main() {
       await selectOrganizationViewModel.onTapJoin();
 
       verify(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           'SomeThing went wrong',
           MessageType.error,
         ),

@@ -420,14 +420,14 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
         returnValueForMissingStub: null,
       );
   @override
-  void showTalawaErrorSnackBar(
+  void showTalawaSnackBar(
     String? errorMessage,
     _i12.MessageType? messageType, {
     Duration? duration = const Duration(seconds: 2),
   }) =>
       super.noSuchMethod(
         Invocation.method(
-          #showTalawaErrorSnackBar,
+          #showTalawaSnackBar,
           [
             errorMessage,
             messageType,
@@ -437,13 +437,13 @@ class MockNavigationService extends _i2.Mock implements _i7.NavigationService {
         returnValueForMissingStub: null,
       );
   @override
-  void showTalawaErrorDialog(
+  void showTalawaDialog(
     String? errorMessage,
     _i12.MessageType? messageType,
   ) =>
       super.noSuchMethod(
         Invocation.method(
-          #showTalawaErrorDialog,
+          #showTalawaDialog,
           [
             errorMessage,
             messageType,

@@ -85,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final values = _initialUri!.queryParameters.values;
 
     final fromInviteLink = navigationService.fromInviteLink;
-    final showSnackBar = navigationService.showTalawaErrorSnackBar;
+    final showSnackBar = navigationService.showTalawaSnackBar;
     final pushReplacementScreen = navigationService.pushReplacementScreen;
 
     final orgURI = GraphqlConfig.orgURI!;

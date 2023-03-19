@@ -57,7 +57,7 @@ class DataBaseMutationFunctions {
       // debugPrint(exception.linkException.toString());
       if (showSnackBar) {
         WidgetsBinding.instance.addPostFrameCallback(
-          (_) => navigationService.showTalawaErrorSnackBar(
+          (_) => navigationService.showTalawaSnackBar(
             "Server not running/wrong url",
             MessageType.info,
           ),
@@ -94,7 +94,7 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == userNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) => navigationService.showTalawaErrorDialog(
+            (_) => navigationService.showTalawaDialog(
               "No account registered with this email",
               MessageType.error,
             ),
@@ -106,7 +106,7 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == memberRequestExist.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) => navigationService.showTalawaErrorDialog(
+            (_) => navigationService.showTalawaDialog(
               "Membership request already exist",
               MessageType.error,
             ),
@@ -118,7 +118,7 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == wrongCredentials.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) => navigationService.showTalawaErrorDialog(
+            (_) => navigationService.showTalawaDialog(
               "Enter a valid password",
               MessageType.error,
             ),
@@ -130,7 +130,7 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == organizationNotFound.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) => navigationService.showTalawaErrorDialog(
+            (_) => navigationService.showTalawaDialog(
               "Organization Not Found",
               MessageType.error,
             ),
@@ -142,7 +142,7 @@ class DataBaseMutationFunctions {
       if (exception.graphqlErrors[i].message == emailAccountPresent.message) {
         if (showSnackBar) {
           WidgetsBinding.instance.addPostFrameCallback(
-            (_) => navigationService.showTalawaErrorDialog(
+            (_) => navigationService.showTalawaDialog(
               "Account with this email already registered",
               MessageType.error,
             ),
@@ -154,7 +154,7 @@ class DataBaseMutationFunctions {
     // if the error is unknown
 
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => navigationService.showTalawaErrorDialog(
+      (_) => navigationService.showTalawaDialog(
         "Something went wrong!",
         MessageType.error,
       ),

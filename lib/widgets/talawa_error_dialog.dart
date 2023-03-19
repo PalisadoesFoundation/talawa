@@ -8,8 +8,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/utils/app_localization.dart';
 
-class TalawaErrorDialog extends StatelessWidget {
-  const TalawaErrorDialog(
+class TalawaDialog extends StatelessWidget {
+  const TalawaDialog(
     this.errorMessage, {
     Key? key,
     required this.messageType,

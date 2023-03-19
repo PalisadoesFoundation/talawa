@@ -177,7 +177,7 @@ Future<void> main() async {
       await model.checkURLandNavigate('/', 'arguments');
 
       verify(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           "URL doesn't exist/no connection please check",
           MessageType.error,
         ),
@@ -233,7 +233,7 @@ Future<void> main() async {
 
       verify(navigationService.pop());
       verifyNever(
-        navigationService.showTalawaErrorSnackBar(
+        navigationService.showTalawaSnackBar(
           "URL doesn't exist/no connection please check",
           MessageType.info,
         ),

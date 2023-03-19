@@ -59,7 +59,7 @@ class AddPostViewModel extends BaseModel {
   void uploadPost() {
     removeImage();
     _controller.text = "";
-    _navigationService.showTalawaErrorSnackBar(
+    _navigationService.showTalawaSnackBar(
       "Post is uploaded",
       MessageType.info,
     );

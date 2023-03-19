@@ -40,7 +40,7 @@ Widget createTalawaErrorWidget({
       body: TextButton(
         child: const Text('Open'),
         onPressed: () {
-          navigationService.showTalawaErrorSnackBar(
+          navigationService.showTalawaSnackBar(
             "Test Error",
             MessageType.warning,
           );
@@ -78,7 +78,7 @@ Widget createTalawaErrorWidget2({
       body: TextButton(
         child: const Text('Open'),
         onPressed: () {
-          navigationService.showTalawaErrorSnackBar(
+          navigationService.showTalawaSnackBar(
             "Test Error",
             MessageType.error,
           );
@@ -116,7 +116,7 @@ Widget createTalawaErrorWidget3({
       body: TextButton(
         child: const Text('Open'),
         onPressed: () {
-          navigationService.showTalawaErrorSnackBar(
+          navigationService.showTalawaSnackBar(
             "Test Error",
             MessageType.info,
           );
@@ -138,7 +138,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+      expect(find.byType(TalawaSnackBar), findsOneWidget);
     });
     testWidgets('Check if the Snackbar shows up in error form', (tester) async {
       await tester.pumpWidget(createTalawaErrorWidget2());
@@ -147,7 +147,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+      expect(find.byType(TalawaSnackBar), findsOneWidget);
     });
     testWidgets('Check if the Snackbar shows up in info form', (tester) async {
       await tester.pumpWidget(createTalawaErrorWidget3());
@@ -156,7 +156,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+      expect(find.byType(TalawaSnackBar), findsOneWidget);
     });
     testWidgets("Check if the Snackbar's text shows up in warning form",
         (tester) async {
@@ -166,7 +166,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+      expect(find.byType(TalawaSnackBar), findsOneWidget);
 
       final errorMesgFinder = find.text('Test Error');
 
@@ -180,7 +180,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+      expect(find.byType(TalawaSnackBar), findsOneWidget);
 
       final errorMesgFinder = find.text('Test Error');
 
@@ -194,7 +194,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+      expect(find.byType(TalawaSnackBar), findsOneWidget);
 
       final errorMesgFinder = find.text('Test Error');
 
@@ -208,7 +208,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+      expect(find.byType(TalawaSnackBar), findsOneWidget);
 
       final iconFinder = find.byIcon(Icons.info_outline);
 
@@ -220,7 +220,7 @@ void main() {
       await tester.pump();
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
-      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+      expect(find.byType(TalawaSnackBar), findsOneWidget);
 
       final iconFinder = find.byIcon(Icons.error);
 
@@ -233,7 +233,7 @@ void main() {
       await tester.tap(find.textContaining('Open'));
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.byType(TalawaErrorSnackBar), findsOneWidget);
+      expect(find.byType(TalawaSnackBar), findsOneWidget);
 
       final iconFinder = find.byIcon(Icons.error);
 

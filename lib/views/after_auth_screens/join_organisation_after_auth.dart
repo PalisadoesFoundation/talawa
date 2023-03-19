@@ -216,7 +216,7 @@ class JoinOrganisationAfterAuth extends StatelessWidget {
             Navigator.pop(navigationService.navigatorKey.currentContext!);
             model.initialise(model.orgId);
           } else {
-            navigationService.showTalawaErrorSnackBar(
+            navigationService.showTalawaSnackBar(
               "Organisation on different server, logout and scan qr again",
               MessageType.error,
             );

@@ -312,6 +312,6 @@ class ProfilePageViewModel extends BaseModel {
 
   // show message on Snack Bar.
   showSnackBar(String message) {
-    _navigationService.showTalawaErrorDialog(message, MessageType.error);
+    _navigationService.showTalawaDialog(message, MessageType.error);
   }
 }

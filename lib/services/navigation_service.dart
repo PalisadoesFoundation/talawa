@@ -16,7 +16,7 @@ import 'package:talawa/widgets/talawa_error_snackbar.dart';
 /// * `showSnackBar`
 /// * `pushDialog`
 /// * `showTalawaErrorWidget`
-/// * `showTalawaErrorDialog`
+/// * `showTalawaDialog`
 /// * `pop`
 class NavigationService {
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -103,7 +103,7 @@ class NavigationService {
     );
   }
 
-  void showTalawaErrorSnackBar(
+  void showTalawaSnackBar(
     String errorMessage,
     MessageType messageType, {
     Duration duration = const Duration(seconds: 2),
@@ -111,7 +111,7 @@ class NavigationService {
     ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
       SnackBar(
         padding: EdgeInsets.zero,
-        content: TalawaErrorSnackBar(
+        content: TalawaSnackBar(
           messageType: messageType,
           errorMessage: errorMessage,
         ),
@@ -120,13 +120,13 @@ class NavigationService {
     );
   }
 
-  void showTalawaErrorDialog(String errorMessage, MessageType messageType) {
+  void showTalawaDialog(String errorMessage, MessageType messageType) {
     showDialog(
       context: navigatorKey.currentContext!,
       barrierColor: Colors.transparent,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return TalawaErrorDialog(
+        return TalawaDialog(
           errorMessage,
           messageType: messageType,
         );
