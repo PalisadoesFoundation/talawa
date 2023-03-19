@@ -65,7 +65,7 @@ class MultiMediaPickerService {
             dialogTitle: 'Permission Denied',
             successText: 'SETTINGS',
             dialogSubTitle:
-            "Camera permission is required, to use this feature, give permission from app settings",
+                "Camera permission is required, to use this feature, give permission from app settings",
           ),
         );
       }
