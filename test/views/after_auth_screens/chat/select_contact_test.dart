@@ -7,7 +7,6 @@ import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/view_model/after_auth_view_models/chat_view_models/select_contact_view_model.dart';
 import 'package:talawa/views/after_auth_screens/chat/select_contact.dart';
 
-
 class MockSelectContactViewModel extends Mock
     implements SelectContactViewModel {}
 
