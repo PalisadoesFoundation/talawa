@@ -40,3 +40,4 @@ Get familiar with `talawa`:
 1. Want to contribute? Look at [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
 1. Visit the [Talawa GitHub](https://github.com/PalisadoesFoundation/talawa) to see the code.
 
+[![codecov](https://codecov.io/gh/Kraken005/talawa/branch/develop/graph/badge.svg)](https://codecov.io/gh/Kraken005/talawa)
