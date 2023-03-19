@@ -28,11 +28,14 @@ class AddPostViewModel extends BaseModel {
   late OrgInfo _selectedOrg;
   final TextEditingController _controller = TextEditingController();
 
+  final TextEditingController _titleController = TextEditingController();
+
   // Getters
   File? get imageFile => _imageFile;
   String get userName => _currentUser.firstName! + _currentUser.lastName!;
   String get orgName => _selectedOrg.name!;
   TextEditingController get controller => _controller;
+  TextEditingController get titleController => _titleController;
   late DataBaseMutationFunctions _dbFunctions;
 
   // initialisation
@@ -63,22 +66,30 @@ class AddPostViewModel extends BaseModel {
   Future<void> uploadPost() async {
     // {TODO: }
     if (_imageFile == null) {
-      final result = await _dbFunctions.gqlAuthMutation(
-        PostQueries().uploadPost(),
-        variables: {
-          "text": _controller.text,
-          "organizationId": _selectedOrg.id,
-          "title": "New"
-        },
-      );
-      print(result);
+      try {
+        final result = await _dbFunctions.gqlAuthMutation(
+          PostQueries().uploadPost(),
+          variables: {
+            "text": _controller.text,
+            "organizationId": _selectedOrg.id,
+            "title": _titleController.text
+          },
+        );
+        _navigationService.showTalawaErrorSnackBar(
+          "Post is uploaded",
+          MessageType.info,
+        );
+      } on Exception catch (e) {
+        _navigationService.showTalawaErrorSnackBar(
+          "Something went wrong",
+          MessageType.error,
+        );
+      }
     }
     removeImage();
     _controller.text = "";
-    _navigationService.showTalawaErrorSnackBar(
-      "Post is uploaded",
-      MessageType.info,
-    );
+    _titleController.text = "";
+    notifyListeners();
   }
 
   /// This function removes the image selected.

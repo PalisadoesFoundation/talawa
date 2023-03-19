@@ -104,6 +104,29 @@ class AddPost extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: TextField(
+                  controller: model.titleController,
+                  // input field to write the description of the post.
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    hintText: AppLocalizations.of(context)!.strictTranslate(
+                      "Enter the title of your post",
+                    ),
+                    label: Text(
+                      AppLocalizations.of(context)!.strictTranslate(
+                        "Title",
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: TextField(
                   controller: model.controller,
                   maxLines: null,
                   // input field to write the description of the post.
