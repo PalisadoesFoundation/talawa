@@ -529,28 +529,26 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     lastName: 'p',
     image: 'www.image.com',
   );
-  final User user2 = User(
-    id: "fakeUser2",
-    firstName: 'p',
-    lastName: 's',
-    image: 'www.image.com',
-  );
 
-  when(cachedViewModel.getCurrentOrgUsersList(isAdmin: true))
+  final mapType = {user1.id!: true};
+
+  when(cachedViewModel.getCurrentOrgUsersList())
       .thenAnswer((realInvocation) async {
     return [user1];
   });
 
-  when(cachedViewModel.selectedAdmins).thenReturn([user2]);
+  //when(cachedViewModel.selectedAdmins).thenReturn([user2]);
   when(cachedViewModel.selectedMembers).thenReturn([user1]);
   when(cachedViewModel.orgMembersList).thenReturn([user1]);
 
-  when(cachedViewModel.removeUserFromList(isAdmin: false, userId: "fakeUser1"))
+  when(cachedViewModel.memberCheckedMap).thenReturn(mapType);
+
+  when(cachedViewModel.removeUserFromList(userId: "fakeUser1"))
       .thenAnswer((realInvocation) async {
     when(cachedViewModel.selectedMembers).thenReturn([]);
   });
 
-  when(cachedViewModel.removeUserFromList(isAdmin: true, userId: "fakeUser2"))
+  when(cachedViewModel.removeUserFromList(userId: "fakeUser2"))
       .thenAnswer((realInvocation) async {
     when(cachedViewModel.selectedAdmins).thenReturn([]);
   });
@@ -569,6 +567,8 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
       ChatUser(firstName: "ABC", id: "ABC", image: "ABC");
   final ChatMessage chatMessage1 =
       ChatMessage("XYZ", chatUser1, "XYZ", chatUser2);
+  final ChatMessage chatMessage2 =
+      ChatMessage("XYZ", chatUser1, "Something", chatUser2);
   final Map<String, List<ChatMessage>> messages = {
     "XYZ": [chatMessage1]
   };
@@ -583,6 +583,10 @@ DirectChatViewModel getAndRegisterDirectChatViewModel() {
   when(cachedViewModel.chatMessagesByUser).thenReturn(messages);
 
   when(cachedViewModel.initialise()).thenAnswer((realInvocation) async {});
+  when(cachedViewModel.sendMessageToDirectChat("XYZ", "Something"))
+      .thenAnswer((realInvocation) async {
+    messages['XYZ']?.add(chatMessage2);
+  });
   when(cachedViewModel.getChatMessages("XYZ"))
       .thenAnswer((realInvocation) async {});
   when(cachedViewModel.chatName("XYZ")).thenAnswer((realInvocation) {});

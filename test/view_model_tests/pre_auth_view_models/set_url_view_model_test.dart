@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -25,8 +22,11 @@ import 'package:talawa/widgets/custom_progress_dialog.dart';
 import '../../helpers/test_helpers.dart';
 import '../../helpers/test_helpers.mocks.dart';
 
+/// This is a TestWidget class.
 class TestWidget extends StatelessWidget {
   const TestWidget(this.model, {Key? key}) : super(key: key);
+
+  /// State.
   final SetUrlViewModel model;
   @override
   Widget build(BuildContext context) {
@@ -38,9 +38,11 @@ class TestWidget extends StatelessWidget {
   }
 }
 
+/// This is a class for mock url for testing.
 class SetUrlMock extends StatelessWidget {
   const SetUrlMock({required this.formKey, Key? key}) : super(key: key);
 
+  /// formKey.
   final GlobalKey<FormState> formKey;
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,14 @@ class SetUrlMock extends StatelessWidget {
     );
   }
 }
+
+/// This is a class for mock url for testing.
+///
+/// params:
+/// * `themeMode`: dark
+///
+/// returns:
+/// * `Widget`: widget
 
 Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
       onModelReady: (model) => model.initialize(),
@@ -70,7 +80,7 @@ Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
           theme: TalawaTheme.darkTheme,
           home: FloatingActionButton(
             onPressed: () async {
-              await model1.initialise();
+              model1.initialise();
             },
           ),
           navigatorKey: locator<NavigationService>().navigatorKey,
@@ -78,6 +88,14 @@ Widget forTest({ThemeMode themeMode = ThemeMode.dark}) => BaseView<AppLanguage>(
         );
       },
     );
+
+/// This is a main function for testing.
+///
+/// params:
+/// None
+///
+/// returns:
+/// * `Future<void>`: void
 
 Future<void> main() async {
   SizeConfig().test();
@@ -149,6 +167,7 @@ Future<void> main() async {
         (tester) async {
       await locator.unregister<Validator>();
       final service = MockValidator();
+
       locator.registerSingleton<Validator>(service);
 
       await tester.pumpWidget(Form(key: model.formKey, child: Container()));
@@ -161,6 +180,62 @@ Future<void> main() async {
         navigationService.showTalawaErrorSnackBar(
           "URL doesn't exist/no connection please check",
           MessageType.error,
+        ),
+      );
+
+      locator.unregister<Validator>();
+    });
+
+    testWidgets(
+        'Check if checkURLandShowPopUp() is working fine when urlPresent is true',
+        (tester) async {
+      locator.registerSingleton(Validator());
+
+      await tester.pumpWidget(Form(key: model.formKey, child: Container()));
+
+      await model.checkURLandShowPopUp('arguments');
+
+      final captured = verify(
+        (navigationService as MockNavigationService).pushDialog(captureAny),
+      ).captured;
+      expect(
+        captured[0],
+        isA<CustomProgressDialog>().having(
+          (e) => e.key,
+          'key',
+          const Key('UrlCheckProgress'),
+        ),
+      );
+      verify(navigationService.pop());
+      verify(graphqlConfig.getOrgUrl());
+      verify(navigationService.showSnackBar("Url is valid"));
+
+      final box = Hive.box('url');
+      expect(box.get(SetUrlViewModel.urlKey), '');
+      expect(box.get(SetUrlViewModel.imageUrlKey), '/talawa/');
+
+      File('test/fixtures/core/url.hive').delete();
+      File('test/fixtures/core/url.lock').delete();
+    });
+
+    testWidgets(
+        'Check if checkURLandShowPopUp() is working fine when urlPresent is false',
+        (tester) async {
+      //await locator.unregister<Validator>();
+      final service = MockValidator();
+      //locator.registerSingleton<Validator>(service);
+
+      await tester.pumpWidget(Form(key: model.formKey, child: Container()));
+
+      when(service.validateUrlExistence('')).thenAnswer((_) async => false);
+
+      await model.checkURLandShowPopUp('arguments');
+
+      verify(navigationService.pop());
+      verifyNever(
+        navigationService.showTalawaErrorSnackBar(
+          "URL doesn't exist/no connection please check",
+          MessageType.info,
         ),
       );
     });

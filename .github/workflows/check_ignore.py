@@ -89,6 +89,13 @@ def _check_for_ignore_directive(filePath):
         boolean: Whether the file contains ignore directive or not.
 
     """
+    
+    # Either it is a test file, or the file does not exist. This can happen when
+    # `develop` gets ahead of your branch and has some files which you don't have
+    
+    if (filePath.startswith('test') or not os.path.exists(filePath)):
+        return False
+    
     with open(filePath, "r") as file:
         lines = file.readlines()
 
