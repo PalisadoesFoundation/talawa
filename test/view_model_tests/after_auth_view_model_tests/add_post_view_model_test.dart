@@ -66,25 +66,5 @@ void main() {
 
       verify(notifyListenerCallback());
     });
-    // test("Check if uploadPost() is working fine", () {
-    //   final notifyListenerCallback = MockCallbackFunction();
-    //   final model = AddPostViewModel()..addListener(notifyListenerCallback);
-    //   model.initialise();
-
-    //   when(navigationService.showSnackBar("Post is uploaded"))
-    //       .thenAnswer((_) {});
-
-    //   model.uploadPost();
-
-    //   expect(model.imageFile, null);
-    //   verify(notifyListenerCallback());
-    //   expect(model.controller.text, "");
-    //   verify(
-    //     navigationService.showTalawaErrorSnackBar(
-    //       "Post is uploaded",
-    //       MessageType.info,
-    //     ),
-    //   );
-    // });
   });
 }
