@@ -1,2 +1,26 @@
-- name: Upload coverage reports to Codecov
-  uses: codecov/codecov-action@v3
+# - name: Upload coverage reports to Codecov
+#   uses: codecov/codecov-action@v3
+
+name: Upload coverage reports to Codecov
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '3.7.1' 
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Run tests with coverage
+        run: flutter test --coverage
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        
