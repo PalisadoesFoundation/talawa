@@ -41,13 +41,14 @@ class MultiMediaPickerService {
 
   /// This function is used to pick the image from gallery or to click the image from user's camera.
   ///
+  /// The function first ask for the permission to access the camera, if denied then returns a message in
+  /// custom Dialog Box. This function returns a File type for which `camera` variable is false by default.
+  ///
   /// params:
   /// * 'camera' : boolean value to decide if to open camera or gallery
   ///
   /// returns:
   /// * 'File': the imageFile after(selecting & cropping)
-  /// The function first ask for the permission to access the camera, if denied then returns a message in
-  /// custom Dialog Box. This function returns a File type for which `camera` variable is false by default.
   Future<File?> getPhotoFromGallery({bool camera = false}) async {
     // asking for user's camera access permission.
     try {
@@ -85,12 +86,13 @@ class MultiMediaPickerService {
 
   /// This function is used to crop the image selected by the user and it returns File.
   ///
+  /// The function accepts a `File` type image and returns `File` type of cropped image.
+  ///
   /// params:
   /// * 'imageFile' : the file to crop
   ///
   /// returns:
   /// * 'File': the image file to view after cropping
-  /// The function accepts a `File` type image and returns `File` type of cropped image.
   Future<File?> cropImage({required File imageFile}) async {
     // try, to crop the image and returns a File with cropped image path.
     try {
