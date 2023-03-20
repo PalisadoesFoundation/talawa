@@ -353,9 +353,11 @@ class _Visitor extends SimpleAstVisitor {
     bool isVoid = false;
 
     if (node is FunctionDeclaration) {
-      isVoid = node.returnType!.type!.isVoid;
+      final nodeReturnTypeLocal = node.returnType;
+      isVoid = nodeReturnTypeLocal?.type!.isVoid == true;
     } else if (node is MethodDeclaration) {
-      isVoid = node.returnType!.type!.isVoid;
+      final nodeReturnTypeLocal = node.returnType;
+      isVoid = nodeReturnTypeLocal?.type!.isVoid == true;
     }
 
     if (!containsReturn && !isVoid) {
@@ -422,9 +424,11 @@ class _Visitor extends SimpleAstVisitor {
     late final returnType;
 
     if (node is FunctionDeclaration) {
-      returnType = node.returnType!.type;
+      final nodeReturnTypeLocal = node.returnType;
+      returnType = nodeReturnTypeLocal?.type;
     } else if (node is MethodDeclaration) {
-      returnType = node.returnType!.type;
+      final nodeReturnTypeLocal = node.returnType;
+      returnType = nodeReturnTypeLocal?.type;
     }
 
     // If return type is not [void] and doc doesn't end with [return_type] or

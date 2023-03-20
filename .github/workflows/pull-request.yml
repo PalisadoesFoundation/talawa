@@ -69,6 +69,15 @@ jobs:
         run: flutter analyze --no-pub
       - name: Analysing codebase for custom linting
         run: flutter pub run custom_lint
+      - name : Changed Files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+
 #       - name: Echo the GitHub environment for troubleshooting
 #         run: echo "$GITHUB_CONTEXT"
 #       - name: Echo the GitHub context for troubleshooting
@@ -113,7 +122,7 @@ jobs:
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
             path: './coverage/lcov.info'
-            min_coverage: 80.3
+            min_coverage: 80.8
             
   Android-Build:
     name: Testing build for android

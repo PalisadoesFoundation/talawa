@@ -92,39 +92,12 @@ void main() {
         return users;
       });
 
-      await model.getCurrentOrgUsersList(isAdmin: false);
+      await model.getCurrentOrgUsersList();
 
       bool isListCorrect = true;
 
       users.forEach((user) {
         final bool x = model.memberCheckedMap.containsKey(user.id);
-        if (!x) {
-          isListCorrect = false;
-        }
-      });
-
-      expect(isListCorrect, true);
-    });
-
-    test("test getCurrentOrgUsersList with isAdmin true", () async {
-      final model = CreateEventViewModel();
-      model.initialize();
-
-      final User user1 = User(id: "fakeUser1");
-      final User user2 = User(id: "fakeUser2");
-      final List<User> users = [user1, user2];
-
-      when(organizationService.getOrgMembersList("XYZ"))
-          .thenAnswer((realInvocation) async {
-        return users;
-      });
-
-      await model.getCurrentOrgUsersList(isAdmin: true);
-
-      bool isListCorrect = true;
-
-      users.forEach((user) {
-        final bool x = model.adminCheckedMap.containsKey(user.id);
         if (!x) {
           isListCorrect = false;
         }
@@ -299,18 +272,10 @@ void main() {
       // non admins (normal members)
       final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
       model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
-      model.buildUserList(isAdmin: false);
+      model.buildUserList();
       final bool isMemberFound =
           model.selectedMembers.contains(usersInCurrentOrg.first);
       expect(isMemberFound, true);
-
-      // admins
-      final List<User> adminsInCurrentOrg = userConfig.currentOrg.admins!;
-      model.adminCheckedMap[adminsInCurrentOrg.first.id!] = true;
-      model.buildUserList(isAdmin: true);
-      final bool isAdminFound =
-          model.selectedAdmins.contains(adminsInCurrentOrg.first);
-      expect(isAdminFound, true);
     });
 
     test('Removing of members from event', () {
@@ -324,27 +289,13 @@ void main() {
       // to remove, first we need to add a member
       final List<User> usersInCurrentOrg = userConfig.currentOrg.members!;
       model.memberCheckedMap[usersInCurrentOrg.first.id!] = true;
-      model.buildUserList(isAdmin: false);
+      model.buildUserList();
       model.removeUserFromList(
-        isAdmin: false,
         userId: usersInCurrentOrg.first.id!,
       );
       final bool isMemberFound =
           model.selectedMembers.contains(usersInCurrentOrg.first);
       expect(isMemberFound, false);
-
-      // admins
-      // to remove, first we need to add an admin
-      final List<User> adminsInCurrentOrg = userConfig.currentOrg.admins!;
-      model.adminCheckedMap[adminsInCurrentOrg.first.id!] = true;
-      model.buildUserList(isAdmin: true);
-      model.removeUserFromList(
-        isAdmin: true,
-        userId: adminsInCurrentOrg.first.id!,
-      );
-      final bool isAdminFound =
-          model.selectedAdmins.contains(adminsInCurrentOrg.first);
-      expect(isAdminFound, false);
     });
   });
 }
