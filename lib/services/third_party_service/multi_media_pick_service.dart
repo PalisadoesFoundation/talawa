@@ -1,4 +1,5 @@
 // ignore_for_file: talawa_good_doc_comments
+// ignore_for_file: talawa_api_doc
 
 /* This is an abstraction service for picking up Photos/videos
 Library used: image_picker (https://pub.dev/packages/image_picker)
