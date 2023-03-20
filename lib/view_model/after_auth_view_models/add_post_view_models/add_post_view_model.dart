@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -13,7 +10,8 @@ import 'package:talawa/services/third_party_service/multi_media_pick_service.dar
 import 'package:talawa/services/user_config.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
-/// AddPostViewModel class have different functions that are used
+/// AddPostViewModel class have different functions that are used.
+///
 /// to interact with the model to add a new post in the organization.
 class AddPostViewModel extends BaseModel {
   //Services
@@ -27,12 +25,47 @@ class AddPostViewModel extends BaseModel {
   final TextEditingController _controller = TextEditingController();
 
   // Getters
+
+  /// This function is used to get the image file provided by the user.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `File?`:image selected by user.
   File? get imageFile => _imageFile;
+
+  /// This fucntion is used to get the name of the user.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `String`:Name of the user.
   String get userName => _currentUser.firstName! + _currentUser.lastName!;
+
+  /// This fucntion is used to get the name of the organization.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `String`:Name of the organization.
   String get orgName => _selectedOrg.name!;
+
+  /// This function is used to get the text typed be the used in the post.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `TextEditingController`: Text entererd by the user in the post.
   TextEditingController get controller => _controller;
 
-  // initialisation
+  /// initialisation.
+  ///
+  /// params:
+  /// None
   void initialise() {
     _currentUser = locator<UserConfig>().currentUser;
     _navigationService = locator<NavigationService>();
@@ -42,10 +75,14 @@ class AddPostViewModel extends BaseModel {
   }
 
   /// This function is used to get the image from gallery.
+  ///
   /// The function uses the `_multiMediaPickerService` services.
   ///
   /// params:
-  /// * [camera] : if true then open camera for image, else open gallery to select image.
+  /// * `camera`: if true then open camera for image, else open gallery to select image.
+  ///
+  /// returns:
+  /// * `Future<void>`: image selected by user.
   Future<void> getImageFromGallery({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
@@ -59,7 +96,10 @@ class AddPostViewModel extends BaseModel {
     }
   }
 
-  /// This function uploads the post finally, and navigate the success message in Snack Bar.
+  /// This function uploads thoe post finally, and navigate the success message in Snack Bar.
+  ///
+  /// params:
+  /// None
   void uploadPost() {
     removeImage();
     _controller.text = "";
@@ -70,6 +110,9 @@ class AddPostViewModel extends BaseModel {
   }
 
   /// This function removes the image selected.
+  ///
+  /// params:
+  /// None
   void removeImage() {
     _imageFile = null;
     notifyListeners();
