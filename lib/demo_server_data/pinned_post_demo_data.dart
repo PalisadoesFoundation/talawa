@@ -8,7 +8,7 @@ const pinnedPostsDemoData = [
     "_id": "1",
     "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
-    "createdAt": "1617427716797",
+    "createdAt": "2023-03-15T15:28:52.122Z",
     "imageUrl": "image url string",
     "creator": {
       "firstName": "Rutvik",
@@ -47,7 +47,7 @@ const pinnedPostsDemoData = [
     "_id": "2",
     "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
-    "createdAt": "1617427716797",
+    "createdAt": "2023-03-15T15:28:52.122Z",
     "imageUrl": "image url string",
     "creator": {
       "firstName": "Ranchhod Das",
@@ -86,7 +86,7 @@ const pinnedPostsDemoData = [
     "_id": "3",
     "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
-    "createdAt": "1617427716797",
+    "createdAt": "2023-03-15T15:28:52.122Z",
     "imageUrl": "image url string",
     "creator": {
       "firstName": "Ritik",
@@ -125,7 +125,7 @@ const pinnedPostsDemoData = [
     "_id": "4",
     "text":
         "Flutter is Google’s mobile UI framework for crafting high-quality native interfaces on iOS and Android in record time. Flutter works with existing code, is used by developers and organizations around the world, and is free and open source.",
-    "createdAt": "1617427716797",
+    "createdAt": "2023-03-15T15:28:52.122Z",
     "imageUrl": "image url string",
     "creator": {
       "firstName": "Utkarsh",
