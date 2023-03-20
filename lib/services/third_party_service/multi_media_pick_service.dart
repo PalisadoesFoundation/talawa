@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_good_doc_comments
-// ignore_for_file: talawa_api_doc
-
 /* This is an abstraction service for picking up Photos/videos
 Library used: image_picker (https://pub.dev/packages/image_picker)
 Service usage: "add_post_view_model.dart"
@@ -31,23 +28,23 @@ class MultiMediaPickerService {
     _fileStream = _fileStreamController.stream.asBroadcastStream();
   }
 
-  //Local Variables
+  // Local Variables
   final StreamController<File> _fileStreamController = StreamController();
   late Stream<File> _fileStream;
   late ImagePicker _picker;
 
-  //Getters
-  Stream get fileStream => _fileStream;
+  // Getters
+  Stream<File> get fileStream => _fileStream;
 
   /// This function is used to pick the image from gallery or to click the image from user's camera.
   ///
   /// The function first asks for the permission to access the camera. If denied, it shows a custom dialog box.
   ///
   /// params:
-  /// * 'camera' : boolean value to check if the user has selected from camera or gallery
+  /// * `camera`: boolean value to check if the user has selected from camera or gallery
   ///
   /// returns:
-  /// * 'Future<File?>': image file
+  /// * `Future<File?>`: image file
   Future<File?> getPhotoFromGallery({bool camera = false}) async {
     // asking for user's camera access permission.
     try {
@@ -72,12 +69,12 @@ class MultiMediaPickerService {
             dialogTitle: 'Permission Denied',
             successText: 'SETTINGS',
             dialogSubTitle:
-                "Camera permission is required, to use this feature, give permission from app settings",
+                'Camera permission is required, to use this feature, give permission from app settings',
           ),
         );
       }
       print(
-        "MultiMediaPickerService : Exception occurred while choosing photo from the gallery $e",
+        'MultiMediaPickerService: Exception occurred while choosing photo from the gallery $e',
       );
     }
     return null;
@@ -86,14 +83,14 @@ class MultiMediaPickerService {
   /// This function is used to crop an image using the ImageCropper library.
   ///
   /// params:
-  /// * 'imageFile' : a required File object representing the image to be cropped.
+  /// * `imageFile`: a required File object representing the image to be cropped.
   ///
   /// returns:
-  /// * 'Future<File?>': a File object with the cropped image path, or null if an exception occurs.
+  /// * `Future<File?>`: a File object with the cropped image path, or null if an exception occurs.
   Future<File?> cropImage({required File imageFile}) async {
     // try, to crop the image and returns a File with cropped image path.
     try {
-      final CroppedFile? image = await ImageCropper().cropImage(
+      final CroppedFile? croppedImage = await ImageCropper().cropImage(
         sourcePath: imageFile.path,
         aspectRatioPresets: [
           CropAspectRatioPreset.square,
@@ -114,8 +111,8 @@ class MultiMediaPickerService {
           )
         ],
       );
-      if (image != null) {
-        return File(image.path);
+      if (croppedImage != null) {
+        return File(croppedImage.path);
       }
     } catch (e) {
       print(
