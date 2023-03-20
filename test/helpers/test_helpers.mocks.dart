@@ -861,10 +861,10 @@ class MockPostService extends _i2.Mock implements _i14.PostService {
 class MockMultiMediaPickerService extends _i2.Mock
     implements _i16.MultiMediaPickerService {
   @override
-  _i4.Stream<dynamic> get fileStream => (super.noSuchMethod(
+  _i4.Stream<_i17.File> get fileStream => (super.noSuchMethod(
         Invocation.getter(#fileStream),
-        returnValue: _i4.Stream<dynamic>.empty(),
-      ) as _i4.Stream<dynamic>);
+        returnValue: _i4.Stream<_i17.File>.empty(),
+      ) as _i4.Stream<_i17.File>);
   @override
   _i4.Future<_i17.File?> getPhotoFromGallery({bool? camera = false}) =>
       (super.noSuchMethod(
