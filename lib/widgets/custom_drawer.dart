@@ -137,9 +137,13 @@ class CustomDrawer extends StatelessWidget {
                     ),
                     SizedBox(
                       key: const Key("Sized Box Drawer"),
-                      height: SizeConfig.screenHeight! * 0.05,
+                      height: SizeConfig.screenHeight! * 0.03,
                     ),
-                    const FromPalisadoes(key: Key("From Palisadoes"))
+                    const FromPalisadoes(key: Key("From Palisadoes")),
+                    SizedBox(
+                      key: const Key("Sized BottomBox Drawer"),
+                      height: SizeConfig.screenHeight! * 0.03,
+                    )
                   ],
                 ),
               ],
