@@ -51,6 +51,10 @@ class AddPostViewModel extends BaseModel {
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
     if (image != null) {
       _imageFile = image;
+      _navigationService.showTalawaErrorSnackBar(
+        "Image is added",
+        MessageType.info,
+      );
       notifyListeners();
     }
   }
