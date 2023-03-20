@@ -112,9 +112,8 @@ jobs:
         run: flutter pub get
       - name: Codebase testing
         run: flutter test --coverage
-      - name: Upload coverage reports to Codecov
+      - name: Present and upload coverage to Codecov as ${{env.CODECOV_UNIQUE_NAME}}
         uses: codecov/codecov-action@v3
-
         with:
           verbose: true
           fail_ci_if_error: false
