@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/constants/routing_constants.dart';
 import 'package:talawa/locator.dart';
@@ -13,13 +10,16 @@ import 'package:talawa/widgets/custom_alert_dialog.dart';
 import 'package:talawa/widgets/custom_avatar.dart';
 import 'package:talawa/widgets/from_palisadoes.dart';
 
-/// Creates a custom drawer for switching organizations,
+/// Creates a custom drawer for switching organizations.
+///
 /// joining new organizations, or leaving an organization.
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
     Key? key,
     required this.homeModel,
   }) : super(key: key);
+
+  /// Home Model declaration.
   final MainScreenViewModel homeModel;
 
   @override
@@ -60,7 +60,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       accountEmail: const SizedBox(),
                     ),
-                    //Tile to Switch organizations
+                    //Tile to Switch organizations.
                     Column(
                       key: MainScreenViewModel.keyDrawerSwitchableOrg,
                       children: [
@@ -85,7 +85,7 @@ class CustomDrawer extends StatelessWidget {
                               controller: model.controller,
                               padding: EdgeInsets.zero,
                               itemCount: model.switchAbleOrg.length,
-                              // itemCount: 3,
+                              // itemCount: 3.
                               itemBuilder: (BuildContext context, int index) {
                                 return ListTile(
                                   key: const Key("Org"),
@@ -112,7 +112,7 @@ class CustomDrawer extends StatelessWidget {
                       ],
                     ),
                     const Divider(),
-                    // A Tile to join a new organization
+                    // A Tile to join a new organization.
                     ListTile(
                       key: MainScreenViewModel.keyDrawerJoinOrg,
                       onTap: () => navigationService
@@ -154,7 +154,14 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  /// Button to exit the organization
+  /// Button to exit the organization.
+  ///
+  /// params:
+  /// *`None`
+  ///
+  /// returns:
+  /// *`void`
+
   exitButton() {
     return navigationService.pushDialog(
       CustomAlertDialog(
