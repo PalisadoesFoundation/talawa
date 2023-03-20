@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
 
@@ -17,7 +14,8 @@ class Post {
     this.likedBy,
     this.comments,
   });
-  //Creating a new Post instance from a map structure.
+
+  ///Creating a new Post instance from a map structure.
   Post.fromJson(Map<String, dynamic> json) {
     sId = json['_id'] as String;
     description = json['text'] as String?;
@@ -53,8 +51,9 @@ class Post {
   OrgInfo? organization;
   List<LikedBy>? likedBy;
   List<Comments>? comments;
-  //Returns a string of the duration when the post was created. The duration can be metioned in
-  //seconds, minutes, hours, days, months or years accordigly.
+
+  ///Returns a string of the duration when the post was created. The duration can be metioned in
+  ///seconds, minutes, hours, days, months or years accordigly.
   String getPostCreatedDuration() {
     if (DateTime.now().difference(this.createdAt!).inSeconds < 60) {
       return '${DateTime.now().difference(this.createdAt!).inSeconds} Seconds Ago';
