@@ -864,8 +864,7 @@ class MockMultiMediaPickerService extends _i2.Mock
   _i4.Stream<_i17.File> get fileStream => (super.noSuchMethod(
         Invocation.getter(#fileStream),
         returnValue: _i4.Stream<_i17.File>.empty(),
-      ) as _i4.Stream <
-      _i17.File);
+      ) as _i4.Stream<_i17.File>);
   @override
   _i4.Future<_i17.File?> getPhotoFromGallery({bool? camera = false}) =>
       (super.noSuchMethod(
