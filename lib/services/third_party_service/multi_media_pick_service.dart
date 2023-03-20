@@ -79,6 +79,7 @@ class MultiMediaPickerService {
     }
     return null;
   }
+
   /// This function is used to crop an image using the ImageCropper library.
   ///
   /// params:
