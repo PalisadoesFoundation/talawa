@@ -863,7 +863,7 @@ class MockMultiMediaPickerService extends _i2.Mock
   @override
   _i4.Stream<_i17.File> get fileStream => (super.noSuchMethod(
         Invocation.getter(#fileStream),
-        returnValue: _i4.Stream<dynamic>.empty(),
+        returnValue: _i4.Stream<_i17.File>.empty(),
       ) as _i4.Stream <
       _i17.File);
   @override
