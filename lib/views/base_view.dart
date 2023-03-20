@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talawa/locator.dart';
 
+//import '../../test/views/after_auth_screens/chat/select_contact_test.dart';
+
 class BaseView<T extends ChangeNotifier> extends StatefulWidget {
   const BaseView({
     required this.builder,
-    this.onModelReady,
+    this.onModelReady, 
   });
   final Function(T)? onModelReady;
   final Widget Function(BuildContext, T, Widget?) builder;
