@@ -34,7 +34,15 @@ class MultiMediaPickerService {
   late ImagePicker _picker;
 
   //Getters
-  Stream get fileStream => _fileStream;
+
+  /// This function returns the stream of files.
+  ///
+  /// params:
+  /// None.
+  ///
+  /// returns:
+  /// * `Stream<File>`: Stream of files.
+  Stream<File> get fileStream => _fileStream;
 
   /// This function is used to pick the image from gallery or to click the image from user's camera.
   ///
