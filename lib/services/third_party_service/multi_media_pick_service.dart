@@ -77,12 +77,12 @@ class MultiMediaPickerService {
             dialogTitle: 'Permission Denied',
             successText: 'SETTINGS',
             dialogSubTitle:
-                'Camera permission is required, to use this feature, give permission from app settings',
+                "Camera permission is required, to use this feature, give permission from app settings",
           ),
         );
       }
       print(
-        'MultiMediaPickerService: Exception occurred while choosing photo from the gallery $e',
+        "MultiMediaPickerService: Exception occurred while choosing photo from the gallery $e",
       );
     }
     return null;
