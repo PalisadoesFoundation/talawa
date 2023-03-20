@@ -101,7 +101,7 @@ class MultiMediaPickerService {
             minimumAspectRatio: 1.0,
           )
         ],
-      );
+      ) as CroppedFile;
       if (croppedImage != null) {
         return File(croppedImage.path);
       }
