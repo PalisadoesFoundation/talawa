@@ -77,11 +77,11 @@ class MultiMediaPickerService {
   }
 
   /// This function is used to crop the image selected by the user.
-  /// The function accepts a `File` type image and returns `CroppedFile` type of cropped image.
+  /// The function accepts a `File` type image and returns `File` type of cropped image.
   Future<File?> cropImage({required File imageFile}) async {
     // try, to crop the image and returns a File with cropped image path.
     try {
-      final CroppedFile? croppedImage = await ImageCropper().cropImage(
+      final File? croppedImage = await ImageCropper().cropImage(
         sourcePath: imageFile.path,
         aspectRatioPresets: [
           CropAspectRatioPreset.square,
@@ -101,7 +101,7 @@ class MultiMediaPickerService {
             minimumAspectRatio: 1.0,
           )
         ],
-      ) as CroppedFile;
+      ) as File?;
       if (croppedImage != null) {
         return File(croppedImage.path);
       }
