@@ -80,10 +80,11 @@ class MultiMediaPickerService {
                 "Camera permission is required, to use this feature, give permission from app settings",
           ),
         );
+      } else {
+        print(
+          "MultiMediaPickerService: Exception occurred while choosing photo from the gallery $e",
+        );
       }
-      print(
-        "MultiMediaPickerService: Exception occurred while choosing photo from the gallery $e",
-      );
     }
     return null;
   }
