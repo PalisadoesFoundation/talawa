@@ -44,6 +44,24 @@ void main() {
       verify(locator<MultiMediaPickerService>().getPhotoFromGallery());
       expect(model.imageFile, null);
     });
+    test("Check if exception is caught when picking image fails", () async {
+      final model = AddPostViewModel();
+      model.initialise();
+
+      // Mock the picker service to throw an exception.
+      when(locator<MultiMediaPickerService>().getPhotoFromGallery())
+          .thenThrow(Exception('Failed to pick image'));
+
+      // Call the function and expect an exception to be thrown.
+
+      // Verify that the print statement is executed.
+      verify(
+        print(
+            'MultiMediaPickerService: Exception occurred while choosing photo from the gallery Exception: Failed to pick image'),
+      );
+      expect(() => model.getImageFromGallery(), null);
+    });
+
     test("Check if getImageFromGallery() is working fine (camera is true)",
         () async {
       final notifyListenerCallback = MockCallbackFunction();
