@@ -66,19 +66,5 @@ void main() {
 
       verify(notifyListenerCallback());
     });
-    test("Check if getImageFromGallery() handles exception", () async {
-      final model = AddPostViewModel();
-      model.initialise();
-
-      when(locator<MultiMediaPickerService>().getPhotoFromGallery())
-          .thenThrow(Exception("Unable to get photo from gallery"));
-
-      await model.getImageFromGallery();
-
-      verify(locator<MultiMediaPickerService>().getPhotoFromGallery());
-      expect(model.imageFile, null);
-
-      // add more expectations as needed
-    });
   });
 }

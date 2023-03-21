@@ -66,6 +66,9 @@ class MultiMediaPickerService {
       }
     } catch (e) {
       // if the permission denied or error occurs.
+      print(
+        "MultiMediaPickerService: Exception occurred while choosing photo from the gallery $e",
+      );
       if (e is PlatformException && e.code == 'camera_access_denied') {
         // push the dialog alert with the message.
         locator<NavigationService>().pushDialog(
@@ -79,10 +82,6 @@ class MultiMediaPickerService {
             dialogSubTitle:
                 "Camera permission is required, to use this feature, give permission from app settings",
           ),
-        );
-      } else {
-        print(
-          "MultiMediaPickerService: Exception occurred while choosing photo from the gallery $e",
         );
       }
     }
