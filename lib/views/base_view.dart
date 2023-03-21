@@ -7,7 +7,7 @@ import 'package:talawa/locator.dart';
 class BaseView<T extends ChangeNotifier> extends StatefulWidget {
   const BaseView({
     required this.builder,
-    this.onModelReady, 
+    this.onModelReady,
   });
   final Function(T)? onModelReady;
   final Widget Function(BuildContext, T, Widget?) builder;
