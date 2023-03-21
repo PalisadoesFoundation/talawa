@@ -57,7 +57,8 @@ void main() {
       // Verify that the print statement is executed.
       verify(
         print(
-            'MultiMediaPickerService: Exception occurred while choosing photo from the gallery Exception: Failed to pick image'),
+          'MultiMediaPickerService: Exception occurred while choosing photo from the gallery Exception: Failed to pick image',
+        ),
       );
       expect(() => model.getImageFromGallery(), null);
     });
