@@ -19,9 +19,8 @@ class CustomDrawer extends StatelessWidget {
     required this.homeModel,
   }) : super(key: key);
 
-  /// Home Model declaration.
+  /// home model.
   final MainScreenViewModel homeModel;
-
   @override
   Widget build(BuildContext context) {
     return BaseView<CustomDrawerViewModel>(
@@ -60,7 +59,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       accountEmail: const SizedBox(),
                     ),
-                    //Tile to Switch organizations.
+                    //Tile to Switch organizations
                     Column(
                       key: MainScreenViewModel.keyDrawerSwitchableOrg,
                       children: [
@@ -85,7 +84,7 @@ class CustomDrawer extends StatelessWidget {
                               controller: model.controller,
                               padding: EdgeInsets.zero,
                               itemCount: model.switchAbleOrg.length,
-                              // itemCount: 3.
+                              // itemCount: 3,
                               itemBuilder: (BuildContext context, int index) {
                                 return ListTile(
                                   key: const Key("Org"),
@@ -112,7 +111,7 @@ class CustomDrawer extends StatelessWidget {
                       ],
                     ),
                     const Divider(),
-                    // A Tile to join a new organization.
+                    // A Tile to join a new organization
                     ListTile(
                       key: MainScreenViewModel.keyDrawerJoinOrg,
                       onTap: () => navigationService
@@ -157,12 +156,11 @@ class CustomDrawer extends StatelessWidget {
   /// Button to exit the organization.
   ///
   /// params:
-  /// *`None`
+  /// None
   ///
   /// returns:
-  /// *`void`
-
-  exitButton() {
+  /// None
+  void exitButton() {
     return navigationService.pushDialog(
       CustomAlertDialog(
         key: const Key("Exit?"),
