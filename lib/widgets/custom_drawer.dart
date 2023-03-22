@@ -160,6 +160,7 @@ class CustomDrawer extends StatelessWidget {
   ///
   /// returns:
   /// None
+
   void exitButton() {
     return navigationService.pushDialog(
       CustomAlertDialog(
