@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 
 class TalawaAPIDocLintRules {}

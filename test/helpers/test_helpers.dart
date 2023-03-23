@@ -1,6 +1,8 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -53,44 +55,31 @@ import 'package:talawa/view_model/widgets_view_models/like_button_view_model.dar
 import 'package:talawa/view_model/widgets_view_models/progress_dialog_view_model.dart';
 import 'test_helpers.mocks.dart';
 
-class MyDefaultBehavior {
-  static dynamic returnNull(Invocation invocation) => null;
-}
-
 @GenerateMocks(
   [],
   customMocks: [
-    // ignore: deprecated_member_use
-    MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<GraphqlConfig>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<GraphQLClient>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<PostService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<MultiMediaPickerService>(
-      onMissingStub: OnMissingStub.returnDefault,
-    ),
-    MockSpec<EventService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<ChatService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<UserConfig>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<AppLanguage>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<Connectivity>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<SignupDetailsViewModel>(
-      onMissingStub: OnMissingStub.returnDefault,
-    ),
-    MockSpec<Post>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<DataBaseMutationFunctions>(
-      onMissingStub: OnMissingStub.returnDefault,
-    ),
-    MockSpec<OrganizationService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<ExploreEventsViewModel>(
-      onMissingStub: OnMissingStub.returnDefault,
-    ),
-    MockSpec<Validator>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<QRViewController>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<CommentService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<AppTheme>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<TaskService>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
-    MockSpec<DirectChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<NavigationService>(returnNullOnMissingStub: true),
+    MockSpec<GraphqlConfig>(returnNullOnMissingStub: true),
+    MockSpec<GraphQLClient>(returnNullOnMissingStub: true),
+    MockSpec<PostService>(returnNullOnMissingStub: true),
+    MockSpec<MultiMediaPickerService>(returnNullOnMissingStub: true),
+    MockSpec<EventService>(returnNullOnMissingStub: true),
+    MockSpec<ChatService>(returnNullOnMissingStub: true),
+    MockSpec<UserConfig>(returnNullOnMissingStub: true),
+    MockSpec<AppLanguage>(returnNullOnMissingStub: true),
+    MockSpec<Connectivity>(returnNullOnMissingStub: true),
+    MockSpec<SignupDetailsViewModel>(returnNullOnMissingStub: true),
+    MockSpec<Post>(returnNullOnMissingStub: true),
+    MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: true),
+    MockSpec<OrganizationService>(returnNullOnMissingStub: true),
+    MockSpec<ExploreEventsViewModel>(returnNullOnMissingStub: true),
+    MockSpec<Validator>(returnNullOnMissingStub: true),
+    MockSpec<QRViewController>(returnNullOnMissingStub: true),
+    MockSpec<CommentService>(returnNullOnMissingStub: true),
+    MockSpec<AppTheme>(returnNullOnMissingStub: true),
+    MockSpec<TaskService>(returnNullOnMissingStub: false),
+    MockSpec<CreateEventViewModel>(returnNullOnMissingStub: true),
+    MockSpec<DirectChatViewModel>(returnNullOnMissingStub: true),
   ],
 )
 final User member1 = User(id: "testMem1");
