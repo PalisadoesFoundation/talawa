@@ -18,6 +18,8 @@ import 'package:visibility_detector/visibility_detector.dart';
 /// This widget is used after the authentication.
 class OrganizationList extends StatelessWidget {
   const OrganizationList({required this.model, Key? key}) : super(key: key);
+
+  /// [model] is a type of [SelectOrganizationViewModel] which provides methods to handle the data for this component.
   final SelectOrganizationViewModel model;
   @override
   Widget build(BuildContext context) {
