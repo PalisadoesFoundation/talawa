@@ -6,6 +6,7 @@ part of 'chat_list_tile_data_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// Formatted the code
 ChatListTileDataModel _$ChatListTileDataModelFromJson(
         Map<String, dynamic> json) =>
     ChatListTileDataModel(
