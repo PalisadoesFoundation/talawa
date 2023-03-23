@@ -548,7 +548,7 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     return [user1];
   });
 
-  //when(cachedViewModel.selectedAdmins).thenReturn([user2]);
+  // when(cachedViewModel.selectedAdmins).thenReturn([user2]);
   when(cachedViewModel.selectedMembers).thenReturn([user1]);
   when(cachedViewModel.orgMembersList).thenReturn([user1]);
 
@@ -559,10 +559,10 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     when(cachedViewModel.selectedMembers).thenReturn([]);
   });
 
-  when(cachedViewModel.removeUserFromList(userId: "fakeUser2"))
-      .thenAnswer((realInvocation) async {
-    when(cachedViewModel.selectedAdmins).thenReturn([]);
-  });
+  // when(cachedViewModel.removeUserFromList(userId: "fakeUser2"))
+  //     .thenAnswer((realInvocation) async {
+  //   when(cachedViewModel.selectedAdmins).thenReturn([]);
+  // });
 
   locator.registerSingleton<CreateEventViewModel>(cachedViewModel);
   return cachedViewModel;
