@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
@@ -15,7 +12,8 @@ import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-/// This class returns the OrganizationList widget
+/// This class returns the OrganizationList widget.
+///
 /// which shows the list of all organizations exists in the URL.
 /// This widget is used after the authentication.
 class OrganizationList extends StatelessWidget {
@@ -74,7 +72,7 @@ class OrganizationList extends StatelessWidget {
               }
             });
             print(model.organizations);
-            // return the Scroll bar widget for scrolling down the organizations.
+            // return the Scroll bar wid  get for scrolling down the organizations.
             return Scrollbar(
               thumbVisibility: true,
               interactive: true,
