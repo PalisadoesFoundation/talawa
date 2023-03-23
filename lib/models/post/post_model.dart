@@ -16,6 +16,12 @@ class Post {
   });
 
   ///Creating a new Post instance from a map structure.
+
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `PostObject`: Dart Object for posts
   Post.fromJson(Map<String, dynamic> json) {
     sId = json['_id'] as String;
     description = json['text'] as String?;
@@ -42,18 +48,40 @@ class Post {
     }
   }
 
+  /// unique identifier for post.
   late String sId;
+
+  /// description for post.
   String? description;
+
+  /// createdAt for post.
   DateTime? createdAt;
+
+  /// imageUrl for post.
   String? imageUrl;
+
+  /// videoUrl for post.
   String? videoUrl;
+
+  /// creator for post.
   User? creator;
+
+  /// organization for post.
   OrgInfo? organization;
+
+  /// likedBy for post.
   List<LikedBy>? likedBy;
+
+  /// comments for post.
   List<Comments>? comments;
 
-  ///Returns a string of the duration when the post was created. The duration can be metioned in
-  ///seconds, minutes, hours, days, months or years accordigly.
+  /// this is to get duration of post.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `String`: date is returned in ago form.
   String getPostCreatedDuration() {
     if (DateTime.now().difference(this.createdAt!).inSeconds < 60) {
       return '${DateTime.now().difference(this.createdAt!).inSeconds} Seconds Ago';
@@ -71,13 +99,33 @@ class Post {
   }
 }
 
+/// This class convert between json and object for likedby.
 class LikedBy {
   LikedBy({this.sId});
+
+  /// Convert json to dart object.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `Map<String, dynamic>`: Dart object is returned.
   LikedBy.fromJson(Map<String, dynamic> json) {
     sId = json['_id'] as String?;
   }
 
+  /// these are dart object.
+  ///
+  /// params:
+  /// * `sId` : unique identifier for post
   String? sId;
+
+  /// Convert dart object to json.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `Map<String, dynamic>`: json is returned.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['_id'] = this.sId;
@@ -85,13 +133,33 @@ class LikedBy {
   }
 }
 
+/// This class convert between json and object for comments.
 class Comments {
   Comments({this.sId});
+
+  /// Convert json to dart object.
+  ///
+  /// params:
+  /// None
+  /// returns:
+  /// * `Map<String, dynamic>`: Dart object is returned.
   Comments.fromJson(Map<String, dynamic> json) {
     sId = json['_id'] as String?;
   }
 
+  /// these are dart object.
+  ///
+  /// params:
+  /// * `sId` : unique identifier for post
   String? sId;
+
+  /// Convert dart object to json.
+  ///
+  /// params:
+  /// None
+  ///
+  /// returns:
+  /// * `Map<String, dynamic>`: json is returned.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['_id'] = this.sId;
