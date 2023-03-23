@@ -11,12 +11,12 @@ part of 'chat_user.dart';
 
 ChatUser _$ChatUserFromJson(Map<String, dynamic> json) => ChatUser(
       firstName: json['firstName'] as String?,
-      id: json['_id'] as String?,
+      id: json['id'] as String?,
       image: json['image'] as String?,
     );
 
 Map<String, dynamic> _$ChatUserToJson(ChatUser instance) => <String, dynamic>{
       'firstName': instance.firstName,
-      '_id': instance.id,
+      'id': instance.id,
       'image': instance.image,
     };

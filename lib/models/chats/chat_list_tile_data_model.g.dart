@@ -10,19 +10,17 @@ part of 'chat_list_tile_data_model.dart';
 // **************************************************************************
 
 ChatListTileDataModel _$ChatListTileDataModelFromJson(
-  Map<String, dynamic> json,
-) =>
+        Map<String, dynamic> json) =>
     ChatListTileDataModel(
       (json['users'] as List<dynamic>?)
           ?.map((e) => ChatUser.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['_id'] as String?,
+      json['id'] as String?,
     );
 
 Map<String, dynamic> _$ChatListTileDataModelToJson(
-  ChatListTileDataModel instance,
-) =>
+        ChatListTileDataModel instance) =>
     <String, dynamic>{
       'users': instance.users,
-      '_id': instance.id,
+      'id': instance.id,
     };
