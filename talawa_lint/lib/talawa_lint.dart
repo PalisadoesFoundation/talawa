@@ -1,3 +1,6 @@
+// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_good_doc_comments
+
 // This is the entrypoint of our custom linter
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 import 'package:talawa_lint/talawa_api_doc.dart';
