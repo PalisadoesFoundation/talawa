@@ -90,8 +90,10 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                 ),
                 //"Continue" button.
                 RaisedRoundedButton(
-                  buttonLabel:
-                      AppLocalizations.of(context)!.strictTranslate('Continue'),
+                  buttonLabel: model.organizations.isEmpty
+                      ? AppLocalizations.of(context)!.strictTranslate('Go back')
+                      : AppLocalizations.of(context)!
+                          .strictTranslate('Continue'),
                   onTap: model.onTapContinue,
                   textColor: const Color(0xFF008A37),
                   key: const Key('SignUpLoginDetailsButton'),
