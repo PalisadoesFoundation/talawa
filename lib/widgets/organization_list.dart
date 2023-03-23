@@ -69,8 +69,9 @@ class OrganizationList extends StatelessWidget {
               print(model.organizations.isEmpty);
               if (model.organizations.isEmpty) {
                 navigationServiceLocal.showTalawaErrorDialog(
-                    "No organizations found ! Please contact your admin ",
-                    MessageType.error);
+                  "No organizations found ! Please contact your admin ",
+                  MessageType.error,
+                );
               }
             });
             print(model.organizations);
