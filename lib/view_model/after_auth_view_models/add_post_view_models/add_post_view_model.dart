@@ -5,11 +5,9 @@ import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
 import 'package:talawa/models/user/user_info.dart';
-import 'package:talawa/services/database_mutation_functions.dart';
 import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import 'package:talawa/services/user_config.dart';
-import 'package:talawa/utils/post_queries.dart';
 import 'package:talawa/view_model/base_view_model.dart';
 
 /// AddPostViewModel class have different functions that are used.
@@ -26,64 +24,54 @@ class AddPostViewModel extends BaseModel {
   late OrgInfo _selectedOrg;
   final TextEditingController _controller = TextEditingController();
 
+  // Getters
 
-  final TextEditingController _titleController = TextEditingController();
-
-  /// The image file that is to be uploaded.
+  /// This function is used to get the image file provided by the user.
   ///
   /// params:
   /// None
+  ///
   /// returns:
-  /// * `File?`: The image file
+  /// * `File?`:image selected by user.
   File? get imageFile => _imageFile;
 
-  /// The Username.
+  /// This fucntion is used to get the name of the user.
   ///
   /// params:
   /// None
+  ///
   /// returns:
-  /// * `String`: The username of the currentUser
+  /// * `String`:Name of the user.
   String get userName => _currentUser.firstName! + _currentUser.lastName!;
 
-  /// The organisation name.
+  /// This fucntion is used to get the name of the organization.
   ///
   /// params:
   /// None
+  ///
   /// returns:
-  /// * `String`: The organisation name
+  /// * `String`:Name of the organization.
   String get orgName => _selectedOrg.name!;
 
-  /// Post body text controller.
+  /// This function is used to get the text typed be the used in the post.
   ///
   /// params:
   /// None
+  ///
   /// returns:
-  /// * `TextEditingController`: The main text controller of the post body
+  /// * `TextEditingController`: Text entererd by the user in the post.
   TextEditingController get controller => _controller;
 
-  /// Post title text controller.
+  /// initialisation.
   ///
   /// params:
   /// None
-  /// returns:
-  /// * `TextEditingController`: The text controller of the title body
-  TextEditingController get titleController => _titleController;
-  late DataBaseMutationFunctions _dbFunctions;
-
-  /// This function is usedto do initialisation of stuff in the view model.
-  ///
-  /// params:
-  /// None
-  /// returns:
-  /// None
-
   void initialise() {
     _currentUser = locator<UserConfig>().currentUser;
     _navigationService = locator<NavigationService>();
     _selectedOrg = locator<UserConfig>().currentOrg;
     _imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
-    _dbFunctions = locator<DataBaseMutationFunctions>();
   }
 
   /// This function is used to get the image from gallery.
@@ -92,10 +80,9 @@ class AddPostViewModel extends BaseModel {
   ///
   /// params:
   /// * `camera`: if true then open camera for image, else open gallery to select image.
-
+  ///
   /// returns:
-  /// * `Future<void>`: Getting image from gallery returns future
-
+  /// * `Future<void>`: image selected by user.
   Future<void> getImageFromGallery({bool camera = false}) async {
     final image =
         await _multiMediaPickerService.getPhotoFromGallery(camera: camera);
@@ -109,52 +96,23 @@ class AddPostViewModel extends BaseModel {
     }
   }
 
-
-
-  /// This function uploads the post finally, and navigate the success message or error message in Snack Bar.
+  /// This function uploads thoe post finally, and navigate the success message in Snack Bar.
   ///
   /// params:
   /// None
-  /// returns:
-  /// * `Future<void>`: Uploading post by contacting queries
-  Future<void> uploadPost() async {
-    // {TODO: }
-    if (_imageFile == null) {
-      try {
-        await _dbFunctions.gqlAuthMutation(
-          PostQueries().uploadPost(),
-          variables: {
-            "text": _controller.text,
-            "organizationId": _selectedOrg.id,
-            "title": _titleController.text
-          },
-        );
-        _navigationService.showTalawaErrorSnackBar(
-          "Post is uploaded",
-          MessageType.info,
-        );
-      } on Exception catch (_) {
-        _navigationService.showTalawaErrorSnackBar(
-          "Something went wrong",
-          MessageType.error,
-        );
-      }
-    }
-
+  void uploadPost() {
     removeImage();
     _controller.text = "";
-    _titleController.text = "";
-    notifyListeners();
+    _navigationService.showTalawaErrorSnackBar(
+      "Post is uploaded",
+      MessageType.info,
+    );
   }
 
   /// This function removes the image selected.
   ///
   /// params:
   /// None
-
-  /// returns:
-  /// None
-
   void removeImage() {
     _imageFile = null;
     notifyListeners();
