@@ -63,7 +63,7 @@ dependencies:
   qr_code_scanner: ^1.0.0
   qr_flutter: ^4.0.0
   quick_actions: ^1.0.1
-  shared_preferences: ^2.0.17
+  shared_preferences: ^2.0.20
   shimmer: ^2.0.0
   social_share: ^2.2.1
   syncfusion_flutter_calendar: ^20.4.54
@@ -72,7 +72,7 @@ dependencies:
   tutorial_coach_mark: ^1.2.6
   uni_links: ^0.5.1
   vibration: ^1.7.6
-  video_player: ^2.5.3
+  video_player: ^2.6.0
   visibility_detector: ^0.4.0+2
 
 
