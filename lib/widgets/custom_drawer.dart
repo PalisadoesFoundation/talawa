@@ -153,7 +153,7 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  /// Button to exit the organization.
+  /// A function to show a dialog box to confirm exit from an organization.
   ///
   /// params:
   /// None
