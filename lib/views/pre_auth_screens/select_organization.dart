@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'package:flutter/material.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
@@ -14,11 +11,14 @@ import 'package:talawa/widgets/raised_round_edge_button.dart';
 import 'package:talawa/widgets/signup_progress_indicator.dart';
 
 /// This widget lets the user select new organizations.
+///
 /// There is a list tile which displays the organization selected by the user.
 /// He/she needs to press the "continue" button to proceed.
 class SelectOrganization extends StatefulWidget {
   const SelectOrganization({required Key key, required this.selectedOrgId})
       : super(key: key);
+
+  /// Contains Integer value for selected org id.
   final String selectedOrgId;
 
   @override
@@ -90,8 +90,10 @@ class _SelectOrganizationState extends State<SelectOrganization> {
                 ),
                 //"Continue" button.
                 RaisedRoundedButton(
-                  buttonLabel:
-                      AppLocalizations.of(context)!.strictTranslate('Continue'),
+                  buttonLabel: model.organizations.isEmpty
+                      ? AppLocalizations.of(context)!.strictTranslate('Go back')
+                      : AppLocalizations.of(context)!
+                          .strictTranslate('Continue'),
                   onTap: model.onTapContinue,
                   textColor: const Color(0xFF008A37),
                   key: const Key('SignUpLoginDetailsButton'),
