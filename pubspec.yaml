@@ -32,7 +32,7 @@ dependencies:
   
   firebase_core: ^2.6.1
   firebase_core_platform_interface: ^4.5.3
-  firebase_messaging: ^14.2.5
+  firebase_messaging: ^14.3.0
   flutter:
     sdk: flutter
 
