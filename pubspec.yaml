@@ -30,13 +30,16 @@ dependencies:
   custom_lint_builder: ^0.2.12
   ################################
   
+  file: ^6.1.4
   firebase_core: ^2.6.1
   firebase_core_platform_interface: ^4.5.3
   firebase_messaging: ^14.3.0
+  firebase_messaging_platform_interface: ^4.2.16
   flutter:
     sdk: flutter
 
   flutter_braintree: ^3.0.0
+  flutter_cache_manager: ^3.3.0
   flutter_local_notifications: ^13.0.0
   flutter_localizations:
     sdk: flutter
