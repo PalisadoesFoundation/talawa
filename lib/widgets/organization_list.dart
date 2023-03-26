@@ -65,16 +65,13 @@ class OrganizationList extends StatelessWidget {
               );
             }
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              print("is empyt or nt");
-              print(model.organizations.isEmpty);
               if (model.organizations.isEmpty) {
                 navigationServiceLocal.showTalawaErrorDialog(
-                  "No organizations found ! Please contact your admin ",
+                  "No organizations found Please contact your admin",
                   MessageType.error,
                 );
               }
             });
-            print(model.organizations);
             // return the Scroll bar wid  get for scrolling down the organizations.
             return Scrollbar(
               thumbVisibility: true,
