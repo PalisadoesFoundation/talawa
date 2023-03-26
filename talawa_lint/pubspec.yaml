@@ -11,6 +11,8 @@ dependencies:
   _fe_analyzer_shared: ^52.0.0
   analyzer:
   analyzer_plugin:
+  args:
+  custom_lint:
   # custom_lint_builder will give us tools for writing lints
   custom_lint_builder: ^0.2.12
   

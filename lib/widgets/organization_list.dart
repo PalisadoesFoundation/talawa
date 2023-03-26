@@ -1,6 +1,3 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
-
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
@@ -9,20 +6,24 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:talawa/enums/enums.dart';
 import 'package:talawa/locator.dart';
 import 'package:talawa/models/organization/org_info.dart';
+import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/view_model/pre_auth_view_models/select_organization_view_model.dart';
 import 'package:talawa/widgets/custom_list_tile.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-/// This class returns the OrganizationList widget
+/// This class returns the OrganizationList widget.
+///
 /// which shows the list of all organizations exists in the URL.
 /// This widget is used after the authentication.
 class OrganizationList extends StatelessWidget {
   const OrganizationList({required this.model, Key? key}) : super(key: key);
-  final SelectOrganizationViewModel model;
 
+  /// [model] is a type of [SelectOrganizationViewModel] which provides methods to handle the data for this component.
+  final SelectOrganizationViewModel model;
   @override
   Widget build(BuildContext context) {
+    final navigationServiceLocal = locator<NavigationService>();
     model.organizations = [];
     int noOfRefetch = 0;
     return GraphQLProvider(
@@ -63,7 +64,18 @@ class OrganizationList extends StatelessWidget {
                 result.data!['organizationsConnection'] as List,
               );
             }
-            // return the Scroll bar widget for scrolling down the organizations.
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              print("is empyt or nt");
+              print(model.organizations.isEmpty);
+              if (model.organizations.isEmpty) {
+                navigationServiceLocal.showTalawaErrorDialog(
+                  "No organizations found ! Please contact your admin ",
+                  MessageType.error,
+                );
+              }
+            });
+            print(model.organizations);
+            // return the Scroll bar wid  get for scrolling down the organizations.
             return Scrollbar(
               thumbVisibility: true,
               interactive: true,
