@@ -6,6 +6,10 @@ Tests are an important part of the software development process. They help ensur
 
 In Flutter, tests are typically written using the flutter_test package, which provides a set of tools for testing widgets, functions, and other parts of your application.
 
+The cost of removing defects increases exponentially. A defect caught in requirement and design phase costs less to fix than an error caught in the software maintenance cycle.
+
+
+
 ## How to cover all the corner cases?
 
 To ensure that your tests cover all corner cases, you should consider the different input values and edge cases that your code might encounter. For example, if you are testing a function that performs a calculation, you should test it with different input values, including negative numbers, zero, and large numbers.
