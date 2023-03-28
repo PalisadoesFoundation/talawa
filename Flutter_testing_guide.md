@@ -1,10 +1,13 @@
 # Flutter Testing Guide
 
-## What are tests and why do we need them?
+## Introduction
 
-Tests are an important part of the software development process. They help ensure that your code works as intended, catch bugs early in the development process, and make it easier to refactor your code without introducing new bugs.
+Tests are an essential part of software development. They help developers to verify the functionality of the code they write and ensure that it behaves as expected. Testing is a process of executing a program with the intent of finding errors. In Flutter, testing is an essential part of the development process, and it's critical to write high-quality tests that cover all corner cases.
 
-In Flutter, tests are typically written using the flutter_test package, which provides a set of tools for testing widgets, functions, and other parts of your application.
+## Why do we need tests?
+
+Tests ensure that the code you write works as intended. They help to catch bugs early in the development process, which saves time and effort in the long run. Writing tests also makes the code more reliable and maintainable. The cost of removing defects increases exponentially. A defect caught in requirement and design phase costs less to fix than an error caught in the software maintenance cycle.
+![image](assets/images/testing_guide.png)
 
 The cost of removing defects increases exponentially. A defect caught in requirement and design phase costs less to fix than an error caught in the software maintenance cycle.
 
