@@ -23,9 +23,12 @@ It's also a good idea to use boundary testing, where you test the boundaries bet
 
 ## How to start with Flutter Testing?
 
-1. Add the `flutter_test` package to your `pubspec.yaml` file
+1. Add the `flutter_test` package to your `pubspec.yaml` file.
+ 
 2. Create a new test file in your project's `test` directory. The file should have the same name as the file you want to test, with `_test` appended to the end. For example, if you want to test a file called `my_widget.dart`, the test file should be called `my_widget_test.dart`.
+ 
 3. Write test cases for the functions, widgets, or other parts of your application that you want to test. Use the tools provided by the flutter_test package, such as the test() and expect() functions, to define your test cases.
+ 
 4. Run your tests using the flutter test command. This will run all the tests in your project's test directory.
 
 ### Basic Example
