@@ -6,9 +6,8 @@ Tests are an essential part of software development. They help developers to ver
 
 ## Why do we need tests?
 
-Tests ensure that the code you write works as intended. They help to catch bugs early in the development process, which saves time and effort in the long run. Writing tests also makes the code more reliable and maintainable.
-The cost of removing defects increases exponentially. A defect caught in requirement and design phase costs less to fix than an error caught in the software maintenance cycle.
-![image](https://user-images.githubusercontent.com/75278584/228310609-e92029d9-7f65-4665-a08c-5e3badddd3d4.png)
+Tests ensure that the code you write works as intended. They help to catch bugs early in the development process, which saves time and effort in the long run. Writing tests also makes the code more reliable and maintainable. The cost of removing defects increases exponentially. A defect caught in requirement and design phase costs less to fix than an error caught in the software maintenance cycle.
+![image](assets/images/testing_guide.png)
 
 
 ## How to cover all the corner cases?
