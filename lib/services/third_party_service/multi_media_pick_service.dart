@@ -24,7 +24,7 @@ import 'package:talawa/widgets/custom_alert_dialog.dart';
 /// * `cropImage` - Used to crop the selected image.
 class MultiMediaPickerService {
   MultiMediaPickerService() {
-    _picker = ImagePicker();
+    _picker = locator<ImagePicker>();
     _fileStream = _fileStreamController.stream.asBroadcastStream();
   }
 
@@ -32,7 +32,6 @@ class MultiMediaPickerService {
   final StreamController<File> _fileStreamController = StreamController();
   late Stream<File> _fileStream;
   late ImagePicker _picker;
-
   //Getters
 
   /// This function returns the stream of files.
@@ -102,7 +101,7 @@ class MultiMediaPickerService {
   Future<File?> cropImage({required File imageFile}) async {
     // try, to crop the image and returns a File with cropped image path.
     try {
-      final CroppedFile? croppedImage = await ImageCropper().cropImage(
+      final CroppedFile? croppedImage = await locator<ImageCropper>().cropImage(
         sourcePath: imageFile.path,
         aspectRatioPresets: [
           CropAspectRatioPreset.square,

@@ -3,6 +3,8 @@
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/services/chat_service.dart';
 import 'package:talawa/services/comment_service.dart';
@@ -52,6 +54,8 @@ final sizeConfig = locator<SizeConfig>();
 final queries = locator<Queries>();
 final connectivity = locator<Connectivity>();
 final organizationService = locator<OrganizationService>();
+final imageCropper = locator<ImageCropper>();
+final imagePicker = locator<ImagePicker>();
 
 /// This function registers the widgets/objects in "GetIt"
 void setupLocator() {
@@ -75,6 +79,8 @@ void setupLocator() {
   locator.registerLazySingleton(() => MultiMediaPickerService());
   locator.registerLazySingleton(() => Connectivity());
   locator.registerLazySingleton(() => ChatService());
+  locator.registerLazySingleton(() => ImageCropper());
+  locator.registerLazySingleton(() => ImagePicker());
 
   //graphql
   locator.registerSingleton(GraphqlConfig());

@@ -2,6 +2,8 @@
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:get_it/get_it.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:talawa/main.dart';
 import 'package:talawa/services/comment_service.dart';
 import 'package:talawa/services/database_mutation_functions.dart';
@@ -53,6 +55,8 @@ final eventService = locator<EventService>();
 final commentsService = locator<CommentService>();
 final postService = locator<PostService>();
 final mainScreenViewModel = locator<MainScreenViewModel>();
+final imageCropper = locator<ImageCropper>();
+final imagePicker = locator<ImagePicker>();
 
 void testSetupLocator() {
   //services
@@ -70,6 +74,8 @@ void testSetupLocator() {
   locator.registerLazySingleton(() => EventService());
   locator.registerLazySingleton(() => CommentService());
   locator.registerLazySingleton(() => MultiMediaPickerService());
+  locator.registerLazySingleton(() => ImageCropper());
+  locator.registerLazySingleton(() => ImagePicker());
   locator.registerSingleton(() => OrganizationService());
 
   //graphql
