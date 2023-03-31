@@ -85,5 +85,16 @@ void main() {
 
       expect(result?.path, path);
     });
+    test("test no photo provided for the pick image", () async {
+      final model = MultiMediaPickerService();
+      final file = await model.getPhotoFromGallery(camera: false);
+      expect(file?.path, null);
+    });
+    test("test no image provided for the image cropper", () async {
+      final model = MultiMediaPickerService();
+      const path = 'test';
+      final file = await model.cropImage(imageFile: File(path));
+      expect(file?.path, null);
+    });
   });
 }
