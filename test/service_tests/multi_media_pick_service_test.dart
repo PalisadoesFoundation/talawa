@@ -8,7 +8,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/mockito.dart';
-import 'package:talawa/services/navigation_service.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
@@ -108,7 +107,6 @@ void main() {
     });
     test("camera access denied", () async {
       final mockPicker = locator<ImagePicker>();
-      final navigator = locator<NavigationService>();
       final model = MultiMediaPickerService();
       final printed = <String>[];
 
@@ -155,8 +153,10 @@ void main() {
           },
         ),
       );
-      expect(printed[0],
-          "MultiMediaPickerService : Exception occurred while cropping Image");
+      expect(
+        printed[0],
+        "MultiMediaPickerService : Exception occurred while cropping Image",
+      );
     });
   });
 }
