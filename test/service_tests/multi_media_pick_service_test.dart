@@ -8,13 +8,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mockito/mockito.dart';
+import 'package:talawa/locator.dart';
 import 'package:talawa/services/third_party_service/multi_media_pick_service.dart';
 import '../helpers/test_helpers.dart';
-import '../helpers/test_locator.dart';
 
 void main() {
-  testSetupLocator();
-
   setUp(() {
     registerServices();
   });
@@ -27,7 +25,7 @@ void main() {
       );
     });
     test("crop image method", () async {
-      final mockImageCropper = locator<ImageCropper>();
+      final mockImageCropper = imageCropper;
       final model = MultiMediaPickerService();
 
       const path = "test";
@@ -50,8 +48,8 @@ void main() {
     });
     test("test get photo from gallery method if camera option is false",
         () async {
-      final mockImageCropper = locator<ImageCropper>();
-      final mockPicker = locator<ImagePicker>();
+      final mockImageCropper = imageCropper;
+      final mockPicker = imagePicker;
       final model = MultiMediaPickerService();
       const path = 'test';
       final image = XFile(path);
@@ -74,8 +72,8 @@ void main() {
     });
     test("test get photo from gallery method if camera option is true",
         () async {
-      final mockImageCropper = locator<ImageCropper>();
-      final mockPicker = locator<ImagePicker>();
+      final mockImageCropper = imageCropper;
+      final mockPicker = imagePicker;
       final model = MultiMediaPickerService();
       const path = 'test';
       final image = XFile(path);
@@ -108,7 +106,7 @@ void main() {
       expect(file?.path, null);
     });
     test("camera access denied", () async {
-      final mockPicker = locator<ImagePicker>();
+      final mockPicker = imagePicker;
       final model = MultiMediaPickerService();
       final printed = <String>[];
 
@@ -130,7 +128,7 @@ void main() {
       );
     });
     test("error in crop image", () async {
-      final mockImageCropper = locator<ImageCropper>();
+      final mockImageCropper = imageCropper;
       final model = MultiMediaPickerService();
       const path = "test";
       final fakefile = File(path);
