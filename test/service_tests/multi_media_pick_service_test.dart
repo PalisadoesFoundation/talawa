@@ -48,7 +48,7 @@ void main() {
     });
     test("test get photo from gallery method if camera option is false",
         () async {
-      final mockImageCropper = imageCropper;
+      final mockImageCropper = locator<ImageCropper>();
       final mockPicker = imagePicker;
       final model = MultiMediaPickerService();
       const path = 'test';
@@ -72,8 +72,8 @@ void main() {
     });
     test("test get photo from gallery method if camera option is true",
         () async {
-      final mockImageCropper = imageCropper;
-      final mockPicker = imagePicker;
+      final mockImageCropper = locator<ImageCropper>();
+      final mockPicker = locator<ImagePicker>();
       final model = MultiMediaPickerService();
       const path = 'test';
       final image = XFile(path);
@@ -106,7 +106,7 @@ void main() {
       expect(file?.path, null);
     });
     test("camera access denied", () async {
-      final mockPicker = imagePicker;
+      final mockPicker = locator<ImagePicker>();
       final model = MultiMediaPickerService();
       final printed = <String>[];
 
@@ -128,7 +128,7 @@ void main() {
       );
     });
     test("error in crop image", () async {
-      final mockImageCropper = imageCropper;
+      final mockImageCropper = locator<ImageCropper>();
       final model = MultiMediaPickerService();
       const path = "test";
       final fakefile = File(path);
