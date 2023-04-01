@@ -39,6 +39,13 @@ class TalawaGoodDocLintRules {
         "Some parameters are missing documentation",
   );
 
+  static const noBlankLineBWParamAndReturn = LintCode(
+    name: 'talawa_good_doc_comments',
+    problemMessage: 'Wrong doc format.\n'
+        "Add a blank line between the end of 'params:' block\n"
+        "and start of 'returns:' block.",
+  );
+
   static const doesNotContainReturn = LintCode(
     name: 'talawa_good_doc_comments',
     problemMessage: 'Wrong doc format.\n'

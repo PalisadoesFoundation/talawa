@@ -207,6 +207,12 @@ class _Visitor extends SimpleAstVisitor {
       return false;
     }
 
+    // Don't check for [setters] and [getters]
+
+    if (node is MethodDeclaration && (node.isGetter || node.isSetter)) {
+      return true;
+    }
+
     final doc = node.documentationComment!.tokens;
     if (!doc[0].lexeme.endsWith('.')) {
       reporter.reportErrorForToken(
@@ -244,14 +250,15 @@ class _Visitor extends SimpleAstVisitor {
     }
 
     if (node is FunctionDeclaration || node is MethodDeclaration) {
-      checkContainsParams(doc, node);
-      checkContainsReturn(doc, node);
+      if (checkContainsParams(doc, node)) {
+        checkContainsReturn(doc, node);
+      }
     }
 
     return true;
   }
 
-  void checkContainsParams(List<Token> doc, Declaration rawNode) {
+  bool checkContainsParams(List<Token> doc, Declaration rawNode) {
     final node =
         rawNode is FunctionDeclaration ? rawNode : rawNode as MethodDeclaration;
 
@@ -284,7 +291,7 @@ class _Visitor extends SimpleAstVisitor {
         node.documentationComment!,
       );
 
-      return;
+      return false;
     }
 
     // The currentParam we are checking for
@@ -307,7 +314,7 @@ class _Visitor extends SimpleAstVisitor {
             line,
           );
 
-          return;
+          return false;
         } else {
           if (line.lexeme.trim() == paramRegex.pattern) {
             reporter.reportErrorForToken(
@@ -315,7 +322,7 @@ class _Visitor extends SimpleAstVisitor {
               line,
             );
 
-            return;
+            return false;
           } else {
             currentParam++;
           }
@@ -331,6 +338,8 @@ class _Visitor extends SimpleAstVisitor {
         node,
       );
     }
+
+    return true;
   }
 
   void checkContainsReturn(
@@ -348,6 +357,17 @@ class _Visitor extends SimpleAstVisitor {
         containsReturn = true;
         break;
       }
+    }
+
+    // Check if there is atleast one blank line above
+
+    if (doc[currentDocLine - 1].lexeme.trim() != '///') {
+      reporter.reportErrorForNode(
+        TalawaGoodDocLintRules.noBlankLineBWParamAndReturn,
+        node.documentationComment!,
+      );
+
+      return;
     }
 
     bool isVoid = false;
