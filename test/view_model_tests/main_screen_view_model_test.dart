@@ -14,7 +14,7 @@ import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
 class MockCallBack extends Mock {
-  call();
+  void call();
 }
 
 class MockBuildContext extends Mock implements BuildContext {}

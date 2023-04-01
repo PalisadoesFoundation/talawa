@@ -18,7 +18,7 @@ class TalawaGoodDocLintRules {
   static const includeParamsKeywordCode = LintCode(
     name: 'talawa_good_doc_comments',
     problemMessage: 'Wrong doc format.\n'
-        "Include `params:` keyword in function/method doc",
+        "Include `**params**:` keyword in function/method doc",
   );
 
   static const startShouldFollowParam = LintCode(
@@ -50,28 +50,30 @@ class TalawaGoodDocLintRules {
     name: 'talawa_good_doc_comments',
     problemMessage: 'Wrong doc format.\n'
         "Documentation does not contain information about the return type,\n"
-        "even though it is not `void`",
+        "even though it is not `void`\n"
+        "Add '**returns**:' block followed by the return doc.",
   );
 
   static const wrongReturnsDoc = LintCode(
     name: 'talawa_good_doc_comments',
     problemMessage: 'Wrong doc format.\n'
         "Documentation format of return type is in wrong format.\n"
-        "For void type - '/// returns: None'\n"
-        "For other types - '/// returns:' followed by types in new lines",
+        "For void type - '/// **returns**: \n///   None'\n"
+        "For other types - '/// **returns**:' followed by types in new lines",
   );
 
   static const noReturnDoc = LintCode(
     name: 'talawa_good_doc_comments',
     problemMessage: 'Wrong doc format.\n'
-        "'returns:' should immediately be followed by documentation about\n"
+        "'**returns**:' should immediately be followed by documentation about\n"
         "the return type",
   );
 
   static const noEndWithNoneForVoid = LintCode(
     name: 'talawa_good_doc_comments',
     problemMessage: 'Wrong doc format.\n'
-        "A function/method with [void] return type must end with `/// None`\n"
+        "A function/method with [void] return type must end with\n"
+        "`///   None`\n"
         "without extra lines.",
   );
 }

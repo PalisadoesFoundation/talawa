@@ -278,7 +278,7 @@ class _Visitor extends SimpleAstVisitor {
 
     for (; currentDocLine < doc.length; currentDocLine++) {
       final line = doc[currentDocLine];
-      if (line.lexeme == '/// params:') {
+      if (line.lexeme == '/// **params**:') {
         containsParamsKeyword = true;
         currentDocLine++;
         break;
@@ -353,7 +353,7 @@ class _Visitor extends SimpleAstVisitor {
         rawNode is FunctionDeclaration ? rawNode : rawNode as MethodDeclaration;
 
     for (; currentDocLine < doc.length; currentDocLine++) {
-      if (doc[currentDocLine].lexeme.startsWith('/// returns:')) {
+      if (doc[currentDocLine].lexeme.startsWith('/// **returns**:')) {
         containsReturn = true;
         break;
       }
@@ -401,7 +401,7 @@ class _Visitor extends SimpleAstVisitor {
     //   return;
     // }
 
-    if (doc[currentDocLine].lexeme != '/// returns:') {
+    if (doc[currentDocLine].lexeme != '/// **returns**:') {
       reporter.reportErrorForNode(
         TalawaGoodDocLintRules.wrongReturnsDoc,
         node.documentationComment!,
@@ -430,7 +430,7 @@ class _Visitor extends SimpleAstVisitor {
     // If return type is [void] and doc doesn't end with [None] or
     // there are more lines to the doc
     if (isVoid &&
-        (doc[currentDocLine - 1].lexeme != '/// None' ||
+        (doc[currentDocLine - 1].lexeme != '///   None' ||
             currentDocLine != doc.length)) {
       reporter.reportErrorForNode(
         TalawaGoodDocLintRules.noEndWithNoneForVoid,

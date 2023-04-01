@@ -24,7 +24,7 @@ class DataBaseMutationFunctions {
   late GraphQLClient clientAuth;
   late Queries _query;
 
-  init() {
+  void init() {
     clientNonAuth = graphqlConfig.clientToQuery();
     clientAuth = graphqlConfig.authClient();
     _query = Queries();

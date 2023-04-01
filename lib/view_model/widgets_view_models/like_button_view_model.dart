@@ -78,7 +78,7 @@ class LikeButtonViewModel extends BaseModel {
   ///
   /// params:
   /// `post` : `Post` type, the post that need to be updated.
-  updatePost(Post post) {
+  void updatePost(Post post) {
     if (_postID == post.sId) {
       _likedBy = post.likedBy!;
       checkAndSetTheIsLiked();

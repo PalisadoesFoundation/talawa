@@ -36,7 +36,7 @@ class SizeConfig {
     debugPrint("safeBlockVertical: $safeBlockVertical");
   }
 
-  test() {
+  void test() {
     _mediaQueryData =
         const MediaQueryData(size: Size(360, 684), padding: EdgeInsets.zero);
     screenWidth = _mediaQueryData.size.width;

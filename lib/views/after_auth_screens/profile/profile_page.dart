@@ -283,7 +283,7 @@ class ProfilePage extends StatelessWidget {
   }
 
   // donate widget, this widget is used in donate custom tile.
-  donate(BuildContext context, ProfilePageViewModel model) {
+  void donate(BuildContext context, ProfilePageViewModel model) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,

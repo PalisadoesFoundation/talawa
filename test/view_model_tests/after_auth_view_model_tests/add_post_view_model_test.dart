@@ -12,7 +12,7 @@ import 'package:talawa/view_model/after_auth_view_models/add_post_view_models/ad
 import '../../helpers/test_helpers.dart';
 
 class MockCallbackFunction extends Mock {
-  call();
+  void call();
 }
 
 void main() {

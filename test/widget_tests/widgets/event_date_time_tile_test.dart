@@ -11,7 +11,7 @@ import '../../helpers/test_helpers.dart';
 import '../../helpers/test_locator.dart';
 
 class MockCallbackFunction extends Mock {
-  call();
+  void call();
 }
 
 final setDateCallback = MockCallbackFunction();
