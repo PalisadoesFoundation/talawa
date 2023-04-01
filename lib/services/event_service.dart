@@ -52,7 +52,7 @@ class EventService {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   ///   None
   void setOrgStreamSubscription() {
@@ -66,7 +66,7 @@ class EventService {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: void
   Future<void> getEvents() async {
@@ -96,7 +96,7 @@ class EventService {
   ///
   /// **params**:
   /// * `eventId`: id of an event.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<dynamic>`: Information about event registrants.
   Future<dynamic> fetchRegistrantsByEvent(String eventId) async {
@@ -111,7 +111,7 @@ class EventService {
   ///
   /// **params**:
   /// * `eventId`: id of an event.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<dynamic>`: Information about the event registration.
   Future<dynamic> registerForAnEvent(String eventId) async {
@@ -130,7 +130,7 @@ class EventService {
   ///
   /// **params**:
   /// * `eventId`: id of an event
-  /// 
+  ///
   /// **returns**:
   /// * `Future<dynamic>`: Information about the event deletion
   Future<dynamic> deleteEvent(String eventId) async {
@@ -152,7 +152,7 @@ class EventService {
   /// **params**:
   /// * `eventId`: id of an event
   /// * `variables`: this will be `map` type and contain all the event details need to be update.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: void return
   Future<void> editEvent({
@@ -185,7 +185,7 @@ class EventService {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   ///   None
   void dispose() {

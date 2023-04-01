@@ -202,7 +202,7 @@ class _MyAppState extends State<MyApp> {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   ///   None
 

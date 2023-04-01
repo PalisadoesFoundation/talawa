@@ -4,7 +4,7 @@ class PostQueries {
   ///
   /// **params**:
   /// * `orgId`: The organisation id
-  /// 
+  ///
   /// **returns**:
   /// * `String`: The query related to gettingPostsbyId
   String getPostsById(String orgId) {
@@ -44,7 +44,7 @@ class PostQueries {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   /// * `String`: The query related to addingLike
   String addLike() {
@@ -62,7 +62,7 @@ class PostQueries {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   /// * `String`: The query related to removingLike
   String removeLike() {
@@ -83,7 +83,7 @@ class PostQueries {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   /// * `String`: The query related to uploadingPost.
   String uploadPost() {

@@ -132,10 +132,10 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// The function uses `database_mutation_functions` services to call the graphQL mutation
   /// for creating an event and passes the required variables for the event.
-  /// 
+  ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: Asynchronous function for creating event
   Future<void> createEvent() async {
@@ -209,7 +209,7 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `camera`: if true then open camera for image, else open gallery to select image.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: Asynchronous function for getting image from gallery
   Future<void> getImageFromGallery({bool camera = false}) async {
@@ -225,7 +225,7 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   ///   None
   void removeImage() {
@@ -237,7 +237,7 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   /// * `Future<List<User>>`: Current Organization Users List
   Future<List<User>> getCurrentOrgUsersList() async {
@@ -259,7 +259,7 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   ///   None
   void buildUserList() {
@@ -279,7 +279,7 @@ class CreateEventViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `userId`: id of the user that need to be removed.
-  /// 
+  ///
   /// **returns**:
   ///   None
   void removeUserFromList({required String userId}) {

@@ -10,7 +10,7 @@ class EventBottomSheet {
   /// **params**:
   /// * `context`: BuildContext
   /// * `model`: CreateEventViewModel
-  /// 
+  ///
   /// **returns**:
   ///   None
   void addUserBottomSheet({

@@ -73,7 +73,7 @@ class AddPostViewModel extends BaseModel {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   ///   None
   void initialise() {
@@ -91,7 +91,7 @@ class AddPostViewModel extends BaseModel {
   ///
   /// **params**:
   /// * `camera`: if true then open camera for image, else open gallery to select image.
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: Getting image from gallery returns future
   Future<void> getImageFromGallery({bool camera = false}) async {
@@ -107,7 +107,7 @@ class AddPostViewModel extends BaseModel {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   /// * `Future<void>`: Uploading post by contacting queries
   Future<void> uploadPost() async {
@@ -143,7 +143,7 @@ class AddPostViewModel extends BaseModel {
   ///
   /// **params**:
   /// None
-  /// 
+  ///
   /// **returns**:
   ///   None
   void removeImage() {
