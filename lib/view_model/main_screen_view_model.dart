@@ -1,5 +1,4 @@
-// ignore_for_file: talawa_api_doc
-// ignore_for_file: talawa_good_doc_comments
+import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -139,11 +138,13 @@ class MainScreenViewModel extends BaseModel {
   /// name stored here.
   Map<dynamic, dynamic> pluginPrototypeData = {};
 
-  /// Contains plugin data fetched from the server
   List<dynamic> pluginList = [];
 
-  /// Dynamically adds [BottomNavigationBarItems] in `BottomNavigationBar`
+  /// Dynamically adds [BottomNavigationBarItems] in `BottomNavigationBar`.
   /// by mapping over the data received from the server.
+  ///
+  /// params:
+  /// `context` : its the same context you use everywhere in the flutter framework refer flutter docs for more info
   void fetchAndAddPlugins(
     BuildContext context,
   ) {
@@ -228,9 +229,9 @@ class MainScreenViewModel extends BaseModel {
       }
     });
 
-    /// Causes the app to continously check for plugins if they are
+    /// Causes the app check the plugins updates in every 100 sec
     /// updated and re-render the navbar
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    Timer.periodic(const Duration(seconds: 300), (timer) {
       FetchPluginList();
       final newPluginList =
           (Hive.box('pluginBox').get('plugins') ?? []) as List<dynamic>;
@@ -241,16 +242,22 @@ class MainScreenViewModel extends BaseModel {
     });
   }
 
-  /// Currently selected page
   int currentPageIndex = 0;
 
-  /// Handles click on [BottomNavigationBarItem]
+  /// Handles click on [BottomNavigationBarItem].
+  ///
+  /// params:
+  /// `index` : it is track of current page index
   void onTabTapped(int index) {
     currentPageIndex = index;
     notifyListeners();
   }
 
   /// This function show tutorial to user.
+  ///
+  /// params:
+  /// `onClickTarget` : Its a function which is required to run desired tasks on click
+  /// `onFinish` : Its a function which is required to run desired tasks on finish
   void showTutorial({
     required dynamic Function(TargetFocus) onClickTarget,
     required dynamic Function() onFinish,
@@ -280,6 +287,10 @@ class MainScreenViewModel extends BaseModel {
     )..show(context: context);
   }
 
+  /// this functions starts the tour and info to be displayed is mentioned in this functions.
+  ///
+  /// prams:
+  /// None
   tourHomeTargets() {
     targets.clear();
     targets.add(
@@ -366,6 +377,9 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function shows the Home screen.
+  ///
+  /// params:
+  /// `clickedTarget` : object to identify clickedTarget
   showHome(TargetFocus clickedTarget) {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
@@ -377,6 +391,9 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tutorial for Events.
+  ///
+  /// params:
+  /// None
   tourEventTargets() {
     targets.clear();
     targets.add(
@@ -429,6 +446,9 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tutorial to add Post in the organization.
+  ///
+  /// params:
+  /// None
   tourAddPost() {
     targets.clear();
     targets.add(
@@ -452,6 +472,9 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tour of chats.
+  ///
+  /// params:
+  /// None
   tourChat() {
     targets.clear();
     targets.add(
@@ -475,6 +498,9 @@ class MainScreenViewModel extends BaseModel {
   }
 
   /// This function show the tutorial for the profile page.
+  ///
+  /// params:
+  /// None
   tourProfile() {
     targets.clear();
     targets.add(
@@ -537,11 +563,15 @@ class MainScreenViewModel extends BaseModel {
   /// This returns a widget for a step in a tutorial.
   ///
   /// params:
-  /// * [keyName] : key where the widget shows.
-  /// * [description] : description of the step.
-  /// * [isCircle]
-  /// * [next] : `Function` type, this show the next step or `key` to show the tour of.
-  /// * [isEnd] : true if last step of the tour.
+  /// * `keyName` : key where the widget shows.
+  /// * `description` : description of the step.
+  /// * `isCircle`: bool to specify if circle
+  /// * `next` : `Function` type, this show the next step or `key` to show the tour of.
+  /// * `isEnd` : true if last step of the tour.
+  ///
+  ///
+  /// returns:
+  /// * `TargetFocus`: This return widget foa a step in a tut
   TargetFocus focusTarget(
     GlobalKey key,
     String keyName,
