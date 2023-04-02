@@ -160,7 +160,7 @@ class UserConfig {
   }
 
   // save user in hive.
-  saveUserInHive() {
+  void saveUserInHive() {
     final box = Hive.box<User>('currentUser');
     if (box.get('user') == null) {
       box.put('user', _currentUser!);
@@ -170,7 +170,7 @@ class UserConfig {
   }
 
   // save current organization details in hive.
-  saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {
+  void saveCurrentOrgInHive(OrgInfo saveOrgAsCurrent) {
     _currentOrg = saveOrgAsCurrent;
     _currentOrgInfoController.add(_currentOrg!);
     final box = Hive.box<OrgInfo>('currentOrg');

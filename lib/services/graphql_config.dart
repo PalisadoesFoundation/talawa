@@ -32,7 +32,7 @@ class GraphqlConfig {
   }
 
   /// This function is used to get the organization URL.
-  getOrgUrl() {
+  void getOrgUrl() {
     final box = Hive.box('url');
     final String? url = box.get(urlKey) as String?;
     final String? imgUrl = box.get(imageUrlKey) as String?;
@@ -62,7 +62,7 @@ class GraphqlConfig {
     );
   }
 
-  test() {
+  void test() {
     httpLink = HttpLink(
       'https://talawa-graphql-api.herokuapp.com/graphql',
       httpClient: MockHttpClient(),

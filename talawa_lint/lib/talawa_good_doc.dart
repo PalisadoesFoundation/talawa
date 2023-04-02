@@ -207,6 +207,12 @@ class _Visitor extends SimpleAstVisitor {
       return false;
     }
 
+    // Don't check for [setters] and [getters]
+
+    if (node is MethodDeclaration && (node.isGetter || node.isSetter)) {
+      return true;
+    }
+
     final doc = node.documentationComment!.tokens;
     if (!doc[0].lexeme.endsWith('.')) {
       reporter.reportErrorForToken(
@@ -244,14 +250,15 @@ class _Visitor extends SimpleAstVisitor {
     }
 
     if (node is FunctionDeclaration || node is MethodDeclaration) {
-      checkContainsParams(doc, node);
-      checkContainsReturn(doc, node);
+      if (checkContainsParams(doc, node)) {
+        checkContainsReturn(doc, node);
+      }
     }
 
     return true;
   }
 
-  void checkContainsParams(List<Token> doc, Declaration rawNode) {
+  bool checkContainsParams(List<Token> doc, Declaration rawNode) {
     final node =
         rawNode is FunctionDeclaration ? rawNode : rawNode as MethodDeclaration;
 
@@ -271,7 +278,7 @@ class _Visitor extends SimpleAstVisitor {
 
     for (; currentDocLine < doc.length; currentDocLine++) {
       final line = doc[currentDocLine];
-      if (line.lexeme == '/// params:') {
+      if (line.lexeme == '/// **params**:') {
         containsParamsKeyword = true;
         currentDocLine++;
         break;
@@ -284,7 +291,7 @@ class _Visitor extends SimpleAstVisitor {
         node.documentationComment!,
       );
 
-      return;
+      return false;
     }
 
     // The currentParam we are checking for
@@ -307,7 +314,7 @@ class _Visitor extends SimpleAstVisitor {
             line,
           );
 
-          return;
+          return false;
         } else {
           if (line.lexeme.trim() == paramRegex.pattern) {
             reporter.reportErrorForToken(
@@ -315,7 +322,7 @@ class _Visitor extends SimpleAstVisitor {
               line,
             );
 
-            return;
+            return false;
           } else {
             currentParam++;
           }
@@ -331,6 +338,8 @@ class _Visitor extends SimpleAstVisitor {
         node,
       );
     }
+
+    return true;
   }
 
   void checkContainsReturn(
@@ -344,10 +353,21 @@ class _Visitor extends SimpleAstVisitor {
         rawNode is FunctionDeclaration ? rawNode : rawNode as MethodDeclaration;
 
     for (; currentDocLine < doc.length; currentDocLine++) {
-      if (doc[currentDocLine].lexeme.startsWith('/// returns:')) {
+      if (doc[currentDocLine].lexeme.startsWith('/// **returns**:')) {
         containsReturn = true;
         break;
       }
+    }
+
+    // Check if there is atleast one blank line above
+
+    if (doc[currentDocLine - 1].lexeme.trim() != '///') {
+      reporter.reportErrorForNode(
+        TalawaGoodDocLintRules.noBlankLineBWParamAndReturn,
+        node.documentationComment!,
+      );
+
+      return;
     }
 
     bool isVoid = false;
@@ -381,7 +401,7 @@ class _Visitor extends SimpleAstVisitor {
     //   return;
     // }
 
-    if (doc[currentDocLine].lexeme != '/// returns:') {
+    if (doc[currentDocLine].lexeme != '/// **returns**:') {
       reporter.reportErrorForNode(
         TalawaGoodDocLintRules.wrongReturnsDoc,
         node.documentationComment!,
@@ -410,7 +430,7 @@ class _Visitor extends SimpleAstVisitor {
     // If return type is [void] and doc doesn't end with [None] or
     // there are more lines to the doc
     if (isVoid &&
-        (doc[currentDocLine - 1].lexeme != '/// None' ||
+        (doc[currentDocLine - 1].lexeme != '///   None' ||
             currentDocLine != doc.length)) {
       reporter.reportErrorForNode(
         TalawaGoodDocLintRules.noEndWithNoneForVoid,

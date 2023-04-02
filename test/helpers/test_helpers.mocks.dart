@@ -561,6 +561,14 @@ class MockGraphqlConfig extends _i2.Mock implements _i15.GraphqlConfig {
         returnValueForMissingStub: _i5.Future<dynamic>.value(),
       ) as _i5.Future<dynamic>);
   @override
+  void getOrgUrl() => super.noSuchMethod(
+        Invocation.method(
+          #getOrgUrl,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   _i3.GraphQLClient clientToQuery() => (super.noSuchMethod(
         Invocation.method(
           #clientToQuery,
@@ -602,6 +610,14 @@ class MockGraphqlConfig extends _i2.Mock implements _i15.GraphqlConfig {
           ),
         ),
       ) as _i3.GraphQLClient);
+  @override
+  void test() => super.noSuchMethod(
+        Invocation.method(
+          #test,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }
 
 /// A class which mocks [GraphQLClient].
@@ -1354,7 +1370,15 @@ class MockUserConfig extends _i2.Mock implements _i24.UserConfig {
         returnValueForMissingStub: _i5.Future<bool>.value(false),
       ) as _i5.Future<bool>);
   @override
-  dynamic saveCurrentOrgInHive(_i6.OrgInfo? saveOrgAsCurrent) =>
+  void saveUserInHive() => super.noSuchMethod(
+        Invocation.method(
+          #saveUserInHive,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void saveCurrentOrgInHive(_i5.OrgInfo? saveOrgAsCurrent) =>
       super.noSuchMethod(
         Invocation.method(
           #saveCurrentOrgInHive,
@@ -1456,7 +1480,16 @@ class MockAppLanguage extends _i2.Mock implements _i25.AppLanguage {
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  _i5.Future<void> dbLanguageUpdate() => (super.noSuchMethod(
+  _i4.Future<void> selectLanguagePress() => (super.noSuchMethod(
+        Invocation.method(
+          #selectLanguagePress,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  _i4.Future<void> dbLanguageUpdate() => (super.noSuchMethod(
         Invocation.method(
           #dbLanguageUpdate,
           [],
@@ -1769,7 +1802,7 @@ class MockSignupDetailsViewModel extends _i2.Mock
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  dynamic initialise(_i6.OrgInfo? org) => super.noSuchMethod(
+  void initialise(_i5.OrgInfo? org) => super.noSuchMethod(
         Invocation.method(
           #initialise,
           [org],
@@ -1777,7 +1810,16 @@ class MockSignupDetailsViewModel extends _i2.Mock
         returnValueForMissingStub: null,
       );
   @override
-  void setState(_i14.ViewState? viewState) => super.noSuchMethod(
+  _i4.Future<void> signUp() => (super.noSuchMethod(
+        Invocation.method(
+          #signUp,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  void setState(_i12.ViewState? viewState) => super.noSuchMethod(
         Invocation.method(
           #setState,
           [viewState],
@@ -2105,6 +2147,14 @@ class MockDataBaseMutationFunctions extends _i2.Mock
         returnValueForMissingStub: null,
       );
   @override
+  void init() => super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
   bool? encounteredExceptionOrError(
     _i3.OperationException? exception, {
     bool? showSnackBar = true,
@@ -2319,13 +2369,14 @@ class MockExploreEventsViewModel extends _i2.Mock
         returnValueForMissingStub: _i5.Future<void>.value(),
       ) as _i5.Future<void>);
   @override
-  dynamic choseValueFromDropdown(String? value) => super.noSuchMethod(
+  _i4.Future<void> choseValueFromDropdown(String? value) => (super.noSuchMethod(
         Invocation.method(
           #choseValueFromDropdown,
           [value],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
   @override
   void dispose() => super.noSuchMethod(
         Invocation.method(
@@ -2574,7 +2625,15 @@ class MockAppTheme extends _i2.Mock implements _i36.AppTheme {
         returnValueForMissingStub: false,
       ) as bool);
   @override
-  dynamic switchTheme({required bool? isOn}) => super.noSuchMethod(
+  void initialize() => super.noSuchMethod(
+        Invocation.method(
+          #initialize,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  void switchTheme({required bool? isOn}) => super.noSuchMethod(
         Invocation.method(
           #switchTheme,
           [],

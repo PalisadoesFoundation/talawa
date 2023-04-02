@@ -106,7 +106,7 @@ class AppLanguage extends BaseModel {
 
   /// This function navigate user to `/appSettingsPage` route if the user is authenticated
   /// else navigate to `/setUrl` route.
-  selectLanguagePress() async {
+  Future<void> selectLanguagePress() async {
     final bool userLoggedIn = await userConfig.userLoggedIn();
     if (userLoggedIn) {
       dbLanguageUpdate();
