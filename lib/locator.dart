@@ -77,8 +77,11 @@ final imagePicker = locator<ImagePicker>();
 
 /// This function registers the widgets/objects in "GetIt".
 ///
-/// params:
+/// **params**:
 ///  None
+/// 
+/// **returns**:
+///   None
 void setupLocator() {
   //services
   locator.registerSingleton(NavigationService());
