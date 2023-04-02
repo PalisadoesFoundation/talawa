@@ -79,7 +79,7 @@ final imagePicker = locator<ImagePicker>();
 ///
 /// **params**:
 ///  None
-/// 
+///
 /// **returns**:
 ///   None
 void setupLocator() {
