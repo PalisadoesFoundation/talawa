@@ -49,10 +49,10 @@ class MultiMediaPickerService {
   ///
   /// custom Dialog Box. This function returns a File type for which `camera` variable is false by default.
   ///
-  /// params:
+  /// **params**:
   /// * `camera`: if true then open camera for image, else open gallery to select image.
   ///
-  /// returns:
+  /// **returns**:
   /// * `Future<File?>`: the image the user choosed.
   Future<File?> getPhotoFromGallery({bool camera = false}) async {
     // asking for user's camera access permission.
@@ -93,10 +93,10 @@ class MultiMediaPickerService {
   ///
   /// The function accepts a `File` type image and returns `File` type of cropped image.
   ///
-  /// params:
+  /// **params**:
   /// * `imageFile`: the image file to be cropped.
   ///
-  /// returns:
+  /// **returns**:
   /// * `Future<File?>`: the image after been cropped.
   Future<File?> cropImage({required File imageFile}) async {
     // try, to crop the image and returns a File with cropped image path.
