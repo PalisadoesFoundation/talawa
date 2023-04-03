@@ -23,7 +23,7 @@ class EditProfilePageViewModel extends BaseModel {
   final databaseService = databaseFunctions;
 
   // initialiser
-  initialize() {
+  void initialize() {
     imageFile = null;
     _multiMediaPickerService = locator<MultiMediaPickerService>();
   }

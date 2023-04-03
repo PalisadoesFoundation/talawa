@@ -23,7 +23,7 @@ import '../../../helpers/test_locator.dart';
 class MockBuildContext extends Mock implements BuildContext {}
 
 class MockCallbackFunction extends Mock {
-  call();
+  void call();
 }
 
 Widget createApp(

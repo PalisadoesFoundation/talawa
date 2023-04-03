@@ -4,12 +4,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:talawa/models/user/user_info.dart';
+// import 'package:talawa/models/user/user_info.dart';
 import 'package:talawa/services/graphql_config.dart';
 import 'package:talawa/services/size_config.dart';
 import 'package:talawa/utils/validators.dart';
 import '../helpers/test_helpers.dart';
-import '../helpers/test_helpers.mocks.dart';
+// import '../helpers/test_helpers.mocks.dart';
 import '../helpers/test_locator.dart';
 
 class MockBuildContext extends Mock implements BuildContext {}
@@ -29,7 +29,7 @@ void main() {
   });
 
   group('SignUp Tests', () {
-    final model = MockSignupDetailsViewModel();
+    // final model = MockSignupDetailsViewModel();
 
     test('Test validation for first and last name', () {
       final String? blankFirstName = Validator.validateFirstName("");
@@ -112,53 +112,56 @@ void main() {
     });
 
     test('Test sign up function', () async {
-      final User newUser = User();
+      // final User newUser = User();
 
-      when(model.signUp()).thenAnswer((realInvocation) {
-        if (newUser.id == null || newUser.id == "") {
-          return "User Id can't be blank";
-        }
-        if (newUser.firstName == null || newUser.firstName == "") {
-          return "First Name can't be blank";
-        }
-        if (newUser.lastName == null || newUser.lastName == "") {
-          return "Last Name can't be blank";
-        }
-        if (newUser.email == null || newUser.email == "") {
-          return "Email can't be blank";
-        }
-        return {
-          "id": newUser.id,
-          "firstName": newUser.firstName,
-          "lastName": newUser.lastName,
-          "email": newUser.email,
-        };
-      });
+      // NOTE: This test is entirely WRONG.
+      // TODO: Fix by testing GraphQL mutations.
 
-      //checking with blank user Id
-      expect(model.signUp(), "User Id can't be blank");
+      // when(model.signUp()).thenAnswer((realInvocation) {
+      //   if (newUser.id == null || newUser.id == "") {
+      //     return "User Id can't be blank";
+      //   }
+      //   if (newUser.firstName == null || newUser.firstName == "") {
+      //     return "First Name can't be blank";
+      //   }
+      //   if (newUser.lastName == null || newUser.lastName == "") {
+      //     return "Last Name can't be blank";
+      //   }
+      //   if (newUser.email == null || newUser.email == "") {
+      //     return "Email can't be blank";
+      //   }
+      //   return {
+      //     "id": newUser.id,
+      //     "firstName": newUser.firstName,
+      //     "lastName": newUser.lastName,
+      //     "email": newUser.email,
+      //   };
+      // });
 
-      newUser.id = "5";
-      //checking with blank first name
-      expect(model.signUp(), "First Name can't be blank");
+      // //checking with blank user Id
+      // expect(model.signUp(), "User Id can't be blank");
 
-      newUser.firstName = "testFirstName";
-      //checking with blank last name
-      expect(model.signUp(), "Last Name can't be blank");
+      // newUser.id = "5";
+      // //checking with blank first name
+      // expect(model.signUp(), "First Name can't be blank");
 
-      newUser.lastName = "testLastName";
-      //checking with blank email
-      expect(model.signUp(), "Email can't be blank");
+      // newUser.firstName = "testFirstName";
+      // //checking with blank last name
+      // expect(model.signUp(), "Last Name can't be blank");
 
-      newUser.email = "testName@testOrg.com";
-      // checking with all details
-      // should give proper response
-      expect(model.signUp(), {
-        "id": newUser.id,
-        "firstName": newUser.firstName,
-        "lastName": newUser.lastName,
-        "email": newUser.email,
-      });
+      // newUser.lastName = "testLastName";
+      // //checking with blank email
+      // expect(model.signUp(), "Email can't be blank");
+
+      // newUser.email = "testName@testOrg.com";
+      // // checking with all details
+      // // should give proper response
+      // expect(model.signUp(), {
+      //   "id": newUser.id,
+      //   "firstName": newUser.firstName,
+      //   "lastName": newUser.lastName,
+      //   "email": newUser.email,
+      // });
     });
   });
 }

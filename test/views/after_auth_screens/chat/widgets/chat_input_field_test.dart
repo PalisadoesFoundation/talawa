@@ -1,3 +1,5 @@
+// ignore_for_file: talawa_api_doc
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,10 +21,10 @@ final directChatViewModel = getAndRegisterDirectChatViewModel();
 
 /// Function creates chatInputField.
 ///
-/// params:
-/// None
+/// **params**:
+///   None
 ///
-/// returns:
+/// **returns**:
 /// * `Widget`: The actual chatInputField to test
 Widget createChatInputField() {
   return BaseView<AppLanguage>(
@@ -49,13 +51,6 @@ Widget createChatInputField() {
   );
 }
 
-/// The main entry point of the test.
-///
-/// params:
-/// None
-///
-/// returns:
-/// None
 void main() {
   SizeConfig().test();
   testSetupLocator();

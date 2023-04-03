@@ -26,7 +26,7 @@ packages:
     source: hosted
     version: "0.11.2"
   args:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: args
       sha256: "4cab82a83ffef80b262ddedf47a0a8e56ee6fbf7fe21e6e768b02792034dd440"
@@ -82,7 +82,7 @@ packages:
     source: hosted
     version: "3.0.2"
   custom_lint:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: custom_lint
       sha256: "324e7026902f34e180d8d27e08a89dbbe3dd8a54e0c3852a0df0db0f4046120b"

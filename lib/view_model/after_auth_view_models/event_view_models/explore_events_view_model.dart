@@ -147,7 +147,7 @@ class ExploreEventsViewModel extends BaseModel {
   ///
   /// params:
   /// * [value] : choosen value from dropdown.
-  choseValueFromDropdown(String value) async {
+  Future<void> choseValueFromDropdown(String value) async {
     _chosenValue = value;
     notifyListeners();
     setState(ViewState.busy);

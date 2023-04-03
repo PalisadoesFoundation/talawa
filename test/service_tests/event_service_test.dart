@@ -1,3 +1,5 @@
+// ignore_for_file: talawa_api_doc
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mockito/mockito.dart';
@@ -9,12 +11,6 @@ import 'package:talawa/utils/task_queries.dart';
 import '../helpers/test_helpers.dart';
 import '../helpers/test_locator.dart';
 
-/// Tests event_service.dart.
-///
-/// params:
-/// None
-/// returns:
-/// None
 void main() {
   testSetupLocator();
 

@@ -32,14 +32,16 @@ linter:
     unnecessary_this: false
 
     # source files name using lowercase_with_underscores
-    # lowercase_with_underscores: true
+    file_names: true
 
     leading_newlines_in_multiline_strings: false
 
-    always_declare_return_types: false
+    # Forces explicit return type declaration
+    always_declare_return_types: true
 
     type_annotate_public_apis: false
-    #always_use_package_imports to make a quick navigation to particular files
+    
+    # To make a quick navigation to particular files
     always_use_package_imports: true
 
     directives_ordering: true
@@ -57,23 +59,7 @@ linter:
 
     prefer_const_literals_to_create_immutables: false
 
-
-    ####################################################
-    #### Added to make things work for now. Must be ####
-    ############# removed in future PRs ################
-    ####################################################
-
-    # Advises to explicitly install any plugin which you are using
-    # in your codebase. At many places in our codebase we have used
-    # things of a plugin which is not in our pubspec.yaml. Say we have
-    # installed plugin A, which in turn internally installs plugin B, as
-    # A depends on B, and then we are using functionalities of B, even
-    # though we never installed them explicitly; they just got installed.
-    #
-    # To fix: Uncomment below lint and check for warnings it creates. Then
-    # install the dependencies one by one.
-
-    depend_on_referenced_packages: false
+    depend_on_referenced_packages: true
     
     # This new lint rule advises to use methods on dynamic objects
     # only after properly type casting. It's quite good and will avoid
@@ -93,8 +79,4 @@ linter:
     # ```
     
     avoid_dynamic_calls: false
-
-    # deprecated_member_use is turned off for file - test/helpers/test_helpers.dart
-    # to suppress returnNullOnMissingStub deprecation. 
-    # To fix: Remove the lint suppress directive and update to latest API
     

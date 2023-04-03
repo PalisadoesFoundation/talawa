@@ -5,9 +5,6 @@ import os
 import subprocess
 import sys
 
-file = '/home/ravidi/Data/bak/lib/main.dart'
-
-
 def _arg_parser_resolver():
     """Resolve the CLI arguments provided by the user.
 
@@ -90,10 +87,10 @@ def _check_for_ignore_directive(filePath):
 
     """
     
-    # Either it is a test file, or the file does not exist. This can happen when
+    # Either it is a non-code file, or the file does not exist. This can happen when
     # `develop` gets ahead of your branch and has some files which you don't have
     
-    if (filePath.startswith('test') or not os.path.exists(filePath)):
+    if (not filePath.startswith('lib') or not filePath.endswith('.dart') or not os.path.exists(filePath)):
         return False
     
     with open(filePath, "r") as file:

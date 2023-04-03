@@ -1,3 +1,5 @@
+// ignore_for_file: talawa_api_doc
+
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -73,10 +75,6 @@ final testDataNotFromOrg = {
   }
 };
 
-/// Test for user_info.dart.
-///
-/// params:
-/// None
 void main() {
   group("Tests for UserInfo.dart", () {
     test('Check if UserInfo.fromJson works with fromOrg', () async {

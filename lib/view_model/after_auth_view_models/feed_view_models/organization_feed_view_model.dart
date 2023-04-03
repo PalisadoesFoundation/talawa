@@ -157,7 +157,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// params:
   /// * [newPost]
-  addNewPost(Post newPost) {
+  void addNewPost(Post newPost) {
     _posts.insert(0, newPost);
     notifyListeners();
   }
@@ -166,7 +166,7 @@ class OrganizationFeedViewModel extends BaseModel {
   ///
   /// params:
   /// * [post]
-  updatedPost(Post post) {
+  void updatedPost(Post post) {
     for (int i = 0; i < _posts.length; i++) {
       if (_posts[i].sId == post.sId) {
         _posts[i] = post;

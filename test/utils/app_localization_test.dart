@@ -1,11 +1,9 @@
+// ignore_for_file: talawa_api_doc
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:talawa/utils/app_localization.dart';
 
-/// The entry of the test function.
-///
-/// params:
-/// None
 void main() {
   group("Test for App Localization Class", () {
     WidgetsFlutterBinding.ensureInitialized();

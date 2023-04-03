@@ -1,4 +1,4 @@
-// ignore_for_file: talawa_api_doc
+// ignore_for_file: talawa_api_doc, use_setters_to_change_properties
 // ignore_for_file: talawa_good_doc_comments
 
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ part 'user_info.g.dart';
 
 @HiveType(typeId: 1)
 
-///This class creates a User model and returns a user instance.
+/// This class creates a User model and returns a user instance.
 class User extends HiveObject {
   User({
     this.adminFor,
@@ -69,7 +69,7 @@ class User extends HiveObject {
     );
   }
   //Method to print the User details.
-  print() {
+  void print() {
     debugPrint('authToken: ${this.authToken}');
     debugPrint('refreshToken: ${this.refreshToken}');
     debugPrint('_id: ${this.id}');
@@ -106,24 +106,24 @@ class User extends HiveObject {
   @HiveField(10)
   List<OrgInfo>? membershipRequests = [];
 
-  updateJoinedOrg(List<OrgInfo> orgList) {
+  void updateJoinedOrg(List<OrgInfo> orgList) {
     this.joinedOrganizations = orgList;
   }
 
-  updateCreatedOrg(List<OrgInfo> orgList) {
+  void updateCreatedOrg(List<OrgInfo> orgList) {
     this.createdOrganizations = orgList;
   }
 
-  updateMemberRequestOrg(List<OrgInfo> orgList) {
+  void updateMemberRequestOrg(List<OrgInfo> orgList) {
     this.membershipRequests = [...membershipRequests!, ...orgList];
   }
 
-  updateAdminFor(List<OrgInfo> orgList) {
+  void updateAdminFor(List<OrgInfo> orgList) {
     this.adminFor = orgList;
   }
 
   //Method to update the user details.
-  update(User details) {
+  void update(User details) {
     this.firstName = details.firstName;
     this.lastName = details.lastName;
     this.email = details.email;

@@ -1,13 +1,13 @@
 // ignore_for_file: talawa_api_doc
 // ignore_for_file: talawa_good_doc_comments
 
-// ignore_for_file: deprecated_member_use
-
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -58,28 +58,38 @@ import 'test_helpers.mocks.dart';
 @GenerateMocks(
   [],
   customMocks: [
-    MockSpec<NavigationService>(returnNullOnMissingStub: true),
-    MockSpec<GraphqlConfig>(returnNullOnMissingStub: true),
-    MockSpec<GraphQLClient>(returnNullOnMissingStub: true),
-    MockSpec<PostService>(returnNullOnMissingStub: true),
-    MockSpec<MultiMediaPickerService>(returnNullOnMissingStub: true),
-    MockSpec<EventService>(returnNullOnMissingStub: true),
-    MockSpec<ChatService>(returnNullOnMissingStub: true),
-    MockSpec<UserConfig>(returnNullOnMissingStub: true),
-    MockSpec<AppLanguage>(returnNullOnMissingStub: true),
-    MockSpec<Connectivity>(returnNullOnMissingStub: true),
-    MockSpec<SignupDetailsViewModel>(returnNullOnMissingStub: true),
-    MockSpec<Post>(returnNullOnMissingStub: true),
-    MockSpec<DataBaseMutationFunctions>(returnNullOnMissingStub: true),
-    MockSpec<OrganizationService>(returnNullOnMissingStub: true),
-    MockSpec<ExploreEventsViewModel>(returnNullOnMissingStub: true),
-    MockSpec<Validator>(returnNullOnMissingStub: true),
-    MockSpec<QRViewController>(returnNullOnMissingStub: true),
-    MockSpec<CommentService>(returnNullOnMissingStub: true),
-    MockSpec<AppTheme>(returnNullOnMissingStub: true),
-    MockSpec<TaskService>(returnNullOnMissingStub: false),
-    MockSpec<CreateEventViewModel>(returnNullOnMissingStub: true),
-    MockSpec<DirectChatViewModel>(returnNullOnMissingStub: true),
+    MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<GraphqlConfig>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<GraphQLClient>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<PostService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<MultiMediaPickerService>(
+      onMissingStub: OnMissingStub.returnDefault,
+    ),
+    MockSpec<EventService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ChatService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<UserConfig>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<AppLanguage>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<Connectivity>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<SignupDetailsViewModel>(
+      onMissingStub: OnMissingStub.returnDefault,
+    ),
+    MockSpec<Post>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<DataBaseMutationFunctions>(
+      onMissingStub: OnMissingStub.returnDefault,
+    ),
+    MockSpec<OrganizationService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ExploreEventsViewModel>(
+      onMissingStub: OnMissingStub.returnDefault,
+    ),
+    MockSpec<Validator>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<QRViewController>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<CommentService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<AppTheme>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<TaskService>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<CreateEventViewModel>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<DirectChatViewModel>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ImageCropper>(onMissingStub: OnMissingStub.returnDefault),
+    MockSpec<ImagePicker>(onMissingStub: OnMissingStub.returnDefault)
   ],
 )
 final User member1 = User(id: "testMem1");
@@ -383,6 +393,20 @@ MultiMediaPickerService getAndRegisterMultiMediaPickerService() {
   return service;
 }
 
+ImageCropper getAndRegisterImageCropper() {
+  _removeRegistrationIfExists<ImageCropper>();
+  final service = MockImageCropper();
+  locator.registerLazySingleton<ImageCropper>(() => service);
+  return service;
+}
+
+ImagePicker getAndRegisterImagePicker() {
+  _removeRegistrationIfExists<ImagePicker>();
+  final service = MockImagePicker();
+  locator.registerLazySingleton<ImagePicker>(() => service);
+  return service;
+}
+
 TaskService getAndRegisterTaskService() {
   _removeRegistrationIfExists<TaskService>();
   final service = MockTaskService();
@@ -548,10 +572,10 @@ CreateEventViewModel getAndRegisterCreateEventModel() {
     when(cachedViewModel.selectedMembers).thenReturn([]);
   });
 
-  when(cachedViewModel.removeUserFromList(userId: "fakeUser2"))
-      .thenAnswer((realInvocation) async {
-    when(cachedViewModel.selectedAdmins).thenReturn([]);
-  });
+  // when(cachedViewModel.removeUserFromList(userId: "fakeUser2"))
+  //     .thenAnswer((realInvocation) async {
+  //   when(cachedViewModel.selectedAdmins).thenReturn([]);
+  // });
 
   locator.registerSingleton<CreateEventViewModel>(cachedViewModel);
   return cachedViewModel;
@@ -610,6 +634,8 @@ void registerServices() {
   getAndRegisterOrganizationService();
   getAndRegisterCommentService();
   getAndRegisterChatService();
+  getAndRegisterImageCropper();
+  getAndRegisterImagePicker();
 }
 
 void unregisterServices() {
@@ -623,6 +649,8 @@ void unregisterServices() {
   locator.unregister<DataBaseMutationFunctions>();
   locator.unregister<OrganizationService>();
   locator.unregister<CommentService>();
+  locator.unregister<ImageCropper>();
+  locator.unregister<ImagePicker>();
 }
 
 void registerViewModels() {
