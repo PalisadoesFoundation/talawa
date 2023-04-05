@@ -128,7 +128,7 @@ class MainScreenViewModel extends BaseModel {
   /// Features that should be implemented as plugins should be kept here.
   List<StatelessWidget> pages = [];
 
-  /// Actual [BottomNavigationBarItem]s that show up on the screen
+  /// Actual [BottomNavigationBarItem]s that show up on the screen.
   List<BottomNavigationBarItem> navBarItems = [];
 
   /// Maps the feature names with their proper Icon and Page.
@@ -143,7 +143,7 @@ class MainScreenViewModel extends BaseModel {
   /// Dynamically adds [BottomNavigationBarItems] in `BottomNavigationBar`.
   /// by mapping over the data received from the server.
   ///
-  /// params:
+  /// **params**:
   /// `context` : its the same context you use everywhere in the flutter framework refer flutter docs for more info
   void fetchAndAddPlugins(
     BuildContext context,
@@ -229,7 +229,7 @@ class MainScreenViewModel extends BaseModel {
       }
     });
 
-    /// Causes the app check the plugins updates in every 100 sec
+    /// Causes the app check the plugins updates in every 300 sec
     /// updated and re-render the navbar
     Timer.periodic(const Duration(seconds: 300), (timer) {
       FetchPluginList();
@@ -242,11 +242,12 @@ class MainScreenViewModel extends BaseModel {
     });
   }
 
+  /// var for current page in index
   int currentPageIndex = 0;
 
   /// Handles click on [BottomNavigationBarItem].
   ///
-  /// params:
+  /// **params**:
   /// `index` : it is track of current page index
   void onTabTapped(int index) {
     currentPageIndex = index;
@@ -255,7 +256,7 @@ class MainScreenViewModel extends BaseModel {
 
   /// This function show tutorial to user.
   ///
-  /// params:
+  /// **params**:
   /// `onClickTarget` : Its a function which is required to run desired tasks on click
   /// `onFinish` : Its a function which is required to run desired tasks on finish
   void showTutorial({
@@ -291,7 +292,7 @@ class MainScreenViewModel extends BaseModel {
   ///
   /// prams:
   /// None
-  tourHomeTargets() {
+  void tourHomeTargets() {
     targets.clear();
     targets.add(
       focusTarget(
@@ -378,9 +379,9 @@ class MainScreenViewModel extends BaseModel {
 
   /// This function shows the Home screen.
   ///
-  /// params:
+  /// **params**:
   /// `clickedTarget` : object to identify clickedTarget
-  showHome(TargetFocus clickedTarget) {
+  void showHome(TargetFocus clickedTarget) {
     switch (clickedTarget.identify) {
       case "keySHMenuIcon":
         scaffoldKey.currentState!.openDrawer();
@@ -392,9 +393,9 @@ class MainScreenViewModel extends BaseModel {
 
   /// This function show the tutorial for Events.
   ///
-  /// params:
+  /// **params**:
   /// None
-  tourEventTargets() {
+  void tourEventTargets() {
     targets.clear();
     targets.add(
       focusTarget(
@@ -447,9 +448,9 @@ class MainScreenViewModel extends BaseModel {
 
   /// This function show the tutorial to add Post in the organization.
   ///
-  /// params:
+  /// **params**:
   /// None
-  tourAddPost() {
+  void tourAddPost() {
     targets.clear();
     targets.add(
       focusTarget(
@@ -473,9 +474,9 @@ class MainScreenViewModel extends BaseModel {
 
   /// This function show the tour of chats.
   ///
-  /// params:
+  /// **params**:
   /// None
-  tourChat() {
+  void tourChat() {
     targets.clear();
     targets.add(
       focusTarget(
@@ -499,9 +500,9 @@ class MainScreenViewModel extends BaseModel {
 
   /// This function show the tutorial for the profile page.
   ///
-  /// params:
+  /// **params**:
   /// None
-  tourProfile() {
+  void tourProfile() {
     targets.clear();
     targets.add(
       focusTarget(
@@ -562,7 +563,7 @@ class MainScreenViewModel extends BaseModel {
 
   /// This returns a widget for a step in a tutorial.
   ///
-  /// params:
+  /// **params**:
   /// * `keyName` : key where the widget shows.
   /// * `description` : description of the step.
   /// * `isCircle`: bool to specify if circle
